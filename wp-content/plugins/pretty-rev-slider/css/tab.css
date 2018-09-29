@@ -1,0 +1,6 @@
+		div.rasel_option_panel ul.etabs {border-bottom: 1px solid #DDDDDD; list-style: none outside none; margin: 25px 0 0; overflow: hidden; padding: 0;}
+		div.rasel_option_panel ul.etabs li{float: left;margin:0}
+		div.rasel_option_panel ul.etabs li a{border: 1px solid #DDDDDD; display: block; margin-right: 10px; padding: 10px 20px;border-bottom:0px solid #ddd;text-decoration:none}
+		div.rasel_option_panel ul.etabs li.active a{background:#0074A2;color:#fff}
+		div.rasel_option_panel ul.etabs li a:hover{}
+		div.rasel_option_panel .form-table input[type=text], .form-table textarea {border: 1px solid #DDDDDD; box-shadow: 0 0 0; min-width: 60%; padding: 6px;}	

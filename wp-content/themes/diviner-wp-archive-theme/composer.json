@@ -1,0 +1,14 @@
+{
+  "name": "Diviner Theme",
+  "description": "Based on Tonik, a WordPress Starter Theme ",
+  "keywords": ["tonik", "theme", "gin", "wordpress", "wordpress-starter-theme", "wordpress-theme"],
+  "license": "MIT",
+  "type": "wordpress-theme",
+  "require": {
+    "php": ">=7.0",
+    "tonik/gin": "dev-develop"
+  },
+  "require-dev": {
+    "tonik/cli": "dev-develop"
+  }
+}
