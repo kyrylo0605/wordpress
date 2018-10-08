@@ -18,7 +18,7 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
      *
      * Setting Page to Manage Plugins
      *
-     * @class YIT_Plugin_Panel
+     * @class      YIT_Plugin_Panel
      * @package    Yithemes
      * @since      1.0
      * @author     Your Inspiration Themes
@@ -77,6 +77,8 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
                 );
 
                 $args = apply_filters( 'yit_plugin_fw_panel_option_args', wp_parse_args( $args, $default_args ) );
+                if ( isset( $args[ 'parent_page' ] ) && 'yit_plugin_panel' === $args[ 'parent_page' ] )
+                    $args[ 'parent_page' ] = 'yith_plugin_panel';
 
                 $this->settings         = $args;
                 $this->_tabs_path_files = $this->get_tabs_path_files();
@@ -105,7 +107,7 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
         /**
          * Init actions once to prevent multiple actions
          *
-         * @since 3.0.0
+         * @since  3.0.0
          * @author Leanza Francesco <leanzafrancesco@gmail.com>
          */
         protected static function _init_actions() {
@@ -126,7 +128,7 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
          *
          * @param $admin_body_classes
          *
-         * @since 3.0.0
+         * @since  3.0.0
          * @author Leanza Francesco <leanzafrancesco@gmail.com>
          *
          * @return string
@@ -149,13 +151,16 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
         public function add_menu_page() {
             global $admin_page_hooks;
 
-            if ( !isset( $admin_page_hooks[ 'yit_plugin_panel' ] ) ) {
+            if ( !isset( $admin_page_hooks[ 'yith_plugin_panel' ] ) ) {
                 $position   = apply_filters( 'yit_plugins_menu_item_position', '62.32' );
                 $capability = apply_filters( 'yit_plugin_panel_menu_page_capability', 'manage_options' );
                 $show       = apply_filters( 'yit_plugin_panel_menu_page_show', true );
 
-                //  YITH Plugins text must not be translated
-                !!$show && add_menu_page( 'yit_plugin_panel', 'YITH Plugins', $capability, 'yit_plugin_panel', null, YIT_CORE_PLUGIN_URL . '/assets/images/yithemes-icon.png', $position );
+                //  YITH text must not be translated
+                if ( !!$show ) {
+                    add_menu_page( 'yith_plugin_panel', 'YITH', $capability, 'yith_plugin_panel', null, YIT_CORE_PLUGIN_URL . '/assets/images/yithemes-icon.png', $position );
+                    $admin_page_hooks[ 'yith_plugin_panel' ] = 'yith-plugins'; // prevent issues for backward compatibility
+                }
             }
         }
 
@@ -170,7 +175,7 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
          */
         public function remove_duplicate_submenu_page() {
             /* === Duplicate Items Hack === */
-            remove_submenu_page( 'yit_plugin_panel', 'yit_plugin_panel' );
+            remove_submenu_page( 'yith_plugin_panel', 'yith_plugin_panel' );
         }
 
         /**
@@ -201,7 +206,7 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
                 wp_enqueue_script( 'yith-plugin-fw-fields' );
             }
 
-            if ( ( 'admin.php' == $pagenow && strpos( get_current_screen()->id, 'yith-plugins_page' ) !== false ) || apply_filters( 'yit_plugin_panel_asset_loading', false ) ) {
+            if ( ( 'admin.php' == $pagenow && yith_plugin_fw_is_panel() ) || apply_filters( 'yit_plugin_panel_asset_loading', false ) ) {
                 wp_enqueue_media();
                 wp_enqueue_style( 'yit-plugin-style' );
                 wp_enqueue_script( 'yit-plugin-panel' );
@@ -274,6 +279,11 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
                             if ( isset( $option[ 'type' ] ) && in_array( $option[ 'type' ], array( 'checkbox', 'onoff' ) ) ) {
                                 $value = yith_plugin_fw_is_true( $value ) ? 'yes' : 'no';
                             }
+
+                            if ( !empty( $option[ 'yith-sanitize-callback' ] ) && is_callable( $option[ 'yith-sanitize-callback' ] ) ) {
+                                $value = call_user_func( $option[ 'yith-sanitize-callback' ], $value );
+                            }
+
                             $valid_input[ $option[ 'id' ] ] = $value;
                         }
                     }
@@ -320,8 +330,8 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
         public function add_premium_version_upgrade_to_menu() {
             global $submenu;
 
-            if ( apply_filters( 'yit_show_upgrade_to_premium_version', isset( $submenu[ 'yit_plugin_panel' ] ) && !isset( $submenu[ 'yit_plugin_panel' ][ 'how_to' ] ) ) ) {
-                $submenu[ 'yit_plugin_panel' ][ 'how_to' ] = array(
+            if ( apply_filters( 'yit_show_upgrade_to_premium_version', isset( $submenu[ 'yith_plugin_panel' ] ) && !isset( $submenu[ 'yith_plugin_panel' ][ 'how_to' ] ) ) ) {
+                $submenu[ 'yith_plugin_panel' ][ 'how_to' ] = array(
                     sprintf( '%s%s%s', '<span id="yith-how-to-premium">', __( 'How to install premium version', 'yith-plugin-fw' ), '</span>' ),
                     'install_plugins',
                     '//support.yithemes.com/hc/en-us/articles/217840988',
@@ -884,14 +894,14 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
          */
         public static function sort_plugins() {
             global $submenu;
-            if ( !empty( $submenu[ 'yit_plugin_panel' ] ) ) {
-                $sorted_plugins = $submenu[ 'yit_plugin_panel' ];
+            if ( !empty( $submenu[ 'yith_plugin_panel' ] ) ) {
+                $sorted_plugins = $submenu[ 'yith_plugin_panel' ];
 
                 usort( $sorted_plugins, function ( $a, $b ) {
                     return strcmp( current( $a ), current( $b ) );
                 } );
 
-                $submenu[ 'yit_plugin_panel' ] = $sorted_plugins;
+                $submenu[ 'yith_plugin_panel' ] = $sorted_plugins;
             }
         }
 
@@ -904,8 +914,8 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
         public static function add_menu_class_in_yith_plugin( $menu ) {
             global $submenu;
 
-            if ( !empty( $submenu[ 'yit_plugin_panel' ] ) ) {
-                $item_count = count( $submenu[ 'yit_plugin_panel' ] );
+            if ( !empty( $submenu[ 'yith_plugin_panel' ] ) ) {
+                $item_count = count( $submenu[ 'yith_plugin_panel' ] );
                 $columns    = absint( $item_count / 20 ) + 1;
                 $columns    = max( 1, min( $columns, 3 ) );
                 $columns    = apply_filters( 'yith_plugin_fw_yith_plugins_menu_columns', $columns, $item_count );
@@ -913,7 +923,7 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
                 if ( $columns > 1 ) {
                     $class = "yith-plugin-fw-menu-$columns-columns";
                     foreach ( $menu as $order => $top ) {
-                        if ( 'yit_plugin_panel' === $top[ 2 ] ) {
+                        if ( 'yith_plugin_panel' === $top[ 2 ] ) {
                             $c                   = $menu[ $order ][ 4 ];
                             $menu[ $order ][ 4 ] = add_cssclass( $class, $c );
                             break;

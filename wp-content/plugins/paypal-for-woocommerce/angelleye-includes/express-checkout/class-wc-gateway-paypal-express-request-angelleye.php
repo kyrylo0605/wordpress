@@ -199,9 +199,17 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
     public function angelleye_set_express_checkout() {
         try {
             $this->angelleye_set_express_checkout_request();
-            if ($this->response_helper->ec_is_response_success_or_successwithwarning($this->paypal_response)) {
+            if ($this->response_helper->ec_is_response_success($this->paypal_response)) {
                 $this->angelleye_redirect_action($this->paypal_response['REDIRECTURL']);
                 exit;
+            } elseif ($this->response_helper->ec_is_response_successwithwarning($this->paypal_response)) {
+                if( !empty($this->paypal_response['L_ERRORCODE0']) && $this->paypal_response['L_ERRORCODE0'] == '11452') {
+                    $this->angelleye_write_error_log_and_send_email_notification($paypal_action_name = 'SetExpressCheckout');
+                    $this->angelleye_redirect();
+                } else {
+                    $this->angelleye_redirect_action($this->paypal_response['REDIRECTURL']);
+                    exit;
+                }
             } else {
                 $this->angelleye_write_error_log_and_send_email_notification($paypal_action_name = 'SetExpressCheckout');
                 $this->angelleye_redirect();
@@ -226,7 +234,7 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
                         $mailer = WC()->mailer();
                         $subject = __('PayPal billing agreement was not created successfully', 'paypal-for-woocommerce');
                         $message = 'An order was placed that requires a PayPal billing agreement for reference transactions, however, this billing agreement was not created successfully.  Please contact PayPal to verify that you have Reference Transactions enabled on your account.  This is required for Woo token payments (including Woo Subscriptions orders.)';
-                        $message = $mailer->wrap_message($message);
+                        $message = $mailer->wrap_message($subject, $message);
                         $mailer->send($this->paypal_response['EMAIL'], strip_tags($subject), $message);
                         $this->angelleye_redirect();
                     } 
@@ -340,17 +348,17 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
                         $order->update_status('on-hold', __('Billing Agreement required for tokenized payments', 'paypal-for-woocommerce'));
                         $mailer = WC()->mailer();
                         $subject = __('PayPal billing agreement was not created successfully', 'paypal-for-woocommerce');
+                        $subject .=  __('Order #', 'paypal-for-woocommerce') . $order_id;
                         $message = 'We\'re sorry, but something went wrong with your order. Someone from our service department will contact you about this soon.';
-                        $message = $mailer->wrap_message($message);
+                        $message = $mailer->wrap_message($subject, $message);
                         $payeremail = WC()->session->get('payeremail');
                         if( !empty($payeremail) ) {
                             $mailer->send($payeremail, strip_tags($subject), $message);
                         }
                         $admin_email = get_option("admin_email");
                         $mailer = WC()->mailer();
-                        $subject = __('PayPal billing agreement was not created successfully', 'paypal-for-woocommerce');
                         $message = 'This order requires a Billing Agreement ID for Woo token payments, but this value was not returned by PayPal.  This typically means that Reference Transactions are not enabled for Express Checkout on the PayPal account.  Please contact PayPal to resolve this issue, and then have your customer try again.';
-                        $message = $mailer->wrap_message($message, __('Order #', 'paypal-for-woocommerce') . $order_id);
+                        $message = $mailer->wrap_message($subject, $message);
                         $mailer->send($this->user_email_address, strip_tags($subject), $message);
                         $mailer->send($admin_email, strip_tags($subject), $message);
                     } else {
@@ -1043,7 +1051,7 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
             $error_display_type_message = sprintf(__('There was a problem paying with PayPal.  Please try another method.', 'paypal-for-woocommerce'));
         }
         $error_display_type_message = apply_filters('ae_ppec_error_user_display_message', $error_display_type_message, $ErrorCode, $ErrorLongMsg);
-        if (AngellEYE_Utility::is_cart_contains_subscription() == false) {
+        if (function_exists('wc_add_notice')) {
             wc_add_notice($error_display_type_message, 'error');
         }
     }

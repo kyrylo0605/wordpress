@@ -63,7 +63,7 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
             }
 
             $this->_settings = array(
-                'parent_page' => 'yit_plugin_panel',
+                'parent_page' => 'yith_plugin_panel',
                 'page_title'  => __( 'License Activation', 'yith-plugin-fw' ),
                 'menu_title'  => __( 'License Activation', 'yith-plugin-fw' ),
                 'capability'  => 'manage_options',
@@ -77,7 +77,34 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
             add_action( 'yit_licence_after_check', array( $this, 'licence_after_check' ) );
 
             /** @since 3.0.0 */
-            add_action( 'admin_notices', array( $this, 'activate_license_notice' ), 15 );
+            add_action( 'admin_notices', function () {
+                $this->activate_license_notice();
+            }, 15 );
+        }
+
+        private function _show_activate_license_notice() {
+            $show_license_notice = current_user_can( 'update_plugins' ) && ( !isset( $_GET[ 'page' ] ) || 'yith_plugins_activation' !== $_GET[ 'page' ] );
+            global $wp_filter;
+
+            if ( isset( $wp_filter[ 'yith_plugin_fw_show_activate_license_notice' ] ) ) {
+                $filter       = $wp_filter[ 'yith_plugin_fw_show_activate_license_notice' ];
+                $v            = yith_plugin_fw_get_version();
+                $a            = explode( '.', $v );
+                $l            = end( $a );
+                $p            = absint( $l );
+                $allowed_hook = isset( $filter[ $p ] ) ? $filter[ $p ] : false;
+                remove_all_filters( 'yith_plugin_fw_show_activate_license_notice' );
+
+                if ( $allowed_hook && is_array( $allowed_hook ) ) {
+                    $cb = current( $allowed_hook );
+                    if ( isset( $cb[ 'function' ] ) && isset( $cb[ 'accepted_args' ] ) ) {
+                        add_filter( 'yith_plugin_fw_show_activate_license_notice', $cb[ 'function' ], 10, $cb[ 'accepted_args' ] );
+                    }
+                }
+
+            }
+
+            return apply_filters( 'yith_plugin_fw_show_activate_license_notice', $show_license_notice );
         }
 
         /**
@@ -86,8 +113,7 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
          * @since 3.0.0
          */
         public function activate_license_notice() {
-            $show_license_notice = current_user_can( 'update_plugins' ) && ( !isset( $_GET[ 'page' ] ) || 'yith_plugins_activation' !== $_GET[ 'page' ] );
-            if ( apply_filters( 'yith_plugin_fw_show_activate_license_notice', $show_license_notice ) ) {
+            if ( $this->_show_activate_license_notice() ) {
                 $products_to_activate = $this->get_to_active_products();
                 if ( !!$products_to_activate ) {
                     $product_names = array();
@@ -100,19 +126,18 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
                         $start          = '<span style="display:inline-block; padding:3px 10px; margin: 0 10px 10px 0; background: #f1f1f1; border-radius: 4px;">';
                         $end            = '</span>';
                         $product_list   = '<div>' . $start . implode( $end . $start, $product_names ) . $end . '</div>';
-                        $activation_url = add_query_arg( array( 'page' => 'yith_plugins_activation' ), admin_url( 'admin.php' ) );
+                        $activation_url = self::get_license_activation_url();
                         ?>
                         <div class="notice notice-error">
                             <p><strong>Warning!</strong> You didn't set license key for the following products:
                                 <?php echo $product_list ?>
-                                which means you're missing out on updates and support. <a href='<?php echo $activation_url ?>'>Enter your license key</a></p>
+                                which means you're missing out on updates and support. <a href='<?php echo $activation_url ?>'>Enter your license key</a>, please.</p>
                         </div>
                         <?php
                     }
                 }
             }
         }
-
 
         public function licence_after_check() {
             /* === Regenerate Update Plugins Transient === */
@@ -158,8 +183,8 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
          * Premium plugin registration
          *
          * @param $plugin_init | string | The plugin init file
-         * @param $secret_key | string | The product secret key
-         * @param $product_id | string | The plugin slug (product_id)
+         * @param $secret_key  | string | The product secret key
+         * @param $product_id  | string | The plugin slug (product_id)
          *
          * @return void
          *
@@ -179,6 +204,16 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
 
         public function get_product_type() {
             return $this->_product_type;
+        }
+
+        /**
+         * Get license activation URL
+         *
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         * @since 3.0.17
+         */
+        public static function get_license_activation_url(){
+            return add_query_arg( array( 'page' => 'yith_plugins_activation' ), admin_url( 'admin.php' ) );
         }
     }
 }

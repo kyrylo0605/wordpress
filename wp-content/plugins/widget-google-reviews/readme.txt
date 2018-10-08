@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/google-reviews-pro-wordpress-plugin
 Tags: google, reviews, google reviews, google places, google places reviews, testimonials, google review widget, google business reviews, slider, google review, review, google place review, google map reviews, google reviews pro, facebook reviews, facebook page reviews, yelp reviews, yelp business reviews
 Requires at least: 2.8
 Tested up to: 4.9
-Stable tag: 1.6.1
+Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Google Reviews Widget show Google Places Reviews on your WordPress website to in
 
 == Description ==
 
-`To get more features we have <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin">Business version</a> of plugin`
+`To get more features we have <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin">Business version</a> of the plugin`
 
 This plugin display Google Business Reviews on your websites in sidebar widget. A unique feature of the plugin is that it saves reviews in WordPress database and have no depend on any services like Google to show reviews in the widget.
 
@@ -29,6 +29,7 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 * Shows real reviews from G+ users to increase user confidence
 * Easy search of place and instantly show reviews
 * Review list theme
+* Pagination
 * Support dark websites
 * Nofollow, target="_blank" links
 * Zero load time regardless of your site
@@ -72,6 +73,20 @@ Why limit your reviews to just Google Reviews? Check out our other free business
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.6.5 =
+* Bugfix: fill hash in reviews database
+
+= 1.6.4 =
+* Important note: Google Places API now returns reviews with anonymous authors, we added support of this
+* Improve: widget works in any page builders (SiteOrigin, Elementor, Beaver Builder and etc.)
+
+= 1.6.3 =
+* Important note: Google has changed the Places API and now this is limited to 1 request per day for new accounts, we have changed the plugin according to this limitation
+* Improve: added feature to upload custom place photo
+
+= 1.6.2 =
+* Bugfix: remove deprecated function create_function()
 
 = 1.6.1 =
 * Improve: support of SiteOrigin builder

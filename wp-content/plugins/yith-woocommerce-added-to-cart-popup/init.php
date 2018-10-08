@@ -2,16 +2,18 @@
 /**
  * Plugin Name: YITH WooCommerce Added to Cart Popup
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup/
- * Description: YITH WooCommerce Added to Cart Popup plugin allow to displays popup cart for add to cart action
- * Version: 1.3.0
- * Author: YITHEMES
+ * Description: The <code><strong>YITH WooCommerce Added to Cart Popup</strong></code> plugin allow you to display a popup cart with suggested products and cart actions after an "add to cart" action. <a href="https://yithemes.com/" target="_blank">Find new awesome plugins on <strong>YITH</strong></a>.
+ * Version: 1.3.3
+ * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-added-to-cart-popup
  * Domain Path: /languages/
+ * WC requires at least: 2.6.0
+ * WC tested up to: 3.4.0
  *
- * @author Yithemes
+ * @author YITH
  * @package YITH WooCommerce Added to Cart Popup
- * @version 1.3.0
+ * @version 1.3.3
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -59,7 +61,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WACP_VERSION' ) ){
-	define( 'YITH_WACP_VERSION', '1.3.0' );
+	define( 'YITH_WACP_VERSION', '1.3.3' );
 }
 
 if ( ! defined( 'YITH_WACP_FREE_INIT' ) ) {
@@ -92,6 +94,10 @@ if ( ! defined( 'YITH_WACP_TEMPLATE_PATH' ) ) {
 
 if ( ! defined( 'YITH_WACP_ASSETS_URL' ) ) {
 	define( 'YITH_WACP_ASSETS_URL', YITH_WACP_URL . 'assets' );
+}
+
+if ( ! defined( 'YITH_WACP_SLUG' ) ) {
+    define( 'YITH_WACP_SLUG', 'yith-woocommerce-added-to-cart-popup' );
 }
 
 /* Plugin Framework Version Check */

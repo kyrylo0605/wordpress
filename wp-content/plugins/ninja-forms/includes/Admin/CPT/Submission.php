@@ -78,11 +78,12 @@ class NF_Admin_CPT_Submission
             'show_in_menu'        => false,
             'menu_position'       => 5,
             'show_in_admin_bar'   => false,
-            'show_in_nav_menus'   => true,
+            'show_in_nav_menus'   => false,
             'can_export'          => true,
-            'has_archive'         => true,
+            'has_archive'         => false,
             'exclude_from_search' => true,
-            'publicly_queryable'  => true,
+            'publicly_queryable'  => false,
+//            'rewrite'             => false,
             'capability_type' => 'nf_sub',
             'capabilities' => array(
                 'publish_posts' => 'nf_sub',
@@ -159,7 +160,7 @@ class NF_Admin_CPT_Submission
             'id' => __( '#', 'ninja-forms' ),
         );
 
-        $form_cache = get_option( 'nf_form_' . $form_id );
+        $form_cache = WPN_Helper::get_nf_cache( $form_id );
 
         $form_fields = Ninja_Forms()->form( $form_id )->get_fields();
 

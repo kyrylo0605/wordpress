@@ -4,7 +4,7 @@ Plugin Name: Google Reviews Widget
 Plugin URI: https://richplugins.com/google-reviews-pro-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.6.1
+Version: 1.6.5
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',             '1.6.1');
+define('GRW_VERSION',             '1.6.5');
 define('GRW_GOOGLE_PLACE_API',    'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',       'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s64-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',          plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -33,9 +33,12 @@ function grw_init_widget() {
         require 'grw-widget.php';
     }
 }
-
 add_action('widgets_init', 'grw_init_widget');
-add_action('widgets_init', create_function('', 'register_widget("Goog_Reviews_Widget");'));
+
+function grw_register_widget() {
+    return register_widget("Goog_Reviews_Widget");
+}
+add_action('widgets_init', 'grw_register_widget');
 
 /*-------------------------------- Menu --------------------------------*/
 function grw_setting_menu() {
@@ -286,13 +289,16 @@ function grw_request_handler() {
                         $response_data = $response['data'];
                         $response_json = rplg_json_decode($response_data);
 
-                        if ($response_json && $response_json->result) {
+                        if ($response_json && isset($response_json->result)) {
+                            $response_json->result->business_photo = grw_business_avatar($response_json->result);
                             grw_save_reviews($response_json->result);
+                            $result = $response_json->result;
                             $status = 'success';
                         } else {
+                            $result = $response_json;
                             $status = 'failed';
                         }
-                        $response = compact('status');
+                        $response = compact('status', 'result');
                     }
                     header('Content-type: text/javascript');
                     echo json_encode($response);
@@ -310,20 +316,20 @@ function grw_save_reviews($place, $min_filter = 0) {
     $google_place_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "grp_google_place WHERE place_id = %s", $place->place_id));
     if ($google_place_id) {
         $wpdb->update($wpdb->prefix . 'grp_google_place', array(
-            'name' => $place->name,
-            'photo' => grw_business_avatar($place),
-            'rating' => $place->rating
-        ), array('ID' => $google_place_id));
+            'name'     => $place->name,
+            'photo'    => $place->business_photo,
+            'rating'   => $place->rating
+        ), array('ID'  => $google_place_id));
     } else {
         $wpdb->insert($wpdb->prefix . 'grp_google_place', array(
             'place_id' => $place->place_id,
-            'name' => $place->name,
-            'photo' => grw_business_avatar($place),
-            'icon' => $place->icon,
-            'address' => $place->formatted_address,
-            'rating' => isset($place->rating) ? $place->rating : null,
-            'url' => isset($place->url) ? $place->url : null,
-            'website' => isset($place->website) ? $place->website : null
+            'name'     => $place->name,
+            'photo'    => $place->business_photo,
+            'icon'     => $place->icon,
+            'address'  => $place->formatted_address,
+            'rating'   => isset($place->rating) ? $place->rating : null,
+            'url'      => isset($place->url) ? $place->url : null,
+            'website'  => isset($place->website) ? $place->website : null
         ));
         $google_place_id = $wpdb->insert_id;
     }
@@ -334,21 +340,27 @@ function grw_save_reviews($place, $min_filter = 0) {
             if ($min_filter > 0 && $min_filter > $review->rating) {
                 continue;
             }
-            if (!isset($review->author_url) || strlen($review->author_url) < 1) {
-                continue;
-            }
-            $hash = sha1($place->place_id . $review->author_url);
-            $google_review_hash = $wpdb->get_var($wpdb->prepare("SELECT hash FROM " . $wpdb->prefix . "grp_google_review WHERE hash = %s", $hash));
-            if (!$google_review_hash) {
-                $wpdb->insert($wpdb->prefix . 'grp_google_review', array(
-                    'google_place_id' => $google_place_id,
-                    'hash' => $hash,
+
+            $google_review_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "grp_google_review WHERE time = %s", $review->time));
+            if ($google_review_id) {
+                $update_params = array(
                     'rating' => $review->rating,
-                    'text' => $review->text,
-                    'time' => $review->time,
-                    'language' => $review->language,
-                    'author_name' => $review->author_name,
-                    'author_url' => $review->author_url,
+                    'text'   => $review->text
+                );
+                if (isset($review->profile_photo_url)) {
+                    $update_params['profile_photo_url'] = $review->profile_photo_url;
+                }
+                $wpdb->update($wpdb->prefix . 'grp_google_review', $update_params, array('id' => $google_review_id));
+            } else {
+                $wpdb->insert($wpdb->prefix . 'grp_google_review', array(
+                    'google_place_id'   => $google_place_id,
+                    'hash'              => $review->time, //TODO: workaround to support old versions
+                    'rating'            => $review->rating,
+                    'text'              => $review->text,
+                    'time'              => $review->time,
+                    'language'          => $review->language,
+                    'author_name'       => $review->author_name,
+                    'author_url'        => isset($review->author_url) ? $review->author_url : null,
                     'profile_photo_url' => isset($review->profile_photo_url) ? $review->profile_photo_url : null
                 ));
             }

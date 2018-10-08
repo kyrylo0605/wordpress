@@ -12,9 +12,11 @@ Highly customizable, simple & beautiful / Responsive design / Detailed current c
 
 == Description ==
 
-= Weather widget - Live sites demo =
-* [evanscounty.org](http://evanscounty.org/)
+= Weather widget demo (several live sites) =
+* [evanscounty.org](https://evanscounty.org/)
 * [marbella-tennis-lessons.com](https://www.marbella-tennis-lessons.com/en/tennis-weather/)
+* [morethangolfmarrakech.co.uk](https://www.morethangolfmarrakech.co.uk/dependableweather/)
+* [tgfamsterdam.com](https://www.tgfamsterdam.com/fun-to-know/)
 * [swimtca.com](http://swimtca.com/)
 
 >[Support](https://wordpress.org/support/plugin/weather-atlas)
@@ -84,7 +86,12 @@ And there is an option to place weather directly in articles, by using shortcode
 There are over 800.000 locations from 238 countries and territories. Guess you’ll find your location :)
 
 = Multi Languages and units =
-Currently supported languages are English and Spanish.
+Currently supported languages are:
+ - English
+ - Spanish
+ - Chinese
+ - Russian
+ - German
 Temperature and other weather data are displayed in either Imperial (°F, in, mi) or Metric system (°C, mb, mm, km).
 
 = Multiple widgets option =
@@ -201,6 +208,11 @@ Widgets show cached weather data (stored in your database), and periodically upd
 
 
 == Changelog ==
+
+= 1.1.4 =
+*Release Date: 2018-06-17*
+
+* Added ability to display weather info in Chinese, Russian or German (besides English and Spanish)
 
 = 1.1.3 =
 *Release Date: 2017-11-16*

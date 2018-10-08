@@ -217,6 +217,10 @@ class Role_Manager extends Settings_Page {
 	/**
 	 * @since 2.0.0
 	 * @access public
+	 *
+	 * @param $capability
+	 *
+	 * @return bool
 	 */
 	public function user_can( $capability ) {
 		$options = $this->get_user_restrictions_array();
@@ -236,6 +240,6 @@ class Role_Manager extends Settings_Page {
 		parent::__construct();
 
 		add_action( 'admin_menu', [ $this, 'register_admin_menu' ], 100 );
-		// TODO: Restore it after the release of Pro v2.0 // add_action( 'elementor/role/restrictions/controls', [ $this, 'get_go_pro_link_html' ] );
+		add_action( 'elementor/role/restrictions/controls', [ $this, 'get_go_pro_link_html' ] );
 	}
 }

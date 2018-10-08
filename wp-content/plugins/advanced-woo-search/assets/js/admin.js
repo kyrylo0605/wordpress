@@ -40,6 +40,7 @@ jQuery(document).ready(function ($) {
                 data: data
             },
             dataType: "json",
+            timeout:0,
             success: function (response) {
                 if ( 'sync' !== syncStatus ) {
                     return;
@@ -77,7 +78,7 @@ jQuery(document).ready(function ($) {
                 }
 
             },
-            error : function( jqXHR, textStatus ) {
+            error : function( jqXHR, textStatus, errorThrown ) {
                 console.log( "Request failed: " + textStatus );
 
                 if ( textStatus == 'timeout' || jqXHR.status == 504 ) {
@@ -85,10 +86,18 @@ jQuery(document).ready(function ($) {
                     if ( syncData ) {
                         setTimeout(function() { sync( syncData ); }, 1000);
                     }
+                } else if ( textStatus == 'error') {
+                    if ( syncData ) {
+
+                        if ( 0 !== syncData.offset && ! syncData.start ) {
+                            setTimeout(function() { sync( syncData ); }, 3000);
+                        }
+
+                    }
                 }
 
             },
-            complete: function () {
+            complete: function ( jqXHR, textStatus ) {
             }
         });
 

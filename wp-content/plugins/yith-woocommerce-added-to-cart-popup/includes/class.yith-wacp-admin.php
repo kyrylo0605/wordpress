@@ -2,7 +2,7 @@
 /**
  * Admin class
  *
- * @author Yithemes
+ * @author YITH
  * @package YITH WooCommerce Added to Cart Popup
  * @version 1.0.0
  */
@@ -72,7 +72,7 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		 * @access public
 		 * @since 1.0.0
 		 */
-		public $doc_url = 'http://yithemes.com/docs-plugins/yith-woocommerce-added-to-cart-popup/';
+		public $doc_url = 'https://yithemes.com/docs-plugins/yith-woocommerce-added-to-cart-popup/';
 
 		/**
 		 * Returns single instance of the class
@@ -100,7 +100,7 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 
 			//Add action links
 			add_filter( 'plugin_action_links_' . plugin_basename( YITH_WACP_DIR . '/' . basename( YITH_WACP_FILE ) ), array( $this, 'action_links' ) );
-			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
+            add_filter( 'yith_show_plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 5 );
 
 			add_action( 'yith_wacp_premium', array( $this, 'premium_tab' ) );
 		}
@@ -120,8 +120,8 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		 */
 		public function action_links( $links ) {
 			$links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
-			if ( ! ( defined( 'YITH_WACP_PREMIUM' ) && YITH_WACP_PREMIUM ) ) {
-				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
+			if ( defined( 'YITH_WACP_PREMIUM' ) && YITH_WACP_PREMIUM ) {
+				$links[] = '<a href="' . YIT_Plugin_Licence()->get_license_activation_url() . '" target="_blank">' . __( 'License', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
 			}
 
 			return $links;
@@ -189,31 +189,34 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 
 		}
 
-		/**
-		 * plugin_row_meta
-		 *
-		 * add the action links to plugin admin page
-		 *
-		 * @param $plugin_meta
-		 * @param $plugin_file
-		 * @param $plugin_data
-		 * @param $status
-		 *
-		 * @return   Array
-		 * @since    1.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-		 * @use plugin_row_meta
-		 */
-		public function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
+        /**
+         * plugin_row_meta
+         *
+         * add the action links to plugin admin page
+         *
+         * @param $plugin_meta
+         * @param $plugin_file
+         * @param $plugin_data
+         * @param $status
+         *
+         * @return   Array
+         * @since    1.0
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         * @use plugin_row_meta
+         */
+        public function plugin_row_meta( $new_row_meta_args, $plugin_meta, $plugin_file, $plugin_data, $status ) {
+            if ( defined( 'YITH_WACP_INIT' ) && YITH_WACP_INIT == $plugin_file ) {
+                $new_row_meta_args['slug']      = YITH_WACP_SLUG;
 
-			if ( defined( 'YITH_WACP_INIT') && YITH_WACP_INIT == $plugin_file ) {
-				$plugin_meta[] = '<a href="' . $this->doc_url . '" target="_blank">' . __( 'Plugin Documentation', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
-			}
+                if( defined( 'YITH_WACP_PREMIUM' ) ){
+                    $new_row_meta_args['is_premium'] = true;
+                }
+            }
+            return $new_row_meta_args;
+        }
 
-			return $plugin_meta;
-		}
 
-		/**
+        /**
 		 * Get the premium landing uri
 		 *
 		 * @since   1.0.0

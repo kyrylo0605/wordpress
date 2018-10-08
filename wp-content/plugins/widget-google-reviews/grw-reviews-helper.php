@@ -1,8 +1,7 @@
 <?php
-function grw_place($rating, $place, $reviews, $dark_theme, $show_powered = true) {
+function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_powered = true) {
     ?>
     <div class="wp-google-left">
-        <?php $place_img = strlen($place->photo) > 0 ? $place->photo : $place->icon; ?>
         <img src="<?php echo $place_img; ?>" alt="<?php echo $place->name; ?>">
     </div>
     <div class="wp-google-right">

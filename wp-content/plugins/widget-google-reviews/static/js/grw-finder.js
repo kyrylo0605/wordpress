@@ -37,6 +37,66 @@ function grw_init(data) {
         return false;
     });
 
+    var connectBtn = el.querySelector('.grw-connect-btn');
+    WPacFastjs.on(connectBtn, 'click', function() {
+
+        var placeIdEl = el.querySelector('.grw-place-id'),
+            placeId = placeIdEl.value;
+        if (!placeId) {
+            placeIdEl.focus();
+            return false;
+        }
+
+        var errorEl = el.querySelector('.grw-error');
+        if (/^ChIJ.*$/.test(placeId)) {
+            errorEl.innerHTML = '';
+        } else {
+            errorEl.innerHTML = 'Place ID is incorrect, it should like ChIJ...';
+            return false;
+        }
+
+        connectBtn.innerHTML = 'Please wait...';
+        connectBtn.disabled = true;
+
+        jQuery.post(grw_request_url('save'), {
+            placeid: placeId,
+            grw_wpnonce: jQuery('#grw_nonce').val()
+        }, function(res) {
+
+            console.log('grw_debug:', res);
+
+            connectBtn.innerHTML = 'Connect Google';
+            connectBtn.disabled = false;
+
+            if (res.status == 'success') {
+
+                errorEl.innerHTML = '';
+                el.querySelector('.grw-google-place-name').value = res.result.name;
+                el.querySelector('.grw-google-place-id').value = res.result.place_id;
+                el.querySelector('.grw-place-photo').value = res.result.business_photo || res.result.icon;
+
+                var img = el.querySelector('.grw-place-photo-img');
+                img.src = res.result.business_photo || res.result.icon;
+                img.style.display = '';
+
+                var controlEl = el.parentNode.parentNode.querySelector('.widget-control-actions');
+                if (controlEl) {
+                    grw_show_tooltip(controlEl, 'Please don\'t forget to <b>Save</b> the widget.');
+                }
+
+            } else {
+
+                errorEl.innerHTML = '<b>Google error</b>: ' + res.result.error_message;
+                if (res.result.status == 'OVER_QUERY_LIMIT') {
+                    errorEl.innerHTML += '<br><br>More recently, Google has limited the API to 1 request per day for new users, try to create new <a href="https://developers.google.com/places/web-service/get-api-key#get_an_api_key" target="_blank">Google API key</a>, save in the setting and Connect Google again.';
+                }
+
+            }
+
+        }, 'json');
+        return false;
+    });
+
     grw_jquery_init(el, data.cb);
 }
 
@@ -158,6 +218,9 @@ function grw_jquery_init(el, cb) {
                 place_photo_hidden.val(attachment.url);
                 place_photo_img.attr('src', attachment.url);
                 place_photo_img.show();
+
+                // To make 'Save' button enable in the widget
+                jQuery(place_photo_hidden).change();
 
                 cb && cb();
             });

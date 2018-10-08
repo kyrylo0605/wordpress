@@ -18,6 +18,7 @@ class Goog_Reviews_Widget extends WP_Widget {
         'title'                => '',
         'place_name'           => '',
         'place_id'             => '',
+        'place_photo'          => '',
         'text_size'            => '',
         'dark_theme'           => '',
         'view_mode'            => '',
@@ -143,17 +144,17 @@ class Goog_Reviews_Widget extends WP_Widget {
                 <li>
                     <span class="grw-step">1</span>
                     <?php echo grw_i('Go to '); ?>
-                    <a href="https://developers.google.com/places/web-service/get-api-key" target="_blank">
+                    <a href="https://developers.google.com/places/web-service/get-api-key#get_an_api_key" target="_blank">
                         <?php echo grw_i('Google Places API Key'); ?>
                     </a>
                 </li>
                 <li>
                     <span class="grw-step">2</span>
-                    <?php echo grw_i('Find the topic \'<b>If you are using the standard Google Places API Web Service</b>\' and click by \'<b>GET A KEY</b>\' button'); ?>
+                    <?php echo grw_i('Click by \'<b>GET A KEY</b>\' button'); ?>
                 </li>
                 <li>
                     <span class="grw-step">3</span>
-                    <?php echo grw_i('Agree term and click by \'<b>CREATE AND ENABLE API</b>\''); ?>
+                    <?php echo grw_i('Fill the name, agree term and click by \'<b>NEXT</b>\' button'); ?>
                 </li>
                 <li>
                     <span class="grw-step">4</span>
@@ -181,6 +182,41 @@ class Goog_Reviews_Widget extends WP_Widget {
             </script>
             <?php
         }
+        ?>
+        <script type="text/javascript">
+            function grw_load_js(src, cb) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = src;
+                script.async = 'true';
+                if (cb) {
+                    script.addEventListener('load', function (e) { cb(null, e); }, false);
+                }
+                document.getElementsByTagName('head')[0].appendChild(script);
+            }
+
+            function grw_load_css(href) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = href;
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+
+            if (!window.grw_init) {
+                grw_load_css('<?php echo plugins_url('/static/css/rplg-wp.css', __FILE__); ?>');
+                grw_load_js('<?php echo plugins_url('/static/js/wpac.js', __FILE__); ?>', function() {
+                    window.grwVars = {
+                        GOOGLE_AVATAR : '<?php echo GRW_GOOGLE_AVATAR; ?>',
+                        handlerUrl    : '<?php echo admin_url('options-general.php?page=grw'); ?>',
+                        actionPrefix  : 'grw'
+                    };
+                    grw_load_js('<?php echo plugins_url('/static/js/grw-finder.js', __FILE__); ?>', function() {
+                        grw_init({widgetId: '<?php echo $this->id; ?>'});
+                    });
+                });
+            }
+        </script>
+        <?php
     }
 }
 ?>

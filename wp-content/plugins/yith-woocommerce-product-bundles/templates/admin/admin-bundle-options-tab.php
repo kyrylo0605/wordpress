@@ -46,20 +46,6 @@ $bundle_data = get_post_meta( $post->ID, '_yith_wcpb_bundle_data', true );
             </div>
             <p class="yith-wcpb-bundled-prod-toolbar toolbar">
                             <span class="yith-wcpb-bundled-prod-toolbar-wrapper">
-                                <span class="yith-wcpb-bundled-prod-selector">
-                                    <?php
-                                    yit_add_select2_fields( array(
-                                                                'id'               => 'yith-wcpb-bundled-product',
-                                                                'class'            => 'wc-product-search',
-                                                                'style'            => 'width: 250px',
-                                                                'name'             => 'yith_wcpb_bundled_product',
-                                                                'data-action'      => 'woocommerce_json_search_products',
-                                                                'data-multiple'    => false,
-                                                                'data-selected'    => '',
-                                                                'data-placeholder' => __( 'Search for a product&hellip;', 'woocommerce' ),
-                                                            ) );
-                                    ?>
-                                </span>
                                 <button type="button" id="yith-wcpb-add-bundled-product"
                                         class="button button-primary"><?php _e( 'Add Product', 'yith-woocommerce-product-bundles' ); ?></button>
                             </span>

@@ -2,18 +2,18 @@
 /**
  * Plugin Name: YITH WooCommerce Product Bundles
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-product-bundles
- * Description: YITH WooCommerce Product Bundles allows you to bundle WooCommerce products and sell them with a unique price.
- * Version: 1.1.6
+ * Description: <code><strong>YITH WooCommerce Product Bundles</strong></code> allows you to bundle WooCommerce products and sell them at a unique price. You can also set the quantity for each bundled item! <a href="https://yithemes.com/" target="_blank">Find new awesome plugins on <strong>YITH</strong></a>
+ * Version: 1.1.8
  * Author: YITHEMES
- * Author URI: http://yithemes.com/
+ * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-product-bundles
  * Domain Path: /languages/
  * WC requires at least: 3.0.0
- * WC tested up to: 3.3.x
+ * WC tested up to: 3.5.x
  *
  * @author yithemes
  * @package YITH WooCommerce Product Bundles
- * @version 1.1.6
+ * @version 1.1.8
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -65,7 +65,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( !defined( 'YITH_WCPB_VERSION' ) ) {
-    define( 'YITH_WCPB_VERSION', '1.1.6' );
+    define( 'YITH_WCPB_VERSION', '1.1.8' );
 }
 
 if ( !defined( 'YITH_WCPB_FREE_INIT' ) ) {
@@ -104,6 +104,10 @@ if ( !defined( 'YITH_WCPB_INCLUDES_PATH' ) ) {
     define( 'YITH_WCPB_INCLUDES_PATH', YITH_WCPB_DIR . 'includes' );
 }
 
+if ( !defined( 'YITH_WCPB_SLUG' ) ) {
+    define( 'YITH_WCPB_SLUG', 'yith-woocommerce-product-bundles' );
+}
+
 
 function yith_wcpb_init() {
 
@@ -116,6 +120,7 @@ function yith_wcpb_init() {
     require_once( 'class.yith-wcpb-admin.php' );
     require_once( 'class.yith-wcpb-frontend.php' );
     require_once( 'class.yith-wcpb.php' );
+    require_once( 'functions.yith-wcpb.php' );
 
     // Let's start the game!
     YITH_WCPB();

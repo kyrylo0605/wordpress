@@ -22,34 +22,34 @@
         <br/>
         <?php echo sprintf( __( 'Firstly, create a new product on "WooCommerce" and select the %sProduct Bundle%s type in the product detail page.', 'yith-woocommerce-product-bundles' ), '<strong>', '</strong>' ) ?>
     </p>
-    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/01.jpg" alt="bundle-01"/>
+    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/01.png" alt="bundle-01"/>
 
     <p>
-        <?php echo sprintf( __( 'Now configure the options clickin on the new tab "%1$sBundle Options%2$s" that has been added to the "%1$sProduct Data%2$s" section of the product.', 'yith-woocommerce-product-bundles' ), '<strong>', '</strong>' ) ?>
+        <?php echo sprintf( __( 'Now configure the options clickin on the new tab "%1$sBundled Items%2$s" that has been added to the "%1$sProduct Data%2$s" section of the product.', 'yith-woocommerce-product-bundles' ), '<strong>', '</strong>' ) ?>
     </p>
-    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/02.jpg" alt="bundle-02"/>
+    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/02.png" alt="bundle-02"/>
 
     <p>
-        <?php _e( 'Add the products you want to add in the budle using the related Ajax search field.', 'yith-woocommerce-product-bundles' ) ?>
+        <?php _e( 'Add the products you want to add in the bundle using the related popup.', 'yith-woocommerce-product-bundles' ) ?>
     </p>
-    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/03.jpg" alt="bundle-03"/>
+    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/03.png" alt="bundle-03"/>
 
     <p>
         <?php echo sprintf( __( '%1$sNB: the plugin lets you add only simple products.%2$s', 'yith-woocommerce-product-bundles' ), '<strong>', '</strong>' ) ?>
         <br />
         <?php _e( 'Select the quantity of the products to be added in the bundle.', 'yith-woocommerce-product-bundles' ) ?>
     </p>
-    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/04.jpg" alt="bundle-04"/>
+    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/04.png" alt="bundle-04"/>
 
     <p>
         <?php echo sprintf( __( 'Now you just have to set the price, the description and the image of your product bundle with the %sGeneral%s option and you will be done.', 'yith-woocommerce-product-bundles' ), '<strong>', '</strong>' ) ?>
     </p>
-    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/05.jpg" alt="bundle-05"/>
+    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/05.png" alt="bundle-05"/>
 
     <p>
         <?php _e( 'Here you are an example of a "Bundle" product.', 'yith-woocommerce-product-bundles' ) ?>
     </p>
-    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/06.jpg" alt="bundle-06"/>
+    <img src="<?php echo YITH_WCPB_ASSETS_URL ?>/images/how-to/06.png" alt="bundle-06"/>
 
     <p>
         <?php _e( 'As you can see, the available products of the bundle have been added in the selected quantity.', 'yith-woocommerce-product-bundles' ) ?>

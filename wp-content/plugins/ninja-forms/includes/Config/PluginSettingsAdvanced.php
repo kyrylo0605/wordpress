@@ -50,10 +50,18 @@ return apply_filters( 'ninja_forms_plugin_settings_advanced', array(
 
     'allow_tracking' => array(
         'id'    => 'allow_tracking',
-        'type'  => 'checkbox',
-        'label' => __( 'Allow Tracking', 'ninja-forms' ),
-        'desc'  => __( 'If you opt-in, some data about your installation of Ninja Forms will be sent to NinjaForms.com (this does NOT include your submissions).', 'ninja-forms' )
+        'type'  => 'html',
+        'html'  => '<span id="nfTelOptin" class="button hidden">' . __( 'Opt-in', 'ninja-forms' ) . '</span><span id="nfTelOptout" class="button hidden">' . __( 'Opt-out', 'ninja-forms' ) . '</span><span id="nfTelSpinner" class="nf-loading-spinner" style="display:none;"></span>',
+        'label' => __( 'Allow Telemetry', 'ninja-forms' ),
+        'desc'  => __( 'Opt-in to allow Ninja Forms to collect anonymous usage statistics from your site, such as PHP version, installed plugins, and other non-personally idetifiable informations.', 'ninja-forms' ),
     ),
+
+//    'allow_tracking' => array(
+//        'id'    => 'allow_tracking',
+//        'type'  => 'checkbox',
+//        'label' => __( 'Allow Tracking', 'ninja-forms' ),
+//        'desc'  => __( 'If you opt-in, some data about your installation of Ninja Forms will be sent to NinjaForms.com (this does NOT include your submissions).', 'ninja-forms' )
+//    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -89,12 +97,20 @@ return apply_filters( 'ninja_forms_plugin_settings_advanced', array(
     |--------------------------------------------------------------------------
     */
 
-    'rollback' => array(
-        'id'    => 'rollback',
+    'downgrade' => array(
+        'id'    => 'downgrade',
         'type'  => 'html',
-        'html' => '<a id="nfRollback" href="' . admin_url( 'admin.php?page=ninja-forms&nf-switcher=rollback' ) . '" class="button">' . __( 'Rollback', 'ninja-forms' ) . '</a>',
-        'label' => __( 'Rollback to v2.9.x', 'ninja-forms' ),
-        'desc'  => __( 'Rollback to the most recent 2.9.x release.', 'ninja-forms' ) . '<br /><div style="color: red">' . __( 'IMPORTANT: All 3.0 data will be removed.', 'ninja-forms' ) . '<br />' . __( 'Please export any forms or submissions you do not want to be lost during this process.', 'ninja-forms' ) . '</div>',
+        'html'  => '<div id="nfDowngrade" class="button">' . __( 'Downgrade', 'ninja-forms' ) . '</div>',
+        'label' => __( 'Downgrade to v2.9.x', 'ninja-forms' ),
+        'desc'  => __( 'Downgrade to the most recent 2.9.x release.', 'ninja-forms' ) . '<br /><div style="color: red">' . __( 'IMPORTANT: All 3.0 data will be removed.', 'ninja-forms' ) . '<br />' . __( 'Please export any forms or submissions you do not want to be lost during this process.', 'ninja-forms' ) . '</div>',
+    ),
+
+    'trash_expired_submissions' => array(
+        'id' => 'trash_expired_submissions',
+        'type' => 'html',
+        'html' => '<div id="nfTrashExpiredSubmissions" class="button">' . __( 'Move To Trash', 'ninja-forms' ) . '</div>',
+        'label' => __( 'Trash Expired Submissions', 'ninja-forms' ),
+        'desc' => __( 'This setting maybe helpful if your WordPress installation is not moving expired submissions to the trash properly.', 'ninja-forms' ),
     ),
 
 ));

@@ -13,8 +13,14 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
 
     protected $_columns = array(
         'title',
-        'key',
-        'created_at'
+        'created_at',
+        'form_title',
+        'default_label_pos',
+        'show_title',
+        'clear_complete',
+        'hide_complete',
+        'logged_in',
+        'seq_num'
     );
 
     protected $_fields;
@@ -60,7 +66,7 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
 
 	    $this->delete_submissions();
 
-        delete_option( 'nf_form_' . $this->_id );
+        WPN_Helper::delete_nf_cache( $this->_id );
     }
 
     private function delete_submissions( ) {
@@ -119,10 +125,21 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
         , $form_id ) );
 
         if( $last_seq_num ) {
-            $wpdb->update( $wpdb->prefix . 'nf3_form_meta', array( 'value' => $last_seq_num + 1 ), array( 'key' => '_seq_num', 'parent_id' => $form_id ) );
+            $wpdb->update( $wpdb->prefix . 'nf3_form_meta', array( 'value' => $last_seq_num + 1,
+                'meta_value' => $last_seq_num + 1, 'meta_key' => '_seq_num' )
+	            , array( 'key' => '_seq_num', 'parent_id'
+            => $form_id ) );
+            $wpdb->update( $wpdb->prefix . 'nf3_forms', array( 'seq_num' => $last_seq_num + 1 ), array( 'id' => $form_id ) );
         } else {
             $last_seq_num = 1;
-            $wpdb->insert( $wpdb->prefix . 'nf3_form_meta', array( 'key' => '_seq_num', 'value' => $last_seq_num + 1, 'parent_id' => $form_id ) );
+            $wpdb->insert( $wpdb->prefix . 'nf3_form_meta',
+	            array( 'key' => '_seq_num',
+	                   'value' => $last_seq_num + 1,
+	                   'parent_id' => $form_id,
+		                'meta_key' => '_seq_num',
+		                'meta_value' => $last_seq_num + 1
+	            ) );
+	        $wpdb->update( $wpdb->prefix . 'nf3_forms', array( 'seq_num' => $last_seq_num + 1 ), array( 'id' => $form_id ) );
         }
 
         return $last_seq_num;
@@ -195,7 +212,7 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
             ));
         }
 
-        update_option( 'nf_form_' . $form_id, $form_cache );
+        WPN_Helper::update_nf_cache( $form_id, $form_cache );
 
         add_action( 'admin_notices', array( 'NF_Database_Models_Form', 'import_admin_notice' ) );
 
@@ -299,6 +316,14 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
             ));
         }
 
+        /*
+         * In order for our new form and form_meta fields to populate on
+         * duplicate we need to update_settings and save
+         */
+        $new_form = Ninja_Forms()->form( $new_form_id )->get();
+        $new_form->update_settings( $new_form->get_settings() );
+        $new_form->save();
+
         return $new_form_id;
     }
 
@@ -322,13 +347,19 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
         $fields = Ninja_Forms()->form( $form_id )->get_fields();
 
         foreach( $fields as $field ){
-            $export['fields'][] = $field->get_settings();
+            // If the field is set.
+            if ( ! is_null( $field ) && ! empty( $field ) ) {
+                $export['fields'][] = $field->get_settings();
+            }
         }
 
         $actions = Ninja_Forms()->form( $form_id )->get_actions();
 
         foreach( $actions as $action ){
-            $export[ 'actions' ][] = $action->get_settings();
+            // If the action is set.
+            if ( ! is_null( $action ) && ! empty( $action ) ) {
+                $export[ 'actions' ][] = $action->get_settings();
+            }
         }
 
         if( $return ){
@@ -344,7 +375,8 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
             header( 'Pragma: no-cache');
             header( 'Expires: 0' );
 //            echo apply_filters( 'ninja_forms_form_export_bom',"\xEF\xBB\xBF" ) ; // Byte Order Mark
-	        if( $_REQUEST[ 'nf_export_form_turn_off_encoding' ] ) {
+	        if( isset( $_REQUEST[ 'nf_export_form_turn_off_encoding' ] )
+	            && $_REQUEST[ 'nf_export_form_turn_off_encoding' ] ) {
 		        echo json_encode( $export );
 	        } else {
 		        echo json_encode( WPN_Helper::utf8_encode( $export ) );
@@ -512,7 +544,15 @@ final class NF_Database_Models_Form extends NF_Abstracts_Model
             $action[ 'email_subject' ] 	= str_replace( '`', ',', $action[ 'email_subject' ] );
             $action[ 'cc' ] 		= str_replace( '`', ',', $action[ 'cc' ] );
             $action[ 'bcc' ] 		= str_replace( '`', ',', $action[ 'bcc' ] );
-            $action[ 'email_message' ] = nl2br( $action[ 'email_message' ] );
+            // If our email is in plain text...
+            if ( $action[ 'email_format' ] == 'plain' ) {
+                // Record it as such.
+                $action[ 'email_message_plain' ] = $action[ 'email_message' ];
+            } // Otherwise... (It's not plain text.)
+            else {
+                // Record it as HTML.
+                $action[ 'email_message' ] = nl2br( $action[ 'email_message' ] );
+            }
         }
 
         // Convert `name` to `label`

@@ -58,6 +58,30 @@ jQuery(document).ready(function($) {
 	message = document.createElement( 'div' );
 	message.appendChild( container );
 
+	var downgradeContainer, downgradeTitle, downgradeWarning, downgradeCTA, downgradeInput;
+	downgradeInput 						= document.createElement( 'input' );
+	downgradeInput.setAttribute( 'type', 'text' );
+	downgradeInput.id 					= 'downgradeConfirmInput';
+	downgradeInput.style.marginBottom 	= '15px';
+	downgradeInput.style.padding 		= '7px';
+	downgradeInput.style.border 		= '1px solid #D3D3D3';
+	downgradeInput.style.width 			= '100%';
+	downgradeInput.style.height 		= '3em';
+	downgradeCTA 						= document.createElement( 'p' );
+	downgradeCTA.innerHTML 				= nf_settings.i18n.downgradeConfirmMessage;
+	downgradeWarning 					= document.createElement( 'p' );
+	downgradeWarning.innerHTML 			= nf_settings.i18n.downgradeWarningMessage;
+	downgradeWarning.style.color 		= 'red';
+	downgradeTitle 						= document.createElement( 'h3' );
+	downgradeTitle.innerHTML 			= nf_settings.i18n.downgradeMessage;
+	downgradeContainer 					= document.createElement( 'div' );
+	downgradeContainer.appendChild( downgradeTitle );
+    downgradeContainer.appendChild( downgradeWarning );
+    downgradeContainer.appendChild( downgradeCTA );
+    downgradeContainer.appendChild( downgradeInput );
+
+
+
 	// set up delete model with all the elements created above
 	deleteAllDataModal = new jBox( 'Modal', {
 		width: 450,
@@ -161,13 +185,65 @@ jQuery(document).ready(function($) {
             });
     });
 
-    $( '#nfRollback' ).on( 'click', function( event ){
-        var rollback = confirm( nf_settings.i18n.rollbackConfirm );
-        if( ! rollback ){
-            event.preventDefault();
-        }
-    });
+	// Start building our downgrade model.
+    jQuery( '#nfDowngrade' ).click( function( e ) {
+        var data = {
+            class: 'nfDowngradeModal',
+            closeOnClick: 'body',
+            closeOnEsc: true,
+			// TODO: Maybe this should be build using DOM node construction?
+            content: downgradeContainer.innerHTML,
+            btnPrimary: {
+                text: nf_settings.i18n.downgradeButtonPrimary,
+				class: 'nfDowngradeButtonPrimary',
+                callback: function( e ) {
+                	// If our "Downgrade" button does not have have an attribute of disabled...
+                    if( 'disabled' !== $('.nfDowngradeButtonPrimary').attr( 'disabled' ) ){
+                    	// ...get the url...
+                    	var url = window.location.href;
+                    	// ...split the url based on the question mark from the query string...
+                    	url = url.split( '?' );
+                    	// build the downgrade url and redirect the user.
+                    	url[0] = url[0] + '?page=ninja-forms&nf-switcher=rollback';
+                    	window.location.replace( url[0] );
+					}
+                }
+            },
+            btnSecondary: {
+                text: nf_settings.i18n.downgradeButtonSecondary,
+				class: 'nfDowngradeButtonSecondary',
+                callback: function( e ) {
+                	// Close the modal if this button is clicked.
+                    downgradeModel.toggleModal( false );
+                }
+            },
+            useProgressBar: false,
+        };
+        var downgradeModel = new NinjaModal( data );
+        // Style and add the disabled tag by default.
+        $('.nfDowngradeButtonPrimary').css( 'background', '#ccc' );
+        $('.nfDowngradeButtonPrimary').css( 'border', '#ccc 1px solid' );
+        $('.nfDowngradeButtonPrimary').attr( 'disabled', true );
 
+        // Listen to our input and...
+        $('#downgradeConfirmInput').on( 'keyup', function(){
+        	// ...if DOWNGRADE is typed then...
+        	if( 'DOWNGRADE' == $('#downgradeConfirmInput').val() ) {
+                // ...apply our blue styling to button and remove disabled attribute.
+        		$('.nfDowngradeButtonPrimary').css( 'background', '#1EA9EA' );
+                $('.nfDowngradeButtonPrimary').css( 'border', '#1EA9EA 1px solid' );
+                $('.nfDowngradeButtonPrimary').removeAttr( 'disabled' );
+            }
+
+            // ...if DOWNGRADE is not typed then...
+            if( 'DOWNGRADE' !== $('#downgradeConfirmInput').val() ) {
+                // ...set styling back to default and reapply the disabled prop.
+        		$('.nfDowngradeButtonPrimary').css( 'background', '#ccc' );
+                $('.nfDowngradeButtonPrimary').css( 'border', '#ccc 1px solid' );
+                $('.nfDowngradeButtonPrimary').prop( 'disabled', true );
+			}
+		})
+    });
 
 	$( document ).on( 'click', '#delete_on_uninstall', function( e ) {
 		deleteAllDataModal.open();
@@ -178,4 +254,111 @@ jQuery(document).ready(function($) {
 		$( "#delete_on_uninstall" ).attr( 'checked', true );
 
 	} );
+    
+    // If we're allowed to track site data...
+    if ( '1' == nf_settings.allow_telemetry ) {
+        // Show the optout button.
+        $( '#nfTelOptin' ).addClass( 'hidden' );
+        $( '#nfTelOptout' ).removeClass( 'hidden' );
+    } // Otherwise...
+    else {
+        // Show the optin button.
+        $( '#nfTelOptout' ).addClass( 'hidden' );
+        $( '#nfTelOptin' ).removeClass( 'hidden' );
+    }
+    
+    // If optin is clicked...
+    $( '#nfTelOptin' ).click( function( e ) {
+        // Hide the button.
+        $( '#nfTelOptin' ).addClass( 'hidden' );
+        $( '#nfTelSpinner' ).css( 'display', 'inline-block' );
+        // Hit AJAX endpoint and opt-in.
+        $.post( ajaxurl, { action: 'nf_optin', ninja_forms_opt_in: 1 },
+                    function( response ) {
+            $( '#nfTelOptout' ).removeClass( 'hidden' );
+            $( '#nfTelSpinner' ).css( 'display', 'none' );
+        } );  
+    } );
+    
+    // If optout is clicked...
+    $( '#nfTelOptout' ).click( function( e ) {
+        // Hide the button.
+        $( '#nfTelOptout' ).addClass( 'hidden' );
+        $( '#nfTelSpinner' ).css( 'display', 'inline-block' );
+        // Hit AJAX endpoint and opt-out.
+        $.post( ajaxurl, { action: 'nf_optin', ninja_forms_opt_in: 0 },
+                    function( response ) {
+            $( '#nfTelOptin' ).removeClass( 'hidden' );
+            $( '#nfTelSpinner' ).css( 'display', 'none' );
+        } );  
+    } );
+
+    jQuery( '#nfTrashExpiredSubmissions' ).click( function( e ) {
+    	var that = this;
+    	var data = {
+    		closeOnClick: false,
+            closeOnEsc: true,
+            content: '<p>' + nf_settings.i18n.trashExpiredSubsMessage + '<p>',
+            btnPrimary: {
+				text: nf_settings.i18n.trashExpiredSubsButtonPrimary,
+				callback: function( e ) {
+                    // Hide the buttons.
+                    deleteModal.maybeShowActions( false );
+                    // Show the progress bar.
+                    deleteModal.maybeShowProgress( true );
+                    // Begin our cleanup process.
+                    that.submissionExpirationProcess( that, -1, deleteModal );
+
+				}
+			},
+            btnSecondary: {
+            	text: nf_settings.i18n.trashExpiredSubsButtonSecondary,
+				callback: function( e ) {
+            		deleteModal.toggleModal( false );
+				}
+			},
+            useProgressBar: true,
+		};
+
+        this.submissionExpirationProcess = function( context, steps, modal ) {
+            var data = {
+                action: 'nf_batch_process',
+                batch_type: 'expired_submission_cleanup',
+                security: nf_settings.batch_nonce
+            };
+            jQuery.post( nf_settings.ajax_url, data, function( response ) {
+                response = JSON.parse( response );
+                // If we're done...
+                if ( response.batch_complete ) {
+                    // Push our progress bar to 100%.
+                    modal.setProgress( 100 );
+                    modal.toggleModal( false );
+                    // Exit.
+                    return false;
+                }
+                // If we do not yet have a determined number of steps...
+                if ( -1 == steps ) {
+                    // If step_toal is defined...
+                    if ( 'undefined' != typeof response.step_total ) {
+                        // Use the step_total.
+                        steps = response.step_total;
+                    } // Otherwise... (step_total is not defined)
+                    else {
+                        // Use step_remaining.
+                        steps = response.step_remaining;
+                    }
+                }
+                // Calculate our current step.
+                var step = steps - response.step_remaining;
+                // Calculate our maximum progress for this step.
+                var maxProgress = Math.round( step / steps * 100 );
+                // Increment the progress.
+                modal.incrementProgress ( maxProgress );
+                // Recall our function...
+                context.submissionExpirationProcess( context, steps, modal );
+            } );
+        }
+
+    	var deleteModal = new NinjaModal( data );
+	});
 });

@@ -6,6 +6,8 @@
     var pluginPfx = 'aws_opts';
     var translate = {
         sale      : aws_vars.sale,
+        sku       : aws_vars.sku,
+        showmore  : aws_vars.showmore,
         noresults : aws_vars.noresults
     };
 
@@ -17,7 +19,7 @@
 
                 $('body').append('<div id="aws-search-result-' + instance + '" class="aws-search-result" style="display: none;"></div>');
 
-                methods.mobileClasses();
+                methods.addClasses();
 
                 setTimeout(function() { methods.resultLayout(); }, 500);
 
@@ -60,10 +62,20 @@
                     methods.showLoader();
                 }
 
+                clearTimeout( keyupTimeout );
+                keyupTimeout = setTimeout( function() {
+                    methods.ajaxRequest();
+                }, 300 );
+
+            },
+
+            ajaxRequest: function() {
+
                 var data = {
                     action: 'aws_action',
                     keyword : searchFor,
-                    page: 0
+                    page: 0,
+                    lang: d.lang
                 };
 
                 requests.push(
@@ -160,7 +172,7 @@
                         }
 
                         if ( result.sku ) {
-                            html += '<span class="aws_result_sku">SKU: ' + result.sku + '</span>';
+                            html += '<span class="aws_result_sku">' + translate.sku + ': ' + result.sku + '</span>';
                         }
 
                         if ( result.excerpt ) {
@@ -184,7 +196,10 @@
 
                     });
 
-                    //html += '<li class="aws_result_item aws_search_more"><a href="' + opts.siteUrl + '/?s=' + searchFor + '&post_type=product">View all</a></li>';
+                    if ( d.showMore ) {
+                        html += '<li class="aws_result_item aws_search_more"><a href="#">' + translate.showmore + '</a></li>';
+                    }
+
                     //html += '<li class="aws_result_item"><a href="#">Next Page</a></li>';
 
                 }
@@ -286,8 +301,8 @@
                 }
             },
 
-            mobileClasses: function() {
-                if ( methods.isMobile() ) {
+            addClasses: function() {
+                if ( methods.isMobile() || d.showClear ) {
                     $searchForm.addClass('aws-show-clear');
                 }
             },
@@ -307,6 +322,7 @@
             haveResults    = false,
             requests       = Array(),
             searchFor      = '',
+            keyupTimeout,
             cachedResponse = new Array();
 
 
@@ -324,8 +340,11 @@
 
         self.data( pluginPfx, {
             minChars  : ( self.data('min-chars')   !== undefined ) ? self.data('min-chars') : 1,
+            lang : ( self.data('lang') !== undefined ) ? self.data('lang') : false,
             showLoader: ( self.data('show-loader') !== undefined ) ? self.data('show-loader') : true,
+            showMore: ( self.data('show-more') !== undefined ) ? self.data('show-more') : true,
             showPage: ( self.data('show-page') !== undefined ) ? self.data('show-page') : true,
+            showClear: ( self.data('show-clear') !== undefined ) ? self.data('show-clear') : false,
             useAnalytics: ( self.data('use-analytics') !== undefined ) ? self.data('use-analytics') : false,
             instance: instance,
             resultBlock: '#aws-search-result-' + instance
@@ -395,6 +414,12 @@
 
         $( d.resultBlock ).on( 'mouseleave', '.aws_result_item', function() {
             methods.removeHovered();
+        });
+
+
+        $( d.resultBlock ).on( 'click', '.aws_search_more', function(e) {
+            e.preventDefault();
+            $searchForm.submit();
         });
 
 

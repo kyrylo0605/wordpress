@@ -12,13 +12,14 @@ if ( !defined( 'ABSPATH' ) ) {
 
 $debug = !empty( $_REQUEST[ 'yith_wcpb_debug' ] );
 
-$item_data   = !empty( $item_data ) ? $item_data : array();
-$open_closed = !empty( $open_closed ) ? $open_closed : '';
+$item_data      = !empty( $item_data ) ? $item_data : array();
+$open_closed    = !empty( $_POST[ 'open_closed' ] ) ? $_POST[ 'open_closed' ] : 'closed';
+$content_hidden = 'closed' === $open_closed ? 'hidden' : '';
 
 $edit_link  = get_edit_post_link( $product_id );
 $item_title = "<a class='yith-wcbep-edit-product-btn dashicons dashicons-admin-generic' target='_blank' href='{$edit_link}'></a>{$title} &ndash; #{$product_id}";
 
-$product        = wc_get_product( $product_id );
+$product = wc_get_product( $product_id );
 if ( !$product )
     $is_purchasable = false;
 else if ( $product->is_type( 'variable' ) )
@@ -56,7 +57,7 @@ else
         }
         ?>
     </h3>
-    <div class="yith-wcpb-bundled-item-data wc-metabox-content">
+    <div class="yith-wcpb-bundled-item-data wc-metabox-content <?php echo $content_hidden ?>">
         <div class="yith-wcpb-bundled-item-data-content">
             <input type="hidden" name="_yith_wcpb_bundle_data[<?php echo $metabox_id; ?>][bundle_order]" class="yith-wcpb-bundled-item-position" value="<?php echo $metabox_id; ?>"/>
             <input type="hidden" name="_yith_wcpb_bundle_data[<?php echo $metabox_id; ?>][product_id]" class="yith-wcpb-product-id" value="<?php echo $product_id; ?>"/>

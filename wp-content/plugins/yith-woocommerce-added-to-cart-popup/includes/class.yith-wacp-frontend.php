@@ -2,7 +2,7 @@
 /**
  * Frontend class
  *
- * @author Yithemes
+ * @author YITH
  * @package YITH WooCommerce Added to Cart Popup
  * @version 1.0.0
  */

@@ -59,7 +59,7 @@
 		{
 			
 			$this->plugin_name = 'weather-atlas';
-			$this->version     = '1.1.3';
+			$this->version     = '1.1.4';
 			
 			$widget_ops = array (
 				'description' => __( 'Display current conditions and weather forecast on your website.', 'weather-atlas' )
@@ -250,7 +250,7 @@
 			echo "<br />";
 			echo __( 'default', 'weather-atlas' ) . ": \"en\"";
 			echo "<br />";
-			echo __( 'options', 'weather-atlas' ) . ": \"en\" / \"es\"";
+			echo __( 'options', 'weather-atlas' ) . ": \"de\" / \"en\" / \"es\" / \"ru\" / \"zh\"";
 			
 			echo "<hr />";
 			echo "<i>layout=\"\"</i>";
@@ -357,8 +357,11 @@
 			echo __( 'Language', 'weather-atlas' );
 			echo "</label>";
 			echo weather_atlas_admin_render_select( $this->get_field_id( 'language' ), $this->get_field_name( 'language' ), array (
+				'de' => 'deutsche',
 				'en' => 'english',
-				'es' => 'español'
+				'es' => 'español',
+				'ru' => 'русский',
+				'zh' => '中文'
 			), $language );
 			echo "</p>";
 			

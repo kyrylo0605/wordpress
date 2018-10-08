@@ -3157,6 +3157,317 @@
 		FooGallery.utils.is,
 		FooGallery.utils.fn
 );
+(function($, _, _utils, _is, _obj) {
+
+	var DATA_NAME = "__FooGallerySwipe__",
+			TOUCH = "ontouchstart" in window,
+			POINTER_IE10 = window.navigator.msPointerEnabled && !window.navigator.pointerEnabled && !TOUCH,
+			POINTER = (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) && !TOUCH,
+			USE_TOUCH = TOUCH || POINTER;
+
+	_.Swipe = _utils.Class.extend(/** @lend FooGallery.Swipe */{
+		/**
+		 * @summary A utility class for handling swipe gestures on touch devices.
+		 * @memberof FooGallery
+		 * @constructs Swipe
+		 * @param {Element} element - The element being bound to.
+		 * @param {Object} options - Any options for the current instance of the class.
+		 * @augments FooGallery.utils.Class
+		 * @borrows FooGallery.utils.Class.extend as extend
+		 * @borrows FooGallery.utils.Class.override as override
+		 */
+		construct: function(element, options){
+			var self = this, ns = ".fgswipe";
+			/**
+			 * @summary The jQuery element this instance of the class is bound to.
+			 * @memberof FooGallery.Swipe
+			 * @name $el
+			 * @type {jQuery}
+			 */
+			self.$el = $(element);
+			/**
+			 * @summary The options for this instance of the class.
+			 * @memberof FooGallery.Swipe
+			 * @name opt
+			 * @type {FooGallery.Swipe~Options}
+			 */
+			self.opt = _obj.extend({
+				threshold: 20,
+				allowPageScroll: false,
+				swipe: $.noop,
+				data: {}
+			}, options);
+			/**
+			 * @summary Whether or not a swipe is in progress.
+			 * @memberof FooGallery.Swipe
+			 * @name active
+			 * @type {boolean}
+			 */
+			self.active = false;
+			/**
+			 * @summary The start point for the last swipe.
+			 * @memberof FooGallery.Swipe
+			 * @name startPoint
+			 * @type {?FooGallery.Swipe~Point}
+			 */
+			self.startPoint = null;
+			/**
+			 * @summary The end point for the last swipe.
+			 * @memberof FooGallery.Swipe
+			 * @name startPoint
+			 * @type {?FooGallery.Swipe~Point}
+			 */
+			self.endPoint = null;
+			/**
+			 * @summary The event names used by this instance of the plugin.
+			 * @memberof FooGallery.Swipe
+			 * @name events
+			 * @type {{start: string, move: string, end: string, leave: string}}
+			 */
+			self.events = {
+				start: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerDown' : 'pointerdown') : 'touchstart') : 'mousedown') + ns,
+				move: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerMove' : 'pointermove') : 'touchmove') : 'mousemove') + ns,
+				end: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerUp' : 'pointerup') : 'touchend') : 'mouseup') + ns,
+				leave: (USE_TOUCH ? (POINTER ? 'mouseleave' : null) : 'mouseleave') + ns
+			};
+		},
+		/**
+		 * @summary Initializes this instance of the class.
+		 * @memberof FooGallery.Swipe
+		 * @function init
+		 */
+		init: function(){
+			var self = this;
+			self.$el.on(self.events.start, {self: self}, self.onStart);
+			self.$el.on(self.events.move, {self: self}, self.onMove);
+			self.$el.on(self.events.end, {self: self}, self.onEnd);
+			if (_is.string(self.events.leave)) self.$el.on(self.events.leave, {self: self}, self.onEnd);
+			self.$el.data(DATA_NAME, self);
+		},
+		/**
+		 * @summary Destroys this instance of the class.
+		 * @memberof FooGallery.Swipe
+		 * @function destroy
+		 */
+		destroy: function(){
+			var self = this;
+			self.$el.off(self.events.start, self.onStart);
+			self.$el.off(self.events.move, self.onMove);
+			self.$el.off(self.events.end, self.onEnd);
+			if (_is.string(self.events.leave)) self.$el.off(self.events.leave, self.onEnd);
+			self.$el.removeData(DATA_NAME);
+		},
+		/**
+		 * @summary Gets the angle between two points.
+		 * @memberof FooGallery.Swipe
+		 * @function getAngle
+		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
+		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
+		 * @returns {number}
+		 */
+		getAngle: function(pt1, pt2){
+			var radians = Math.atan2(pt1.x - pt2.x, pt1.y - pt2.y),
+					degrees = Math.round(radians * 180 / Math.PI);
+			return 360 - (degrees < 0 ? 360 - Math.abs(degrees) : degrees);
+		},
+		/**
+		 * @summary Gets the distance between two points.
+		 * @memberof FooGallery.Swipe
+		 * @function getDistance
+		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
+		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
+		 * @returns {number}
+		 */
+		getDistance: function(pt1, pt2){
+			var xs = pt2.x - pt1.x,
+					ys = pt2.y - pt1.y;
+
+			xs *= xs;
+			ys *= ys;
+
+			return Math.sqrt( xs + ys );
+		},
+		/**
+		 * @summary Gets the general direction between two points and returns the result as a compass heading: N, NE, E, SE, S, SW, W, NW or NONE if the points are the same.
+		 * @memberof FooGallery.Swipe
+		 * @function getDirection
+		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
+		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
+		 * @returns {string}
+		 */
+		getDirection: function(pt1, pt2){
+			var self = this, angle = self.getAngle(pt1, pt2);
+			if (angle > 337.5 || angle <= 22.5) return "N";
+			else if (angle > 22.5 && angle <= 67.5) return "NE";
+			else if (angle > 67.5 && angle <= 112.5) return "E";
+			else if (angle > 112.5 && angle <= 157.5) return "SE";
+			else if (angle > 157.5 && angle <= 202.5) return "S";
+			else if (angle > 202.5 && angle <= 247.5) return "SW";
+			else if (angle > 247.5 && angle <= 292.5) return "W";
+			else if (angle > 292.5 && angle <= 337.5) return "NW";
+			return "NONE";
+		},
+		/**
+		 * @summary Gets the pageX and pageY point from the supplied event whether it is for a touch or mouse event.
+		 * @memberof FooGallery.Swipe
+		 * @function getPoint
+		 * @param {jQuery.Event} event - The event to parse the point from.
+		 * @returns {FooGallery.Swipe~Point}
+		 */
+		getPoint: function(event){
+			var touches;
+			if (USE_TOUCH && !_is.empty(touches = event.originalEvent.touches || event.touches)){
+				return {x: touches[0].pageX, y: touches[0].pageY};
+			}
+			if (_is.number(event.pageX) && _is.number(event.pageY)){
+				return {x: event.pageX, y: event.pageY};
+			}
+			return null;
+		},
+		/**
+		 * @summary Gets the offset from the supplied point.
+		 * @memberof FooGallery.Swipe
+		 * @function getOffset
+		 * @param {FooGallery.Swipe~Point} pt - The point to use to calculate the offset.
+		 * @returns {FooGallery.Swipe~Offset}
+		 */
+		getOffset: function(pt){
+			var self = this, offset = self.$el.offset();
+			return {
+				left: pt.x - offset.left,
+				top: pt.y - offset.top
+			};
+		},
+		/**
+		 * @summary Handles the {@link FooGallery.Swipe#events.start|start} event.
+		 * @memberof FooGallery.Swipe
+		 * @function onStart
+		 * @param {jQuery.Event} event - The event object for the current event.
+		 */
+		onStart: function(event){
+			var self = event.data.self, pt = self.getPoint(event);
+			if (!_is.empty(pt)){
+				self.active = true;
+				self.startPoint = self.endPoint = pt;
+			}
+		},
+		/**
+		 * @summary Handles the {@link FooGallery.Swipe#events.move|move} event.
+		 * @memberof FooGallery.Swipe
+		 * @function onMove
+		 * @param {jQuery.Event} event - The event object for the current event.
+		 */
+		onMove: function(event){
+			var self = event.data.self, pt = self.getPoint(event);
+			if (self.active && !_is.empty(pt)){
+				self.endPoint = pt;
+				if (!self.opt.allowPageScroll){
+					event.preventDefault();
+				}
+			}
+		},
+		/**
+		 * @summary Handles the {@link FooGallery.Swipe#events.end|end} and {@link FooGallery.Swipe#events.leave|leave} events.
+		 * @memberof FooGallery.Swipe
+		 * @function onEnd
+		 * @param {jQuery.Event} event - The event object for the current event.
+		 */
+		onEnd: function(event){
+			var self = event.data.self;
+			if (self.active){
+				self.active = false;
+				var info = {
+					startPoint: self.startPoint,
+					endPoint: self.endPoint,
+					startOffset: self.getOffset(self.startPoint),
+					endOffset: self.getOffset(self.endPoint),
+					angle: self.getAngle(self.startPoint, self.endPoint),
+					distance: self.getDistance(self.startPoint, self.endPoint),
+					direction: self.getDirection(self.startPoint, self.endPoint)
+				};
+
+				if (self.opt.threshold > 0 && info.distance < self.opt.threshold) return;
+
+				self.opt.swipe.apply(this, [info, self.opt.data]);
+				self.startPoint = null;
+				self.endPoint = null;
+			}
+		}
+	});
+
+	/**
+	 * @summary Expose FooGallery.Swipe as a jQuery plugin.
+	 * @memberof external:"jQuery.fn"#
+	 * @function fgswipe
+	 * @param {(FooGallery.Swipe~Options|string)} [options] - The options to supply to FooGallery.Swipe or one of the supported method names.
+	 * @returns {jQuery}
+	 */
+	$.fn.fgswipe = function(options){
+		return this.each(function(){
+			var $this = $(this), swipe = $this.data(DATA_NAME), exists = swipe instanceof _.Swipe;
+			if (exists){
+				if (_is.string(options) && _is.fn(swipe[options])){
+					swipe[options]();
+					return;
+				} else {
+					swipe.destroy();
+				}
+			}
+			if (_is.hash(options)){
+				swipe = new _.Swipe(this, options);
+				swipe.init();
+			}
+		});
+	};
+
+	/**
+	 * @summary A simple point object containing X and Y coordinates.
+	 * @typedef {Object} FooGallery.Swipe~Point
+	 * @property {number} x - The X coordinate.
+	 * @property {number} y - The Y coordinate.
+	 */
+
+	/**
+	 * @summary A simple offset object containing top and left values.
+	 * @typedef {Object} FooGallery.Swipe~Offset
+	 * @property {number} left - The left value.
+	 * @property {number} top - The top value.
+	 */
+
+	/**
+	 * @summary The information object supplied as the first parameter to the {@link FooGallery.Swipe~swipeCallback} function.
+	 * @typedef {Object} FooGallery.Swipe~Info
+	 * @property {FooGallery.Swipe~Point} startPoint - The page X and Y coordinates where the swipe began.
+	 * @property {FooGallery.Swipe~Point} endPoint - The page X and Y coordinates where the swipe ended.
+	 * @property {FooGallery.Swipe~Offset} startOffset - The top and left values where the swipe began.
+	 * @property {FooGallery.Swipe~Offset} endOffset - The top and left values where the swipe ended.
+	 * @property {number} angle - The angle traveled from the start to the end of the swipe.
+	 * @property {number} distance - The distance traveled from the start to the end of the swipe.
+	 * @property {string} direction - The general direction traveled from the start to the end of the swipe: N, NE, E, SE, S, SW, W, NW or NONE if the points are the same.
+	 */
+
+	/**
+	 * @summary The callback function to execute whenever a swipe occurs.
+	 * @callback FooGallery.Swipe~swipeCallback
+	 * @param {FooGallery.Swipe~Info} info - The swipe info.
+	 * @param {Object} data - Any additional data supplied when the swipe was bound.
+	 */
+
+	/**
+	 * @summary The options available for the swipe utility class.
+	 * @typedef {Object} FooGallery.Swipe~Options
+	 * @property {number} [threshold=20] - The minimum distance to travel before being registered as a swipe.
+	 * @property {FooGallery.Swipe~swipeCallback} swipe - The callback function to execute whenever a swipe occurs.
+	 * @property {Object} [data={}] - Any additional data to supply to the swipe callback.
+	 */
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.obj
+);
 (function ($, _, _utils, _is, _fn, _obj) {
 
 	_.TemplateFactory = _utils.Factory.extend(/** @lends FooGallery.TemplateFactory */{
@@ -3628,7 +3939,7 @@
 					}
 
 					// if the container currently has no children make them
-					if (self.$el.children().length == 0) {
+					if (self.$el.children().not(self.sel.item.elem).length == 0) {
 						self.$el.append(self.createChildren());
 						self._undo.children = true;
 					}
@@ -3940,7 +4251,7 @@
 			else self.$el.attr("style", self._undo.style);
 
 			if (self._undo.children) {
-				self.$el.empty();
+				self.destroyChildren();
 			}
 			if (self._undo.create) {
 				self.$el.remove();
@@ -3949,6 +4260,15 @@
 			self.destroyed = true;
 			self.initializing = false;
 			self.initialized = false;
+		},
+		/**
+		 * @summary If the {@link FooGallery.Template#createChildren|createChildren} method is used to generate custom elements for a template this method should also be overridden and used to destroy them.
+		 * @memberof FooGallery.Template#
+		 * @function destroyChildren
+		 * @description This method is called just after the {@link FooGallery.Template~"destroyed.foogallery"|destroyed} event to allow templates to remove any markup created in the {@link FooGallery.Template#createChildren|createChildren} method.
+		 */
+		destroyChildren: function(){
+			// does nothing for the base template
 		},
 
 		// ################
@@ -4327,8 +4647,8 @@
 						var parts = pair.split(self.opt.pair);
 						if (parts.length === 2){
 							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-								? decodeURIComponent(parts[1])
-								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part); });
+								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
+								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
 							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
 								state[parts[0]] = parseInt(state[parts[0]]);
 							}
@@ -4359,7 +4679,7 @@
 				$.each(state, function(name, value){
 					if (!_is.empty(value) && name !== "id"){
 						if (_is.array(value)){
-							value = $.map(value, function(part){ return encodeURIComponent(part); }).join("+");
+							value = $.map(value, function(part){ return encodeURIComponent(part); }).join(self.opt.array);
 						} else {
 							value = encodeURIComponent(value);
 						}
@@ -4479,7 +4799,7 @@
 						page = tmpl.pages.find(item);
 						page = page !== 0 ? page : 1;
 					}
-					tmpl.pages.set(page, !_is.empty(state), false);
+					tmpl.pages.set(page, !_is.empty(state), false, true);
 					if (item && tmpl.pages.contains(page, item)){
 						item.scrollTo();
 					}
@@ -4577,6 +4897,14 @@
 			 * @readonly
 			 */
 			self.isCreated = false;
+			/**
+			 * @summary Whether or not the item has been destroyed and can not be used.
+			 * @memberof FooGallery.Item#
+			 * @name isDestroyed
+			 * @type {boolean}
+			 * @readonly
+			 */
+			self.isDestroyed = false;
 			/**
 			 * @summary Whether or not the items' image is currently loading.
 			 * @memberof FooGallery.Item#
@@ -4836,17 +5164,38 @@
 			 * 	}
 			 * });
 			 */
-			var e = self.tmpl.raise("destroy-item");
+			var e = self.tmpl.raise("destroy-item", [self]);
 			if (!e.isDefaultPrevented()) {
-				self.doDestroyItem();
+				self.isDestroyed = self.doDestroyItem();
+			}
+			if (self.isDestroyed) {
+				/**
+				 * @summary Raised after an item has been destroyed.
+				 * @event FooGallery.Template~"destroyed-item.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item} item - The item that was destroyed.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"destroyed-item.foogallery": function(event, template, item){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+				 */
+				self.tmpl.raise("destroyed-item", [self]);
+				// call the original method that simply nulls the tmpl property
 				self._super();
 			}
-			return self.tmpl === null;
+			return self.isDestroyed;
 		},
 		/**
 		 * @summary Performs the actual destroy logic for the item.
 		 * @memberof FooGallery.Item#
 		 * @function doDestroyItem
+		 * @returns {boolean}
 		 */
 		doDestroyItem: function () {
 			var self = this;
@@ -4868,6 +5217,7 @@
 				self.detach();
 				self.$el.remove();
 			}
+			return true;
 		},
 		/**
 		 * @summary Parse the supplied element updating the current items' properties.
@@ -5126,12 +5476,12 @@
 			attr = self.attr.caption;
 			attr.elem["class"] = cls.elem;
 			self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+			attr.inner["class"] = cls.inner;
+			var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
 			var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
 			if (hasTitle || hasDesc) {
-				attr.inner["class"] = cls.inner;
 				attr.title["class"] = cls.title;
 				attr.description["class"] = cls.description;
-				var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
 				if (hasTitle) {
 					var $title;
 					// enforce the max length for the caption
@@ -5917,7 +6267,12 @@
 			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
-				type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
+				var $el = $(objOrElement), item = this.tmpl.sel.item;
+				// if (_is.string(item.video) && $el.is(item.video)){
+				// 	type = "video";
+				// } else {
+				// }
+				type = $el.find(item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "item";
 		},
@@ -6963,6 +7318,8 @@
 			this.$el = $(element);
 			this.options = $.extend(true, {}, _.Justified.defaults, options);
 			this._items = [];
+			this._lastRefresh = 0;
+			this._refresh = null;
 		},
 		init: function(){
 			var self = this;
@@ -6974,10 +7331,21 @@
 				}
 			}
 			$(window).on("resize.justified", {self: self}, self.onWindowResize);
+			this._refresh = setInterval(function(){
+				self.refresh();
+			}, self.options.refreshInterval);
 		},
 		destroy: function(){
+			if (this._refresh) clearInterval(this._refresh);
 			$(window).off("resize.justified");
 			this.$el.removeAttr("style");
+		},
+		refresh: function(){
+			var maxWidth = this.getContainerWidth();
+			if (maxWidth != this._lastRefresh){
+				this.layout();
+				this._lastRefresh = maxWidth;
+			}
 		},
 		parse: function(){
 			var self = this, visible = self.$el.is(':visible'),
@@ -6989,7 +7357,7 @@
 						maxWidth: self.getContainerWidth()
 					}).appendTo('body');
 			self._items = self.$el.find(self.options.itemSelector).removeAttr("style").removeClass("fg-positioned").map(function(i, el){
-				var $item = $(el), width = 0, height = 0, ratio;
+				var $item = $(el), width = 0, height = 0;
 				if (!visible){
 					var $clone = $item.clone();
 					$clone.appendTo($test);
@@ -6999,12 +7367,11 @@
 					width = $item.outerWidth();
 					height = $item.outerHeight();
 				}
-				ratio = self.options.rowHeight / height;
 
 				return {
 					index: i,
-					width: width * ratio,
-					height: self.options.rowHeight,
+					width: width,
+					height: height,
 					top: 0,
 					left: 0,
 					$item: $item
@@ -7013,9 +7380,16 @@
 			$test.remove();
 			return self._items;
 		},
-		round: function(value){
-			return Math.round(value);
-			//return Math.round(value*2) / 2;
+		getMaxRowHeight: function() {
+			var self = this;
+			if (_is.string(self.options.maxRowHeight)){
+				if (self.options.maxRowHeight.indexOf('%')){
+					self.options.maxRowHeight = self.options.rowHeight * (parseInt(self.options.maxRowHeight) / 100);
+				} else {
+					self.options.maxRowHeight = parseInt(self.options.maxRowHeight);
+				}
+			}
+			return _is.number(self.options.maxRowHeight) ? self.options.maxRowHeight : self.options.rowHeight;
 		},
 		getContainerWidth: function(){
 			var self = this, visible = self.$el.is(':visible');
@@ -7033,23 +7407,21 @@
 			}
 
 			var self = this,
-					containerWidth = self.getContainerWidth(),
-					rows = self.rows(containerWidth),
-					offsetTop = 0;
+					height = 0,
+					maxWidth = self.getContainerWidth(),
+					maxHeight = self.getMaxRowHeight(),
+					rows = self.rows(maxWidth, maxHeight);
 
-			for (var i = 0, l = rows.length, row; i < l; i++){
-				row = rows[i];
-				if (i === l - 1){
-					offsetTop = self.lastRow(row, containerWidth, offsetTop);
-				} else {
-					offsetTop = self.justify(row, containerWidth, offsetTop);
-				}
+			$.each(rows, function(ri, row){
+				if (!row.visible) return;
+				if (ri > 0) height += self.options.margins;
+				height += row.height;
 				self.render(row);
-			}
-			self.$el.height(offsetTop);
+			});
+			self.$el.height(height);
 			// if our layout caused the container width to get smaller
 			// i.e. makes a scrollbar appear then layout again to account for it
-			if (autoCorrect && self.getContainerWidth() < containerWidth){
+			if (autoCorrect && self.getContainerWidth() < maxWidth){
 				self.layout(false, false);
 			}
 		},
@@ -7070,69 +7442,107 @@
 				}
 			}
 		},
-		lastRow: function(row, containerWidth, offsetTop){
-			var self = this;
-			switch(self.options.lastRow){
-				case "hide":
-					row.visible = false;
-					break;
-				case "justify":
-					offsetTop = self.justify(row, containerWidth, offsetTop);
-					break;
-				case "nojustify":
-					if (row.width / containerWidth > self.options.justifyThreshold){
-						offsetTop = self.justify(row, containerWidth, offsetTop);
-					} else {
-						offsetTop = self.position(row, containerWidth, offsetTop, "left");
-					}
-					break;
-				case "right":
-				case "center":
-				case "left":
-					offsetTop = self.position(row, containerWidth, offsetTop, self.options.lastRow);
-					break;
-				default:
-					offsetTop = self.position(row, containerWidth, offsetTop, "left");
-					break;
-			}
-			return offsetTop;
-		},
-		justify: function(row, containerWidth, offsetTop){
+		justify: function(row, top, maxWidth, maxHeight){
 			var self = this,
-					left = 0,
 					margins = self.options.margins * (row.items.length - 1),
-					ratio = (containerWidth - margins) / row.width;
+					max = maxWidth - margins;
 
-			if (row.index > 0) offsetTop += self.options.margins;
-			row.top = offsetTop;
-			row.width = self.round(row.width * ratio);
-			row.height = self.round(row.height * ratio);
+			var w_ratio = max / row.width;
+			row.width = row.width * w_ratio;
+			row.height = row.height * w_ratio;
+			row.top = top;
 
-			for (var j = 0, jl = row.items.length, item; j < jl; j++){
-				item = row.items[j];
-				item.width = self.round(item.width * ratio);
-				item.height = self.round(item.height * ratio);
-				item.top = offsetTop;
-				if (j > 0) left += self.options.margins;
+			if (row.height > maxHeight){
+				row.height = maxHeight;
+			}
+
+			row.left = 0;
+			if (row.width < max){
+				// here I'm not sure if I should center, left or right align a row that cannot be displayed at 100% width
+				row.left = (max - row.width) / 2;
+			}
+			row.width += margins;
+
+			var left = row.left;
+			for (var i = 0, l = row.items.length, item; i < l; i++){
+				if (i > 0) left += self.options.margins;
+				item = row.items[i];
 				item.left = left;
+				item.top = top;
+				item.width = item.width * w_ratio;
+				item.height = item.height * w_ratio;
+				if (item.height > maxHeight){
+					item.height = maxHeight;
+				}
 				left += item.width;
 			}
-			return offsetTop + (row.height > self.options.maxRowHeight ? self.options.maxRowHeight : row.height);
+
+			return row.height;
 		},
-		position: function(row, containerWidth, offsetTop, alignment){
-			var self = this, lastItem = row.items[row.items.length - 1], diff = containerWidth - (lastItem.left + lastItem.width);
-			if (row.index > 0) offsetTop += self.options.margins;
-			row.top = offsetTop;
-			for (var i = 0, l = row.items.length, item; i < l; i++){
-				item = row.items[i];
-				item.top = offsetTop;
-				if (alignment === "center"){
-					item.left += diff / 2;
-				} else if (alignment === "right"){
-					item.left += diff;
+		position: function(row, top, maxWidth, align){
+			var self = this,
+					margins = self.options.margins * (row.items.length - 1),
+					max = maxWidth - margins;
+
+			row.top = top;
+			row.left = 0;
+			if (row.width < max){
+				switch (align){
+					case "center":
+						row.left = (max - row.width) / 2;
+						break;
+					case "right":
+						row.left = max - row.width;
+						break;
 				}
 			}
-			return offsetTop + row.height;
+			row.width += margins;
+
+			var left = row.left;
+			for (var i = 0, l = row.items.length, item; i < l; i++){
+				if (i > 0) left += self.options.margins;
+				item = row.items[i];
+				item.left = left;
+				item.top = top;
+				left += item.width;
+			}
+
+			return row.height;
+		},
+		lastRow: function(row, top, maxWidth, maxHeight){
+			var self = this,
+					margins = self.options.margins * (row.items.length - 1),
+					max = maxWidth - margins,
+					threshold = row.width / max > self.options.justifyThreshold;
+
+			switch (self.options.lastRow){
+				case "hide":
+					if (threshold){
+						self.justify(row, top, maxWidth, maxHeight);
+					} else {
+						row.visible = false;
+					}
+					break;
+				case "justify":
+					self.justify(row, top, maxWidth, maxHeight);
+					break;
+				case "nojustify":
+					if (threshold){
+						self.justify(row, top, maxWidth, maxHeight);
+					} else {
+						self.position(row, top, maxWidth, "left");
+					}
+					break;
+				case "left":
+				case "center":
+				case "right":
+					if (threshold){
+						self.justify(row, top, maxWidth, maxHeight);
+					} else {
+						self.position(row, top, maxWidth, self.options.lastRow);
+					}
+					break;
+			}
 		},
 		items: function(){
 			return $.map(this._items, function(item){
@@ -7146,57 +7556,52 @@
 				};
 			});
 		},
-		rows: function(containerWidth){
+		rows: function(maxWidth, maxHeight){
 			var self = this,
 					items = self.items(),
 					rows = [],
-					process = items.length > 0,
-					index = -1, offsetTop = 0;
+					index = -1;
 
-			while (process){
-				index += 1;
-				if (index > 0) offsetTop += self.options.margins;
+			function create(){
 				var row = {
-					index: index,
+					index: ++index,
 					visible: true,
-					top: offsetTop,
 					width: 0,
 					height: self.options.rowHeight,
+					top: 0,
+					left: 0,
 					items: []
-				}, remove = [], left = 0, tmp;
-
-				for (var i = 0, il = items.length, item, ratio; i < il; i++){
-					item = items[i];
-					tmp = row.width + item.width;
-					if (tmp > containerWidth && i > 0){
-						break;
-					} else if (tmp > containerWidth && i == 0){
-						tmp = containerWidth;
-						ratio = containerWidth / item.width;
-						item.width = self.round(item.width * ratio);
-						item.height = self.round(item.height * ratio);
-						row.height = item.height;
-					}
-					item.top = row.top;
-					if (i > 0) left += self.options.margins;
-					item.left = left;
-					left += item.width;
-					row.width = tmp;
-					row.items.push(item);
-					remove.push(i);
-				}
-				// make sure we don't get stuck in a loop, there should always be items to be removed
-				if (remove.length === 0){
-					process = false;
-					break;
-				}
-				remove.sort(function(a, b){ return b - a; });
-				for (var j = 0, jl = remove.length; j < jl; j++){
-					items.splice(remove[j], 1);
-				}
+				};
+				// push the row into the result collection now
 				rows.push(row);
-				process = items.length > 0;
+				return row;
 			}
+
+			var row = create(), top = 0, tmp = 0;
+			for (var i = 0, il = items.length, item; i < il; i++){
+				item = items[i];
+				// first make all the items match the row height
+				if (item.height != self.options.rowHeight){
+					var ratio = self.options.rowHeight / item.height;
+					item.height = item.height * ratio;
+					item.width = item.width * ratio;
+				}
+
+				if (tmp + item.width > maxWidth && i > 0){
+					// adding this item to the row would exceed the max width
+					if (rows.length > 1) top += self.options.margins;
+					top += self.justify(row, top, maxWidth, maxHeight); // first justify the current row
+					row = create(); // then make the new one
+					tmp = 0;
+				}
+
+				if (row.items.length > 0) tmp += self.options.margins;
+				tmp += item.width;
+				row.width += item.width;
+				row.items.push(item);
+			}
+			if (rows.length > 1) top += self.options.margins;
+			self.lastRow(row, top, maxWidth, maxHeight);
 			return rows;
 		},
 		onWindowResize: function(e){
@@ -7210,7 +7615,8 @@
 		maxRowHeight: "200%",
 		margins: 0,
 		lastRow: "center",
-		justifyThreshold: 0.5
+		justifyThreshold: 0.5,
+		refreshInterval: 250
 	};
 
 })(
@@ -7241,13 +7647,13 @@
 			self.justified.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			self.justified.layout( true );
+			if (self.initialized) self.justified.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
-			self.justified.layout( true );
+			if (self.initialized) self.justified.layout( true );
 		},
 		onDetachedItems: function(event, self, items){
-			self.justified.layout( true );
+			if (self.initialized) self.justified.layout( true );
 		}
 	});
 
@@ -7496,13 +7902,13 @@
 			self.portfolio.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			self.portfolio.layout( true );
+			if (self.initialized) self.portfolio.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
-			self.portfolio.layout( true );
+			if (self.initialized) self.portfolio.layout( true );
 		},
 		onDetachedItems: function(event, self, items){
-			self.portfolio.layout( true );
+			if (self.initialized) self.portfolio.layout( true );
 		}
 	});
 
@@ -7517,42 +7923,6 @@
 		FooGallery,
 		FooGallery.utils
 );
-// (function(_){
-//
-// 	// This file contains the initialization code for the Image Viewer gallery. It makes use of the FooGallery.Loader
-// 	// allowing for optimized loading of images within the gallery.
-//
-// 	// Use FooGallery.ready to wait for the DOM to be ready
-// 	_.ready(function($){
-//
-// 		// Find each Image Viewer gallery in the current page
-// 		$(".fg-image-viewer").each(function(){
-// 			var $gallery = $(this),
-// 				// Get the options for the plugin
-// 				options = $gallery.data("loader-options"),
-// 				// Get the options for the loader
-// 				loader = $.extend(true, $gallery.data("loader-options"), {
-// 					oninit: function(){
-// 						// the first time the gallery is initialized it triggers a window resize event
-// 						$(window).trigger("resize");
-// 					},
-// 					onloaded: function(image){
-// 						// once the actual image is loaded we no longer need the inline css used to prevent layout jumps so remove it
-// 						$(image).fgRemoveSize();
-// 					}
-// 				});
-//
-// 			// Find all images that have a width and height attribute set and calculate the size to set as a temporary inline style.
-// 			// This calculated size is used to prevent layout jumps.
-// 			// Once that is done initialize the plugin and the loader.
-// 			$gallery.fgAddSize(true).fgImageViewer( options ).fgLoader( loader );
-// 		});
-//
-// 	});
-//
-// })(
-// 	FooGallery
-// );
 (function ($, _, _utils, _obj) {
 
 	_.ImageViewerTemplate = _.Template.extend({
@@ -7629,6 +7999,10 @@
 									.append($("<span/>", {text: self.il8n.next}))
 					)
 			);
+		},
+		destroyChildren: function(){
+			var self = this;
+			self.$el.find(self.sel.inner).remove();
 		},
 		onPreInit: function(event, self){
 			self.$inner = self.$el.find(self.sel.innerContainer);
@@ -7802,6 +8176,10 @@
 			var self = this;
 			return self.$hidden = $("<div/>", {"class": self.cls.hidden});
 		},
+		destroyChildren: function(){
+			var self = this;
+			self.$el.find(self.sel.hidden).remove();
+		},
 		onPreInit: function(event, self){
 			self.$hidden = self.$el.find(self.sel.hidden);
 		},
@@ -7834,7 +8212,11 @@
 
 	_.triggerPostLoad = function (e, tmpl, current, prev, isFilter) {
 		if (e.type === "first-load" || (tmpl.initialized && ((e.type === "after-page-change" && !isFilter) || e.type === "after-filter-change"))) {
-			$("body").trigger("post-load");
+			try {
+				$("body").trigger("post-load");
+			} catch(err) {
+				console.error(err);
+			}
 		}
 	};
 

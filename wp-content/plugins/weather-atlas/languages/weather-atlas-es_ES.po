@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weather Atlas Widget\n"
 "POT-Creation-Date: 2017-09-04 14:20+0200\n"
-"PO-Revision-Date: 2017-09-04 14:36+0200\n"
+"PO-Revision-Date: 2018-07-17 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: Yu Media Group d.o.o.\n"
 "Language: es_ES\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:203
 msgid "Location"
-msgstr ""
+msgstr "Ubicación"
 
 #: includes/class-weather-atlas.php:208
 msgid "City"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:228
 msgid "required"
-msgstr ""
+msgstr "solicitado"
 
 #: includes/class-weather-atlas.php:233 includes/class-weather-atlas.php:240
 #: includes/class-weather-atlas.php:247 includes/class-weather-atlas.php:254
@@ -83,7 +83,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:331
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
 #: includes/class-weather-atlas.php:336
 msgid "Units"
@@ -91,15 +91,15 @@ msgstr "Unidades"
 
 #: includes/class-weather-atlas.php:346
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: includes/class-weather-atlas.php:355
 msgid "Appearance"
-msgstr ""
+msgstr "Apariencia"
 
 #: includes/class-weather-atlas.php:360
 msgid "Layout"
-msgstr ""
+msgstr "Diseño"
 
 #: includes/class-weather-atlas.php:367
 msgid "vertical layout - recommended for placement in sidebar"
@@ -111,7 +111,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:375
 msgid "Font size"
-msgstr ""
+msgstr "Tamaño de fuente"
 
 #: includes/class-weather-atlas.php:376 includes/class-weather-atlas.php:389
 #: includes/class-weather-atlas.php:404 includes/class-weather-atlas.php:422
@@ -130,7 +130,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:388
 msgid "Background Color"
-msgstr ""
+msgstr "Color de fondo"
 
 #: includes/class-weather-atlas.php:395
 msgid "leave blank - widget's background adapt to current temperature"
@@ -142,7 +142,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:403
 msgid "Text Color"
-msgstr ""
+msgstr "Color de Texto"
 
 #: includes/class-weather-atlas.php:409
 msgid "leave blank - widget's font color adapt to current temperature"
@@ -158,7 +158,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:421
 msgid "Heading"
-msgstr ""
+msgstr "Encabezado"
 
 #: includes/class-weather-atlas.php:426
 msgid "leave blank - no heading above widget"
@@ -219,7 +219,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:501
 msgid "Daily forecast"
-msgstr ""
+msgstr "Pronóstico diario"
 
 #: includes/class-weather-atlas.php:509
 msgid "hide daily forecast"
@@ -244,11 +244,11 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:543
 msgid "checked"
-msgstr ""
+msgstr "comprobado"
 
 #: includes/class-weather-atlas.php:545
 msgid "recommended"
-msgstr ""
+msgstr "recomendado"
 
 #: includes/class-weather-atlas.php:547
 msgid ""
@@ -258,7 +258,7 @@ msgstr ""
 
 #: includes/class-weather-atlas.php:549
 msgid "unchecked"
-msgstr ""
+msgstr "desmarcar"
 
 #: includes/class-weather-atlas.php:551
 msgid "shows \"<i>Weather from Weather Atlas</i>\" at the bottom of the widget"
@@ -266,7 +266,7 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Weather Atlas Widget"
-msgstr ""
+msgstr "Weather Atlas Widget"
 
 #. Plugin URI of the plugin/theme
 msgid "https://wordpress.org/plugins/weather-atlas/"

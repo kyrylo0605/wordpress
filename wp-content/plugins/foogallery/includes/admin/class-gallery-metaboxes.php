@@ -165,11 +165,19 @@ if ( ! class_exists( 'FooGallery_Admin_Gallery_MetaBoxes' ) ) {
 				$attachments = apply_filters( 'foogallery_save_gallery_attachments', explode( ',', $_POST[FOOGALLERY_META_ATTACHMENTS] ), $post_id, $_POST );
 				update_post_meta( $post_id, FOOGALLERY_META_ATTACHMENTS, $attachments );
 
-				$gallery_template = $_POST[FOOGALLERY_META_TEMPLATE];
-				update_post_meta( $post_id, FOOGALLERY_META_TEMPLATE, $gallery_template );
+				if ( isset( $_POST[FOOGALLERY_META_TEMPLATE] ) ) {
+					$gallery_template = $_POST[FOOGALLERY_META_TEMPLATE];
+					update_post_meta( $post_id, FOOGALLERY_META_TEMPLATE, $gallery_template );
+				} else {
+					$gallery_template = foogallery_default_gallery_template();
+				}
 
-				$settings = isset($_POST[FOOGALLERY_META_SETTINGS]) ?
-					$_POST[FOOGALLERY_META_SETTINGS] : array();
+				if ( isset( $_POST[FOOGALLERY_META_SETTINGS] ) ) {
+					$settings = isset( $_POST[FOOGALLERY_META_SETTINGS] ) ?
+						$_POST[FOOGALLERY_META_SETTINGS] : array();
+				} else {
+					$settings = array();
+				}
 
 				$settings = apply_filters( 'foogallery_save_gallery_settings', $settings, $post_id, $_POST );
 				$settings = apply_filters( 'foogallery_save_gallery_settings-'. $gallery_template, $settings, $post_id, $_POST );
@@ -311,15 +319,16 @@ if ( ! class_exists( 'FooGallery_Admin_Gallery_MetaBoxes' ) ) {
 			if ( $attachment_post != false ) {
 				$attachment_id = $attachment_post->ID;
 				$attachment = wp_get_attachment_image_src( $attachment_id );
+				$extra_class = apply_filters( 'foogallery_admin_render_gallery_item_extra_classes' , '', $attachment_post );
 			} else {
-				$attachment_id = '';
-				$attachment = '';
+				$attachment_id = $attachment = $extra_class = '';
 			}
+
 			$data_attribute = empty($attachment_id) ? '' : "data-attachment-id=\"{$attachment_id}\"";
 			$img_tag        = empty($attachment) ? '<img width="150" height="150" />' : "<img width=\"150\" height=\"150\" src=\"{$attachment[0]}\" />";
 			?>
 			<li class="attachment details" <?php echo $data_attribute; ?>>
-				<div class="attachment-preview type-image">
+				<div class="attachment-preview type-image <?php echo $extra_class; ?>">
 					<div class="thumbnail">
 						<div class="centered">
 							<?php echo $img_tag; ?>
@@ -339,6 +348,8 @@ if ( ! class_exists( 'FooGallery_Admin_Gallery_MetaBoxes' ) ) {
 
 		public function render_gallery_settings_metabox( $post ) {
             $gallery = $this->get_gallery( $post );
+
+			$gallery = apply_filters( 'foogallery_render_gallery_settings_metabox', $gallery );
 
             $settings = new FooGallery_Admin_Gallery_MetaBox_Settings_Helper( $gallery );
 

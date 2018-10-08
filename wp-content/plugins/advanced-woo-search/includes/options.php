@@ -6,6 +6,23 @@
 $options = array();
 
 $options['general'][] = array(
+    "name" => __( "Main Settings", "aws" ),
+    "type" => "heading"
+);
+
+$options['general'][] = array(
+    "name"  => __( "Seamless integration", "aws" ),
+    "desc"  => __( "Replace all the standard search forms on your website ( may not work with some themes ).", "aws" ),
+    "id"    => "seamless",
+    "value" => 'false',
+    "type"  => "radio",
+    'choices' => array(
+        'true'  => __( 'On', 'aws' ),
+        'false'  => __( 'Off', 'aws' ),
+    )
+);
+
+$options['general'][] = array(
     "name"  => __( "Cache results", "aws" ),
     "desc"  => __( "Turn off if you have old data in the search results after content of products was changed.<br><strong>CAUTION:</strong> can dramatically increase search speed", "aws" ),
     "id"    => "cache",
@@ -19,7 +36,7 @@ $options['general'][] = array(
 
 $options['general'][] = array(
     "name"  => __( "Search in", "aws" ),
-    "desc"  => __( "Search source: Drag&drop sources order to change priority, or exclude by moving to deactivated sources.", "aws" ),
+    "desc"  => __( "Search source: Drag&drop sources to activate or deactivate them.", "aws" ),
     "id"    => "search_in",
     "value" => "title,content,sku,excerpt",
     "choices" => array( "title", "content", "sku", "excerpt", "category", "tag" ),
@@ -68,6 +85,14 @@ $options['form'][] = array(
 );
 
 $options['form'][] = array(
+    "name"  => __( "Text for show more button", "aws" ),
+    "desc"  => __( "Text for link to search results page at the bottom of search results block.", "aws" ),
+    "id"    => "show_more_text",
+    "value" => __( "View all results", "aws" ),
+    "type"  => "text"
+);
+
+$options['form'][] = array(
     "name"  => __( "Nothing found field", "aws" ),
     "desc"  => __( "Text when there is no search results. HTML tags is allowed.", "aws" ),
     "id"    => "not_found_text",
@@ -92,6 +117,30 @@ $options['form'][] = array(
     'choices' => array(
         'true'  => __( 'On', 'aws' ),
         'false' => __( 'Off', 'aws' ),
+    )
+);
+
+$options['form'][] = array(
+    "name"  => __( "Show clear button", "aws" ),
+    "desc"  => __( "Show 'Clear search string' button for desktop devices ( for mobile it is always visible ).", "aws" ),
+    "id"    => "show_clear",
+    "value" => 'true',
+    "type"  => "radio",
+    'choices' => array(
+        'true'  => __( 'On', 'aws' ),
+        'false' => __( 'Off', 'aws' ),
+    )
+);
+
+$options['form'][] = array(
+    "name"  => __( "Show 'View All Results'", "aws" ),
+    "desc"  => __( "Show link to search results page at the bottom of search results block.", "aws" ),
+    "id"    => "show_more",
+    "value" => 'false',
+    "type"  => "radio",
+    'choices' => array(
+        'true'  => __( 'On', 'aws' ),
+        'false' => __( 'Off', 'aws' )
     )
 );
 

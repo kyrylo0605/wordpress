@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: woocommerce, paypal, express checkout, payments pro, angelleye, payflow, dodirectpayment, braintree, payments advanced, rest, credit cards, credit card payments, payments, payment
 Requires at least: 3.8
 Tested up to: 4.9.8
-Stable tag: 1.4.16
+Stable tag: 1.4.18
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -126,6 +126,15 @@ Automatic updates should work great for you.  As always, though, we recommend ba
 * If you are unsure, you may need to [contact PayPal](https://www.paypal.com/us/webapps/helpcenter/helphub/home/) and request the information.  Just let them know you need to enable a Payments Pro plugin on your website, but you're unsure whether you should use Website Payments Pro 3.0(DoDirectPayment) or Payments Pro 2.0 (PayFlow).  They can confirm which one you need to use.
 
 == Changelog ==
+
+= 1.4.18 - 10.08.2018 =
+* [PFW-249](https://github.com/angelleye/paypal-woocommerce/pull/1214) - Feature - Adds ability to set values for submit buttons on Checkout and Order Review pages.
+* [PFW-262](https://github.com/angelleye/paypal-woocommerce/pull/1215) - Tweak - Adds PayPal Credit option to buyers/sellers in the UK (Previously only available in US).
+* [PFW-267](https://github.com/angelleye/paypal-woocommerce/pull/1216) - Tweak - Updates languages files.
+
+= 1.4.17 - 10.04.2018 =
+* [PFW-256](https://github.com/angelleye/paypal-woocommerce/pull/1212) - Fix - Resolves a PHP error related to order emails.
+* [PFW-264](https://github.com/angelleye/paypal-woocommerce/pull/1211) - Fix - Better error handling for scenarios where Woo Subscriptions is being used with Express Checkout, but the PayPal account does not have Billing Agreements enabled.
 
 = 1.4.16 - 09.26.2018 =
 * [PFW-252](https://github.com/angelleye/paypal-woocommerce/pull/1204) - Feature - Adds SOFTDESCRIPTOR to direct credit card processing requests.
@@ -903,5 +912,5 @@ Automatic updates should work great for you.  As always, though, we recommend ba
 
 == Upgrade Notice ==
 
-= 1.4.16 =
+= 1.4.18 =
 After updating, make sure to clear any caching / CDN plugins you may be using.  Also, go into the plugin's gateway settings, review everything, and click Save even if you do not make any changes.

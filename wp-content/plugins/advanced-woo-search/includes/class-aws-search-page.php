@@ -64,20 +64,6 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         }
 
         /**
-         * Check if we should override default search query
-         *
-         * @param string $query
-         * @return bool
-         */
-        private function aws_searchpage_enabled( $query ) {
-            $enabled = true;
-            if ( ( isset( $query->query_vars['s'] ) && ! isset( $_GET['type_aws'] ) ) || ! isset( $query->query_vars['s'] ) || ! $query->query_vars['s'] ) {
-                $enabled = false;
-            }
-            return apply_filters( 'aws_searchpage_enabled', $enabled, $query );
-        }
-
-        /**
         * Filter query string used for get_posts(). Query for posts and save for later.
         * Return a query that will return nothing.
         *
@@ -235,6 +221,25 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             }
 
             return '';
+        }
+
+        /**
+         * Check if we should override default search query
+         *
+         * @param string $query
+         * @return bool
+         */
+        private function aws_searchpage_enabled( $query ) {
+            $enabled = true;
+            if ( ( isset( $query->query_vars['s'] ) && ! isset( $_GET['type_aws'] ) ) ||
+                ! isset( $query->query_vars['s'] ) ||
+                ! $query->is_search() ||
+                ( $query->get( 'post_type' ) && is_string( $query->get( 'post_type' ) ) && $query->get( 'post_type' ) !== 'product' )
+            ) {
+                $enabled = false;
+            }
+
+            return apply_filters( 'aws_searchpage_enabled', $enabled, $query );
         }
 
     }

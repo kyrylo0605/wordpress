@@ -18,7 +18,7 @@ if ( !class_exists( 'YIT_Plugin_SubPanel' ) ) {
      *
      * Setting Page to Manage Plugins
      *
-     * @class YIT_Plugin_Panel
+     * @class      YIT_Plugin_Panel
      * @package    Yithemes
      * @since      1.0
      * @author     Your Inspiration Themes
@@ -96,13 +96,14 @@ if ( !class_exists( 'YIT_Plugin_SubPanel' ) ) {
                 $logo = $admin_logo;
             }
 
-            if ( !isset( $admin_page_hooks[ 'yit_plugin_panel' ] ) ) {
+            if ( !isset( $admin_page_hooks[ 'yith_plugin_panel' ] ) ) {
                 $position = apply_filters( 'yit_plugins_menu_item_position', '62.32' );
-                add_menu_page( 'yit_plugin_panel', 'YITH Plugins', 'nosuchcapability', 'yit_plugin_panel', null, $logo, $position );
+                add_menu_page( 'yith_plugin_panel', 'YITH', 'nosuchcapability', 'yith_plugin_panel', null, $logo, $position );
+                $admin_page_hooks[ 'yith_plugin_panel' ] = 'yith-plugins'; // prevent issues for backward compatibility
             }
 
-            add_submenu_page( 'yit_plugin_panel', $this->settings[ 'label' ], $this->settings[ 'label' ], 'manage_options', $this->settings[ 'page' ], array( $this, 'yit_panel' ) );
-            remove_submenu_page( 'yit_plugin_panel', 'yit_plugin_panel' );
+            add_submenu_page( 'yith_plugin_panel', $this->settings[ 'label' ], $this->settings[ 'label' ], 'manage_options', $this->settings[ 'page' ], array( $this, 'yit_panel' ) );
+            remove_submenu_page( 'yith_plugin_panel', 'yith_plugin_panel' );
 
         }
 
@@ -139,7 +140,6 @@ if ( !class_exists( 'YIT_Plugin_SubPanel' ) ) {
                 return;
             }
             ?>
-            <?php $this->print_video_box(); ?>
             <?php
             $panel_content_class = apply_filters( 'yit_admin_panel_content_class', 'yit-admin-panel-content-wrap' );
             ?>

@@ -171,15 +171,14 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
         public function admin_enqueue_scripts() {
-
+            $suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
             /**
              * Support to YIT Framework < 2.0
              */
-            $filename    = function_exists( 'yit_load_js_file' ) ? yit_load_js_file( 'yit-licence.js' ) : 'yit-licence.js';
             $script_path = defined( 'YIT_CORE_PLUGIN_URL' ) ? YIT_CORE_PLUGIN_URL : get_template_directory_uri() . '/core/plugin-fw';
             $style_path  = defined( 'YIT_CORE_PLUGIN_URL' ) ? YIT_CORE_PLUGIN_URL : get_template_directory_uri() . '/core/plugin-fw';
 
-            wp_register_script( 'yit-licence', $script_path . '/licence/assets/js/' . $filename, array( 'jquery' ), '1.0.0', true );
+            wp_register_script( 'yit-licence', $script_path . '/licence/assets/js/yit-licence' . $suffix . '.js', array( 'jquery' ), '1.0.0', true );
             wp_register_style( 'yit-theme-licence', $style_path . '/licence/assets/css/yit-licence.css' );
 
             /* Localize Scripts */
@@ -198,8 +197,8 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                                              )
             );
 
-            /* Enqueue Scripts only in Licence Activation page */
-            if ( strpos( get_current_screen()->id, 'yith_plugins_activation' ) !== false ) {
+            /* Enqueue Scripts only in Licence Activation page of plugins and themes */
+            if ( strpos( get_current_screen()->id, 'yith_plugins_activation' ) !== false || strpos( get_current_screen()->id, 'yit_panel_license' ) !== false ) {
                 wp_enqueue_script( 'yit-licence' );
                 wp_enqueue_style( 'yit-theme-licence' );
             }
@@ -211,7 +210,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          * Send a request to API server to activate plugins
          *
          * @return void
-         * @use wp_send_json
+         * @use    wp_send_json
          *
          * @since  1.0
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
@@ -265,6 +264,14 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                 $body[ 'template' ] = $this->show_activation_panel( $this->get_response_code_message( 200 ) );
             }
 
+            if ( !empty( $_REQUEST[ 'debug' ] ) ) {
+                $body            = is_array( $body ) ? $body : array();
+                $body[ 'debug' ] = array( 'response' => $response );
+                if ( 'print_r' === $_REQUEST[ 'debug' ] ) {
+                    $body[ 'debug' ] = print_r( $body[ 'debug' ], true );
+                }
+            }
+
             wp_send_json( $body );
         }
 
@@ -274,7 +281,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          * Send a request to API server to activate plugins
          *
          * @return void
-         * @use wp_send_json
+         * @use    wp_send_json
          *
          * @since  1.0
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
@@ -446,9 +453,9 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          * Check for licence update
          *
          * @return void
-         * @since 2.5
+         * @since  2.5
          *
-         * @use YIT_Theme_Licence->check()
+         * @use    YIT_Theme_Licence->check()
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
         public function check_all() {
@@ -463,7 +470,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          * Send a request to API server to check activate plugins and update the informations
          *
          * @return void
-         * @use YIT_Theme_Licence->check()
+         * @use    YIT_Theme_Licence->check()
          *
          * @since  1.0
          * @author Andrea Grillo <andrea.grillo@yithemes.com>

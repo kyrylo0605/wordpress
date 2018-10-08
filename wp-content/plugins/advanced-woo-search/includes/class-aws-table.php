@@ -30,6 +30,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             add_action( 'create_term', array( &$this, 'term_changed' ), 10, 3 );
             add_action( 'delete_term', array( &$this, 'term_changed' ), 10, 3 );
             add_action( 'edit_term', array( &$this, 'term_changed' ), 10, 3 );
+
+            add_action( 'delete_term', array( $this, 'term_deleted' ), 10, 4 );
            
             if ( defined('WOOCOMMERCE_VERSION') ) {              
                 if ( version_compare( WOOCOMMERCE_VERSION, '3.0', ">=" ) ) {
@@ -186,17 +188,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
         }
 
         /*
-         * Check if index table exist
-         */
-        private function is_table_not_exist() {
-
-            global $wpdb;
-
-            return ( $wpdb->get_var( "SHOW TABLES LIKE '{$this->table_name}'" ) != $this->table_name );
-
-        }
-
-        /*
          * Create index table
          */
         private function create_table() {
@@ -208,10 +199,11 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             $sql = "CREATE TABLE {$this->table_name} (
                       id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
                       term VARCHAR(50) NOT NULL DEFAULT 0,
-                      term_source VARCHAR(20) NOT NULL DEFAULT 0,
+                      term_source VARCHAR(50) NOT NULL DEFAULT 0,
                       type VARCHAR(50) NOT NULL DEFAULT 0,
                       count BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
                       in_stock INT(11) NOT NULL DEFAULT 0,
+                      term_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
                       visibility VARCHAR(20) NOT NULL DEFAULT 0,
                       lang VARCHAR(20) NOT NULL DEFAULT 0
                 ) $charset_collate;";
@@ -263,12 +255,11 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 $sku = $product->get_sku();
 
                 $title = apply_filters( 'the_title', get_the_title( $data['id'] ), $data['id'] );
+
                 $content = apply_filters( 'the_content', get_post_field( 'post_content', $data['id'] ), $data['id'] );
                 $excerpt = get_post_field( 'post_excerpt', $data['id'] );
-
-
-                $cat_names = $this->get_terms_names_list( $data['id'], 'product_cat' );
-                $tag_names = $this->get_terms_names_list( $data['id'], 'product_tag' );
+                $cat_array = $this->get_terms_array( $data['id'], 'product_cat' );
+                $tag_array = $this->get_terms_array( $data['id'], 'product_tag' );
 
 
                 // Get all child products if exists
@@ -364,8 +355,19 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 $data['terms']['content']  = $this->extract_terms( $content );
                 $data['terms']['excerpt']  = $this->extract_terms( $excerpt );
                 $data['terms']['sku']      = $this->extract_terms( $sku );
-                $data['terms']['category'] = $this->extract_terms( $cat_names );
-                $data['terms']['tag']      = $this->extract_terms( $tag_names );
+
+
+                if ( $cat_array && ! empty( $cat_array ) ) {
+                    foreach( $cat_array as $cat_source => $cat_terms ) {
+                        $data['terms'][$cat_source] = $this->extract_terms( $cat_terms );
+                    }
+                }
+
+                if ( $tag_array && ! empty( $tag_array ) ) {
+                    foreach( $tag_array as $tag_source => $tag_terms ) {
+                        $data['terms'][$tag_source] = $this->extract_terms( $tag_terms );
+                    }
+                }
 
 
                 // Get translations if exists ( WPML )
@@ -401,7 +403,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                     $translated_post_data['terms']['excerpt'] = $this->extract_terms( $translated_excerpt );
                                     $translated_post_data['terms']['sku'] = $this->extract_terms( $sku );
 
-
+                                    
                                     //Insert translated product data into table
                                     $this->insert_into_table( $translated_post_data );
 
@@ -483,6 +485,15 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             foreach( $data['terms'] as $source => $all_terms ) {
 
+                $term_id = 0;
+
+                if ( preg_match( '/\%(\d+)\%/', $source, $matches ) ) {
+                    if ( isset( $matches[1] ) ) {
+                        $term_id = $matches[1];
+                        $source = preg_replace( '/\%(\d+)\%/', '', $source );
+                    }
+                }
+
                 foreach ( $all_terms as $term => $count ) {
 
                     if ( ! $term ) {
@@ -490,8 +501,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     }
 
                     $value = $wpdb->prepare(
-                        "(%d, %s, %s, %s, %d, %d, %s, %s)",
-                        $data['id'], $term, $source, 'product', $count, $data['in_stock'], $data['visibility'], $data['lang']
+                        "(%d, %s, %s, %s, %d, %d, %d, %s, %s)",
+                        $data['id'], $term, $source, 'product', $count, $data['in_stock'], $term_id, $data['visibility'], $data['lang']
                     );
 
                     $values[] = $value;
@@ -506,7 +517,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 $values = implode( ', ', $values );
 
                 $query  = "INSERT IGNORE INTO {$this->table_name}
-				              (`id`, `term`, `term_source`, `type`, `count`, `in_stock`, `visibility`, `lang`)
+				              (`id`, `term`, `term_source`, `type`, `count`, `in_stock`, `term_id`, `visibility`, `lang`)
 				              VALUES $values
                     ";
 
@@ -523,6 +534,33 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             if ( $taxonomy === 'product_cat' || $taxonomy === 'product_tag' ) {
                 do_action( 'aws_cache_clear' );
+            }
+
+        }
+
+        /*
+         * Fires when product term is deleted
+         */
+        public function term_deleted( $term_id, $tt_id, $taxonomy, $deleted_term ) {
+
+            $source_name = AWS_Helpers::get_source_name( $taxonomy );
+
+            if ( $source_name ) {
+
+                if ( AWS_Helpers::is_index_table_has_terms() == 'has_terms' ) {
+
+                    global $wpdb;
+
+                    $sql = "DELETE FROM {$this->table_name}
+                            WHERE term_source = '{$source_name}'
+                            AND term_id = {$term_id}";
+
+                    $wpdb->query( $sql );
+
+                    do_action( 'aws_cache_clear' );
+
+                }
+
             }
 
         }
@@ -579,7 +617,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             global $wpdb;
 
-            if ( $this->is_table_not_exist() ) {
+            if ( AWS_Helpers::is_table_not_exist() ) {
                 $this->create_table();
             }
 
@@ -623,13 +661,10 @@ if ( ! class_exists( 'AWS_Table' ) ) :
          */
         private function extract_terms( $str ) {
 
-            $str = AWS_Helpers::html2txt( $str );
-
             // Avoid single A-Z.
             //$str = preg_replace( '/\b\w{1}\b/i', " ", $str );
-            
-            $special_cars = AWS_Helpers::get_special_chars();
-            $str = str_replace( $special_cars, "", $str );
+
+            $str = AWS_Helpers::normalize_string( $str );
 
             $str = str_replace( array(
                 "Ă‹â€ˇ",
@@ -656,15 +691,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             $str = str_replace( 'Ăź', 'ss', $str );
 
-            //$str = preg_replace( '/[[:punct:]]+/u', ' ', $str );
-            $str = preg_replace( '/[[:space:]]+/', ' ', $str );
-
-            // Most objects except unicode characters
-            $str = preg_replace( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u', '', $str );
-
-            // Line feeds, carriage returns, tabs
-            $str = preg_replace( '/[\x00-\x1F\x80-\x9F]/u', '', $str );
-
             if ( function_exists( 'mb_strtolower' ) ) {
                 $str = mb_strtolower( $str );
             } else {
@@ -673,39 +699,30 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             $str = preg_replace( '/^[a-z]$/i', "", $str );
 
-            $str = trim( preg_replace( '/\s+/', ' ', $str ) );
+            $str = preg_replace( '/\s+/', ' ', $str );
+
+            /**
+             * Filters extracted string
+             *
+             * @since 1.44
+             *
+             * @param string $str String of product content
+             */
+            $str = apply_filters( 'aws_extracted_string', $str );
 
             $str_array = array_count_values( explode( ' ', $str ) );
             $str_array = AWS_Helpers::filter_stopwords( $str_array );
 
+            /**
+             * Filters extracted terms before adding to index table
+             *
+             * @since 1.44
+             *
+             * @param string $str_array Array of terms
+             */
+            $str_array = apply_filters( 'aws_extracted_terms', $str_array );
+
             return $str_array;
-
-        }
-
-        /*
-         * Get string with current product terms ids
-         *
-         * @return string List of terms ids
-         */
-        private function get_terms_list( $id, $taxonomy ) {
-
-            $terms = get_the_terms( $id, $taxonomy );
-
-            if ( is_wp_error( $terms ) ) {
-                return '';
-            }
-
-            if ( empty( $terms ) ) {
-                return '';
-            }
-
-            $cats_array_temp = array();
-
-            foreach ( $terms as $term ) {
-                $cats_array_temp[] = $term->term_id;
-            }
-
-            return implode( ', ', $cats_array_temp );
 
         }
 
@@ -714,9 +731,9 @@ if ( ! class_exists( 'AWS_Table' ) ) :
          *
          * @return string List of terms names
          */
-        private function get_terms_names_list( $id, $taxonomy ) {
+        private function get_terms_array( $id, $taxonomy ) {
 
-            $terms = get_the_terms( $id, $taxonomy );
+            $terms = wp_get_object_terms( $id, $taxonomy );
 
             if ( is_wp_error( $terms ) ) {
                 return '';
@@ -726,13 +743,15 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 return '';
             }
 
-            $cats_array_temp = array();
+            $tax_array_temp = array();
+            $source_name = AWS_Helpers::get_source_name( $taxonomy );
 
             foreach ( $terms as $term ) {
-                $cats_array_temp[] = $term->name;
+                $source = $source_name . '%' . $term->term_id . '%';
+                $tax_array_temp[$source] = $term->name;
             }
 
-            return implode( ', ', $cats_array_temp );
+            return $tax_array_temp;
 
         }
 

@@ -110,8 +110,9 @@ if (isset($_POST['grw_active']) && isset($_GET['grw_active'])) {
 
 if (isset($_POST['grw_setting'])) {
     update_option('grw_language', $_POST['grw_language']);
+    update_option('grw_google_api_key', $_POST['grw_google_api_key']);
 
-    $grw_google_api_key = $_POST['grw_google_api_key'];
+    /*$grw_google_api_key = $_POST['grw_google_api_key'];
     if (strlen($grw_google_api_key) > 0) {
         $test_url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJ3TH9CwFZwokRIvNO1SP0WLg&key=" . $grw_google_api_key;
         $test_response = rplg_urlopen($test_url);
@@ -121,7 +122,7 @@ if (isset($_POST['grw_setting'])) {
             $grw_google_api_key_error = $test_response_json->error_message;
         }
         update_option('grw_google_api_key', $grw_google_api_key);
-    }
+    }*/
     $grw_setting_page = true;
 } else {
     $grw_setting_page = false;
@@ -248,7 +249,7 @@ $grw_language = get_option('grw_language');
             <form method="POST" enctype="multipart/form-data">
                 <?php wp_nonce_field('grw-wpnonce_grw_settings', 'grw-form_nonce_grw_settings'); ?>
                 <div class="form-group">
-                    <label class="control-label" for="grw_google_api_key"><?php echo grw_i('Google API Places Key'); ?></label>
+                    <label class="control-label" for="grw_google_api_key"><?php echo grw_i('Google Places API Key'); ?></label>
                     <input class="form-control" type="text" id="grw_google_api_key" name="grw_google_api_key" value="<?php echo esc_attr($grw_google_api_key); ?>">
                     <?php if (isset($grw_google_api_key_error)) {?>
                     <div class="alert alert-dismissible alert-danger">
@@ -257,10 +258,10 @@ $grw_language = get_option('grw_language');
                     </div>
                     <?php } ?>
                     <small>
-                        Instruction to get Google Places API server key:<br>
-                        1. Go to <a href="https://developers.google.com/places/web-service/get-api-key" target="_blank">Google Places API</a><br>
-                        2. Click by 'GET A KEY' button<br>
-                        3. Agree term and click by 'CREATE AND ENABLE API'<br>
+                        <b>How to get Google Places API key</b>:<br>
+                        1. Go to <a href="https://developers.google.com/places/web-service/get-api-key#get_an_api_key" target="_blank">Google Places API Key</a><br>
+                        2. Click by '<b>GET A KEY</b>' button<br>
+                        3. Fill the name, agree term and click by '<b>NEXT</b>' button<br>
                         4. Copy key to plugin field<br>
                         <iframe src="//www.youtube.com/embed/uW-PTKeZAXs?rel=0" allowfullscreen=""></iframe>
                     </small>
@@ -338,7 +339,7 @@ $grw_language = get_option('grw_language');
             <form method="POST" action="?page=grw&amp;grw_active=<?php echo (string)((int)($grw_enabled != true)); ?>">
                 <?php wp_nonce_field('grw-wpnonce_grw_active', 'grw-form_nonce_grw_active'); ?>
                 <span class="status">
-                    <?php echo grw_i('Google Reviews Widget are currently '). '<b>' .($grw_enabled ? grw_i('enable') : grw_i('disable')). '</b>'; ?>
+                    <?php echo grw_i('Google Reviews Widget is currently '). '<b>' .($grw_enabled ? grw_i('enabled') : grw_i('disabled')). '</b>'; ?>
                 </span>
                 <input type="submit" name="grw_active" class="button" value="<?php echo $grw_enabled ? grw_i('Disable') : grw_i('Enable'); ?>" />
             </form>

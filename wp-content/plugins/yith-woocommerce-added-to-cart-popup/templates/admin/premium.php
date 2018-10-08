@@ -154,24 +154,29 @@
     background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/01-bg.png) no-repeat #fff; background-position: 85% 75%
 }
 .section.two{
-    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/02-bg.png) no-repeat #fff; background-position: 85% 75%
+    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/02-bg.png) no-repeat #f1f1f1; background-position: 15% 75%
 }
 .section.three{
     background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/03-bg.png) no-repeat #fff; background-position: 85% 75%
 }
 .section.four{
-    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/04-bg.png) no-repeat #fff; background-position: 85% 75%
+    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/04-bg.png) no-repeat #f1f1f1; background-position: 15% 75%
 }
 .section.five{
     background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/05-bg.png) no-repeat #fff; background-position: 85% 75%
 }
 .section.six{
-    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/06-bg.png) no-repeat #fff; background-position: 85% 75%
+    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/06-bg.png) no-repeat #f1f1f1; background-position: 15% 75%
 }
 .section.seven{
     background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/07-bg.png) no-repeat #fff; background-position: 85% 75%
 }
-
+.section.eight{
+    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/08-bg.png) no-repeat #f1f1f1; background-position: 15% 75%
+}
+.section.nine{
+    background: url(<?php echo YITH_WACP_ASSETS_URL ?>/images/09-bg.png) no-repeat #fff; background-position: 85% 75%
+}
 
 @media (max-width: 768px) {
     .section{margin: 0}
@@ -361,6 +366,22 @@
             </div>
             <div class="col-1">
                 <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/08.png" alt="Add to cart" />
+            </div>
+        </div>
+    </div>
+    <div class="nine section section-even clear">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/09.jpg" alt="Product exclusion" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WACP_ASSETS_URL?>/images/09-icon.png" alt="icon 09" />
+                    <h2><?php _e('Add a floating cart icon to your shop.','yith-woocommerce-added-to-cart-popup');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('This way, your users can find the cart icon and check what\'s in the cart at any time. Set up the position of the cart icon as it should appear on the screen and it will always appear there, even if you scroll the page. This way, your users will be able to see the counter of products added to the cart and what\'s in it at any time!','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
+                </p>
             </div>
         </div>
     </div>

@@ -25,6 +25,7 @@ class NF_Admin_AddFormModal {
         if( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ){
             return $context;
         }
+        
         $html = '<style>
             span.nf-insert-form {
                 color:#888;
@@ -36,6 +37,10 @@ class NF_Admin_AddFormModal {
                 height: 18px;
                 vertical-align: text-top;
                 margin: 0 2px 0 0;
+            }
+
+            .ui-autocomplete li {
+                white-space: normal;
             }
         </style>';
         $html .= '<a href="#" class="button nf-insert-form"><span class="nf-insert-form dashicons dashicons-feedback"></span> ' . __( 'Add Form', 'ninja-forms' ) . '</a>';
@@ -50,14 +55,16 @@ class NF_Admin_AddFormModal {
          <div id="nf-insert-form-modal" style="display:none;">
             <p>
                 <?php
-                $all_forms = Ninja_Forms()->form()->get_forms();
-                $first_option = __( 'Select a form or type to search', 'ninja-forms' );
+                global $wpdb;
+                $all_forms = $wpdb->get_results( 'SELECT id, title FROM `' . $wpdb->prefix
+                    . 'nf3_forms` ORDER BY title' );
+//                $all_forms = Ninja_Forms()->form()->get_forms();
+//                $first_option = __( 'Select a form or type to search', 'ninja-forms' );
                 echo '<select class="nf-forms-combobox" id="nf-form-select" data-first-option="">';
                 echo '<option value=""></option>';
                 foreach( $all_forms as $form ) {
-                    // $form = Ninja_Forms()->form( $form_id )->get();
-                    $label = $form->get_setting( 'title' );
-                    $form_id = $form->get_id();
+                    $label = $form->title;
+                    $form_id = $form->id;
                     if ( strlen( $label ) > 30 )
                         $label = substr( $label, 0, 30 ) . '...';
 
@@ -99,9 +106,13 @@ class NF_Admin_AddFormModal {
                     content: jQuery( '#nf-insert-form-modal' ),
                     onOpen: function() {
                         jQuery( '.nf-forms-combobox' ).combobox();
-                        jQuery( this )[0].content.find( '.ui-autocomplete-input' ).attr( 'placeholder', '<?php _e( 'Select a form or type to search', 'ninja-forms' )?>' );
+                        jQuery( this )[0].content.find( '.ui-autocomplete-input' ).attr( 'placeholder', '<?php _e( 'Select a form or type to search', 'ninja-forms' )?>' )
+                            .css( 'margin-right', 0 );
+                        jQuery( this )[0].content.find( '.ui-combobox-button' ).css( 'position', 'relative' ).css( 'top', '-3px' );
+                        
+                        jQuery( this )[0].content.find( 'ul.ui-autocomplete' ).css( 'max-height', '175px' ).css( 'overflow', 'scroll' );
                         jQuery( this )[0].content.css( 'overflow', 'visible' );
-                        jQuery( this )[0].content.find( '.ui-icon-triangle-1-s' ).addClass( 'dashicons dashicons-arrow-down' ).css( 'margin-left', '-7px' );
+                        jQuery( this )[0].content.find( '.ui-icon-triangle-1-s' ).addClass( 'dashicons dashicons-arrow-down' ).css( 'margin-left', '-3px' );
                     },
                     onClose: function() {
                         jQuery( '.nf-forms-combobox' ).combobox( 'destroy'  );

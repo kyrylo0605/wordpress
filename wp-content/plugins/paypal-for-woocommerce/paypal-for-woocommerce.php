@@ -4,7 +4,7 @@
  * Plugin Name:       PayPal for WooCommerce
  * Plugin URI:        http://www.angelleye.com/product/paypal-for-woocommerce-plugin/
  * Description:       Easily enable PayPal Express Checkout, PayPal Pro, PayPal Advanced, PayPal REST, and PayPal Braintree.  Each option is available separately so you can enable them individually.
- * Version:           1.4.16
+ * Version:           1.4.18
  * Author:            Angell EYE
  * Author URI:        http://www.angelleye.com/
  * License:           GNU General Public License v3.0
@@ -39,7 +39,7 @@ if (!defined('PAYPAL_FOR_WOOCOMMERCE_ASSET_URL')) {
     define('PAYPAL_FOR_WOOCOMMERCE_ASSET_URL', plugin_dir_url(__FILE__));
 }
 if (!defined('VERSION_PFW')) {
-    define('VERSION_PFW', '1.4.16');
+    define('VERSION_PFW', '1.4.18');
 }
 if ( ! defined( 'PAYPAL_FOR_WOOCOMMERCE_PLUGIN_FILE' ) ) {
     define( 'PAYPAL_FOR_WOOCOMMERCE_PLUGIN_FILE', __FILE__ );
@@ -318,6 +318,7 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
                 'shop_based_us' => (substr(get_option("woocommerce_default_country"), 0, 2) == 'US') ? "yes" : "no",
                 'payment_method' => $payment_method,
                 'payment_action' => $payment_action,
+                'is_paypal_credit_enable' => ( substr(get_option("woocommerce_default_country"), 0, 2) == 'US' || substr(get_option("woocommerce_default_country"), 0, 2) == 'GB' ) ? "yes" : "no",
                 'locale' => ($this->use_wp_locale_code === 'yes' && AngellEYE_Utility::get_button_locale_code() != '') ? AngellEYE_Utility::get_button_locale_code() : ''
 
             );

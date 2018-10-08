@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:         Google Analytics for WordPress by MonsterInsights
- * Plugin URI:          https://www.monsterinsights.com/?utm_source=wordpress&utm_medium=plugin&utm_campaign=wpmipluginpro&utm_content=v700
+ * Plugin URI:          https://www.monsterinsights.com/?utm_source=liteplugin&utm_medium=pluginheader&utm_campaign=pluginurl&utm_content=7%2E0%2E0
  * Description:         The best Google Analytics plugin for WordPress. See how visitors find and use your website, so you can keep them coming back.
  * Author:              MonsterInsights
- * Author URI:          https://www.monsterinsights.com/
+ * Author URI:          https://www.monsterinsights.com/?utm_source=liteplugin&utm_medium=pluginheader&utm_campaign=authoruri&utm_content=7%2E0%2E0
  *
- * Version:             7.0.5
+ * Version:             7.2.0
  * Requires at least:   3.8.0
  * Tested up to:        4.9
  *
@@ -69,7 +69,7 @@ final class MonsterInsights_Lite {
 	 * @access public
 	 * @var string $version Plugin version.
 	 */
-	public $version = '7.0.5';
+	public $version = '7.2.0';
 
 	/**
 	 * Plugin file.
@@ -541,6 +541,7 @@ final class MonsterInsights_Lite {
 			// Lite and Pro files
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'assets/lib/pandora/class-am-notification.php';
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'assets/lib/pandora/class-am-deactivation-survey.php';
+				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'assets/lib/pandora/class-am-dashboard-widget-extend-feed.php';
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/ajax.php';
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/admin.php';
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/common.php';
@@ -548,6 +549,7 @@ final class MonsterInsights_Lite {
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/capabilities.php';
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/licensing/license-actions.php';
 				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/licensing/autoupdate.php';
+				require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/review.php';
 
 			// Pages
 				// Multisite
@@ -646,7 +648,7 @@ function monsterinsights_lite_activation_hook( $network_wide ) {
 	
 	if ( class_exists( 'MonsterInsights' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-		wp_die( sprintf( esc_html__( 'Please uninstall and remove MonsterInsights Pro before activating MonsterInsights Lite. The Lite version has not been activated. %1$sClick here to return to the Dashboard%2$s.', 'google-analytics-by-wordpress' ), '<a href="' . $url . '">', '</a>' ) );
+		wp_die( sprintf( esc_html__( 'Please uninstall and remove MonsterInsights Pro before activating Google Analytics for WordPress by MonsterInsights. The Lite version has not been activated. %1$sClick here to return to the Dashboard%2$s.', 'google-analytics-by-wordpress' ), '<a href="' . $url . '">', '</a>' ) );
 	}
 }
 register_activation_hook( __FILE__, 'monsterinsights_lite_activation_hook' );
