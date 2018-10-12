@@ -5,7 +5,7 @@ Theme URI:      https://themeisle.com/themes/hestia/
 Author:         ThemeIsle
 Author URI:     https://themeisle.com
 Description:    Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
-Version:        2.0.5
+Version:        2.0.7
 License:        GNU General Public License v2 or later
 License URI:    http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:    hestia
@@ -4608,32 +4608,79 @@ body.product-card-style-plain .hestia-shop {
 }
 
 /* Compatibility with WPForms */
-.wpforms-container .wpforms-form textarea,
-.wpforms-container .wpforms-form input[type=text].form-control,
-.wpforms-container .wpforms-form input[type=email].form-control {
+div.wpforms-container .wpforms-form input[type=date].form-control,
+div.wpforms-container .wpforms-form input[type=datetime].form-control,
+div.wpforms-container .wpforms-form input[type=datetime-local].form-control,
+div.wpforms-container .wpforms-form input[type=email].form-control,
+div.wpforms-container .wpforms-form input[type=month].form-control,
+div.wpforms-container .wpforms-form input[type=number].form-control,
+div.wpforms-container .wpforms-form input[type=password].form-control,
+div.wpforms-container .wpforms-form input[type=range].form-control,
+div.wpforms-container .wpforms-form input[type=search].form-control,
+div.wpforms-container .wpforms-form input[type=tel].form-control,
+div.wpforms-container .wpforms-form input[type=text].form-control,
+div.wpforms-container .wpforms-form input[type=time].form-control,
+div.wpforms-container .wpforms-form input[type=url].form-control,
+div.wpforms-container .wpforms-form input[type=week].form-control,
+div.wpforms-container .wpforms-form select.form-control,
+div.wpforms-container .wpforms-form textarea.form-control {
   border: none;
-  padding: 6px 10px 6px 0;
+  padding: 7px 0;
+  font-size: 14px;
 }
-.wpforms-container .wpforms-form .wpforms-field-textarea textarea {
-  background-color: #ffffff !important;
-  background-image: none !important;
-  border: 1px solid #d2d2d2;
+div.wpforms-container .wpforms-form .wpforms-field-select select {
   border-radius: 3px;
 }
-.wpforms-container .wpforms-form .wpforms-field-select select {
-  border-radius: 3px;
-}
-.wpforms-container .wpforms-form .wpforms-field-number input[type=number] {
+div.wpforms-container .wpforms-form .wpforms-field-number input[type=number] {
   background-image: none;
   border-radius: 3px;
 }
-
 div.wpforms-container .wpforms-form button[type=submit].wpforms-submit,
 div.wpforms-container .wpforms-form button[type=submit].wpforms-submit:hover {
   color: #ffffff;
   border: none;
 }
 
+.home div.wpforms-container-full .wpforms-form {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field {
+  padding: 0 0 24px 0 !important;
+  margin-bottom: 17px;
+}
+div.wpforms-container-full .wpforms-form .wpforms-submit-container {
+  text-align: right;
+}
+div.wpforms-container-full .wpforms-form .wpforms-submit-container button {
+  text-transform: uppercase;
+}
+div.wpforms-container-full .wpforms-form textarea {
+  border: none !important;
+}
+div.wpforms-container-full .wpforms-form textarea:focus {
+  border-width: 0 0 0 0 !important;
+}
+
+.home div.wpforms-container .wpforms-form textarea {
+  background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#d2d2d2, #d2d2d2);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center bottom, center calc(100% - 1px);
+  background-size: 0 2px, 100% 1px;
+}
+
+/* WPForms media queries for front page and mobile*/
+@media only screen and (max-width: 768px) {
+  .wpforms-container-full .wpforms-form .wpforms-one-half, .wpforms-container-full .wpforms-form button {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+  .wpforms-container-full .wpforms-form .wpforms-submit-container {
+    text-align: center;
+  }
+}
 /*--------------------------------------------------------------
 ## Features Section
 --------------------------------------------------------------*/
@@ -7860,7 +7907,6 @@ footer .wpml-ls-item-legacy-dropdown-click a {
 }
 
 div.wpforms-container .wpforms-form input:focus,
-div.wpforms-container .wpforms-form textarea:focus,
 div.wpforms-container .wpforms-form select:focus {
   border: none;
 }

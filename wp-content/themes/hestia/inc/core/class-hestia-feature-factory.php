@@ -31,9 +31,9 @@ class Hestia_Feature_Factory {
 		$feature_name  = implode( '_', $feature_words );
 
 		$class = 'Hestia_' . $feature_name;
-		if ( class_exists( $class ) ) {
+		// if ( class_exists( $class ) ) {
 			return new $class;
-		}
-		return null;
+		// }
+		// return null;
 	}
 }

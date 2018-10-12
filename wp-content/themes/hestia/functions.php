@@ -6,7 +6,7 @@
  * @since   Hestia 1.0
  */
 
-define( 'HESTIA_VERSION', '2.0.5' );
+define( 'HESTIA_VERSION', '2.0.7' );
 define( 'HESTIA_VENDOR_VERSION', '1.0.2' );
 define( 'HESTIA_PHP_INCLUDE', trailingslashit( get_template_directory() ) . 'inc/' );
 define( 'HESTIA_CORE_DIR', HESTIA_PHP_INCLUDE . 'core/' );
@@ -65,6 +65,12 @@ if ( version_compare( PHP_VERSION, '5.3.29' ) < 0 ) {
  * @since    1.0.0
  */
 function hestia_run() {
+
+	require_once HESTIA_CORE_DIR . 'class-hestia-autoloader.php';
+	$autoloader = new Hestia_Autoloader();
+
+	spl_autoload_register( array( $autoloader, 'loader' ) );
+
 	new Hestia_Core();
 
 	$vendor_file = trailingslashit( get_template_directory() ) . 'vendor/autoload.php';
@@ -88,25 +94,6 @@ function hestia_load_sdk( $products ) {
 }
 
 require_once( HESTIA_CORE_DIR . 'class-hestia-autoloader.php' );
-Hestia_Autoloader::set_path( HESTIA_PHP_INCLUDE );
-Hestia_Autoloader::define_excluded_files(
-	array(
-		'node_modules',
-		'hooks',
-		'helpers',
-		'onboarding',
-		'css',
-		'js',
-	)
-);
-Hestia_Autoloader::define_namespaces( array( 'Hestia' ) );
-
-/**
- * Invocation of the Autoloader::loader method.
- *
- * @since   1.0.0
- */
-spl_autoload_register( 'Hestia_Autoloader::loader' );
 
 /**
  * The start of the app.

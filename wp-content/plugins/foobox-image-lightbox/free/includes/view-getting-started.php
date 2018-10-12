@@ -29,6 +29,7 @@ $button_text = $show_trial_message ? __( 'Already convinced? Upgrade to PRO!', '
 		<div>
 			<h2><?php _e( 'Zero Configuration', 'foobox-image-lightbox' );?></h2>
 			<p><?php _e( 'FooBox FREE works out-of-the-box with the following standard features:', 'foobox-image-lightbox' );?></p>
+			<p> → <strong><?php _e( 'Gutenberg Editor', 'foobox-image-lightbox' ); ?></strong> - <?php _e('images within gallery and image blocks will open in FooBox (set Linked To -&gt; "Media File").', 'foobox-image-lightbox' ); ?></p>
 			<p> → <strong><a href="https://codex.wordpress.org/Caption_Shortcode" target="_blank"><?php _e( 'Captioned Images', 'foobox-image-lightbox' ); ?></a></strong> - <?php _e('images that use the <code>[caption]</code> shortcode.', 'foobox-image-lightbox' ); ?></p>
 			<p> → <strong><a href="https://codex.wordpress.org/The_WordPress_Gallery" target="_blank"><?php _e( 'WordPress Galleries', 'foobox-image-lightbox' ); ?></a></strong> - <?php _e('image galleries that use the <code>[gallery]</code> shortcode.', 'foobox-image-lightbox' ); ?></p>
 			<p> → <strong><a href="https://codex.wordpress.org/Inserting_Media_into_Posts_and_Pages" target="_blank"><?php _e( 'Attachment Images', 'foobox-image-lightbox' ); ?></a></strong> - <?php _e('images that are added using the "Add Media" tool.', 'foobox-image-lightbox' ); ?></p>

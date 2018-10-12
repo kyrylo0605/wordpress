@@ -151,6 +151,7 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 
 			if ( self::is_option_checked( $fbx_options, 'enable_galleries', true ) ) {
 				$foobox_selectors[] = '.gallery';
+				$foobox_selectors[] = '.wp-block-gallery';
 			}
 
 			if ( self::is_option_checked( $fbx_options, 'enable_captions', true ) ) {
@@ -158,6 +159,7 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 			}
 
 			if ( self::is_option_checked( $fbx_options, 'enable_attachments', true ) ) {
+				$foobox_selectors[] = '.wp-block-image';
 				$foobox_selectors[] = 'a:has(img[class*=wp-image-])';
 				if ( $foobox->render_for_archive() ) {
 					$foobox_selectors[] = '.post a:has(img[class*=wp-image-])'; //archive selector
@@ -180,11 +182,11 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 			$ready_event = 'FooBox.ready';
 
 			$preload = '
-  jQuery("body").append("<span style=\"font-family:\'foobox\'; color:transparent; position:absolute; top:-1000em;\">f</span>");';
+  jQuery("body").append("<span aria-hidden=\"true\" class=\"foobox_font_preload\" style=\"font-family:\'foobox\'; color:transparent; position:absolute; top:-9999px; left: -9999px;\">f</span>");';
 
 			$js .= '
   };
-}( window.FOOBOX = window.FOOBOX || {}, FooBox.$ ));
+})( window.FOOBOX = window.FOOBOX || {}, FooBox.$ );
 
 ' . $ready_event . '(function() {
 ' . $preload . '

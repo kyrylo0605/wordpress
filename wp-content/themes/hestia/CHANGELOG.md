@@ -1,4 +1,14 @@
 
+ ### v2.0.7 - 2018-10-10 
+ **Changes:** 
+ * Fixed import from Zerif
+ 
+ ### v2.0.6 - 2018-10-10 
+ **Changes:** 
+ * Fixed compatibility with Brizy Page Builder
+* Improved compatibility with WPForms Lite
+* Improved theme speed with less system calls
+ 
  ### v2.0.5 - 2018-09-28 
  **Changes:** 
  * Fixed Big Title section compatibility in Internet Explorer

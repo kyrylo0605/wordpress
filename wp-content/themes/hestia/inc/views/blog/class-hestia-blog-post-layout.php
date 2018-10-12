@@ -202,7 +202,7 @@ class Hestia_Blog_Post_Layout {
 
 		$post_body_content .= the_title(
 			sprintf(
-				'<h2 class="card-title"><a href="%s" title="%s" rel="bookmark">',
+				'<h2 class="card-title entry-title"><a href="%s" title="%s" rel="bookmark">',
 				esc_url( get_permalink() ),
 				the_title_attribute(
 					array(
@@ -283,7 +283,7 @@ class Hestia_Blog_Post_Layout {
 	 */
 	private function render_post_meta() {
 		$post_meta_content  = '';
-		$post_meta_content .= '<div class="author">';
+		$post_meta_content .= '<div class="posted-by vcard author">';
 		$post_meta_content .= apply_filters(
 			'hestia_blog_post_meta',
 			sprintf(
@@ -291,7 +291,7 @@ class Hestia_Blog_Post_Layout {
 				esc_html__( 'By %1$s, %2$s', 'hestia' ),
 				sprintf(
 					/* translators: %1$s is Author name, %2$s is author link */
-					'<a href="%2$s" title="%1$s"><b>%1$s</b></a>',
+					'<a href="%2$s" title="%1$s"><b class="author-name">%1$s</b></a>',
 					esc_html( get_the_author() ),
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) )
 				),

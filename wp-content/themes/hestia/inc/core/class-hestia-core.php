@@ -52,8 +52,6 @@ class Hestia_Core {
 		$this->features_to_load = apply_filters(
 			'hestia_filter_main_features',
 			array(
-				'onboarding',
-				'appearance-controls',
 				'tweaks',
 				'customizer-page-editor-helper',
 				'customizer-main',
@@ -78,7 +76,6 @@ class Hestia_Core {
 				'contact-controls',
 				'subscribe-section',
 				'subscribe-controls',
-				'typography-manager',
 				'typography-controls',
 				'inline-style-manager',
 				'public-typography',
@@ -95,8 +92,8 @@ class Hestia_Core {
 				'beaver-builder-compatibility',
 				'wpbakery-compatibility',
 				'admin-notices-manager',
-				'child-compat',
-				'child-compat-customizer',
+				'child',
+				'child-customizer',
 				'buttons-style-controls',
 				'blog-post-layout',
 				'infinite-scroll',

@@ -1,9 +1,9 @@
 === FooBox Image Lightbox WordPress Plugin ===
 Contributors: bradvin, fooplugins, freemius
 Donate link: http://fooplugins.com
-Tags: lightbox,media,images,gallery,modal
+Tags: lightbox,media,images,gallery,modal,gutenberg
 Requires at least: 3.5.1
-Tested up to: 4.9.4
+Tested up to: 4.9.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,9 +14,13 @@ A responsive image lightbox for WordPress galleries, WordPress attachments & Foo
 
 FooBox was the first lightbox to take responsive layout seriously. Not only does it scale images to look better on phones, but it rearranges it's button controls to look great in both portrait or landscape orientation.
 
-Works with most image gallery plugins, but works best with our [FooGallery Image Gallery WordPress Plugin](http://foo.gallery).
+Works with most image gallery plugins, but works best with our [FooGallery Gallery WordPress Plugin](http://foo.gallery).
 
-**New Feature : Complete FooBox Asset Control!**
+**New Feature : Gutenberg Ready!**
+
+FooBox works out of the box with the image block and gallery block in the new Gutenberg Editor. Image captions set in the editor are also automatically picked up by FooBox. All you need to do is make sure your images and galleries link to the media file.
+
+**Complete FooBox Asset Control**
 
 By default, FooBox includes javascript and stylesheet assets into all your pages. We do this, because we do not know if the page content contains media or not.
 If you want more control over when FooBox assets are included, you can now exclude the assets by default, by enabling a setting. Then on each page, you can choose to include them when required.
@@ -83,6 +87,17 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 2. Phone example
 
 == Changelog ==
+
+= 2.6.0 =
+* Added support for the Gutenberg gallery and image blocks
+* Updated to latest Freemius SDK 2.1.1
+* Fixed bug with horizontal scrollbar
+* Fixed bug with paging + filtering in FooGallery
+* Forced Youtube videos to open using youtube-nocookie.com
+* Updated to latest client JS & CSS fixing a few bugs
+
+= 2.5.3 =
+* Updated to latest Freemius SDK 2.0.1
 
 = 2.5.2 =
 * Updated to latest client JS & CSS fixing a few bugs

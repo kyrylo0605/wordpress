@@ -24,87 +24,164 @@
 class Hestia_Autoloader {
 
 	/**
-	 * File extension as a string. Defaults to ".php".
+	 * List of available classes to get for autoloading.
 	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 * @var     string $file_ext The file extension to look for.
+	 * @var array
 	 */
-	protected static $file_ext = '.php';
+	private $classes_to_load = array();
 
 	/**
-	 * The top level directory where recursion will begin. Defaults to the current
-	 * directory.
+	 * Hestia_Autoloader constructor.
 	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 * @var     string $path_top The root directory.
+	 * Define the file paths.
 	 */
-	protected static $path_top = __DIR__;
+	public function __construct() {
+		$this->classes_to_load = array(
+			'Hestia_Core'                                 => HESTIA_CORE_DIR,
+			'Hestia_Admin'                                => HESTIA_CORE_DIR,
+			'Hestia_Public'                               => HESTIA_CORE_DIR,
+			'Hestia_Feature_Factory'                      => HESTIA_CORE_DIR,
+			'Hestia_Abstract_Main'                        => HESTIA_CORE_DIR . 'abstract',
+			'Hestia_Register_Customizer_Controls'         => HESTIA_CORE_DIR . 'abstract',
+			'Hestia_Front_Page_Section_Controls_Abstract' => HESTIA_CORE_DIR . 'abstract',
+			'Hestia_Abstract_Metabox'                     => HESTIA_CORE_DIR . 'abstract',
+			'Hestia_Customizer_Panel'                     => HESTIA_CORE_DIR . 'types',
+			'Hestia_Customizer_Control'                   => HESTIA_CORE_DIR . 'types',
+			'Hestia_Customizer_Partial'                   => HESTIA_CORE_DIR . 'types',
+			'Hestia_Customizer_Section'                   => HESTIA_CORE_DIR . 'types',
+			'Hestia_Bootstrap_Navwalker'                  => HESTIA_PHP_INCLUDE,
+			'Hestia_Admin_Notices_Manager'                => HESTIA_PHP_INCLUDE . 'admin',
+			'Hestia_About_Page'                           => HESTIA_PHP_INCLUDE . 'admin/about-page',
+			'Hestia_Page_Settings'                        => HESTIA_PHP_INCLUDE . 'admin/page-settings',
+			'Hestia_Meta_Radio_Buttons'                   => HESTIA_PHP_INCLUDE . 'admin/page-settings/meta-radio-buttons',
+			'Hestia_Customizer_Main'                      => HESTIA_PHP_INCLUDE . 'customizer',
+			'Hestia_Customizer_Notices'                   => HESTIA_PHP_INCLUDE . 'customizer',
+			'Hestia_Customizer_Page_Editor_Helper'        => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/customizer-page-editor',
+			'Hestia_Page_Editor'                          => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/customizer-page-editor',
+			'Hestia_Customize_Alpha_Color_Control'        => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/alpha-color-picker',
+			'Hestia_Customizer_Dimensions'                => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/dimensions',
+			'Hestia_Font_Selector'                        => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/font-selector',
+			'Hestia_Select_Multiple'                      => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/multi-select',
+			'Hestia_Customizer_Range_Value_Control'       => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/range-value',
+			'Hestia_Repeater'                             => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/repeater',
+			'Hestia_Hiding_Section'                       => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/section-hiding',
+			'Hestia_Customize_Control_Radio_Image'        => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/subcontrols-allowing',
+			'Hestia_Select_Hiding'                        => HESTIA_PHP_INCLUDE . 'customizer/controls/custom-controls/subcontrols-allowing',
+			'Hestia_Customizer_Scroll_Ui'                 => HESTIA_PHP_INCLUDE . 'customizer/controls/ui/customizer-scroll',
+			'Hestia_Customize_Control_Tabs'               => HESTIA_PHP_INCLUDE . 'customizer/controls/ui/customizer-tabs',
+			'Hestia_Plugin_Install_Helper'                => HESTIA_PHP_INCLUDE . 'customizer/controls/ui/helper-plugin-install',
+			'Hestia_Subscribe_Info'                       => HESTIA_PHP_INCLUDE . 'customizer/controls/ui/subscribe-info',
+			'Hestia_Button'                               => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Contact_Info'                         => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Control_Upsell'                       => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Customizer_Heading'                   => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Generic_Notice_Section'               => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Main_Notice_Section'                  => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_PageBuilder_Button'                   => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Section_Docs'                         => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Section_Upsell'                       => HESTIA_PHP_INCLUDE . 'customizer/controls/ui',
+			'Hestia_Header_Controls'                      => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Color_Controls'                       => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_General_Controls'                     => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Typography_Controls'                  => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Blog_Settings_Controls'               => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Upsell_Manager'                       => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Buttons_Style_Controls'               => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Big_Title_Controls'                   => HESTIA_PHP_INCLUDE . 'customizer/front-page',
+			'Hestia_About_Controls'                       => HESTIA_PHP_INCLUDE . 'customizer/front-page',
+			'Hestia_Shop_Controls'                        => HESTIA_PHP_INCLUDE . 'customizer/front-page',
+			'Hestia_Blog_Section_Controls'                => HESTIA_PHP_INCLUDE . 'customizer/front-page',
+			'Hestia_Contact_Controls'                     => HESTIA_PHP_INCLUDE . 'customizer/front-page',
+			'Hestia_Subscribe_Controls'                   => HESTIA_PHP_INCLUDE . 'customizer/front-page',
+			'Hestia_Page_Builder_Helper'                  => HESTIA_PHP_INCLUDE . 'compatibility/page-builder',
+			'Hestia_Elementor_Compatibility'              => HESTIA_PHP_INCLUDE . 'compatibility/page-builder',
+			'Hestia_Beaver_Builder_Compatibility'         => HESTIA_PHP_INCLUDE . 'compatibility/page-builder',
+			'Hestia_Wpbakery_Compatibility'               => HESTIA_PHP_INCLUDE . 'compatibility/page-builder',
+			'Hestia_Child'                                => HESTIA_PHP_INCLUDE . 'compatibility/child-themes',
+			'Hestia_Child_Customizer'                     => HESTIA_PHP_INCLUDE . 'compatibility/child-themes',
+			'Hestia_Woocommerce_Header_Manager'           => HESTIA_PHP_INCLUDE . 'compatibility/woocommerce',
+			'Hestia_Infinite_Scroll'                      => HESTIA_PHP_INCLUDE . 'infinite-scroll',
+			'Hestia_Tweaks'                               => HESTIA_PHP_INCLUDE . 'views',
+			'Hestia_Top_Bar'                              => HESTIA_PHP_INCLUDE . 'views/main',
+			'Hestia_Header'                               => HESTIA_PHP_INCLUDE . 'views/main',
+			'Hestia_Footer'                               => HESTIA_PHP_INCLUDE . 'views/main',
+			'Hestia_Featured_Posts'                       => HESTIA_PHP_INCLUDE . 'views/blog',
+			'Hestia_Authors_Section'                      => HESTIA_PHP_INCLUDE . 'views/blog',
+			'Hestia_Additional_Views'                     => HESTIA_PHP_INCLUDE . 'views/blog',
+			'Hestia_Sidebar_Layout_Manager'               => HESTIA_PHP_INCLUDE . 'views/blog',
+			'Hestia_Header_Layout_Manager'                => HESTIA_PHP_INCLUDE . 'views/blog',
+			'Hestia_Blog_Post_Layout'                     => HESTIA_PHP_INCLUDE . 'views/blog',
+			'Hestia_Colors'                               => HESTIA_PHP_INCLUDE . 'views/inline',
+			'Hestia_Buttons'                              => HESTIA_PHP_INCLUDE . 'views/inline',
+			'Hestia_Inline_Style_Manager'                 => HESTIA_PHP_INCLUDE . 'views/inline',
+			'Hestia_Public_Typography'                    => HESTIA_PHP_INCLUDE . 'views/inline',
+			'Hestia_First_Front_Page_Section'             => HESTIA_PHP_INCLUDE . 'views/front-page',
+			'Hestia_Big_Title_Section'                    => HESTIA_PHP_INCLUDE . 'views/front-page',
+			'Hestia_About_Section'                        => HESTIA_PHP_INCLUDE . 'views/front-page',
+			'Hestia_Blog_Section'                         => HESTIA_PHP_INCLUDE . 'views/front-page',
+			'Hestia_Shop_Section'                         => HESTIA_PHP_INCLUDE . 'views/front-page',
+			'Hestia_Contact_Section'                      => HESTIA_PHP_INCLUDE . 'views/front-page',
+			'Hestia_Subscribe_Section'                    => HESTIA_PHP_INCLUDE . 'views/front-page',
 
-	/**
-	 * The plugin directory where recursion will begin. Defaults to empty ( No module will be loaded ).
-	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 * @var     string $plugins_path The installation plugins directory.
-	 */
-	protected static $plugins_path = '';
+			'Hestia_Main_Addon'                           => HESTIA_PHP_INCLUDE . 'addons',
+			'Hestia_Addon_Manager'                        => HESTIA_PHP_INCLUDE . 'addons',
+			'Hestia_Hooks_Page'                           => HESTIA_PHP_INCLUDE . 'addons/admin/hooks-page',
+			'Hestia_Page_Settings_Addon'                  => HESTIA_PHP_INCLUDE . 'addons/admin',
+			'Hestia_Iconpicker'                           => HESTIA_PHP_INCLUDE . 'addons/customizer/controls/iconpicker',
+			'Hestia_Section_Ordering'                     => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Clients_Bar_Controls'                 => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Features_Controls'                    => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Portfolio_Controls'                   => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Pricing_Controls'                     => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Ribbon_Controls'                      => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Team_Controls'                        => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Testimonials_Controls'                => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Blog_Section_Controls_Addon'          => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Shop_Controls_Addon'                  => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
+			'Hestia_Slider_Controls_Addon'                => HESTIA_PHP_INCLUDE . 'addons/customizer/front-page',
 
-	/**
-	 * Holds an array of namespaces to filter in autoloading if set.
-	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 * @var array $namespaces The namespace array, used if not empty on autoloading.
-	 */
-	protected static $namespaces = array();
+			'Hestia_Blog_Settings_Controls_Addon'         => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_Buttons_Style_Controls_Addon'         => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_Color_Controls_Addon'                 => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_Footer_Controls_Addon'                => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_General_Controls_Addon'               => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_Header_Controls_Addon'                => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_Typography_Controls_Addon'            => HESTIA_PHP_INCLUDE . 'addons/customizer/general',
+			'Hestia_Customizer_Notices_Addon'             => HESTIA_PHP_INCLUDE . 'addons/customizer',
+			'Hestia_Defaults_Models'                      => HESTIA_PHP_INCLUDE . 'addons/models',
 
-	/**
-	 * An array of files to exclude when looking to autoload.
-	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 * @var     array $excluded_files The excluded files list.
-	 */
-	protected static $excluded_files = array();
+			'Hestia_Dokan_Compatibility'                  => HESTIA_PHP_INCLUDE . 'addons/plugin-compatibility/dokan',
+			'Hestia_Woocommerce_Infinite_Scroll'          => HESTIA_PHP_INCLUDE . 'addons/plugin-compatibility/woocommerce',
+			'Hestia_Woocommerce_Settings_Controls'        => HESTIA_PHP_INCLUDE . 'addons/plugin-compatibility/woocommerce',
 
-	/**
-	 * A placeholder to hold the file iterator so that directory traversal is only
-	 * performed once.
-	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 * @var     RecursiveIteratorIterator $file_iterator Holds an instance of the iterator class.
-	 */
-	protected static $file_iterator = null;
+			'Hestia_Translations_Manager'                 => HESTIA_PHP_INCLUDE . 'addons/plugin-compatibility',
+			'Hestia_Elementor_Compatibility_Addon'        => HESTIA_PHP_INCLUDE . 'addons/plugin-compatibility',
 
-	/**
-	 * Method to check in allowed namespaces.
-	 *
-	 * @since   1.1.40
-	 * @access  protected
-	 *
-	 * @param   string $class_name the class name to check with the namespaces.
-	 *
-	 * @return bool
-	 */
-	protected static function check_namespaces( $class_name ) {
-		$found = false;
-		foreach ( static::$namespaces as $namespace ) {
-			if ( substr( $class_name, 0, strlen( $namespace ) ) == $namespace ) {
-				$found = true;
-			}
-		}
-
-		return $found;
+			'Hestia_Subscribe_Blog_Section'               => HESTIA_PHP_INCLUDE . 'addons/views/blog',
+			'Hestia_Front_Page_Shortcodes'                => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Clients_Bar_Section'                  => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Features_Section'                     => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Portfolio_Section'                    => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Pricing_Section'                      => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Ribbon_Section'                       => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Slider_Section_Addon'                 => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Team_Section'                         => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Testimonials_Section'                 => HESTIA_PHP_INCLUDE . 'addons/views/front-page',
+			'Hestia_Header_Addon'                         => HESTIA_PHP_INCLUDE . 'addons/views/main',
+			'Hestia_Buttons_Addon'                        => HESTIA_PHP_INCLUDE . 'addons/views/styles-output',
+			'Hestia_Colors_Addon'                         => HESTIA_PHP_INCLUDE . 'addons/views/styles-output',
+			'Hestia_General_Inline_Style'                 => HESTIA_PHP_INCLUDE . 'addons/views/styles-output',
+			'Hestia_Public_Typography_Addon'              => HESTIA_PHP_INCLUDE . 'addons/views/styles-output',
+			'Hestia_Content_Import'                       => HESTIA_PHP_INCLUDE . 'content-import',
+			'Hestia_Import_Utilities'                     => HESTIA_PHP_INCLUDE . 'content-import',
+			'Hestia_Import_Zerif'                         => HESTIA_PHP_INCLUDE . 'content-import',
+			'Hestia_Import_Zerif_Frontpage'               => HESTIA_PHP_INCLUDE . 'content-import',
+		);
 	}
+
 
 	/**
 	 * Autoload function for registration with spl_autoload_register
-	 *
-	 * Looks recursively through project directory and loads class files based on
-	 * filename match.
 	 *
 	 * @since   1.1.40
 	 * @access  public
@@ -113,112 +190,17 @@ class Hestia_Autoloader {
 	 *
 	 * @return mixed
 	 */
-	public static function loader( $class_name ) {
-		if ( ! empty( static::$namespaces ) ) {
-			$found = static::check_namespaces( $class_name );
-			if ( ! $found ) {
-				return $found;
-			}
+	public function loader( $class_name ) {
+		if ( ! array_key_exists( $class_name, $this->classes_to_load ) ) {
+			return false;
 		}
 
-		$directory = new RecursiveDirectoryIterator( static::$path_top . DIRECTORY_SEPARATOR, RecursiveDirectoryIterator::SKIP_DOTS );
-		require_once 'class-hestia-recursive-filter.php';
-
-		if ( is_null( static::$file_iterator ) ) {
-			$iterator              = new RecursiveIteratorIterator(
-				new Hestia_Recursive_Filter(
-					$directory,
-					array(
-						'Hestia_Autoloader',
-						'filter_excluded_files',
-					)
-				)
-			);
-			$regex                 = new RegexIterator( $iterator, '/^.+\.php$/i', RecursiveRegexIterator::MATCH );
-			static::$file_iterator = iterator_to_array( $regex, false );
+		$filename  = 'class-' . str_replace( '_', '-', strtolower( $class_name ) ) . '.php';
+		$full_path = trailingslashit( $this->classes_to_load[ $class_name ] ) . $filename;
+		if ( file_exists( $full_path ) ) {
+			require $full_path;
 		}
 
-		$filename = 'class-' . str_replace( '_', '-', strtolower( $class_name ) ) . static::$file_ext;
-		foreach ( static::$file_iterator as $file ) {
-			if ( strtolower( $file->getFileName() ) === strtolower( $filename ) && is_readable( $file->getPathName() ) ) {
-				require( $file->getPathName() );
-
-				return true;
-			}
-		}
-	}
-
-	/**
-	 * Sets the $file_ext property
-	 *
-	 * @since   1.1.40
-	 * @access  public
-	 *
-	 * @param   string $file_ext The file extension used for class files.  Default is "php".
-	 */
-	public static function set_file_ext( $file_ext ) {
-		static::$file_ext = $file_ext;
-	}
-
-	/**
-	 * Sets the $path property
-	 *
-	 * @since   1.1.40
-	 * @access  public
-	 *
-	 * @param   string $path The path representing the top level where recursion should
-	 *                       begin. Defaults to the current directory.
-	 */
-	public static function set_path( $path ) {
-		static::$path_top = $path;
-	}
-
-	/**
-	 * Adds a new file to the exclusion list.
-	 *
-	 * @since   1.1.40
-	 * @access  public
-	 *
-	 * @param   string $file_name The file name to exclude from autoload.
-	 */
-	public static function exclude_file( $file_name ) {
-		static::$excluded_files[] = $file_name;
-	}
-
-	/**
-	 * Define files the autoloader is going to recursively ignore.
-	 *
-	 * @param array $files_array the excluded files array.
-	 */
-	public static function define_excluded_files( $files_array ) {
-		static::$excluded_files = array_merge( static::$excluded_files, $files_array );
-	}
-
-	/**
-	 * Sets the namespaces used in autoloading if any.
-	 *
-	 * @since   1.1.40
-	 * @access  public
-	 *
-	 * @param   array $namespaces The namespaces to use.
-	 */
-	public static function define_namespaces( $namespaces = array() ) {
-		static::$namespaces = $namespaces;
-	}
-
-	/**
-	 * Utility to filter out the excluded directories.
-	 *
-	 * @param \SplFileInfo                $file     The file info array.
-	 * @param string                      $key      File key.
-	 * @param \RecursiveDirectoryIterator $iterator The recursive directory iterator.
-	 *
-	 * @return bool
-	 */
-	public static function filter_excluded_files( \SplFileInfo $file, $key, \RecursiveDirectoryIterator $iterator ) {
-		if ( ! in_array( $file->getFilename(), static::$excluded_files ) ) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 }
