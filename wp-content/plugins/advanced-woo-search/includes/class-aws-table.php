@@ -722,7 +722,29 @@ if ( ! class_exists( 'AWS_Table' ) ) :
              */
             $str_array = apply_filters( 'aws_extracted_terms', $str_array );
 
-            return $str_array;
+            $str_new_array = array();
+
+            // Remove e, es, ies from the end of the string
+            if ( ! empty( $str_array ) && $str_array ) {
+                foreach( $str_array as $str_item_term => $str_item_num ) {
+                    if ( $str_item_term  ) {
+                        $new_array_key = preg_replace( '/(s|es|ies)$/i', '', $str_item_term );
+
+                        if ( $new_array_key ) {
+                            if ( ! isset( $str_new_array[$new_array_key] ) ) {
+                                $str_new_array[$new_array_key] = $str_item_num;
+                            }
+                        } else {
+                            if ( ! isset( $str_new_array[$str_item_term] ) ) {
+                                $str_new_array[$str_item_term] = $str_item_num;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            return $str_new_array;
 
         }
 

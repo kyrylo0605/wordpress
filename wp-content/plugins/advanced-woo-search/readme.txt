@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 4.9.8
-Stable tag: 1.52
+Stable tag: 1.53
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,7 @@ Advanced Woo Search - powerful live search plugin for WooCommerce. Just start ty
 
 = Premium Features =
 
-[Premium Version Demo](https://advanced-woo-search.com/)
+[Premium Version Demo](https://advanced-woo-search.com/?utm_source=wp-repo&utm_medium=listing&utm_campaign=aws-repo)
 	
 * Search **results layouts**
 * Search **form layouts**
@@ -58,7 +58,7 @@ Advanced Woo Search - powerful live search plugin for WooCommerce. Just start ty
 * Support for [WooCommerce Brands plugin](https://woocommerce.com/products/brands/)
 * Support for Advanced Custom Fields plugin
 
-[Features list](https://advanced-woo-search.com/features/)
+[Features list](https://advanced-woo-search.com/features/?utm_source=wp-repo&utm_medium=listing&utm_campaign=aws-repo)
 
 == Installation ==
 
@@ -70,7 +70,7 @@ Advanced Woo Search - powerful live search plugin for WooCommerce. Just start ty
 
 = Knowledge Base =
 
-You can find solutions and answers at the [Advanced Woo Search guide](https://advanced-woo-search.com/guide/).
+You can find solutions and answers at the [Advanced Woo Search guide](https://advanced-woo-search.com/guide/?utm_source=wp-repo&utm_medium=listing&utm_campaign=aws-repo).
 
 = How to insert search form? =
 
@@ -97,6 +97,12 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.53 =
+* Fix bug with search results page ordering
+* Add svg loading icon
+* Mark featured products in search results
+* Add aws_search_results_products_ids filter
 
 = 1.52 =
 * Fix terms translation for multilingual plugins

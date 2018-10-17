@@ -81,7 +81,7 @@ class AWS_Admin {
 
         }
 
-        $tabs_html .= '<a href="https://advanced-woo-search.com/" class="nav-tab premium-tab" target="_blank">' . __( 'Get Premium', 'aws' ) . '</a>';
+        $tabs_html .= '<a href="https://advanced-woo-search.com/?utm_source=plugin&utm_medium=settings-tab&utm_campaign=aws-pro-plugin" class="nav-tab premium-tab" target="_blank">' . __( 'Get Premium', 'aws' ) . '</a>';
 
         $tabs_html = '<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">'.$tabs_html.'</h2>';
 

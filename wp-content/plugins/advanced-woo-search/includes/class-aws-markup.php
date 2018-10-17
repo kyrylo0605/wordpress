@@ -83,6 +83,8 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 $markup .= '<span aria-label="Clear Search">×</span>';
             $markup .= '</div>';
 
+            $markup .= '<div class="aws-loader"></div>';
+
             $markup .= '</form>';
             $markup .= '</div>';
 

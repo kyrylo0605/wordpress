@@ -289,11 +289,22 @@ $options['results'][] = array(
     )
 );
 
-
 $options['results'][] = array(
     "name"  => __( "Show stock status", "aws" ),
     "desc"  => __( "Show stock status for every product in search results.", "aws" ),
     "id"    => "show_stock",
+    "value" => 'false',
+    "type"  => "radio",
+    'choices' => array(
+        'true'  => __( 'On', 'aws' ),
+        'false' => __( 'Off', 'aws' ),
+    )
+);
+
+$options['results'][] = array(
+    "name"  => __( "Show featured icon", "aws" ),
+    "desc"  => __( "Show or not star icon for featured products.", "aws" ),
+    "id"    => "show_featured",
     "value" => 'false',
     "type"  => "radio",
     'choices' => array(

@@ -145,6 +145,18 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
 
             $posts_ids = $this->query_index_table();
+
+            /**
+             * Filters array of products ids
+             *
+             * @since 1.53
+             *
+             * @param array $posts_ids Array of products ids
+             * @param string $s Search query
+             */
+            $posts_ids = apply_filters( 'aws_search_results_products_ids', $posts_ids, $s );
+
+
             $products_array = $this->get_products( $posts_ids );
 
             /**
@@ -264,8 +276,15 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $relevance_title_like   = 40 + 2 * $search_term_len;
                 $relevance_content_like = 35 + 1 * $search_term_len;
 
-                $search_term_like = preg_replace( '/(s|es|ies)$/i', '', $search_term );
-                $like = '%' . $wpdb->esc_like( $search_term_like ) . '%';
+
+                $search_term_norm = preg_replace( '/(s|es|ies)$/i', '', $search_term );
+
+                if ( $search_term_norm ) {
+                    $search_term = $search_term_norm;
+                }
+
+                $like = '%' . $wpdb->esc_like( $search_term ) . '%';
+
 
                 if ( $search_term_len > 1 ) {
                     $search_array[] = $wpdb->prepare( '( term LIKE %s )', $like );
@@ -421,6 +440,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $show_image        = AWS()->get_settings( 'show_image' );
                 $show_sku          = AWS()->get_settings( 'show_sku' );
                 $show_stock_status = AWS()->get_settings( 'show_stock' );
+                $show_featured     = AWS()->get_settings( 'show_featured' );
 
 
                 foreach ( $posts_ids as $post_id ) {
@@ -442,6 +462,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                     $image        = '';
                     $sku          = '';
                     $stock_status = '';
+                    $featured     = '';
 
 
                     if ( $show_excerpt === 'true' ) {
@@ -485,7 +506,11 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                     if ( $show_sku === 'true' ) {
                         $sku = $product->get_sku();
                     }
-                    
+
+                    if ( $show_featured === 'true' ) {
+                        $featured = $product->is_featured();
+                    }
+
                     if ( $show_stock_status === 'true' ) {
                         if ( $product->is_in_stock() ) {
                             $stock_status = array(
@@ -517,6 +542,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         'on_sale'      => $on_sale,
                         'sku'          => $sku,
                         'stock_status' => $stock_status,
+                        'featured'     => $featured,
                         'f_price'      => $f_price,
                         'f_rating'     => $f_rating,
                         'f_reviews'    => $f_reviews,

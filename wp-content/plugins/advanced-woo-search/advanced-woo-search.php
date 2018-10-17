@@ -3,7 +3,7 @@
 /*
 Plugin Name: Advanced Woo Search
 Description: Advance ajax WooCommerce product search.
-Version: 1.52
+Version: 1.53
 Author: ILLID
 Author URI: https://advanced-woo-search.com/
 Text Domain: aws
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AWS_VERSION', '1.52' );
+define( 'AWS_VERSION', '1.53' );
 
 
 define( 'AWS_DIR', dirname( __FILE__ ) );
@@ -165,7 +165,7 @@ final class AWS_Main {
 			$setting_link = '<a href="' . admin_url('admin.php?page=aws-options') . '">'.__( 'Settings', 'aws' ).'</a>';
 			array_unshift( $links, $setting_link );
 
-            $premium_link = '<a href="https://advanced-woo-search.com/" target="_blank">'.__( 'Get Premium', 'aws' ).'</a>';
+            $premium_link = '<a href="https://advanced-woo-search.com/?utm_source=plugin&utm_medium=settings-link&utm_campaign=aws-pro-plugin" target="_blank">'.__( 'Get Premium', 'aws' ).'</a>';
             array_unshift( $links, $premium_link );
 		}
 

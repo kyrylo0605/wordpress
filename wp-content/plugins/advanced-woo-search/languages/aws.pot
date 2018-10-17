@@ -343,6 +343,12 @@ msgstr ""
 msgid "Show stock status for every product in search results."
 msgstr ""
 
+msgid "Show featured icon"
+msgstr ""
+
+msgid "Show or not star icon for featured products."
+msgstr ""
+
 #: includes/options.php:167
 msgid "Max number of results"
 msgstr ""
