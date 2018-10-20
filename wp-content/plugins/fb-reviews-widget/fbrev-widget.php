@@ -19,10 +19,12 @@ class Fb_Reviews_Widget extends WP_Widget {
         'dark_theme'           => '',
         'view_mode'            => '',
         'pagination'           => '',
+        'disable_user_link'    => '',
         'max_width'            => '',
         'max_height'           => '',
         'open_link'            => true,
         'nofollow_link'        => true,
+        'show_success_api'     => true,
         'cache'                => '24',
         'api_ratings_limit'    => FBREV_API_RATINGS_LIMIT,
     );
@@ -79,7 +81,7 @@ class Fb_Reviews_Widget extends WP_Widget {
             }
 
             echo $before_widget;
-            $response = fbrev_api_rating($page_id, $page_access_token, $instance, $this->id, $cache, $api_ratings_limit);
+            $response = fbrev_api_rating($page_id, $page_access_token, $instance, $this->id, $cache, $api_ratings_limit, $show_success_api);
             $response_data = $response['data'];
             $response_json = rplg_json_decode($response_data);
             if (isset($response_json->ratings) && isset($response_json->ratings->data)) {
@@ -111,15 +113,34 @@ class Fb_Reviews_Widget extends WP_Widget {
             if (array_key_exists($field, $this->widget_fields)) {
                 ${$field} = !isset($instance[$field]) ? $value : esc_attr($instance[$field]);
             }
-        } ?>
+        }
 
+        /*$fbrev_app_id = get_option('fbrev_app_id');
+        $fbrev_app_secret = get_option('fbrev_app_secret');
+
+        if ($fbrev_app_id && $fbrev_app_secret) {
+
+            ?>
+            <div id="<?php echo $this->id; ?>" class="rplg-widget">
+                <?php include(dirname(__FILE__) . '/fbrev-options.php'); ?>
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-widget-id="<?php echo $this->id; ?>" data-app-id="<?php echo $fbrev_app_id; ?>" data-app-secret="<?php echo $fbrev_app_secret; ?>" onload="fbrev_init({widgetId: this.getAttribute('data-widget-id'), appId: this.getAttribute('data-app-id'), appSecret: this.getAttribute('data-app-secret')})" style="display:none">
+            </div>
+            <?php
+
+        } else {
+
+            ?>
+            <p>To add a widget, please fill 'App ID' and 'App Secret' on the <a href="<?php echo admin_url('options-general.php?page=fbrev'); ?>">setting page</a></p>
+            <?php
+        }*/
+
+        ?>
         <div id="<?php echo $this->id; ?>" class="rplg-widget">
             <?php include(dirname(__FILE__) . '/fbrev-options.php'); ?>
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-widget-id="<?php echo $this->id; ?>"
-              onload="fbrev_init({widgetId: this.getAttribute('data-widget-id')})" style="display:none">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-widget-id="<?php echo $this->id; ?>" onload="fbrev_init({widgetId: this.getAttribute('data-widget-id')})" style="display:none">
         </div>
-
         <?php
+
     }
 }
 ?>

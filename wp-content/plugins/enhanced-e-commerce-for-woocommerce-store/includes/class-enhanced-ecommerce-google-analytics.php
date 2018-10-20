@@ -25,7 +25,7 @@
  * @since      1.0.0
  * @package    Enhanced_Ecommerce_Google_Analytics
  * @subpackage Enhanced_Ecommerce_Google_Analytics/includes
- * @author     Chiranjiv Pathak <chiranijv@tatvic.com>
+ * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
  */
 class Enhanced_Ecommerce_Google_Analytics {
 
@@ -70,7 +70,7 @@ class Enhanced_Ecommerce_Google_Analytics {
 		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
 			$this->version = PLUGIN_NAME_VERSION;
 		} else {
-			$this->version = '2.1.2';
+			$this->version = '2.1.3';
 		}
 		$this->plugin_name = 'enhanced-ecommerce-google-analytics';
 		$this->load_dependencies();
@@ -247,7 +247,7 @@ class Enhanced_Ecommerce_Google_Analytics {
 		$links[] = '<a href="' . get_admin_url(null, $setting_url) . '">Settings</a>';
 		$links[] = '<a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/#faq" target="_blank">FAQ</a>';
 		$links[] = '<a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank">Documentation</a>';
-		$links[] = '<a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank"><b>Upgrade to Premium</b></a>';
+		$links[] = '<a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank"><b>Upgrade to Premium</b></a>';
 		return $links;
 	}
 	

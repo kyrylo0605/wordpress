@@ -7,7 +7,13 @@ include_once(dirname(__FILE__) . '/fbrev-reviews-helper.php');
 $rating = 0;
 if (count($reviews) > 0) {
     foreach ($reviews as $review) {
-        $rating = $rating + $review->rating;
+        if (isset($review->rating)) {
+            $rating = $rating + $review->rating;
+        } elseif (isset($review->recommendation_type)) {
+            $rating = $rating + ($review->recommendation_type == 'negative' ? 1 : 5);
+        } else {
+            continue;
+        }
     }
     $rating = round($rating / count($reviews), 1);
     $rating = number_format((float)$rating, 1, '.', '');
@@ -20,7 +26,7 @@ if (count($reviews) > 0) {
             <?php fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofollow_link); ?>
         </div>
         <div class="wp-facebook-content-inner">
-            <?php fbrev_page_reviews($page_id, $reviews, $pagination, $open_link, $nofollow_link); ?>
+            <?php fbrev_page_reviews($page_id, $reviews, $pagination, $disable_user_link, $open_link, $nofollow_link); ?>
         </div>
     </div>
 </div>

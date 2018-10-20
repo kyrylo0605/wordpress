@@ -4,7 +4,7 @@ Plugin Name: Facebook Reviews Widget
 Plugin URI: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Description: Instantly Facebook Page Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.4.2
+Version: 1.4.7
 Author URI: https://richplugins.com
 */
 
@@ -13,14 +13,16 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.4.2');
+define('FBREV_VERSION',            '1.4.7');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/');
-define('FBREV_API_RATINGS_LIMIT',  '25');
+define('FBREV_API_RATINGS_LIMIT',  '250');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
-define('FBREV_AVATAR',             FBREV_PLUGIN_URL . '/static/img/avatar.gif');
+define('FBREV_AVATAR',             FBREV_PLUGIN_URL . '/static/img/avatar.png');
 
 function fbrev_options() {
     return array(
+        'fbrev_app_id',
+        'fbrev_app_secret',
         'fbrev_version',
         'fbrev_active',
     );
@@ -32,9 +34,12 @@ function fbrev_init_widget() {
         require 'fbrev-widget.php';
     }
 }
-
 add_action('widgets_init', 'fbrev_init_widget');
-add_action('widgets_init', create_function('', 'register_widget("Fb_Reviews_Widget");'));
+
+function fbrev_register_widget() {
+    return register_widget("Fb_Reviews_Widget");
+}
+add_action('widgets_init', 'fbrev_register_widget');
 
 /*-------------------------------- Menu --------------------------------*/
 function fbrev_setting_menu() {
@@ -125,7 +130,7 @@ function fbrev_does_need_update() {
     return false;
 }
 
-function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $cache_option, $limit) {
+function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $cache_option, $limit, $show_success_api) {
 
     $response_cache_key = 'fbrev_' . $cache_name . '_api_' . $page_id;
     $options_cache_key = 'fbrev_' . $cache_name . '_options_' . $page_id;
@@ -172,6 +177,20 @@ function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $
 
         set_transient($response_cache_key, $api_response, $expiration);
         set_transient($options_cache_key, $serialized_instance, $expiration);
+    }
+
+    //show the latest success API response if the error happened
+    if ($show_success_api) {
+        $response_cache_key_success = 'fbrev_' . $cache_name . '_suc_api_' . $page_id;
+        $api_response_json = rplg_json_decode($api_response['data']);
+        if (isset($api_response_json->ratings) && isset($api_response_json->ratings->data)) {
+            set_transient($response_cache_key_success, $api_response, 0);
+        } else {
+            $last_success_api_response = get_transient($response_cache_key_success);
+            if ($last_success_api_response !== false) {
+                return $last_success_api_response;
+            }
+        }
     }
     return $api_response;
 }

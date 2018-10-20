@@ -12,7 +12,15 @@ function fbrev_popup(url, width, height, cb) {
     setTimeout(check, 100);
 }
 
-function fbrev_connect(el, cb) {
+function fbrev_connect(el, data) {
+
+    /*var url = 'https://www.facebook.com/v3.1/dialog/oauth?' +
+              'client_id=' + data.appId + '&' +
+              'redirect_uri=https://app.widgetpack.com/auth/fbrev/callback&scope=manage_pages,pages_show_list&' +
+              'state=' + data.appId + ':' + data.appSecret;
+
+    fbrev_popup(url, 670, 520, function() {*/
+
     fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=manage_pages,pages_show_list', 670, 520, function() {
         WPacXDM.get('https://embed.widgetpack.com', 'https://app.widgetpack.com/widget/facebook/accesstoken', {}, function(res) {
             WPacFastjs.jsonp('https://graph.facebook.com/me/accounts', {access_token: res.accessToken, limit: 250}, function(res) {
@@ -44,7 +52,7 @@ function fbrev_connect(el, cb) {
                         WPacFastjs.remcl(pagesEl.querySelector('.active'), 'active');
                         WPacFastjs.addcl(pageEL, 'active');
 
-                        cb && cb();
+                        data.cb && data.cb();
                         return false;
                     });
                 });
@@ -61,7 +69,7 @@ function fbrev_init(data) {
 
     var connectBtn = el.querySelector('.fbrev-connect');
     WPacFastjs.on(connectBtn, 'click', function() {
-        fbrev_connect(el, data.cb);
+        fbrev_connect(el, data);
         return false;
     });
 

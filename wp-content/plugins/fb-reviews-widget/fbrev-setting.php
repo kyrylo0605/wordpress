@@ -70,7 +70,8 @@ if (isset($_POST['fbrev_active']) && isset($_GET['fbrev_active'])) {
 }
 
 if (isset($_POST['fbrev_setting'])) {
-    //TODO
+    update_option('fbrev_app_id', $_POST['fbrev_app_id']);
+    update_option('fbrev_app_secret', $_POST['fbrev_app_secret']);
 }
 
 wp_register_style('twitter_bootstrap3_css', plugins_url('/static/css/bootstrap.min.css', __FILE__));
@@ -81,6 +82,8 @@ wp_enqueue_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css',
 
 wp_enqueue_script('jquery');
 
+$fbrev_app_id = get_option('fbrev_app_id');
+$fbrev_app_secret = get_option('fbrev_app_secret');
 $fbrev_enabled = get_option('fbrev_active') == '1';
 ?>
 
@@ -177,6 +180,32 @@ $fbrev_enabled = get_option('fbrev_active') == '1';
         </div>
         <div role="tabpanel" class="tab-pane" id="setting">
             <h4><?php echo fbrev_i('Facebook Reviews Widget Setting'); ?></h4>
+            <!-- Configuration form -->
+            <!--form method="POST" enctype="multipart/form-data">
+                <?php wp_nonce_field('fbrev-wpnonce_fbrev_settings', 'fbrev-form_nonce_fbrev_settings'); ?>
+                <div class="form-group">
+                    <label class="control-label" for="fbrev_app_id"><?php echo fbrev_i('App ID'); ?></label>
+                    <input class="form-control" type="text" id="fbrev_app_id" name="fbrev_app_id" value="<?php echo esc_attr($fbrev_app_id); ?>">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="fbrev_app_secret"><?php echo fbrev_i('App Secret'); ?></label>
+                    <input class="form-control" type="text" id="fbrev_app_secret" name="fbrev_app_secret" value="<?php echo esc_attr($fbrev_app_secret); ?>">
+                </div>
+                <div class="form-group">
+                    <b>To get Facebook 'App ID' and 'App Secret', please make following steps:</b><br>
+                    1. Go to <a href="https://developers.facebook.com/apps" target="_blank">Facebook for Developers</a><br>
+                    2. Click '<b>+ Add a New App</b>'<br>
+                    3. Enter any '<b>Display Name</b>' and click '<b>Create App ID</b>'<br>
+                    4. On the '<b>Facebook Login</b>' panel click '<b>Set Up</b>' button<br>
+                    5. Select '<b>WWW</b>' (Web) platform<br>
+                    6. In the menu go to <b>'Facebook Login' / 'Settings'</b><br>
+                    7. In the '<b>Valid OAuth Redirect URIs</b>' field, please enter <b>https://app.widgetpack.com/auth/fbrev/callback</b> and click '<b>Save Changes</b>'<br>
+                    8. In the menu go to <b>'Settings' / 'Basic'</b> and copy & paste 'App ID' and 'App Secret' keys to the plugin's setting and Save.
+                </div>
+                <p class="submit" style="text-align: left">
+                    <input name="fbrev_setting" type="submit" value="Save" class="button-primary button" tabindex="4">
+                </p>
+            </form-->
             <!-- Enable/disable Facebook Reviews Widget toggle -->
             <form method="POST" action="?page=fbrev&amp;fbrev_active=<?php echo (string)((int)($fbrev_enabled != true)); ?>">
                 <?php wp_nonce_field('fbrev-wpnonce_fbrev_active', 'fbrev-form_nonce_fbrev_active'); ?>
@@ -206,7 +235,7 @@ $fbrev_enabled = get_option('fbrev_active') == '1';
 jQuery(document).ready(function($) {
     $('a[data-toggle="tab"]').on('click', function(e)  {
         var active = $(this).attr('href');
-        $('.tab-content ' + active).show().siblings().hide();
+        $('.tab-content ' + active).addClass('active').show().siblings().hide();
         $(this).parent('li').addClass('active').siblings().removeClass('active');
         e.preventDefault();
     });

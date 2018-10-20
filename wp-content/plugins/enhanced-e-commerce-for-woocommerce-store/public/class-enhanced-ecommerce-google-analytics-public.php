@@ -18,7 +18,7 @@
  *
  * @package    Enhanced_Ecommerce_Google_Analytics
  * @subpackage Enhanced_Ecommerce_Google_Analytics/public
- * @author     Chiranjiv Pathak <chiranijv@tatvic.com>
+ * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
  */
 class Enhanced_Ecommerce_Google_Analytics_Public {
  /**
@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.1.2';
+    public $tvc_eeVer = '2.1.3';
 	
 	protected $tvc_aga;
 	
@@ -58,7 +58,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         //session for product position count
         //session_start inserted bcoz it gives warning
         if (session_status() == PHP_SESSION_NONE) {
-          session_start();
+           session_start();
         }
         $_SESSION['t_npcnt']=0;
         $_SESSION['t_fpcnt']=0;
@@ -273,7 +273,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         if ($order->get_items()) {
             foreach ($order->get_items() as $item) {
                 $_product = $order->get_product_from_item($item);
-                $tvc_prnm = get_the_title($item['product_id']);
                 if (isset($_product->variation_data)) {
                   $categories=esc_js(wc_get_formatted_variation($_product->get_variation_attributes(), true));
                   
@@ -306,7 +305,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                      $orderpage_prod_Array[get_permalink($_product->get_id())]=array(
                         "tvc_id" => esc_html($_product->get_id()),
                         "tvc_i" => esc_js($_product->get_sku() ? $_product->get_sku() : $_product->get_id()),
-                        "tvc_n" => html_entity_decode($tvc_prnm),
+                        "tvc_n" => html_entity_decode($_product->get_title()),
                         "tvc_p" => esc_js($order->get_item_total($item)),
                         "tvc_c" => $categories,
                         "tvc_q"=>esc_js($item["qty"])

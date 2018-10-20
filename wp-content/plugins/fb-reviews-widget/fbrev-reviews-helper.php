@@ -19,7 +19,7 @@ function fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofoll
     <?php
 }
 
-function fbrev_page_reviews($page_id, $reviews, $pagination, $open_link, $nofollow_link) {
+function fbrev_page_reviews($page_id, $reviews, $pagination, $disable_user_link, $open_link, $nofollow_link) {
     ?>
     <div class="wp-facebook-reviews">
     <?php
@@ -30,16 +30,39 @@ function fbrev_page_reviews($page_id, $reviews, $pagination, $open_link, $nofoll
             if ($pagination > 0 && $pagination <= $i++) {
                 $hr = true;
             }
+            if (isset($review->reviewer)) {
+                $reviewer_name = $review->reviewer->name;
+                $reviewer_photo = 'https://graph.facebook.com/' . $review->reviewer->id . '/picture';
+            } else {
+                $reviewer_name = 'Facebook user';
+                $reviewer_photo = FBREV_AVATAR;
+            }
         ?>
         <div class="wp-facebook-review<?php if ($hr) { ?> wp-facebook-hide<?php } ?>">
             <div class="wp-facebook-left">
-                <img src="https://graph.facebook.com/<?php echo $review->reviewer->id; ?>/picture" alt="<?php echo $review->reviewer->name; ?>" onerror="if(this.src!='<?php echo FBREV_AVATAR; ?>')this.src='<?php echo FBREV_AVATAR; ?>';">
+                <img src="<?php echo $reviewer_photo; ?>" alt="<?php echo $reviewer_name; ?>" onerror="if(this.src!='<?php echo FBREV_AVATAR; ?>')this.src='<?php echo FBREV_AVATAR; ?>';">
             </div>
             <div class="wp-facebook-right">
-                <?php fbrev_anchor('https://www.facebook.com/app_scoped_user_id/' . $review->reviewer->id, 'wp-facebook-name', $review->reviewer->name, $open_link, $nofollow_link); ?>
+                <?php
+                if (!$disable_user_link) {
+                    $profile_url = 'https://facebook.com/' . $page_id . '/reviews';
+                    fbrev_anchor($profile_url, 'wp-facebook-name', $reviewer_name, $open_link, $nofollow_link);
+                } else {
+                    ?><div class="wp-facebook-name"><?php echo $reviewer_name; ?></div><?php
+                }
+                ?>
                 <div class="wp-facebook-time" data-time="<?php echo $review->created_time; ?>"><?php echo $review->created_time; ?></div>
                 <div class="wp-facebook-feedback">
-                    <span class="wp-facebook-stars"><?php echo fbrev_stars($review->rating); ?></span>
+                    <span class="wp-facebook-stars">
+                    <?php
+                    if (isset($review->rating)) {
+                        echo fbrev_stars($review->rating);
+                    } elseif (isset($review->recommendation_type)) {
+                        $review_rating = ($review->recommendation_type == 'negative' ? 1 : 5);
+                        echo fbrev_stars($review_rating);
+                    }
+                    ?>
+                    </span>
                     <?php if (isset($review->review_text)) { ?>
                     <span class="wp-facebook-text"><?php echo fbrev_trim_text($review->review_text, 0); ?></span>
                     <?php } ?>

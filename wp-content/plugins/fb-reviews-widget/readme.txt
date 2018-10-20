@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Tags: facebook, facebook reviews, facebook business reviews, facebook page reviews, facebook page review, Facebook Page, facebook review, facebook review widget, business review, reviews, facebook reviews widget, sidebar widget, richplugins, google reviews, google places reviews, google map reviews, facebook reviews pro, testimonials, yelp, yelp reviews
 Requires at least: 2.8
 Tested up to: 4.9
-Stable tag: 1.4.2
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,11 @@ Facebook Reviews Widget show Facebook Page reviews on your WordPress website to 
 
 == Description ==
 
-`Why better to use <a href="https://richplugins.com/facebook-reviews-pro-wordpress-plugin">Facebook Reviews Pro</a> plugin`
+Why better to use <a href="https://richplugins.com/facebook-reviews-pro-wordpress-plugin">Facebook Reviews Pro</a> plugin
 
 The plugin display Facebook Page Reviews on your websites in sidebar widget to get more traffic and user trusts.
+
+This plugin uses the Facebook Graph API and requires an admin rights to the FB page to get the reviews.
 
 [youtube https://www.youtube.com/watch?v=o0HV-bJ6_qE]
 
@@ -67,6 +69,25 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.4.7 =
+* Important note: introduced support of Facebook recommendations, negative is considered as 1 star, positive recommendation 5 stars
+
+= 1.4.6 =
+* Bugfix: remove checking of App ID and App Secure in the widget
+
+= 1.4.5 =
+* Important note: Facebook has returned the right to get page reviews for our application while verification is in progress. The verification process can take up to several weeks and you can use the plugin in this time without any issues. Please re-install all widgets: make 'Log In with Facebook' again, select the page and save each widget.
+* Improve: new option in the 'Advance Options' panel, if Facebook returns error, the plugin can show the latest success response
+
+= 1.4.4 =
+* Important note: Facebook still does not review our application to get page reviews and we introduced a workaround: now you need to create Facebook application yourself, save 'App ID' and 'App Secret' keys on the setting page and make 'Connect to Facebook' again in the widget to restore the reviews
+
+= 1.4.3 =
+* Feature: added option to disable user profile links
+* Improve: the default number of reviews has increased to 250
+* Bugfix: fixed broken FB profile links
+* Bugfix: remove deprecated function create_function()
 
 = 1.4.2 =
 * Improve: support of SiteOrigin builder

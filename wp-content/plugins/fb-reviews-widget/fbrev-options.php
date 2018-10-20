@@ -1,4 +1,4 @@
-<button class="fbrev-connect"><?php echo fbrev_i('Connect to Facebook'); ?></button>
+<button class="fbrev-connect"><?php echo fbrev_i('Log In with Facebook'); ?></button>
 
 <div class="fbrev-pages"></div>
 
@@ -99,6 +99,14 @@
     <div class="form-group">
         <div class="col-sm-12">
             <label>
+                <input id="<?php echo $this->get_field_id('disable_user_link'); ?>" name="<?php echo $this->get_field_name('disable_user_link'); ?>" type="checkbox" value="1" <?php checked('1', $disable_user_link); ?> class="form-control"/>
+                <?php echo fbrev_i('Disable user profile links'); ?>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label>
                 <input id="<?php echo $this->get_field_id('dark_theme'); ?>" name="<?php echo $this->get_field_name('dark_theme'); ?>" type="checkbox" value="1" <?php checked('1', $dark_theme); ?> class="form-control" />
                 <?php echo fbrev_i('Dark background'); ?>
             </label>
@@ -174,6 +182,14 @@
             <label>
                 <input id="<?php echo $this->get_field_id('nofollow_link'); ?>" name="<?php echo $this->get_field_name('nofollow_link'); ?>" type="checkbox" value="1" <?php checked('1', $nofollow_link); ?> class="form-control" />
                 <?php echo fbrev_i('User no follow links'); ?>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label>
+                <input id="<?php echo $this->get_field_id('show_success_api'); ?>" name="<?php echo $this->get_field_name('show_success_api'); ?>" type="checkbox" value="1" <?php checked('1', $show_success_api); ?> class="form-control" />
+                <?php echo fbrev_i('Show latest success API response'); ?>
             </label>
         </div>
     </div>

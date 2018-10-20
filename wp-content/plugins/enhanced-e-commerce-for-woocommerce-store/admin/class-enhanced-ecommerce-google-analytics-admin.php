@@ -168,7 +168,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin {
 					$setting_url = 'admin.php?page=enhanced-ecommerce-google-analytics-admin-display';
 		?>
 			<div class="notice notice-warning is-dismissible">
-				<p>It's Advisable to verify the <a href="<?php echo $setting_url; ?>" >Settings</a> after updating the plugin, </p>
+				<p>Due to the major updates with the latest version, Kindly verify all the <a href="<?php echo $setting_url; ?>" >Settings</a> again.</p>
 			</div>
 			<?php
 			delete_transient( 'ee-admin-notice-activation' );
