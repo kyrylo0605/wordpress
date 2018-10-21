@@ -1,0 +1,7 @@
+05/09/2016  *   Initial release 
+9/28/2016	-	Updated theme URL
+9/28/2016	-	Added Changelog.txt to keep trac of changes
+9/28/2016	-	Check to see if Primary menu is set first before trying to output the html
+11/5/2016   -   wporg live
+11/5/2016	- 	added upsell link
+11/7/2016	-	added admin page for upsell
