@@ -19,7 +19,7 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
      * Setting Page to Manage Plugins
      *
      * @class      YIT_Plugin_Panel
-     * @package    Yithemes
+     * @package    YITH
      * @since      1.0
      * @author     Andrea Grillo      <andrea.grillo@yithemes.com>
      * @author     Antonio La Rocca   <antonio.larocca@yithemes.com>

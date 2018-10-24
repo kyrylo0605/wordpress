@@ -631,4 +631,7 @@
     float        : right;
     margin-right : 20px;
     margin-top   : 5px;
+  z-index: 9999 !important;
+  position: absolute;
+  right: 0;
 }

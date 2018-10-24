@@ -18,7 +18,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 	 * Notify and Update plugin
 	 *
 	 * @class       YIT_Upgrade
-	 * @package     Yithemes
+	 * @package     YITH
 	 * @since       1.0
 	 * @author      Your Inspiration Themes
 	 * @see         WP_Updater Class
@@ -620,12 +620,14 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 				//Get license for YITH Plugins
 				$enabled_license = YIT_Plugin_Licence()->get_licence();
 
-				if( isset( $enabled_license[ $slug ]['licence_key'] ) ){
-					$license = $enabled_license[ $slug ]['licence_key'];
-				}
+				if( isset( $enabled_license[ $slug ]['activated'] ) && false !== $enabled_license[ $slug ]['activated'] ){
+					if( isset( $enabled_license[ $slug ]['licence_key'] ) ){
+						$license = $enabled_license[ $slug ]['licence_key'];
+					}
 
-				if( isset( $enabled_license[ $slug ]['is_membership'] ) ){
-					$is_membership_license = $enabled_license[ $slug ]['is_membership'];
+					if( isset( $enabled_license[ $slug ]['is_membership'] ) ){
+						$is_membership_license = $enabled_license[ $slug ]['is_membership'];
+					}
 				}
 			}
 

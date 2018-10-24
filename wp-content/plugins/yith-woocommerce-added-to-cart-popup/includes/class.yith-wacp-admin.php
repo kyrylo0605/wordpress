@@ -119,11 +119,7 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		 * @use plugin_action_links_{$plugin_file_name}
 		 */
 		public function action_links( $links ) {
-			$links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
-			if ( defined( 'YITH_WACP_PREMIUM' ) && YITH_WACP_PREMIUM ) {
-				$links[] = '<a href="' . YIT_Plugin_Licence()->get_license_activation_url() . '" target="_blank">' . __( 'License', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
-			}
-
+			$links = yith_add_action_links( $links, $this->_panel_page, false );
 			return $links;
 		}
 

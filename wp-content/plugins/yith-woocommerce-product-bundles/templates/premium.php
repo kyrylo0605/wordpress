@@ -192,6 +192,15 @@
 .section.fourteen{
     background: url(<?php echo YITH_WCPB_ASSETS_URL?>/images/14-bg.png) no-repeat; background-position: 15% 75%
 }
+.section.fifteen{
+    background: url(<?php echo YITH_WCPB_ASSETS_URL?>/images/13-bg.png) no-repeat #fff; background-position: 85% 75%
+}
+.section.sixteen{
+    background: url(<?php echo YITH_WCPB_ASSETS_URL?>/images/14-bg.png) no-repeat; background-position: 15% 75%
+}
+.section.seventeen{
+    background: url(<?php echo YITH_WCPB_ASSETS_URL?>/images/13-bg.png) no-repeat #fff; background-position: 85% 75%
+}
 @media (max-width: 768px) {
     .section{margin: 0}
     .premium-cta p{
@@ -477,6 +486,56 @@
             </div>
         </div>
     </div>
+
+    <div class="fifteen section section-even clear">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WCPB_ASSETS_URL?>/images/15.png" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WCPB_ASSETS_URL?>/images/15-icon.png" alt="icon 13" />
+                    <h2><?php _e('Easy way to add bundled products','yith-woocommerce-product-bundles');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('Thanks to the popup window that opens in the bundle settings, you will be able to add all the bundled items to your product quickly with one click. Also, get the best out of the search box included in the popup, thanks to which you can search any of the products in your shop in AJAX and add it to the bundle.','yith-woocommerce-product-bundles'),'<b>','</b>','<br>'); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="sixteen section section-odd clear">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WCPB_ASSETS_URL?>/images/16-icon.png" />
+                    <h2><?php _e('Bundle price layout','yith-woocommerce-product-bundles');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('Select how to show the price of your bundles on the shop page, you can choose the layout that best fits your marketing strategy or simply your own taste. Feel free to choose from one of the following: min and max price, only minimum, From xxx price, discounted and regular prices.','yith-woocommerce-product-bundles'),'<b>','</b>'); ?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_WCPB_ASSETS_URL?>/images/16.png" />
+            </div>
+        </div>
+    </div>
+    <div class="seventeen section section-even clear">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WCPB_ASSETS_URL?>/images/17.png" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WCPB_ASSETS_URL?>/images/17-icon.png" alt="icon 13" />
+                    <h2><?php _e('Get the best out of the compatibility with YITH WooCommerce Quick View','yith-woocommerce-product-bundles');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('Whenever your customers are on the bundle page, they might want to take a deeper look at each of the products included in the bundle. Thanks to the integration with YITH Quick View, they will be able to click on the product link and see the product details in a popup instead of leaving the page. They will never lose sight of the bundle!','yith-woocommerce-product-bundles'),'<b>','</b>','<br>'); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="section section-cta section-odd">
         <div class="landing-container">
             <div class="premium-cta">

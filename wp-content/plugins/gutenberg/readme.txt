@@ -2,7 +2,7 @@
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.9.8
 Tested up to: 4.9
-Stable tag: 3.9.0
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,151 +81,118 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 = Latest =
 
-### New Features
-* Add ability to change overlay color in Cover Image.
-* Introduce new Font Size Picker with clear labels and size comparison.
-* Introduce new RichText data structure to allow better manipulation of inline content.
-* Add Pullquote style variation and color palette support.
-* Add support for post locking when multiple authors interact with the editor.
-* Add an alternative block appender when the container doesn’t support the default block (paragraph).
-* Improve the UI and interactions around floats.
-* Add option to skip PublishSidebar on publishing.
-* Add support for shortcode embeds that enqueue scripts.
-* Add a button to exit the Code Editor.
-* Introduce a reusable ResizableBox component.
-* Style nested `<ul>`s with circles instead of normal bullets.
-* Show hierarchical terms sorted by name and allow them to be filterable through search. Hide the filter box if there are fewer than 8 terms.
-* Improve messaging around invalid block detection.
-* Use text color for links when a paragraph has a color applied.
-* Allow extended usage of the controls API in resolvers within data layer.
-* Ensure that a default block is inserted (and selected) when all other blocks are removed.
-* Enhance the block parser to support multiple type, in accordance with JSON schema.
-* Add a larger target area for resize drag handles.
-* Add media button to classic block.
-* Add control to toggle responsive mechanism on embed blocks.
-* Update sidebar design to have a lighter feeling.
-* Update resolvers in data layer to rely on controls instead of async generators.
-* Set template validity on block reset.
-* Remove dirty detection from Meta Boxes to reduce false positives of “unsaved changes”.
-* Show “Publish: Immediately” for new drafts by inferring floating date.
-* Add a slight transition to Full Screen mode.
-* Improve spacing setup in Gallery Block.
-* Remove additional side padding from blocks.
-* Improve the reusable blocks “Export as JSON” link.
-* Enforce a default block icon size to allow flex alignment and fix unaligned labels.
-* Consider single unmodified default block as empty content.
-* Only display URL input field when “Link To” is set for Image Block.
-* Make backspace behavior consistent among Quote, Verse and Preformatted.
-* Expose refresh method from Dropdown component.
-* Omit style tags when pasting.
-* Use best fitting embed aspect ratio if exact match doesn’t exist.
-* Avoid dispatching undefined results in promise middleware.
-* Change keyboard shortcut for removing a block to access + z.
-* Replace the Full Screen mode “x” icon with a back arrow.
-* Make drag handle visible on hover while in nested contexts.
-* Pass the tab title to the TabPanel component for situations where it may need to be highlighted.
-* Allow setting no alignment when a default alignment exists.
-* Improve title and appender margin fix.
-* Avoid focusing on the close button on modal and try a modal appear animation.
-* Change the URL Input label to match Classic.
-* Adjust media upload source for RichText.
-* Handle edge cases in with-constrained-tabbing and add tests.
-* Set a consistent input field width in media placeholders.
-* Add a hover state to sidebar panel headers.
-* Change settings title from “Writing” to “View”.
-* Convert the “tools” menu group into internal plugin.
-* Normalize data types and fix default implementation in parser.
-* Cleanup CSS specificity issues on Button component for portability.
-* Display error when attempting to embed URLs that can’t be embedded and don’t generate a fallback.
-* Update some edit and save button labels and styles for consistency.
-* Make “Manage Reusable Blocks” a link instead of an icon button.
+## Changelog
 
-### Bug Fixes
-* Fix issue with Enter and the Read More block.
-* Fix menu item hover colors.
-* Fix issue with editor styles and fullscreen mode.
-* Fix popover link repositioning.
-* Fix Space Block layout issues on small screens.
-* Fix custom classNames for dynamic blocks.
-* Fix spacing of post-publish close button in other languages.
-* Fix Async Generator resolvers resolution.
-* Fix issue with Spacer Block not being resizable when using unified toolbar and spotlight mode.
-* Fix grammar.md manifest entry and update data docs.
-* Fix issue with region focus on the header area on IE11.
-* Fix reusable block broken button dimensions on IE11.
-* Fix issues with dropping blocks after dragging when calculating new block index.
-* Fix InnerBlock templates sync conditions to avoid a forced locking.
-* Fix typo in @wordpress/api-fetch README.md.
-* Fix regression with Button Block placeholder text.
-* Fix dropzone issue in Edge (event.dataTransfer.types not being an array).
-* Fix documentation for registerBlockStyle arguments and clarify getSaveElement filter.
-* Fix raw transforms not working in Edge when pasting content.
-* Fix a regression where wide images would cause horizontal scrollbars.
-* Fix issue with gallery margin while typing a caption.
-* Fix Block alignment CSS rules affecting nested blocks.
-* Fix CSS issue with nested paragraph placeholder.
-* Fix links in docs and add documentation for isPublishSidebarEnabled.
-* Fix shortcode package dependencies.
-* Fix overscroll issues locking scroll up on long pages.
-* Fix reference to SVG component in docs.
-* Fix Table Block header and body column misalignment.
-* Fix an issue where inserting like breaks would throw an error.
-* Fix regressions with placeholder text color (Cover Image, captions).
-* Fix Editor Styles regression.
-* Fix faulty Jed state after setLocaleData.
-* Fix small line-height issue in editor style.
-* Fix Pullquote margin regressions.
-* Fix issues with File Block and new RichText structures.
-* Fix Writing Flow E2E test.
-* Fix issues with “tips” popup margins.
-* Fix issue with mentions after rich text value merge.
-* Fix clipping issue with Instagram embed.
-* Fix ESNext example code.
-* Fix usage of tabs / spaces in parser code.
-* Fix Classic Block toolbar regression.
-* Fix issues with Table Block alignments.
-* Fix inserter misalignment regression.
-
-### Other Changes
-* Minor i18n fixes after deprecations were removed.
-* Rename parameter from mapStateToProps to mapSelectToProps in withSelect.
-* Rename AccessibleSVG to SVG and make it work with React Native.
-* Change createObjectUrl to createBlobURL.
-* Clean up Sass variables, comments, reduce complexity.
-* Move Classic Block to packages.
-* Move HTML Block into the blocks library package.
-* Move embed scripts into the body in preview documents.
-* Ensure that the return value of apiFetch is always a valid Promise object in Firefox.
-* Allow negative numbers in order field for Page Attributes.
-* Make sure the demo page loads without marking itself as having changes.
-* Refactor MediaUpload, MediaPlaceholder, and mediaUpload to support arrays with multiple supported types.
-* Add new icons to dashicons package.
-* Add link to “add_theme_support” docs.
-* Remove glob and just include necessary files.
-* Remove unused isButton prop.
-* Remove Vine embed.
-* Replace length check with RichText.isEmpty in Image Block.
-* Replace TinyMCE function to decode entities with existing Gutenberg package.
-* Extract the edit-post module as a reusable package.
-* Pass editor initial settings as direct argument.
-* Pass feature image ID to media upload component.
-* Pass all available properties in the media object.
-* Replace element-closest with registered vendor script.
-* Add new handbook introduction and docs about “blocks as the interface”.
-* Add utils to the wp-data script dependencies.
-* Disable alternate diff drivers in setup script.
-* Clarify RichText.Content readme docs.
-* Document `isDefault` option for block styles.
-* Update Panel component documentation.
-* Update full post content test fixtures.
-* Add ESLint rule about not allowing string literals in IDs.
-* Add a test for the new Code → Preformatted transform and use snapshots.
-* Add E2E test to visit demo page and verify errors.
-* Add E2E tests for list creation.
-* Update Redux to the latest version.
-
-### Mobile
-* Add the React Native entry point to more packages.
-* Need to define isRichTextValueEmpty for mobile.
-* Have Travis run mobile tests that use the parent code.
-* Wire onEnter to requestHTMLWithCursor command in RichText.
+* Implement a block navigation system that allows selecting child or parent blocks within nested blocks (like folder path traversal) as well as functioning as a general fast navigation system when a root block is selected.
+* Add a Media & Text block that can facilitate the creation of split column content and allows the split to be resizable.
+* Show block style selector in the block inspector.
+* Rename Cover Image to just Cover and add support for video backgrounds.
+* Add a new accessible Date Picker. This was months in the works.
+* Reimplement the Color Picker component to greatly improve keyboard navigation and screenreader operations.
+* Add style variation for Table block with stripe design.
+* Add “Options” modal to toggle on/off the different document panels.
+* Allow toggling visibility of registered meta-boxes from the “Options” modal.
+* Handle cases where a block is on the page but the block is not registered by showing a dialog with the available options.
+* Ensure compatibility with WordPress 5.0.
+* When pasting single lines of text, treat them as inline text.
+* Add ability to insert images from URL directly in the Image block.
+* Make Columns block responsive.
+* Make responsive embeds a theme option.
+* Add direction attribute / LTR button to the Paragraph block.
+* Display accurate updated and publish notices based on post type.
+* Update buttons in the editor header area to improve consistency (save, revert to draft, etc).
+* Avoid horizontal writing flow navigation in native inputs.
+* Move toggle buttons to the left of their control handle.
+* Add explicit bottom margin to figure elements (like image and embed).
+* Allow transforming a Pullquote to a Quote and viceversa.
+* Allow block inserter to search for blocks by typing their category.
+* Add a label to the URL field in the Publishing Flow panel.
+* Use the stored date format in settings for the LatestPosts block.
+* Remove the placeholder text and use visible label instead in TokenField.
+* Add translator comment for “View” menu label.
+* Make YouTube embed classes consistent between front-end and back-end.
+* Take into account citation when transforming a Quote to a Paragraph.
+* Restore ⌘A’s “select all blocks” behaviour.
+* Allow themes to disable custom font size functionality.
+* Make missing custom font sizes labels translatable.
+* Ensure cite is string when merging quote.
+* Defer fetching non-hierarchical terms in FlatTermSelector.
+* Move the theme support data previously exposed at the REST API index into a read-only theme controller for the active theme.
+* Detect oEmbed responses where the oEmbed provider is missing.
+* Use “Save as Pending” when the Pending checkbox is active.
+* Use the post type’s REST controller class as autosave parent controller.
+* Use post type labels in PostFeaturedImage component.
+* Enforce text color within inline boundaries to ensure contrast and legibility.
+* Add self-closing tag support (like path element) when comparing HTML.
+* Make sure autocomplete triggers are regex safe.
+* Silence PHP errors on REST API responses.
+* Show permalink label as bold text.
+* Change the block renderer controller endpoint and namespace from /gutenberg/v1/block-renderer/ to /wp/v2/block-renderer/.
+* Hide “edit image” toolbar buttons when no image is selected.
+* Hide “Add to Reusable Blocks” action when ‘core/block’ is disabled.
+* Handle blocks passing null as RichText value.
+* Improve validation for attribute names in rich-text toHTMLString.
+* Allow to globally overwrite defined colors in PanelColorSettings.
+* Fix regressions with Button block preview display.
+* Fix issue with color picker not appearing on mobile.
+* Fix publish buttons with long text.
+* Fix link to manifest file in contributing file.
+* Fix demo content crash on malformed URL.
+* Fix issue in docs manifest.
+* Fix media caption processing with the new RichText structure.
+* Fix problem with Gallery losing assigned columns when alignments are applied.
+* Fix an issue where the Categories block would always use the center class alignment regardless of what was set.
+* Fix scroll issue on small viewports.
+* Fix formatting in getEditorSettings docs and update getTokenSettings docs.
+* Fix padding in block validation modal.
+* Fix extra instances of old rich text value source.
+* Fix issue with adding links from the auto-completer.
+* Fix outdated docs for RichText.
+* Fix pre-publish panel overflow issue.
+* Fix missing styles for medium and huge font size classes.
+* Fix autocomplete keyboard navigation in link popover.
+* Fix a text selection exception in Safari.
+* Fix WordPress embed URL resolution and embeds as reusable blocks.
+* Avoid triggering a redirect when creating a new Table block.
+* Only use rich text value internally to the RichText component.
+* Ensure multiline prop is either “p” or “li” in RichText.
+* Do not use dangerouslySetInnerHTML with i18n string.
+* Account for null value in redux-routine createRuntime.
+* Extract link container from RichText.
+* Allow default_title, default_content, and default_excerpt filters to function as expected.
+* Replace gutenberg in classNames with block-editor.
+* Restore the order of actions usually fired in edit-form-advanced.php.
+* Update REST Search controller to use ‘wp/v2’ namespace.
+* Improve keyboard shortcuts section in FAQ.
+* Change all occurrences of ‘new window’ to ‘new tab’.
+* Conditionally load PHP classes in preparation for inclusion in core.
+* Update rich-text source mentions in docs.
+* Deprecate PanelColor components.
+* Use mock response for demo test if Vimeo is down.
+* Adding a bit more verbosity to the install script instructions.
+* Document isDefault option for block styles.
+* Update docs for new REST API namespace.
+* Update shortcut docs with new block navigation menu shortcut.
+* Further improve Release docs.
+* Updated custom icon documentation links.
+* Add all available script handles to documentation.
+* Add wp-polyfill to scripts.md.
+* Add e2e tests for List and Quote transformations.
+* Fail CI build if local changes exist.
+* Attempt to always use the latest version of nvm.
+* Add bare handling for lint-js script.
+* Add support for Webpack bundle analyzer.
+* Improve setup of Lerna.
+* Update clipboard dependency to at least 2.0.1.
+* Recreate the demo content post as an e2e test using keyboard commands.
+* Add mobile SVG compatibility for SVG block icons.
+* Fix className style in SVG primitive.
+* Split Paragraph and Heading blocks on enter.KEY. Refactor block splitting code on paragraph and heading blocks.
+* Add caption support for image block.
+* Rename PHP functions to prevent conflict with core
+* Fix some typos
+* Improve the Toggle Control elements DOM order for better accessibility
+* Set correct media type for video poster image and manage focus properly.
+* Implement fetchAllMiddleware to handle per_page=-1 through pagination in wp.apiFetch
+* Fix Slash autocomplete: Support non-Latin inputs
+* Add WordPress logo animation for preview

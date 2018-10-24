@@ -64,7 +64,7 @@ export default function stepPayment(params) {
                         crossDomain: 'withCredentials' in new XMLHttpRequest(),
                         success    : function (response) {
                             if (response.success) {
-                                stepPayment();
+                                stepPayment({form_id: params.form_id});
                             }
                         }
                     });
@@ -91,7 +91,7 @@ export default function stepPayment(params) {
                         crossDomain : 'withCredentials' in new XMLHttpRequest(),
                         success     : function (response) {
                             if (response.success) {
-                                stepPayment();
+                                stepPayment({form_id: params.form_id});
                             } else {
                                 $coupon_error.html(opt[params.form_id].errors[response.error]);
                                 $coupon_input.addClass('bookly-error');

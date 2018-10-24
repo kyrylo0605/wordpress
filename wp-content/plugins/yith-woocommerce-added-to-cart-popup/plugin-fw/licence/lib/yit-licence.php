@@ -19,7 +19,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
      * Setting Page to Manage Products
      *
      * @class      YIT_Licence
-     * @package    Yithemes
+     * @package    YITH
      * @since      1.0
      * @author     Andrea Grillo      <andrea.grillo@yithemes.com>
      */

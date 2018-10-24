@@ -114,7 +114,7 @@
                             crossDomain: 'withCredentials' in new XMLHttpRequest(),
                             success    : function (response) {
                                 if (response.success) {
-                                    stepPayment();
+                                    stepPayment({form_id: params.form_id});
                                 }
                             }
                         });
@@ -141,7 +141,7 @@
                             crossDomain : 'withCredentials' in new XMLHttpRequest(),
                             success     : function (response) {
                                 if (response.success) {
-                                    stepPayment();
+                                    stepPayment({form_id: params.form_id});
                                 } else {
                                     $coupon_error.html(opt[params.form_id].errors[response.error]);
                                     $coupon_input.addClass('bookly-error');
@@ -1900,6 +1900,7 @@
                     opt[params.form_id].timeZoneOffset = undefined;
                     showSpinner();
                     stepTime({
+                        form_id: params.form_id,
                         time_zone: opt[params.form_id].timeZone
                     });
                 });
@@ -1938,7 +1939,7 @@
                                     $time_next_button.toggle($screens.length != 1);
                                 } else {
                                     // Load new data from server.
-                                    stepTime({selected_date : date});
+                                    stepTime({form_id: params.form_id, selected_date : date});
                                     showSpinner();
                                 }
                             }
@@ -1951,12 +1952,12 @@
                             var date = new Date(Date.UTC(this.get('view').year, this.get('view').month));
                             $('.picker__nav--next').on('click', function() {
                                 date.setUTCMonth(date.getUTCMonth() + 1);
-                                stepTime({selected_date : date.toJSON().substr(0, 10)});
+                                stepTime({form_id: params.form_id, selected_date : date.toJSON().substr(0, 10)});
                                 showSpinner();
                             });
                             $('.picker__nav--prev').on('click', function() {
                                 date.setUTCMonth(date.getUTCMonth() - 1);
-                                stepTime({selected_date : date.toJSON().substr(0, 10)});
+                                stepTime({form_id: params.form_id, selected_date : date.toJSON().substr(0, 10)});
                                 showSpinner();
                             });
                         }
