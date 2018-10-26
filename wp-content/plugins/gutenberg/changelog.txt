@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 4.1.1 =
+
+* Fix dynamic blocks not rendering in the frontend when meta-boxes present.
+
 = 4.1.0 =
 
 * Implement a block navigation system that allows selecting child or parent blocks within nested blocks (like folder path traversal) as well as functioning as a general fast navigation system when a root block is selected.
