@@ -2,7 +2,7 @@
 /*
 Plugin Name: SiteOrigin Widgets Bundle
 Description: A collection of all widgets, neatly bundled into a single plugin. It's also a framework to code your own widgets on top of.
-Version: 1.13.0
+Version: 1.13.1
 Text Domain: so-widgets-bundle
 Domain Path: /lang
 Author: SiteOrigin
@@ -12,7 +12,7 @@ License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-define('SOW_BUNDLE_VERSION', '1.13.0');
+define('SOW_BUNDLE_VERSION', '1.13.1');
 define('SOW_BUNDLE_BASE_FILE', __FILE__);
 
 // Allow JS suffix to be pre-set
@@ -820,6 +820,37 @@ class SiteOrigin_Widgets_Bundle {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Enqueue scripts for registered widgets, by calling their form and/or widget functions.
+	 *
+	 * @param bool $front_end Whether to enqueue scripts for the front end.
+	 * @param bool $admin Whether to enqueue scripts for admin.
+	 */
+	function enqueue_registered_widgets_scripts( $front_end = true, $admin = true ) {
+		
+		global $wp_widget_factory, $post;
+		// Store a reference to the $post global to allow any secondary queries to run without affecting it.
+		$global_post = $post;
+		
+		foreach ( $wp_widget_factory->widgets as $class => $widget_obj ) {
+			if ( ! empty( $widget_obj ) && is_object( $widget_obj ) && is_subclass_of( $widget_obj, 'SiteOrigin_Widget' ) ) {
+				/* @var $widget_obj SiteOrigin_Widget */
+				ob_start();
+				if ( $admin ) {
+					$widget_obj->form( array() );
+				}
+				if ( $front_end ) {
+					// Enqueue scripts for previews.
+					$widget_obj->widget( array(), array() );
+				}
+				ob_clean();
+			}
+		}
+		
+		// Reset the $post global back to what it was before any secondary queries.
+		$post = $global_post;
 	}
 }
 

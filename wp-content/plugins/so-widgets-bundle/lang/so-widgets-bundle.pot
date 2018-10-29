@@ -108,11 +108,11 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: base/inc/fields/builder.class.php:36
+#: base/inc/fields/builder.class.php:41
 msgid "This field requires: "
 msgstr ""
 
-#: base/inc/fields/builder.class.php:37, widgets/layout-slider/layout-slider.php:197
+#: base/inc/fields/builder.class.php:42, widgets/layout-slider/layout-slider.php:201
 msgid "SiteOrigin Page Builder"
 msgstr ""
 
@@ -476,43 +476,51 @@ msgstr ""
 msgid "Allow users to swipe through frames on mobile devices."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:108
+#: base/inc/widgets/base-slider.class.php:103
+msgid "Show slide background videos on mobile"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:104
+msgid "Allow slide background videos to appear on mobile devices that support autoplay."
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:114
 msgid "Video file"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:114, widgets/video/video.php:84
+#: base/inc/widgets/base-slider.class.php:120, widgets/video/video.php:84
 msgid "Video URL"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:116
+#: base/inc/widgets/base-slider.class.php:122
 msgid "An external URL of the video. Overrides video file."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:121, widgets/video/video.php:100
+#: base/inc/widgets/base-slider.class.php:127, widgets/video/video.php:100
 msgid "Autoplay"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:123
+#: base/inc/widgets/base-slider.class.php:129
 msgid "Currently only for YouTube videos."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:128
+#: base/inc/widgets/base-slider.class.php:134
 msgid "Video format"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:138
+#: base/inc/widgets/base-slider.class.php:144
 msgid "Maximum height"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:182
+#: base/inc/widgets/base-slider.class.php:188
 msgid "display slide %s"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:187
+#: base/inc/widgets/base-slider.class.php:193
 msgid "next slide"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:193
+#: base/inc/widgets/base-slider.class.php:199
 msgid "previous slide"
 msgstr ""
 
@@ -576,8 +584,16 @@ msgstr ""
 msgid "Visual Composer"
 msgstr ""
 
-#: compat/gutenberg/gutenberg.php:63
+#: compat/gutenberg/gutenberg.php:39, compat/visual-composer/visual-composer.php:77
+msgid "Selecting a different widget will revert any changes. Continue?"
+msgstr ""
+
+#: compat/gutenberg/gutenberg.php:52
 msgid "You need to select a widget type before you'll see anything here. :)"
+msgstr ""
+
+#: compat/gutenberg/gutenberg.php:73
+msgid "Invalid widget class %s. Please make sure the widget has been activated in %sSiteOrigin Widgets%s."
 msgstr ""
 
 #: compat/visual-composer/visual-composer.php:38, compat/visual-composer/visual-composer.php:54
@@ -590,10 +606,6 @@ msgstr ""
 
 #: compat/visual-composer/visual-composer.php:42
 msgid "Allows you to add any active SiteOrigin Widgets Bundle widgets."
-msgstr ""
-
-#: compat/visual-composer/visual-composer.php:77
-msgid "Selecting a different widget will revert any changes. Continue?"
 msgstr ""
 
 #: icons/icons.php:7
@@ -828,7 +840,7 @@ msgstr ""
 msgid "Button color"
 msgstr ""
 
-#: widgets/button/button.php:136, widgets/contact/contact.php:573, widgets/hero/hero.php:250, widgets/layout-slider/layout-slider.php:181
+#: widgets/button/button.php:136, widgets/contact/contact.php:573, widgets/hero/hero.php:250, widgets/layout-slider/layout-slider.php:185
 msgid "Text color"
 msgstr ""
 
@@ -1506,11 +1518,11 @@ msgid "Feature"
 msgstr ""
 
 #: widgets/features/features.php:55
-msgid "Container color"
+msgid "Icon container color"
 msgstr ""
 
 #: widgets/features/features.php:61
-msgid "Container Position"
+msgid "Icon container position"
 msgstr ""
 
 #: widgets/features/features.php:80, widgets/social-media-buttons/social-media-buttons.php:77
@@ -1550,11 +1562,11 @@ msgid "More Link"
 msgstr ""
 
 #: widgets/features/features.php:197
-msgid "Container shape"
+msgid "Icon container shape"
 msgstr ""
 
 #: widgets/features/features.php:204
-msgid "Container size"
+msgid "Icon container size"
 msgstr ""
 
 #: widgets/features/features.php:210, widgets/social-media-buttons/social-media-buttons.php:116
@@ -1585,7 +1597,7 @@ msgstr ""
 msgid "Open more URL in a new window"
 msgstr ""
 
-#: widgets/features/features.php:297, widgets/hero/hero.php:433
+#: widgets/features/features.php:297, widgets/hero/hero.php:433, widgets/layout-slider/layout-slider.php:322, widgets/social-media-buttons/social-media-buttons.php:32
 msgid "Responsive Breakpoint"
 msgstr ""
 
@@ -2074,7 +2086,7 @@ msgid "FitText Compressor Strength"
 msgstr ""
 
 #: widgets/headline/headline.php:259, widgets/hero/hero.php:232
-msgid "How aggressively FitText should resize your heading."
+msgid "The lower the value, the more your headings will be scaled down. Values above 1 are allowed."
 msgstr ""
 
 #: widgets/hero/hero.php:18
@@ -2141,27 +2153,27 @@ msgstr ""
 msgid "Design and Layout"
 msgstr ""
 
-#: widgets/hero/hero.php:168
+#: widgets/hero/hero.php:168, widgets/layout-slider/layout-slider.php:129
 msgid "Responsive Height"
 msgstr ""
 
-#: widgets/hero/hero.php:174, widgets/layout-slider/layout-slider.php:130
+#: widgets/hero/hero.php:174, widgets/layout-slider/layout-slider.php:134
 msgid "Top and bottom padding"
 msgstr ""
 
-#: widgets/hero/hero.php:180, widgets/layout-slider/layout-slider.php:136
+#: widgets/hero/hero.php:180, widgets/layout-slider/layout-slider.php:140
 msgid "Extra top padding"
 msgstr ""
 
-#: widgets/hero/hero.php:181, widgets/layout-slider/layout-slider.php:137
+#: widgets/hero/hero.php:181, widgets/layout-slider/layout-slider.php:141
 msgid "Additional padding added to the top of the slider"
 msgstr ""
 
-#: widgets/hero/hero.php:187, widgets/layout-slider/layout-slider.php:143
+#: widgets/hero/hero.php:187, widgets/layout-slider/layout-slider.php:147
 msgid "Side padding"
 msgstr ""
 
-#: widgets/hero/hero.php:193, widgets/layout-slider/layout-slider.php:149
+#: widgets/hero/hero.php:193, widgets/layout-slider/layout-slider.php:153
 msgid "Maximum container width"
 msgstr ""
 
@@ -2169,19 +2181,19 @@ msgstr ""
 msgid "Heading font"
 msgstr ""
 
-#: widgets/hero/hero.php:205, widgets/layout-slider/layout-slider.php:155
+#: widgets/hero/hero.php:205, widgets/layout-slider/layout-slider.php:159
 msgid "Heading color"
 msgstr ""
 
-#: widgets/hero/hero.php:211, widgets/layout-slider/layout-slider.php:161
+#: widgets/hero/hero.php:211, widgets/layout-slider/layout-slider.php:165
 msgid "Heading size"
 msgstr ""
 
-#: widgets/hero/hero.php:242, widgets/layout-slider/layout-slider.php:167
+#: widgets/hero/hero.php:242, widgets/layout-slider/layout-slider.php:171
 msgid "Heading shadow intensity"
 msgstr ""
 
-#: widgets/hero/hero.php:255, widgets/layout-slider/layout-slider.php:175
+#: widgets/hero/hero.php:255, widgets/layout-slider/layout-slider.php:179
 msgid "Text size"
 msgstr ""
 
@@ -2321,12 +2333,16 @@ msgstr ""
 msgid "Tile"
 msgstr ""
 
-#: widgets/layout-slider/layout-slider.php:196
+#: widgets/layout-slider/layout-slider.php:200
 msgid "This widget requires: "
 msgstr ""
 
-#: widgets/layout-slider/layout-slider.php:262
+#: widgets/layout-slider/layout-slider.php:266
 msgid "This widget requires Page Builder."
+msgstr ""
+
+#: widgets/layout-slider/layout-slider.php:324
+msgid "This setting controls when the Layout Slider widget will switch to the responsive height for slides. This breakpoint will only be used if a responsive height is set in the Layout Slider's settings. The default value is 780px."
 msgstr ""
 
 #: widgets/post-carousel/post-carousel.php:49
@@ -2713,12 +2729,8 @@ msgstr ""
 msgid "A social media buttons widget."
 msgstr ""
 
-#: widgets/social-media-buttons/social-media-buttons.php:32
-msgid "Mobile Collapse Width"
-msgstr ""
-
 #: widgets/social-media-buttons/social-media-buttons.php:34
-msgid "This setting allows you to set the resoloution for when the Mobile Align setting will be used."
+msgid "This setting controls when the Mobile Align setting will be used. The default value is 780px"
 msgstr ""
 
 #: widgets/social-media-buttons/social-media-buttons.php:57

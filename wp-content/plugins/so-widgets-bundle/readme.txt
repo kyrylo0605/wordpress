@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 4.9.1
-Stable tag: 1.13.0
-Build time: 2018-09-17T08:23:30-07:00
+Stable tag: 1.13.1
+Build time: 2018-10-29T10:38:38-07:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/contribution/
@@ -64,6 +64,28 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.13.1 - 29 October 2018 =
+* Gutenberg: Alert user that changes will be lost when changing the widget type.
+* Tabs: Keyboard navigation and more accessibility improvements.
+* Google maps: Better geocoding request management.
+* TinyMCE field: Use correct selector for checking whether click target is editor switching tab.
+* Slider: Option to prevent hiding video on mobile.
+* Accordion: Deep-linking for child accordions.
+* Use inline CSS fallback if writing to file failed.
+* Better FitText compressor description.
+* Delete old widget styles when updating widgets.
+* Layout Slider: Resoonsive height.
+* Accordion: Expand when user is printing.
+* Features: Text case adjustments and formatting.
+* Beaver Builder: Dark styling.
+* Builder field: Allow double-encoding to allow already encoded text in editors.
+* Contact form: Prevent adding the anchor again if it's already been added.
+* Contact form: Attempt to scroll to contact form after submitting, so result is visible.
+* Builder field: Set data correctly from JS.
+* Builder field: Don't encode already JSON encoded values.
+* Gutenberg: Allow editing page containing deactivated widget.
+* Gutenberg: Reset global `$post` after enqueueing widgets' scripts and styles, which might run secondary queries.
 
 = 1.13.0 - 13 September 2018 =
 * SiteOrigin Widgets Gutenberg block!

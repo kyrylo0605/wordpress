@@ -215,6 +215,22 @@ if ( ! class_exists( 'AWS_Versions' ) ) :
 
                 }
 
+                if ( version_compare( $current_version, '1.54', '<' ) ) {
+
+                    if ( AWS_Helpers::is_index_table_has_on_sale() == 'no' ) {
+
+                        global $wpdb;
+                        $table_name =  $wpdb->prefix . AWS_INDEX_TABLE_NAME;
+
+                        $wpdb->query("
+                            ALTER TABLE {$table_name}
+                            ADD COLUMN `on_sale` INT(11) NOT NULL DEFAULT 0
+                        ");
+
+                    }
+
+                }
+
             }
 
             update_option( 'aws_plugin_ver', AWS_VERSION );

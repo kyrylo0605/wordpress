@@ -203,6 +203,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                       type VARCHAR(50) NOT NULL DEFAULT 0,
                       count BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
                       in_stock INT(11) NOT NULL DEFAULT 0,
+                      on_sale INT(11) NOT NULL DEFAULT 0,
                       term_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
                       visibility VARCHAR(20) NOT NULL DEFAULT 0,
                       lang VARCHAR(20) NOT NULL DEFAULT 0
@@ -249,6 +250,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
 
                 $data['in_stock'] = method_exists( $product, 'get_stock_status' ) ? ( ( $product->get_stock_status() === 'outofstock' ) ? 0 : 1 ) : ( method_exists( $product, 'is_in_stock' ) ? $product->is_in_stock() : 1 );
+                $data['on_sale'] = $product->is_on_sale();
                 $data['visibility'] = method_exists( $product, 'get_catalog_visibility' ) ? $product->get_catalog_visibility() : ( method_exists( $product, 'get_visibility' ) ? $product->get_visibility() : 'visible' );
                 $data['lang'] = $lang ? $lang : '';
 
@@ -387,6 +389,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                     $translated_post_data = array();
                                     $translated_post_data['id'] = $translated_post->ID;
                                     $translated_post_data['in_stock'] = $data['in_stock'];
+                                    $translated_post_data['on_sale'] = $data['on_sale'];
                                     $translated_post_data['visibility'] = $data['visibility'];
                                     $translated_post_data['lang'] = $lang_obj->language_code;
                                     $translated_post_data['terms'] = array();
@@ -435,6 +438,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                     $translated_post_data = array();
                                     $translated_post_data['id'] = $data['id'];
                                     $translated_post_data['in_stock'] = $data['in_stock'];
+                                    $translated_post_data['on_sale'] = $data['on_sale'];
                                     $translated_post_data['visibility'] = $data['visibility'];
                                     $translated_post_data['lang'] = $current_lang;
                                     $translated_post_data['terms'] = array();
@@ -501,8 +505,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     }
 
                     $value = $wpdb->prepare(
-                        "(%d, %s, %s, %s, %d, %d, %d, %s, %s)",
-                        $data['id'], $term, $source, 'product', $count, $data['in_stock'], $term_id, $data['visibility'], $data['lang']
+                        "(%d, %s, %s, %s, %d, %d, %d, %d, %s, %s)",
+                        $data['id'], $term, $source, 'product', $count, $data['in_stock'], $data['on_sale'], $term_id, $data['visibility'], $data['lang']
                     );
 
                     $values[] = $value;
@@ -517,7 +521,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 $values = implode( ', ', $values );
 
                 $query  = "INSERT IGNORE INTO {$this->table_name}
-				              (`id`, `term`, `term_source`, `type`, `count`, `in_stock`, `term_id`, `visibility`, `lang`)
+				              (`id`, `term`, `term_source`, `type`, `count`, `in_stock`, `on_sale`, `term_id`, `visibility`, `lang`)
 				              VALUES $values
                     ";
 
