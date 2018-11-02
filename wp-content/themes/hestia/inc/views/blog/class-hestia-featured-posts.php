@@ -113,7 +113,7 @@ class Hestia_Featured_Posts extends Hestia_Abstract_Main {
 			// Get the data (title, category, content) and display the post.
 			$pid = get_the_ID();
 			array_push( $this->posts_to_skip, $pid );
-			$post_url = get_permalink();
+			$post_url = esc_url( get_permalink() );
 			$title    = get_the_title();
 			$content  = get_the_excerpt();
 			$content  = preg_replace( '/<a class="moretag" (.*?)>(.*?)<\/a>/i', '...', $content );

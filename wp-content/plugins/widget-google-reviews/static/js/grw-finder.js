@@ -3,7 +3,7 @@
  */
 function grw_init(data) {
 
-    var el = document.querySelector('#' + data.widgetId);
+    var el = data.el;
     if (!el) return;
 
     var searchBtn = el.querySelector('.grw-search-btn');

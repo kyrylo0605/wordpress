@@ -115,6 +115,7 @@ class Hestia_Customizer_Main extends Hestia_Register_Customizer_Controls {
 		$this->change_customizer_object( 'section', 'header_image', 'description', __return_empty_string() );
 		$this->change_customizer_object( 'section', 'background_image', 'panel', 'hestia_appearance_settings' );
 		$this->change_customizer_object( 'setting', 'blogdescription', 'transport', $this->selective_refresh );
+		$this->change_customizer_object( 'section', 'colors', 'panel', 'hestia_appearance_settings' );
 	}
 
 	/**

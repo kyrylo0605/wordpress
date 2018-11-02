@@ -16,13 +16,6 @@ if ( ! class_exists( 'WP_Customize_Control' ) ) {
 class Hestia_Page_Editor extends WP_Customize_Control {
 
 	/**
-	 * Flag to include sync scripts if needed
-	 *
-	 * @var bool|mixed
-	 */
-	private $needsync = false;
-
-	/**
 	 * Hestia_Page_Editor constructor.
 	 *
 	 * @param WP_Customize_Manager $manager Manager.
@@ -31,9 +24,6 @@ class Hestia_Page_Editor extends WP_Customize_Control {
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
 		parent::__construct( $manager, $id, $args );
-		if ( ! empty( $args['needsync'] ) ) {
-			$this->needsync = $args['needsync'];
-		}
 	}
 
 	/**
@@ -53,19 +43,6 @@ class Hestia_Page_Editor extends WP_Customize_Control {
 			HESTIA_VERSION,
 			false
 		);
-		if ( $this->needsync === true ) {
-			wp_enqueue_script( 'hestia_controls_script', get_template_directory_uri() . '/inc/customizer/controls/custom-controls/customizer-page-editor/js/hestia-update-controls.js', array( 'jquery', 'hestia_text_editor' ), HESTIA_VERSION, true );
-			wp_localize_script(
-				'hestia_controls_script',
-				'requestpost',
-				array(
-					'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-					'thumbnail_control' => 'hestia_feature_thumbnail', // name of image control that needs sync
-					'editor_control'    => 'hestia_page_editor', // name of control (theme_mod) that needs sync
-					'thumbnail_label'   => esc_html__( 'About background', 'hestia' ), // name of thumbnail control
-				)
-			);
-		}
 	}
 
 	/**

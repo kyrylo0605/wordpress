@@ -44,16 +44,16 @@ class Hestia_Font_Selector extends WP_Customize_Control {
 		<div class="hestia-ss-wrap">
 			<input class="hestia-fs-main-input" type="text"
 					name="<?php echo esc_attr( $this->id ); ?>"
-					value="<?php echo ( ! empty( $value ) ) ? esc_html( $value ) : __( 'Default', 'hestia' ); ?>"
+					value="<?php echo ( ! empty( $value ) ) ? esc_html( $value ) : esc_attr__( 'Default', 'hestia' ); ?>"
 					readonly>
 			<span class="hestia-fs-input-addon"><i class="dashicons dashicons-arrow-down"></i></span>
 			<div class="hestia-fs-dropdown">
 				<span class="hestia-fs-search">
-						<input type="search" placeholder="<?php echo _x( 'Search for:', 'label', 'hestia' ) . '...'; ?>">
+						<input type="search" placeholder="<?php echo esc_attr_x( 'Search for:', 'label', 'hestia' ) . '...'; ?>">
 				</span>
 				<div class="hestia-fs-options-wrapper">
 						<span class="hestia-fs-option"
-								data-option="<?php esc_html_e( 'Default', 'hestia' ); ?>"><?php esc_html_e( 'Default', 'hestia' ); ?></span>
+								data-option="<?php esc_attr_e( 'Default', 'hestia' ); ?>"><?php esc_html_e( 'Default', 'hestia' ); ?></span>
 					<?php
 					$this->render_dropdown_options_group( $std_fonts, esc_html__( 'Standard Fonts', 'hestia' ) );
 					$this->render_dropdown_options_group( $google_fonts, esc_html__( 'Google Fonts', 'hestia' ) );

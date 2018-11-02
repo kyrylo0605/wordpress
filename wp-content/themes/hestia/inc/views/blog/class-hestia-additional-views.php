@@ -35,7 +35,7 @@ class Hestia_Additional_Views extends Hestia_Abstract_Main {
 			return;
 		}
 
-		$post_link  = get_the_permalink();
+		$post_link  = esc_url( get_the_permalink() );
 		$post_title = get_the_title();
 
 		$facebook_url =

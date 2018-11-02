@@ -303,11 +303,7 @@ function hestia_woocommerce_template_loop_product_title() {
  * Move the coupon fild and message info after the order table
  **/
 function hestia_coupon_after_order_table_js() {
-	wc_enqueue_js(
-		'
-		$( $( "div.woocommerce-info, .checkout_coupon" ).detach() ).appendTo( "#hestia-checkout-coupon" );
-	'
-	);
+	wc_enqueue_js( '$( $( ".woocommerce-checkout div.woocommerce-info, .checkout_coupon, .woocommerce-form-login" ).detach() ).appendTo( "#hestia-checkout-coupon" );' );
 }
 
 /**

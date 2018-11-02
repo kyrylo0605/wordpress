@@ -21,8 +21,7 @@ class Themeisle_OB_Admin {
 	 */
 	public function init() {
 		add_filter( 'query_vars', array( $this, 'add_onboarding_query_var' ) );
-		add_action( 'ti_about_page_after_tabs', array( $this, 'add_demo_import_tab' ) );
-		add_action( 'ti_about_page_after_tabs_content', array( $this, 'add_demo_import_tab_content' ) );
+		add_filter( 'ti_about_config_filter', array( $this, 'add_demo_import_tab' ), 15 );
 	}
 
 	/**
@@ -40,13 +39,20 @@ class Themeisle_OB_Admin {
 
 	/**
 	 * Add about page tab list item.
+	 *
+	 * @param array $config about page config.
+	 * @return array
 	 */
-	public function add_demo_import_tab() {
-		?>
-		<li style="margin-bottom: 0;" data-tab-id="<?php echo esc_attr( 'demo-import' ); ?>"><a class="nav-tab"
-					href="#<?php echo esc_attr( 'demo-import' ); ?>"><?php echo __( 'Sites Library', 'hestia' ); ?></a>
-		</li>
-		<?php
+	public function add_demo_import_tab( $config ) {
+		$config['custom_tabs']['sites_library'] = array(
+			'title'           => __( 'Sites Library', 'hestia' ),
+			'render_callback' => array(
+				$this,
+				'add_demo_import_tab_content',
+			),
+		);
+
+		return $config;
 	}
 
 	/**
@@ -67,8 +73,6 @@ class Themeisle_OB_Admin {
 		$this->enqueue();
 		?>
 		<div class="ti-sites-lib__wrap">
-			<h3 class="wp-heading-inline"><?php echo __( 'Sites Library', 'hestia' ); ?></h3>
-			<hr class="wp-header-end">
 			<div id="ti-sites-library">
 				<app></app>
 			</div>
@@ -143,6 +147,7 @@ class Themeisle_OB_Admin {
 			),
 			'import_disclaimer'   => __( 'We recommend you backup your website content before attempting a full site import.', 'hestia' ),
 			'import_done'         => __( 'Content was successfully imported. Enjoy your new site!', 'hestia' ),
+			'pro_demo'            => __( 'Available in the PRO version', 'hestia' ),
 		);
 	}
 }

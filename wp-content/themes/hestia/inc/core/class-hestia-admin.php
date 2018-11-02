@@ -26,263 +26,337 @@ class Hestia_Admin {
 		 * About page instance
 		 */
 		$config = array(
-			// Menu name under Appearance.
-			'menu_name'           => apply_filters( 'hestia_about_page_filter', __( 'About Hestia', 'hestia' ), 'menu_name' ),
-			// Page title.
-			'page_name'           => apply_filters( 'hestia_about_page_filter', __( 'About Hestia', 'hestia' ), 'page_name' ),
-			// Main welcome title
-			/* translators: s - theme name */
-			'welcome_title'       => apply_filters( 'hestia_about_page_filter', sprintf( __( 'Welcome to %s! - Version ', 'hestia' ), 'Hestia' ), 'welcome_title' ),
-			// Main welcome content
-			'welcome_content'     => apply_filters( 'hestia_about_page_filter', esc_html__( 'Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.', 'hestia' ), 'welcome_content' ),
-			/**
-			 * Tabs array.
-			 *
-			 * The key needs to be ONLY consisted from letters and underscores. If we want to define outside the class a function to render the tab,
-			 * the will be the name of the function which will be used to render the tab content.
-			 */
-			'tabs'                => array(
-				'getting_started'     => __( 'Getting Started', 'hestia' ),
-				'recommended_actions' => __( 'Recommended Actions', 'hestia' ),
-				'recommended_plugins' => __( 'Useful Plugins', 'hestia' ),
-				'support'             => __( 'Support', 'hestia' ),
-				'changelog'           => __( 'Changelog', 'hestia' ),
-				'free_pro'            => __( 'Free vs PRO', 'hestia' ),
+			'welcome_notice'      => array(
+				'type'           => 'default',
+				'notice_class'   => 'updated',
+				'dismiss_option' => 'hestia_notice_dismissed',
 			),
-			// Support content tab.
-			'support_content'     => array(
-				'first'  => array(
-					'title'        => esc_html__( 'Contact Support', 'hestia' ),
-					'icon'         => 'dashicons dashicons-sos',
-					'text'         => esc_html__( 'We want to make sure you have the best experience using Hestia, and that is why we have gathered all the necessary information here for you. We hope you will enjoy using Hestia as much as we enjoy creating great products.', 'hestia' ),
-					'button_label' => esc_html__( 'Contact Support', 'hestia' ),
-					'button_link'  => esc_url( 'https://themeisle.com/contact/' ),
-					'is_button'    => true,
-					'is_new_tab'   => true,
-				),
-				'second' => array(
-					'title'        => esc_html__( 'Documentation', 'hestia' ),
-					'icon'         => 'dashicons dashicons-book-alt',
-					'text'         => esc_html__( 'Need more details? Please check our full documentation for detailed information on how to use Hestia.', 'hestia' ),
-					'button_label' => esc_html__( 'Read full documentation', 'hestia' ),
-					'button_link'  => 'https://docs.themeisle.com/article/753-hestia-doc?utm_medium=customizer&utm_source=button&utm_campaign=documentation',
-					'is_button'    => false,
-					'is_new_tab'   => true,
-				),
-				'third'  => array(
-					'title'        => esc_html__( 'Changelog', 'hestia' ),
-					'icon'         => 'dashicons dashicons-portfolio',
-					'text'         => esc_html__( 'Want to get the gist on the latest theme changes? Just consult our changelog below to get a taste of the recent fixes and features implemented.', 'hestia' ),
-					'button_label' => esc_html__( 'Changelog', 'hestia' ),
-					'button_link'  => esc_url( '#changelog' ),
-					'is_button'    => false,
-					'is_new_tab'   => false,
-				),
-				'fourth' => array(
-					'title'        => esc_html__( 'Create a child theme', 'hestia' ),
-					'icon'         => 'dashicons dashicons-admin-customizer',
-					'text'         => esc_html__( "If you want to make changes to the theme's files, those changes are likely to be overwritten when you next update the theme. In order to prevent that from happening, you need to create a child theme. For this, please follow the documentation below.", 'hestia' ),
-					'button_label' => esc_html__( 'View how to do this', 'hestia' ),
-					'button_link'  => 'http://docs.themeisle.com/article/14-how-to-create-a-child-theme',
-					'is_button'    => false,
-					'is_new_tab'   => true,
-				),
-				'fifth'  => array(
-					'title'        => esc_html__( 'Speed up your site', 'hestia' ),
-					'icon'         => 'dashicons dashicons-controls-skipforward',
-					'text'         => esc_html__( 'If you find yourself in a situation where everything on your site is running very slowly, you might consider having a look at the documentation below where you will find the most common issues causing this and possible solutions for each of the issues.', 'hestia' ),
-					'button_label' => esc_html__( 'View how to do this', 'hestia' ),
-					'button_link'  => 'http://docs.themeisle.com/article/63-speed-up-your-wordpress-site',
-					'is_button'    => false,
-					'is_new_tab'   => true,
-				),
-				'sixth'  => array(
-					'title'        => esc_html__( 'Build a landing page with a drag-and-drop content builder', 'hestia' ),
-					'icon'         => 'dashicons dashicons-images-alt2',
-					'text'         => esc_html__( 'In the documentation below you will find an easy way to build a great looking landing page using a drag-and-drop content builder plugin.', 'hestia' ),
-					'button_label' => esc_html__( 'View how to do this', 'hestia' ),
-					'button_link'  => 'http://docs.themeisle.com/article/219-how-to-build-a-landing-page-with-a-drag-and-drop-content-builder',
-					'is_button'    => false,
-					'is_new_tab'   => true,
-				),
-			),
-			// Getting started tab
 			'getting_started'     => array(
-				'first'  => array(
-					'title'               => esc_html__( 'Recommended actions', 'hestia' ),
-					'text'                => esc_html__( 'We have compiled a list of steps for you to take so we can ensure that the experience you have using one of our products is very easy to follow.', 'hestia' ),
-					'button_label'        => esc_html__( 'Recommended actions', 'hestia' ),
-					'button_link'         => esc_url( '#recommended_actions' ),
-					'is_button'           => false,
-					'recommended_actions' => true,
-					'is_new_tab'          => false,
-				),
-				'second' => array(
-					'title'               => esc_html__( 'Read full documentation', 'hestia' ),
-					'text'                => esc_html__( 'Need more details? Please check our full documentation for detailed information on how to use Hestia.', 'hestia' ),
-					'button_label'        => esc_html__( 'Documentation', 'hestia' ),
-					'button_link'         => 'https://docs.themeisle.com/article/753-hestia-doc?utm_medium=customizer&utm_source=button&utm_campaign=documentation',
-					'is_button'           => false,
-					'recommended_actions' => false,
-					'is_new_tab'          => true,
-				),
-				'third'  => array(
-					'title'               => esc_html__( 'Go to the Customizer', 'hestia' ),
-					'text'                => esc_html__( 'Using the WordPress Customizer you can easily customize every aspect of the theme.', 'hestia' ),
-					'button_label'        => esc_html__( 'Go to the Customizer', 'hestia' ),
-					'button_link'         => esc_url( admin_url( 'customize.php' ) ),
-					'is_button'           => true,
-					'recommended_actions' => false,
-					'is_new_tab'          => true,
-				),
-			),
-			// Free vs PRO array.
-			'free_pro'            => array(
-				'free_theme_name'     => 'Hestia',
-				'pro_theme_name'      => 'Hestia Pro',
-				'pro_theme_link'      => apply_filters( 'hestia_upgrade_link_from_child_theme_filter', 'https://themeisle.com/themes/hestia-pro/upgrade/?utm_medium=abouthestia&utm_source=button&utm_campaign=freevspro' ),
-				/* translators: s - theme name */
-				'get_pro_theme_label' => sprintf( __( 'Get %s now!', 'hestia' ), 'Hestia Pro' ),
-				'banner_link'         => 'http://docs.themeisle.com/article/647-what-is-the-difference-between-hestia-and-hestia-pro',
-				'banner_src'          => get_template_directory_uri() . '/assets/img/free_vs_pro_banner.png',
-				'features_type'       => 'image',
-				'features_img'        => get_template_directory_uri() . '/assets/img/upgrade.png',
-				'features'            => array(
+				'type'    => 'columns-3',
+				'title'   => __( 'Getting Started', 'hestia' ),
+				'content' => array(
 					array(
-						'title'       => __( 'Mobile friendly', 'hestia' ),
-						'description' => __( 'Responsive layout. Works on every device.', 'hestia' ),
-						'is_in_lite'  => 'true',
-						'is_in_pro'   => 'true',
+						'title'  => esc_html__( 'Recommended actions', 'hestia' ),
+						'text'   => esc_html__( 'We have compiled a list of steps for you to take so we can ensure that the experience you have using one of our products is very easy to follow.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'Recommended actions', 'hestia' ),
+							'link'      => esc_url( '#recommended_actions' ),
+							'is_button' => false,
+							'blank'     => false,
+						),
 					),
 					array(
-						'title'       => __( 'WooCommerce Compatible', 'hestia' ),
-						'description' => __( 'Ready for e-commerce. You can build an online store here.', 'hestia' ),
-						'is_in_lite'  => 'true',
-						'is_in_pro'   => 'true',
+						'title'  => esc_html__( 'Read full documentation', 'hestia' ),
+						'text'   => esc_html__( 'Need more details? Please check our full documentation for detailed information on how to use Hestia.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'Documentation', 'hestia' ),
+							'link'      => 'https://docs.themeisle.com/article/753-hestia-doc?utm_medium=customizer&utm_source=button&utm_campaign=documentation',
+							'is_button' => false,
+							'blank'     => true,
+						),
 					),
 					array(
-						'title'       => __( 'Frontpage Sections', 'hestia' ),
-						'description' => __( 'Big title, Features, About, Team, Testimonials, Subscribe, Blog, Contact', 'hestia' ),
-						'is_in_lite'  => 'true',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Background image', 'hestia' ),
-						'description' => __( 'You can use any background image you want.', 'hestia' ),
-						'is_in_lite'  => 'true',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Section Reordering', 'hestia' ),
-						'description' => __( 'The ability to reorganize your Frontpage Sections more easily and quickly.', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Shortcodes for each section', 'hestia' ),
-						'description' => __( 'Display a frontpage section wherever you like by adding its shortcode in page or post content.', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Header Slider', 'hestia' ),
-						'description' => __( 'You will be able to add more content to your site header with an awesome slider.', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Fully Customizable Colors', 'hestia' ),
-						'description' => __( 'Change colors for the header overlay, header text and navbar.', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Jetpack Portfolio', 'hestia' ),
-						'description' => __( 'Portfolio section with two possible layouts.', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Pricing Plans Section', 'hestia' ),
-						'description' => __( 'A fully customizable pricing plans section.', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
-					),
-					array(
-						'title'       => __( 'Quality Support', 'hestia' ),
-						'description' => __( '24/7 HelpDesk Professional Support', 'hestia' ),
-						'is_in_lite'  => 'false',
-						'is_in_pro'   => 'true',
+						'title'  => esc_html__( 'Go to the Customizer', 'hestia' ),
+						'text'   => esc_html__( 'Using the WordPress Customizer you can easily customize every aspect of the theme.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'Go to the Customizer', 'hestia' ),
+							'link'      => esc_url( admin_url( 'customize.php' ) ),
+							'is_button' => true,
+							'blank'     => true,
+						),
 					),
 				),
 			),
-			// Plugins array.
-			'recommended_plugins' => array(
-				'already_activated_message' => esc_html__( 'Already activated', 'hestia' ),
-				'version_label'             => esc_html__( 'Version: ', 'hestia' ),
-				'install_label'             => esc_html__( 'Install and Activate', 'hestia' ),
-				'activate_label'            => esc_html__( 'Activate', 'hestia' ),
-				'deactivate_label'          => esc_html__( 'Deactivate', 'hestia' ),
-				'content'                   => array(
-					array(
-						'slug' => 'wpforms-lite',
-					),
-					array(
-						'slug' => 'elementor',
-					),
-					array(
-						'slug' => 'translatepress-multilingual',
-					),
-					array(
-						'slug' => 'beaver-builder-lite-version',
-					),
-					array(
-						'slug' => 'wp-product-review',
-					),
-					array(
-						'slug' => 'intergeo-maps',
-					),
-					array(
-						'slug' => 'visualizer',
-					),
-					array(
-						'slug' => 'adblock-notify-by-bweb',
-					),
-					array(
-						'slug' => 'nivo-slider-lite',
-					),
-				),
-			),
-			// Required actions array.
 			'recommended_actions' => array(
-				'install_label'    => esc_html__( 'Install and Activate', 'hestia' ),
-				'activate_label'   => esc_html__( 'Activate', 'hestia' ),
-				'deactivate_label' => esc_html__( 'Deactivate', 'hestia' ),
-				'content'          => array(
+				'type'    => 'recommended_actions',
+				'title'   => __( 'Recommended Actions', 'hestia' ),
+				'plugins' => array(
 					'themeisle-companion' => array(
-						'title'       => 'OrbitFox by ThemeIsle',
+						'name'        => 'OrbitFox by ThemeIsle',
+						'slug'        => 'themeisle-companion',
 						'description' => __( 'It is highly recommended that you install the companion plugin to have access to the Frontpage features, Team and Testimonials sections.', 'hestia' ),
-						'check'       => defined( 'THEMEISLE_COMPANION_VERSION' ),
-						'plugin_slug' => 'themeisle-companion',
-						'id'          => 'themeisle-companion',
 					),
 					'wpforms-lite'        => array(
-						'title'       => 'WPForms',
+						'name'        => 'WPForms',
+						'slug'        => 'wpforms-lite',
 						'description' => __( 'WPForms allow you to create beautiful contact forms, subscription forms, payment forms, and other type of forms for your site in minutes, not hours!', 'hestia' ),
-						'check'       => defined( 'WPFORMS_VERSION' ),
-						'plugin_slug' => 'wpforms-lite',
-						'id'          => 'wpforms-lite',
 					),
 					'elementor'           => array(
-						'title'       => 'Elementor',
-						'check'       => ( defined( 'ELEMENTOR_VERSION' ) || ! hestia_check_passed_time( 12 * MONTH_IN_SECONDS ) ),
-						'plugin_slug' => 'elementor',
-						'id'          => 'elementor',
+						'name'        => 'Elementor',
+						'slug'        => 'themeisle-companion',
+						'description' => '',
 					),
+				),
+			),
+			'recommended_plugins' => array(
+				'type'    => 'plugins',
+				'title'   => esc_html__( 'Useful Plugins', 'hestia' ),
+				'plugins' => array(
+					'optimole-wp',
+					'themeisle-companion',
+					'feedzy-rss-feeds',
+					'elementor',
+					'wp-product-review',
+					'visualizer',
+					'wpforms-lite',
+					'translatepress-multilingual',
+				),
+			),
+			'support'             => array(
+				'type'    => 'columns-3',
+				'title'   => __( 'Support', 'hestia' ),
+				'content' => array(
+					array(
+						'icon'   => 'dashicons dashicons-sos',
+						'title'  => esc_html__( 'Contact Support', 'hestia' ),
+						'text'   => esc_html__( 'We want to make sure you have the best experience using Hestia, and that is why we have gathered all the necessary information here for you. We hope you will enjoy using Hestia as much as we enjoy creating great products.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'Contact Support', 'hestia' ),
+							'link'      => esc_url( 'https://themeisle.com/contact/' ),
+							'is_button' => true,
+							'blank'     => true,
+						),
+					),
+					array(
+						'icon'   => 'dashicons dashicons-book-alt',
+						'title'  => esc_html__( 'Documentation', 'hestia' ),
+						'text'   => esc_html__( 'Need more details? Please check our full documentation for detailed information on how to use Hestia.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'Read full documentation', 'hestia' ),
+							'link'      => 'https://docs.themeisle.com/article/753-hestia-doc?utm_medium=customizer&utm_source=button&utm_campaign=documentation',
+							'is_button' => false,
+							'blank'     => true,
+						),
+					),
+					array(
+						'icon'   => 'dashicons dashicons-portfolio',
+						'title'  => esc_html__( 'Changelog', 'hestia' ),
+						'text'   => esc_html__( 'Want to get the gist on the latest theme changes? Just consult our changelog below to get a taste of the recent fixes and features implemented.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'Changelog', 'hestia' ),
+							'link'      => esc_url( '#changelog' ),
+							'is_button' => false,
+							'blank'     => false,
+						),
+					),
+					array(
+						'icon'   => 'dashicons dashicons-admin-customizer',
+						'title'  => esc_html__( 'Create a child theme', 'hestia' ),
+						'text'   => esc_html__( "If you want to make changes to the theme's files, those changes are likely to be overwritten when you next update the theme. In order to prevent that from happening, you need to create a child theme. For this, please follow the documentation below.", 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'View how to do this', 'hestia' ),
+							'link'      => 'http://docs.themeisle.com/article/14-how-to-create-a-child-theme',
+							'is_button' => false,
+							'blank'     => true,
+						),
+					),
+					array(
+						'icon'   => 'dashicons dashicons-controls-skipforward',
+						'title'  => esc_html__( 'Speed up your site', 'hestia' ),
+						'text'   => esc_html__( 'If you find yourself in a situation where everything on your site is running very slowly, you might consider having a look at the documentation below where you will find the most common issues causing this and possible solutions for each of the issues.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'View how to do this', 'hestia' ),
+							'link'      => 'http://docs.themeisle.com/article/63-speed-up-your-wordpress-site',
+							'is_button' => false,
+							'blank'     => true,
+						),
+					),
+					array(
+						'icon'   => 'dashicons dashicons-images-alt2',
+						'title'  => esc_html__( 'Build a landing page with a drag-and-drop content builder', 'hestia' ),
+						'text'   => esc_html__( 'In the documentation below you will find an easy way to build a great looking landing page using a drag-and-drop content builder plugin.', 'hestia' ),
+						'button' => array(
+							'label'     => esc_html__( 'View how to do this', 'hestia' ),
+							'link'      => 'http://docs.themeisle.com/article/219-how-to-build-a-landing-page-with-a-drag-and-drop-content-builder',
+							'is_button' => false,
+							'blank'     => true,
+						),
+					),
+				),
+			),
+			'changelog'           => array(
+				'type'  => 'changelog',
+				'title' => __( 'Changelog', 'hestia' ),
+			),
+			'custom_tabs'         => array(
+				'free_pro' => array(
+					'title'           => __( 'Free vs PRO', 'hestia' ),
+					'render_callback' => array( $this, 'free_pro_render' ),
 				),
 			),
 		);
-		Hestia_About_Page::init( apply_filters( 'hestia_about_page_array', $config ) );
+		if ( class_exists( 'TI_About_Page' ) ) {
+			TI_About_Page::init( apply_filters( 'hestia_about_page_array', $config ) );
+		}
+	}
+
+	/**
+	 * Display feature title and description
+	 *
+	 * @param array $feature Feature data.
+	 */
+	public function get_feature_title_and_description( $feature ) {
+		$output = '';
+		if ( ! empty( $feature['title'] ) ) {
+			$output .= '<h3>' . wp_kses_post( $feature['title'] ) . '</h3>';
+		}
+		if ( ! empty( $feature['description'] ) ) {
+			$output .= '<p>' . wp_kses_post( $feature['description'] ) . '</p>';
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Free vs Pro tab content
+	 */
+	public function free_pro_render() {
+		$free_pro = array(
+			'free_theme_name'     => 'Hestia',
+			'pro_theme_name'      => 'Hestia Pro',
+			'pro_theme_link'      => apply_filters( 'hestia_upgrade_link_from_child_theme_filter', 'https://themeisle.com/themes/hestia-pro/upgrade/?utm_medium=abouthestia&utm_source=button&utm_campaign=freevspro' ),
+			/* translators: s - theme name */
+			'get_pro_theme_label' => sprintf( __( 'Get %s now!', 'hestia' ), 'Hestia Pro' ),
+			'banner_link'         => 'http://docs.themeisle.com/article/647-what-is-the-difference-between-hestia-and-hestia-pro',
+			'banner_src'          => get_template_directory_uri() . '/assets/img/free_vs_pro_banner.png',
+			'features_type'       => 'table',
+			'features_img'        => get_template_directory_uri() . '/assets/img/upgrade.png',
+			'features'            => array(
+				array(
+					'title'       => __( 'Mobile friendly', 'hestia' ),
+					'description' => __( 'Responsive layout. Works on every device.', 'hestia' ),
+					'is_in_lite'  => 'true',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'WooCommerce Compatible', 'hestia' ),
+					'description' => __( 'Ready for e-commerce. You can build an online store here.', 'hestia' ),
+					'is_in_lite'  => 'true',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Frontpage Sections', 'hestia' ),
+					'description' => __( 'Big title, Features, About, Team, Testimonials, Subscribe, Blog, Contact', 'hestia' ),
+					'is_in_lite'  => 'true',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Background image', 'hestia' ),
+					'description' => __( 'You can use any background image you want.', 'hestia' ),
+					'is_in_lite'  => 'true',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Section Reordering', 'hestia' ),
+					'description' => __( 'The ability to reorganize your Frontpage Sections more easily and quickly.', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Shortcodes for each section', 'hestia' ),
+					'description' => __( 'Display a frontpage section wherever you like by adding its shortcode in page or post content.', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Header Slider', 'hestia' ),
+					'description' => __( 'You will be able to add more content to your site header with an awesome slider.', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Fully Customizable Colors', 'hestia' ),
+					'description' => __( 'Change colors for the header overlay, header text and navbar.', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Jetpack Portfolio', 'hestia' ),
+					'description' => __( 'Portfolio section with two possible layouts.', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Pricing Plans Section', 'hestia' ),
+					'description' => __( 'A fully customizable pricing plans section.', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+				array(
+					'title'       => __( 'Quality Support', 'hestia' ),
+					'description' => __( '24/7 HelpDesk Professional Support', 'hestia' ),
+					'is_in_lite'  => 'false',
+					'is_in_pro'   => 'true',
+				),
+			),
+		);
+		$output = '';
+
+		if ( ! empty( $free_pro ) ) {
+			if ( ! empty( $free_pro['features_type'] ) ) {
+				echo '<div class="feature-section">';
+				echo '<div id="free_pro" class="ti-about-page-tab-pane ti-about-page-fre-pro">';
+				switch ( $free_pro['features_type'] ) {
+					case 'image':
+						if ( ! empty( $free_pro['features_img'] ) ) {
+							$output .= '<img src="' . $free_pro['features_img'] . '">';
+							if ( ! empty( $free_pro['pro_theme_link'] ) && ! empty( $free_pro['get_pro_theme_label'] ) ) {
+								$output .= '<a href="' . esc_url( $free_pro['pro_theme_link'] ) . '" target="_blank" class="button button-primary button-hero">' . wp_kses_post( $free_pro['get_pro_theme_label'] ) . '</a>';
+							}
+						}
+						break;
+					case 'table':
+						if ( ! empty( $free_pro['features'] ) ) {
+							$output .= '<table class="free-pro-table">';
+							$output .= '<thead>';
+							$output .= '<tr class="ti-about-page-text-right">';
+							$output .= '<th></th>';
+							$output .= '<th>' . esc_html( $free_pro['free_theme_name'] ) . '</th>';
+							$output .= '<th>' . esc_html( $free_pro['pro_theme_name'] ) . '</th>';
+							$output .= '</tr>';
+							$output .= '</thead>';
+							$output .= '<tbody>';
+							foreach ( $free_pro['features'] as $feature ) {
+								$output .= '<tr>';
+								if ( ! empty( $feature['title'] ) || ! empty( $feature['description'] ) ) {
+									$output .= '<td>';
+									$output .= $this->get_feature_title_and_description( $feature );
+									$output .= '</td>';
+								}
+								if ( ! empty( $feature['is_in_lite'] ) && ( $feature['is_in_lite'] == 'true' ) ) {
+									$output .= '<td class="only-lite"><span class="dashicons-before dashicons-yes"></span></td>';
+								} else {
+									$output .= '<td class="only-pro"><span class="dashicons-before dashicons-no-alt"></span></td>';
+								}
+								if ( ! empty( $feature['is_in_pro'] ) && ( $feature['is_in_pro'] == 'true' ) ) {
+									$output .= '<td class="only-lite"><span class="dashicons-before dashicons-yes"></span></td>';
+								} else {
+									$output .= '<td class="only-pro"><span class="dashicons-before dashicons-no-alt"></span></td>';
+								}
+								echo '</tr>';
+
+							}
+
+							if ( ! empty( $free_pro['pro_theme_link'] ) && ! empty( $free_pro['get_pro_theme_label'] ) ) {
+								$output .= '<tr>';
+								$output .= '<td>';
+								if ( ! empty( $free_pro['banner_link'] ) && ! empty( $free_pro['banner_src'] ) ) {
+									$output .= '<a target="_blank" href="' . $free_pro['banner_link'] . '"><img src="' . $free_pro['banner_src'] . '" class="free_vs_pro_banner"></a>';
+								}
+								$output .= '</td>';
+								$output .= '<td colspan="2" class="ti-about-page-text-right"><a href="' . esc_url( $free_pro['pro_theme_link'] ) . '" target="_blank" class="button button-primary button-hero">' . wp_kses_post( $free_pro['get_pro_theme_label'] ) . '</a></td>';
+								$output .= '</tr>';
+							}
+							$output .= '</tbody>';
+							$output .= '</table>';
+						}
+						break;
+				}
+				echo $output;
+				echo '</div>';
+				echo '</div>';
+			}
+		}// End if().
 	}
 
 	/**
@@ -311,10 +385,17 @@ class Hestia_Admin {
 			array(
 				'jquery',
 				'wp-color-picker',
-				'customize-base',
 			),
 			HESTIA_VERSION,
 			true
+		);
+		wp_localize_script(
+			'hestia_customize_controls',
+			'imageObject',
+			array(
+				'imagenonce' => wp_create_nonce( 'image_nonce' ),
+				'ajaxurl'    => admin_url( 'admin-ajax.php' ),
+			)
 		);
 	}
 
@@ -368,6 +449,7 @@ class Hestia_Admin {
 		if ( wp_default_editor() === 'tinymce' ) {
 			$init['content_style'] = $editor_style;
 		}
+
 		return $init;
 	}
 

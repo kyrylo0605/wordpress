@@ -14,7 +14,7 @@ class Hestia_Child_Customizer extends Hestia_Register_Customizer_Controls {
 	 * Run init only if Orfeo is installed
 	 */
 	public function init() {
-		if ( wp_get_theme()->Name === 'Orfeo' || wp_get_theme()->Name === 'Orfeo Pro' ) {
+		if ( ( wp_get_theme()->Template === 'hestia' ) && ( wp_get_theme()->Name === 'Orfeo' || wp_get_theme()->Name === 'Orfeo Pro' ) ) {
 			add_action( 'customize_register', array( $this, 'register_controls_callback' ), 100 );
 		}
 	}

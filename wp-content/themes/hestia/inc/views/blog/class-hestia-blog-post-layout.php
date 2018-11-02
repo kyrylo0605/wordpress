@@ -107,7 +107,7 @@ class Hestia_Blog_Post_Layout {
 
 		$post_thumbnail_content .= '<div class="' . esc_attr( $wrap_class ) . '">';
 		$post_thumbnail_content .= '<div class="card-image">';
-		$post_thumbnail_content .= '<a href="' . get_the_permalink() . '" title="' . the_title_attribute(
+		$post_thumbnail_content .= '<a href="' . esc_url( get_the_permalink() ) . '" title="' . the_title_attribute(
 			array(
 				'echo' => false,
 			)
@@ -322,7 +322,7 @@ class Hestia_Blog_Post_Layout {
 		}
 		$read_more_button  = '';
 		$read_more_button .= '<div class="text-center">';
-		$read_more_button .= '<a href="' . get_the_permalink() . '" class="btn colored-button">';
+		$read_more_button .= '<a href="' . esc_url( get_the_permalink() ) . '" class="btn colored-button">';
 		$read_more_button .= apply_filters( 'hestia_blog_posts_button_text', esc_html__( 'Read more', 'hestia' ) );
 		$read_more_button .= '</a>';
 		$read_more_button .= '</div>';

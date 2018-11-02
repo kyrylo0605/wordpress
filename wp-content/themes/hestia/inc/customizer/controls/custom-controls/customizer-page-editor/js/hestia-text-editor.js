@@ -118,10 +118,9 @@ var WPEditorWidget = {
 	doUpdate: function ( editor ) {
         var content = editor.getContent();
         var contentField = jQuery( '#' + this.contentId );
-        contentField.val( content );
+		contentField.val( content );
         contentField.trigger('change');
     }
-
 };
 
 jQuery( window ).load(function () {
@@ -155,15 +154,6 @@ jQuery( window ).load(function () {
                 }
             }
         );
-
-        /**
-         * Focus menu when the user clicks on customizer shortcut of the menu.
-         */
-        customize.previewer.bind(
-            'trigger-focus-menu', function() {
-                wp.customize.section( 'menu_locations' ).focus();
-            }
-        );
     }
 
 	/**
@@ -176,6 +166,4 @@ jQuery( window ).load(function () {
 			}
 		}
 	);
-
-
 });

@@ -79,17 +79,6 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 			}
 		}
 
-		/**
-		 * TODO: Find a better place for this.
-		 * Hide customizer shortcut for page editor control if frontpage was edited with elementor, beaver or wpbakery.
-		 */
-		$is_pagebuilder = hestia_edited_with_pagebuilder();
-		if ( $is_pagebuilder ) {
-			$custom_css .= '.customize-partial-edit-shortcut-hestia_page_editor{
-				display:none;
-			}';
-		}
-
 		return $custom_css;
 	}
 
@@ -210,7 +199,8 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		$custom_css .= ! empty( $v3 ) ? '
 			.page-header.header-small .hestia-title,
 			.page-header.header-small .title,
-			h1.hestia-title.title-in-content{
+			h1.hestia-title.title-in-content,
+			.main article.section .has-title-font-size {
 				font-size: ' . absint( $v3 ) . 'px;
 			}' : '';
 
@@ -261,7 +251,8 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		$custom_css .= ! empty( $v2 ) ? '
 		.single-post-wrap h2,
 		.page-content-wrap h2,
-		.page-template-template-fullwidth article h2 {
+		.page-template-template-fullwidth article h2,
+		.main article.section .has-heading-font-size {
 			font-size: ' . absint( $v2 ) . 'px;
 		}' : '';
 
@@ -321,7 +312,7 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 				break;
 		}
 
-		$custom_css .= ! empty( $v1 ) ? '.single-post-wrap p:not(.meta-in-content), .page-content-wrap p, .single-post-wrap ul, .page-content-wrap ul, .single-post-wrap ol, .page-content-wrap ol, .single-post-wrap dl, .page-content-wrap dl, .single-post-wrap table, .page-content-wrap table, .page-template-template-fullwidth article p {
+		$custom_css .= ! empty( $v1 ) ? '.single-post-wrap p:not(.meta-in-content), .page-content-wrap p, .single-post-wrap ul, .page-content-wrap ul, .single-post-wrap ol, .page-content-wrap ol, .single-post-wrap dl, .page-content-wrap dl, .single-post-wrap table, .page-content-wrap table, .page-template-template-fullwidth article p, .main article.section .has-body-font-size {
 		font-size: ' . absint( $v1 ) . 'px;
 		}' : '';
 
@@ -356,14 +347,14 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		switch ( $dimension ) {
 			case 'desktop':
 				$v1 = ( 67 + (int) $value ) > 0 ? ( 67 + (int) $value ) : 0;
-				$v2 = ( 18 + absint( (int) $value / 8 ) ) > 0 ? ( 18 + absint( (int) $value / 8 ) ) : 0;
-				$v3 = ( 14 + absint( (int) $value / 12 ) ) > 0 ? ( 14 + absint( (int) $value / 12 ) ) : 0;
+				$v2 = ( 18 + (int) ( $value / 8 ) ) > 0 ? ( 18 + (int) ( $value / 8 ) ) : 0;
+				$v3 = ( 14 + (int) ( $value / 12 ) ) > 0 ? ( 14 + (int) ( $value / 12 ) ) : 0;
 				break;
 			case 'tablet':
 			case 'mobile':
-				$v1 = ( 36 + absint( (int) $value / 4 ) ) > 0 ? ( 36 + absint( (int) $value / 4 ) ) : 0;
-				$v2 = ( 18 + absint( (int) $value / 4 ) ) > 0 ? ( 18 + absint( (int) $value / 4 ) ) : 0;
-				$v3 = ( 14 + absint( (int) $value / 6 ) ) > 0 ? ( 14 + absint( (int) $value / 6 ) ) : 0;
+				$v1 = ( 36 + (int) ( $value / 4 ) ) > 0 ? ( 36 + (int) ( $value / 4 ) ) : 0;
+				$v2 = ( 18 + (int) ( $value / 4 ) ) > 0 ? ( 18 + (int) ( $value / 4 ) ) : 0;
+				$v3 = ( 14 + (int) ( $value / 6 ) ) > 0 ? ( 14 + (int) ( $value / 6 ) ) : 0;
 				break;
 		}
 
@@ -414,12 +405,12 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 				break;
 		}
 
-		$v2 = ( 18 + absint( (int) $value / 3 ) ) > 14 ? ( 18 + absint( (int) $value / 3 ) ) : 14;
-		$v3 = ( 23 + absint( (int) $value / 3 ) ) > 0 ? ( 23 + absint( (int) $value / 3 ) ) : 0;
-		$h1 = ( 42 + absint( (int) $value / 3 ) ) > 0 ? ( 42 + absint( (int) $value / 3 ) ) : 0;
-		$h2 = ( 37 + absint( (int) $value / 3 ) ) > 0 ? ( 37 + absint( (int) $value / 3 ) ) : 0;
-		$h3 = ( 32 + absint( (int) $value / 3 ) ) > 0 ? ( 32 + absint( (int) $value / 3 ) ) : 0;
-		$h4 = ( 27 + absint( (int) $value / 3 ) ) > 0 ? ( 27 + absint( (int) $value / 3 ) ) : 0;
+		$v2 = ( 18 + (int) ( $value / 3 ) ) > 14 ? ( 18 + (int) ( $value / 3 ) ) : 14;
+		$v3 = ( 23 + (int) ( $value / 3 ) ) > 0 ? ( 23 + (int) ( $value / 3 ) ) : 0;
+		$h1 = ( 42 + (int) ( $value / 3 ) ) > 0 ? ( 42 + (int) ( $value / 3 ) ) : 0;
+		$h2 = ( 37 + (int) ( $value / 3 ) ) > 0 ? ( 37 + (int) ( $value / 3 ) ) : 0;
+		$h3 = ( 32 + (int) ( $value / 3 ) ) > 0 ? ( 32 + (int) ( $value / 3 ) ) : 0;
+		$h4 = ( 27 + (int) ( $value / 3 ) ) > 0 ? ( 27 + (int) ( $value / 3 ) ) : 0;
 
 		$custom_css .= ! empty( $v1 ) ? '
 		section.hestia-features .hestia-title, 
@@ -503,7 +494,7 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 			case 'desktop':
 			case 'tablet':
 			case 'mobile':
-				$v1 = ( 18 + absint( (int) $value / 3 ) ) > 12 ? ( 18 + absint( (int) $value / 3 ) ) : 12;
+				$v1 = ( 18 + (int) ( $value / 3 ) ) > 12 ? ( 18 + (int) ( $value / 3 ) ) : 12;
 				break;
 		}
 
@@ -541,8 +532,8 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 			case 'desktop':
 			case 'tablet':
 			case 'mobile':
-				$v1 = ( 14 + absint( (int) $value / 3 ) ) > 12 ? ( 14 + absint( (int) $value / 3 ) ) : 12;
-				$v2 = ( 12 + absint( (int) $value / 3 ) ) > 12 ? ( 12 + absint( (int) $value / 3 ) ) : 12;
+				$v1 = ( 14 + (int) ( $value / 3 ) ) > 12 ? ( 14 + (int) ( $value / 3 ) ) : 12;
+				$v2 = ( 12 + (int) ( $value / 3 ) ) > 12 ? ( 12 + (int) ( $value / 3 ) ) : 12;
 				break;
 		}
 

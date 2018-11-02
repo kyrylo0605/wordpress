@@ -42,25 +42,25 @@ class Goog_Reviews_Widget extends WP_Widget {
 
         add_action('admin_enqueue_scripts', array($this, 'grw_widget_scripts'));
 
-        wp_register_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__));
+        wp_register_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__), array(), GRW_VERSION);
         wp_enqueue_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__));
 
-        wp_register_style('grw_css', plugins_url('/static/css/google-review.css', __FILE__));
+        wp_register_style('grw_css', plugins_url('/static/css/google-review.css', __FILE__), array(), GRW_VERSION);
         wp_enqueue_style('grw_css', plugins_url('/static/css/google-review.css', __FILE__));
     }
 
     function grw_widget_scripts($hook) {
         if ($hook == 'widgets.php' || ($hook == 'post.php' && defined('SITEORIGIN_PANELS_VERSION'))) {
 
-            wp_register_style('rplg_wp_css', plugins_url('/static/css/rplg-wp.css', __FILE__));
+            wp_register_style('rplg_wp_css', plugins_url('/static/css/rplg-wp.css', __FILE__), array(), GRW_VERSION);
             wp_enqueue_style('rplg_wp_css', plugins_url('/static/css/rplg-wp.css', __FILE__));
 
             wp_enqueue_script('jquery');
 
-            wp_register_script('wpac_js', plugins_url('/static/js/wpac.js', __FILE__));
+            wp_register_script('wpac_js', plugins_url('/static/js/wpac.js', __FILE__), array(), GRW_VERSION);
             wp_enqueue_script('wpac_js', plugins_url('/static/js/wpac.js', __FILE__));
 
-            wp_register_script('grw_finder_js', plugins_url('/static/js/grw-finder.js', __FILE__));
+            wp_register_script('grw_finder_js', plugins_url('/static/js/grw-finder.js', __FILE__), array(), GRW_VERSION);
             wp_localize_script('grw_finder_js', 'grwVars', array(
                 'GOOGLE_AVATAR' => GRW_GOOGLE_AVATAR,
                 'handlerUrl' => admin_url('options-general.php?page=grw'),
@@ -134,8 +134,7 @@ class Goog_Reviews_Widget extends WP_Widget {
                 }
                 include(dirname(__FILE__) . '/grw-options.php'); ?>
             </div>
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-widget-id="<?php echo $this->id; ?>"
-                 onload="grw_init({widgetId: this.getAttribute('data-widget-id')})" style="display:none">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="(function(el) { var t = setInterval(function () {if (window.grw_init){grw_init({el: el});clearInterval(t);}}, 200); })(this.parentNode);" style="display:none">
             <?php
         } else {
             ?>
@@ -203,16 +202,14 @@ class Goog_Reviews_Widget extends WP_Widget {
             }
 
             if (!window.grw_init) {
-                grw_load_css('<?php echo plugins_url('/static/css/rplg-wp.css', __FILE__); ?>');
-                grw_load_js('<?php echo plugins_url('/static/js/wpac.js', __FILE__); ?>', function() {
+                grw_load_css('<?php echo plugins_url('/static/css/rplg-wp.css?ver=' . GRW_VERSION, __FILE__); ?>');
+                grw_load_js('<?php echo plugins_url('/static/js/wpac.js?ver=' . GRW_VERSION, __FILE__); ?>', function() {
                     window.grwVars = {
                         GOOGLE_AVATAR : '<?php echo GRW_GOOGLE_AVATAR; ?>',
                         handlerUrl    : '<?php echo admin_url('options-general.php?page=grw'); ?>',
                         actionPrefix  : 'grw'
                     };
-                    grw_load_js('<?php echo plugins_url('/static/js/grw-finder.js', __FILE__); ?>', function() {
-                        grw_init({widgetId: '<?php echo $this->id; ?>'});
-                    });
+                    grw_load_js('<?php echo plugins_url('/static/js/grw-finder.js?ver=' . GRW_VERSION, __FILE__); ?>');
                 });
             }
         </script>

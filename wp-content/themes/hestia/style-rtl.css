@@ -5,13 +5,13 @@ Theme URI:      https://themeisle.com/themes/hestia-pro/
 Author:         ThemeIsle
 Author URI:     https://themeisle.com
 Description:    Hestia Pro is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
-Version:        2.0.6
+Version:        2.0.8
 License:        GNU General Public License v2 or later
 License URI:    http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:    hestia-pro
 WordPress Available:  no
 Requires License:    yes
-Tags: blog, custom-logo, portfolio, e-commerce, rtl-language-support, post-formats, grid-layout, one-column, two-columns, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, flexible-header, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
+Tags: blog, custom-logo, portfolio, e-commerce, rtl-language-support, post-formats, grid-layout, one-column, two-columns, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, flexible-header, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, editor-style
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
@@ -1151,6 +1151,10 @@ h6.category {
 	line-height: 1.1;
 }
 
+.title-in-content {
+	line-height: 1.3;
+}
+
 h1.title,
 h1.hestia-title,
 .pricing h2.title,
@@ -1214,6 +1218,22 @@ h2.hestia-title {
 
 .text-gray {
 	color: #999;
+}
+
+.has-black-color {
+	color: #000;
+}
+
+.has-white-color {
+	color: #fff;
+}
+
+.has-background.has-black-background-color {
+	background-color: #000;
+}
+
+.has-background.has-white-background-color {
+	background-color: #fff;
 }
 
 .single-post .blog-post .section-text h1,
@@ -1579,6 +1599,10 @@ input[type="button"],
 	text-transform: uppercase;
 
 	will-change: box-shadow,transform;
+}
+
+.fca_qc_next_question {
+	will-change: unset;
 }
 
 input[type="number"] {
@@ -3744,6 +3768,11 @@ body.admin-bar .navbar {
 }
 .card-product .footer .stats a {
 	margin: 10px 0 !important;
+}
+.card-product .footer .stats a.button,
+.card-product .footer .stats a.button:hover {
+	color: inherit !important;
+	box-shadow: none !important;
 }
 .card-product .footer .stats .fa {
 	top: 0;
@@ -6612,6 +6641,12 @@ img.alignright,
 	padding-top: 10px;
 }
 
+.alignfull,
+.alignwide {
+	width: unset;
+	max-width: unset;
+}
+
 
 /*--------------------------------------------------------------
 ## Comments
@@ -8386,6 +8421,10 @@ footer .wpml-ls-item-legacy-dropdown-click a {
 .woocommerce-cart .angelleye_cart_button a.paypal_checkout_button,
 .woocommerce-cart a.paypal_checkout_button {
 	clear: none;
+}
+.woocommerce-cart article .woocommerce {
+	display: inline-block;
+	width: 100%;
 }
 
 @media (max-width: 480px) {

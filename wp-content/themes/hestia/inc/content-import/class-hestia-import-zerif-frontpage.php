@@ -155,17 +155,14 @@ class Hestia_Import_Zerif_Frontpage extends Hestia_Import_Utilities {
 
 		require_once( ABSPATH . 'wp-admin' . '/includes/file.php' );
 		require_once( ABSPATH . 'wp-admin' . '/includes/image.php' );
-
-		$template                   = download_url( esc_url( $this->json_template_url ) );
-		$_FILES['file']['tmp_name'] = $template;
-
-		require_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'file.php' );
-
 		global $wp_filesystem;
 
 		WP_Filesystem();
 
-		$data                  = json_decode( $wp_filesystem->get_contens( $template ), true );
+		$template                   = download_url( esc_url( $this->json_template_url ) );
+		$_FILES['file']['tmp_name'] = $template;
+
+		$data                  = json_decode( $wp_filesystem->get_contents( $template ), true );
 		$this->default_content = $data['content'];
 		$this->content         = $this->default_content;
 
@@ -188,12 +185,6 @@ class Hestia_Import_Zerif_Frontpage extends Hestia_Import_Utilities {
 		$data['title']   = $this->name;
 		$data['content'] = array_values( $this->content );
 
-		require_once( ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'file.php' );
-
-		global $wp_filesystem;
-
-		WP_Filesystem();
-
 		$wp_filesystem->put_contents( $template, json_encode( $data ), 0644 );
 
 		$elementor = new \Elementor\TemplateLibrary\Source_Local;
@@ -214,7 +205,7 @@ class Hestia_Import_Zerif_Frontpage extends Hestia_Import_Utilities {
 			update_option( 'show_on_front', 'page' );
 
 			// on success we return the page url because we'll redirect to it.
-			wp_send_json_success( get_permalink( $post_id ) );
+			wp_send_json_success( esc_url( get_permalink( $post_id ) ) );
 		}
 
 		wp_send_json_error( 'something went wrong' );

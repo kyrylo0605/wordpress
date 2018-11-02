@@ -398,12 +398,12 @@
   color: #fff;
   padding: 5px;
   border: none;
-  background: #4080ff;
+  background: #3b5998;
   cursor: pointer;
 }
 
 .fbrev-connect:hover {
-  background: #405fff;
+  background: #4869ad;
 }
 
 #shortcode .fbrev-connect {

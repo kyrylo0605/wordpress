@@ -11578,7 +11578,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\loader.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/loader.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -11998,7 +11998,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\main.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/main.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -12025,8 +12025,42 @@ var _preview = __webpack_require__(56);
 
 var _preview2 = _interopRequireDefault(_preview);
 
+var _importModal = __webpack_require__(65);
+
+var _importModal2 = _interopRequireDefault(_importModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// <template>
+// 	<div :class="{ 'is__onboarding' : this.$store.state.onboard === 'yes' && ! previewOpen } ">
+// 		<div :class="! isLoading ? 'library-wrapper' : '' ">
+// 			<div v-if="this.$store.state.onboard === 'yes' && ! isLoading" class="header">
+// 				<h1>{{strings.onboard_header}}</h1>
+// 				<p>{{strings.onboard_description}}</p>
+// 			</div>
+// 			<Loader v-if="isLoading" :loading-message="loadingString"></Loader>
+// 			<div v-else class="ti-sites-lib">
+// 				<div v-for="site in sites.local">
+// 					<SiteItem :site_data="site"></SiteItem>
+// 				</div>
+// 				<div v-for="site in sites.remote">
+// 					<SiteItem :site_data="site"></SiteItem>
+// 				</div>
+// 				<div v-for="site in sites.upsell">
+// 					<SiteItem :site_data="site"></SiteItem>
+// 				</div>
+// 				<Preview v-if="previewOpen"></Preview>
+// 			</div>
+// 		</div>
+// 		<a @click="cancelOnboarding" v-if="this.$store.state.onboard === 'yes' && ! isLoading" class="skip-onboarding">
+// 			{{strings.later}}
+// 		</a>
+// 		<import-modal v-if="modalOpen">
+// 		</import-modal>
+// 	</div>
+// </template>
+//
+// <script>
 module.exports = {
 	name: 'app',
 	data: function data() {
@@ -12046,6 +12080,9 @@ module.exports = {
 		},
 		loadingString: function loadingString() {
 			return this.$store.state.strings.loading;
+		},
+		modalOpen: function modalOpen() {
+			return this.$store.state.importModalState;
 		}
 	},
 	methods: {
@@ -12056,35 +12093,13 @@ module.exports = {
 	components: {
 		Loader: _loader2.default,
 		SiteItem: _siteItem2.default,
-		Preview: _preview2.default
+		Preview: _preview2.default,
+		ImportModal: _importModal2.default
+
 	}
 	// </script>
 
-}; // <template>
-// 	<div :class="{ 'is__onboarding' : this.$store.state.onboard === 'yes' && ! previewOpen } ">
-// 		<div :class="! isLoading ? 'library-wrapper' : '' ">
-// 			<div v-if="this.$store.state.onboard === 'yes' && ! isLoading" class="header">
-// 				<h1>{{strings.onboard_header}}</h1>
-// 				<p>{{strings.onboard_description}}</p>
-// 			</div>
-// 			<Loader v-if="isLoading" :loading-message="loadingString"></Loader>
-// 			<div v-else class="ti-sites-lib">
-// 				<div v-for="site in sites.local">
-// 					<SiteItem :site_data="site"></SiteItem>
-// 				</div>
-// 				<div v-for="site in sites.remote">
-// 					<SiteItem :site_data="site"></SiteItem>
-// 				</div>
-// 				<Preview v-if="previewOpen"></Preview>
-// 			</div>
-// 		</div>
-// 		<a @click="cancelOnboarding" v-if="this.$store.state.onboard === 'yes' && ! isLoading" class="skip-onboarding">
-// 			{{strings.later}}
-// 		</a>
-// 	</div>
-// </template>
-//
-// <script>
+};
 
 /***/ }),
 /* 20 */
@@ -12102,8 +12117,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-720d19b7&file=loader.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./loader.vue", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-720d19b7&file=loader.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./loader.vue");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-a230ce2e&file=loader.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./loader.vue", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-a230ce2e&file=loader.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./loader.vue");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -12121,7 +12136,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\r\n\t.updating-message[_v-720d19b7] {\r\n\t\ttext-align: center;\r\n\t}\r\n\r\n\t.updating-message[_v-720d19b7]:before {\r\n\t\tmargin-right: 5px;\r\n\t}\r\n", ""]);
+exports.push([module.i, "\n\t.updating-message[_v-a230ce2e] {\n\t\ttext-align: center;\n\t}\n\n\t.updating-message[_v-a230ce2e]:before {\n\t\tmargin-right: 5px;\n\t}\n", ""]);
 
 // exports
 
@@ -12161,7 +12176,7 @@ module.exports = {
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = "\n\t<div class=\"updating-message\" _v-720d19b7=\"\">\n\t\t<p v-if=\"loadingMessage\" _v-720d19b7=\"\">{{loadingMessage}}...</p>\n\t</div>\n";
+module.exports = "\n\t<div class=\"updating-message\" _v-a230ce2e=\"\">\n\t\t<p v-if=\"loadingMessage\" _v-a230ce2e=\"\">{{loadingMessage}}...</p>\n\t</div>\n";
 
 /***/ }),
 /* 24 */
@@ -12178,7 +12193,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\site-item.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/site-item.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -12202,8 +12217,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-428f0836&file=site-item.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./site-item.vue", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-428f0836&file=site-item.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./site-item.vue");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-75705773&file=site-item.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./site-item.vue", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-75705773&file=site-item.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./site-item.vue");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -12221,7 +12236,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\r\n\th4[_v-428f0836] {\r\n\t\tdisplay: block;\r\n\t\twhite-space: nowrap;\r\n\t\ttext-overflow: ellipsis;\r\n\t\tmargin: 0;\r\n\t\toverflow: hidden;\r\n\t\tmax-width: 70%;\r\n\t\tfont-size: 15px;\r\n\t}\r\n\r\n\t.site-box[_v-428f0836] {\r\n\t\tborder: 1px solid #ccc;\r\n\t}\r\n\r\n\t.footer[_v-428f0836] {\r\n\t\tborder-top: 1px solid #ccc;\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\tpadding: 5px 10px;\r\n\t\t-ms-flex-wrap: wrap;\r\n\t\t    flex-wrap: wrap;\r\n\t\t-ms-flex-align: center;\r\n\t\t    align-items: center;\r\n\t}\r\n\r\n\tbutton.button-secondary.button[_v-428f0836] {\r\n\t\t-ms-flex-item-align: end;\r\n\t\t    align-self: flex-end;\r\n\t\tmargin-left: auto;\r\n\t}\r\n", ""]);
+exports.push([module.i, "\n\th4[_v-75705773] {\n\t\tdisplay: block;\n\t\twhite-space: nowrap;\n\t\ttext-overflow: ellipsis;\n\t\tmargin: 0;\n\t\toverflow: hidden;\n\t\tmax-width: 70%;\n\t\tfont-size: 15px;\n\t}\n\n\t.site-box[_v-75705773] {\n\t\tborder: 1px solid #ccc;\n        position: relative;\n\t}\n\n    .site-box:hover .footer .theme-actions[_v-75705773] {\n        display: block;\n    }\n\n    .site-box .notice[_v-75705773] {\n        display: block !important;\n    }\n\n\t.footer[_v-75705773] {\n        position: relative;\n\t\tborder-top: 1px solid #ccc;\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n        padding: 15px;\n\t\t-ms-flex-wrap: wrap;\n\t\t    flex-wrap: wrap;\n\t\t-ms-flex-align: center;\n\t\t    align-items: center;\n\t}\n    .footer .theme-actions[_v-75705773] {\n        display: none;\n        position: absolute;\n        right: 0;\n        padding: 10px 15px;\n        background-color: rgba(244, 244, 244, 0.7);\n        border-left: 1px solid rgba(0,0,0,0.05);\n    }\n\n\tbutton.button-secondary.button[_v-75705773] {\n\t\t-ms-flex-item-align: end;\n\t\t    align-self: flex-end;\n\t\tmargin-left: auto;\n\t}\n\n", ""]);
 
 // exports
 
@@ -12244,15 +12259,21 @@ var _keys2 = _interopRequireDefault(_keys);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // <template>
-// 	<div class="site-box">
+// 	<div class="site-box theme" :class="site_data.pricing">
+//         <div v-if="site_data.in_pro" class="notice inline notice-warning notice-alt"><p>{{this.$store.state.strings.pro_demo}}</p></div>
 // 		<div class="preview-image">
 // 			<img :src="site_data.screenshot" :alt="site_data.title">
 // 		</div>
 // 		<div class="footer">
 // 			<h4>{{site_data.title}}</h4>
-// 			<button class="button button-secondary" v-on:click="setupPreview()">
-// 				{{this.$store.state.strings.preview_btn}}
-// 			</button>
+//             <div class="theme-actions">
+//                 <button class="button button-secondary" v-on:click="showPreview()">
+//                     {{this.$store.state.strings.preview_btn}}
+//                 </button>
+//                 <button class="button button-primary" v-if="! site_data.in_pro" v-on:click="importSite()">
+//                     {{strings.import_btn}}
+//                 </button>
+//             </div>
 // 		</div>
 // 	</div>
 // </template>
@@ -12260,6 +12281,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // <script>
 exports.default = {
 	name: 'site-item',
+	data: function data() {
+		return {
+			strings: this.$store.state.strings
+		};
+	},
 	props: {
 		site_data: {
 			default: {},
@@ -12268,16 +12294,23 @@ exports.default = {
 		}
 	},
 	methods: {
-		setupPreview: function setupPreview() {
-			this.$store.commit('showPreview', true);
-			this.$store.commit('populatePreview', this.site_data);
-
+		setupImportData: function setupImportData() {
 			var plugins = (0, _keys2.default)(this.site_data.recommended_plugins).reduce(function (previous, current) {
 				previous[current] = true;
 				return previous;
 			}, {});
 
 			this.$store.commit('updatePlugins', plugins);
+		},
+		importSite: function importSite() {
+			this.setupImportData();
+			this.$store.commit('populatePreview', this.site_data);
+			this.$store.commit('showImportModal', true);
+		},
+		showPreview: function showPreview() {
+			this.setupImportData();
+			this.$store.commit('showPreview', true);
+			this.$store.commit('populatePreview', this.site_data);
 		}
 	}
 	// </script>
@@ -12295,20 +12328,39 @@ exports.default = {
 	//
 	// 	.site-box {
 	// 		border: 1px solid #ccc;
+	//         position: relative;
 	// 	}
 	//
+	//     .site-box:hover .footer .theme-actions {
+	//         display: block;
+	//     }
+	//
+	//     .site-box .notice {
+	//         display: block !important;
+	//     }
+	//
 	// 	.footer {
+	//         position: relative;
 	// 		border-top: 1px solid #ccc;
 	// 		display: flex;
-	// 		padding: 5px 10px;
+	//         padding: 15px;
 	// 		flex-wrap: wrap;
 	// 		align-items: center;
 	// 	}
+	//     .footer .theme-actions {
+	//         display: none;
+	//         position: absolute;
+	//         right: 0;
+	//         padding: 10px 15px;
+	//         background-color: rgba(244, 244, 244, 0.7);
+	//         border-left: 1px solid rgba(0,0,0,0.05);
+	//     }
 	//
 	// 	button.button-secondary.button {
 	// 		align-self: flex-end;
 	// 		margin-left: auto;
 	// 	}
+	//
 	// </style>
 
 };
@@ -12748,7 +12800,7 @@ module.exports = function (bitmap, value) {
 /* 55 */
 /***/ (function(module, exports) {
 
-module.exports = "\n\t<div class=\"site-box\" _v-428f0836=\"\">\n\t\t<div class=\"preview-image\" _v-428f0836=\"\">\n\t\t\t<img :src=\"site_data.screenshot\" :alt=\"site_data.title\" _v-428f0836=\"\">\n\t\t</div>\n\t\t<div class=\"footer\" _v-428f0836=\"\">\n\t\t\t<h4 _v-428f0836=\"\">{{site_data.title}}</h4>\n\t\t\t<button class=\"button button-secondary\" v-on:click=\"setupPreview()\" _v-428f0836=\"\">\n\t\t\t\t{{this.$store.state.strings.preview_btn}}\n\t\t\t</button>\n\t\t</div>\n\t</div>\n";
+module.exports = "\n\t<div class=\"site-box theme\" :class=\"site_data.pricing\" _v-75705773=\"\">\n        <div v-if=\"site_data.in_pro\" class=\"notice inline notice-warning notice-alt\" _v-75705773=\"\"><p _v-75705773=\"\">{{this.$store.state.strings.pro_demo}}</p></div>\n\t\t<div class=\"preview-image\" _v-75705773=\"\">\n\t\t\t<img :src=\"site_data.screenshot\" :alt=\"site_data.title\" _v-75705773=\"\">\n\t\t</div>\n\t\t<div class=\"footer\" _v-75705773=\"\">\n\t\t\t<h4 _v-75705773=\"\">{{site_data.title}}</h4>\n            <div class=\"theme-actions\" _v-75705773=\"\">\n                <button class=\"button button-secondary\" v-on:click=\"showPreview()\" _v-75705773=\"\">\n                    {{this.$store.state.strings.preview_btn}}\n                </button>\n                <button class=\"button button-primary\" v-if=\"! site_data.in_pro\" v-on:click=\"importSite()\" _v-75705773=\"\">\n                    {{strings.import_btn}}\n                </button>\n            </div>\n\t\t</div>\n\t</div>\n";
 
 /***/ }),
 /* 56 */
@@ -12765,7 +12817,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\preview.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/preview.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -12789,8 +12841,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-603a0b54&file=preview.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview.vue", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-603a0b54&file=preview.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview.vue");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-82a11b3c&file=preview.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview.vue", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-82a11b3c&file=preview.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview.vue");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -12808,7 +12860,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\r\n\t.loader[_v-603a0b54] {\r\n\t\tposition: fixed;\r\n\t\ttop: 50%;\r\n\t\tleft: 50%;\r\n\t\ttransform: translate(-50%, -50%);\r\n\t\tz-index: -1;\r\n\t}\r\n", ""]);
+exports.push([module.i, "\n\t.loader[_v-82a11b3c] {\n\t\tposition: fixed;\n\t\ttop: 50%;\n\t\tleft: 50%;\n\t\ttransform: translate(-50%, -50%);\n\t\tz-index: -1;\n\t}\n", ""]);
 
 // exports
 
@@ -12832,29 +12884,36 @@ var _previewSidebar = __webpack_require__(60);
 
 var _previewSidebar2 = _interopRequireDefault(_previewSidebar);
 
-var _importModal = __webpack_require__(65);
-
-var _importModal2 = _interopRequireDefault(_importModal);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// <template>
+// 	<div class="ti-sites-lib__wrap">
+// 		<div class="ti-sites-lib__preview">
+// 			<Loader class="loader" :loading-message="loadingString">
+// 			</Loader>
+// 			<iframe :src="previewData.demo_url">
+// 			</iframe>
+// 			<Sidebar :site_data="previewData">
+// 			</Sidebar>
+// 		</div>
+// 	</div>
+// </template>
+//
+// <script>
 exports.default = {
 	name: 'preview',
 	computed: {
 		previewData: function previewData() {
 			return this.$store.state.previewData;
 		},
-		modalOpen: function modalOpen() {
-			return this.$store.state.importModalState;
-		},
+
 		loadingString: function loadingString() {
 			return this.$store.state.strings.loading;
 		}
 	},
 	components: {
 		Loader: _loader2.default,
-		Sidebar: _previewSidebar2.default,
-		ImportModal: _importModal2.default
+		Sidebar: _previewSidebar2.default
 	},
 	methods: {}
 	// </script>
@@ -12869,22 +12928,7 @@ exports.default = {
 	// 	}
 	// </style>
 
-}; // <template>
-// 	<div class="ti-sites-lib__wrap">
-// 		<div class="ti-sites-lib__preview">
-// 			<Loader class="loader" :loading-message="loadingString">
-// 			</Loader>
-// 			<iframe :src="previewData.demo_url">
-// 			</iframe>
-// 			<Sidebar :site_data="previewData">
-// 			</Sidebar>
-// 		</div>
-// 		<import-modal v-if="modalOpen">
-// 		</import-modal>
-// 	</div>
-// </template>
-//
-// <script>
+};
 
 /***/ }),
 /* 60 */
@@ -12901,7 +12945,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\preview-sidebar.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/preview-sidebar.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -12925,8 +12969,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-373a9e63&file=preview-sidebar.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview-sidebar.vue", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-373a9e63&file=preview-sidebar.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview-sidebar.vue");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-15d1d11e&file=preview-sidebar.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview-sidebar.vue", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-15d1d11e&file=preview-sidebar.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./preview-sidebar.vue");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -12944,7 +12988,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\r\n\t.preview-sidebar[_v-373a9e63] {\r\n\t\tborder-top: 1px solid #ccc;\r\n\t}\r\n\r\n\t.site-title[_v-373a9e63] {\r\n\t\tmargin: 0;\r\n\t\tfont-size: 15px;\r\n\t}\r\n\r\n\t.buttons-wrap[_v-373a9e63] {\r\n\t\t-ms-flex-item-align: end;\r\n\t\t    align-self: flex-end;\r\n\t\tmargin-left: auto;\r\n\t}\r\n\r\n\t.ellipsis[_v-373a9e63] {\r\n\t\tmax-width: 50%;\r\n\t}\r\n", ""]);
+exports.push([module.i, "\n\t.preview-sidebar[_v-15d1d11e] {\n\t\tborder-top: 1px solid #ccc;\n\t}\n\n\t.site-title[_v-15d1d11e] {\n\t\tmargin: 0;\n\t\tfont-size: 15px;\n\t}\n\n\t.buttons-wrap[_v-15d1d11e] {\n\t\t-ms-flex-item-align: end;\n\t\t    align-self: flex-end;\n\t\tmargin-left: auto;\n\t}\n\n\t.ellipsis[_v-15d1d11e] {\n\t\tmax-width: 50%;\n\t}\n", ""]);
 
 // exports
 
@@ -12966,6 +13010,9 @@ Object.defineProperty(exports, "__esModule", {
 // 			<div class="buttons-wrap">
 // 				<button class="button button-secondary" v-on:click="cancelPreview()">
 // 					{{strings.cancel_btn}}
+// 				</button>
+// 				<button class="button button-primary" v-on:click="site_data.in_pro ? buyPro() : showModal()">
+// 					{{ site_data.in_pro ? strings.pro_btn : strings.import_btn}}
 // 				</button>
 // 			</div>
 // 		</div>
@@ -12992,6 +13039,10 @@ exports.default = {
 		},
 		showModal: function showModal() {
 			this.$store.commit('showImportModal', true);
+		},
+		buyPro: function buyPro() {
+			var win = window.open('https://themeisle.com/themes/hestia-pro/upgrade/', '_blank');
+			win.focus();
 		}
 	}
 	// </script>
@@ -13022,7 +13073,7 @@ exports.default = {
 /* 64 */
 /***/ (function(module, exports) {
 
-module.exports = "\n\t<div class=\"preview-sidebar\" _v-373a9e63=\"\">\n\t\t<div class=\"preview-sidebar__container\" _v-373a9e63=\"\">\n\t\t\t<h5 class=\"site-title ellipsis\" _v-373a9e63=\"\">{{site_data.title}}</h5>\n\t\t\t<div class=\"buttons-wrap\" _v-373a9e63=\"\">\n\t\t\t\t<button class=\"button button-secondary\" v-on:click=\"cancelPreview()\" _v-373a9e63=\"\">\n\t\t\t\t\t{{strings.cancel_btn}}\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n";
+module.exports = "\n\t<div class=\"preview-sidebar\" _v-15d1d11e=\"\">\n\t\t<div class=\"preview-sidebar__container\" _v-15d1d11e=\"\">\n\t\t\t<h5 class=\"site-title ellipsis\" _v-15d1d11e=\"\">{{site_data.title}}</h5>\n\t\t\t<div class=\"buttons-wrap\" _v-15d1d11e=\"\">\n\t\t\t\t<button class=\"button button-secondary\" v-on:click=\"cancelPreview()\" _v-15d1d11e=\"\">\n\t\t\t\t\t{{strings.cancel_btn}}\n\t\t\t\t</button>\n\t\t\t\t<button class=\"button button-primary\" v-on:click=\"site_data.in_pro ? buyPro() : showModal()\" _v-15d1d11e=\"\">\n\t\t\t\t\t{{ site_data.in_pro ? strings.pro_btn : strings.import_btn}}\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n";
 
 /***/ }),
 /* 65 */
@@ -13039,7 +13090,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\import-modal.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/import-modal.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -13063,8 +13114,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-63458bae&file=import-modal.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./import-modal.vue", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-63458bae&file=import-modal.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./import-modal.vue");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0c140bdb&file=import-modal.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./import-modal.vue", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0c140bdb&file=import-modal.vue&scoped=true!../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!../../../node_modules/eslint-loader/index.js!../../../node_modules/eslint-loader/index.js!./import-modal.vue");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -13082,7 +13133,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\r\n\t.modal__header .title[_v-63458bae] {\r\n\t\tmargin: 0;\r\n\t}\r\n\r\n\t.modal__header[_v-63458bae] {\r\n\t\tpadding: 10px;\r\n\t}\r\n\r\n\t.modal__content[_v-63458bae] {\r\n\t\tpadding: 10px;\r\n\t}\r\n\r\n\t.modal__footer[_v-63458bae] {\r\n\t\tpadding: 10px;\r\n\t\ttext-align: right;\r\n\t}\r\n\r\n\th3[_v-63458bae] {\r\n\t\tfont-size: 17px;\r\n\t\tfont-weight: 300;\r\n\t\tcolor: #444;\r\n\t\tmargin: 20px;\r\n\t\twidth: 100%;\r\n\t}\r\n\r\n\t.importing[_v-63458bae] {\r\n\t\twidth: 100%;\r\n\t\ttext-align: center;\r\n\t}\r\n\r\n\t.option_toggle[_v-63458bae] {\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-ms-flex-pack: justify;\r\n\t\t    justify-content: space-between;\r\n\t\t-ms-flex-align: center;\r\n\t\t    align-items: center;\r\n\t}\r\n\r\n\t.option-toggle-label[_v-63458bae] {\r\n\t\tdisplay: -ms-flexbox;\r\n\t\tdisplay: flex;\r\n\t\t-ms-flex-align: center;\r\n\t\t    align-items: center;\r\n\t\tcursor: default;\r\n\t\tline-height: 1.6;\r\n\t\tmax-width: 80%;\r\n\t}\r\n\r\n\t.option-toggle-label.inactive[_v-63458bae] {\r\n\t\topacity: .5;\r\n\t}\r\n\r\n\t.option-toggle-label .dashicons[_v-63458bae] {\r\n\t\tmargin-right: 5px;\r\n\t}\r\n\r\n\t.import__options hr[_v-63458bae] {\r\n\t\tmargin: 10px 0;\r\n\t}\r\n", ""]);
+exports.push([module.i, "\n\t.modal__header .title[_v-0c140bdb] {\n\t\tmargin: 0;\n\t}\n\n\t.modal__header[_v-0c140bdb] {\n\t\tpadding: 10px;\n\t}\n\n\t.modal__content[_v-0c140bdb] {\n\t\tpadding: 10px;\n\t}\n\n\t.modal__footer[_v-0c140bdb] {\n\t\tpadding: 10px;\n\t\ttext-align: right;\n\t}\n\n\th3[_v-0c140bdb] {\n\t\tfont-size: 17px;\n\t\tfont-weight: 300;\n\t\tcolor: #444;\n\t\tmargin: 20px;\n\t\twidth: 100%;\n\t}\n\n\t.importing[_v-0c140bdb] {\n\t\twidth: 100%;\n\t\ttext-align: center;\n\t}\n\n\t.option_toggle[_v-0c140bdb] {\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n\t\t-ms-flex-pack: justify;\n\t\t    justify-content: space-between;\n\t\t-ms-flex-align: center;\n\t\t    align-items: center;\n\t}\n\n\t.option-toggle-label[_v-0c140bdb] {\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n\t\t-ms-flex-align: center;\n\t\t    align-items: center;\n\t\tcursor: default;\n\t\tline-height: 1.6;\n\t\tmax-width: 80%;\n\t}\n\n\t.option-toggle-label.inactive[_v-0c140bdb] {\n\t\topacity: .5;\n\t}\n\n\t.option-toggle-label .dashicons[_v-0c140bdb] {\n\t\tmargin-right: 5px;\n\t}\n\n\t.import__options hr[_v-0c140bdb] {\n\t\tmargin: 10px 0;\n\t}\n", ""]);
 
 // exports
 
@@ -13438,7 +13489,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "C:\\wamp64\\www\\wordpress\\wp-content\\themes\\hestia-pro\\inc\\admin\\onboarding\\assets\\vue\\components\\stepper.vue"
+  var id = "/Users/coti/Local Sites/hestia-clone/app/public/wp-content/themes/hestia-pro/inc/admin/onboarding/assets/vue/components/stepper.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {
@@ -13484,25 +13535,25 @@ module.exports = {
 /* 72 */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\t<div class=\"ti__stepper updating-message\">\r\n\t\t<template v-for=\"(step, slug) in steps\">\r\n\t\t\t<p :key=\"step.id\" v-if=\"slug === currentStep\">\r\n\t\t\t\t{{ step }}...\r\n\t\t\t</p>\r\n\t\t</template>\r\n\t</div>\r\n";
+module.exports = "\n\t<div class=\"ti__stepper updating-message\">\n\t\t<template v-for=\"(step, slug) in steps\">\n\t\t\t<p :key=\"step.id\" v-if=\"slug === currentStep\">\n\t\t\t\t{{ step }}...\n\t\t\t</p>\n\t\t</template>\n\t</div>\n";
 
 /***/ }),
 /* 73 */
 /***/ (function(module, exports) {
 
-module.exports = "\n\t<div class=\"import-modal__wrapper\" _v-63458bae=\"\">\n\t\t<div class=\"modal__item\" v-on-clickaway=\"closeModal\" _v-63458bae=\"\">\n\t\t\t<div class=\"modal__header\" _v-63458bae=\"\">\n\t\t\t\t<h4 class=\"title ellipsis\" _v-63458bae=\"\">{{strings.import_btn}}: {{siteData.title}}</h4>\n\t\t\t</div>\n\t\t\t<hr _v-63458bae=\"\">\n\t\t\t<div class=\"modal__content\" v-bind:class=\"currentStep === 'done' ? 'import__done' : ''\" _v-63458bae=\"\">\n\t\t\t\t<template v-if=\"currentStep !== 'done'\" _v-63458bae=\"\">\n\t\t\t\t\t<div class=\"right__content\" v-if=\"! importing\" _v-63458bae=\"\">\n\t\t\t\t\t\t<p class=\"import__paragraph\" _v-63458bae=\"\"><strong _v-63458bae=\"\">{{strings.note}}:</strong> {{strings.import_disclaimer}}</p>\n\t\t\t\t\t\t<p class=\"import__paragraph\" _v-63458bae=\"\">{{strings.onboard_description}}</p>\n\t\t\t\t\t\t<div class=\"import__options\" v-show-slide=\"advancedExpanded\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t<h4 _v-63458bae=\"\">{{strings.general}}:</h4>\n\t\t\t\t\t\t\t<ul class=\"features\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t\t<li class=\"option_toggle\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label\" :class=\"importOptions.content ? 'active' : 'inactive'\" _v-63458bae=\"\"><span class=\"dashicons dashicons-admin-post\" _v-63458bae=\"\"></span><span _v-63458bae=\"\">{{strings.content}}</span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustImport( 'content' )\" :value=\"importOptions.content\" color=\"#28da00\" _v-63458bae=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t<li class=\"option_toggle\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label\" :class=\"importOptions.customizer ? 'active' : 'inactive'\" _v-63458bae=\"\"><span class=\"dashicons dashicons-admin-customizer\" _v-63458bae=\"\"></span><span _v-63458bae=\"\">{{strings.customizer}}</span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustImport( 'customizer' )\" :value=\"importOptions.customizer\" color=\"#28da00\" _v-63458bae=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t<li class=\"option_toggle\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label\" :class=\"importOptions.widgets ? 'active' : 'inactive'\" _v-63458bae=\"\"><span class=\"dashicons dashicons-admin-generic\" _v-63458bae=\"\"></span><span _v-63458bae=\"\">{{strings.widgets}}</span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustImport( 'widgets' )\" :value=\"importOptions.widgets\" color=\"#28da00\" _v-63458bae=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t<hr _v-63458bae=\"\">\n\t\t\t\t\t\t\t<h4 _v-63458bae=\"\">{{strings.plugins}}:</h4>\n\t\t\t\t\t\t\t<ul class=\"features\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t\t<li class=\"option_toggle\" v-for=\"( plugin, index ) in siteData.recommended_plugins\" _v-63458bae=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label ellipsis\" :class=\"willInstallPlugin( index ) ? 'active' : 'inactive'\" _v-63458bae=\"\"><span class=\"dashicons dashicons-admin-plugins\" _v-63458bae=\"\"></span><span v-html=\"plugin\" _v-63458bae=\"\"></span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustPlugins( index, plugin )\" :value=\"importOptions.installablePlugins[index]\" color=\"#28da00\" _v-63458bae=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t<hr _v-63458bae=\"\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<a @click=\"toggleAdvanced\" class=\"expander\" _v-63458bae=\"\"><span class=\"dashicons\" :class=\" advancedExpanded ? 'dashicons-arrow-up-alt2' : 'dashicons-arrow-down-alt2' \" _v-63458bae=\"\"></span>{{\n\t\t\t\t\t\t\tstrings.advanced_options }}</a>\n\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"right__content importing\" v-else=\"\" _v-63458bae=\"\">\n\t\t\t\t\t\t<stepper _v-63458bae=\"\">\n\t\t\t\t\t\t</stepper>\n\t\t\t\t\t</div>\n\t\t\t\t</template>\n\t\t\t\t<h3 v-else=\"\" _v-63458bae=\"\">{{strings.import_done}}</h3>\n\t\t\t</div>\n\t\t\t<hr _v-63458bae=\"\">\n\n\t\t\t<div class=\"modal__footer\" v-if=\"! importing\" _v-63458bae=\"\">\n\t\t\t\t<template v-if=\"currentStep !== 'done'\" _v-63458bae=\"\">\n\t\t\t\t\t<button class=\"button button-secondary\" v-on:click=\"closeModal\" _v-63458bae=\"\">{{strings.cancel_btn}}</button>\n\t\t\t\t\t<button class=\"button button-primary\" :disabled=\"! checIfShouldImport\" v-on:click=\"startImport\" _v-63458bae=\"\">{{strings.import_btn}}</button>\n\t\t\t\t</template>\n\t\t\t\t<div v-else=\"\" class=\"after__actions\" _v-63458bae=\"\">\n\t\t\t\t\t<button class=\"button button-secondary\" v-if=\"this.$store.state.onboard !== 'yes'\" v-on:click=\"resetImport\" _v-63458bae=\"\">{{strings.back}}</button>\n\t\t\t\t\t<button class=\"button button-primary\" v-on:click=\"redirectToHome\" _v-63458bae=\"\">{{strings.go_to_site}}</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n";
+module.exports = "\n\t<div class=\"import-modal__wrapper\" _v-0c140bdb=\"\">\n\t\t<div class=\"modal__item\" v-on-clickaway=\"closeModal\" _v-0c140bdb=\"\">\n\t\t\t<div class=\"modal__header\" _v-0c140bdb=\"\">\n\t\t\t\t<h4 class=\"title ellipsis\" _v-0c140bdb=\"\">{{strings.import_btn}}: {{siteData.title}}</h4>\n\t\t\t</div>\n\t\t\t<hr _v-0c140bdb=\"\">\n\t\t\t<div class=\"modal__content\" v-bind:class=\"currentStep === 'done' ? 'import__done' : ''\" _v-0c140bdb=\"\">\n\t\t\t\t<template v-if=\"currentStep !== 'done'\" _v-0c140bdb=\"\">\n\t\t\t\t\t<div class=\"right__content\" v-if=\"! importing\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t<p class=\"import__paragraph\" _v-0c140bdb=\"\"><strong _v-0c140bdb=\"\">{{strings.note}}:</strong> {{strings.import_disclaimer}}</p>\n\t\t\t\t\t\t<p class=\"import__paragraph\" _v-0c140bdb=\"\">{{strings.onboard_description}}</p>\n\t\t\t\t\t\t<div class=\"import__options\" v-show-slide=\"advancedExpanded\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t<h4 _v-0c140bdb=\"\">{{strings.general}}:</h4>\n\t\t\t\t\t\t\t<ul class=\"features\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t\t<li class=\"option_toggle\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label\" :class=\"importOptions.content ? 'active' : 'inactive'\" _v-0c140bdb=\"\"><span class=\"dashicons dashicons-admin-post\" _v-0c140bdb=\"\"></span><span _v-0c140bdb=\"\">{{strings.content}}</span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustImport( 'content' )\" :value=\"importOptions.content\" color=\"#28da00\" _v-0c140bdb=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t<li class=\"option_toggle\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label\" :class=\"importOptions.customizer ? 'active' : 'inactive'\" _v-0c140bdb=\"\"><span class=\"dashicons dashicons-admin-customizer\" _v-0c140bdb=\"\"></span><span _v-0c140bdb=\"\">{{strings.customizer}}</span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustImport( 'customizer' )\" :value=\"importOptions.customizer\" color=\"#28da00\" _v-0c140bdb=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t<li class=\"option_toggle\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label\" :class=\"importOptions.widgets ? 'active' : 'inactive'\" _v-0c140bdb=\"\"><span class=\"dashicons dashicons-admin-generic\" _v-0c140bdb=\"\"></span><span _v-0c140bdb=\"\">{{strings.widgets}}</span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustImport( 'widgets' )\" :value=\"importOptions.widgets\" color=\"#28da00\" _v-0c140bdb=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t<hr _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t<h4 _v-0c140bdb=\"\">{{strings.plugins}}:</h4>\n\t\t\t\t\t\t\t<ul class=\"features\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t\t<li class=\"option_toggle\" v-for=\"( plugin, index ) in siteData.recommended_plugins\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t\t\t\t<label class=\"option-toggle-label ellipsis\" :class=\"willInstallPlugin( index ) ? 'active' : 'inactive'\" _v-0c140bdb=\"\"><span class=\"dashicons dashicons-admin-plugins\" _v-0c140bdb=\"\"></span><span v-html=\"plugin\" _v-0c140bdb=\"\"></span></label>\n\t\t\t\t\t\t\t\t\t<toggle-button @change=\"adjustPlugins( index, plugin )\" :value=\"importOptions.installablePlugins[index]\" color=\"#28da00\" _v-0c140bdb=\"\"></toggle-button>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t<hr _v-0c140bdb=\"\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<a @click=\"toggleAdvanced\" class=\"expander\" _v-0c140bdb=\"\"><span class=\"dashicons\" :class=\" advancedExpanded ? 'dashicons-arrow-up-alt2' : 'dashicons-arrow-down-alt2' \" _v-0c140bdb=\"\"></span>{{\n\t\t\t\t\t\t\tstrings.advanced_options }}</a>\n\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"right__content importing\" v-else=\"\" _v-0c140bdb=\"\">\n\t\t\t\t\t\t<stepper _v-0c140bdb=\"\">\n\t\t\t\t\t\t</stepper>\n\t\t\t\t\t</div>\n\t\t\t\t</template>\n\t\t\t\t<h3 v-else=\"\" _v-0c140bdb=\"\">{{strings.import_done}}</h3>\n\t\t\t</div>\n\t\t\t<hr _v-0c140bdb=\"\">\n\n\t\t\t<div class=\"modal__footer\" v-if=\"! importing\" _v-0c140bdb=\"\">\n\t\t\t\t<template v-if=\"currentStep !== 'done'\" _v-0c140bdb=\"\">\n\t\t\t\t\t<button class=\"button button-secondary\" v-on:click=\"closeModal\" _v-0c140bdb=\"\">{{strings.cancel_btn}}</button>\n\t\t\t\t\t<button class=\"button button-primary\" :disabled=\"! checIfShouldImport\" v-on:click=\"startImport\" _v-0c140bdb=\"\">{{strings.import_btn}}</button>\n\t\t\t\t</template>\n\t\t\t\t<div v-else=\"\" class=\"after__actions\" _v-0c140bdb=\"\">\n\t\t\t\t\t<button class=\"button button-secondary\" v-if=\"this.$store.state.onboard !== 'yes'\" v-on:click=\"resetImport\" _v-0c140bdb=\"\">{{strings.back}}</button>\n\t\t\t\t\t<button class=\"button button-primary\" v-on:click=\"redirectToHome\" _v-0c140bdb=\"\">{{strings.go_to_site}}</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n";
 
 /***/ }),
 /* 74 */
 /***/ (function(module, exports) {
 
-module.exports = "\n\t<div class=\"ti-sites-lib__wrap\" _v-603a0b54=\"\">\n\t\t<div class=\"ti-sites-lib__preview\" _v-603a0b54=\"\">\n\t\t\t<loader class=\"loader\" :loading-message=\"loadingString\" _v-603a0b54=\"\">\n\t\t\t</loader>\n\t\t\t<iframe :src=\"previewData.demo_url\" _v-603a0b54=\"\">\n\t\t\t</iframe>\n\t\t\t<sidebar :site_data=\"previewData\" _v-603a0b54=\"\">\n\t\t\t</sidebar>\n\t\t</div>\n\t\t<import-modal v-if=\"modalOpen\" _v-603a0b54=\"\">\n\t\t</import-modal>\n\t</div>\n";
+module.exports = "\n\t<div class=\"ti-sites-lib__wrap\" _v-82a11b3c=\"\">\n\t\t<div class=\"ti-sites-lib__preview\" _v-82a11b3c=\"\">\n\t\t\t<loader class=\"loader\" :loading-message=\"loadingString\" _v-82a11b3c=\"\">\n\t\t\t</loader>\n\t\t\t<iframe :src=\"previewData.demo_url\" _v-82a11b3c=\"\">\n\t\t\t</iframe>\n\t\t\t<sidebar :site_data=\"previewData\" _v-82a11b3c=\"\">\n\t\t\t</sidebar>\n\t\t</div>\n\t</div>\n";
 
 /***/ }),
 /* 75 */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\t<div :class=\"{ 'is__onboarding' : this.$store.state.onboard === 'yes' && ! previewOpen } \">\r\n\t\t<div :class=\"! isLoading ? 'library-wrapper' : '' \">\r\n\t\t\t<div v-if=\"this.$store.state.onboard === 'yes' && ! isLoading\" class=\"header\">\r\n\t\t\t\t<h1>{{strings.onboard_header}}</h1>\r\n\t\t\t\t<p>{{strings.onboard_description}}</p>\r\n\t\t\t</div>\r\n\t\t\t<Loader v-if=\"isLoading\" :loading-message=\"loadingString\"></Loader>\r\n\t\t\t<div v-else class=\"ti-sites-lib\">\r\n\t\t\t\t<div v-for=\"site in sites.local\">\r\n\t\t\t\t\t<SiteItem :site_data=\"site\"></SiteItem>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div v-for=\"site in sites.remote\">\r\n\t\t\t\t\t<SiteItem :site_data=\"site\"></SiteItem>\r\n\t\t\t\t</div>\r\n\t\t\t\t<Preview v-if=\"previewOpen\"></Preview>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<a @click=\"cancelOnboarding\" v-if=\"this.$store.state.onboard === 'yes' && ! isLoading\" class=\"skip-onboarding\">\r\n\t\t\t{{strings.later}}\r\n\t\t</a>\r\n\t</div>\r\n";
+module.exports = "\n\t<div :class=\"{ 'is__onboarding' : this.$store.state.onboard === 'yes' && ! previewOpen } \">\n\t\t<div :class=\"! isLoading ? 'library-wrapper' : '' \">\n\t\t\t<div v-if=\"this.$store.state.onboard === 'yes' && ! isLoading\" class=\"header\">\n\t\t\t\t<h1>{{strings.onboard_header}}</h1>\n\t\t\t\t<p>{{strings.onboard_description}}</p>\n\t\t\t</div>\n\t\t\t<Loader v-if=\"isLoading\" :loading-message=\"loadingString\"></Loader>\n\t\t\t<div v-else class=\"ti-sites-lib\">\n\t\t\t\t<div v-for=\"site in sites.local\">\n\t\t\t\t\t<SiteItem :site_data=\"site\"></SiteItem>\n\t\t\t\t</div>\n\t\t\t\t<div v-for=\"site in sites.remote\">\n\t\t\t\t\t<SiteItem :site_data=\"site\"></SiteItem>\n\t\t\t\t</div>\n\t\t\t\t<div v-for=\"site in sites.upsell\">\n\t\t\t\t\t<SiteItem :site_data=\"site\"></SiteItem>\n\t\t\t\t</div>\n\t\t\t\t<Preview v-if=\"previewOpen\"></Preview>\n\t\t\t</div>\n\t\t</div>\n\t\t<a @click=\"cancelOnboarding\" v-if=\"this.$store.state.onboard === 'yes' && ! isLoading\" class=\"skip-onboarding\">\n\t\t\t{{strings.later}}\n\t\t</a>\n\t\t<import-modal v-if=\"modalOpen\">\n\t\t</import-modal>\n\t</div>\n";
 
 /***/ }),
 /* 76 */

@@ -6,9 +6,124 @@
  * @package Hestia
  */
 
+/* global imageObject */
+
 jQuery( document ).ready(
 	function () {
 		'use strict';
+
+		jQuery.aboutBackground = {
+
+			init: function () {
+				this.updateBackgroundControl();
+				this.updateBackgroundControlBuffer();
+				this.focusMenu();
+				this.updateEditorLink();
+            },
+
+            updateBackgroundControl: function () {
+                wp.customize(
+                    'page_on_front', function( value ) {
+                        value.bind(
+                            function( newval ) {
+
+                                jQuery.ajax({
+                                    type: 'POST',
+                                    data: {
+                                        action: 'update_image_buffer',
+                                        pid: newval,
+                                        nonce: imageObject.imagenonce
+                                    },
+                                    url: imageObject.ajaxurl,
+                                    success: function (result) {
+                                        var image = result.data;
+                                        var html;
+                                        if (image !== '' && image !== 'undefined') {
+                                            html = '<label for="hestia_feature_thumbnail-button">' +
+                                                '<span class="customize-control-title">About background</span>' +
+                                                '</label>' +
+                                                '<div class="attachment-media-view attachment-media-view-image landscape">' +
+                                                '<div class="thumbnail thumbnail-image">' +
+                                                '<img class="attachment-thumb" src="' + image + '" draggable="false" alt=""> ' +
+                                                '</div>' +
+                                                '<div class="actions">' +
+                                                '<button type="button" class="button remove-button">Remove</button>' +
+                                                '<button type="button" class="button upload-button control-focus" id="hestia_feature_thumbnail-button">Change Image</button> ' +
+                                                '<div style="clear:both"></div>' +
+                                                '</div>' +
+                                                '</div>';
+                                        } else {
+                                            html = '<label class="customize-control-title" for="customize-media-control-button-105">About background</label>' +
+                                                '<div class="customize-control-notifications-container" style="display: none;"><ul></ul></div>' +
+                                                '<div class="attachment-media-view">\n' +
+                                                '<div class="placeholder">' +
+                                                'No image selected' +
+                                                '</div>' +
+                                                '<div class="actions">' +
+                                                '<button type="button" class="button default-button">Default</button>' +
+                                                '<button type="button" class="button upload-button" id="customize-media-control-button-105">Select image</button>' +
+                                                '</div>' +
+                                                '</div>';
+                                        }
+                                        wp.customize.control( 'hestia_feature_thumbnail' ).container['0'].innerHTML = html;
+                                        wp.customize.instance( 'hestia_feature_thumbnail' ).previewer.refresh();
+                                    }
+                                });
+                            }
+                        );
+                    }
+                );
+            },
+
+            updateBackgroundControlBuffer: function () {
+                /**
+                 * Update the buffer for about background.
+                 */
+                wp.customize( 'hestia_feature_thumbnail', function ( value ) {
+                    value.bind( function ( newval ) {
+                        jQuery.ajax({
+                            type: 'POST',
+                            data: {
+                                action: 'update_image_buffer',
+                                value: newval,
+                                nonce: imageObject.imagenonce
+                            },
+                            url: imageObject.imagenonce
+                        });
+                    });
+                });
+            },
+
+			/**
+			* Focus menu when the user clicks on customizer shortcut of the menu.
+			*/
+			focusMenu: function () {
+				wp.customize.previewer.bind(
+					'trigger-focus-menu', function() {
+						wp.customize.section( 'menu_locations' ).focus();
+					}
+				);
+			},
+
+            updateEditorLink: function () {
+                wp.customize(
+                    'page_on_front', function( value ) {
+                        value.bind(
+                            function( newval ) {
+                            	if( typeof wp.customize.control( 'hestia_shortcut_editor' ) !== 'undefined' ){
+                                    var newLink = wp.customize.control( 'hestia_shortcut_editor' ).container['0'].innerHTML .replace(/(post=).*?(&)/,'$1' + newval + '$2');
+                                    wp.customize.control( 'hestia_shortcut_editor' ).container['0'].innerHTML = newLink;
+	                            }
+							}
+						);
+                    }
+				);
+            }
+		};
+
+        jQuery.aboutBackground.init();
+
+
 
 		wp.customize(
 			'hestia_team_content', function ( value ) {

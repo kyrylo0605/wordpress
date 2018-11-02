@@ -58,8 +58,13 @@ class Hestia_About_Section extends Hestia_Abstract_Main {
 			/**
 			 * Display overlay (section-image class) on about section only if section have a background
 			 */
-			$class_to_add              = '';
-			$hestia_frontpage_featured = get_theme_mod( 'hestia_feature_thumbnail', get_template_directory_uri() . '/assets/img/contact.jpg' );
+			$class_to_add = '';
+
+			$option_name = 'hestia_feature_thumbnail';
+		if ( is_customize_preview() ) {
+			$option_name = 'hestia_feature_thumbnail_buffer';
+		}
+			$hestia_frontpage_featured = get_theme_mod( $option_name, get_template_directory_uri() . '/assets/img/contact.jpg' );
 		if ( ! empty( $hestia_frontpage_featured ) ) {
 			$class_to_add   = 'section-image';
 			$section_style .= 'background-image: url(\'' . esc_url( $hestia_frontpage_featured ) . '\');';

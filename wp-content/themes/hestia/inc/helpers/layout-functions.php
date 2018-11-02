@@ -127,7 +127,7 @@ if ( ! function_exists( 'hestia_comments_template' ) ) {
 												),
 											)
 										),
-										esc_url( wp_login_url( apply_filters( 'the_permalink', get_permalink() ) ) )
+										esc_url( wp_login_url( apply_filters( 'the_permalink', esc_url( get_permalink() ) ) ) )
 									) . '</p>',
 			'comment_field'      => '<div class="form-group label-floating is-empty"> <label class="control-label">' . esc_html__( 'What\'s on your mind?', 'hestia' ) . '</label><textarea id="comment" name="comment" class="form-control" rows="6" aria-required="true"></textarea><span class="hestia-input"></span> </div>',
 		);
@@ -610,8 +610,11 @@ if ( ! function_exists( 'hestia_edited_with_pagebuilder' ) ) {
 	 * @since 1.1.63
 	 * @return bool
 	 */
-	function hestia_edited_with_pagebuilder() {
+	function hestia_edited_with_pagebuilder( $pid = '' ) {
 		$frontpage_id = get_option( 'page_on_front' );
+		if ( ! empty( $pid ) ) {
+			$frontpage_id = $pid;
+		}
 		/**
 		 * Exit with false if there is no page set as frontpage.
 		 */
@@ -699,7 +702,7 @@ if ( ! function_exists( 'hestia_get_excerpt_default' ) ) {
 	}
 }
 
-if ( ! function_exists( 'contact_form_placeholder' ) ) {
+if ( ! function_exists( 'hestia_contact_form_placeholder' ) ) {
 
 	/**
 	 * Render the contact form placeholder for the contact section.
@@ -707,7 +710,7 @@ if ( ! function_exists( 'contact_form_placeholder' ) ) {
 	 * @since 1.1.31
 	 * @modified 1.1.86
 	 */
-	function contact_form_placeholder() {
+	function hestia_contact_form_placeholder() {
 		return '
 		<div class="col-md-5 col-md-offset-2 pirate-forms-placeholder hestia-contact-form-col">
 			<div class="card card-contact">

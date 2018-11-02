@@ -31,11 +31,14 @@ class Hestia_Contact_Info extends WP_Customize_Control {
 	 */
 	public function render_content() {
 		if ( ! defined( 'WPFORMS_VERSION' ) ) {
+
 			echo '<span class="customize-control-title">' . esc_html__( 'Instructions', 'hestia' ) . '</span>';
 			printf(
 				/* translators: %1$s is Plugin name */
-				esc_html__( 'In order to add a contact form to this section, you need to install the %s plugin.', 'hestia' ),
-				esc_html( 'WPForms Lite' )
+				esc_html__( 'In order to add a contact form to this section, you need to install the %1$s plugin. Then follow %2$sthis guide%3$s to create your form.', 'hestia' ),
+				esc_html( 'WPForms Lite' ),
+				'<a href="' . esc_url( 'https://docs.themeisle.com/article/949-how-to-create-the-hestia-contact-form-in-wpforms' ) . '" target="_blank">',
+				'</a>'
 			);
 			echo $this->create_plugin_install_button(
 				'wpforms-lite',

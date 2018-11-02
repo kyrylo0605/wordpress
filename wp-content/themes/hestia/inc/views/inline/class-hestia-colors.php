@@ -49,7 +49,8 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		a:hover, 
 		.card-blog a.moretag:hover, 
 		.card-blog a.more-link:hover, 
-		.widget a:hover {
+		.widget a:hover,
+		.has-accent-color {
 		    color:' . esc_html( $color_accent ) . ';
 		}
 		
@@ -59,8 +60,8 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		
 		button,
 		button:hover,
-		.woocommerce .track_order button[type="submit"],     
-		.woocommerce .track_order button[type="submit"]:hover,     
+		.woocommerce .track_order button[type="submit"],
+		.woocommerce .track_order button[type="submit"]:hover,
 		div.wpforms-container .wpforms-form button[type=submit].wpforms-submit,
 		div.wpforms-container .wpforms-form button[type=submit].wpforms-submit:hover,
 		input[type="button"],
@@ -90,7 +91,8 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		.hestia-sidebar-close.btn.btn-rose:focus,
 		.label.label-primary,
 		.hestia-work .portfolio-item:nth-child(6n+1) .label,
-		.nav-cart .nav-cart-content .widget .buttons .button{
+		.nav-cart .nav-cart-content .widget .buttons .button,
+		.has-background.has-accent-background-color {
 		    background-color: ' . esc_html( $color_accent ) . ';
 		}
 		
@@ -106,7 +108,7 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 			}
 		}
 		
-		body:not(.woocommerce-page) button:not([class^="fl-"]):not(.hestia-scroll-to-top):not(.navbar-toggle),
+		body:not(.woocommerce-page) button:not([class^="fl-"]):not(.hestia-scroll-to-top):not(.navbar-toggle):not(.close),
 		body:not(.woocommerce-page) .button:not([class^="fl-"]):not(hestia-scroll-to-top):not(.navbar-toggle):not(.add_to_cart_button),
 		div.wpforms-container .wpforms-form button[type=submit].wpforms-submit,
 		input[type="submit"], 
@@ -124,7 +126,7 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		}
 		
 		body:not(.woocommerce-page) .button:not([class^="fl-"]):not(.hestia-scroll-to-top):not(.navbar-toggle):not(.add_to_cart_button):hover,
-		body:not(.woocommerce-page) button:not([class^="fl-"]):not(.hestia-scroll-to-top):not(.navbar-toggle):hover,
+		body:not(.woocommerce-page) button:not([class^="fl-"]):not(.hestia-scroll-to-top):not(.navbar-toggle):not(.close):hover,
 		div.wpforms-container .wpforms-form button[type=submit].wpforms-submit:hover,
 		input[type="submit"]:hover,
 		input[type="button"]:hover,
@@ -152,7 +154,7 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		}
 		
 		.navbar:not(.navbar-transparent) li:not(.btn):hover > a,
-		.navbar li.on-section > a, 
+		.navbar li.on-section:not(.btn) > a, 
 		.navbar.full-screen-menu.navbar-transparent li:not(.btn):hover > a,
 		.navbar.full-screen-menu .navbar-toggle:hover,
 		.navbar:not(.navbar-transparent) .nav-cart:hover, 
@@ -160,11 +162,22 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 				color:' . esc_html( $color_accent ) . '}
 		' : '';
 
-		// Header Gradient Color
+		// Header Gradient Color + support for Gutenberg color.
 		$custom_css .= ! empty( $header_gradient ) ? '
 		.header-filter-gradient { 
 			background: linear-gradient(45deg, ' . hestia_hex_rgba( $header_gradient ) . ' 0%, ' . $this->hestia_generate_gradient_color( $header_gradient ) . ' 100%); 
-		} ' : '';
+		}
+		.has-header-gradient-color { color: ' . $header_gradient . '; }
+		.has-background.has-header-gradient-background-color { background-color: ' . $header_gradient . '; }
+		 ' : '';
+
+		// Gutenberg support for the background color
+		$background_color = '#' . get_theme_mod( 'background_color', 'E5E5E5' );
+
+		$custom_css .= '
+		.has-background-color-color { color: ' . $background_color . '; }
+		.has-background.has-background-color-background-color { background-color: ' . $background_color . '; }
+		';
 
 		return $custom_css;
 	}

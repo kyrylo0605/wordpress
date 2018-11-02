@@ -286,6 +286,106 @@ class Hestia_Public {
 		add_theme_support( 'custom-background', $custom_background_settings );
 		add_theme_support( 'starter-content', $this->get_starter_content() );
 		add_theme_support( 'themeisle-demo-import', $this->get_ti_demo_content_support_data() );
+		add_theme_support( 'align-wide' );
+
+		/**
+		 * Add support for wide alignments.
+		 *
+		 * @link https://wordpress.org/gutenberg/handbook/extensibility/theme-support/
+		 */
+		add_theme_support( 'align-wide' );
+
+		/**
+		 * Add support for block color palettes.
+		 *
+		 * @link https://wordpress.org/gutenberg/handbook/extensibility/theme-support/
+		 */
+		add_theme_support(
+			'editor-color-palette',
+			apply_filters(
+				'hestia_editor_color_palette',
+				array(
+					0 => array(
+						'name'  => 'White',
+						'slug'  => 'white',
+						'color' => '#ffffff',
+					),
+					1 => array(
+						'name'  => 'Black',
+						'slug'  => 'black',
+						'color' => '#000000',
+					),
+					2 => array(
+						'name'  => esc_html__( 'Accent Color', 'hestia' ),
+						'slug'  => 'accent',
+						'color' => get_theme_mod( 'accent_color', '#e91e63' ),
+					),
+					4 => array(
+						'name'  => esc_html__( 'Body', 'hestia' ),
+						'slug'  => 'background_color',
+						'color' => '#' . get_theme_mod( 'background_color', 'E5E5E5' ),
+					),
+					5 => array(
+						'name'  => esc_html__( 'Header Background', 'hestia' ),
+						'slug'  => 'header-gradient',
+						'color' => get_theme_mod( 'hestia_header_gradient_color', '#a81d84' ),
+					),
+				)
+			)
+		);
+
+		$body_fs    = json_decode( get_theme_mod( 'hestia_post_page_content_fs' ), true );
+		$heading_fs = json_decode( get_theme_mod( 'hestia_post_page_headings_fs' ), true );
+		$title_fs   = json_decode( get_theme_mod( 'hestia_header_titles_fs' ), true );
+
+		if ( empty( $body_fs ) ) {
+			$body_fs = 18;
+		} else {
+			$body_fs = 18 + $body_fs['desktop'];
+		}
+
+		if ( empty( $heading_fs ) ) {
+			$heading_fs = 37;
+		} else {
+			$heading_fs = 37 + $heading_fs['desktop'];
+		}
+
+		if ( empty( $title_fs ) ) {
+			$title_fs = 46;
+		} else {
+			$title_fs = 46 + $title_fs['desktop'];
+		}
+
+		/**
+		 * Add support for font sizes.
+		 *
+		 * @link https://wordpress.org/gutenberg/handbook/extensibility/theme-support/
+		 */
+		add_theme_support(
+			'editor-font-sizes',
+			array(
+				array(
+					'name'      => esc_html__( 'Body', 'hestia' ),
+					'shortName' => esc_html__( 'Body', 'hestia' ),
+					'size'      => $body_fs,
+					'slug'      => 'body',
+				),
+				array(
+					'name'      => esc_html__( 'Headings', 'hestia' ),
+					'shortName' => esc_html__( 'Headings', 'hestia' ),
+					'size'      => $heading_fs,
+					'slug'      => 'heading',
+				),
+				array(
+					'name'      => esc_html__( 'Title', 'hestia' ),
+					'shortName' => esc_html__( 'Title', 'hestia' ),
+					'size'      => $title_fs,
+					'slug'      => 'title',
+				),
+			)
+		);
+
+		add_filter( 'block_editor_settings', array( $this, 'hestia_add_gutenberg_body_font_size_on_editor' ) );
 
 		register_nav_menus(
 			array(
@@ -451,8 +551,8 @@ class Hestia_Public {
 		$starter_content = array(
 			'attachments' => array(
 				'featured-image-home' => array(
-					'post_title'   => 'Featured Image Homepage',
-					'post_content' => 'The featured image for the front page.',
+					'post_title'   => __( 'Featured Image Homepage', 'hestia' ),
+					'post_content' => __( 'The featured image for the front page.', 'hestia' ),
 					'file'         => 'assets/img/contact.jpg',
 				),
 			),
@@ -476,7 +576,6 @@ class Hestia_Public {
 				'show_on_front'            => 'page',
 				'page_on_front'            => '{{home}}',
 				'page_for_posts'           => '{{blog}}',
-				'hestia_page_editor'       => $default_home_content,
 				'hestia_feature_thumbnail' => $default_home_featured_image,
 			),
 		);
@@ -568,8 +667,8 @@ class Hestia_Public {
 			}
 
 			$query_args = array(
-				'family' => urlencode( implode( '|', $font_families ) ),
-				'subset' => urlencode( 'latin,latin-ext' ),
+				'family' => rawurlencode( implode( '|', $font_families ) ),
+				'subset' => rawurlencode( 'latin,latin-ext' ),
 			);
 			$fonts_url  = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
 		}
@@ -623,5 +722,26 @@ class Hestia_Public {
 		);
 
 		return apply_filters( 'hestia_filter_onboarding_data', $onboarding_sites );
+	}
+
+	/**
+	 * Adds the font size selected by the user in Customizer in to the Gutenberg editor.
+	 * Without this the default paragraph font-size would not match the one in front-end.
+	 *
+	 * @param array $config The block editor settings.
+	 *
+	 * @return array
+	 */
+	function hestia_add_gutenberg_body_font_size_on_editor( $config ) {
+		$body_fs = json_decode( get_theme_mod( 'hestia_post_page_content_fs' ), true );
+		if ( empty( $body_fs ) ) {
+			$body_fs = 18;
+		} else {
+			$body_fs = 18 + $body_fs['desktop'];
+		}
+		$config['styles'][0]['css'] = str_replace( ' ', '', $config['styles'][0]['css'] );
+		$config['styles'][0]['css'] = str_replace( 'font-size:16px', 'font-size:' . $body_fs . 'px', $config['styles'][0]['css'] );
+
+		return $config;
 	}
 }

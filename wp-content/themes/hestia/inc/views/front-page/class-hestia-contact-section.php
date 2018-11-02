@@ -161,7 +161,7 @@ class Hestia_Contact_Section extends Hestia_Abstract_Main {
 						<?php
 
 					} elseif ( is_customize_preview() ) {
-						echo contact_form_placeholder();
+						echo hestia_contact_form_placeholder();
 					}
 					?>
 				</div>

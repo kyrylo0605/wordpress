@@ -81,7 +81,7 @@ class Themeisle_OB_Theme_Mods_Importer {
 	private function change_theme_mods_root_url( &$item ) {
 		do_action( 'themeisle_ob_before_change_theme_mods_root_url' );
 
-		$current_site        = home_url();
+		$current_site        = esc_url( home_url() );
 		$source_site         = $this->source_url;
 		$item                = str_replace( $source_site, $current_site, $item );
 		$escaped_source_url  = str_replace( '/', '\/', $source_site );

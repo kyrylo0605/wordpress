@@ -131,7 +131,7 @@ class Hestia_PageBuilder_Button extends WP_Customize_Control {
 						$json['edit_link']['siteorigin'] = add_query_arg( 'so_live_editor', 1, get_edit_post_link( $this->pid ) );
 						break;
 					case 'divi':
-						$json['edit_link']['divi'] = add_query_arg( 'et_fb', 1, get_permalink( $this->pid ) );
+						$json['edit_link']['divi'] = add_query_arg( 'et_fb', 1, esc_url( get_permalink( $this->pid ) ) );
 						break;
 				}
 			}

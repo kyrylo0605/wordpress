@@ -462,7 +462,7 @@
             $(document).on('DOMNodeInserted','.customize-partial-edit-shortcut', function() {
                 $( this ).on(
                     'click', function(){
-                        var controls = ['hestia_page_editor', 'hestia_contact_content_new'];
+                        var controls = ['hestia_contact_content_new'];
                         var clickedControl = $( this ).attr('class');
                         var openControl = '';
                         $.each(controls, function(index, value){

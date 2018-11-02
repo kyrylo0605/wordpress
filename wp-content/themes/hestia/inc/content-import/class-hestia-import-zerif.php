@@ -871,7 +871,7 @@ class Hestia_Import_Zerif extends Hestia_Import_Utilities {
 		$theme_navs = get_theme_mod( 'nav_menu_locations' );
 		if ( empty( $theme_navs['footer'] ) ) {
 
-			$menu_name   = 'Footer socials menu';
+			$menu_name   = __( 'Footer socials menu', 'hestia' );
 			$menu_exists = wp_get_nav_menu_object( $menu_name );
 			if ( ! $menu_exists ) {
 				$menu_id = wp_create_nav_menu( $menu_name );
@@ -882,7 +882,7 @@ class Hestia_Import_Zerif extends Hestia_Import_Utilities {
 							$menu_id,
 							0,
 							array(
-								'menu-item-title'  => 'Custom Page',
+								'menu-item-title'  => __( 'Custom Page', 'hestia' ),
 								'menu-item-url'    => $this->previous_theme_content[ $social ],
 								'menu-item-status' => 'publish',
 							)

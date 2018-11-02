@@ -108,11 +108,11 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: base/inc/fields/builder.class.php:41
+#: base/inc/fields/builder.class.php:42
 msgid "This field requires: "
 msgstr ""
 
-#: base/inc/fields/builder.class.php:42, widgets/layout-slider/layout-slider.php:201
+#: base/inc/fields/builder.class.php:43, widgets/layout-slider/layout-slider.php:201
 msgid "SiteOrigin Page Builder"
 msgstr ""
 

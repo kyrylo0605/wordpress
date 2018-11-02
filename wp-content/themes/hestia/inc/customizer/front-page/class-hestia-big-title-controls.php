@@ -170,6 +170,27 @@ class Hestia_Big_Title_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 
 		$this->add_control(
 			new Hestia_Customizer_Control(
+				'hestia_big_title_title',
+				array(
+					'sanitize_callback' => 'wp_kses_post',
+					'transport'         => $this->selective_refresh,
+				),
+				array(
+					'label'    => esc_html__( 'Title', 'hestia' ),
+					'section'  => 'sidebar-widgets-sidebar-big-title',
+					'priority' => 15,
+				),
+				null,
+				array(
+					'selector'        => '.carousel .hestia-title',
+					'settings'        => 'hestia_big_title_title',
+					'render_callback' => array( $this, 'title_render_callback' ),
+				)
+			)
+		);
+
+		$this->add_control(
+			new Hestia_Customizer_Control(
 				'hestia_big_title_text',
 				array(
 					'sanitize_callback' => 'wp_kses_post',

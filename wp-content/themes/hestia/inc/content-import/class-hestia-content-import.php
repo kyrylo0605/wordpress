@@ -499,7 +499,7 @@ final class Hestia_Content_Import {
 		$page_content  = ! empty( $about_content ) ? $about_content : '';
 		$page          = array(
 			'post_type'    => 'page',
-			'post_title'   => 'Front page',
+			'post_title'   => __( 'Front page', 'hestia' ),
 			'post_content' => wp_kses_post( $page_content ),
 			'post_status'  => 'publish',
 			'post_author'  => 1,

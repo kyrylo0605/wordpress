@@ -15,11 +15,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 	 */
 	public function init() {
 		add_action( 'customize_controls_print_footer_scripts', array( $this, 'customize_editor' ), 1 );
-		add_action( 'save_post', array( $this, 'trigger_sync_from_page' ), 10 );
-		add_action( 'customize_save', array( $this, 'trigger_sync_from_customizer' ), 10 );
-		add_action( 'after_setup_theme', array( $this, 'sync_controls' ) );
-		add_action( 'wp_ajax_hestiaUpdateFrontPageChange', array( $this, 'update_frontpage_change' ) );
-
 		add_filter( 'tiny_mce_before_init', array( $this, 'override_tinymce_options' ) );
 		add_filter( 'wp_default_editor', array( $this, 'change_editor_mode_to_html' ) );
 		$this->filter_content();
@@ -36,7 +31,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 			<a class="close" href="javascript:WPEditorWidget.hideEditor();"><span class="icon"></span></a>
 			<div class="editor">
 				<?php
-
 				$settings = array(
 					'tinymce' => array(
 						'content_style' => $this->get_editor_style(),
@@ -51,20 +45,16 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 		<?php
 	}
 
-
 	/**
 	 * Add custom inline style for editor.
 	 *
 	 * @return string
 	 */
 	public function get_editor_style() {
-
 		$accent_color  = get_theme_mod( 'accent_color', apply_filters( 'hestia_accent_color_default', '#e91e63' ) );
 		$headings_font = get_theme_mod( 'hestia_headings_font' );
 		$body_font     = get_theme_mod( 'hestia_body_font' );
-
-		$custom_css = '';
-
+		$custom_css    = '';
 		// Load google font.
 		if ( ! empty( $body_font ) ) {
 			$custom_css .= '@import url(\'https://fonts.googleapis.com/css?family=' . esc_attr( $body_font ) . '\');';
@@ -76,27 +66,25 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 		if ( ! empty( $accent_color ) ) {
 			$custom_css .= 'body.wpeditorwidget.mce-content-body a { color: ' . esc_attr( $accent_color ) . '; }';
 		}
-
 		// Check if font family for body exists.
 		if ( ! empty( $body_font ) ) {
 			$custom_css .= 'body.wpeditorwidget, body.wpeditorwidget p { font-family: ' . esc_attr( $body_font ) . ' !important; }';
 		}
-
 		// Check if font family for headings exists.
 		if ( ! empty( $headings_font ) ) {
 			$custom_css .= 'body.wpeditorwidget h1, body.wpeditorwidget h2, body.wpeditorwidget h3, body.wpeditorwidget h4, body.wpeditorwidget h5, body.wpeditorwidget h6 { font-family: ' . esc_attr( $headings_font ) . ' !important; }';
 		}
 
 		return $custom_css;
-
 	}
 
 	/**
 	 * When the frontpage is edited, we set a flag with 'sync_customizer' value to know that we should update
-	 * hestia_page_editor and hestia_feature_thumbnail customizer controls.
+	 * hestia_feature_thumbnail control.
 	 *
 	 * @param int $post_id ID of the post that we need to update.
 	 *
+	 * @deprecated 2.0.9
 	 * @since 1.1.60
 	 */
 	public function trigger_sync_from_page( $post_id ) {
@@ -104,7 +92,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 		if ( empty( $frontpage_id ) ) {
 			return;
 		}
-
 		if ( intval( $post_id ) === intval( $frontpage_id ) ) {
 			update_option( 'hestia_sync_needed', 'sync_customizer' );
 		};
@@ -114,6 +101,7 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 	 * When customizer is saved, we set the flag to 'sync_page' value to know that we should update the frontpage
 	 * content and feature image.
 	 *
+	 * @deprecated 2.0.9
 	 * @since 1.1.60
 	 */
 	function trigger_sync_from_customizer() {
@@ -123,11 +111,11 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 		}
 	}
 
-
 	/**
 	 * Based on 'hestia_sync_needed' option value, update either page or customizer controls and then we update
 	 * the flag as false to know that we don't need to update anything.
 	 *
+	 * @deprecated 2.0.9
 	 * @since 1.1.60
 	 */
 	function sync_controls() {
@@ -144,7 +132,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 			case 'sync_customizer':
 				$content = get_post_field( 'post_content', $frontpage_id );
 				set_theme_mod( 'hestia_page_editor', $content );
-
 				$featured_image = '';
 				if ( has_post_thumbnail( $frontpage_id ) ) {
 					$featured_image = get_the_post_thumbnail_url( $frontpage_id );
@@ -161,7 +148,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 				$content = get_theme_mod( 'hestia_page_editor' );
 				if ( ! empty( $frontpage_id ) ) {
 					if ( ! wp_is_post_revision( $frontpage_id ) ) {
-
 						// update the post, which calls save_post again
 						$post = array(
 							'ID'           => $frontpage_id,
@@ -173,24 +159,22 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 				$thumbnail    = get_theme_mod( 'hestia_feature_thumbnail', get_template_directory_uri() . '/assets/img/contact.jpg' );
 				$thumbnail_id = attachment_url_to_postid( $thumbnail );
 				update_post_meta( $frontpage_id, '_thumbnail_id', $thumbnail_id );
-
 				break;
 		}
 		update_option( 'hestia_sync_needed', false );
 	}
 
-
 	/**
 	 * This function updates controls from customizer (about content and featured background) when you change your
 	 * frontpage.
+	 *
+	 * @deprecated 2.0.9
 	 */
 	public function update_frontpage_change() {
 		$pid          = $_POST['pid'];
 		$return_value = array();
-
-		$content = get_post_field( 'post_content', $pid );
+		$content      = get_post_field( 'post_content', $pid );
 		set_theme_mod( 'hestia_page_editor', $content );
-
 		$featured_image = '';
 		if ( has_post_thumbnail( $pid ) ) {
 			$featured_image = get_the_post_thumbnail_url( $pid );
@@ -200,16 +184,12 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 				$featured_image = get_template_directory_uri() . '/assets/img/contact.jpg';
 			}
 		}
-
 		set_theme_mod( 'hestia_feature_thumbnail', $featured_image );
-
 		$return_value['post_content']   = $content;
 		$return_value['post_thumbnail'] = $featured_image;
 		echo json_encode( $return_value );
-
 		die();
 	}
-
 
 	/**
 	 * Hestia allow all HTML tags in TinyMce editor.
@@ -226,7 +206,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 		return $init_array;
 	}
 
-
 	/**
 	 * Change the default mode of the editor to html when using the tinyMce editor in customizer.
 	 *
@@ -240,7 +219,6 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 			if ( ! isset( $screen->id ) ) {
 				return $editor_mode;
 			}
-
 			if ( $screen->id === 'customize' ) {
 				return 'tmce';
 			}
@@ -258,14 +236,12 @@ class Hestia_Customizer_Page_Editor_Helper extends Hestia_Abstract_Main {
 	 */
 	private function filter_content() {
 		global $wp_embed;
-
 		add_filter( 'hestia_text', 'wptexturize' );
 		add_filter( 'hestia_text', 'convert_smilies' );
 		add_filter( 'hestia_text', 'convert_chars' );
 		add_filter( 'hestia_text', 'wpautop' );
 		add_filter( 'hestia_text', 'shortcode_unautop' );
 		add_filter( 'hestia_text', 'do_shortcode' );
-
 		add_filter( 'hestia_text', array( $wp_embed, 'run_shortcode' ) );
 		add_filter( 'hestia_text', array( $wp_embed, 'autoembed' ) );
 	}

@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 4.9.1
-Stable tag: 1.13.1
-Build time: 2018-10-29T10:38:38-07:00
+Stable tag: 1.13.2
+Build time: 2018-10-31T10:38:58-07:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/contribution/
@@ -64,6 +64,11 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.13.2 - 31 October 2018 =
+* Builder field: Prevent error in PHP <= 5.4
+* Avoid replacing repeater item id placeholders for child repeaters.
+* Repeaters: In repeater setup, don't setup child repeaters.
 
 = 1.13.1 - 29 October 2018 =
 * Gutenberg: Alert user that changes will be lost when changing the widget type.

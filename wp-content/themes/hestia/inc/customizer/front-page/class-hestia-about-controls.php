@@ -18,6 +18,7 @@ class Hestia_About_Controls extends Hestia_Register_Customizer_Controls {
 		$this->add_content_control();
 		$this->add_pagebuilder_button_control();
 		$this->add_background_control();
+		$this->add_content_shortcut();
 	}
 
 	/**
@@ -68,38 +69,38 @@ class Hestia_About_Controls extends Hestia_Register_Customizer_Controls {
 			return;
 		}
 
+		if ( ! current_user_can( 'editor' ) && ! current_user_can( 'administrator' ) ) {
+			return;
+		}
+
 		$this->add_control(
 			new Hestia_Customizer_Control(
 				'hestia_page_editor',
 				array(
-					'default'           => $this->get_about_content_default(),
-					'sanitize_callback' => 'wp_kses_post',
-					'transport'         => $this->selective_refresh,
+					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
-					'label'    => esc_html__( 'About Content', 'hestia' ),
+					'type'     => 'hidden',
 					'section'  => 'hestia_about',
 					'priority' => 10,
-					'needsync' => true,
-				),
-				'Hestia_Page_Editor',
-				array(
-					'selector'        => '.hestia-about-content',
-					'settings'        => 'hestia_page_editor',
-					'render_callback' => array( $this, 'about_content_render_callback' ),
 				)
 			)
 		);
 	}
 
 	/**
+	 * Callback for About section content editor
+	 *
+	 * @return bool
+	 */
+	public function should_display_content_editor() {
+		return ! hestia_edited_with_pagebuilder();
+	}
+
+	/**
 	 * Add the page builder button control.
 	 */
 	private function add_pagebuilder_button_control() {
-		$edit_with_builder = hestia_edited_with_pagebuilder();
-		if ( $edit_with_builder === false ) {
-			return;
-		}
 		$this->add_control(
 			new Hestia_Customizer_Control(
 				'hestia_elementor_edit',
@@ -110,7 +111,7 @@ class Hestia_About_Controls extends Hestia_Register_Customizer_Controls {
 					'label'           => esc_html__( 'About Content', 'hestia' ),
 					'section'         => 'hestia_about',
 					'priority'        => 14,
-					'active_callback' => 'hestia_edited_with_pagebuilder',
+					'active_callback' => array( $this, 'page_edited_with_page_builder' ),
 				),
 				'Hestia_PageBuilder_Button'
 			)
@@ -141,31 +142,61 @@ class Hestia_About_Controls extends Hestia_Register_Customizer_Controls {
 	}
 
 	/**
-	 * Get default content for page editor control.
-	 *
-	 * @return string
+	 * Shortcut for page editor.
 	 */
-	private function get_about_content_default() {
-		$front_page_id = get_option( 'page_on_front' );
-		if ( empty( $front_page_id ) ) {
-			return '';
-		}
-		$content = get_post_field( 'post_content', $front_page_id );
+	private function add_content_shortcut() {
 
-		return $content;
+		$frontpage_id = get_option( 'page_on_front' );
+
+		$this->add_control(
+			new Hestia_Customizer_Control(
+				'hestia_shortcut_editor',
+				array(
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'label'           => esc_html__( 'About Content', 'hestia' ),
+					'section'         => 'hestia_about',
+					'priority'        => 10,
+					'button_text'     => esc_html__( '(Edit)', 'hestia' ),
+					'button_class'    => 'open-editor',
+					'icon_class'      => 'fa-pencil',
+					'link'            => get_edit_post_link( $frontpage_id ),
+					'active_callback' => array( $this, 'content_shortcut_callback' ),
+				),
+				'Hestia_Button'
+			)
+		);
 	}
 
 	/**
-	 * Callback for About section content editor
-	 *
-	 * @return bool
+	 * Active callback for displaying page editor shortcut.
 	 */
-	public function should_display_content_editor() {
-		if ( 'page' === get_option( 'show_on_front' ) ) {
-			return ! hestia_edited_with_pagebuilder();
+	public function content_shortcut_callback() {
+		if ( 'posts' === get_option( 'show_on_front' ) ) {
+			return false;
+		}
+		$frontpage_id = get_option( 'page_on_front' );
+		if ( hestia_edited_with_pagebuilder( $frontpage_id ) ) {
+			return false;
 		}
 
-		return false;
+		return true;
+	}
+
+	/**
+	 * Active callback for displaying page builder button.
+	 */
+	public function page_edited_with_page_builder() {
+		if ( 'posts' === get_option( 'show_on_front' ) ) {
+			return false;
+		}
+		$frontpage_id = get_option( 'page_on_front' );
+		if ( ! hestia_edited_with_pagebuilder( $frontpage_id ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -189,5 +220,20 @@ class Hestia_About_Controls extends Hestia_Register_Customizer_Controls {
 	 */
 	public function is_static_page() {
 		return 'page' === get_option( 'show_on_front' );
+	}
+
+	/**
+	 * Get default content for page editor control.
+	 *
+	 * @return string
+	 */
+	private function get_about_content_default() {
+		$front_page_id = get_option( 'page_on_front' );
+		if ( empty( $front_page_id ) ) {
+			return '';
+		}
+		$content = get_post_field( 'post_content', $front_page_id );
+
+		return $content;
 	}
 }

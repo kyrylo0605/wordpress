@@ -1,4 +1,16 @@
 
+ ### v2.0.8 - 2018-11-02 
+ **Changes:** 
+ * Gutenberg support
+* Fixed import for Zelle ( Zerif ) to Elementor
+* Improved title responsive font size for the 2nd and 3rd header layouts
+* Refactored the About Hestia page
+* Updated the readme file with correct license and used resources
+* Fixed some escaping issues
+* Fixed compatibility issues with the child themes
+* Updated the screenshot
+* Fixed error causing customizer not to load after a demo templated was imported
+ 
  ### v2.0.7 - 2018-10-10 
  **Changes:** 
  * Fixed import from Zerif

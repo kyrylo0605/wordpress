@@ -153,11 +153,11 @@ class Hestia_Blog_Settings_Controls extends Hestia_Register_Customizer_Controls 
 					'type'     => 'select',
 					'priority' => 40,
 					'section'  => 'hestia_blog_layout',
-					'label'    => esc_html( 'Display', 'hestia-pro' ) . ' ' . esc_html__( 'Blog', 'hestia' ) . ' ' . esc_html__( 'Categories:', 'hestia' ),
+					'label'    => esc_html__( 'Display', 'hestia' ) . ' ' . esc_html__( 'Blog', 'hestia' ) . ' ' . esc_html__( 'Categories:', 'hestia' ),
 					'choices'  => array(
 						'none' => esc_html__( 'None', 'hestia' ),
-						'one'  => esc_html( 'First', 'hestia-pro' ),
-						'all'  => esc_html( 'All', 'hestia-pro' ),
+						'one'  => esc_html__( 'First', 'hestia' ),
+						'all'  => esc_html__( 'All', 'hestia' ),
 					),
 				)
 			)

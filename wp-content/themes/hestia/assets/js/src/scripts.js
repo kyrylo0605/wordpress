@@ -162,6 +162,7 @@
 			this.setControlLabel();
 			this.styleDefaultSubscribeWidget();
 			this.fixElementorTemplates();
+			this.handleGutenbergAlignment();
 		},
 
 		/**
@@ -461,6 +462,9 @@
 			if ( $( '.elementor-location-header' ).length > 0 ) {
 				return;
 			}
+			if ( $( '.fl-theme-builder-header' ).length > 0 ) {
+				return;
+			}
 
 			var window_width = $( window ).width();
 			if ( window_width < 768 ) {
@@ -618,6 +622,57 @@
 			} );
 		},
 
+		/**
+		 * Handle Gutenberg alignments.
+		 * @returns {boolean}
+		 */
+		'handleGutenbergAlignment': function () {
+			var bodyNode = $( 'body' );
+			if (
+				bodyNode.hasClass( 'page-template-template-pagebuilder-full-width' ) ||
+				bodyNode.hasClass( 'page-template-template-pagebuilder-blank' )
+			) {
+				return false;
+			}
+			var fullAlignments = $( '.alignfull' );
+			var wideAlignments = $( '.alignwide' );
+
+			if ( !fullAlignments.length && !wideAlignments.length ) {
+				return false;
+			}
+
+			var mainWrapWidth = $( '.main' ).innerWidth();
+			var contentWrap = $( '.blog-post > .container > article > .row > div' ).innerWidth();
+
+			var marginFullNeeded = 0;
+			var marginWideNeeded = 0;
+			if ( this.isMobile() || !$( '#secondary' ).length ) {
+				marginFullNeeded = (mainWrapWidth - contentWrap) / 2 + 15;
+				marginWideNeeded = (mainWrapWidth - contentWrap) / 5;
+			}
+
+
+			if ( fullAlignments.length ) {
+				$( fullAlignments ).each( function ( index, element ) {
+					$( element ).css( {
+						'margin-left': '-' + marginFullNeeded + 'px',
+						'margin-right': '-' + marginFullNeeded + 'px'
+					} );
+				} );
+			}
+			if ( wideAlignments.length ) {
+				$( wideAlignments ).each( function ( index, element ) {
+					$( element ).css( {
+						'margin-left': '-' + marginWideNeeded + 'px',
+						'margin-right': '-' + marginWideNeeded + 'px'
+					} );
+				} );
+			}
+		},
+		'isMobile': function () {
+			var windowWidth = window.innerWidth;
+			return windowWidth <= 991;
+		},
 	};
 
 	$.navigation = {
@@ -641,7 +696,7 @@
 		 */
 		'handleTouchDropdowns': function () {
 			var windowWidth = window.innerWidth;
-			if ( windowWidth < 768 ) {
+			if ( windowWidth < 991 ) {
 				return false;
 			}
 
@@ -957,6 +1012,7 @@ jQuery( document ).ready(
 		jQuery.hestiaFeatures.initTooltips();
 		jQuery.hestiaNavBarScroll.checkNavbarScrollPoint();
 		jQuery.hestiaNavBarScroll.addScrollClass();
+
 	}
 );
 
@@ -972,6 +1028,7 @@ jQuery( window ).resize(
 		jQuery.hestiaFeatures.initMasonry();
 		jQuery.hestia.fixHeaderPadding();
 		jQuery.hestia.headerSpacingFrontpage();
+		jQuery.hestia.handleGutenbergAlignment();
 		jQuery.hestiaNavBarScroll.checkNavbarScrollPoint();
 		jQuery.navigation.repositionDropdowns();
 	}

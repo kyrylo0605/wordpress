@@ -17,6 +17,14 @@ class Hestia_Child extends Hestia_Abstract_Main {
 		if ( wp_get_theme()->Name === 'Orfeo' || wp_get_theme()->Name === 'Orfeo Pro' ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_orfeo_inline_styles' ) );
 		}
+
+		if ( wp_get_theme()->Template === 'hestia-pro' && ( wp_get_theme()->Name === 'Orfeo' || wp_get_theme()->Name === 'Orfeo Pro' ) ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_orfeo_pro_inline_styles' ) );
+		}
+
+		if ( wp_get_theme()->Template === 'hestia-pro' && ( wp_get_theme()->Name === 'Fagri' || wp_get_theme()->Name === 'Fagri Pro' ) ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_fagri_pro_inline_styles' ) );
+		}
 	}
 
 	/**
@@ -24,6 +32,20 @@ class Hestia_Child extends Hestia_Abstract_Main {
 	 */
 	public function add_orfeo_inline_styles() {
 		wp_add_inline_style( apply_filters( 'hestia_orfeo_inline_style_handle', 'hestia_style' ), $this->orfeo_inline_style() );
+	}
+
+	/**
+	 * Add inline styles for Orfeo Pro
+	 */
+	public function add_orfeo_pro_inline_styles() {
+		wp_add_inline_style( apply_filters( 'hestia_orfeo_inline_style_handle', 'hestia_style' ), $this->orfeo_pro_inline_style() );
+	}
+
+	/**
+	 * Add inline styles for Fagri Pro
+	 */
+	public function add_fagri_pro_inline_styles() {
+		wp_add_inline_style( apply_filters( 'hestia_fagri_inline_style_handle', 'hestia_style' ), $this->fagri_pro_inline_style() );
 	}
 
 	/**
@@ -106,7 +128,98 @@ class Hestia_Child extends Hestia_Abstract_Main {
 			}
 		';
 
+		/* Style Big Title second button as it was before buttons styling feature */
+		$custom_css .= '
+            .carousel .hestia-big-title-content .buttons > a.btn.btn-primary {
+                border-radius: 30px !important;
+                padding: 11px 30px !important;
+            }
+        ';
+
 		return $custom_css;
 	}
 
+	/**
+	 * Orfeo pro inline style
+	 */
+	private function orfeo_pro_inline_style() {
+
+		$body_text_color = get_theme_mod( 'body_color', '#9A9A9A' );
+		$secondary_color = get_theme_mod( 'secondary_color', '#444444' );
+		$custom_css      = '';
+
+		/* Body text color */
+		$custom_css .= '                                    
+		    .home .hestia-features .description,
+		    .home .hestia-features .hestia-info p,
+		    .home .hestia-team .description,
+		    .home .hestia-team .hestia-team-content .card .content .card-description,
+		    .home .hestia-testimonials .description,
+		    .home .hestia-pricing .text-gray,
+		    .home .hestia-shop .description,
+		    .home .hestia-shop .card-product .content .card-description p,
+		    .home .hestia-work .description,
+		    .home:not(.blog) .hestia-blogs .description,
+		    .home:not(.blog) .hestia-blogs .hestia-blog-content .card-blog .content .card-description {
+		        color: ' . esc_html( $body_text_color ) . ';
+		    }
+        ';
+
+		/* Remove the white border from the slider second button */
+		$custom_css .= '
+			.carousel .big-title-slider-content .buttons a.btn-right {
+				border: 2px solid transparent;
+			}
+		';
+
+		/* Inherit secondary color from Hestia Pro */
+		$custom_css .= '
+			.hestia-features .hestia-features-content .hestia-info .info-title,
+			.hestia-team .hestia-team-content .card .content .card-title {
+				color: ' . esc_html( $secondary_color ) . ';
+			}
+			.hestia-pricing .card-pricing .card-title {
+				color: #444444;
+			}
+		';
+
+		/* Packages section, compatibility with icon instead of price */
+		$custom_css .= '
+			.card-pricing .hestia-pricing-icon-wrapper.pricing-has-icon + .card-title small {
+				font-size: 60%;
+			}
+			.hestia-pricing .hestia-table-two .card-pricing .hestia-pricing-icon-wrapper i {
+				color: #fff;
+			}
+		';
+
+		return $custom_css;
+	}
+
+	/**
+	 * Fagri pro inline style
+	 */
+	private function fagri_pro_inline_style() {
+
+		$body_text_color = get_theme_mod( 'body_color', '#9A9A9A' );
+		$custom_css      = '';
+
+		/* Body text color */
+		$custom_css .= '                                    
+		    .home .hestia-features .description,
+		    .home .hestia-features .hestia-info p,
+		    .home .hestia-team .hestia-team-content .card .content .card-description,
+		    .home .hestia-pricing .text-gray,
+		    .fagri-testimonials-wrapper .hestia-testimonials .hestia-testimonials-content .card-testimonial .content .card-description,
+		    .home .hestia-shop .description,
+		    .home .hestia-shop .card-product .content .card-description p,
+		    .home .hestia-work .description,
+		    .home:not(.blog) .hestia-blogs .description,
+		    .home:not(.blog) .hestia-blogs .hestia-blog-content .card-blog .content .card-description {
+		        color: ' . esc_html( $body_text_color ) . ';
+		    }
+        ';
+
+		return $custom_css;
+	}
 }

@@ -6,17 +6,13 @@
  * @since   Hestia 1.0
  */
 
-define( 'HESTIA_VERSION', '2.0.7' );
+define( 'HESTIA_VERSION', '2.0.8' );
 define( 'HESTIA_VENDOR_VERSION', '1.0.2' );
 define( 'HESTIA_PHP_INCLUDE', trailingslashit( get_template_directory() ) . 'inc/' );
 define( 'HESTIA_CORE_DIR', HESTIA_PHP_INCLUDE . 'core/' );
 
 if ( ! defined( 'HESTIA_DEBUG' ) ) {
 	define( 'HESTIA_DEBUG', false );
-}
-
-if ( ! defined( 'WPFORMS_SHAREASALE_ID' ) ) {
-	define( 'WPFORMS_SHAREASALE_ID', '848264' );
 }
 
 // Load hooks
@@ -33,6 +29,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 if ( function_exists( 'max_mega_menu_is_enabled' ) ) {
 	require_once( HESTIA_PHP_INCLUDE . 'compatibility/max-mega-menu/functions.php' );
 }
+
 /**
  * Adds notice for PHP < 5.3.29 hosts.
  */
@@ -103,19 +100,6 @@ require_once( HESTIA_CORE_DIR . 'class-hestia-autoloader.php' );
 hestia_run();
 
 /**
- * Upgrade link to BeaverBuilder
- */
-function hestia_bb_upgrade_link() {
-	return 'https://www.wpbeaverbuilder.com/?fla=101&campaign=hestia';
-}
-
-add_filter( 'fl_builder_upgrade_url', 'hestia_bb_upgrade_link' );
-
-if ( ! defined( 'ELEMENTOR_PARTNER_ID' ) ) {
-	define( 'ELEMENTOR_PARTNER_ID', 2112 );
-}
-
-/**
  * Append theme name to the upgrade link
  * If the active theme is child theme of Hestia
  *
@@ -134,6 +118,7 @@ function hestia_upgrade_link( $link ) {
 		'fagri',
 		'tiny-hestia',
 		'christmas-hestia',
+		'jinsy-magazine',
 	);
 
 	if ( $theme_name === 'hestia' ) {
