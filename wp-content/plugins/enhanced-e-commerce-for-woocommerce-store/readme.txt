@@ -8,8 +8,8 @@ Author: Tatvic
 Requires at least: 3.6
 Tested up to: 4.9
 Requires PHP: 5.6
-Stable tag: 2.1.3
-Version: 2.1.3
+Stable tag: 2.1.4
+Version: 2.1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -332,4 +332,8 @@ Important Note: When you update the plugin, please save your settings again.
  = 2.1.3 - 17/10/2018 =
  * Fixed: Product name issue on Order Received Page
  * Fixed: Session Isssue
+ * Minor Bug Fixes
+
+ = 2.1.3 - 05/11/2018 =
+ * Woocommerce 3.5 compatibility
  * Minor Bug Fixes

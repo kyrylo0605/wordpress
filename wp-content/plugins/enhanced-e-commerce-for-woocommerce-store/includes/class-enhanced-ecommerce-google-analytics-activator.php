@@ -31,7 +31,7 @@ class Enhanced_Ecommerce_Google_Analytics_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		  set_transient( 'ee-admin-notice-activation', true, 5 );   			
+		  			
 	}
 	
 

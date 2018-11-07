@@ -964,7 +964,7 @@ class WC_Gateway_PayPal_Advanced_AngellEYE extends WC_Payment_Gateway {
                         <label for="wc-%1$s-new-payment-method" style="display:inline;">%2$s</label>
                 </p>',
                 esc_attr( $this->id ),
-                apply_filters( 'cc_form_label_save_to_account', __( 'Save payment method to my account.', 'woocommerce' ), $this->id)
+                apply_filters( 'cc_form_label_save_to_account', __( 'Save payment method to my account.', 'paypal-for-woocommerce' ), $this->id)
         );
     }
 
@@ -1362,7 +1362,11 @@ class WC_Gateway_PayPal_Advanced_AngellEYE extends WC_Payment_Gateway {
         } catch (Exception $e) {
 
             if ($arr['RESULT'] != 7) {
-                wc_add_notice(__('Error:', 'paypal-for-woocommerce') . ' "' . $e->getMessage() . '"', 'error');
+                if(function_exists('wc_add_notice')) {
+                    wc_add_notice(__('Error:', 'paypal-for-woocommerce') . ' "' . $e->getMessage() . '"', 'error');
+                } else {
+                    $order->add_order_note(__('Error:', 'paypal-for-woocommerce') . ' "' . $e->getMessage() . '"');
+                }
                 $length_error = 0;
                 return;
             } else {
@@ -1385,7 +1389,7 @@ class WC_Gateway_PayPal_Advanced_AngellEYE extends WC_Payment_Gateway {
             $are_reference_transactions_enabled = get_option('are_reference_transactions_enabled', 'no');
             if ($are_reference_transactions_enabled == 'no') {
                 $customer_id = get_current_user_id();
-                if (!class_exists('Angelleye_PayPal')) {
+                if (!class_exists('Angelleye_PayPal_WC')) {
                     require_once( PAYPAL_FOR_WOOCOMMERCE_PLUGIN_DIR . '/classes/lib/angelleye/paypal-php-library/includes/paypal.class.php' );
                 }
                 if (!class_exists('Angelleye_PayPal_PayFlow')) {

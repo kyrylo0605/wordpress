@@ -295,14 +295,14 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
                 $errors = new WP_Error();
                 $shipping_country = WC()->customer->get_shipping_country();
                 if (empty($shipping_country)) {
-                    $errors->add('shipping', __('Please enter an address to continue.', 'woocommerce'));
+                    $errors->add('shipping', __('Please enter an address to continue.', 'paypal-for-woocommerce'));
                 } elseif (!in_array(WC()->customer->get_shipping_country(), array_keys(WC()->countries->get_shipping_countries()))) {
-                    $errors->add('shipping', sprintf(__('Unfortunately <strong>we do not ship %s</strong>. Please enter an alternative shipping address.', 'woocommerce'), WC()->countries->shipping_to_prefix() . ' ' . WC()->customer->get_shipping_country()));
+                    $errors->add('shipping', sprintf(__('Unfortunately <strong>we do not ship %s</strong>. Please enter an alternative shipping address.', 'paypal-for-woocommerce'), WC()->countries->shipping_to_prefix() . ' ' . WC()->customer->get_shipping_country()));
                 } else {
                     $chosen_shipping_methods = WC()->session->get('chosen_shipping_methods');
                     foreach (WC()->shipping->get_packages() as $i => $package) {
                         if (!isset($chosen_shipping_methods[$i], $package['rates'][$chosen_shipping_methods[$i]])) {
-                            $errors->add('shipping', __('No shipping method has been selected. Please double check your address, or contact us if you need any help.', 'woocommerce'));
+                            $errors->add('shipping', __('No shipping method has been selected. Please double check your address, or contact us if you need any help.', 'paypal-for-woocommerce'));
                         }
                     }
                 }
@@ -334,6 +334,7 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
                 AngellEYE_Utility::angelleye_paypal_for_woocommerce_add_paypal_transaction($this->paypal_response, $order, $this->gateway->payment_action);
             }
             if ($this->response_helper->ec_is_response_success($this->paypal_response)) {
+                do_action('ae_add_custom_order_note', $order, $card = null, $token = null, $this->paypal_response);
                 apply_filters('woocommerce_payment_successful_result', array('result' => 'success'), $order_id);
                 do_action('woocommerce_before_pay_action', $order);
                 $this->angelleye_ec_get_customer_email_address($this->confirm_order_id);
@@ -570,10 +571,10 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
             'Force_tls_one_point_two' => $this->gateway->Force_tls_one_point_two
         );
         try {
-            if (!class_exists('Angelleye_PayPal')) {
+            if (!class_exists('Angelleye_PayPal_WC')) {
                 require_once( PAYPAL_FOR_WOOCOMMERCE_PLUGIN_DIR . '/classes/lib/angelleye/paypal-php-library/includes/paypal.class.php' );
             }
-            $this->paypal = new Angelleye_PayPal($this->credentials);
+            $this->paypal = new Angelleye_PayPal_WC($this->credentials);
         } catch (Exception $ex) {
             
         }

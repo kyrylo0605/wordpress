@@ -18,7 +18,7 @@ if ( ! class_exists( 'FooGallery_Admin_Gallery_MetaBoxes' ) ) {
 			add_action( 'save_post', array( $this, 'save_gallery' ) );
 
 			//save custom field on a page or post
-			add_Action( 'save_post', array( $this, 'attach_gallery_to_post' ), 10, 2 );
+			add_action( 'save_post', array( $this, 'attach_gallery_to_post' ), 10, 2 );
 
 			//whitelist metaboxes for our gallery postype
 			add_filter( 'foogallery_metabox_sanity', array( $this, 'whitelist_metaboxes' ) );
@@ -184,7 +184,9 @@ if ( ! class_exists( 'FooGallery_Admin_Gallery_MetaBoxes' ) ) {
 
 				update_post_meta( $post_id, FOOGALLERY_META_SETTINGS, $settings );
 
-				update_post_meta( $post_id, FOOGALLERY_META_SORT, $_POST[FOOGALLERY_META_SORT] );
+				if ( isset( $_POST[FOOGALLERY_META_SORT] ) ) {
+					update_post_meta( $post_id, FOOGALLERY_META_SORT, $_POST[FOOGALLERY_META_SORT] );
+				}
 
 				$custom_css = isset($_POST[FOOGALLERY_META_CUSTOM_CSS]) ?
 					$_POST[FOOGALLERY_META_CUSTOM_CSS] : '';

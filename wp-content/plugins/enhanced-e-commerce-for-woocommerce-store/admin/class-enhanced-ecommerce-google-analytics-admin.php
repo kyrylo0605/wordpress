@@ -158,21 +158,4 @@ class Enhanced_Ecommerce_Google_Analytics_Admin {
 		require_once( 'partials/about-plugin.php');
 	}
 	
-	/**
-	 * Plugin Activation Notice.
-	 *
-	 * @since    1.0.0
-	 */
-	public function ee_check_activation_notice() {
-		if( get_transient( 'ee-admin-notice-activation' ) ) {
-					$setting_url = 'admin.php?page=enhanced-ecommerce-google-analytics-admin-display';
-		?>
-			<div class="notice notice-warning is-dismissible">
-				<p>Due to the major updates with the latest version, Kindly verify all the <a href="<?php echo $setting_url; ?>" >Settings</a> again.</p>
-			</div>
-			<?php
-			delete_transient( 'ee-admin-notice-activation' );
-		}
-	}
-
 }

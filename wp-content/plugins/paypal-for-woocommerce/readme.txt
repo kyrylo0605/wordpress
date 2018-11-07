@@ -1,14 +1,14 @@
 ﻿=== PayPal for WooCommerce ===
 Contributors: angelleye, angelleyesupport, Umangvaghela
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SG9SQU2GBXJNA
-Tags: woocommerce, paypal, express checkout, payments pro, angelleye, payflow, dodirectpayment, braintree, payments advanced, rest, credit cards, credit card payments, payments, payment
+Tags: woocommerce, paypal, express checkout, payments pro, angelleye, payflow, dodirectpayment, apple pay, google play, braintree, payments advanced, rest, credit cards, credit card payments, payments, payment
 Requires at least: 3.8
 Tested up to: 4.9.8
-Stable tag: 1.4.19
+Stable tag: 1.5.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Upgrade your WooCommerce PayPal experience for free!  Developed by an Ace Certified PayPal Developer, Official PayPal Partner, PayPal Ambassador, and 3-time PayPal Star Developer Award Winner.
+One plugin for all things PayPal!  Express Checkout with Smart Payment Buttons, PayPal Pro, Braintree with Apple and Google Pay, PayPal Advanced, and more!
 
 == Description ==
 
@@ -126,6 +126,32 @@ Automatic updates should work great for you.  As always, though, we recommend ba
 * If you are unsure, you may need to [contact PayPal](https://www.paypal.com/us/webapps/helpcenter/helphub/home/) and request the information.  Just let them know you need to enable a Payments Pro plugin on your website, but you're unsure whether you should use Website Payments Pro 3.0(DoDirectPayment) or Payments Pro 2.0 (PayFlow).  They can confirm which one you need to use.
 
 == Changelog ==
+
+= 1.5.3 - 11.07.2018 =
+* Fix - Resolves a problem with expiration date validation in credit card gateways. ([PFW-301](https://github.com/angelleye/paypal-woocommerce/pull/1241))
+
+= 1.5.2 - 11.06.2018 =
+* Feature - Special Request - Adds `ae_add_custom_order_note` hook to PayPal Pro, Braintree, and REST DCC gateways. ([PFW-300](https://github.com/angelleye/paypal-woocommerce/pull/1240))
+
+= 1.5.1 - 11.05.2018 =
+* Fix - PayFlow - Resolves an issue with the way Fraud Filter warnings were being handled. ([PFW-298](https://github.com/angelleye/paypal-woocommerce/pull/1238))
+
+= 1.5.0 - 11.02.2018 =
+* Feature - PayFlow - Adds an option to run Card Verification for Authorization instead of a full order authorization. ([PFW-272](https://github.com/angelleye/paypal-woocommerce/pull/1222))([PFW-292](https://github.com/angelleye/paypal-woocommerce/pull/1236))
+* Feature - PayFlow - Adds product-level option for Authorization or Sale. ([PFW-273](https://github.com/angelleye/paypal-woocommerce/pull/1223))
+* Feature - Braintree - Adds Apple and Google Pay to the Drop In UI experience. ([PFW-106](https://github.com/angelleye/paypal-woocommerce/pull/1233))
+* Feature - PayFlow - Adds an option to run Card Verification for Authorization instead of a full order authorization. ([PFW-272](https://github.com/angelleye/paypal-woocommerce/pull/1222))
+* Feature - PayFlow - Adds product-level option for Authorization or Sale. ([PFW-273](https://github.com/angelleye/paypal-woocommerce/pull/1223))([PFW-290](https://github.com/angelleye/paypal-woocommerce/pull/1231))
+* Feature - PayFlow - Adds additional data for Address Verification to Woo order notes. ([PFW-276](https://github.com/angelleye/paypal-woocommerce/pull/1221))
+* Tweak - REST CC - Adjustments to error display on failed payments. ([PFW-284](https://github.com/angelleye/paypal-woocommerce/pull/1225))
+* Tweak - PayFlow - Formatting adjustment for auth/capture AVS notes. ([PFW-293](https://github.com/angelleye/paypal-woocommerce/pull/1230))
+* Tweak - CSS tweaks to resolve mobile checkout form field issues. ([PWF-268](https://github.com/angelleye/paypal-woocommerce/pull/1227))
+* Tweak - Adjusts tool-tip related to Authorization and Capture functionality. ([PFW-291](https://github.com/angelleye/paypal-woocommerce/pull/1232))
+* Fix - Express Checkout - Resolves a conflict with some themes where PayPal Smart Buttons would get cut off. ([PFW-266](https://github.com/angelleye/paypal-woocommerce/pull/1228))
+* Fix - Advanced - Resolves a failure sometimes happening related to wc_add_notice(). ([PFW-278](https://github.com/angelleye/paypal-woocommerce/pull/1235))
+* Fix - Braintree - Resolves a problem where failed data validation would break the Drop In UI in some cases.  ([PFW-280](https://github.com/angelleye/paypal-woocommerce/pull/1219)[PFW-283](https://github.com/angelleye/paypal-woocommerce/pull/1224))
+* Fix - PayFlow - Resolves an issue with handling of duplicate order ID errors.  ([PFW-281](https://github.com/angelleye/paypal-woocommerce/pull/1220))
+* Fix - DoDirectPayment - Resolves an issue related to token payments. ([PFW-287](https://github.com/angelleye/paypal-woocommerce/pull/1229))
 
 = 1.4.19 - 10.27.2018 =
 * Tweak - Adds verification of compatibility with WooCommerce 3.5.0.
@@ -915,5 +941,5 @@ Automatic updates should work great for you.  As always, though, we recommend ba
 
 == Upgrade Notice ==
 
-= 1.4.19 =
+= 1.5.0 =
 After updating, make sure to clear any caching / CDN plugins you may be using.  Also, go into the plugin's gateway settings, review everything, and click Save even if you do not make any changes.

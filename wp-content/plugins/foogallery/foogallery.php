@@ -3,7 +3,7 @@
 /*
 Plugin Name: FooGallery
 Description: FooGallery is the most intuitive and extensible gallery management tool ever created for WordPress
-Version:     1.5.9
+Version:     1.6.1
 Author:      FooPlugins
 Plugin URI:  https://foo.gallery
 Author URI:  http://fooplugins.com
@@ -23,7 +23,7 @@ if ( !class_exists( 'FooGallery_Plugin' ) ) {
     define( 'FOOGALLERY_PATH', plugin_dir_path( __FILE__ ) );
     define( 'FOOGALLERY_URL', plugin_dir_url( __FILE__ ) );
     define( 'FOOGALLERY_FILE', __FILE__ );
-    define( 'FOOGALLERY_VERSION', '1.5.9' );
+    define( 'FOOGALLERY_VERSION', '1.6.1' );
     define( 'FOOGALLERY_SETTINGS_VERSION', '2' );
     require_once FOOGALLERY_PATH . 'includes/constants.php';
     // Create a helper function for easy SDK access.
@@ -128,6 +128,7 @@ if ( !class_exists( 'FooGallery_Plugin' ) ) {
                 new FooGallery_Public();
             }
             
+            new FooGallery_Shortcodes();
             new FooGallery_Thumbnails();
             new FooGallery_Attachment_Filters();
             new FooGallery_Retina();
@@ -149,6 +150,8 @@ if ( !class_exists( 'FooGallery_Plugin' ) ) {
             //include the default templates no matter what!
             new FooGallery_Default_Templates();
             add_filter( 'foogallery_extensions_for_view', array( $this, 'add_foogallery_pro_extension' ) );
+            //init Gutenberg!
+            new FooGallery_Gutenberg();
         }
         
         function add_foogallery_pro_extension( $extensions )

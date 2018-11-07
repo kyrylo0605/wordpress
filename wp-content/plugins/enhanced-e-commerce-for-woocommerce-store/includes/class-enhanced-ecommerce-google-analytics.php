@@ -70,7 +70,7 @@ class Enhanced_Ecommerce_Google_Analytics {
 		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
 			$this->version = PLUGIN_NAME_VERSION;
 		} else {
-			$this->version = '2.1.3';
+			$this->version = '2.1.4';
 		}
 		$this->plugin_name = 'enhanced-ecommerce-google-analytics';
 		$this->load_dependencies();
@@ -158,7 +158,6 @@ class Enhanced_Ecommerce_Google_Analytics {
 		// $this->loader->add_action("admin_menu", $plugin_admin, "add_new_menu");
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_notices', $plugin_admin, 'ee_check_activation_notice' );
 	}
 
 	/**
