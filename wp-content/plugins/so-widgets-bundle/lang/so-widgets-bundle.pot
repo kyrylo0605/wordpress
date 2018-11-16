@@ -572,6 +572,18 @@ msgstr ""
 msgid "Current Color"
 msgstr ""
 
+#: compat/block-editor/widget-block.php:39, compat/visual-composer/visual-composer.php:77
+msgid "Selecting a different widget will revert any changes. Continue?"
+msgstr ""
+
+#: compat/block-editor/widget-block.php:52
+msgid "You need to select a widget type before you'll see anything here. :)"
+msgstr ""
+
+#: compat/block-editor/widget-block.php:73
+msgid "Invalid widget class %s. Please make sure the widget has been activated in %sSiteOrigin Widgets%s."
+msgstr ""
+
 #: compat/builders.php:4
 msgid "Beaver Builder"
 msgstr ""
@@ -582,18 +594,6 @@ msgstr ""
 
 #: compat/builders.php:12
 msgid "Visual Composer"
-msgstr ""
-
-#: compat/gutenberg/gutenberg.php:39, compat/visual-composer/visual-composer.php:77
-msgid "Selecting a different widget will revert any changes. Continue?"
-msgstr ""
-
-#: compat/gutenberg/gutenberg.php:52
-msgid "You need to select a widget type before you'll see anything here. :)"
-msgstr ""
-
-#: compat/gutenberg/gutenberg.php:73
-msgid "Invalid widget class %s. Please make sure the widget has been activated in %sSiteOrigin Widgets%s."
 msgstr ""
 
 #: compat/visual-composer/visual-composer.php:38, compat/visual-composer/visual-composer.php:54

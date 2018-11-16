@@ -1,5 +1,9 @@
 Bazaar Lite Changelog
 
+- Version 1.5.4 - Released: 29.10.2018
+
+-- Updated : WooCommerce templates.
+
 - Version 1.5.3 - Released: 06.08.2018
 
 -- Fixed  : Clear the options for Skype, email and WhatsApp buttons.

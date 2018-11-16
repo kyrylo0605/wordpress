@@ -366,7 +366,7 @@
         }
 
 
-        $searchField.on( 'keyup', function(e) {
+        $searchField.on( 'keyup input', function(e) {
             if ( e.keyCode != 40 && e.keyCode != 38 ) {
                 methods.onKeyup(e);
             }

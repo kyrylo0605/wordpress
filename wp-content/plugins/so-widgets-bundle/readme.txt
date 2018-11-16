@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 4.9.1
-Stable tag: 1.13.2
-Build time: 2018-10-31T10:38:58-07:00
+Stable tag: 1.13.3
+Build time: 2018-11-15T16:26:45-08:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/contribution/
@@ -64,6 +64,19 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.13.3 - 15 November 2018 =
+* Contact: Fix checkboxes and radio alignment on android.
+* FitText: Set minimum font size to ensure readability.
+* TinyMCE field: Use correct editor when block editor is present.
+* Google maps: Use correct info window text for markers.
+* TinyMCE: Remove 'editor-buttons' style enqueue causing conflicts.
+* TinyMCE field: Prevent adding multiple copies of media buttons.
+* Image widget: if no alt text is supplied add an empty alt attribute.
+* Repeaters: Reverted some commits causing multiple issues.
+* WP 5: Fixed some styles in the block editor.
+* Only setup form fields in the dialog when a PB edit widget dialog is opened.
+* Multi-measurement field: Fix autoFill in block editor and attempt to fix in PHP <= 5.3.
 
 = 1.13.2 - 31 October 2018 =
 * Builder field: Prevent error in PHP <= 5.4

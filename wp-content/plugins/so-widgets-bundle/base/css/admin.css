@@ -591,46 +591,49 @@
   background-size: cover;
   background-image: url("img/bundle-icon.png");
 }
-.widget-icon.so-widget-icon.so-gutenberg-icon {
+.widget-icon.so-widget-icon.so-block-editor-icon {
   width: 20px;
   height: 20px;
   display: inline-block;
 }
-.gutenberg__editor .so-widget-placeholder > .components-placeholder__label {
+.block-editor .so-widget-placeholder {
+  text-align: left;
+}
+.block-editor .so-widget-placeholder > .components-placeholder__label {
   background: url("img/bundle-icon.png") no-repeat left;
   background-size: 20px;
   padding-left: 25px;
 }
-.gutenberg__editor .so-widget-placeholder > .components-placeholder__fieldset {
+.block-editor .so-widget-placeholder > .components-placeholder__fieldset {
   max-width: unset;
 }
-.gutenberg__editor .so-widget-placeholder > .components-placeholder__fieldset .so-widget-gutenberg-container {
+.block-editor .so-widget-placeholder > .components-placeholder__fieldset .so-widget-block-container {
   width: 100%;
 }
-.gutenberg__editor .so-widget-placeholder > .components-placeholder__fieldset .so-widget-gutenberg-container .siteorigin-widget-form.siteorigin-widget-form-main {
+.block-editor .so-widget-placeholder > .components-placeholder__fieldset .so-widget-block-container .siteorigin-widget-form.siteorigin-widget-form-main {
   min-width: unset;
 }
-.gutenberg__editor .siteorigin-widget-form .siteorigin-widget-field {
+.block-editor .siteorigin-widget-form .siteorigin-widget-field {
   text-align: left;
 }
-.gutenberg__editor .siteorigin-widget-form .siteorigin-widget-field input {
+.block-editor .siteorigin-widget-form .siteorigin-widget-field input {
   padding: 3px 5px;
 }
-.gutenberg__editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-autocomplete .select-content-button,
-.gutenberg__editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-link .select-content-button {
+.block-editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-autocomplete .select-content-button,
+.block-editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-link .select-content-button {
   box-shadow: unset;
   font-size: 13px;
   height: 28px;
 }
-.gutenberg__editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-icon .siteorigin-widget-icon-selector-current {
+.block-editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-icon .siteorigin-widget-icon-selector-current {
   height: 37px;
 }
-.gutenberg__editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-tinymce .wp-switch-editor {
+.block-editor .siteorigin-widget-form .siteorigin-widget-field.siteorigin-widget-field-type-tinymce .wp-switch-editor {
   box-sizing: content-box;
 }
-.gutenberg__editor .so-widget-gutenberg-preview-container .so-widgets-spinner-container {
+.block-editor .so-widget-preview-container .so-widgets-spinner-container {
   text-align: center;
 }
-.gutenberg__editor .so-widget-gutenberg-preview-container .so-widgets-spinner-container > span {
+.block-editor .so-widget-preview-container .so-widgets-spinner-container > span {
   display: inline-block;
 }

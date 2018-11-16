@@ -56,7 +56,7 @@ $rating = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
 					<strong itemprop="author"><?php comment_author(); ?></strong> <?php
 
 						if ( get_option( 'woocommerce_review_rating_verification_label' ) === 'yes' )
-							if ( $verified )
+							if ( wc_customer_bought_product( $comment->comment_author_email, $comment->user_id, $comment->comment_post_ID ) )
 								echo '<em class="verified">(' . esc_html__( 'verified owner', 'bazaar-lite' ) . ')</em> ';
 
 					?>&ndash; <time itemprop="datePublished" datetime="<?php echo get_comment_date( 'c' ); ?>"><?php echo get_comment_date( wc_date_format() ); ?></time>:

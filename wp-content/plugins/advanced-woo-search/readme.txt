@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 4.9.8
-Stable tag: 1.54
+Stable tag: 1.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,7 +52,7 @@ Additional features available only in PRO plugin version.
 * Product **custom taxonomies** search
 * Product **custom fields** search
 * **Advanced settings page** with lot of options
-* **Exclude/include** spicific products by its ids, categories or tags from search results
+* **Exclude/include** spicific products by its ids, taxonomies or attributes from search results
 * Ability to specify **source of image** for search results: featured image, gallery, product content, product short description or set default image if there is no other images
 * **Visibility/stock status option** - choose what catalog visibility and stock status must be for product to displayed in search results
 * Show product **categories** and **variations** in search results
@@ -100,6 +100,9 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.55 =
+* Update search behavior on text paste
 
 = 1.54 =
 * Update plugin index table
