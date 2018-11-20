@@ -3,7 +3,7 @@ Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorho
 Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 3.3.18
+Stable tag: 3.3.19
 License: GPLv2 or later
 
 Drag and drop fields in an intuitive UI to create contact forms, email subscription forms, order forms, payment forms, send emails and more!
@@ -111,27 +111,35 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 == Upgrade Notice ==
 
-= 3.3.18 (14 November 2018) =
-
-*Security:*
-
-* Patched a redirect XSS vulnerability using code injection on our submissions page.
+= 3.3.19 (20 November 2018) =
 
 *Bugs:*
 
-* Resolved an issue where the WordPress is_search function was being called incorrectly in some cases.
-* Custom columns should no longer be added to non-Ninja Forms custom post types with meta values containing '_field'.
-* Resolved an issue that sometimes caused error log entries related to an invalid IP.
-* The form selector on the submissions page should now be visible on mobile devices.
-* Resolved an issue that sometimes caused CSV exports to have multiple header rows.
+* Placeholder text should now be visible in number fields that have a minimum value.
+* Corrected an error that was sometimes causing number fields to clear themselves when Multi-part Forms is active.
+
+*Changes:*
+
+* The rich text editor in the form builder should now wrap lines while in code view.
 
 == Changelog ==
+
+= 3.3.19 (20 November 2018) =
+
+*Bugs:*
+
+* Placeholder text should now be visible in number fields that have a minimum value.
+* Corrected an error that was sometimes causing number fields to clear themselves when Multi-part Forms is active.
+
+*Changes:*
+
+* The rich text editor in the form builder should now wrap lines while in code view.
 
 = 3.3.18 (14 November 2018) =
 
 *Security:*
 
-* Patched a redirect XSS vulnerability using code injection on our submissions page.
+* Patched a redirect XSS vulnerability using code injection on our submissions page. Thank you to Muhammad Talha Khan for practicing responsible disclosure.
 
 *Bugs:*
 

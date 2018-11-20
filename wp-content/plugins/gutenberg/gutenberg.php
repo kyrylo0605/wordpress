@@ -3,15 +3,15 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
- * Version: 4.4.0
+ * Version: 4.5.0
  * Author: Gutenberg Team
  *
  * @package gutenberg
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '4.4.0' );
-define( 'GUTENBERG_GIT_COMMIT', '3c8dbd5293f145ed9575072e248a4506e38f9563' );
+define( 'GUTENBERG_VERSION', '4.5.0' );
+define( 'GUTENBERG_GIT_COMMIT', 'a1a350839cc7f6e6fb07d03e0b54dd7e9a9bc6cf' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -42,9 +42,9 @@ function the_gutenberg_project() {
 			);
 		} else { // Using Gutenberg in Core.
 			printf(
-				// Translators: link is for Classic Editor plugin.
+				/* translators: %s: https://wordpress.org/plugins/classic-editor/ */
 				__( 'The Block Editor requires JavaScript. Please try the <a href="%s">Classic Editor plugin</a>.', 'gutenberg' ),
-				'https://wordpress.org/plugins/classic-editor/'
+				__( 'https://wordpress.org/plugins/classic-editor/', 'gutenberg' )
 			);
 		}
 		?>
@@ -200,6 +200,13 @@ function gutenberg_pre_init() {
 
 	add_filter( 'replace_editor', 'gutenberg_init', 10, 2 );
 }
+
+/**
+ * Enable Gutenberg based on user_can_richedit setting.
+ * Set gutenberg_can_edit_post based on user setting for disable visual editor.
+ */
+add_filter( 'gutenberg_can_edit_post_type', 'user_can_richedit', 5 );
+add_filter( 'gutenberg_can_edit_post', 'user_can_richedit', 5 );
 
 /**
  * Initialize Gutenberg.

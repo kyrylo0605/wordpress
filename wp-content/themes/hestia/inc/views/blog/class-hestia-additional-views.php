@@ -227,7 +227,7 @@ class Hestia_Additional_Views extends Hestia_Abstract_Main {
 												</div>
 											<?php endif; ?>
 											<div class="content">
-												<h6 class="category text-info"><?php echo hestia_category(); ?></h6>
+												<h6 class="category text-info"><?php echo hestia_category( false ); ?></h6>
 												<h4 class="card-title">
 													<a class="blog-item-title-link" href="<?php echo esc_url( get_permalink() ); ?>" title="<?php the_title_attribute(); ?>" rel="bookmark">
 														<?php echo wp_kses( force_balance_tags( get_the_title() ), $allowed_html ); ?>

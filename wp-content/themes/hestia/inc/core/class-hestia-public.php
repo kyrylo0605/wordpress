@@ -552,7 +552,7 @@ class Hestia_Public {
 			'attachments' => array(
 				'featured-image-home' => array(
 					'post_title'   => __( 'Featured Image Homepage', 'hestia' ),
-					'post_content' => __( 'The featured image for the front page.', 'hestia' ),
+					'post_content' => __( 'Featured Image Homepage', 'hestia' ),
 					'file'         => 'assets/img/contact.jpg',
 				),
 			),

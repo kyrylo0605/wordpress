@@ -13,6 +13,32 @@ Hestia Pro fits all business, startups, corporate businesses, online companies, 
 Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
 
 == Changelog ==
+= 2.0.12 - 2018-11-16  = 
+
+* Update readme file
+* Fixed warnings on the typography file
+* [Fagri child theme] fix padding issue on the Pirate Forms form
+
+
+= 2.0.11 - 2018-11-09  = 
+
+* Fixed fatal error happening in a few cases
+
+
+= 2.0.10 - 2018-11-06  = 
+
+* Fixed compatibility with the latest release of WooCommerce
+* Fixed compatibility with Google Console
+* Added config file for Toolset plugin
+* New filters used for child themes
+
+
+= 2.0.9 - 2018-11-05  = 
+
+* Fixed Google Console issues
+* Small tweaks for the Sites Library Demos
+
+
 = 2.0.8 - 2018-11-02  = 
 
 * Gutenberg support
@@ -840,6 +866,36 @@ Hestia is a modern WordPress theme for professionals. It fits creative business,
 - First version
 
 == Resources ==
+= Libraries =
+
+* wp_bootstrap_navwalker, https://github.com/twittem/wp-bootstrap-navwalker
+* Copyright 2014 Twitter, Edward McIntyre, GPL-2.0+, http://www.gnu.org/licenses/gpl-2.0.txt
+
+* Bootstrap, http://getbootstrap.com/
+* Copyright 2011-2015 Twitter, Inc, MIT License, http://www.opensource.org/licenses/MIT
+
+* FontAwesome, http://fontawesome.io/
+* Copyright 2015, Dave Gandy,
+* Font Awesome licensed under SIL OFL 1.1, http://scripts.sil.org/OFL
+* Code licensed under MIT License, http://www.opensource.org/licenses/MIT
+* Documentation licensed under CC BY 3.0, http://creativecommons.org/licenses/by/3.0/
+
+* Copyright 2014, liabru, MIT License, http://www.opensource.org/licenses/MIT
+
+* Hammer.js, https://hammerjs.github.io/
+* Copyright 2011-2017, Jorik Tangelder (Eight Media), MIT License, http://www.opensource.org/licenses/MIT
+
+* Animate on scroll.js, https://hammerjs.github.io/
+* Copyright (c) 2015 Michał Sajnóg, MIT License, http://www.opensource.org/licenses/MIT
+
+* WordPress Plugin Boilerplate, https://github.com/DevinVinson/WordPress-Plugin-Boilerplate
+* Copyright (C) 1989, 1991 Free Software Foundation, GPL-2.0
+
+* Parallax.js, https://github.com/wagerfield/parallax
+* Matthew Wagerfield, René Roth, MIT License, http://www.opensource.org/licenses/MIT
+
+= Images =
+
 * screenshot.png, CC0, https://mystock.themeisle.com/photo/mountain/
 * slider1.jpg, CC0, https://mystock.themeisle.com/photo/dam/
 * slider2.jpg, CC0, http://mystock.photos/teddy/

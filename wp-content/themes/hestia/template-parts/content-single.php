@@ -20,7 +20,7 @@ $wrap_class     = apply_filters( 'hestia_filter_single_post_content_classes', 'c
 		}
 		?>
 		<div class="<?php echo esc_attr( $wrap_class ); ?>" data-layout="<?php echo esc_attr( $sidebar_layout ); ?>">
-			<div class="single-post-wrap">
+			<div class="single-post-wrap entry-content">
 				<?php
 				if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'single' ) ) {
 					do_action( 'hestia_before_single_post_article' );

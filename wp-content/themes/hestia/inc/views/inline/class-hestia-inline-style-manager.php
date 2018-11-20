@@ -98,44 +98,6 @@ class Hestia_Inline_Style_Manager extends Hestia_Abstract_Main {
 	}
 
 	/**
-	 * This function checks if the value stored in the customizer control named '$control_name' is a json object.
-	 * If the value is json it means that the customizer range control stores a value for every device ( mobile, tablet,
-	 * desktop). In this case, for each of those devices it calls '$function_name' that with the following parameters:
-	 * the device and the value for the control on that device.
-	 * '$function_name' returns css code that will be added to inline style.
-	 * If the value is not json then it's int and the '$function_name' function will be called just once for all three
-	 * devices.
-	 *
-	 * @param string $control_name Control name.
-	 * @param array  $function_name Function to be called.
-	 *
-	 * @since 1.1.38
-	 * @return string
-	 */
-	protected function get_inline_style( $control_name, $function_name ) {
-		$control_value = get_theme_mod( $control_name );
-		if ( empty( $control_value ) ) {
-			return '';
-		}
-
-		$custom_css = '';
-		if ( hestia_is_json( $control_value ) ) {
-			$control_value = json_decode( $control_value, true );
-			if ( ! empty( $control_value ) ) {
-
-				foreach ( $control_value as $key => $value ) {
-					$custom_css .= call_user_func( $function_name, $value, $key );
-				}
-			}
-		} else {
-			$custom_css .= call_user_func( $function_name, $control_value );
-		}
-
-		return $custom_css;
-	}
-
-
-	/**
 	 * Function to import font sizes from old controls to new ones.
 	 *
 	 * @since 1.1.58
@@ -170,7 +132,7 @@ class Hestia_Inline_Style_Manager extends Hestia_Abstract_Main {
 	/**
 	 * Calculate new value for the new font size control based on the old control.
 	 *
-	 * @param string $old_value Value from the old control.
+	 * @param string $old_value     Value from the old control.
 	 * @param int    $decrease_rate Value to substract from the old value.
 	 *
 	 * @return string
@@ -197,7 +159,7 @@ class Hestia_Inline_Style_Manager extends Hestia_Abstract_Main {
 	/**
 	 * This function is called by each function that adds css if the control have media queries enabled.
 	 *
-	 * @param string $dimension Query dimension.
+	 * @param string $dimension  Query dimension.
 	 * @param string $custom_css Css.
 	 *
 	 * @return string
@@ -214,6 +176,46 @@ class Hestia_Inline_Style_Manager extends Hestia_Abstract_Main {
 			case 'mobile':
 				$custom_css = '@media (max-width: 480px){' . $custom_css . '}';
 				break;
+		}
+
+		return $custom_css;
+	}
+
+	/**
+	 * This function checks if the value stored in the customizer control named '$control_name' is a json object.
+	 * If the value is json it means that the customizer range control stores a value for every device ( mobile, tablet,
+	 * desktop). In this case, for each of those devices it calls '$function_name' that with the following parameters:
+	 * the device and the value for the control on that device.
+	 * '$function_name' returns css code that will be added to inline style.
+	 * If the value is not json then it's int and the '$function_name' function will be called just once for all three
+	 * devices.
+	 *
+	 * @param string $control_name  Control name.
+	 * @param array  $function_name Function to be called.
+	 *
+	 * @since 1.1.38
+	 * @return string
+	 */
+	protected function get_inline_style( $control_name, $function_name ) {
+		$control_value = get_theme_mod( $control_name );
+		if ( $control_name === 'hestia_header_titles_fs' ) {
+			$control_value = get_theme_mod( $control_name, apply_filters( 'hestia_header_titles_fs_default', 0 ) );
+		}
+		if ( empty( $control_value ) && ! is_numeric( $control_value ) ) {
+			return '';
+		}
+
+		$custom_css = '';
+		if ( hestia_is_json( $control_value ) ) {
+			$control_value = json_decode( $control_value, true );
+			if ( ! empty( $control_value ) ) {
+
+				foreach ( $control_value as $key => $value ) {
+					$custom_css .= call_user_func( $function_name, intval( $value ), $key );
+				}
+			}
+		} else {
+			$custom_css .= call_user_func( $function_name, intval( $control_value ) );
 		}
 
 		return $custom_css;

@@ -1,4 +1,26 @@
 
+ ### v2.0.12 - 2018-11-16 
+ **Changes:** 
+ * Update readme file
+* Fixed warnings on the typography file
+* [Fagri child theme] fix padding issue on the Pirate Forms form
+ 
+ ### v2.0.11 - 2018-11-09 
+ **Changes:** 
+ * Fixed fatal error happening in a few cases
+ 
+ ### v2.0.10 - 2018-11-06 
+ **Changes:** 
+ * Fixed compatibility with the latest release of WooCommerce
+* Fixed compatibility with Google Console
+* Added config file for Toolset plugin
+* New filters used for child themes
+ 
+ ### v2.0.9 - 2018-11-05 
+ **Changes:** 
+ * Fixed Google Console issues
+* Small tweaks for the Sites Library Demos
+ 
  ### v2.0.8 - 2018-11-02 
  **Changes:** 
  * Gutenberg support

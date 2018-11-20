@@ -79,7 +79,7 @@ class Hestia_Admin {
 					'wpforms-lite'        => array(
 						'name'        => 'WPForms',
 						'slug'        => 'wpforms-lite',
-						'description' => __( 'WPForms allow you to create beautiful contact forms, subscription forms, payment forms, and other type of forms for your site in minutes, not hours!', 'hestia' ),
+						'description' => '',
 					),
 					'elementor'           => array(
 						'name'        => 'Elementor',
@@ -290,6 +290,7 @@ class Hestia_Admin {
 				),
 			),
 		);
+
 		$output = '';
 
 		if ( ! empty( $free_pro ) ) {
@@ -490,7 +491,6 @@ class Hestia_Admin {
 	 * Load site import module.
 	 */
 	public function load_site_import() {
-		require_once( HESTIA_PHP_INCLUDE . 'admin/onboarding/class-themeisle-onboarding.php' );
 		if ( class_exists( 'Themeisle_Onboarding' ) ) {
 			Themeisle_Onboarding::instance();
 		}

@@ -166,7 +166,7 @@ class Hestia_Header extends Hestia_Abstract_Main {
 			$class = '';
 		}
 
-		$is_nav_transparent = get_theme_mod( 'hestia_navbar_transparent', true );
+		$is_nav_transparent = get_theme_mod( 'hestia_navbar_transparent', apply_filters( 'hestia_navbar_transparent_default', true ) );
 		if ( ! $is_nav_transparent ) {
 			$class = '';
 		}

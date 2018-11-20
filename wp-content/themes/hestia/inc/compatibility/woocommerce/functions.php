@@ -495,3 +495,17 @@ function hestia_woocommerce_product_images_compatibility() {
 }
 
 add_action( 'after_setup_theme', 'hestia_woocommerce_product_images_compatibility' );
+
+/**
+ * Move added to cart/view cart notice inside the product on product page
+ */
+function hestia_view_cart_notice() {
+	if ( function_exists( 'woocommerce_output_all_notices' ) ) {
+		remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices', 10 );
+		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 10 ); /* Move notices position */
+	} else {
+		remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+		add_action( 'woocommerce_before_single_product_summary', 'wc_print_notices', 10 ); /* Move notices position */
+	}
+}
+add_action( 'after_setup_theme', 'hestia_view_cart_notice', 15 );

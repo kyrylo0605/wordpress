@@ -143,8 +143,8 @@ if ( ! function_exists( 'hestia_comments_list' ) ) {
 	 * @since Hestia 1.0
 	 *
 	 * @param string  $comment comment.
-	 * @param array   $args arguments.
-	 * @param integer $depth depth.
+	 * @param array   $args    arguments.
+	 * @param integer $depth   depth.
 	 */
 	function hestia_comments_list( $comment, $args, $depth ) {
 		?>
@@ -269,8 +269,8 @@ if ( ! function_exists( 'hestia_sidebar_placeholder' ) ) {
 	 * Display sidebar placeholder.
 	 *
 	 * @param string $class_to_add Classes to add on container.
-	 * @param string $sidebar_id Id of the sidebar used as a class to differentiate hestia-widget-placeholder for blog and shop pages.
-	 * @param string $classes Classes to add to placeholder.
+	 * @param string $sidebar_id   Id of the sidebar used as a class to differentiate hestia-widget-placeholder for blog and shop pages.
+	 * @param string $classes      Classes to add to placeholder.
 	 *
 	 * @access public
 	 * @since  1.1.24
@@ -301,7 +301,7 @@ if ( ! function_exists( 'hestia_display_customizer_shortcut' ) ) {
 	/**
 	 * This function display a shortcut to a customizer control.
 	 *
-	 * @param string $class_name The name of control we want to link this shortcut with.
+	 * @param string $class_name        The name of control we want to link this shortcut with.
 	 * @param bool   $is_section_toggle Tells function to display eye icon if it's true.
 	 */
 	function hestia_display_customizer_shortcut( $class_name, $is_section_toggle = false ) {
@@ -430,7 +430,7 @@ if ( ! function_exists( 'hestia_rgb_to_rgba' ) ) {
 	/**
 	 * Add opacity to rgb.
 	 *
-	 * @param array $rgb RGB color.
+	 * @param array $rgb     RGB color.
 	 * @param int   $opacity Opacity value.
 	 *
 	 * @return string
@@ -458,7 +458,7 @@ if ( ! function_exists( 'hestia_hex_rgba' ) ) {
 	/**
 	 * HEX colors conversion to RGBA.
 	 *
-	 * @param array|string $input RGB color.
+	 * @param array|string $input   RGB color.
 	 * @param int          $opacity Opacity value.
 	 *
 	 * @return string
@@ -474,7 +474,7 @@ if ( ! function_exists( 'hestia_adjust_brightness' ) ) {
 	/**
 	 * Generate a new color, darker or lighter.
 	 *
-	 * @param string $hex Color in hex.
+	 * @param string $hex   Color in hex.
 	 * @param int    $steps Steps should be between -255 and 255. Negative = darker, positive = lighter.
 	 *
 	 * @return string
@@ -567,8 +567,8 @@ if ( ! function_exists( 'hestia_limit_content' ) ) {
 	/**
 	 * Function that limits a text to $limit words, words that are separated by $separator
 	 *
-	 * @param array  $input Content to limit.
-	 * @param int    $limit Max size.
+	 * @param array  $input     Content to limit.
+	 * @param int    $limit     Max size.
 	 * @param string $separator Separator.
 	 * @param bool   $show_more Flag to decide if '...' should be added at the end of result.
 	 *
@@ -657,9 +657,12 @@ if ( ! function_exists( 'hestia_category' ) ) {
 	/**
 	 * Displays blog categories
 	 *
+	 * @param boolean $rel_tag should have rel='tag'.
 	 * @since Hestia 1.0
+	 *
+	 * @return string
 	 */
-	function hestia_category() {
+	function hestia_category( $rel_tag = true ) {
 
 		$hestia_disable_categories = get_theme_mod( 'hestia_disable_categories', 'one' );
 
@@ -675,7 +678,7 @@ if ( ! function_exists( 'hestia_category' ) ) {
 
 			foreach ( $categories as $category ) {
 				/* translators: %s is Category name */
-				$filtered_categories .= '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" title="' . esc_attr( sprintf( __( 'View all posts in %s', 'hestia' ), $category->name ) ) . '" ' . '>' . esc_html( $category->name ) . '</a> ';
+				$filtered_categories .= '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" title="' . esc_attr( sprintf( __( 'View all posts in %s', 'hestia' ), $category->name ) ) . '" ' . ( $rel_tag === true ? ' rel="tag"' : '' ) . '>' . esc_html( $category->name ) . '</a> ';
 				if ( $hestia_disable_categories === 'one' ) {
 					break;
 				}
@@ -707,7 +710,7 @@ if ( ! function_exists( 'hestia_contact_form_placeholder' ) ) {
 	/**
 	 * Render the contact form placeholder for the contact section.
 	 *
-	 * @since 1.1.31
+	 * @since    1.1.31
 	 * @modified 1.1.86
 	 */
 	function hestia_contact_form_placeholder() {
@@ -724,8 +727,7 @@ if ( ! function_exists( 'hestia_contact_form_placeholder' ) ) {
 				/* translators: %1$s is Plugin name */
 				esc_html__( 'In order to add a contact form to this section, you need to install the %s plugin.', 'hestia' ),
 				esc_html( 'WPForms Lite' )
-			) .
-			' </h4>
+			) . ' </h4>
 					</div>
 				</div>
 				<div class="content">

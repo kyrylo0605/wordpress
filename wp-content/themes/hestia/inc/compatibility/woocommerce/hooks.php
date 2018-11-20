@@ -48,9 +48,6 @@ remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_l
 remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 ); /* Remove default price on single product */
 add_action( 'woocommerce_shop_loop_item_title', 'hestia_woocommerce_template_loop_product_title', 10 );
 
-remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
-add_action( 'woocommerce_before_single_product_summary', 'wc_print_notices', 10 ); /* Move notices position */
-
 /* Move breadcrumbs on the single page */
 if ( is_single( 'product' ) ) {
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );

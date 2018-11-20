@@ -1,4 +1,4 @@
-/*! elementor - v2.3.1 - 12-11-2018 */
+/*! elementor - v2.3.2 - 17-11-2018 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -16075,7 +16075,34 @@ PanelMenuPageView = Marionette.CompositeView.extend({
 	initGroups: function initGroups() {
 		var menus = [];
 
+		var goToSection = {
+			name: 'go_to',
+			title: elementor.translate('go_to'),
+			items: [{
+				name: 'view-page',
+				icon: 'fa fa-eye',
+				title: elementor.translate('view_page'),
+				type: 'link',
+				link: elementor.config.document.urls.permalink
+			}, {
+				name: 'exit-to-dashboard',
+				icon: 'fa fa-wordpress',
+				title: elementor.translate('exit_to_dashboard'),
+				type: 'link',
+				link: elementor.config.document.urls.exit_to_dashboard
+			}]
+		};
+
 		if (elementor.config.user.is_administrator) {
+			goToSection.items.unshift({
+				name: 'finder',
+				icon: 'fa fa-search',
+				title: elementorCommon.translate('finder', 'finder'),
+				callback: function callback() {
+					return elementorCommon.finder.getLayout().showModal();
+				}
+			});
+
 			menus = [{
 				name: 'style',
 				title: elementor.translate('global_style'),
@@ -16116,31 +16143,10 @@ PanelMenuPageView = Marionette.CompositeView.extend({
 					link: elementor.config.elementor_site,
 					newTab: true
 				}]
-			}, {
-				name: 'go_to',
-				title: elementor.translate('go_to'),
-				items: [{
-					name: 'finder',
-					icon: 'fa fa-search',
-					title: elementorCommon.translate('finder', 'finder'),
-					callback: function callback() {
-						return elementorCommon.finder.getLayout().showModal();
-					}
-				}, {
-					name: 'view-page',
-					icon: 'fa fa-eye',
-					title: elementor.translate('view_page'),
-					type: 'link',
-					link: elementor.config.document.urls.permalink
-				}, {
-					name: 'exit-to-dashboard',
-					icon: 'fa fa-wordpress',
-					title: elementor.translate('exit_to_dashboard'),
-					type: 'link',
-					link: elementor.config.document.urls.exit_to_dashboard
-				}]
 			}];
 		}
+
+		menus.push(goToSection);
 
 		this.groups = new Backbone.Collection(menus);
 	},

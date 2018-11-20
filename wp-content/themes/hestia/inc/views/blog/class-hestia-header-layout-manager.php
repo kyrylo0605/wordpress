@@ -387,12 +387,7 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 					esc_html( $author_name ),
 					esc_url( $author_posts_url )
 				),
-				/* translators: %s is Date */
-				sprintf(
-					'<time class="date updated published" datetime="%2$s">%1$s</time>',
-					esc_html( get_the_time( get_option( 'date_format' ) ) ),
-					esc_html( get_the_date( DATE_W3C ) )
-				)
+				$this->get_time_tags()
 			)
 		);
 		if ( 'default' === $header_layout ) {
@@ -404,6 +399,26 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 		return $post_meta_output;
 	}
 
+	/**
+	 * Get <time> tags.
+	 *
+	 * @return string
+	 */
+	private function get_time_tags() {
+		$time = '';
+
+		$time .= '<time class="entry-date published" datetime="' . esc_attr( get_the_date( 'c' ) ) . '" content="' . esc_attr( get_the_date( 'Y-m-d' ) ) . '">';
+		$time .= esc_html( get_the_time( get_option( 'date_format' ) ) );
+		$time .= '</time>';
+		if ( get_the_time( 'U' ) === get_the_modified_time( 'U' ) ) {
+			return $time;
+		}
+		$time .= '<time class="updated hestia-hidden" datetime="' . esc_attr( get_the_modified_date( 'c' ) ) . '">';
+		$time .= esc_html( get_the_time( get_option( 'date_format' ) ) );
+		$time .= '</time>';
+
+		return $time;
+	}
 
 	/**
 	 * Add the class to account for boxed page layout.

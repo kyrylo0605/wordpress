@@ -238,7 +238,7 @@ class Hestia_Typography_Controls extends Hestia_Register_Customizer_Controls {
 				'hestia_header_titles_fs',
 				array(
 					'sanitize_callback' => 'hestia_sanitize_range_value',
-					'default'           => '0',
+					'default'           => apply_filters( 'hestia_header_titles_fs_default', 0 ),
 					'transport'         => $this->selective_refresh,
 				),
 				array(
@@ -340,7 +340,7 @@ class Hestia_Typography_Controls extends Hestia_Register_Customizer_Controls {
 				'hestia_big_title_fs',
 				array(
 					'sanitize_callback' => 'hestia_sanitize_range_value',
-					'default'           => '0',
+					'default'           => 0,
 					'transport'         => $this->selective_refresh,
 				),
 				array(

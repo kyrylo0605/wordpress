@@ -14,6 +14,10 @@ class Hestia_Child extends Hestia_Abstract_Main {
 	 */
 	public function init() {
 
+		if ( ! is_child_theme() ) {
+			return;
+		}
+
 		if ( wp_get_theme()->Name === 'Orfeo' || wp_get_theme()->Name === 'Orfeo Pro' ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_orfeo_inline_styles' ) );
 		}
@@ -22,8 +26,22 @@ class Hestia_Child extends Hestia_Abstract_Main {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_orfeo_pro_inline_styles' ) );
 		}
 
+		if ( wp_get_theme()->Name === 'Fagri' || wp_get_theme()->Name === 'Fagri Pro' ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_fagri_inline_styles' ) );
+		}
+
 		if ( wp_get_theme()->Template === 'hestia-pro' && ( wp_get_theme()->Name === 'Fagri' || wp_get_theme()->Name === 'Fagri Pro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_fagri_pro_inline_styles' ) );
+		}
+
+		if ( wp_get_theme()->Template === 'hestia' && ( wp_get_theme()->Name === 'Jinsy Magazine' || wp_get_theme()->Name === 'Jinsy Magazine Pro' ) ) {
+			add_filter( 'theme_mod_hestia_navbar_transparent', array( $this, 'jinsy_magazine_navbar_transparency' ) );
+			add_filter( 'hestia_header_titles_fs_default', array( $this, 'jinsy_magazine_header_titles_fs_default' ) );
+		}
+
+		if ( wp_get_theme()->Template === 'hestia-pro' && ( wp_get_theme()->Name === 'Jinsy Magazine' || wp_get_theme()->Name === 'Jinsy Magazine Pro' ) ) {
+			add_filter( 'hestia_navbar_transparent_default', array( $this, 'jinsy_magazine_navbar_transparency' ) );
+			add_filter( 'hestia_header_titles_fs_default', array( $this, 'jinsy_magazine_header_titles_fs_default' ) );
 		}
 	}
 
@@ -39,6 +57,13 @@ class Hestia_Child extends Hestia_Abstract_Main {
 	 */
 	public function add_orfeo_pro_inline_styles() {
 		wp_add_inline_style( apply_filters( 'hestia_orfeo_inline_style_handle', 'hestia_style' ), $this->orfeo_pro_inline_style() );
+	}
+
+	/**
+	 * Add inline styles for Fagri
+	 */
+	public function add_fagri_inline_styles() {
+		wp_add_inline_style( apply_filters( 'hestia_fagri_inline_style_handle', 'hestia_style' ), $this->fagri_inline_style() );
 	}
 
 	/**
@@ -197,6 +222,24 @@ class Hestia_Child extends Hestia_Abstract_Main {
 	}
 
 	/**
+	 * Fagri inline style
+	 */
+	private function fagri_inline_style() {
+		/* Icons in Pirate Forms contact form on front page */
+		$custom_css = '';
+
+		$custom_css .= '
+			.hestia-contact .pirate_forms_wrap .contact_name_wrap .form-group::before, 
+		    .hestia-contact .pirate_forms_wrap .contact_email_wrap .form-group::before, 
+		    .hestia-contact .pirate_forms_wrap .contact_subject_wrap .form-group::before {
+				top: 6px;
+		    }
+	    ';
+
+		return $custom_css;
+	}
+
+	/**
 	 * Fagri pro inline style
 	 */
 	private function fagri_pro_inline_style() {
@@ -221,5 +264,19 @@ class Hestia_Child extends Hestia_Abstract_Main {
         ';
 
 		return $custom_css;
+	}
+
+	/**
+	 * Jinsy Magazine remove navbar transparency
+	 */
+	public function jinsy_magazine_navbar_transparency() {
+		return false;
+	}
+
+	/**
+	 * Jinsy Magazine header titles font size default
+	 */
+	public function jinsy_magazine_header_titles_fs_default() {
+		return '{"desktop":-10,"tablet":-6,"mobile":-11}';
 	}
 }

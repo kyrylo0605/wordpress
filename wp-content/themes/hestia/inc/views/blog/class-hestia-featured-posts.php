@@ -118,7 +118,7 @@ class Hestia_Featured_Posts extends Hestia_Abstract_Main {
 			$content  = get_the_excerpt();
 			$content  = preg_replace( '/<a class="moretag" (.*?)>(.*?)<\/a>/i', '...', $content );
 
-			echo '<article class="hestia-blog-featured-card ' . esc_attr( $card_class ) . '">';
+			echo '<article class="hestia-blog-featured-card ' . join( ' ', get_post_class() ) . ' ' . esc_attr( $card_class ) . '">';
 			echo '<div class="' . esc_attr( $card_inner_class ) . '" ' . $thumb_style . '>';
 			echo '<div class="card-body">';
 			echo '<h6 class="category text-info">';
@@ -126,13 +126,13 @@ class Hestia_Featured_Posts extends Hestia_Abstract_Main {
 			echo '</h6>';
 
 			if ( ! empty( $title ) ) {
-				echo '<a href="' . esc_url( $post_url ) . '">';
-				echo '<h2 class="card-title">' . wp_kses_post( $title ) . '</h2>';
+				echo '<a href="' . esc_url( $post_url ) . '" rel="bookmark">';
+				echo '<h2 class="card-title entry-title">' . wp_kses_post( $title ) . '</h2>';
 				echo '</a>';
 			}
 
 			if ( ! empty( $content ) ) {
-				echo '<p class="card-description">';
+				echo '<p class="card-description entry-summary">';
 				echo wp_kses_post( $content );
 				echo '</p>';
 			}

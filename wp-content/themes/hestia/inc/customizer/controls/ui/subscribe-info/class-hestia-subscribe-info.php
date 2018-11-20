@@ -110,7 +110,7 @@ class Hestia_Subscribe_Info extends WP_Customize_Control {
 		$sib_account    = false;
 
 		if ( $this->state === 'install' || $this->state === 'activate' ) {
-			$text           = esc_html__( 'Here is where you must add the "SendinBlue Newsletter" widget. But first, you will need to install SendinBlue plugin.', 'hestia' );
+			$text           = esc_html__( 'Here is where you must add the "SendinBlue Newsletter" widget.', 'hestia' );
 			$display_button = true;
 			$sib_account    = false;
 		}

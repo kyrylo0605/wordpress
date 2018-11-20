@@ -159,6 +159,7 @@ class Hestia_Blog_Post_Layout {
 				break;
 
 		}
+
 		return $classes;
 	}
 
@@ -179,6 +180,7 @@ class Hestia_Blog_Post_Layout {
 				}
 				break;
 		}
+
 		return $classes;
 	}
 
@@ -214,10 +216,10 @@ class Hestia_Blog_Post_Layout {
 			false
 		);
 
-		$post_body_content .= '<div class="card-description">';
-		$post_body_content .= '<p>';
+		$excerpt_class = $this->is_full_content() ? 'entry-content' : 'entry-summary';
+
+		$post_body_content .= '<div class="card-description ' . $excerpt_class . ' ">';
 		$post_body_content .= $this->get_theme_excerpt( $type );
-		$post_body_content .= '</p>';
 		$post_body_content .= '</div>';
 
 		if ( $type === 'default' ) {
@@ -236,6 +238,7 @@ class Hestia_Blog_Post_Layout {
 	 * Get post excerpt.
 	 *
 	 * @param string $type Blog post layout type.
+	 *
 	 * @return string
 	 */
 	private function get_theme_excerpt( $type ) {
@@ -275,6 +278,7 @@ class Hestia_Blog_Post_Layout {
 		$content = get_the_content();
 		$content = apply_filters( 'the_content', $content );
 		$content = strip_shortcodes( $content );
+
 		return $content;
 	}
 
@@ -291,7 +295,7 @@ class Hestia_Blog_Post_Layout {
 				esc_html__( 'By %1$s, %2$s', 'hestia' ),
 				sprintf(
 					/* translators: %1$s is Author name, %2$s is author link */
-					'<a href="%2$s" title="%1$s"><b class="author-name">%1$s</b></a>',
+					'<a href="%2$s" title="%1$s" class="url"><b class="author-name fn">%1$s</b></a>',
 					esc_html( get_the_author() ),
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) )
 				),
@@ -300,8 +304,8 @@ class Hestia_Blog_Post_Layout {
 					esc_html__( '%1$s ago %2$s', 'hestia' ),
 					sprintf(
 						/* translators: %1$s is Time since, %2$s is Link to post */
-						'<a href="%2$s"><time>%1$s</time>',
-						esc_html( human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ),
+						'<a href="%2$s">%1$s',
+						$this->get_time_tags(),
 						esc_url( get_permalink() )
 					),
 					'</a>'
@@ -311,6 +315,27 @@ class Hestia_Blog_Post_Layout {
 		$post_meta_content .= '</div>';
 
 		return $post_meta_content;
+	}
+
+	/**
+	 * Get <time> tags.
+	 *
+	 * @return string
+	 */
+	private function get_time_tags() {
+		$time = '';
+
+		$time .= '<time class="entry-date published" datetime="' . esc_attr( get_the_date( 'c' ) ) . '" content="' . esc_attr( get_the_date( 'Y-m-d' ) ) . '">';
+		$time .= esc_html( human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+		$time .= '</time>';
+		if ( get_the_time( 'U' ) === get_the_modified_time( 'U' ) ) {
+			return $time;
+		}
+		$time .= '<time class="updated hestia-hidden" datetime="' . esc_attr( get_the_modified_date( 'c' ) ) . '">';
+		$time .= esc_html( human_time_diff( get_the_modified_date( 'U' ), current_time( 'timestamp' ) ) );
+		$time .= '</time>';
+
+		return $time;
 	}
 
 	/**
@@ -326,6 +351,7 @@ class Hestia_Blog_Post_Layout {
 		$read_more_button .= apply_filters( 'hestia_blog_posts_button_text', esc_html__( 'Read more', 'hestia' ) );
 		$read_more_button .= '</a>';
 		$read_more_button .= '</div>';
+
 		return $read_more_button;
 	}
 
@@ -339,6 +365,7 @@ class Hestia_Blog_Post_Layout {
 		if ( $content_type === 'content' ) {
 			return true;
 		}
+
 		return false;
 	}
 
