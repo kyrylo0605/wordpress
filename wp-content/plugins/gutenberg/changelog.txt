@@ -1,5 +1,17 @@
 == Changelog ==
 
+= 4.5.1 =
+
+* Raw Handling: fix consecutive lists with one item
+* Avoid showing draft revert message on autosaves
+* Honor the Disable Visual Editor setting in the Gutenberg editor page
+* Docs: Fix dead links in CONTRIBUTING.md
+* Fix undefined index warnings in Latest Comments & Latest Posts
+* Add `react-native` module property to html-entities package.json
+* RichText: List: Sync DOM after editor command
+* Fix RichText infinte rerendering
+* Fix keycodes package missing i18n dependencies
+
 = 4.5.0 =
 
 * Add relevant attribute data from images to be used server side to handle things like theme specific responsive media.

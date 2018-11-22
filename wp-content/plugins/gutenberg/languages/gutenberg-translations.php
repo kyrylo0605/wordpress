@@ -1,7 +1,7 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	// Reference: packages/annotations/build-module/format/annotation.js:119
+	// Reference: packages/annotations/build-module/format/annotation.js:160
 	__( 'Annotation', 'gutenberg' ),
 
 	// Reference: packages/api-fetch/build-module/index.js:100
@@ -1402,14 +1402,14 @@ $generated_i18n_strings = array(
 	// Reference: packages/edit-post/build-module/plugins/keyboard-shortcuts-help-menu-item/index.js:19
 	__( 'Keyboard Shortcuts', 'gutenberg' ),
 
-	// Reference: packages/edit-post/build-module/components/layout/index.js:59
+	// Reference: packages/edit-post/build-module/components/layout/index.js:60
 	/* translators: accessibility text for the publish landmark region. */
 	__( 'Editor publish', 'gutenberg' ),
 
-	// Reference: packages/edit-post/build-module/components/layout/index.js:69
+	// Reference: packages/edit-post/build-module/components/layout/index.js:70
 	__( 'Editor content', 'gutenberg' ),
 
-	// Reference: packages/edit-post/build-module/components/layout/index.js:93
+	// Reference: packages/edit-post/build-module/components/layout/index.js:94
 	__( 'Open publish panel', 'gutenberg' ),
 
 	// Reference: packages/edit-post/build-module/components/options-modal/index.js:40
@@ -1508,10 +1508,10 @@ $generated_i18n_strings = array(
 	// Reference: packages/editor/build-module/components/url-input/index.js:328
 	__( '(no title)', 'gutenberg' ),
 
-	// Reference: packages/edit-post/build-module/components/text-editor/index.js:18
+	// Reference: packages/edit-post/build-module/components/text-editor/index.js:20
 	__( 'Editing Code', 'gutenberg' ),
 
-	// Reference: packages/edit-post/build-module/components/text-editor/index.js:22
+	// Reference: packages/edit-post/build-module/components/text-editor/index.js:24
 	__( 'Exit Code Editor', 'gutenberg' ),
 
 	// Reference: packages/edit-post/build-module/components/visual-editor/block-inspector-button.js:32
@@ -2174,17 +2174,17 @@ It will be permanently removed from all posts and pages that use it.', 'gutenber
 	// Reference: packages/editor/build-module/components/provider/index.js:51
 	__( 'View the autosave', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:66
+	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:102
+	__( 'Indent list item', 'gutenberg' ),
+
+	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:71
 	__( 'Convert to unordered list', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:77
+	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:83
 	__( 'Convert to ordered list', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:88
+	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:95
 	__( 'Outdent list item', 'gutenberg' ),
-
-	// Reference: packages/editor/build-module/components/rich-text/list-edit.js:94
-	__( 'Indent list item', 'gutenberg' ),
 
 	// Reference: packages/editor/build-module/components/skip-to-selected-block/index.js:28
 	__( 'Skip to the selected block', 'gutenberg' ),
@@ -2249,64 +2249,64 @@ It will be permanently removed from all posts and pages that use it.', 'gutenber
 	// Reference: packages/editor/build-module/hooks/custom-class-name.js:59
 	__( 'Additional CSS Class', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:101
+	// Reference: packages/editor/build-module/store/defaults.js:102
 	__( 'Full Size', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:25
+	// Reference: packages/editor/build-module/store/defaults.js:26
 	__( 'Pale pink', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:29
+	// Reference: packages/editor/build-module/store/defaults.js:30
 	__( 'Vivid red', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:33
+	// Reference: packages/editor/build-module/store/defaults.js:34
 	__( 'Luminous vivid orange', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:37
+	// Reference: packages/editor/build-module/store/defaults.js:38
 	__( 'Luminous vivid amber', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:41
+	// Reference: packages/editor/build-module/store/defaults.js:42
 	__( 'Light green cyan', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:45
+	// Reference: packages/editor/build-module/store/defaults.js:46
 	__( 'Vivid green cyan', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:49
+	// Reference: packages/editor/build-module/store/defaults.js:50
 	__( 'Pale cyan blue', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:53
+	// Reference: packages/editor/build-module/store/defaults.js:54
 	__( 'Vivid cyan blue', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:57
+	// Reference: packages/editor/build-module/store/defaults.js:58
 	__( 'Very light gray', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:61
+	// Reference: packages/editor/build-module/store/defaults.js:62
 	__( 'Cyan bluish gray', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:65
+	// Reference: packages/editor/build-module/store/defaults.js:66
 	__( 'Very dark gray', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:92
+	// Reference: packages/editor/build-module/store/defaults.js:93
 	__( 'Thumbnail', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:95
+	// Reference: packages/editor/build-module/store/defaults.js:96
 	__( 'Medium', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:98
+	// Reference: packages/editor/build-module/store/defaults.js:99
 	__( 'Large', 'gutenberg' ),
 
 	// Reference: packages/editor/build-module/store/effects.js:207
 	_n_noop( '%s block selected.', '%s blocks selected.', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/effects/posts.js:271
+	// Reference: packages/editor/build-module/store/effects/posts.js:270
 	__( 'Publishing failed', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/effects/posts.js:272
+	// Reference: packages/editor/build-module/store/effects/posts.js:271
 	__( 'Scheduling failed', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/effects/posts.js:274
+	// Reference: packages/editor/build-module/store/effects/posts.js:273
 	__( 'Updating failed', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/effects/posts.js:351
+	// Reference: packages/editor/build-module/store/effects/posts.js:350
 	__( 'Trashing failed', 'gutenberg' ),
 
 	// Reference: packages/editor/build-module/store/effects/reusable-blocks.js:192
@@ -2449,22 +2449,22 @@ It will be permanently removed from all posts and pages that use it.', 'gutenber
 	_x( 'Enter', 'keyboard button', 'gutenberg' ),
 
 	// Reference: packages/components/build-module/font-size-picker/index.js:66
-	// Reference: packages/editor/build-module/store/defaults.js:74
+	// Reference: packages/editor/build-module/store/defaults.js:75
 	_x( 'Normal', 'font size name', 'gutenberg' ),
 
 	// Reference: packages/components/build-module/font-size-picker/index.js:66
 	_x( 'Custom', 'font size name', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:70
+	// Reference: packages/editor/build-module/store/defaults.js:71
 	_x( 'Small', 'font size name', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:78
+	// Reference: packages/editor/build-module/store/defaults.js:79
 	_x( 'Medium', 'font size name', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:82
+	// Reference: packages/editor/build-module/store/defaults.js:83
 	_x( 'Large', 'font size name', 'gutenberg' ),
 
-	// Reference: packages/editor/build-module/store/defaults.js:86
+	// Reference: packages/editor/build-module/store/defaults.js:87
 	_x( 'Huge', 'font size name', 'gutenberg' ),
 
 	// Reference: packages/edit-post/build-module/components/header/writing-menu/index.js:18

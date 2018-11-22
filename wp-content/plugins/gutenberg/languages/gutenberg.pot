@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: packages/annotations/build-module/format/annotation.js:119
+#: packages/annotations/build-module/format/annotation.js:160
 msgid "Annotation"
 msgstr ""
 
@@ -1873,15 +1873,15 @@ msgid "Keyboard Shortcuts"
 msgstr ""
 
 # accessibility text for the publish landmark region.
-#: packages/edit-post/build-module/components/layout/index.js:59
+#: packages/edit-post/build-module/components/layout/index.js:60
 msgid "Editor publish"
 msgstr ""
 
-#: packages/edit-post/build-module/components/layout/index.js:69
+#: packages/edit-post/build-module/components/layout/index.js:70
 msgid "Editor content"
 msgstr ""
 
-#: packages/edit-post/build-module/components/layout/index.js:93
+#: packages/edit-post/build-module/components/layout/index.js:94
 msgid "Open publish panel"
 msgstr ""
 
@@ -2009,11 +2009,11 @@ msgstr ""
 msgid "(no title)"
 msgstr ""
 
-#: packages/edit-post/build-module/components/text-editor/index.js:18
+#: packages/edit-post/build-module/components/text-editor/index.js:20
 msgid "Editing Code"
 msgstr ""
 
-#: packages/edit-post/build-module/components/text-editor/index.js:22
+#: packages/edit-post/build-module/components/text-editor/index.js:24
 msgid "Exit Code Editor"
 msgstr ""
 
@@ -2929,20 +2929,20 @@ msgstr ""
 msgid "View the autosave"
 msgstr ""
 
-#: packages/editor/build-module/components/rich-text/list-edit.js:66
+#: packages/editor/build-module/components/rich-text/list-edit.js:102
+msgid "Indent list item"
+msgstr ""
+
+#: packages/editor/build-module/components/rich-text/list-edit.js:71
 msgid "Convert to unordered list"
 msgstr ""
 
-#: packages/editor/build-module/components/rich-text/list-edit.js:77
+#: packages/editor/build-module/components/rich-text/list-edit.js:83
 msgid "Convert to ordered list"
 msgstr ""
 
-#: packages/editor/build-module/components/rich-text/list-edit.js:88
+#: packages/editor/build-module/components/rich-text/list-edit.js:95
 msgid "Outdent list item"
-msgstr ""
-
-#: packages/editor/build-module/components/rich-text/list-edit.js:94
-msgid "Indent list item"
 msgstr ""
 
 #: packages/editor/build-module/components/skip-to-selected-block/index.js:28
@@ -3033,63 +3033,63 @@ msgstr ""
 msgid "Additional CSS Class"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:101
+#: packages/editor/build-module/store/defaults.js:102
 msgid "Full Size"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:25
+#: packages/editor/build-module/store/defaults.js:26
 msgid "Pale pink"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:29
+#: packages/editor/build-module/store/defaults.js:30
 msgid "Vivid red"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:33
+#: packages/editor/build-module/store/defaults.js:34
 msgid "Luminous vivid orange"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:37
+#: packages/editor/build-module/store/defaults.js:38
 msgid "Luminous vivid amber"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:41
+#: packages/editor/build-module/store/defaults.js:42
 msgid "Light green cyan"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:45
+#: packages/editor/build-module/store/defaults.js:46
 msgid "Vivid green cyan"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:49
+#: packages/editor/build-module/store/defaults.js:50
 msgid "Pale cyan blue"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:53
+#: packages/editor/build-module/store/defaults.js:54
 msgid "Vivid cyan blue"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:57
+#: packages/editor/build-module/store/defaults.js:58
 msgid "Very light gray"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:61
+#: packages/editor/build-module/store/defaults.js:62
 msgid "Cyan bluish gray"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:65
+#: packages/editor/build-module/store/defaults.js:66
 msgid "Very dark gray"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:92
+#: packages/editor/build-module/store/defaults.js:93
 msgid "Thumbnail"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:95
+#: packages/editor/build-module/store/defaults.js:96
 msgid "Medium"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:98
+#: packages/editor/build-module/store/defaults.js:99
 msgid "Large"
 msgstr ""
 
@@ -3099,19 +3099,19 @@ msgid_plural "%s blocks selected."
 msgstr[0] ""
 msgstr[1] ""
 
-#: packages/editor/build-module/store/effects/posts.js:271
+#: packages/editor/build-module/store/effects/posts.js:270
 msgid "Publishing failed"
 msgstr ""
 
-#: packages/editor/build-module/store/effects/posts.js:272
+#: packages/editor/build-module/store/effects/posts.js:271
 msgid "Scheduling failed"
 msgstr ""
 
-#: packages/editor/build-module/store/effects/posts.js:274
+#: packages/editor/build-module/store/effects/posts.js:273
 msgid "Updating failed"
 msgstr ""
 
-#: packages/editor/build-module/store/effects/posts.js:351
+#: packages/editor/build-module/store/effects/posts.js:350
 msgid "Trashing failed"
 msgstr ""
 
@@ -3313,7 +3313,7 @@ msgid "Enter"
 msgstr ""
 
 #: packages/components/build-module/font-size-picker/index.js:66
-#: packages/editor/build-module/store/defaults.js:74
+#: packages/editor/build-module/store/defaults.js:75
 msgctxt "font size name"
 msgid "Normal"
 msgstr ""
@@ -3323,22 +3323,22 @@ msgctxt "font size name"
 msgid "Custom"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:70
+#: packages/editor/build-module/store/defaults.js:71
 msgctxt "font size name"
 msgid "Small"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:78
+#: packages/editor/build-module/store/defaults.js:79
 msgctxt "font size name"
 msgid "Medium"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:82
+#: packages/editor/build-module/store/defaults.js:83
 msgctxt "font size name"
 msgid "Large"
 msgstr ""
 
-#: packages/editor/build-module/store/defaults.js:86
+#: packages/editor/build-module/store/defaults.js:87
 msgctxt "font size name"
 msgid "Huge"
 msgstr ""
