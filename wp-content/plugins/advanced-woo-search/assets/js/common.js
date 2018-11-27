@@ -325,6 +325,7 @@
         var self           = $(this),
             $searchForm    = self.find('.aws-search-form'),
             $searchField   = self.find('.aws-search-field'),
+            $searchButton  = self.find('.aws-search-btn'),
             haveResults    = false,
             requests       = Array(),
             searchFor      = '',
@@ -381,6 +382,13 @@
         $searchForm.on( 'keypress', function(e) {
             if ( e.keyCode == 13 && ! d.showPage ) {
                 e.preventDefault();
+            }
+        });
+
+
+        $searchButton.on( 'click', function (e) {
+            if ( d.showPage ) {
+                $searchForm.submit();
             }
         });
 

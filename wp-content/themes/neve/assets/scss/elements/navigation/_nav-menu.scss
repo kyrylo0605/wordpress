@@ -1,0 +1,221 @@
+.menu-opened {
+  overflow: hidden;
+}
+
+.nv-navbar {
+  background-color: $navbar_background_color;
+  border-bottom: $muted-border;
+  max-height: 100vh;
+}
+
+#nv-primary-navigation {
+  max-height: 0;
+  overflow-y: auto;
+  transition: $transition_med;
+  margin-bottom: 0;
+  .responsive-opened & {
+    max-height: calc(100vh - 70px);
+    padding-bottom: $spacing-sm;
+  }
+  a {
+    color: $body-color;
+    font-weight: 500;
+    width: 100%;
+    display: block;
+    padding: $spacing-xs 0;
+  }
+  li {
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+  }
+}
+
+.site-logo, .navbar-toggle-wrapper {
+  flex: 1 auto;
+}
+
+.navbar-toggle-wrapper {
+  justify-content: flex-end;
+  display: flex;
+}
+
+#nv-primary-navigation {
+  .sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    padding-left: 20px;
+    transition: $transition_med;
+    border-left: $muted-border;
+  }
+
+  .dropdown-open > .sub-menu,
+  .caret-wrap.caret-dropdown-open + .sub-menu {
+    max-height: 2000px;
+    transition: $transition_med;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.nv-nav-wrap {
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.caret {
+  @include caret();
+  transform: rotate(135deg);
+  color: $gray-color;
+  top: -6px;
+  transition: $transition_med;
+  .dropdown-open > .caret-wrap > &,
+  .caret-dropdown-open.caret-wrap > & {
+    color: #fff;
+    transform: rotate(-45deg);
+  }
+}
+
+.caret-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  border-radius: 3px;
+  border: $muted-border-med;
+  width: 30px;
+  height: 30px;
+  padding: 5px 10px;
+  transition: $transition_med;
+  .dropdown-open > &,
+  &.caret-dropdown-open {
+    background-color: $gray-color;
+  }
+}
+
+@mixin nav-menu--laptop() {
+  .menu-opened {
+    overflow: inherit;
+  }
+
+  .nv-nav-wrap {
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  #nv-primary-navigation {
+    @include horizontal-list($spacing-xs, 'true');
+    overflow-y: inherit;
+    max-height: inherit;
+    margin-left: auto;
+    justify-content: flex-start;
+    .responsive-opened & {
+      padding-bottom: 0;
+    }
+    > li {
+      width: inherit;
+      > a {
+        padding: $spacing-xs 0;
+        display: block;
+      }
+      &.menu-item-has-children > a {
+        padding-right: 18px;
+      }
+      > .caret-wrap {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    li:hover, li:focus {
+      > a {
+        color: $link_hover_color;
+        text-decoration: none;
+      }
+      > .caret-wrap .caret {
+        color: $link_hover_color;
+      }
+    }
+
+    .sub-menu {
+      @include soft-box-shadow();
+      max-height: inherit;
+      padding: 0;
+      top: 100%;
+      background: $navbar_background_color;
+      border-left: none;
+      border-top: $muted-border;
+      position: absolute;
+      overflow: visible;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      .sub-menu {
+        left: 100%;
+        right: auto;
+        top: -1px;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        background-color: $navbar_background_color;
+        border: $muted-border;
+        border-top: none;
+        min-width: 150px;
+        a {
+          white-space: nowrap;
+          display: block;
+          width: 100%;
+          margin-right: $spacing-xs;
+          padding: 7px 14px;
+        }
+      }
+    }
+
+    .menu-item-has-children {
+      &:hover > .sub-menu,
+      &:focus > .sub-menu,
+      &:focus-within > .sub-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+      }
+      &:last-child {
+        padding-right: $spacing-xs;
+      }
+    }
+
+    > .menu-item-has-children > .sub-menu {
+      right: 0;
+    }
+
+  }
+  .caret-wrap {
+    border: none;
+    position: relative;
+    top: 0;
+    display: inline;
+    padding-right: 0;
+    .dropdown-open > & > .caret {
+      color: $body-color;
+      transform: rotate(135deg);
+    }
+    .dropdown-open > & {
+      background: transparent;
+    }
+  }
+
+  .sub-menu {
+    .caret-wrap {
+      padding-right: 25px;
+    }
+  }
+
+  .menu-item-has-children:last-child .caret-wrap {
+    right: -10px;
+  }
+}
