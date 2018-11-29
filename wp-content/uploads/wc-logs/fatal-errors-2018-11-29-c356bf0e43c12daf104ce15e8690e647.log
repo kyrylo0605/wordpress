@@ -1,0 +1,6 @@
+2018-11-29T23:30:06+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-content\plugins\google-analytics-for-wordpress\includes\admin\pages\tools.php on line 3
+
+2018-11-29T23:32:35+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-content\plugins\wp-rss-aggregator\includes\Aventura\Wprss\Core\Licensing\Settings.php on line 13
+
+2018-11-29T23:34:41+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-admin\includes\class-wp-filesystem-direct.php on line 73
+
