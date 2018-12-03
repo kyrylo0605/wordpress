@@ -1,0 +1,8 @@
+2018-12-03T02:04:30+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-content\plugins\contact-form-7\modules\recaptcha.php on line 3
+
+2018-12-03T02:04:34+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-includes\functions.php on line 5081
+
+2018-12-03T02:08:40+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-content\plugins\elementor\includes\autoloader.php on line 208
+
+2018-12-03T02:12:26+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-admin\includes\class-wp-filesystem-direct.php on line 73
+
