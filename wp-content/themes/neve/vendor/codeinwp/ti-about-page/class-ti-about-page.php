@@ -13,19 +13,20 @@
 class Ti_About_Page {
 
 	/**
+	 * @var
+	 * About Page instance
+	 */
+	public static $instance;
+	/**
+	 * @var
+	 * About page content that should be rendered
+	 */
+	public $config = array();
+	/**
+	 * @var
 	 * Current theme args
 	 */
 	private $theme_args = array();
-
-	/**
-	 * About page content that should be rendered
-	 */
-	private $config = array();
-
-	/**
-	 * About Page instance
-	 */
-	private static $instance;
 
 	/**
 	 * The Main Themeisle_About_Page instance.
@@ -57,17 +58,6 @@ class Ti_About_Page {
 		$this->theme_args['version']     = $theme->__get( 'Version' );
 		$this->theme_args['description'] = $theme->__get( 'Description' );
 		$this->theme_args['slug']        = $theme->__get( 'stylesheet' );
-
-		$default = array(
-			'type'            => 'default',
-			'render_callback' => array( $this, 'render_notice' ),
-			'dismiss_option'  => 'ti_about_welcome_notice',
-			'notice_class'    => '',
-		);
-
-		if ( isset( $this->config['welcome_notice'] ) ) {
-			$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
-		}
 	}
 
 	/**
@@ -76,8 +66,6 @@ class Ti_About_Page {
 	public function setup_actions() {
 
 		add_action( 'admin_menu', array( $this, 'register' ) );
-		add_action( 'admin_notices', array( $this, 'welcome_notice' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_notice_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action(
 			'wp_ajax_update_recommended_plugins_visibility',
@@ -86,7 +74,43 @@ class Ti_About_Page {
 				'update_recommended_plugins_visibility',
 			)
 		);
-		add_action( 'wp_ajax_dismiss_welcome_notice', array( $this, 'dismiss_welcome_notice' ) );
+
+		if ( ! class_exists( 'Ti_Notice_Manager' ) && isset( $this->config['welcome_notice'] ) ) {
+			require_once 'includes' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'class-ti-notice-manager.php';
+			add_action( 'init', array( Ti_Notice_Manager::instance(), 'init' ) );
+		}
+	}
+
+	/**
+	 * Set an option with recommended plugins slugs and visibility
+	 * Based on visibility flag the plugin should be shown/hidden in recommended_plugins tab
+	 */
+	public function set_recommended_plugins_visibility() {
+		$required_plugins           = $this->get_recommended_plugins();
+		$required_plugins_visbility = array();
+		foreach ( $required_plugins as $slug => $req_plugin ) {
+			$required_plugins_visbility[ $slug ] = 'visible';
+		}
+
+		update_option( 'ti_about_recommended_plugins', $required_plugins_visbility );
+	}
+
+	/**
+	 * Get the list of recommended plugins
+	 *
+	 * @return array - either recommended plugins or empty array.
+	 */
+	public function get_recommended_plugins() {
+		foreach ( $this->config as $index => $content ) {
+			if ( isset( $content['type'] ) && $content['type'] === 'recommended_actions' ) {
+				$plugins = $content['plugins'];
+
+				return $plugins;
+				break;
+			}
+		}
+
+		return array();
 	}
 
 	/**
@@ -117,6 +141,32 @@ class Ti_About_Page {
 				'render',
 			)
 		);
+	}
+
+	/**
+	 * Utility function for checking the number of recommended actions uncompleted
+	 *
+	 * @return int $actions_left - the number of uncompleted recommended actions.
+	 */
+	public function get_recommended_actions_left() {
+
+		$nb_of_actions       = 0;
+		$actions_left        = 0;
+		$recommended_plugins = get_option( 'ti_about_recommended_plugins' );
+
+		if ( ! empty( $recommended_plugins ) ) {
+			foreach ( $recommended_plugins as $slug => $visibility ) {
+				if ( $recommended_plugins[ $slug ] === 'visible' ) {
+					$nb_of_actions += 1;
+
+					if ( Ti_About_Plugin_Helper::instance()->check_plugin_state( $slug ) !== 'deactivate' ) {
+						$actions_left += 1;
+					}
+				}
+			}
+		}
+
+		return $actions_left;
 	}
 
 	/**
@@ -170,64 +220,6 @@ class Ti_About_Page {
 	}
 
 	/**
-	 * Utility function for checking the number of recommended actions uncompleted
-	 *
-	 * @return int $actions_left - the number of uncompleted recommended actions.
-	 */
-	public function get_recommended_actions_left() {
-
-		$nb_of_actions       = 0;
-		$actions_left        = 0;
-		$recommended_plugins = get_option( 'ti_about_recommended_plugins' );
-
-		if ( ! empty( $recommended_plugins ) ) {
-			foreach ( $recommended_plugins as $slug => $visibility ) {
-				if ( $recommended_plugins[ $slug ] === 'visible' ) {
-					$nb_of_actions += 1;
-
-					if ( Ti_About_Plugin_Helper::instance()->check_plugin_state( $slug ) !== 'deactivate' ) {
-						$actions_left += 1;
-					}
-				}
-			}
-		}
-
-		return $actions_left;
-	}
-
-	/**
-	 * Get the list of recommended plugins
-	 *
-	 * @return array - either recommended plugins or empty array.
-	 */
-	public function get_recommended_plugins() {
-		foreach ( $this->config as $index => $content ) {
-			if ( isset( $content['type'] ) && $content['type'] === 'recommended_actions' ) {
-				$plugins = $content['plugins'];
-
-				return $plugins;
-				break;
-			}
-		}
-
-		return array();
-	}
-
-	/**
-	 * Set an option with recommended plugins slugs and visibility
-	 * Based on visibility flag the plugin should be shown/hidden in recommended_plugins tab
-	 */
-	public function set_recommended_plugins_visibility() {
-		$required_plugins           = $this->get_recommended_plugins();
-		$required_plugins_visbility = array();
-		foreach ( $required_plugins as $slug => $req_plugin ) {
-			$required_plugins_visbility[ $slug ] = 'visible';
-		}
-
-		update_option( 'ti_about_recommended_plugins', $required_plugins_visbility );
-	}
-
-	/**
 	 * Update recommended plugins visibility flag if the user dismiss one of them
 	 */
 	public function update_recommended_plugins_visibility() {
@@ -241,117 +233,5 @@ class Ti_About_Page {
 
 		$required_actions_left = array( 'required_actions' => $this->get_recommended_actions_left() );
 		wp_send_json( $required_actions_left );
-	}
-
-	/**
-	 * Display default or custom welcome notice, based on config and current user
-	 */
-	public function welcome_notice() {
-		/**
-		 * Do not display the notice on gutenberg pages.
-		 */
-		if( function_exists( 'is_gutenberg_page' ) && is_gutenberg_page() ){
-			return;
-		}
-
-		/**
-		 * Handle edge case for Zerif
-		 */
-		if ( defined( 'ZERIF_VERSION' ) || defined( 'ZERIF_LITE_VERSION' ) ) {
-			if ( get_option( 'zelle_notice_dismissed' ) === 'yes' ) {
-				return;
-			}
-		}
-
-		if ( ! isset( $this->config['welcome_notice'] ) ) {
-			return;
-		}
-
-		global $current_user;
-		$user_id          = $current_user->ID;
-		$dismissed_notice = get_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], true );
-		if ( $dismissed_notice === 'dismissed' ) {
-			return;
-		}
-		$style = '
-			.ti-about-notice{
-				position: relative;
-			}
-			
-			.ti-about-notice .notice-dismiss{
-				position: absolute;
-				z-index: 10;
-			    top: 10px;
-			    right: 10px;
-			    padding: 10px 15px 10px 21px;
-			    font-size: 13px;
-			    line-height: 1.23076923;
-			    text-decoration: none;
-			}
-			
-			.ti-about-notice .notice-dismiss:before{
-			    position: absolute;
-			    top: 8px;
-			    left: 0;
-			    transition: all .1s ease-in-out;
-			    background: none;
-			}
-			
-			.ti-about-notice .notice-dismiss:hover{
-				color: #00a0d2;
-			}
-		';
-		echo '<style>'. $style . '</style>';
-		echo '<div class="' . esc_attr( $this->config['welcome_notice']['notice_class'] ) . ' notice ti-about-notice">';
-		echo '<button class="notice-dismiss"></button>';
-		call_user_func( $this->config['welcome_notice']['render_callback'] );
-		echo '</div>';
-	}
-
-	/**
-	 * Render the default welcome notice
-	 */
-	public function render_notice() {
-		$url    = admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' );
-		$notice = apply_filters( 'ti_about_welcome_notice_filter', ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_args['name'], '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( $url ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_args['name'] ) . '</a></p>' ) );
-
-		echo wp_kses_post( $notice );
-	}
-
-	/**
-	 * Dismiss welcome notice
-	 */
-	public function dismiss_welcome_notice() {
-
-		$params = $_REQUEST;
-		global $current_user;
-		$user_id = $current_user->ID;
-
-		if ( ! isset( $params['nonce'] ) || ! wp_verify_nonce( $params['nonce'], 'dismiss_ti_about_notice' ) ) {
-			wp_send_json_error( 'Wrong nonce' );
-		}
-		add_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], 'dismissed', true );
-		wp_send_json_success( 'Dismiss notice' );
-	}
-
-	/**
-	 * Welcome notice scripts
-	 */
-	public function enqueue_notice_scripts() {
-		wp_enqueue_script(
-			'ti-about-notice-scripts',
-			TI_ABOUT_PAGE_URL . '/js/ti_about_notice_scripts.js',
-			array(),
-			TI_ABOUT_PAGE_VERSION,
-			true
-		);
-		wp_localize_script(
-			'ti-about-notice-scripts',
-			'tiAboutNotice',
-			array(
-				'ajaxurl'      => admin_url( 'admin-ajax.php' ),
-				'dismissNonce' => wp_create_nonce( 'dismiss_ti_about_notice' ),
-			)
-		);
 	}
 }

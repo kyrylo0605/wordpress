@@ -4,7 +4,7 @@
  * Author:          Andrei Baicus <andrei@themeisle.com>
  * Created on:      12/07/2018
  *
- * @package themeisle-onboarding
+ * @package         themeisle-onboarding
  * @soundtrack      Summer On Lock (feat. Pusha T, Jadakiss, Fabolous, Agent Sasco - Royce da 5'9"
  */
 
@@ -15,11 +15,18 @@
  */
 class Themeisle_Onboarding {
 	/**
-	 * Instance of Site_Import
+	 * Instance of Themeisle_Onboarding
 	 *
 	 * @var Themeisle_Onboarding
 	 */
 	protected static $instance = null;
+
+	/**
+	 * Instance of Themeisle_OB_Admin
+	 *
+	 * @var Themeisle_OB_Admin
+	 */
+	protected $admin = null;
 
 	/**
 	 * The version of this library
@@ -93,8 +100,15 @@ class Themeisle_Onboarding {
 		if ( ! class_exists( 'Themeisle_OB_Admin' ) ) {
 			return;
 		}
-		$admin = new Themeisle_OB_Admin();
-		$admin->init();
+		$this->admin = new Themeisle_OB_Admin();
+		$this->admin->init();
+	}
+
+	/**
+	 * Render the onboarding.
+	 */
+	public function render_onboarding() {
+		$this->admin->render_site_library();
 	}
 
 	/**
@@ -146,7 +160,8 @@ class Themeisle_Onboarding {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function __clone() {}
+	public function __clone() {
+	}
 
 	/**
 	 * Disable un-serializing
@@ -155,5 +170,6 @@ class Themeisle_Onboarding {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function __wakeup() {}
+	public function __wakeup() {
+	}
 }

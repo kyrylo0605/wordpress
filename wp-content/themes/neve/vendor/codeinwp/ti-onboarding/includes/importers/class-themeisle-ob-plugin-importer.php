@@ -131,6 +131,10 @@ class Themeisle_OB_Plugin_Importer {
 			return $plugin_dir . '/wp-contact-form-7.php';
 		}
 
+		if ( $slug === 'wpforms-lite' ) {
+			return $plugin_dir . '/wpforms.php';
+		}
+
 		$plugin_path = $plugin_dir . '/' . $slug . '.php';
 
 		if ( ! file_exists( $plugin_path ) ) {
@@ -150,6 +154,14 @@ class Themeisle_OB_Plugin_Importer {
 	private function get_plugin_entry( $slug ) {
 		if ( $slug === 'advanced-css-editor' ) {
 			return $slug . '/css-editor.php';
+		}
+
+		if ( $slug === 'contact-form-7' ) {
+			return $slug . '/wp-contact-form-7.php';
+		}
+
+		if ( $slug === 'wpforms-lite' ) {
+			return $slug . '/wpforms.php';
 		}
 
 		$plugins_dir = WP_PLUGIN_DIR . '/';

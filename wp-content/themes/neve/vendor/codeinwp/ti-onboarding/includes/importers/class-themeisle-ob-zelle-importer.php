@@ -5,9 +5,6 @@
  * @package Neve\Content_Import
  */
 
-use Elementor\TemplateLibrary\Source_Local;
-use Neve\Admin\Plugin_Install\Main as Plugin_Install;
-
 /**
  * Class to import Zelle to an Elementor template.
  *
@@ -92,7 +89,7 @@ class Themeisle_OB_Zelle_Importer {
 
 		$_FILES['file']['tmp_name'] = $path_to_file;
 
-		$elementor = new Source_Local();
+		$elementor = new \Elementor\TemplateLibrary\Source_Local;
 
 		$el_template_post = $elementor->import_template( $this->name, $path_to_file );
 
