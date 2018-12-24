@@ -119,18 +119,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/templates-directory.git",
-            "reference": "be218b189f9dc60e32463161567ca1b567f79019"
+            "reference": "18e8b64784457e3851bc79203e1306b6057d4d69"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/templates-directory/zipball/be218b189f9dc60e32463161567ca1b567f79019",
-            "reference": "be218b189f9dc60e32463161567ca1b567f79019",
+            "url": "https://api.github.com/repos/Codeinwp/templates-directory/zipball/18e8b64784457e3851bc79203e1306b6057d4d69",
+            "reference": "18e8b64784457e3851bc79203e1306b6057d4d69",
             "shasum": ""
         },
         "require": {
             "codeinwp/full-width-page-templates": "master"
         },
-        "time": "2018-11-12 09:48:53",
+        "time": "2018-12-12 21:50:20",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -199,15 +199,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/gutenberg-blocks.git",
-            "reference": "7f1ff73c91e2edc6f3f653bc31223b2e6f9024f4"
+            "reference": "4866e0aa0146c9f4d90af91ff71450f1f749ffe7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/7f1ff73c91e2edc6f3f653bc31223b2e6f9024f4",
-            "reference": "7f1ff73c91e2edc6f3f653bc31223b2e6f9024f4",
+            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/4866e0aa0146c9f4d90af91ff71450f1f749ffe7",
+            "reference": "4866e0aa0146c9f4d90af91ff71450f1f749ffe7",
             "shasum": ""
         },
-        "time": "2018-10-29 19:38:19",
+        "time": "2018-12-07 09:34:04",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

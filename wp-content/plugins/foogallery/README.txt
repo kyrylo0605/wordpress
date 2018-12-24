@@ -1,9 +1,9 @@
 === FooGallery - Image Gallery WordPress Plugin ===
-Contributors: bradvin, steveush, fooplugins
+Contributors: bradvin, steveush, fooplugins, freemius
 Donate link: http://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive, album, media gallery, masonry gallery, portfolio, justified gallery, video gallery, photography, youtube gallery
 Requires at least: 3.9
-Tested up to: 4.9.8
+Tested up to: 5.0.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,6 +20,7 @@ https://youtu.be/zY8eSTEIwpU
 
 **Features**
 
+*	Gutenberg ready (Gallery previews inside the new editor!)
 *	Lazy loading
 *	Simple Pagination (dots)
 *	Live previews in admin
@@ -69,6 +70,10 @@ https://youtu.be/zY8eSTEIwpU
 **Documentation**
 
 *	[FooGallery Documentation](https://fooplugins.helpscoutdocs.com/collection/8-foogallery)
+
+**Gutenberg**
+
+We love the new Gutenberg editor. We have built a really simple-to-use Gutenberg block to add your existing FooGalleries in seconds. And it includes live previews of the gallery too! Also works in WP5 beta!
 
 **GDPR**
 
@@ -137,6 +142,36 @@ Hell, yes! Check out our [developer page](http://foo.gallery/developers/)
 Update now to get all the latest features, bug fixes and improvements!
 
 == Changelog ==
+
+= 1.6.11 =
+* Fix : Random thumbnails not loading in FireFox
+* Update : FooGallery client side 1.1.8
+
+= 1.6.10 =
+* Fix : Safari bug with lazy loading
+* Fix : Thumbs not loading with paging
+* Fix : duplicate caption title in some scenarios
+* Fix : clicking html in caption was not loading lightbox
+* Update : FooGallery client side 1.1.7
+
+= 1.6.7 =
+* New : added new filter for allowed post types that foogallery can be attached to
+* New : added loop setting for image viewer gallery template
+* New : override sorting in shortcode by providing "sort" attribute
+* Fix : Beaver Builder javascript error while editing a page
+* Fix : album shortcodes not working in some page builders
+* Fix : attach gallery to post when gutenberg block is included
+* Fix : filtering + paging bugs corrected in some scenarios
+* Fix : multiple small bugs and tweaks
+* Fix : Thumbnail generation tries to use first image in media library
+* Update : FooGallery client side 1.1.5
+* Update : Freemius SDK 2.2.2
+
+= 1.6.1 =
+* New : Gutenberg FooGallery block (including live gallery previews!)
+* Fix : foogallery shortcode not rendering in certain cases
+* Fix : disabling lazy loading via settings was being ignored
+* Update : Freemius SDK 2.1.3 (which fixes fatal Multisite bug)
 
 = 1.5.9 =
 * Fix : Theme customizer not loading for some theme/plugin combinations

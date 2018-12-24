@@ -228,7 +228,8 @@
   color: #444;
 }
 
-.grw-error {
+.grw-error,
+.yrw-error {
   color: #e60909;
   font-size: 13px;
 }

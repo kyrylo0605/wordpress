@@ -5478,7 +5478,7 @@
 			self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
 			attr.inner["class"] = cls.inner;
 			var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
-			var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
+			var hasTitle = self.showCaptionTitle && !_is.empty(self.caption), hasDesc = self.showCaptionDescription && !_is.empty(self.description);
 			if (hasTitle || hasDesc) {
 				attr.title["class"] = cls.title;
 				attr.description["class"] = cls.description;
@@ -5683,9 +5683,15 @@
 			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 			self.isLoading = true;
 			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
+			if (self.isParsed && img.src != self._placeholder && img.complete){
+				self.isLoading = false;
+				self.isLoaded = true;
+				self.$el.removeClass(cls.loading).addClass(cls.loaded);
+				self.unfix();
+				self.tmpl.raise("loaded-item", [self]);
+				return self._load = _fn.resolveWith(self);
+			}
 			return self._load = $.Deferred(function (def) {
-				// if Firefox reset to empty src or else the onload and onerror callbacks are executed immediately
-				if (!_is.undef(window.InstallTrigger)) img.src = "";
 				img.onload = function () {
 					img.onload = img.onerror = null;
 					self.isLoading = false;
@@ -5707,7 +5713,9 @@
 					def.reject(self);
 				};
 				// set everything in motion by setting the src
-				img.src = self.getThumbUrl();
+				setTimeout(function(){
+					img.src = self.getThumbUrl();
+				});
 			}).promise();
 		},
 		/**
@@ -5819,7 +5827,7 @@
 		 */
 		onCaptionClick: function (e) {
 			var self = e.data.self;
-			if ($(e.target).is(self.sel.caption.all) && self.$anchor.length > 0) {
+			if (self.$anchor.length > 0) {
 				self.$anchor.get(0).click();
 			}
 		}
@@ -7647,10 +7655,10 @@
 			self.justified.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			if (self.initialized) self.justified.layout( true );
+			if (self.initialized || self.initializing) self.justified.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
-			if (self.initialized) self.justified.layout( true );
+			if (self.initialized || self.initializing) self.justified.layout( true );
 		},
 		onDetachedItems: function(event, self, items){
 			if (self.initialized) self.justified.layout( true );
@@ -7673,6 +7681,7 @@
 			this.$el = $(element);
 			this.options = $.extend(true, {}, _.Portfolio.defaults, options);
 			this._items = [];
+			this._lastWidth = 0;
 		},
 		init: function(){
 			var self = this;
@@ -7683,21 +7692,25 @@
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
-			var self = this, visible = self.$el.is(':visible'),
+			var self = this, visible = self.$el.is(':visible'), maxWidth = self.getContainerWidth(),
 					$test = $('<div/>', {'class': self.$el.attr('class')}).css({
 						position: 'absolute',
 						top: 0,
 						left: -9999,
 						visibility: 'hidden',
-						maxWidth: self.getContainerWidth()
+						maxWidth: maxWidth
 					}).appendTo('body');
 			self._items = self.$el.find(".fg-item").removeAttr("style").removeClass("fg-positioned").map(function(i, el){
 				var $item = $(el),
 						$thumb = $item.find(".fg-thumb"),
 						$img = $item.find(".fg-image"),
-						width = 0, height = 0;
-				$item.find(".fg-caption").css("max-width", parseFloat($img.attr("width")));
-				$img.css({ width: $img.attr("width"), height: $img.attr("height") });
+						width = parseFloat($img.attr("width")),
+						height = parseFloat($img.attr("height")),
+						iWidth = maxWidth < width ? maxWidth : width,
+						iHeight = maxWidth < width ? 'auto' : height;
+
+				$item.find(".fg-caption").css("max-width", iWidth);
+				$img.css({ width: iWidth, height: iHeight });
 				if (!visible){
 					var $clone = $item.clone();
 					$clone.appendTo($test);
@@ -7735,13 +7748,19 @@
 			refresh = _is.boolean(refresh) ? refresh : false;
 			autoCorrect = _is.boolean(autoCorrect) ? autoCorrect : true;
 
-			if (refresh || this._items.length === 0){
-				this.parse();
+			var self = this,
+					containerWidth = self.getContainerWidth();
+
+			if (self._lastWidth != 0 && Math.abs(containerWidth - self._lastWidth) > 0){
+				refresh = true;
+				self._lastWidth = containerWidth;
 			}
 
-			var self = this,
-					containerWidth = self.getContainerWidth(),
-					rows = self.rows(containerWidth),
+			if (refresh || self._items.length === 0){
+				self.parse();
+			}
+
+			var rows = self.rows(containerWidth),
 					offsetTop = 0;
 
 			for (var i = 0, l = rows.length, row; i < l; i++){
@@ -7750,6 +7769,9 @@
 				self.render(row);
 			}
 			self.$el.height(offsetTop);
+			if (self._lastWidth == 0){
+				self._lastWidth = containerWidth;
+			}
 			// if our layout caused the container width to get smaller
 			// i.e. makes a scrollbar appear then layout again to account for it
 			if (autoCorrect && self.getContainerWidth() < containerWidth){
@@ -7902,10 +7924,10 @@
 			self.portfolio.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			if (self.initialized) self.portfolio.layout( true );
+			if (self.initialized || self.initializing) self.portfolio.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
-			if (self.initialized) self.portfolio.layout( true );
+			if (self.initialized || self.initializing) self.portfolio.layout( true );
 		},
 		onDetachedItems: function(event, self, items){
 			if (self.initialized) self.portfolio.layout( true );

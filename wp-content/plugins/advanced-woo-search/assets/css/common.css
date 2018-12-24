@@ -88,6 +88,7 @@
 
 .aws-container .aws-search-field {
     width: 100%;
+    max-width: 100%;
     color: #313131;
     padding: 6px;
     line-height: 30px;
@@ -132,6 +133,7 @@
     height: 100%;
     width: 38px;
     padding-left: 10px;
+    text-align: left;
 }
 .aws-container .aws-search-form .aws-search-clear span {
     position: relative;

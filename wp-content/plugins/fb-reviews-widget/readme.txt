@@ -3,8 +3,8 @@ Contributors: richplugins
 Donate link: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Tags: facebook, facebook reviews, facebook business reviews, facebook page reviews, facebook page review, Facebook Page, facebook review, facebook review widget, business review, reviews, facebook reviews widget, sidebar widget, richplugins, google reviews, google places reviews, google map reviews, facebook reviews pro, testimonials, yelp, yelp reviews
 Requires at least: 2.8
-Tested up to: 4.9
-Stable tag: 1.4.7
+Tested up to: 5.0
+Stable tag: 1.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,11 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.4.8 =
+* Update plugin to WordPress 5.0
+* Improve: the single Facebook page selected by default after connection in the widget
+* Bugfix: fixed the issues with working on site builders (SiteOrigin, Elementor, Beaver Builder and etc)
 
 = 1.4.7 =
 * Important note: introduced support of Facebook recommendations, negative is considered as 1 star, positive recommendation 5 stars

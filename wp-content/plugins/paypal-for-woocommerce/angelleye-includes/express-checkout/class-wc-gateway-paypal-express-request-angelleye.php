@@ -333,6 +333,8 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
             if ($this->gateway->payment_action != 'Sale') {
                 AngellEYE_Utility::angelleye_paypal_for_woocommerce_add_paypal_transaction($this->paypal_response, $order, $this->gateway->payment_action);
             }
+            $payment_meta = array('Payment type' => !empty($this->paypal_response['PAYMENTINFO_0_PAYMENTTYPE']) ? $this->paypal_response['PAYMENTINFO_0_PAYMENTTYPE'] : '', 'PayPal Transaction Fee' => !empty($this->paypal_response['PAYMENTINFO_0_FEEAMT']) ? $this->paypal_response['PAYMENTINFO_0_FEEAMT'] : '');
+            AngellEYE_Utility::angelleye_add_paypal_payment_meta($order_id, $payment_meta);
             if ($this->response_helper->ec_is_response_success($this->paypal_response)) {
                 do_action('ae_add_custom_order_note', $order, $card = null, $token = null, $this->paypal_response);
                 apply_filters('woocommerce_payment_successful_result', array('result' => 'success'), $order_id);
@@ -500,13 +502,12 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
             }
             if ($this->gateway->send_items) {
                 $Payment['order_items'] = $this->order_param['order_items'];
+                $Payment['taxamt'] = AngellEYE_Gateway_Paypal::number_format($this->order_param['taxamt']);
+                $Payment['shippingamt'] = AngellEYE_Gateway_Paypal::number_format($this->order_param['shippingamt']);
+                $Payment['itemamt'] = AngellEYE_Gateway_Paypal::number_format($this->order_param['itemamt']);
             } else {
                 $Payment['order_items'] = array();
             }
-            $Payment['taxamt'] = AngellEYE_Gateway_Paypal::number_format($this->order_param['taxamt']);
-            $Payment['shippingamt'] = AngellEYE_Gateway_Paypal::number_format($this->order_param['shippingamt']);
-            $Payment['itemamt'] = AngellEYE_Gateway_Paypal::number_format($this->order_param['itemamt']);
-
             $REVIEW_RESULT = !empty($paypal_express_checkout['ExpresscheckoutDetails']) ? $paypal_express_checkout['ExpresscheckoutDetails'] : array();
             $PaymentRedeemedOffers = array();
             if ((isset($REVIEW_RESULT) && !empty($REVIEW_RESULT)) && isset($REVIEW_RESULT['WALLETTYPE0'])) {
@@ -804,12 +805,12 @@ class WC_Gateway_PayPal_Express_Request_AngellEYE {
             if(isset($this->cart_param['is_calculation_mismatch']) && $this->cart_param['is_calculation_mismatch'] == false) {
                 if ($this->gateway->send_items) {
                     $Payment['order_items'] = $this->cart_param['order_items'];
+                    $Payment['taxamt'] = $this->cart_param['taxamt'];
+                    $Payment['shippingamt'] = $this->cart_param['shippingamt'];
+                    $Payment['itemamt'] = $this->cart_param['itemamt'];
                 } else {
                     $Payment['order_items'] = array();
                 }
-                $Payment['taxamt'] = $this->cart_param['taxamt'];
-                $Payment['shippingamt'] = $this->cart_param['shippingamt'];
-                $Payment['itemamt'] = $this->cart_param['itemamt'];
             }
             array_push($Payments, $Payment);
             $PayPalRequestData = array(

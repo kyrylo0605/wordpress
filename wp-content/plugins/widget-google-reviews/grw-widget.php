@@ -138,33 +138,7 @@ class Goog_Reviews_Widget extends WP_Widget {
             <?php
         } else {
             ?>
-            <h4 class="text-left"><?php echo grw_i('First configure Google API Key'); ?></h4>
-            <ul style="line-height:20px">
-                <li>
-                    <span class="grw-step">1</span>
-                    <?php echo grw_i('Go to '); ?>
-                    <a href="https://developers.google.com/places/web-service/get-api-key#get_an_api_key" target="_blank">
-                        <?php echo grw_i('Google Places API Key'); ?>
-                    </a>
-                </li>
-                <li>
-                    <span class="grw-step">2</span>
-                    <?php echo grw_i('Click by \'<b>GET A KEY</b>\' button'); ?>
-                </li>
-                <li>
-                    <span class="grw-step">3</span>
-                    <?php echo grw_i('Fill the name, agree term and click by \'<b>NEXT</b>\' button'); ?>
-                </li>
-                <li>
-                    <span class="grw-step">4</span>
-                    <?php echo grw_i('Copy & paste generated key to the field: '); ?>
-                    <input type="text" class="grw-apikey" name="grw_google_api_key" placeholder="<?php echo grw_i('Google Places API Key'); ?>" />
-                </li>
-                <li>
-                    <span class="grw-step">5</span>
-                    <?php echo grw_i('Save the widget'); ?>
-                </li>
-            </ul>
+            <h4 class="text-left">First of all, please create and save the Google API Key on <a href="<?php echo admin_url('options-general.php?page=grw&setting_tab=active'); ?>">the setting page</a> of the plugin</h4>
             <script type="text/javascript">
                 var apikey = document.querySelectorAll('.grw-apikey');
                 if (apikey) {

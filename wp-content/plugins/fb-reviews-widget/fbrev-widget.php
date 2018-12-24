@@ -41,7 +41,7 @@ class Fb_Reviews_Widget extends WP_Widget {
 
         add_action('admin_enqueue_scripts', array($this, 'fbrev_widget_scripts'));
 
-        wp_register_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__));
+        wp_register_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__), array(), FBREV_VERSION);
         wp_enqueue_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__));
 
         wp_register_style('fbrev_css', plugins_url('/static/css/facebook-review.css', __FILE__));
@@ -56,10 +56,10 @@ class Fb_Reviews_Widget extends WP_Widget {
 
             wp_enqueue_script('jquery');
 
-            wp_register_script('wpac_js', plugins_url('/static/js/wpac.js', __FILE__));
+            wp_register_script('wpac_js', plugins_url('/static/js/wpac.js', __FILE__), array(), FBREV_VERSION);
             wp_enqueue_script('wpac_js', plugins_url('/static/js/wpac.js', __FILE__));
 
-            wp_register_script('fbrev_connect_js', plugins_url('/static/js/fbrev-connect.js', __FILE__));
+            wp_register_script('fbrev_connect_js', plugins_url('/static/js/fbrev-connect.js', __FILE__), array(), FBREV_VERSION);
             wp_enqueue_script('fbrev_connect_js', plugins_url('/static/js/fbrev-connect.js', __FILE__));
         }
     }
@@ -137,10 +137,34 @@ class Fb_Reviews_Widget extends WP_Widget {
         ?>
         <div id="<?php echo $this->id; ?>" class="rplg-widget">
             <?php include(dirname(__FILE__) . '/fbrev-options.php'); ?>
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-widget-id="<?php echo $this->id; ?>" onload="fbrev_init({widgetId: this.getAttribute('data-widget-id')})" style="display:none">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="(function(el) { var t = setInterval(function () {if (window.fbrev_init){fbrev_init({el: el});clearInterval(t);}}, 200); })(this.parentNode);" style="display:none">
         </div>
-        <?php
+        <script type="text/javascript">
+            function fbrev_load_js(src, cb) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = src;
+                script.async = 'true';
+                if (cb) {
+                    script.addEventListener('load', function (e) { cb(null, e); }, false);
+                }
+                document.getElementsByTagName('head')[0].appendChild(script);
+            }
 
+            function fbrev_load_css(href) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = href;
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+
+            if (!window.fbrev_init) {
+                fbrev_load_css('<?php echo plugins_url('/static/css/rplg-wp.css?ver=' . FBREV_VERSION, __FILE__); ?>');
+                fbrev_load_js('<?php echo plugins_url('/static/js/wpac.js?ver=' . FBREV_VERSION, __FILE__); ?>');
+                fbrev_load_js('<?php echo plugins_url('/static/js/fbrev-connect.js?ver=' . FBREV_VERSION, __FILE__); ?>');
+            }
+        </script>
+        <?php
     }
 }
 ?>

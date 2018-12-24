@@ -128,6 +128,10 @@ if (isset($_POST['grw_setting'])) {
     $grw_setting_page = false;
 }
 
+if (isset($_GET['setting_tab'])) {
+    $grw_setting_page = true;
+}
+
 if (isset($_POST['grw_install_db'])) {
     grw_install_db();
 }
@@ -257,14 +261,19 @@ $grw_language = get_option('grw_language');
                         Please get the correct key by instruction below ↓
                     </div>
                     <?php } ?>
-                    <small>
-                        <b>How to get Google Places API key</b>:<br>
-                        1. Go to <a href="https://developers.google.com/places/web-service/get-api-key#get_an_api_key" target="_blank">Google Places API Key</a><br>
-                        2. Click by '<b>GET A KEY</b>' button<br>
-                        3. Fill the name, agree term and click by '<b>NEXT</b>' button<br>
-                        4. Copy key to plugin field<br>
-                        <iframe src="//www.youtube.com/embed/uW-PTKeZAXs?rel=0" allowfullscreen=""></iframe>
-                    </small>
+                    <div style="margin-top:10px">
+                        <p><b>Instruction: how to create Google Places API key</b></p>
+                        <p>1. Go to the <a href="https://console.developers.google.com/apis/dashboard?pli=1" target="_blank">Google Console</a></p>
+                        <p>2. Click '<b>Create Project</b>' or '<b>Select Project</b>' button</p>
+                        <p>3. Create new project or select existing</p>
+                        <p>4. On the project page click '<b>ENABLE APIS AND SERVICES</b>'</p>
+                        <p>5. Type '<b>Places API</b>' in the search area</p>
+                        <p>6. Select the first result '<b>Places API</b>' and click '<b>ENABLE</b>' button</p>
+                        <p>7. On the 'Places API' page select '<b>Credential</b>' tab and '<b>Create credential</b>' / '<b>API key</b>' option</p>
+                        <p>8. Copy created API key, paste to this setting and save</p>
+                        <p><b>Video instruction</b></p>
+                        <iframe src="//www.youtube.com/embed/Kf_bkg7WeC0?rel=0" allowfullscreen=""></iframe>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label"><?php echo grw_i('Google Places API language'); ?></label>

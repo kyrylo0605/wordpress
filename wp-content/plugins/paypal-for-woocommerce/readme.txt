@@ -3,8 +3,8 @@ Contributors: angelleye, angelleyesupport, Umangvaghela
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SG9SQU2GBXJNA
 Tags: woocommerce, paypal, express checkout, payments pro, angelleye, payflow, dodirectpayment, apple pay, google play, braintree, payments advanced, rest, credit cards, credit card payments, payments, payment
 Requires at least: 3.8
-Tested up to: 4.9.8
-Stable tag: 1.5.3
+Tested up to: 5.0.0
+Stable tag: 1.5.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -126,6 +126,20 @@ Automatic updates should work great for you.  As always, though, we recommend ba
 * If you are unsure, you may need to [contact PayPal](https://www.paypal.com/us/webapps/helpcenter/helphub/home/) and request the information.  Just let them know you need to enable a Payments Pro plugin on your website, but you're unsure whether you should use Website Payments Pro 3.0(DoDirectPayment) or Payments Pro 2.0 (PayFlow).  They can confirm which one you need to use.
 
 == Changelog ==
+
+= 1.5.4 - 12.08.2018 =
+* Feature - Adds PayPal Fee to WooCommerce order meta data for Express Checkout orders. ([PFW-299](https://github.com/angelleye/paypal-woocommerce/pull/1243))
+* Tweak - Adjusts logs with better details for Card Verification and Capture/Sale transactions. ([PFW-317](https://github.com/angelleye/paypal-woocommerce/pull/1245))
+* Fix - Resolves an issue where some item attributes were not getting included in Express Checkout line items. ([PFW-215](https://github.com/angelleye/paypal-woocommerce/pull/1244))
+* Fix - Resolves a PHP Notice related to data availability. ([PFW-304](https://github.com/angelleye/paypal-woocommerce/pull/1242))
+* Fix - Resolves PHP notice related to Express Checkout option for ignoring terms. ([PFW-312](https://github.com/angelleye/paypal-woocommerce/pull/1247))
+* Fix - Resolves a problem that sometimes keeps token payments from saving properly. ([PFW-316](https://github.com/angelleye/paypal-woocommerce/pull/1246))
+* Fix - Resolves jQuery bug with processing spinner in Braintree. ([PFW-320](https://github.com/angelleye/paypal-woocommerce/pull/1248))
+* Fix - Resolves an empty info box popping up sometimes with DoDirectPayment token payments. ([PFW-321](https://github.com/angelleye/paypal-woocommerce/pull/1250))
+* Fix - Resolves an issue in PayPal Advanced where redirect would not work when using token payments in some cases. ([PFW-322](https://github.com/angelleye/paypal-woocommerce/pull/1249))
+* Fix - Resolves an issue in DoDirectPayment where the "Send Line Item Details to PayPal" option was not being properly followed, and would send itemized details even if it was disabled. ([PFW-322](https://github.com/angelleye/paypal-woocommerce/pull/1251))
+* Fix - Resolves an issue with REST DCC token payments with Maestro cards. ([PFW-324](https://github.com/angelleye/paypal-woocommerce/pull/1252))
+* Fix - Resolves a problem in Braintree gateway where some error messages were not displayed properly during checkout. ([PFW-325](https://github.com/angelleye/paypal-woocommerce/pull/1253))
 
 = 1.5.3 - 11.07.2018 =
 * Fix - Resolves a problem with expiration date validation in credit card gateways. ([PFW-301](https://github.com/angelleye/paypal-woocommerce/pull/1241))

@@ -228,6 +228,12 @@
   color: #444;
 }
 
+.grw-error,
+.yrw-error {
+  color: #e60909;
+  font-size: 13px;
+}
+
 /*-------------------------------- yelp finder --------------------------------*/
 .yrw-step {
     display: inline-block;

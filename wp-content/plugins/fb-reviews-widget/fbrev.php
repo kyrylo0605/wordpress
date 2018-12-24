@@ -4,7 +4,7 @@ Plugin Name: Facebook Reviews Widget
 Plugin URI: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Description: Instantly Facebook Page Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.4.7
+Version: 1.4.8
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.4.7');
+define('FBREV_VERSION',            '1.4.8');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/');
 define('FBREV_API_RATINGS_LIMIT',  '250');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));

@@ -25,12 +25,7 @@ function fbrev_connect(el, data) {
         WPacXDM.get('https://embed.widgetpack.com', 'https://app.widgetpack.com/widget/facebook/accesstoken', {}, function(res) {
             WPacFastjs.jsonp('https://graph.facebook.com/me/accounts', {access_token: res.accessToken, limit: 250}, function(res) {
 
-                var pagesEl = el.querySelector('.fbrev-pages'),
-                    idEl = el.querySelector('.fbrev-page-id'),
-                    nameEl = el.querySelector('.fbrev-page-name'),
-                    tokenEl = el.querySelector('.fbrev-page-token'),
-                    businessPhoto = el.querySelector('.fbrev-business-photo'),
-                    businessPhotoImg = el.querySelector('.fbrev-business-photo-img');
+                var pagesEl = el.querySelector('.fbrev-pages');
 
                 WPacFastjs.each(res.data, function(page) {
                     var pageEL = WPacFastjs.create('div', 'fbrev-page');
@@ -38,33 +33,53 @@ function fbrev_connect(el, data) {
                                        '<div class="fbrev-page-name">' + page.name + '</div>';
                     pagesEl.appendChild(pageEL);
                     WPacFastjs.on(pageEL, 'click', function() {
-                        idEl.value = page.id;
-                        nameEl.value = page.name;
-                        tokenEl.value = page.access_token;
-                        jQuery(tokenEl).change();
-
-                        if (businessPhoto) {
-                            businessPhoto.value = '';
-                            businessPhotoImg.src = 'https://graph.facebook.com/' + page.id +  '/picture';
-                            WPacFastjs.show2(businessPhotoImg);
-                        }
-
-                        WPacFastjs.remcl(pagesEl.querySelector('.active'), 'active');
-                        WPacFastjs.addcl(pageEL, 'active');
-
-                        data.cb && data.cb();
-                        return false;
+                        return fbrev_page_click(el, pageEL, page, data.cb);
                     });
                 });
+
+                if (res.data.length < 2) {
+                    var page = res.data[0];
+                    var pageEL = pagesEl.querySelector('.fbrev-page');
+                    if (pageEL) {
+                        fbrev_page_click(el, pageEL, page, data.cb);
+                    }
+                }
             });
         });
     });
     return false;
 }
 
+function fbrev_page_click(el, pageEL, page, cb) {
+    var pagesEl          = el.querySelector('.fbrev-pages'),
+        idEl             = el.querySelector('.fbrev-page-id'),
+        nameEl           = el.querySelector('.fbrev-page-name'),
+        tokenEl          = el.querySelector('.fbrev-page-token'),
+        businessPhoto    = el.querySelector('.fbrev-business-photo'),
+        businessPhotoImg = el.querySelector('.fbrev-business-photo-img');
+
+    idEl.value = page.id;
+    nameEl.value = page.name;
+    tokenEl.value = page.access_token;
+    jQuery(tokenEl).change();
+
+    if (businessPhoto) {
+        businessPhoto.value = '';
+        businessPhotoImg.src = 'https://graph.facebook.com/' + page.id +  '/picture';
+        WPacFastjs.show2(businessPhotoImg);
+    }
+
+    WPacFastjs.remcl(pagesEl.querySelector('.active'), 'active');
+    WPacFastjs.addcl(pageEL, 'active');
+
+    if (cb) cb();
+
+    return false;
+}
+
 function fbrev_init(data) {
 
-    var el = document.querySelector('#' + data.widgetId);
+    var el = data.el;
     if (!el) return;
 
     var connectBtn = el.querySelector('.fbrev-connect');

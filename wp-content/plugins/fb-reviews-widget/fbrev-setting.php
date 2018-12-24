@@ -210,7 +210,7 @@ $fbrev_enabled = get_option('fbrev_active') == '1';
             <form method="POST" action="?page=fbrev&amp;fbrev_active=<?php echo (string)((int)($fbrev_enabled != true)); ?>">
                 <?php wp_nonce_field('fbrev-wpnonce_fbrev_active', 'fbrev-form_nonce_fbrev_active'); ?>
                 <span class="status">
-                    <?php echo fbrev_i('Facebook Reviews Widget are currently '). ($fbrev_enabled ? '<b>' . fbrev_i('enable') . '</b>' : '<b>' . fbrev_i('disable') . '</b>'); ?>
+                    <?php echo fbrev_i('Facebook Reviews Widget is currently '). ($fbrev_enabled ? '<b>' . fbrev_i('enabled') . '</b>' : '<b>' . fbrev_i('disabled') . '</b>'); ?>
                 </span>
                 <input type="submit" name="fbrev_active" class="button" value="<?php echo $fbrev_enabled ? fbrev_i('Disable') : fbrev_i('Enable'); ?>" />
             </form>

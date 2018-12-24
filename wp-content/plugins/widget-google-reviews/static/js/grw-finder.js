@@ -71,9 +71,14 @@ function grw_init(data) {
             if (res.status == 'success') {
 
                 errorEl.innerHTML = '';
-                el.querySelector('.grw-google-place-name').value = res.result.name;
-                el.querySelector('.grw-google-place-id').value = res.result.place_id;
-                el.querySelector('.grw-place-photo').value = res.result.business_photo || res.result.icon;
+
+                var nameEl    = el.querySelector('.grw-google-place-name'),
+                    placeIdEl = el.querySelector('.grw-google-place-id'),
+                    photoEl   = el.querySelector('.grw-place-photo');
+
+                nameEl.value    = res.result.name;
+                placeIdEl.value = res.result.place_id;
+                photoEl.value   = res.result.business_photo || res.result.icon;
 
                 var img = el.querySelector('.grw-place-photo-img');
                 img.src = res.result.business_photo || res.result.icon;
@@ -83,6 +88,8 @@ function grw_init(data) {
                 if (controlEl) {
                     grw_show_tooltip(controlEl, 'Please don\'t forget to <b>Save</b> the widget.');
                 }
+
+                jQuery(nameEl).change();
 
             } else {
 

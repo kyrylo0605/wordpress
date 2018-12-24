@@ -10,7 +10,7 @@ if (strlen($reviews_lang) > 0) {
 }
 
 $place = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "grp_google_place WHERE place_id = %s", $place_id));
-$reviews = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "grp_google_review WHERE google_place_id = %d" . $reviews_where, $place->id));
+$reviews = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "grp_google_review WHERE google_place_id = %d" . $reviews_where . " ORDER BY time DESC", $place->id));
 
 $rating = 0;
 if ($place->rating > 0) {
@@ -71,7 +71,7 @@ $place_img = strlen($place_photo) > 0 ? $place_photo : (strlen($place->photo) > 
             <img src="<?php echo GRW_PLUGIN_URL; ?>/static/img/powered_by_google_on_<?php if ($dark_theme) { ?>non_<?php } ?>white.png" alt="powered by Google">
         </div>
     </div>
-    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="(function(el) { document.addEventListener('DOMContentLoaded', function() { grw_badge_init(el); }); })(this.parentNode);" style="display:none">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" onload="(function(el) { document.addEventListener('DOMContentLoaded', function() { grw_badge_init(el); }); })(this.parentNode);" style="display:none">
 </div>
 
 <?php } else { ?>

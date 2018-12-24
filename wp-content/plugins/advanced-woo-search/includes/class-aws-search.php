@@ -343,18 +343,18 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $source_array[] = "term_source = '{$search_in_term}'";
             }
 
-            $query['relevance'] .= sprintf( ' (SUM( %s )) ', implode( ' + ', $new_relevance_array ) );
-            $query['search'] .= sprintf( ' AND ( %s )', implode( ' OR ', $search_array ) );
-            $query['source'] .= sprintf( ' AND ( %s )', implode( ' OR ', $source_array ) );
+            $query['relevance'] = sprintf( ' (SUM( %s )) ', implode( ' + ', $new_relevance_array ) );
+            $query['search'] = sprintf( ' AND ( %s )', implode( ' OR ', $search_array ) );
+            $query['source'] = sprintf( ' AND ( %s )', implode( ' OR ', $source_array ) );
 
 
             if ( $reindex_version && version_compare( $reindex_version, '1.16', '>=' ) ) {
 
                 if ( $outofstock !== 'true' ) {
-                    $query['stock'] .= " AND in_stock = 1";
+                    $query['stock'] = " AND in_stock = 1";
                 }
 
-                $query['visibility'] .= " AND NOT visibility LIKE '%hidden%'";
+                $query['visibility'] = " AND NOT visibility LIKE '%hidden%'";
 
             }
 
@@ -366,7 +366,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             }
 
             if ( $current_lang && $reindex_version && version_compare( $reindex_version, '1.20', '>=' ) ) {
-                $query['lang'] .= $wpdb->prepare( " AND ( lang LIKE %s OR lang = '' )", $current_lang );
+                $query['lang'] = $wpdb->prepare( " AND ( lang LIKE %s OR lang = '' )", $current_lang );
             }
 
 

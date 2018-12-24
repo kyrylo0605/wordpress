@@ -4,7 +4,7 @@
  * Plugin Name:       PayPal for WooCommerce
  * Plugin URI:        http://www.angelleye.com/product/paypal-for-woocommerce-plugin/
  * Description:       Easily enable PayPal Express Checkout, PayPal Pro, PayPal Advanced, PayPal REST, and PayPal Braintree.  Each option is available separately so you can enable them individually.
- * Version:           1.5.3
+ * Version:           1.5.4
  * Author:            Angell EYE
  * Author URI:        http://www.angelleye.com/
  * License:           GNU General Public License v3.0
@@ -13,9 +13,9 @@
  * Domain Path:       /i18n/languages/
  * GitHub Plugin URI: https://github.com/angelleye/paypal-woocommerce
  * Requires at least: 3.8
- * Tested up to: 4.9.8
+ * Tested up to: 5.0.0
  * WC requires at least: 3.0.0
- * WC tested up to: 3.5.1
+ * WC tested up to: 3.5.2
  *
  *************
  * Attribution
@@ -39,7 +39,7 @@ if (!defined('PAYPAL_FOR_WOOCOMMERCE_ASSET_URL')) {
     define('PAYPAL_FOR_WOOCOMMERCE_ASSET_URL', plugin_dir_url(__FILE__));
 }
 if (!defined('VERSION_PFW')) {
-    define('VERSION_PFW', '1.5.3');
+    define('VERSION_PFW', '1.5.4');
 }
 if ( ! defined( 'PAYPAL_FOR_WOOCOMMERCE_PLUGIN_FILE' ) ) {
     define( 'PAYPAL_FOR_WOOCOMMERCE_PLUGIN_FILE', __FILE__ );
@@ -526,7 +526,7 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
             update_post_meta( $post_id, '_enable_ec_button', $_enable_ec_button );
         }
         
-        public static function angelleye_paypal_for_woocommerce_curl_error_handler($PayPalResult, $methos_name = null, $gateway = null, $error_email_notify = true) {
+        public static function angelleye_paypal_for_woocommerce_curl_error_handler($PayPalResult, $methos_name = null, $gateway = null, $error_email_notify = true, $redirect_url = null) {
             if( isset( $PayPalResult['CURL_ERROR'] ) ){
                 try {
                         if($error_email_notify == true) {
@@ -539,7 +539,11 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
                         $display_error = 'There was a problem connecting to the payment gateway.';
                         wc_add_notice($display_error, 'error');
                         if (!is_ajax()) {
-                            wp_redirect(get_permalink(wc_get_page_id('cart')));
+                            if($redirect_url == null) {
+                                wp_redirect(get_permalink(wc_get_page_id('cart')));
+                            } else {
+                                wp_redirect($redirect_url);
+                            }
                             exit;
                         } else {
                             wp_send_json_error( array( 'error' => $display_error ) );
@@ -1114,7 +1118,7 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
         }
         
         public function angelleye_paypal_for_woo_product_process_product_meta($post_id) {
-            if ( 'yes' === $_REQUEST['enable_payment_action'] ) {
+            if ( isset($_REQUEST['enable_payment_action']) && ('yes' === $_REQUEST['enable_payment_action']) ) {
                 update_post_meta( $post_id, 'enable_payment_action', 'yes' );
             } else {
                 update_post_meta( $post_id, 'enable_payment_action', '' );
