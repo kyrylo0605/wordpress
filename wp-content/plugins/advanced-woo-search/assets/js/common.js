@@ -380,14 +380,14 @@
 
 
         $searchForm.on( 'keypress', function(e) {
-            if ( e.keyCode == 13 && ! d.showPage ) {
+            if ( e.keyCode == 13 && ( ! d.showPage || $searchField.val() === '' ) ) {
                 e.preventDefault();
             }
         });
 
 
         $searchButton.on( 'click', function (e) {
-            if ( d.showPage ) {
+            if ( d.showPage && $searchField.val() !== '' ) {
                 $searchForm.submit();
             }
         });

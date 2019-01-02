@@ -8,8 +8,8 @@ Author: Tatvic
 Requires at least: 3.6
 Tested up to: 5.0
 Requires PHP: 5.6
-Stable tag: 2.1.5
-Version: 2.1.5
+Stable tag: 2.1.6
+Version: 2.1.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,7 +49,7 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 
 
 = Need an Advanced Google Analytics Plugin? =
-We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Adwords Conversion Tracking, Facebook Pixel Tracking, 15+ Custom Dimenensions & Metrics & much more. <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">Learn More</a>
+We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Adwords Conversion Tracking, Facebook Pixel Tracking, 15+ Custom Dimenensions & Metrics & much more. <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">Learn More</a>
 
 == Note : ==
 == Our plugin does not support the below features out of the box ==
@@ -132,19 +132,19 @@ You can Find all The Enhanced Ecommerce Reports in your Analytics Account under 
 
 = Products with variant not getting recorded in GA =
 
-Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
+Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Adwords Conversion Tracking? =
 
-The free version of our plugin does not provide Adwords Conversion Tracking feature. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Adwords Conversion Tracking feature. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Facebook Pixel Tracking? =
 
-The free version of our plugin does not provide Facebook Pixel Tracking feature. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Facebook Pixel Tracking feature. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Google Optimize Snippet Adding Support? =
 
-The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
 
 = I have noticed that some transactions are missing in my GA account, compared to my Woocmmerce backend (Orders) =
 
@@ -173,7 +173,7 @@ Configuring goals are out of the scope of our plugin. Our plugin is designed to 
 
 = Does your Plugin support Product Refund? =
 
-Our existing plugin does not track product refund data, however you can buy our <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium plugin</a> to get access to product Refund data 
+Our existing plugin does not track product refund data, however you can buy our <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium plugin</a> to get access to product Refund data 
 
 = Does your plugin supports Multilingual Wordpress site? =
 
@@ -181,11 +181,11 @@ Our plugin does not support Multilingual Wordpress site.
 
 = Does your plugin supports Child/Custom Theme? =
 
-The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at analytics2(at)tatvic(dot)com.
+The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at analytics2(at)tatvic(dot)com.
 
 = Have you Provided Full support for the free version plugin? =
 
-We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at analytics2(at)tatvic(dot)com.
+We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at analytics2(at)tatvic(dot)com.
 
 = How to verify if you have implemented the Plugin well? =
 
@@ -334,9 +334,12 @@ Important Note: When you update the plugin, please save your settings again.
  * Fixed: Session Isssue
  * Minor Bug Fixes
 
- = 2.1.4- 05/11/2018 =
+ = 2.1.4 - 05/11/2018 =
  * Woocommerce 3.5 compatibility
  * Minor Bug Fixes
 
-  = 2.1.5 - 17/12/2018 =
+ = 2.1.5 - 17/12/2018 =
  * Minor Bug Fixes
+
+  = 2.1.6 - 26/12/2018 =
+ * Fixed: session_start issue

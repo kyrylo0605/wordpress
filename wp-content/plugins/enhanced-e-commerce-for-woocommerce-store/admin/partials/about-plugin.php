@@ -80,7 +80,7 @@
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
 										<tr>
-										  <td class="option">Facebook Pixel Implementation</td>
+										  <td class="option">Facebook Pixel Tracking</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
@@ -126,7 +126,7 @@
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
 										<tr>
-										  <td class="option">Paid Customization</td>
+										  <td class="option">Paid Customization (As per the requirement)</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
@@ -135,11 +135,11 @@
 										<tr>
 											<th class="w-25"></th>
 											<th class=""></th>
-											<th class=""><a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank"><button class="btn btn-danger"><strong>FLAT 20% off on Premium Plugin</strong></button></a></th>
+											<th class=""><a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank"><button class="btn btn-primary"><strong>Buy Premium Plugin</strong></button></a></th>
 										</tr>
 									  </tfoot>
 									</table>
-									<p class="description" style="font-size: 15px;"><strong>Also, avail installation and Configuration support for Premium Plugin during Christmas Sale at discounted rates!<br/> Send a bulk license inquiry during Christmas Sale at <span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong></p>
+									<p class="description" style="font-size: 15px;"><strong>Feel free to contact us regarding premium version inquiry at <span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong>.<br/>Developers & Marketers can also contact us for the bulk license for their clients.</p>
 								</div>
 								</div>
 							</div>

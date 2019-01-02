@@ -734,7 +734,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     if ( $str_item_term  ) {
                         $new_array_key = preg_replace( '/(s|es|ies)$/i', '', $str_item_term );
 
-                        if ( $new_array_key ) {
+                        if ( $new_array_key && strlen( $str_item_term ) > 3 ) {
                             if ( ! isset( $str_new_array[$new_array_key] ) ) {
                                 $str_new_array[$new_array_key] = $str_item_num;
                             }

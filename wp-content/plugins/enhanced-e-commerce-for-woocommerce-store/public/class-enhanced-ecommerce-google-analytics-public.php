@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.1.5';
+    public $tvc_eeVer = '2.1.6';
 	
 	protected $tvc_aga;
 	
@@ -56,12 +56,14 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         
        
         //session for product position count
-        //session_start inserted bcoz it gives warning
-        if (session_status() == PHP_SESSION_NONE) {
-           session_start();
-        }
-        $_SESSION['t_npcnt']=0;
-        $_SESSION['t_fpcnt']=0;
+        //session_start inserted bcoz it gives warning ---- 2.1.5
+
+        //removal of session_start because it gives warning in wp backend editor ---- 2.1.6
+        // if (session_status() == PHP_SESSION_NONE) {
+        //    session_start();
+        // }
+        // $_SESSION['t_npcnt']=0;
+        // $_SESSION['t_fpcnt']=0;
         // Define user set variables -- Always use short names
 		$this->plugin_name = $plugin_name;
 		$this->version  = $version;
@@ -548,7 +550,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
                         "tvc_c" => esc_html($categories),
-                        "tvc_po" => ++$_SESSION['t_fpcnt'],
                         "ATC-link"=>$product->add_to_cart_url()
                 );
                 //else add product in homepage recent product json
@@ -558,7 +559,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_i" => esc_html($product->get_sku() ? $product->get_sku() : $product->id),
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                         "tvc_c" => esc_html($categories)
                 );
                }
@@ -570,7 +570,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
                         "tvc_c" => esc_html($categories),
-                        "tvc_po" => ++$_SESSION['t_fpcnt'],
                         "ATC-link"=>$product->add_to_cart_url()
                 );
                 //else add product in homepage recent product json
@@ -580,7 +579,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_i" => esc_html($product->get_sku() ? $product->get_sku() : $product->get_id()),
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                         "tvc_c" => esc_html($categories)
                 );
                }
@@ -594,7 +592,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_i" => esc_html($product->get_sku() ? $product->get_sku() : $product->id),
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                         "tvc_c" => esc_html($categories)
                 );
                 }else{
@@ -603,7 +600,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_i" => esc_html($product->get_sku() ? $product->get_sku() : $product->get_id()),
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                         "tvc_c" => esc_html($categories)
                 );
                 }
@@ -626,7 +622,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
                         "tvc_c" => esc_html($categories),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                 );
             }else{
                  $prodpage_json_ATC_link[$product->add_to_cart_url()]=array("ATC-link"=>get_permalink($product->get_id()));
@@ -636,7 +631,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_i" => esc_html($product->get_sku() ? $product->get_sku() : $product->get_id()),
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                         "tvc_c" => esc_html($categories)
                         
                 );
@@ -658,7 +652,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
                         "tvc_c" => esc_html($categories),
-                        "tvc_po" => ++$_SESSION['t_npcnt'], 
                 );
              }else{
                 $catpage_json_ATC_link[$product->add_to_cart_url()]=array("ATC-link"=>get_permalink($product->get_id()));
@@ -668,7 +661,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "tvc_i" => esc_html($product->get_sku() ? $product->get_sku() : $product->get_id()),
                         "tvc_n" => esc_html($product->get_title()),
                         "tvc_p" => esc_html($product->get_price()),
-                        "tvc_po" => ++$_SESSION['t_npcnt'],
                         "tvc_c" => esc_html($categories)
                          
                 );
@@ -744,7 +736,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                     "name": t_json_name[t_item].tvc_n,
                     "category": t_json_name[t_item].tvc_c,
                     "price": t_json_name[t_item].tvc_p,
-                    "list_position": t_json_name[t_item].tvc_po,
                 });    
                         
         if(t_json_length > ' . esc_js($impression_threshold) .' ){
@@ -781,7 +772,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                                 "name": t_json_name[t_url].tvc_n,
                                                  "category":t_json_name[t_url].tvc_c,
                                                  "price": t_json_name[t_url].tvc_p,
-                                                 "list_position": t_json_name[t_url].tvc_po,
                                             }
                                             ],
                                             "non_interaction": true

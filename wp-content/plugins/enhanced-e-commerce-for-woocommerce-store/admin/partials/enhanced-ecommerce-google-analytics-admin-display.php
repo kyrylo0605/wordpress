@@ -36,7 +36,7 @@ if (!defined('ABSPATH')) {
 	
 ?>
 <header class='background-color:#E8E8E8;height:500px;width:auto;margin-top:100px;margin-left:20px;'>
-	<img class ="banner" src='<?php echo plugins_url('../images/woo_banner_adv.gif', __FILE__ )  ?>' style="margin-left:10px;">
+	<img class ="banner" src='<?php echo plugins_url('../images/banner.png', __FILE__ )  ?>' style="margin-left:10px;">
 </header>
 	<ul class="nav nav-tabs nav-pills" style="margin-left: 10px;margin-top:20px;">
 		<li class="nav-item"> 
