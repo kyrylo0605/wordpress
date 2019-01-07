@@ -64,7 +64,8 @@
         handleMobileDropdowns: function() {
             var self = this;
             $(".caret-wrap").on("click", function() {
-                $(this).closest("li").toggleClass("dropdown-open");
+                $(this).toggleClass("dropdown-open");
+                $(this).closest("li").find("ul.sub-menu").toggleClass("dropdown-open");
                 if (!utils.isMobile()) {
                     self.createNavOverlay();
                 }
@@ -104,7 +105,7 @@
             navClickaway.setAttribute("class", "nav-clickaway-overlay");
             $("#nv-primary-navigation").after(navClickaway);
             $(navClickaway).on("touchstart click", function() {
-                this.remove();
+                $(this).remove();
                 $("#nv-primary-navigation li, .menu-item-nav-search").removeClass("active dropdown-open");
             });
             return false;

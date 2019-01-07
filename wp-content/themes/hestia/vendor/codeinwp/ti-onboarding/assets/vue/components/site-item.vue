@@ -1,5 +1,6 @@
 <template>
-	<div class="site-box">
+	<div class="site-box" :class="site_data.pricing">
+		<div v-if="site_data.in_pro" class="demo-pro"></div>
 		<div class="preview-image">
 			<img :src="site_data.screenshot" :alt="site_data.title">
 		</div>
@@ -9,7 +10,7 @@
                 <button class="button button-secondary" v-on:click="showPreview()">
                     {{this.$store.state.strings.preview_btn}}
                 </button>
-                <button class="button button-primary" v-on:click="importSite()">
+                <button class="button button-primary" v-if="! site_data.in_pro" v-on:click="importSite()">
                     {{strings.import_btn}}
                 </button>
             </div>
@@ -95,5 +96,19 @@
 	button.button-secondary.button {
 		align-self: flex-end;
 		margin-left: auto;
+	}
+
+	.demo-pro {
+		position: relative;
+	}
+	.demo-pro::after {
+		content: "Pro";
+		position: absolute;
+		top: 0;
+		right: 0;
+		color: #fff;
+		background-color: #e91e63;
+		border-radius: 5px;
+		padding: 5px;
 	}
 </style>

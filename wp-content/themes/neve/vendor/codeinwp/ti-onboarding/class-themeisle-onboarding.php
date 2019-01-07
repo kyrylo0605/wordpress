@@ -11,7 +11,7 @@
 /**
  * Class Themeisle_Onboarding
  *
- * @package ThemeIsle
+ * @package themeisle-onboarding
  */
 class Themeisle_Onboarding {
 	/**
@@ -33,7 +33,7 @@ class Themeisle_Onboarding {
 	 *
 	 * @var string Version string.
 	 */
-	const VERSION = '1.0.3';
+	const VERSION = '1.0.4';
 
 	/**
 	 * Sites Library API URL.

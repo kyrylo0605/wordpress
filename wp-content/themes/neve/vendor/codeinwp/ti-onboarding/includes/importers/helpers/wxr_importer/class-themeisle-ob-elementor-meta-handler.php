@@ -11,7 +11,7 @@
 /**
  * Class Themeisle_OB_Elementor_Meta_Handler
  *
- * @package ThemeIsle
+ * @package themeisle-onboarding
  */
 class Themeisle_OB_Elementor_Meta_Handler {
 	/**

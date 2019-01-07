@@ -10,7 +10,7 @@
 /**
  * Class Themeisle_OB_Content_Importer
  *
- * @package ThemeIsle
+ * @package themeisle-onboarding
  */
 class Themeisle_OB_Content_Importer {
 	/**

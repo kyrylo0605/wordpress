@@ -23,7 +23,7 @@ class Themeisle_OB_Widgets_Importer {
 		$params  = $request->get_json_params();
 		$widgets = $params['data'];
 		if ( empty( $widgets ) || ! is_array( $widgets ) ) {
-			wp_send_json_success( 'No widgets to import.' );
+			wp_send_json_success( 'success', 200 );
 		}
 
 		do_action( 'themeisle_ob_before_widgets_import' );
@@ -32,7 +32,7 @@ class Themeisle_OB_Widgets_Importer {
 
 		do_action( 'themeisle_ob_after_widgets_import' );
 
-		wp_send_json_success( 'Widgets Imported.' );
+		wp_send_json_success( 'success', 200 );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Themeisle_OB_Widgets_Importer {
 		global $wp_registered_sidebars;
 
 		if ( empty( $data ) || ! is_array( $data ) ) {
-			wp_send_json_error( 'Widgets import could not be read.' );
+			wp_send_json_error( 'error', 500 );
 		}
 
 		$available_widgets = $this->available_widgets();
@@ -56,8 +56,6 @@ class Themeisle_OB_Widgets_Importer {
 			$widget_instances[ $widget_data['id_base'] ] = get_option( 'widget_' . $widget_data['id_base'] );
 		}
 
-		$results = array();
-
 		foreach ( $data as $sidebar_id => $widgets ) {
 			if ( 'wp_inactive_widgets' === $sidebar_id ) {
 				continue;
@@ -66,21 +64,10 @@ class Themeisle_OB_Widgets_Importer {
 			if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
 				$sidebar_available    = true;
 				$use_sidebar_id       = $sidebar_id;
-				$sidebar_message_type = 'success';
-				$sidebar_message      = '';
 			} else {
 				$sidebar_available    = false;
 				$use_sidebar_id       = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
-				$sidebar_message_type = 'error';
-				$sidebar_message      = 'Widget area does not exist in theme - using Inactive';
 			}
-
-			// Result for sidebar
-			// Sidebar name if theme supports it; otherwise ID.
-			$results[ $sidebar_id ]['name']         = ! empty( $wp_registered_sidebars[ $sidebar_id ]['name'] ) ? $wp_registered_sidebars[ $sidebar_id ]['name'] : $sidebar_id;
-			$results[ $sidebar_id ]['message_type'] = $sidebar_message_type;
-			$results[ $sidebar_id ]['message']      = $sidebar_message;
-			$results[ $sidebar_id ]['widgets']      = array();
 
 			// Loop widgets.
 			foreach ( $widgets as $widget_instance_id => $widget ) {
@@ -94,26 +81,11 @@ class Themeisle_OB_Widgets_Importer {
 				// Does site support this widget?
 				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) {
 					$fail                = true;
-					$widget_message_type = 'error';
-					$widget_message      = 'Site does not support widget';
 				}
 
-				// Filter to modify settings object before conversion to array and import
-				// Leave this filter here for backwards compatibility with manipulating objects (before conversion to array below)
-				// Ideally the newer wie_widget_settings_array below will be used instead of this.
-				$widget = apply_filters( 'wie_widget_settings', $widget );
-
 				// Convert multidimensional objects to multidimensional arrays
-				// Some plugins like Jetpack Widget Visibility store settings as multidimensional arrays
-				// Without this, they are imported as objects and cause fatal error on Widgets page
-				// If this creates problems for plugins that do actually intend settings in objects then may need to consider other approach: https://wordpress.org/support/topic/problem-with-array-of-arrays
-				// It is probably much more likely that arrays are used than objects, however.
 				$widget = json_decode( wp_json_encode( $widget ), true );
 
-				// Filter to modify settings array
-				// This is preferred over the older wie_widget_settings filter above
-				// Do before identical check because changes may make it identical to end result (such as URL replacements).
-				$widget = apply_filters( 'wie_widget_settings_array', $widget );
 
 				// Does widget with identical settings already exist in same sidebar?
 				if ( ! $fail && isset( $widget_instances[ $id_base ] ) ) {
@@ -128,12 +100,7 @@ class Themeisle_OB_Widgets_Importer {
 
 						// Is widget in same sidebar and has identical settings?
 						if ( in_array( "$id_base-$check_id", $sidebar_widgets, true ) && (array) $widget === $check_widget ) {
-
 							$fail                = true;
-							$widget_message_type = 'warning';
-
-							$widget_message = 'Widget already exists';
-
 							break;
 
 						}
@@ -178,7 +145,6 @@ class Themeisle_OB_Widgets_Importer {
 					$sidebars_widgets = get_option( 'sidebars_widgets' );
 
 					// Avoid rarely fatal error when the option is an empty string
-					// https://github.com/churchthemes/widget-importer-exporter/pull/11.
 					if ( ! $sidebars_widgets ) {
 						$sidebars_widgets = array();
 					}
@@ -205,26 +171,9 @@ class Themeisle_OB_Widgets_Importer {
 					);
 					do_action( 'themeisle_ob_after_single_widget_import', $after_widget_import );
 
-					// Success message.
-					if ( $sidebar_available ) {
-						$widget_message_type = 'success';
-						$widget_message      = 'Imported';
-					} else {
-						$widget_message_type = 'warning';
-						$widget_message      = 'Imported to Inactive.';
-					}
 				}
-
-				// Result for widget instance
-				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['name']         = isset( $available_widgets[ $id_base ]['name'] ) ? $available_widgets[ $id_base ]['name'] : $id_base;
-				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : '';
-				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message_type'] = $widget_message_type;
-				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message']      = $widget_message;
-
 			}
 		}
-
-		return $results;
 	}
 
 

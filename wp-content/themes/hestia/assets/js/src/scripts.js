@@ -173,7 +173,7 @@
 				return false;
 			}
 			var navHeight = $( '.navbar' ).outerHeight();
-			$( '.elementor-template-full-width' ).css( 'margin-top', navHeight );
+            $( '.elementor-template-full-width header' ).css( 'margin-bottom', navHeight );
 			$( '.page-template-template-fullwidth .main.classic-blog' ).css( 'margin-top', navHeight );
 			return false;
 		},

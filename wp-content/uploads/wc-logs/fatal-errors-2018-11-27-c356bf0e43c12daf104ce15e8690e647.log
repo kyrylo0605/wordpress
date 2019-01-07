@@ -1,4 +1,0 @@
-2018-11-27T01:40:47+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-content\plugins\google-analytics-for-wordpress\includes\admin\pages\addons.php on line 12
-
-2018-11-27T01:41:31+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress\wp-includes\functions.php on line 5081
-

@@ -12,7 +12,7 @@
 /**
  * Class Themeisle_OB_Rest_Server
  *
- * @package ThemeIsle
+ * @package themeisle-onboarding
  */
 class Themeisle_OB_Rest_Server {
 	/**

@@ -6,8 +6,8 @@
 				<button class="button button-secondary" v-on:click="cancelPreview()">
 					{{strings.cancel_btn}}
 				</button>
-				<button class="button button-primary" v-on:click="showModal()">
-					{{strings.import_btn}}
+				<button class="button button-primary" v-on:click="site_data.in_pro ? buyPro() : showModal()">
+					{{ site_data.in_pro ? strings.pro_btn : strings.import_btn}}
 				</button>
 			</div>
 		</div>
@@ -34,7 +34,11 @@
 			},
 			showModal: function () {
 				this.$store.commit( 'showImportModal', true );
-			}
+			},
+			buyPro: function () {
+				var win = window.open(this.$store.state.sitesData.pro_link, '_blank');
+				win.focus();
+			},
 		}
 	}
 </script>

@@ -48,7 +48,7 @@ class Post_Meta extends Base_View {
 					$author_email = get_the_author_meta( 'user_email' );
 					$avatar_url   = get_avatar_url( $author_email );
 					$markup      .= '<li class="meta author vcard">';
-					$markup      .= '<img class="photo" src="' . esc_url( $avatar_url ) . '" />&nbsp;<span class="author-name fn">' . wp_kses_post( get_the_author_posts_link() ) . '</span>';
+					$markup      .= '<img class="photo" alt="' . get_the_author() . '" src="' . esc_url( $avatar_url ) . '" />&nbsp;<span class="author-name fn">' . wp_kses_post( get_the_author_posts_link() ) . '</span>';
 					$markup      .= '</li>';
 					break;
 				case 'date':
@@ -91,10 +91,9 @@ class Post_Meta extends Base_View {
 		}
 		if ( $comments_number == 0 ) {
 			return '';
-		} elseif ( $comments_number > 1 ) {
-			$comments = $comments_number . __( ' Comments', 'neve' );
 		} else {
-			$comments = __( '1 Comment', 'neve' );
+			/* translators: %s: number of comments */
+			$comments = sprintf( _n( '%s Comment', '%s Comments', $comments_number, 'neve' ), $comments_number );
 		}
 
 		return '<a href="' . esc_url( get_comments_link() ) . '">' . esc_html( $comments ) . '</a>';

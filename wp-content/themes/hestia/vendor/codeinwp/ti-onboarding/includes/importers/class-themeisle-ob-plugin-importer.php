@@ -21,7 +21,7 @@ class Themeisle_OB_Plugin_Importer {
 	 */
 	public function install_plugins( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( 'Sorry, you are not allowed to install plugins on this site.' );
+			wp_send_json_error( 'error', 500 );
 		}
 
 		do_action( 'themeisle_ob_before_plugins_install' );
@@ -36,7 +36,7 @@ class Themeisle_OB_Plugin_Importer {
 		}
 
 		if ( empty( $plugins ) || ! is_array( $plugins ) ) {
-			wp_send_json_success( 'No plugins to install.' );
+			wp_send_json_success( 'success', 200 );
 		}
 
 		$active_plugins = get_option( 'active_plugins' );
@@ -51,7 +51,7 @@ class Themeisle_OB_Plugin_Importer {
 
 		do_action( 'themeisle_ob_after_plugins_install' );
 
-		wp_send_json_success( 'Done.' );
+		wp_send_json_success( 'success', 200 );
 	}
 
 	/**
@@ -131,6 +131,10 @@ class Themeisle_OB_Plugin_Importer {
 			return $plugin_dir . '/wp-contact-form-7.php';
 		}
 
+		if ( $slug === 'wpforms-lite' ) {
+			return $plugin_dir . '/wpforms.php';
+		}
+
 		$plugin_path = $plugin_dir . '/' . $slug . '.php';
 
 		if ( ! file_exists( $plugin_path ) ) {
@@ -150,6 +154,14 @@ class Themeisle_OB_Plugin_Importer {
 	private function get_plugin_entry( $slug ) {
 		if ( $slug === 'advanced-css-editor' ) {
 			return $slug . '/css-editor.php';
+		}
+
+		if ( $slug === 'contact-form-7' ) {
+			return $slug . '/wp-contact-form-7.php';
+		}
+
+		if ( $slug === 'wpforms-lite' ) {
+			return $slug . '/wpforms.php';
 		}
 
 		$plugins_dir = WP_PLUGIN_DIR . '/';

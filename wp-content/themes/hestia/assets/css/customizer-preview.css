@@ -189,7 +189,6 @@ body.page .hestia-blogs:not(.is-shortcode):before,
 	left: 20px;
 	border: 2px dashed rgba(121, 121, 121, 0.22);
 	content: " ";
-	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 	pointer-events: none;
 }
@@ -218,7 +217,6 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-blogs-title-area,
 .hestia-contact-title-area,
 .hestia-portfolio-title-area {
-	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 
@@ -244,7 +242,6 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-contact-title-area .customize-partial-edit-shortcut,
 .hestia-portfolio-title-area .customize-partial-edit-shortcut {
 	opacity: 0;
-	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 
@@ -272,7 +269,6 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-contact .hestia-description,
 .hestia-contact-form-col {
 	position: relative;
-	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 
@@ -288,7 +284,6 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-contact .hestia-description .customize-partial-edit-shortcut,
 .hestia-contact-form-col .customize-partial-edit-shortcut {
 	opacity: 0;
-	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 

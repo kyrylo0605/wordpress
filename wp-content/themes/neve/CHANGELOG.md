@@ -1,4 +1,44 @@
 
+ ### v1.0.26 - 2018-12-17 
+ **Changes:** 
+ * Fixed issues in IE with the Neve 2018 Site
+* Fixed issues in AMP with the navigation menu
+ 
+ ### v1.0.25 - 2018-12-14 
+ **Changes:** 
+ * Optimized images for Neve demo and fixed issue with IE
+* Fixed issue with primary navigation menu in IE
+* Fixed issue with date format in languages different than English
+ 
+ ### v1.0.24 - 2018-12-14 
+ **Changes:** 
+ * Fixed problems with logo and blog images on AMP
+* Fixed problem with the autoloader on specific servers
+ 
+ ### v1.0.23 - 2018-12-13 
+ **Changes:** 
+ * Fixed style layout for the pullquote Gutenberg block
+* Fixed AMP errors
+ 
+ ### v1.0.22 - 2018-12-10 
+ **Changes:** 
+ * Fixed alt attribute for the author gravatar image
+* Improved My Account page layout
+* Small fixes for the Gutenberg default blocks
+ 
+ ### v1.0.21 - 2018-12-07 
+ **Changes:** 
+ * Styled basic Gutenberg blocks
+* Fixed issue with the search input icon
+ 
+ ### v1.0.20 - 2018-12-05 
+ **Changes:** 
+ * New Neve Charity demo
+* Updated the text for the upgrade PHP notice
+* Style spacing on the checkout page
+* Added color for the current menu item in the primary menu
+* Fixed menu anchors in the Neve demos
+ 
  ### v1.0.19 - 2018-12-03 
  **Changes:** 
  * Hide menu cart icon on the Cart page

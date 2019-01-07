@@ -4,6 +4,9 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: 70%;
+	padding: 0;
+	width: 100px;
+	height: 100px;
 }
 
 .ti-about-header-text {
@@ -404,24 +407,63 @@
 	margin-bottom: -6px;
 }
 
-#about-tabs .columns-3 {
+#about-footer{
+	margin-top: 20px;
+	display: flex;
+}
+
+#about-tabs .columns-3{
 	display: grid;
 	grid-template-columns: repeat( 3, 1fr );
 }
-#about-tabs .columns-2 {
+#about-tabs .columns-2{
 	display: grid;
 	grid-template-columns: repeat( 2, 1fr );
 }
-#about-tabs .columns-1 {
+#about-tabs .columns-1{
 	display: grid;
 	grid-template-columns: 1fr;
 }
 #about-tabs .columns-3 .about-col,
 #about-tabs .columns-2 .about-col,
-#about-tabs .columns-1 .about-col {
+#about-tabs .columns-1 .about-col,
+#about-footer .columns-3 .about-col,
+#about-footer .columns-2 .about-col,
+#about-footer .columns-1 .about-col {
 	padding-bottom: 30px;
 	padding-left: 15px;
 	padding-right: 15px;
+}
+
+
+.about-footer-col{
+	background: #fff;
+	margin: 0;
+	border: 1px solid #ccc;
+	flex-grow: 1;
+	flex-basis: 0;
+	margin-bottom: 20px;
+}
+
+.about-footer-col h4{
+	max-width:100%;
+	width: 100%;
+	border-bottom: 1px solid #eeeeee;
+	padding: 8px 12px;
+	display: inline-table;
+}
+
+.about-footer-col .inside{
+	padding: 0 12px 12px;
+	width: 100%;
+}
+
+.about-footer-col .inside a{
+	text-decoration: none;
+}
+
+.about-footer-col:first-child{
+	margin-right: 20px;
 }
 
 @media ( max-width: 992px ) {
@@ -438,4 +480,12 @@
 	.about-col:last-of-type {
 		border-bottom: none
 	}
+	#about-footer{
+		display: block;
+	}
+
+	.about-footer-col:first-child{
+		margin-right: 0;
+	}
+
 }

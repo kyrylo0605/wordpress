@@ -156,7 +156,7 @@ class Hestia_Woocommerce_Header_Manager extends Hestia_Abstract_Main {
 	 * @return void
 	 */
 	private function render_woocommerce_header_background() {
-		$background_image            = $this->get_woocommerce_header_image_url();
+		$background_image            = apply_filters( 'hestia_header_image_filter', $this->get_woocommerce_header_image_url() );
 		$customizer_background_image = get_background_image();
 
 		$header_filter_div = '<div class="header-filter';

@@ -2,7 +2,7 @@
 Contributors: themeisle
 Tags: blog, custom-logo, portfolio, e-commerce, rtl-language-support, post-formats, grid-layout, one-column, two-columns, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, flexible-header, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
 Requires at least: 4.0
-Tested up to: 4.9.8
+Tested up to: 5.0
 Stable tag: 2.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,55 @@ Hestia Pro fits all business, startups, corporate businesses, online companies, 
 == Description ==
 Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
 
+== Copyright ==
+Hestia WordPress theme, Copyright 2018 Themeisle
+Hestia is distributed under the terms of the GNU GPLv2 or later
+
 == Changelog ==
+= 2.0.19 - 2018-12-18  = 
+
+* Fixed WooCommerce related product layout in Fagri
+* Fixed issue with the Very Top Bar not visible on Elementor Full Width page templates
+* Fixed issue with the Contact section content area that did not opened with Gutenberg
+
+
+= 2.0.18 - 2018-12-12  = 
+
+* Revert Font Awesome 5
+
+
+= 2.0.17 - 2018-12-11  = 
+
+* Update to Font Awesome 5
+
+
+= 2.0.16 - 2018-12-10  = 
+
+* Updated Tested up to version to 5.0
+* Removed unused notice
+
+
+= 2.0.15 - 2018-12-05  = 
+
+* Fixed problem with Very Top Bar not visible on mobile on the single product page
+* Recommend Otter Blocks plugin
+
+
+= 2.0.14 - 2018-11-30  = 
+
+* Fixed issues with the Hestia Woocommerce Demo
+* Updated theme license
+* Added back filter to allow you to display the product image in the header of the single product page
+
+
+= 2.0.13 - 2018-11-28  = 
+
+* Fixed issues with retina images on the shop page
+* Fixed import from Zelle
+* Updated the Hestia WooCommerce demo
+* Recommend Neve
+
+
 = 2.0.12 - 2018-11-16  = 
 
 * Update readme file
@@ -912,29 +960,41 @@ Hestia is a modern WordPress theme for professionals. It fits creative business,
 * img/parallax_1.jpg, CC0, https://pixabay.com/en/field-clouds-sky-agriculture-533541/
 * parallax_2.png, CC0, https://mystock.themeisle.com/photo/statue-of-liberty-3/
 * lavender-1506506, CC0, https://pixabay.com/en/lavender-flower-pots-beer-tent-set-1506506/
-* thing-2569683, CC0, https://pixabay.com/en/thing-plants-bonsai-cactus-green-2569683/
-* succulent-2931486, CC0, https://pixabay.com/en/succulent-cactus-plant-garden-2931486/
-* desk-office-plant-succulent-6936, CC0, https://www.pexels.com/photo/cactus-on-white-pot-with-stones-in-high-angle-photography-6936/
-* aromatic-basil-blur-615304, CC0, https://www.pexels.com/photo/selective-photography-of-green-leaf-plant-in-brown-pot-615304/
-* narrow-leaf-dracaena-2651391, CC0, https://pixabay.com/en/narrow-leaf-dracaena-flower-plant-2651391/
-* plant-3077047, CC0, https://www.pexels.com/photo/flower-pot-flowerpot-flowers-plants-6803/
+* plant-763965_1920, CC0, https://pixabay.com/en/plant-green-sheet-nature-plants-763965/
+* cactus-close-up-plant-6936, CC0, https://www.pexels.com/photo/cactus-on-white-pot-with-stones-in-high-angle-photography-6936/
+* flower-951780_1920, CC0, https://pixabay.com/en/flower-flower-pot-pots-candle-951780/
+* succulent-2931486_1920, CC0, https://pixabay.com/en/succulent-cactus-plant-garden-2931486/
+* water-lily-1510707_1920, CC0, https://pixabay.com/en/water-lily-pink-aquatic-plant-1510707/
+* roses-1274039_1920, CC0, https://pixabay.com/en/roses-white-flower-nature-petals-1274039/
 * botanic-botanical-cacti-1048036, CC0, https://stocksnap.io/photo/BJNWHUUGLL
-* botanical-bright-cacti-323391, CC0, https://stocksnap.io/photo/04I1YE5EXV
+* red-cactus, CC0, https://stocksnap.io/photo/04I1YE5EXV
+* plant-3077047_1920, CC0, https://pixabay.com/en/plant-nature-sheet-3077047/
 * plant-3077047, CC0, https://pixabay.com/en/plant-nature-sheet-3077047/
-* pexels-photo-156144, CC0, https://www.pexels.com/photo/branch-camera-minolta-tree-156144/
-* cactus-1430357, CC0, https://pixabay.com/en/cactus-flower-bloom-desert-garden-1430356/
-* beautiful-bloom-blooming-419687, CC0, https://www.pexels.com/photo/beautiful-bloom-blooming-blossom-419687/
-* cactus-1842095, CC0, https://pixabay.com/en/cactus-minimalism-plant-pot-white-1842095/
-* model-2911330, CC0, https://pixabay.com/en/model-businessman-corporate-2911330/
-* beard-blue-sky-casual-683381, CC0, https://pixabay.com/en/young-man-blue-sky-thumbs-up-2939344/
-* note-pad-1235908, CC0, https://pixabay.com/en/note-pad-notepad-pen-desk-blank-1235908/
-* flowers, CC0, http://mystock.photos/photo/flowers/
-* kitchen-1867663, CC0, https://pixabay.com/en/kitchen-tap-sink-blur-faucet-1867663/
+* aromatic-basil-blur-615304, CC0, https://www.pexels.com/photo/selective-photography-of-green-leaf-plant-in-brown-pot-615304/
+* branch-camera-minolta-156144, CC0, https://www.pexels.com/photo/branch-camera-minolta-tree-156144/
+* flower-pot-flowerpot-flowers-6803, CC0, https://www.pexels.com/photo/flower-pot-flowerpot-flowers-plants-6803/
+* kitchen-1867663_1920, CC0, https://pixabay.com/en/kitchen-tap-sink-blur-faucet-1867663/
+* kitchen-1867663_1280, CC0, https://pixabay.com/en/kitchen-tap-sink-blur-faucet-1867663/
+* StockSnap_04I1YE5EXV, CC0, https://stocksnap.io/photo/04I1YE5EXV
+* window-593364, CC0, https://pixabay.com/en/window-potted-plant-plant-interior-593364/
+* model-2911330_1920, CC0, https://pixabay.com/en/model-businessman-corporate-2911330/
+* young-man-2939344_640, CC0, https://pixabay.com/en/young-man-blue-sky-thumbs-up-2939344/
+* pretty-2682798_640, CC0, https://pixabay.com/en/pretty-fresh-happy-female-young-2682798/
+* landscape-3779922_1920_3, CC0, https://pixabay.com/en/landscape-clouds-sky-trees-hills-3779922/
+* flowers, CC0, https://mystock.themeisle.com/photo/flowers/
 * adult-agriculture-backyard-planting-162637, CC0, https://pixabay.com/en/watering-watering-can-man-vietnam-1501209/
+* watering-791312_640 ,CC0, https://pixabay.com/en/watering-watering-can-plant-plants-791312/
 * apple-black-coffee-business-461064, CC0, https://pixabay.com/en/laptop-notebook-work-keyboard-2443734/
-* watering-791312_640, CC0, https://pixabay.com/en/watering-watering-can-plant-plants-791312/
-* pink-flower1, CC0, https://mystock.themeisle.com/photo/pink-flower/
 * eating_place, CC0, https://mystock.themeisle.com/photo/eating-place/
+* table-869379_1920, CC0, https://pixabay.com/en/table-desk-notebook-potted-plant-869379/
+* bonsai-316573_1280, CC0, https://pixabay.com/en/bonsai-tree-green-plant-small-316573/
+* cactus-1842095_1920, CC0, https://pixabay.com/en/cactus-minimalism-plant-pot-white-1842095/
+* lavender-1507499_1920, CC0, https://pixabay.com/en/lavender-flowers-purple-flowers-1507499/
+* narrow-leaf-dracaena-2651391_1920, CC0, https://pixabay.com/en/narrow-leaf-dracaena-flower-plant-2651391/
+* poppy-63755_1920, CC0, https://pixabay.com/en/poppy-field-of-poppies-flower-63755/
+* StockSnap_BJNWHUUGLL, CC0, https://stocksnap.io/photo/BJNWHUUGLL
+* thing-2569683_1920, CC0, https://pixabay.com/en/thing-plants-bonsai-cactus-green-2569683/
+* plant-3414671_1920, CC0, https://pixabay.com/en/plant-cactus-green-cacti-nature-3414671/
 * collie-163997_1280.jpg, CC0, https://pixabay.com/en/collie-rough-collie-dog-pet-canine-163997/
 * man-1209494_1920.jpg, CC0, https://pixabay.com/en/man-male-adult-person-caucasian-1209494/
 * chihuahua-820087_1920.jpg, CC0, https://pixabay.com/en/chihuahua-puppy-pet-dog-animal-820087/
@@ -985,3 +1045,6 @@ Hestia is a modern WordPress theme for professionals. It fits creative business,
 * alcohol-aperol-bar-128242, CC0, https://pixabay.com/en/cocktail-aperol-spritz-1542495/
 * IMG_6455.jpg (used in Lawyers Demo), CC0, https://mystock.themeisle.com/photo/liberty-in-shadow/
 * hestia_gym-slide1.jpg, CC0, https://pixabay.com/en/sport-fitness-training-sporty-2262083/
+* metal snowflake, CC0, https://mystock.themeisle.com/photo/metal-snowflake/
+* window, CC0, https://mystock.themeisle.com/photo/window/
+* red umbrellas, CC0, https://mystock.themeisle.com/photo/red-umbrellas/

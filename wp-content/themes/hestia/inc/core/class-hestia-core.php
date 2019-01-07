@@ -152,7 +152,7 @@ class Hestia_Core {
 
 		$front_end = new Hestia_Public();
 		add_filter( 'frontpage_template', array( $front_end, 'filter_front_page_template' ) );
-		add_action( 'after_switch_theme', array( $front_end, 'theme_activated' ), 0 );
+		add_action( 'after_switch_theme', array( $front_end, 'theme_activated' ), 15 );
 		add_action( 'after_setup_theme', array( $front_end, 'setup_theme' ) );
 		add_action( 'widgets_init', array( $front_end, 'initialize_widgets' ) );
 		add_action( 'wp_enqueue_scripts', array( $front_end, 'enqueue_scripts' ) );

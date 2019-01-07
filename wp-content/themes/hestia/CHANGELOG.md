@@ -1,4 +1,41 @@
 
+ ### v2.0.19 - 2018-12-18 
+ **Changes:** 
+ * Fixed WooCommerce related product layout in Fagri
+* Fixed issue with the Very Top Bar not visible on Elementor Full Width page templates
+* Fixed issue with the Contact section content area that did not opened with Gutenberg
+ 
+ ### v2.0.18 - 2018-12-12 
+ **Changes:** 
+ * Revert Font Awesome 5
+ 
+ ### v2.0.17 - 2018-12-11 
+ **Changes:** 
+ * Update to Font Awesome 5
+ 
+ ### v2.0.16 - 2018-12-10 
+ **Changes:** 
+ * Updated Tested up to version to 5.0
+* Removed unused notice
+ 
+ ### v2.0.15 - 2018-12-05 
+ **Changes:** 
+ * Fixed problem with Very Top Bar not visible on mobile on the single product page
+* Recommend Otter Blocks plugin
+ 
+ ### v2.0.14 - 2018-11-30 
+ **Changes:** 
+ * Fixed issues with the Hestia Woocommerce Demo
+* Updated theme license
+* Added back filter to allow you to display the product image in the header of the single product page
+ 
+ ### v2.0.13 - 2018-11-28 
+ **Changes:** 
+ * Fixed issues with retina images on the shop page
+* Fixed import from Zelle
+* Updated the Hestia WooCommerce demo
+* Recommend Neve
+ 
  ### v2.0.12 - 2018-11-16 
  **Changes:** 
  * Update readme file

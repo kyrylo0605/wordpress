@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:300,400,500,700");
 /* Grid desktop MS / No grid support */
 a {
-	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
 
@@ -20,7 +19,6 @@ blockquote,
 }
 
 a:not(.btn) {
-	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 
@@ -1134,7 +1132,6 @@ h2.hestia-title {
 
 .tooltip {
 	opacity: 0;
-	-webkit-transition: opacity,-webkit-transform 0.2s ease;
 	transition: opacity,-webkit-transform 0.2s ease;
 	transition: opacity,transform 0.2s ease;
 	transition: opacity,transform 0.2s ease,-webkit-transform 0.2s ease;
@@ -1420,14 +1417,11 @@ img.alignright,
 }
 
 .flex-row {
-	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
 	flex-direction: row;
 
-	-webkit-box-direction: normal;
-	-webkit-box-orient: horizontal;
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	-webkit-flex-wrap: wrap;

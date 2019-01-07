@@ -181,7 +181,8 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		$this->exists               = $empty_types;
 
 		$this->options = wp_parse_args(
-			$options, array(
+			$options,
+			array(
 				'prefill_existing_posts'  => true,
 				'prefill_existing_terms'  => true,
 				'update_attachment_guids' => true,
@@ -1448,7 +1449,8 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		// fetch the remote url and write it to the placeholder file
 		$response = wp_remote_get(
-			$url, array(
+			$url,
+			array(
 				'stream'   => true,
 				'filename' => $upload['file'],
 			)
@@ -1681,7 +1683,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			$wpdb->query( $query );
 
 			// remap enclosure urls
-			$query  = $wpdb->prepare( "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key='enclosure'", $from_url, $to_url );
+			$query = $wpdb->prepare( "UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key='enclosure'", $from_url, $to_url );
 			$wpdb->query( $query );
 		}
 	}
@@ -1812,9 +1814,9 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	 */
 	protected function prefill_existing_terms() {
 		global $wpdb;
-		$query = "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t";
+		$query  = "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t";
 		$query .= " JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id";
-		$terms = $wpdb->get_results( $query );
+		$terms  = $wpdb->get_results( $query );
 
 		foreach ( $terms as $item ) {
 			$exists_key                          = sha1( $item->taxonomy . ':' . $item->slug );

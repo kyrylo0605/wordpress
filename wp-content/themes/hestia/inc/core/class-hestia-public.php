@@ -83,16 +83,6 @@ class Hestia_Public {
 		$this->maybe_enqueue_parallax();
 	}
 
-
-	/**
-	 * Detect if is blog page.
-	 *
-	 * @return bool
-	 */
-	public static function is_blog() {
-		return is_home() && 'post' == get_post_type();
-	}
-
 	/**
 	 * Get stylesheet uri depending on child themes.
 	 *
@@ -106,6 +96,110 @@ class Hestia_Public {
 		}
 
 		return get_stylesheet_uri();
+	}
+
+	/**
+	 * Handle WooCommerce Enqueue.
+	 */
+	private function enqueue_woocommerce() {
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			return;
+		}
+
+		if ( $this->should_enqueue_woo_styles() ) {
+			wp_enqueue_style( 'hestia_woocommerce_style', get_template_directory_uri() . '/assets/css/woocommerce' . ( ( HESTIA_DEBUG ) ? '' : '.min' ) . '.css', array(), HESTIA_VERSION );
+			wp_style_add_data( 'hestia_woocommerce_style', 'rtl', 'replace' );
+			if ( ! HESTIA_DEBUG ) {
+				wp_style_add_data( 'hestia_woocommerce_style', 'suffix', '.min' );
+			}
+		}
+
+		$hestia_cart_url = '';
+		if ( function_exists( 'wc_get_cart_url' ) ) {
+			$hestia_cart_url = wc_get_cart_url();
+		}
+
+		wp_localize_script(
+			'hestia_scripts',
+			'hestiaViewcart',
+			array(
+				'view_cart_label' => esc_html__( 'View cart', 'hestia' ), // label of View cart button,
+				'view_cart_link'  => esc_url( $hestia_cart_url ), // link of View cart button
+			)
+		);
+	}
+
+	/**
+	 * Utility to check if WooCommerce styles should be enqueued.
+	 *
+	 * @return bool
+	 */
+	private function should_enqueue_woo_styles() {
+		$disabled_products = get_theme_mod( 'hestia_shop_hide', false );
+		if ( is_woocommerce() ) {
+			return true;
+		}
+		if ( is_checkout() ) {
+			return true;
+		}
+		if ( is_cart() ) {
+			return true;
+		}
+		if ( is_account_page() ) {
+			return true;
+		}
+		if ( is_front_page() && (bool) $disabled_products === false ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Enqueue Custom fonts.
+	 */
+	private function enqueue_custom_fonts() {
+		$hestia_headings_font = get_theme_mod( 'hestia_headings_font' );
+		$hestia_body_font     = get_theme_mod( 'hestia_body_font' );
+		if ( empty( $hestia_headings_font ) || empty( $hestia_body_font ) ) {
+			wp_enqueue_style( 'hestia_fonts', $this->get_fonts_url(), array(), HESTIA_VERSION );
+		}
+	}
+
+	/**
+	 * Get fonts url.
+	 *
+	 * @return string fonts that need to be enqueued.
+	 */
+	private function get_fonts_url() {
+		$fonts_url = '';
+		/**
+		 * Translators: If there are characters in your language that are not
+		 * supported by Roboto or Roboto Slab, translate this to 'off'. Do not translate
+		 * into your own language.
+		 */
+		$roboto      = _x( 'on', 'Roboto font: on or off', 'hestia' );
+		$roboto_slab = _x( 'on', 'Roboto Slab font: on or off', 'hestia' );
+
+		if ( 'off' !== $roboto || 'off' !== $roboto_slab ) {
+			$font_families = array();
+
+			if ( 'off' !== $roboto ) {
+				$font_families[] = 'Roboto:300,400,500,700';
+			}
+
+			if ( 'off' !== $roboto_slab ) {
+				$font_families[] = 'Roboto Slab:400,700';
+			}
+
+			$query_args = array(
+				'family' => rawurlencode( implode( '|', $font_families ) ),
+				'subset' => rawurlencode( 'latin,latin-ext' ),
+			);
+			$fonts_url  = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+		}
+
+		return $fonts_url;
 	}
 
 	/**
@@ -130,11 +224,12 @@ class Hestia_Public {
 	}
 
 	/**
-	 * Filter the front page template so it's bypassed entirely if the user selects
-	 * to display blog posts on their homepage instead of a static page.
+	 * Detect if is blog page.
+	 *
+	 * @return bool
 	 */
-	public function filter_front_page_template( $template ) {
-		return is_home() ? '' : $template;
+	public static function is_blog() {
+		return is_home() && 'post' == get_post_type();
 	}
 
 	/**
@@ -146,6 +241,14 @@ class Hestia_Public {
 		}
 
 		wp_enqueue_script( 'hestia-parallax', get_template_directory_uri() . '/assets/js/parallax.min.js', array( 'jquery' ), HESTIA_VENDOR_VERSION );
+	}
+
+	/**
+	 * Filter the front page template so it's bypassed entirely if the user selects
+	 * to display blog posts on their homepage instead of a static page.
+	 */
+	public function filter_front_page_template( $template ) {
+		return is_home() ? '' : $template;
 	}
 
 	/**
@@ -167,6 +270,51 @@ class Hestia_Public {
 		update_option( 'hestia_time_activated', time() );
 		$this->import_flagship_content();
 		$this->import_child_themes_content();
+	}
+
+	/**
+	 * Instantiates Classes that handle the content migration from other TI themes.
+	 */
+	private function import_flagship_content() {
+		if ( class_exists( 'Hestia_Content_Import' ) ) {
+			$importer = new Hestia_Content_Import();
+			$importer->import();
+		}
+
+		if ( class_exists( 'Hestia_Import_Zerif' ) ) {
+			$zerif_importer = new Hestia_Import_Zerif();
+			$zerif_importer->import();
+		}
+	}
+
+	/**
+	 * Import theme mods when switching from a Themeisle Hestia child theme to Hestia
+	 */
+	private function import_child_themes_content() {
+
+		// Get the name of the previously active theme.
+		$previous_theme = strtolower( get_option( 'theme_switched' ) );
+		$allowed_themes = array(
+			'christmas-hestia',
+			'tiny-hestia',
+			'orfeo',
+			'hestia-child',
+			'hestia-child-theme',
+			'hestia-pro-child',
+			'hestia-pro-child-theme',
+		);
+		if ( ! in_array( $previous_theme, $allowed_themes ) ) {
+			return;
+		}
+
+		// Get the theme mods from the previous theme.
+		$previous_theme_content = get_option( 'theme_mods_' . $previous_theme );
+
+		if ( ! empty( $previous_theme_content ) ) {
+			foreach ( $previous_theme_content as $previous_theme_mod_k => $previous_theme_mod_v ) {
+				set_theme_mod( $previous_theme_mod_k, $previous_theme_mod_v );
+			}
+		}
 	}
 
 	/**
@@ -405,138 +553,6 @@ class Hestia_Public {
 	}
 
 	/**
-	 * Maybe register front page strings.
-	 */
-	private function maybe_register_front_page_strings() {
-		if ( function_exists( 'hestia_features_register_strings' ) ) {
-			add_action( 'after_setup_theme', 'hestia_features_register_strings', 11 );
-		}
-	}
-
-	/**
-	 * Handle WooCommerce Enqueue.
-	 */
-	private function enqueue_woocommerce() {
-		if ( ! class_exists( 'WooCommerce' ) ) {
-			return;
-		}
-
-		if ( $this->should_enqueue_woo_styles() ) {
-			wp_enqueue_style( 'hestia_woocommerce_style', get_template_directory_uri() . '/assets/css/woocommerce' . ( ( HESTIA_DEBUG ) ? '' : '.min' ) . '.css', array(), HESTIA_VERSION );
-			wp_style_add_data( 'hestia_woocommerce_style', 'rtl', 'replace' );
-			if ( ! HESTIA_DEBUG ) {
-				wp_style_add_data( 'hestia_woocommerce_style', 'suffix', '.min' );
-			}
-		}
-
-		$hestia_cart_url = '';
-		if ( function_exists( 'wc_get_cart_url' ) ) {
-			$hestia_cart_url = wc_get_cart_url();
-		}
-
-		wp_localize_script(
-			'hestia_scripts',
-			'hestiaViewcart',
-			array(
-				'view_cart_label' => esc_html__( 'View cart', 'hestia' ), // label of View cart button,
-				'view_cart_link'  => esc_url( $hestia_cart_url ), // link of View cart button
-			)
-		);
-	}
-
-	/**
-	 * Enqueue Custom fonts.
-	 */
-	private function enqueue_custom_fonts() {
-		$hestia_headings_font = get_theme_mod( 'hestia_headings_font' );
-		$hestia_body_font     = get_theme_mod( 'hestia_body_font' );
-		if ( empty( $hestia_headings_font ) || empty( $hestia_body_font ) ) {
-			wp_enqueue_style( 'hestia_fonts', $this->get_fonts_url(), array(), HESTIA_VERSION );
-		}
-	}
-
-	/**
-	 * Utility to check if WooCommerce styles should be enqueued.
-	 *
-	 * @return bool
-	 */
-	private function should_enqueue_woo_styles() {
-		$disabled_products = get_theme_mod( 'hestia_shop_hide', false );
-		if ( is_woocommerce() ) {
-			return true;
-		}
-		if ( is_checkout() ) {
-			return true;
-		}
-		if ( is_cart() ) {
-			return true;
-		}
-		if ( is_account_page() ) {
-			return true;
-		}
-		if ( is_front_page() && (bool) $disabled_products === false ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Setup Jetpack Support
-	 */
-	private function setup_jetpack() {
-		if ( ! class_exists( 'Jetpack' ) ) {
-			return;
-		}
-		add_theme_support( 'jetpack-portfolio' );
-		if ( Jetpack::is_module_active( 'custom-content-types' ) ) {
-			add_image_size( 'hestia-portfolio', 360, 300, true );
-		}
-	}
-
-	/**
-	 * Setup Woocommerce Support
-	 */
-	private function setup_woocommerce() {
-		if ( ! class_exists( 'WooCommerce' ) ) {
-			$woocommerce_notice = HESTIA_PHP_INCLUDE . 'customizer/utils/customizer-info/class/class-hestia-customizer-info-singleton.php';
-			if ( file_exists( $woocommerce_notice ) ) {
-				require_once( $woocommerce_notice );
-			}
-
-			return;
-		}
-
-		$woocommerce_settings = apply_filters(
-			'hestia_woocommerce_args',
-			array(
-				'single_image_width'            => 600,
-				'thumbnail_image_width'         => 230,
-				'gallery_thumbnail_image_width' => 160,
-				'product_grid'                  => array(
-					'default_columns' => 3,
-					'default_rows'    => 4,
-					'min_columns'     => 1,
-					'max_columns'     => 6,
-					'min_rows'        => 1,
-				),
-			)
-		);
-
-		add_theme_support( 'woocommerce', $woocommerce_settings );
-		add_theme_support( 'wc-product-gallery-zoom' );
-		add_theme_support( 'wc-product-gallery-lightbox' );
-		add_theme_support( 'wc-product-gallery-slider' );
-
-		if ( function_exists( 'wc_get_image_size' ) ) {
-			$thumbnail = wc_get_image_size( 'thumbnail' );
-			if ( ! empty( $thumbnail['width'] ) && ! empty( $thumbnail['height'] ) && ! empty( $thumbnail['crop'] ) ) {
-				add_image_size( 'woocommerce_thumbnail_2x', $thumbnail['width'] * 2, $thumbnail['height'] * 2, $thumbnail['crop'] );
-			}
-		}
-	}
-
-	/**
 	 * Get the starter content.
 	 *
 	 * @return array starter content.
@@ -584,106 +600,13 @@ class Hestia_Public {
 	}
 
 	/**
-	 * Instantiates Classes that handle the content migration from other TI themes.
-	 */
-	private function import_flagship_content() {
-		if ( class_exists( 'Hestia_Content_Import' ) ) {
-			$importer = new Hestia_Content_Import();
-			$importer->import();
-		}
-
-		if ( class_exists( 'Hestia_Import_Zerif' ) ) {
-			$zerif_importer = new Hestia_Import_Zerif();
-			$zerif_importer->import();
-		}
-	}
-
-	/**
-	 * Set generic strings.
-	 */
-	public function set_i18n() {
-		$this->generic_strings = array(
-			'header_title_defaut'    => esc_html__( 'Lorem Ipsum', 'hestia' ),
-			'header_content_defaut'  => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'hestia' ),
-			'theme_info_title'       => esc_html__( 'Hestia', 'hestia' ),
-			'blog_subscribe_widgets' => esc_html__( 'Blog Subscribe Section', 'hestia' ),
-		);
-	}
-
-	/**
-	 * Import theme mods when switching from a Themeisle Hestia child theme to Hestia
-	 */
-	private function import_child_themes_content() {
-
-		// Get the name of the previously active theme.
-		$previous_theme = strtolower( get_option( 'theme_switched' ) );
-		$allowed_themes = array(
-			'christmas-hestia',
-			'tiny-hestia',
-			'orfeo',
-			'hestia-child',
-			'hestia-child-theme',
-			'hestia-pro-child',
-			'hestia-pro-child-theme',
-		);
-		if ( ! in_array( $previous_theme, $allowed_themes ) ) {
-			return;
-		}
-
-		// Get the theme mods from the previous theme.
-		$previous_theme_content = get_option( 'theme_mods_' . $previous_theme );
-
-		if ( ! empty( $previous_theme_content ) ) {
-			foreach ( $previous_theme_content as $previous_theme_mod_k => $previous_theme_mod_v ) {
-				set_theme_mod( $previous_theme_mod_k, $previous_theme_mod_v );
-			}
-		}
-	}
-
-	/**
-	 * Get fonts url.
-	 *
-	 * @return string fonts that need to be enqueued.
-	 */
-	private function get_fonts_url() {
-		$fonts_url = '';
-		/**
-		 * Translators: If there are characters in your language that are not
-		 * supported by Roboto or Roboto Slab, translate this to 'off'. Do not translate
-		 * into your own language.
-		 */
-		$roboto      = _x( 'on', 'Roboto font: on or off', 'hestia' );
-		$roboto_slab = _x( 'on', 'Roboto Slab font: on or off', 'hestia' );
-
-		if ( 'off' !== $roboto || 'off' !== $roboto_slab ) {
-			$font_families = array();
-
-			if ( 'off' !== $roboto ) {
-				$font_families[] = 'Roboto:300,400,500,700';
-			}
-
-			if ( 'off' !== $roboto_slab ) {
-				$font_families[] = 'Roboto Slab:400,700';
-			}
-
-			$query_args = array(
-				'family' => rawurlencode( implode( '|', $font_families ) ),
-				'subset' => rawurlencode( 'latin,latin-ext' ),
-			);
-			$fonts_url  = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
-		}
-
-		return $fonts_url;
-	}
-
-	/**
 	 * Get the themeisle demo content support data.
 	 *
 	 * @return array
 	 */
 	private function get_ti_demo_content_support_data() {
 		$onboarding_sites = array(
-			'local'  => array(
+			'local'       => array(
 				'hestia-woocommerce'   => array(
 					'url'   => 'https://demo.themeisle.com/hestia-woocommerce',
 					'title' => 'WooCommerce Demo',
@@ -697,7 +620,7 @@ class Hestia_Public {
 					'title' => 'Vet Center Demo',
 				),
 			),
-			'upsell' => array(
+			'upsell'      => array(
 				'hestia-lawyers'     => array(
 					'url'        => 'https://demo.themeisle.com/hestia-lawyers/',
 					'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-lawyers-demo-screenshot.png',
@@ -719,9 +642,108 @@ class Hestia_Public {
 					'title'      => 'Gym Demo',
 				),
 			),
+			'i18n'        => array(
+				'onboard_description_old' => __( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
+				'templates_title'         => __( 'Get started here', 'hestia' ),
+				'templates_description'   => __( 'With Hestia, you can choose from multiple unique demos, specially designed for you, that can be installed with a single click. You just need to choose your favorite, and we will take care of everything else.', 'hestia' ),
+			),
+			'can_migrate' => array(
+				'zerif-pro'  => array(
+					'theme_name'      => 'Zelle Pro',
+					'theme_mod_check' => 'zerif_frontpage_was_imported',
+					'template'        => 'zelle',
+					'heading'         => __( 'Want to keep using Zelle\'s homepage?', 'hestia' ),
+					'description'     => __( 'Hi! We\'ve noticed you were using Zelle before. To make your transition easier, we can help you keep the same beautiful homepage you had before, by converting it into an Elementor template. This option will also import your homepage content.', 'hestia' ),
+				),
+				'zerif-lite' => array(
+					'theme_name'      => 'Zelle Lite',
+					'theme_mod_check' => 'zerif_frontpage_was_imported',
+					'template'        => 'zelle',
+					'heading'         => __( 'Want to keep using Zelle\'s homepage?', 'hestia' ),
+					'description'     => __( 'Hi! We\'ve noticed you were using Zelle before. To make your transition easier, we can help you keep the same beautiful homepage you had before, by converting it into an Elementor template. This option will also import your homepage content.', 'hestia' ),
+				),
+			),
+			'pro_link'    => 'https://themeisle.com/themes/hestia-pro/upgrade/',
 		);
 
 		return apply_filters( 'hestia_filter_onboarding_data', $onboarding_sites );
+	}
+
+	/**
+	 * Setup Woocommerce Support
+	 */
+	private function setup_woocommerce() {
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			$woocommerce_notice = HESTIA_PHP_INCLUDE . 'customizer/utils/customizer-info/class/class-hestia-customizer-info-singleton.php';
+			if ( file_exists( $woocommerce_notice ) ) {
+				require_once( $woocommerce_notice );
+			}
+
+			return;
+		}
+
+		$woocommerce_settings = apply_filters(
+			'hestia_woocommerce_args',
+			array(
+				'single_image_width'            => 600,
+				'thumbnail_image_width'         => 230,
+				'gallery_thumbnail_image_width' => 160,
+				'product_grid'                  => array(
+					'default_columns' => 3,
+					'default_rows'    => 4,
+					'min_columns'     => 1,
+					'max_columns'     => 6,
+					'min_rows'        => 1,
+				),
+			)
+		);
+
+		add_theme_support( 'woocommerce', $woocommerce_settings );
+		add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+		add_theme_support( 'wc-product-gallery-slider' );
+
+		if ( function_exists( 'wc_get_image_size' ) ) {
+			$thumbnail = wc_get_image_size( 'thumbnail' );
+			if ( ! empty( $thumbnail['width'] ) && ! empty( $thumbnail['height'] ) && ! empty( $thumbnail['crop'] ) ) {
+				add_image_size( 'woocommerce_thumbnail_2x', $thumbnail['width'] * 2, $thumbnail['height'] * 2, $thumbnail['crop'] );
+			}
+		}
+	}
+
+	/**
+	 * Setup Jetpack Support
+	 */
+	private function setup_jetpack() {
+		if ( ! class_exists( 'Jetpack' ) ) {
+			return;
+		}
+		add_theme_support( 'jetpack-portfolio' );
+		if ( Jetpack::is_module_active( 'custom-content-types' ) ) {
+			add_image_size( 'hestia-portfolio', 360, 300, true );
+		}
+	}
+
+	/**
+	 * Maybe register front page strings.
+	 */
+	private function maybe_register_front_page_strings() {
+		if ( function_exists( 'hestia_features_register_strings' ) ) {
+			add_action( 'after_setup_theme', 'hestia_features_register_strings', 11 );
+		}
+	}
+
+	/**
+	 * Set generic strings.
+	 */
+	public function set_i18n() {
+		$this->generic_strings = array(
+			'header_title_defaut'    => esc_html__( 'Lorem Ipsum', 'hestia' ),
+			'header_content_defaut'  => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'hestia' ),
+			'theme_info_title'       => esc_html__( 'Hestia', 'hestia' ),
+			'blog_subscribe_widgets' => esc_html__( 'Blog Subscribe Section', 'hestia' ),
+			'onboarding_message'     => esc_html__( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
+		);
 	}
 
 	/**

@@ -187,11 +187,8 @@ function hestia_woocommerce_template_loop_product_thumbnail() {
 		<div class="card-image">
 			<a href="<?php echo esc_url( get_permalink() ); ?>" title="<?php the_title_attribute(); ?>">
 				<?php
-
-				echo wp_kses_post( $thumbnail );
-
+				echo $thumbnail;
 				do_action( 'hestia_shop_after_product_thumbnail' );
-
 				?>
 			</a>
 			<div class="ripple-container"></div>

@@ -43,15 +43,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/ti-onboarding.git",
-            "reference": "73d1879634460f2bc15883a0c034cfee448a06d4"
+            "reference": "14ddbbcd4848a6174adaa7157a8893a86a11c0d2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/ti-onboarding/zipball/73d1879634460f2bc15883a0c034cfee448a06d4",
-            "reference": "73d1879634460f2bc15883a0c034cfee448a06d4",
+            "url": "https://api.github.com/repos/Codeinwp/ti-onboarding/zipball/14ddbbcd4848a6174adaa7157a8893a86a11c0d2",
+            "reference": "14ddbbcd4848a6174adaa7157a8893a86a11c0d2",
             "shasum": ""
         },
-        "time": "2018-11-29 14:15:51",
+        "time": "2018-12-12 22:12:14",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

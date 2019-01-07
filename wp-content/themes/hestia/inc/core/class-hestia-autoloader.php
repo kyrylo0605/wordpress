@@ -175,7 +175,6 @@ class Hestia_Autoloader {
 			'Hestia_Content_Import'                       => HESTIA_PHP_INCLUDE . 'content-import',
 			'Hestia_Import_Utilities'                     => HESTIA_PHP_INCLUDE . 'content-import',
 			'Hestia_Import_Zerif'                         => HESTIA_PHP_INCLUDE . 'content-import',
-			'Hestia_Import_Zerif_Frontpage'               => HESTIA_PHP_INCLUDE . 'content-import',
 		);
 	}
 

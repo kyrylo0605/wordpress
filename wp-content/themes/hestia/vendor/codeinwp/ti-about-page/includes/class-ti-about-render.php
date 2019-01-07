@@ -61,6 +61,7 @@ class TI_About_Render {
 		$this->render_tabs_list();
 		$this->render_tabs_content();
 		echo '</div>';
+		$this->render_footer();
 		echo '</div>';
 	}
 
@@ -70,12 +71,11 @@ class TI_About_Render {
 	private function render_header() {
 
 		?>
-        <div class="header">
-            <div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
-                            class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
-                <div class="ti-about-header-text about-text"><?php echo esc_html( $this->theme['description'] ); ?></div>
-            </div>
-            <a href="https://themeisle.com/" target="_blank" class="wp-badge epsilon-welcome-logo"></a></div>
+		<div class="header">
+			<div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
+							class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
+			</div>
+			<a href="https://themeisle.com/" target="_blank" class="wp-badge epsilon-welcome-logo"></a></div>
 		<?php
 	}
 
@@ -86,10 +86,13 @@ class TI_About_Render {
 
 		echo '<ul class="nav-tab-wrapper wp-clearfix">';
 		foreach ( $this->tabs as $slug => $tab_data ) {
+			if( ! array_key_exists( 'type', $tab_data ) ){
+				continue;
+			}
 			if ( $tab_data['type'] === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 				continue;
 			}
-			if ( $slug === 'welcome_notice' ) {
+			if ( $slug === 'welcome_notice' || $slug === 'footer_messages' ) {
 				continue;
 			}
 
@@ -115,10 +118,13 @@ class TI_About_Render {
 	 */
 	private function render_tabs_content() {
 		foreach ( $this->tabs as $slug => $tab_data ) {
+			if( ! array_key_exists( 'type', $tab_data ) ){
+				continue;
+			}
 			if ( $slug === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 				continue;
 			}
-			if ( $slug === 'welcome_notice' ) {
+			if ( $slug === 'welcome_notice' || $slug === 'footer_messages' ) {
 				continue;
 			}
 
@@ -182,40 +188,6 @@ class TI_About_Render {
 	}
 
 	/**
-	 * Render plugins tab content.
-	 *
-	 * @param array $plugins_list - list of useful plugins
-	 */
-	private function render_plugins_tab( $plugins_list ) {
-
-		if ( empty( $plugins_list ) ) {
-			return;
-		}
-
-		echo '<div class="recommended-plugins">';
-
-		foreach ( $plugins_list as $plugin ) {
-			$current_plugin = $this->call_plugin_api( $plugin );
-
-			echo '<div class="plugin_box">';
-			echo '<img class="plugin-banner" src="' . esc_attr( $current_plugin->banners['low'] ) . '">';
-			echo '<div class="title-action-wrapper">';
-			echo '<span class="plugin-name">' . esc_html( $current_plugin->name ) . '</span>';
-			echo '<span class="plugin-desc">' . esc_html( $current_plugin->short_description ) . '</span>';
-			echo '</div>';
-			echo '<div class="plugin-box-footer">';
-			echo '<div class="button-wrap">';
-			echo Ti_About_Plugin_Helper::instance()->get_button_html( $plugin );
-			echo '</div>';
-			echo '<div class="version-wrapper"><span class="version">' . esc_html( $current_plugin->version ) . '</span><span class="separator"> | </span>' . strtok( strip_tags( $current_plugin->author ), ',' ) . '</div>';
-			echo '</div>';
-			echo '</div>';
-		}
-
-		echo '</div>';
-	}
-
-	/**
 	 * Call plugin api
 	 *
 	 * @param string $slug plugin slug.
@@ -256,6 +228,40 @@ class TI_About_Render {
 		}
 
 		return $call_api;
+	}
+
+	/**
+	 * Render plugins tab content.
+	 *
+	 * @param array $plugins_list - list of useful plugins
+	 */
+	private function render_plugins_tab( $plugins_list ) {
+
+		if ( empty( $plugins_list ) ) {
+			return;
+		}
+
+		echo '<div class="recommended-plugins">';
+
+		foreach ( $plugins_list as $plugin ) {
+			$current_plugin = $this->call_plugin_api( $plugin );
+
+			echo '<div class="plugin_box">';
+			echo '<img class="plugin-banner" src="' . esc_attr( $current_plugin->banners['low'] ) . '">';
+			echo '<div class="title-action-wrapper">';
+			echo '<span class="plugin-name">' . esc_html( $current_plugin->name ) . '</span>';
+			echo '<span class="plugin-desc">' . esc_html( $current_plugin->short_description ) . '</span>';
+			echo '</div>';
+			echo '<div class="plugin-box-footer">';
+			echo '<div class="button-wrap">';
+			echo Ti_About_Plugin_Helper::instance()->get_button_html( $plugin );
+			echo '</div>';
+			echo '<div class="version-wrapper"><span class="version">' . esc_html( $current_plugin->version ) . '</span><span class="separator"> | </span>' . strtok( strip_tags( $current_plugin->author ), ',' ) . '</div>';
+			echo '</div>';
+			echo '</div>';
+		}
+
+		echo '</div>';
 	}
 
 	/**
@@ -324,8 +330,15 @@ class TI_About_Render {
 				echo '<i class="dashicons dashicons-' . esc_attr( $content['icon'] ) . '"></i>';
 			}
 			echo esc_html( $content['title'] ) . '</h3>';
-			echo '<p>' . esc_html( $content['text'] ) . '</p>';
-			$this->render_button( $content['button'] );
+			if ( ! empty( $content['text'] ) ) {
+				echo '<p>' . esc_html( $content['text'] ) . '</p>';
+			}
+			if ( ! empty( $content['html_content'] ) ) {
+				echo $content['html_content'];
+			}
+			if ( ! empty( $content['button'] ) ) {
+				$this->render_button( $content['button'] );
+			}
 			echo '</div>';
 		}
 	}
@@ -342,6 +355,7 @@ class TI_About_Render {
 
 		if ( $button['link'] === '#recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 			echo '<span>' . esc_html__( 'Recommended actions', 'hestia' ) . '</span>';
+
 			return;
 		}
 
@@ -351,5 +365,41 @@ class TI_About_Render {
 		echo '>';
 		echo $button['label'];
 		echo '</a>';
+	}
+
+	/**
+	 * Render footer messages.
+	 */
+	private function render_footer() {
+		if ( ! array_key_exists( 'footer_messages', $this->tabs ) ) {
+			return;
+		}
+		$footer_data = $this->tabs['footer_messages']['messages'];
+		echo '<div id="about-footer">';
+		foreach ( $footer_data as $data ) {
+			$heading   = ! empty( $data['heading'] ) ? $data['heading'] : '';
+			$text      = ! empty( $data['text'] ) ? $data['text'] : '';
+			$link_text = ! empty( $data['link_text'] ) ? $data['link_text'] : '';
+			$link      = ! empty( $data['link'] ) ? $data['link'] : '';
+
+			if ( empty( $heading ) && empty( $text ) && ( empty( $link_text ) || empty( $link ) ) ) {
+				continue;
+			}
+			echo '<div class="about-footer-col">';
+			if ( ! empty( $heading ) ) {
+				echo '<h4>' . wp_kses_post( $heading ) . '</h4>';
+			}
+
+			echo '<div class="inside">';
+			if ( ! empty( $text ) ) {
+				echo '<p>' . wp_kses_post( $text ) . '</p>';
+			}
+			if ( ! empty( $link_text ) && ! empty( $link ) ) {
+				echo '<a href="' . esc_url( $link ) . '" target="_blank">' . wp_kses_post( $link_text ) . '</a>';
+			}
+			echo '</div>';
+			echo '</div>';
+		}
+		echo '</div>';
 	}
 }

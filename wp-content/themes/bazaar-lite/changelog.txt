@@ -1,5 +1,9 @@
 Bazaar Lite Changelog
 
+- Version 1.5.5 - Released: 22.12.2018
+
+-- Updated : WooCommerce templates.
+
 - Version 1.5.4 - Released: 29.10.2018
 
 -- Updated : WooCommerce templates.

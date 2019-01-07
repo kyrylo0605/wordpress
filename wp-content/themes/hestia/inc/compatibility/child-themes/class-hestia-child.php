@@ -236,6 +236,16 @@ class Hestia_Child extends Hestia_Abstract_Main {
 		    }
 	    ';
 
+		/* Related products */
+		$custom_css .= '
+			.woocommerce.single-product .related.products {
+				margin-top: 0;
+			}
+			.woocommerce.single-product .upsells.products {
+				padding-bottom: 0;
+			}
+		';
+
 		return $custom_css;
 	}
 
