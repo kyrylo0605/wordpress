@@ -255,6 +255,18 @@ $options['results'][] = array(
 );
 
 $options['results'][] = array(
+    "name"  => __( "Show price for out of stock", "aws" ),
+    "desc"  => __( "Show product price for out of stock products.", "aws" ),
+    "id"    => "show_outofstock_price",
+    "value" => 'true',
+    "type"  => "radio",
+    'choices' => array(
+        'true'  => __( 'On', 'aws' ),
+        'false' => __( 'Off', 'aws' ),
+    )
+);
+
+$options['results'][] = array(
     "name"  => __( "Show categories", "aws" ),
     "desc"  => __( "Include categories in search result.", "aws" ),
     "id"    => "show_cats",

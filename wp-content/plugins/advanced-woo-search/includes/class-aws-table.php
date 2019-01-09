@@ -147,13 +147,69 @@ if ( ! class_exists( 'AWS_Table' ) ) :
          */
         public function reindex_table_job() {
 
-            $meta = 'start';
+            /*
+             * Added in WordPress v4.6.0
+             */
+            if ( function_exists( 'wp_raise_memory_limit' ) ) {
+                wp_raise_memory_limit( 'admin' );
+            }
 
-            do {
-                $meta = $this->reindex_table( $meta );
-                $offset = (int) isset( $meta['offset'] ) ? $meta['offset'] : 0;
-                $start = (int) isset( $meta['start'] ) ? $meta['start'] : 0;
-            } while ( !( $offset === 0 && ! $start ) );
+            /**
+             * Max execution time for script
+             * @since 1.59
+             * @param integer
+             */
+            @set_time_limit( apply_filters( 'aws_index_cron_runner_time_limit', 600 ) );
+
+            $meta = get_option( 'aws_cron_job' );
+
+            if ( ! $meta || ! is_array( $meta ) ) {
+                $meta = 'start';
+            } else {
+                $meta['attemps'] = (int) isset( $meta['attemps'] ) ? $meta['attemps'] + 1 : 1;
+            }
+
+            /**
+             * Max number of script repeats
+             * @since 1.59
+             * @param integer
+             */
+            $max_cron_attemps = apply_filters( 'aws_index_max_cron_attemps', 10 );
+
+            try {
+
+                do {
+
+                    wp_clear_scheduled_hook( 'aws_reindex_table', array( 'inner' ) );
+
+                    // Fallback if re-index failed by timeout in this iteration
+                    if ( ! isset( $meta['attemps'] ) || ( isset( $meta['attemps'] ) && $meta['attemps'] < $max_cron_attemps ) ) {
+                        if ( ! wp_next_scheduled( 'aws_reindex_table', array( 'inner' ) ) ) {
+                            wp_schedule_single_event( time() + 700, 'aws_reindex_table', array( 'inner' ) );
+                        }
+                    }
+
+                    $meta = $this->reindex_table( $meta );
+                    $offset = (int) isset( $meta['offset'] ) ? $meta['offset'] : 0;
+                    $start = (int) isset( $meta['start'] ) ? $meta['start'] : 0;
+
+                    // No more attemps
+                    if ( isset( $meta['attemps'] ) && $meta['attemps'] >= $max_cron_attemps ) {
+                        delete_option( 'aws_cron_job' );
+                    } else {
+                        update_option( 'aws_cron_job', $meta );
+                    }
+
+                } while ( !( $offset === 0 && ! $start ) );
+
+            } catch ( Exception $e ) {
+
+            }
+
+            // Its no longer needs
+            wp_clear_scheduled_hook( 'aws_reindex_table', array( 'inner' ) );
+
+            delete_option( 'aws_cron_job' );
 
         }
 
@@ -734,7 +790,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     if ( $str_item_term  ) {
                         $new_array_key = preg_replace( '/(s|es|ies)$/i', '', $str_item_term );
 
-                        if ( $new_array_key && strlen( $str_item_term ) > 3 ) {
+                        if ( $new_array_key && strlen( $str_item_term ) > 3 && strlen( $new_array_key ) > 2 ) {
                             if ( ! isset( $str_new_array[$new_array_key] ) ) {
                                 $str_new_array[$new_array_key] = $str_item_num;
                             }

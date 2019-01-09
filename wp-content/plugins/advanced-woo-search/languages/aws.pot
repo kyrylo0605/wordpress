@@ -306,6 +306,12 @@ msgstr ""
 msgid "Show product price for each search result."
 msgstr ""
 
+msgid "Show price for out of stock"
+msgstr ""
+
+msgid "Show product price for out of stock products."
+msgstr ""
+
 #: includes/options.php:105
 msgid "Description content"
 msgstr ""

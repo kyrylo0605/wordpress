@@ -3,7 +3,7 @@ Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorho
 Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
 Requires at least: 4.8
 Tested up to: 5.0
-Stable tag: 3.3.21.1
+Stable tag: 3.3.21.2
 License: GPLv2 or later
 
 Drag and drop fields in an intuitive UI to create contact forms, email subscription forms, order forms, payment forms, send emails and more!
@@ -111,21 +111,19 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 == Upgrade Notice ==
 
-= 3.3.21.1 (3 January 2019) =
+= 3.3.21.2 (7 January 2019) =
 
 *Security:*
 
-* Patched a reflected XSS vulnerability in our administrative dashboard. Thank you to Samuel Anttila at netsec.expert for practicing responsible disclosure.
-
-*Bugs:*
-
-* Resolved an issue that caused our Gutenberg Block to not dispaly in the post editor when the Twenty Ninteen theme is active.
-
-*Changes:*
-
-* Product and quantity field merge tags can no longer be referenced in calculations.
+* Patched a blind SQL injection vulnerability in the search filter on our submissions page. Thank you to Samuel Anttila at netsec.expert for practicing responsible disclosure.
 
 == Changelog ==
+
+= 3.3.21.2 (7 January 2019) =
+
+*Security:*
+
+* Patched a blind SQL injection vulnerability in the search filter on our submissions page. Thank you to Samuel Anttila at netsec.expert for practicing responsible disclosure.
 
 = 3.3.21.1 (3 January 2019) =
 
@@ -137,7 +135,7 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 *Bugs:*
 
-* Resolved an issue that caused our Gutenberg Block to not dispaly in the post editor when the Twenty Ninteen theme is active.
+* Resolved an issue that caused our Gutenberg Block to not dispaly in the post editor when the Twenty Nineteen theme is active.
 
 *Changes:*
 
