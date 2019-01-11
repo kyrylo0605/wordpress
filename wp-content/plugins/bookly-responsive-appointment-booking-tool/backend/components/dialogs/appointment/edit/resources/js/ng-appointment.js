@@ -242,7 +242,7 @@
                     end_date   = moment(ds.form.date.getTime()),
                     start_time = [0,0],
                     end_time   = [0,0]
-                    ;
+                ;
                 if (ds.form.service && ds.form.service.duration >= 86400) {
                     if (ds.form.end_time) {
                         var _start_time = ds.form.start_time.value.split(':');

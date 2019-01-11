@@ -90,7 +90,6 @@ class Ajax extends Lib\Base\Ajax
                 'services_per_location'      => (bool) Lib\Proxy\Locations::servicesPerLocationAllowed(),
                 'show_ratings'               => (bool) get_option( 'bookly_ratings_app_show_on_frontend' ),
                 'service_name_with_duration' => (bool) get_option( 'bookly_app_service_name_with_duration' ),
-                'defaults'                   => Lib\Session::getFormVar( self::parameter( 'form_id' ), 'defaults' ),
                 'required'                   => array(
                     'staff'    => (int) get_option( 'bookly_app_required_employee' ),
                     'location' => (int) ( Lib\Config::locationsActive() && ( get_option( 'bookly_app_required_location' ) || get_option( 'bookly_locations_allow_services_per_location' ) ) ),
@@ -216,7 +215,7 @@ class Ajax extends Lib\Base\Ajax
                         'data'            => $slot->buildSlotData(),
                         'time_text'       => $slot->start()->toClientTz()->formatI18n( $finder->isServiceDurationInDays() ? 'D, M d' : get_option( 'time_format' ) ),
                         'status'          => $slot->waitingListEverStarted() ? 'waiting-list' : ( $slot->fullyBooked() ? 'booked' : '' ),
-                        'additional_text' => $slot->waitingListEverStarted() ? '(' . $slot->maxOnWaitingList() . ')' : ( Lib\Config::groupBookingActive() && get_option( 'bookly_group_booking_enabled' ) ? Proxy\GroupBooking::getTimeSlotText( $slot ) : '' ),
+                        'additional_text' => $slot->waitingListEverStarted() ? '(' . $slot->maxOnWaitingList() . ')' : ( Lib\Config::groupBookingActive() ? Proxy\GroupBooking::getTimeSlotText( $slot ) : '' ),
                     );
                 }
             }
@@ -286,7 +285,7 @@ class Ajax extends Lib\Base\Ajax
                         'data'            => $slot->buildSlotData(),
                         'time_text'       => $slot->start()->toClientTz()->formatI18n( $finder->isServiceDurationInDays() ? 'D, M d' : get_option( 'time_format' ) ),
                         'status'          => $slot->waitingListEverStarted() ? 'waiting-list' : ( $slot->fullyBooked() ? 'booked' : '' ),
-                        'additional_text' => $slot->waitingListEverStarted() ? '(' . $slot->maxOnWaitingList() . ')' : ( Lib\Config::groupBookingActive() && get_option( 'bookly_group_booking_enabled' ) ? Proxy\GroupBooking::getTimeSlotText( $slot ) : '' ),
+                        'additional_text' => $slot->waitingListEverStarted() ? '(' . $slot->maxOnWaitingList() . ')' : ( Lib\Config::groupBookingActive() ? Proxy\GroupBooking::getTimeSlotText( $slot ) : '' ),
                     );
                 }
             }

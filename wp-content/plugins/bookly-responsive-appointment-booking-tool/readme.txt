@@ -5,7 +5,7 @@ Donate link: https://www.booking-wp-plugin.com/
 Requires at least: 3.7
 Tested up to: 4.9.8
 Requires PHP: 5.3.7
-Stable tag: 16.4
+Stable tag: 16.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -150,7 +150,7 @@ Bookly Pro is a paid version which requires the Bookly Pro add-on. Purchase and 
 
 = What’s the price of the Bookly Pro add-on? =
 
-Bookly has a free version which can be used for the unlimited period and contains most of the basic features. Bookly Pro add-on costs $89 and includes six months of customer support and lifetime free updates of the plugin. For Pro version you can also install add-ons. You can check the add-ons prices [here](https://codecanyon.net/user/ladela/portfolio?utm_source=WP_ORG&utm_medium=cpc&utm_campaign=wp_FAQ&ref=ladela).
+Bookly has a free version which can be used for the unlimited period and contains most of the basic features. You can check the current price and purchase the Bookly Pro add-on [here](https://codecanyon.net/item/bookly/7226091?utm_campaign=wp_FAQ&utm_medium=cpc&utm_source=WP_ORG&ref=ladela). It includes six months of customer support and lifetime free updates of the plugin. For Pro version you can also install add-ons. You can check the add-ons prices [here](https://codecanyon.net/user/ladela/portfolio?utm_source=WP_ORG&utm_medium=cpc&utm_campaign=wp_FAQ&ref=ladela).
 
 = Can I install add-ons with the free version of Bookly? =
 
