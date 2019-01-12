@@ -75,8 +75,7 @@ function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination)
         <?php echo grw_i('Next Reviews'); ?>
     </a>
     <?php } else {
-    $seeAllReviews = grw_i('See All Reviews');
-    grw_anchor($place->url, 'wp-google-url', $seeAllReviews, true, true);
+    grw_anchor('https://search.google.com/local/reviews?placeid=' . $place_id, 'wp-google-url', grw_i('See All Reviews'), true, true);
     }
 }
 

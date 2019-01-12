@@ -23,6 +23,13 @@ if ($place->rating > 0) {
 }
 $rating = number_format((float)$rating, 1, '.', '');
 $place_img = strlen($place_photo) > 0 ? $place_photo : (strlen($place->photo) > 0 ? $place->photo : $place->icon);
+
+if (is_numeric($max_width)) {
+    $max_width = $max_width . 'px';
+}
+if (is_numeric($max_height)) {
+    $max_height = $max_height . 'px';
+}
 ?>
 
 <?php if ($view_mode != 'list') { ?>
@@ -76,7 +83,7 @@ $place_img = strlen($place_photo) > 0 ? $place_photo : (strlen($place->photo) > 
 
 <?php } else { ?>
 
-<div class="wp-gr wpac" style="<?php if (isset($max_width) && strlen($max_width) > 0) { ?>max-width:<?php echo $max_width;?>!important;<?php } ?><?php if (isset($max_height) && strlen($max_height) > 0) { ?>max-height:<?php echo $max_height;?>!important;overflow-y:auto!important;<?php } ?>">
+<div class="wp-gr wpac" style="<?php if (isset($max_width) && strlen($max_width) > 0) { ?>width:<?php echo $max_width;?>!important;<?php } ?><?php if (isset($max_height) && strlen($max_height) > 0) { ?>height:<?php echo $max_height;?>!important;overflow-y:auto!important;<?php } ?><?php if ($centered) { ?>margin:0 auto!important;<?php } ?>">
     <div class="wp-google-list<?php if ($dark_theme) { ?> wp-dark<?php } ?>">
         <div class="wp-google-place">
             <?php grw_place($rating, $place, $place_img, $reviews, $dark_theme); ?>

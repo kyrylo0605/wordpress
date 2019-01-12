@@ -19,12 +19,13 @@ class Goog_Reviews_Widget extends WP_Widget {
         'place_name'           => '',
         'place_id'             => '',
         'place_photo'          => '',
-        'text_size'            => '',
+        'text_size'            => '120',
         'dark_theme'           => '',
-        'view_mode'            => '',
+        'view_mode'            => 'list',
         'pagination'           => '',
         'max_width'            => '',
         'max_height'           => '',
+        'centered'             => false,
         'open_link'            => true,
         'nofollow_link'        => true,
         'reviews_lang'         => '',
@@ -138,7 +139,7 @@ class Goog_Reviews_Widget extends WP_Widget {
             <?php
         } else {
             ?>
-            <h4 class="text-left">First of all, please create and save the Google API Key on <a href="<?php echo admin_url('options-general.php?page=grw&setting_tab=active'); ?>">the setting page</a> of the plugin</h4>
+            <h4 class="text-left">First of all, please create and save the Google API Key on <a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=setting'); ?>">the setting page</a> of the plugin</h4>
             <script type="text/javascript">
                 var apikey = document.querySelectorAll('.grw-apikey');
                 if (apikey) {

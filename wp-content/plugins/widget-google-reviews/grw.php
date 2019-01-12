@@ -4,7 +4,7 @@ Plugin Name: Google Reviews Widget
 Plugin URI: https://richplugins.com/google-reviews-pro-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.6.8
+Version: 1.6.9
 Author URI: https://richplugins.com
 */
 
@@ -13,10 +13,10 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',             '1.6.8');
-define('GRW_GOOGLE_PLACE_API',    'https://maps.googleapis.com/maps/api/place/');
-define('GRW_GOOGLE_AVATAR',       'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s64-c/114307615494839964028.jpg');
-define('GRW_PLUGIN_URL',          plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
+define('GRW_VERSION',            '1.6.9');
+define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
+define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s64-c/114307615494839964028.jpg');
+define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
 
 function grw_options() {
     return array(
@@ -76,7 +76,7 @@ function grw_plugin_row_meta($input, $file) {
 
     $links = array(
         '<a href="' . esc_url('https://richplugins.com/documentation') . '" target="_blank">' . grw_i('View Documentation') . '</a>',
-        '<a href="' . esc_url('https://richplugins.com/google-reviews-pro-wordpress-plugin') . '" target="_blank">' . grw_i('Upgrade to Pro') . ' &raquo;</a>',
+        '<a href="' . esc_url('https://richplugins.com/google-reviews-pro-wordpress-plugin') . '" target="_blank">' . grw_i('Upgrade to Business') . ' &raquo;</a>',
     );
     $input = array_merge($input, $links);
     return $input;
@@ -84,34 +84,40 @@ function grw_plugin_row_meta($input, $file) {
 add_filter('plugin_row_meta', 'grw_plugin_row_meta', 10, 2);
 
 /*-------------------------------- Database --------------------------------*/
-function grw_activation($network_wide) {
+function grw_activation($network_wide = false) {
+    add_option('grw_is_multisite', $network_wide);
     if (grw_does_need_update()) {
-        grw_install($network_wide);
+        grw_install();
     }
 }
 register_activation_hook(__FILE__, 'grw_activation');
 
-function grw_install($network_wide, $allow_db_install=true) {
-    global $wpdb, $userdata;
+function grw_install() {
 
     $version = (string)get_option('grw_version');
     if (!$version) {
         $version = '0';
     }
 
-    if ($allow_db_install) {
-        if (function_exists('is_multisite') && is_multisite() && $network_wide) {
-            $current_blog_id = get_current_blog_id();
-            $blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
-            foreach ($blog_ids as $blog_id) {
-                switch_to_blog($blog_id);
-                grw_install_db();
-            }
-            switch_to_blog($current_blog_id);
-        } else {
-            grw_install_db();
+    $network_wide = get_option('grw_is_multisite');
+
+    if ($network_wide) {
+        $site_ids = get_sites(array(
+            'fields'     => 'ids',
+            'network_id' => get_current_network_id()
+        ));
+        foreach($site_ids as $site_id) {
+            switch_to_blog($site_id);
+            grw_install_single_site($version);
+            restore_current_blog();
         }
+    } else {
+        grw_install_single_site($version);
     }
+}
+
+function grw_install_single_site($version) {
+    grw_install_db();
 
     if (version_compare($version, GRW_VERSION, '=')) {
         return;
@@ -188,8 +194,8 @@ function grw_reset_data($reset_db) {
         delete_option($opt);
     }
     if ($reset_db) {
-        $wpdb->query("DROP TABLE " . $wpdb->prefix . "grp_google_place;");
-        $wpdb->query("DROP TABLE " . $wpdb->prefix . "grp_google_review;");
+        $wpdb->query("DROP TABLE IF EXISTS " . $wpdb->prefix . "grp_google_place;");
+        $wpdb->query("DROP TABLE IF EXISTS " . $wpdb->prefix . "grp_google_review;");
     }
 }
 
@@ -282,7 +288,7 @@ function grw_request_handler() {
                     } else {
                         check_admin_referer('grw_wpnonce', 'grw_wpnonce');
 
-                        $url = grw_api_url($_POST['placeid']);
+                        $url = grw_api_url($_POST['placeid'], $_POST['lang']);
 
                         $response = rplg_urlopen($url);
 

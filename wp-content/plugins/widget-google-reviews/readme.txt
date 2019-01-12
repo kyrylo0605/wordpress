@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/google-reviews-pro-wordpress-plugin
 Tags: google, reviews, google reviews, google places, google places reviews, testimonials, google review widget, google business reviews, slider, google review, review, google place review, google map reviews, google reviews pro, facebook reviews, facebook page reviews, yelp reviews, yelp business reviews
 Requires at least: 2.8
 Tested up to: 5.0
-Stable tag: 1.6.8
+Stable tag: 1.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,10 +24,12 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 
 * Free!
 * SEO
+* Trim long reviews with "read more" link
 * Display up to 5 Google business reviews per location
 * Keep all reviews in  WordPress database
 * Shows real reviews from G+ users to increase user confidence
 * Easy search of place and instantly show reviews
+* Custom business place photo
 * Review list theme
 * Pagination
 * Support dark websites
@@ -35,23 +37,21 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 * Zero load time regardless of your site
 * Works even if Google is unavailable
 
-= Get More Features with Google Reviews Business! =
+= Get More Features with Business version! =
 
-[Upgrade to Google Reviews Business](https://richplugins.com/google-reviews-pro-wordpress-plugin)
+[Upgrade to Business](https://richplugins.com/google-reviews-pro-wordpress-plugin)
 
+* Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Trying to get more than 5 Google reviews
 * Google Rich Snippets (schema.org)
 * Support shortcode, powerful <b>Shortcode Builder</b>
 * Slider/Grid themes to show G+ reviews like testimonials
-* Google Trust Badge (right/left fixed or embed)
+* Google Trust Badge (right/left fixed or embedded)
 * 'Write a review' button to available leave Google review directly on your website
-* Trim long reviews with "read more" link
-* Show/hide business photo and avatars
-* Disable profile G+ links
-* Custom business place photo
+* Show/hide any elements (business, reviews, avatars, names, time and etc)
+* Any Sorting: recent, oldest, rating, striped
+* Include/Exclude words filter
 * Minimum rating filter
-* Pagination, Sorting
-* Moderation G+ reviews
 * Priority support
 
 = Additional Business Reviews Plugins =
@@ -73,6 +73,14 @@ Why limit your reviews to just Google Reviews? Check out our other free business
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.6.9 =
+* Improve: 'read more' link feature
+* Improve: direct link to reviews on Google map
+* Improve: language support of Google reviews
+* Improve: added centered option
+* Improve: update widget design
+* Improve: update setting page design
 
 = 1.6.8 =
 * Update plugin to WordPress 5.0

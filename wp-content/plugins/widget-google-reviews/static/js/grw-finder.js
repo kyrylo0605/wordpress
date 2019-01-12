@@ -55,12 +55,16 @@ function grw_init(data) {
             return false;
         }
 
+        var langEl = el.querySelector('.grw-lang'),
+            lang = langEl.options[langEl.selectedIndex].value;
+
         connectBtn.innerHTML = 'Please wait...';
         connectBtn.disabled = true;
 
         jQuery.post(grw_request_url('save'), {
-            placeid: placeId,
-            grw_wpnonce: jQuery('#grw_nonce').val()
+            placeid     : placeId,
+            lang        : lang,
+            grw_wpnonce : jQuery('#grw_nonce').val()
         }, function(res) {
 
             console.log('grw_debug:', res);
@@ -74,10 +78,12 @@ function grw_init(data) {
 
                 var nameEl    = el.querySelector('.grw-google-place-name'),
                     placeIdEl = el.querySelector('.grw-google-place-id'),
+                    langEl    = el.querySelector('.grw-place-lang'),
                     photoEl   = el.querySelector('.grw-place-photo');
 
                 nameEl.value    = res.result.name;
                 placeIdEl.value = res.result.place_id;
+                langEl.value    = lang;
                 photoEl.value   = res.result.business_photo || res.result.icon;
 
                 var img = el.querySelector('.grw-place-photo-img');

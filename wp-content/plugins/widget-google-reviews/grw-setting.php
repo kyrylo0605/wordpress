@@ -5,7 +5,7 @@ if (!current_user_can('manage_options')) {
 }
 
 function grw_has_valid_nonce() {
-    $nonce_actions = array('grw_reset', 'grw_settings', 'grw_active');
+    $nonce_actions = array('grw_reset', 'grw_settings', 'grw_active', 'grw_advance');
     $nonce_form_prefix = 'grw-form_nonce_';
     $nonce_action_prefix = 'grw-wpnonce_';
     foreach ($nonce_actions as $key => $value) {
@@ -41,7 +41,7 @@ if (!empty($_POST)) {
 }
 
 // Reset
-if (isset($_POST['reset'])) {
+if (isset($_POST['reset_all'])) {
     grw_reset(isset($_POST['reset_db']));
     unset($_POST);
 ?>
@@ -109,8 +109,7 @@ if (isset($_POST['grw_active']) && isset($_GET['grw_active'])) {
 }
 
 if (isset($_POST['grw_setting'])) {
-    update_option('grw_language', $_POST['grw_language']);
-    update_option('grw_google_api_key', $_POST['grw_google_api_key']);
+    update_option('grw_google_api_key', trim($_POST['grw_google_api_key']));
 
     /*$grw_google_api_key = $_POST['grw_google_api_key'];
     if (strlen($grw_google_api_key) > 0) {
@@ -123,67 +122,58 @@ if (isset($_POST['grw_setting'])) {
         }
         update_option('grw_google_api_key', $grw_google_api_key);
     }*/
-    $grw_setting_page = true;
-} else {
-    $grw_setting_page = false;
 }
 
-if (isset($_GET['setting_tab'])) {
-    $grw_setting_page = true;
-}
-
-if (isset($_POST['grw_install_db'])) {
+if (isset($_POST['create_db'])) {
     grw_install_db();
 }
 
-wp_register_style('twitter_bootstrap3_css', plugins_url('/static/css/bootstrap.min.css', __FILE__));
-wp_enqueue_style('twitter_bootstrap3_css', plugins_url('/static/css/bootstrap.min.css', __FILE__));
+if (isset($_POST['install'])) {
+    grw_reset(true);
+    grw_install();
+}
 
 wp_register_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css', __FILE__));
 wp_enqueue_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css', __FILE__));
 
 wp_enqueue_script('jquery');
 
-$grw_enabled = get_option('grw_active') == '1';
+$tab                = isset($_GET['grw_tab']) && strlen($_GET['grw_tab']) > 0 ? $_GET['grw_tab'] : 'about';
+$grw_enabled        = get_option('grw_active') == '1';
 $grw_google_api_key = get_option('grw_google_api_key');
-$grw_language = get_option('grw_language');
 ?>
 
 <span class="rplg-version"><?php echo grw_i('Free Version: %s', esc_html(GRW_VERSION)); ?></span>
-<div class="rplg-setting container-fluid">
-    <img src="<?php echo GRW_PLUGIN_URL . '/static/img/google.png'; ?>" alt="Google">
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation"<?php if (!$grw_setting_page) { ?> class="active"<?php } ?>>
-            <a href="#about" aria-controls="about" role="tab" data-toggle="tab"><?php echo grw_i('About'); ?></a>
-        </li>
-        <li role="presentation"<?php if ($grw_setting_page) { ?> class="active"<?php } ?>>
-            <a href="#setting" aria-controls="setting" role="tab" data-toggle="tab"><?php echo grw_i('Setting'); ?></a>
-        </li>
-        <li role="presentation">
-            <a href="#shortcode" aria-controls="shortcode" role="tab" data-toggle="tab"><?php echo grw_i('Shortcode Builder'); ?></a>
-        </li>
-        <li role="presentation">
-            <a href="#mod" aria-controls="mod" role="tab" data-toggle="tab"><?php echo grw_i('Review Moderation'); ?></a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane<?php if (!$grw_setting_page) { ?> active<?php } ?>" id="about">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h4><?php echo grw_i('Google Reviews Widget for WordPress'); ?></h4>
-                    <p><?php echo grw_i('Google Reviews plugin is an easy and fast way to integrate Google business reviews right into your WordPress website. This plugin works instantly and keep all Google places and reviews in WordPress database thus it has no depend on external services.'); ?></p>
-                    <p><?php echo grw_i('To use a widget, please do follow:'); ?></p>
-                    <ol>
-                        <li>Go to menu <b>"Appearance"</b> -> <b>"Widgets"</b></li>
-                        <li>Move "Google Reviews Widget" widget to sidebar</li>
-                        <li>Enter search query of your business place in "Location of place" field and click "Search Place"</li>
-                        <li>Select your found place in the panel below and click "Save Place and Reviews"</li>
-                        <li>"Google Place Name" and "Google Place ID" must be filled, if so click "Save" button to save the widget</li>
-                    </ol>
-                    <p><?php echo grw_i('Feel free to contact us by email <a href="mailto:support@richplugins.com">support@richplugins.com</a>.'); ?></p>
-                    <p><?php echo grw_i('<b>Like this plugin? Give it a like on social:</b>'); ?></p>
-                    <div class="row">
-                        <div class="col-sm-4">
+
+<div class="rplg-setting">
+
+    <div class="rplg-page-title">
+        <img src="<?php echo GRW_PLUGIN_URL . '/static/img/google.png'; ?>" alt="Google"> Reviews Widget
+    </div>
+
+    <div class="rplg-settings-workspace">
+
+        <div data-nav-tabs="">
+            <div class="nav-tab-wrapper">
+                <a href="#about"     class="nav-tab<?php if ($tab == 'about')     { ?> nav-tab-active<?php } ?>"><?php echo grw_i('About'); ?></a>
+                <a href="#setting"   class="nav-tab<?php if ($tab == 'setting')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Settings'); ?></a>
+                <a href="#shortcode" class="nav-tab<?php if ($tab == 'shortcode') { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Shortcode Builder'); ?></a>
+                <a href="#support"   class="nav-tab<?php if ($tab == 'support')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Support'); ?></a>
+                <a href="#advance"   class="nav-tab<?php if ($tab == 'advance')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Advance'); ?></a>
+            </div>
+
+            <div id="about" class="tab-content" style="display:<?php echo $tab == 'about' ? 'block' : 'none'?>;">
+                <h3>Google Reviews Widget for WordPress</h3>
+                <div class="rplg-flex-row">
+                    <div class="rplg-flex-col">
+                        <span>Google Reviews plugin is an easy and fast way to integrate Google business reviews right into your WordPress website. This plugin works instantly and keep all Google places and reviews in WordPress database thus it has no depend on external services.</span>
+                        <p>Please see Introduction Video to understand how it works. Also you can find most common answers and solutions for most common questions and issues in next tabs.</p>
+                        <div class="rplg-alert rplg-alert-success">
+                            <strong>Try more features in the Business version</strong>: Merge Google, Facebook and Yelp reviews, Beautiful themes (Slider, Grid, Trust Badges), Shortcode support, Rich Snippets, Rating filter, Any sorting, Include/Exclude words filter, Hide/Show any elements, Priority support and many others.
+                            <a class="button-primary button" href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="margin-left:10px">Upgrade to Business</a>
+                        </div>
+                        <br>
+                        <div class="rplg-socials">
                             <div id="fb-root"></div>
                             <script>(function(d, s, id) {
                               var js, fjs = d.getElementsByTagName(s)[0];
@@ -193,20 +183,7 @@ $grw_language = get_option('grw_language');
                               fjs.parentNode.insertBefore(js, fjs);
                             }(document, 'script', 'facebook-jssdk'));</script>
                             <div class="fb-like" data-href="https://richplugins.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-                        </div>
-                        <div class="col-sm-4 twitter">
-                            <a href="https://twitter.com/richplugins" class="twitter-follow-button" data-show-count="false">Follow @RichPlugins</a>
-                            <script>!function (d, s, id) {
-                                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                                    if (!d.getElementById(id)) {
-                                        js = d.createElement(s);
-                                        js.id = id;
-                                        js.src = p + '://platform.twitter.com/widgets.js';
-                                        fjs.parentNode.insertBefore(js, fjs);
-                                    }
-                                }(document, 'script', 'twitter-wjs');</script>
-                        </div>
-                        <div class="col-sm-4 googleplus">
+                            <a href="https://twitter.com/richplugins?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @richplugins</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                             <div class="g-plusone" data-size="medium" data-annotation="inline" data-width="200" data-href="https://plus.google.com/101080686931597182099"></div>
                             <script type="text/javascript">
                                 window.___gcfg = { lang: 'en-US' };
@@ -221,185 +198,172 @@ $grw_language = get_option('grw_language');
                             </script>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <br>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/lmaTBmvDPKk?rel=0" allowfullscreen=""></iframe>
+                    <div class="rplg-flex-col">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/lmaTBmvDPKk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-            <hr>
-            <h4>Get More Features with Google Reviews Business!</h4>
-            <p><a href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;">Upgrade to Google Reviews Business</a></p>
-            <p>* Trying to get more than 5 Google reviews</p>
-            <p>* Google Rich Snippets (schema.org)</p>
-            <p>* Support shortcode</p>
-            <p>* Powerful <b>Shortcode Builder</b></p>
-            <p>* Slider/Grid theme to show G+ reviews in testimonials section</p>
-            <p>* Google Trust Badge (right/left fixed or inner)</p>
-            <p>* 'Write a review' button to available leave Google review directly on your website</p>
-            <p>* Trim long reviews with "read more" link</p>
-            <p>* Show/hide business photo and avatars</p>
-            <p>* Custom business place photo</p>
-            <p>* Minimum rating filter</p>
-            <p>* Pagination, Sorting</p>
-            <p>* Moderation G+ reviews</p>
-            <p>* Priority support</p>
-        </div>
-        <div role="tabpanel" class="tab-pane<?php if ($grw_setting_page) { ?> active<?php } ?>" id="setting">
-            <h4><?php echo grw_i('Google Reviews Widget Setting'); ?></h4>
-            <!-- Configuration form -->
-            <form method="POST" enctype="multipart/form-data">
-                <?php wp_nonce_field('grw-wpnonce_grw_settings', 'grw-form_nonce_grw_settings'); ?>
-                <div class="form-group">
-                    <label class="control-label" for="grw_google_api_key"><?php echo grw_i('Google Places API Key'); ?></label>
-                    <input class="form-control" type="text" id="grw_google_api_key" name="grw_google_api_key" value="<?php echo esc_attr($grw_google_api_key); ?>">
-                    <?php if (isset($grw_google_api_key_error)) {?>
-                    <div class="alert alert-dismissible alert-danger">
-                        The Google API Key is wrong, error message: <?php echo $grw_google_api_key_error; ?><br>
-                        Please get the correct key by instruction below ↓
+
+            <div id="setting" class="tab-content" style="display:<?php echo $tab == 'setting' ? 'block' : 'none'?>;">
+                <h3>General Settings</h3>
+                <form method="post" action="?page=grw&amp;grw_tab=setting&amp;grw_active=<?php echo (string)((int)($grw_enabled != true)); ?>">
+                    <div class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label>The plugin is currently <b><?php echo $grw_enabled ? 'enabled' : 'disabled' ?></b></label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <?php wp_nonce_field('grw-wpnonce_grw_active', 'grw-form_nonce_grw_active'); ?>
+                            <input type="submit" name="grw_active" class="button" value="<?php echo $grw_enabled ? grw_i('Disable') : grw_i('Enable'); ?>" />
+                        </div>
                     </div>
-                    <?php } ?>
-                    <div style="margin-top:10px">
-                        <p><b>Instruction: how to create Google Places API key</b></p>
-                        <p>1. Go to the <a href="https://console.developers.google.com/apis/dashboard?pli=1" target="_blank">Google Console</a></p>
-                        <p>2. Click '<b>Create Project</b>' or '<b>Select Project</b>' button</p>
-                        <p>3. Create new project or select existing</p>
-                        <p>4. On the project page click '<b>ENABLE APIS AND SERVICES</b>'</p>
-                        <p>5. Type '<b>Places API</b>' in the search area</p>
-                        <p>6. Select the first result '<b>Places API</b>' and click '<b>ENABLE</b>' button</p>
-                        <p>7. On the 'Places API' page select '<b>Credential</b>' tab and '<b>Create credential</b>' / '<b>API key</b>' option</p>
-                        <p>8. Copy created API key, paste to this setting and save</p>
-                        <p><b>Video instruction</b></p>
-                        <iframe src="//www.youtube.com/embed/Kf_bkg7WeC0?rel=0" allowfullscreen=""></iframe>
+                </form>
+                <form method="POST" action="?page=grw&amp;grw_tab=setting" enctype="multipart/form-data">
+                    <?php wp_nonce_field('grw-wpnonce_grw_settings', 'grw-form_nonce_grw_settings'); ?>
+                    <div class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label>Google Places API key</label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <input type="text" id="grw_google_api_key" name="grw_google_api_key" class="regular-text" value="<?php echo esc_attr($grw_google_api_key); ?>">
+                            <div style="padding-top:15px">
+                                <input type="submit" value="Save" name="grw_setting" class="button" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo grw_i('Google Places API language'); ?></label>
-                    <select class="form-control" id="grw_language" name="grw_language">
-                        <option value="" <?php selected('', $grw_language); ?>><?php echo grw_i('Disable'); ?></option>
-                        <option value="ar" <?php selected('ar', $grw_language); ?>><?php echo grw_i('Arabic'); ?></option>
-                        <option value="bg" <?php selected('bg', $grw_language); ?>><?php echo grw_i('Bulgarian'); ?></option>
-                        <option value="bn" <?php selected('bn', $grw_language); ?>><?php echo grw_i('Bengali'); ?></option>
-                        <option value="ca" <?php selected('ca', $grw_language); ?>><?php echo grw_i('Catalan'); ?></option>
-                        <option value="cs" <?php selected('cs', $grw_language); ?>><?php echo grw_i('Czech'); ?></option>
-                        <option value="da" <?php selected('da', $grw_language); ?>><?php echo grw_i('Danish'); ?></option>
-                        <option value="de" <?php selected('de', $grw_language); ?>><?php echo grw_i('German'); ?></option>
-                        <option value="el" <?php selected('el', $grw_language); ?>><?php echo grw_i('Greek'); ?></option>
-                        <option value="en" <?php selected('en', $grw_language); ?>><?php echo grw_i('English'); ?></option>
-                        <option value="en-AU" <?php selected('en-AU', $grw_language); ?>><?php echo grw_i('English (Australian)'); ?></option>
-                        <option value="en-GB" <?php selected('en-GB', $grw_language); ?>><?php echo grw_i('English (Great Britain)'); ?></option>
-                        <option value="es" <?php selected('es', $grw_language); ?>><?php echo grw_i('Spanish'); ?></option>
-                        <option value="eu" <?php selected('eu', $grw_language); ?>><?php echo grw_i('Basque'); ?></option>
-                        <option value="eu" <?php selected('eu', $grw_language); ?>><?php echo grw_i('Basque'); ?></option>
-                        <option value="fa" <?php selected('fa', $grw_language); ?>><?php echo grw_i('Farsi'); ?></option>
-                        <option value="fi" <?php selected('fi', $grw_language); ?>><?php echo grw_i('Finnish'); ?></option>
-                        <option value="fil" <?php selected('fil', $grw_language); ?>><?php echo grw_i('Filipino'); ?></option>
-                        <option value="fr" <?php selected('fr', $grw_language); ?>><?php echo grw_i('French'); ?></option>
-                        <option value="gl" <?php selected('gl', $grw_language); ?>><?php echo grw_i('Galician'); ?></option>
-                        <option value="gu" <?php selected('gu', $grw_language); ?>><?php echo grw_i('Gujarati'); ?></option>
-                        <option value="hi" <?php selected('hi', $grw_language); ?>><?php echo grw_i('Hindi'); ?></option>
-                        <option value="hr" <?php selected('hr', $grw_language); ?>><?php echo grw_i('Croatian'); ?></option>
-                        <option value="hu" <?php selected('hu', $grw_language); ?>><?php echo grw_i('Hungarian'); ?></option>
-                        <option value="id" <?php selected('id', $grw_language); ?>><?php echo grw_i('Indonesian'); ?></option>
-                        <option value="it" <?php selected('it', $grw_language); ?>><?php echo grw_i('Italian'); ?></option>
-                        <option value="iw" <?php selected('iw', $grw_language); ?>><?php echo grw_i('Hebrew'); ?></option>
-                        <option value="ja" <?php selected('ja', $grw_language); ?>><?php echo grw_i('Japanese'); ?></option>
-                        <option value="kn" <?php selected('kn', $grw_language); ?>><?php echo grw_i('Kannada'); ?></option>
-                        <option value="ko" <?php selected('ko', $grw_language); ?>><?php echo grw_i('Korean'); ?></option>
-                        <option value="lt" <?php selected('lt', $grw_language); ?>><?php echo grw_i('Lithuanian'); ?></option>
-                        <option value="lv" <?php selected('lv', $grw_language); ?>><?php echo grw_i('Latvian'); ?></option>
-                        <option value="ml" <?php selected('ml', $grw_language); ?>><?php echo grw_i('Malayalam'); ?></option>
-                        <option value="mr" <?php selected('mr', $grw_language); ?>><?php echo grw_i('Marathi'); ?></option>
-                        <option value="nl" <?php selected('nl', $grw_language); ?>><?php echo grw_i('Dutch'); ?></option>
-                        <option value="no" <?php selected('no', $grw_language); ?>><?php echo grw_i('Norwegian'); ?></option>
-                        <option value="pl" <?php selected('pl', $grw_language); ?>><?php echo grw_i('Polish'); ?></option>
-                        <option value="pt" <?php selected('pt', $grw_language); ?>><?php echo grw_i('Portuguese'); ?></option>
-                        <option value="pt-BR" <?php selected('pt-BR', $grw_language); ?>><?php echo grw_i('Portuguese (Brazil)'); ?></option>
-                        <option value="pt-PT" <?php selected('pt-PT', $grw_language); ?>><?php echo grw_i('Portuguese (Portugal)'); ?></option>
-                        <option value="ro" <?php selected('ro', $grw_language); ?>><?php echo grw_i('Romanian'); ?></option>
-                        <option value="ru" <?php selected('ru', $grw_language); ?>><?php echo grw_i('Russian'); ?></option>
-                        <option value="sk" <?php selected('sk', $grw_language); ?>><?php echo grw_i('Slovak'); ?></option>
-                        <option value="sl" <?php selected('sl', $grw_language); ?>><?php echo grw_i('Slovenian'); ?></option>
-                        <option value="sr" <?php selected('sr', $grw_language); ?>><?php echo grw_i('Serbian'); ?></option>
-                        <option value="sv" <?php selected('sv', $grw_language); ?>><?php echo grw_i('Swedish'); ?></option>
-                        <option value="ta" <?php selected('ta', $grw_language); ?>><?php echo grw_i('Tamil'); ?></option>
-                        <option value="te" <?php selected('te', $grw_language); ?>><?php echo grw_i('Telugu'); ?></option>
-                        <option value="th" <?php selected('th', $grw_language); ?>><?php echo grw_i('Thai'); ?></option>
-                        <option value="tl" <?php selected('tl', $grw_language); ?>><?php echo grw_i('Tagalog'); ?></option>
-                        <option value="tr" <?php selected('tr', $grw_language); ?>><?php echo grw_i('Turkish'); ?></option>
-                        <option value="uk" <?php selected('uk', $grw_language); ?>><?php echo grw_i('Ukrainian'); ?></option>
-                        <option value="vi" <?php selected('vi', $grw_language); ?>><?php echo grw_i('Vietnamese'); ?></option>
-                        <option value="zh-CN" <?php selected('zh-CN', $grw_language); ?>><?php echo grw_i('Chinese (Simplified)'); ?></option>
-                        <option value="zh-TW" <?php selected('zh-TW', $grw_language); ?>><?php echo grw_i('Chinese (Traditional)'); ?></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="checkbox" id="grw_install_db" name="grw_install_db" >
-                    <label class="control-label" for="grw_install_db"><?php echo grw_i('Re-create the DB tables for the plugin (service option)'); ?></label>
-                </div>
-                <p class="submit" style="text-align: left">
-                    <input name="grw_setting" type="submit" value="Save" class="button-primary button" tabindex="4">
-                </p>
-            </form>
-            <hr>
-            <!-- Enable/disable Google Reviews Widget toggle -->
-            <form method="POST" action="?page=grw&amp;grw_active=<?php echo (string)((int)($grw_enabled != true)); ?>">
-                <?php wp_nonce_field('grw-wpnonce_grw_active', 'grw-form_nonce_grw_active'); ?>
-                <span class="status">
-                    <?php echo grw_i('Google Reviews Widget is currently '). '<b>' .($grw_enabled ? grw_i('enabled') : grw_i('disabled')). '</b>'; ?>
-                </span>
-                <input type="submit" name="grw_active" class="button" value="<?php echo $grw_enabled ? grw_i('Disable') : grw_i('Enable'); ?>" />
-            </form>
-            <hr>
-            <!-- Debug information -->
-            <button class="btn btn-primary btn-small" type="button" data-toggle="collapse" data-target="#debug" aria-expanded="false" aria-controls="debug">
-                <?php echo grw_i('Debug Information'); ?>
-            </button>
-            <div id="debug" class="collapse">
-                <textarea style="width:90%; height:200px;" onclick="this.select();return false;" readonly><?php
-                    rplg_debug(GRW_VERSION, grw_options(), 'widget_grw_widget');
-                    grw_debug();
-                ?></textarea>
+                    <div class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label>Instruction: how to create Google Places API key</label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <p>1. Go to your <a href="https://console.developers.google.com/apis/dashboard?pli=1" target="_blank">Google Console</a></p>
+                            <p>2. Click '<b>Create Project</b>' or '<b>Select Project</b>' button</p>
+                            <p>3. Create new project or select existing</p>
+                            <p>4. On the project page click '<b>ENABLE APIS AND SERVICES</b>'</p>
+                            <p>5. Type '<b>Places API</b>' in the search area</p>
+                            <p>6. Select the first result '<b>Places API</b>' and click '<b>ENABLE</b>' button</p>
+                            <p>7. On the 'Places API' page select '<b>Credential</b>' tab and '<b>Create credential</b>' / '<b>API key</b>' option</p>
+                            <p>8. Copy created API key, paste to this setting and save</p>
+                            <h3>Video instruction</h3>
+                            <iframe src="//www.youtube.com/embed/Kf_bkg7WeC0?rel=0" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div style="max-width:700px"><?php echo grw_i('Feel free to contact support team by support@richplugins.com for any issues but please don\'t forget to provide debug information that you can get by click on \'Debug Information\' button.'); ?></div>
-            <hr>
-            <!-- Reset form -->
-            <form action="?page=grw" method="POST">
-                <?php wp_nonce_field('grw-wpnonce_grw_reset', 'grw-form_nonce_grw_reset'); ?>
-                <p>
-                    <input type="submit" value="Reset" name="reset" onclick="return confirm('<?php echo grw_i('Are you sure you want to reset the Google Reviews Widget plugin?'); ?>')" class="button" />
-                    <?php echo grw_i('This removes all plugin-specific settings.') ?>
-                </p>
-                <p>
-                    <input type="checkbox" id="reset_db" name="reset_db">
-                    <label for="reset_db"><?php echo grw_i('Remove all data including Google Reviews'); ?></label>
-                </p>
-            </form>
+
+            <div id="shortcode" class="tab-content" style="display:<?php echo $tab == 'shortcode' ? 'block' : 'none'?>;">
+                <h3>Shortcode Builder is available in the Business version of the plugin</h3>
+                <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;"><?php echo grw_i('Upgrade to Business'); ?></a>
+            </div>
+
+            <div id="support" class="tab-content" style="display:<?php echo $tab == 'support' ? 'block' : 'none'?>;">
+                <h3>Most Common Questions</h3>
+                <div class="brb-flex-row">
+                    <div class="brb-flex-col">
+                        <div class="brb-support-question">
+                            <h3>I can't connect my Google Place.</h3>
+                            <p>Please check that you correctly found the Place ID of your Google business. It should look like <b>ChIJ</b>3TH9CwFZwokRI... This instruction helps to find any Place ID regardless of whether it has a physical address or it is an area: <a href="https://www.launch2success.com/guide/find-any-google-id/" target="_blank">how to find Place ID of any Google business</a></p>
+                        </div>
+                    </div>
+                    <div class="brb-flex-col">
+                        <div class="brb-support-question">
+                            <h3>I have some error messages about the Google API key.</h3>
+                            <p>Please make sure that your correctly created the Google Places API key with <b>Places API library and without any restrictions (IP or Referrer)</b>. It should look like <b>AIzaS</b>yB3k4oWDJPF... On the <b>Settings</b> tab there is a detailed instruction and video tutorial how to create the free and correct Google Places API key.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="brb-flex-row">
+                    <div class="brb-flex-col">
+                        <div class="brb-support-question">
+                            <h3>Why I see only 5 Google reviews?</h3>
+                            <p>The plugin uses the Google Places API to get your reviews. The API only returns the 5 most helpful reviews. Unfortunately, it is a limitation of Google, not specifically the plugin.</p>
+                        </div>
+                    </div>
+                    <div class="brb-flex-col">
+                        <div class="brb-support-question">
+                            <h3>Is the plugin compatible with the latest version of PHP? I saw warnings about the compatibility with PHP 7 in the checker plugin.</h3>
+                            <p>Yes, the plugin is absolutely compatible with PHP 7 and by the way, we are using PHP 7 on the demo site.</p>
+                            <p>The warnings come from the code which is needed for compatible with old versions of PHP (&lt; 5.0) which is sometimes found in some users and without this code, the plugin will not work.</p>
+                            <p>The problem is that the plugin which you’re using to test compatibility with PHP 7 cannot understand that this code is not used under PHP 7 or greater. The compatibility plugin just search some keywords which deprecated in the latest version PHP and show warnings about it (without understanding that this is not used).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="brb-flex-row">
+                    <div class="brb-flex-col">
+                        <div class="brb-support-question">
+                            <h3>If you need support</h3>
+                            <p>You can contact us directly by email <a href="mailto:support@richplugins.com">support@richplugins.com</a> and would be great and save us a lot of time if each request to the support will contain the following data:</p>
+                            <ul>
+                                <li><b>1.</b> Clear and understandable description of the issue;</li>
+                                <li><b>2.</b> Direct links to your reviews on: Google map;</li>
+                                <li><b>3.</b> Link to the page of your site where the plugin installed;</li>
+                                <li><b>4.</b> Better if you attach a screenshot(s) (or screencast) how you determine the issue;</li>
+                                <li><b>5. The most important:</b> please always copy & paste the DEBUG INFORMATION from the <b>Advance</b> tab.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="brb-flex-col">
+                        <div class="brb-support-question">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="advance" class="tab-content" style="display:<?php echo $tab == 'advance' ? 'block' : 'none'?>;">
+                <h3>Advance Options</h3>
+                <form method="post" action="?page=grw&amp;grw_tab=advance">
+                    <?php wp_nonce_field('grw-wpnonce_grw_advance', 'grw-form_nonce_grw_advance'); ?>
+                    <div class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label>Re-create the database tables of the plugin (service option)</label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <input type="submit" value="Re-create Database" name="create_db" onclick="return confirm('Are you sure you want to re-create database tables?')" class="button" />
+                        </div>
+                    </div>
+                    <div class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label><b>Please be careful</b>: this removes all settings, reviews and install the plugin from scratch</label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <input type="submit" value="Install from scratch" name="install" onclick="return confirm('It will delete all current reviews, are you sure you want to install the plugin from scratch?')" class="button" />
+                        </div>
+                    </div>
+                    <div class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label><b>Please be careful</b>: this removes all plugin-specific settings (and reviews if 'Remove all reviews' checkbox is set)</label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <input type="submit" value="Delete the plugin" name="reset_all" onclick="return confirm('Are you sure you want to reset all plugin data' + (window.reset_db.checked ? ' including reviews' : '') + '?')" class="button" />
+                            <br><br>
+                            <label>
+                                <input type="checkbox" id="reset_db" name="reset_db"> Remove all reviews
+                            </label>
+                        </div>
+                    </div>
+                    <div id="debug_info" class="rplg-field">
+                        <div class="rplg-field-label">
+                            <label>DEBUG INFORMATION</label>
+                        </div>
+                        <div class="wp-review-field-option">
+                            <input type="button" value="Copy Debug Information" name="reset_all" onclick="window.rplg_debug_info.select();document.execCommand('copy');window.rplg_debug_msg.innerHTML='Debug Information copied, please paste it to your email to support';" class="button" />
+                            <textarea id="rplg_debug_info" style="display:block;width:30em;height:100px;margin-top:10px" onclick="window.rplg_debug_info.select();document.execCommand('copy');window.rplg_debug_msg.innerHTML='Debug Information copied, please paste it to your email to support';" readonly><?php rplg_debug(GRW_VERSION, grw_options(), 'widget_grw_widget'); grw_debug(); ?></textarea>
+                            <p id="rplg_debug_msg"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="mod">
-            <h4><?php echo grw_i('Moderation available in Google Reviews Business plugin:'); ?></h4>
-            <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;"><?php echo grw_i('Upgrade to Business'); ?></a>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="shortcode">
-            <h4><?php echo grw_i('Shortcode Builder available in Google Reviews Business plugin:'); ?></h4>
-            <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;"><?php echo grw_i('Upgrade to Business'); ?></a>
-        </div>
+
     </div>
+
 </div>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-    $('a[data-toggle="tab"]').on('click', function(e)  {
-        var active = $(this).attr('href');
-        $('.tab-content ' + active).addClass('active').show().siblings().hide();
-        $(this).parent('li').addClass('active').siblings().removeClass('active');
+    $('a.nav-tab').on('click', function(e)  {
+        var $this = $(this), activeId = $this.attr('href');
+        $(activeId).show().siblings('.tab-content').hide();
+        $this.addClass('nav-tab-active').siblings().removeClass('nav-tab-active');
         e.preventDefault();
-    });
-    $('button[data-toggle="collapse"]').click(function () {
-        $target = $(this);
-        $collapse = $target.next();
-        $collapse.slideToggle(500);
     });
 });
 </script>
