@@ -5,7 +5,7 @@
  * Description: Beginner friendly WordPress contact form plugin. Use our Drag & Drop form builder to create your WordPress forms.
  * Author:      WPForms
  * Author URI:  https://wpforms.com
- * Version:     1.5.0.1
+ * Version:     1.5.0.4
  * Text Domain: wpforms
  * Domain Path: languages
  *
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Plugin version.
 if ( ! defined( 'WPFORMS_VERSION' ) ) {
-	define( 'WPFORMS_VERSION', '1.5.0.1' );
+	define( 'WPFORMS_VERSION', '1.5.0.4' );
 }
 
 // Plugin Folder Path.
@@ -54,33 +54,35 @@ if ( ! defined( 'WPFORMS_PLUGIN_FILE' ) ) {
 	define( 'WPFORMS_PLUGIN_FILE', __FILE__ );
 }
 
-/**
- * Deactivate if WPForms already activated.
- * Called on-premise.
- *
- * @since 1.0.0
- */
-function wpforms_deactivate() {
-	deactivate_plugins( plugin_basename( __FILE__ ) );
-}
-
 // Don't allow multiple versions to be active.
-if ( class_exists( 'WPForms', false ) ) {
+if ( function_exists( 'wpforms' ) ) {
 
-	// Deactivate the plugin.
+	if ( ! function_exists( 'wpforms_deactivate' ) ) {
+		/**
+		 * Deactivate if WPForms already activated.
+		 * Called on-premise.
+		 *
+		 * @since 1.0.0
+		 */
+		function wpforms_deactivate() {
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+		}
+	}
 	add_action( 'admin_init', 'wpforms_deactivate' );
 
-	/**
-	 * Display the notice after deactivation.
-	 *
-	 * @since 1.0.0
-	 */
-	function wpforms_lite_notice() {
+	if ( ! function_exists( 'wpforms_lite_notice' ) ) {
+		/**
+		 * Display the notice after deactivation.
+		 *
+		 * @since 1.0.0
+		 */
+		function wpforms_lite_notice() {
 
-		echo '<div class="notice notice-warning"><p>' . esc_html__( 'Please deactivate WPForms Lite before activating WPForms.', 'wpforms-lite' ) . '</p></div>';
+			echo '<div class="notice notice-warning"><p>' . esc_html__( 'Please deactivate WPForms Lite before activating WPForms.', 'wpforms-lite' ) . '</p></div>';
 
-		if ( isset( $_GET['activate'] ) ) { //phpcs:ignore
-			unset( $_GET['activate'] );
+			if ( isset( $_GET['activate'] ) ) { //phpcs:ignore
+				unset( $_GET['activate'] );
+			}
 		}
 	}
 	add_action( 'admin_notices', 'wpforms_lite_notice' );
@@ -92,57 +94,59 @@ if ( class_exists( 'WPForms', false ) ) {
 // We require PHP 5.3 for the whole plugin to work.
 if ( version_compare( phpversion(), '5.3', '<' ) ) {
 
-	/**
-	 * Display the notice after deactivation.
-	 *
-	 * @since 1.5.0
-	 */
-	function wpforms_php52_notice() {
-		?>
-		<div class="notice notice-error">
-			<p>
-				<?php
-				printf(
-					wp_kses(
-						/* translators: %1$s - WPBeginner URL for recommended WordPress hosting. */
-						__( 'Your site is running an <strong>insecure version</strong> of PHP that is no longer supported. Please contact your web hosting provider to update your PHP version or switch to a <a href="%1$s" target="_blank" rel="noopener noreferrer">recommended WordPress hosting company</a>.', 'wpforms-lite' ),
-						array(
-							'a'      => array(
-								'href'   => array(),
-								'target' => array(),
-								'rel'    => array(),
-							),
-							'strong' => array(),
-						)
-					),
-					'https://www.wpbeginner.com/wordpress-hosting/'
-				);
-				?>
-				<br><br>
-				<?php
-				printf(
-					wp_kses(
-						/* translators: %1$s - WPForms.com URL for documentation with more details. */
-						__( '<strong>Note:</strong> WPForms plugin is disabled on your site until you fix the issue. <a href="%1$s" target="_blank" rel="noopener noreferrer">Read more for additional information.</a>', 'wpforms-lite' ),
-						array(
-							'a'      => array(
-								'href'   => array(),
-								'target' => array(),
-								'rel'    => array(),
-							),
-							'strong' => array(),
-						)
-					),
-					'https://wpforms.com/docs/supported-php-version/'
-				);
-				?>
-			</p>
-		</div>
+	if ( ! function_exists( 'wpforms_php52_notice' ) ) {
+		/**
+		 * Display the notice after deactivation.
+		 *
+		 * @since 1.5.0
+		 */
+		function wpforms_php52_notice() {
+			?>
+			<div class="notice notice-error">
+				<p>
+					<?php
+					printf(
+						wp_kses(
+							/* translators: %1$s - WPBeginner URL for recommended WordPress hosting. */
+							__( 'Your site is running an <strong>insecure version</strong> of PHP that is no longer supported. Please contact your web hosting provider to update your PHP version or switch to a <a href="%1$s" target="_blank" rel="noopener noreferrer">recommended WordPress hosting company</a>.', 'wpforms-lite' ),
+							array(
+								'a'      => array(
+									'href'   => array(),
+									'target' => array(),
+									'rel'    => array(),
+								),
+								'strong' => array(),
+							)
+						),
+						'https://www.wpbeginner.com/wordpress-hosting/'
+					);
+					?>
+					<br><br>
+					<?php
+					printf(
+						wp_kses(
+							/* translators: %1$s - WPForms.com URL for documentation with more details. */
+							__( '<strong>Note:</strong> WPForms plugin is disabled on your site until you fix the issue. <a href="%1$s" target="_blank" rel="noopener noreferrer">Read more for additional information.</a>', 'wpforms-lite' ),
+							array(
+								'a'      => array(
+									'href'   => array(),
+									'target' => array(),
+									'rel'    => array(),
+								),
+								'strong' => array(),
+							)
+						),
+						'https://wpforms.com/docs/supported-php-version/'
+					);
+					?>
+				</p>
+			</div>
 
-		<?php
-		// In case this is on plugin activation.
-		if ( isset( $_GET['activate'] ) ) { //phpcs:ignore
-			unset( $_GET['activate'] );
+			<?php
+			// In case this is on plugin activation.
+			if ( isset( $_GET['activate'] ) ) { //phpcs:ignore
+				unset( $_GET['activate'] );
+			}
 		}
 	}
 	add_action( 'admin_notices', 'wpforms_php52_notice' );

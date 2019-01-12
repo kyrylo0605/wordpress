@@ -492,16 +492,12 @@ function wpforms_size_to_bytes( $size ) {
 	switch ( strtoupper( $suffix ) ) {
 		case 'P':
 			$value *= 1024;
-			break;
 		case 'T':
 			$value *= 1024;
-			break;
 		case 'G':
 			$value *= 1024;
-			break;
 		case 'M':
 			$value *= 1024;
-			break;
 		case 'K':
 			$value *= 1024;
 			break;

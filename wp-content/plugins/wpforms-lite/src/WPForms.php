@@ -16,7 +16,7 @@ namespace WPForms {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var WPForms
+		 * @var \WPForms\WPForms
 		 */
 		private static $instance;
 
@@ -315,7 +315,7 @@ namespace WPForms {
 				}
 
 				if ( $this->pro || ( ! $this->pro && ! file_exists( WP_PLUGIN_DIR . '/wpforms/wpforms.php' ) ) ) {
-					new \AM_Deactivation_Survey( 'WPForms', basename( dirname( __FILE__ ) ) );
+					new \AM_Deactivation_Survey( 'WPForms', basename( dirname( __DIR__ ) ) );
 				}
 			}
 

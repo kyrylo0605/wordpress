@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'AM_Dashboard_Widget_Extend_Feed', false ) ) {
+if ( ! class_exists( 'AM_Dashboard_Widget_Extend_Feed' ) ) {
 	/**
 	 * Awesome Motive Events and News Feed.
 	 *
@@ -11,7 +11,7 @@ if ( ! class_exists( 'AM_Dashboard_Widget_Extend_Feed', false ) ) {
 	 * @author     AwesomeMotive Team
 	 * @license    GPL-2.0+
 	 * @copyright  Copyright (c) 2018, Awesome Motive LLC
-	 * @version    1.0.0
+	 * @version    1.0.2
 	 */
 	class AM_Dashboard_Widget_Extend_Feed {
 
@@ -111,7 +111,7 @@ if ( ! class_exists( 'AM_Dashboard_Widget_Extend_Feed', false ) ) {
 			}
 
 			// Check if WPForms is active.
-			if ( class_exists( 'WPForms', false ) ) {
+			if ( function_exists( 'wpforms' ) ) {
 				$feed_urls[] = 'https://wpforms.com/feed/';
 			}
 

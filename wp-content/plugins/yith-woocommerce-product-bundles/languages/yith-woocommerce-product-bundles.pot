@@ -1,265 +1,252 @@
-#, fuzzy
+# Copyright (C) 2018 YITH
+# This file is distributed under the same license as the YITH WooCommerce Product Bundles package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Email Templates\n"
-"POT-Creation-Date: 2018-09-28 14:28+0200\n"
-"PO-Revision-Date: 2015-06-03 14:00+0100\n"
-"Last-Translator: \n"
-"Language-Team: Yithemes <plugins@yithemes.com>\n"
-"Language: en\n"
+"Project-Id-Version: YITH WooCommerce Product Bundles 1.1.9\n"
+"Report-Msgid-Bugs-To: Your Inspiration Themes <plugins@yithemes.com>\n"
+"POT-Creation-Date: 2018-11-23 13:22:58+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
-"__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
-"_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=n!=1;\n"
-"X-Poedit-SearchPath-0: ..\n"
-"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Your Inspiration Themes <info@yithemes.com>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n1.0.2\n"
 
-#: ../class.yith-wcpb-admin.php:170
-#, php-format
+#: class.yith-wcpb-admin.php:170
 msgid "%1$s item [%2$s bundled elements]"
 msgid_plural "%1$s items [%2$s bundled elements]"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class.yith-wcpb-admin.php:184
-msgctxt "Admin: type of product"
-msgid "Product Bundle"
-msgstr ""
-
-#: ../class.yith-wcpb-admin.php:201
-msgctxt "Admin: quantity of the bundled product."
-msgid "Quantity"
-msgstr ""
-
-#: ../class.yith-wcpb-admin.php:238 ../class.yith-wcpb-admin.php:411
+#: class.yith-wcpb-admin.php:238 class.yith-wcpb-admin.php:411
 msgid ""
 "You can add only simple products with the FREE version of YITH WooCommerce "
 "Product Bundles"
 msgstr ""
 
-#: ../class.yith-wcpb-admin.php:256
+#: class.yith-wcpb-admin.php:256
 msgid "Bundled Items"
 msgstr ""
 
-#: ../class.yith-wcpb-admin.php:366
+#: class.yith-wcpb-admin.php:366
 msgid "How to"
 msgstr ""
 
-#: ../class.yith-wcpb-admin.php:367
+#: class.yith-wcpb-admin.php:367
 msgid "Premium Version"
 msgstr ""
 
-#: ../class.yith-wcpb-admin.php:412
+#: class.yith-wcpb-admin.php:412
 msgid "You cannot add a bundle product"
 msgstr ""
 
-#: ../class.yith-wcpb-frontend.php:438
+#: class.yith-wcpb-frontend.php:438
 msgid ""
-"You cannot add this quantity of items, because there are not enough in stock."
+"You cannot add this quantity of items, because there are not enough in "
+"stock."
 msgstr ""
 
-#: ../functions.yith-wcpb.php:21
+#: functions.yith-wcpb.php:21
 msgid "Simple"
 msgstr ""
 
-#: ../functions.yith-wcpb.php:22
+#: functions.yith-wcpb.php:22
 msgid "Variable"
 msgstr ""
 
-#: ../includes/class.yith-wc-product-bundle.php:166
+#: includes/class.yith-wc-product-bundle.php:166
 msgid "Add to cart"
 msgstr ""
 
-#: ../includes/class.yith-wc-product-bundle.php:166
+#: includes/class.yith-wc-product-bundle.php:166
 msgid "Read more"
 msgstr ""
 
-#: ../init.php:47
+#: init.php:47
 msgid ""
 "YITH WooCommerce Product Bundles is enabled but not effective. It requires "
 "WooCommerce in order to work."
 msgstr ""
 
-#: ../init.php:56
+#: init.php:56
 msgid ""
 "You can't activate the free version of YITH WooCommerce Product Bundles "
 "while you are using the premium one."
 msgstr ""
 
-#: ../templates/admin/admin-bundle-options-tab.php:23
+#: templates/admin/admin-bundle-options-tab.php:23
 msgid "Close all"
 msgstr ""
 
-#: ../templates/admin/admin-bundle-options-tab.php:24
+#: templates/admin/admin-bundle-options-tab.php:24
 msgid "Expand all"
 msgstr ""
 
-#: ../templates/admin/admin-bundle-options-tab.php:50
+#: templates/admin/admin-bundle-options-tab.php:50
 msgid "Add Product"
 msgstr ""
 
-#: ../templates/admin/admin-bundled-product-item.php:34
+#: templates/admin/admin-bundled-product-item.php:34
 msgid "Remove"
 msgstr ""
 
-#: ../templates/admin/admin-bundled-product-item.php:35
+#: templates/admin/admin-bundled-product-item.php:35
 msgid "Click to toggle"
 msgstr ""
 
-#: ../templates/admin/admin-bundled-product-item.php:39
+#: templates/admin/admin-bundled-product-item.php:39
 msgid "Not Purchasable"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:29
+#: templates/admin/select-product-box-products.php:29
 msgid "Image"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:30
+#: templates/admin/select-product-box-products.php:30
 msgid "Name"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:31
+#: templates/admin/select-product-box-products.php:31
 msgid "Price"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:32
+#: templates/admin/select-product-box-products.php:32
 msgid "Type"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:33
+#: templates/admin/select-product-box-products.php:33
 msgid "Action"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:52
-#: ../templates/single-product/add-to-cart/yith-bundle.php:57
+#: templates/admin/select-product-box-products.php:52
+#: templates/single-product/add-to-cart/yith-bundle.php:57
 msgid "Out of stock"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:59
+#: templates/admin/select-product-box-products.php:59
 msgid "Add"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:60
+#: templates/admin/select-product-box-products.php:60
 msgid "Added"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:74
+#: templates/admin/select-product-box-products.php:74
 msgid "prev"
 msgstr ""
 
-#: ../templates/admin/select-product-box-products.php:76
+#: templates/admin/select-product-box-products.php:76
 msgid "next"
 msgstr ""
 
-#: ../templates/admin/select-product-box.php:8
+#: templates/admin/select-product-box.php:8
 msgid "Search for a product (min 3 characters)"
 msgstr ""
 
-#: ../templates/how-to.php:18
-#, php-format
+#: templates/how-to.php:18
 msgid ""
 "This page of the documentation is a guide for the usage of the free version "
 "of the %sYITH WooCommerce Product Bundles%s plugin."
 msgstr ""
 
-#: ../templates/how-to.php:20
+#: templates/how-to.php:20
 msgid ""
 "Now we analyze the necessary steps for the cretion of a product bundle, and "
 "its possible options."
 msgstr ""
 
-#: ../templates/how-to.php:23
-#, php-format
+#: templates/how-to.php:23
 msgid ""
 "Firstly, create a new product on \"WooCommerce\" and select the %sProduct "
 "Bundle%s type in the product detail page."
 msgstr ""
 
-#: ../templates/how-to.php:28
-#, php-format
+#: templates/how-to.php:28
 msgid ""
 "Now configure the options clickin on the new tab \"%1$sBundled Items%2$s\" "
 "that has been added to the \"%1$sProduct Data%2$s\" section of the product."
 msgstr ""
 
-#: ../templates/how-to.php:33
+#: templates/how-to.php:33
 msgid "Add the products you want to add in the bundle using the related popup."
 msgstr ""
 
-#: ../templates/how-to.php:38
-#, php-format
+#: templates/how-to.php:38
 msgid "%1$sNB: the plugin lets you add only simple products.%2$s"
 msgstr ""
 
-#: ../templates/how-to.php:40
+#: templates/how-to.php:40
 msgid "Select the quantity of the products to be added in the bundle."
 msgstr ""
 
-#: ../templates/how-to.php:45
-#, php-format
+#: templates/how-to.php:45
 msgid ""
 "Now you just have to set the price, the description and the image of your "
 "product bundle with the %sGeneral%s option and you will be done."
 msgstr ""
 
-#: ../templates/how-to.php:50
+#: templates/how-to.php:50
 msgid "Here you are an example of a \"Bundle\" product."
 msgstr ""
 
-#: ../templates/how-to.php:55
+#: templates/how-to.php:55
 msgid ""
 "As you can see, the available products of the bundle have been added in the "
 "selected quantity."
 msgstr ""
 
-#: ../templates/how-to.php:59
+#: templates/how-to.php:59
 msgid "View plugin documentation"
 msgstr ""
 
-#: ../templates/premium.php:245 ../templates/premium.php:484
-#, php-format
+#: templates/premium.php:254 templates/premium.php:543
 msgid ""
-"Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Product Bundles"
-"%2$s to benefit from all features!"
+"Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Product "
+"Bundles%2$s to benefit from all features!"
 msgstr ""
 
-#: ../templates/premium.php:248 ../templates/premium.php:487
+#: templates/premium.php:257 templates/premium.php:546
 msgid "UPGRADE"
 msgstr ""
 
-#: ../templates/premium.php:249 ../templates/premium.php:488
+#: templates/premium.php:258 templates/premium.php:547
 msgid "to the premium version"
 msgstr ""
 
-#: ../templates/premium.php:255
+#: templates/premium.php:264
 msgid "Premium Features"
 msgstr ""
 
-#: ../templates/premium.php:263
+#: templates/premium.php:272
 msgid "Bundle price"
 msgstr ""
 
-#: ../templates/premium.php:266
-#, php-format
+#: templates/premium.php:275
 msgid ""
-"Two different pricing ways for the product bundles of your shop.%3$sAssign a "
-"%1$sfixed price%2$s if you want to sell your bundle at a specific price, "
-"regardless the costs and the quantity of the included products. Furthermore, "
-"if you want, you can also make the %1$sprice dynamic%2$s, summing the costs "
-"of the products of the bundle."
+"Two different pricing ways for the product bundles of your shop.%3$sAssign "
+"a %1$sfixed price%2$s if you want to sell your bundle at a specific price, "
+"regardless the costs and the quantity of the included products. "
+"Furthermore, if you want, you can also make the %1$sprice dynamic%2$s, "
+"summing the costs of the products of the bundle."
 msgstr ""
 
-#: ../templates/premium.php:276
+#: templates/premium.php:285
 msgid "Variable products"
 msgstr ""
 
-#: ../templates/premium.php:279
-#, php-format
+#: templates/premium.php:288
 msgid ""
 "Don't just restrict yourself to the simple products of your shop: purchase "
 "the premium version of the plugin and even the variable products will be "
@@ -267,45 +254,43 @@ msgid ""
 "selected and offered to your users.%2$s"
 msgstr ""
 
-#: ../templates/premium.php:295
+#: templates/premium.php:304
 msgid "Shipping fees"
 msgstr ""
 
-#: ../templates/premium.php:298
+#: templates/premium.php:307
 msgid ""
-"Shipping fees regard administrator management, so you will be free to assign "
-"them to the single bundle, or to each included element."
+"Shipping fees regard administrator management, so you will be free to "
+"assign them to the single bundle, or to each included element."
 msgstr ""
 
-#: ../templates/premium.php:308
+#: templates/premium.php:317
 msgid "Hide the product"
 msgstr ""
 
-#: ../templates/premium.php:311
+#: templates/premium.php:320
 msgid ""
 "Use this option to hide some of the products of a bundle. With just one "
 "click, you will solve your problem and your users won't see them anymore."
 msgstr ""
 
-#: ../templates/premium.php:327
+#: templates/premium.php:336
 msgid "Product quantity"
 msgstr ""
 
-#: ../templates/premium.php:330
-#, php-format
+#: templates/premium.php:339
 msgid ""
-"Set a %1$sminimum%2$s and %1$smaximum%2$s quantity for each product added in "
-"a bundle: only in this way you will be able to force your users to purchase "
-"a product in the amount you want, so that they can benefit from the whole "
-"bundle."
+"Set a %1$sminimum%2$s and %1$smaximum%2$s quantity for each product added "
+"in a bundle: only in this way you will be able to force your users to "
+"purchase a product in the amount you want, so that they can benefit from "
+"the whole bundle."
 msgstr ""
 
-#: ../templates/premium.php:340
+#: templates/premium.php:349
 msgid "Title and description"
 msgstr ""
 
-#: ../templates/premium.php:343
-#, php-format
+#: templates/premium.php:352
 msgid ""
 "Do you want to change names and descriptions of the products included in a "
 "bundle? This feature is what you are looking for.%3$sAdd the product to the "
@@ -313,103 +298,97 @@ msgid ""
 "alternative to the original product once in a bundle.%2$s"
 msgstr ""
 
-#: ../templates/premium.php:359
+#: templates/premium.php:368
 msgid "Discount"
 msgstr ""
 
-#: ../templates/premium.php:362
+#: templates/premium.php:371
 msgid ""
 "Do you want to offer a deal to your users? Apply a discount to the products "
 "of the bundle, so that they will keep their original price in the shop and, "
 "have a special price in your promotional bundle."
 msgstr ""
 
-#: ../templates/premium.php:372
+#: templates/premium.php:381
 msgid "Optional product"
 msgstr ""
 
-#: ../templates/premium.php:375
-#, php-format
+#: templates/premium.php:384
 msgid ""
-"%1$sEach product of a bundle can be selected as \"optional\"%2$s. This means "
-"that it will be available to your users, but it won't be necessary to "
+"%1$sEach product of a bundle can be selected as \"optional\"%2$s. This "
+"means that it will be available to your users, but it won't be necessary to "
 "purchase the product bundle."
 msgstr ""
 
-#: ../templates/premium.php:391
+#: templates/premium.php:400
 msgid "Widget"
 msgstr ""
 
-#: ../templates/premium.php:394
-#, php-format
+#: templates/premium.php:403
 msgid ""
 "Put the bundles you have created for your shop in the spotlight. With the "
 "%1$s\"YITH WooCommerce Product Bundle\"%2$s widget, you will be free to add "
-"the complete list of the bundles in the sidebars of your e-commerce site, so "
-"that your users can always see them"
+"the complete list of the bundles in the sidebars of your e-commerce site, "
+"so that your users can always see them"
 msgstr ""
 
-#: ../templates/premium.php:404
+#: templates/premium.php:413
 msgid "Hide the image"
 msgstr ""
 
-#: ../templates/premium.php:407
+#: templates/premium.php:416
 msgid ""
 "Users can see name, image and description of every product of a bundle. If "
-"you want to hide the images of some products, use the related option and the "
-"product will be showed as you like."
+"you want to hide the images of some products, use the related option and "
+"the product will be showed as you like."
 msgstr ""
 
-#: ../templates/premium.php:423
+#: templates/premium.php:432
 msgid "Report management"
 msgstr ""
 
-#: ../templates/premium.php:426
-#, php-format
+#: templates/premium.php:435
 msgid ""
 "Decide whether to show only \"bundle\" products or even those included: a "
 "simple click on the option, and your %1$sstatistics%2$s will have the shape "
 "you want."
 msgstr ""
 
-#: ../templates/premium.php:436
+#: templates/premium.php:445
 msgid "Items quantity"
 msgstr ""
 
-#: ../templates/premium.php:439
+#: templates/premium.php:448
 msgid ""
 "Would you like to offer the purchase of a bundle only if it includes at "
 "least five items? Well, now you can!"
 msgstr ""
 
-#: ../templates/premium.php:441
-#, php-format
+#: templates/premium.php:450
 msgid ""
-"Set a minimum and/or maximum quantity for the required items%2$s in order to "
-"deny the purchase of the bundle if the number of the items added is lower or "
-"higher than the one you specified."
+"Set a minimum and/or maximum quantity for the required items%2$s in order "
+"to deny the purchase of the bundle if the number of the items added is "
+"lower or higher than the one you specified."
 msgstr ""
 
-#: ../templates/premium.php:456
+#: templates/premium.php:465
 msgid "Out of stock bundle"
 msgstr ""
 
-#: ../templates/premium.php:459
-#, php-format
+#: templates/premium.php:468
 msgid ""
 "Users %1$scan't purchase%2$s the Bundle product if one of the products "
-"included is not available. %3$s Now you can %1$ssynchronize the availability "
-"status%2$s of the bundle with the products in it included. If at least one "
-"of the items is not available, the Bundle product is automatically set as "
-"Out-of-stock. "
+"included is not available. %3$s Now you can %1$ssynchronize the "
+"availability status%2$s of the bundle with the products in it included. If "
+"at least one of the items is not available, the Bundle product is "
+"automatically set as Out-of-stock. "
 msgstr ""
 
-#: ../templates/premium.php:469
+#: templates/premium.php:478
 msgid "\"Per item pricing\" bundles"
 msgstr ""
 
-#: ../templates/premium.php:472
-#, php-format
+#: templates/premium.php:481
 msgid ""
 "Now you can show the bundle product \"per item pricing\" price in the "
 "%1$sorder details%2$s or %1$sinvoice%2$s in two different ways: choose to "
@@ -417,6 +396,63 @@ msgid ""
 "included."
 msgstr ""
 
-#: ../templates/single-product/add-to-cart/yith-bundle.php:55
+#: templates/premium.php:498
+msgid "Easy way to add bundled products"
+msgstr ""
+
+#: templates/premium.php:501
+msgid ""
+"Thanks to the popup window that opens in the bundle settings, you will be "
+"able to add all the bundled items to your product quickly with one click. "
+"Also, get the best out of the search box included in the popup, thanks to "
+"which you can search any of the products in your shop in AJAX and add it to "
+"the bundle."
+msgstr ""
+
+#: templates/premium.php:511
+msgid "Bundle price layout"
+msgstr ""
+
+#: templates/premium.php:514
+msgid ""
+"Select how to show the price of your bundles on the shop page, you can "
+"choose the layout that best fits your marketing strategy or simply your own "
+"taste. Feel free to choose from one of the following: min and max price, "
+"only minimum, From xxx price, discounted and regular prices."
+msgstr ""
+
+#: templates/premium.php:530
+msgid "Get the best out of the compatibility with YITH WooCommerce Quick View"
+msgstr ""
+
+#: templates/premium.php:533
+msgid ""
+"Whenever your customers are on the bundle page, they might want to take a "
+"deeper look at each of the products included in the bundle. Thanks to the "
+"integration with YITH Quick View, they will be able to click on the product "
+"link and see the product details in a popup instead of leaving the page. "
+"They will never lose sight of the bundle!"
+msgstr ""
+
+#: templates/single-product/add-to-cart/yith-bundle.php:55
 msgid "In stock"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Product Bundles</strong></code> allows you "
+"to bundle WooCommerce products and sell them at a unique price. You can "
+"also set the quantity for each bundled item! <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your "
+"e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#: class.yith-wcpb-admin.php:184
+msgctxt "Admin: type of product"
+msgid "Product Bundle"
+msgstr ""
+
+#: class.yith-wcpb-admin.php:201
+msgctxt "Admin: quantity of the bundled product."
+msgid "Quantity"
 msgstr ""

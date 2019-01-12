@@ -126,7 +126,7 @@ function wpforms_settings_license_callback( $args ) {
 		$output .=
 			'<p class="discount-note">' .
 				wp_kses(
-					__( 'As a valued WPForms Lite user you receive <strong>20% off</strong>, automatically applied at checkout!', 'wpforms-lite' ),
+					__( 'As a valued WPForms Lite user you receive <strong>50% off</strong>, automatically applied at checkout!', 'wpforms-lite' ),
 					array(
 						'strong' => array(),
 						'br'     => array(),

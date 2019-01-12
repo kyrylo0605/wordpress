@@ -578,7 +578,7 @@ class WPForms_Lite {
 				'upgrade_message'       => '<p>' . esc_html__( 'We\'re sorry, the %name% is not available on your plan. Please upgrade to the PRO plan to unlock all these awesome features.', 'wpforms-lite' ) . '</p>',
 				'upgrade_bonus'         => '<p>' .
 					wp_kses(
-						__( '<strong>Bonus:</strong> WPForms Lite users get <span>20% off</span> regular price, automatically applied at checkout.', 'wpforms-lite' ),
+						__( '<strong>Bonus:</strong> WPForms Lite users get <span>50% off</span> regular price, automatically applied at checkout.', 'wpforms-lite' ),
 						array(
 							'strong' => array(),
 							'span'   => array(),
@@ -736,7 +736,7 @@ class WPForms_Lite {
 			<p>
 				<?php
 				echo wp_kses(
-					__( '<strong>Bonus:</strong> WPForms Lite users get <span class="green">20% off regular price</span>, automatically applied at checkout.', 'wpforms-lite' ),
+					__( '<strong>Bonus:</strong> WPForms Lite users get <span class="green">50% off regular price</span>, automatically applied at checkout.', 'wpforms-lite' ),
 					array(
 						'strong' => array(),
 						'span'   => array(

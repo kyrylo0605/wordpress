@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: product, bundle, bundles, product bundle, product bundles, bundle product, woocommerce, products, themes, yit, e-commerce, shop, yith, premium, yithemes
 Requires at least: 3.5.1
-Tested up to: 4.9.8
-Stable tag: 1.1.9
+Tested up to: 5.0
+Stable tag: 1.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,12 @@ YITH WooCommerce Product Bundles will add a new product type called "Product Bun
 9. Admin view: Product bundle in the order
 
 == Changelog ==
+
+= Version 1.1.10 - Released: Dec 06, 2018 =
+
+* New -  support to WordPress 5.0
+* Update - plugin framework
+* Update - language files
 
 = Version 1.1.9 - Released: Sep 23, 2018 =
 
