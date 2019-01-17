@@ -727,24 +727,49 @@ if (!function_exists('bazaarlite_scripts_styles')) {
 		wp_enqueue_script( 'jquery-slick', get_template_directory_uri() . '/assets/js/jquery.slick.js' , array('jquery'), FALSE, TRUE ); 
 		wp_enqueue_script( 'jquery-swipebox', get_template_directory_uri() . '/assets/js/jquery.swipebox.js' , array('jquery'), FALSE, TRUE ); 
 		wp_enqueue_script( 'jquery-tinynav', get_template_directory_uri() . '/assets/js/jquery.tinynav.js' , array('jquery'), FALSE, TRUE ); 
-		wp_enqueue_script( 'bazaar-lite-jquery.wip', get_template_directory_uri() . '/assets/js/jquery.wip.js' , array('jquery'), FALSE, TRUE ); 
+		wp_enqueue_script( 'bazaar-lite-template', get_template_directory_uri() . '/assets/js/template.js' , array('jquery'), FALSE, TRUE ); 
 
 		$wip_vars = array(
 			'slick_autoplay' => bazaarlite_setting('wip_slick_autoplay', 'false'),
 			'slick_dots' => bazaarlite_setting('wip_slick_dots', 'true'),
 		);
 
-		wp_localize_script( 'bazaar-lite-jquery.wip', 'wip_vars', $wip_vars );
+		wp_localize_script( 'bazaar-lite-template', 'wip_vars', $wip_vars );
 
-		wp_enqueue_script ( 'bazaar-lite-html5',get_template_directory_uri().'/assets/scripts/html5.js');
-		wp_script_add_data ( 'bazaar-lite-html5', 'conditional', 'IE 8' );
-		
-		wp_enqueue_script ( 'bazaar-lite-selectivizr',get_template_directory_uri().'/assets/scripts/selectivizr-min.js');
-		wp_script_add_data ( 'bazaar-lite-selectivizr', 'conditional', 'IE 8' );
+		wp_enqueue_script('bazaar-lite-html5shiv', get_template_directory_uri().'/assets/scripts/html5shiv.js', FALSE, '3.7.0');
+		wp_script_add_data('bazaar-lite-html5shiv', 'conditional', 'IE 8' );
+		wp_enqueue_script('bazaar-lite-selectivizr', get_template_directory_uri().'/assets/scripts/selectivizr.js', FALSE, '1.0.3b');
+		wp_script_add_data('bazaar-lite-selectivizr', 'conditional', 'IE 8' );
 
 	}
 	
 	add_action( 'wp_enqueue_scripts', 'bazaarlite_scripts_styles', 11 );
+
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* BAZAAR LITE THEME DEFAULT VALUES */
+/*-----------------------------------------------------------------------------------*/   
+
+if (!function_exists('bazaarlite_default_values')) {
+
+	function bazaarlite_default_values() {
+
+		if ( !bazaarlite_setting('wip_slideshow_3_default_image') )
+			set_theme_mod( 'wip_slideshow_3_default_image', 'on' );
+			
+		if ( !bazaarlite_setting('wip_slideshow_4_default_image') )
+			set_theme_mod( 'wip_slideshow_4_default_image', 'on' );
+			
+		if ( !bazaarlite_setting('wip_slideshow_5_default_image') )
+			set_theme_mod( 'wip_slideshow_5_default_image', 'on' );
+			
+		if ( !bazaarlite_setting('wip_slideshow_6_default_image') )
+			set_theme_mod( 'wip_slideshow_6_default_image', 'on' );
+			
+	}
+
+	add_action( 'after_setup_theme', 'bazaarlite_default_values' );
 
 }
 

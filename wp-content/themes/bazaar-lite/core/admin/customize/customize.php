@@ -336,7 +336,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				   'on' => esc_html__( 'Yes','bazaar-lite'),
 				),
 				
-				'std' => 'off',
+				'std' => 'on',
 			
 			),
 
@@ -347,7 +347,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_3_image',
 				'type' => 'upload',
 				'section' => 'slideshow_3',
-				'std' => get_template_directory_uri().'/assets/images/slideshow/img03.jpg',
+				'std' => '',
 
 			),
 
@@ -358,7 +358,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_3_title',
 				'type' => 'text',
 				'section' => 'slideshow_3',
-				'std' => 'Welcome on Bazaar Lite',
+				'std' => '',
 
 			),
 
@@ -408,7 +408,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				   'on' => esc_html__( 'Yes','bazaar-lite'),
 				),
 				
-				'std' => 'off',
+				'std' => 'on',
 			
 			),
 
@@ -419,7 +419,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_4_image',
 				'type' => 'upload',
 				'section' => 'slideshow_4',
-				'std' => get_template_directory_uri().'/assets/images/slideshow/img04.jpg',
+				'std' => '',
 
 			),
 
@@ -430,7 +430,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_4_title',
 				'type' => 'text',
 				'section' => 'slideshow_4',
-				'std' => 'Welcome on Bazaar Lite',
+				'std' => '',
 
 			),
 
@@ -480,7 +480,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				   'on' => esc_html__( 'Yes','bazaar-lite'),
 				),
 				
-				'std' => 'off',
+				'std' => 'on',
 			
 			),
 
@@ -491,7 +491,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_5_image',
 				'type' => 'upload',
 				'section' => 'slideshow_5',
-				'std' => get_template_directory_uri().'/assets/images/slideshow/img05.jpg',
+				'std' => '',
 
 			),
 
@@ -502,7 +502,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_5_title',
 				'type' => 'text',
 				'section' => 'slideshow_5',
-				'std' => 'Welcome on Bazaar Lite',
+				'std' => '',
 
 			),
 
@@ -552,7 +552,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				   'on' => esc_html__( 'Yes','bazaar-lite'),
 				),
 				
-				'std' => 'off',
+				'std' => 'on',
 			
 			),
 
@@ -563,7 +563,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_6_image',
 				'type' => 'upload',
 				'section' => 'slideshow_6',
-				'std' => get_template_directory_uri().'/assets/images/slideshow/img06.jpg',
+				'std' => '',
 
 			),
 
@@ -574,7 +574,7 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 				'id' => 'wip_slideshow_6_title',
 				'type' => 'text',
 				'section' => 'slideshow_6',
-				'std' => 'Welcome on Bazaar Lite',
+				'std' => '',
 
 			),
 

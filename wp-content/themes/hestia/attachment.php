@@ -3,7 +3,7 @@
  * The template for displaying attachments.
  *
  * @package Hestia
- * @since Hestia 1.0
+ * @since   Hestia 1.0
  */
 
 get_header();
@@ -37,7 +37,7 @@ do_action( 'hestia_before_attachment_wrapper' )
 									title="<?php the_title_attribute(); ?>" rel="attachment">
 								<?php echo basename( $post->guid ); ?>
 							</a>
-						<?php
+							<?php
 						endif;
 
 						echo '<p class="sizes">';

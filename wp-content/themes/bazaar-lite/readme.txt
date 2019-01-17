@@ -1,129 +1,321 @@
-Bazaar Lite WordPress Theme
----------------------
+=== Bazaar Lite ===
+Contributors: alexvtn
+Tags: custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, flexible-header, footer-widgets, post-formats, right-sidebar, sticky-post, theme-options, threaded-comments, translation-ready, one-column, two-columns, three-columns, grid-layout, blog, e-commerce, news
+Requires at least: 4.0
+Tested up to: 5.0.2
+Stable tag: 1.5.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Bazaar Lite is our new creative and minimal ecommerce WordPress theme.
+
+== Description ==
 
 Bazaar Lite is our new creative and minimal ecommerce WordPress theme. Perfect to manage a shop and blog, it offers a fully responsive layout to be displayed on every kind of device.
 
-Created by ThemeinProgress, http://www.themeinprogress.com 
-Demo: http://www.wpinprogress.com/demo/bazaar
+Created by ThemeinProgress, http://www.themeinprogress.com
+Bazaar Lite WordPress Theme, Copyright 2018 ThemeinProgress.
+Bazaar Lite is distributed under the terms of the GPLv2 or later
 
-License
--------
-Bazaar Lite is licensed under GNU General Public License v3.
+== Changelog ==
 
-Bazaar Lite Theme incorporates code from WooCommerce plugin, Copyright 2015 by WooThemes
-WooCommerce plugin is distributed under the terms of the GNU GPL
+= 1.5.6 =
+Release date - January, 08 - 2019
 
+* Tested with WordPress 5.0.2
+* Removed all unnecessary files
+* Updated - Readme.txt file
+* Updated - Screenshot.png file
 
-Credits
--------
+= 1.5.5 =
+Release date - 22.12.2018
 
-/** IMAGES **/
+* Updated - WooCommerce templates
 
-- Slideshow images by Unsplash - https://unsplash.com
+= 1.5.4 =
+Release date - 29.10.2018
 
--- Image 01 by Dustin Lee, https://unsplash.com/photos/jLwVAUtLOAQ
---- Licensed under CC0 License.
+* Updated - WooCommerce templates
 
--- Image 02 by Leonardo Wong, https://unsplash.com/photos/7pGehyH7o64
---- Licensed under CC0 License.
+= 1.5.3 =
+Release date - 06.08.2018
 
--- Image 03 by Gilles Lambert, https://unsplash.com/photos/pb_lF8VWaPU
---- Licensed under CC0 License.
+* Fixed  - Clear the options for Skype, email and WhatsApp buttons
+* Updated - WooCommerce templates
 
-- Featured image in the screenshot
+= 1.5.2 =
+Release date - 24.07.2018
 
--- Copyright © WooThemes
---- Image licensed under CC0 License (Compatible with GNU General Public License v3)
+* Fixed - WooCommerce product galleries lightbox
 
-/** ICONS **/
+= 1.5.1 =
+Release date - 09.06.2018
 
-- Font Awesome
+* Updated - WooCommerce templates
+* Edit - Code optimized
 
--- Copyright © Dave Gandy 
--- http://fortawesome.github.io/Font-Awesome/
+= 1.5.0 =
+Release date - 07.04.2018
 
---- Font License under SIL OFL 1.1 - http://scripts.sil.org/OFL ( Applies to all desktop and webfont files in the following directory: /bazaarlite/fonts/ )
---- Code License under MIT License - http://opensource.org/licenses/mit-license.html ( Applies to the font-awesome.min.css file in /bazaarlite/css/ )
---- Brand Icons - All brand icons are trademarks of their respective owners. The use of these trademarks does not indicate endorsement of the trademark holder by Font Awesome, nor vice versa.
+* Fixed - Slideshow call to actions
+* Edit - Code optimized
 
-- Genericons
+= 1.4.8 =
+Release date - 01.02.2018
 
--- Copyright © 2013-2015 Automattic 
--- http://genericons.com
+* Updated - WooCommerce templates
+* Edit - Code optimized
 
---- Licensed under GNU GENERAL PUBLIC LICENSE
+= 1.4.7 =
+Release date - 01.02.2018
 
-/** FRAMEWORK **/
+* Updated - WooCommerce templates
+* Edit - Code optimized
 
-- Twitter Bootstrap
+= 1.4.6 =
+ Release date - 23.12.2017
 
--- Copyright © 2011-2014 Twitter 
--- http://getbootstrap.com/2.3.2/
+* Added - Telegram social button.
+* Updated - Font Awesome library.
 
---- Licensed under MIT License
+= 1.4.4 =
+Release date - 18.10.2017
 
-/** SCRIPTS **/
+* Updated - WooCommerce templates.
 
-- Jquery Easing:
+= 1.4.3 =
+Release date - 01.10.2017
 
--- Copyright © 2008 George McGinley Smith 
--- http://gsgd.co.uk/sandbox/jquery/easing/
+* Fixed - Back to top button.
+* Updated - jQuery.scrollTo plugin.
 
---- Licensed under BSD License
+= 1.4.2 =
+Release date - 10.09.2017
 
-- jQuery.ScrollTo
+* Edit - Code optimized.
 
--- Copyright © 2007-2012 Ariel Flesler 
--- http://flesler.blogspot.com
+= 1.4.1 =
+Release date - 02.07.2017
 
---- Licensed under dual licensed, MIT and GPL
+* Updated - WooCommerce templates.
 
-- Tinynav:
+= 1.4.0 =
+Release date - 20.05.2017
 
--- Copyright © 2011-2014 Viljami Salminen 
--- http://tinynav.viljamis.com
+* Fixed - WooCommerce add to cart button for grouped products.
+* Edit - Code optimized.
 
---- Licensed under MIT License
+= 1.3.9 =
+Release date - 22.04.2017
 
-- Pretty Photo:
+* Updated - WooCommerce 3.4 templates.
 
--- Copyright © Stephane Caron 
--- http://www.no-margin-for-errors.com
+= 1.3.8 =
+Release date - 04.04.2017
 
---- Licensed under GPLv2 or Creative Commons 2.5 license
+* Fixed - WooCommerce layout issues.
+* Updated - WooCommerce templates.
 
-- Infinite Scroll:
+= 1.3.7 =
+Release date - 30.03.2017
 
--- Copyright © 2011-2012 Paul Irish & Luke Shumard 
--- https://github.com/paulirish/infinite-scroll
+* Added - Option to change the "background-position" css rule for the slideshow images.
+* Added - New page width option.
+* Updated - Italian translation.
 
---- Licensed under MIT license
+= 1.3.6 =
+Release date - 20.03.2017
 
-- Modernizr:
+* Fixed - WooCommerce warning layouts.
 
+= 1.3.5 =
+Release date - 09.03.2017
 
--- Copyright © Faruk Ates, Paul Irish, Alex Sexton 
--- http://modernizr.com/
+* Edit - Code optimized.
 
---- Licensed under BSD and MIT licenses
+= 1.3.4 =
+Release date - 28.02.2017
 
-- Swipebox:
+* Fixed - Now each default image from slideshow is hidden when you remove the image URL
+* Edit - Code optimized.
 
--- Copyright © Constantin Saguin 
--- https://github.com/brutaldesign/swipebox
+= 1.3.3 =
+Release date - 20.02.2017
 
---- Licensed under MIT license
+* Edit - Default slideshow images optimized.
 
-- HTML5 Shiv:
+= 1.3.2 =
+Release date - 07.02.2017
 
--- Copyright © 2014 Alexander Farkas 
--- https://github.com/aFarkas/html5shiv
+* New - Now you can insert up to 6 slideshow items.
+* Edit - Code optimized.
 
---- Licensed under MIT and GPL2 Licensed
+= 1.3.1 =
+Release date - 05.02.2017
 
-- Selectivizr:
+* Added - Option to disable the "background-attachment:fixed" css rule for the slideshow images.
 
--- Copyright © Keith Clark
--- http://selectivizr.com
+= 1.3.0 =
+Release date - 30.09.2016
 
---- Licensed under MIT license
+* Updated - TGM Plugin Activation.
+* Fixed - WooCommerce messages.
+* Edit - Code optimized.
+
+= 1.2.9 =
+Release date - 02.09.2016
+
+* Fixed - Distorted slideshow images on iOS devices.
+
+= 1.2.8 =
+Release date - 29.08.2016
+
+* Edit - Code optimized.
+
+= 1.2.7 =
+Release date - 19.08.2016
+
+* Updated - WooCommerce templates.
+
+= 1.2.6 =
+Release date - 11.07.2016
+
+* Added - Slideshow autoplay.
+* Added - Slideshow dots.
+* Fixed - Javascript errors.
+
+= 1.2.4 =
+Release date - 24.06.2016
+
+* Fixed - Embeded videos.
+
+= 1.2.3 =
+Release date - 23.06.2016
+
+* Updated - WooCommerce templates.
+
+= 1.2.2 =
+Release date - 19.06.2016
+
+* Fixed - WooCommerce dashboard layout on mobile devices.
+
+= 1.2.1 =
+Release date - 15.06.2016
+
+* Updated - WooCommerce templates.
+* Added - WooCommerce dashboard layout.
+* Added - Slideshow height setting.
+
+= 1.2.0 =
+Release date - 05.06.2016
+
+* Fixed - 'More' term between the post thumbnail and the summary.
+
+= 1.1.9 =
+Release date - 28.05.2016
+
+* Fixed - Missing url option on first slide.
+
+= 1.1.7 =
+Release date - 27.05.2016
+
+* Added - Optional slideshow on homepage.
+* Fixed - Breadcrumb on homepage.
+
+== Resources ==
+
+Screenshot images By Pixabay - https://www.pixabay.com
+
+* Slideshow image : https://pixabay.com/en/typewriter-book-notes-paper-801921/ by Free-Photos ( https://pixabay.com/en/users/Free-Photos-242387/ ) - CC0
+* Slideshow image : https://pixabay.com/en/laptop-coffee-arm-desktop-notebook-1205256/ by 27707 ( https://pixabay.com/en/users/27707-27707/ ) - CC0
+* Featured image : https://pixabay.com/en/blue-orange-colors-animal-beach-2309309/ by 1643606 ( https://pixabay.com/en/users/1643606-1643606/ ) - CC0
+* Featured image : https://pixabay.com/en/model-girl-woman-young-fashion-616189/ by RyanMcGuire ( https://pixabay.com/en/users/RyanMcGuire-123690/ ) - CC0
+* Featured image : https://pixabay.com/en/rabbit-hare-bunny-costume-animal-542554/ by RyanMcGuire ( https://pixabay.com/en/users/RyanMcGuire-123690/ ) - CC0
+
+Font Awesome By Dave Gandy - http://fortawesome.github.io/Font-Awesome/
+** Font License under SIL OFL 1.1 - http://scripts.sil.org/OFL ( Applies to all desktop and webfont files in the following directory: /bazaar-lite/assets/fonts/ )
+** Code License under MIT License - http://opensource.org/licenses/mit-license.html ( Applies to the font-awesome.css file in /bazaar-lite/assets/css/ )
+** Brand Icons - All brand icons are trademarks of their respective owners. The use of these trademarks does not indicate endorsement of the trademark holder by Font Awesome, nor vice versa.
+
+Genericons By Automattic - http://genericons.com
+* genericons.css - Licensed under GNU GENERAL PUBLIC LICENSE ( Applies to genericons.css file in /bazaar-lite/assets/css/ )
+
+Google Web Fonts (Montserrat, Yesteryear) By Google - http://google.com
+** Montserrat, Font by Julieta Ulanovsky, Licensed under Open Font License, https://fonts.google.com/specimen/Montserrat
+** Yesteryear, Font by Astigmatic, Licensed under Open Font License, https://fonts.google.com/specimen/Yesteryear
+
+Bootstrap By Twitter, Inc - http://getbootstrap.com
+* bootstrap.css v3.3.7 - Licensed under MIT license ( Applies to bootstrap.css file in /bazaar-lite/assets/css/ )
+
+prettyPhoto By Stephane Caron - http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ 
+* prettyPhoto.css v3.1.6 - Licensed under GPLv2 or Creative Commons 2.5 license ( Applies to prettyPhoto.css file in /bazaar-lite/assets/css/ )
+
+Slick Slider By Ken Wheeler - https://github.com/kenwheeler/slick/
+* slick.css - Licensed under MIT license ( Applies to slick.css file in /bazaar-lite/assets/css/ )
+
+Swipebox By Constantin Saguin - https://github.com/brutaldesign/swipebox/
+* swipebox.css v1.2.8 - Licensed under MIT license ( Applies to slick.css file in /bazaar-lite/assets/css/ )
+
+jQuery imagesLoaded By desandro - https://imagesloaded.desandro.com/
+* imagesLoaded.js v4.1.4 - Licensed under MIT license ( Applies to imagesLoaded.js file in /bazaar-lite/assets/js/ )
+
+jQuery Easing By George McGinley Smith - http://gsgd.co.uk/sandbox/jquery/easing/
+* jquery.easing.js v1.3 - Licensed under BSD License ( Applies to jquery.easing.js file in /bazaar-lite/assets/js/ )
+
+jQuery Infinite Scroll By Paul Irish & Luke Shumard - https://github.com/paulirish/infinite-scroll/
+* jquery.infinitescroll.js v2.1.0 - Licensed under MIT license ( Applies to jquery.infinitescroll.js file in /bazaar-lite/assets/js/ )
+
+jQuery Modernizr By Faruk Ates, Paul Irish, Alex Sexton - http://modernizr.com/
+* jquery.modernizr.js v2.1.0 - Licensed under BSD and MIT licenses ( Applies to jquery.modernizr.js file in /bazaar-lite/assets/js/ )
+
+jQuery.scrollTo By Ariel Flesler - https://github.com/flesler/
+* jquery.scrollTo.js v2.1.2 - Licensed under MIT license ( Applies to jquery.scrollTo.js file in /bazaar-lite/assets/js/ )
+
+jQuery Swipebox By Constantin Saguin - https://github.com/brutaldesign/swipebox
+* jquery.swipebox.js v1.2.9 - Licensed under MIT License ( Applies to jquery.swipebox.js file in /bazaar-lite/assets/js/ )
+
+jQuery Tinynav By Viljami Salminen - http://tinynav.viljamis.com
+* jquery.tinynav.js - Licensed under MIT License ( Applies to jquery.tinynav.js file in /bazaar-lite/assets/js/ )
+
+jQuery prettyPhoto By Stephane Caron - http://www.no-margin-for-errors.com
+* jquery.prettyPhoto.js v3.1.4 - Licensed under MIT license ( Applies to jquery.prettyPhoto.js file in /bazaar-lite/assets/js/ )
+
+jQuery Slick Slider By Ken Wheeler - https://github.com/kenwheeler/slick/
+* jquery.slick.js v1.6.0 - Licensed under MIT license ( Applies to jquery.slick.js file in /bazaar-lite/assets/js/ )
+
+HTML5 Shiv By @afarkas @jdalton @jon_neal @rem - https://github.com/aFarkas/html5shiv
+* html5shiv.js v3.7.0 - Licensed under MIT and GPL2 license ( Applies to html5shiv.js file in /bazaar-lite/assets/scripts/ )
+
+selectivizr By Keith Clark - https://github.com/keithclark/selectivizr
+* selectivizr.js v1.0.3b - Licensed under MIT license ( Applies to selectivizr-min.js file in /bazaar-lite/assets/scripts/ )
+
+The following scripts and styles are coded by me and they are released under MIT license
+
+* /bazaar-lite/assets/skins/blue.css
+* /bazaar-lite/assets/skins/green.css
+* /bazaar-lite/assets/skins/orange.css
+* /bazaar-lite/assets/skins/pink.css
+* /bazaar-lite/assets/skins/purple.css
+* /bazaar-lite/assets/skins/red.css
+* /bazaar-lite/assets/skins/turquoise.css
+* /bazaar-lite/assets/skins/yellow.css
+* /bazaar-lite/assets/skins/black_blue.css
+* /bazaar-lite/assets/skins/black_green.css
+* /bazaar-lite/assets/skins/black_orange.css
+* /bazaar-lite/assets/skins/black_pink.css
+* /bazaar-lite/assets/skins/black_purple.css
+* /bazaar-lite/assets/skins/black_red.css
+* /bazaar-lite/assets/skins/black_turquoise.css
+* /bazaar-lite/assets/skins/black_yellow.css
+* /bazaar-lite/assets/skins/white_blue.css
+* /bazaar-lite/assets/skins/white_green.css
+* /bazaar-lite/assets/skins/white_orange.css
+* /bazaar-lite/assets/skins/white_pink.css
+* /bazaar-lite/assets/skins/white_purple.css
+* /bazaar-lite/assets/skins/white_red.css
+* /bazaar-lite/assets/skins/white_turquoise.css
+* /bazaar-lite/assets/skins/white_yellow.css
+* /bazaar-lite/assets/css/woocommerce.css
+* /bazaar-lite/assets/css/template.css
+* /bazaar-lite/assets/css/minimal_layout.css
+* /bazaar-lite/assets/js/template.js

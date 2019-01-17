@@ -17,6 +17,16 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 ## Changelog ##
+### 2.1.0 - 2019-01-09  ###
+
+* NEW Custom integration with Gutenberg
+* NEW Options to differentially enable/disable navigation and footer areas on posts/pages
+* Fixed compatibility with Everest Forms plugin
+* Fixed compatibility with Quiz Cat plugin
+* Fixed problem with the About Section background image remaining fixed in Firefox
+* Removed the Featured tag for the sticky posts
+
+
 ### 2.0.19 - 2018-12-18  ###
 
 * Fixed WooCommerce related product layout in Fagri

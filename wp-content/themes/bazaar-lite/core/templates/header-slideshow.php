@@ -26,7 +26,7 @@ if (!function_exists('bazaarlite_header_slideshow_function')) {
 					$defaultImage = get_template_directory_uri().'/assets/images/slideshow/img0'.$i.'.jpg';
                 
                     echo '<div class="slick-image" style="background-image:url(' . esc_url( get_theme_mod('wip_slideshow_' . $i . '_image', $defaultImage)) . ')">';
-					echo '<p class="slick-title">' . esc_html(get_theme_mod('wip_slideshow_' . $i . '_title','Welcome to Bazaar')) . '</p>';
+					echo '<p class="slick-title">' . esc_html(get_theme_mod('wip_slideshow_' . $i . '_title','Welcome on Bazaar Lite')) . '</p>';
 					
 					if ( get_theme_mod('wip_slideshow_'.$i.'_url') && get_theme_mod('wip_slideshow_' . $i . '_cta') )
 						echo '<a class="button" href="' . esc_url( get_theme_mod('wip_slideshow_' . $i . '_url')) . '">' . esc_html(get_theme_mod('wip_slideshow_' . $i . '_cta')) . '</a>';

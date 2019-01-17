@@ -167,7 +167,6 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 		echo '</div>';
 	}
 
-
 	/**
 	 * Decide if header should be before featured post or before content.
 	 */

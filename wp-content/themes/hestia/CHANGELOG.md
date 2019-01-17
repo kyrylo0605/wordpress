@@ -1,4 +1,13 @@
 
+ ### v2.1.0 - 2019-01-09 
+ **Changes:** 
+ * NEW Custom integration with Gutenberg
+* NEW Options to differentially enable/disable navigation and footer areas on posts/pages
+* Fixed compatibility with Everest Forms plugin
+* Fixed compatibility with Quiz Cat plugin
+* Fixed problem with the About Section background image remaining fixed in Firefox
+* Removed the Featured tag for the sticky posts
+ 
  ### v2.0.19 - 2018-12-18 
  **Changes:** 
  * Fixed WooCommerce related product layout in Fagri

@@ -158,7 +158,7 @@ class Hestia_Public {
 	/**
 	 * Enqueue Custom fonts.
 	 */
-	private function enqueue_custom_fonts() {
+	public function enqueue_custom_fonts() {
 		$hestia_headings_font = get_theme_mod( 'hestia_headings_font' );
 		$hestia_body_font     = get_theme_mod( 'hestia_body_font' );
 		if ( empty( $hestia_headings_font ) || empty( $hestia_body_font ) ) {
@@ -482,59 +482,6 @@ class Hestia_Public {
 			)
 		);
 
-		$body_fs    = json_decode( get_theme_mod( 'hestia_post_page_content_fs' ), true );
-		$heading_fs = json_decode( get_theme_mod( 'hestia_post_page_headings_fs' ), true );
-		$title_fs   = json_decode( get_theme_mod( 'hestia_header_titles_fs' ), true );
-
-		if ( empty( $body_fs ) ) {
-			$body_fs = 18;
-		} else {
-			$body_fs = 18 + $body_fs['desktop'];
-		}
-
-		if ( empty( $heading_fs ) ) {
-			$heading_fs = 37;
-		} else {
-			$heading_fs = 37 + $heading_fs['desktop'];
-		}
-
-		if ( empty( $title_fs ) ) {
-			$title_fs = 46;
-		} else {
-			$title_fs = 46 + $title_fs['desktop'];
-		}
-
-		/**
-		 * Add support for font sizes.
-		 *
-		 * @link https://wordpress.org/gutenberg/handbook/extensibility/theme-support/
-		 */
-		add_theme_support(
-			'editor-font-sizes',
-			array(
-				array(
-					'name'      => esc_html__( 'Body', 'hestia' ),
-					'shortName' => esc_html__( 'Body', 'hestia' ),
-					'size'      => $body_fs,
-					'slug'      => 'body',
-				),
-				array(
-					'name'      => esc_html__( 'Headings', 'hestia' ),
-					'shortName' => esc_html__( 'Headings', 'hestia' ),
-					'size'      => $heading_fs,
-					'slug'      => 'heading',
-				),
-				array(
-					'name'      => esc_html__( 'Title', 'hestia' ),
-					'shortName' => esc_html__( 'Title', 'hestia' ),
-					'size'      => $title_fs,
-					'slug'      => 'title',
-				),
-			)
-		);
-
-		add_filter( 'block_editor_settings', array( $this, 'hestia_add_gutenberg_body_font_size_on_editor' ) );
-
 		register_nav_menus(
 			array(
 				'primary'      => esc_html__( 'Primary Menu', 'hestia' ),
@@ -606,40 +553,47 @@ class Hestia_Public {
 	 */
 	private function get_ti_demo_content_support_data() {
 		$onboarding_sites = array(
+			'editors'     => array(
+				'elementor',
+			),
 			'local'       => array(
-				'hestia-woocommerce'   => array(
-					'url'   => 'https://demo.themeisle.com/hestia-woocommerce',
-					'title' => 'WooCommerce Demo',
-				),
-				'hestia-energy-panels' => array(
-					'url'   => 'https://demo.themeisle.com/hestia-energy-panels',
-					'title' => 'Energy Panels Demo',
-				),
-				'hestia-vet-center'    => array(
-					'url'   => 'https://demo.themeisle.com/hestia-vet-center',
-					'title' => 'Vet Center Demo',
+				'elementor' => array(
+					'hestia-woocommerce'   => array(
+						'url'   => 'https://demo.themeisle.com/hestia-woocommerce',
+						'title' => 'WooCommerce Demo',
+					),
+					'hestia-energy-panels' => array(
+						'url'   => 'https://demo.themeisle.com/hestia-energy-panels',
+						'title' => 'Energy Panels Demo',
+					),
+					'hestia-vet-center'    => array(
+						'url'   => 'https://demo.themeisle.com/hestia-vet-center',
+						'title' => 'Vet Center Demo',
+					),
 				),
 			),
 			'upsell'      => array(
-				'hestia-lawyers'     => array(
-					'url'        => 'https://demo.themeisle.com/hestia-lawyers/',
-					'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-lawyers-demo-screenshot.png',
-					'title'      => 'Lawyers Demo',
-				),
-				'hestia-travel'      => array(
-					'url'        => 'https://demo.themeisle.com/hestia-travel/',
-					'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-travel-demo-screenshot.png',
-					'title'      => 'Travel Agency Demo',
-				),
-				'hestia-coffee-shop' => array(
-					'url'        => 'https://demo.themeisle.com/hestia-coffee-shop/',
-					'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-coffee-shop-demo-screenshot.png',
-					'title'      => 'Coffee Shop Demo',
-				),
-				'hestia-gym'         => array(
-					'url'        => 'https://demo.themeisle.com/hestia-gym/',
-					'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-gym-demo-screenshot.png',
-					'title'      => 'Gym Demo',
+				'elementor' => array(
+					'hestia-lawyers'     => array(
+						'url'        => 'https://demo.themeisle.com/hestia-lawyers/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-lawyers-demo-screenshot.png',
+						'title'      => 'Lawyers Demo',
+					),
+					'hestia-travel'      => array(
+						'url'        => 'https://demo.themeisle.com/hestia-travel/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-travel-demo-screenshot.png',
+						'title'      => 'Travel Agency Demo',
+					),
+					'hestia-coffee-shop' => array(
+						'url'        => 'https://demo.themeisle.com/hestia-coffee-shop/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-coffee-shop-demo-screenshot.png',
+						'title'      => 'Coffee Shop Demo',
+					),
+					'hestia-gym'         => array(
+						'url'        => 'https://demo.themeisle.com/hestia-gym/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2018/08/hestia-gym-demo-screenshot.png',
+						'title'      => 'Gym Demo',
+					),
 				),
 			),
 			'i18n'        => array(
@@ -744,26 +698,5 @@ class Hestia_Public {
 			'blog_subscribe_widgets' => esc_html__( 'Blog Subscribe Section', 'hestia' ),
 			'onboarding_message'     => esc_html__( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
 		);
-	}
-
-	/**
-	 * Adds the font size selected by the user in Customizer in to the Gutenberg editor.
-	 * Without this the default paragraph font-size would not match the one in front-end.
-	 *
-	 * @param array $config The block editor settings.
-	 *
-	 * @return array
-	 */
-	function hestia_add_gutenberg_body_font_size_on_editor( $config ) {
-		$body_fs = json_decode( get_theme_mod( 'hestia_post_page_content_fs' ), true );
-		if ( empty( $body_fs ) ) {
-			$body_fs = 18;
-		} else {
-			$body_fs = 18 + $body_fs['desktop'];
-		}
-		$config['styles'][0]['css'] = str_replace( ' ', '', $config['styles'][0]['css'] );
-		$config['styles'][0]['css'] = str_replace( 'font-size:16px', 'font-size:' . $body_fs . 'px', $config['styles'][0]['css'] );
-
-		return $config;
 	}
 }
