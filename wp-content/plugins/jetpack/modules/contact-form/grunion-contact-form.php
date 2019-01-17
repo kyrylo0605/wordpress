@@ -136,6 +136,8 @@ class Grunion_Contact_Form_Plugin {
 		) {
 			add_filter( 'widget_text', array( $this, 'widget_shortcode_hack' ), 5 );
 		}
+		
+		add_filter( 'jetpack_contact_form_is_spam', array( $this, 'is_spam_blacklist' ), 10, 2 );
 
 		// Akismet to the rescue
 		if ( defined( 'AKISMET_VERSION' ) || function_exists( 'akismet_http_post' ) ) {
@@ -617,6 +619,29 @@ class Grunion_Contact_Form_Plugin {
 		$GLOBALS['shortcode_tags']                             = $old;
 
 		return $text;
+	}
+	
+	/**
+	 * Check if a submission matches the Comment Blacklist.
+	 * The Comment Blacklist is a means to moderate discussion, and contact
+	 * forms are 1:1 discussion forums, ripe for abuse by users who are being
+	 * removed from the public discussion.
+	 * Attached to `jetpack_contact_form_is_spam`
+	 *
+	 * @param bool  $is_spam
+	 * @param array $form
+	 * @return bool TRUE => spam, FALSE => not spam
+	 */
+	function is_spam_blacklist( $is_spam, $form = array() ) {
+		if ( $is_spam ) {
+			return $is_spam;
+		}
+		
+		if ( wp_blacklist_check( $form['comment_author'], $form['comment_author_email'], $form['comment_author_url'], $form['comment_content'], $form['user_ip'], $form['user_agent'] ) ) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**
@@ -2085,7 +2110,7 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 				$compiled_form[ $field_index ] = sprintf(
 					'<b>%1$s:</b> %2$s<br /><br />',
 					wp_kses( $field->get_attribute( 'label' ), array() ),
-					nl2br( wp_kses( $value, array() ) )
+					self::escape_and_sanitize_field_value( $value )
 				);
 			}
 		}
@@ -2112,7 +2137,7 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 					$compiled_form[ $field_index ] = sprintf(
 						'<b>%1$s:</b> %2$s<br /><br />',
 						wp_kses( $label, array() ),
-						nl2br( wp_kses( $extra_fields[ $extra_field_keys[ $i ] ], array() ) )
+						self::escape_and_sanitize_field_value( $extra_fields[ $extra_field_keys[ $i ] ] )
 					);
 
 					$i++;
@@ -2125,6 +2150,11 @@ class Grunion_Contact_Form extends Crunion_Contact_Form_Shortcode {
 
 		return $compiled_form;
 	}
+
+	static function escape_and_sanitize_field_value( $value ) {
+        $value = str_replace( array( '[' , ']' ) ,  array( '&#91;' , '&#93;' ) , $value );
+        return nl2br( wp_kses( $value, array() ) );
+    }
 
 	/**
 	 * Only strip out empty string values and keep all the other values as they are.

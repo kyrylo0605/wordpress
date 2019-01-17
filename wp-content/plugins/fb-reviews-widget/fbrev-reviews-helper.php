@@ -19,7 +19,7 @@ function fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofoll
     <?php
 }
 
-function fbrev_page_reviews($page_id, $reviews, $pagination, $disable_user_link, $open_link, $nofollow_link) {
+function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link) {
     ?>
     <div class="wp-facebook-reviews">
     <?php
@@ -64,7 +64,7 @@ function fbrev_page_reviews($page_id, $reviews, $pagination, $disable_user_link,
                     ?>
                     </span>
                     <?php if (isset($review->review_text)) { ?>
-                    <span class="wp-facebook-text"><?php echo fbrev_trim_text($review->review_text, 0); ?></span>
+                    <span class="wp-facebook-text"><?php echo fbrev_trim_text($review->review_text, $text_size); ?></span>
                     <?php } ?>
                 </div>
             </div>

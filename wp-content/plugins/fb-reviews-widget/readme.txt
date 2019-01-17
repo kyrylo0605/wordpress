@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Tags: facebook, facebook reviews, facebook business reviews, facebook page reviews, facebook page review, Facebook Page, facebook review, facebook review widget, business review, reviews, facebook reviews widget, sidebar widget, richplugins, google reviews, google places reviews, google map reviews, facebook reviews pro, testimonials, yelp, yelp reviews
 Requires at least: 2.8
 Tested up to: 5.0
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Facebook Reviews Widget show Facebook Page reviews on your WordPress website to 
 
 == Description ==
 
-Why better to use <a href="https://richplugins.com/facebook-reviews-pro-wordpress-plugin">Facebook Reviews Pro</a> plugin
+Why better to use <a href="https://richplugins.com/facebook-reviews-pro-wordpress-plugin">Business version</a> of the plugin
 
 The plugin display Facebook Page Reviews on your websites in sidebar widget to get more traffic and user trusts.
 
@@ -26,27 +26,32 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 
 * Free!
 * SEO
+* Trim long reviews with "read more" link
 * Display all Facebook page reviews per location
 * Shows real reviews from Facebook users to increase user confidence
 * Easy get of Facebook pages and instantly show reviews
+* Review list theme
+* Pagination
 * Support dark websites
 * Nofollow, target="_blank" links
 * Fast cache (zero load time)
 
-= Get More Features with Facebook Reviews Pro! =
+= Get More Features with Business version! =
 
-[Upgrade to Facebook Reviews Pro](https://richplugins.com/facebook-reviews-pro-wordpress-plugin)
+[Upgrade to Business](https://richplugins.com/facebook-reviews-pro-wordpress-plugin)
 
-* Supports Google Rich Snippets (schema.org)
-* Support shortcode
-* Powerful <b>Shortcode Builder</b>
-* Slider and Grid themes to show reviews like testimonials
-* Facebook Trust Badge (right/left fixed or inner label)
-* Trim long reviews with "read more" link
-* Show/hide business photo and avatars
-* Minimum review rating filter
-* Custom business photo
-* Pagination
+* Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
+* Trying to get more than 5 Google reviews
+* Google Rich Snippets (schema.org)
+* Support shortcode, powerful <b>Shortcode Builder</b>
+* Slider/Grid themes to show G+ reviews like testimonials
+* Google Trust Badge (right/left fixed or embedded)
+* 'Write a review' button to available leave Google review directly on your website
+* Show/hide any elements (business, reviews, avatars, names, time and etc)
+* Any Sorting: recent, oldest, rating, striped
+* Include/Exclude words filter
+* Custom Facebook page photo
+* Minimum rating filter
 * Priority support
 
 = Additional Business Reviews Plugins =
@@ -69,6 +74,12 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.4.9 =
+* Improve: 'read more' link feature
+* Improve: added centered option
+* Improve: update widget design
+* Improve: update setting page design
 
 = 1.4.8 =
 * Update plugin to WordPress 5.0

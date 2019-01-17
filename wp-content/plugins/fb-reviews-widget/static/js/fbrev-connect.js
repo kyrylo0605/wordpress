@@ -30,7 +30,7 @@ function fbrev_connect(el, data) {
                 WPacFastjs.each(res.data, function(page) {
                     var pageEL = WPacFastjs.create('div', 'fbrev-page');
                     pageEL.innerHTML = '<img src="https://graph.facebook.com/' + page.id +  '/picture" class="fbrev-page-photo">' +
-                                       '<div class="fbrev-page-name">' + page.name + '</div>';
+                                       '<span>' + page.name + '</span>';
                     pagesEl.appendChild(pageEL);
                     WPacFastjs.on(pageEL, 'click', function() {
                         return fbrev_page_click(el, pageEL, page, data.cb);

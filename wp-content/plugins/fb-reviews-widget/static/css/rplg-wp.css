@@ -412,7 +412,7 @@
 }
 
 .fbrev-pages .fbrev-page {
-  margin: 4px 0;
+  margin: 10px 0 0;
   padding: 6px;
   border: 1px solid #eee;
   border-radius: 3px;
@@ -431,7 +431,6 @@
   box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
 }
 
-.fbrev-pages .fbrev-page-name {
-  display: inline-block;
+.fbrev-pages span {
   margin: 4px 16px;
 }
