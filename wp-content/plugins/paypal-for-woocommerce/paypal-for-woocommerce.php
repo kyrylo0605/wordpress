@@ -4,7 +4,7 @@
  * Plugin Name:       PayPal for WooCommerce
  * Plugin URI:        http://www.angelleye.com/product/paypal-for-woocommerce-plugin/
  * Description:       Easily enable PayPal Express Checkout, PayPal Pro, PayPal Advanced, PayPal REST, and PayPal Braintree.  Each option is available separately so you can enable them individually.
- * Version:           1.5.4
+ * Version:           1.5.6
  * Author:            Angell EYE
  * Author URI:        http://www.angelleye.com/
  * License:           GNU General Public License v3.0
@@ -13,9 +13,9 @@
  * Domain Path:       /i18n/languages/
  * GitHub Plugin URI: https://github.com/angelleye/paypal-woocommerce
  * Requires at least: 3.8
- * Tested up to: 5.0.0
+ * Tested up to: 5.0.3
  * WC requires at least: 3.0.0
- * WC tested up to: 3.5.2
+ * WC tested up to: 3.5.3
  *
  *************
  * Attribution
@@ -39,7 +39,7 @@ if (!defined('PAYPAL_FOR_WOOCOMMERCE_ASSET_URL')) {
     define('PAYPAL_FOR_WOOCOMMERCE_ASSET_URL', plugin_dir_url(__FILE__));
 }
 if (!defined('VERSION_PFW')) {
-    define('VERSION_PFW', '1.5.4');
+    define('VERSION_PFW', '1.5.6');
 }
 if ( ! defined( 'PAYPAL_FOR_WOOCOMMERCE_PLUGIN_FILE' ) ) {
     define( 'PAYPAL_FOR_WOOCOMMERCE_PLUGIN_FILE', __FILE__ );
@@ -203,7 +203,7 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
             $user_id = $current_user->ID;
             
             /* If user clicks to ignore the notice, add that to their user meta */
-            $notices = array('ignore_pp_ssl', 'ignore_pp_sandbox', 'ignore_pp_woo', 'ignore_pp_check', 'ignore_pp_donate', 'ignore_paypal_plus_move_notice', 'ignore_billing_agreement_notice', 'ignore_paypal_pro_payflow_reference_transaction_notice','payflow_sb_autopopulate_credentials');
+            $notices = array('ignore_pp_ssl', 'ignore_pp_sandbox', 'ignore_pp_woo', 'ignore_pp_check', 'ignore_pp_donate', 'ignore_paypal_plus_move_notice', 'ignore_billing_agreement_notice', 'ignore_paypal_pro_payflow_reference_transaction_notice','payflow_sb_autopopulate_credentials', 'agree_disgree_opt_in_logging');
             
             foreach ($notices as $notice) {
                 if ( isset($_GET[$notice]) && '0' == $_GET[$notice] ) {
@@ -279,6 +279,41 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
             }
             
             $this->angelleye_paypal_plus_notice($user_id);
+            
+            $opt_in_log = get_option( 'angelleye_display_agree_disgree_opt_in_logging', 'yes');
+            
+            $angelleye_send_opt_in_logging_details = get_option('angelleye_send_opt_in_logging_details', '');
+            
+            if($opt_in_log == 'yes' && empty($angelleye_send_opt_in_logging_details)){
+                echo '<div class="notice notice-success angelleye-notice" style="display:none;">'
+                        . '<div class="angelleye-notice-logo-original"><span></span></div>'
+                        . '<div class="angelleye-notice-message">'
+                            . '<h3>PayPal for WooCoomerce</h3>'
+                            . '<div class="angelleye-notice-message-inner">'.sprintf(__('We work directly with PayPal to improve your experience as a seller as well as your buyer\'s experience. May we log some basic details about your site (eg. URL) for future improvement purposes? It would be a big help, thanks!.','paypal-for-woocommerce'))
+                        . '</div></div>'
+                        . '<div class="angelleye-notice-cta">'
+                            . '<a href="'.  add_query_arg('angelleye_display_agree_disgree_opt_in_logging','yes').'" class="button button-primary">'.__('Sure, I\'ll help!','paypal-for-woocommerce').'</a>&nbsp;&nbsp;'
+                            .'<a href="'.  add_query_arg('angelleye_display_agree_disgree_opt_in_logging','no').'" class="button">'.__('No thanks.','paypal-for-woocommerce').'</a>'
+                        . '</div>'
+                    . '</div>';
+            }
+            if(isset($_GET['angelleye_display_agree_disgree_opt_in_logging']) && $_GET['angelleye_display_agree_disgree_opt_in_logging'] == 'yes'){
+                update_option('angelleye_send_opt_in_logging_details', 'yes');
+                global $woocommerce;                
+                //Log activation in Angell EYE database via web service.
+                //@todo Need to turn this into an option people can enable by request.
+                $log_url = $_SERVER['HTTP_HOST'];
+                $log_plugin_id = 1;
+                $log_activation_status = 1;
+                wp_remote_request('http://www.angelleye.com/web-services/wordpress/update-plugin-status.php?url='.$log_url.'&plugin_id='.$log_plugin_id.'&activation_status='.$log_activation_status);               
+                $set_ignore_tag_url =  remove_query_arg( 'angelleye_display_agree_disgree_opt_in_logging' );
+                wp_redirect($set_ignore_tag_url);
+            } elseif(isset($_GET['angelleye_display_agree_disgree_opt_in_logging']) && $_GET['angelleye_display_agree_disgree_opt_in_logging'] == 'no') {
+                update_option('angelleye_send_opt_in_logging_details', 'no');
+                $set_ignore_tag_url =  remove_query_arg( 'angelleye_display_agree_disgree_opt_in_logging' );
+                wp_redirect($set_ignore_tag_url);
+            }
+            
         }
 
         //init function
@@ -291,7 +326,7 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
             include_once ( PAYPAL_FOR_WOOCOMMERCE_PLUGIN_DIR . '/classes/wc-gateway-paypal-pro-angelleye.php');
             include_once ( PAYPAL_FOR_WOOCOMMERCE_PLUGIN_DIR . '/classes/wc-gateway-braintree-angelleye.php');
             include_once ( PAYPAL_FOR_WOOCOMMERCE_PLUGIN_DIR . '/classes/wc-gateway-paypal-credit-cards-rest-angelleye.php');
-            new Angelleye_PayPal_Express_Checkout_Helper(VERSION_PFW);
+            Angelleye_PayPal_Express_Checkout_Helper::instance();
             add_filter( 'woocommerce_payment_gateways', array($this, 'angelleye_add_paypal_pro_gateway'),1000 );
         }
 
@@ -341,42 +376,35 @@ if(!class_exists('AngellEYE_Gateway_Paypal')){
 
         }
 
-        
-
         /**
          * Run when plugin is activated
          */
-        function activate_paypal_for_woocommerce()
-        {
+        function activate_paypal_for_woocommerce() {
             // If WooCommerce is not enabled, deactivate plugin.
-            if(!in_array( 'woocommerce/woocommerce.php',apply_filters('active_plugins',get_option('active_plugins'))) && !is_plugin_active_for_network( 'woocommerce/woocommerce.php' ))
-            {
+            if(!in_array( 'woocommerce/woocommerce.php',apply_filters('active_plugins',get_option('active_plugins'))) && !is_plugin_active_for_network( 'woocommerce/woocommerce.php' )) {
                 deactivate_plugins(plugin_basename(__FILE__));
             }
-            else
-            {
-                global $woocommerce;
-                
-                // Log activation in Angell EYE database via web service.
-                // @todo Need to turn this into an option people can enable by request.
-                //$log_url = $_SERVER['HTTP_HOST'];
-                //$log_plugin_id = 1;
-                //$log_activation_status = 1;
-                //wp_remote_request('http://www.angelleye.com/web-services/wordpress/update-plugin-status.php?url='.$log_url.'&plugin_id='.$log_plugin_id.'&activation_status='.$log_activation_status);
-            }
+            $opt_in_log = get_option('angelleye_send_opt_in_logging_details', 'no');
+            if($opt_in_log == 'yes') {
+                $log_url = $_SERVER['HTTP_HOST'];
+                $log_plugin_id = 1;
+                $log_activation_status = 1;
+                wp_remote_request('http://www.angelleye.com/web-services/wordpress/update-plugin-status.php?url='.$log_url.'&plugin_id='.$log_plugin_id.'&activation_status='.$log_activation_status);               
+            } 
         }
 
         /**
          * Run when plugin is deactivated.
          */
-        function deactivate_paypal_for_woocommerce()
-        {
+        function deactivate_paypal_for_woocommerce() {
             // Log activation in Angell EYE database via web service.
-            // @todo Need to turn this into an option people can enable.
-            //$log_url = $_SERVER['HTTP_HOST'];
-            //$log_plugin_id = 1;
-            //$log_activation_status = 0;
-            //wp_remote_request('http://www.angelleye.com/web-services/wordpress/update-plugin-status.php?url='.$log_url.'&plugin_id='.$log_plugin_id.'&activation_status='.$log_activation_status);
+            $opt_in_log = get_option('angelleye_send_opt_in_logging_details', 'no');
+            if($opt_in_log == 'yes') {
+                $log_url = $_SERVER['HTTP_HOST'];
+                $log_plugin_id = 1;
+                $log_activation_status = 0;
+                wp_remote_request('http://www.angelleye.com/web-services/wordpress/update-plugin-status.php?url='.$log_url.'&plugin_id='.$log_plugin_id.'&activation_status='.$log_activation_status);
+            } 
         }
 
         /**

@@ -3,8 +3,8 @@ Contributors: angelleye, angelleyesupport, Umangvaghela
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SG9SQU2GBXJNA
 Tags: woocommerce, paypal, express checkout, payments pro, angelleye, payflow, dodirectpayment, apple pay, google play, braintree, payments advanced, rest, credit cards, credit card payments, payments, payment
 Requires at least: 3.8
-Tested up to: 5.0.0
-Stable tag: 1.5.4
+Tested up to: 5.0.3
+Stable tag: 1.5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -126,6 +126,23 @@ Automatic updates should work great for you.  As always, though, we recommend ba
 * If you are unsure, you may need to [contact PayPal](https://www.paypal.com/us/webapps/helpcenter/helphub/home/) and request the information.  Just let them know you need to enable a Payments Pro plugin on your website, but you're unsure whether you should use Website Payments Pro 3.0(DoDirectPayment) or Payments Pro 2.0 (PayFlow).  They can confirm which one you need to use.
 
 == Changelog ==
+
+= 1.5.6 - 01.19.2019 =
+* Fix - Resolves a problem with Express Checkout button display on some themes. ([PFW-354](https://github.com/angelleye/paypal-woocommerce/pull/1273))
+
+= 1.5.5 - 01.17.2019 =
+* Feature - "Checkout WC" Compatibility with PayPal Express Checkout. ([PFW-305](https://github.com/angelleye/paypal-woocommerce/pull/1254))
+* Feature - Adds Express Checkout Smart Button functionality to Woo checkout page. ([PFW-303](https://github.com/angelleye/paypal-woocommerce/pull/1258))
+* Feature - Adds an opt-in for basic logging to help us improve the plugin. ([PFW-341](https://angelleye.atlassian.net/browse/PFW-341))
+* Feature - Adds the ability to set Express Checkout Smart Button options specific to product pages, cart page, and checkout page. ([PFW-334](https://github.com/angelleye/paypal-woocommerce/pull/1261))
+* Tweak - Adjusts the way Maestro cards are handled with regard to regular vs. token payments. ([PFW-329](https://github.com/angelleye/paypal-woocommerce/pull/1255))
+* Tweak - Improved method for handling WooCommerce subtotal calculations mis-matches to avoid PayPal checkout errors. ([PFW-318](https://github.com/angelleye/paypal-woocommerce/pull/1257))
+* Fix - Resolves an issue with Braintree Google Pay. ([PFW-330](https://github.com/angelleye/paypal-woocommerce/pull/1256))
+* Fix - Resolves a bug with the PayFlow option to display expiration month using name instead of numbers. ([PFW-333](https://github.com/angelleye/paypal-woocommerce/pull/1260))
+* Fix - Resolves an issue where a PayFlow display notice was appearing two times. ([PFW-332](https://github.com/angelleye/paypal-woocommerce/pull/1259))
+* Fix - Resolves a missing PPREF value in PayFlow when PayPal is used as the processor. ([PFW-310](https://github.com/angelleye/paypal-woocommerce/pull/1265))
+* Fix - Resolves an issue in Braintree where the card holder name was not always sent correctly in the request. ([PFW-342](https://github.com/angelleye/paypal-woocommerce/pull/1266))
+* Fix - Resolves an issue in validation of credit card types in some gateways. ([PFW-341](https://github.com/angelleye/paypal-woocommerce/pull/1267))
 
 = 1.5.4 - 12.08.2018 =
 * Feature - Adds PayPal Fee to WooCommerce order meta data for Express Checkout orders. ([PFW-299](https://github.com/angelleye/paypal-woocommerce/pull/1243))
