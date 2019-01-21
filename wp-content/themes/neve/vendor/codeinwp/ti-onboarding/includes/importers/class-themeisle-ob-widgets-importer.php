@@ -44,9 +44,8 @@ class Themeisle_OB_Widgets_Importer {
 	 */
 	private function actually_import( $data ) {
 		global $wp_registered_sidebars;
-
 		if ( empty( $data ) || ! is_array( $data ) ) {
-			wp_send_json_error( 'error', 500 );
+			wp_send_json_error( 'ti__ob_widget_err_1', 500 );
 		}
 
 		$available_widgets = $this->available_widgets();

@@ -18,7 +18,7 @@
 					<!--</div>-->
 				<!--</template>-->
 
-				<!--<template v-for="(editor_sites, site_editor) in sites.upsell">-->
+				<!--<template v-if="onboard !== 'yes'" v-for="(editor_sites, site_editor) in sites.upsell">-->
 					<!--<div v-for="site in filterTemplates(editor_sites)" >-->
 						<!--<SiteItem :site_data="site"></SiteItem>-->
 					<!--</div>-->
@@ -44,7 +44,7 @@
 						</div>
 					</template>
 
-					<template v-for="(editor_sites, site_editor) in sites.upsell">
+					<template v-if="onboard !== 'yes'" v-for="(editor_sites, site_editor) in sites.upsell">
 						<div v-if="site_editor===editor" v-for="site in filterTemplates(editor_sites)" >
 							<SiteItem :site_data="site"></SiteItem>
 						</div>
@@ -75,6 +75,9 @@
 			sites: function () {
 				return this.$store.state.sitesData
 			},
+			onboard: function () {
+			    return this.$store.state.onboard;
+            }
 		},
 		methods: {
 			filterTemplates: function ( sites ) {

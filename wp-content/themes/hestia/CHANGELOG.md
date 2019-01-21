@@ -1,4 +1,11 @@
 
+ ### v2.1.1 - 2019-01-17 
+ **Changes:** 
+ * Changed the boxed layout for the third header layout
+* Improved layout of the onboarding notice and page
+* Small layout fixes for the Orfeo child theme
+* Fixed the upgrade link
+ 
  ### v2.1.0 - 2019-01-09 
  **Changes:** 
  * NEW Custom integration with Gutenberg

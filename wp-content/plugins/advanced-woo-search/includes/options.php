@@ -35,6 +35,19 @@ $options['general'][] = array(
 );
 
 $options['general'][] = array(
+    "name"  => __( "Sync index table", "aws" ),
+    "desc"  => __( "Automatically update plugin index table when product content was changed. This means that in search there will be always latest product data.", "aws" ) . '<br>' .
+               __( "Turn this off if you have any problems with performance.", "aws" ),
+    "id"    => "autoupdates",
+    "value" => 'true',
+    "type"  => "radio",
+    'choices' => array(
+        'true'  => __( 'On', 'aws' ),
+        'false'  => __( 'Off', 'aws' ),
+    )
+);
+
+$options['general'][] = array(
     "name"  => __( "Search in", "aws" ),
     "desc"  => __( "Search source: Drag&drop sources to activate or deactivate them.", "aws" ),
     "id"    => "search_in",

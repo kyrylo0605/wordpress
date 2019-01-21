@@ -5,7 +5,7 @@ Theme URI:      https://themeisle.com/themes/hestia-pro/
 Author:         ThemeIsle
 Author URI:     https://themeisle.com
 Description:    Hestia Pro is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
-Version:        2.1.0
+Version:        2.1.1
 License:        GNU General Public License v2 or later
 License URI:    http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:    hestia-pro
@@ -332,6 +332,10 @@ h6.category {
 .media .media-heading,
 .woocommerce.archive .blog-post .products .product-category h2 {
 	font-weight: 700;
+}
+
+.hestia-title {
+	word-break: break-word;
 }
 
 button,
@@ -4294,9 +4298,9 @@ table > tbody > tr:last-child,
 	border-radius: 0;
 }
 
-.header-layout-classic-blog.woocommerce.archive .main-raised,
-.header-layout-classic-blog.single .main-raised,
-.header-layout-classic-blog .main-raised {
+.header-layout-classic-blog:not(.page-template-default):not(.home).woocommerce.archive .main-raised,
+.header-layout-classic-blog:not(.page-template-default):not(.home).single .main-raised,
+.header-layout-classic-blog:not(.page-template-default):not(.home) .main-raised {
 	margin-top: 0;
 }
 

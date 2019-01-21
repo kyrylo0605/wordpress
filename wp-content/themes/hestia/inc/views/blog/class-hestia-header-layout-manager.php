@@ -125,6 +125,7 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 	public function post_page_header() {
 		$layout = apply_filters( 'hestia_header_layout', get_theme_mod( 'hestia_header_layout', 'default' ) );
 		if ( 'classic-blog' === $layout ) {
+			add_filter( 'hestia_boxed_layout', '__return_empty_string' );
 			return;
 		}
 		$this->display_header( $layout, 'post' );

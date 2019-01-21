@@ -29,7 +29,14 @@ class Hestia_Metabox_Manager {
 		}
 
 		$current_theme = wp_get_theme();
-		$metabox_label = $current_theme->get( 'Name' ) . ' ' . esc_html__( 'General Settings', 'hestia' );
+		$post_type     = $current_theme->get( 'Name' );
+
+		$post_type_from_db = get_post_type();
+		if ( $post_type_from_db ) {
+			$post_type = ucfirst( $post_type_from_db );
+		}
+
+		$metabox_label = $post_type . ' ' . esc_html__( 'General Settings', 'hestia' );
 
 		add_meta_box(
 			'hestia-page-settings',

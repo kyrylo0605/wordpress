@@ -20,13 +20,13 @@ const populatePreview = ( state, data ) => {
 const updateSteps = ( state, data ) => {
 	state.currentStep = data;
 };
-const updatePlugins= ( state, data ) => {
+const updatePlugins = ( state, data ) => {
 	state.importOptions.installablePlugins = data;
 };
-const updateImportOptions= ( state, data ) => {
+const updateImportOptions = ( state, data ) => {
 	state.importOptions = data;
 };
-const updateEditor=( state, data ) => {
+const updateEditor = ( state, data ) => {
 	state.editor = data;
 };
 const setFrontPageId = ( state, data ) => {
@@ -38,11 +38,17 @@ const resetStates = ( state ) => {
 	state.importModalState = false;
 	state.previewData = {};
 	state.currentStep = 'inactive';
-	state.importOptions =  {
+	state.importOptions = {
 		content: true,
 		customizer: true,
 		widgets: true,
 	};
+
+	state.importSteps.content.done = 'no';
+	state.importSteps.plugins.done = 'no';
+	state.importSteps.theme_mods.done = 'no';
+	state.importSteps.widgets.done = 'no';
+	state.errorToast = '';
 };
 
 const migrationComplete = ( state ) => {

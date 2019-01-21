@@ -185,7 +185,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     // Fallback if re-index failed by timeout in this iteration
                     if ( ! isset( $meta['attemps'] ) || ( isset( $meta['attemps'] ) && $meta['attemps'] < $max_cron_attemps ) ) {
                         if ( ! wp_next_scheduled( 'aws_reindex_table', array( 'inner' ) ) ) {
-                            wp_schedule_single_event( time() + 700, 'aws_reindex_table', array( 'inner' ) );
+                            wp_schedule_single_event( time() + 60, 'aws_reindex_table', array( 'inner' ) );
                         }
                     }
 
@@ -662,7 +662,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
          */
         public function updated_custom_tabs( $meta_id, $object_id, $meta_key, $meta_value ) {
 
-            if ( $meta_key === 'yikes_woo_products_tabs' ) {
+            if ( $meta_key === 'yikes_woo_products_tabs' && apply_filters( 'aws_filter_yikes_woo_products_tabs_sync', true ) ) {
 
                 $this->update_table( $object_id );
 
@@ -677,8 +677,14 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             global $wpdb;
 
+            $sunc = AWS()->get_settings( 'autoupdates' );
+
             if ( AWS_Helpers::is_table_not_exist() ) {
                 $this->create_table();
+            }
+
+            if ( $sunc === 'false' ) {
+                return;
             }
 
             $wpdb->delete( $this->table_name, array( 'id' => $product_id ) );

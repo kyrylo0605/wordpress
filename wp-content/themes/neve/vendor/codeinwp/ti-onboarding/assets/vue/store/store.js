@@ -19,6 +19,7 @@ export default new Vuex.Store( {
 			upsell: {},
 		},
 		previewOpen: false,
+		errorToast: '',
 		importModalState: false,
 		importing: false,
 		previewData: {},
@@ -26,6 +27,7 @@ export default new Vuex.Store( {
 		strings: themeisleSitesLibApi.i18ln ,
 		homeUrl: themeisleSitesLibApi.homeUrl,
 		currentStep: 'inactive',
+		importSteps: themeisleSitesLibApi.importSteps,
 		editor: '',
 		frontPageId: -1,
 		migration: 'inactive',
@@ -36,6 +38,7 @@ export default new Vuex.Store( {
 			customizer: true,
 			widgets: true,
 			installablePlugins: {},
+			isMigration: false
 		},
 	},
 	actions,

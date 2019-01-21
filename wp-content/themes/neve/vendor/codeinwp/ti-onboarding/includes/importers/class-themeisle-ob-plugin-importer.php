@@ -21,7 +21,7 @@ class Themeisle_OB_Plugin_Importer {
 	 */
 	public function install_plugins( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( 'error', 500 );
+			wp_send_json_error( 'ti__ob_permission_err_3', 500 );
 		}
 
 		do_action( 'themeisle_ob_before_plugins_install' );

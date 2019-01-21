@@ -47,12 +47,23 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 add_action( 'aws_search_start', array( $this, 'b2b_set_filter' ) );
             }
 
-            if ( class_exists( 'WC_PPC_Util' ) ) {
+            // Protected categories
+            if ( class_exists( 'WC_PPC_Util' )
+                && method_exists( 'WC_PPC_Util', 'showing_protected_categories' )
+                && method_exists( 'WC_PPC_Util', 'to_category_visibilities' )
+                && method_exists( 'WC_PPC_Util', 'get_product_categories' )
+            ) {
                 add_action( 'aws_search_start', array( $this, 'wc_ppc_set_filter' ) );
             }
 
             if ( function_exists( 'dfrapi_currency_code_to_sign' ) ) {
                 add_filter( 'woocommerce_currency_symbol', array( $this, 'dfrapi_set_currency_symbol_filter' ), 10, 2 );
+            }
+
+            // WC Marketplace - https://wc-marketplace.com/
+            if ( defined( 'WCMp_PLUGIN_VERSION' ) ) {
+                add_filter( 'aws_search_data_params', array( $this, 'wc_marketplace_filter' ), 10, 3 );
+                add_filter( 'aws_search_pre_filter_products', array( $this, 'wc_marketplace_products_filter' ), 10, 2 );
             }
 
             add_filter( 'aws_terms_exclude_product_cat', array( $this, 'filter_protected_cats_term_exclude' ) );
@@ -65,51 +76,57 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
          */
         public function b2b_set_filter() {
 
-            if ( is_user_logged_in() ) {
+            $args = array(
+                'posts_per_page' => - 1,
+                'post_type'      => 'customer_groups',
+                'post_status'    => 'publish',
+            );
 
+            $posts           = get_posts( $args );
+            $customer_groups = array();
+            $user_role       = '';
+
+            foreach ( $posts as $customer_group ) {
+                $customer_groups[$customer_group->post_name] = $customer_group->ID;
+            }
+
+            if ( is_user_logged_in() ) {
                 $user = wp_get_current_user();
                 $role = ( array ) $user->roles;
                 $user_role = $role[0];
-
-                if ( $user_role ) {
-
-                    $args = array(
-                        'posts_per_page' => - 1,
-                        'post_type'      => 'customer_groups',
-                        'post_status'    => 'publish',
-                    );
-
-                    $posts           = get_posts( $args );
-                    $customer_groups = array();
-
-                    foreach ( $posts as $customer_group ) {
-                        $customer_groups[$customer_group->post_name] = $customer_group->ID;
+            } else {
+                $guest_slugs = array( 'Gast', 'Gäste', 'Guest', 'Guests', 'gast', 'gäste', 'guest', 'guests' );
+                foreach( $customer_groups as $customer_group_key => $customer_group_id ) {
+                    if ( in_array( $customer_group_key, $guest_slugs ) ) {
+                        $user_role = $customer_group_key;
                     }
+                }
+            }
 
-                    if ( isset( $customer_groups[$user_role] ) ) {
-                        $curret_customer_group_id = $customer_groups[$user_role];
+            if ( $user_role ) {
 
-                        $whitelist = get_post_meta( $curret_customer_group_id, 'bm_conditional_all_products', true );
+                if ( isset( $customer_groups[$user_role] ) ) {
+                    $curret_customer_group_id = $customer_groups[$user_role];
 
-                        if ( $whitelist && $whitelist === 'off' ) {
+                    $whitelist = get_post_meta( $curret_customer_group_id, 'bm_conditional_all_products', true );
 
-                            $products_to_exclude = get_post_meta( $curret_customer_group_id, 'bm_conditional_products', false );
-                            $cats_to_exclude = get_post_meta( $curret_customer_group_id, 'bm_conditional_categories', false );
+                    if ( $whitelist && $whitelist === 'off' ) {
 
-                            if ( $products_to_exclude && ! empty( $products_to_exclude ) ) {
+                        $products_to_exclude = get_post_meta( $curret_customer_group_id, 'bm_conditional_products', false );
+                        $cats_to_exclude = get_post_meta( $curret_customer_group_id, 'bm_conditional_categories', false );
 
-                                foreach( $products_to_exclude as $product_to_exclude ) {
-                                    $this->data['exclude_products'][] = trim( $product_to_exclude, ',' );
-                                }
+                        if ( $products_to_exclude && ! empty( $products_to_exclude ) ) {
 
+                            foreach( $products_to_exclude as $product_to_exclude ) {
+                                $this->data['exclude_products'][] = trim( $product_to_exclude, ',' );
                             }
 
-                            if ( $cats_to_exclude && ! empty( $cats_to_exclude ) ) {
+                        }
 
-                                foreach( $cats_to_exclude as $cat_to_exclude ) {
-                                    $this->data['exclude_categories'][] = trim( $cat_to_exclude, ',' );
-                                }
+                        if ( $cats_to_exclude && ! empty( $cats_to_exclude ) ) {
 
+                            foreach( $cats_to_exclude as $cat_to_exclude ) {
+                                $this->data['exclude_categories'][] = trim( $cat_to_exclude, ',' );
                             }
 
                         }
@@ -191,6 +208,93 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
             $currency_symbol = dfrapi_currency_code_to_sign( $fields['currency'] );
             return $currency_symbol;
+
+        }
+
+        /*
+         * WC Marketplace plugin support
+         */
+        public function wc_marketplace_filter( $data, $post_id, $product ) {
+
+            $wcmp_spmv_map_id = get_post_meta( $post_id, '_wcmp_spmv_map_id', true );
+
+            if ( $wcmp_spmv_map_id ) {
+
+                if ( isset( $data['wcmp_price'] ) && isset( $data['wcmp_price'][$wcmp_spmv_map_id] )  ) {
+
+                    if ( $product->get_price() < $data['wcmp_price'][$wcmp_spmv_map_id] ) {
+                        $data['wcmp_price'][$wcmp_spmv_map_id] = $product->get_price();
+                        $data['wcmp_lowest_price_id'][$wcmp_spmv_map_id] = $post_id;
+                    }
+
+                } else {
+                    $data['wcmp_price'][$wcmp_spmv_map_id] = $product->get_price();
+                }
+
+                $data['wcmp_spmv_product_id'][$wcmp_spmv_map_id][] = $post_id;
+
+            }
+
+            return $data;
+
+        }
+
+        /*
+         * WC Marketplace plugin products filter
+         */
+        public function wc_marketplace_products_filter( $products_array, $data ) {
+
+            $wcmp_spmv_exclude_ids = array();
+
+            if ( isset( $data['wcmp_spmv_product_id'] ) ) {
+
+                foreach( $data['wcmp_spmv_product_id'] as $wcmp_spmv_map_id => $wcmp_spmv_product_id ) {
+
+                    if ( count( $wcmp_spmv_product_id ) > 1 ) {
+
+                        if ( isset( $data['wcmp_lowest_price_id'] ) && isset( $data['wcmp_lowest_price_id'][$wcmp_spmv_map_id] ) ) {
+
+                            foreach ( $wcmp_spmv_product_id as $wcmp_spmv_product_id_n ) {
+
+                                if ( $wcmp_spmv_product_id_n === $data['wcmp_lowest_price_id'][$wcmp_spmv_map_id] ) {
+                                    continue;
+                                }
+
+                                $wcmp_spmv_exclude_ids[] = $wcmp_spmv_product_id_n;
+
+                            }
+
+                        } else {
+
+                            foreach ( $wcmp_spmv_product_id as $key => $wcmp_spmv_product_id_n ) {
+
+                                if ( $key === 0 ) {
+                                    continue;
+                                }
+
+                                $wcmp_spmv_exclude_ids[] = $wcmp_spmv_product_id_n;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $new_product_array = array();
+
+            foreach( $products_array as $key => $pr_arr ) {
+
+                if ( ! in_array( $pr_arr['id'], $wcmp_spmv_exclude_ids ) ) {
+                    $new_product_array[] = $pr_arr;
+                }
+
+            }
+
+            return $new_product_array;
 
         }
 

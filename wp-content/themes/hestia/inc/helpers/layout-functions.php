@@ -586,7 +586,7 @@ if ( ! function_exists( 'hestia_layout' ) ) {
 		 * Add main-raised class when the Boxed Layout option is enabled
 		 */
 		if ( isset( $hestia_general_layout ) && $hestia_general_layout == 1 ) {
-			$layout_class .= ' main-raised ';
+			$layout_class .= apply_filters( 'hestia_boxed_layout', ' main-raised ' );
 		}
 
 		/**

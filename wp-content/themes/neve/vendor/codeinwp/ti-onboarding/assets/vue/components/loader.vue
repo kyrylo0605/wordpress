@@ -10,13 +10,3 @@
 		props: { loadingMessage: String },
 	}
 </script>
-
-<style scoped>
-	.updating-message {
-		text-align: center;
-	}
-
-	.updating-message:before {
-		margin-right: 5px;
-	}
-</style>

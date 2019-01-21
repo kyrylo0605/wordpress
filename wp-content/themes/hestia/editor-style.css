@@ -87,6 +87,10 @@ h6.category {
   font-weight: 700;
 }
 
+.hestia-title {
+  word-break: break-word;
+}
+
 button,
 input[type="submit"],
 input[type="button"],

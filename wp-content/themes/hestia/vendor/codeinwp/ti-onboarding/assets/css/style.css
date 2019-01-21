@@ -179,6 +179,7 @@ a.expander {
 .skip-wrap {
     width: 100%;
     text-align: center;
+	margin-bottom: 1em;
 }
 
 .is__onboarding {

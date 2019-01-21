@@ -1,114 +1,56 @@
 <template>
-	<div class="site-box" :class="site_data.pricing">
-		<div v-if="site_data.in_pro" class="demo-pro"></div>
-		<div class="preview-image">
-			<img :src="site_data.screenshot" :alt="site_data.title">
+	<div class="site-box" :class="siteData.pricing">
+		<div class="preview-image" :class="{ 'demo-pro' : siteData.in_pro }">
+			<img :src="siteData.screenshot" :alt="siteData.title">
 		</div>
 		<div class="footer">
-			<h4>{{site_data.title}}</h4>
-            <div class="theme-actions">
-                <button class="button button-secondary" v-on:click="showPreview()">
-                    {{this.$store.state.strings.preview_btn}}
-                </button>
-                <button class="button button-primary" v-if="! site_data.in_pro" v-on:click="importSite()">
-                    {{strings.import_btn}}
-                </button>
-            </div>
+			<h4>{{siteData.title}}</h4>
+			<div class="theme-actions">
+				<button class="button button-secondary" v-on:click="showPreview()">
+					{{this.$store.state.strings.preview_btn}}
+				</button>
+				<button class="button button-primary" v-if="! siteData.in_pro" v-on:click="importSite()">
+					{{strings.import_btn}}
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+
+	import {getInstallablePlugins} from '../common/common.js';
 	export default {
 		name: 'site-item',
-        data: function() {
-            return {
-                strings: this.$store.state.strings
-            }
-        },
+		data: function () {
+			return {
+				strings: this.$store.state.strings
+			}
+		},
 		props: {
-			site_data: {
+			siteData: {
 				default: {},
 				type: Object,
 				required: true,
 			},
 		},
 		methods: {
-            setupImportData: function () {
-				let plugins = Object.keys( this.site_data.recommended_plugins ).reduce( function ( previous, current ) {
-					previous[ current ] = true;
-					return previous;
-				}, {} );
-
+			setupImportData: function () {
+				let recommended = this.siteData.recommended_plugins ? this.siteData.recommended_plugins : {};
+				let mandatory = this.siteData.mandatory_plugins ? this.siteData.mandatory_plugins : {};
+				let plugins = getInstallablePlugins( mandatory, recommended );
 				this.$store.commit( 'updatePlugins', plugins );
 			},
-            importSite: function() {
-                this.setupImportData();
-                this.$store.commit( 'populatePreview', this.site_data );
-                this.$store.commit( 'showImportModal', true );
-            },
-            showPreview: function() {
-                this.setupImportData();
-                this.$store.commit( 'showPreview', true );
-                this.$store.commit( 'populatePreview', this.site_data );
-            }
+			importSite: function () {
+				this.setupImportData();
+				this.$store.commit( 'populatePreview', this.siteData );
+				this.$store.commit( 'showImportModal', true );
+			},
+			showPreview: function () {
+				this.setupImportData();
+				this.$store.commit( 'showPreview', true );
+				this.$store.commit( 'populatePreview', this.siteData );
+			}
 		},
 	}
 </script>
-
-<style scoped>
-	h4 {
-		display: block;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		margin: 0;
-		overflow: hidden;
-		max-width: 70%;
-		font-size: 15px;
-	}
-
-	.site-box {
-		border: 1px solid #ccc;
-	}
-
-    .site-box:hover .footer .theme-actions {
-        display: block;
-    }
-
-	.footer {
-        position: relative;
-		border-top: 1px solid #ccc;
-		display: flex;
-		padding: 15px;
-		flex-wrap: wrap;
-		align-items: center;
-	}
-
-    .footer .theme-actions {
-        display: none;
-        position: absolute;
-        right: 0;
-        padding: 10px 15px;
-        background-color: rgba(244, 244, 244, 0.7);
-        border-left: 1px solid rgba(0,0,0,0.05);
-    }
-
-	button.button-secondary.button {
-		align-self: flex-end;
-		margin-left: auto;
-	}
-
-	.demo-pro {
-		position: relative;
-	}
-	.demo-pro::after {
-		content: "Pro";
-		position: absolute;
-		top: 0;
-		right: 0;
-		color: #fff;
-		background-color: #e91e63;
-		border-radius: 5px;
-		padding: 5px;
-	}
-</style>

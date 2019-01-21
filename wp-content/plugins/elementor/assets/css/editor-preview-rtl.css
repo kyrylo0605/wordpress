@@ -1,4 +1,4 @@
-/*! elementor - v2.4.1 - 15-01-2019 */
+/*! elementor - v2.4.3 - 21-01-2019 */
 @charset "UTF-8";
 .elementor-panel-box {
   margin-top: 10px;
@@ -1453,7 +1453,7 @@
     overflow: hidden;
     -webkit-border-radius: 3px;
             border-radius: 3px;
-    z-index: 9998; }
+    z-index: 9999; }
     .pen-menu:after {
       top: 100%;
       content: '';

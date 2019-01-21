@@ -128,6 +128,15 @@ msgstr ""
 msgid "Cache results"
 msgstr ""
 
+msgid "Sync index table"
+msgstr ""
+
+msgid "Automatically update plugin index table when product content was changed. This means that in search there will be always latest product data."
+msgstr ""
+
+msgid "Turn this off if you have any problems with performance."
+msgstr ""
+
 msgid "Main Settings"
 msgstr ""
 

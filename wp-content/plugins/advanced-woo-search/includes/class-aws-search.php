@@ -483,6 +483,15 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         continue;
                     }
 
+                    /**
+                     * Filter additional product data
+                     * @since 1.60
+                     * @param array $this->data Additional data
+                     * @param int $post_id Product id
+                     * @param object $product Product
+                     */
+                    $this->data = apply_filters( 'aws_search_data_params', $this->data, $post_id, $product );
+
                     $post_data = get_post( $post_id );
 
                     $title = $product->get_title();
@@ -566,6 +575,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 //                    $tags = $product->get_tags( ',' );
 
                     $new_result = array(
+                        'id'           => $post_id,
                         'title'        => $title,
                         'excerpt'      => $excerpt,
                         'link'         => get_permalink( $post_id ),
@@ -585,6 +595,14 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 }
 
             }
+
+            /**
+             * Filter products array before output
+             * @since 1.60
+             * @param array $products_array Products array
+             * @param array $this->data Additional data
+             */
+            $products_array = apply_filters( 'aws_search_pre_filter_products', $products_array, $this->data );
 
             return $products_array;
 

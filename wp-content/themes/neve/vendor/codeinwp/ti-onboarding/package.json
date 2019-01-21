@@ -1,6 +1,6 @@
 {
   "name": "themeisle-site-onboarding",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "ThemeIsle Site Onboarding",
   "license": "GPL-3.0+",
   "author": "Themeisle <friends@themeisle.com> | Andrei Baicus <andrei@themeisle.com>",
@@ -22,13 +22,16 @@
     "envify": "^3.4.1",
     "http-server": "^0.9.0",
     "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.13.0",
+    "vue-style-loader": "^4.1.1",
     "npm-run-all": "^2.1.2",
     "uglify-js": "^2.5.0",
     "vueify": "^9.1.0",
     "watchify": "^3.4.0"
   },
   "dependencies": {
-    "v-show-slide": "^1.6.0",
+    "v-clipboard": "^2.2.1",
     "vue": "^2.4.2",
     "vue-clickaway": "^2.1.0",
     "vue-js-toggle-button": "^1.2.3",

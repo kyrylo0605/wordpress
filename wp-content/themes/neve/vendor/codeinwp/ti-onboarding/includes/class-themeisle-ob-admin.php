@@ -101,8 +101,27 @@ class Themeisle_OB_Admin {
 		wp_localize_script( 'themeisle-site-lib', 'themeisleSitesLibApi', $this->localize_sites_library() );
 
 		wp_enqueue_script( 'themeisle-site-lib' );
+	}
 
-		wp_enqueue_style( 'themeisle-site-lib', Themeisle_Onboarding::get_dir() . '/assets/css/style.css', array(), Themeisle_Onboarding::VERSION );
+	private function get_import_steps() {
+		return array(
+			'plugins'    => array(
+				'nicename' => __( 'Installing Plugins', 'neve' ),
+				'done'     => 'no',
+			),
+			'content'    => array(
+				'nicename' => __( 'Importing Content', 'neve' ),
+				'done'     => 'no',
+			),
+			'theme_mods' => array(
+				'nicename' => __( 'Setting Up Customizer', 'neve' ),
+				'done'     => 'no',
+			),
+			'widgets'    => array(
+				'nicename' => __( 'Importing Widgets', 'neve' ),
+				'done'     => 'no',
+			),
+		);
 	}
 
 	/**
@@ -122,6 +141,7 @@ class Themeisle_OB_Admin {
 			'onboarding'      => 'no',
 			'contentImported' => $this->escape_bool_text( get_theme_mod( 'ti_content_imported', 'no' ) ),
 			'aboutUrl'        => esc_url( admin_url( 'themes.php?page=' . $theme->__get( 'stylesheet' ) . '-welcome' ) ),
+			'importSteps'     => $this->get_import_steps(),
 		);
 
 		$is_onboarding = isset( $_GET['onboarding'] ) && $_GET['onboarding'] === 'yes';
@@ -139,34 +159,32 @@ class Themeisle_OB_Admin {
 	 */
 	private function get_strings() {
 		return array(
-			'preview_btn'       => __( 'Preview', 'neve' ),
-			'import_btn'        => __( 'Import', 'neve' ),
-			'pro_btn'           => __( 'Get the PRO version!', 'neve' ),
-			'importing'         => __( 'Importing', 'neve' ),
-			'cancel_btn'        => __( 'Cancel', 'neve' ),
-			'loading'           => __( 'Loading', 'neve' ),
-			'go_to_site'        => __( 'View Website', 'neve' ),
-			'edit_template'     => __( 'Add your own content', 'neve' ),
-			'back'              => __( 'Back to Sites Library', 'neve' ),
-			'note'              => __( 'Note', 'neve' ),
-			'advanced_options'  => __( 'Advanced Options', 'neve' ),
-			'plugins'           => __( 'Plugins', 'neve' ),
-			'general'           => __( 'General', 'neve' ),
-			'later'             => __( 'Keep current layout', 'neve' ),
-			'search'			=> __( 'Search', 'neve' ),
-			'content'           => __( 'Content', 'neve' ),
-			'customizer'        => __( 'Customizer', 'neve' ),
-			'widgets'           => __( 'Widgets', 'neve' ),
-			'import_steps'      => array(
-				'plugins'    => __( 'Installing Plugins', 'neve' ),
-				'content'    => __( 'Importing Content', 'neve' ),
-				'theme_mods' => __( 'Setting Up Customizer', 'neve' ),
-				'widgets'    => __( 'Importing Widgets', 'neve' ),
-			),
-			'import_disclaimer' => __( 'We recommend you backup your website content before attempting a full site import.', 'neve' ),
-			'import_done'       => __( 'Content was successfully imported. Enjoy your new site!', 'neve' ),
-			'pro_demo'          => __( 'Available in the PRO version', 'neve' ),
-		);
+			'preview_btn'             => __( 'Preview', 'neve' ),
+			'import_btn'              => __( 'Import', 'neve' ),
+			'pro_btn'                 => __( 'Get the PRO version!', 'neve' ),
+			'importing'               => __( 'Importing', 'neve' ),
+			'cancel_btn'              => __( 'Cancel', 'neve' ),
+			'loading'                 => __( 'Loading', 'neve' ),
+			'go_to_site'              => __( 'View Website', 'neve' ),
+			'edit_template'           => __( 'Add your own content', 'neve' ),
+			'back'                    => __( 'Back to Sites Library', 'neve' ),
+			'note'                    => __( 'Note', 'neve' ),
+			'advanced_options'        => __( 'Advanced Options', 'neve' ),
+			'plugins'                 => __( 'Plugins', 'neve' ),
+			'general'                 => __( 'General', 'neve' ),
+			'later'                   => __( 'Keep current layout', 'neve' ),
+			'search'                  => __( 'Search', 'neve' ),
+			'content'                 => __( 'Content', 'neve' ),
+			'customizer'              => __( 'Customizer', 'neve' ),
+			'widgets'                 => __( 'Widgets', 'neve' ),
+			'backup_disclaimer'       => __( 'We recommend you backup your website content before attempting a full site import.', 'neve' ),
+			'placeholders_disclaimer' => __( 'Due to copyright issues, some of the demo images will not be imported and will be replaced by placeholder images.', 'neve' ),
+			'import_done'             => __( 'Content was successfully imported. Enjoy your new site!', 'neve' ),
+			'pro_demo'                => __( 'Available in the PRO version', 'neve' ),
+			'copy_error_code'            => __( 'Copy error code', 'neve' ),
+			'error_report'            => sprintf( __( 'Hi! It seems there is a configuration issue with your server that\'s causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this.', 'neve' ),
+				sprintf( '<a href="https://themeisle.com/contact">%1$s</a>', __( 'get in touch', 'neve' ) ) ),
+	);
 	}
 
 	/**

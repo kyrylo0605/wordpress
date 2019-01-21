@@ -34,7 +34,7 @@ class Themeisle_OB_Theme_Mods_Importer {
 	 */
 	public function import_theme_mods( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'customize' ) ) {
-			wp_send_json_error( 'error', 500 );
+			wp_send_json_error( 'ti__ob_permission_err_2', 500 );
 		}
 
 		do_action( 'themeisle_ob_before_customizer_import' );
@@ -43,11 +43,11 @@ class Themeisle_OB_Theme_Mods_Importer {
 		$data   = $params['data'];
 
 		if ( ! isset( $data['source_url'] ) || empty( $data['source_url'] ) ) {
-			wp_send_json_error( 'error', 500 );
+			wp_send_json_error( 'ti__ob_theme_mods_err_1', 500 );
 		}
 
 		if ( ! isset( $data['theme_mods'] ) || empty( $data['theme_mods'] ) ) {
-			wp_send_json_error( 'error', 500 );
+			wp_send_json_error( 'ti__ob_theme_mods_err_2', 500 );
 		}
 		$this->source_url = $data['source_url'];
 		$this->theme_mods = $data['theme_mods'];

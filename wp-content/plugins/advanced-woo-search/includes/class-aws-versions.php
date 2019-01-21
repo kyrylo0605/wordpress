@@ -257,6 +257,19 @@ if ( ! class_exists( 'AWS_Versions' ) ) :
 
                 }
 
+                if ( version_compare( $current_version, '1.60', '<' ) ) {
+
+                    $settings = get_option( 'aws_settings' );
+
+                    if ( $settings ) {
+                        if ( ! isset( $settings['autoupdates'] ) ) {
+                            $settings['autoupdates'] = 'true';
+                            update_option( 'aws_settings', $settings );
+                        }
+                    }
+
+                }
+
             }
 
             update_option( 'aws_plugin_ver', AWS_VERSION );

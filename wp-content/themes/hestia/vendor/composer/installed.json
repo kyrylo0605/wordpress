@@ -6,15 +6,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/ti-about-page.git",
-            "reference": "28aaa58652d55baeedde9716097b0163078cce26"
+            "reference": "f487a7bd6fd28a579f6cf79563f61972c320be09"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/ti-about-page/zipball/28aaa58652d55baeedde9716097b0163078cce26",
-            "reference": "28aaa58652d55baeedde9716097b0163078cce26",
+            "url": "https://api.github.com/repos/Codeinwp/ti-about-page/zipball/f487a7bd6fd28a579f6cf79563f61972c320be09",
+            "reference": "f487a7bd6fd28a579f6cf79563f61972c320be09",
             "shasum": ""
         },
-        "time": "2019-01-09 10:18:50",
+        "time": "2019-01-11 14:17:45",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -43,15 +43,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/ti-onboarding.git",
-            "reference": "5c3b73b939be60119554a7df5f0672a84cbf578b"
+            "reference": "ac39b2945e48236953ed182d46969d5517008c7e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/ti-onboarding/zipball/5c3b73b939be60119554a7df5f0672a84cbf578b",
-            "reference": "5c3b73b939be60119554a7df5f0672a84cbf578b",
+            "url": "https://api.github.com/repos/Codeinwp/ti-onboarding/zipball/ac39b2945e48236953ed182d46969d5517008c7e",
+            "reference": "ac39b2945e48236953ed182d46969d5517008c7e",
             "shasum": ""
         },
-        "time": "2018-12-21 15:47:25",
+        "time": "2019-01-11 14:17:51",
         "type": "library",
         "installation-source": "source",
         "autoload": {

@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hestia Pro 2.1.0\n"
+"Project-Id-Version: Hestia Pro 2.1.1\n"
 "Report-Msgid-Bugs-To: https://github.com/Codeinwp/hestia-pro/issues\n"
-"POT-Creation-Date: 2019-01-09 09:49:08+00:00\n"
+"POT-Creation-Date: 2019-01-17 16:41:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "5"
 msgstr ""
 
-#: attachment.php:48
+#: attachment.php:47
 #. translators: %s is Image sizes for attachment single page.
 msgid "Size: %s"
 msgstr ""
@@ -443,7 +443,7 @@ msgid ""
 msgstr ""
 
 #: inc/addons/class-hestia-main-addon.php:196
-#: inc/core/class-hestia-public.php:698
+#: inc/core/class-hestia-public.php:701
 msgid "Blog Subscribe Section"
 msgstr ""
 
@@ -586,7 +586,7 @@ msgstr ""
 #: inc/addons/views/front-page/class-hestia-pricing-section.php:63
 #: inc/addons/views/front-page/class-hestia-team-section.php:54
 #: inc/addons/views/front-page/class-hestia-testimonials-section.php:55
-#: inc/core/class-hestia-public.php:696
+#: inc/core/class-hestia-public.php:699
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua."
@@ -819,7 +819,7 @@ msgstr ""
 
 #: inc/addons/customizer/front-page/class-hestia-shop-controls-addon.php:39
 #: inc/addons/customizer/general/class-hestia-header-controls-addon.php:138
-#: inc/admin/metabox/class-hestia-metabox-manager.php:32
+#: inc/admin/metabox/class-hestia-metabox-manager.php:39
 #: inc/customizer/front-page/class-hestia-contact-controls.php:53
 #: inc/customizer/front-page/class-hestia-subscribe-controls.php:52
 #: inc/customizer/general/class-hestia-general-controls.php:44
@@ -1052,7 +1052,7 @@ msgid "%1$s | Powered by %2$s"
 msgstr ""
 
 #: inc/addons/customizer/general/class-hestia-footer-controls-addon.php:80
-#: inc/core/class-hestia-public.php:697
+#: inc/core/class-hestia-public.php:700
 #: inc/customizer/class-hestia-customizer-notices.php:78
 #: inc/views/main/class-hestia-footer.php:134
 #. translators: %s is Theme name
@@ -1208,7 +1208,7 @@ msgstr ""
 #: inc/addons/models/class-hestia-defaults-models.php:233
 #: inc/addons/models/class-hestia-defaults-models.php:242
 #: inc/addons/models/class-hestia-defaults-models.php:251
-#: inc/core/class-hestia-public.php:695
+#: inc/core/class-hestia-public.php:698
 msgid "Lorem Ipsum"
 msgstr ""
 
@@ -1383,12 +1383,11 @@ msgstr ""
 msgid "Footer socials menu"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:37 inc/core/class-hestia-admin.php:512
-#. Translators: 1 - onboarding url, 2 - button text
+#: inc/core/class-hestia-admin.php:37
 msgid "Getting Started"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:40
+#: inc/core/class-hestia-admin.php:40 inc/core/class-hestia-admin.php:44
 msgid "Recommended actions"
 msgstr ""
 
@@ -1402,10 +1401,6 @@ msgstr ""
 msgid ""
 "We have compiled a list of steps for you to take so we can ensure that the "
 "experience you have using one of our products is very easy to follow."
-msgstr ""
-
-#: inc/core/class-hestia-admin.php:44
-msgid "Sites Library"
 msgstr ""
 
 #: inc/core/class-hestia-admin.php:51 inc/core/class-hestia-admin.php:118
@@ -1632,11 +1627,31 @@ msgstr ""
 msgid "24/7 HelpDesk Professional Support"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:504
-#. translators: theme name
+#: inc/core/class-hestia-admin.php:496
+#. translators: 1 - options page url, 2 - button text
+msgid "Go to the theme settings"
+msgstr ""
+
+#: inc/core/class-hestia-admin.php:502
+#. translators: 1 - onboarding url, 2 - button text
+msgid "or try one of our ready to use Starter Sites"
+msgstr ""
+
+#: inc/core/class-hestia-admin.php:512
+#. translators: 1 - notice title, 2 - notice message, 3 - options page button,
+#. 4 - starter sites button, 5 - notice closing button
+msgid "Congratulations!"
+msgstr ""
+
+#: inc/core/class-hestia-admin.php:517
+#. translators: %s - theme name
 msgid ""
-"Thank you for installing %1$s! Let's get you ready. It will take only a few "
-"minutes."
+"%s is now installed and ready to use. We've assembled some links to get you "
+"started."
+msgstr ""
+
+#: inc/core/class-hestia-admin.php:522
+msgid "Return to your dashboard"
 msgstr ""
 
 #: inc/core/class-hestia-public.php:334
@@ -1704,34 +1719,39 @@ msgstr ""
 msgid "Featured Image Homepage"
 msgstr ""
 
-#: inc/core/class-hestia-public.php:600 inc/core/class-hestia-public.php:699
+#: inc/core/class-hestia-public.php:602 inc/core/class-hestia-public.php:702
 msgid ""
 "This process will set up your website, install required plugins, import "
 "demo content (pages, posts, media) and set up the customizer options."
 msgstr ""
 
-#: inc/core/class-hestia-public.php:601 template-parts/content-none.php:25
+#: inc/core/class-hestia-public.php:603 template-parts/content-none.php:25
 #. translators: %1$s is Link to new post, %2$s is Get started here
 msgid "Get started here"
 msgstr ""
 
-#: inc/core/class-hestia-public.php:602
+#: inc/core/class-hestia-public.php:605
+#. translators: %s - theme name
 msgid ""
-"With Hestia, you can choose from multiple unique demos, specially designed "
-"for you, that can be installed with a single click. You just need to choose "
+"With %s, you can choose from multiple unique demos, specially designed for "
+"you, that can be installed with a single click. You just need to choose "
 "your favorite, and we will take care of everything else."
 msgstr ""
 
-#: inc/core/class-hestia-public.php:609 inc/core/class-hestia-public.php:616
+#: inc/core/class-hestia-public.php:612 inc/core/class-hestia-public.php:619
 msgid "Want to keep using Zelle's homepage?"
 msgstr ""
 
-#: inc/core/class-hestia-public.php:610 inc/core/class-hestia-public.php:617
+#: inc/core/class-hestia-public.php:613 inc/core/class-hestia-public.php:620
 msgid ""
 "Hi! We've noticed you were using Zelle before. To make your transition "
 "easier, we can help you keep the same beautiful homepage you had before, by "
 "converting it into an Elementor template. This option will also import your "
 "homepage content."
+msgstr ""
+
+#: inc/core/class-hestia-public.php:703
+msgid "Sites Library"
 msgstr ""
 
 #: inc/customizer/class-hestia-customizer-notices.php:113
@@ -2197,12 +2217,12 @@ msgstr ""
 msgid "%1$s ago %2$s"
 msgstr ""
 
-#: inc/views/blog/class-hestia-header-layout-manager.php:316
+#: inc/views/blog/class-hestia-header-layout-manager.php:317
 #. translators: search result
 msgid "Search Results for: %s"
 msgstr ""
 
-#: inc/views/blog/class-hestia-header-layout-manager.php:382
+#: inc/views/blog/class-hestia-header-layout-manager.php:383
 #. translators: %1$s is Author name wrapped, %2$s is Date
 msgid "Published by %1$s on %2$s"
 msgstr ""

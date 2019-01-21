@@ -552,6 +552,8 @@ class Hestia_Public {
 	 * @return array
 	 */
 	private function get_ti_demo_content_support_data() {
+		$theme_name = wp_get_theme()->Name;
+
 		$onboarding_sites = array(
 			'editors'     => array(
 				'elementor',
@@ -599,7 +601,8 @@ class Hestia_Public {
 			'i18n'        => array(
 				'onboard_description_old' => __( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
 				'templates_title'         => __( 'Get started here', 'hestia' ),
-				'templates_description'   => __( 'With Hestia, you can choose from multiple unique demos, specially designed for you, that can be installed with a single click. You just need to choose your favorite, and we will take care of everything else.', 'hestia' ),
+				/* translators: %s - theme name */
+				'templates_description'   => sprintf( __( 'With %s, you can choose from multiple unique demos, specially designed for you, that can be installed with a single click. You just need to choose your favorite, and we will take care of everything else.', 'hestia' ), $theme_name ),
 			),
 			'can_migrate' => array(
 				'zerif-pro'  => array(
@@ -697,6 +700,7 @@ class Hestia_Public {
 			'theme_info_title'       => esc_html__( 'Hestia', 'hestia' ),
 			'blog_subscribe_widgets' => esc_html__( 'Blog Subscribe Section', 'hestia' ),
 			'onboarding_message'     => esc_html__( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
+			'sites_library'          => esc_html__( 'Sites Library', 'hestia' ),
 		);
 	}
 }

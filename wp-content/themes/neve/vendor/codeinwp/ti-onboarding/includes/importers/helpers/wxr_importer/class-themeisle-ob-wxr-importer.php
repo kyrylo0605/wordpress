@@ -137,13 +137,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	protected $options = array();
 
 	/**
-	 * Logger instance.
-	 *
-	 * @var Themeisle_OB_Logger
-	 */
-	protected $logger;
-
-	/**
 	 * Constructor
 	 *
 	 * @param array $options                   options.
@@ -193,14 +186,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		);
 	}
 
-	/**
-	 * Set the logger.
-	 *
-	 * @param Themeisle_OB_Logger $logger The logger instance.
-	 */
-	public function set_logger( $logger ) {
-		$this->logger = $logger;
-	}
 
 	/**
 	 * Get a stream reader for the file.
@@ -252,17 +237,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			switch ( $reader->name ) {
 				case 'wp:wxr_version':
 					$this->version = $reader->readString();
-
-					if ( version_compare( $this->version, self::MAX_WXR_VERSION, '>' ) ) {
-						$this->logger->warning(
-							sprintf(
-								'This WXR file (version %s) is newer than the importer (version %s) and may not be supported. Please consider updating.',
-								$this->version,
-								self::MAX_WXR_VERSION
-							)
-						);
-					}
-
 					$reader->next();
 					break;
 
@@ -282,8 +256,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 					$node   = $reader->expand();
 					$parsed = $this->parse_post_node( $node );
 					if ( is_wp_error( $parsed ) ) {
-						$this->log_error( $parsed );
-
 						$reader->next();
 						break;
 					}
@@ -302,8 +274,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 					$parsed = $this->parse_term_node( $node, 'category' );
 					if ( is_wp_error( $parsed ) ) {
-						$this->log_error( $parsed );
-
 						$reader->next();
 						break;
 					}
@@ -318,8 +288,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 					$parsed = $this->parse_term_node( $node, 'tag' );
 					if ( is_wp_error( $parsed ) ) {
-						$this->log_error( $parsed );
-
 						$reader->next();
 						break;
 					}
@@ -334,8 +302,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 					$parsed = $this->parse_term_node( $node );
 					if ( is_wp_error( $parsed ) ) {
-						$this->log_error( $parsed );
-
 						$reader->next();
 						break;
 					}
@@ -359,21 +325,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		$this->remap_featured_images();
 		$this->import_end();
-	}
-
-	/**
-	 * Log an error instance to the logger.
-	 *
-	 * @param WP_Error $error Error instance to log.
-	 */
-	protected function log_error( WP_Error $error ) {
-		$this->logger->warning( $error->get_error_message() );
-
-		// Log the data as debug info too
-		$data = $error->get_error_data();
-		if ( ! empty( $data ) ) {
-			$this->logger->debug( var_export( $data, true ) );
-		}
 	}
 
 	/**
@@ -426,9 +377,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		 * Complete the import.
 		 */
 		do_action( 'import_end' );
-		if ( $this->debug ) {
-			print_r( $this->logger->messages, false );
-		}
 	}
 
 	/**
@@ -439,8 +387,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	public function set_user_mapping( $mapping ) {
 		foreach ( $mapping as $map ) {
 			if ( empty( $map['old_slug'] ) || empty( $map['old_id'] ) || empty( $map['new_id'] ) ) {
-				$this->logger->warning( 'Invalid author mapping' );
-				$this->logger->debug( var_export( $map, true ) );
 				continue;
 			}
 
@@ -629,27 +575,11 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		// Is this type even valid?
 		if ( ! $post_type_object ) {
-			$this->logger->warning(
-				sprintf(
-					'Failed to import "%s": Invalid post type %s',
-					$data['post_title'],
-					$data['post_type']
-				)
-			);
-
 			return false;
 		}
 
 		$post_exists = $this->post_exists( $data );
 		if ( $post_exists ) {
-			$this->logger->info(
-				sprintf(
-					'%s "%s" already exists.',
-					$post_type_object->labels->singular_name,
-					$data['post_title']
-				)
-			);
-
 			/**
 			 * Post processing already imported.
 			 *
@@ -676,22 +606,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			}
 		}
 
-		// Map the author, or mark it as one we need to fix
-		$author = sanitize_user( $data['post_author'], true );
-		if ( empty( $author ) ) {
-			// Missing or invalid author, use default if available.
-			$data['post_author'] = $this->options['default_author'];
-		} elseif ( isset( $this->mapping['user_slug'][ $author ] ) ) {
-			$data['post_author'] = $this->mapping['user_slug'][ $author ];
-		} else {
-			$meta[]             = array(
-				'key'   => '_wxr_import_user_slug',
-				'value' => $author,
-			);
-			$requires_remapping = true;
-
-			$data['post_author'] = (int) get_current_user_id();
-		}
+		$data['post_author'] = (int) get_current_user_id();
 
 		// Does the post look like it contains attachment images?
 		if ( preg_match( self::REGEX_HAS_ATTACHMENT_REFS, $data['post_content'] ) ) {
@@ -735,12 +650,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		if ( 'attachment' === $postdata['post_type'] ) {
 			if ( ! $this->options['fetch_attachments'] ) {
-				$this->logger->notice(
-					sprintf(
-						'Skipping attachment "%s", fetching attachments disabled',
-						$data['post_title']
-					)
-				);
 				/**
 				 * Post processing skipped.
 				 *
@@ -759,15 +668,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		}
 
 		if ( is_wp_error( $post_id ) ) {
-			$this->logger->error(
-				sprintf(
-					'Failed to import "%s" (%s)',
-					$data['post_title'],
-					$post_type_object->labels->singular_name
-				)
-			);
-			$this->logger->debug( $post_id->get_error_message() );
-
 			/**
 			 * Post processing failed.
 			 *
@@ -793,21 +693,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			$this->requires_remapping['post'][ $post_id ] = true;
 		}
 		$this->mark_post_exists( $data, $post_id );
-
-		$this->logger->info(
-			sprintf(
-				'Imported "%s" (%s)',
-				$data['post_title'],
-				$post_type_object->labels->singular_name
-			)
-		);
-		$this->logger->debug(
-			sprintf(
-				'Post %d remapped to %d',
-				$original_id,
-				$post_id
-			)
-		);
 
 		// Handle the terms too
 		$terms = apply_filters( 'wp_import_post_terms', $terms, $post_id, $data );
@@ -868,8 +753,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		$original_object_id = get_post_meta( $post_id, '_menu_item_object_id', true );
 		$object_id          = null;
 
-		$this->logger->debug( sprintf( 'Processing menu item %s', $item_type ) );
-
 		$requires_remapping = false;
 		switch ( $item_type ) {
 			case 'taxonomy':
@@ -902,7 +785,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			default:
 				// associated object is missing or not imported yet, we'll retry later
 				$this->missing_menu_items[] = null;
-				$this->logger->debug( 'Unknown menu item type' );
 				break;
 		}
 
@@ -915,7 +797,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			return;
 		}
 
-		$this->logger->debug( sprintf( 'Menu item %d mapped to %d', $original_object_id, $object_id ) );
 		update_post_meta( $post_id, '_menu_item_object_id', wp_slash( $object_id ) );
 	}
 
@@ -1062,7 +943,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 				}
 				if ( $key === '_elementor_data' ) {
 					require_once 'class-themeisle-ob-elementor-meta-handler.php';
-					$meta_handler = new Themeisle_OB_Elementor_Meta_Handler( $value );
+					$meta_handler = new Themeisle_OB_Elementor_Meta_Handler( $value, $this->full_url );
 					$meta_handler->filter_meta();
 				}
 				add_post_meta( $post_id, $key, $value );
@@ -1077,7 +958,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		return true;
 	}
-
 
 	protected function parse_category_node( $node ) {
 		$data = array(
@@ -1104,163 +984,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		}
 
 		return $data;
-	}
-
-	/**
-	 * Parse author node.
-	 *
-	 * @param DOMNode $node author XML node.
-	 *
-	 * @return array
-	 */
-	protected function parse_author_node( $node ) {
-		$data = array();
-		$meta = array();
-		foreach ( $node->childNodes as $child ) {
-			// We only care about child elements
-			if ( $child->nodeType !== XML_ELEMENT_NODE ) {
-				continue;
-			}
-
-			switch ( $child->tagName ) {
-				case 'wp:author_login':
-					$data['user_login'] = $child->textContent;
-					break;
-
-				case 'wp:author_id':
-					$data['ID'] = $child->textContent;
-					break;
-
-				case 'wp:author_email':
-					$data['user_email'] = $child->textContent;
-					break;
-
-				case 'wp:author_display_name':
-					$data['display_name'] = $child->textContent;
-					break;
-
-				case 'wp:author_first_name':
-					$data['first_name'] = $child->textContent;
-					break;
-
-				case 'wp:author_last_name':
-					$data['last_name'] = $child->textContent;
-					break;
-			}
-		}
-
-		return compact( 'data', 'meta' );
-	}
-
-	protected function process_author( $data, $meta ) {
-		/**
-		 * Pre-process user data.
-		 *
-		 * @param array $data User data. (Return empty to skip.)
-		 * @param array $meta Meta data.
-		 */
-		$data = apply_filters( 'wxr_importer.pre_process.user', $data, $meta );
-		if ( empty( $data ) ) {
-			return false;
-		}
-
-		// Have we already handled this user?
-		$original_id   = isset( $data['ID'] ) ? $data['ID'] : 0;
-		$original_slug = $data['user_login'];
-
-		if ( isset( $this->mapping['user'][ $original_id ] ) ) {
-			$existing = $this->mapping['user'][ $original_id ];
-
-			// Note the slug mapping if we need to too
-			if ( ! isset( $this->mapping['user_slug'][ $original_slug ] ) ) {
-				$this->mapping['user_slug'][ $original_slug ] = $existing;
-			}
-
-			return false;
-		}
-
-		if ( isset( $this->mapping['user_slug'][ $original_slug ] ) ) {
-			$existing = $this->mapping['user_slug'][ $original_slug ];
-
-			// Ensure we note the mapping too
-			$this->mapping['user'][ $original_id ] = $existing;
-
-			return false;
-		}
-
-		// Allow overriding the user's slug
-		$login = $original_slug;
-		if ( isset( $this->user_slug_override[ $login ] ) ) {
-			$login = $this->user_slug_override[ $login ];
-		}
-
-		$userdata = array(
-			'user_login' => sanitize_user( $login, true ),
-			'user_pass'  => wp_generate_password(),
-		);
-
-		$allowed = array(
-			'user_email'   => true,
-			'display_name' => true,
-			'first_name'   => true,
-			'last_name'    => true,
-		);
-		foreach ( $data as $key => $value ) {
-			if ( ! isset( $allowed[ $key ] ) ) {
-				continue;
-			}
-
-			$userdata[ $key ] = $data[ $key ];
-		}
-
-		$user_id = wp_insert_user( wp_slash( $userdata ) );
-		if ( is_wp_error( $user_id ) ) {
-			$this->logger->error(
-				sprintf(
-					'Failed to import user "%s"',
-					$userdata['user_login']
-				)
-			);
-			$this->logger->debug( $user_id->get_error_message() );
-
-			/**
-			 * User processing failed.
-			 *
-			 * @param \WP_Error $user_id  Error object.
-			 * @param array     $userdata Raw data imported for the user.
-			 */
-			do_action( 'wxr_importer.process_failed.user', $user_id, $userdata );
-
-			return false;
-		}
-
-		if ( $original_id ) {
-			$this->mapping['user'][ $original_id ] = $user_id;
-		}
-		$this->mapping['user_slug'][ $original_slug ] = $user_id;
-
-		$this->logger->info(
-			sprintf(
-				'Imported user "%s"',
-				$userdata['user_login']
-			)
-		);
-		$this->logger->debug(
-			sprintf(
-				'User %d remapped to %d',
-				$original_id,
-				$user_id
-			)
-		);
-
-		// TODO: Implement meta handling once WXR includes it
-		/**
-		 * User processing completed.
-		 *
-		 * @param int   $user_id  New user ID.
-		 * @param array $userdata Raw data imported for the user.
-		 */
-		do_action( 'wxr_importer.processed.user', $user_id, $userdata );
 	}
 
 	protected function parse_term_node( $node, $type = 'term' ) {
@@ -1376,14 +1099,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		$result = wp_insert_term( $data['name'], $data['taxonomy'], $termdata );
 		if ( is_wp_error( $result ) ) {
-			$this->logger->warning(
-				sprintf(
-					'Failed to import %s %s',
-					$data['taxonomy'],
-					$data['name']
-				)
-			);
-			$this->logger->debug( $result->get_error_message() );
 			do_action( 'wp_import_insert_term_failed', $result, $data );
 
 			/**
@@ -1402,21 +1117,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		$this->mapping['term'][ $mapping_key ]    = $term_id;
 		$this->mapping['term_id'][ $original_id ] = $term_id;
-
-		$this->logger->info(
-			sprintf(
-				'Imported "%s" (%s)',
-				$data['name'],
-				$data['taxonomy']
-			)
-		);
-		$this->logger->debug(
-			sprintf(
-				'Term %d remapped to %d',
-				$original_id,
-				$term_id
-			)
-		);
 
 		do_action( 'wp_import_insert_term', $term_id, $data );
 
@@ -1514,15 +1214,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 	protected function post_process_posts( $todo ) {
 		foreach ( $todo as $post_id => $_ ) {
-			$this->logger->debug(
-				sprintf(
-					// Note: title intentionally not used to skip extra processing
-					// for when debug logging is off
-					'Running post-processing for post %d',
-					$post_id
-				)
-			);
-
 			$data = array();
 
 			$parent_id = get_post_meta( $post_id, '_wxr_import_parent', true );
@@ -1530,21 +1221,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 				// Have we imported the parent now?
 				if ( isset( $this->mapping['post'][ $parent_id ] ) ) {
 					$data['post_parent'] = $this->mapping['post'][ $parent_id ];
-				} else {
-					$this->logger->warning(
-						sprintf(
-							'Could not find the post parent for "%s" (post #%d)',
-							get_the_title( $post_id ),
-							$post_id
-						)
-					);
-					$this->logger->debug(
-						sprintf(
-							'Post %d was imported with parent %d, but could not be found',
-							$post_id,
-							$parent_id
-						)
-					);
 				}
 			}
 
@@ -1553,21 +1229,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 				// Have we imported the user now?
 				if ( isset( $this->mapping['user_slug'][ $author_slug ] ) ) {
 					$data['post_author'] = $this->mapping['user_slug'][ $author_slug ];
-				} else {
-					$this->logger->warning(
-						sprintf(
-							'Could not find the author for "%s" (post #%d)',
-							get_the_title( $post_id ),
-							$post_id
-						)
-					);
-					$this->logger->debug(
-						sprintf(
-							'Post %d was imported with author "%s", but could not be found',
-							$post_id,
-							$author_slug
-						)
-					);
 				}
 			}
 
@@ -1589,12 +1250,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 			// Do we have updates to make?
 			if ( empty( $data ) ) {
-				$this->logger->debug(
-					sprintf(
-						'Post %d was marked for post-processing, but none was required.',
-						$post_id
-					)
-				);
 				continue;
 			}
 
@@ -1602,14 +1257,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 			$data['ID'] = $post_id;
 			$result     = wp_update_post( $data, true );
 			if ( is_wp_error( $result ) ) {
-				$this->logger->warning(
-					sprintf(
-						'Could not update "%s" (post #%d) with mapped data',
-						get_the_title( $post_id ),
-						$post_id
-					)
-				);
-				$this->logger->debug( $result->get_error_message() );
 				continue;
 			}
 
@@ -1647,22 +1294,6 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 
 		if ( ! empty( $menu_object ) ) {
 			update_post_meta( $post_id, '_menu_item_object_id', wp_slash( $menu_object ) );
-		} else {
-			$this->logger->warning(
-				sprintf(
-					'Could not find the menu object for "%s" (post #%d)',
-					get_the_title( $post_id ),
-					$post_id
-				)
-			);
-			$this->logger->debug(
-				sprintf(
-					'Post %d was imported with object "%d" of type "%s", but could not be found',
-					$post_id,
-					$menu_object_id,
-					$menu_item_type
-				)
-			);
 		}
 
 		delete_post_meta( $post_id, '_wxr_import_menu_item' );
@@ -1814,9 +1445,9 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	 */
 	protected function prefill_existing_terms() {
 		global $wpdb;
-		$query  = "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t";
+		$query = "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t";
 		$query .= " JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id";
-		$terms  = $wpdb->get_results( $query );
+		$terms = $wpdb->get_results( $query );
 
 		foreach ( $terms as $item ) {
 			$exists_key                          = sha1( $item->taxonomy . ':' . $item->slug );

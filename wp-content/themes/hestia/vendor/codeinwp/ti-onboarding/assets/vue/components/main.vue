@@ -16,17 +16,17 @@
 				<template v-if="Object.keys(themeStrings).length">
 				<h3 v-if="containsKey(themeStrings, 'templates_title')">{{themeStrings.templates_title}}</h3>
 				<p v-if="containsKey(themeStrings, 'templates_description')">{{themeStrings.templates_description}}</p>
+				<div class="skip-wrap" v-if="this.$store.state.onboard === 'yes' && ! isLoading">
+					<a @click="cancelOnboarding" class="skip-onboarding button button-primary">
+						{{strings.later}}
+					</a>
+				</div>
 				</template>
 				<div class="ti-sites-lib">
 					<EditorsTabs></EditorsTabs>
 					<Preview v-if="previewOpen"></Preview>
 				</div>
 			</template>
-		</div>
-		<div class="skip-wrap" v-if="this.$store.state.onboard === 'yes' && ! isLoading">
-			<a @click="cancelOnboarding" class="skip-onboarding button button-primary">
-				{{strings.later}}
-			</a>
 		</div>
 		<import-modal v-if="modalOpen">
 		</import-modal>

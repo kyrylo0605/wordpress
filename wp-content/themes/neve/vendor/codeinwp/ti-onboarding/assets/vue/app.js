@@ -4,12 +4,12 @@ import Vue from 'vue';
 import App from './components/main.vue';
 import store from './store/store.js';
 import ToggleButton from 'vue-js-toggle-button';
-import VShowSlide from 'v-show-slide';
+import Clipboard from 'v-clipboard';
 
 Vue.use( ToggleButton );
-Vue.use( VShowSlide );
+Vue.use( Clipboard );
 
-window.onload = function () {
+window.addEventListener( 'load', function () {
 	new Vue( {
 		el: '#ti-sites-library',
 		store,
@@ -20,4 +20,4 @@ window.onload = function () {
 			store.dispatch( 'initialize', { req: 'Init Sites Library', data: {} } );
 		}
 	} );
-};
+} );

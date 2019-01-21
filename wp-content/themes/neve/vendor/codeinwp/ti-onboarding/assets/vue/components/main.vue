@@ -1,44 +1,45 @@
 <template>
 	<div :class="{ 'is__onboarding' : this.$store.state.onboard === 'yes' && ! previewOpen } ">
-
 		<div :class="! isLoading ? 'library-wrapper' : '' ">
-			<Loader v-if="isLoading" :loading-message="loadingString"></Loader>
-			<template v-else>
+			<loader v-if="isLoading" :loading-message="strings.loading"></loader>
+			<error-well v-else-if="errorMessage && !modalOpen"></error-well>
+			<template v-else >
 				<template v-if="this.$store.state.onboard === 'yes'">
-					<div class="header" v-if="containsKey(themeStrings,'onboard_header') || containsKey(themeStrings,'onboard_description')">
-						<h1 v-if="containsKey(themeStrings,'onboard_header')">
-							{{themeStrings.onboard_header}}</h1>
-						<p v-if="containsKey(themeStrings,'onboard_description')">
-							{{themeStrings.onboard_description}}</p>
+					<div class="header" v-if="themeStrings.onboard_header ||themeStrings.onboard_description">
+						<h1 v-if="themeStrings.onboard_header">{{themeStrings.onboard_header}}</h1>
+						<p v-if="themeStrings.onboard_description">{{themeStrings.onboard_description}}</p>
 					</div>
 				</template>
-				<MigrateNotice></MigrateNotice>
-				<template v-if="Object.keys(themeStrings).length">
-				<h3 v-if="containsKey(themeStrings, 'templates_title')">{{themeStrings.templates_title}}</h3>
-				<p v-if="containsKey(themeStrings, 'templates_description')">{{themeStrings.templates_description}}</p>
-				<div class="skip-wrap" v-if="this.$store.state.onboard === 'yes' && ! isLoading">
-					<a @click="cancelOnboarding" class="skip-onboarding button button-primary">
-						{{strings.later}}
-					</a>
-				</div>
+
+				<migrate-notice v-if="this.$store.state.sitesData.migrate_data.screenshot"></migrate-notice>
+
+				<template>
+					<h3 v-if="themeStrings.templates_title">{{themeStrings.templates_title}}</h3>
+					<p v-if="themeStrings.templates_description">{{themeStrings.templates_description}}</p>
+					<div class="skip-wrap" v-if="this.$store.state.onboard === 'yes' && ! isLoading">
+						<a @click="cancelOnboarding" class="skip-onboarding button button-primary">
+							{{strings.later}}
+						</a>
+					</div>
 				</template>
 				<div class="ti-sites-lib">
-					<EditorsTabs></EditorsTabs>
-					<Preview v-if="previewOpen"></Preview>
+					<editors-tabs></editors-tabs>
+					<preview v-if="previewOpen"></preview>
 				</div>
 			</template>
 		</div>
-		<import-modal v-if="modalOpen">
-		</import-modal>
+		<ImportModal v-if="modalOpen"></ImportModal>
 	</div>
 </template>
 
 <script>
 	import Loader from './loader.vue'
-	import Preview from './preview.vue'
-	import ImportModal from './import-modal.vue'
-	import MigrateNotice from './migrate-notice.vue'
-	import EditorsTabs from './editors-tabs.vue';
+	import ImportModal from "./import-modal.vue";
+	import MigrateNotice from "./migrate-notice.vue";
+	import EditorsTabs from "./editors-tabs.vue";
+	import Preview from "./preview.vue";
+	import ErrorWell from "./error-well.vue";
+
 	module.exports = {
 		name: 'app',
 		data: function () {
@@ -53,22 +54,19 @@
 			previewOpen: function () {
 				return this.$store.state.previewOpen
 			},
-			loadingString: function () {
-				return this.$store.state.strings.loading;
-			},
 			modalOpen: function () {
 				return this.$store.state.importModalState
 			},
 			themeStrings: function () {
 				return this.$store.state.sitesData.i18n
+			},
+			errorMessage() {
+				return this.$store.state.errorToast;
 			}
 		},
 		methods: {
 			cancelOnboarding: function () {
 				window.location.replace( this.$store.state.aboutUrl );
-			},
-			containsKey( obj, key ) {
-				return Object.keys( obj ).includes( key );
 			},
 		},
 		components: {
@@ -77,6 +75,11 @@
 			ImportModal,
 			MigrateNotice,
 			EditorsTabs,
+			ErrorWell,
 		},
 	}
 </script>
+
+<style lang="scss">
+	@import  "../../scss/style.scss";
+</style>

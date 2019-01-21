@@ -17,6 +17,14 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 ## Changelog ##
+### 2.1.1 - 2019-01-17  ###
+
+* Changed the boxed layout for the third header layout
+* Improved layout of the onboarding notice and page
+* Small layout fixes for the Orfeo child theme
+* Fixed the upgrade link
+
+
 ### 2.1.0 - 2019-01-09  ###
 
 * NEW Custom integration with Gutenberg
