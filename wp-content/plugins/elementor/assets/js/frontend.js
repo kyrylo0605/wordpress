@@ -1,4 +1,4 @@
-/*! elementor - v2.4.4 - 24-01-2019 */
+/*! elementor - v2.4.5 - 30-01-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -766,10 +766,9 @@ var Frontend = function (_elementorModules$Vie) {
 				window: window,
 				$window: jQuery(window),
 				$document: jQuery(document),
+				$head: jQuery(document.head),
 				$body: jQuery(document.body)
 			};
-
-			elements.$elementor = elements.$document.find(selectors.elementor);
 
 			elements.$wpAdminBar = elements.$document.find(selectors.adminBar);
 
@@ -816,7 +815,7 @@ var Frontend = function (_elementorModules$Vie) {
 	}, {
 		key: 'getCurrentDeviceMode',
 		value: function getCurrentDeviceMode() {
-			return getComputedStyle(this.elements.$elementor[0], ':after').content.replace(/"/g, '');
+			return getComputedStyle(this.elements.$head[0], ':after').content.replace(/"/g, '');
 		}
 	}, {
 		key: 'isEditMode',
