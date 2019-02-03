@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies...
+ * WordPress dependencies
  */
 const { __ } = wp.i18n;
 
@@ -33,6 +33,5 @@ const socialList = {
 		icon: 'reddit-alien'
 	}
 };
-
 
 export default socialList;

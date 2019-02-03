@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies...
+ * WordPress dependencies
  */
 const { __ } = wp.i18n;
 
@@ -28,11 +28,12 @@ const { InspectorControls } = wp.editor;
  * Internal dependencies
  */
 import './editor.scss';
+import { mapIcon } from '../../utils/icons.js';
 
 registerBlockType( 'themeisle-blocks/google-map', {
 	title: __( 'Google Map' ),
 	description: __( 'Display a Google Map on your website with Google Map block.' ),
-	icon: 'admin-site',
+	icon: mapIcon,
 	category: 'themeisle-blocks',
 	keywords: [
 		'map',
@@ -80,23 +81,33 @@ registerBlockType( 'themeisle-blocks/google-map', {
 
 		let settings;
 
-		wp.api.loadPromise.then( () => {
-			settings = new wp.api.models.Settings();
-		});
-
-		if ( false === isAPILoaded ) {
-			settings.fetch().then( response => {
-				setState({
-					api: response.themeisle_google_map_block_api_key,
-					isAPILoaded: true
-				});
-
-				if ( '' !== response.themeisle_google_map_block_api_key ) {
-					setState({
-						isAPISaved: true
-					});
-				}
+		if ( false === Boolean( themeisleGutenberg.mapsAPI ) ) {
+			wp.api.loadPromise.then( () => {
+				settings = new wp.api.models.Settings();
 			});
+
+			if ( false === isAPILoaded ) {
+				settings.fetch().then( response => {
+					setState({
+						api: response.themeisle_google_map_block_api_key,
+						isAPILoaded: true
+					});
+
+					if ( '' !== response.themeisle_google_map_block_api_key ) {
+						setState({
+							isAPISaved: true
+						});
+					}
+				});
+			}
+		} else {
+			if ( false === isAPILoaded ) {
+				setState({
+					api: themeisleGutenberg.mapsAPI,
+					isAPILoaded: true,
+					isAPISaved: true
+				});
+			}
 		}
 
 		const changeAPI = ( value ) => {
@@ -106,23 +117,24 @@ registerBlockType( 'themeisle-blocks/google-map', {
 		};
 
 		const saveAPIKey = () => {
-
-			setState({
-				isSaving: true
-			});
-
-			const model = new wp.api.models.Settings({
-				// eslint-disable-next-line camelcase
-				themeisle_google_map_block_api_key: api
-			});
-
-			model.save().then( response => {
-				settings.fetch();
+			if ( false === Boolean( themeisleGutenberg.mapsAPI ) ) {
 				setState({
-					isSaving: false,
-					isAPISaved: true
+					isSaving: true
 				});
-			});
+
+				const model = new wp.api.models.Settings({
+					// eslint-disable-next-line camelcase
+					themeisle_google_map_block_api_key: api
+				});
+
+				model.save().then( response => {
+					settings.fetch();
+					setState({
+						isSaving: false,
+						isAPISaved: true
+					});
+				});
+			}
 		};
 
 		const changeLocation = ( value ) => {
@@ -174,7 +186,7 @@ registerBlockType( 'themeisle-blocks/google-map', {
 						>
 							{ __( 'Save API Key' ) }
 						</Button>
-						<div class="components-placeholder__instructions">
+						<div className="components-placeholder__instructions">
 							{ __( 'Need an API key? Get one' ) }
 							<a target="_blank" href="https://console.developers.google.com/flows/enableapi?apiid=maps_backend,static_maps_backend,maps_embed_backend&keyType=CLIENT_SIDE&reusekey=true">
 								{ __( ' here.' ) }

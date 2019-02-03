@@ -17,7 +17,7 @@ add_action( 'admin_enqueue_scripts', 'yith_plugin_fw_notice_dismiss', 20 );
 
 if( ! function_exists( 'yith_plugin_fw_promo_notices' ) ){
 	function yith_plugin_fw_promo_notices(){
-		$base_url                   = apply_filters( 'yith_plugin_fw_promo_base_url', 'https://update.yithemes.com/promo/hotlink-ok' );
+		$base_url                   = apply_filters( 'yith_plugin_fw_promo_base_url', 'https://update.yithemes.com/promo/hotlink-ok/' );
 		$xml                        = apply_filters( 'yith_plugin_fw_promo_xml_url', $base_url . 'yith-promo.xml' );
 		$transient                  = "yith_promo_message";
 		$remote_data                = get_site_transient( $transient );
@@ -38,7 +38,8 @@ if( ! function_exists( 'yith_plugin_fw_promo_notices' ) ){
 				$license            = YIT_Plugin_Licence()->get_licence();
 				$xml_expiry_date    = '';
 
-				if( is_array( $license ) ){
+				if( is_array( $license ) && apply_filters( 'yith_plugin_fw_check_for_membership_user', true ) ){
+				    /* === Check is the user have the YITH Club === */
 					foreach( $license as $plugin => $data ){
 						if( ! empty( $data['is_membership'] ) ){
 							$is_membership_user = true;
@@ -61,10 +62,30 @@ if( ! function_exists( 'yith_plugin_fw_promo_notices' ) ){
 				$now = strtotime( current_time( 'mysql' ) );
 
 				foreach ($promo_data->promo as $promo ){
+					$show_promo = true;
+					/* === Check for Special Promo === */
+					if ( ! empty( $promo->show_promo_in ) ) {
+						$show_promo_in = explode( ',', $promo->show_promo_in );
+						$show_promo_in = array_map( 'trim', $show_promo_in );
+						if ( ! empty( $show_promo_in ) ) {
+							$show_promo = false;
+							foreach ( $show_promo_in as $plugin ) {
+								if ( defined( $plugin ) ) {
+									$plugin_slug         = constant( $plugin );
+									$plugin_is_activated = ! empty( $license[ $plugin_slug ]['activated'] );
+									if ( defined( $plugin ) && ! apply_filters( 'yith_plugin_fw_promo_plugin_is_activated', $plugin_is_activated ) ) {
+										$show_promo = true;
+										break;
+									}
+								}
+							}
+						}
+					}
+
 					$start_date = isset( $promo->start_date ) ? $promo->start_date : '';
 					$end_date   = isset( $promo->end_date ) ? $promo->end_date : '';
 
-					if( ! empty( $start_date ) && ! empty( $end_date ) ){
+					if( $show_promo && ! empty( $start_date ) && ! empty( $end_date ) ){
 						$start_date = strtotime( $start_date );
 						$end_date   = strtotime( $end_date );
 
@@ -96,7 +117,7 @@ if( ! function_exists( 'yith_plugin_fw_promo_notices' ) ){
 
 							if( ! empty( $title ) ) {
 								$promo_id .= $title;
-								$title = sprintf( '<strong>%s</strong>: ', $title );
+								$title = sprintf( '%s: ', $title );
 								$show_notice = true;
 							}
 

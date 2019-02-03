@@ -62,6 +62,7 @@
             if (callback == 'edit' && props.do_shortcode != false) {
                 do_shortcode = (function (block_id) {
                     var ajax_call_date = null;
+                    $(document).trigger( 'yith_plugin_fw_gutenberg_before_do_shortcode', [sc, block_id] );
                     $.ajax({
                         async: true,
                         url: yith_gutenberg_ajax.ajaxurl,
@@ -69,12 +70,13 @@
                         data: {action: 'yith_plugin_fw_gutenberg_do_shortcode', shortcode: sc},
                         success: function (data) {
                             ajax_call_date = data;
-
                             if (ajax_call_date != '') {
                                 $('.yith_block_' + block_id).html(ajax_call_date);
+                                $(document).trigger( 'yith_plugin_fw_gutenberg_success_do_shortcode', [sc, block_id, ajax_call_date] );
                             }
                         }
                     });
+                    $(document).trigger( 'yith_plugin_fw_gutenberg_after_do_shortcode', [sc, block_id, ajax_call_date] );
                     return ajax_call_date;
                 })(block_id);
             }

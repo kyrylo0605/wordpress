@@ -74,7 +74,7 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
             add_action( "wp_ajax_yith_activate-{$this->_product_type}", array( $this, 'activate' ) );
             add_action( "wp_ajax_yith_deactivate-{$this->_product_type}", array( $this, 'deactivate' ) );
             add_action( "wp_ajax_yith_update_licence_information-{$this->_product_type}", array( $this, 'update_licence_information' ) );
-            add_action( 'yit_licence_after_check', array( $this, 'licence_after_check' ) );
+            add_action( 'yit_licence_after_check', 'yith_plugin_fw_force_regenerate_plugin_update_transient' );
 
             /** @since 3.0.0 */
 	        if( version_compare( PHP_VERSION, '7.0', '>=' ) ) {
@@ -146,11 +146,6 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
                     }
                 }
             }
-        }
-
-        public function licence_after_check() {
-            /* === Regenerate Update Plugins Transient === */
-            YIT_Upgrade()->force_regenerate_update_transient();
         }
 
         /**
