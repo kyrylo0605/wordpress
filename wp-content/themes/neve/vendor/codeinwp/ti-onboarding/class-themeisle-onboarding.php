@@ -15,12 +15,35 @@
  */
 class Themeisle_Onboarding {
 	/**
+	 * The version of this library
+	 *
+	 * @var string Version string.
+	 */
+	const VERSION = '1.1.0';
+	/**
+	 * Sites Library API URL.
+	 *
+	 * @var string API root string.
+	 */
+	const API_ROOT = 'ti-sites-lib/v1';
+	/**
+	 * Storage for the remote fetched info.
+	 *
+	 * @var string Transient slug.
+	 */
+	const STORAGE_TRANSIENT = 'themeisle_sites_library_data';
+	/**
+	 * Onboarding Path Relative to theme dir.
+	 *
+	 * @var string Onboarding root path.
+	 */
+	const OBOARDING_PATH = '/vendor/codeinwp/ti-onboarding';
+	/**
 	 * Instance of Themeisle_Onboarding
 	 *
 	 * @var Themeisle_Onboarding
 	 */
 	protected static $instance = null;
-
 	/**
 	 * Instance of Themeisle_OB_Admin
 	 *
@@ -29,32 +52,32 @@ class Themeisle_Onboarding {
 	protected $admin = null;
 
 	/**
-	 * The version of this library
+	 * Method to return path to child class in a Reflective Way.
 	 *
-	 * @var string Version string.
+	 * @since   1.0.0
+	 * @access  public
+	 * @return string
 	 */
-	const VERSION = '1.0.6';
+	static public function get_dir() {
+		return apply_filters( 'themeisle_site_import_uri', trailingslashit( get_template_directory_uri() ) . self::OBOARDING_PATH );
+	}
 
 	/**
-	 * Sites Library API URL.
+	 * Instantiate the class.
 	 *
-	 * @var string API root string.
+	 * @static
+	 * @since  1.0.0
+	 * @access public
+	 * @return Themeisle_Onboarding
 	 */
-	const API_ROOT = 'ti-sites-lib/v1';
+	public static function instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::$instance->init();
+		}
 
-	/**
-	 * Storage for the remote fetched info.
-	 *
-	 * @var string Transient slug.
-	 */
-	const STORAGE_TRANSIENT = 'themeisle_sites_library_data';
-
-	/**
-	 * Onboarding Path Relative to theme dir.
-	 *
-	 * @var string Onboarding root path.
-	 */
-	const OBOARDING_PATH = '/vendor/codeinwp/ti-onboarding';
+		return self::$instance;
+	}
 
 	/**
 	 * Holds the sites data.
@@ -66,7 +89,6 @@ class Themeisle_Onboarding {
 		if ( ! $this->should_load() ) {
 			return;
 		}
-
 		$this->setup_admin();
 		$this->setup_api();
 	}
@@ -105,13 +127,6 @@ class Themeisle_Onboarding {
 	}
 
 	/**
-	 * Render the onboarding.
-	 */
-	public function render_onboarding() {
-		$this->admin->render_site_library();
-	}
-
-	/**
 	 * Setup the restful functionality.
 	 *
 	 * @return void
@@ -121,36 +136,16 @@ class Themeisle_Onboarding {
 		if ( ! class_exists( 'Themeisle_OB_Rest_Server' ) ) {
 			return;
 		}
+
 		$api = new Themeisle_OB_Rest_Server();
 		$api->init();
 	}
 
 	/**
-	 * Method to return path to child class in a Reflective Way.
-	 *
-	 * @since   1.0.0
-	 * @access  public
-	 * @return string
+	 * Render the onboarding.
 	 */
-	static public function get_dir() {
-		return trailingslashit( get_template_directory_uri() ) . self::OBOARDING_PATH;
-	}
-
-	/**
-	 * Instantiate the class.
-	 *
-	 * @static
-	 * @since  1.0.0
-	 * @access public
-	 * @return Themeisle_Onboarding
-	 */
-	public static function instance() {
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
-			self::$instance->init();
-		}
-
-		return self::$instance;
+	public function render_onboarding() {
+		$this->admin->render_site_library();
 	}
 
 	/**

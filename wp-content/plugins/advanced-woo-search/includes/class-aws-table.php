@@ -729,6 +729,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             // Avoid single A-Z.
             //$str = preg_replace( '/\b\w{1}\b/i', " ", $str );
+            //if ( ! $term || ( 1 === strlen( $term ) && preg_match( '/^[a-z]$/i', $term ) ) )
 
             $str = AWS_Helpers::normalize_string( $str );
 
@@ -776,8 +777,9 @@ if ( ! class_exists( 'AWS_Table' ) ) :
              */
             $str = apply_filters( 'aws_extracted_string', $str );
 
-            $str_array = array_count_values( explode( ' ', $str ) );
+            $str_array = explode( ' ', $str );
             $str_array = AWS_Helpers::filter_stopwords( $str_array );
+            $str_array = array_count_values( $str_array );
 
             /**
              * Filters extracted terms before adding to index table

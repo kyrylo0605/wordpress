@@ -9,6 +9,7 @@ function rplg_next_reviews(name, pagin) {
     if (reviews.length < 1) {
         parent.removeChild(this);
     }
+    window.rplg_blazy && window.rplg_blazy.revalidate();
     return false;
 }
 
@@ -28,6 +29,16 @@ function _rplg_popup(url, width, height, prms, top, left) {
     return window.open(url, '', 'location=1,status=1,resizable=yes,width='+width+',height='+height+',top='+top+',left='+left);
 }
 
+function _rplg_init_blazy(attempts) {
+    if (!window.Blazy) {
+        if (attempts > 0) {
+            setTimeout(function() { _rplg_init_blazy(attempts - 1); }, 200);
+        }
+        return;
+    }
+    window.rplg_blazy = new Blazy({selector: 'img.rplg-blazy'});
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var reviewTimes = document.querySelectorAll('.wpac [data-time]');
     for (var i = 0; i < reviewTimes.length; i++) {
@@ -42,4 +53,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         reviewTimes[i].innerHTML = WPacTime.getTime(time, _rplg_lang(), 'ago');
     }
+    _rplg_init_blazy(10);
 });

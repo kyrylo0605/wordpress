@@ -18,12 +18,14 @@ class Themeisle_OB_Rest_Server {
 
 	/**
 	 * Front Page Id
+	 *
 	 * @var
 	 */
 	private $frontpage_id;
 
 	/**
 	 * The theme support contents.
+	 *
 	 * @var
 	 */
 	private $theme_support = array();
@@ -60,6 +62,40 @@ class Themeisle_OB_Rest_Server {
 
 		$this->theme_support = $theme_support[0];
 		$this->valid_lic     = $this->is_valid_lic();
+	}
+
+	/**
+	 * Check license
+	 *
+	 * @return bool
+	 */
+	private function is_valid_lic() {
+		if ( ! class_exists( '\ThemeisleSDK\Common\Module_Factory' ) ) {
+			return false;
+		}
+		$sdk_modules = \ThemeisleSDK\Common\Module_Factory::get_modules_map();
+		$theme       = get_stylesheet();
+
+		if ( ! array_key_exists( $theme, $sdk_modules ) ) {
+			$theme = 'neve-pro-addon';
+		}
+
+		if ( ! array_key_exists( $theme, $sdk_modules ) ) {
+			return false;
+		}
+
+		if ( ! isset( $sdk_modules[ $theme ]['licenser'] ) ) {
+			return false;
+		}
+
+		$licenser = $sdk_modules[ $theme ]['licenser'];
+		$validity = $licenser->get_license_status();
+
+		if ( $validity === 'valid' ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -146,6 +182,28 @@ class Themeisle_OB_Rest_Server {
 	}
 
 	/**
+	 * Initialize Library
+	 *
+	 * @return array
+	 */
+	public function init_library() {
+
+		if ( empty( $this->theme_support ) ) {
+			return array();
+		}
+		$this->data['i18n']             = isset( $this->theme_support['i18n'] ) ? $this->theme_support['i18n'] : array();
+		$this->data['editors']          = isset( $this->theme_support['editors'] ) ? $this->theme_support['editors'] : array();
+		$this->data['pro_link']         = isset( $this->theme_support['pro_link'] ) ? $this->theme_support['pro_link'] : '';
+		$this->data['default_template'] = $this->get_default_template();
+		$this->data['migrate_data']     = $this->get_migrateable();
+		$this->data['local']            = $this->get_local_templates();
+		$this->data['remote']           = $this->get_remote_templates();
+		$this->data['upsell']           = $this->get_upsell_templates();
+
+		return $this->data;
+	}
+
+	/**
 	 * Get the default layout - the case in which nothing is imported.
 	 *
 	 * @return array
@@ -159,6 +217,50 @@ class Themeisle_OB_Rest_Server {
 			'screenshot' => $this->theme_support['default_template']['screenshot'],
 			'name'       => $this->theme_support['default_template']['name'],
 			'editor'     => $this->theme_support['default_template']['editor'],
+		);
+	}
+
+	/**
+	 * Get migratable data.
+	 *
+	 * This is used if we can ensure migration from a previous theme to a template.
+	 *
+	 * @return array
+	 */
+	private function get_migrateable() {
+
+		if ( ! isset( $this->theme_support['can_migrate'] ) ) {
+			return array();
+		}
+
+		$data = $this->theme_support['can_migrate'];
+
+		$old_theme = get_theme_mod( 'ti_prev_theme', 'ti_onboarding_undefined' );
+
+		if ( ! array_key_exists( $old_theme, $data ) ) {
+			return array();
+		}
+
+		$content_imported = get_theme_mod( $data[ $old_theme ]['theme_mod_check'], 'not-imported' );
+		if ( $content_imported === 'yes' ) {
+			return array();
+		}
+
+		$folder_name = $old_theme;
+		if ( $old_theme === 'zerif-lite' || $old_theme === 'zerif-pro' ) {
+			$folder_name = 'zelle';
+		}
+
+		return array(
+			'theme_name'          => ! empty( $data[ $old_theme ]['theme_name'] ) ? esc_html( $data[ $old_theme ]['theme_name'] ) : '',
+			'screenshot'          => get_template_directory_uri() . Themeisle_Onboarding::OBOARDING_PATH . '/migration/' . $folder_name . '/' . $data[ $old_theme ]['template'] . '.png',
+			'template'            => get_template_directory() . Themeisle_Onboarding::OBOARDING_PATH . '/migration/' . $folder_name . '/' . $data[ $old_theme ]['template'] . '.json',
+			'template_name'       => $data[ $old_theme ]['template'],
+			'heading'             => $data[ $old_theme ]['heading'],
+			'description'         => $data[ $old_theme ]['description'],
+			'theme_mod'           => $data[ $old_theme ]['theme_mod_check'],
+			'mandatory_plugins'   => $data[ $old_theme ]['mandatory_plugins'] ? $data[ $old_theme ]['mandatory_plugins'] : array(),
+			'recommended_plugins' => $data[ $old_theme ]['recommended_plugins'] ? $data[ $old_theme ]['recommended_plugins'] : array(),
 		);
 	}
 
@@ -182,6 +284,7 @@ class Themeisle_OB_Rest_Server {
 
 			foreach ( $this->theme_support['local'][ $editor ] as $template_slug => $template_data ) {
 				$json_path = get_template_directory() . '/onboarding/' . $template_slug . '/data.json';
+
 				if ( ! file_exists( $json_path ) || ! is_readable( $json_path ) ) {
 					continue;
 				}
@@ -280,72 +383,6 @@ class Themeisle_OB_Rest_Server {
 	}
 
 	/**
-	 * Initialize Library
-	 *
-	 * @return array
-	 */
-	public function init_library() {
-		if ( empty( $this->theme_support ) ) {
-			return array();
-		}
-
-		$this->data['i18n']             = isset( $this->theme_support['i18n'] ) ? $this->theme_support['i18n'] : array();
-		$this->data['editors']          = isset( $this->theme_support['editors'] ) ? $this->theme_support['editors'] : array();
-		$this->data['pro_link']         = isset( $this->theme_support['pro_link'] ) ? $this->theme_support['pro_link'] : '';
-		$this->data['default_template'] = $this->get_default_template();
-		$this->data['migrate_data']     = $this->get_migrateable();
-		$this->data['local']            = $this->get_local_templates();
-		$this->data['remote']           = $this->get_remote_templates();
-		$this->data['upsell']           = $this->get_upsell_templates();
-
-		return $this->data;
-	}
-
-	/**
-	 * Get migratable data.
-	 *
-	 * This is used if we can ensure migration from a previous theme to a template.
-	 *
-	 * @return array
-	 */
-	private function get_migrateable() {
-
-		if ( ! isset( $this->theme_support['can_migrate'] ) ) {
-			return array();
-		}
-
-		$data = $this->theme_support['can_migrate'];
-
-		$old_theme = get_theme_mod( 'ti_prev_theme', 'ti_onboarding_undefined' );
-
-		if ( ! array_key_exists( $old_theme, $data ) ) {
-			return array();
-		}
-
-		$content_imported = get_theme_mod( $data[ $old_theme ]['theme_mod_check'], 'not-imported' );
-		if ( $content_imported === 'yes' ) {
-			return array();
-		}
-
-		$folder_name = $old_theme;
-		if ( $old_theme === 'zerif-lite' || $old_theme === 'zerif-pro' ) {
-			$folder_name = 'zelle';
-		}
-
-		return array(
-			'theme_name'        => ! empty( $data[ $old_theme ]['theme_name'] ) ? esc_html( $data[ $old_theme ]['theme_name'] ) : '',
-			'screenshot'        => get_template_directory_uri() . Themeisle_Onboarding::OBOARDING_PATH . '/migration/' . $folder_name . '/' . $data[ $old_theme ]['template'] . '.png',
-			'template'          => get_template_directory() . Themeisle_Onboarding::OBOARDING_PATH . '/migration/' . $folder_name . '/' . $data[ $old_theme ]['template'] . '.json',
-			'template_name'     => $data[ $old_theme ]['template'],
-			'heading'           => $data[ $old_theme ]['heading'],
-			'description'       => $data[ $old_theme ]['description'],
-			'theme_mod'         => $data[ $old_theme ]['theme_mod_check'],
-			'mandatory_plugins' => $data[ $old_theme ]['mandatory_plugins'] ? $data[ $old_theme ]['mandatory_plugins'] : array(),
-			'recommended_plugins' => $data[ $old_theme ]['recommended_plugins'] ? $data[ $old_theme ]['recommended_plugins'] : array(),
-		);
-	}
-
-	/**
 	 * Run the plugin importer.
 	 *
 	 * @param WP_REST_Request $request the async request.
@@ -380,14 +417,22 @@ class Themeisle_OB_Rest_Server {
 	 * Run the theme mods importer.
 	 *
 	 * @param WP_REST_Request $request the async request.
+	 *
+	 * @return WP_REST_Response Rest response.
 	 */
 	public function run_theme_mods_importer( WP_REST_Request $request ) {
 		require_once 'importers/class-themeisle-ob-theme-mods-importer.php';
+
 		if ( ! class_exists( 'Themeisle_OB_Theme_Mods_Importer' ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_3', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_3',
+					'success' => false,
+				)
+			);
 		}
 		$theme_mods_importer = new Themeisle_OB_Theme_Mods_Importer();
-		$theme_mods_importer->import_theme_mods( $request );
+		return $theme_mods_importer->import_theme_mods( $request );
 	}
 
 	/**
@@ -442,39 +487,5 @@ class Themeisle_OB_Rest_Server {
 		}
 		set_theme_mod( $params['theme_mod'], 'yes' );
 		wp_send_json_success( $this->frontpage_id );
-	}
-
-	/**
-	 * Check license
-	 *
-	 * @return bool
-	 */
-	private function is_valid_lic() {
-		if ( ! class_exists( '\ThemeisleSDK\Common\Module_Factory' ) ) {
-			return false;
-		}
-		$sdk_modules = \ThemeisleSDK\Common\Module_Factory::get_modules_map();
-		$theme       = get_stylesheet();
-
-		if ( ! array_key_exists( $theme, $sdk_modules ) ) {
-			$theme = 'neve-pro-addon';
-		}
-
-		if ( ! array_key_exists( $theme, $sdk_modules ) ) {
-			return false;
-		}
-
-		if( ! isset( $sdk_modules[$theme]['licenser'] ) ) {
-			return false;
-		}
-
-		$licenser = $sdk_modules[ $theme ]['licenser'];
-		$validity = $licenser->get_license_status();
-
-		if ( $validity === 'valid' ) {
-			return true;
-		}
-
-		return false;
 	}
 }

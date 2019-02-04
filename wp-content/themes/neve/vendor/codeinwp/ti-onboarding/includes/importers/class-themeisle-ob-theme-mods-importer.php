@@ -34,7 +34,12 @@ class Themeisle_OB_Theme_Mods_Importer {
 	 */
 	public function import_theme_mods( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'customize' ) ) {
-			wp_send_json_error( 'ti__ob_permission_err_2', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_permission_err_2',
+					'success' => false,
+				)
+			);
 		}
 
 		do_action( 'themeisle_ob_before_customizer_import' );
@@ -43,11 +48,22 @@ class Themeisle_OB_Theme_Mods_Importer {
 		$data   = $params['data'];
 
 		if ( ! isset( $data['source_url'] ) || empty( $data['source_url'] ) ) {
-			wp_send_json_error( 'ti__ob_theme_mods_err_1', 500 );
+
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_theme_mods_err_1',
+					'success' => false,
+				)
+			);
 		}
 
 		if ( ! isset( $data['theme_mods'] ) || empty( $data['theme_mods'] ) ) {
-			wp_send_json_error( 'ti__ob_theme_mods_err_2', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_theme_mods_err_2',
+					'success' => false,
+				)
+			);
 		}
 		$this->source_url = $data['source_url'];
 		$this->theme_mods = $data['theme_mods'];
@@ -68,7 +84,42 @@ class Themeisle_OB_Theme_Mods_Importer {
 
 		do_action( 'themeisle_ob_after_customizer_import' );
 
-		wp_send_json_success( 'success', 200 );
+		return new WP_REST_Response(
+			array(
+				'data'    => 'success',
+				'success' => true,
+			)
+		);
+	}
+
+	/**
+	 * Set up the `nav_menu_locations` theme mod.
+	 *
+	 * @param array $menus represents the menu data as as [location => slug] retrieved from the API.
+	 */
+	private function setup_nav_menus( $menus ) {
+		do_action( 'themeisle_ob_before_nav_menus_setup' );
+
+		if ( empty( $menus ) || ! is_array( $menus ) ) {
+			return;
+		}
+
+		$setup_menus = array();
+		foreach ( $menus as $location => $menu_slug ) {
+
+			$menu_object              = wp_get_nav_menu_object( $menu_slug );
+			$term_id                  = $menu_object->term_id;
+			$setup_menus[ $location ] = $term_id;
+		}
+		if ( empty( $setup_menus ) ) {
+			print_r( 'No menus to set up locations for.' . "\n" );
+
+			return;
+		}
+		set_theme_mod( 'nav_menu_locations', $setup_menus );
+		print_r( 'Menus are set up.' . "\n" );
+
+		do_action( 'themeisle_ob_after_nav_menus_setup' );
 	}
 
 	/**
@@ -89,34 +140,6 @@ class Themeisle_OB_Theme_Mods_Importer {
 		$item                = str_replace( $escaped_source_url, $escaped_current_url, $item );
 
 		do_action( 'themeisle_ob_after_change_theme_mods_root_url' );
-	}
-
-	/**
-	 * Set up the `nav_menu_locations` theme mod.
-	 *
-	 * @param array $menus represents the menu data as as [location => slug] retrieved from the API.
-	 */
-	private function setup_nav_menus( $menus ) {
-		do_action( 'themeisle_ob_before_nav_menus_setup' );
-
-		if ( empty( $menus ) || ! is_array( $menus ) ) {
-			return;
-		}
-		$setup_menus = array();
-		foreach ( $menus as $location => $menu_slug ) {
-			$menu_object              = wp_get_nav_menu_object( $menu_slug );
-			$term_id                  = $menu_object->term_id;
-			$setup_menus[ $location ] = $term_id;
-		}
-		if ( empty( $setup_menus ) ) {
-			print_r( 'No menus to set up locations for.' . "\n" );
-
-			return;
-		}
-		set_theme_mod( 'nav_menu_locations', $setup_menus );
-		print_r( 'Menus are set up.' . "\n" );
-
-		do_action( 'themeisle_ob_after_nav_menus_setup' );
 	}
 
 }

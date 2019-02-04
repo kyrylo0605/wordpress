@@ -103,6 +103,11 @@ class Themeisle_OB_Admin {
 		wp_enqueue_script( 'themeisle-site-lib' );
 	}
 
+	/**
+	 * Get return steps.
+	 *
+	 * @return array Import steps.
+	 */
 	private function get_import_steps() {
 		return array(
 			'plugins'    => array(
@@ -181,10 +186,12 @@ class Themeisle_OB_Admin {
 			'placeholders_disclaimer' => __( 'Due to copyright issues, some of the demo images will not be imported and will be replaced by placeholder images.', 'neve' ),
 			'import_done'             => __( 'Content was successfully imported. Enjoy your new site!', 'neve' ),
 			'pro_demo'                => __( 'Available in the PRO version', 'neve' ),
-			'copy_error_code'            => __( 'Copy error code', 'neve' ),
-			'error_report'            => sprintf( __( 'Hi! It seems there is a configuration issue with your server that\'s causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this.', 'neve' ),
-				sprintf( '<a href="https://themeisle.com/contact">%1$s</a>', __( 'get in touch', 'neve' ) ) ),
-	);
+			'copy_error_code'         => __( 'Copy error code', 'neve' ),
+			'error_report'            => sprintf(
+				__( 'Hi! It seems there is a configuration issue with your server that\'s causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this.', 'neve' ),
+				sprintf( '<a href="https://themeisle.com/contact">%1$s</a>', __( 'get in touch', 'neve' ) )
+			),
+		);
 	}
 
 	/**

@@ -4,6 +4,7 @@
  * Created on:      12/07/2018
  *
  * @package themeisle-onboarding
+ * @phpcs:disable Squiz.Commenting.FunctionComment.Missing
  * @soundtrack (Ghost) Riders In the Sky - Johnny Cash
  */
 
@@ -355,7 +356,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		/**
 		 * Begin the import.
 		 */
-		do_action( 'import_start' );
+		do_action( 'ti_ob_content_import_start' );
 	}
 
 	/**
@@ -376,7 +377,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		/**
 		 * Complete the import.
 		 */
-		do_action( 'import_end' );
+		do_action( 'ti_ob_content_import_end' );
 	}
 
 	/**
@@ -1373,7 +1374,9 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		return 60;
 	}
 
-	// return the difference in length between two strings
+	/**
+	 * Return the difference in length between two strings
+	 */
 	function cmpr_strlen( $a, $b ) {
 		return strlen( $b ) - strlen( $a );
 	}
@@ -1445,9 +1448,9 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	 */
 	protected function prefill_existing_terms() {
 		global $wpdb;
-		$query = "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t";
+		$query  = "SELECT t.term_id, tt.taxonomy, t.slug FROM {$wpdb->terms} AS t";
 		$query .= " JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id";
-		$terms = $wpdb->get_results( $query );
+		$terms  = $wpdb->get_results( $query );
 
 		foreach ( $terms as $item ) {
 			$exists_key                          = sha1( $item->taxonomy . ':' . $item->slug );

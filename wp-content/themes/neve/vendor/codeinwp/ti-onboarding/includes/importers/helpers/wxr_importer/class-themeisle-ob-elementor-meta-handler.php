@@ -98,16 +98,19 @@ class Themeisle_OB_Elementor_Meta_Handler {
 		$site_url  = get_site_url();
 		$url_parts = parse_url( $site_url );
 
-		array_walk_recursive( $decoded_meta, function ( &$value, $key ) use ( $site_url, $url_parts ) {
-			if ( filter_var( $value, FILTER_VALIDATE_URL ) === false ) {
-				return;
-			}
-			$url = parse_url( $value );
+		array_walk_recursive(
+			$decoded_meta,
+			function ( &$value, $key ) use ( $site_url, $url_parts ) {
+				if ( filter_var( $value, FILTER_VALIDATE_URL ) === false ) {
+					return;
+				}
+				$url = parse_url( $value );
 
-			if ( $url['host'] !== $url_parts['host'] ) {
-				$value = str_replace( $this->import_url, $site_url, $value );
+				if ( $url['host'] !== $url_parts['host'] ) {
+					$value = str_replace( $this->import_url, $site_url, $value );
+				}
 			}
-		} );
+		);
 
 		$this->value = json_encode( $decoded_meta );
 	}
@@ -134,14 +137,16 @@ class Themeisle_OB_Elementor_Meta_Handler {
 	 *
 	 * @return array
 	 */
-	private
-	function get_urls_to_replace() {
+	private function get_urls_to_replace() {
 		$regex = '/(?:http(?:s?):)(?:[\/\\\\\\\\|.|\w|\s|-])*\.(?:' . implode( '|', array_keys( $this->extensions ) ) . ')/m';
 		preg_match_all( $regex, $this->value, $urls );
 
-		$urls = array_map( function ( $value ) {
-			return rtrim( html_entity_decode( $value ), '\\' );
-		}, $urls[0] );
+		$urls = array_map(
+			function ( $value ) {
+					return rtrim( html_entity_decode( $value ), '\\' );
+			},
+			$urls[0]
+		);
 
 		$urls = array_unique( $urls );
 

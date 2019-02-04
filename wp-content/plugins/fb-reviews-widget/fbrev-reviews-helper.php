@@ -19,7 +19,7 @@ function fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofoll
     <?php
 }
 
-function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link) {
+function fbrev_page_reviews($page_id, $page_access_token, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link) {
     ?>
     <div class="wp-facebook-reviews">
     <?php
@@ -32,7 +32,7 @@ function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disabl
             }
             if (isset($review->reviewer)) {
                 $reviewer_name = $review->reviewer->name;
-                $reviewer_photo = 'https://graph.facebook.com/' . $review->reviewer->id . '/picture';
+                $reviewer_photo = 'https://fb.richplugins.com/picture?pid=' . $page_id . '&psid=' . $review->reviewer->id;
             } else {
                 $reviewer_name = 'Facebook user';
                 $reviewer_photo = FBREV_AVATAR;
@@ -40,7 +40,7 @@ function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disabl
         ?>
         <div class="wp-facebook-review<?php if ($hr) { ?> wp-facebook-hide<?php } ?>">
             <div class="wp-facebook-left">
-                <img src="<?php echo $reviewer_photo; ?>" alt="<?php echo $reviewer_name; ?>" onerror="if(this.src!='<?php echo FBREV_AVATAR; ?>')this.src='<?php echo FBREV_AVATAR; ?>';">
+                <?php image($reviewer_photo, $reviewer_name, true, FBREV_AVATAR); ?>
             </div>
             <div class="wp-facebook-right">
                 <?php
@@ -129,5 +129,9 @@ function fbrev_trim_text($text, $size) {
 
 function fbrev_anchor($url, $class, $text, $open_link, $nofollow_link) {
     ?><a href="<?php echo $url; ?>" class="<?php echo $class; ?>" <?php if ($open_link) { ?>target="_blank"<?php } ?> <?php if ($nofollow_link) { ?>rel="nofollow"<?php } ?>><?php echo $text; ?></a><?php
+}
+
+function image($src, $alt, $lazy, $def_ava = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', $atts = '') {
+    ?><img <?php if ($lazy) { ?>src="<?php echo $def_ava; ?>" data-<?php } ?>src="<?php echo $src; ?>" class="rplg-review-avatar<?php if ($lazy) { ?> rplg-blazy<?php } ?>" alt="<?php echo $alt; ?>" onerror="if(this.src!='<?php echo $def_ava; ?>')this.src='<?php echo $def_ava; ?>';" <?php echo $atts; ?>><?php
 }
 ?>

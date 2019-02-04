@@ -39,6 +39,21 @@ class Themeisle_OB_Importer_Alterator {
 		$this->count_posts_by_post_type();
 		add_filter( 'wxr_importer.pre_process.post', array( $this, 'skip_posts' ), 10, 4 );
 		add_filter( 'wxr_importer.pre_process.term', array( $this, 'skip_terms' ), 10, 2 );
+		add_filter( 'wp_insert_post_data', array( $this, 'encode_post_content' ), 10, 2 );
+	}
+
+	/**
+	 * Encode post content to UTF8 for possible issues with locales.
+	 *
+	 * @param array $data    post data
+	 * @param array $postarr post array
+	 *
+	 * @return array
+	 */
+	public function encode_post_content( $data, $postarr ) {
+		$data['post_content'] = utf8_encode( $data['post_content'] );
+
+		return $data;
 	}
 
 	/**
@@ -103,7 +118,7 @@ class Themeisle_OB_Importer_Alterator {
 	private function count_posts_by_post_type() {
 		foreach ( $this->filtered_post_types as $post_type ) {
 			$args      = array(
-				'post_type' => $post_type
+				'post_type' => $post_type,
 			);
 			$the_query = new WP_Query( $args );
 

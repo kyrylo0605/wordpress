@@ -454,23 +454,29 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
         static public function filter_stopwords( $str_array ) {
 
             $stopwords = AWS()->get_settings( 'stopwords' );
+            $stopwords_array = array();
+            $new_str_array = array();
 
-            if ( $stopwords && $str_array && ! empty( $str_array ) ) {
+            if ( $stopwords ) {
                 $stopwords_array = explode( ',', $stopwords );
-                if ( $stopwords_array && ! empty( $stopwords_array ) ) {
-
-                    $stopwords_array = array_map( 'trim', $stopwords_array );
-
-                    foreach ( $str_array as $str_word => $str_count ) {
-                        if ( in_array( $str_word, $stopwords_array ) ) {
-                            unset( $str_array[$str_word] );
-                        }
-                    }
-
-                }
             }
 
-            return $str_array;
+            if ( $str_array && is_array( $str_array ) && ! empty( $str_array ) && $stopwords_array && ! empty( $stopwords_array ) ) {
+
+                $stopwords_array = array_map( 'trim', $stopwords_array );
+
+                foreach ( $str_array as $str_word ) {
+                    if ( in_array( $str_word, $stopwords_array ) ) {
+                        continue;
+                    }
+                    $new_str_array[] = $str_word;
+                }
+
+            } else {
+                $new_str_array = $str_array;
+            }
+
+            return $new_str_array;
 
         }
 

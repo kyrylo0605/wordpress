@@ -126,6 +126,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $search_in_arr = array( 'title' );
             }
 
+            $products_array = array();
             $categories_array = array();
             $tags_array = array();
 
@@ -135,8 +136,9 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             $this->data['search_in']    = $search_in_arr;
             $this->data['outofstock']   = $outofstock;
 
-
             $search_array = array_unique( explode( ' ', $s ) );
+
+            $search_array = AWS_Helpers::filter_stopwords( $search_array );
 
             if ( is_array( $search_array ) && ! empty( $search_array ) ) {
                 foreach ( $search_array as $search_term ) {
@@ -147,68 +149,72 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 }
             }
 
-            if ( empty( $this->data['search_terms'] ) ) {
-                $this->data['search_terms'][] = '';
-            }
+//            if ( empty( $this->data['search_terms'] ) ) {
+//                $this->data['search_terms'][] = '';
+//            }
 
+            if ( ! empty( $this->data['search_terms'] ) ) {
 
-            $posts_ids = $this->query_index_table();
-
-            /**
-             * Filters array of products ids
-             *
-             * @since 1.53
-             *
-             * @param array $posts_ids Array of products ids
-             * @param string $s Search query
-             */
-            $posts_ids = apply_filters( 'aws_search_results_products_ids', $posts_ids, $s );
-
-
-            $products_array = $this->get_products( $posts_ids );
-
-            /**
-             * Filters array of products before they displayed in search results
-             *
-             * @since 1.42
-             *
-             * @param array $products_array Array of products results
-             * @param string $s Search query
-             */
-            $products_array = apply_filters( 'aws_search_results_products', $products_array, $s );
-
-
-            if ( $show_cats === 'true' ) {
-
-                $categories_array = $this->get_taxonomies( 'product_cat' );
+                $posts_ids = $this->query_index_table();
 
                 /**
-                 * Filters array of product categories before they displayed in search results
+                 * Filters array of products ids
+                 *
+                 * @since 1.53
+                 *
+                 * @param array $posts_ids Array of products ids
+                 * @param string $s Search query
+                 */
+                $posts_ids = apply_filters( 'aws_search_results_products_ids', $posts_ids, $s );
+
+
+                $products_array = $this->get_products( $posts_ids );
+
+                /**
+                 * Filters array of products before they displayed in search results
                  *
                  * @since 1.42
                  *
-                 * @param array $categories_array Array of products categories
+                 * @param array $products_array Array of products results
                  * @param string $s Search query
                  */
-                $categories_array = apply_filters( 'aws_search_results_categories', $categories_array, $s );
+                $products_array = apply_filters( 'aws_search_results_products', $products_array, $s );
+
+
+                if ( $show_cats === 'true' ) {
+
+                    $categories_array = $this->get_taxonomies( 'product_cat' );
+
+                    /**
+                     * Filters array of product categories before they displayed in search results
+                     *
+                     * @since 1.42
+                     *
+                     * @param array $categories_array Array of products categories
+                     * @param string $s Search query
+                     */
+                    $categories_array = apply_filters( 'aws_search_results_categories', $categories_array, $s );
+
+                }
+
+                if ( $show_tags === 'true' ) {
+
+                    $tags_array = $this->get_taxonomies( 'product_tag' );
+
+                    /**
+                     * Filters array of product tags before they displayed in search results
+                     *
+                     * @since 1.42
+                     *
+                     * @param array $tags_array Array of products tags
+                     * @param string $s Search query
+                     */
+                    $tags_array = apply_filters( 'aws_search_results_tags', $tags_array, $s );
+
+                }
 
             }
 
-            if ( $show_tags === 'true' ) {
-
-                $tags_array = $this->get_taxonomies( 'product_tag' );
-
-                /**
-                 * Filters array of product tags before they displayed in search results
-                 *
-                 * @since 1.42
-                 *
-                 * @param array $tags_array Array of products tags
-                 * @param string $s Search query
-                 */
-                $tags_array = apply_filters( 'aws_search_results_tags', $tags_array, $s );
-
-            }
 
             $result_array = array(
                 'cats'     => $categories_array,
@@ -679,18 +685,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             }
 
-            $title_has_exact = preg_match( '/(' . $exact_words . '){1}/i', $title );
-            $content_has_exact = preg_match( '/(' . $exact_words . '){1}/i', $content );
-
-
-            if ( $title_has_exact === 1 || $content_has_exact === 1 ) {
-                $title = preg_replace($exact_pattern, '<strong>${0}</strong>', $title );
-                $content = preg_replace($exact_pattern, '<strong>${0}</strong>', $content );
-            } else {
-                $title = preg_replace($pattern, '<strong>${0}</strong>', $title );
-                $content = preg_replace( $pattern, '<strong>${0}</strong>', $content );
-            }
-
+            $title = preg_replace($pattern, '<strong>${0}</strong>', $title );
+            $content = preg_replace( $pattern, '<strong>${0}</strong>', $content );
 
             return array(
                 'title'   => $title,
@@ -718,10 +714,10 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             $excludes = '';
             $search_query = '';
 
-            $filtered_terms = AWS_Helpers::filter_stopwords( array_count_values( $this->data['search_terms'] ) );
+            $filtered_terms = $this->data['search_terms'];
 
             if ( $filtered_terms && ! empty( $filtered_terms ) ) {
-                foreach ( $this->data['search_terms'] as $search_term ) {
+                foreach ( $filtered_terms as $search_term ) {
                     $like = '%' . $wpdb->esc_like($search_term) . '%';
                     $search_array[] = $wpdb->prepare('( name LIKE %s )', $like);
                 }

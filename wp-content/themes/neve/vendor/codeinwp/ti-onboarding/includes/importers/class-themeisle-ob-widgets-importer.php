@@ -8,7 +8,6 @@
  * @package    themeisle-onboarding
  * @soundtrack Milk Carton Kid - The Milk Carton Kids
  */
-
 /**
  * Class Themeisle_OB_Widgets_Importer
  */
@@ -39,8 +38,6 @@ class Themeisle_OB_Widgets_Importer {
 	 * Widget import process.
 	 *
 	 * @param array $data Widgets data.
-	 *
-	 * @return array
 	 */
 	private function actually_import( $data ) {
 		global $wp_registered_sidebars;
@@ -61,11 +58,11 @@ class Themeisle_OB_Widgets_Importer {
 			}
 
 			if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
-				$sidebar_available    = true;
-				$use_sidebar_id       = $sidebar_id;
+				$sidebar_available = true;
+				$use_sidebar_id    = $sidebar_id;
 			} else {
-				$sidebar_available    = false;
-				$use_sidebar_id       = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
+				$sidebar_available = false;
+				$use_sidebar_id    = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
 			}
 
 			// Loop widgets.
@@ -79,12 +76,11 @@ class Themeisle_OB_Widgets_Importer {
 
 				// Does site support this widget?
 				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) {
-					$fail                = true;
+					$fail = true;
 				}
 
 				// Convert multidimensional objects to multidimensional arrays
 				$widget = json_decode( wp_json_encode( $widget ), true );
-
 
 				// Does widget with identical settings already exist in same sidebar?
 				if ( ! $fail && isset( $widget_instances[ $id_base ] ) ) {
@@ -99,7 +95,7 @@ class Themeisle_OB_Widgets_Importer {
 
 						// Is widget in same sidebar and has identical settings?
 						if ( in_array( "$id_base-$check_id", $sidebar_widgets, true ) && (array) $widget === $check_widget ) {
-							$fail                = true;
+							$fail = true;
 							break;
 
 						}

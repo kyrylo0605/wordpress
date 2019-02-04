@@ -38,22 +38,27 @@
     },
     {
         "name": "codeinwp/ti-onboarding",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/ti-onboarding.git",
-            "reference": "2dd9a51a0d38259cb8b6f9c7593eb4951fd4a7b7"
+            "reference": "1796fbe3056d8d03e9d27ae1d76f4a8fc03a292e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/ti-onboarding/zipball/2dd9a51a0d38259cb8b6f9c7593eb4951fd4a7b7",
-            "reference": "2dd9a51a0d38259cb8b6f9c7593eb4951fd4a7b7",
+            "url": "https://api.github.com/repos/Codeinwp/ti-onboarding/zipball/1796fbe3056d8d03e9d27ae1d76f4a8fc03a292e",
+            "reference": "1796fbe3056d8d03e9d27ae1d76f4a8fc03a292e",
             "shasum": ""
         },
-        "time": "2019-01-21 20:54:07",
+        "require-dev": {
+            "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+            "squizlabs/php_codesniffer": "^3.1",
+            "wp-coding-standards/wpcs": "^1.0.0"
+        },
+        "time": "2019-01-30 14:03:44",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "files": [
                 "load.php"
@@ -75,17 +80,17 @@
     },
     {
         "name": "codeinwp/themeisle-sdk",
-        "version": "3.0.3",
-        "version_normalized": "3.0.3.0",
+        "version": "3.0.4",
+        "version_normalized": "3.0.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-            "reference": "2aa73079ca7523b23637caf90efb80af46df6aa0"
+            "reference": "cf03ee5b93c6ca66f0c1a4916309f1270fe12319"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/2aa73079ca7523b23637caf90efb80af46df6aa0",
-            "reference": "2aa73079ca7523b23637caf90efb80af46df6aa0",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/cf03ee5b93c6ca66f0c1a4916309f1270fe12319",
+            "reference": "cf03ee5b93c6ca66f0c1a4916309f1270fe12319",
             "shasum": ""
         },
         "require-dev": {
@@ -93,7 +98,7 @@
             "squizlabs/php_codesniffer": "^3.1",
             "wp-coding-standards/wpcs": "^1.0.0"
         },
-        "time": "2019-01-07 10:33:38",
+        "time": "2019-01-28 12:17:14",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",

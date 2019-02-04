@@ -2,6 +2,9 @@
 wp_register_script('rplg_js', plugins_url('/static/js/rplg.js', __FILE__));
 wp_enqueue_script('rplg_js', plugins_url('/static/js/rplg.js', __FILE__));
 
+wp_register_script('rplg_blazy', plugins_url('/static/js/blazy.min.js', __FILE__));
+wp_enqueue_script('rplg_blazy', plugins_url('/static/js/blazy.min.js', __FILE__));
+
 include_once(dirname(__FILE__) . '/fbrev-reviews-helper.php');
 
 $rating = 0;
@@ -33,7 +36,7 @@ if (is_numeric($max_height)) {
             <?php fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofollow_link); ?>
         </div>
         <div class="wp-facebook-content-inner">
-            <?php fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link); ?>
+            <?php fbrev_page_reviews($page_id, $page_access_token, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link); ?>
         </div>
     </div>
 </div>

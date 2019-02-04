@@ -7,5 +7,5 @@
  */
 
 if ( ! class_exists( 'Themeisle_Onboarding' ) ) {
-	require_once 'class-themeisle-onboarding.php';
+	require_once dirname( __FILE__ ) . '/class-themeisle-onboarding.php';
 }
