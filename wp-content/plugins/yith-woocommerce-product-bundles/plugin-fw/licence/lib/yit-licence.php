@@ -87,15 +87,9 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                 //show extra info and renew button in debug mode
                 $this->show_extra_info = $this->show_renew_button = true;
             } else {
-                $this->show_extra_info   = defined( 'YIT_SHOW_EXTRA_LICENCE_INFO' ) && YIT_SHOW_EXTRA_LICENCE_INFO;
+                $this->show_extra_info   = ( defined( 'YIT_SHOW_EXTRA_LICENCE_INFO' ) && YIT_SHOW_EXTRA_LICENCE_INFO ) || ( ! empty( $_GET['yith_show_extra_license_info'] ) && 'yes' == $_GET['yith_show_extra_license_info'] );
                 $this->show_renew_button = !( defined( 'YIT_HIDE_LICENCE_RENEW_BUTTON' ) && YIT_HIDE_LICENCE_RENEW_BUTTON );
             }
-
-            /* Update Licence Information */
-            //@TODO: Removed for performance
-//            add_action( 'core_upgrade_preamble', array( $this, 'check_all' ) );
-//            add_action( 'wp_maybe_auto_update',  array( $this, 'check_all' ) );
-
         }
 
         /**
@@ -258,7 +252,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                 update_option( $this->_licence_option, $options );
 
                 /* === Update Plugin Licence Information === */
-                YIT_Upgrade()->force_regenerate_update_transient();
+                yith_plugin_fw_force_regenerate_plugin_update_transient();
 
                 /* === Licence Activation Template === */
                 $body[ 'template' ] = $this->show_activation_panel( $this->get_response_code_message( 200 ) );
@@ -328,7 +322,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
 		            $options[ $product[ 'product_id' ] ] = $option[ $product[ 'product_id' ] ];
 
 		            /* === Update Plugin Licence Information === */
-		            YIT_Upgrade()->force_regenerate_update_transient();
+		            yith_plugin_fw_force_regenerate_plugin_update_transient();
 
 		            update_option( $this->_licence_option, $options );
 
@@ -398,13 +392,15 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          * Send a request to API server to check if plugins is activated
          *
          * @param string|The plugin init slug $plugin_init
+         * @param boolean $regenerate_transient
+         * @param boolean $force_check
          *
          * @return bool | true if activated, false otherwise
          *
          * @since  1.0
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
-        public function check( $product_init, $regenerate_transient = true ) {
+        public function check( $product_init, $regenerate_transient = true, $force_check = false ) {
 
             $status     = false;
             $body       = false;
@@ -412,8 +408,12 @@ if ( !class_exists( 'YIT_Licence' ) ) {
             $licence    = $this->get_licence();
             $product_id = $product[ 'product_id' ];
 
-            if ( !isset( $licence[ $product_id ] ) ) {
+            if ( ! isset( $licence[ $product_id ] ) ) {
                 return false;
+            }
+
+            if( ! $force_check && ! $this->is_check_needed( $licence[ $product_id ] ) ) {
+                return true;
             }
 
             $args = array(
@@ -442,6 +442,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                     $licence[ $product_id ][ 'status_code' ]          = '200';
                     $licence[ $product_id ][ 'activated' ]            = $body[ 'activated' ];
                     $licence[ $product_id ][ 'licence_expires' ]      = $body[ 'licence_expires' ];
+                    $licence[ $product_id ][ 'licence_next_check' ]   = time() + ( 12 * HOUR_IN_SECONDS );
                     $licence[ $product_id ][ 'activation_remaining' ] = $body[ 'activation_remaining' ];
                     $licence[ $product_id ][ 'activation_limit' ]     = $body[ 'activation_limit' ];
                     $licence[ $product_id ][ 'is_membership' ]        = isset( $body[ 'is_membership' ] ) ? $body[ 'is_membership' ] : false;
@@ -493,11 +494,28 @@ if ( !class_exists( 'YIT_Licence' ) ) {
 
                 /* === Update Plugin Licence Information === */
                 if ( $regenerate_transient ) {
-                    YIT_Upgrade()->force_regenerate_update_transient();
+                    yith_plugin_fw_force_regenerate_plugin_update_transient();
                 }
             }
 
             return $status;
+        }
+
+        /**
+         * Check if given licence needs to be checked
+         *
+         * @since 3.1.18
+         * @author Francesco Licandro
+         * @param array $licence The licence to check
+         * @return boolean
+         */
+        public function is_check_needed( $licence ){
+            if( empty( $licence['licence_expires'] ) || $licence['licence_expires'] < time()
+                || empty( $licence['licence_next_check'] ) || $licence['licence_next_check'] < time() ){
+                return true;
+            }
+
+            return false;
         }
 
         /**
@@ -508,10 +526,12 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          *
          * @use    YIT_Theme_Licence->check()
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         * @param boolean $regenerate_transient
+         * @param boolean $force_check
          */
-        public function check_all() {
+        public function check_all( $regenerate_transient = true, $force_check = false ) {
             foreach ( $this->_products as $init => $info ) {
-                $this->check( $init );
+                $this->check( $init, $regenerate_transient, $force_check );
             }
         }
 
@@ -528,10 +548,10 @@ if ( !class_exists( 'YIT_Licence' ) ) {
          */
         public function update_licence_information() {
             /* Check licence information for alla products */
-            $this->check_all();
+            $this->check_all( false, true );
 
             /* === Regenerate Update Plugins Transient === */
-            YIT_Upgrade()->force_regenerate_update_transient();
+            yith_plugin_fw_force_regenerate_plugin_update_transient();
 
             do_action( 'yit_licence_after_check' );
 
@@ -743,7 +763,7 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                 '107'         => __( 'License key has been banned', 'yith-plugin-fw' ),
                 '108'         => __( 'Current product is not included in your YITH Club Subscription key', 'yith-plugin-fw' ),
                 '200'         => sprintf( '<strong>%s</strong>! %s', __( 'Great', 'yith-plugin-fw' ), __( 'License successfully activated', 'yith-plugin-fw' ) ),
-                'deactivated' => sprintf( '%s <strong>%s</strong>', __( 'License key deactivated for website', 'woocommerce-software-add-on' ), isset( $instance ) ? $instance : '' )
+                'deactivated' => sprintf( '%s <strong>%s</strong>', __( 'License key deactivated for website', 'yith-plugin-fw' ), isset( $instance ) ? $instance : '' )
             );
 
             return isset( $messages[ $code ] ) ? $messages[ $code ] : false;

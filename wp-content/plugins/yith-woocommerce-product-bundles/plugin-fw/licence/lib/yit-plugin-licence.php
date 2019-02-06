@@ -74,7 +74,7 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
             add_action( "wp_ajax_yith_activate-{$this->_product_type}", array( $this, 'activate' ) );
             add_action( "wp_ajax_yith_deactivate-{$this->_product_type}", array( $this, 'deactivate' ) );
             add_action( "wp_ajax_yith_update_licence_information-{$this->_product_type}", array( $this, 'update_licence_information' ) );
-            add_action( 'yit_licence_after_check', array( $this, 'licence_after_check' ) );
+            add_action( 'yit_licence_after_check', 'yith_plugin_fw_force_regenerate_plugin_update_transient' );
 
             /** @since 3.0.0 */
 	        if( version_compare( PHP_VERSION, '7.0', '>=' ) ) {
@@ -138,19 +138,21 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
                         $activation_url = self::get_license_activation_url();
                         ?>
                         <div class="notice notice-error">
-                            <p><strong>Warning!</strong> You didn't set license key for the following products:
+                            <p>
+                                <?php printf( '<strong>%s</strong> %s:', _x( 'Warning!', "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw' ), _x( "You didn't set license key for the following products", "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.",'yith-plugin-fw' ) ); ?><strong></strong>
                                 <?php echo $product_list ?>
-                                which means you're missing out on updates and support. <a href='<?php echo $activation_url ?>'>Enter your license key</a>, please.</p>
+                                <?php printf( "%s. <a href='%s'>%s</a>, %s",
+                                    _x( "which means you're missing out on updates and support", "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw'  ),
+                                    $activation_url,
+                                    _x( 'Enter your license key', "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw' ),
+                                    _x( 'please', "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw' )
+                                ); ?>
+                            </p>
                         </div>
                         <?php
                     }
                 }
             }
-        }
-
-        public function licence_after_check() {
-            /* === Regenerate Update Plugins Transient === */
-            YIT_Upgrade()->force_regenerate_update_transient();
         }
 
         /**

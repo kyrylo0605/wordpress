@@ -36,7 +36,7 @@ if (is_numeric($max_height)) {
             <?php fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofollow_link); ?>
         </div>
         <div class="wp-facebook-content-inner">
-            <?php fbrev_page_reviews($page_id, $page_access_token, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link); ?>
+            <?php fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link); ?>
         </div>
     </div>
 </div>

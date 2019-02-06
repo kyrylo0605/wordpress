@@ -95,9 +95,17 @@ if( ! class_exists( 'YITH_Gutenberg' ) ){
 		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function register_blocks(){
+		    $block_args = array();
 			foreach (  $this->_to_register_blocks as $block => $args ){
-				$block_style = isset( $args['style'] ) ? array( 'style' => $args['style'] ) : array();
-				if( register_block_type( "yith/{$block}", $block_style ) ){
+				if( isset( $args['style'] ) ){
+					$block_args['style'] = $args['style'];
+				}
+
+				if( isset( $args['script'] ) ){
+					$block_args['script'] = $args['script'];
+				}
+
+				if( register_block_type( "yith/{$block}", $block_args ) ){
 					$this->_registered_blocks[] = $block;
 				}
 			}
@@ -253,6 +261,10 @@ if( ! class_exists( 'YITH_Gutenberg' ) ){
 									//Add default value for multiple
 									if( ! isset( $attributes['multiple'] ) ) {
 										$args[ $block ]['attributes'][ $attr_name ]['multiple'] = false;
+									}
+
+									if( ! empty( $attributes['multiple'] ) ){
+										$args[ $block ]['attributes'][ $attr_name ]['type'] = 'array';
 									}
 									break;
 

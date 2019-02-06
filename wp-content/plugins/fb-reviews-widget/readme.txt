@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Tags: facebook, facebook reviews, facebook business reviews, facebook page reviews, facebook page review, Facebook Page, facebook review, facebook review widget, business review, reviews, facebook reviews widget, sidebar widget, richplugins, google reviews, google places reviews, google map reviews, facebook reviews pro, testimonials, yelp, yelp reviews
 Requires at least: 2.8
 Tested up to: 5.0
-Stable tag: 1.5
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,9 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.5.1 =
+* Bugfix: fixed problem with duplicate image function
 
 = 1.5 =
 * Improve: Facebook avatars lazy loading
