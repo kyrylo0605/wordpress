@@ -1,5 +1,15 @@
 == Changelog ==
 
+= 1.5.1 =
+- Added: Complete translations for Spanish, Italian, Japanese, and German.
+- Added: Smart Tag for referencing user meta data, `{user_meta key=""}`.
+- Changed: Improved support with LocoTranslate plugin.
+- Changed: Refactored Form Preview functionality, no longer requiring hidden private page to be created.
+- Changed: Always load full WPForms styling inside Gutenberg so forms render correctly.
+- Fixed: Typos, grammar, and other i18n related issues.
+- Fixed: Created alias class for `WPForms` to prevent issue with namespacing introduced in 1.5.0.
+- Fixed: Dynamic population issue when using Image Choices field setting.
+
 = 1.5.0.4 =
 - Changed: Dashboard widget improvements.
 - Fixed: Various typos.

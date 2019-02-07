@@ -451,6 +451,8 @@ class WPForms_Frontend {
 			$field = apply_filters( 'wpforms_creditcard_field_display', $field, $attributes, $form_data );
 		} elseif ( 'payment-multiple' === $field['type'] ) {
 			$field = apply_filters( 'wpforms_payment_multiple_field_display', $field, $attributes, $form_data );
+		} elseif ( 'payment-checkbox' === $field['type'] ) {
+			$field = apply_filters( 'wpforms_payment_checkbox_field_display', $field, $attributes, $form_data );
 		}
 
 		$form_id  = absint( $form_data['id'] );

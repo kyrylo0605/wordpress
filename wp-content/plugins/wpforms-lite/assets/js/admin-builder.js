@@ -118,6 +118,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 			app.fieldChoiceSortable('radio');
 			app.fieldChoiceSortable('checkbox');
 			app.fieldChoiceSortable('payment-multiple');
+			app.fieldChoiceSortable('payment-checkbox');
 			app.fieldChoiceSortable('payment-select');
 
 			// Load match heights.
@@ -265,7 +266,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				$sectionButtons = $panel.find('.wpforms-panel-sidebar-section'),
 				$sectionButton  = $panel.find('.wpforms-panel-sidebar-section-'+section);
 
-			if ( $this.hasClass( 'upgrade-modal' ) ) {
+			if ( $this.hasClass( 'upgrade-modal' ) || $this.hasClass( 'education-modal' )  ) {
 				return;
 			}
 
@@ -492,7 +493,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 
 			// New field choices should be sortable
 			$builder.on('wpformsFieldAdd', function(event, id, type) {
-				if (type === 'select' || type === 'radio'  || type === 'checkbox' || type === 'payment-multiple' || type === 'payment-select' ) {
+				if (type === 'select' || type === 'radio'  || type === 'checkbox' || type === 'payment-multiple' || type === 'payment-checkbox' || type === 'payment-select' ) {
 					app.fieldChoiceSortable(type,'#wpforms-field-option-row-' + id + '-choices ul');
 				}
 			 });
@@ -1247,7 +1248,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 
 			var $btn = $( '#wpforms-add-fields-' + type );
 
-			if ( $btn.hasClass( 'upgrade-modal' ) ) {
+			if ( $btn.hasClass( 'upgrade-modal' ) || $btn.hasClass( 'education-modal' ) ) {
 				return;
 			}
 
@@ -1541,14 +1542,14 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 		/**
 		 * Update field choices in preview area, for the Fields panel.
 		 *
-		 * Currently used for select, radio, and checkboxes field types
+		 * Currently used for select, radio, and checkboxes field types.
 		 *
 		 * @since 1.0.0
 		 */
 		fieldChoiceUpdate: function(type, id) {
 
-			// Radio, Checkbox, and Payment Multiple use _ template.
-			if ( 'radio' === type || 'checkbox' === type || 'payment-multiple' === type ) {
+			// Radio, Checkbox, and Payment Multiple/Checkbox use _ template.
+			if ( 'radio' === type || 'checkbox' === type || 'payment-multiple' === type || 'payment-checkbox' === type ) {
 
 				var tmpl = wp.template( 'wpforms-field-preview-checkbox-radio-payment-multiple' ),
 					data = {
@@ -1557,7 +1558,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 						type:     'radio'
 					};
 
-				if ( 'checkbox' === type ) {
+				if ( 'checkbox' === type || 'payment-checkbox' === type ) {
 					data.type = 'checkbox';
 				}
 
@@ -1568,11 +1569,15 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 
 			var new_choice;
 
-			// Multiple payment choices are radio buttons
+			// Multiple payment choices are radio buttons.
 			if ( type === 'payment-multiple') {
 				type = 'radio';
 			}
-			// Dropdown payment choices are selects
+			// Checkbox payment choices are checkboxes.
+			if ( type === 'payment-checkbox') {
+				type = 'checkbox';
+			}
+			// Dropdown payment choices are selects.
 			if ( type === 'payment-select') {
 				type = 'select';
 			}
@@ -1824,29 +1829,29 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 			// Loading
 			wpf.fieldOptionLoading($thisOption);
 
-			// Remove previous dynamic post type or taxonomy source options
+			// Remove previous dynamic post type or taxonomy source options.
 			$('#wpforms-field-option-row-'+id+'-dynamic_post_type').remove();
 			$('#wpforms-field-option-row-'+id+'-dynamic_taxonomy').remove();
 
 			if ( '' === value ) {
-				// "Off" - no dynamic populating
+				// "Off" - no dynamic populating.
 
 				// Show choice images option.
 				$images.removeClass( 'wpforms-hidden' );
 				$( '#wpforms-field-' + id ).find( '.wpforms-alert' ).remove();
 
-				if ( 'checkbox' === type || 'radio' === type || 'payment-multiple' === type ) {
+				if ( 'checkbox' === type || 'radio' === type || 'payment-multiple' === type || 'payment-checkbox' === type ) {
 
 					app.fieldChoiceUpdate( type, id );
 
 				} else {
-					// Get original field choices
+					// Get original field choices.
 					var choices = [];
 					$('#wpforms-field-option-row-'+id+'-choices .label').each(function(index) {
 						choices.push($(this).val());
 					});
 
-					// Restore field to display original field choices
+					// Restore field to display original field choices.
 					if ($field.hasClass('wpforms-field-select')) {
 
 						$field.find('select option:first').text(choices[0]);
@@ -1860,10 +1865,10 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 							type = 'checkbox';
 						}
 
-						// Remove previous items
+						// Remove previous items.
 						$list.empty();
 
-						// Add new items to radio or checkbox field
+						// Add new items to radio or checkbox field.
 						for(var key in choices) {
 							$list.append('<li><input type="'+type+'" disabled> '+choices[key]+'</li>');
 						}
@@ -1877,7 +1882,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				wpf.fieldOptionLoading($thisOption, true);
 
 			} else {
-				// Post type or Taxonomy based dynamic populating
+				// Post type or Taxonomy based dynamic populating.
 
 				// Hide choice images option, not applicable.
 				$images.addClass( 'wpforms-hidden' );
@@ -1895,13 +1900,13 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 					} else {
 						console.log(res);
 					}
-					// Hide loading indicator
+					// Hide loading indicator.
 					wpf.fieldOptionLoading($thisOption, true);
 
-					// Re-init tooltips for new field
+					// Re-init tooltips for new field.
 					wpf.initTooltips();
 
-					// Trigger Dynamic source updates
+					// Trigger Dynamic source updates.
 					$('#wpforms-field-option-'+id+'-dynamic_'+value).find('option:first').prop('selected', true);
 					$('#wpforms-field-option-'+id+'-dynamic_'+value).trigger('change');
 

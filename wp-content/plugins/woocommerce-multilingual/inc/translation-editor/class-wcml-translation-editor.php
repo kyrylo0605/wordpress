@@ -100,7 +100,7 @@ class WCML_Translation_Editor{
         }
 
         $post_type = get_post_type( $post->ID );
-        $checkout_page_id = get_option( 'woocommerce_checkout_page_id' );
+        $checkout_page_id = wc_get_page_id( 'checkout' );
 
 	    if ( $post_type === 'product' || is_page( $checkout_page_id ) ){
             $output = '';
@@ -141,7 +141,7 @@ class WCML_Translation_Editor{
 
     public function add_languages_column( $columns ){
 
-	    if ( array_key_exists( 'icl_translations', $columns ) || ( version_compare( WOOCOMMERCE_VERSION, '2.3', '<' ) ) ){
+	    if ( array_key_exists( 'icl_translations', $columns ) ){
             return $columns;
         }
         $active_languages = $this->sitepress->get_active_languages();
