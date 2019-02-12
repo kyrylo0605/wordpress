@@ -19,7 +19,7 @@ function fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofoll
     <?php
 }
 
-function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link) {
+function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link, $lazy_load_img) {
     ?>
     <div class="wp-facebook-reviews">
     <?php
@@ -40,7 +40,7 @@ function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disabl
         ?>
         <div class="wp-facebook-review<?php if ($hr) { ?> wp-facebook-hide<?php } ?>">
             <div class="wp-facebook-left">
-                <?php fbrev_image($reviewer_photo, $reviewer_name, true, FBREV_AVATAR); ?>
+                <?php fbrev_image($reviewer_photo, $reviewer_name, $lazy_load_img, FBREV_AVATAR); ?>
             </div>
             <div class="wp-facebook-right">
                 <?php

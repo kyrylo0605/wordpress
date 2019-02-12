@@ -109,6 +109,15 @@
 
 <div class="form-group">
     <div class="col-sm-12">
+        <label>
+            <input id="<?php echo $this->get_field_id('lazy_load_img'); ?>" name="<?php echo $this->get_field_name('lazy_load_img'); ?>" type="checkbox" value="1" <?php checked('1', $lazy_load_img); ?> class="form-control" />
+            <?php echo fbrev_i('Lazy load images'); ?>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-12">
         <?php echo fbrev_i('Cache data'); ?>
         <select id="<?php echo $this->get_field_id('cache'); ?>" name="<?php echo $this->get_field_name('cache'); ?>" class="form-control">
             <option value="1" <?php selected('1', $cache); ?>><?php echo fbrev_i('1 Hour'); ?></option>

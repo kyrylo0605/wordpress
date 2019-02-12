@@ -27,6 +27,7 @@ class Fb_Reviews_Widget extends WP_Widget {
         'open_link'            => true,
         'nofollow_link'        => true,
         'show_success_api'     => true,
+        'lazy_load_img'        => true,
         'cache'                => '24',
         'api_ratings_limit'    => FBREV_API_RATINGS_LIMIT,
     );
