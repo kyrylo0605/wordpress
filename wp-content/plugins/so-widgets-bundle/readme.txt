@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 5.0
-Stable tag: 1.14.1
-Build time: 2019-01-09T13:17:13-08:00
+Stable tag: 1.15.1
+Build time: 2019-02-15T09:48:04-08:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/contribution/
@@ -64,6 +64,20 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.15.1 - 15 February 2019 =
+* Google maps: Use correct locations for static maps.
+
+= 1.15.0 - 14 February 2019 =
+* Location field: New specialized admin form field which autocompletes addresses using the Google Maps places library.
+* Google maps: Moved global API key override to `modify_instance` to make key available in admin form too.
+* Google maps: Auto-migration of locations to new location field format.
+* Update LESS PHP library with fixes for PHP 7.3 compatibility.
+* Features: Apply text styles to all features content, not just `<p>` tags.
+* Social Media: New networks: Bandcamp, Goodreads, Telegram, Strava, Blogger.
+* Accordion: Fix issue preventing use of numbers in panel titles.
+* Block editor: Preview fixes.
+* Beaver Builder compat: Fix widgets failing to update and CSS for FontAwesome icons.
 
 = 1.14.1 - 9 January 2019 =
 * Icon field: Set correct value of currently selected icon for non-FA icons.
