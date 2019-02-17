@@ -80,6 +80,11 @@ class Themeisle_OB_Admin {
 	 * Render the sites library.
 	 */
 	public function render_site_library() {
+		if ( version_compare( PHP_VERSION, '5.4.0', '<' ) ) {
+			echo '<div>' . apply_filters( 'themeisle_onboarding_phprequired_text', 'ti_ob_err_phpv_less_than_5-4-0' ) . '</div>';
+
+			return;
+		}
 
 		$this->enqueue();
 		?>
@@ -101,8 +106,32 @@ class Themeisle_OB_Admin {
 		wp_localize_script( 'themeisle-site-lib', 'themeisleSitesLibApi', $this->localize_sites_library() );
 
 		wp_enqueue_script( 'themeisle-site-lib' );
+	}
 
-		wp_enqueue_style( 'themeisle-site-lib', Themeisle_Onboarding::get_dir() . '/assets/css/style.css', array(), Themeisle_Onboarding::VERSION );
+	/**
+	 * Get return steps.
+	 *
+	 * @return array Import steps.
+	 */
+	private function get_import_steps() {
+		return array(
+			'plugins'    => array(
+				'nicename' => __( 'Installing Plugins', 'hestia' ),
+				'done'     => 'no',
+			),
+			'content'    => array(
+				'nicename' => __( 'Importing Content', 'hestia' ),
+				'done'     => 'no',
+			),
+			'theme_mods' => array(
+				'nicename' => __( 'Setting Up Customizer', 'hestia' ),
+				'done'     => 'no',
+			),
+			'widgets'    => array(
+				'nicename' => __( 'Importing Widgets', 'hestia' ),
+				'done'     => 'no',
+			),
+		);
 	}
 
 	/**
@@ -122,6 +151,7 @@ class Themeisle_OB_Admin {
 			'onboarding'      => 'no',
 			'contentImported' => $this->escape_bool_text( get_theme_mod( 'ti_content_imported', 'no' ) ),
 			'aboutUrl'        => esc_url( admin_url( 'themes.php?page=' . $theme->__get( 'stylesheet' ) . '-welcome' ) ),
+			'importSteps'     => $this->get_import_steps(),
 		);
 
 		$is_onboarding = isset( $_GET['onboarding'] ) && $_GET['onboarding'] === 'yes';
@@ -139,33 +169,33 @@ class Themeisle_OB_Admin {
 	 */
 	private function get_strings() {
 		return array(
-			'preview_btn'       => __( 'Preview', 'hestia' ),
-			'import_btn'        => __( 'Import', 'hestia' ),
-			'pro_btn'           => __( 'Get the PRO version!', 'hestia' ),
-			'importing'         => __( 'Importing', 'hestia' ),
-			'cancel_btn'        => __( 'Cancel', 'hestia' ),
-			'loading'           => __( 'Loading', 'hestia' ),
-			'go_to_site'        => __( 'View Website', 'hestia' ),
-			'edit_template'     => __( 'Add your own content', 'hestia' ),
-			'back'              => __( 'Back to Sites Library', 'hestia' ),
-			'note'              => __( 'Note', 'hestia' ),
-			'advanced_options'  => __( 'Advanced Options', 'hestia' ),
-			'plugins'           => __( 'Plugins', 'hestia' ),
-			'general'           => __( 'General', 'hestia' ),
-			'later'             => __( 'Keep current layout', 'hestia' ),
-			'search'			=> __( 'Search', 'hestia' ),
-			'content'           => __( 'Content', 'hestia' ),
-			'customizer'        => __( 'Customizer', 'hestia' ),
-			'widgets'           => __( 'Widgets', 'hestia' ),
-			'import_steps'      => array(
-				'plugins'    => __( 'Installing Plugins', 'hestia' ),
-				'content'    => __( 'Importing Content', 'hestia' ),
-				'theme_mods' => __( 'Setting Up Customizer', 'hestia' ),
-				'widgets'    => __( 'Importing Widgets', 'hestia' ),
+			'preview_btn'             => __( 'Preview', 'hestia' ),
+			'import_btn'              => __( 'Import', 'hestia' ),
+			'pro_btn'                 => __( 'Get the PRO version!', 'hestia' ),
+			'importing'               => __( 'Importing', 'hestia' ),
+			'cancel_btn'              => __( 'Cancel', 'hestia' ),
+			'loading'                 => __( 'Loading', 'hestia' ),
+			'go_to_site'              => __( 'View Website', 'hestia' ),
+			'edit_template'           => __( 'Add your own content', 'hestia' ),
+			'back'                    => __( 'Back to Sites Library', 'hestia' ),
+			'note'                    => __( 'Note', 'hestia' ),
+			'advanced_options'        => __( 'Advanced Options', 'hestia' ),
+			'plugins'                 => __( 'Plugins', 'hestia' ),
+			'general'                 => __( 'General', 'hestia' ),
+			'later'                   => __( 'Keep current layout', 'hestia' ),
+			'search'                  => __( 'Search', 'hestia' ),
+			'content'                 => __( 'Content', 'hestia' ),
+			'customizer'              => __( 'Customizer', 'hestia' ),
+			'widgets'                 => __( 'Widgets', 'hestia' ),
+			'backup_disclaimer'       => __( 'We recommend you backup your website content before attempting a full site import.', 'hestia' ),
+			'placeholders_disclaimer' => __( 'Due to copyright issues, some of the demo images will not be imported and will be replaced by placeholder images.', 'hestia' ),
+			'import_done'             => __( 'Content was successfully imported. Enjoy your new site!', 'hestia' ),
+			'pro_demo'                => __( 'Available in the PRO version', 'hestia' ),
+			'copy_error_code'         => __( 'Copy error code', 'hestia' ),
+			'error_report'            => sprintf(
+				__( 'Hi! It seems there is a configuration issue with your server that\'s causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this.', 'hestia' ),
+				sprintf( '<a href="https://themeisle.com/contact">%1$s <i class="dashicons dashicons-external"></i></a>', __( 'get in touch', 'hestia' ) )
 			),
-			'import_disclaimer' => __( 'We recommend you backup your website content before attempting a full site import.', 'hestia' ),
-			'import_done'       => __( 'Content was successfully imported. Enjoy your new site!', 'hestia' ),
-			'pro_demo'          => __( 'Available in the PRO version', 'hestia' ),
 		);
 	}
 

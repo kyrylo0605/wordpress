@@ -184,13 +184,19 @@ class Themeisle_OB_Rest_Server {
 	/**
 	 * Initialize Library
 	 *
-	 * @return array
+	 * @return WP_REST_Response
 	 */
 	public function init_library() {
 
 		if ( empty( $this->theme_support ) ) {
-			return array();
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_no_support',
+					'success' => false,
+				)
+			);
 		}
+
 		$this->data['i18n']             = isset( $this->theme_support['i18n'] ) ? $this->theme_support['i18n'] : array();
 		$this->data['editors']          = isset( $this->theme_support['editors'] ) ? $this->theme_support['editors'] : array();
 		$this->data['pro_link']         = isset( $this->theme_support['pro_link'] ) ? $this->theme_support['pro_link'] : '';
@@ -200,7 +206,12 @@ class Themeisle_OB_Rest_Server {
 		$this->data['remote']           = $this->get_remote_templates();
 		$this->data['upsell']           = $this->get_upsell_templates();
 
-		return $this->data;
+		return new WP_REST_Response(
+			array(
+				'data'    => $this->data,
+				'success' => true,
+			)
+		);
 	}
 
 	/**
@@ -236,7 +247,6 @@ class Themeisle_OB_Rest_Server {
 		$data = $this->theme_support['can_migrate'];
 
 		$old_theme = get_theme_mod( 'ti_prev_theme', 'ti_onboarding_undefined' );
-
 		if ( ! array_key_exists( $old_theme, $data ) ) {
 			return array();
 		}
@@ -386,31 +396,46 @@ class Themeisle_OB_Rest_Server {
 	 * Run the plugin importer.
 	 *
 	 * @param WP_REST_Request $request the async request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function run_plugin_importer( WP_REST_Request $request ) {
 		require_once 'importers/class-themeisle-ob-plugin-importer.php';
 		if ( ! class_exists( 'Themeisle_OB_Plugin_Importer' ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_1', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_1',
+					'success' => false,
+				)
+			);
 		}
 		$plugin_importer = new Themeisle_OB_Plugin_Importer();
-		$plugin_importer->install_plugins( $request );
+		$import          = $plugin_importer->install_plugins( $request );
+
+		return $import;
 	}
 
 	/**
 	 * Run the XML importer.l
 	 *
 	 * @param WP_REST_Request $request the async request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function run_xml_importer( WP_REST_Request $request ) {
 		require_once 'importers/class-themeisle-ob-content-importer.php';
 		if ( ! class_exists( 'Themeisle_OB_Content_Importer' ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_2', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_2',
+					'success' => false,
+				)
+			);
 		}
 		$content_importer = new Themeisle_OB_Content_Importer();
-		$content_importer->import_remote_xml( $request );
-		if ( ! empty( $frontpage_id ) ) {
-			$this->frontpage_id = $frontpage_id;
-		}
+		$import           = $content_importer->import_remote_xml( $request );
+
+		return $import;
 	}
 
 	/**
@@ -418,7 +443,7 @@ class Themeisle_OB_Rest_Server {
 	 *
 	 * @param WP_REST_Request $request the async request.
 	 *
-	 * @return WP_REST_Response Rest response.
+	 * @return WP_REST_Response
 	 */
 	public function run_theme_mods_importer( WP_REST_Request $request ) {
 		require_once 'importers/class-themeisle-ob-theme-mods-importer.php';
@@ -432,6 +457,7 @@ class Themeisle_OB_Rest_Server {
 			);
 		}
 		$theme_mods_importer = new Themeisle_OB_Theme_Mods_Importer();
+
 		return $theme_mods_importer->import_theme_mods( $request );
 	}
 
@@ -439,53 +465,102 @@ class Themeisle_OB_Rest_Server {
 	 * Run the widgets importer.
 	 *
 	 * @param WP_REST_Request $request the async request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function run_widgets_importer( WP_REST_Request $request ) {
 		require_once 'importers/class-themeisle-ob-widgets-importer.php';
 		if ( ! class_exists( 'Themeisle_OB_Widgets_Importer' ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_4', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_4',
+					'success' => false,
+				)
+			);
 		}
 		$theme_mods_importer = new Themeisle_OB_Widgets_Importer();
-		$theme_mods_importer->import_widgets( $request );
+		$import              = $theme_mods_importer->import_widgets( $request );
 
 		set_theme_mod( 'ti_content_imported', 'yes' );
+
+		return $import;
 	}
 
 	/**
 	 * Run front page migration.
 	 *
 	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function run_front_page_migration( WP_REST_Request $request ) {
 
-		$params = $request->get_json_params();
+		$params = $request->get_body_params();
 		if ( ! isset( $params['template'] ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_5', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_5',
+					'success' => false,
+				)
+			);
 		}
 		if ( ! isset( $params['template_name'] ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_6', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_6',
+					'success' => false,
+				)
+			);
 		}
 		require_once 'importers/class-themeisle-ob-' . $params['template_name'] . '-importer.php';
 		$class_name = 'Themeisle_OB_' . ucfirst( $params['template_name'] ) . '_Importer';
 		if ( ! class_exists( $class_name ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_7', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_7',
+					'success' => false,
+				)
+			);
 		}
 		$migrator = new $class_name;
-		$migrator->import_zelle_frontpage( $params['template'] );
-		wp_send_json_success( 'success', 200 );
+		$import   = $migrator->import_zelle_frontpage( $params['template'] );
+
+		if ( is_wp_error( $import ) ) {
+			return new WP_REST_Response(
+				array(
+					'message' => 'ti__ob_zelle_err_1',
+					'success' => false,
+				)
+			);
+		}
+
+		return new WP_REST_Response(
+			array(
+				'success' => true,
+				'data'    => $import,
+			)
+		);
 	}
 
 	/**
 	 * Dismiss the front page migration notice.
 	 *
 	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function dismiss_migration( WP_REST_Request $request ) {
 		$params = $request->get_json_params();
 		if ( ! isset( $params['theme_mod'] ) ) {
-			wp_send_json_error( 'ti__ob_rest_err_8', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_rest_err_8',
+					'success' => false,
+				)
+			);
 		}
 		set_theme_mod( $params['theme_mod'], 'yes' );
-		wp_send_json_success( $this->frontpage_id );
+
+		return new WP_REST_Response( array( 'success' => true ) );
 	}
 }

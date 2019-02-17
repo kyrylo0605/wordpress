@@ -18,39 +18,41 @@
 </template>
 
 <script>
+  /* jshint esversion: 6 */
 
-	import {getInstallablePlugins} from '../common/common.js';
-	export default {
-		name: 'site-item',
-		data: function () {
-			return {
-				strings: this.$store.state.strings
-			}
-		},
-		props: {
-			siteData: {
-				default: {},
-				type: Object,
-				required: true,
-			},
-		},
-		methods: {
-			setupImportData: function () {
-				let recommended = this.siteData.recommended_plugins ? this.siteData.recommended_plugins : {};
-				let mandatory = this.siteData.mandatory_plugins ? this.siteData.mandatory_plugins : {};
-				let plugins = getInstallablePlugins( mandatory, recommended );
-				this.$store.commit( 'updatePlugins', plugins );
-			},
-			importSite: function () {
-				this.setupImportData();
-				this.$store.commit( 'populatePreview', this.siteData );
-				this.$store.commit( 'showImportModal', true );
-			},
-			showPreview: function () {
-				this.setupImportData();
-				this.$store.commit( 'showPreview', true );
-				this.$store.commit( 'populatePreview', this.siteData );
-			}
-		},
-	}
+  import { getInstallablePlugins } from '../common/common.js'
+
+  export default {
+    name: 'site-item',
+    data: function () {
+      return {
+        strings: this.$store.state.strings
+      }
+    },
+    props: {
+      siteData: {
+        default: {},
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      setupImportData: function () {
+        let recommended = this.siteData.recommended_plugins ? this.siteData.recommended_plugins : {}
+        let mandatory = this.siteData.mandatory_plugins ? this.siteData.mandatory_plugins : {}
+        let plugins = getInstallablePlugins(mandatory, recommended)
+        this.$store.commit('updatePlugins', plugins)
+      },
+      importSite: function () {
+        this.setupImportData()
+        this.$store.commit('populatePreview', this.siteData)
+        this.$store.commit('showImportModal', true)
+      },
+      showPreview: function () {
+        this.setupImportData()
+        this.$store.commit('showPreview', true)
+        this.$store.commit('populatePreview', this.siteData)
+      }
+    }
+  }
 </script>

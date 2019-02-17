@@ -41,7 +41,7 @@ do_action( 'hestia_before_attachment_wrapper' )
 						endif;
 
 						echo '<p class="sizes">';if ( wp_attachment_is_image( get_the_ID() ) ) {
-						echo '<div class="image-meta">';
+							echo '<div class="image-meta">';
 							echo '<i class="fa fa-camera"></i> ';
 							/* translators: %s is Image sizes for attachment single page. */
 							printf( esc_html__( 'Size: %s', 'hestia' ), hestia_get_image_sizes() );
@@ -53,7 +53,7 @@ do_action( 'hestia_before_attachment_wrapper' )
 							comments_template();
 						endif;
 						?>
-</div>
+					</div>
 
 				<?php endwhile; ?>
 

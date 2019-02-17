@@ -15,32 +15,34 @@
 </template>
 
 <script>
-	export default {
-		name: 'preview-sidebar',
-		data: function () {
-			return {
-				strings: this.$store.state.strings
-			}
-		},
-		props: {
-			site_data: {
-				default: {},
-				type: Object,
-			},
-		},
-		methods: {
-			cancelPreview: function () {
-				this.$store.commit( 'resetStates' );
-			},
-			showModal: function () {
-				this.$store.commit( 'showImportModal', true );
-			},
-			buyPro: function () {
-				var win = window.open(this.$store.state.sitesData.pro_link, '_blank');
-				win.focus();
-			},
-		}
-	}
+  /* jshint esversion: 6 */
+
+  export default {
+    name: 'preview-sidebar',
+    data: function () {
+      return {
+        strings: this.$store.state.strings
+      }
+    },
+    props: {
+      site_data: {
+        default: {},
+        type: Object
+      }
+    },
+    methods: {
+      cancelPreview: function () {
+        this.$store.commit('resetStates')
+      },
+      showModal: function () {
+        this.$store.commit('showImportModal', true)
+      },
+      buyPro: function () {
+        var win = window.open(this.$store.state.sitesData.pro_link, '_blank')
+        win.focus()
+      }
+    }
+  }
 </script>
 
 <style scoped>

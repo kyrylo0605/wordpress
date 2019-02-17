@@ -17,6 +17,10 @@
 	overflow: hidden;
 }
 
+.about-wrap #about-tabs {
+	display: none;
+}
+
 .about-col i.dashicons {
 	position: relative;
 	top: 5px;
@@ -452,6 +456,7 @@
 	border-bottom: 1px solid #eeeeee;
 	padding: 8px 12px;
 	display: inline-table;
+	margin: 0 0 1.33em;
 }
 
 .about-footer-col .inside{

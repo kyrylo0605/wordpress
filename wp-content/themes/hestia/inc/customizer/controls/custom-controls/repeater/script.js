@@ -149,7 +149,7 @@ function customizer_repeater_refresh_general_control_values() {
 					var link       = jQuery( this ).find( '.customizer-repeater-link-control' ).val();
 					var text2      = jQuery( this ).find( '.customizer-repeater-text2-control' ).val();
 					var link2      = jQuery( this ).find( '.customizer-repeater-link2-control' ).val();
-					var color      = jQuery( this ).find( 'input.customizer-repeater-color-control' ).val();
+                    var color      = jQuery( this ).find( '.wp-color-result' ).css( 'backgroundColor' );
 					var color2     = jQuery( this ).find( 'input.customizer-repeater-color2-control' ).val();
 					var image_url  = jQuery( this ).find( '.custom-media-url' ).val();
 					var choice     = jQuery( this ).find( '.customizer-repeater-image-choice' ).val();

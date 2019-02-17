@@ -24,21 +24,24 @@
 								<label class="option-toggle-label"
 										:class="importOptions.content ? 'active' : 'inactive'"><span
 										class="dashicons dashicons-admin-post"></span><span>{{strings.content}}</span></label>
-								<toggle-button v-if="! isMigration" @change="adjustImport( 'content' )" :value="importOptions.content"
+								<toggle-button v-if="! isMigration" @change="adjustImport( 'content' )"
+										:value="importOptions.content"
 										color="#008ec2"></toggle-button>
 							</li>
 							<li class="option_toggle">
 								<label class="option-toggle-label"
 										:class="importOptions.customizer ? 'active' : 'inactive'"><span
 										class="dashicons dashicons-admin-customizer"></span><span>{{strings.customizer}}</span></label>
-								<toggle-button v-if="! isMigration" @change="adjustImport( 'customizer' )" :value="importOptions.customizer"
+								<toggle-button v-if="! isMigration" @change="adjustImport( 'customizer' )"
+										:value="importOptions.customizer"
 										color="#008ec2"></toggle-button>
 							</li>
 							<li class="option_toggle">
 								<label class="option-toggle-label"
 										:class="importOptions.widgets ? 'active' : 'inactive'"><span
 										class="dashicons dashicons-admin-generic"></span><span>{{strings.widgets}}</span></label>
-								<toggle-button v-if="! isMigration" @change="adjustImport( 'widgets' )" :value="importOptions.widgets"
+								<toggle-button v-if="! isMigration" @change="adjustImport( 'widgets' )"
+										:value="importOptions.widgets"
 										color="#008ec2"></toggle-button>
 							</li>
 						</ul>
@@ -93,147 +96,147 @@
 </template>
 
 <script>
-	import { directive as onClickaway } from 'vue-clickaway'
-	import Stepper from './stepper.vue'
-	import Loader from './loader.vue'
-	import Tabs from './tabs.vue'
-	import ErrorWell from './error-well.vue'
+  import { directive as onClickaway } from 'vue-clickaway'
+  import Stepper from './stepper.vue'
+  import Loader from './loader.vue'
+  import Tabs from './tabs.vue'
+  import ErrorWell from './error-well.vue'
 
-	export default {
-		name: 'import-modal',
-		data: function () {
-			return {
-				strings: this.$store.state.strings,
-				homeUrl: this.$store.state.homeUrl,
-				siteData: this.$store.state.previewData,
-				advancedExpanded: false,
-			}
-		},
-		computed: {
-			allPlugins() {
-				return {
-					recommended: this.siteData.recommended_plugins,
-					mandatory: this.siteData.mandatory_plugins
-				}
-			},
-			currentStep() {
-				return this.$store.state.currentStep;
-			},
-			importing() {
-				return this.$store.state.importing;
-			},
-			checIfShouldImport() {
-				if (
-					this.$store.state.importOptions.content ||
-					this.$store.state.importOptions.customizer ||
-					this.$store.state.importOptions.widgets
-				) {
-					return true;
-				}
-				return false;
-			},
-			importOptions() {
-				return this.$store.state.importOptions;
-			},
-			errorMessage() {
-				return this.$store.state.errorToast;
-			},
-			isMigration() {
-				return this.$store.state.importOptions.isMigration;
-			}
-		},
-		methods: {
-			toggleAdvanced() {
-				this.advancedExpanded = !this.advancedExpanded
-			},
-			adjustPlugins: function ( index, plugin ) {
-				let plugins = this.$store.state.importOptions.installablePlugins;
-				plugins[ index ] = !plugins[ index ];
-				this.$store.commit( 'updatePlugins', plugins );
-			},
-			adjustImport: function ( context ) {
-				let options = this.$store.state.importOptions;
-				options[ context ] = !options[ context ];
-				this.$store.commit( 'updateImportOptions', options );
-			},
-			getEditor: function () {
-				return this.$store.state.editor;
-			},
-			getPageId: function () {
-				return this.$store.state.frontPageId;
-			},
-			closeModal: function () {
-				if ( this.importing ) {
-					return false
-				}
-				this.$store.commit( 'showImportModal', false );
-				this.resetImport();
-			},
-			runMigration: function(){
-				this.$store.state.importOptions.isMigration = true;
-				this.$store.state.migration = 'isRunning';
-				this.$store.dispatch( 'importSite', {
-					req: 'Migrate Site',
-					template: this.siteData.template,
-					template_name: this.siteData.template_name,
-				} )
-			},
-			startImport: function () {
-				if ( this.isMigration ) {
-					this.runMigration();
-					return false
-				}
-				this.$store.dispatch( 'importSite', {
-					req: 'Import Site',
-					plugins: this.siteData.recommended_plugins,
-					content: {
-						'content_file': this.siteData.content_file,
-						'front_page': this.siteData.front_page,
-						'shop_pages': this.siteData.shop_pages,
-					},
-					themeMods: {
-						'theme_mods': this.siteData.theme_mods,
-						'source_url': this.siteData.demo_url
-					},
-					widgets: this.siteData.widgets,
-					source: this.siteData.source,
-				} )
-			},
-			redirectToHome: function () {
-				window.location.replace( this.homeUrl );
-			},
-			resetImport: function () {
-				this.$store.commit( 'resetStates' );
-			},
-			editTemplate: function () {
-				var editor = this.getEditor();
-				var pageId = this.getPageId();
-				var url = this.homeUrl;
-				if ( editor === 'elementor' || isMigration ) {
-					url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=elementor';
-				}
-				if ( editor === 'gutenberg' ) {
-					url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=edit';
-				}
-				window.location.replace( url );
-			}
-		},
-		beforeMount() {
-			let body = document.querySelectorAll( '#ti-sites-library > div' )[ 0 ];
-			body.style.overflow = 'hidden';
-		},
-		beforeDestroy() {
-			let body = document.querySelectorAll( '#ti-sites-library > div' )[ 0 ];
-			body.style.overflow = '';
-		},
-		directives: {
-			onClickaway,
-		},
-		components: {
-			Stepper,
-			Loader,
-			Tabs,
-			ErrorWell,
-		}
-	}
+  export default {
+    name: 'import-modal',
+    data: function () {
+      return {
+        strings: this.$store.state.strings,
+        homeUrl: this.$store.state.homeUrl,
+        siteData: this.$store.state.previewData,
+        advancedExpanded: false
+      }
+    },
+    computed: {
+      allPlugins () {
+        return {
+          recommended: this.siteData.recommended_plugins,
+          mandatory: this.siteData.mandatory_plugins
+        }
+      },
+      currentStep () {
+        return this.$store.state.currentStep
+      },
+      importing () {
+        return this.$store.state.importing
+      },
+      checIfShouldImport () {
+        if (
+            this.$store.state.importOptions.content ||
+            this.$store.state.importOptions.customizer ||
+            this.$store.state.importOptions.widgets
+        ) {
+          return true
+        }
+        return false
+      },
+      importOptions () {
+        return this.$store.state.importOptions
+      },
+      errorMessage () {
+        return this.$store.state.errorToast
+      },
+      isMigration () {
+        return this.$store.state.importOptions.isMigration
+      }
+    },
+    methods: {
+      toggleAdvanced () {
+        this.advancedExpanded = !this.advancedExpanded
+      },
+      adjustPlugins: function (index, plugin) {
+        let plugins = this.$store.state.importOptions.installablePlugins
+        plugins[index] = !plugins[index]
+        this.$store.commit('updatePlugins', plugins)
+      },
+      adjustImport: function (context) {
+        let options = this.$store.state.importOptions
+        options[context] = !options[context]
+        this.$store.commit('updateImportOptions', options)
+      },
+      getEditor: function () {
+        return this.$store.state.editor
+      },
+      getPageId: function () {
+        return this.$store.state.frontPageId
+      },
+      closeModal: function () {
+        if (this.importing) {
+          return false
+        }
+        this.$store.commit('showImportModal', false)
+        this.resetImport()
+      },
+      runMigration: function () {
+        this.$store.state.importOptions.isMigration = true
+        this.$store.state.migration = 'isRunning'
+        this.$store.dispatch('importSite', {
+          req: 'Migrate Site',
+          template: this.siteData.template,
+          template_name: this.siteData.template_name
+        })
+      },
+      startImport: function () {
+        if (this.isMigration) {
+          this.runMigration()
+          return false
+        }
+        this.$store.dispatch('importSite', {
+          req: 'Import Site',
+          plugins: this.siteData.recommended_plugins,
+          content: {
+            'content_file': this.siteData.content_file,
+            'front_page': this.siteData.front_page,
+            'shop_pages': this.siteData.shop_pages
+          },
+          themeMods: {
+            'theme_mods': this.siteData.theme_mods,
+            'source_url': this.siteData.demo_url
+          },
+          widgets: this.siteData.widgets,
+          source: this.siteData.source
+        })
+      },
+      redirectToHome: function () {
+        window.location.replace(this.homeUrl)
+      },
+      resetImport: function () {
+        this.$store.commit('resetStates')
+      },
+      editTemplate: function () {
+        var editor = this.getEditor()
+        var pageId = this.getPageId()
+        var url = this.homeUrl
+        if (editor === 'elementor' || this.isMigration) {
+          url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=elementor'
+        }
+        if (editor === 'gutenberg') {
+          url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=edit'
+        }
+        window.location.replace(url)
+      }
+    },
+    beforeMount () {
+      let body = document.querySelectorAll('#ti-sites-library > div')[0]
+      body.style.overflow = 'hidden'
+    },
+    beforeDestroy () {
+      let body = document.querySelectorAll('#ti-sites-library > div')[0]
+      body.style.overflow = ''
+    },
+    directives: {
+      onClickaway
+    },
+    components: {
+      Stepper,
+      Loader,
+      Tabs,
+      ErrorWell
+    }
+  }
 </script>

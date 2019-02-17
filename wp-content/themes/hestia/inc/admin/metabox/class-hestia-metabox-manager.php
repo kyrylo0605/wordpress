@@ -36,7 +36,7 @@ class Hestia_Metabox_Manager {
 			$post_type = ucfirst( $post_type_from_db );
 		}
 
-		$metabox_label = $post_type . ' ' . esc_html__( 'General Settings', 'hestia' );
+		$metabox_label = $post_type . ' ' . esc_html__( 'Settings', 'hestia' );
 
 		add_meta_box(
 			'hestia-page-settings',

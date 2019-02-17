@@ -18,35 +18,51 @@ class Themeisle_OB_Widgets_Importer {
 	 * Import Widgets.
 	 *
 	 * @param WP_REST_Request $request contains the widgets that should be imported.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function import_widgets( WP_REST_Request $request ) {
-		$params  = $request->get_json_params();
+		$params  = $request->get_body_params();
 		$widgets = $params['data'];
 		if ( empty( $widgets ) || ! is_array( $widgets ) ) {
-			wp_send_json_success( 'success', 200 );
+			return new WP_REST_Response(
+				array(
+					'success' => true,
+				)
+			);
 		}
 
 		do_action( 'themeisle_ob_before_widgets_import' );
 
-		$this->actually_import( $widgets );
+		$import = $this->actually_import( $widgets );
+
+		if ( is_wp_error( $import ) ) {
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_widgets_err_1',
+					'success' => false,
+				)
+			);
+		}
 
 		do_action( 'themeisle_ob_after_widgets_import' );
 
-		wp_send_json_success( 'success', 200 );
+		return new WP_REST_Response(
+			array(
+				'success' => true,
+			)
+		);
 	}
 
 	/**
 	 * Widget import process.
 	 *
 	 * @param array $data Widgets data.
-	 *
-	 * @return array
 	 */
 	private function actually_import( $data ) {
 		global $wp_registered_sidebars;
-
 		if ( empty( $data ) || ! is_array( $data ) ) {
-			wp_send_json_error( 'error', 500 );
+			return new WP_Error( 'ti__ob_widget_err_1' );
 		}
 
 		$available_widgets = $this->available_widgets();
@@ -62,11 +78,11 @@ class Themeisle_OB_Widgets_Importer {
 			}
 
 			if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
-				$sidebar_available    = true;
-				$use_sidebar_id       = $sidebar_id;
+				$sidebar_available = true;
+				$use_sidebar_id    = $sidebar_id;
 			} else {
-				$sidebar_available    = false;
-				$use_sidebar_id       = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
+				$sidebar_available = false;
+				$use_sidebar_id    = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
 			}
 
 			// Loop widgets.
@@ -80,12 +96,11 @@ class Themeisle_OB_Widgets_Importer {
 
 				// Does site support this widget?
 				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) {
-					$fail                = true;
+					$fail = true;
 				}
 
 				// Convert multidimensional objects to multidimensional arrays
 				$widget = json_decode( wp_json_encode( $widget ), true );
-
 
 				// Does widget with identical settings already exist in same sidebar?
 				if ( ! $fail && isset( $widget_instances[ $id_base ] ) ) {
@@ -100,7 +115,7 @@ class Themeisle_OB_Widgets_Importer {
 
 						// Is widget in same sidebar and has identical settings?
 						if ( in_array( "$id_base-$check_id", $sidebar_widgets, true ) && (array) $widget === $check_widget ) {
-							$fail                = true;
+							$fail = true;
 							break;
 
 						}
@@ -187,7 +202,7 @@ class Themeisle_OB_Widgets_Importer {
 	 * @global array $wp_registered_widget_updates
 	 * @return array Widget information
 	 */
-	function available_widgets() {
+	public function available_widgets() {
 
 		global $wp_registered_widget_controls;
 

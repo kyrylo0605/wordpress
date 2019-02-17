@@ -5,7 +5,7 @@ Theme URI:      https://themeisle.com/themes/hestia/
 Author:         ThemeIsle
 Author URI:     https://themeisle.com
 Description:    Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
-Version:        2.1.1
+Version:        2.2.1
 License:        GNU General Public License v2 or later
 License URI:    http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:    hestia
@@ -208,8 +208,6 @@ h3#ship-to-different-address {
 body,
 .btn,
 .form-control,
-ul,
-ol,
 .woocommerce #reviews #comments label {
   font-size: 14px;
 }
@@ -237,8 +235,15 @@ output {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1.618;
+}
+
+h5.description,
+h5.subscribe-description,
+.card-product .price h4,
+h4.author {
+  font-weight: 300;
 }
 
 h6.category {
@@ -3953,12 +3958,12 @@ table > tbody > tr:last-child,
 /*--------------------------------------------------------------
 ## Header
 --------------------------------------------------------------*/
-.header-layout-classic-blog.page:not(.home) .main-raised {
+.header-layout-classic-blog.page:not(.home):not(.archive) .main-raised {
   border-radius: 0;
 }
 
-.header-layout-classic-blog:not(.page-template-default):not(.home).woocommerce.archive .main-raised, .header-layout-classic-blog:not(.page-template-default):not(.home).single .main-raised,
-.header-layout-classic-blog:not(.page-template-default):not(.home) .main-raised {
+.header-layout-classic-blog:not(.page-template-default):not(.home):not(.archive).woocommerce.archive .main-raised, .header-layout-classic-blog:not(.page-template-default):not(.home):not(.archive).single .main-raised,
+.header-layout-classic-blog:not(.page-template-default):not(.home):not(.archive) .main-raised {
   margin-top: 0;
 }
 
@@ -6605,6 +6610,25 @@ figure.wp-block-pullquote cite {
   flex: 1 0 auto;
 }
 .page:not(.home) .wrapper .main .blog-post {
+  flex: 1 0 auto;
+}
+
+body:not(.home) .wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body:not(.home) .wrapper .main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+body:not(.home) .wrapper .main .hestia-blogs {
+  flex: 1 0 auto;
+}
+body:not(.home) .wrapper .content-area {
+  display: flex;
+  flex-direction: column;
   flex: 1 0 auto;
 }
 

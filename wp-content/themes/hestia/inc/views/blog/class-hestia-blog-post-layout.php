@@ -40,9 +40,7 @@ class Hestia_Blog_Post_Layout {
 			'row_class'     => $row_class,
 			'layout'        => $layout,
 		);
-		if ( is_search() ) {
-			do_action( 'hestia_before_search_content' );
-		}
+
 		echo $this->get_article( $settings );
 	}
 

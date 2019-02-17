@@ -339,11 +339,17 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 			return $header_content_output;
 		}
 
+		if ( is_home() ) {
+			$header_content_output = '<h1 class="' . esc_attr( $title_class ) . '">' . single_post_title( '', false ) . '</h1>';
+
+			return $header_content_output;
+		}
+
 		$entry_class = '';
 		if ( ! is_page() ) {
 			$entry_class = 'entry-title';
 		}
-		$header_content_output = '<h1 class="' . esc_attr( $title_class ) . ' ' . esc_attr( $entry_class ) . '">' . single_post_title( '', false ) . '</h1>';
+		$header_content_output = '<h1 class="' . esc_attr( $title_class ) . ' ' . esc_attr( $entry_class ) . '">' . wp_kses_post( get_the_title() ) . '</h1>';
 
 		return $header_content_output;
 	}

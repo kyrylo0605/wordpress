@@ -196,9 +196,9 @@ class Hestia_Gutenberg extends Hestia_Abstract_Main {
 	 * @since  2.0.18
 	 * @access private
 	 *
-	 * @param string $theme_mod   the theme mod key.
+	 * @param string $theme_mod the theme mod key.
 	 * @param array  $base_values the font base values ['mobile','tablet','desktop'].
-	 * @param string $selector    css selector.
+	 * @param string $selector css selector.
 	 */
 	private function set_font_size_style( $theme_mod, $base_values, $selector ) {
 		if ( empty( $theme_mod ) || ! is_array( $base_values ) || empty( $selector ) ) {
@@ -239,12 +239,12 @@ class Hestia_Gutenberg extends Hestia_Abstract_Main {
 	 * @since  2.0.18
 	 * @access private
 	 *
-	 * @param string     $theme_mod     theme mod key.
+	 * @param string     $theme_mod theme mod key.
 	 * @param string|int $default_value default value.
-	 * @param string     $selector      css selector.
-	 * @param string     $property      css property.
-	 * @param string     $suffix        suffix for the css value.
-	 * @param string     $media_query   media query.
+	 * @param string     $selector css selector.
+	 * @param string     $property css property.
+	 * @param string     $suffix suffix for the css value.
+	 * @param string     $media_query media query.
 	 */
 	private function set_style( $theme_mod, $default_value, $selector, $property, $suffix = '', $media_query = 'mobile' ) {
 		if ( empty( $selector ) || empty( $theme_mod ) || empty( $property ) ) {
@@ -265,10 +265,10 @@ class Hestia_Gutenberg extends Hestia_Abstract_Main {
 	 * @since  2.0.18
 	 * @access private
 	 *
-	 * @param string     $selector    css selector.
-	 * @param string|int $value       value to set.
-	 * @param string     $property    css property.
-	 * @param string     $suffix      suffix for the css value.
+	 * @param string     $selector css selector.
+	 * @param string|int $value value to set.
+	 * @param string     $property css property.
+	 * @param string     $suffix suffix for the css value.
 	 * @param string     $media_query media query.
 	 */
 	private function add_css( $selector, $value, $property, $suffix, $media_query = 'mobile' ) {
@@ -296,11 +296,11 @@ class Hestia_Gutenberg extends Hestia_Abstract_Main {
 	 * @since  2.0.18
 	 * @access private
 	 *
-	 * @param string     $theme_mod     theme mod key.
+	 * @param string     $theme_mod theme mod key.
 	 * @param string|int $default_value default value.
-	 * @param string     $selector      css selector.
-	 * @param string     $property      css property.
-	 * @param string     $suffix        suffix for the css value.
+	 * @param string     $selector css selector.
+	 * @param string     $property css property.
+	 * @param string     $suffix suffix for the css value.
 	 */
 	private function set_responsive_style( $theme_mod, $default_value, $selector, $property, $suffix = '' ) {
 		$value = get_theme_mod( $theme_mod, $default_value );

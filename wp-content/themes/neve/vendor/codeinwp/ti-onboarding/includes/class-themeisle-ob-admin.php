@@ -80,6 +80,11 @@ class Themeisle_OB_Admin {
 	 * Render the sites library.
 	 */
 	public function render_site_library() {
+		if ( version_compare( PHP_VERSION, '5.4.0', '<' ) ) {
+			echo '<div>' . apply_filters( 'themeisle_onboarding_phprequired_text', 'ti_ob_err_phpv_less_than_5-4-0' ) . '</div>';
+
+			return;
+		}
 
 		$this->enqueue();
 		?>
@@ -189,7 +194,7 @@ class Themeisle_OB_Admin {
 			'copy_error_code'         => __( 'Copy error code', 'neve' ),
 			'error_report'            => sprintf(
 				__( 'Hi! It seems there is a configuration issue with your server that\'s causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this.', 'neve' ),
-				sprintf( '<a href="https://themeisle.com/contact">%1$s</a>', __( 'get in touch', 'neve' ) )
+				sprintf( '<a href="https://themeisle.com/contact">%1$s <i class="dashicons dashicons-external"></i></a>', __( 'get in touch', 'neve' ) )
 			),
 		);
 	}

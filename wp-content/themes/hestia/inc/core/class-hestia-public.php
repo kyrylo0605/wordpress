@@ -497,6 +497,69 @@ class Hestia_Public {
 		$this->setup_woocommerce();
 		$this->setup_jetpack();
 		$this->maybe_register_front_page_strings();
+
+		add_filter( 'themeisle_gutenberg_templates', array( $this, 'add_gutenberg_templates' ) );
+	}
+
+	/**
+	 * Add new Gutenberg templates on Otter plugin.
+	 *
+	 * @return array
+	 */
+	function add_gutenberg_templates( $templates_list ) {
+		$current_theme = wp_get_theme()->Name;
+
+		$templates = array(
+			array(
+				'title'          => '',
+				'type'           => 'block',
+				'author'         => $current_theme,
+				'keywords'       => array( 'big title', 'header' ),
+				'categories'     => array( 'header' ),
+				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/big-title/template.json',
+				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/big-title/screenshot.png',
+			),
+			array(
+				'title'          => '',
+				'type'           => 'block',
+				'author'         => $current_theme,
+				'keywords'       => array( 'features', 'services', 'icons' ),
+				'categories'     => array( 'content' ),
+				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/features/template.json',
+				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/features/screenshot.png',
+			),
+			array(
+				'title'          => '',
+				'type'           => 'block',
+				'author'         => $current_theme,
+				'keywords'       => array( 'about', 'description' ),
+				'categories'     => array( 'content' ),
+				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/about/template.json',
+				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/about/screenshot.png',
+			),
+			array(
+				'title'          => '',
+				'type'           => 'block',
+				'author'         => $current_theme,
+				'keywords'       => array( 'testimonial', 'clients', 'customer' ),
+				'categories'     => array( 'content' ),
+				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/clients/template.json',
+				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/clients/screenshot.png',
+			),
+			array(
+				'title'          => '',
+				'type'           => 'block',
+				'author'         => $current_theme,
+				'keywords'       => array( 'team', 'people' ),
+				'categories'     => array( 'content' ),
+				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/team/template.json',
+				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/team/screenshot.png',
+			),
+		);
+
+		$list = array_merge( $templates, $templates_list );
+
+		return $list;
 	}
 
 	/**
@@ -606,18 +669,24 @@ class Hestia_Public {
 			),
 			'can_migrate' => array(
 				'zerif-pro'  => array(
-					'theme_name'      => 'Zelle Pro',
-					'theme_mod_check' => 'zerif_frontpage_was_imported',
-					'template'        => 'zelle',
-					'heading'         => __( 'Want to keep using Zelle\'s homepage?', 'hestia' ),
-					'description'     => __( 'Hi! We\'ve noticed you were using Zelle before. To make your transition easier, we can help you keep the same beautiful homepage you had before, by converting it into an Elementor template. This option will also import your homepage content.', 'hestia' ),
+					'theme_name'        => 'Zelle Pro',
+					'theme_mod_check'   => 'zerif_frontpage_was_imported',
+					'template'          => 'zelle',
+					'heading'           => __( 'Want to keep using Zelle\'s homepage?', 'hestia' ),
+					'description'       => __( 'Hi! We\'ve noticed you were using Zelle before. To make your transition easier, we can help you keep the same beautiful homepage you had before, by converting it into an Elementor template. This option will also import your homepage content.', 'hestia' ),
+					'mandatory_plugins' => array(
+						'elementor' => 'Elementor Page Builder',
+					),
 				),
 				'zerif-lite' => array(
-					'theme_name'      => 'Zelle Lite',
-					'theme_mod_check' => 'zerif_frontpage_was_imported',
-					'template'        => 'zelle',
-					'heading'         => __( 'Want to keep using Zelle\'s homepage?', 'hestia' ),
-					'description'     => __( 'Hi! We\'ve noticed you were using Zelle before. To make your transition easier, we can help you keep the same beautiful homepage you had before, by converting it into an Elementor template. This option will also import your homepage content.', 'hestia' ),
+					'theme_name'        => 'Zelle Lite',
+					'theme_mod_check'   => 'zerif_frontpage_was_imported',
+					'template'          => 'zelle',
+					'heading'           => __( 'Want to keep using Zelle\'s homepage?', 'hestia' ),
+					'description'       => __( 'Hi! We\'ve noticed you were using Zelle before. To make your transition easier, we can help you keep the same beautiful homepage you had before, by converting it into an Elementor template. This option will also import your homepage content.', 'hestia' ),
+					'mandatory_plugins' => array(
+						'elementor' => 'Elementor Page Builder',
+					),
 				),
 			),
 			'pro_link'    => 'https://themeisle.com/themes/hestia-pro/upgrade/',

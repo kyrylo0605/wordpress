@@ -136,13 +136,13 @@
   content: none;
 }
 
-.hestia-gtb.sidebar-full-width .wp-block:not([data-align=wide]):not([data-align=full]) > *:not(.editor-block-mover):not(.editor-inserter-with-shortcuts) {
+.hestia-gtb.sidebar-full-width .hestia-block-list-wrap > .editor-block-list__layout > .wp-block:not([data-align=wide]):not([data-align=full]) > *:not(.editor-block-mover):not(.editor-inserter-with-shortcuts) {
   max-width: 66.6666666%;
   width: 66.6666666%;
   margin-left: auto;
   margin-right: auto;
 }
-.hestia-gtb.sidebar-full-width.header-default .wp-block.editor-post-title__block > * {
+.hestia-gtb.sidebar-full-width.header-default .hestia-block-list-wrap > .editor-block-list__layout > .wp-block.editor-post-title__block > * {
   max-width: 100% !important;
   width: 100% !important;
 }
@@ -215,7 +215,7 @@
   font-size: 18px;
 }
 .editor-styles-wrapper .editor-writing-flow h1, .editor-styles-wrapper .editor-writing-flow h2, .editor-styles-wrapper .editor-writing-flow h3, .editor-styles-wrapper .editor-writing-flow h4, .editor-styles-wrapper .editor-writing-flow h5, .editor-styles-wrapper .editor-writing-flow h6 {
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1.618;
 }
 .editor-styles-wrapper .editor-writing-flow a {

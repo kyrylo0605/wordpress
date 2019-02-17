@@ -5,41 +5,42 @@
 			:id="['templates-in-'+computedId]"
 			role="tabpanel"
 	>
-		<slot />
+		<slot/>
 	</section>
 </template>
 
 <script>
-	export default {
-		props: {
-			id: { default: null },
-			name: { required: true },
-			prefix: { default: '' },
-			suffix: { default: '' },
-			isDisabled:{ default: false },
-		},
+  /* jshint esversion: 6 */
+  export default {
+    props: {
+      id: { default: null },
+      name: { required: true },
+      prefix: { default: '' },
+      suffix: { default: '' },
+      isDisabled: { default: false }
+    },
 
-		data: () => ({
-			isActive: false,
-			isVisible: true,
-		}),
+    data: () => ({
+      isActive: false,
+      isVisible: true
+    }),
 
-		computed: {
-			header() {
-				return this.prefix + this.name + this.suffix;
-			},
+    computed: {
+      header () {
+        return this.prefix + this.name + this.suffix
+      },
 
-			computedId() {
-				return this.id ? this.id : this.name.toLowerCase().replace(/ /g, '-');
-			},
+      computedId () {
+        return this.id ? this.id : this.name.toLowerCase().replace(/ /g, '-')
+      },
 
-			hash() {
-				if (this.isDisabled) {
-					return '#';
-				}
+      hash () {
+        if (this.isDisabled) {
+          return '#'
+        }
 
-				return '#' + this.computedId;
-			},
-		},
-	};
+        return '#' + this.computedId
+      }
+    }
+  }
 </script>

@@ -1,21 +1,22 @@
 <script>
-	export default {
-		data: function() {
-			return {
-				strings: this.$store.state.strings,
-				wasImported: this.$store.state.contentImported,			}
-		},
-		computed: {
-			defaultTemplate: function () {
-				return this.$store.state.sitesData.default_template
-			},
-		},
-		methods: {
-			redirectToHome: function () {
-				window.location.replace( this.$store.state.homeUrl );
-			},
-		}
-	}
+  export default {
+    data: function () {
+      return {
+        strings: this.$store.state.strings,
+        wasImported: this.$store.state.contentImported
+      }
+    },
+    computed: {
+      defaultTemplate: function () {
+        return this.$store.state.sitesData.default_template
+      }
+    },
+    methods: {
+      redirectToHome: function () {
+        window.location.replace(this.$store.state.homeUrl)
+      }
+    }
+  }
 </script>
 
 <template>

@@ -38,49 +38,48 @@
 </template>
 
 <script>
-	import Loader from './loader.vue';
-	import { getInstallablePlugins } from '../common/common.js';
+  import Loader from './loader.vue'
+  import { getInstallablePlugins } from '../common/common.js'
 
-	export default {
-		name: 'migrate-notice',
-		data: function () {
-			return {
-				strings: this.$store.state.strings,
-				dismissed: false,
-			}
-		},
-		computed: {
-			migrationData: function () {
-				return this.$store.state.sitesData.migrate_data;
-			}
-		},
-		methods: {
-			dismissMigration: function () {
-				this.dismissed = true;
-				this.$store.dispatch( 'dismissMigration', {
-					req: 'Dismiss Migration',
-					theme_mod: this.migrationData.theme_mod,
-				} )
-			},
-			openModal: function () {
-				this.setupImportData();
-				this.$store.state.importOptions.isMigration = true;
-				this.$store.commit( 'populatePreview', this.migrationData );
-				this.$store.commit( 'showImportModal', true );
-			},
-			setupImportData: function () {
-				let recommended = this.migrationData.recommended_plugins ? this.migrationData.recommended_plugins : {};
-				let mandatory = this.migrationData.mandatory_plugins ? this.migrationData.mandatory_plugins : {};
-				let plugins = getInstallablePlugins( mandatory, recommended );
-				this.$store.commit( 'updatePlugins', plugins );
-			},
-			redirectToHome: function () {
-				window.location.replace( this.$store.state.homeUrl );
-			},
-
-		},
-		components: {
-			Loader
-		}
-	}
+  export default {
+    name: 'migrate-notice',
+    data: function () {
+      return {
+        strings: this.$store.state.strings,
+        dismissed: false
+      }
+    },
+    computed: {
+      migrationData: function () {
+        return this.$store.state.sitesData.migrate_data
+      }
+    },
+    methods: {
+      dismissMigration: function () {
+        this.dismissed = true
+        this.$store.dispatch('dismissMigration', {
+          req: 'Dismiss Migration',
+          theme_mod: this.migrationData.theme_mod
+        })
+      },
+      openModal: function () {
+        this.setupImportData()
+        this.$store.state.importOptions.isMigration = true
+        this.$store.commit('populatePreview', this.migrationData)
+        this.$store.commit('showImportModal', true)
+      },
+      setupImportData: function () {
+        let recommended = this.migrationData.recommended_plugins ? this.migrationData.recommended_plugins : {}
+        let mandatory = this.migrationData.mandatory_plugins ? this.migrationData.mandatory_plugins : {}
+        let plugins = getInstallablePlugins(mandatory, recommended)
+        this.$store.commit('updatePlugins', plugins)
+      },
+      redirectToHome: function () {
+        window.location.replace(this.$store.state.homeUrl)
+      }
+    },
+    components: {
+      Loader
+    }
+  }
 </script>

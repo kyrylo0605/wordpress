@@ -3,7 +3,7 @@
 		<div :class="! isLoading ? 'library-wrapper' : '' ">
 			<loader v-if="isLoading" :loading-message="strings.loading"></loader>
 			<error-well v-else-if="errorMessage && !modalOpen"></error-well>
-			<template v-else >
+			<template v-else>
 				<template v-if="this.$store.state.onboard === 'yes'">
 					<div class="header" v-if="themeStrings.onboard_header ||themeStrings.onboard_description">
 						<h1 v-if="themeStrings.onboard_header">{{themeStrings.onboard_header}}</h1>
@@ -33,53 +33,53 @@
 </template>
 
 <script>
-	import Loader from './loader.vue'
-	import ImportModal from "./import-modal.vue";
-	import MigrateNotice from "./migrate-notice.vue";
-	import EditorsTabs from "./editors-tabs.vue";
-	import Preview from "./preview.vue";
-	import ErrorWell from "./error-well.vue";
+  import Loader from './loader.vue'
+  import ImportModal from './import-modal.vue'
+  import MigrateNotice from './migrate-notice.vue'
+  import EditorsTabs from './editors-tabs.vue'
+  import Preview from './preview.vue'
+  import ErrorWell from './error-well.vue'
 
-	module.exports = {
-		name: 'app',
-		data: function () {
-			return {
-				strings: this.$store.state.strings,
-			}
-		},
-		computed: {
-			isLoading: function () {
-				return this.$store.state.ajaxLoader
-			},
-			previewOpen: function () {
-				return this.$store.state.previewOpen
-			},
-			modalOpen: function () {
-				return this.$store.state.importModalState
-			},
-			themeStrings: function () {
-				return this.$store.state.sitesData.i18n
-			},
-			errorMessage() {
-				return this.$store.state.errorToast;
-			}
-		},
-		methods: {
-			cancelOnboarding: function () {
-				window.location.replace( this.$store.state.aboutUrl );
-			},
-		},
-		components: {
-			Loader,
-			Preview,
-			ImportModal,
-			MigrateNotice,
-			EditorsTabs,
-			ErrorWell,
-		},
-	}
+  module.exports = {
+    name: 'app',
+    data: function () {
+      return {
+        strings: this.$store.state.strings
+      }
+    },
+    computed: {
+      isLoading: function () {
+        return this.$store.state.ajaxLoader
+      },
+      previewOpen: function () {
+        return this.$store.state.previewOpen
+      },
+      modalOpen: function () {
+        return this.$store.state.importModalState
+      },
+      themeStrings: function () {
+        return this.$store.state.sitesData.i18n
+      },
+      errorMessage () {
+        return this.$store.state.errorToast
+      }
+    },
+    methods: {
+      cancelOnboarding: function () {
+        window.location.replace(this.$store.state.aboutUrl)
+      }
+    },
+    components: {
+      Loader,
+      Preview,
+      ImportModal,
+      MigrateNotice,
+      EditorsTabs,
+      ErrorWell
+    }
+  }
 </script>
 
 <style lang="scss">
-	@import  "../../scss/style.scss";
+	@import "../../scss/style.scss";
 </style>

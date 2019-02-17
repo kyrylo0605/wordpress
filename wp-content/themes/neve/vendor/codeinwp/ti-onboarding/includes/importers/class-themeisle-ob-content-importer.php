@@ -17,24 +17,41 @@ class Themeisle_OB_Content_Importer {
 	 * Import Remote XML file.
 	 *
 	 * @param WP_REST_Request $request the async request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function import_remote_xml( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( 'ti__ob_permission_err_1', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_permission_err_1',
+					'success' => false,
+				)
+			);
 		}
 
 		do_action( 'themeisle_ob_before_xml_import' );
 
-		$params           = $request->get_json_params();
+		$params           = $request->get_body_params();
 		$body             = $params['data'];
 		$content_file_url = $body['contentFile'];
 
 		if ( empty( $content_file_url ) ) {
-			wp_send_json_error( 'ti__ob_remote_err_1', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_remote_err_1',
+					'success' => false,
+				)
+			);
 		}
 
 		if ( ! isset( $body['source'] ) || empty( $body['source'] ) ) {
-			wp_send_json_error( 'ti__ob_remote_err_2', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_remote_err_2',
+					'success' => false,
+				)
+			);
 		}
 
 		set_time_limit( 10000 );
@@ -52,7 +69,16 @@ class Themeisle_OB_Content_Importer {
 			$content_file_path = $content_file_url;
 		}
 
-		$this->import_file( $content_file_path );
+		$import_status = $this->import_file( $content_file_path );
+
+		if ( is_wp_error( $import_status ) ) {
+			return new WP_REST_Response(
+				array(
+					'data'    => $import_status,
+					'success' => false,
+				)
+			);
+		}
 
 		if ( $body['source'] === 'remote' ) {
 			unlink( $content_file_path );
@@ -76,12 +102,17 @@ class Themeisle_OB_Content_Importer {
 		do_action( 'themeisle_ob_after_shop_pages_setup' );
 
 		if ( empty( $frontpage_id ) ) {
-			wp_send_json_error( 'ti__ob_front_page_id_err_1', 500 );
+			return new WP_REST_Response(
+				array(
+					'data'    => 'ti__ob_front_page_id_err_1',
+					'success' => false,
+				)
+			);
 		}
 
-		wp_send_json_success(
+		return new WP_REST_Response(
 			array(
-				'message'      => 'Success',
+				'success'      => true,
 				'frontpage_id' => $frontpage_id,
 			)
 		);
@@ -112,6 +143,8 @@ class Themeisle_OB_Content_Importer {
 	 * Set up front page options by `post_name`.
 	 *
 	 * @param array $args the front page array.
+	 *
+	 * @return int|void
 	 */
 	private function setup_front_page( $args ) {
 		if ( ! is_array( $args ) ) {
@@ -192,10 +225,12 @@ class Themeisle_OB_Content_Importer {
 	 * Import file
 	 *
 	 * @param string $file_path the file path to import.
+	 *
+	 * @return WP_Error|true
 	 */
 	private function import_file( $file_path ) {
 		if ( empty( $file_path ) || ! file_exists( $file_path ) || ! is_readable( $file_path ) ) {
-			wp_send_json_error( 'ti__ob_content_err_1', 500 );
+			return new WP_Error( 'ti__ob_content_err_1' );
 		}
 		$this->load_importer();
 
@@ -204,9 +239,8 @@ class Themeisle_OB_Content_Importer {
 
 		$importer = new Themeisle_OB_WXR_Importer();
 		$result   = $importer->import( $file_path );
-		if ( is_wp_error( $result ) ) {
-			wp_send_json_error( $result, 500 );
-		}
+
+		return $result;
 	}
 
 	/**

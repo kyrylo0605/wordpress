@@ -15,19 +15,34 @@
 class Themeisle_OB_Plugin_Importer {
 
 	/**
+	 * Log
+	 *
+	 * @var string
+	 */
+	public $log = '';
+
+	/**
 	 * Install Plugins.
 	 *
 	 * @param WP_REST_Request $request contains the plugins that should be installed.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function install_plugins( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			wp_send_json_error( 'ti__ob_permission_err_3', 500 );
+			return new WP_REST_Response(
+				array(
+					'success' => false,
+					'log'     => $this->log,
+					'data'    => 'ti__ob_perm_err_1',
+				)
+			);
 		}
 
 		do_action( 'themeisle_ob_before_plugins_install' );
 
-		$params  = $request->get_json_params();
-		$plugins = $params['data'];
+		$plugins = $request->get_body_params();
+		$plugins = $plugins['data'];
 
 		foreach ( $plugins as $slug => $state ) {
 			if ( $state === false ) {
@@ -36,7 +51,12 @@ class Themeisle_OB_Plugin_Importer {
 		}
 
 		if ( empty( $plugins ) || ! is_array( $plugins ) ) {
-			wp_send_json_success( 'success', 200 );
+			return new WP_REST_Response(
+				array(
+					'success' => true,
+					'log'     => $this->log,
+				)
+			);
 		}
 
 		$active_plugins = get_option( 'active_plugins' );
@@ -51,7 +71,12 @@ class Themeisle_OB_Plugin_Importer {
 
 		do_action( 'themeisle_ob_after_plugins_install' );
 
-		wp_send_json_success( 'success', 200 );
+		return new WP_REST_Response(
+			array(
+				'success' => true,
+				'log'     => $this->log,
+			)
+		);
 	}
 
 	/**
@@ -104,11 +129,11 @@ class Themeisle_OB_Plugin_Importer {
 		$upgrader = new Plugin_Upgrader( $skin );
 		$install  = $upgrader->install( $api->download_link );
 		if ( $install !== true ) {
-			print_r( 'Error: Install process failed (' . ucwords( $plugin_slug ) . ').' . "\n", false );
+			$this->log .= 'Error: Install process failed (' . ucwords( $plugin_slug ) . ').' . "\n";
 
 			return;
 		}
-		print_r( 'Installed "' . ucwords( $plugin_slug ) . '"' . "\n ", false );
+		$this->log .= 'Installed "' . ucwords( $plugin_slug ) . '"' . "\n ";
 
 		do_action( 'themeisle_ob_after_single_plugin_install', $plugin_slug );
 	}
@@ -185,7 +210,7 @@ class Themeisle_OB_Plugin_Importer {
 		$plugin_entry = $this->get_plugin_entry( $plugin_slug );
 
 		if ( ! file_exists( $plugin_path ) ) {
-			print_r( 'No plugin with the slug "' . $plugin_slug . '" under that directory.' . "\n" );
+			$this->log .= 'No plugin with the slug "' . $plugin_slug . '" under that directory.' . "\n";
 
 			return;
 		}
@@ -195,14 +220,14 @@ class Themeisle_OB_Plugin_Importer {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 		if ( is_plugin_active( $plugin_entry ) ) {
-			print_r( '"' . ucwords( $plugin_slug ) . '" already active.' . "\n" );
+			$this->log .= '"' . ucwords( $plugin_slug ) . '" already active.' . "\n";
 
 			return;
 		}
 		$this->maybe_provide_activation_help( $plugin_slug, $plugin_dir );
 
 		activate_plugin( $plugin_path );
-		print_r( 'Activated ' . ucwords( $plugin_slug ) . '.' . "\n" );
+		$this->log .= 'Activated ' . ucwords( $plugin_slug ) . '.' . "\n";
 
 		do_action( 'themeisle_ob_after_single_plugin_activation', $plugin_slug );
 	}

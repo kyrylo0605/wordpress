@@ -54,9 +54,10 @@ class Ti_About_Page {
 
 		$theme = wp_get_theme();
 
-		$this->theme_args['name']        = $theme->__get( 'Name' );
+		$this->theme_args['name']        = apply_filters( 'ti_wl_theme_name', $theme->__get( 'Name' ) );
+		$this->theme_args['template']    = $theme->get('Template');
 		$this->theme_args['version']     = $theme->__get( 'Version' );
-		$this->theme_args['description'] = $theme->__get( 'Description' );
+		$this->theme_args['description'] = apply_filters( 'ti_wl_theme_description', $theme->__get( 'Description' ) );
 		$this->theme_args['slug']        = $theme->__get( 'stylesheet' );
 	}
 
@@ -86,12 +87,15 @@ class Ti_About_Page {
 	 * Based on visibility flag the plugin should be shown/hidden in recommended_plugins tab
 	 */
 	public function set_recommended_plugins_visibility() {
+		$recommended_plugins = get_option('ti_about_recommended_plugins');
+		if( !empty($recommended_plugins) ){
+			return;
+		}
 		$required_plugins           = $this->get_recommended_plugins();
 		$required_plugins_visbility = array();
 		foreach ( $required_plugins as $slug => $req_plugin ) {
 			$required_plugins_visbility[ $slug ] = 'visible';
 		}
-
 		update_option( 'ti_about_recommended_plugins', $required_plugins_visbility );
 	}
 
@@ -131,11 +135,12 @@ class Ti_About_Page {
 			$menu_name .= '<span class="badge-action-count update-plugins">' . esc_html( $required_actions ) . '</span>';
 		}
 
+		$theme_page = !empty( $theme['template'] ) ? $theme['template'] . '-welcome' : $theme['slug'] . '-welcome';
 		add_theme_page(
 			$page_title,
 			$menu_name,
 			'activate_plugins',
-			$theme['slug'] . '-welcome',
+			$theme_page,
 			array(
 				$this,
 				'render',
@@ -182,12 +187,12 @@ class Ti_About_Page {
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
-
 		if ( ! isset( $screen->id ) ) {
 			return;
 		}
-
-		if ( $screen->id !== 'appearance_page_' . $this->theme_args['slug'] . '-welcome' ) {
+		$theme = $this->theme_args;
+		$theme_page = !empty( $theme['template'] ) ? $theme['template'] . '-welcome' : $theme['slug'] . '-welcome';
+		if ( $screen->id !== 'appearance_page_' . $theme_page ) {
 			return;
 		}
 
@@ -210,6 +215,7 @@ class Ti_About_Page {
 			array(
 				'nr_actions_required' => $this->get_recommended_actions_left(),
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+				'nonce'               => wp_create_nonce('ti-about-nonce'),
 				'template_directory'  => get_template_directory_uri(),
 				'activating_string'   => esc_html__( 'Activating', 'hestia' ),
 			)
@@ -223,7 +229,10 @@ class Ti_About_Page {
 	 * Update recommended plugins visibility flag if the user dismiss one of them
 	 */
 	public function update_recommended_plugins_visibility() {
-
+		$nonce = $_POST['nonce'];
+		if ( ! wp_verify_nonce( $nonce, 'ti-about-nonce' ) ) {
+			return;
+		}
 		$recommended_plugins = get_option( 'ti_about_recommended_plugins' );
 
 		$plugin_to_update                         = $_POST['slug'];

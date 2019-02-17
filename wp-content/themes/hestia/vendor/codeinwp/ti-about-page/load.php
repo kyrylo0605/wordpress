@@ -22,5 +22,5 @@ if ( ! defined( 'TI_ABOUT_PAGE_URL' ) ) {
 	define( 'TI_ABOUT_PAGE_URL', get_template_directory_uri() . '/vendor/codeinwp/ti-about-page/' );
 }
 if ( ! defined( 'TI_ABOUT_PAGE_VERSION' ) ) {
-	define( 'TI_ABOUT_PAGE_VERSION', '1.0.1' );
+	define( 'TI_ABOUT_PAGE_VERSION', '1.0.2' );
 }

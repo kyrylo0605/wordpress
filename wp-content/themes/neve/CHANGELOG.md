@@ -1,4 +1,18 @@
 
+ ### v1.1.4 - 2019-02-08 
+ **Changes:** 
+ * Fixed alignment issues with the Gallery widget
+ 
+ ### v1.1.3 - 2019-02-07 
+ **Changes:** 
+ * Fixed list styling in Elementor
+ 
+ ### v1.1.2 - 2019-02-07 
+ **Changes:** 
+ * New Gutenberg Blocks added for Otter
+* Fixed lists styling
+* Fixed issue with Gutenberg Blocks images not visible in an online environment
+ 
  ### v1.1.1 - 2019-02-04 
  **Changes:** 
  * Fixed issue with content missing on the single post page

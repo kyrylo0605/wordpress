@@ -38,8 +38,6 @@ h3#ship-to-different-address {
 body,
 .btn,
 .form-control,
-ul,
-ol,
 .woocommerce #reviews #comments label {
   font-size: 14px;
 }
@@ -67,8 +65,15 @@ output {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1.618;
+}
+
+h5.description,
+h5.subscribe-description,
+.card-product .price h4,
+h4.author {
+  font-weight: 300;
 }
 
 h6.category {

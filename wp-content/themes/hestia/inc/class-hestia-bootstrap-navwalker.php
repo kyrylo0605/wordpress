@@ -86,7 +86,7 @@ class Hestia_Bootstrap_Navwalker extends Walker_Nav_Menu {
 			$output .= $indent . '<li' . $id . $value . $class_names . '>';
 
 			$atts           = array();
-			$atts['title']  = ! empty( $item->title ) ? apply_filters( 'the_title', sanitize_text_field( $item->title ), $item ) : '';
+			$atts['title']  = ! empty( $item->title ) ? apply_filters( 'the_title', sanitize_text_field( $item->title ), $item->ID ) : '';
 			$atts['target'] = ! empty( $item->target ) ? $item->target : '';
 			$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
 

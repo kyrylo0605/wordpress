@@ -5,8 +5,8 @@
 </template>
 
 <script>
-	module.exports = {
-		name: 'loader',
-		props: { loadingMessage: String },
-	}
+  module.exports = {
+    name: 'loader',
+    props: { loadingMessage: String }
+  }
 </script>

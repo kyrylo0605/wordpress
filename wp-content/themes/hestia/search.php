@@ -27,6 +27,8 @@ do_action( 'hestia_before_search_wrapper' );
 		<div class="container">
 			<div class="row">
 				<?php
+				do_action( 'hestia_before_search_content' );
+
 				if ( $hestia_blog_sidebar_layout === 'sidebar-left' ) {
 					get_sidebar();
 				}

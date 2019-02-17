@@ -5,7 +5,8 @@
  *
  * @package themeisle-onboarding
  * @phpcs:disable Squiz.Commenting.FunctionComment.Missing
- * @soundtrack (Ghost) Riders In the Sky - Johnny Cash
+ * @phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+ * todo: clean up for both phpcs rules.
  */
 
 /**

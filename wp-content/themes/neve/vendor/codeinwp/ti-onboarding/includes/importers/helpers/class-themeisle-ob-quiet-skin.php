@@ -39,4 +39,20 @@ class Themeisle_OB_Quiet_Skin extends WP_Upgrader_Skin {
 	public function feedback( $string ) {
 		// Keep install quiet.
 	}
+
+	/**
+	 * Quiet after.
+	 */
+	public function after() {
+		// Quiet after
+	}
+
+	/**
+	 * Quiet before.
+	 */
+	public function before() {
+		// Quiet before.
+	}
+
+
 }

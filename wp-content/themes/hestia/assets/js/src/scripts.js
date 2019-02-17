@@ -635,6 +635,10 @@
 			) {
 				return false;
 			}
+			if ( $( '.main #secondary' ).length > 0 ) {
+				return false;
+			}
+
 			var fullAlignments = $( '.alignfull' );
 			var wideAlignments = $( '.alignwide' );
 

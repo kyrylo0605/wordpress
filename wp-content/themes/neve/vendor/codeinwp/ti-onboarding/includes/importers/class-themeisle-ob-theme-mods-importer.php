@@ -13,6 +13,14 @@
  * Class Themeisle_OB_Theme_Mods_Importer
  */
 class Themeisle_OB_Theme_Mods_Importer {
+
+	/**
+	 * Log
+	 *
+	 * @var
+	 */
+	private $log = '';
+
 	/**
 	 * Source URL.
 	 *
@@ -31,6 +39,8 @@ class Themeisle_OB_Theme_Mods_Importer {
 	 * Import theme mods.
 	 *
 	 * @param WP_REST_Request $request the async request.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public function import_theme_mods( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'customize' ) ) {
@@ -44,8 +54,8 @@ class Themeisle_OB_Theme_Mods_Importer {
 
 		do_action( 'themeisle_ob_before_customizer_import' );
 
-		$params = $request->get_json_params();
-		$data   = $params['data'];
+		$data = $request->get_body_params();
+		$data = $data['data'];
 
 		if ( ! isset( $data['source_url'] ) || empty( $data['source_url'] ) ) {
 
@@ -88,6 +98,7 @@ class Themeisle_OB_Theme_Mods_Importer {
 			array(
 				'data'    => 'success',
 				'success' => true,
+				'log'     => $this->log,
 			)
 		);
 	}
@@ -112,12 +123,13 @@ class Themeisle_OB_Theme_Mods_Importer {
 			$setup_menus[ $location ] = $term_id;
 		}
 		if ( empty( $setup_menus ) ) {
-			print_r( 'No menus to set up locations for.' . "\n" );
+			$this->log .= 'No menus to set up locations for.' . "\n";
 
 			return;
 		}
 		set_theme_mod( 'nav_menu_locations', $setup_menus );
-		print_r( 'Menus are set up.' . "\n" );
+
+		$this->log .= 'Menus are set up.' . "\n";
 
 		do_action( 'themeisle_ob_after_nav_menus_setup' );
 	}

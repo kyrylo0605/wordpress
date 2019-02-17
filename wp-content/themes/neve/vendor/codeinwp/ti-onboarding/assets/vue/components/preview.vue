@@ -12,25 +12,25 @@
 </template>
 
 <script>
-	import Loader from './loader.vue'
-	import Sidebar from './preview-sidebar.vue'
+  import Loader from './loader.vue'
+  import Sidebar from './preview-sidebar.vue'
 
-	export default {
-		name: 'preview',
-		computed: {
-			previewData: function () {
-				return this.$store.state.previewData
-			},
-			loadingString: function() {
-				return this.$store.state.strings.loading
-			}
-		},
-		components: {
-			Loader,
-			Sidebar,
-		},
-		methods: {},
-	}
+  export default {
+    name: 'preview',
+    computed: {
+      previewData: function () {
+        return this.$store.state.previewData
+      },
+      loadingString: function () {
+        return this.$store.state.strings.loading
+      }
+    },
+    components: {
+      Loader,
+      Sidebar
+    },
+    methods: {}
+  }
 </script>
 
 <style scoped>

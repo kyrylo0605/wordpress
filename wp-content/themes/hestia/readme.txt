@@ -17,6 +17,27 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 == Changelog ==
+= 2.2.1 - 2019-02-12  = 
+
+* [Hestia PRO] Fixed issue with the [hestia_slider] shortcode not working
+* Fixed search results page layout when using the second header option
+* Replaced Google+ sharing option with an Email option
+* Fixed link for sharing on Twitter option
+* Fixed issue with color control updating only after two clicks
+
+
+= 2.2.0 - 2019-02-06  = 
+
+* NEW Hestia Specific Gutenberg blocks for Otter Blocks
+* Improved the onboarding process
+* New filter for compatibility with the Central Color Palette plugin
+* Fixed default font weight for headings
+* Fixed issue with default small font size for lists
+* Allow HTML tags in the single product page title
+* Fixed problem with the footer not sticking to the bottom of the blog page
+* Fixed warning with the Connections plugin
+
+
 = 2.1.1 - 2019-01-17  = 
 
 * Changed the boxed layout for the third header layout
