@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 5.0
-Stable tag: 1.15.1
-Build time: 2019-02-15T09:48:04-08:00
+Stable tag: 1.15.2
+Build time: 2019-02-18T11:05:09-08:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/contribution/
@@ -64,6 +64,9 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.15.2 - 18 February 2019 =
+* Tabs: Set default tab position to top.
 
 = 1.15.1 - 15 February 2019 =
 * Google maps: Use correct locations for static maps.

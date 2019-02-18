@@ -57,9 +57,18 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 		$response = wp_remote_post($this->url, $args);
 		$this->body = wp_remote_retrieve_body($response);
 		$this->httpCode = wp_remote_retrieve_response_code($response);
+		
 		$headers = wp_remote_retrieve_headers($response);
-		$data = $headers->getAll();
-		$this->contentType = $data['content-type'];
+		if ($headers && $headers instanceof Requests_Utility_CaseInsensitiveDictionary) {
+			$data = $headers->getAll();
+			$this->contentType = $data['content-type'];
+		}
+		else if ($headers && is_array($headers)) {
+			$this->contentType = $headers['content-type'];
+		}
+		else {
+			$this->contentType = '';
+		}
 
 		return $this->parseResponse();
 	}
@@ -91,6 +100,9 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 			$data = $headers->getAll();
 			$this->contentType = $data['content-type'];
 		}
+		else if ($headers && is_array($headers)) {
+			$this->contentType = $headers['content-type'];
+		}
 		else {
 			$this->contentType = '';
 		}
@@ -117,10 +129,14 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 		$response = wp_remote_request($this->url, $args);
 		$this->body = wp_remote_retrieve_body($response);
 		$this->httpCode = wp_remote_retrieve_response_code($response);
+		
 		$headers = wp_remote_retrieve_headers($response);
 		if ($headers && $headers instanceof Requests_Utility_CaseInsensitiveDictionary) {
 			$data = $headers->getAll();
 			$this->contentType = $data['content-type'];
+		}
+		else if ($headers && is_array($headers)) {
+			$this->contentType = $headers['content-type'];
 		}
 		else {
 			$this->contentType = '';

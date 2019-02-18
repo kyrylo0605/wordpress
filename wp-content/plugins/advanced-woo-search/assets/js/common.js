@@ -300,7 +300,15 @@
             analytics: function( label ) {
                 if ( d.useAnalytics ) {
                     try {
-                        ga('send', 'event', 'AWS search', 'AWS Search Term', label);
+                        if ( typeof gtag !== 'undefined' ) {
+                            gtag('event', 'AWS search', {
+                                'event_label': label,
+                                'event_category': 'AWS Search Term'
+                            });
+                        }
+                        if ( typeof ga !== 'undefined' ) {
+                            ga('send', 'event', 'AWS search', 'AWS Search Term', label);
+                        }
                     }
                     catch (error) {
                     }
@@ -489,11 +497,18 @@
 
 
     // Call plugin method
-    $(document).ready(function() {
+    $(document).ready( function() {
 
         $(selector).each( function() {
             $(this).aws_search();
         });
+
+        // Enfold header
+        $('[data-avia-search-tooltip]').on( 'click', function() {
+            window.setTimeout(function(){
+                $(selector).aws_search();
+            }, 1000);
+        } );
 
     });
 

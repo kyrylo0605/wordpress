@@ -330,19 +330,19 @@ msgid "What to show in product description?"
 msgstr ""
 
 #: includes/options.php:117
-msgid "Show categories"
+msgid "Show categories archive"
 msgstr ""
 
 #: includes/options.php:118
-msgid "Include categories in search result."
+msgid "Include categories archives pages to search result."
 msgstr ""
 
 #: includes/options.php:129
-msgid "Show tags"
+msgid "Show tags archive"
 msgstr ""
 
 #: includes/options.php:130
-msgid "Include tags in search result."
+msgid "Include tags archives pages to search results."
 msgstr ""
 
 #: includes/options.php:141

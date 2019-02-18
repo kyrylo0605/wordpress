@@ -101,6 +101,13 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 
 == Changelog ==
 
+= 1.62 =
+* Fix Google Analytics events
+* Fix jQuery errors
+* Add Enfold theme support
+* Add Porto theme support
+* Add aws_indexed_data filter
+
 = 1.61 =
 * Fix stopwords
 * Fix markup for finded words in products content

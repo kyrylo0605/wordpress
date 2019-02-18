@@ -7,11 +7,11 @@ $error = array();
 $success = array('success'=>1);
 
 try {
-	$sgUploadHandler = new SGUploadHandler();
+	$sgUploadHandler = new BackupGuard\Upload\Handler($_FILES);
 }
 catch (SGException $exception) {
-    array_push($error, $exception->getMessage());
-    die(json_encode($error));
+	array_push($error, $exception->getMessage());
+	die(json_encode($error));
 }
 
-wp_die();
+die();

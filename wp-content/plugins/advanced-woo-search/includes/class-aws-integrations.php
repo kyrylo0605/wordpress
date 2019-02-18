@@ -66,6 +66,9 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 add_filter( 'aws_search_pre_filter_products', array( $this, 'wc_marketplace_products_filter' ), 10, 2 );
             }
 
+            // Porto theme
+            add_filter( 'porto_search_form_content', array( $this, 'porto_search_form_content_filter' ) );
+
             add_filter( 'aws_terms_exclude_product_cat', array( $this, 'filter_protected_cats_term_exclude' ) );
             add_filter( 'aws_exclude_products', array( $this, 'filter_products_exclude' ) );
 
@@ -295,6 +298,20 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
 
             return $new_product_array;
+
+        }
+
+        /*
+         * Porto theme seamless integration
+         */
+        public function porto_search_form_content_filter( $markup ) {
+
+            if ( AWS()->get_settings('seamless') === 'true' ) {
+                $pattern = '/(<form[\S\s]*?<\/form>)/i';
+                $markup = preg_replace( $pattern, aws_get_search_form( false ), $markup );
+            }
+
+            return $markup;
 
         }
 

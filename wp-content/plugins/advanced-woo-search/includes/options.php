@@ -280,8 +280,8 @@ $options['results'][] = array(
 );
 
 $options['results'][] = array(
-    "name"  => __( "Show categories", "aws" ),
-    "desc"  => __( "Include categories in search result.", "aws" ),
+    "name"  => __( "Show categories archive", "aws" ),
+    "desc"  => __( "Include categories archives pages to search result.", "aws" ),
     "id"    => "show_cats",
     "value" => 'false',
     "type"  => "radio",
@@ -292,8 +292,8 @@ $options['results'][] = array(
 );
 
 $options['results'][] = array(
-    "name"  => __( "Show tags", "aws" ),
-    "desc"  => __( "Include tags in search result.", "aws" ),
+    "name"  => __( "Show tags archive", "aws" ),
+    "desc"  => __( "Include tags archives pages to search results.", "aws" ),
     "id"    => "show_tags",
     "value" => 'false',
     "type"  => "radio",

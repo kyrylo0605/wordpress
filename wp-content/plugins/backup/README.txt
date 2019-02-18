@@ -158,6 +158,10 @@ When you are facing an issue of any kind with any of our products, the first thi
 
 == Changelog ==
 
+= 1.1.81 =
+* PHP7 compatibility issues fixed
+* Other minor bug fixes and improvements
+
 = 1.1.80 =
 * Direct curl calls removed
 

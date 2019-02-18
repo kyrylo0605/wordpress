@@ -525,6 +525,16 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 }
 
+                /**
+                 * Filters product data array before it will be added to index table.
+                 *
+                 * @since 1.62
+                 *
+                 * @param array $data Product data array.
+                 * @param int $data['id'] Product id.
+                 * @param object $product Current product object.
+                 */
+                $data = apply_filters( 'aws_indexed_data', $data, $data['id'], $product );
 
                 //Insert data into table
                 $this->insert_into_table( $data );
