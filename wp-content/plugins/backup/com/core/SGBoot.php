@@ -258,6 +258,10 @@ class SGBoot
 			if (!@file_put_contents($backupPath.'.htaccess', 'deny from all')) {
 				throw new SGExceptionMethodNotAllowed('Cannot create htaccess file');
 			}
+
+			if (!@file_put_contents($backupPath.'index.php', "<?php\n// Silence is golden")) {
+				throw new SGExceptionMethodNotAllowed('Cannot create index file');
+			}
 		}
 
 		//check permissions of backups directory

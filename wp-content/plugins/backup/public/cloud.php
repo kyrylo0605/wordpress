@@ -94,7 +94,7 @@ $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 									<?php echo (backupGuardIsAccountGold()? 'Amazon ':'').'S3'?>
 									<?php if (!empty($amazonInfo)):?>
 										<br/>
-										<span class="text-muted sg-ftp-user sg-helper-block"><?php echo $amazonInfo;?></span>
+										<span class="text-muted sg-amazonr-user sg-helper-block"><?php echo $amazonInfo;?></span>
 									<?php endif;?>
 								</label>
 								<div class="col-md-3 pull-right text-right">

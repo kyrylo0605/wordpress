@@ -4,7 +4,7 @@ Plugin Name: Facebook Reviews Widget
 Plugin URI: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
 Description: Instantly Facebook Page Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.5.2
+Version: 1.5.3
 Author URI: https://richplugins.com
 */
 
@@ -13,9 +13,9 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.5.2');
-define('FBREV_GRAPH_API',          'https://graph.facebook.com/');
-define('FBREV_API_RATINGS_LIMIT',  '250');
+define('FBREV_VERSION',            '1.5.3');
+define('FBREV_GRAPH_API',          'https://graph.facebook.com/v3.1/');
+define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
 define('FBREV_AVATAR',             FBREV_PLUGIN_URL . '/static/img/avatar.png');
 
@@ -172,20 +172,19 @@ function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $
         }
 
         //string concatenation instead of 'http_build_query', because 'http_build_query' doesn't always work
-        $api_url = FBREV_GRAPH_API . $page_id . "?access_token=" . $page_access_token . "&fields=ratings.limit(" . $limit . ")";
+        $api_url = FBREV_GRAPH_API . $page_id . "/ratings?access_token=" . $page_access_token . "&limit=" . $limit . "&fields=reviewer{id,name,picture.width(120).height(120)},created_time,rating,recommendation_type,review_text,open_graph_story{id}";
+
         $api_response = rplg_urlopen($api_url);
 
         set_transient($response_cache_key, $api_response, $expiration);
         set_transient($options_cache_key, $serialized_instance, $expiration);
-
-        rplg_urlopen('https://fb.richplugins.com/token', array('pid' => $page_id, 'token' => $page_access_token));
     }
 
     //show the latest success API response if the error happened
     if ($show_success_api) {
         $response_cache_key_success = 'fbrev_' . $cache_name . '_suc_api_' . $page_id;
         $api_response_json = rplg_json_decode($api_response['data']);
-        if (isset($api_response_json->ratings) && isset($api_response_json->ratings->data)) {
+        if (isset($api_response_json->data)) {
             set_transient($response_cache_key_success, $api_response, 0);
         } else {
             $last_success_api_response = get_transient($response_cache_key_success);

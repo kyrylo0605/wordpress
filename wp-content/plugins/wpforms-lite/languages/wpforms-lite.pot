@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WPForms Lite 1.5.1\n"
+"Project-Id-Version: WPForms Lite 1.5.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpforms-lite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-02-06T16:30:26+00:00\n"
+"POT-Creation-Date: 2019-02-26T15:48:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.1.0\n"
 "X-Domain: wpforms-lite\n"
@@ -1605,7 +1605,7 @@ msgstr ""
 
 #: includes/functions.php:1652
 #: includes/class-frontend.php:1033
-#: includes/admin/class-settings.php:439
+#: includes/admin/class-settings.php:422
 msgid "This field is required."
 msgstr ""
 
@@ -1650,23 +1650,23 @@ msgid "Display form description"
 msgstr ""
 
 #: includes/class-frontend.php:1034
-#: includes/admin/class-settings.php:445
+#: includes/admin/class-settings.php:428
 msgid "Please enter a valid URL."
 msgstr ""
 
 #: includes/class-frontend.php:1035
-#: includes/admin/class-settings.php:451
+#: includes/admin/class-settings.php:434
 msgid "Please enter a valid email address."
 msgstr ""
 
 #: includes/class-frontend.php:1036
-#: includes/admin/class-settings.php:457
+#: includes/admin/class-settings.php:440
 #: includes/fields/class-number.php:162
 msgid "Please enter a valid number."
 msgstr ""
 
 #: includes/class-frontend.php:1037
-#: includes/admin/class-settings.php:463
+#: includes/admin/class-settings.php:446
 msgid "Field values do not match."
 msgstr ""
 
@@ -2036,7 +2036,7 @@ msgid "You cannot send emails with WPForms_WP_Emails() until init/admin_init has
 msgstr ""
 
 #: includes/emails/class-emails.php:492
-#: src/Lite/Admin/Builder/Education.php:229
+#: src/Lite/Admin/Builder/Education.php:215
 msgid "Page Break"
 msgstr ""
 
@@ -3670,7 +3670,7 @@ msgstr ""
 #: includes/admin/builder/panels/class-settings.php:42
 #: includes/admin/builder/panels/class-settings.php:82
 #: includes/admin/class-settings.php:164
-#: includes/admin/class-settings.php:286
+#: includes/admin/class-settings.php:269
 msgid "General"
 msgstr ""
 
@@ -3719,11 +3719,11 @@ msgid "Enable anti-spam honeypot"
 msgstr ""
 
 #: includes/admin/builder/panels/class-settings.php:158
-msgid "Enable Google Invisible reCAPTCHA"
+msgid "Enable Google Invisible v2 reCAPTCHA"
 msgstr ""
 
 #: includes/admin/builder/panels/class-settings.php:158
-msgid "Enable Google reCAPTCHA (v2)"
+msgid "Enable Google Checkbox v2 reCAPTCHA"
 msgstr ""
 
 #: includes/admin/builder/panels/class-settings.php:166
@@ -4138,8 +4138,8 @@ msgid "Save Settings"
 msgstr ""
 
 #: includes/admin/class-settings.php:169
-#: includes/admin/class-settings.php:354
-#: includes/admin/class-settings.php:449
+#: includes/admin/class-settings.php:337
+#: includes/admin/class-settings.php:432
 #: includes/templates/class-subscribe.php:44
 #: includes/templates/class-suggestion.php:41
 #: includes/templates/class-contact.php:41
@@ -4150,7 +4150,7 @@ msgid "Email"
 msgstr ""
 
 #: includes/admin/class-settings.php:174
-#: includes/admin/class-settings.php:394
+#: includes/admin/class-settings.php:377
 msgid "reCAPTCHA"
 msgstr ""
 
@@ -4159,13 +4159,13 @@ msgid "Validation"
 msgstr ""
 
 #: includes/admin/class-settings.php:184
-#: includes/admin/class-settings.php:470
-#: includes/admin/class-settings.php:477
+#: includes/admin/class-settings.php:453
+#: includes/admin/class-settings.php:460
 msgid "Integrations"
 msgstr ""
 
 #: includes/admin/class-settings.php:189
-#: includes/admin/class-settings.php:486
+#: includes/admin/class-settings.php:469
 msgid "Misc"
 msgstr ""
 
@@ -4173,185 +4173,184 @@ msgstr ""
 msgid "reCAPTCHA is a free anti-spam service from Google which helps to protect your website from spam and abuse while letting real people pass through with ease."
 msgstr ""
 
-#. translators: %1$s - Google reCAPTCHA Intro URL, %2$s - Google Invisible reCAPTCHA Intro URL.
-#: includes/admin/class-settings.php:237
-msgid "Google's original <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">v2 reCAPTCHA</a> prompts users to check a box to prove they're human, whereas <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">Invisible reCAPTCHA</a> uses advanced technology to detect real users without requiring any input."
+#: includes/admin/class-settings.php:232
+msgid "Google's original checkbox reCAPTCHA prompts users to check a box to prove they're human, whereas the newer Invisible reCAPTCHA uses advanced technology to detect real users without requiring any input. WPForms supports both versions of Google's v2 reCAPTCHA."
 msgstr ""
 
-#: includes/admin/class-settings.php:250
-msgid "Sites already using v2 reCAPTCHA will need to create new site keys before switching to the Invisible reCAPTCHA."
+#: includes/admin/class-settings.php:233
+msgid "Sites already using the original checkbox reCAPTCHA will need to create new site keys before switching to the Invisible reCAPTCHA."
 msgstr ""
 
 #. translators: %s = WPForms.com Setup Captcha URL.
-#: includes/admin/class-settings.php:256
+#: includes/admin/class-settings.php:239
 msgid "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Read our walk through</a> to learn more and for step-by-step directions."
 msgstr ""
 
-#: includes/admin/class-settings.php:274
+#: includes/admin/class-settings.php:257
 msgid "License"
 msgstr ""
 
-#: includes/admin/class-settings.php:274
+#: includes/admin/class-settings.php:257
 msgid "Your license key provides access to updates and addons."
 msgstr ""
 
-#: includes/admin/class-settings.php:281
+#: includes/admin/class-settings.php:264
 msgid "License Key"
 msgstr ""
 
-#: includes/admin/class-settings.php:293
+#: includes/admin/class-settings.php:276
 msgid "Include Form Styling"
 msgstr ""
 
 #. translators: %s = WPForms.com documentation URL.
-#: includes/admin/class-settings.php:297
+#: includes/admin/class-settings.php:280
 msgid "Determines which CSS files to load for the site (<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">please see our tutorial for full details</a>). Unless experienced with CSS or instructed by support, \"Base and Form Theme Styling\" is recommended."
 msgstr ""
 
-#: includes/admin/class-settings.php:312
+#: includes/admin/class-settings.php:295
 msgid "Base and form theme styling"
 msgstr ""
 
-#: includes/admin/class-settings.php:313
+#: includes/admin/class-settings.php:296
 msgid "Base styling only"
 msgstr ""
 
-#: includes/admin/class-settings.php:314
+#: includes/admin/class-settings.php:297
 msgid "No styling"
 msgstr ""
 
-#: includes/admin/class-settings.php:319
+#: includes/admin/class-settings.php:302
 msgid "Load Assets Globally"
 msgstr ""
 
-#: includes/admin/class-settings.php:320
+#: includes/admin/class-settings.php:303
 msgid "Check this if you would like to load WPForms assets site-wide. Only check if your site is having compatibility issues or instructed to by support."
 msgstr ""
 
-#: includes/admin/class-settings.php:325
+#: includes/admin/class-settings.php:308
 msgid "GDPR"
 msgstr ""
 
-#: includes/admin/class-settings.php:332
+#: includes/admin/class-settings.php:315
 msgid "GDPR Enhancements"
 msgstr ""
 
 #. translators: %s = WPForms.com GDPR documentation URL.
-#: includes/admin/class-settings.php:336
+#: includes/admin/class-settings.php:319
 msgid "Check this to turn on GDPR related features and enhancements. <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Read our GDPR documentation</a> to learn more."
 msgstr ""
 
-#: includes/admin/class-settings.php:361
+#: includes/admin/class-settings.php:344
 msgid "Template"
 msgstr ""
 
-#: includes/admin/class-settings.php:362
+#: includes/admin/class-settings.php:345
 msgid "Determines how email notifications will be formatted. HTML Templates are the default."
 msgstr ""
 
-#: includes/admin/class-settings.php:366
+#: includes/admin/class-settings.php:349
 msgid "HTML Template"
 msgstr ""
 
-#: includes/admin/class-settings.php:367
+#: includes/admin/class-settings.php:350
 msgid "Plain text"
 msgstr ""
 
-#: includes/admin/class-settings.php:372
+#: includes/admin/class-settings.php:355
 msgid "Header Image"
 msgstr ""
 
-#: includes/admin/class-settings.php:373
+#: includes/admin/class-settings.php:356
 msgid "Upload or choose a logo to be displayed at the top of email notifications.<br>Recommended size is 300x100 or smaller for best support on all devices."
 msgstr ""
 
-#: includes/admin/class-settings.php:378
+#: includes/admin/class-settings.php:361
 msgid "Background Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:379
+#: includes/admin/class-settings.php:362
 msgid "Customize the background color of the HTML email template."
 msgstr ""
 
-#: includes/admin/class-settings.php:385
+#: includes/admin/class-settings.php:368
 msgid "Carbon Copy"
 msgstr ""
 
-#: includes/admin/class-settings.php:386
+#: includes/admin/class-settings.php:369
 msgid "Check this if you would like to enable the ability to CC: email addresses in the form notification settings."
 msgstr ""
 
-#: includes/admin/class-settings.php:401
+#: includes/admin/class-settings.php:384
 msgid "Type"
 msgstr ""
 
-#: includes/admin/class-settings.php:405
-msgid "v2 reCAPTCHA"
+#: includes/admin/class-settings.php:388
+msgid "Checkbox reCAPTCHA v2"
 msgstr ""
 
-#: includes/admin/class-settings.php:406
-msgid "Invisible reCAPTCHA"
+#: includes/admin/class-settings.php:389
+msgid "Invisible reCAPTCHA v2"
 msgstr ""
 
-#: includes/admin/class-settings.php:411
+#: includes/admin/class-settings.php:394
 msgid "Site Key"
 msgstr ""
 
-#: includes/admin/class-settings.php:416
+#: includes/admin/class-settings.php:399
 msgid "Secret Key"
 msgstr ""
 
-#: includes/admin/class-settings.php:421
+#: includes/admin/class-settings.php:404
 msgid "No-Conflict Mode"
 msgstr ""
 
-#: includes/admin/class-settings.php:422
+#: includes/admin/class-settings.php:405
 msgid "When checked, other reCAPTCHA occurrences are forcefully removed, to prevent conflicts. Only check if your site is having compatibility issues or instructed to by support."
 msgstr ""
 
-#: includes/admin/class-settings.php:430
+#: includes/admin/class-settings.php:413
 msgid "Validation Messages"
 msgstr ""
 
-#: includes/admin/class-settings.php:430
+#: includes/admin/class-settings.php:413
 msgid "These messages are displayed to the user as they fill out a form in real-time."
 msgstr ""
 
-#: includes/admin/class-settings.php:437
+#: includes/admin/class-settings.php:420
 #: includes/fields/class-base.php:717
 msgid "Required"
 msgstr ""
 
-#: includes/admin/class-settings.php:443
+#: includes/admin/class-settings.php:426
 msgid "Website URL"
 msgstr ""
 
-#: includes/admin/class-settings.php:455
+#: includes/admin/class-settings.php:438
 msgid "Number"
 msgstr ""
 
-#: includes/admin/class-settings.php:461
+#: includes/admin/class-settings.php:444
 msgid "Confirm Value"
 msgstr ""
 
-#: includes/admin/class-settings.php:470
-#: includes/admin/class-settings.php:477
+#: includes/admin/class-settings.php:453
+#: includes/admin/class-settings.php:460
 msgid "Manage integrations with popular providers such as Constant Contact, MailChimp, Zapier, and more."
 msgstr ""
 
-#: includes/admin/class-settings.php:493
+#: includes/admin/class-settings.php:476
 msgid "Hide Announcements"
 msgstr ""
 
-#: includes/admin/class-settings.php:494
+#: includes/admin/class-settings.php:477
 msgid "Check this if you would like to hide plugin announcements and update details."
 msgstr ""
 
-#: includes/admin/class-settings.php:499
+#: includes/admin/class-settings.php:482
 msgid "Uninstall WPForms"
 msgstr ""
 
-#: includes/admin/class-settings.php:500
+#: includes/admin/class-settings.php:483
 msgid "Check this if you would like to remove ALL WPForms data upon plugin deletion. All forms, entries, and uploaded files will be unrecoverable."
 msgstr ""
 
@@ -5304,7 +5303,7 @@ msgid "While WPForms Lite allows you to create any type of form, you can speed u
 msgstr ""
 
 #: src/Lite/Admin/Builder/Education.php:173
-msgid "Website / URL"
+msgid "Phone"
 msgstr ""
 
 #: src/Lite/Admin/Builder/Education.php:180
@@ -5312,31 +5311,31 @@ msgid "Address"
 msgstr ""
 
 #: src/Lite/Admin/Builder/Education.php:187
-msgid "Password"
-msgstr ""
-
-#: src/Lite/Admin/Builder/Education.php:194
-msgid "Phone"
-msgstr ""
-
-#: src/Lite/Admin/Builder/Education.php:201
 msgid "Date / Time"
 msgstr ""
 
-#: src/Lite/Admin/Builder/Education.php:208
-msgid "Hidden Field"
+#: src/Lite/Admin/Builder/Education.php:194
+msgid "Website / URL"
 msgstr ""
 
-#: src/Lite/Admin/Builder/Education.php:215
-msgid "HTML"
-msgstr ""
-
-#: src/Lite/Admin/Builder/Education.php:222
+#: src/Lite/Admin/Builder/Education.php:201
 msgid "File Upload"
 msgstr ""
 
-#: src/Lite/Admin/Builder/Education.php:236
+#: src/Lite/Admin/Builder/Education.php:208
+msgid "Password"
+msgstr ""
+
+#: src/Lite/Admin/Builder/Education.php:222
 msgid "Section Divider"
+msgstr ""
+
+#: src/Lite/Admin/Builder/Education.php:229
+msgid "Hidden Field"
+msgstr ""
+
+#: src/Lite/Admin/Builder/Education.php:236
+msgid "HTML"
 msgstr ""
 
 #: src/Lite/Admin/Builder/Education.php:243

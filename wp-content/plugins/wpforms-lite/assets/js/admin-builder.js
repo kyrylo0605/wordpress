@@ -508,11 +508,25 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				app.fieldChoiceDelete(e, $(this));
 			});
 
+			// Field choices defaults - before change
+			$builder.on('mousedown', '.wpforms-field-option-row-choices input[type=radio]', function(e) {
+				var $this = $(this);
+				if ( $this.is(':checked') ) {
+					$this.attr('data-checked', '1');
+				} else {
+					$this.attr('data-checked', '0');
+				}
+			});
+
 			// Field choices defaults
-			$builder.on('change', '.wpforms-field-option-row-choices input[type=radio]', function(e) {
+			$builder.on('click', '.wpforms-field-option-row-choices input[type=radio]', function(e) {
 				var $this = $(this),
 					list  = $this.parent().parent();
 				$this.parent().parent().find('input[type=radio]').not(this).prop('checked',false);
+				if ( $this.attr('data-checked') === '1' ) {
+					$this.prop( 'checked', false );
+					$this.attr('data-checked', '0');
+				}
 				app.fieldChoiceUpdate(list.data('field-type'),list.data('field-id') );
 			});
 
@@ -2458,6 +2472,9 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 								if ( blockType === 'notification' ) {
 									$newSettingsBlock.find('.email-msg textarea').val('{all_fields}').attr('value', '{all_fields}');
 									$newSettingsBlock.find('.email-recipient input').val('{admin_email}').attr('value', '{admin_email}');
+
+									// remove conditional logic groups
+									$newSettingsBlock.find( '.wpforms-conditional-groups' ).remove();
 								}
 
 								if ( blockType === 'confirmation' ) {

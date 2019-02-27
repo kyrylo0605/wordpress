@@ -2,6 +2,12 @@ SG_DOWNLOAD_PROGRESS = '';
 SG_ACTIVE_DOWNLOAD_AJAX = '';
 SG_CHECK_ACTION_STATUS_REQUEST_FREQUENCY = 2500;
 
+SG_STORAGE_FTP          = 1;
+SG_STORAGE_DROPBOX      = 2;
+SG_STORAGE_GOOGLE_DRIVE = 3;
+SG_STORAGE_AMAZON       = 4;
+SG_STORAGE_ONE_DRIVE    = 5;
+
 jQuery(document).on('change', '.btn-file :file', function() {
 	var input = jQuery(this),
 		numFiles = input.get(0).files ? input.get(0).files.length : 1,
@@ -223,11 +229,11 @@ sgBackup.cancelDonwload = function(name) {
 	cancelDonwloadHandler.run();
 }
 
-sgBackup.listStorage = function(importFrom){
+sgBackup.listStorage = function(importFrom) {
 	var listStorage = new sgRequestHandler('listStorage', {storage: importFrom});
 	sgBackup.showAjaxSpinner('#sg-modal-inport-from');
 	jQuery('#sg-archive-list-table tbody').empty();
-
+	
 	jQuery('#sg-modal').off('hide.bs.modal').on('hide.bs.modal', function(e){
 
 		if (SG_ACTIVE_DOWNLOAD_AJAX) {
@@ -243,14 +249,38 @@ sgBackup.listStorage = function(importFrom){
 	});
 
 	listStorage.callback = function(response, error) {
+		var cloudName = '';
+		var cloudId = parseInt(importFrom, 10);
+		
+		switch (cloudId) {
+			case SG_STORAGE_AMAZON:
+				cloudName = "S3";
+				break;
+			case SG_STORAGE_DROPBOX:
+				cloudName = "Dropbox";
+				break;
+			case SG_STORAGE_GOOGLE_DRIVE:
+				cloudName = "Google Drive";
+				break;
+			case SG_STORAGE_FTP:
+				cloudName = "FTP";
+				break;
+			case SG_STORAGE_ONE_DRIVE:
+				cloudName = "OneDrive";
+				break;
+			default:
+				cloudName = '';
+		}
+
+		jQuery('.modal-title').html('Import from '+cloudName);
+
 		sgBackup.hideAjaxSpinner();
-		listOfFiles = response;
 		var content = '';
-		if (!listOfFiles) {
+		if ((typeof response.error != "undefined") || response.length == 0 || response === undefined) {
 			content = '<tr><td colspan="4">'+BG_BACKUP_STRINGS.noBackupsAvailable+'</td></tr>';
 		}
 		else {
-			jQuery.each(listOfFiles, function( key, value ) {
+			jQuery.each(response, function( key, value ) {
 				content += '<tr>';
 					content += '<td class="file-select-radio"><input type="radio" file-name="'+value.name+'" name="select-archive-to-download" size="'+value.size+'" storage="'+importFrom+'" value="'+value.path+'"></td>';
 					content += '<td>'+value.name+'</td>';
@@ -329,6 +359,8 @@ sgBackup.previousPage = function(){
 
 	jQuery('#modal-import-1').show();
 	jQuery('#uploadSgbpFile').hide();
+
+	jQuery('.modal-title').html('Import from');
 }
 
 sgBackup.toggleNavigationButtons = function(){

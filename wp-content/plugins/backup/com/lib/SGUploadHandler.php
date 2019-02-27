@@ -22,12 +22,7 @@ class Handler
 		$dirPath = $this->getDestinationDirPath();
 		$file = $dirPath.$this->fileName;
 
-		if (is_writable($dirPath)) {
-			throw new \SGExceptionForbidden('Permission denied. Directory is not writable: '.$dirPath);
-		}
-
 		$data = file_get_contents($this->tmpFileName);
-		
 		file_put_contents($file, $data, FILE_APPEND);
 	}
 

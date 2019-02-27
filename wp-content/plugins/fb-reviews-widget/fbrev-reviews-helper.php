@@ -32,7 +32,7 @@ function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disabl
             }
             if (isset($review->reviewer)) {
                 $reviewer_name = $review->reviewer->name;
-                $reviewer_photo = 'https://fb.richplugins.com/picture?pid=' . $page_id . '&psid=' . $review->reviewer->id;
+                $reviewer_photo = isset($review->reviewer->picture) ? $review->reviewer->picture->data->url : FBREV_AVATAR;
             } else {
                 $reviewer_name = 'Facebook user';
                 $reviewer_photo = FBREV_AVATAR;
@@ -45,7 +45,12 @@ function fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disabl
             <div class="wp-facebook-right">
                 <?php
                 if (!$disable_user_link) {
-                    $profile_url = 'https://facebook.com/' . $page_id . '/reviews';
+                    $profile_url = 'https://facebook.com/';
+                    if (isset($review->open_graph_story)) {
+                        $profile_url .= $review->open_graph_story->id;
+                    } else {
+                        $profile_url .= $page_id . '/reviews';
+                    }
                     fbrev_anchor($profile_url, 'wp-facebook-name', $reviewer_name, $open_link, $nofollow_link);
                 } else {
                     ?><div class="wp-facebook-name"><?php echo $reviewer_name; ?></div><?php

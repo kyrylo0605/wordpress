@@ -87,14 +87,14 @@ class Fb_Reviews_Widget extends WP_Widget {
             $response = fbrev_api_rating($page_id, $page_access_token, $instance, $this->id, $cache, $api_ratings_limit, $show_success_api);
             $response_data = $response['data'];
             $response_json = rplg_json_decode($response_data);
-            if (isset($response_json->ratings) && isset($response_json->ratings->data)) {
-                $reviews = $response_json->ratings->data;
+            if (isset($response_json->data)) {
+                $reviews = $response_json->data;
                 if ($title) { ?><h2 class="fbrev-widget-title widget-title"><?php echo $title; ?></h2><?php }
                 include(dirname(__FILE__) . '/fbrev-reviews.php');
             } else {
                 ?>
                 <div class="fbrev-error" style="padding:10px;color:#B94A48;background-color:#F2DEDE;border-color:#EED3D7;">
-                    <?php echo fbrev_i('Facebook API Rating: ') . $response_data; ?>
+                    <?php echo fbrev_i('Facebook API Error: ') . $response_data . fbrev_i('<br><b>Reconnecting to Facebook may fix the issue.</b>'); ?>
                 </div>
                 <?php
             }

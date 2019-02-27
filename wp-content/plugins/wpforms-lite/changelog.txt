@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.5.1.1 =
+- Fixed: Conflict with WordPress 5.1 if form contained target="_blank".
+- Fixed: Unable to uncheck default Multiple Choice value in form builder after being set initially.
+- Fixed: PHP error when entries are exported after a field has been deleted.
+- Fixed: Form builder Email notification conditional logic settings display issue after new notification is added.
+- Fixed: Conflict with some themes preventing Multiple Choice fields from being selectable.
+
 = 1.5.1 =
 - Added: Complete translations for Spanish, Italian, Japanese, and German.
 - Added: Smart Tag for referencing user meta data, `{user_meta key=""}`.

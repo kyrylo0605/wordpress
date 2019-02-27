@@ -1,10 +1,10 @@
 === Facebook Reviews ===
 Contributors: richplugins
 Donate link: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
-Tags: facebook, facebook reviews, facebook business reviews, facebook page reviews, facebook page review, Facebook Page, facebook review, facebook review widget, business review, reviews, facebook reviews widget, sidebar widget, richplugins, google reviews, google places reviews, google map reviews, facebook reviews pro, testimonials, yelp, yelp reviews
+Tags: Facebook, reviews, facebook reviews, testimonials, google, facebook page reviews
 Requires at least: 2.8
-Tested up to: 5.0
-Stable tag: 1.5.2
+Tested up to: 5.1
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,10 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.5.3 =
+* Improve: update user picture dimension to 120x120
+* Improve: use Graph API with picture and open_graph_story
 
 = 1.5.2 =
 * Improve: option for image lazy loading

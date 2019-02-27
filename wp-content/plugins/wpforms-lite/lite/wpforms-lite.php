@@ -968,9 +968,9 @@ class WPForms_Lite {
 				'icon' => 'addon-icon-campaign-monitor.png',
 			),
 			array(
-				'name' => 'Conditional Logic',
-				'desc' => 'WPForms\' smart Conditional Logic addon allows you to show or hide fields, sections, and subscribe to newsletters based on user selections, so you can collect the most relevant information.',
-				'icon' => 'addon-icon-conditional-logic.png',
+				'name' => 'Conversational Forms',
+				'desc' => 'Want to improve your form completion rate? Conversational Forms addon by WPForms helps make your web forms feel more human, so you can improve your conversions. Interactive web forms made easy.',
+				'icon' => 'addon-icon-conversational-forms.png',
 			),
 			array(
 				'name' => 'Custom Captcha',

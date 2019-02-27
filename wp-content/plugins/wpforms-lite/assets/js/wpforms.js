@@ -470,25 +470,25 @@
 			} );
 
 			// Checkbox/Radio/Payment checkbox: toggle selected state class.
-			$( document ).on( 'change', '.wpforms-field-checkbox input, .wpforms-field-radio input, .wpforms-field-payment-multiple input, .wpforms-field-payment-checkbox input', function() {
+			$( document ).on( 'change', '.wpforms-field-checkbox input, .wpforms-field-radio input, .wpforms-field-payment-multiple input, .wpforms-field-payment-checkbox input, .wpforms-field-gdpr-checkbox input', function() {
 
 				var $this = $( this );
 
 				switch ( $this.attr( 'type' ) ) {
 					case 'radio':
-						$this.closest( 'ul' ).find( 'li' ).removeClass( 'wpforms-selected' ).find('input[type=radio]').removeAttr( 'checked' );
+						$this.closest( 'ul' ).find( 'li' ).removeClass( 'wpforms-selected' ).find('input[type=radio]').removeProp( 'checked' );
 						$this
-							.attr( 'checked', 'checked' )
+							.prop( 'checked', true )
 							.closest( 'li' ).addClass( 'wpforms-selected' );
 						break;
 
 					case 'checkbox':
 						if ( $this.prop( 'checked' ) ) {
 							$this.closest( 'li' ).addClass( 'wpforms-selected' );
-							$this.attr( 'checked', 'checked' );
+							$this.prop( 'checked', true );
 						} else {
 							$this.closest( 'li' ).removeClass( 'wpforms-selected' );
-							$this.removeAttr( 'checked' );
+							$this.removeProp( 'checked' );
 						}
 						break;
 				}

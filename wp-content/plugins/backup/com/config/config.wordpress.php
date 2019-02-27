@@ -16,13 +16,13 @@ define('SG_DB_NAME', $wpdb->dbname);
 define('SG_BACKUP_DATABASE_EXCLUDE', SG_ACTION_TABLE_NAME.','.SG_CONFIG_TABLE_NAME.','.SG_SCHEDULE_TABLE_NAME);
 
 //Mail
-define('SG_MAIL_TEMPLATES_PATH', SG_APP_PATH.'../public/templates/');
+define('SG_MAIL_TEMPLATES_PATH', realpath(SG_APP_PATH.'../public/templates').'/');
 define('SG_MAIL_BACKUP_TEMPLATE', 'mail_backup.php');
 define('SG_MAIL_RESTORE_TEMPLATE', 'mail_restore.php');
 define('SG_MAIL_UPLOAD_TEMPLATE', 'mail_upload.php');
 
 //Notice
-define('SG_NOTICE_TEMPLATES_PATH', SG_APP_PATH.'../public/templates/notices/');
+define('SG_NOTICE_TEMPLATES_PATH', realpath(SG_APP_PATH.'../public/templates/notices').'/');
 
 //BackupGuard SDK
 define('SG_BACKUPGUARD_CLIENT_ID', 'wordpress');
