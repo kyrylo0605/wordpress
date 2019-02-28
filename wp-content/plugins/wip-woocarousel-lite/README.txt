@@ -4,7 +4,7 @@ Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
 Tags: product, product carousel, product category, product slider, product slider carousel, product slider categories, rtl, shop, shortcode, slider, woocommerce, e-commerce, woocommerce product slider, woocommerce product slider carousel, woocommerce product carousel, woocommerce slider, woocommerce slider carousel, shortcode slider, shortcode carousel, carousel slider, carousel plugin, ecommerce
 Requires at least: 3.5.0
-Tested up to: 4.9.1
+Tested up to: 5.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,10 @@ product_dots: Set this option ON, to display carousel dots
 1. Product slider in your page.
 
 == Changelog ==
+
+= 1.0.9.5 =
+
+* Tested with WordPress 5.1
 
 = 1.0.9.4 =
 
