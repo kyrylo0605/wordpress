@@ -97,7 +97,9 @@
                             methods.analytics( searchFor );
 
                         },
-                        error: function (data, dummy) {
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log( "Request failed: " + textStatus );
+                            methods.hideLoader();
                         }
                     })
 

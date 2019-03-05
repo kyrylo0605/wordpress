@@ -571,11 +571,18 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                             );
                         }
                     }
-                    
 
-                    $f_price   = $product->get_price();
-                    $f_rating  = $product->get_average_rating();
-                    $f_reviews = $product->get_review_count();
+                    if ( method_exists( $product, 'get_price' ) ) {
+                        $f_price = $product->get_price();
+                    }
+
+                    if ( method_exists( $product, 'get_average_rating' ) ) {
+                        $f_rating  = $product->get_average_rating();
+                    }
+
+                    if ( method_exists( $product,'get_review_count' ) ) {
+                        $f_reviews = $product->get_review_count();
+                    }
 
 //                    $categories = $product->get_categories( ',' );
 //                    $tags = $product->get_tags( ',' );
@@ -791,6 +798,17 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                     $result_array[] = $new_result;
 
                 }
+
+                /**
+                 * Filters array of custom taxonomies that must be displayed in search results
+                 *
+                 * @since 1.63
+                 *
+                 * @param array $result_array Array of custom taxonomies
+                 * @param string $taxonomy Name of taxonomy
+                 * @param string $s Search query
+                 */
+                $result_array = apply_filters( 'aws_search_tax_results', $result_array, $taxonomy, $this->data['s'] );
 
             }
 
