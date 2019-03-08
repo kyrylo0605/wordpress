@@ -1,4 +1,4 @@
-/*! elementor - v2.5.2 - 05-03-2019 */
+/*! elementor - v2.5.3 - 06-03-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -5296,6 +5296,12 @@ var App = Marionette.Application.extend({
 
 			if (!this.config.widgets[widgetType]) {
 				return false;
+			}
+
+			if (!this.config.widgets[widgetType].commonMerged) {
+				jQuery.extend(this.config.widgets[widgetType].controls, this.config.widgets.common.controls);
+
+				this.config.widgets[widgetType].commonMerged = true;
 			}
 
 			return this.config.widgets[widgetType];
@@ -14169,7 +14175,7 @@ ControlSliderItemView = ControlBaseUnitsItemView.extend({
 			connect: isMultiple,
 			format: {
 				to: function to(value) {
-					return +value.toFixed(1);
+					return value;
 				},
 				from: function from(value) {
 					return +value;

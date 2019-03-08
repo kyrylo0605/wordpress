@@ -257,29 +257,29 @@ $grw_google_api_key = get_option('grw_google_api_key');
 
             <div id="support" class="tab-content" style="display:<?php echo $tab == 'support' ? 'block' : 'none'?>;">
                 <h3>Most Common Questions</h3>
-                <div class="brb-flex-row">
-                    <div class="brb-flex-col">
-                        <div class="brb-support-question">
+                <div class="rplg-flex-row">
+                    <div class="rplg-flex-col">
+                        <div class="rplg-support-question">
                             <h3>I can't connect my Google Place.</h3>
                             <p>Please check that you correctly found the Place ID of your Google business. It should look like <b>ChIJ</b>3TH9CwFZwokRI... This instruction helps to find any Place ID regardless of whether it has a physical address or it is an area: <a href="https://www.launch2success.com/guide/find-any-google-id/" target="_blank">how to find Place ID of any Google business</a></p>
                         </div>
                     </div>
-                    <div class="brb-flex-col">
-                        <div class="brb-support-question">
+                    <div class="rplg-flex-col">
+                        <div class="rplg-support-question">
                             <h3>I have some error messages about the Google API key.</h3>
                             <p>Please make sure that your correctly created the Google Places API key with <b>Places API library and without any restrictions (IP or Referrer)</b>. It should look like <b>AIzaS</b>yB3k4oWDJPF... On the <b>Settings</b> tab there is a detailed instruction and video tutorial how to create the free and correct Google Places API key.</p>
                         </div>
                     </div>
                 </div>
-                <div class="brb-flex-row">
-                    <div class="brb-flex-col">
-                        <div class="brb-support-question">
+                <div class="rplg-flex-row">
+                    <div class="rplg-flex-col">
+                        <div class="rplg-support-question">
                             <h3>Why I see only 5 Google reviews?</h3>
                             <p>The plugin uses the Google Places API to get your reviews. The API only returns the 5 most helpful reviews. Unfortunately, it is a limitation of Google, not specifically the plugin.</p>
                         </div>
                     </div>
-                    <div class="brb-flex-col">
-                        <div class="brb-support-question">
+                    <div class="rplg-flex-col">
+                        <div class="rplg-support-question">
                             <h3>Is the plugin compatible with the latest version of PHP? I saw warnings about the compatibility with PHP 7 in the checker plugin.</h3>
                             <p>Yes, the plugin is absolutely compatible with PHP 7 and by the way, we are using PHP 7 on the demo site.</p>
                             <p>The warnings come from the code which is needed for compatible with old versions of PHP (&lt; 5.0) which is sometimes found in some users and without this code, the plugin will not work.</p>
@@ -287,9 +287,9 @@ $grw_google_api_key = get_option('grw_google_api_key');
                         </div>
                     </div>
                 </div>
-                <div class="brb-flex-row">
-                    <div class="brb-flex-col">
-                        <div class="brb-support-question">
+                <div class="rplg-flex-row">
+                    <div class="rplg-flex-col">
+                        <div class="rplg-support-question">
                             <h3>If you need support</h3>
                             <p>You can contact us directly by email <a href="mailto:support@richplugins.com">support@richplugins.com</a> and would be great and save us a lot of time if each request to the support will contain the following data:</p>
                             <ul>
@@ -301,8 +301,8 @@ $grw_google_api_key = get_option('grw_google_api_key');
                             </ul>
                         </div>
                     </div>
-                    <div class="brb-flex-col">
-                        <div class="brb-support-question">
+                    <div class="rplg-flex-col">
+                        <div class="rplg-support-question">
                         </div>
                     </div>
                 </div>

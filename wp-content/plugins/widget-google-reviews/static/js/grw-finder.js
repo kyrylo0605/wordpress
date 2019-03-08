@@ -56,7 +56,8 @@ function grw_init(data) {
         }
 
         var langEl = el.querySelector('.grw-lang'),
-            lang = langEl.options[langEl.selectedIndex].value;
+            optionEl = langEl.options[langEl.selectedIndex],
+            lang = optionEl ? optionEl.value : '';
 
         connectBtn.innerHTML = 'Please wait...';
         connectBtn.disabled = true;

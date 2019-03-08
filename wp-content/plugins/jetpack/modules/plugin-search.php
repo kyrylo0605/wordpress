@@ -6,11 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
 if (
 	is_admin() &&
 	Jetpack::is_active() &&
 	/** This filter is documented in _inc/lib/admin-pages/class.jetpack-react-page.php */
-	apply_filters( 'jetpack_show_promotions', true )
+	apply_filters( 'jetpack_show_promotions', true ) &&
+	jetpack_is_psh_active()
 ) {
 	Jetpack_Plugin_Search::init();
 }
@@ -328,7 +330,8 @@ class Jetpack_Plugin_Search {
 				$inject = array_merge( $inject, $jetpack_modules_list[ $matching_module ], $overrides );
 
 				// Add it to the top of the list
-				$result->plugins = array( $inject ) + array_filter( $result->plugins, array( $this, 'filter_cards' ) );
+				$result->plugins = array_filter( $result->plugins, array( $this, 'filter_cards' ) );
+				array_unshift( $result->plugins, $inject );
 			}
 		}
 		return $result;
@@ -337,12 +340,15 @@ class Jetpack_Plugin_Search {
 	/**
 	 * Remove cards for Akismet, Jetpack and VaultPress plugins since we don't want duplicates.
 	 *
-	 * @param array $plugin
+	 * @param array|object $plugin
 	 *
 	 * @return bool
 	 */
-	function filter_cards( $plugin = array() ) {
-		return ! in_array( $plugin['slug'], array( 'akismet', 'jetpack', 'vaultpress' ), true );
+	function filter_cards( $plugin ) {
+		// Take in account that before WordPress 5.1, the list of plugins is an array of objects.
+		// With WordPress 5.1 the list of plugins is an array of arrays.
+		$slug = is_array( $plugin ) ? $plugin['slug'] : $plugin->slug;
+		return ! in_array( $slug, array( 'akismet', 'jetpack', 'vaultpress' ), true );
 	}
 
 	/**
@@ -506,5 +512,62 @@ class Jetpack_Plugin_Search {
 		return $links;
 	}
 
+}
 
+/**
+ * Master control that checks if Plugin search hints is active.
+ *
+ * @since 7.1.1
+ *
+ * @return bool True if PSH is active.
+ */
+function jetpack_is_psh_active() {
+	// false means unset, 1 means active, 0 means inactive.
+	$status = get_transient( 'jetpack_psh_status' );
+
+	if ( false === $status ) {
+		$error = false;
+		$status = jetpack_get_remote_is_psh_active( $error );
+		set_transient(
+			'jetpack_psh_status',
+			// Cache as int
+			(int) $status,
+			// If there was an error, still cache but for a shorter time
+			( $error ? 5 : 15 ) * MINUTE_IN_SECONDS
+		);
+	}
+
+	return (bool) $status;
+}
+
+/**
+ * Makes remote request to determine if Plugin search hints is active.
+ *
+ * @since 7.1.1
+ * @internal
+ *
+ * @param bool &$error Did the remote request result in an error?
+ * @return bool True if PSH is active.
+ */
+function jetpack_get_remote_is_psh_active( &$error ) {
+	$response = wp_remote_get( 'https://jetpack.com/psh-status/' );
+	if ( is_wp_error( $response ) ) {
+		$error = true;
+		return true;
+	}
+
+	$body = wp_remote_retrieve_body( $response );
+	if ( empty( $body ) ) {
+		$error = true;
+		return true;
+	}
+
+	$json = json_decode( $body );
+	if ( ! isset( $json->active ) ) {
+		$error = true;
+		return true;
+	}
+
+	$error = false;
+	return (bool) $json->active;
 }

@@ -1,4 +1,4 @@
-/*! elementor - v2.5.2 - 05-03-2019 */
+/*! elementor - v2.5.3 - 06-03-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1490,7 +1490,11 @@ var BackgroundVideo = elementorModules.frontend.handlers.Base.extend({
 		var $video = this.isYTVideo ? jQuery(this.player.getIframe()) : this.elements.$backgroundVideoHosted,
 		    size = this.calcVideosSize();
 
-		$video.width(size.width).height(size.height);
+		$video.width(size.width);
+
+		if (this.isYTVideo) {
+			$video.height(size.height);
+		}
 	},
 
 	startVideoLoop: function startVideoLoop() {
