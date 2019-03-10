@@ -41,8 +41,11 @@ class Goog_Reviews_Widget extends WP_Widget {
             )
         );
 
+        add_action('wp_enqueue_scripts', array($this, 'grw_frontend_scripts'));
         add_action('admin_enqueue_scripts', array($this, 'grw_widget_scripts'));
+    }
 
+    function grw_frontend_scripts() {
         wp_register_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__), array(), GRW_VERSION);
         wp_enqueue_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__));
 

@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/google-reviews-pro-wordpress-plugin
 Tags: google, reviews, google reviews, google places, google places reviews, testimonials, google review widget, google business reviews, slider, google review, review, google place review, google map reviews, google reviews pro, facebook reviews, facebook page reviews, yelp reviews, yelp business reviews
 Requires at least: 2.8
 Tested up to: 5.1
-Stable tag: 1.7
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ Why limit your reviews to just Google Reviews? Check out our other free business
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.7.1 =
+* Improve: added hook to enqueue scripts and styles
 
 = 1.7 =
 * Update to WordPress 5.1
