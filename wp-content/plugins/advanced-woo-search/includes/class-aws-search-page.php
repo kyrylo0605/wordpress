@@ -61,6 +61,9 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             // Nukes the FOUND_ROWS() database query
 		    add_filter( 'found_posts_query', array( $this, 'filter_found_posts_query' ), 5, 2 );
 
+            // Update filters links
+            add_filter( 'woocommerce_layered_nav_link', array( $this, 'woocommerce_layered_nav_link' ), 10, 3 );
+
         }
 
         /**
@@ -82,25 +85,20 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             
             $posts_array = (array) aws_search( $search_query );
             $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
+            $post_array_products = $posts_array['products'];
 
-            $query->found_posts = count( $posts_array['products'] );
-            $query->max_num_pages = ceil( count( $posts_array['products'] ) / $posts_per_page );
+            // Filter and order output
+            if ( $post_array_products && is_array( $post_array_products ) && ! empty( $post_array_products ) ) {
+                $post_array_products = AWS()->order( $post_array_products, $query );
+            }
+
+            $query->found_posts = count( $post_array_products );
+            $query->max_num_pages = ceil( count( $post_array_products ) / $posts_per_page );
 
             $paged  = $query->query_vars['paged'] ? $query->query_vars['paged'] : 1;
             $offset = ( $paged > 1 ) ? $paged * $posts_per_page - $posts_per_page : 0;
 
-            if ( $query->query && ( isset( $query->query['orderby'] ) || isset( $query->query_vars['orderby'] ) ) ) {
-
-                if ( isset( $posts_array['products'] ) && ! empty( $posts_array['products'] ) ) {
-
-                    $posts_array['products'] = AWS()->order( $posts_array['products'], $query );
-
-                }
-
-            }
-
-            $products = array_slice( $posts_array['products'], $offset, $posts_per_page );
-
+            $products = array_slice( $post_array_products, $offset, $posts_per_page );
 
             foreach ( $products as $post_array ) {
                 $post = new stdClass();
@@ -219,6 +217,25 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             }
 
             return '';
+        }
+
+        /*
+         * Update links for WooCommerce filter widgets
+         */
+        public function woocommerce_layered_nav_link( $link, $term, $taxonomy ) {
+
+            $first_char = '&';
+
+            if ( strpos( $link, '?' ) === false ) {
+                $first_char = '?';
+            }
+
+            if ( isset( $_GET['type_aws'] ) && strpos( $link, 'type_aws' ) === false ) {
+                $link = $link . $first_char . 'type_aws=true';
+            }
+
+            return $link;
+
         }
 
         /**

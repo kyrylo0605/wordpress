@@ -98,6 +98,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 'no_found_rows'       => 1,
                 'orderby'             => 'ID',
                 'order'               => 'DESC',
+                'lang'                => ''
             );
 
 
@@ -228,6 +229,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 'no_found_rows'       => 1,
                 'orderby'             => 'ID',
                 'order'               => 'DESC',
+                'lang'                => ''
             );
 
 
@@ -706,7 +708,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 'post_status'      => 'publish',
                 'suppress_filters' => false,
                 'no_found_rows'    => 1,
-                'include'          => $product_id
+                'include'          => $product_id,
+                'lang'             => ''
             ) );
 
             $this->fill_table( $posts );

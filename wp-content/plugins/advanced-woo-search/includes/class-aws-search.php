@@ -587,6 +587,9 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 //                    $categories = $product->get_categories( ',' );
 //                    $tags = $product->get_tags( ',' );
 
+                    $title   = apply_filters( 'aws_title_search_result', $title, $post_id, $product );
+                    $excerpt = apply_filters( 'aws_excerpt_search_result', $excerpt, $post_id, $product );
+
                     $new_result = array(
                         'id'           => $post_id,
                         'title'        => $title,

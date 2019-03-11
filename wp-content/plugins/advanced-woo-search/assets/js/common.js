@@ -512,6 +512,25 @@
             }, 1000);
         } );
 
+        // Search results filters fix
+        var $filters_widget = $('.woocommerce.widget_layered_nav_filters');
+        var searchQuery = window.location.search;
+
+        if ( $filters_widget.length > 0 && searchQuery ) {
+            if ( searchQuery.indexOf('type_aws=true') !== -1 ) {
+                var $filterLinks = $filters_widget.find('ul li.chosen a');
+                if ( $filterLinks.length > 0 ) {
+                    var addQuery = '&type_aws=true';
+                    $filterLinks.each( function() {
+                        var filterLink = $(this).attr("href");
+                        if ( filterLink && filterLink.indexOf('post_type=product') !== -1 ) {
+                            $(this).attr( "href", filterLink + addQuery );
+                        }
+                    });
+                }
+            }
+        }
+
     });
 
 
