@@ -17,6 +17,11 @@ if ( ! class_exists( 'AWS_Table' ) ) :
         private $table_name;
 
         /**
+         * @var AWS_Table Data
+         */
+        private $data;
+
+        /**
          * Constructor
          */
         public function __construct() {
@@ -540,7 +545,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 //Insert data into table
                 $this->insert_into_table( $data );
-
 
             }
 

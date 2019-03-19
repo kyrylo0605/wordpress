@@ -62,7 +62,7 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 		    add_filter( 'found_posts_query', array( $this, 'filter_found_posts_query' ), 5, 2 );
 
             // Update filters links
-            add_filter( 'woocommerce_layered_nav_link', array( $this, 'woocommerce_layered_nav_link' ), 10, 3 );
+            add_filter( 'woocommerce_layered_nav_link', array( $this, 'woocommerce_layered_nav_link' ) );
 
         }
 
@@ -222,7 +222,10 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         /*
          * Update links for WooCommerce filter widgets
          */
-        public function woocommerce_layered_nav_link( $link, $term, $taxonomy ) {
+        public function woocommerce_layered_nav_link( $link ) {
+            if ( ! isset( $_GET['type_aws'] ) ) {
+                return $link;
+            }
 
             $first_char = '&';
 
