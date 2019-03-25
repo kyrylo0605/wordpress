@@ -12,36 +12,23 @@ function backup_guard_register_widget()
 add_action('widgets_init', 'backup_guard_register_widget');
 
 //The code that runs during plugin activation.
-function activate_backup_guard() {
-	// add_option('backup_guard_do_activation_redirect', true);
-
+function activate_backup_guard()
+{
 	//check if database should be updated
 	if (backupGuardShouldUpdate()) {
 		SGBoot::install();
 		SGBoot::didInstallForFirstTime();
 	}
-
-	// check if extensions should be installed
-	// if (backupGuardShouldInstallExtension(SG_BACKUP_GUARD_SECURITY_EXTENSION)) {
-	// 	$extensionAdapter = SGExtension::getInstance();
-	// 	$extensionAdapter->installExtension(SG_BACKUP_GUARD_SECURITY_EXTENSION);
-	// }
 }
 
-// function backupGuardPluginRedirect()
-// {
-// 	if (get_option('backup_guard_do_activation_redirect', false)) {
-// 		delete_option('backup_guard_do_activation_redirect');
-// 		wp_redirect(admin_url("admin.php?page=backup_guard_backups"));
-// 	}
-// }
-
 // The code that runs during plugin deactivation.
-function uninstall_backup_guard() {
+function uninstall_backup_guard()
+{
 	SGBoot::uninstall();
 }
 
-function deactivate_backup_guard() {
+function deactivate_backup_guard()
+{
 	$pluginCapabilities = backupGuardGetCapabilities();
 	if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE) {
 		require_once(SG_LIB_PATH.'SGAuthClient.php');
@@ -98,6 +85,9 @@ function backup_guard_admin_menu()
 	add_submenu_page('backup_guard_backups', _backupGuardT('Schedule', true), _backupGuardT('Schedule', true), 'manage_options', 'backup_guard_schedule', 'backup_guard_schedule_page');
 
 	add_submenu_page('backup_guard_backups', _backupGuardT('Settings', true), _backupGuardT('Settings', true), 'manage_options', 'backup_guard_settings', 'backup_guard_settings_page');
+
+	add_submenu_page('backup_guard_backups', _backupGuardT('System Info.', true), _backupGuardT('System Info.', true), 'manage_options', 'backup_guard_system_info', 'backup_guard_system_info_page');
+
 	add_submenu_page('backup_guard_backups', _backupGuardT('Services', true), _backupGuardT('Services', true), 'manage_options', 'backup_guard_services', 'backup_guard_services_page');
 	add_submenu_page('backup_guard_backups', _backupGuardT('Support', true), _backupGuardT('Support', true), 'manage_options', 'backup_guard_support', 'backup_guard_support_page');
 
@@ -105,18 +95,13 @@ function backup_guard_admin_menu()
 	if (SGBoot::isFeatureAvailable('SHOW_UPGRADE_PAGE')) {
 		add_submenu_page('backup_guard_backups', _backupGuardT('Why upgrade?', true), _backupGuardT('Why upgrade?', true), 'manage_options', 'backup_guard_pro_features', 'backup_guard_pro_features_page');
 	}
+}
 
-	// check if extensions should be installed
-	// if (backupGuardShouldActivateExtension(SG_BACKUP_GUARD_SECURITY_EXTENSION)) {
-	// 	$extensionAdapter = SGExtension::getInstance();
-	// 	$extensionAdapter->activateExtension(SG_BACKUP_GUARD_SECURITY_EXTENSION);
-	// }
-
-	// Create security extension page. To be applied in the next update.
-	/*$extensionAdapter = SGExtension::getInstance();
-	if ($extensionAdapter->isExtensionActive(SG_BACKUP_GUARD_SECURITY_EXTENSION)) {
-		add_submenu_page('backup_guard_backups', 'Security', 'Security', 'manage_options', 'backup_guard_security', 'backup_guard_security_page');
-	}*/
+function backup_guard_system_info_page()
+{
+	if (backupGuardValidateLicense()) {
+		require_once(plugin_dir_path(__FILE__).'public/systemInfo.php');
+	}
 }
 
 function backup_guard_services_page()
@@ -167,7 +152,7 @@ function backup_guard_backups_page()
 			'backupInProgress'         => _backupGuardT('Backing Up...', true),
 			'errorMessage'             => _backupGuardT('Something went wrong. Please try again.', true),
 			'noBackupsAvailable'       => _backupGuardT('No backups found.', true),
-			'invalidImportOption'      => _backupGuardT('Please select one off the options.', true),
+			'invalidImportOption'      => _backupGuardT('Please select one of the options.', true),
 			'invalidDownloadFile'      => _backupGuardT('Please choose one of the files.', true),
 			'import'                   => _backupGuardT('Import', true),
 			'importInProgress'         => _backupGuardT('Importing please wait...', true),
@@ -744,6 +729,27 @@ function add_dashboard_widgets()
 
 	require_once(plugin_dir_path( __FILE__ ).'public/dashboardWidget.php');
 	wp_add_dashboard_widget('backupGuardWidget', 'Backup Guard', 'backup_guard_dashboard_widget_function');
+}
+
+add_action('plugins_loaded', 'backupGuardloadTextDomain');
+function backupGuardloadTextDomain()
+{
+	$backupGuardLangDir = plugin_dir_path(__FILE__).'languages/';
+	$backupGuardLangDir = apply_filters('backupguardLanguagesDirectory', $backupGuardLangDir);
+
+	$locale = apply_filters('bg_plugin_locale', get_locale(), BACKUP_GUARD_TEXTDOMAIN);
+	$mofile = sprintf('%1$s-%2$s.mo', BACKUP_GUARD_TEXTDOMAIN, $locale);
+
+	$mofileLocal = $backupGuardLangDir.$mofile;
+
+	if (file_exists($mofileLocal)) {
+		// Look in local /wp-content/plugins/popup-builder/languages/ folder
+		load_textdomain(BACKUP_GUARD_TEXTDOMAIN, $mofileLocal);
+	}
+	else {
+		// Load the default language files
+		load_plugin_textdomain(BACKUP_GUARD_TEXTDOMAIN, false, $backupGuardLangDir);
+	}
 }
 
 /*

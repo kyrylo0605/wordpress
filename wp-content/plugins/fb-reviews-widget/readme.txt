@@ -1,10 +1,10 @@
 === Facebook Reviews ===
 Contributors: richplugins
-Donate link: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
+Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, facebook reviews, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.1
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Facebook Reviews Widget show Facebook Page reviews on your WordPress website to 
 
 == Description ==
 
-Why better to use <a href="https://richplugins.com/facebook-reviews-pro-wordpress-plugin">Business version</a> of the plugin
+Why better to use <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin">Business version</a> of the plugin
 
 The plugin display Facebook Page Reviews on your websites in sidebar widget to get more traffic and user trusts.
 
@@ -38,14 +38,14 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 
 = Get More Features with Business version! =
 
-[Upgrade to Business](https://richplugins.com/facebook-reviews-pro-wordpress-plugin)
+[Upgrade to Business](https://richplugins.com/business-reviews-bundle-wordpress-plugin)
 
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Trying to get more than 5 Google reviews
 * Google Rich Snippets (schema.org)
 * Support shortcode, powerful <b>Shortcode Builder</b>
 * Slider/Grid themes to show G+ reviews like testimonials
-* Google Trust Badge (right/left fixed or embedded)
+* Facebook Trust Badge (right/left fixed or embedded)
 * 'Write a review' button to available leave Google review directly on your website
 * Show/hide any elements (business, reviews, avatars, names, time and etc)
 * Any Sorting: recent, oldest, rating, striped
@@ -54,12 +54,12 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 * Minimum rating filter
 * Priority support
 
-= Additional Business Reviews Plugins =
+= Additional Free Reviews Plugins =
 
-Why limit your reviews to just Facebook Reviews? Check out our other free business reviews plugins to add to your site as well:
+Why limit your reviews to just Facebook Reviews? Check out our other free reviews plugins to add to your site as well:
 
-* [Google Reviews Pro](https://richplugins.com/google-reviews-pro-wordpress-plugin "Google Reviews Pro")
-* [Yelp Reviews Pro](https://richplugins.com/yelp-reviews-pro-wordpress-plugin "Yelp Reviews Pro")
+* [Google Reviews Widget](https://wordpress.org/plugins/widget-google-reviews/ "Google Reviews Widget")
+* [Yelp Reviews Widget](https://wordpress.org/plugins/widget-yelp-reviews/ "Yelp Reviews Widget")
 
 Please keep in mind that plugin requests Facebook permission <a href="https://developers.facebook.com/docs/facebook-login/permissions#reference-manage_pages" target="_blank">manage_pages</a> to read your page reviews and show it in the widget.
 
@@ -74,6 +74,9 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.5.4 =
+* Update readme and links to the business version
 
 = 1.5.3 =
 * Improve: update user picture dimension to 120x120

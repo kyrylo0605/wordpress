@@ -312,9 +312,9 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 }
 
 
-                $data['in_stock'] = method_exists( $product, 'get_stock_status' ) ? ( ( $product->get_stock_status() === 'outofstock' ) ? 0 : 1 ) : ( method_exists( $product, 'is_in_stock' ) ? $product->is_in_stock() : 1 );
+                $data['in_stock'] = $this->get_stock_status( $product );
                 $data['on_sale'] = $product->is_on_sale();
-                $data['visibility'] = method_exists( $product, 'get_catalog_visibility' ) ? $product->get_catalog_visibility() : ( method_exists( $product, 'get_visibility' ) ? $product->get_visibility() : 'visible' );
+                $data['visibility'] = $this->get_visibility( $product );
                 $data['lang'] = $lang ? $lang : '';
 
                 $sku = $product->get_sku();
@@ -652,6 +652,10 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 return;
             }
 
+            if ( wp_is_post_revision( $post_id ) ) {
+                return;
+            }
+
             $this->update_table( $post_id );
 
         }
@@ -716,7 +720,9 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 'lang'             => ''
             ) );
 
-            $this->fill_table( $posts );
+            if ( $posts ) {
+                $this->fill_table( $posts );
+            }
 
             do_action('aws_cache_clear');
 
@@ -859,6 +865,44 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             }
 
             return $tax_array_temp;
+
+        }
+
+        /*
+         * Get product stock status
+         *
+         * @return bool
+         */
+        private function get_stock_status( $product ) {
+
+            $stock_status = 1;
+
+            if ( method_exists( $product, 'get_stock_status' ) ) {
+                $stock_status = $product->get_stock_status() === 'outofstock' ? 0 : 1;
+            } elseif ( method_exists( $product, 'is_in_stock' ) ) {
+                $stock_status = $product->is_in_stock();
+            }
+
+            return $stock_status;
+
+        }
+
+        /*
+         * Get product visibility
+         *
+         * @return bool
+         */
+        private function get_visibility( $product ) {
+
+            $visibility = 'visible';
+
+            if ( method_exists( $product, 'get_catalog_visibility' ) ) {
+                $visibility = $product->get_catalog_visibility();
+            } elseif ( method_exists( $product, 'get_visibility' ) ) {
+                $visibility = $product->get_visibility();
+            }
+
+            return $visibility;
 
         }
 

@@ -1,3 +1,11 @@
+.backup-guard-label-success {
+  color: green;
+}
+
+.backup-guard-label-warning {
+  color: red;
+}
+
 .sg-feature-alert-text {
   color: gray;
   font-size: 13px;

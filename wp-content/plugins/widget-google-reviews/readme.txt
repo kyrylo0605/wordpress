@@ -1,10 +1,10 @@
 === Google Reviews Widget ===
 Contributors: richplugins
-Donate link: https://richplugins.com/google-reviews-pro-wordpress-plugin
+Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: google, reviews, google reviews, google places, google places reviews, testimonials, google review widget, google business reviews, slider, google review, review, google place review, google map reviews, google reviews pro, facebook reviews, facebook page reviews, yelp reviews, yelp business reviews
 Requires at least: 2.8
 Tested up to: 5.1
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Google Reviews Widget show Google Places Reviews on your WordPress website to in
 
 == Description ==
 
-`To get more features we have <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin">Business version</a> of the plugin`
+`To get more features we have <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin">Business version</a> of the plugin`
 
 This plugin display Google Business Reviews on your websites in sidebar widget. A unique feature of the plugin is that it saves reviews in WordPress database and have no depend on any services like Google to show reviews in the widget.
 
@@ -39,7 +39,7 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 
 = Get More Features with Business version! =
 
-[Upgrade to Business](https://richplugins.com/google-reviews-pro-wordpress-plugin)
+[Upgrade to Business](https://richplugins.com/business-reviews-bundle-wordpress-plugin)
 
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Trying to get more than 5 Google reviews
@@ -54,12 +54,12 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 * Minimum rating filter
 * Priority support
 
-= Additional Business Reviews Plugins =
+= Additional Free Reviews Plugins =
 
-Why limit your reviews to just Google Reviews? Check out our other free business reviews plugins to add to your site as well:
+Why limit your reviews to just Google Reviews? Check out our other free reviews plugins to add to your site as well:
 
-* [Facebook Reviews Pro](https://richplugins.com/facebook-reviews-pro-wordpress-plugin "Facebook Reviews Pro")
-* [Yelp Reviews Pro](https://richplugins.com/yelp-reviews-pro-wordpress-plugin "Yelp Reviews Pro")
+* [Facebook Reviews Widget](https://wordpress.org/plugins/fb-reviews-widget/ "Facebook Reviews Widget")
+* [Yelp Reviews Widget](https://wordpress.org/plugins/widget-yelp-reviews/ "Yelp Reviews Widget")
 
 == Installation ==
 
@@ -73,6 +73,9 @@ Why limit your reviews to just Google Reviews? Check out our other free business
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.7.2 =
+* Update readme and links to the business version
 
 = 1.7.1 =
 * Improve: added hook to enqueue scripts and styles

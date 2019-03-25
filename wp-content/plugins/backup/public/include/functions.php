@@ -11,11 +11,21 @@ function backupGuardShouldShowDiscountNotice()
 
 function _backupGuardT($key, $return = false)
 {
-	if($return) {
-		return $key;
+	if (SG_ENV_ADAPTER == SG_ENV_WORDPRESS) {
+		if($return) {
+			return __($key, "backup-guard-pro");
+		}
+		else {
+			_e($key, "backup-guard-pro");
+		}
 	}
 	else {
-		echo $key;
+		if($return) {
+			return $key;
+		}
+		else {
+			echo $key;
+		}
 	}
 }
 

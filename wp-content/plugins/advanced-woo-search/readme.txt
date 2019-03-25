@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 1.65
+Stable tag: 1.66
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,7 @@ Additional features available only in PRO plugin version.
 * Search **form layouts**
 * **Filters**. Switch between tabs to show different search results
 * **Unlimited** amount of search form instances
+* Support for **variable products**: show child products, parent product or both in search results.
 * Product **attributes** search ( including custom attributes)
 * Product **custom taxonomies** search
 * Product **custom fields** search
@@ -55,7 +56,7 @@ Additional features available only in PRO plugin version.
 * **Exclude/include** spicific products by its ids, taxonomies or attributes from search results
 * Ability to specify **source of image** for search results: featured image, gallery, product content, product short description or set default image if there is no other images
 * **Visibility/stock status option** - choose what catalog visibility and stock status must be for product to displayed in search results
-* Show product **categories** and **variations** in search results
+* Show product **categories** and **tags** in search results
 * AND or OR search logic
 * **Add to cart** button in search results
 * Support for [WooCommerce Brands plugin](https://woocommerce.com/products/brands/)
@@ -100,6 +101,9 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.66 =
+* Update search page support
 
 = 1.65 =
 * Fix YITH WooCommerce Ajax Product Filter plugin support

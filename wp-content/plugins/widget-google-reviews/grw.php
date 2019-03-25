@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Google Reviews Widget
-Plugin URI: https://richplugins.com/google-reviews-pro-wordpress-plugin
+Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.7.1
+Version: 1.7.2
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',            '1.7.1');
+define('GRW_VERSION',            '1.7.2');
 define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s64-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -72,7 +72,7 @@ function grw_plugin_row_meta($input, $file) {
 
     $links = array(
         '<a href="' . esc_url('https://richplugins.com/documentation') . '" target="_blank">' . grw_i('View Documentation') . '</a>',
-        '<a href="' . esc_url('https://richplugins.com/google-reviews-pro-wordpress-plugin') . '" target="_blank">' . grw_i('Upgrade to Business') . ' &raquo;</a>',
+        '<a href="' . esc_url('https://richplugins.com/business-reviews-bundle-wordpress-plugin') . '" target="_blank">' . grw_i('Upgrade to Business') . ' &raquo;</a>',
     );
     $input = array_merge($input, $links);
     return $input;

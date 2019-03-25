@@ -693,7 +693,7 @@ class SGBackup implements SGIBackupDelegate
 		SGBackupLog::write('Total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 
 		$archiveSizeInBytes = backupGuardRealFilesize($this->filesBackupPath);
-		$archiveSize = self::convertToReadableSize($archiveSizeInBytes);
+		$archiveSize = convertToReadableSize($archiveSizeInBytes);
 		SGBackupLog::write("Archive size: ".$archiveSize." (".$archiveSizeInBytes." bytes)");
 
 		$this->cleanUp();
@@ -895,19 +895,6 @@ class SGBackup implements SGIBackupDelegate
 		$this->didFinishRestore();
 	}
 
-	private static function convertToReadableSize($size)
-	{
-		if (!$size) {
-			return '';
-		}
-
-		$base = log($size) / log(1000);
-		$suffix = array("", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
-		$f_base = floor($base);
-
-		return round(pow(1000, $base - floor($base)), 1) . $suffix[$f_base];
-	}
-
 	/* General methods */
 
 	public static function getLogFileHeader($actionType, $fileName)
@@ -931,7 +918,7 @@ class SGBackup implements SGIBackupDelegate
 		$confs['homeurl'] = SG_HOME_URL;
 		$confs['uploadspath'] = SG_UPLOAD_PATH;
 		$confs['installation'] = SG_SITE_TYPE;
-		$freeSpace = self::convertToReadableSize(@disk_free_space(SG_APP_ROOT_DIRECTORY));
+		$freeSpace = convertToReadableSize(@disk_free_space(SG_APP_ROOT_DIRECTORY));
 		$confs['free_space'] = $freeSpace==false?'unknown':$freeSpace;
 
 		if (extension_loaded('gmp')) $lib = 'gmp';
@@ -977,7 +964,7 @@ class SGBackup implements SGIBackupDelegate
 		if ($actionType == SG_ACTION_TYPE_RESTORE) {
 			$archivePath = SG_BACKUP_DIRECTORY.$fileName.'/'.$fileName.'.sgbp';
 			$archiveSizeInBytes = backupGuardRealFilesize($archivePath);
-			$confs['archiveSize'] = self::convertToReadableSize($archiveSizeInBytes);
+			$confs['archiveSize'] = convertToReadableSize($archiveSizeInBytes);
 			$content .= 'Archive Size: '.$confs['archiveSize'].' ('.$archiveSizeInBytes.' bytes)'.PHP_EOL;
 		}
 

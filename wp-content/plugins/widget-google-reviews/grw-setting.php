@@ -170,7 +170,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
                         <p>Please see Introduction Video to understand how it works. Also you can find most common answers and solutions for most common questions and issues in next tabs.</p>
                         <div class="rplg-alert rplg-alert-success">
                             <strong>Try more features in the Business version</strong>: Merge Google, Facebook and Yelp reviews, Beautiful themes (Slider, Grid, Trust Badges), Shortcode support, Rich Snippets, Rating filter, Any sorting, Include/Exclude words filter, Hide/Show any elements, Priority support and many others.
-                            <a class="button-primary button" href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="margin-left:10px">Upgrade to Business</a>
+                            <a class="button-primary button" href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank" style="margin-left:10px">Upgrade to Business</a>
                         </div>
                         <br>
                         <div class="rplg-socials">
@@ -252,7 +252,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
 
             <div id="shortcode" class="tab-content" style="display:<?php echo $tab == 'shortcode' ? 'block' : 'none'?>;">
                 <h3>Shortcode Builder is available in the Business version of the plugin</h3>
-                <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;"><?php echo grw_i('Upgrade to Business'); ?></a>
+                <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;"><?php echo grw_i('Upgrade to Business'); ?></a>
             </div>
 
             <div id="support" class="tab-content" style="display:<?php echo $tab == 'support' ? 'block' : 'none'?>;">

@@ -17,6 +17,19 @@ function backupGuardGetCapabilities()
 	}
 }
 
+function convertToReadableSize($size)
+{
+	if (!$size) {
+		return '';
+	}
+
+	$base = log($size) / log(1000);
+	$suffix = array("", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+	$f_base = floor($base);
+
+	return round(pow(1000, $base - floor($base)), 1) . $suffix[$f_base];
+}
+
 function backupGuardgetSealPopup()
 {
 	$currentDate = time();
@@ -480,7 +493,7 @@ function backupGuardDownloadFileSymlink($safedir, $filename)
 		header("Location: " . $downloadURL . $string . "/" . $filename);
 	}
 	else{
-		wp_die(_backupGuardT("Symlink / shortcut creation failed! Seems your server configurations don’t allow symlink creation, so we’re unable to provide you the direct download url. You can download your backup using any FTP client. All backups and related stuff we locate “/wp-content/uploads/backup-guard” directory. If you need this functionality, you should check out your server configurations and make sure you don’t have any limitation related to symlink creation.", true));
+		wp_die(_backupGuardT("Symlink / shortcut creation failed! Seems your server configurations don't allow symlink creation, so we're unable to provide you the direct download url. You can download your backup using any FTP client. All backups and related stuff we locate '/wp-content/uploads/backup-guard' directory. If you need this functionality, you should check out your server configurations and make sure you don't have any limitation related to symlink creation.", true));
 	}
 	exit;
 }

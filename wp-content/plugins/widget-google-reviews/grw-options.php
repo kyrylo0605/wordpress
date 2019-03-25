@@ -102,7 +102,7 @@
 <div class="form-group">
     <div class="rplg-pro">
         <?php echo grw_i('Try more features in the Business version: '); ?>
-        <a href="https://richplugins.com/google-reviews-pro-wordpress-plugin" target="_blank">
+        <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">
             <?php echo grw_i('Upgrade to Business'); ?>
         </a>
     </div>

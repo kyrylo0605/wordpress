@@ -249,10 +249,14 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
          */
         private function aws_searchpage_enabled( $query ) {
             $enabled = true;
+
+            $post_type_product = ( $query->get( 'post_type' ) && is_string( $query->get( 'post_type' ) ) && $query->get( 'post_type' ) === 'product' ) ? true :
+                ( ( isset( $_GET['post_type'] ) && $_GET['post_type'] === 'product' ) ? true : false );
+
             if ( ( isset( $query->query_vars['s'] ) && ! isset( $_GET['type_aws'] ) ) ||
                 ! isset( $query->query_vars['s'] ) ||
                 ! $query->is_search() ||
-                ( $query->get( 'post_type' ) && is_string( $query->get( 'post_type' ) ) && $query->get( 'post_type' ) !== 'product' )
+                ! $post_type_product
             ) {
                 $enabled = false;
             }

@@ -14,6 +14,16 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 	private $httpCode;
 	private $contentType;
 
+	private $stream = false;
+
+	public function __construct()
+	{
+		$reloadMethod = SGConfig::get('SG_BACKGROUND_RELOAD_METHOD');
+		if ($reloadMethod == SG_RELOAD_METHOD_STREAM) {
+			$this->stream = true;
+		}
+	}
+
 	public function setGetWithQueryParams($getWithQueryParams)
 	{
 		$this->getWithQueryParams = $getWithQueryParams;

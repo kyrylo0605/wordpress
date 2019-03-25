@@ -141,7 +141,7 @@
 <div class="form-group">
     <div class="rplg-pro">
         <?php echo fbrev_i('Try more features in the Business version: '); ?>
-        <a href="https://richplugins.com/facebook-reviews-pro-wordpress-plugin" target="_blank">
+        <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">
             <?php echo fbrev_i('Upgrade to Business'); ?>
         </a>
     </div>

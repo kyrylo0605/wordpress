@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Facebook Reviews Widget
-Plugin URI: https://richplugins.com/facebook-reviews-pro-wordpress-plugin
+Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Facebook Page Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.5.3
+Version: 1.5.4
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.5.3');
+define('FBREV_VERSION',            '1.5.4');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/v3.1/');
 define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -77,7 +77,7 @@ function fbrev_plugin_row_meta($input, $file) {
 
     $links = array(
         //'<a href="' . esc_url('https://richplugins.com') . '" target="_blank">' . fbrev_i('View Documentation') . '</a>',
-        '<a href="' . esc_url('https://richplugins.com/facebook-reviews-pro-wordpress-plugin') . '" target="_blank">' . fbrev_i('Upgrade to Business') . ' &raquo;</a>',
+        '<a href="' . esc_url('https://richplugins.com/business-reviews-bundle-wordpress-plugin') . '" target="_blank">' . fbrev_i('Upgrade to Business') . ' &raquo;</a>',
     );
     $input = array_merge($input, $links);
     return $input;

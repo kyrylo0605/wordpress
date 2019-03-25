@@ -53,6 +53,11 @@
 					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span><?php _backupGuardT('Settings')?>
 				</a>
 			</li>
+			<li class="<?php echo strpos($page,'system_info')?'active':''?>">
+				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_system_info'); ?>">
+					<span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span><?php _backupGuardT('System Info.')?>
+				</a>
+			</li>
 			<li class="<?php echo strpos($page,'services')?'active':''?>">
 				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_services'); ?>">
 					<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span><?php _backupGuardT('Services')?>

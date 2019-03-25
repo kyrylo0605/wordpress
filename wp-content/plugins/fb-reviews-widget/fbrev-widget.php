@@ -47,7 +47,7 @@ class Fb_Reviews_Widget extends WP_Widget {
         wp_register_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__), array(), FBREV_VERSION);
         wp_enqueue_script('wpac_time_js', plugins_url('/static/js/wpac-time.js', __FILE__));
 
-        wp_register_style('fbrev_css', plugins_url('/static/css/facebook-review.css', __FILE__));
+        wp_register_style('fbrev_css', plugins_url('/static/css/facebook-review.css', __FILE__), array(), FBREV_VERSION);
         wp_enqueue_style('fbrev_css', plugins_url('/static/css/facebook-review.css', __FILE__));
     }
 

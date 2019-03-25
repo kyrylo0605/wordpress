@@ -412,7 +412,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 FROM
                     {$table_name}
                 WHERE
-                    type = 'product'
+                    1=1
                 {$query['source']}
                 {$query['search']}
                 {$query['stock']}

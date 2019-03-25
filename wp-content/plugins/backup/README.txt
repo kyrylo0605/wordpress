@@ -158,6 +158,10 @@ When you are facing an issue of any kind with any of our products, the first thi
 
 == Changelog ==
 
+= 1.1.83 =
+* Spanish translation added
+* System information section added
+
 = 1.1.82 =
 * Bug fixes and improvements
 
