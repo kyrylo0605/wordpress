@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 5.1
-Stable tag: 1.15.3
-Build time: 2019-03-06T09:36:20-08:00
+Stable tag: 1.15.4
+Build time: 2019-03-27T13:13:12-07:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/premium/
@@ -64,6 +64,18 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.15.4 - 27 March 2019 =
+* Slider field: Live updates for display value.
+* Widget block: Show error if missing or invalid widget data.
+* Google Maps: Add more links to relevant docs for enabling required APIs.
+* Google Maps Location field: Catch API key errors and display notice.
+* Run FitText resizer on `setup_widgets` too.
+* Add font url as property of font info object.
+* Image grid: Use opacity for initial hide of images so that size may still be detected.
+* Google Maps: Detect draggable or scroll_zoom before running setting migration.
+* Accordion and Tabs: Trigger window resize on start of animation.
+* Icon: Prevent undefined index notices.
 
 = 1.15.3 - 6 March 2019 =
 * Image grid: Fallback support, alt text, use measurement fields.
