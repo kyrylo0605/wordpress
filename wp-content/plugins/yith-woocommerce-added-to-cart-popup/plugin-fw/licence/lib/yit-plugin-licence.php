@@ -138,9 +138,16 @@ if ( !class_exists( 'YIT_Plugin_Licence' ) ) {
                         $activation_url = self::get_license_activation_url();
                         ?>
                         <div class="notice notice-error">
-                            <p><strong>Warning!</strong> You didn't set license key for the following products:
+                            <p>
+                                <?php printf( '<strong>%s</strong> %s:', _x( 'Warning!', "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw' ), _x( "You didn't set license key for the following products", "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.",'yith-plugin-fw' ) ); ?><strong></strong>
                                 <?php echo $product_list ?>
-                                which means you're missing out on updates and support. <a href='<?php echo $activation_url ?>'>Enter your license key</a>, please.</p>
+                                <?php printf( "%s. <a href='%s'>%s</a>, %s",
+                                    _x( "which means you're missing out on updates and support", "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw'  ),
+                                    $activation_url,
+                                    _x( 'Enter your license key', "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw' ),
+                                    _x( 'please', "[Part of]: Warning! You didn't set license key for the following products:[Plugins List] which means you're missing out on updates and support. Enter your license key, please.", 'yith-plugin-fw' )
+                                ); ?>
+                            </p>
                         </div>
                         <?php
                     }

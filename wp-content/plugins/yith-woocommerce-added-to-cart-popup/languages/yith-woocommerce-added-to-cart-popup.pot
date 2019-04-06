@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Added to Cart Popup\n"
-"POT-Creation-Date: 2016-10-24 10:56+0200\n"
+"POT-Creation-Date: 2019-04-03 11:56+0200\n"
 "PO-Revision-Date: 2015-06-23 09:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: YIThemes <plugins@yithemes.com>\n"
@@ -10,58 +10,52 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
-"X-Poedit-KeywordsList: __ ;_e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-KeywordsList: _e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;__\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
 
-#: ../includes/class.yith-wacp-admin.php:122
-#: ../includes/class.yith-wacp-admin.php:146
+#: ../includes/class.yith-wacp-admin.php:142
 msgid "Settings"
 msgstr ""
 
-#: ../includes/class.yith-wacp-admin.php:124
-#: ../includes/class.yith-wacp-admin.php:150
+#: ../includes/class.yith-wacp-admin.php:146
 msgid "Premium Version"
 msgstr ""
 
-#: ../includes/class.yith-wacp-admin.php:156
-#: ../includes/class.yith-wacp-admin.php:157
+#: ../includes/class.yith-wacp-admin.php:152
+#: ../includes/class.yith-wacp-admin.php:153
 msgctxt "Plugin name"
 msgid "Added to Cart Popup"
 msgstr ""
 
-#: ../includes/class.yith-wacp-admin.php:210
-msgid "Plugin Documentation"
-msgstr ""
-
-#: ../includes/class.yith-wacp-frontend.php:145
+#: ../includes/class.yith-wacp-frontend.php:152
 msgid "was added to your cart"
 msgstr ""
 
-#: ../includes/class.yith-wacp-frontend.php:150
+#: ../includes/class.yith-wacp-frontend.php:162
 msgid "Added to your cart"
 msgstr ""
 
-#: ../includes/class.yith-wacp-frontend.php:156
+#: ../includes/class.yith-wacp-frontend.php:168
 msgid "View cart"
 msgstr ""
 
-#: ../includes/class.yith-wacp-frontend.php:159
+#: ../includes/class.yith-wacp-frontend.php:171
 msgid "Continue shopping"
 msgstr ""
 
-#: ../init.php:41
+#: ../init.php:43
 msgid ""
 "YITH WooCommerce Added to Cart Popup is enabled but not effective. It "
 "requires WooCommerce in order to work."
 msgstr ""
 
-#: ../init.php:50
+#: ../init.php:52
 msgid ""
 "You can't activate the free version of YITH WooCommerce Added to Cart "
 "Popup while you are using the premium one."
@@ -72,77 +66,93 @@ msgid "General Options"
 msgstr ""
 
 #: ../plugin-options/general-options.php:18
-msgid "Show \"View Cart\" Button"
+msgid "Show product image"
 msgstr ""
 
 #: ../plugin-options/general-options.php:19
-msgid "Choose to show \"View Cart\" button in the popup"
+msgid "Choose to show product image in the popup"
 msgstr ""
 
 #: ../plugin-options/general-options.php:26
-msgid "Show \"Continue Shopping\" Button"
+msgid "Show product price"
 msgstr ""
 
 #: ../plugin-options/general-options.php:27
-msgid "Choose to show \"Continue Shopping\" button in the popup"
+msgid "Choose to show product price in the popup"
 msgstr ""
 
 #: ../plugin-options/general-options.php:34
-msgid "Button Background"
+msgid "Show \"View Cart\" Button"
 msgstr ""
 
 #: ../plugin-options/general-options.php:35
-msgid "Select the button background color"
+msgid "Choose to show \"View Cart\" button in the popup"
 msgstr ""
 
 #: ../plugin-options/general-options.php:42
-msgid "Button Background on Hover"
+msgid "Show \"Continue Shopping\" Button"
 msgstr ""
 
 #: ../plugin-options/general-options.php:43
-msgid "Select the button background color on mouse hover"
+msgid "Choose to show \"Continue Shopping\" button in the popup"
 msgstr ""
 
 #: ../plugin-options/general-options.php:50
-msgid "Button Text"
+msgid "Button Background"
 msgstr ""
 
 #: ../plugin-options/general-options.php:51
-msgid "Select the color of the text of the button"
+msgid "Select the button background color"
 msgstr ""
 
 #: ../plugin-options/general-options.php:58
-msgid "Button Text on Hover"
+msgid "Button Background on Hover"
 msgstr ""
 
 #: ../plugin-options/general-options.php:59
+msgid "Select the button background color on mouse hover"
+msgstr ""
+
+#: ../plugin-options/general-options.php:66
+msgid "Button Text"
+msgstr ""
+
+#: ../plugin-options/general-options.php:67
+msgid "Select the color of the text of the button"
+msgstr ""
+
+#: ../plugin-options/general-options.php:74
+msgid "Button Text on Hover"
+msgstr ""
+
+#: ../plugin-options/general-options.php:75
 msgid "Select the color of the text of the button on mouse hover"
 msgstr ""
 
-#: ../templates/admin/premium.php:226 ../templates/admin/premium.php:352
+#: ../templates/admin/premium.php:231 ../templates/admin/premium.php:392
 #, php-format
 msgid ""
 "Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Added to Cart "
 "Popup%2$s to benefit from all features!"
 msgstr ""
 
-#: ../templates/admin/premium.php:229 ../templates/admin/premium.php:355
+#: ../templates/admin/premium.php:234 ../templates/admin/premium.php:395
 msgid "UPGRADE"
 msgstr ""
 
-#: ../templates/admin/premium.php:230 ../templates/admin/premium.php:356
+#: ../templates/admin/premium.php:235 ../templates/admin/premium.php:396
 msgid "to the premium version"
 msgstr ""
 
-#: ../templates/admin/premium.php:236
+#: ../templates/admin/premium.php:241
 msgid "Premium Features"
 msgstr ""
 
-#: ../templates/admin/premium.php:244
+#: ../templates/admin/premium.php:249
 msgid "Shop or detail page?"
 msgstr ""
 
-#: ../templates/admin/premium.php:247
+#: ../templates/admin/premium.php:252
 #, php-format
 msgid ""
 "Pick your choice and %1$sshow the popup%2$s just to users that add the "
@@ -150,25 +160,26 @@ msgid ""
 "action from the product detail page."
 msgstr ""
 
-#: ../templates/admin/premium.php:257
+#: ../templates/admin/premium.php:262
 msgid "Popup content"
 msgstr ""
 
-#: ../templates/admin/premium.php:260
+#: ../templates/admin/premium.php:265
 #, php-format
 msgid ""
 "What will you choose? %1$sThe list of the elements of the cart, or the "
 "information about the last product added?%2$s It's up to you: choose what "
 "to show in the popup that will be opened once clicked on the \"Add to cart"
-"\" button.%3$sThe advanced option panel will let you choose whether to "
-"show or hide the images of all the products added in the popup."
+"\" button.%3$s If you want to provide further details in addition to the "
+"cart total, you can show the amount of the %1$sshipping fees%2$s and "
+"%1$staxes%2$s. "
 msgstr ""
 
-#: ../templates/admin/premium.php:276
+#: ../templates/admin/premium.php:281
 msgid "8 entrance animations"
 msgstr ""
 
-#: ../templates/admin/premium.php:279
+#: ../templates/admin/premium.php:284
 #, php-format
 msgid ""
 "Eight different styles for the opening of the popup in the pages of your "
@@ -177,11 +188,11 @@ msgid ""
 "also the most demanding users."
 msgstr ""
 
-#: ../templates/admin/premium.php:289
+#: ../templates/admin/premium.php:294
 msgid "Popup style"
 msgstr ""
 
-#: ../templates/admin/premium.php:292
+#: ../templates/admin/premium.php:297
 #, php-format
 msgid ""
 "The default color scheme of the popup can be totally different from the "
@@ -192,26 +203,26 @@ msgid ""
 "to the result you want with few clicks."
 msgstr ""
 
-#: ../templates/admin/premium.php:308
-msgid "Related Products"
+#: ../templates/admin/premium.php:313
+msgid "Suggested Products"
 msgstr ""
 
-#: ../templates/admin/premium.php:311
+#: ../templates/admin/premium.php:316
 #, php-format
 msgid ""
 "%1$sA strategic and smart way to highlight%2$s a selection of products in "
 "the end of the popup. In this way, you will be able to encourage your "
 "users to know more about the products they could have not discovered "
 "otherwise.%3$sIf you don't want to highlight particular products, this "
-"section could also be reserved to %1$sWooCommerce%2$s standard related "
-"products."
+"section could also be reserved to WooCommerce %1$s\"up-sell\"%2$s, %1$s"
+"\"cross-sell\"%2$s or %1$s\"related\"%2$s products."
 msgstr ""
 
-#: ../templates/admin/premium.php:321
+#: ../templates/admin/premium.php:326
 msgid "Mobile devices"
 msgstr ""
 
-#: ../templates/admin/premium.php:324
+#: ../templates/admin/premium.php:329
 #, php-format
 msgid ""
 "Nowadays, the majority of the users that surf the web uses mobile devices. "
@@ -221,15 +232,47 @@ msgid ""
 "tablet lovers."
 msgstr ""
 
-#: ../templates/admin/premium.php:340
+#: ../templates/admin/premium.php:345
 msgid "Product exclusion"
 msgstr ""
 
-#: ../templates/admin/premium.php:343
+#: ../templates/admin/premium.php:348
 #, php-format
 msgid ""
 "Restrict the features of the plugin only to %1$sspecific products%2$s of "
 "the shop.%3$sSelect those on which you want to show the popup to your "
 "users, or choose the categories of the products you want to exclude from "
 "the plugin behavior."
+msgstr ""
+
+#: ../templates/admin/premium.php:358
+msgid "Add to cart"
+msgstr ""
+
+#: ../templates/admin/premium.php:361
+#, php-format
+msgid ""
+"User experience is essential on your site. It is well-known that an "
+"%1$seasy purchase process encourages%2$s the users to increase their cart."
+msgstr ""
+
+#: ../templates/admin/premium.php:364
+#, php-format
+msgid ""
+"With the premium version of the plugin, you can give your users the "
+"possibility to add the %1$ssuggested products%2$s to the cart without "
+"abandoning the modal window.  "
+msgstr ""
+
+#: ../templates/admin/premium.php:380
+msgid "Add a floating cart icon to your shop."
+msgstr ""
+
+#: ../templates/admin/premium.php:383
+msgid ""
+"This way, your users can find the cart icon and check what's in the cart "
+"at any time. Set up the position of the cart icon as it should appear on "
+"the screen and it will always appear there, even if you scroll the page. "
+"This way, your users will be able to see the counter of products added to "
+"the cart and what's in it at any time!"
 msgstr ""

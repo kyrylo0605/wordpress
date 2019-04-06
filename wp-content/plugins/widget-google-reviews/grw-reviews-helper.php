@@ -22,7 +22,7 @@ function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_pow
     <?php
 }
 
-function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination) {
+function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img) {
     ?>
     <div class="wp-google-reviews">
     <?php
@@ -42,13 +42,16 @@ function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination)
                 } else {
                     $profile_photo_url = GRW_GOOGLE_AVATAR;
                 }
+                if ($reduce_avatars_size) {
+                    $profile_photo_url = str_replace('s128', 's50', $profile_photo_url);
+                }
+                grw_image($profile_photo_url, $review->author_name, $lazy_load_img, GRW_GOOGLE_AVATAR);
                 ?>
-                <img src="<?php echo $profile_photo_url ?>" alt="<?php echo $review->author_name ?>" onerror="if(this.src!='<?php echo GRW_GOOGLE_AVATAR; ?>')this.src='<?php echo GRW_GOOGLE_AVATAR; ?>';">
             </div>
             <div class="wp-google-right">
                 <?php
                 if (strlen($review->author_url) > 0) {
-                    grw_anchor($review->author_url, 'wp-google-name', $review->author_name, true, true);
+                    grw_anchor($review->author_url, 'wp-google-name', $review->author_name, $open_link, $nofollow_link);
                 } else {
                     if (strlen($review->author_name) > 0) {
                         $author_name = $review->author_name;
@@ -127,5 +130,9 @@ function grw_trim_text($text, $size) {
 
 function grw_anchor($url, $class, $text, $open_link, $nofollow_link) {
     ?><a href="<?php echo $url; ?>" class="<?php echo $class; ?>" <?php if ($open_link) { ?>target="_blank"<?php } ?> <?php if ($nofollow_link) { ?>rel="nofollow"<?php } ?>><?php echo $text; ?></a><?php
+}
+
+function grw_image($src, $alt, $lazy, $def_ava = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', $atts = '') {
+    ?><img <?php if ($lazy) { ?>src="<?php echo $def_ava; ?>" data-<?php } ?>src="<?php echo $src; ?>" class="rplg-review-avatar<?php if ($lazy) { ?> rplg-blazy<?php } ?>" alt="<?php echo $alt; ?>" onerror="if(this.src!='<?php echo $def_ava; ?>')this.src='<?php echo $def_ava; ?>';" <?php echo $atts; ?>><?php
 }
 ?>

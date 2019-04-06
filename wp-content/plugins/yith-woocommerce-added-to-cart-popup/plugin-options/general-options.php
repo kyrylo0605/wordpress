@@ -23,6 +23,14 @@ $general = array(
 		),
 
 		array(
+			'title' => __( 'Show product price', 'yith-woocommerce-added-to-cart-popup' ),
+			'desc' => __( 'Choose to show product price in the popup', 'yith-woocommerce-added-to-cart-popup' ),
+			'type' => 'checkbox',
+			'default'   => 'no',
+			'id' => 'yith-wacp-show-price'
+		),
+
+		array(
 			'title' => __( 'Show "View Cart" Button', 'yith-woocommerce-added-to-cart-popup' ),
 			'desc' => __( 'Choose to show "View Cart" button in the popup', 'yith-woocommerce-added-to-cart-popup' ),
 			'type' => 'checkbox',

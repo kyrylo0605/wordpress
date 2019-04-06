@@ -22,12 +22,14 @@ class Goog_Reviews_Widget extends WP_Widget {
         'text_size'            => '120',
         'dark_theme'           => '',
         'view_mode'            => 'list',
-        'pagination'           => '',
+        'pagination'           => '5',
         'max_width'            => '',
         'max_height'           => '',
         'centered'             => false,
+        'reduce_avatars_size'  => true,
         'open_link'            => true,
         'nofollow_link'        => true,
+        'lazy_load_img'        => true,
         'reviews_lang'         => '',
     );
 

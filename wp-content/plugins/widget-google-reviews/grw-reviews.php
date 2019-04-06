@@ -2,6 +2,11 @@
 wp_register_script('rplg_js', plugins_url('/static/js/rplg.js', __FILE__));
 wp_enqueue_script('rplg_js', plugins_url('/static/js/rplg.js', __FILE__));
 
+if ($lazy_load_img) {
+    wp_register_script('rplg_blazy', plugins_url('/static/js/blazy.min.js', __FILE__));
+    wp_enqueue_script('rplg_blazy', plugins_url('/static/js/blazy.min.js', __FILE__));
+}
+
 include_once(dirname(__FILE__) . '/grw-reviews-helper.php');
 
 $reviews_where = '';
@@ -71,7 +76,7 @@ if (is_numeric($max_height)) {
         <div class="wp-google-body"></div>
         <div class="wp-google-content">
             <div class="wp-google-content-inner">
-                <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination); ?>
+                <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img); ?>
             </div>
         </div>
         <div class="wp-google-footer">
@@ -89,7 +94,7 @@ if (is_numeric($max_height)) {
             <?php grw_place($rating, $place, $place_img, $reviews, $dark_theme); ?>
         </div>
         <div class="wp-google-content-inner">
-            <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination); ?>
+            <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img); ?>
         </div>
     </div>
 </div>

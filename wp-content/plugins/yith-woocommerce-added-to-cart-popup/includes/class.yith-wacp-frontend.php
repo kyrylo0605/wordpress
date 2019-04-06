@@ -131,6 +131,7 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 		public function add_to_cart_success_ajax( $datas ) {
 
 			$show_image = get_option( 'yith-wacp-show-image', 'no' ) == 'yes';
+			$show_price = get_option( 'yith-wacp-show-price', 'no' ) == 'yes';
 			$view_cart  = get_option( 'yith-wacp-show-go-cart' ) == 'yes';
 			$continue   = get_option( 'yith-wacp-show-continue-shopping' ) == 'yes';
 			$cart_url   = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : WC()->cart->get_cart_url();
@@ -149,6 +150,11 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 
 				<div class="product-info">
 					<p><?php echo '<b>' . $product->get_title() . '</b> ' . __( 'was added to your cart', 'yith-woocommerce-added-to-cart-popup' ) ?></p>
+                    <?php if( $show_price ) : ?>
+                        <div class="product-price">
+                            <?php echo $product->get_price_html() ?>
+                        </div>
+                    <?php endif; ?>
 				</div>
 
 			<?php else: ?>

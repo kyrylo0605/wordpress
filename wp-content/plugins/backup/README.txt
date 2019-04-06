@@ -5,7 +5,7 @@ Author: Backup Guard
 Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -22,6 +22,8 @@ https://www.youtube.com/watch?v=HCz4mkMMXos
 
 <h4>Free backup features</h4>
 <ul>
+<li><strong>Migrate site</strong> - migrate site from one domain to another</li>
+<li>Fully automatic migration - no any <strong>find & replace</strong> rules are required for migration</li>
 <li>Backup site - backup site as many times as you want</li>
 <li>Backup files, database or both</li>
 <li>Choose which folders to backup</li>
@@ -37,15 +39,13 @@ https://www.youtube.com/watch?v=HCz4mkMMXos
 <li>Ability to exclude database tables</li>
 <li>Live progress - precise progress of the current backup or restore</li>
 <li>Upload to Dropbox</li>
+<li>Scheduled site backups - setup automatic site backups</li>
 </ul>
 
 See <strong>BackupGuard Free</strong> in action here: <a href="https://www.youtube.com/watch?v=nt6XoP69c0M">https://www.youtube.com/watch?v=nt6XoP69c0M</a>
 
 <h4>Pro backup features</h4>
 <ul>
-<li><strong>Migrate site</strong> - migrate site from one domain to another</li>
-<li>Fully automatic migration - no any <strong>find & replace</strong> rules are required for migration</li>
-<li>Scheduled site backups - setup automatic site backups</li>
 <li>Multiple scheduled backups - schedule your database and files to backup with different frequencies</li>
 <li>Upload to Dropbox, G Drive, Amazon S3, OneDrive & SFTP/FTP</li>
 <li>Import from Dropbox, G Drive, Amazon S3, OneDrive & SFTP/FTP</li>
@@ -157,6 +157,9 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+
+= 1.1.84 =
+* Now you can perform migration with free version
 
 = 1.1.83 =
 * Spanish translation added

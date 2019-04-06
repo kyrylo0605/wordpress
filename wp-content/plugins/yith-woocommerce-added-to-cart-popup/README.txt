@@ -2,8 +2,8 @@
 Contributors: yithemes
 Tags: added to cart, add to cart popup, cart, shop, shopping cart
 Requires at least: 4.0
-Tested up to: 5.0
-Stable tag: 1.3.6
+Tested up to: 5.1
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,57 +35,64 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 == Changelog ==
 
+= 1.3.7 = Released on Apr 03, 2019
+
+* New: Support to WooCommerce 3.6.0 RC1
+* New: Support to WordPress 5.1
+* New: Option to show/hide product price in popup
+* Update: Plugin Core
+
 = 1.3.6 = Released on Feb 02, 2019
 
-* New: Support to WooCommerce 3.5.4.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.5.4
+* Update: Plugin Core
 
 = 1.3.5 = Released on Dec 05, 2018
 
-* New: Support to WooCommerce 3.5.2.
-* New: Support to WordPress 5.0.0.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.5.2
+* New: Support to WordPress 5.0.0
+* Update: Plugin Core
 
 = 1.3.4 = Released on Oct 24, 2018
 
-* New: Support to WooCommerce 3.5.0.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.5.0
+* Update: Plugin Core
 
 = 1.3.3 = Released on Sep 28, 2018
 
-* Update: Plugin Core.
+* Update: Plugin Core
 
 = 1.3.2 = Released on Sep 07, 2018
 
-* New: Support to WooCommerce 3.4.5.
-* New: Support to WordPress 4.9.8.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.4.5
+* New: Support to WordPress 4.9.8
+* Update: Plugin Core
 
 = 1.3.1 = Released on May 30, 2018
 
-* New: Support to WooCommerce 3.4.1.
-* New: Support to WordPress 4.9.6.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.4.1
+* New: Support to WordPress 4.9.6
+* Update: Plugin Core
 
 = 1.3.0 = Released on Feb 01, 2018
 
-* New: Support to WooCommerce 3.3.0.
-* New: Support to WordPress 4.9.2.
-* New: Popup style.
-* New: Option to show/hide product image in popup.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.3.0
+* New: Support to WordPress 4.9.2
+* New: Popup style
+* New: Option to show/hide product image in popup
+* Update: Plugin Core
 
 = 1.2.0 = Released on Oct 17, 2017
 
-* New: Support to WooCommerce 3.2.1.
-* New: Support to WordPress 4.8.2.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.2.1
+* New: Support to WordPress 4.8.2
+* Update: Plugin Core
 
 = 1.1.0 = Released on Mar 22, 2017
 
-* New: Support to WooCommerce 3.0.0 RC1.
-* New: Support to WordPress 4.7.3.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.0.0 RC1
+* New: Support to WordPress 4.7.3
+* Update: Plugin Core
 
 = 1.0.7 = Released on Nov 28, 2016
 
@@ -96,10 +103,10 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 = 1.0.6 = Released on Oct 24, 2016
 
 * New: Support to WooCommerce 2.6.6
-* Update: Change text domain from yith-wacp to yith-woocommerce-added-to-cart-popup.
+* Update: Change text domain from yith-wacp to yith-woocommerce-added-to-cart-popup
 * Update: Language Files
 * Update: Plugin Core
-* Fix: Responsive popup style.
+* Fix: Responsive popup style
 
 = 1.0.5 = Released on Jun 10, 2016
 
@@ -108,7 +115,7 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.0.4 = Released on Apr 14, 2016
 
-* New: Added minimized js files. Plugin loads full files version if the constant "SCRIPT_DEBUG" is defined and is true.
+* New: Added minimized js files. Plugin loads full files version if the constant "SCRIPT_DEBUG" is defined and is true
 * New: Compatibility with WordPress 4.5
 * Update: Plugin Core
 
@@ -122,8 +129,8 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 = 1.0.2 = Released on Aug 13, 2015
 
 * New: Compatibility with WooCommerce 2.4
-* Update: Plugin Core.
-* Update: Language file.
+* Update: Plugin Core
+* Update: Language file
 
 = 1.0.1 = Released on Jul 27, 2015
 
@@ -147,7 +154,9 @@ Or, if you have created your own language pack, or have an update for an existin
 
 == Upgrade notice ==
 
-= 1.3.6 = Released on Feb 02, 2019
+= 1.3.7 = Released on Apr 03, 2019
 
-* New: Support to WooCommerce 3.5.4.
-* Update: Plugin Core.
+* New: Support to WooCommerce 3.6.0 RC1
+* New: Support to WordPress 5.1
+* New: Option to show/hide product price in popup
+* Update: Plugin Core

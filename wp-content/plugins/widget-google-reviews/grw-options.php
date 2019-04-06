@@ -84,6 +84,24 @@
 <div class="form-group">
     <div class="col-sm-12">
         <label>
+            <input id="<?php echo $this->get_field_id('reduce_avatars_size'); ?>" name="<?php echo $this->get_field_name('reduce_avatars_size'); ?>" type="checkbox" value="1" <?php checked('1', $reduce_avatars_size); ?> class="form-control" />
+            <?php echo grw_i('Reduce avatars size'); ?>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-12">
+        <label>
+            <input id="<?php echo $this->get_field_id('lazy_load_img'); ?>" name="<?php echo $this->get_field_name('lazy_load_img'); ?>" type="checkbox" value="1" <?php checked('1', $lazy_load_img); ?> class="form-control" />
+            <?php echo grw_i('Lazy load images'); ?>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-12">
+        <label>
             <input id="<?php echo $this->get_field_id('open_link'); ?>" name="<?php echo $this->get_field_name('open_link'); ?>" type="checkbox" value="1" <?php checked('1', $open_link); ?> class="form-control" />
             <?php echo grw_i('Open links in new Window'); ?>
         </label>
