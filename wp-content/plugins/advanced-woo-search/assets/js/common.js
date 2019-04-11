@@ -75,7 +75,8 @@
                     action: 'aws_action',
                     keyword : searchFor,
                     page: 0,
-                    lang: d.lang
+                    lang: d.lang,
+                    pageurl: window.location.href
                 };
 
                 requests.push(

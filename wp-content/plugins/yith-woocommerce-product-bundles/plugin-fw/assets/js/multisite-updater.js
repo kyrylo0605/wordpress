@@ -74,7 +74,7 @@
                 }
 
                 if( version_compare( plugin[ headers ].Version, plugin[ headers ].Latest, '>' ) ){
-                    html = html + localize.strings.version_issue
+                    html = html + localize.strings.version_issue.replace( '%plugin_name%', name )
                 }
 
                 html = html +

@@ -191,6 +191,11 @@ if ( !class_exists( 'YIT_Licence' ) ) {
                                              )
             );
 
+	        wp_localize_script( 'yit-licence', 'yith_ajax', array(
+			        'url' => admin_url( 'admin-ajax.php', 'relative' )
+		        )
+	        );
+
             /* Enqueue Scripts only in Licence Activation page of plugins and themes */
             if ( strpos( get_current_screen()->id, 'yith_plugins_activation' ) !== false || strpos( get_current_screen()->id, 'yit_panel_license' ) !== false ) {
                 wp_enqueue_script( 'yit-licence' );

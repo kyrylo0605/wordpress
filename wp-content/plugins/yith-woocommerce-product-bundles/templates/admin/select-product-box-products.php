@@ -9,13 +9,16 @@ $offset        = $page > 1 ? ( ( $page - 1 ) * $per_page ) : 0;
 $product_types = yith_wcpb_get_allowed_product_types();
 
 $args = array(
-    'limit'    => $per_page,
-    'offset'   => $offset,
-    'type'     => array_keys( $product_types ),
-    'status'   => 'publish',
-    'paginate' => true,
-    's'        => !empty( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : ''
+    'limit'            => $per_page,
+    'offset'           => $offset,
+    'type'             => array_keys( $product_types ),
+    'status'           => 'publish',
+    'paginate'         => true,
+    's'                => !empty( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '',
+    'suppress_filters' => false,
 );
+
+$args = apply_filters( 'yith_wcpb_select_product_box_args', $args );
 
 $products_query = new WC_Product_Query( $args );
 $results        = $products_query->get_products();

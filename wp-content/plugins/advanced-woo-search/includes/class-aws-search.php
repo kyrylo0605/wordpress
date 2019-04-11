@@ -405,6 +405,12 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $query['lang'] = $wpdb->prepare( " AND ( lang LIKE %s OR lang = '' )", $current_lang );
             }
 
+            /**
+             * Filter search query parameters
+             * @since 1.67
+             * @param array $query Query parameters
+             */
+            $query = apply_filters( 'aws_search_query_array', $query );
 
             $sql = "SELECT
                     distinct ID,

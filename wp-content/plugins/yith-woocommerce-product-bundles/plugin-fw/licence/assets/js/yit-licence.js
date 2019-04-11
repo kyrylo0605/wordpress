@@ -69,7 +69,7 @@
             if ( false === error ) {
                 jQuery.ajax( {
                                  type   : 'POST',
-                                 url    : ajaxurl,
+                                 url    : typeof ajaxurl != 'undefined' ? ajaxurl : yith_ajax.url,
                                  data   : data,
                                  success: function ( response ) {
 

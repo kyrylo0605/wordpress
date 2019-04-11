@@ -84,11 +84,14 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
             add_filter( 'woocommerce_cart_item_class', array( $this, 'table_item_class_bundle' ), 10, 2 );
 
             add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'woocommerce_get_cart_item_from_session' ), 10, 3 );
+            add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'remove_bundled_items_without_parent_bundle' ), 99 );
 
             // O R D E R
             add_filter( 'woocommerce_order_formatted_line_subtotal', array( $this, 'woocommerce_order_formatted_line_subtotal' ), 10, 3 );
             add_filter( 'woocommerce_checkout_create_order_line_item', array( $this, 'woocommerce_checkout_create_order_line_item' ), 10, 4 );
             add_filter( 'woocommerce_order_item_class', array( $this, 'table_item_class_bundle' ), 10, 2 );
+
+            add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'woocommerce_order_item_needs_processing' ), 10, 3 );
 
             /**
              * Order Again
@@ -103,13 +106,32 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
         }
 
         /**
+         * remove bundled items in cart if the bundle is not in cart
+         * (added to fix an issue when removing the bundle if YITH Dynamic Pricing is active)
+         *
+         * @since 1.2.18 Premium
+         */
+        public function remove_bundled_items_without_parent_bundle() {
+            if ( empty( WC()->cart->cart_contents ) ) {
+                return;
+            }
+            foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
+                if ( isset( $cart_item[ 'bundled_by' ] ) ) {
+                    $bundle_key = $cart_item[ 'bundled_by' ];
+                    if ( !isset( WC()->cart->cart_contents[ $bundle_key ] ) ) {
+                        WC()->cart->remove_cart_item( $cart_item_key );
+                    }
+                }
+            }
+        }
+
+
+        /**
          * add cart item data for bundles when 'Order Again'
          *
          * @param array         $cart_item_data
          * @param WC_Order_Item $item
-         *
          * @since 1.2.11
-         *
          * @return array
          */
         public function woocommerce_order_again_cart_item_data( $cart_item_data, $item ) {
@@ -145,9 +167,7 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
          * @param int   $variation_id
          * @param array $variations
          * @param array $cart_item_data
-         *
          * @since 1.2.11
-         *
          * @return bool
          */
         public function woocommerce_order_again_add_to_cart_validation( $validation, $product_id = '', $quantity = 1, $variation_id = '', $variations = array(), $cart_item_data = array() ) {
@@ -159,7 +179,6 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
          * exclude bundled items from the count
          *
          * @param $count
-         *
          * @return int
          */
         public function woocommerce_cart_contents_count( $count ) {
@@ -502,7 +521,6 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
          * @access public
          * @since  1.0.19
          * @author Leanza Francesco <leanzafrancesco@gmail.com>
-         *
          * @param         $cart_item_key
          * @param WC_Cart $cart
          */
@@ -569,9 +587,9 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
         /**
          * add meta in order
          *
-         * @access public
-         * @since  1.0.0
-         * @author Leanza Francesco <leanzafrancesco@gmail.com>
+         * @access     public
+         * @since      1.0.0
+         * @author     Leanza Francesco <leanzafrancesco@gmail.com>
          * @deprecated since 1.2.11
          */
         public function woocommerce_add_order_item_meta( $item_id, $values, $cart_item_key ) {
@@ -585,7 +603,6 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
          * @param string                $cart_item_key
          * @param array                 $values
          * @param WC_Order              $order
-         *
          * @since 1.2.11
          */
         public function woocommerce_checkout_create_order_line_item( $item, $cart_item_key, $values, $order ) {
@@ -629,6 +646,21 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
             }
 
             return $packages;
+        }
+
+        /**
+         * set order_needs_processing to false for Bundles
+         *
+         * @param bool       $needs_processing
+         * @param WC_Product $product
+         * @param int        $order_id
+         * @return bool
+         */
+        public function woocommerce_order_item_needs_processing( $needs_processing, $product, $order_id ) {
+            if ( $product->is_type( 'yith_bundle' ) )
+                return false;
+
+            return $needs_processing;
         }
 
         public function enqueue_scripts() {

@@ -140,7 +140,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 
 				$error = false;
 				if ( ! is_wp_error( $remote_xml ) && isset( $remote_xml['response']['code'] ) && '200' == $remote_xml['response']['code'] ) {
-					$plugin_remote_info = @simplexml_load_string( $remote_xml['body'] );
+					$plugin_remote_info = function_exists( 'simplexml_load_string' ) ? @simplexml_load_string( $remote_xml['body'] ) : false;
 					if ( $plugin_remote_info ) {
 						$info['Latest']    = (string) $plugin_remote_info->latest;
 						$info['changelog'] = (string) $plugin_remote_info->changelog;
@@ -198,7 +198,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 				'unavailable'   => __( 'Automatic update is unavailable for this plugin,', 'yith-plugin-fw' ),
 				'activate'      => __( 'please <a href="%activate_link%">activate</a> your copy of %plugin_name%.', 'yith-plugin-fw' ),
 				'update_now'    => __( 'Update now.', 'yith-plugin-fw' ),
-				'version_issue' => __( '<br/><b>Please note:</b> You are using a higher version than the latest available one. </em>Please, make sure you\'ve downloaded the latest version of <em>%1$s</em> from the only <a href="https://yithemes.com" target="_blank">YITH official website</a>, specifically, from your <a href="https://yithemes.com/my-account/recent-downloads/" target="_blank">Downloads page</a>. This is the only way to be sure the version you are using is 100% malware-free.', 'yith-plugin-fw' ),
+				'version_issue' => __( '<br/><b>Please note:</b> You are using a higher version than the latest available one. </em>Please, make sure you\'ve downloaded the latest version of <em>%plugin_name%</em> from the only <a href="https://yithemes.com" target="_blank">YITH official website</a>, specifically, from your <a href="https://yithemes.com/my-account/recent-downloads/" target="_blank">Downloads page</a>. This is the only way to be sure the version you are using is 100% malware-free.', 'yith-plugin-fw' ),
 			);
 
 			foreach ( $this->_plugins as $init => $info ) {
@@ -214,7 +214,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 				'details_url'            => $details_url,
 				'strings'                => $strings,
 			);
-			$suffix               = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			if( defined( 'YIT_CORE_PLUGIN_URL' ) ){
 				yit_enqueue_script( 'yit-multisite-updater', YIT_CORE_PLUGIN_URL . '/assets/js/multisite-updater' . $suffix . '.js', array( 'jquery' ), false, true );
@@ -226,7 +226,24 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 		public function admin_enqueue_scripts() {
 			global $pagenow;
 			if ( 'plugins.php' === $pagenow && defined( 'YIT_CORE_PLUGIN_URL' ) ) {
+				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 				wp_enqueue_style( 'yit-upgrader', YIT_CORE_PLUGIN_URL . '/assets/css/yit-upgrader.css' );
+				wp_enqueue_script( 'yith-update-plugins', YIT_CORE_PLUGIN_URL . '/assets/js/yith-update-plugins' . $suffix . '.js', array( 'jquery' ), false, true );
+
+				$update_plugins_localized = array(
+					'ajax_nonce' => wp_create_nonce( 'updates' ),
+					'ajaxurl'   => admin_url( 'admin-ajax.php', 'relative' ),
+					'l10n'       => array(
+						/* translators: %s: Plugin name and version */
+						'updating' => _x( 'Updating %s...', 'plugin-fw', 'yith-plugin-fw' ), // No ellipsis.
+						/* translators: %s: Plugin name and version */
+						'updated'  => _x( '%s updated!', 'plugin-fw', 'yith-plugin-fw' ),
+						/* translators: %s: Plugin name and version */
+						'failed'   => _x( '%s update failed', 'plugin-fw', 'yith-plugin-fw' ),
+					),
+				);
+
+				wp_localize_script( 'yith-update-plugins', 'yith_plugin_fw', $update_plugins_localized );
 			}
 		}
 
@@ -454,7 +471,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 
 				if ( ! is_wp_error( $remote_xml ) && isset( $remote_xml['response']['code'] ) && '200' == $remote_xml['response']['code'] ) {
 
-					$plugin_remote_info = @simplexml_load_string( $remote_xml['body'] );
+					$plugin_remote_info = function_exists( 'simplexml_load_string' ) ? @simplexml_load_string( $remote_xml['body'] ) : false;
 
 					if ( $plugin_remote_info ) {
 						$wrong_current_version_check = version_compare( $plugin['info']['Version'], $plugin_remote_info->latest, '>' );
@@ -514,8 +531,10 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 		 */
 		public function plugin_update_row() {
 
-			$current = get_site_transient( 'update_plugins' );
-			$init    = str_replace( 'after_plugin_row_', '', current_filter() );
+			$current          = get_site_transient( 'update_plugins' );
+			$init             = str_replace( 'after_plugin_row_', '', current_filter() );
+			$update_now_class = apply_filters( 'yith_plugin_fw_update_now_class', '' );
+			$update_now_class = trim( $update_now_class . ' yith-update-link update-link' );
 
 			if ( ! isset( $current->response[ $init ] ) ) {
 				return false;
@@ -537,7 +556,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 			global $wp_version;
 			$is_wp_4_6 = version_compare( $wp_version, '4.6', '>=' );
 
-			echo '<tr class="plugin-update-tr active' . ( is_plugin_active( $init ) ? ' active' : '' ) . '"><td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange">';
+			echo '<tr class="plugin-update-tr' . ( is_plugin_active( $init ) ? ' active' : '' ) . '"><td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange">';
 
 			echo '<div class="update-message' . ( $is_wp_4_6 ? ' notice inline notice-warning notice-alt' : '' ) . '">';
 
@@ -556,7 +575,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
 			}
 
 			else {
-				printf( __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox yit-changelog-button open-plugin-details-modal" title="%3$s">View version %4$s details</a> or <a href="%5$s">update now</a>.', 'yith-plugin-fw' ), $this->_plugins[ $init ]['info']['Name'], esc_url( $details_url ), esc_attr( $this->_plugins[ $init ]['info']['Name'] ), $r->new_version, wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $init, 'upgrade-plugin_' . $init ) );
+				printf( __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox yit-changelog-button open-plugin-details-modal" title="%3$s">View version %4$s details</a> or <a href="%5$s" class="%6$s" data-plugin="%7$s" data-slug="%8$s" data-name="%1$s">update now</a>.', 'yith-plugin-fw' ), $this->_plugins[ $init ]['info']['Name'], esc_url( $details_url ), esc_attr( $this->_plugins[ $init ]['info']['Name'] ), $r->new_version, wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $init, 'upgrade-plugin_' . $init ), $update_now_class, $init, $this->_plugins[ $init ]['slug'] );
 			}
 
 			if( version_compare( $this->_plugins[ $init ]['info']['Version'] , $r->new_version, '>' ) ){

@@ -54,6 +54,27 @@
 }
 
 /*-----------------------
+    YITH FEEDS
+ ------------------------*/
+
+.yith-feeds-logo{
+    display: table-cell;
+    background: #005b7c;
+    padding: 5px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: text-bottom;
+    width: 18px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.yith-feeds-plugin-name{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/*-----------------------
     YITH Plugins Columns
  ------------------------*/
 @media screen and (min-width : 783px) {
