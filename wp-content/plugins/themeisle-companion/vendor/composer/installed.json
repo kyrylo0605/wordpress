@@ -119,15 +119,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-content-forms.git",
-            "reference": "4eae23736d3867cc0591c2984635ebf610bee13e"
+            "reference": "b0b62ae30104748832b4b456a6d6456be80ad8ae"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/4eae23736d3867cc0591c2984635ebf610bee13e",
-            "reference": "4eae23736d3867cc0591c2984635ebf610bee13e",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/b0b62ae30104748832b4b456a6d6456be80ad8ae",
+            "reference": "b0b62ae30104748832b4b456a6d6456be80ad8ae",
             "shasum": ""
         },
-        "time": "2019-03-18 07:08:53",
+        "time": "2019-04-18 14:41:11",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -159,15 +159,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/gutenberg-blocks.git",
-            "reference": "15e66dfae1f51d65eb2ee3ad60a7c51ed2958da3"
+            "reference": "d886af0d390a45d9d09c9b1d2c5ce93e22a3ea0d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/15e66dfae1f51d65eb2ee3ad60a7c51ed2958da3",
-            "reference": "15e66dfae1f51d65eb2ee3ad60a7c51ed2958da3",
+            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/d886af0d390a45d9d09c9b1d2c5ce93e22a3ea0d",
+            "reference": "d886af0d390a45d9d09c9b1d2c5ce93e22a3ea0d",
             "shasum": ""
         },
-        "time": "2019-03-08 21:04:12",
+        "time": "2019-04-18 01:19:32",
         "type": "library",
         "installation-source": "source",
         "autoload": {

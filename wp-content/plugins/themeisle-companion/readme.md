@@ -110,6 +110,16 @@ Activating the Orbit Fox plugin is just like any other plugin. If you've uploade
 5. Social Sharing Module
 
 ## Changelog ##
+### 2.8.2 - 2019-04-18  ###
+
+* Fix PHP notice
+
+
+### 2.8.1 - 2019-04-18  ###
+
+* Fix issues with newsletter form
+
+
 ### 2.8.0 - 2019-04-02  ###
 
 * Fix font awesome menu icons issue in the menu builder

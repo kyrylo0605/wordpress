@@ -62,15 +62,21 @@ class Plugin_Card_Block extends Base_Block {
 				$icon = $results->icons['default'];
 			}
 
-			$markup = '<div class="wp-block-themeisle-blocks-plugin-cards">
+			$class = 'wp-block-themeisle-blocks-plugin-cards';
+
+			if ( isset( $attributes['className'] ) ) {
+				$class .=  ' ' . esc_attr( $attributes['className'] );
+			}
+
+			$markup = '<div class="' . esc_attr( $class ) . '">
 				<div class="themeisle-plugin-card">
 					<div class="card-header">
 						<div class="card-main">
 							<div class="card-logo">
-								<img src="' . $icon . '" alt="' . $results->name . '" title="' . $results->name . '"/>
+								<img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $results->name ) . '" title="' . esc_attr( $results->name ) . '"/>
 							</div>
 							<div class="card-info">
-								<h4>' . $results->name . '</h4>
+								<h4>' . esc_html( $results->name ) . '</h4>
 								<h5>' . $results->author . '</h5>
 							</div>
 							<div class="card-ratings">
@@ -79,7 +85,7 @@ class Plugin_Card_Block extends Base_Block {
 						</div>
 					</div>
 					<div class="card-details">
-						<div class="card-description">' . $results->short_description . '</div>
+						<div class="card-description">' . esc_html( $results->short_description ) . '</div>
 						<div class="card-stats">
 							<h5>' . __( 'Plugin Stats', 'themeisle-companion' ) . '</h5>
 							<div class="card-stats-list">
@@ -88,18 +94,18 @@ class Plugin_Card_Block extends Base_Block {
 									' . __( 'active installs', 'themeisle-companion' ) . '
 								</div>
 								<div class="card-stat">
-									<span class="card-text-large">' . $results->version . '+</span>
+									<span class="card-text-large">' . floatval( $results ->version ) . '+</span>
 									' . __( 'version', 'themeisle-companion' ) . '
 								</div>
 								<div class="card-stat">
-									<span class="card-text-large">' . $results->tested . '+</span>
+									<span class="card-text-large">' . floatval( $results ->tested ) . '+</span>
 									' . __( 'tested up to', 'themeisle-companion' ) . '
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="card-download">
-						<a href="' . $results->download_link . '">' . __( 'Download', 'themeisle-companion' ) . '</a>
+						<a href="' . esc_url( $results->download_link ) . '">' . __( 'Download', 'themeisle-companion' ) . '</a>
 					</div>
 				</div>
 			</div>';
