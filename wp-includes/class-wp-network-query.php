@@ -259,7 +259,7 @@ class WP_Network_Query {
 		 *
 		 * @since 4.6.0
 		 *
-		 * @param array            $_networks An array of WP_Network objects.
+		 * @param WP_Network[]     $_networks An array of WP_Network objects.
 		 * @param WP_Network_Query $this      Current instance of WP_Network_Query (passed by reference).
 		 */
 		$_networks = apply_filters_ref_array( 'the_networks', array( $_networks, &$this ) );
@@ -327,6 +327,7 @@ class WP_Network_Query {
 
 		$number = absint( $this->query_vars['number'] );
 		$offset = absint( $this->query_vars['offset'] );
+		$limits = '';
 
 		if ( ! empty( $number ) ) {
 			if ( $offset ) {
@@ -392,6 +393,8 @@ class WP_Network_Query {
 
 		$where = implode( ' AND ', $this->sql_clauses['where'] );
 
+		$groupby = '';
+
 		$pieces = array( 'fields', 'join', 'where', 'orderby', 'limits', 'groupby' );
 
 		/**
@@ -399,7 +402,7 @@ class WP_Network_Query {
 		 *
 		 * @since 4.6.0
 		 *
-		 * @param array            $pieces A compacted array of network query clauses.
+		 * @param string[]         $pieces An associative array of network query clauses.
 		 * @param WP_Network_Query $this   Current instance of WP_Network_Query (passed by reference).
 		 */
 		$clauses = apply_filters_ref_array( 'networks_clauses', array( compact( $pieces ), &$this ) );
@@ -478,8 +481,8 @@ class WP_Network_Query {
 	 *
 	 * @global wpdb  $wpdb WordPress database abstraction object.
 	 *
-	 * @param string $string  Search string.
-	 * @param array  $columns Columns to search.
+	 * @param string   $string  Search string.
+	 * @param string[] $columns Array of columns to search.
 	 *
 	 * @return string Search SQL.
 	 */

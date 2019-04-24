@@ -256,7 +256,9 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		}
 
 		wp_localize_script(
-			'updates', '_wpUpdatesItemCounts', array(
+			'updates',
+			'_wpUpdatesItemCounts',
+			array(
 				'plugins' => $js_plugins,
 				'totals'  => wp_get_update_data(),
 			)
@@ -339,6 +341,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		if ( ! empty( $_REQUEST['s'] ) ) {
 			$s = esc_html( wp_unslash( $_REQUEST['s'] ) );
 
+			/* translators: %s: plugin search term */
 			printf( __( 'No plugins found for &#8220;%s&#8221;.' ), $s );
 
 			// We assume that somebody who can install plugins in multisite is experienced enough to not need this helper link.
@@ -419,24 +422,31 @@ class WP_Plugins_List_Table extends WP_List_Table {
 
 			switch ( $type ) {
 				case 'all':
+					/* translators: %s: plugin count */
 					$text = _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $count, 'plugins' );
 					break;
 				case 'active':
+					/* translators: %s: plugin count */
 					$text = _n( 'Active <span class="count">(%s)</span>', 'Active <span class="count">(%s)</span>', $count );
 					break;
 				case 'recently_activated':
+					/* translators: %s: plugin count */
 					$text = _n( 'Recently Active <span class="count">(%s)</span>', 'Recently Active <span class="count">(%s)</span>', $count );
 					break;
 				case 'inactive':
+					/* translators: %s: plugin count */
 					$text = _n( 'Inactive <span class="count">(%s)</span>', 'Inactive <span class="count">(%s)</span>', $count );
 					break;
 				case 'mustuse':
+					/* translators: %s: plugin count */
 					$text = _n( 'Must-Use <span class="count">(%s)</span>', 'Must-Use <span class="count">(%s)</span>', $count );
 					break;
 				case 'dropins':
+					/* translators: %s: plugin count */
 					$text = _n( 'Drop-ins <span class="count">(%s)</span>', 'Drop-ins <span class="count">(%s)</span>', $count );
 					break;
 				case 'upgrade':
+					/* translators: %s: plugin count */
 					$text = _n( 'Update Available <span class="count">(%s)</span>', 'Update Available <span class="count">(%s)</span>', $count );
 					break;
 			}
@@ -513,14 +523,14 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		if ( 'recently_activated' == $status ) {
 			submit_button( __( 'Clear List' ), '', 'clear-recent-list', false );
 		} elseif ( 'top' === $which && 'mustuse' === $status ) {
-			/* translators: %s: mu-plugins directory name */
 			echo '<p>' . sprintf(
+				/* translators: %s: mu-plugins directory name */
 				__( 'Files in the %s directory are executed automatically.' ),
 				'<code>' . str_replace( ABSPATH, '/', WPMU_PLUGIN_DIR ) . '</code>'
 			) . '</p>';
 		} elseif ( 'top' === $which && 'dropins' === $status ) {
-			/* translators: %s: wp-content directory name */
 			echo '<p>' . sprintf(
+				/* translators: %s: wp-content directory name */
 				__( 'Drop-ins are advanced plugins in the %s directory that replace WordPress functionality when present.' ),
 				'<code>' . str_replace( ABSPATH, '', WP_CONTENT_DIR ) . '</code>'
 			) . '</p>';
@@ -598,8 +608,8 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			} else {
 				$is_active   = false;
 				$description = '<p><strong>' . $dropins[ $plugin_file ][0] . ' <span class="error-message">' . __( 'Inactive:' ) . '</span></strong> ' .
-					/* translators: 1: drop-in constant name, 2: wp-config.php */
 					sprintf(
+						/* translators: 1: drop-in constant name, 2: wp-config.php */
 						__( 'Requires %1$s in %2$s file.' ),
 						"<code>define('" . $dropins[ $plugin_file ][1] . "', true);</code>",
 						'<code>wp-config.php</code>'
@@ -670,12 +680,12 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			 *
 			 * @since 3.1.0
 			 *
-			 * @param array  $actions     An array of plugin action links. By default this can include 'activate',
-			 *                            'deactivate', and 'delete'.
-			 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-			 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
-			 * @param string $context     The plugin context. By default this can include 'all', 'active', 'inactive',
-			 *                            'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
+			 * @param string[] $actions     An array of plugin action links. By default this can include 'activate',
+			 *                              'deactivate', and 'delete'.
+			 * @param string   $plugin_file Path to the plugin file relative to the plugins directory.
+			 * @param array    $plugin_data An array of plugin data. See `get_plugin_data()`.
+			 * @param string   $context     The plugin context. By default this can include 'all', 'active', 'inactive',
+			 *                              'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
 			 */
 			$actions = apply_filters( 'network_admin_plugin_action_links', $actions, $plugin_file, $plugin_data, $context );
 
@@ -687,12 +697,12 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			 *
 			 * @since 3.1.0
 			 *
-			 * @param array  $actions     An array of plugin action links. By default this can include 'activate',
-			 *                            'deactivate', and 'delete'.
-			 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-			 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
-			 * @param string $context     The plugin context. By default this can include 'all', 'active', 'inactive',
-			 *                            'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
+			 * @param string[] $actions     An array of plugin action links. By default this can include 'activate',
+			 *                              'deactivate', and 'delete'.
+			 * @param string   $plugin_file Path to the plugin file relative to the plugins directory.
+			 * @param array    $plugin_data An array of plugin data. See `get_plugin_data()`.
+			 * @param string   $context     The plugin context. By default this can include 'all', 'active', 'inactive',
+			 *                              'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
 			 */
 			$actions = apply_filters( "network_admin_plugin_action_links_{$plugin_file}", $actions, $plugin_file, $plugin_data, $context );
 
@@ -705,13 +715,13 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			 * @since 2.6.0 The `$context` parameter was added.
 			 * @since 4.9.0 The 'Edit' link was removed from the list of action links.
 			 *
-			 * @param array  $actions     An array of plugin action links. By default this can include 'activate',
-			 *                            'deactivate', and 'delete'. With Multisite active this can also include
-			 *                            'network_active' and 'network_only' items.
-			 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-			 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
-			 * @param string $context     The plugin context. By default this can include 'all', 'active', 'inactive',
-			 *                            'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
+			 * @param string[] $actions     An array of plugin action links. By default this can include 'activate',
+			 *                              'deactivate', and 'delete'. With Multisite active this can also include
+			 *                              'network_active' and 'network_only' items.
+			 * @param string   $plugin_file Path to the plugin file relative to the plugins directory.
+			 * @param array    $plugin_data An array of plugin data. See `get_plugin_data()`.
+			 * @param string   $context     The plugin context. By default this can include 'all', 'active', 'inactive',
+			 *                              'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
 			 */
 			$actions = apply_filters( 'plugin_action_links', $actions, $plugin_file, $plugin_data, $context );
 
@@ -724,13 +734,13 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			 * @since 2.7.0
 			 * @since 4.9.0 The 'Edit' link was removed from the list of action links.
 			 *
-			 * @param array  $actions     An array of plugin action links. By default this can include 'activate',
-			 *                            'deactivate', and 'delete'. With Multisite active this can also include
-			 *                            'network_active' and 'network_only' items.
-			 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-			 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
-			 * @param string $context     The plugin context. By default this can include 'all', 'active', 'inactive',
-			 *                            'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
+			 * @param string[] $actions     An array of plugin action links. By default this can include 'activate',
+			 *                              'deactivate', and 'delete'. With Multisite active this can also include
+			 *                              'network_active' and 'network_only' items.
+			 * @param string   $plugin_file Path to the plugin file relative to the plugins directory.
+			 * @param array    $plugin_data An array of plugin data. See `get_plugin_data()`.
+			 * @param string   $context     The plugin context. By default this can include 'all', 'active', 'inactive',
+			 *                              'recently_activated', 'upgrade', 'mustuse', 'dropins', and 'search'.
 			 */
 			$actions = apply_filters( "plugin_action_links_{$plugin_file}", $actions, $plugin_file, $plugin_data, $context );
 
@@ -741,6 +751,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		if ( $restrict_network_active || $restrict_network_only || in_array( $status, array( 'mustuse', 'dropins' ) ) ) {
 			$checkbox = '';
 		} else {
+			/* translators: %s: plugin name */
 			$checkbox = "<label class='screen-reader-text' for='" . $checkbox_id . "' >" . sprintf( __( 'Select %s' ), $plugin_data['Name'] ) . '</label>'
 				. "<input type='checkbox' name='checked[]' value='" . esc_attr( $plugin_file ) . "' id='" . $checkbox_id . "' />";
 		}
@@ -787,6 +798,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 
 					$plugin_meta = array();
 					if ( ! empty( $plugin_data['Version'] ) ) {
+						/* translators: %s: plugin version number */
 						$plugin_meta[] = sprintf( __( 'Version %s' ), $plugin_data['Version'] );
 					}
 					if ( ! empty( $plugin_data['Author'] ) ) {
@@ -794,6 +806,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 						if ( ! empty( $plugin_data['AuthorURI'] ) ) {
 							$author = '<a href="' . $plugin_data['AuthorURI'] . '">' . $plugin_data['Author'] . '</a>';
 						}
+						/* translators: %s: plugin version number */
 						$plugin_meta[] = sprintf( __( 'By %s' ), $author );
 					}
 
@@ -807,6 +820,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 									'&TB_iframe=true&width=600&height=550'
 								)
 							),
+							/* translators: %s: plugin name */
 							esc_attr( sprintf( __( 'More information about %s' ), $plugin_name ) ),
 							esc_attr( $plugin_name ),
 							__( 'View details' )
@@ -824,19 +838,21 @@ class WP_Plugins_List_Table extends WP_List_Table {
 					 *
 					 * @since 2.8.0
 					 *
-					 * @param array  $plugin_meta An array of the plugin's metadata,
-					 *                            including the version, author,
-					 *                            author URI, and plugin URI.
-					 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-					 * @param array  $plugin_data An array of plugin data.
-					 * @param string $status      Status of the plugin. Defaults are 'All', 'Active',
-					 *                            'Inactive', 'Recently Activated', 'Upgrade', 'Must-Use',
-					 *                            'Drop-ins', 'Search'.
+					 * @param string[] $plugin_meta An array of the plugin's metadata,
+					 *                              including the version, author,
+					 *                              author URI, and plugin URI.
+					 * @param string   $plugin_file Path to the plugin file relative to the plugins directory.
+					 * @param array    $plugin_data An array of plugin data.
+					 * @param string   $status      Status of the plugin. Defaults are 'All', 'Active',
+					 *                              'Inactive', 'Recently Activated', 'Upgrade', 'Must-Use',
+					 *                              'Drop-ins', 'Search'.
 					 */
 					$plugin_meta = apply_filters( 'plugin_row_meta', $plugin_meta, $plugin_file, $plugin_data, $status );
 					echo implode( ' | ', $plugin_meta );
 
-					echo '</div></td>';
+					echo '</div>';
+
+					echo '</td>';
 					break;
 				default:
 					$classes = "$column_name column-$column_name $class";

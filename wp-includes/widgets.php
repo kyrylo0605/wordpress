@@ -28,7 +28,7 @@ global $wp_registered_sidebars, $wp_registered_widgets, $wp_registered_widget_co
 /**
  * Stores the sidebars, since many themes can have more than one.
  *
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars Registered sidebars.
  * @since 2.2.0
  */
 $wp_registered_sidebars = array();
@@ -148,7 +148,7 @@ function unregister_widget( $widget ) {
  *
  * @see register_sidebar() The second parameter is documented by register_sidebar() and is the same here.
  *
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars The new sidebars are stored in this array by sidebar ID.
  *
  * @param int          $number Optional. Number of sidebars to create. Default 1.
  * @param array|string $args {
@@ -285,7 +285,7 @@ function register_sidebar( $args = array() ) {
  *
  * @since 2.2.0
  *
- * @global array $wp_registered_sidebars Stores the new sidebar in this array by sidebar ID.
+ * @global array $wp_registered_sidebars Removes the sidebar from this array by sidebar ID.
  *
  * @param string|int $sidebar_id The ID of the sidebar when it was registered.
  */
@@ -413,7 +413,7 @@ function wp_widget_description( $id ) {
  *
  * @since 2.9.0
  *
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars Registered sidebars.
  *
  * @param string $id sidebar ID.
  * @return string|void Sidebar description, if available.
@@ -426,7 +426,7 @@ function wp_sidebar_description( $id ) {
 	global $wp_registered_sidebars;
 
 	if ( isset( $wp_registered_sidebars[ $id ]['description'] ) ) {
-		return esc_html( $wp_registered_sidebars[ $id ]['description'] );
+		return wp_kses( $wp_registered_sidebars[ $id ]['description'], 'sidebar_description' );
 	}
 }
 
@@ -625,7 +625,7 @@ function wp_unregister_widget_control( $id ) {
  *
  * @since 2.2.0
  *
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars Registered sidebars.
  * @global array $wp_registered_widgets
  *
  * @param int|string $index Optional, default is 1. Index, name or ID of dynamic sidebar.
@@ -681,7 +681,8 @@ function dynamic_sidebar( $index = 1 ) {
 		$params = array_merge(
 			array(
 				array_merge(
-					$sidebar, array(
+					$sidebar,
+					array(
 						'widget_id'   => $id,
 						'widget_name' => $wp_registered_widgets[ $id ]['name'],
 					)
@@ -812,11 +813,11 @@ function dynamic_sidebar( $index = 1 ) {
  *
  * NOTE: $widget_id and $id_base are the same for single widgets. To be effective
  * this function has to run after widgets have initialized, at action {@see 'init'} or later.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 2.2.0
  *
  * @global array $wp_registered_widgets
@@ -854,15 +855,15 @@ function is_active_widget( $callback = false, $widget_id = false, $id_base = fal
 
 /**
  * Determines whether the dynamic sidebar is enabled and used by the theme.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 2.2.0
  *
  * @global array $wp_registered_widgets
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars Registered sidebars.
  *
  * @return bool True, if using widgets. False, if not using widgets.
  */
@@ -883,11 +884,11 @@ function is_dynamic_sidebar() {
 
 /**
  * Determines whether a sidebar is in use.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 2.8.0
  *
  * @param string|int $index Sidebar name, id or number to check.
@@ -990,7 +991,7 @@ function wp_set_sidebars_widgets( $sidebars_widgets ) {
  * @since 2.2.0
  * @access private
  *
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars Registered sidebars.
  *
  * @return array
  */
@@ -1170,7 +1171,7 @@ function _wp_sidebars_changed() {
  *
  * @since 2.8.0
  *
- * @global array $wp_registered_sidebars
+ * @global array $wp_registered_sidebars Registered sidebars.
  * @global array $sidebars_widgets
  * @global array $wp_registered_widgets
  *
@@ -1573,7 +1574,7 @@ function wp_widget_rss_form( $args, $inputs = null ) {
 
 	$esc_number = esc_attr( $args['number'] );
 	if ( $inputs['url'] ) :
-?>
+		?>
 	<p><label for="rss-url-<?php echo $esc_number; ?>"><?php _e( 'Enter the RSS feed URL here:' ); ?></label>
 	<input class="widefat" id="rss-url-<?php echo $esc_number; ?>" name="widget-rss[<?php echo $esc_number; ?>][url]" type="text" value="<?php echo esc_url( $args['url'] ); ?>" /></p>
 <?php endif; if ( $inputs['title'] ) : ?>
@@ -1597,14 +1598,14 @@ function wp_widget_rss_form( $args, $inputs = null ) {
 <?php endif; if ( $inputs['show_date'] ) : ?>
 	<p><input id="rss-show-date-<?php echo $esc_number; ?>" name="widget-rss[<?php echo $esc_number; ?>][show_date]" type="checkbox" value="1" <?php checked( $args['show_date'] ); ?>/>
 	<label for="rss-show-date-<?php echo $esc_number; ?>"><?php _e( 'Display item date?' ); ?></label></p>
-<?php
+	<?php
 	endif;
 foreach ( array_keys( $default_inputs ) as $input ) :
 	if ( 'hidden' === $inputs[ $input ] ) :
 		$id = str_replace( '_', '-', $input );
-?>
+		?>
 <input type="hidden" id="rss-<?php echo esc_attr( $id ); ?>-<?php echo $esc_number; ?>" name="widget-rss[<?php echo $esc_number; ?>][<?php echo esc_attr( $input ); ?>]" value="<?php echo esc_attr( $args[ $input ] ); ?>" />
-<?php
+		<?php
 	endif;
 	endforeach;
 }

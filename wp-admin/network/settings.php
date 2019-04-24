@@ -166,7 +166,7 @@ if ( isset( $_GET['updated'] ) ) {
 					<?php
 					$new_admin_email = get_site_option( 'new_admin_email' );
 					if ( $new_admin_email && $new_admin_email != get_site_option( 'admin_email' ) ) :
-					?>
+						?>
 						<div class="updated inline">
 						<p>
 						<?php
@@ -207,7 +207,7 @@ if ( isset( $_GET['updated'] ) ) {
 					<?php
 					if ( is_subdomain_install() ) {
 						echo '<p class="description">';
-						/* translators: 1: NOBLOGREDIRECT 2: wp-config.php */
+						/* translators: 1: NOBLOGREDIRECT, 2: wp-config.php */
 						printf(
 							__( 'If registration is disabled, please set %1$s in %2$s to a URL you will redirect visitors to if they visit a non-existent site.' ),
 							'<code>NOBLOGREDIRECT</code>',
@@ -388,7 +388,7 @@ if ( isset( $_GET['updated'] ) ) {
 							__( '%s KB' ),
 							'<input name="fileupload_maxk" type="number" min="0" style="width: 100px" id="fileupload_maxk" aria-describedby="fileupload-maxk-desc" value="' . esc_attr( get_site_option( 'fileupload_maxk', 300 ) ) . '" />'
 						);
-					?>
+						?>
 					<p class="screen-reader-text" id="fileupload-maxk-desc">
 						<?php _e( 'Size in kilobytes' ); ?>
 					</p>
@@ -450,7 +450,7 @@ if ( isset( $_GET['updated'] ) ) {
 			 *
 			 * @since MU (3.0.0)
 			 *
-			 * @param array $admin_menus The menu items available.
+			 * @param string[] $admin_menus Associative array of the menu items available.
 			 */
 			$menu_items   = apply_filters( 'mu_menu_items', array( 'plugins' => __( 'Plugins' ) ) );
 			$fieldset_end = '';

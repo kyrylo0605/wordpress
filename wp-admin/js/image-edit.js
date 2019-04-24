@@ -1,9 +1,11 @@
-/* global imageEditL10n, ajaxurl, confirm */
 /**
  * The functions necessary for editing images.
  *
  * @since 2.9.0
+ * @output wp-admin/js/image-edit.js
  */
+
+ /* global imageEditL10n, ajaxurl, confirm */
 
 (function($) {
 
@@ -653,7 +655,7 @@
 				 *
 				 * @returns {void}
 				 */
-				parent.children().mousedown(function(e){
+				parent.children().on( 'mousedown, touchstart', function(e){
 					var ratio = false, sel, defRatio;
 
 					if ( e.shiftKey ) {

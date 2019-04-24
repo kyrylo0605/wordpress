@@ -88,6 +88,11 @@ function delete_theme( $stylesheet, $redirect = '' ) {
 		foreach ( $translations as $translation => $data ) {
 			$wp_filesystem->delete( WP_LANG_DIR . '/themes/' . $stylesheet . '-' . $translation . '.po' );
 			$wp_filesystem->delete( WP_LANG_DIR . '/themes/' . $stylesheet . '-' . $translation . '.mo' );
+
+			$json_translation_files = glob( WP_LANG_DIR . '/themes/' . $stylesheet . '-' . $translation . '-*.json' );
+			if ( $json_translation_files ) {
+				array_map( array( $wp_filesystem, 'delete' ), $json_translation_files );
+			}
 		}
 	}
 
@@ -183,7 +188,8 @@ function get_theme_update_available( $theme ) {
 				'TB_iframe' => 'true',
 				'width'     => 1024,
 				'height'    => 800,
-			), $update['url']
+			),
+			$update['url']
 		); //Theme browser inside WP? replace this, Also, theme preview JS will override this on the available list.
 		$update_url  = wp_nonce_url( admin_url( 'update.php?action=upgrade-theme&amp;theme=' . urlencode( $stylesheet ) ), 'upgrade-theme_' . $stylesheet );
 
@@ -242,7 +248,7 @@ function get_theme_update_available( $theme ) {
 }
 
 /**
- * Retrieve list of WordPress theme features (aka theme tags)
+ * Retrieve list of WordPress theme features (aka theme tags).
  *
  * @since 3.1.0
  *
@@ -569,8 +575,8 @@ function themes_api( $action, $args = array() ) {
  *
  * @since 3.8.0
  *
- * @param array $themes Optional. Array of WP_Theme objects to prepare.
- *                      Defaults to all allowed themes.
+ * @param WP_Theme[] $themes Optional. Array of theme objects to prepare.
+ *                           Defaults to all allowed themes.
  *
  * @return array An associative array of theme data, sorted by name.
  */
@@ -585,9 +591,9 @@ function wp_prepare_themes_for_js( $themes = null ) {
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param array      $prepared_themes An associative array of theme data. Default empty array.
-	 * @param null|array $themes          An array of WP_Theme objects to prepare, if any.
-	 * @param string     $current_theme   The current theme slug.
+	 * @param array           $prepared_themes An associative array of theme data. Default empty array.
+	 * @param WP_Theme[]|null $themes          An array of theme objects to prepare, if any.
+	 * @param string          $current_theme   The current theme slug.
 	 */
 	$prepared_themes = (array) apply_filters( 'pre_prepare_themes_for_js', array(), $themes, $current_theme );
 

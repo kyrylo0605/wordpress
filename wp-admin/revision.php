@@ -63,7 +63,8 @@ switch ( $action ) {
 			array(
 				'message'  => 5,
 				'revision' => $revision->ID,
-			), get_edit_post_link( $post->ID, 'url' )
+			),
+			get_edit_post_link( $post->ID, 'url' )
 		);
 		break;
 	case 'view':
@@ -88,8 +89,8 @@ switch ( $action ) {
 
 		$post_edit_link = get_edit_post_link();
 		$post_title     = '<a href="' . $post_edit_link . '">' . _draft_or_post_title() . '</a>';
-		/* translators: 1: Post title */
-		$h1             = sprintf( __( 'Compare Revisions of &#8220;%1$s&#8221;' ), $post_title );
+		/* translators: %s: post title */
+		$h1             = sprintf( __( 'Compare Revisions of &#8220;%s&#8221;' ), $post_title );
 		$return_to_post = '<a href="' . $post_edit_link . '">' . __( '&larr; Return to editor' ) . '</a>';
 		$title          = __( 'Revisions' );
 

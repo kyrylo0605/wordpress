@@ -28,7 +28,7 @@
  *     @type int   $blog_id (Multisite) The blog ID used to calculate which themes are allowed.
  *                          Defaults to 0, synonymous for the current blog.
  * }
- * @return array Array of WP_Theme objects.
+ * @return WP_Theme[] Array of WP_Theme objects.
  */
 function wp_get_themes( $args = array() ) {
 	global $wp_theme_directories;
@@ -370,7 +370,7 @@ function get_template_directory_uri() {
 function get_theme_roots() {
 	global $wp_theme_directories;
 
-	if ( count( $wp_theme_directories ) <= 1 ) {
+	if ( ! is_array( $wp_theme_directories ) || count( $wp_theme_directories ) <= 1 ) {
 		return '/themes';
 	}
 
@@ -412,8 +412,6 @@ function register_theme_directory( $directory ) {
 	if ( ! empty( $untrailed ) && ! in_array( $untrailed, $wp_theme_directories ) ) {
 		$wp_theme_directories[] = $untrailed;
 	}
-
-	wp_clean_themes_cache();
 
 	return true;
 }
@@ -727,7 +725,8 @@ function switch_theme( $stylesheet ) {
 
 	if ( is_array( $_sidebars_widgets ) ) {
 		set_theme_mod(
-			'sidebars_widgets', array(
+			'sidebars_widgets',
+			array(
 				'time' => time(),
 				'data' => $_sidebars_widgets,
 			)
@@ -891,7 +890,7 @@ function get_theme_mods() {
  *
  * @param string      $name    Theme modification name.
  * @param bool|string $default
- * @return string
+ * @return mixed
  */
 function get_theme_mod( $name, $default = false ) {
 	$mods = get_theme_mods();
@@ -1679,11 +1678,11 @@ function _custom_background_cb() {
 
 		$style .= $image . $position . $size . $repeat . $attachment;
 	}
-?>
+	?>
 <style type="text/css" id="custom-background-css">
 body.custom-background { <?php echo trim( $style ); ?> }
 </style>
-<?php
+	<?php
 }
 
 /**
@@ -1694,11 +1693,11 @@ body.custom-background { <?php echo trim( $style ); ?> }
 function wp_custom_css_cb() {
 	$styles = wp_get_custom_css();
 	if ( $styles || is_customize_preview() ) :
-	?>
+		?>
 		<style type="text/css" id="wp-custom-css">
 			<?php echo strip_tags( $styles ); // Note that esc_html() cannot be used because `div &gt; span` is not interpreted properly. ?>
 		</style>
-	<?php
+		<?php
 	endif;
 }
 
@@ -1804,7 +1803,8 @@ function wp_get_custom_css( $stylesheet = '' ) {
  */
 function wp_update_custom_css_post( $css, $args = array() ) {
 	$args = wp_parse_args(
-		$args, array(
+		$args,
+		array(
 			'preprocessed' => '',
 			'stylesheet'   => get_stylesheet(),
 		)
@@ -2023,7 +2023,8 @@ function get_theme_starter_content() {
 				array(
 					'title'  => _x( 'Find Us', 'Theme starter content' ),
 					'text'   => join(
-						'', array(
+						'',
+						array(
 							'<strong>' . _x( 'Address', 'Theme starter content' ) . "</strong>\n",
 							_x( '123 Main Street', 'Theme starter content' ) . "\n" . _x( 'New York, NY 10001', 'Theme starter content' ) . "\n\n",
 							'<strong>' . _x( 'Hours', 'Theme starter content' ) . "</strong>\n",
@@ -2317,12 +2318,16 @@ function get_theme_starter_content() {
  * @since 4.1.0 The `title-tag` feature was added
  * @since 4.5.0 The `customize-selective-refresh-widgets` feature was added
  * @since 4.7.0 The `starter-content` feature was added
+ * @since 5.0.0 The `responsive-embeds`, `align-wide`, `dark-editor-style`, `disable-custom-colors`,
+ *              `disable-custom-font-sizes`, `editor-color-pallete`, `editor-font-sizes`,
+ *              `editor-styles`, and `wp-block-styles` features were added.
  *
  * @global array $_wp_theme_features
  *
  * @param string $feature  The feature being added. Likely core values include 'post-formats',
  *                         'post-thumbnails', 'html5', 'custom-logo', 'custom-header-uploads',
- *                         'custom-header', 'custom-background', 'title-tag', 'starter-content', etc.
+ *                         'custom-header', 'custom-background', 'title-tag', 'starter-content',
+ *                         'responsive-embeds', etc.
  * @param mixed  $args,... Optional extra arguments to pass along with certain features.
  * @return void|bool False on failure, void otherwise.
  */
@@ -2539,12 +2544,15 @@ function add_theme_support( $feature ) {
 		case 'title-tag':
 			// Can be called in functions.php but must happen before wp_loaded, i.e. not in header.php.
 			if ( did_action( 'wp_loaded' ) ) {
-				/* translators: 1: Theme support 2: hook name */
+				/* translators: 1: title-tag, 2: wp_loaded */
 				_doing_it_wrong(
-					"add_theme_support( 'title-tag' )", sprintf(
+					"add_theme_support( 'title-tag' )",
+					sprintf(
 						__( 'Theme support for %1$s should be registered before the %2$s hook.' ),
-						'<code>title-tag</code>', '<code>wp_loaded</code>'
-					), '4.1.0'
+						'<code>title-tag</code>',
+						'<code>wp_loaded</code>'
+					),
+					'4.1.0'
 				);
 
 				return false;
@@ -2615,7 +2623,7 @@ function _custom_logo_header_styles() {
 				clip: rect(1px, 1px, 1px, 1px);
 			}
 		</style>
-	<?php
+		<?php
 	}
 }
 

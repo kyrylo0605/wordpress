@@ -257,7 +257,8 @@ function the_content( $more_link_text = null, $strip_teaser = false ) {
  * @global int   $page      Page number of a single post/page.
  * @global int   $more      Boolean indicator for whether single post/page is being viewed.
  * @global bool  $preview   Whether post/page is in preview mode.
- * @global array $pages     Array of all pages in post/page. Each array element contains part of the content separated by the <!--nextpage--> tag.
+ * @global array $pages     Array of all pages in post/page. Each array element contains
+ *                          part of the content separated by the `<!--nextpage-->` tag.
  * @global int   $multipage Boolean indicator for whether multiple pages are in play.
  *
  * @param string $more_link_text Optional. Content for when there is more text.
@@ -413,9 +414,9 @@ function get_the_excerpt( $post = null ) {
 
 /**
  * Determines whether the post has a custom excerpt.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
  *
  * @since 2.3.0
@@ -429,7 +430,7 @@ function has_excerpt( $post = 0 ) {
 }
 
 /**
- * Display the classes for the post div.
+ * Displays the classes for the post container element.
  *
  * @since 2.7.0
  *
@@ -442,7 +443,7 @@ function post_class( $class = '', $post_id = null ) {
 }
 
 /**
- * Retrieves the classes for the post div as an array.
+ * Retrieves an array of the class names for the post container element.
  *
  * The class names are many. If the post is a sticky, then the 'sticky'
  * class name. The class 'hentry' is always added to each post. If the post has a
@@ -451,16 +452,16 @@ function post_class( $class = '', $post_id = null ) {
  * eg 'category-foo' or 'my_custom_taxonomy-bar'.
  *
  * The 'post_tag' taxonomy is a special
- * case; the class has the 'tag-' prefix instead of 'post_tag-'. All classes are
- * passed through the filter, {@see 'post_class'}, with the list of classes, followed by
+ * case; the class has the 'tag-' prefix instead of 'post_tag-'. All class names are
+ * passed through the filter, {@see 'post_class'}, with the list of class names, followed by
  * $class parameter value, with the post ID as the last parameter.
  *
  * @since 2.7.0
- * @since 4.2.0 Custom taxonomy classes were added.
+ * @since 4.2.0 Custom taxonomy class names were added.
  *
- * @param string|array $class   One or more classes to add to the class list.
- * @param int|WP_Post  $post_id Optional. Post ID or post object.
- * @return array Array of classes.
+ * @param string|string[] $class   Space-separated string or array of class names to add to the class list.
+ * @param int|WP_Post     $post_id Optional. Post ID or post object.
+ * @return string[] Array of class names.
  */
 function get_post_class( $class = '', $post_id = null ) {
 	$post = get_post( $post_id );
@@ -552,13 +553,13 @@ function get_post_class( $class = '', $post_id = null ) {
 	$classes = array_map( 'esc_attr', $classes );
 
 	/**
-	 * Filters the list of CSS classes for the current post.
+	 * Filters the list of CSS class names for the current post.
 	 *
 	 * @since 2.7.0
 	 *
-	 * @param array $classes An array of post classes.
-	 * @param array $class   An array of additional classes added to the post.
-	 * @param int   $post_id The post ID.
+	 * @param string[] $classes An array of post class names.
+	 * @param string[] $class   An array of additional class names added to the post.
+	 * @param int      $post_id The post ID.
 	 */
 	$classes = apply_filters( 'post_class', $classes, $class, $post->ID );
 
@@ -566,26 +567,26 @@ function get_post_class( $class = '', $post_id = null ) {
 }
 
 /**
- * Display the classes for the body element.
+ * Displays the class names for the body element.
  *
  * @since 2.8.0
  *
- * @param string|array $class One or more classes to add to the class list.
+ * @param string|string[] $class Space-separated string or array of class names to add to the class list.
  */
 function body_class( $class = '' ) {
-	// Separates classes with a single space, collates classes for body element
+	// Separates class names with a single space, collates class names for body element
 	echo 'class="' . join( ' ', get_body_class( $class ) ) . '"';
 }
 
 /**
- * Retrieve the classes for the body element as an array.
+ * Retrieves an array of the class names for the body element.
  *
  * @since 2.8.0
  *
  * @global WP_Query $wp_query
  *
- * @param string|array $class One or more classes to add to the class list.
- * @return array Array of classes.
+ * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+ * @return string[] Array of class names.
  */
 function get_body_class( $class = '' ) {
 	global $wp_query;
@@ -759,6 +760,10 @@ function get_body_class( $class = '' ) {
 		$classes[] = 'wp-custom-logo';
 	}
 
+	if ( current_theme_supports( 'responsive-embeds' ) ) {
+		$classes[] = 'wp-embed-responsive';
+	}
+
 	$page = $wp_query->get( 'page' );
 
 	if ( ! $page || $page < 2 ) {
@@ -800,12 +805,12 @@ function get_body_class( $class = '' ) {
 	$classes = array_map( 'esc_attr', $classes );
 
 	/**
-	 * Filters the list of CSS body classes for the current post or page.
+	 * Filters the list of CSS body class names for the current post or page.
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param array $classes An array of body classes.
-	 * @param array $class   An array of additional classes added to the body.
+	 * @param string[] $classes An array of body class names.
+	 * @param string[] $class   An array of additional class names added to the body.
 	 */
 	$classes = apply_filters( 'body_class', $classes, $class );
 
@@ -862,11 +867,11 @@ function post_password_required( $post = null ) {
 /**
  * The formatted output of a list of pages.
  *
- * Displays page links for paginated posts (i.e. includes the <!--nextpage-->.
+ * Displays page links for paginated posts (i.e. including the `<!--nextpage-->`
  * Quicktag one or more times). This tag must be within The Loop.
  *
  * @since 1.2.0
- * @since 5.0.0 Added the `aria_current` argument.
+ * @since 5.1.0 Added the `aria_current` argument.
  *
  * @global int $page
  * @global int $numpages
@@ -1322,7 +1327,7 @@ function wp_list_pages( $args = '' ) {
 /**
  * Displays or retrieves a list of pages with an optional home link.
  *
- * The arguments are listed below and part of the arguments are for wp_list_pages()} function.
+ * The arguments are listed below and part of the arguments are for wp_list_pages() function.
  * Check that function for more info on those arguments.
  *
  * @since 2.7.0
@@ -1597,6 +1602,7 @@ function wp_get_attachment_link( $id = 0, $size = 'thumbnail', $permalink = fals
 	 * Filters a retrieved attachment page link.
 	 *
 	 * @since 2.7.0
+	 * @since 5.1.0 Added the $attr parameter.
 	 *
 	 * @param string       $link_html The page link HTML output.
 	 * @param int          $id        Post ID.
@@ -1605,8 +1611,9 @@ function wp_get_attachment_link( $id = 0, $size = 'thumbnail', $permalink = fals
 	 * @param bool         $permalink Whether to add permalink to image. Default false.
 	 * @param bool         $icon      Whether to include an icon. Default false.
 	 * @param string|bool  $text      If string, will be link text. Default false.
+	 * @param array|string $attr      Array or string of attributes. Default empty.
 	 */
-	return apply_filters( 'wp_get_attachment_link', "<a href='" . esc_url( $url ) . "'>$link_text</a>", $id, $size, $permalink, $icon, $text );
+	return apply_filters( 'wp_get_attachment_link', "<a href='" . esc_url( $url ) . "'>$link_text</a>", $id, $size, $permalink, $icon, $text, $attr );
 }
 
 /**
@@ -1698,11 +1705,11 @@ function get_the_password_form( $post = 0 ) {
  * This template tag allows you to determine if you are in a page template.
  * You can optionally provide a template name or array of template names
  * and then the check will be specific to that template.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 2.5.0
  * @since 4.2.0 The `$template` parameter was changed to also accept an array of page templates.
  * @since 4.7.0 Now works with any post type, not just pages.

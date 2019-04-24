@@ -114,8 +114,29 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
  * Sanitizes plugin data, optionally adds markup, optionally translates.
  *
  * @since 2.7.0
- * @access private
+ *
  * @see get_plugin_data()
+ *
+ * @access private
+ *
+ * @param string $plugin_file Path to the main plugin file.
+ * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
+ * @param bool   $markup      Optional. If the returned data should have HTML markup applied.
+ *                            Default true.
+ * @param bool   $translate   Optional. If the returned data should be translated. Default true.
+ * @return array {
+ *     Plugin data. Values will be empty if not supplied by the plugin.
+ *
+ *     @type string $Name        Name of the plugin. Should be unique.
+ *     @type string $Title       Title of the plugin and link to the plugin's site (if set).
+ *     @type string $Description Plugin description.
+ *     @type string $Author      Author's name.
+ *     @type string $AuthorURI   Author's website address (if set).
+ *     @type string $Version     Plugin version.
+ *     @type string $TextDomain  Plugin textdomain.
+ *     @type string $DomainPath  Plugins relative directory path to .mo files.
+ *     @type bool   $Network     Whether the plugin can only be activated network-wide.
+ * }
  */
 function _get_plugin_data_markup_translate( $plugin_file, $plugin_data, $markup = true, $translate = true ) {
 
@@ -137,19 +158,22 @@ function _get_plugin_data_markup_translate( $plugin_file, $plugin_data, $markup 
 		}
 		if ( $textdomain ) {
 			foreach ( array( 'Name', 'PluginURI', 'Description', 'Author', 'AuthorURI', 'Version' ) as $field ) {
+				// phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.NonSingularStringLiteralText,WordPress.WP.I18n.NonSingularStringLiteralDomain
 				$plugin_data[ $field ] = translate( $plugin_data[ $field ], $textdomain );
 			}
 		}
 	}
 
 	// Sanitize fields
-	$allowed_tags      = $allowed_tags_in_links = array(
+	$allowed_tags_in_links = array(
 		'abbr'    => array( 'title' => true ),
 		'acronym' => array( 'title' => true ),
 		'code'    => true,
 		'em'      => true,
 		'strong'  => true,
 	);
+
+	$allowed_tags      = $allowed_tags_in_links;
 	$allowed_tags['a'] = array(
 		'href'  => true,
 		'title' => true,
@@ -210,7 +234,7 @@ function get_plugin_files( $plugin ) {
 		 *
 		 * @since 4.9.0
 		 *
-		 * @param array $exclusions Array of excluded directories and files.
+		 * @param string[] $exclusions Array of excluded directories and files.
 		 */
 		$exclusions = (array) apply_filters( 'plugin_files_exclusions', array( 'CVS', 'node_modules', 'vendor', 'bower_components' ) );
 
@@ -246,7 +270,8 @@ function get_plugin_files( $plugin ) {
  */
 function get_plugins( $plugin_folder = '' ) {
 
-	if ( ! $cache_plugins = wp_cache_get( 'plugins', 'plugins' ) ) {
+	$cache_plugins = wp_cache_get( 'plugins', 'plugins' );
+	if ( ! $cache_plugins ) {
 		$cache_plugins = array();
 	}
 
@@ -375,7 +400,12 @@ function get_mu_plugins() {
  * Callback to sort array by a 'Name' key.
  *
  * @since 3.1.0
+ *
  * @access private
+ *
+ * @param array $a array with 'Name' key.
+ * @param array $b array with 'Name' key.
+ * @return int Return 0 or 1 based on two string comparison.
  */
 function _sort_uname_callback( $a, $b ) {
 	return strnatcasecmp( $a['Name'], $b['Name'] );
@@ -463,11 +493,11 @@ function _get_dropins() {
  *
  * Plugins in the mu-plugins/ folder can't be "activated," so this function will
  * return false for those plugins.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 2.5.0
  *
  * @param string $plugin Path to the plugin file relative to the plugins directory.
@@ -481,11 +511,11 @@ function is_plugin_active( $plugin ) {
  * Determines whether the plugin is inactive.
  *
  * Reverse of is_plugin_active(). Used as a callback.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 3.1.0
  * @see is_plugin_active()
  *
@@ -503,11 +533,11 @@ function is_plugin_inactive( $plugin ) {
  *
  * Plugins in the mu-plugins/ folder can't be "activated," so this function will
  * return false for those plugins.
- * 
+ *
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
- * 
+ *
  * @since 3.0.0
  *
  * @param string $plugin Path to the plugin file relative to the plugins directory.
@@ -928,6 +958,11 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 			foreach ( $translations as $translation => $data ) {
 				$wp_filesystem->delete( WP_LANG_DIR . '/plugins/' . $plugin_slug . '-' . $translation . '.po' );
 				$wp_filesystem->delete( WP_LANG_DIR . '/plugins/' . $plugin_slug . '-' . $translation . '.mo' );
+
+				$json_translation_files = glob( WP_LANG_DIR . '/plugins/' . $plugin_slug . '-' . $translation . '-*.json' );
+				if ( $json_translation_files ) {
+					array_map( array( $wp_filesystem, 'delete' ), $json_translation_files );
+				}
 			}
 		}
 	}
@@ -2013,4 +2048,56 @@ function wp_clean_plugins_cache( $clear_update_cache = true ) {
 function plugin_sandbox_scrape( $plugin ) {
 	wp_register_plugin_realpath( WP_PLUGIN_DIR . '/' . $plugin );
 	include( WP_PLUGIN_DIR . '/' . $plugin );
+}
+
+/**
+ * Helper function for adding content to the Privacy Policy Guide.
+ *
+ * Plugins and themes should suggest text for inclusion in the site's privacy policy.
+ * The suggested text should contain information about any functionality that affects user privacy,
+ * and will be shown on the Privacy Policy Guide screen.
+ *
+ * A plugin or theme can use this function multiple times as long as it will help to better present
+ * the suggested policy content. For example modular plugins such as WooCommerse or Jetpack
+ * can add or remove suggested content depending on the modules/extensions that are enabled.
+ * For more information see the Plugin Handbook:
+ * https://developer.wordpress.org/plugins/privacy/suggesting-text-for-the-site-privacy-policy/.
+ *
+ * Intended for use with the `'admin_init'` action.
+ *
+ * @since 4.9.6
+ *
+ * @param string $plugin_name The name of the plugin or theme that is suggesting content for the site's privacy policy.
+ * @param string $policy_text The suggested content for inclusion in the policy.
+ */
+function wp_add_privacy_policy_content( $plugin_name, $policy_text ) {
+	if ( ! is_admin() ) {
+		_doing_it_wrong(
+			__FUNCTION__,
+			sprintf(
+				/* translators: %s: admin_init */
+				__( 'The suggested privacy policy content should be added only in wp-admin by using the %s (or later) action.' ),
+				'<code>admin_init</code>'
+			),
+			'4.9.7'
+		);
+		return;
+	} elseif ( ! doing_action( 'admin_init' ) && ! did_action( 'admin_init' ) ) {
+		_doing_it_wrong(
+			__FUNCTION__,
+			sprintf(
+				/* translators: %s: admin_init */
+				__( 'The suggested privacy policy content should be added by using the %s (or later) action. Please see the inline documentation.' ),
+				'<code>admin_init</code>'
+			),
+			'4.9.7'
+		);
+		return;
+	}
+
+	if ( ! class_exists( 'WP_Privacy_Policy_Content' ) ) {
+		require_once( ABSPATH . 'wp-admin/includes/misc.php' );
+	}
+
+	WP_Privacy_Policy_Content::add( $plugin_name, $policy_text );
 }

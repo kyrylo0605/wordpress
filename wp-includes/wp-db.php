@@ -18,6 +18,7 @@ define( 'EZSQL_VERSION', 'WP1.25' );
  * @since 0.71
  */
 define( 'OBJECT', 'OBJECT' );
+// phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ConstantNotUpperCase
 define( 'object', 'OBJECT' ); // Back compat.
 
 /**
@@ -178,7 +179,7 @@ class wpdb {
 	 *
 	 * @since 1.5.0
 	 * @since 2.5.0 The third element in each query log was added to record the calling functions.
-	 * @since 5.0.0 The fourth element in each query log was added to record the start time.
+	 * @since 5.1.0 The fourth element in each query log was added to record the start time.
 	 *
 	 * @var array[] {
 	 *     Array of queries that were executed.
@@ -297,6 +298,7 @@ class wpdb {
 	 */
 	var $ms_global_tables = array(
 		'blogs',
+		'blogmeta',
 		'signups',
 		'site',
 		'sitemeta',
@@ -412,6 +414,14 @@ class wpdb {
 	 * @var string
 	 */
 	public $blogs;
+
+	/**
+	 * Multisite Blog Metadata table
+	 *
+	 * @since 5.1.0
+	 * @var string
+	 */
+	public $blogmeta;
 
 	/**
 	 * Multisite Blog Versions table
@@ -1264,7 +1274,7 @@ class wpdb {
 	 *
 	 * Literal percentage signs (%) in the query string must be written as %%. Percentage wildcards (for example,
 	 * to use in LIKE syntax) must be passed via a substitution argument containing the complete LIKE string, these
-	 * cannot be inserted directly in the query string. Also see {@see esc_like()}.
+	 * cannot be inserted directly in the query string. Also see {@see wpdb::esc_like()}.
 	 *
 	 * Arguments may be passed as individual arguments to the method, or as a single array containing all arguments. A combination
 	 * of the two is not supported.
@@ -1648,7 +1658,7 @@ class wpdb {
 			$message = '<h1>' . __( 'Error establishing a database connection' ) . "</h1>\n";
 
 			$message .= '<p>' . sprintf(
-				/* translators: 1: wp-config.php. 2: database host */
+				/* translators: 1: wp-config.php, 2: database host */
 				__( 'This either means that the username and password information in your %1$s file is incorrect or we can&#8217;t contact the database server at %2$s. This could mean your host&#8217;s database server is down.' ),
 				'<code>wp-config.php</code>',
 				'<code>' . htmlspecialchars( $this->dbhost, ENT_QUOTES ) . '</code>'
@@ -1839,7 +1849,8 @@ class wpdb {
 	 * @since 0.71
 	 *
 	 * @param string $query Database query
-	 * @return int|false Number of rows affected/selected or false on error
+	 * @return int|bool Boolean true for CREATE, ALTER, TRUNCATE and DROP queries. Number of rows
+	 *                  affected/selected for all other queries. Boolean false on error.
 	 */
 	public function query( $query ) {
 		if ( ! $this->ready ) {
@@ -2534,8 +2545,10 @@ class wpdb {
 
 		$new_array = array();
 		// Extract the column values
-		for ( $i = 0, $j = count( $this->last_result ); $i < $j; $i++ ) {
-			$new_array[ $i ] = $this->get_var( null, $x, $i );
+		if ( $this->last_result ) {
+			for ( $i = 0, $j = count( $this->last_result ); $i < $j; $i++ ) {
+				$new_array[ $i ] = $this->get_var( null, $x, $i );
+			}
 		}
 		return $new_array;
 	}
@@ -2575,11 +2588,13 @@ class wpdb {
 		} elseif ( $output == OBJECT_K ) {
 			// Return an array of row objects with keys from column 1
 			// (Duplicates are discarded)
-			foreach ( $this->last_result as $row ) {
-				$var_by_ref = get_object_vars( $row );
-				$key        = array_shift( $var_by_ref );
-				if ( ! isset( $new_array[ $key ] ) ) {
-					$new_array[ $key ] = $row;
+			if ( $this->last_result ) {
+				foreach ( $this->last_result as $row ) {
+					$var_by_ref = get_object_vars( $row );
+					$key        = array_shift( $var_by_ref );
+					if ( ! isset( $new_array[ $key ] ) ) {
+						$new_array[ $key ] = $row;
+					}
 				}
 			}
 			return $new_array;
@@ -3207,7 +3222,9 @@ class wpdb {
 				. '|REPLACE(?:\s+LOW_PRIORITY|\s+DELAYED)?(?:\s+INTO)?'
 				. '|UPDATE(?:\s+LOW_PRIORITY)?(?:\s+IGNORE)?'
 				. '|DELETE(?:\s+LOW_PRIORITY|\s+QUICK|\s+IGNORE)*(?:.+?FROM)?'
-			. ')\s+((?:[0-9a-zA-Z$_.`-]|[\xC2-\xDF][\x80-\xBF])+)/is', $query, $maybe
+			. ')\s+((?:[0-9a-zA-Z$_.`-]|[\xC2-\xDF][\x80-\xBF])+)/is',
+			$query,
+			$maybe
 		) ) {
 			return str_replace( '`', '', $maybe[1] );
 		}
@@ -3242,7 +3259,9 @@ class wpdb {
 				. '|LOAD\s+DATA.*INFILE.*INTO\s+TABLE'
 				. '|(?:GRANT|REVOKE).*ON\s+TABLE'
 				. '|SHOW\s+(?:.*FROM|.*TABLE)'
-			. ')\s+\(*\s*((?:[0-9a-zA-Z$_.`-]|[\xC2-\xDF][\x80-\xBF])+)\s*\)*/is', $query, $maybe
+			. ')\s+\(*\s*((?:[0-9a-zA-Z$_.`-]|[\xC2-\xDF][\x80-\xBF])+)\s*\)*/is',
+			$query,
+			$maybe
 		) ) {
 			return str_replace( '`', '', $maybe[1] );
 		}

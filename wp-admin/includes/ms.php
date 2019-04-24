@@ -32,13 +32,13 @@ function check_upload_size( $file ) {
 
 	$file_size = filesize( $file['tmp_name'] );
 	if ( $space_left < $file_size ) {
-		/* translators: 1: Required disk space in kilobytes */
-		$file['error'] = sprintf( __( 'Not enough space to upload. %1$s KB needed.' ), number_format( ( $file_size - $space_left ) / KB_IN_BYTES ) );
+		/* translators: %s: required disk space in kilobytes */
+		$file['error'] = sprintf( __( 'Not enough space to upload. %s KB needed.' ), number_format( ( $file_size - $space_left ) / KB_IN_BYTES ) );
 	}
 
 	if ( $file_size > ( KB_IN_BYTES * get_site_option( 'fileupload_maxk', 1500 ) ) ) {
-		/* translators: 1: Maximum allowed file size in kilobytes */
-		$file['error'] = sprintf( __( 'This file is too big. Files must be less than %1$s KB in size.' ), get_site_option( 'fileupload_maxk', 1500 ) );
+		/* translators: %s: maximum allowed file size in kilobytes */
+		$file['error'] = sprintf( __( 'This file is too big. Files must be less than %s KB in size.' ), get_site_option( 'fileupload_maxk', 1500 ) );
 	}
 
 	if ( upload_is_user_over_quota( false ) ) {
@@ -56,6 +56,7 @@ function check_upload_size( $file ) {
  * Delete a site.
  *
  * @since 3.0.0
+ * @since 5.1.0 Use wp_delete_site() internally to delete the site row from the database.
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  *
@@ -72,31 +73,6 @@ function wpmu_delete_blog( $blog_id, $drop = false ) {
 	}
 
 	$blog = get_site( $blog_id );
-	/**
-	 * Fires before a site is deleted.
-	 *
-	 * @since MU (3.0.0)
-	 *
-	 * @param int  $blog_id The site ID.
-	 * @param bool $drop    True if site's table should be dropped. Default is false.
-	 */
-	do_action( 'delete_blog', $blog_id, $drop );
-
-	$users = get_users(
-		array(
-			'blog_id' => $blog_id,
-			'fields'  => 'ids',
-		)
-	);
-
-	// Remove users from this blog.
-	if ( ! empty( $users ) ) {
-		foreach ( $users as $user_id ) {
-			remove_user_from_blog( $user_id, $blog_id );
-		}
-	}
-
-	update_blog_status( $blog_id, 'deleted', 1 );
 
 	$current_network = get_network();
 
@@ -118,80 +94,30 @@ function wpmu_delete_blog( $blog_id, $drop = false ) {
 	}
 
 	if ( $drop ) {
-		$uploads = wp_get_upload_dir();
+		wp_delete_site( $blog_id );
+	} else {
+		/** This action is documented in wp-includes/ms-blogs.php */
+		do_action_deprecated( 'delete_blog', array( $blog_id, false ), '5.1.0' );
 
-		$tables = $wpdb->tables( 'blog' );
-		/**
-		 * Filters the tables to drop when the site is deleted.
-		 *
-		 * @since MU (3.0.0)
-		 *
-		 * @param array $tables  The site tables to be dropped.
-		 * @param int   $blog_id The ID of the site to drop tables for.
-		 */
-		$drop_tables = apply_filters( 'wpmu_drop_tables', $tables, $blog_id );
+		$users = get_users(
+			array(
+				'blog_id' => $blog_id,
+				'fields'  => 'ids',
+			)
+		);
 
-		foreach ( (array) $drop_tables as $table ) {
-			$wpdb->query( "DROP TABLE IF EXISTS `$table`" );
-		}
-
-		$wpdb->delete( $wpdb->blogs, array( 'blog_id' => $blog_id ) );
-
-		/**
-		 * Filters the upload base directory to delete when the site is deleted.
-		 *
-		 * @since MU (3.0.0)
-		 *
-		 * @param string $uploads['basedir'] Uploads path without subdirectory. @see wp_upload_dir()
-		 * @param int    $blog_id            The site ID.
-		 */
-		$dir     = apply_filters( 'wpmu_delete_blog_upload_dir', $uploads['basedir'], $blog_id );
-		$dir     = rtrim( $dir, DIRECTORY_SEPARATOR );
-		$top_dir = $dir;
-		$stack   = array( $dir );
-		$index   = 0;
-
-		while ( $index < count( $stack ) ) {
-			// Get indexed directory from stack
-			$dir = $stack[ $index ];
-
-			$dh = @opendir( $dir );
-			if ( $dh ) {
-				while ( ( $file = @readdir( $dh ) ) !== false ) {
-					if ( $file == '.' || $file == '..' ) {
-						continue;
-					}
-
-					if ( @is_dir( $dir . DIRECTORY_SEPARATOR . $file ) ) {
-						$stack[] = $dir . DIRECTORY_SEPARATOR . $file;
-					} elseif ( @is_file( $dir . DIRECTORY_SEPARATOR . $file ) ) {
-						@unlink( $dir . DIRECTORY_SEPARATOR . $file );
-					}
-				}
-				@closedir( $dh );
-			}
-			$index++;
-		}
-
-		$stack = array_reverse( $stack ); // Last added dirs are deepest
-		foreach ( (array) $stack as $dir ) {
-			if ( $dir != $top_dir ) {
-				@rmdir( $dir );
+		// Remove users from this blog.
+		if ( ! empty( $users ) ) {
+			foreach ( $users as $user_id ) {
+				remove_user_from_blog( $user_id, $blog_id );
 			}
 		}
 
-		clean_blog_cache( $blog );
+		update_blog_status( $blog_id, 'deleted', 1 );
+
+		/** This action is documented in wp-includes/ms-blogs.php */
+		do_action_deprecated( 'deleted_blog', array( $blog_id, false ), '5.1.0' );
 	}
-
-	/**
-	 * Fires after the site is deleted from the network.
-	 *
-	 * @since 4.8.0
-	 *
-	 * @param int  $blog_id The site ID.
-	 * @param bool $drop    True if site's tables should be dropped. Default is false.
-	 */
-	do_action( 'deleted_blog', $blog_id, $drop );
 
 	if ( $switch ) {
 		restore_current_blog();
@@ -658,24 +584,24 @@ function format_code_lang( $code = '' ) {
 	 *
 	 * @since MU (3.0.0)
 	 *
-	 * @param array  $lang_codes Key/value pair of language codes where key is the short version.
-	 * @param string $code       A two-letter designation of the language.
+	 * @param string[] $lang_codes Array of key/value pairs of language codes where key is the short version.
+	 * @param string   $code       A two-letter designation of the language.
 	 */
 	$lang_codes = apply_filters( 'lang_codes', $lang_codes, $code );
 	return strtr( $code, $lang_codes );
 }
 
 /**
- * Synchronize category and post tag slugs when global terms are enabled.
+ * Synchronizes category and post tag slugs when global terms are enabled.
  *
  * @since 3.0.0
  *
- * @param object $term     The term.
- * @param string $taxonomy The taxonomy for `$term`. Should be 'category' or 'post_tag', as these are
- *                         the only taxonomies which are processed by this function; anything else
- *                         will be returned untouched.
- * @return object|array Returns `$term`, after filtering the 'slug' field with sanitize_title()
- *                      if $taxonomy is 'category' or 'post_tag'.
+ * @param WP_Term|array $term     The term.
+ * @param string        $taxonomy The taxonomy for `$term`. Should be 'category' or 'post_tag', as these are
+ *                                the only taxonomies which are processed by this function; anything else
+ *                                will be returned untouched.
+ * @return WP_Term|array Returns `$term`, after filtering the 'slug' field with `sanitize_title()`
+ *                       if `$taxonomy` is 'category' or 'post_tag'.
  */
 function sync_category_tag_slugs( $term, $taxonomy ) {
 	if ( global_terms_enabled() && ( $taxonomy == 'category' || $taxonomy == 'post_tag' ) ) {
@@ -753,8 +679,8 @@ function check_import_new_users( $permission ) {
  *
  * @since 3.0.0
  *
- * @param array  $lang_files Optional. An array of the language files. Default empty array.
- * @param string $current    Optional. The current language code. Default empty.
+ * @param string[] $lang_files Optional. An array of the language files. Default empty array.
+ * @param string   $current    Optional. The current language code. Default empty.
  */
 function mu_dropdown_languages( $lang_files = array(), $current = '' ) {
 	$flag   = false;
@@ -789,9 +715,9 @@ function mu_dropdown_languages( $lang_files = array(), $current = '' ) {
 	 *
 	 * @since MU (3.0.0)
 	 *
-	 * @param array $output     HTML output of the dropdown.
-	 * @param array $lang_files Available language files.
-	 * @param string $current   The current language code.
+	 * @param string[] $output     Array of HTML output for the dropdown.
+	 * @param string[] $lang_files Array of available language files.
+	 * @param string   $current    The current language code.
 	 */
 	$output = apply_filters( 'mu_dropdown_languages', $output, $lang_files, $current );
 
@@ -953,11 +879,11 @@ function can_edit_network( $network_id ) {
  * @access private
  */
 function _thickbox_path_admin_subfolder() {
-?>
+	?>
 <script type="text/javascript">
 var tb_pathToImage = "<?php echo includes_url( 'js/thickbox/loadingAnimation.gif', 'relative' ); ?>";
 </script>
-<?php
+	<?php
 }
 
 /**
@@ -1057,7 +983,7 @@ function confirm_delete_users( $users ) {
 				<td><fieldset><p><legend><?php _e( 'User has no sites or content and will be deleted.' ); ?></legend></p>
 			<?php } ?>
 			</tr>
-		<?php
+			<?php
 		}
 	}
 
@@ -1068,11 +994,11 @@ function confirm_delete_users( $users ) {
 	do_action( 'delete_user_form', $current_user, $allusers );
 
 	if ( 1 == count( $users ) ) :
-	?>
+		?>
 		<p><?php _e( 'Once you hit &#8220;Confirm Deletion&#8221;, the user will be permanently removed.' ); ?></p>
 	<?php else : ?>
 		<p><?php _e( 'Once you hit &#8220;Confirm Deletion&#8221;, these users will be permanently removed.' ); ?></p>
-	<?php
+		<?php
 	endif;
 
 	submit_button( __( 'Confirm Deletion' ), 'primary' );
@@ -1088,7 +1014,7 @@ function confirm_delete_users( $users ) {
  * @since 4.1.0
  */
 function network_settings_add_js() {
-?>
+	?>
 <script type="text/javascript">
 jQuery(document).ready( function($) {
 	var languageSelect = $( '#WPLANG' );
@@ -1101,7 +1027,7 @@ jQuery(document).ready( function($) {
 	});
 });
 </script>
-<?php
+	<?php
 }
 
 /**
@@ -1139,7 +1065,8 @@ function network_edit_site_nav( $args = array() ) {
 	 * }
 	 */
 	$links = apply_filters(
-		'network_edit_site_nav_links', array(
+		'network_edit_site_nav_links',
+		array(
 			'site-info'     => array(
 				'label' => __( 'Info' ),
 				'url'   => 'site-info.php',
@@ -1165,7 +1092,8 @@ function network_edit_site_nav( $args = array() ) {
 
 	// Parse arguments
 	$r = wp_parse_args(
-		$args, array(
+		$args,
+		array(
 			'blog_id'  => isset( $_GET['blog_id'] ) ? (int) $_GET['blog_id'] : 0,
 			'links'    => $links,
 			'selected' => 'site-info',

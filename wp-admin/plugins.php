@@ -463,7 +463,7 @@ if ( ! empty( $invalid ) ) {
 	foreach ( $invalid as $plugin_file => $error ) {
 		echo '<div id="message" class="error"><p>';
 		printf(
-			/* translators: 1: plugin file 2: error message */
+			/* translators: 1: plugin file, 2: error message */
 			__( 'The plugin %1$s has been <strong>deactivated</strong> due to an error: %2$s' ),
 			'<code>' . esc_html( $plugin_file ) . '</code>',
 			$error->get_error_message()
@@ -479,7 +479,15 @@ if ( isset( $_GET['error'] ) ) :
 	if ( isset( $_GET['main'] ) ) {
 		$errmsg = __( 'You cannot delete a plugin while it is active on the main site.' );
 	} elseif ( isset( $_GET['charsout'] ) ) {
-		$errmsg = sprintf( __( 'The plugin generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this plugin.' ), $_GET['charsout'] );
+		$errmsg  = sprintf(
+			_n(
+				'The plugin generated %d character of <strong>unexpected output</strong> during activation.',
+				'The plugin generated %d characters of <strong>unexpected output</strong> during activation.',
+				$_GET['charsout']
+			),
+			$_GET['charsout']
+		);
+		$errmsg .= ' ' . __( 'If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this plugin.' );
 	} else {
 		$errmsg = __( 'Plugin could not be activated because it triggered a <strong>fatal error</strong>.' );
 	}
@@ -492,15 +500,16 @@ if ( isset( $_GET['error'] ) ) :
 				'action'   => 'error_scrape',
 				'plugin'   => urlencode( $plugin ),
 				'_wpnonce' => urlencode( $_GET['_error_nonce'] ),
-			), admin_url( 'plugins.php' )
+			),
+			admin_url( 'plugins.php' )
 		);
-	?>
+		?>
 	<iframe style="border:0" width="100%" height="70px" src="<?php echo esc_url( $iframe_url ); ?>"></iframe>
-	<?php
+		<?php
 	}
 	?>
 	</div>
-<?php
+	<?php
 elseif ( isset( $_GET['deleted'] ) ) :
 		$delete_result = get_transient( 'plugins_delete_result_' . $user_ID );
 		// Delete it once we're done.
@@ -543,9 +552,9 @@ echo esc_html( $title );
 
 <?php
 if ( ( ! is_multisite() || is_network_admin() ) && current_user_can( 'install_plugins' ) ) {
-?>
+	?>
 	<a href="<?php echo self_admin_url( 'plugin-install.php' ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'plugin' ); ?></a>
-<?php
+	<?php
 }
 
 if ( strlen( $s ) ) {
@@ -567,7 +576,7 @@ if ( strlen( $s ) ) {
  *
  * @since 3.0.0
  *
- * @param array $plugins_all An array containing all installed plugins.
+ * @param array[] $plugins_all An array of arrays containing information on all installed plugins.
  */
 do_action( 'pre_current_active_plugins', $plugins['all'] );
 ?>

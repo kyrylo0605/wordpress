@@ -53,6 +53,7 @@ final class WP_Theme implements ArrayAccess {
 		'twentyfifteen'   => 'Twenty Fifteen',
 		'twentysixteen'   => 'Twenty Sixteen',
 		'twentyseventeen' => 'Twenty Seventeen',
+		'twentynineteen'  => 'Twenty Nineteen',
 	);
 
 	/**
@@ -231,7 +232,8 @@ final class WP_Theme implements ArrayAccess {
 			}
 			$this->template = $this->stylesheet;
 			$this->cache_add(
-				'theme', array(
+				'theme',
+				array(
 					'headers'    => $this->headers,
 					'errors'     => $this->errors,
 					'stylesheet' => $this->stylesheet,
@@ -247,7 +249,8 @@ final class WP_Theme implements ArrayAccess {
 			$this->errors          = new WP_Error( 'theme_stylesheet_not_readable', __( 'Stylesheet is not readable.' ) );
 			$this->template        = $this->stylesheet;
 			$this->cache_add(
-				'theme', array(
+				'theme',
+				array(
 					'headers'    => $this->headers,
 					'errors'     => $this->errors,
 					'stylesheet' => $this->stylesheet,
@@ -270,7 +273,8 @@ final class WP_Theme implements ArrayAccess {
 			/* translators: %s: Template */
 			$this->errors = new WP_Error( 'theme_child_invalid', sprintf( __( 'The theme defines itself as its parent theme. Please check the %s header.' ), '<code>Template</code>' ) );
 			$this->cache_add(
-				'theme', array(
+				'theme',
+				array(
 					'headers'    => $this->headers,
 					'errors'     => $this->errors,
 					'stylesheet' => $this->stylesheet,
@@ -293,7 +297,8 @@ final class WP_Theme implements ArrayAccess {
 				);
 				$this->errors = new WP_Error( 'theme_no_index', $error_message );
 				$this->cache_add(
-					'theme', array(
+					'theme',
+					array(
 						'headers'    => $this->headers,
 						'errors'     => $this->errors,
 						'stylesheet' => $this->stylesheet,
@@ -319,7 +324,8 @@ final class WP_Theme implements ArrayAccess {
 				// Parent theme is missing.
 				$this->errors = new WP_Error( 'theme_no_parent', sprintf( __( 'The parent theme is missing. Please install the "%s" parent theme.' ), esc_html( $this->template ) ) );
 				$this->cache_add(
-					'theme', array(
+					'theme',
+					array(
 						'headers'    => $this->headers,
 						'errors'     => $this->errors,
 						'stylesheet' => $this->stylesheet,
@@ -338,7 +344,8 @@ final class WP_Theme implements ArrayAccess {
 				$_child->parent = null;
 				$_child->errors = new WP_Error( 'theme_parent_invalid', sprintf( __( 'The "%s" theme is not a valid parent theme.' ), esc_html( $_child->template ) ) );
 				$_child->cache_add(
-					'theme', array(
+					'theme',
+					array(
 						'headers'    => $_child->headers,
 						'errors'     => $_child->errors,
 						'stylesheet' => $_child->stylesheet,
@@ -349,7 +356,8 @@ final class WP_Theme implements ArrayAccess {
 				if ( $_child->stylesheet == $this->template ) {
 					$this->errors = new WP_Error( 'theme_parent_invalid', sprintf( __( 'The "%s" theme is not a valid parent theme.' ), esc_html( $this->template ) ) );
 					$this->cache_add(
-						'theme', array(
+						'theme',
+						array(
 							'headers'    => $this->headers,
 							'errors'     => $this->errors,
 							'stylesheet' => $this->stylesheet,
@@ -862,6 +870,7 @@ final class WP_Theme implements ArrayAccess {
 				if ( isset( $this->name_translated ) ) {
 					return $this->name_translated;
 				}
+				// phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.NonSingularStringLiteralText,WordPress.WP.I18n.NonSingularStringLiteralDomain
 				$this->name_translated = translate( $value, $this->get( 'TextDomain' ) );
 				return $this->name_translated;
 			case 'Tags':
@@ -913,6 +922,7 @@ final class WP_Theme implements ArrayAccess {
 				return $value;
 
 			default:
+				// phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.NonSingularStringLiteralText,WordPress.WP.I18n.NonSingularStringLiteralDomain
 				$value = translate( $value, $this->get( 'TextDomain' ) );
 		}
 		return $value;
@@ -1185,19 +1195,34 @@ final class WP_Theme implements ArrayAccess {
 		/**
 		 * Filters list of page templates for a theme.
 		 *
+		 * @since 4.9.6
+		 *
+		 * @param string[]     $post_templates Array of page templates. Keys are filenames,
+		 *                                     values are translated names.
+		 * @param WP_Theme     $this           The theme object.
+		 * @param WP_Post|null $post           The post being edited, provided for context, or null.
+		 * @param string       $post_type      Post type to get the templates for.
+		 */
+		$post_templates = (array) apply_filters( 'theme_templates', $post_templates, $this, $post, $post_type );
+
+		/**
+		 * Filters list of page templates for a theme.
+		 *
 		 * The dynamic portion of the hook name, `$post_type`, refers to the post type.
 		 *
 		 * @since 3.9.0
 		 * @since 4.4.0 Converted to allow complete control over the `$page_templates` array.
 		 * @since 4.7.0 Added the `$post_type` parameter.
 		 *
-		 * @param array        $post_templates Array of page templates. Keys are filenames,
+		 * @param string[]     $post_templates Array of page templates. Keys are filenames,
 		 *                                     values are translated names.
 		 * @param WP_Theme     $this           The theme object.
 		 * @param WP_Post|null $post           The post being edited, provided for context, or null.
 		 * @param string       $post_type      Post type to get the templates for.
 		 */
-		return (array) apply_filters( "theme_{$post_type}_templates", $post_templates, $this, $post, $post_type );
+		$post_templates = (array) apply_filters( "theme_{$post_type}_templates", $post_templates, $this, $post, $post_type );
+
+		return $post_templates;
 	}
 
 	/**
@@ -1239,7 +1264,7 @@ final class WP_Theme implements ArrayAccess {
 		 *
 		 * @since 4.7.4
 		 *
-		 * @param array $exclusions Array of excluded directories and files.
+		 * @param string[] $exclusions Array of excluded directories and files.
 		 */
 		$exclusions = (array) apply_filters( 'theme_scandir_exclusions', array( 'CVS', 'node_modules', 'vendor', 'bower_components' ) );
 
@@ -1356,7 +1381,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @since 3.4.0
 	 *
 	 * @param int $blog_id Optional. ID of the site. Defaults to the current site.
-	 * @return array Array of stylesheet names.
+	 * @return string[] Array of stylesheet names.
 	 */
 	public static function get_allowed( $blog_id = null ) {
 		/**
@@ -1367,8 +1392,8 @@ final class WP_Theme implements ArrayAccess {
 		 *
 		 * @since 4.5.0
 		 *
-		 * @param array $allowed_themes An array of theme stylesheet names.
-		 * @param int   $blog_id        ID of the site.
+		 * @param string[] $allowed_themes An array of theme stylesheet names.
+		 * @param int      $blog_id        ID of the site.
 		 */
 		$network = (array) apply_filters( 'network_allowed_themes', self::get_allowed_on_network(), $blog_id );
 		return $network + self::get_allowed_on_site( $blog_id );
@@ -1381,7 +1406,7 @@ final class WP_Theme implements ArrayAccess {
 	 *
 	 * @staticvar array $allowed_themes
 	 *
-	 * @return array Array of stylesheet names.
+	 * @return string[] Array of stylesheet names.
 	 */
 	public static function get_allowed_on_network() {
 		static $allowed_themes;
@@ -1394,7 +1419,7 @@ final class WP_Theme implements ArrayAccess {
 		 *
 		 * @since MU (3.0.0)
 		 *
-		 * @param array $allowed_themes An array of theme stylesheet names.
+		 * @param string[] $allowed_themes An array of theme stylesheet names.
 		 */
 		$allowed_themes = apply_filters( 'allowed_themes', $allowed_themes );
 
@@ -1409,7 +1434,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @staticvar array $allowed_themes
 	 *
 	 * @param int $blog_id Optional. ID of the site. Defaults to the current site.
-	 * @return array Array of stylesheet names.
+	 * @return string[] Array of stylesheet names.
 	 */
 	public static function get_allowed_on_site( $blog_id = null ) {
 		static $allowed_themes = array();
@@ -1424,8 +1449,8 @@ final class WP_Theme implements ArrayAccess {
 			 *
 			 * @since 4.5.0
 			 *
-			 * @param array $allowed_themes An array of theme stylesheet names.
-			 * @param int   $blog_id        ID of the site. Defaults to current site.
+			 * @param string[] $allowed_themes An array of theme stylesheet names.
+			 * @param int      $blog_id        ID of the site. Defaults to current site.
 			 */
 			return (array) apply_filters( 'site_allowed_themes', $allowed_themes[ $blog_id ], $blog_id );
 		}
@@ -1486,7 +1511,7 @@ final class WP_Theme implements ArrayAccess {
 	 *
 	 * @since 4.6.0
 	 *
-	 * @param string|array $stylesheets Stylesheet name or array of stylesheet names.
+	 * @param string|string[] $stylesheets Stylesheet name or array of stylesheet names.
 	 */
 	public static function network_enable_theme( $stylesheets ) {
 		if ( ! is_multisite() ) {
@@ -1510,7 +1535,7 @@ final class WP_Theme implements ArrayAccess {
 	 *
 	 * @since 4.6.0
 	 *
-	 * @param string|array $stylesheets Stylesheet name or array of stylesheet names.
+	 * @param string|string[] $stylesheets Stylesheet name or array of stylesheet names.
 	 */
 	public static function network_disable_theme( $stylesheets ) {
 		if ( ! is_multisite() ) {
@@ -1536,7 +1561,7 @@ final class WP_Theme implements ArrayAccess {
 	 *
 	 * @since 3.4.0
 	 *
-	 * @param array $themes Array of themes to sort (passed by reference).
+	 * @param WP_Theme[] $themes Array of theme objects to sort (passed by reference).
 	 */
 	public static function sort_by_name( &$themes ) {
 		if ( 0 === strpos( get_user_locale(), 'en_' ) ) {
