@@ -584,6 +584,35 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
 
         }
 
+        /*
+         * Get string with current product terms names
+         *
+         * @return string List of terms names
+         */
+        static public function get_terms_array( $id, $taxonomy ) {
+
+            $terms = wp_get_object_terms( $id, $taxonomy );
+
+            if ( is_wp_error( $terms ) ) {
+                return '';
+            }
+
+            if ( empty( $terms ) ) {
+                return '';
+            }
+
+            $tax_array_temp = array();
+            $source_name = AWS_Helpers::get_source_name( $taxonomy );
+
+            foreach ( $terms as $term ) {
+                $source = $source_name . '%' . $term->term_id . '%';
+                $tax_array_temp[$source] = $term->name;
+            }
+
+            return $tax_array_temp;
+
+        }
+
     }
 
 endif;

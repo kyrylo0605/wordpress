@@ -127,8 +127,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             }
 
             $products_array = array();
-            $categories_array = array();
-            $tags_array = array();
+            $tax_to_display = array();
+            $custom_tax_array = array();
 
             $this->data['s'] = $s;
             $this->data['results_num']  = $results_num ? $results_num : 10;
@@ -180,36 +180,39 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                  */
                 $products_array = apply_filters( 'aws_search_results_products', $products_array, $s );
 
-
                 if ( $show_cats === 'true' ) {
-
-                    $categories_array = $this->get_taxonomies( 'product_cat' );
-
-                    /**
-                     * Filters array of product categories before they displayed in search results
-                     *
-                     * @since 1.42
-                     *
-                     * @param array $categories_array Array of products categories
-                     * @param string $s Search query
-                     */
-                    $categories_array = apply_filters( 'aws_search_results_categories', $categories_array, $s );
-
+                    $tax_to_display[] = 'product_cat';
                 }
 
                 if ( $show_tags === 'true' ) {
+                    $tax_to_display[] = 'product_tag';
+                }
 
-                    $tags_array = $this->get_taxonomies( 'product_tag' );
+                /**
+                 * Filters array of custom taxonomies that must be displayed in search results
+                 *
+                 * @since 1.68
+                 *
+                 * @param array $taxonomies_archives Array of custom taxonomies
+                 * @param string $s Search query
+                 */
+                $taxonomies_archives = apply_filters( 'aws_search_results_tax_archives', $tax_to_display, $s );
 
-                    /**
-                     * Filters array of product tags before they displayed in search results
-                     *
-                     * @since 1.42
-                     *
-                     * @param array $tags_array Array of products tags
-                     * @param string $s Search query
-                     */
-                    $tags_array = apply_filters( 'aws_search_results_tags', $tags_array, $s );
+                if ( $taxonomies_archives && is_array( $taxonomies_archives ) && ! empty( $taxonomies_archives ) ) {
+
+                    foreach( $taxonomies_archives as $taxonomies_archive_name ) {
+                        $res = $this->get_taxonomies( $taxonomies_archive_name );
+
+                        if ( $taxonomies_archive_name === 'product_cat' ) {
+                            $res = apply_filters( 'aws_search_results_categories', $res, $s );
+                        }
+
+                        if ( $taxonomies_archive_name === 'product_tag' ) {
+                            $res = apply_filters( 'aws_search_results_tags', $res, $s );
+                        }
+
+                        $custom_tax_array[$taxonomies_archive_name] = $res;
+                    }
 
                 }
 
@@ -217,10 +220,10 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
 
             $result_array = array(
-                'cats'     => $categories_array,
-                'tags'     => $tags_array,
+                'tax'      => $custom_tax_array,
                 'products' => $products_array
             );
+
 
             /**
              * Filters array of all results data before they displayed in search results

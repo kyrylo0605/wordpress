@@ -159,15 +159,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/gutenberg-blocks.git",
-            "reference": "d886af0d390a45d9d09c9b1d2c5ce93e22a3ea0d"
+            "reference": "139be1219a8c2bd581875253f363c4c085f86b6c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/d886af0d390a45d9d09c9b1d2c5ce93e22a3ea0d",
-            "reference": "d886af0d390a45d9d09c9b1d2c5ce93e22a3ea0d",
+            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/139be1219a8c2bd581875253f363c4c085f86b6c",
+            "reference": "139be1219a8c2bd581875253f363c4c085f86b6c",
             "shasum": ""
         },
-        "time": "2019-04-18 01:19:32",
+        "time": "2019-04-20 22:23:06",
         "type": "library",
         "installation-source": "source",
         "autoload": {

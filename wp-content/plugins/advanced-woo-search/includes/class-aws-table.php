@@ -323,8 +323,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 $content = apply_filters( 'the_content', get_post_field( 'post_content', $data['id'] ), $data['id'] );
                 $excerpt = get_post_field( 'post_excerpt', $data['id'] );
-                $cat_array = $this->get_terms_array( $data['id'], 'product_cat' );
-                $tag_array = $this->get_terms_array( $data['id'], 'product_tag' );
+                $cat_array = AWS_Helpers::get_terms_array( $data['id'], 'product_cat' );
+                $tag_array = AWS_Helpers::get_terms_array( $data['id'], 'product_tag' );
 
 
                 // Get all child products if exists
@@ -836,35 +836,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             }
 
             return $str_new_array;
-
-        }
-
-        /*
-         * Get string with current product terms names
-         *
-         * @return string List of terms names
-         */
-        private function get_terms_array( $id, $taxonomy ) {
-
-            $terms = wp_get_object_terms( $id, $taxonomy );
-
-            if ( is_wp_error( $terms ) ) {
-                return '';
-            }
-
-            if ( empty( $terms ) ) {
-                return '';
-            }
-
-            $tax_array_temp = array();
-            $source_name = AWS_Helpers::get_source_name( $taxonomy );
-
-            foreach ( $terms as $term ) {
-                $source = $source_name . '%' . $term->term_id . '%';
-                $tax_array_temp[$source] = $term->name;
-            }
-
-            return $tax_array_temp;
 
         }
 

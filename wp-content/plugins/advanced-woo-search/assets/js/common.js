@@ -110,42 +110,31 @@
 
             showResults: function( response ) {
 
+                var resultNum = 0;
                 var html = '<ul>';
 
+                if ( typeof response.tax !== 'undefined' ) {
 
-                if ( ( typeof response.cats !== 'undefined' ) && response.cats.length > 0 ) {
+                    $.each(response.tax, function (i, taxes) {
 
-                    $.each(response.cats, function (i, result) {
+                        if ( ( typeof taxes !== 'undefined' ) && taxes.length > 0 ) {
+                            $.each(taxes, function (i, taxitem) {
 
-                        html += '<li class="aws_result_item aws_result_cat">';
-                        html += '<a class="aws_result_link" href="' + result.link + '" >';
-                        html += '<span class="aws_result_content">';
-                        html += '<span class="aws_result_title">';
-                        html += result.name;
-                        html += '<span class="aws_result_count"> (' + result.count + ')</span>';
-                        html += '</span>';
-                        html += '</span>';
-                        html += '</a>';
-                        html += '</li>';
+                                resultNum++;
 
-                    });
+                                html += '<li class="aws_result_item aws_result_tag">';
+                                    html += '<a class="aws_result_link" href="' + taxitem.link + '" >';
+                                        html += '<span class="aws_result_content">';
+                                            html += '<span class="aws_result_title">';
+                                                html += taxitem.name;
+                                                html += '<span class="aws_result_count">&nbsp;(' + taxitem.count + ')</span>';
+                                            html += '</span>';
+                                        html += '</span>';
+                                    html += '</a>';
+                                html += '</li>';
 
-                }
-
-                if ( ( typeof response.tags !== 'undefined' ) && response.tags.length > 0 ) {
-
-                    $.each(response.tags, function (i, result) {
-
-                        html += '<li class="aws_result_item aws_result_tag">';
-                        html += '<a class="aws_result_link" href="' + result.link + '" >';
-                        html += '<span class="aws_result_content">';
-                        html += '<span class="aws_result_title">';
-                        html += result.name;
-                        html += '<span class="aws_result_count"> (' + result.count + ')</span>';
-                        html += '</span>';
-                        html += '</span>';
-                        html += '</a>';
-                        html += '</li>';
+                            });
+                        }
 
                     });
 
@@ -154,6 +143,8 @@
                 if ( ( typeof response.products !== 'undefined' ) && response.products.length > 0 ) {
 
                     $.each(response.products, function (i, result) {
+
+                        resultNum++;
 
                         html += '<li class="aws_result_item">';
                         html += '<a class="aws_result_link" href="' + result.link + '" >';
@@ -213,7 +204,7 @@
 
                 }
 
-                if ( ( typeof response.cats !== 'undefined' ) && response.cats.length <= 0 && ( typeof response.tags !== 'undefined' ) && response.tags.length <= 0 && ( typeof response.products !== 'undefined' ) && response.products.length <= 0 ) {
+                if ( ! resultNum ) {
                     html += '<li class="aws_result_item aws_no_result">' + translate.noresults + '</li>';
                 }
 
