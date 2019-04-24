@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Product Bundles
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-product-bundles
  * Description: <code><strong>YITH WooCommerce Product Bundles</strong></code> allows you to bundle WooCommerce products and sell them at a unique price. You can also set the quantity for each bundled item! <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.1.12
+ * Version: 1.1.13
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-product-bundles
@@ -65,7 +65,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( !defined( 'YITH_WCPB_VERSION' ) ) {
-    define( 'YITH_WCPB_VERSION', '1.1.12' );
+    define( 'YITH_WCPB_VERSION', '1.1.13' );
 }
 
 if ( !defined( 'YITH_WCPB_FREE_INIT' ) ) {

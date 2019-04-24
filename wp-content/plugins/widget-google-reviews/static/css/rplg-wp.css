@@ -7,6 +7,10 @@
   clear: both;
 }
 
+.form-group {
+  position: relative;
+}
+
 .widget-content .form-group {
   margin: 10px 0 0;
 }
@@ -28,14 +32,6 @@
   margin: 10px 0;
 }
 
-.rplg-options-toggle {
-  padding: 10px;
-  margin: 10px 0 0;
-  cursor: pointer;
-  border: 1px solid #dbdbdb;
-  background: #eee url('../img/button-down-black.svg') no-repeat right;
-}
-
 .rplg-options {
   padding: 0px 4px;
 }
@@ -55,6 +51,27 @@
 .rplg-pro a {
   color: #fff;
   text-decoration: underline;
+}
+
+.rplg-quest {
+    position: absolute;
+    top: -2px;
+    right: 2px;
+    width: 16px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    background: #eee;
+}
+
+.rplg-quest + div {
+  padding: 6px;
+  margin: 5px 0 0;
+  border-radius: 2px;
+  background: #eee;
 }
 
 /*-------------------------------- google finder --------------------------------*/

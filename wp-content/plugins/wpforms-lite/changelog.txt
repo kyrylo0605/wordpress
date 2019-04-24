@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 1.5.2.3 =
+- Fixed: PHP error if checkbox field is empty when form is submitted.
+
 = 1.5.2.2 =
 - Fixed: PHP notice/warnings from undefined constant (typo).
 

@@ -35,9 +35,21 @@ if (is_numeric($max_width)) {
 if (is_numeric($max_height)) {
     $max_height = $max_height . 'px';
 }
-?>
 
-<?php if ($view_mode != 'list') { ?>
+if ($refresh_reviews) {
+    $schedule_step = 60 * 60 * 55;
+    $args = array($place_id);
+    if (strlen($reviews_lang) > 0) {
+        array_push($args, $reviews_lang);
+    }
+    $schedule_cache_key = 'grw_refresh_reviews_' . join('_', $args);
+    if (get_transient($schedule_cache_key) === false) {
+        wp_schedule_single_event(time() + $schedule_step, 'grw_refresh_reviews', array($args));
+        set_transient($schedule_cache_key, $schedule_cache_key, $schedule_step + 60 * 10);
+    }
+}
+
+if ($view_mode != 'list') { ?>
 
 <div class="wp-gr wpac">
     <script type="text/javascript">

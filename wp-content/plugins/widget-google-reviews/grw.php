@@ -4,7 +4,7 @@ Plugin Name: Google Reviews Widget
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.7.3
+Version: 1.7.4
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',            '1.7.3');
+define('GRW_VERSION',            '1.7.4');
 define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s50-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -329,8 +329,8 @@ function grw_save_reviews($place, $min_filter = 0) {
             'photo'    => $place->business_photo,
             'icon'     => $place->icon,
             'address'  => $place->formatted_address,
-            'rating'   => isset($place->rating) ? $place->rating : null,
-            'url'      => isset($place->url) ? $place->url : null,
+            'rating'   => isset($place->rating)  ? $place->rating  : null,
+            'url'      => isset($place->url)     ? $place->url     : null,
             'website'  => isset($place->website) ? $place->website : null
         ));
         $google_place_id = $wpdb->insert_id;
@@ -343,7 +343,13 @@ function grw_save_reviews($place, $min_filter = 0) {
                 continue;
             }
 
-            $google_review_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "grp_google_review WHERE time = %s", $review->time));
+            $google_review_id = 0;
+            if (isset($review->author_url) && strlen($review->author_url) > 0) {
+                $google_review_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "grp_google_review WHERE author_url = %s", $review->author_url));
+            } else {
+                $google_review_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "grp_google_review WHERE time = %s", $review->time));
+            }
+
             if ($google_review_id) {
                 $update_params = array(
                     'rating' => $review->rating,
@@ -362,7 +368,7 @@ function grw_save_reviews($place, $min_filter = 0) {
                     'time'              => $review->time,
                     'language'          => $review->language,
                     'author_name'       => $review->author_name,
-                    'author_url'        => isset($review->author_url) ? $review->author_url : null,
+                    'author_url'        => isset($review->author_url)        ? $review->author_url        : null,
                     'profile_photo_url' => isset($review->profile_photo_url) ? $review->profile_photo_url : null
                 ));
             }
@@ -370,6 +376,33 @@ function grw_save_reviews($place, $min_filter = 0) {
     }
 }
 
+/*-------------------------------- Refresh Reviews --------------------------------*/
+function grw_refresh_reviews($args) {
+    $google_api_key = get_option('grw_google_api_key');
+    if (!$google_api_key || strlen($google_api_key) < 1) {
+        return;
+    }
+
+    $place_id = $args[0];
+    $reviews_lang = $args[1];
+
+    $url = grw_api_url($place_id, $reviews_lang);
+
+    $response = rplg_urlopen($url);
+
+    $response_data = $response['data'];
+    $response_json = rplg_json_decode($response_data);
+
+    if ($response_json && isset($response_json->result)) {
+        $response_json->result->business_photo = grw_business_avatar($response_json->result);
+        grw_save_reviews($response_json->result);
+    }
+
+    delete_transient('grw_refresh_reviews_' . join('_', $args));
+}
+add_action('grw_refresh_reviews', 'grw_refresh_reviews');
+
+/*-------------------------------- Init language --------------------------------*/
 function grw_lang_init() {
     $plugin_dir = basename(dirname(__FILE__));
     load_plugin_textdomain('grw', false, basename( dirname( __FILE__ ) ) . '/languages');

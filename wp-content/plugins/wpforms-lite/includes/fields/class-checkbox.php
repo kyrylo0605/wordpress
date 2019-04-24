@@ -532,6 +532,7 @@ class WPForms_Field_Checkbox extends WPForms_Field {
 	 */
 	public function validate( $field_id, $field_submit, $form_data ) {
 
+		$field_submit  = (array) $field_submit;
 		$form_id       = $form_data['id'];
 		$choice_limit  = empty( $form_data['fields'][ $field_id ]['choice_limit'] ) ? 0 : (int) $form_data['fields'][ $field_id ]['choice_limit'];
 		$count_choices = count( $field_submit );

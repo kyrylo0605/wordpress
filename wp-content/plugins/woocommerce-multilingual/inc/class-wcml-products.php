@@ -685,9 +685,9 @@ class WCML_Products{
 				$price_keys = wcml_price_custom_fields( $product_id );
 			}
 
-			if( is_product() ){
+			if( is_product() && !$this->woocommerce_wpml->products->is_original_product( $product_id ) ){
 				$data['_product_image_gallery'] = null;
-            }
+			}
 
 			foreach ( $data as $meta_key => $meta_value ) {
 
@@ -716,5 +716,15 @@ class WCML_Products{
 
 		return $data;
 	}
+
+	/**
+	 * @param int $product_id
+	 *
+	 * @return null|string
+	 */
+	public function get_product_price_from_db( $product_id ){
+
+	    return $this->wpdb->get_var( $this->wpdb->prepare( "SELECT meta_value FROM {$this->wpdb->postmeta} WHERE `meta_key` = '_price' AND post_id = %d ", $product_id ) );
+    }
 
 }

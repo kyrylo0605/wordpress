@@ -409,7 +409,7 @@ class WPForms_Settings {
 			'validation'   => array(
 				'validation-heading'          => array(
 					'id'       => 'validation-heading',
-					'content'  => '<h4>' . esc_html__( 'Validation Messages', 'wpforms-lite' ) . '</h4><p>' . esc_html__( 'These messages are displayed to the user as they fill out a form in real-time.', 'wpforms-lite' ) . '</p>',
+					'content'  => '<h4>' . esc_html__( 'Validation Messages', 'wpforms-lite' ) . '</h4><p>' . esc_html__( 'These messages are displayed to the users as they fill out a form in real-time.', 'wpforms-lite' ) . '</p>',
 					'type'     => 'content',
 					'no_label' => true,
 					'class'    => array( 'section-heading' ),

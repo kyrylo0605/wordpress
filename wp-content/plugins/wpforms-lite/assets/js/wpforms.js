@@ -725,7 +725,7 @@
 				$reCAPTCHA = $form.find( '.wpforms-recaptcha-container' ),
 				pageScroll = false;
 
-			// Page scroll
+			// Page scroll.
 			// TODO: cleanup this BC with wpform_pageScroll.
 			if ( false === window.wpforms_pageScroll ) {
 				pageScroll = false;
@@ -735,18 +735,18 @@
 				pageScroll = 75;
 			}
 
-			// Toggling between pages
+			// Toggling between pages.
 			if ( 'next' === action ) {
 
-				// Validate
+				// Validate.
 				if ( typeof $.fn.validate !== 'undefined' ) {
-					$page.find( 'input.wpforms-field-required, select.wpforms-field-required, textarea.wpforms-field-required, .wpforms-field-required input, .wpforms-field-file-upload input' ).each( function( index, el ) {
+					$page.find( ':input' ).each( function( index, el ) {
 						if ( ! $( el ).valid() ) {
 							valid = false;
 						}
 					} );
 
-					// Scroll to first/top error on page
+					// Scroll to first/top error on page.
 					var $topError = $page.find( '.wpforms-error' ).first();
 					if ( $topError.length ) {
 						$( 'html, body' ).animate( {
@@ -757,7 +757,7 @@
 					}
 				}
 
-				// Move to next page
+				// Move to next page.
 				if ( valid ) {
 					page2 = next;
 					$page.hide();
@@ -769,7 +769,7 @@
 					}
 					if ( pageScroll ) {
 
-						// Scroll to top of the form
+						// Scroll to top of the form.
 						$( 'html, body' ).animate( {
 							scrollTop: $form.offset().top - pageScroll,
 						}, 1000 );
@@ -778,7 +778,7 @@
 				}
 			} else if ( 'prev' === action ) {
 
-				// Move to prev page
+				// Move to prev page.
 				page2 = prev;
 				$page.hide();
 				$form.find( '.wpforms-page-' + prev ).show();
@@ -786,7 +786,7 @@
 				$submit.hide();
 				if ( pageScroll ) {
 
-					// Scroll to top of the form
+					// Scroll to top of the form.
 					$( 'html, body' ).animate( {
 						scrollTop: $form.offset().top - pageScroll,
 					}, 1000 );
@@ -827,7 +827,7 @@
 		/**
 		 * OptinMonster compatibility.
 		 *
-		 * Re-initialize after OptinMonster loads to accomodate changes that
+		 * Re-initialize after OptinMonster loads to accommodate changes that
 		 * have occurred to the DOM.
 		 *
 		 * @since 1.5.0

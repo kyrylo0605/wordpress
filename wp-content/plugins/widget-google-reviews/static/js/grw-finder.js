@@ -242,9 +242,10 @@ function grw_jquery_init(el, cb) {
             return false;
         });
 
-        $('.rplg-options-toggle', el).unbind('click').click(function () {
+        $('.rplg-toggle', el).unbind('click').click(function () {
             $(this).toggleClass('toggled');
             $(this).next().slideToggle();
+            return false;
         });
     });
 }

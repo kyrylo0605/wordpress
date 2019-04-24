@@ -25,6 +25,7 @@ class Goog_Reviews_Widget extends WP_Widget {
         'pagination'           => '5',
         'max_width'            => '',
         'max_height'           => '',
+        'refresh_reviews'      => true,
         'centered'             => false,
         'reduce_avatars_size'  => true,
         'open_link'            => true,

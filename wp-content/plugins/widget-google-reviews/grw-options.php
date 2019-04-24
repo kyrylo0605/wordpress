@@ -66,6 +66,19 @@
 <div class="form-group">
     <div class="col-sm-12">
         <label>
+            <input id="<?php echo $this->get_field_id('refresh_reviews'); ?>" name="<?php echo $this->get_field_name('refresh_reviews'); ?>" type="checkbox" value="1" <?php checked('1', $refresh_reviews); ?> class="form-control" />
+            <?php echo grw_i('Refresh reviews'); ?>
+            <span class="rplg-quest rplg-toggle" title="Click to help">?</span>
+            <div style="display:none">
+                The plugin uses the Google Places API to get your reviews. <b>The API only returns the 5 most helpful reviews (it's a limitation of Google, not the plugin)</b>. This option calls the Places API once in three days (to avoid a Google Billing) to check for a new reviews and if there are, adds to the plugin.<br><br>Also if you see the new reviews on Google map, but after some time it's not added to the plugin, it means that Google does not include these reviews to the API and the plugin can't get this.<br><br>If you need to get all reviews, please use <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">the Business plugin</a> which uses a Google My Business API, but this GMB API is available only for verified Google business owner accounts.
+            </div>
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-12">
+        <label>
             <input id="<?php echo $this->get_field_id('centered'); ?>" name="<?php echo $this->get_field_name('centered'); ?>" type="checkbox" value="1" <?php checked('1', $centered); ?> class="form-control" />
             <?php echo grw_i('Place by center (only if Width is set)'); ?>
         </label>
@@ -86,6 +99,10 @@
         <label>
             <input id="<?php echo $this->get_field_id('reduce_avatars_size'); ?>" name="<?php echo $this->get_field_name('reduce_avatars_size'); ?>" type="checkbox" value="1" <?php checked('1', $reduce_avatars_size); ?> class="form-control" />
             <?php echo grw_i('Reduce avatars size'); ?>
+            <span class="rplg-quest rplg-toggle" title="Click to help">?</span>
+            <div style="display:none">
+                By default the Google Places API returns the reviewer's avatars of 128px in size, this option reduces the size to 50px.
+            </div>
         </label>
     </div>
 </div>

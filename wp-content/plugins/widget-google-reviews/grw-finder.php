@@ -1,6 +1,6 @@
 <div class="form-group">
     <div class="col-sm-12">
-        <h4><?php echo grw_i('Enter Place ID of your Google business. If you don\'t know this, you can simply find it by <a href="https://www.launch2success.com/guide/find-any-google-id/" target="_blank">this instruction</a>.'); ?></h4>
+        <h4><?php echo grw_i('Enter Place ID of your Google location. If you don\'t know this, you can simply find it by <a href="https://www.launch2success.com/guide/find-any-google-id/" target="_blank">this instruction</a>.'); ?></h4>
         <input type="text" class="grw-place-id form-control" value="" placeholder="Place ID" />
         <small class="grw-error"></small>
     </div>
@@ -19,8 +19,8 @@
             <option value="de"><?php echo grw_i('German'); ?></option>
             <option value="el"><?php echo grw_i('Greek'); ?></option>
             <option value="en"><?php echo grw_i('English'); ?></option>
-            <option value="en-AU"><?php echo grw_i('English (Australian)'); ?></option>
-            <option value="en-GB"><?php echo grw_i('English (Great Britain)'); ?></option>
+            <!--option value="en-AU"><?php echo grw_i('English (Australian)'); ?></option>
+            <option value="en-GB"><?php echo grw_i('English (Great Britain)'); ?></option-->
             <option value="es"><?php echo grw_i('Spanish'); ?></option>
             <option value="eu"><?php echo grw_i('Basque'); ?></option>
             <option value="eu"><?php echo grw_i('Basque'); ?></option>
