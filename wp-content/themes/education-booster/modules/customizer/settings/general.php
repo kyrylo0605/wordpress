@@ -60,6 +60,11 @@ function Educationbooster_Customizer_general_settings( $settings ){
 			'transport' => 'postMessage',
 			'type'      => 'checkbox',
 		),
+		'disable_search_icon' => array(
+			'label'     => esc_html__( 'Disable Header Search Icon', 'education-booster' ),
+			'section'   => 'header_options',
+			'type'      => 'checkbox',
+		),
 		'disable_fixed_header' => array(
 			'label'   => esc_html__( 'Disable Fixed Header', 'education-booster' ),
 			'type'    => 'checkbox',

@@ -16,6 +16,14 @@ namespace Neve\Core;
  * @package Neve\Core
  */
 class Front_End {
+
+	/**
+	 * The onboarding config.
+	 *
+	 * @var array
+	 */
+	private $onboarding_config = array();
+
 	/**
 	 * Theme setup.
 	 */
@@ -52,6 +60,7 @@ class Front_End {
 		add_theme_support( 'editor-color-palette', $this->get_gutenberg_color_palette() );
 		add_theme_support( 'fl-theme-builder-headers' );
 		add_theme_support( 'fl-theme-builder-footers' );
+		add_theme_support( 'header-footer-elementor' );
 
 		add_filter( 'themeisle_gutenberg_templates', array( $this, 'add_gutenberg_templates' ) );
 
@@ -66,8 +75,23 @@ class Front_End {
 		);
 
 		add_image_size( 'neve-blog', 930, 620, true );
-
+		add_filter( 'wp_nav_menu_args', array( $this, 'nav_walker' ), 1001 );
 		$this->add_woo_support();
+	}
+
+	/**
+	 * Tweak menu walker to support selective refresh.
+	 *
+	 * @param array $args List of arguments for navigation.
+	 *
+	 * @return mixed
+	 */
+	public function nav_walker( $args ) {
+		if ( isset( $args['walker'] ) && is_string( $args['walker'] ) && class_exists( $args['walker'] ) ) {
+			$args['walker'] = new $args['walker']();
+		}
+
+		return $args;
 	}
 
 	/**
@@ -76,44 +100,92 @@ class Front_End {
 	 * @return array
 	 */
 	private function get_ti_demo_content_support_data() {
-		$theme_name = wp_get_theme()->Name;
+		$theme_options = wp_get_theme();
+		$theme_name    = apply_filters( 'ti_wl_theme_name', $theme_options->__get( 'Name' ) );
 
-		$onboarding_sites = array(
+		$this->onboarding_config = array(
 			'editors'     => array(
 				'elementor',
 			),
 			'local'       => array(
 				'elementor' => array(
 					'neve-main'          => array(
-						'url'   => 'https://demo.themeisle.com/neve',
-						'title' => 'Neve Original',
+						'url'   => 'https://demo.themeisle.com/neve/',
+						'title' => 'Original',
 					),
 					'neve-vet-center'    => array(
 						'url'   => 'https://demo.themeisle.com/neve-vet-center/',
-						'title' => 'Neve Vet Center',
+						'title' => 'Vet Center',
 					),
 					'neve-energy-panels' => array(
 						'url'   => 'https://demo.themeisle.com/neve-energy-panels/',
-						'title' => 'Neve Energy Panels',
+						'title' => 'Energy Panels',
 					),
 					'neve-lawyers'       => array(
 						'url'   => 'https://demo.themeisle.com/neve-lawyers/',
-						'title' => 'Neve Lawyers',
-					),
-					'neve-doctors'       => array(
-						'url'   => 'https://demo.themeisle.com/neve-doctors/',
-						'title' => 'Neve Doctors',
+						'title' => 'Lawyers',
 					),
 					'neve-restaurant'    => array(
 						'url'   => 'https://demo.themeisle.com/neve-restaurant/',
-						'title' => 'Neve Restaurant',
+						'title' => 'Restaurant',
+					),
+					'neve-freelancer'    => array(
+						'url'   => 'https://demo.themeisle.com/neve-freelancer/',
+						'title' => 'Freelancer',
+					),
+					'neve-zelle'         => array(
+						'url'   => 'https://demo.themeisle.com/neve-zelle/',
+						'title' => 'Travel Agency',
 					),
 					'neve-charity'       => array(
 						'url'   => 'https://demo.themeisle.com/neve-charity/',
-						'title' => 'Neve Charity',
+						'title' => 'Charity',
+					),
+					'neve-doctors'       => array(
+						'url'   => 'https://demo.themeisle.com/neve-doctors/',
+						'title' => 'Doctors',
+					),
+					'neve-shop'          => array(
+						'url'   => 'https://demo.themeisle.com/neve-shop/',
+						'title' => 'Shop',
 					),
 				),
 			),
+
+			/*
+			Upsells for PRO version
+
+			'upsell'  => array(
+				'elementor' => array(
+					'neve-showcase'    => array(
+						'url'        => 'https://demo.themeisle.com/neve-showcase/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2019/03/neve_showcase.jpg',
+						'title'      => 'Showcase',
+					),
+					'neve-consultants' => array(
+						'url'        => 'https://demo.themeisle.com/neve-consultants/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2019/03/neve_consultants.jpg',
+						'title'      => 'Consultants',
+					),
+					'neve-cafe'        => array(
+						'url'        => 'https://demo.themeisle.com/neve-cafe/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2019/03/neve_cafe.jpg',
+						'title'      => 'Cafe',
+					),
+					'neve-agency'      => array(
+						'url'        => 'https://demo.themeisle.com/neve-agency/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2019/03/neve_agency.jpg',
+						'title'      => 'Agency',
+					),
+					'neve-scholar'     => array(
+						'url'        => 'https://demo.themeisle.com/neve-scholar/',
+						'screenshot' => 'https://demo.themeisle.com/hestia-pro-demo-content/wp-content/uploads/sites/105/2019/03/neve_scholar.jpg',
+						'title'      => 'Scholar',
+					),
+				),
+			),
+			*/
+
 			'can_migrate' => array(
 				'zerif-pro'  => array(
 					'theme_name'        => 'Zelle Pro',
@@ -141,10 +213,33 @@ class Front_End {
 				/* translators: %s - theme name */
 				'templates_description' => sprintf( __( 'With %s, you can choose from multiple unique demos, specially designed for you, that can be installed with a single click. You just need to choose your favorite, and we will take care of everything else.', 'neve' ), $theme_name ),
 			),
+			'pro_link'    => 'https://themeisle.com/themes/neve/upgrade/',
 
 		);
 
-		return apply_filters( 'neve_filter_onboarding_data', $onboarding_sites );
+		$this->add_gutenberg_starter_sites();
+
+		return apply_filters( 'neve_filter_onboarding_data', $this->onboarding_config );
+	}
+
+	/**
+	 * Add gutenberg starter sites if wp_version > 5.0.0
+	 */
+	private function add_gutenberg_starter_sites() {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.0', '>' ) === false ) {
+			return;
+		}
+
+		$this->onboarding_config['editors'][]          = 'gutenberg';
+		$this->onboarding_config['local']['gutenberg'] = array(
+			'neve-main-gutenberg' => array(
+				'url'   => 'https://demo.themeisle.com/neve-onboarding-gutenberg',
+				'title' => 'Original',
+			),
+		);
+
 	}
 
 	/**
@@ -270,7 +365,16 @@ class Front_End {
 				'title'          => '',
 				'type'           => 'block',
 				'author'         => $current_theme,
-				'keywords'       => array( 'team', 'our team', 'employees', 'clients', 'members', 'people', 'image', 'card' ),
+				'keywords'       => array(
+					'team',
+					'our team',
+					'employees',
+					'clients',
+					'members',
+					'people',
+					'image',
+					'card',
+				),
 				'categories'     => array( 'content' ),
 				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/our-team/template.json',
 				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/our-team/screenshot.jpg',
@@ -306,7 +410,16 @@ class Front_End {
 				'title'          => '',
 				'type'           => 'block',
 				'author'         => $current_theme,
-				'keywords'       => array( 'features', 'card', 'about', 'services', 'advantages', 'items', 'boxes', 'why' ),
+				'keywords'       => array(
+					'features',
+					'card',
+					'about',
+					'services',
+					'advantages',
+					'items',
+					'boxes',
+					'why',
+				),
 				'categories'     => array( 'content' ),
 				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/features/template.json',
 				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/features/screenshot.jpg',
@@ -324,7 +437,17 @@ class Front_End {
 				'title'          => '',
 				'type'           => 'block',
 				'author'         => $current_theme,
-				'keywords'       => array( 'contact', 'us', 'form', 'message', 'email', 'support', 'get', 'in', 'touch' ),
+				'keywords'       => array(
+					'contact',
+					'us',
+					'form',
+					'message',
+					'email',
+					'support',
+					'get',
+					'in',
+					'touch',
+				),
 				'categories'     => array( 'content' ),
 				'template_url'   => get_template_directory_uri() . '/gutenberg/blocks/contact/template.json',
 				'screenshot_url' => get_template_directory_uri() . '/gutenberg/blocks/contact/screenshot.jpg',
@@ -427,7 +550,7 @@ class Front_End {
 			return;
 		}
 
-		wp_register_script( 'neve-script', NEVE_ASSETS_URL . 'js/script' . ( ( NEVE_DEBUG ) ? '' : '.min' ) . '.js', apply_filters( 'neve_filter_main_script_dependencies', array( 'jquery' ) ), NEVE_VERSION, false );
+		wp_register_script( 'neve-script', NEVE_ASSETS_URL . 'js/frontend.js', apply_filters( 'neve_filter_main_script_dependencies', array() ), NEVE_VERSION, false );
 		wp_localize_script(
 			'neve-script',
 			'NeveProperties',
@@ -435,7 +558,7 @@ class Front_End {
 				'neve_filter_main_script_localization',
 				array(
 					'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
-					'nonce'   => wp_create_nonce( 'neve-theme-nonce' ),
+					'nonce'   => wp_create_nonce( 'wp_rest' ),
 				)
 			)
 		);
@@ -467,9 +590,7 @@ class Front_End {
 			)
 		);
 
-		$footer_columns  = is_customize_preview() ? '4' : get_theme_mod( 'neve_footer_widget_columns', '3' );
-		$footer_sidebars = array_slice( $footer_sidebars, 0, $footer_columns );
-		$sidebars        = array_merge( $sidebars, $footer_sidebars );
+		$sidebars = array_merge( $sidebars, $footer_sidebars );
 
 		foreach ( $sidebars as $sidebar_id => $sidebar_name ) {
 			$sidebar_settings = array(

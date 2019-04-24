@@ -46,6 +46,11 @@ function educationbooster_scripts(){
 			'version' => '2.2.1'
 		),
 		array(
+			'handler'  => 'education-booster-blocks',
+			'style'    => get_theme_file_uri( '/assets/css/blocks.min.css' ),
+			'absolute' => true,
+		),
+		array(
 			'handler'  => 'education-booster-style',
 			'style'    => get_stylesheet_uri(),
 			'absolute' => true,
@@ -80,6 +85,18 @@ function educationbooster_scripts(){
 	}
 }
 add_action( 'wp_enqueue_scripts', 'educationbooster_scripts' );
+
+/**
+* Enqueue editor styles for Gutenberg
+*/
+
+function educationbooster_block_editor_styles() {
+	// Block styles.
+	wp_enqueue_style( 'education-booster-block-editor-style', get_theme_file_uri( '/assets/css/editor-blocks.min.css' ) );
+	// Google Font
+	wp_enqueue_style( 'education-booster-google-font', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,700i', false );
+}
+add_action( 'enqueue_block_editor_assets', 'educationbooster_block_editor_styles' );
 
 /**
 * Adds a submit button in search form

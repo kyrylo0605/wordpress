@@ -38,18 +38,23 @@ class Post_Meta extends Base_View {
 		if ( ! is_array( $order ) || empty( $order ) ) {
 			return;
 		}
-		$order  = $this->sanitize_order_array( $order );
-		$markup = '';
-
+		$order   = $this->sanitize_order_array( $order );
+		$markup  = '';
 		$markup .= '<ul class="nv-meta-list">';
 		foreach ( $order as $meta ) {
 			switch ( $meta ) {
 				case 'author':
-					$author_email = get_the_author_meta( 'user_email' );
-					$avatar_url   = get_avatar_url( $author_email );
-					$markup      .= '<li class="meta author vcard">';
-					$markup      .= '<img class="photo" alt="' . get_the_author() . '" src="' . esc_url( $avatar_url ) . '" />&nbsp;<span class="author-name fn">' . wp_kses_post( get_the_author_posts_link() ) . '</span>';
-					$markup      .= '</li>';
+					$author_email   = get_the_author_meta( 'user_email' );
+					$avatar_url     = get_avatar_url( $author_email );
+					$avatar_markup  = '<img class="photo" alt="' . get_the_author() . '" src="' . esc_url( $avatar_url ) . '" />&nbsp;';
+					$display_avatar = apply_filters( 'neve_display_author_avatar', true );
+
+					$markup .= '<li class="meta author vcard">';
+					if ( $display_avatar ) {
+						$markup .= $avatar_markup;
+					}
+					$markup .= '<span class="author-name fn">' . wp_kses_post( get_the_author_posts_link() ) . '</span>';
+					$markup .= '</li>';
 					break;
 				case 'date':
 					$markup .= '<li class="meta date posted-on">';
@@ -70,13 +75,28 @@ class Post_Meta extends Base_View {
 					$markup .= $comments;
 					$markup .= '</li>';
 					break;
+				case 'reading':
+					$markup .= '<li class="meta reading-time">';
+					$markup .= apply_filters( 'neve_do_read_time', '' );
+					$markup .= '</li>';
+					break;
 				case 'default':
+					break;
+				default:
 					break;
 			}
 		}
 		$markup .= '</ul>';
-
-		echo $markup;
+		echo neve_custom_kses_escape(
+			$markup,
+			array(
+				'time' => array(
+					'class'    => true,
+					'datetime' => true,
+					'content'  => true,
+				),
+			)
+		); // WPCS: XSS ok.
 	}
 
 	/**
@@ -112,6 +132,7 @@ class Post_Meta extends Base_View {
 			'date',
 			'category',
 			'comments',
+			'reading',
 		);
 		foreach ( $order as $index => $value ) {
 			if ( ! in_array( $value, $allowed_order_values ) ) {
@@ -138,7 +159,7 @@ class Post_Meta extends Base_View {
 			$html    .= esc_html( $tag->name ) . '</a>';
 		}
 		$html .= ' </div> ';
-		echo $html;
+		echo $html; // WPCS: XSS OK.
 	}
 
 	/**

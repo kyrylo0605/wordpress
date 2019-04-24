@@ -33,13 +33,25 @@ class Themeisle_OB_Importer_Alterator {
 	);
 
 	/**
-	 * Themeisle_OB_Importer_Alterator constructor.
+	 * Data passed from the async request for individual site item.
+	 *
+	 * @var array
 	 */
-	public function __construct() {
+	private $site_json_data;
+
+	/**
+	 * Themeisle_OB_Importer_Alterator constructor.
+	 *
+	 * @param array $site_json_data the sites data passed from content import.
+	 */
+	public function __construct( $site_json_data ) {
+		$this->site_json_data = $site_json_data;
 		$this->count_posts_by_post_type();
+		add_filter( 'wxr_importer.pre_process.post', array( $this, 'skip_shop_pages' ), 10, 4 );
 		add_filter( 'wxr_importer.pre_process.post', array( $this, 'skip_posts' ), 10, 4 );
 		add_filter( 'wxr_importer.pre_process.term', array( $this, 'skip_terms' ), 10, 2 );
 		add_filter( 'wp_insert_post_data', array( $this, 'encode_post_content' ), 10, 2 );
+		add_filter( 'intermediate_image_sizes_advanced', '__return_null' );
 	}
 
 	/**
@@ -75,6 +87,36 @@ class Themeisle_OB_Importer_Alterator {
 		}
 
 		return array();
+	}
+
+	/**
+	 * Skip shop pages if no WooCommerce.
+	 *
+	 * @param array $data     post data.
+	 * @param array $meta     meta.
+	 * @param array $comments comments.
+	 * @param array $terms    terms.
+	 *
+	 * @return array
+	 */
+	public function skip_shop_pages( $data, $meta, $comments, $terms ) {
+		if ( ! isset( $this->site_json_data['shopPages'] ) ) {
+			return $data;
+		}
+
+		if ( $data['post_type'] !== 'page' ) {
+			return $data;
+		}
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			return $data;
+		}
+
+		if ( in_array( $data['post_name'], $this->site_json_data['shopPages'] ) ) {
+			return array();
+		}
+
+		return $data;
 	}
 
 	/**

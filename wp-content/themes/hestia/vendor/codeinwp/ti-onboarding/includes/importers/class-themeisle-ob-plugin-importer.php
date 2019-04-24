@@ -22,6 +22,18 @@ class Themeisle_OB_Plugin_Importer {
 	public $log = '';
 
 	/**
+	 * Logger Instance.
+	 *
+	 * @var Themeisle_OB_WP_Import_Logger
+	 */
+	private $logger;
+
+	public function __construct() {
+		$this->logger = Themeisle_OB_WP_Import_Logger::get_instance();
+	}
+
+
+	/**
 	 * Install Plugins.
 	 *
 	 * @param WP_REST_Request $request contains the plugins that should be installed.
@@ -30,6 +42,8 @@ class Themeisle_OB_Plugin_Importer {
 	 */
 	public function install_plugins( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
+			$this->logger->log( 'Current user cannot install plugins' );
+
 			return new WP_REST_Response(
 				array(
 					'success' => false,
@@ -45,7 +59,7 @@ class Themeisle_OB_Plugin_Importer {
 		$plugins = $plugins['data'];
 
 		foreach ( $plugins as $slug => $state ) {
-			if ( $state === false ) {
+			if ( $state === 'false' ) {
 				unset( $plugins[ $slug ] );
 			}
 		}
@@ -65,9 +79,13 @@ class Themeisle_OB_Plugin_Importer {
 			if ( in_array( $plugin_slug, $active_plugins ) ) {
 				continue;
 			}
+			$this->logger->log( "Installing {$plugin_slug}." );
 			$this->install_single_plugin( $plugin_slug );
+			$this->logger->log( "Activating {$plugin_slug}." );
 			$this->activate_single_plugin( $plugin_slug );
 		}
+
+		$this->logger->log( 'Installed and activated plugins.' );
 
 		do_action( 'themeisle_ob_after_plugins_install' );
 

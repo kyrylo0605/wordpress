@@ -40,10 +40,13 @@ function educationbooster_default_options( $options ){
 		# General
 		'menu_padding_top'               => 0,
 		'enable_scroll_top_in_mobile'    => false,
+
 		# Header
 		'top_header_background_color'    => false,
 		'disable_top_header'             => false,
+		'disable_search_icon'            => false,
 		'disable_fixed_header'           => false,
+		
 		# Footer
 		'footer_text'                    => educationbooster_get_footer_text(),
 	);

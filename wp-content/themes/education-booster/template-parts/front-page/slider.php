@@ -25,7 +25,7 @@ if( !empty( $slider_ids ) && is_array( $slider_ids ) && count( $slider_ids ) > 0
 				)));
 				
 				while ( $query->have_posts() ) :  $query->the_post();
-					$image = educationbooster_get_thumbnail_url( array( 'size' => 'education-booster-1920-650' ) );
+					$image = educationbooster_get_thumbnail_url( array( 'size' => 'education-booster-1920-750' ) );
 			?>
 					<div class="slide-item" style="background-image: url( <?php echo esc_url( $image ); ?> );">
 						<div class="banner-overlay">

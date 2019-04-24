@@ -4,8 +4,8 @@
  * Created on:      12/07/2018
  *
  * @package themeisle-onboarding
- * @phpcs:disable Squiz.Commenting.FunctionComment.Missing
- * @phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+ * @phpcs   :disable Squiz.Commenting.FunctionComment.Missing
+ * @phpcs   :disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
  * todo: clean up for both phpcs rules.
  */
 
@@ -216,7 +216,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	 */
 	public function import( $file ) {
 		add_filter( 'import_post_meta_key', array( $this, 'is_valid_meta_key' ) );
-		add_filter( 'http_request_timeout', array( &$this, 'bump_request_timeout' ) );
+		add_filter( 'http_request_timeout', array( $this, 'bump_request_timeout' ), PHP_INT_MAX );
 
 		$result = $this->import_start( $file );
 		if ( is_wp_error( $result ) ) {
@@ -345,6 +345,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		wp_defer_term_counting( true );
 		wp_defer_comment_counting( true );
 		wp_suspend_cache_invalidation( true );
+		set_time_limit( 0 );
 
 		// Prefill exists calls if told to
 		if ( $this->options['prefill_existing_posts'] ) {
@@ -581,7 +582,7 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 		}
 
 		$post_exists = $this->post_exists( $data );
-		if ( $post_exists ) {
+		if ( $post_exists && $data['post_type'] !== 'page' ) {
 			/**
 			 * Post processing already imported.
 			 *
@@ -1288,6 +1289,12 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 				if ( isset( $this->mapping['post'][ $menu_object_id ] ) ) {
 					$menu_object = $this->mapping['post'][ $menu_object_id ];
 				}
+
+				if ( get_post_status( $this->mapping['post'][ $menu_object_id ] ) === false ) {
+					$menu_object = array();
+					wp_delete_post( $post_id );
+				}
+
 				break;
 			default:
 				// Cannot handle this.
@@ -1369,10 +1376,10 @@ class Themeisle_OB_WXR_Importer extends WP_Importer {
 	 * Added to http_request_timeout filter to force timeout at 60 seconds during import
 	 *
 	 * @access protected
-	 * @return int 60
+	 * @return int 180
 	 */
 	function bump_request_timeout( $val ) {
-		return 60;
+		return 180;
 	}
 
 	/**

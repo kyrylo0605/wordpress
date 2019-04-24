@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:300,400,500,700");
 /* Grid desktop MS / No grid support */
 a {
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -88,7 +84,7 @@ h6.category {
 .footer-big h4,
 .footer-big h5,
 .media .media-heading,
-.woocommerce.archive .blog-post .products .product-category h2 {
+.woocommerce ul.products[class*="columns-"] li.product-category h2 {
   font-weight: 700;
 }
 
@@ -834,10 +830,10 @@ h6.category {
   text-transform: uppercase;
 }
 
-.hestia-title, .title, .card-title, .info-title, .footer-brand, .footer-big h4, .footer-big h5, .media .media-heading, .woocommerce.archive .blog-post .products .product-category h2 {
+.hestia-title, .title, .card-title, .info-title, .footer-brand, .footer-big h4, .footer-big h5, .media .media-heading, .woocommerce ul.products[class*="columns-"] li.product-category h2 {
   font-family: "Roboto Slab", "Times New Roman", serif;
 }
-.hestia-title, .hestia-title a, .hestia-title a:hover, .title, .title a, .title a:hover, .card-title, .card-title a, .card-title a:hover, .info-title, .info-title a, .info-title a:hover, .footer-brand, .footer-brand a, .footer-brand a:hover, .footer-big h4, .footer-big h4 a, .footer-big h4 a:hover, .footer-big h5, .footer-big h5 a, .footer-big h5 a:hover, .media .media-heading, .media .media-heading a, .media .media-heading a:hover, .woocommerce.archive .blog-post .products .product-category h2, .woocommerce.archive .blog-post .products .product-category h2 a, .woocommerce.archive .blog-post .products .product-category h2 a:hover {
+.hestia-title, .hestia-title a, .hestia-title a:hover, .title, .title a, .title a:hover, .card-title, .card-title a, .card-title a:hover, .info-title, .info-title a, .info-title a:hover, .footer-brand, .footer-brand a, .footer-brand a:hover, .footer-big h4, .footer-big h4 a, .footer-big h4 a:hover, .footer-big h5, .footer-big h5 a, .footer-big h5 a:hover, .media .media-heading, .media .media-heading a, .media .media-heading a:hover, .woocommerce ul.products[class*="columns-"] li.product-category h2, .woocommerce ul.products[class*="columns-"] li.product-category h2 a, .woocommerce ul.products[class*="columns-"] li.product-category h2 a:hover {
   color: #3C4858;
   text-decoration: none;
   word-wrap: break-word;
@@ -880,6 +876,10 @@ h2.hestia-title {
 
 .description, .card-description, .footer-big {
   color: #999999;
+}
+
+.card-description.entry-content {
+  color: #3C4858;
 }
 
 .subscribe-line-image .subscribe-description {
@@ -955,7 +955,6 @@ h2.hestia-title {
 
 .tooltip {
   opacity: 0;
-  -webkit-transition: opacity,-webkit-transform 0.2s ease;
   transition: opacity,-webkit-transform 0.2s ease;
   transition: opacity,transform 0.2s ease;
   transition: opacity,transform 0.2s ease,-webkit-transform 0.2s ease;
@@ -989,7 +988,6 @@ h2.hestia-title {
   border-radius: 3px;
   color: #555;
   background: #fff;
-  -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
   font-size: 12px;
   line-height: 1.5;
@@ -1006,7 +1004,6 @@ h2.hestia-title {
 .screen-reader-text:focus {
   background-color: #f1f1f1;
   border-radius: 3px;
-  -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   clip: auto !important;
   color: #21759b;
@@ -1182,7 +1179,6 @@ img.alignright, .wp-caption.alignright {
 .gallery img {
   border: none !important;
   border-radius: 6px;
-  -webkit-box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
@@ -1208,9 +1204,15 @@ img.alignright, .wp-caption.alignright {
 }
 
 .flex-row {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .layout-alternative2 .category {

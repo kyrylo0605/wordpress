@@ -101,6 +101,7 @@
 							</div>
 						</div>
 						<div class="header-bottom-right">
+							<?php if( !educationbooster_get_option( 'disable_search_icon' ) ): ?>
 							<span class="search-icon">
 								<a href="#">
 									<span class="kfi kfi-search" aria-hidden="true"></span>
@@ -109,6 +110,7 @@
 									<?php get_search_form(); ?>
 								</div><!-- /#search-form -->
 							</span>
+							<?php endif; ?>
 							<?php if( class_exists( 'WooCommerce' ) ): ?>
 								<span class="cart-icon">
 									<a href="<?php echo esc_url( wc_get_cart_url() ); ?>">

@@ -4,7 +4,7 @@ Theme URI: https://keonthemes.com/downloads/education-booster
 Author: Keon Themes
 Author URI: https://keonthemes.com
 Description: Education Booster is a powerful WordPress theme that specializes in education. Education Booster is a robust and reliable, colorful and youthful, clean and pristine, easy to use and readily responsive WordPress creative website theme for professionals, colleges, schools, universities or private educational institutions. Education Booster has a streamlined, practical design that is sure to attract many readers.
-Version: 1.1.7
+Version: 1.1.9
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: education-booster
@@ -2064,7 +2064,8 @@ span.wpcf7-not-valid-tip {
   letter-spacing: 0.5px;
 }
 
-body:not(.single, .page) .sharedaddy {
+body:not(.page) .sharedaddy,
+body:not(.single) .sharedaddy {
   display: none;
 }
 
@@ -2881,12 +2882,6 @@ article.hentry .post-text .woocommerce a:hover, article.hentry .post-text .wooco
   clear: both;
 }
 
-.nav-links .nav-previous a:before, .nav-links .nav-next a:before {
-  color: #b3b3b3;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
 article.hentry.sticky .post-content-inner-wrap, article.hentry.format-aside .post-content-inner-wrap, article.hentry.format-image .post-content-inner-wrap, article.hentry.format-video .post-content-inner-wrap, article.hentry.format-quote .post-content-inner-wrap, article.hentry.format-link .post-content-inner-wrap, article.hentry.format-gallery .post-content-inner-wrap, article.hentry.format-status .post-content-inner-wrap, article.hentry.format-audio .post-content-inner-wrap, article.hentry.format-chat .post-content-inner-wrap {
   display: block;
   position: relative;
@@ -2931,8 +2926,8 @@ body.single article.hentry .post-thumb img, .page article.hentry .post-thumb img
 article.hentry #ak-blog-post .post-thumb img {
   border: none;
 }
-body.single article.hentry .post-text a, .page article.hentry .post-text a, #blog-post article.hentry .post-text a, .search article.hentry .post-text a, .archive article.hentry .post-text a, .tag article.hentry .post-text a, .category article.hentry .post-text a,
-article.hentry #ak-blog-post .post-text a {
+body.single article.hentry .post-text a:not(.wp-block-button__link), .page article.hentry .post-text a:not(.wp-block-button__link), #blog-post article.hentry .post-text a:not(.wp-block-button__link), .search article.hentry .post-text a:not(.wp-block-button__link), .archive article.hentry .post-text a:not(.wp-block-button__link), .tag article.hentry .post-text a:not(.wp-block-button__link), .category article.hentry .post-text a:not(.wp-block-button__link),
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link) {
   -webkit-box-shadow: 0px 1px 0px 0px #fff;
   -moz-box-shadow: 0px 1px 0px 0px #fff;
   -ms-box-shadow: 0px 1px 0px 0px #fff;
@@ -2945,10 +2940,10 @@ article.hentry #ak-blog-post .post-text a {
   -o-transition: box-shadow 0.3s;
   transition: box-shadow 0.3s;
 }
-body.single article.hentry .post-text a:hover, body.single article.hentry .post-text a:focus, body.single article.hentry .post-text a:active, .page article.hentry .post-text a:hover, .page article.hentry .post-text a:focus, .page article.hentry .post-text a:active, #blog-post article.hentry .post-text a:hover, #blog-post article.hentry .post-text a:focus, #blog-post article.hentry .post-text a:active, .search article.hentry .post-text a:hover, .search article.hentry .post-text a:focus, .search article.hentry .post-text a:active, .archive article.hentry .post-text a:hover, .archive article.hentry .post-text a:focus, .archive article.hentry .post-text a:active, .tag article.hentry .post-text a:hover, .tag article.hentry .post-text a:focus, .tag article.hentry .post-text a:active, .category article.hentry .post-text a:hover, .category article.hentry .post-text a:focus, .category article.hentry .post-text a:active,
-article.hentry #ak-blog-post .post-text a:hover,
-article.hentry #ak-blog-post .post-text a:focus,
-article.hentry #ak-blog-post .post-text a:active {
+body.single article.hentry .post-text a:not(.wp-block-button__link):hover, body.single article.hentry .post-text a:not(.wp-block-button__link):focus, body.single article.hentry .post-text a:not(.wp-block-button__link):active, .page article.hentry .post-text a:not(.wp-block-button__link):hover, .page article.hentry .post-text a:not(.wp-block-button__link):focus, .page article.hentry .post-text a:not(.wp-block-button__link):active, #blog-post article.hentry .post-text a:not(.wp-block-button__link):hover, #blog-post article.hentry .post-text a:not(.wp-block-button__link):focus, #blog-post article.hentry .post-text a:not(.wp-block-button__link):active, .search article.hentry .post-text a:not(.wp-block-button__link):hover, .search article.hentry .post-text a:not(.wp-block-button__link):focus, .search article.hentry .post-text a:not(.wp-block-button__link):active, .archive article.hentry .post-text a:not(.wp-block-button__link):hover, .archive article.hentry .post-text a:not(.wp-block-button__link):focus, .archive article.hentry .post-text a:not(.wp-block-button__link):active, .tag article.hentry .post-text a:not(.wp-block-button__link):hover, .tag article.hentry .post-text a:not(.wp-block-button__link):focus, .tag article.hentry .post-text a:not(.wp-block-button__link):active, .category article.hentry .post-text a:not(.wp-block-button__link):hover, .category article.hentry .post-text a:not(.wp-block-button__link):focus, .category article.hentry .post-text a:not(.wp-block-button__link):active,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link):hover,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link):focus,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link):active {
   -webkit-box-shadow: 0px 1px 0px 0px #1a1a1a;
   -moz-box-shadow: 0px 1px 0px 0px #1a1a1a;
   -ms-box-shadow: 0px 1px 0px 0px #1a1a1a;
@@ -2956,13 +2951,13 @@ article.hentry #ak-blog-post .post-text a:active {
   box-shadow: 0px 1px 0px 0px #1a1a1a;
   color: #0081FE;
 }
-body.single article.hentry .post-text a.button, body.single article.hentry .post-text a.button-light, body.single article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply body.single article.hentry .post-text a, body.single article.hentry .post-text a.button-outline, body.single article.hentry .post-text a.button-text, .page article.hentry .post-text a.button, .page article.hentry .post-text a.button-light, .page article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply .page article.hentry .post-text a, .page article.hentry .post-text a.button-outline, .page article.hentry .post-text a.button-text, #blog-post article.hentry .post-text a.button, #blog-post article.hentry .post-text a.button-light, #blog-post article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply #blog-post article.hentry .post-text a, #blog-post article.hentry .post-text a.button-outline, #blog-post article.hentry .post-text a.button-text, .search article.hentry .post-text a.button, .search article.hentry .post-text a.button-light, .search article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply .search article.hentry .post-text a, .search article.hentry .post-text a.button-outline, .search article.hentry .post-text a.button-text, .archive article.hentry .post-text a.button, .archive article.hentry .post-text a.button-light, .archive article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply .archive article.hentry .post-text a, .archive article.hentry .post-text a.button-outline, .archive article.hentry .post-text a.button-text, .tag article.hentry .post-text a.button, .tag article.hentry .post-text a.button-light, .tag article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply .tag article.hentry .post-text a, .tag article.hentry .post-text a.button-outline, .tag article.hentry .post-text a.button-text, .category article.hentry .post-text a.button, .category article.hentry .post-text a.button-light, .category article.hentry .post-text .comments-area .comment-list .reply a, .comments-area .comment-list .reply .category article.hentry .post-text a, .category article.hentry .post-text a.button-outline, .category article.hentry .post-text a.button-text,
-article.hentry #ak-blog-post .post-text a.button,
-article.hentry #ak-blog-post .post-text a.button-light,
-article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a,
-.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a,
-article.hentry #ak-blog-post .post-text a.button-outline,
-article.hentry #ak-blog-post .post-text a.button-text {
+body.single article.hentry .post-text a:not(.wp-block-button__link).button, body.single article.hentry .post-text a:not(.wp-block-button__link).button-light, body.single article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply body.single article.hentry .post-text a:not(.wp-block-button__link), body.single article.hentry .post-text a:not(.wp-block-button__link).button-outline, body.single article.hentry .post-text a:not(.wp-block-button__link).button-text, .page article.hentry .post-text a:not(.wp-block-button__link).button, .page article.hentry .post-text a:not(.wp-block-button__link).button-light, .page article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply .page article.hentry .post-text a:not(.wp-block-button__link), .page article.hentry .post-text a:not(.wp-block-button__link).button-outline, .page article.hentry .post-text a:not(.wp-block-button__link).button-text, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-light, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply #blog-post article.hentry .post-text a:not(.wp-block-button__link), #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-outline, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text, .search article.hentry .post-text a:not(.wp-block-button__link).button, .search article.hentry .post-text a:not(.wp-block-button__link).button-light, .search article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply .search article.hentry .post-text a:not(.wp-block-button__link), .search article.hentry .post-text a:not(.wp-block-button__link).button-outline, .search article.hentry .post-text a:not(.wp-block-button__link).button-text, .archive article.hentry .post-text a:not(.wp-block-button__link).button, .archive article.hentry .post-text a:not(.wp-block-button__link).button-light, .archive article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply .archive article.hentry .post-text a:not(.wp-block-button__link), .archive article.hentry .post-text a:not(.wp-block-button__link).button-outline, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text, .tag article.hentry .post-text a:not(.wp-block-button__link).button, .tag article.hentry .post-text a:not(.wp-block-button__link).button-light, .tag article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply .tag article.hentry .post-text a:not(.wp-block-button__link), .tag article.hentry .post-text a:not(.wp-block-button__link).button-outline, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text, .category article.hentry .post-text a:not(.wp-block-button__link).button, .category article.hentry .post-text a:not(.wp-block-button__link).button-light, .category article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link), .comments-area .comment-list .reply .category article.hentry .post-text a:not(.wp-block-button__link), .category article.hentry .post-text a:not(.wp-block-button__link).button-outline, .category article.hentry .post-text a:not(.wp-block-button__link).button-text,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-light,
+article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link),
+.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link),
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-outline,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text {
   -webkit-transition: background-color 0.5s, border 0.5s;
   -moz-transition: background-color 0.5s, border 0.5s;
   -ms-transition: background-color 0.5s, border 0.5s;
@@ -2975,25 +2970,25 @@ article.hentry #ak-blog-post .post-text a.button-text {
   box-shadow: none;
   color: #080808;
 }
-body.single article.hentry .post-text a.button:hover, body.single article.hentry .post-text a.button:focus, body.single article.hentry .post-text a.button:active, body.single article.hentry .post-text a.button-light:hover, body.single article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply body.single article.hentry .post-text a:hover, body.single article.hentry .post-text a.button-light:focus, body.single article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply body.single article.hentry .post-text a:focus, body.single article.hentry .post-text a.button-light:active, body.single article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply body.single article.hentry .post-text a:active, body.single article.hentry .post-text a.button-outline:hover, body.single article.hentry .post-text a.button-outline:focus, body.single article.hentry .post-text a.button-outline:active, body.single article.hentry .post-text a.button-text:hover, body.single article.hentry .post-text a.button-text:focus, body.single article.hentry .post-text a.button-text:active, .page article.hentry .post-text a.button:hover, .page article.hentry .post-text a.button:focus, .page article.hentry .post-text a.button:active, .page article.hentry .post-text a.button-light:hover, .page article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply .page article.hentry .post-text a:hover, .page article.hentry .post-text a.button-light:focus, .page article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply .page article.hentry .post-text a:focus, .page article.hentry .post-text a.button-light:active, .page article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply .page article.hentry .post-text a:active, .page article.hentry .post-text a.button-outline:hover, .page article.hentry .post-text a.button-outline:focus, .page article.hentry .post-text a.button-outline:active, .page article.hentry .post-text a.button-text:hover, .page article.hentry .post-text a.button-text:focus, .page article.hentry .post-text a.button-text:active, #blog-post article.hentry .post-text a.button:hover, #blog-post article.hentry .post-text a.button:focus, #blog-post article.hentry .post-text a.button:active, #blog-post article.hentry .post-text a.button-light:hover, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply #blog-post article.hentry .post-text a:hover, #blog-post article.hentry .post-text a.button-light:focus, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply #blog-post article.hentry .post-text a:focus, #blog-post article.hentry .post-text a.button-light:active, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply #blog-post article.hentry .post-text a:active, #blog-post article.hentry .post-text a.button-outline:hover, #blog-post article.hentry .post-text a.button-outline:focus, #blog-post article.hentry .post-text a.button-outline:active, #blog-post article.hentry .post-text a.button-text:hover, #blog-post article.hentry .post-text a.button-text:focus, #blog-post article.hentry .post-text a.button-text:active, .search article.hentry .post-text a.button:hover, .search article.hentry .post-text a.button:focus, .search article.hentry .post-text a.button:active, .search article.hentry .post-text a.button-light:hover, .search article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply .search article.hentry .post-text a:hover, .search article.hentry .post-text a.button-light:focus, .search article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply .search article.hentry .post-text a:focus, .search article.hentry .post-text a.button-light:active, .search article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply .search article.hentry .post-text a:active, .search article.hentry .post-text a.button-outline:hover, .search article.hentry .post-text a.button-outline:focus, .search article.hentry .post-text a.button-outline:active, .search article.hentry .post-text a.button-text:hover, .search article.hentry .post-text a.button-text:focus, .search article.hentry .post-text a.button-text:active, .archive article.hentry .post-text a.button:hover, .archive article.hentry .post-text a.button:focus, .archive article.hentry .post-text a.button:active, .archive article.hentry .post-text a.button-light:hover, .archive article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply .archive article.hentry .post-text a:hover, .archive article.hentry .post-text a.button-light:focus, .archive article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply .archive article.hentry .post-text a:focus, .archive article.hentry .post-text a.button-light:active, .archive article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply .archive article.hentry .post-text a:active, .archive article.hentry .post-text a.button-outline:hover, .archive article.hentry .post-text a.button-outline:focus, .archive article.hentry .post-text a.button-outline:active, .archive article.hentry .post-text a.button-text:hover, .archive article.hentry .post-text a.button-text:focus, .archive article.hentry .post-text a.button-text:active, .tag article.hentry .post-text a.button:hover, .tag article.hentry .post-text a.button:focus, .tag article.hentry .post-text a.button:active, .tag article.hentry .post-text a.button-light:hover, .tag article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply .tag article.hentry .post-text a:hover, .tag article.hentry .post-text a.button-light:focus, .tag article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply .tag article.hentry .post-text a:focus, .tag article.hentry .post-text a.button-light:active, .tag article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply .tag article.hentry .post-text a:active, .tag article.hentry .post-text a.button-outline:hover, .tag article.hentry .post-text a.button-outline:focus, .tag article.hentry .post-text a.button-outline:active, .tag article.hentry .post-text a.button-text:hover, .tag article.hentry .post-text a.button-text:focus, .tag article.hentry .post-text a.button-text:active, .category article.hentry .post-text a.button:hover, .category article.hentry .post-text a.button:focus, .category article.hentry .post-text a.button:active, .category article.hentry .post-text a.button-light:hover, .category article.hentry .post-text .comments-area .comment-list .reply a:hover, .comments-area .comment-list .reply .category article.hentry .post-text a:hover, .category article.hentry .post-text a.button-light:focus, .category article.hentry .post-text .comments-area .comment-list .reply a:focus, .comments-area .comment-list .reply .category article.hentry .post-text a:focus, .category article.hentry .post-text a.button-light:active, .category article.hentry .post-text .comments-area .comment-list .reply a:active, .comments-area .comment-list .reply .category article.hentry .post-text a:active, .category article.hentry .post-text a.button-outline:hover, .category article.hentry .post-text a.button-outline:focus, .category article.hentry .post-text a.button-outline:active, .category article.hentry .post-text a.button-text:hover, .category article.hentry .post-text a.button-text:focus, .category article.hentry .post-text a.button-text:active,
-article.hentry #ak-blog-post .post-text a.button:hover,
-article.hentry #ak-blog-post .post-text a.button:focus,
-article.hentry #ak-blog-post .post-text a.button:active,
-article.hentry #ak-blog-post .post-text a.button-light:hover,
-article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:hover,
-.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:hover,
-article.hentry #ak-blog-post .post-text a.button-light:focus,
-article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:focus,
-.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:focus,
-article.hentry #ak-blog-post .post-text a.button-light:active,
-article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:active,
-.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:active,
-article.hentry #ak-blog-post .post-text a.button-outline:hover,
-article.hentry #ak-blog-post .post-text a.button-outline:focus,
-article.hentry #ak-blog-post .post-text a.button-outline:active,
-article.hentry #ak-blog-post .post-text a.button-text:hover,
-article.hentry #ak-blog-post .post-text a.button-text:focus,
-article.hentry #ak-blog-post .post-text a.button-text:active {
+body.single article.hentry .post-text a:not(.wp-block-button__link).button:hover, body.single article.hentry .post-text a:not(.wp-block-button__link).button:focus, body.single article.hentry .post-text a:not(.wp-block-button__link).button:active, body.single article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, body.single article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply body.single article.hentry .post-text a:not(.wp-block-button__link):hover, body.single article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, body.single article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply body.single article.hentry .post-text a:not(.wp-block-button__link):focus, body.single article.hentry .post-text a:not(.wp-block-button__link).button-light:active, body.single article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply body.single article.hentry .post-text a:not(.wp-block-button__link):active, body.single article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, body.single article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, body.single article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .page article.hentry .post-text a:not(.wp-block-button__link).button:hover, .page article.hentry .post-text a:not(.wp-block-button__link).button:focus, .page article.hentry .post-text a:not(.wp-block-button__link).button:active, .page article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, .page article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply .page article.hentry .post-text a:not(.wp-block-button__link):hover, .page article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, .page article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply .page article.hentry .post-text a:not(.wp-block-button__link):focus, .page article.hentry .post-text a:not(.wp-block-button__link).button-light:active, .page article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply .page article.hentry .post-text a:not(.wp-block-button__link):active, .page article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, .page article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, .page article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:active, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button:hover, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button:focus, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button:active, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply #blog-post article.hentry .post-text a:not(.wp-block-button__link):hover, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply #blog-post article.hentry .post-text a:not(.wp-block-button__link):focus, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-light:active, #blog-post article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply #blog-post article.hentry .post-text a:not(.wp-block-button__link):active, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .search article.hentry .post-text a:not(.wp-block-button__link).button:hover, .search article.hentry .post-text a:not(.wp-block-button__link).button:focus, .search article.hentry .post-text a:not(.wp-block-button__link).button:active, .search article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, .search article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply .search article.hentry .post-text a:not(.wp-block-button__link):hover, .search article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, .search article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply .search article.hentry .post-text a:not(.wp-block-button__link):focus, .search article.hentry .post-text a:not(.wp-block-button__link).button-light:active, .search article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply .search article.hentry .post-text a:not(.wp-block-button__link):active, .search article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, .search article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, .search article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .archive article.hentry .post-text a:not(.wp-block-button__link).button:hover, .archive article.hentry .post-text a:not(.wp-block-button__link).button:focus, .archive article.hentry .post-text a:not(.wp-block-button__link).button:active, .archive article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, .archive article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply .archive article.hentry .post-text a:not(.wp-block-button__link):hover, .archive article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, .archive article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply .archive article.hentry .post-text a:not(.wp-block-button__link):focus, .archive article.hentry .post-text a:not(.wp-block-button__link).button-light:active, .archive article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply .archive article.hentry .post-text a:not(.wp-block-button__link):active, .archive article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, .archive article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, .archive article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .tag article.hentry .post-text a:not(.wp-block-button__link).button:hover, .tag article.hentry .post-text a:not(.wp-block-button__link).button:focus, .tag article.hentry .post-text a:not(.wp-block-button__link).button:active, .tag article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, .tag article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply .tag article.hentry .post-text a:not(.wp-block-button__link):hover, .tag article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, .tag article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply .tag article.hentry .post-text a:not(.wp-block-button__link):focus, .tag article.hentry .post-text a:not(.wp-block-button__link).button-light:active, .tag article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply .tag article.hentry .post-text a:not(.wp-block-button__link):active, .tag article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, .tag article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, .tag article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .category article.hentry .post-text a:not(.wp-block-button__link).button:hover, .category article.hentry .post-text a:not(.wp-block-button__link).button:focus, .category article.hentry .post-text a:not(.wp-block-button__link).button:active, .category article.hentry .post-text a:not(.wp-block-button__link).button-light:hover, .category article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover, .comments-area .comment-list .reply .category article.hentry .post-text a:not(.wp-block-button__link):hover, .category article.hentry .post-text a:not(.wp-block-button__link).button-light:focus, .category article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus, .comments-area .comment-list .reply .category article.hentry .post-text a:not(.wp-block-button__link):focus, .category article.hentry .post-text a:not(.wp-block-button__link).button-light:active, .category article.hentry .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active, .comments-area .comment-list .reply .category article.hentry .post-text a:not(.wp-block-button__link):active, .category article.hentry .post-text a:not(.wp-block-button__link).button-outline:hover, .category article.hentry .post-text a:not(.wp-block-button__link).button-outline:focus, .category article.hentry .post-text a:not(.wp-block-button__link).button-outline:active, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:active,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button:hover,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button:focus,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button:active,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-light:hover,
+article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):hover,
+.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link):hover,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-light:focus,
+article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):focus,
+.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link):focus,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-light:active,
+article.hentry #ak-blog-post .post-text .comments-area .comment-list .reply a:not(.wp-block-button__link):active,
+.comments-area .comment-list .reply article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link):active,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-outline:hover,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-outline:focus,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-outline:active,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:hover,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:focus,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:active {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   -ms-box-shadow: none;
@@ -3001,18 +2996,18 @@ article.hentry #ak-blog-post .post-text a.button-text:active {
   box-shadow: none;
   color: #e6e6e6;
 }
-body.single article.hentry .post-text a.button, .page article.hentry .post-text a.button, #blog-post article.hentry .post-text a.button, .search article.hentry .post-text a.button, .archive article.hentry .post-text a.button, .tag article.hentry .post-text a.button, .category article.hentry .post-text a.button,
-article.hentry #ak-blog-post .post-text a.button {
+body.single article.hentry .post-text a:not(.wp-block-button__link).button, .page article.hentry .post-text a:not(.wp-block-button__link).button, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button, .search article.hentry .post-text a:not(.wp-block-button__link).button, .archive article.hentry .post-text a:not(.wp-block-button__link).button, .tag article.hentry .post-text a:not(.wp-block-button__link).button, .category article.hentry .post-text a:not(.wp-block-button__link).button,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button {
   color: #fff;
 }
-body.single article.hentry .post-text a.button-text:before, .page article.hentry .post-text a.button-text:before, #blog-post article.hentry .post-text a.button-text:before, .search article.hentry .post-text a.button-text:before, .archive article.hentry .post-text a.button-text:before, .tag article.hentry .post-text a.button-text:before, .category article.hentry .post-text a.button-text:before,
-article.hentry #ak-blog-post .post-text a.button-text:before {
+body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:before, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:before, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:before, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:before, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:before, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:before, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:before,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:before {
   line-height: 1.5;
 }
-body.single article.hentry .post-text a.button-text:hover, body.single article.hentry .post-text a.button-text:focus, body.single article.hentry .post-text a.button-text:active, .page article.hentry .post-text a.button-text:hover, .page article.hentry .post-text a.button-text:focus, .page article.hentry .post-text a.button-text:active, #blog-post article.hentry .post-text a.button-text:hover, #blog-post article.hentry .post-text a.button-text:focus, #blog-post article.hentry .post-text a.button-text:active, .search article.hentry .post-text a.button-text:hover, .search article.hentry .post-text a.button-text:focus, .search article.hentry .post-text a.button-text:active, .archive article.hentry .post-text a.button-text:hover, .archive article.hentry .post-text a.button-text:focus, .archive article.hentry .post-text a.button-text:active, .tag article.hentry .post-text a.button-text:hover, .tag article.hentry .post-text a.button-text:focus, .tag article.hentry .post-text a.button-text:active, .category article.hentry .post-text a.button-text:hover, .category article.hentry .post-text a.button-text:focus, .category article.hentry .post-text a.button-text:active,
-article.hentry #ak-blog-post .post-text a.button-text:hover,
-article.hentry #ak-blog-post .post-text a.button-text:focus,
-article.hentry #ak-blog-post .post-text a.button-text:active {
+body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, body.single article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .page article.hentry .post-text a:not(.wp-block-button__link).button-text:active, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, #blog-post article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .search article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .archive article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .tag article.hentry .post-text a:not(.wp-block-button__link).button-text:active, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:hover, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:focus, .category article.hentry .post-text a:not(.wp-block-button__link).button-text:active,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:hover,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:focus,
+article.hentry #ak-blog-post .post-text a:not(.wp-block-button__link).button-text:active {
   color: #0081FE;
 }
 body.single article.hentry .post-text table a, .page article.hentry .post-text table a, #blog-post article.hentry .post-text table a, .search article.hentry .post-text table a, .archive article.hentry .post-text table a, .tag article.hentry .post-text table a, .category article.hentry .post-text table a,
@@ -3515,19 +3510,8 @@ body.logged-in article.hentry .edit-link .post-edit-link:hover, body.logged-in a
 .nav-links .nav-previous a:hover, .nav-links .nav-previous a:focus, .nav-links .nav-previous a:active, .nav-links .nav-next a:hover, .nav-links .nav-next a:focus, .nav-links .nav-next a:active {
   color: #0081FE;
 }
-.nav-links .nav-previous a:before {
-  content: "Previous Reading";
-  font-size: 12px;
-  left: 5px;
-}
 .nav-links .nav-next a {
   padding: 15px 50px 15px 30px;
-}
-.nav-links .nav-next a:before {
-  content: "Next Reading";
-  font-size: 12px;
-  left: auto;
-  right: 5px;
 }
 
 .nav-previous,
@@ -4364,6 +4348,26 @@ article.post-content .post-title h2, article.post-content .post-title body.wooco
   width: 100%;
 }
 
+.section-banner-wrap {
+  margin-bottom: 70px;
+}
+@media screen and (max-width: 991px) {
+  .section-banner-wrap {
+    margin-bottom: 50px;
+  }
+}
+.home.blog .section-banner-wrap {
+  margin-bottom: 70px;
+}
+@media screen and (max-width: 767px) {
+  .home.blog .section-banner-wrap {
+    margin-bottom: 50px;
+  }
+}
+body.home.page .section-banner-wrap {
+  margin-bottom: 0;
+}
+
 .wrap-inner-banner {
   background-color: #fff;
   border: 1px solid #e6e6e6;
@@ -4372,7 +4376,7 @@ article.post-content .post-title h2, article.post-content .post-title body.wooco
   background-color: #999999;
   border: 0;
   color: #fff;
-  margin-bottom: 100px;
+  margin: 0;
   padding: 0;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -4380,9 +4384,11 @@ article.post-content .post-title h2, article.post-content .post-title body.wooco
   -o-box-shadow: none;
   box-shadow: none;
   background-position: center center;
-}
-body.home.page .wrap-inner-banner {
-  margin-bottom: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .wrap-inner-banner:hover, .wrap-inner-banner:focus, .wrap-inner-banner:active {
   -webkit-box-shadow: none;
@@ -4394,9 +4400,8 @@ body.home.page .wrap-inner-banner {
 .wrap-inner-banner .page-header {
   border: none;
   color: #fff;
-  margin-bottom: 85px;
-  margin-top: 100px;
-  padding: 0;
+  margin: 0;
+  padding: 165px 0;
   text-align: center;
 }
 .wrap-inner-banner .page-header:before, .wrap-inner-banner .page-header:after {
@@ -4406,24 +4411,19 @@ body.home.page .wrap-inner-banner {
 .wrap-inner-banner .page-header:after {
   clear: both;
 }
-body.home.page .wrap-inner-banner .page-header {
-  margin-bottom: 20%;
-  margin-top: 20%;
+@media screen and (max-width: 767px) {
+  .wrap-inner-banner .page-header {
+    padding: 90px 0;
+  }
 }
 .wrap-inner-banner .page-header .page-title {
   color: #fff;
   font-size: 28px;
   text-transform: uppercase;
-  margin: 0 0 15px 0;
+  margin: 0;
   text-align: center;
   letter-spacing: 1px;
   font-weight: 600;
-}
-@media screen and (min-width: 992px) {
-  .wrap-inner-banner .page-header .page-title {
-    margin-left: 100px;
-    margin-right: 100px;
-  }
 }
 @media screen and (max-width: 767px) {
   .wrap-inner-banner .page-header .page-title {
@@ -4432,7 +4432,7 @@ body.home.page .wrap-inner-banner .page-header {
 }
 body.home.page .wrap-inner-banner .page-header .page-title {
   line-height: 1.2;
-  margin-bottom: 30px;
+  margin: 0px;
   color: #fff;
   font-size: 42px;
 }
@@ -4457,45 +4457,41 @@ body.home.page .wrap-inner-banner .page-header .page-title {
   font-size: 16px;
   text-align: center;
 }
-@media screen and (min-width: 992px) {
-  .wrap-inner-banner .page-header .page-description {
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-}
 
-.wrap-inner-banner .breadcrumbs {
+.breadcrumb-wrap {
   background-color: #f7f7f7;
+}
+.breadcrumb-wrap .breadcrumbs {
   color: #999999;
   font-size: 15px;
-  padding: 20px 15px;
+  padding: 10px 0px;
   text-align: center;
 }
-.wrap-inner-banner .breadcrumbs .trail-items {
+.breadcrumb-wrap .breadcrumbs .trail-items {
   margin: 0;
   padding-left: 0;
 }
-.wrap-inner-banner .breadcrumbs .trail-items li {
+.breadcrumb-wrap .breadcrumbs .trail-items li {
   display: inline-block;
   line-height: 1.5;
   list-style: none;
 }
-.wrap-inner-banner .breadcrumbs .trail-items li:last-child span {
+.breadcrumb-wrap .breadcrumbs .trail-items li:last-child span {
   margin-right: 0;
 }
-.wrap-inner-banner .breadcrumbs .trail-items span {
+.breadcrumb-wrap .breadcrumbs .trail-items span {
   font-size: 13px;
   margin-left: 10px;
   margin-right: 10px;
 }
-.wrap-inner-banner .breadcrumbs .trail-items a {
+.breadcrumb-wrap .breadcrumbs .trail-items a {
   color: #999999;
   font-size: 13px;
   margin-right: 2px;
   padding-right: 4px;
   position: relative;
 }
-.wrap-inner-banner .breadcrumbs .trail-items a:after {
+.breadcrumb-wrap .breadcrumbs .trail-items a:after {
   background-color: #cccccc;
   bottom: 0;
   content: "";
@@ -4516,18 +4512,18 @@ body.home.page .wrap-inner-banner .page-header .page-title {
   transform: rotate(25deg);
   width: 1px;
 }
-.wrap-inner-banner .breadcrumbs .trail-items a[rel="home"] span {
+.breadcrumb-wrap .breadcrumbs .trail-items a[rel="home"] span {
   font-size: 0px;
 }
-.wrap-inner-banner .breadcrumbs .trail-items a[rel="home"] span:before {
+.breadcrumb-wrap .breadcrumbs .trail-items a[rel="home"] span:before {
   font-size: 14px;
   content: "\e074";
   font-family: "kf-icons";
 }
-.wrap-inner-banner .breadcrumbs .trail-items a:hover, .wrap-inner-banner .breadcrumbs .trail-items a:focus, .wrap-inner-banner .breadcrumbs .trail-items a:active {
+.breadcrumb-wrap .breadcrumbs .trail-items a:hover, .breadcrumb-wrap .breadcrumbs .trail-items a:focus, .breadcrumb-wrap .breadcrumbs .trail-items a:active {
   color: #262626;
 }
-.wrap-inner-banner .breadcrumbs .trail-items a:hover:after, .wrap-inner-banner .breadcrumbs .trail-items a:focus:after, .wrap-inner-banner .breadcrumbs .trail-items a:active:after {
+.breadcrumb-wrap .breadcrumbs .trail-items a:hover:after, .breadcrumb-wrap .breadcrumbs .trail-items a:focus:after, .breadcrumb-wrap .breadcrumbs .trail-items a:active:after {
   background-color: #262626;
 }
 
@@ -5205,7 +5201,10 @@ sidebar.sidebar .widget:last-child {
 .site-header {
   top: 0;
   text-align: center;
-  position: fixed;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: sticky;
   -webkit-transition: background-color 0.5s, padding-bottom 0.5s, padding-top 0.5s;
   -moz-transition: background-color 0.5s, padding-bottom 0.5s, padding-top 0.5s;
   -ms-transition: background-color 0.5s, padding-bottom 0.5s, padding-top 0.5s;
@@ -5216,6 +5215,12 @@ sidebar.sidebar .widget:last-child {
   padding-bottom: 20px;
   padding-top: 20px;
   background-color: #083a6f;
+}
+@media screen and (max-width: 991px) {
+  .site-header {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
 }
 .site-header .site-branding-outer {
   text-align: left;
@@ -5294,6 +5299,8 @@ sidebar.sidebar .widget:last-child {
 @media screen and (max-width: 991px) {
   .site-header .header-bottom-right {
     width: 100%;
+    margin-top: 0;
+    text-align: right;
   }
 }
 .site-header .header-bottom-right > span {
@@ -5446,19 +5453,19 @@ sidebar.sidebar .widget:last-child {
   visibility: hidden;
 }
 .block-slider .banner-overlay, .block-slider .post-content-overlay .post-thumb figure a, .post-content-overlay .post-thumb figure .block-slider a {
-  padding: 240px 0 150px;
+  padding: 235px 0;
   height: 100%;
   width: 100%;
 }
 @media screen and (max-width: 991px) {
   .block-slider .banner-overlay, .block-slider .post-content-overlay .post-thumb figure a, .post-content-overlay .post-thumb figure .block-slider a {
-    padding-top: 180px;
+    padding: 180px 0;
   }
 }
 @media screen and (max-width: 767px) {
   .block-slider .banner-overlay, .block-slider .post-content-overlay .post-thumb figure a, .post-content-overlay .post-thumb figure .block-slider a {
-    padding-bottom: 96px;
-    padding-top: 150px;
+    padding-bottom: 80px;
+    padding-top: 80px;
   }
 }
 .block-slider .slide-item {
@@ -5469,6 +5476,11 @@ sidebar.sidebar .widget:last-child {
   -ms-transition: filter 1s linear;
   -o-transition: filter 1s linear;
   transition: filter 1s linear;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 @media screen and (max-width: 767px) {
   .block-slider .slide-item .text-center,
@@ -7303,3 +7315,5 @@ body.search-results .block-grid .post-content .post-format-outer > span {
 /*--------------------------------------------------------------
    		  !!! KEON THEMES (https://keonthemes.com) !!!
 --------------------------------------------------------------*/
+
+/*# sourceMappingURL=style.css.map */

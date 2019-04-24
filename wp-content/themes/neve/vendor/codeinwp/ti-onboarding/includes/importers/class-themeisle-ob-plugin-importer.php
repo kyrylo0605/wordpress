@@ -45,7 +45,7 @@ class Themeisle_OB_Plugin_Importer {
 		$plugins = $plugins['data'];
 
 		foreach ( $plugins as $slug => $state ) {
-			if ( $state === false ) {
+			if ( $state === 'false' ) {
 				unset( $plugins[ $slug ] );
 			}
 		}

@@ -69,7 +69,7 @@ class Woocommerce {
 		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 
 		$this->edit_woocommerce_header();
-		$this->move_checkout_coupon_under_order_summary();
+		$this->move_checkout_coupon();
 		$this->add_inline_selectors();
 	}
 
@@ -142,6 +142,7 @@ class Woocommerce {
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		add_action( 'nv_woo_header_bits', 'woocommerce_catalog_ordering', 30 );
 		add_filter( 'woocommerce_show_page_title', '__return_false' );
 		add_action( 'neve_before_shop_loop_content', array( $this, 'add_header_bits' ), 0 );
 
@@ -169,7 +170,7 @@ class Woocommerce {
 
 		echo '<div class="nv-woo-filters">';
 		$this->sidebar_toggle();
-		woocommerce_catalog_ordering();
+		do_action( 'nv_woo_header_bits' );
 		echo '</div>';
 	}
 
@@ -198,7 +199,8 @@ class Woocommerce {
 	 * Wrap main content start.
 	 */
 	public function wrap_main_content_start() {
-		echo '<div class="nv-index-posts nv-shop col">';
+		$before_shop_classes = apply_filters( 'neve_before_shop_classes', 'nv-index-posts nv-shop col' );
+		echo '<div class="' . esc_attr( $before_shop_classes ) . '">';
 		do_action( 'neve_before_shop_loop_content' );
 	}
 
@@ -235,7 +237,7 @@ class Woocommerce {
 
 		$button_text  = apply_filters( 'neve_filter_woo_sidebar_open_button_text', __( 'Filter', 'neve' ) . '»' );
 		$button_attrs = apply_filters( 'neve_woocommerce_sidebar_filter_btn_data_attrs', '' );
-		echo '<a class="nv-sidebar-toggle" ' . esc_attr( $button_attrs ) . '>' . esc_html( $button_text ) . '</a>';
+		echo '<a class="nv-sidebar-toggle" ' . wp_kses_post( $button_attrs ) . '>' . esc_html( $button_text ) . '</a>';
 	}
 
 	/**
@@ -243,10 +245,11 @@ class Woocommerce {
 	 */
 	private function add_inline_selectors() {
 		add_filter( 'neve_link_color_filter', array( $this, 'add_link_color' ) );
-		add_filter( 'neve_link_hover_color_filter', array( $this, 'add_link_hover_color' ) );
+		add_filter( 'neve_link_hover_color_filter', array( $this, 'add_link_color' ) );
 		add_filter( 'neve_button_color_filter', array( $this, 'add_button_color' ) );
 		add_filter( 'neve_menu_items_color_filter', array( $this, 'add_menu_items_color' ) );
 		add_filter( 'neve_menu_items_hover_color_filter', array( $this, 'add_menu_items_hover_color' ) );
+		add_filter( 'neve_body_font_family_selectors', array( $this, 'add_font_families' ) );
 	}
 
 	/**
@@ -276,6 +279,19 @@ class Woocommerce {
 	}
 
 	/**
+	 * Add font family selectors.
+	 *
+	 * @param string $selectors css selectors to apply body font family to.
+	 *
+	 * @return string
+	 */
+	public function add_font_families( $selectors ) {
+		$selectors .= ',.cart_totals > h2, .cross-sells > h2, .woocommerce-billing-fields > h3, #order_review_heading, .woocommerce-shipping-fields > h3';
+
+		return $selectors;
+	}
+
+	/**
 	 * Add button color colors.
 	 *
 	 * @param array $color_setup the color setup from Neve\Views\Inline\Colors.
@@ -286,6 +302,8 @@ class Woocommerce {
 		$color_setup['background']['selectors'] .=
 			',.woocommerce a.button.alt,
 .woocommerce a.button.alt:hover,
+.woocommerce a.button.button-primary,
+.woocommerce a.button.button-primary:hover,
 .woocommerce a.button.checkout-button,
 .woocommerce a.button.checkout-button:hover,
 .woocommerce button.button:disabled,
@@ -318,19 +336,6 @@ class Woocommerce {
 	 * @return array
 	 */
 	public function add_link_color( $color_setup ) {
-		$color_setup['color']['selectors'] .= '';
-
-		return $color_setup;
-	}
-
-	/**
-	 * Add link hover colors.
-	 *
-	 * @param array $color_setup the color setup from Neve\Views\Inline\Colors.
-	 *
-	 * @return array
-	 */
-	public function add_link_hover_color( $color_setup ) {
 		$color_setup['color']['selectors'] .= '';
 
 		return $color_setup;
@@ -371,8 +376,6 @@ class Woocommerce {
 			if ( $theme_mod !== 'right' && $theme_mod !== 'left' ) {
 				return false;
 			}
-
-			return true;
 		}
 
 		return true;
@@ -381,7 +384,7 @@ class Woocommerce {
 	/**
 	 * Does what it says.
 	 */
-	private function move_checkout_coupon_under_order_summary() {
+	private function move_checkout_coupon() {
 		/**
 		 * Checkout page
 		 *
@@ -389,7 +392,7 @@ class Woocommerce {
 		 * @see clear_coupon()
 		 */
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'move_coupon' ) );
-		add_action( 'woocommerce_checkout_order_review', array( $this, 'clear_coupon' ) );
+		add_action( 'woocommerce_before_checkout_billing_form', array( $this, 'clear_coupon' ) );
 	}
 
 	/**
@@ -416,8 +419,9 @@ class Woocommerce {
 	 * @return mixed
 	 */
 	public function cart_link_fragment( $fragments ) {
-		$fragments['.cart-icon-wrapper'] = '<a href="' . esc_url( wc_get_cart_url() ) . '" class="cart-icon-wrapper"><span class="nv-icon nv-cart"></span>';
+		$fragments['.cart-icon-wrapper'] = '<a href="' . esc_url( wc_get_cart_url() ) . '" class="cart-icon-wrapper">';
 
+		$fragments['.cart-icon-wrapper'] .= neve_cart_icon();
 		$fragments['.cart-icon-wrapper'] .= '<span class="screen-reader-text">' . __( 'Cart', 'neve' ) . '</span>';
 		$fragments['.cart-icon-wrapper'] .= '<span class="cart-count">' . WC()->cart->get_cart_contents_count() . '</span>';
 		$fragments['.cart-icon-wrapper'] .= '</a>';

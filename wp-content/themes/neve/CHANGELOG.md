@@ -1,4 +1,75 @@
 
+ ### v2.3.6 - 2019-04-22 
+ **Changes:** 
+ * Fixed primary menu in AMP mode
+* Notice for Otter Blocks for WordPress 5 users
+* Fixed vertical alignment in IE
+* Remove title appearing in the navigation cart in the latest update of WooCommerce
+* Updated the component alignment control in the header/footer builder
+ 
+ ### v2.3.5 - 2019-04-15 
+ **Changes:** 
+ * Fixed header HTML component stripping HTML code
+* Fixed Jetpack's comment form layout issue
+* Fixed dropdown menu not working in Microsoft Edge
+* Fixed main content shifted to the right in IE11
+* Fixed migration from Zelle
+* Fixed audio block not displaying in Chrome
+* Fixed compatibility with Elementor Pro Theme Locations API
+* Added new wp_body_open() function for WP 5.2
+* Replaced neve icons with SVGs for a better loading time
+* New Shop starter site
+ 
+ ### v2.3.4 - 2019-04-05 
+ **Changes:** 
+ * Removed unused strings
+ 
+ ### v2.3.3 - 2019-04-05 
+ **Changes:** 
+ * Fixed AMP issues with the header footer builder
+* Smaller header spacing on mobile devices
+* Fixed toggle button layout on WooCommerce pages
+ 
+ ### v2.3.2 - 2019-04-05 
+ **Changes:** 
+ * Header footer builder fixed sanitization
+ 
+ ### v2.3.1 - 2019-04-05 
+ **Changes:** 
+ * Fixed missing sanitization functions
+* Fixed Gutenberg integration with the typography options
+ 
+ ### v2.3.0 - 2019-04-04 
+ **Changes:** 
+ * NEW Header/Footer builder
+* Compatibility with the Header, Footer & Blocks for Elementor plugin
+* New option to allow disabling of the custom Gutenberg integration
+* Updated the tag list with the newly added tags
+  ### v2.2.0 - 2019-03-18 
+ **Changes:** 
+ * New Original starter site created in the new Gutenberg editor for WordPress 5 users
+* Improved onboarding page layout
+* Compatibility with the Neve Hooks plugin
+* WPML compatibility
+* Update Contact us with the correct link
+  
+ ### v2.1.0 - 2019-03-07 
+ **Changes:** 
+ * Two newly added Elementor Starter Sites
+* Small updates to the Starter Sites library
+* Improved WooCommerce page layouts
+* Improved onboarding page layout
+* Fixed issue with .aligncenter class not working properly
+* Fixed issue with sidebar not aligned properly on Safari 10
+* Fixed SSL issue for generated stylesheets
+ 
+ ### v2.0.0 - 2019-02-26 
+ **Changes:** 
+ * Refactor the code to allow child themes to override the views folder - https://docs.themeisle.com/article/985-how-to-create-a-child-theme-for-neve
+* Updated the onboarding notice to provide more information
+* Fixed issue with the image source for the Video block for Otter
+* Updated starter sites to use Anchor widgets
+ 
  ### v1.1.4 - 2019-02-08 
  **Changes:** 
  * Fixed alignment issues with the Gallery widget

@@ -7,7 +7,7 @@
 
 jQuery( document ).ready(
 	function () {
-        jQuery( '#about-tabs' ).tabs();
+        jQuery( '#about-tabs' ).tabs().show();
         /**
 		 *  With a small height tab scroll is not working on WordPress menu
 		 *  That's why a windows resize is needed
@@ -29,7 +29,7 @@ jQuery( document ).ready(
 			jQuery.ajax(
 				{
 					type: 'POST',
-					data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug },
+					data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug, nonce: tiAboutPageObject.nonce },
 					url: tiAboutPageObject.ajaxurl,
 					beforeSend: function() {
 						jQuery(card).fadeOut();

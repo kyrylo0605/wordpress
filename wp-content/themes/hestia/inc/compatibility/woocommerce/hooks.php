@@ -94,3 +94,8 @@ add_action( 'woocommerce_after_cart', 'woocommerce_cross_sell_display' );
  */
 add_action( 'woocommerce_before_cart_totals', 'hestia_woocommerce_before_cart_totals', 1 );
 add_action( 'woocommerce_after_cart_totals', 'hestia_woocommerce_after_cart_totals', 1 );
+
+/**
+ * Change product-category classes based on the customizer layout options for shop loop items
+ */
+add_filter( 'product_cat_class', 'hestia_woocommerce_loop_category_classes', 10, 1 );

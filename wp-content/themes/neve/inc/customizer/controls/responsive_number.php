@@ -88,7 +88,7 @@ class Responsive_Number extends \WP_Customize_Control {
 		?>
 
 		<# var wrapClass = data.responsive ? 'has-media-queries' : ''; #>
-
+		<# wrapClass += data.units.length ? '' : 'no-units'; #>
 		<div class="responsive-number {{wrapClass}}">
 			<div class="controls--wrap">
 				<# if( data.responsive === true ) { #>
@@ -122,7 +122,7 @@ class Responsive_Number extends \WP_Customize_Control {
 		var value = data.value ? data.value[mediaQuery] : attr.default;
 		var suffix = '';
 		if( data.value ) {
-			suffix = data.value.suffix ? data.value.suffix[mediaQuery] : attr.default_unit;
+		suffix = data.value.suffix ? data.value.suffix[mediaQuery] : attr.default_unit;
 		}
 
 		if( ! data.responsive ) {
@@ -133,14 +133,19 @@ class Responsive_Number extends \WP_Customize_Control {
 
 		<div class="{{mediaQuery}} control-wrap {{active}}">
 			<input
-					class="responsive-number--input"
+					class="responsive-number--input <# if( ! data.units ){ #>no-units<# } #>"
 					type="number"
-					min="0"
-					data-query="{{mediaQuery}}"
-					data-default="{{attr.default}}"
-					value="{{ value }}"
+			<# if( attr.min ) {	#>
+			min="{{attr.min}}"
+			<# }
+			if ( attr.max ) { #>
+			max="{{attr.max}}"
+			<# } #>
+			data-query="{{mediaQuery}}"
+			data-default="{{attr.default}}"
+			value="{{ value }}"
 			/>
-			<# if( data.units ) {
+			<# if( data.units.length ) {
 			var disabled = data.units.length === 1 ? 'disabled' : '';
 			#>
 			<select class="responsive-number--select" {{disabled}} data-default="{{attr.default_unit}}">

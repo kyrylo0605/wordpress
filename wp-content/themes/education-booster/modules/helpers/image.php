@@ -226,7 +226,7 @@ function educationbooster_get_callback_banner_url(){
 	));
 
 	if( !$image ){
-		$image = get_theme_file_uri( '/assets/images/placeholder/education-booster-banner-1920-650.jpg' );
+		$image = get_theme_file_uri( '/assets/images/placeholder/education-booster-banner-1920-850.jpg' );
 	}
 
 	return apply_filters( 'educationbooster_callback_banner_image', $image );

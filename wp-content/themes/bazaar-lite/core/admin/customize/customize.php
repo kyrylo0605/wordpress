@@ -28,10 +28,10 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 
 			array(
 			
-				'title' => esc_html__( 'Get support','bazaar-lite'),
-				'id' => 'bazaarlite-customize-info',
-				'type' => 'bazaarlite-customize-info',
-				'section' => 'bazaarlite-customize-info',
+				'title' => esc_html__( 'Upgrade to Bazaar Premium','bazaar-lite'),
+				'id' => 'bazaar-lite-customize-info',
+				'type' => 'bazaar-lite-customize-info',
+				'section' => 'bazaar-lite-customize-info',
 				'priority' => '08',
 
 			),

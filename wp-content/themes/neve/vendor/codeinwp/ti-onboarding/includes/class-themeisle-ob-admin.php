@@ -86,6 +86,10 @@ class Themeisle_OB_Admin {
 			return;
 		}
 
+		if ( apply_filters( 'ti_onboarding_filter_module_status', true ) !== true ) {
+			return;
+		}
+
 		$this->enqueue();
 		?>
 		<div class="ti-sites-lib__wrap">

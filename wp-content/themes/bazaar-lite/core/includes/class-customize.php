@@ -16,26 +16,11 @@ class bazaarlite_customize {
     public function customize_scripts() {
 
 		wp_enqueue_style ( 
-			'wip_panel', 
+			'bazaaar-lite-customizer', 
 			get_template_directory_uri() . '/core/admin/assets/css/customize.css', 
 			array(), 
 			''
 		);
-
-		wp_enqueue_script( 
-			  'customizer-preview',
-			  get_template_directory_uri().'/core/admin/assets/js/customizer-preview.js',
-			  array( 'jquery' ),
-			  '1.0.0', 
-			  true
-		);
-
-		$bazaarlite_details = array(
-			'label' => esc_html__( 'Upgrade to Bazaar Premium', 'bazaar-lite' ),
-			'url' => esc_url('https://www.themeinprogress.com/bazaar-free-ecommerce-wordpress-theme/?ref=2&campaign=bazaar-panel')
-		);
-	
-		wp_localize_script( 'customizer-preview', 'bazaarlite_details', $bazaarlite_details );
 	  
    }
 	
@@ -228,7 +213,7 @@ class bazaarlite_customize {
 							
 				break;
 
-				case 'bazaarlite-customize-info' :
+				case 'bazaar-lite-customize-info' :
 
 					$wp_customize->add_section( $element['id'], array(
 					
@@ -330,27 +315,30 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 		public function render_content() { ?>
 
-			<h2><?php esc_html_e('Get support','bazaar-lite');?></h2> 
-            
             <div class="inside">
-    
-                <p><?php esc_html_e("If you've opened a new support ticket from <strong>WordPress.org</strong>, please send a reminder to <strong>support@wpinprogress.com</strong>, to get a faster reply.","bazaar-lite");?></p>
+
+				<h2><?php esc_html_e('Bazaar premium version','bazaar-lite');?></h2> 
+
+                <p><?php esc_html_e("Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, unlimited sidebars, portfolio section and much more.","bazaar-lite");?></p>
 
                 <ul>
                 
-                    <li><a class="button" href="<?php echo esc_url( 'https://wordpress.org/support/theme/'.get_stylesheet() ); ?>" title="<?php esc_attr_e('Open a new ticket','bazaar-lite');?>" target="_blank"><?php esc_html_e('Open a new ticket','bazaar-lite');?></a></li>
-                    <li><a class="button" href="<?php echo esc_url( 'mailto:support@wpinprogress.com' ); ?>" title="<?php esc_attr_e('Send a reminder','bazaar-lite');?>" target="_blank"><?php esc_html_e('Send a reminder','bazaar-lite');?></a></li>
+                    <li><a class="button purchase-button" href="<?php echo esc_url( 'https://www.themeinprogress.com/bazaar-free-ecommerce-wordpress-theme/?ref=2&campaign=bazaar-panel' ); ?>" title="<?php esc_attr_e('Upgrade to Bazaar premium','bazaar-lite');?>" target="_blank"><?php esc_html_e('Upgrade to Bazaar premium','bazaar-lite');?></a></li>
                 
                 </ul>
-    
 
-                <p><?php esc_html_e("If you like this theme and support, <strong>I'd appreciate</strong> any of the following:","bazaar-lite");?></p>
+            </div>
+            
+            <div class="inside">
+
+                <h2><?php esc_html_e('Become a supporter','bazaar-lite');?></h2> 
+
+                <p><?php esc_html_e("If you like this theme and support, I'd appreciate any of the following:","bazaar-lite");?></p>
 
                 <ul>
                 
                     <li><a class="button" href="<?php echo esc_url( 'https://wordpress.org/support/view/theme-reviews/'.get_stylesheet().'#postform' ); ?>" title="<?php esc_attr_e('Rate this Theme','bazaar-lite');?>" target="_blank"><?php esc_html_e('Rate this Theme','bazaar-lite');?></a></li>
-                    <li><a class="button" href="<?php echo esc_url( 'https://www.facebook.com/WpInProgress' ); ?>" title="<?php esc_attr_e('Like on Facebook','bazaar-lite');?>" target="_blank"><?php esc_html_e('Like on Facebook','bazaar-lite');?></a></li>
-                    <li><a class="button" href="<?php echo esc_url( 'http://eepurl.com/SknoL' ); ?>" title="<?php esc_attr_e('Subscribe our newsletter','bazaar-lite');?>" target="_blank"><?php esc_html_e('Subscribe our newsletter','bazaar-lite');?></a></li>
+                    <li><a class="button" href="<?php echo esc_url( 'https://www.themeinprogress.com/reserved-area/' ); ?>" title="<?php esc_attr_e('Subscribe our newsletter','bazaar-lite');?>" target="_blank"><?php esc_html_e('Subscribe our newsletter','bazaar-lite');?></a></li>
                     <li><a class="button" href="<?php echo esc_url( 'https://wordpress.org/themes/author/alexvtn/' ); ?>" title="<?php esc_attr_e('Download our free WordPress themes','bazaar-lite');?>" target="_blank"><?php esc_html_e('Download our free WordPress themes','bazaar-lite');?></a></li>
                 
                 </ul>

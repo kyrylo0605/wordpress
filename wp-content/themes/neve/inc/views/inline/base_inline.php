@@ -46,7 +46,7 @@ abstract class Base_Inline {
 	 * @param string $selectors   css selectors.
 	 * @param string $media_query media query.
 	 */
-	protected final function add_style( $styles, $selectors, $media_query = 'mobile' ) {
+	final protected function add_style( $styles, $selectors, $media_query = 'mobile' ) {
 		if ( ! in_array( $media_query, array( 'mobile', 'tablet', 'desktop' ) ) ) {
 			return;
 		}
@@ -70,7 +70,7 @@ abstract class Base_Inline {
 		}
 
 		$css = $selectors . '{';
-		foreach ( $styles as $id => $style ) {
+		foreach ( $styles as $style ) {
 			if ( isset( $style['suffix'] ) && is_array( $style['suffix'] ) ) {
 				$style['suffix'] = $style['suffix'][ $media_query ];
 			}
@@ -148,6 +148,10 @@ abstract class Base_Inline {
 		}
 		$suffix = isset( $style['suffix'] ) ? $style['suffix'] : '';
 
+		if ( in_array( $style['css_prop'], array( 'font-family', 'content' ) ) ) {
+			return esc_attr( $style['css_prop'] ) . ':' . '"' . esc_attr( $style['value'] ) . '"' . esc_attr( $suffix ) . ';';
+		}
+
 		return esc_attr( $style['css_prop'] ) . ':' . esc_attr( $style['value'] ) . esc_attr( $suffix ) . ';';
 	}
 
@@ -158,7 +162,7 @@ abstract class Base_Inline {
 	 *
 	 * @return string
 	 */
-	public final function get_style( $context ) {
+	final public function get_style( $context ) {
 		$allowed_contexts = array( 'mobile', 'desktop', 'tablet' );
 		if ( ! in_array( $context, $allowed_contexts ) ) {
 			return '';

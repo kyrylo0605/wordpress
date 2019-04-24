@@ -54,7 +54,7 @@ class Themeisle_OB_Content_Importer {
 			);
 		}
 
-		set_time_limit( 10000 );
+		set_time_limit( 0 );
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		require_once( ABSPATH . 'wp-admin/includes/media.php' );
@@ -69,7 +69,7 @@ class Themeisle_OB_Content_Importer {
 			$content_file_path = $content_file_url;
 		}
 
-		$import_status = $this->import_file( $content_file_path );
+		$import_status = $this->import_file( $content_file_path, $body );
 
 		if ( is_wp_error( $import_status ) ) {
 			return new WP_REST_Response(
@@ -225,17 +225,18 @@ class Themeisle_OB_Content_Importer {
 	 * Import file
 	 *
 	 * @param string $file_path the file path to import.
+	 * @param array  $req_body  the request body to be passed to the alterator.
 	 *
 	 * @return WP_Error|true
 	 */
-	private function import_file( $file_path ) {
+	private function import_file( $file_path, $req_body = array() ) {
 		if ( empty( $file_path ) || ! file_exists( $file_path ) || ! is_readable( $file_path ) ) {
 			return new WP_Error( 'ti__ob_content_err_1' );
 		}
 		$this->load_importer();
 
 		require_once 'helpers/class-themeisle-ob-importer-alterator.php';
-		new Themeisle_OB_Importer_Alterator();
+		new Themeisle_OB_Importer_Alterator( $req_body );
 
 		$importer = new Themeisle_OB_WXR_Importer();
 		$result   = $importer->import( $file_path );

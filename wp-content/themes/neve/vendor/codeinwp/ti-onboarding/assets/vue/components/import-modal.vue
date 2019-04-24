@@ -113,6 +113,9 @@
       }
     },
     computed: {
+	  defaultTemplate: function () {
+		  return this.$store.state.sitesData
+	  },
       allPlugins () {
         return {
           recommended: this.siteData.recommended_plugins,
@@ -170,13 +173,11 @@
           return false
         }
         this.$store.commit('showImportModal', false)
-        this.resetImport()
       },
       runMigration: function () {
         this.$store.state.importOptions.isMigration = true
         this.$store.state.migration = 'isRunning'
         this.$store.dispatch('importSite', {
-          req: 'Migrate Site',
           template: this.siteData.template,
           template_name: this.siteData.template_name
         })
@@ -187,7 +188,6 @@
           return false
         }
         this.$store.dispatch('importSite', {
-          req: 'Import Site',
           plugins: this.siteData.recommended_plugins,
           content: {
             'content_file': this.siteData.content_file,
@@ -211,6 +211,7 @@
       editTemplate: function () {
         var editor = this.getEditor()
         var pageId = this.getPageId()
+	    let customizerRedirect = this.siteData.edit_content_redirect;
         var url = this.homeUrl
         if (editor === 'elementor' || this.isMigration) {
           url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=elementor'
@@ -218,6 +219,9 @@
         if (editor === 'gutenberg') {
           url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=edit'
         }
+        if ( customizerRedirect === 'customizer' ) {
+		  url = this.homeUrl + '/wp-admin/customize.php'
+		}
         window.location.replace(url)
       }
     },

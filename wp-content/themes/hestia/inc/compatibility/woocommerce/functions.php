@@ -506,3 +506,29 @@ function hestia_view_cart_notice() {
 	}
 }
 add_action( 'after_setup_theme', 'hestia_view_cart_notice', 15 );
+
+/**
+ * Change product-category classes based on customizer products layout options and hover effect
+ *
+ * @param array $classes - product-category initial classes.
+ *
+ * @return array $classes - product-category filtered classes.
+ */
+function hestia_woocommerce_loop_category_classes( $classes ) {
+
+	$hestia_product_style = get_theme_mod( 'hestia_product_style', 'boxed' );
+
+	if ( in_array( $hestia_product_style, array( 'plain', 'boxed' ) ) ) {
+		$class = 'card-' . $hestia_product_style;
+		array_push( $classes, $class );
+	}
+
+	$hestia_product_hover_style = get_theme_mod( 'hestia_product_hover_style', 'pop-and-glow' );
+
+	if ( in_array( $hestia_product_hover_style, array( 'pop-and-glow', 'swap-images' ) ) ) {
+		$hover_class = 'card-hover-style-' . $hestia_product_hover_style;
+		array_push( $classes, $hover_class );
+	}
+
+	return $classes;
+}

@@ -75,7 +75,14 @@ class TI_About_Render {
 			<div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
 							class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
 			</div>
-			<a href="https://themeisle.com/" class="wp-badge epsilon-welcome-logo"></a></div>
+			<?php
+			$white_label_options  = get_option( 'ti_white_label_inputs' );
+			$white_label_options  = json_decode( $white_label_options, true );
+			if( empty( $white_label_options['theme_name'] ) ) { ?>
+				<a href="https://themeisle.com/" class="wp-badge epsilon-welcome-logo"></a>
+				<?php
+			} ?>
+		</div>
 		<?php
 	}
 

@@ -53,17 +53,17 @@ function educationbooster_setup() {
 	) );
 
 	add_theme_support( 'custom-header', array(
-		'default-image'    => get_parent_theme_file_uri( '/assets/images/placeholder/education-booster-banner-1920-650.jpg' ),
+		'default-image'    => get_parent_theme_file_uri( '/assets/images/placeholder/education-booster-banner-1920-380.jpg' ),
 		'width'            => 1920,
-		'height'           => 650,
+		'height'           => 380,
 		'flex-height'      => true,
 		'wp-head-callback' => 'educationbooster_header_style',
 	));
 
 	register_default_headers( array(
 		'default-image' => array(
-			'url'           => '%s/assets/images/placeholder/education-booster-banner-1920-650.jpg',
-			'thumbnail_url' => '%s/assets/images/placeholder/education-booster-banner-1920-650.jpg',
+			'url'           => '%s/assets/images/placeholder/education-booster-banner-1920-380.jpg',
+			'thumbnail_url' => '%s/assets/images/placeholder/education-booster-banner-1920-380.jpg',
 			'description'   => esc_html__( 'Default Header Image', 'education-booster' ),
 		),
 	) );
@@ -108,7 +108,103 @@ function educationbooster_setup() {
 
 	add_theme_support( 'woocommerce' );
 
-	add_image_size( 'education-booster-1920-650', 1920, 650, true );
+	/*
+	* This theme styles the visual editor to resemble the theme style,
+	* specifically font, colors, icons, and column width.
+	*/
+	
+	add_editor_style( array( '/assets/css/editor-style.min.css') );
+
+	// Gutenberg support
+	add_theme_support( 'editor-color-palette', array(
+       	array(
+			'name' => esc_html__( 'Tan', 'education-booster' ),
+			'slug' => 'tan',
+			'color' => '#E6DBAD',
+       	),
+       	array(
+           	'name' => esc_html__( 'Yellow', 'education-booster' ),
+           	'slug' => 'yellow',
+           	'color' => '#FDE64B',
+       	),
+       	array(
+           	'name' => esc_html__( 'Orange', 'education-booster' ),
+           	'slug' => 'orange',
+           	'color' => '#ED7014',
+       	),
+       	array(
+           	'name' => esc_html__( 'Red', 'education-booster' ),
+           	'slug' => 'red',
+           	'color' => '#D0312D',
+       	),
+       	array(
+           	'name' => esc_html__( 'Pink', 'education-booster' ),
+           	'slug' => 'pink',
+           	'color' => '#b565a7',
+       	),
+       	array(
+           	'name' => esc_html__( 'Purple', 'education-booster' ),
+           	'slug' => 'purple',
+           	'color' => '#A32CC4',
+       	),
+       	array(
+           	'name' => esc_html__( 'Blue', 'education-booster' ),
+           	'slug' => 'blue',
+           	'color' => '#083a6f',
+       	),
+       	array(
+           	'name' => esc_html__( 'Green', 'education-booster' ),
+           	'slug' => 'green',
+           	'color' => '#67B930',
+       	),
+       	array(
+           	'name' => esc_html__( 'Brown', 'education-booster' ),
+           	'slug' => 'brown',
+           	'color' => '#231709',
+       	),
+       	array(
+           	'name' => esc_html__( 'Grey', 'education-booster' ),
+           	'slug' => 'grey',
+           	'color' => '#4d4d4d',
+       	),
+       	array(
+           	'name' => esc_html__( 'Black', 'education-booster' ),
+           	'slug' => 'black',
+           	'color' => '#000000',
+       	),
+   	));
+
+	add_theme_support( 'align-wide' );
+	add_theme_support( 'editor-font-sizes', array(
+	   	array(
+	       	'name' => esc_html__( 'small', 'education-booster' ),
+	       	'shortName' => esc_html__( 'S', 'education-booster' ),
+	       	'size' => 12,
+	       	'slug' => 'small'
+	   	),
+	   	array(
+	       	'name' => esc_html__( 'regular', 'education-booster' ),
+	       	'shortName' => esc_html__( 'M', 'education-booster' ),
+	       	'size' => 16,
+	       	'slug' => 'regular'
+	   	),
+	   	array(
+	       	'name' => esc_html__( 'larger', 'education-booster' ),
+	       	'shortName' => esc_html__( 'L', 'education-booster' ),
+	       	'size' => 36,
+	       	'slug' => 'larger'
+	   	),
+	   	array(
+	       	'name' => esc_html__( 'huge', 'education-booster' ),
+	       	'shortName' => esc_html__( 'XL', 'education-booster' ),
+	       	'size' => 48,
+	       	'slug' => 'huge'
+	   	)
+	));
+	add_theme_support( 'editor-styles' );
+	add_theme_support( 'wp-block-styles' );
+
+	add_image_size( 'education-booster-1920-750', 1920, 750, true );
 	add_image_size( 'education-booster-1200-850', 1200, 850, true );
 	add_image_size( 'education-booster-570-380', 570, 380, true );
 	add_image_size( 'education-booster-390-320', 390, 320, true );
