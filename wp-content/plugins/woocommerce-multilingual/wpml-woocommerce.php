@@ -8,16 +8,16 @@
   Text Domain: woocommerce-multilingual
   Requires at least: 4.7
   Tested up to: 5.1.1
-  Version: 4.6.1
+  Version: 4.6.2
   WC requires at least: 3.3.0
-  WC tested up to: 3.6.1
+  WC tested up to: 3.6.2
 */
 
 if ( defined( 'WCML_VERSION' ) ) {
 	return;
 }
 
-define( 'WCML_VERSION', '4.6.1' );
+define( 'WCML_VERSION', '4.6.2' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -98,4 +98,3 @@ function load_wcml_without_wpml() {
 		$woocommerce_wpml = new woocommerce_wpml();
 	}
 }
-
