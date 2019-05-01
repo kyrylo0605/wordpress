@@ -63,6 +63,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 define( 'DOING_AJAX', true );
             }
 
+            check_ajax_referer( 'aws_ajax_nonce' );
+
             echo json_encode( $this->search() );
 
             die;
@@ -76,7 +78,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             global $wpdb;
 
-            $this->lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
+            $this->lang = isset( $_REQUEST['lang'] ) ? sanitize_title( $_REQUEST['lang'] ) : '';
 
             if ( $this->lang ) {
                 do_action( 'wpml_switch_language', $this->lang );
@@ -482,7 +484,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $excerpt_length       = AWS()->get_settings( 'excerpt_length' );
                 $mark_search_words    = AWS()->get_settings( 'mark_words' );
                 $show_price           = AWS()->get_settings( 'show_price' );
-                $show_outofstockprice =  AWS()->get_settings( 'show_outofstock_price' );
+                $show_outofstockprice = AWS()->get_settings( 'show_outofstock_price' );
                 $show_sale            = AWS()->get_settings( 'show_sale' );
                 $show_image           = AWS()->get_settings( 'show_image' );
                 $show_sku             = AWS()->get_settings( 'show_sku' );
@@ -571,12 +573,12 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         if ( $product->is_in_stock() ) {
                             $stock_status = array(
                                 'status' => true,
-                                'text'   => __( 'In stock', 'aws' )
+                                'text'   => esc_html__( 'In stock', 'aws' )
                             );
                         } else {
                             $stock_status = array(
                                 'status' => false,
-                                'text'   => __( 'Out of stock', 'aws' )
+                                'text'   => esc_html__( 'Out of stock', 'aws' )
                             );
                         }
                     }

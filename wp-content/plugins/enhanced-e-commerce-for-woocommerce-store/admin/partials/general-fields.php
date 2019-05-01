@@ -33,7 +33,7 @@ $data = unserialize(get_option('ee_options'));
 										<label  class = "align-middle" for="ga_code">
 										<?php $ga_ST = !empty($data['ga_ST'])? 'checked' : ''; ?>
 										<input type="checkbox"  name="ga_ST" id="ga_ST" <?php echo $ga_ST; ?> >
-										Add Global Site Tracking Code 'gtag.js' (Optional)
+										Add Global Site Tracking Code 'gtag.js'
 										<p class="description">This feature adds New gtag.js Tracking Code to your Store. You don't need to enable this if gtag.js implemented via a 3rd party analytics plugin.</p>
 										</label><br/>
 										<label  class = "align-middle" for="ga_enhance_ecommerce">

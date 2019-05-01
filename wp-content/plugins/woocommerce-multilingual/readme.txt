@@ -5,7 +5,7 @@ Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multili
 License: GPLv2
 Requires at least: 4.7
 Tested up to: 5.1.1
-Stable tag: 4.6.2
+Stable tag: 4.6.2.1
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
 
@@ -140,6 +140,9 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
+= 4.6.2.1 =
+* Fix performance issues with WooCommerce 3.6.*
+
 = 4.6.2 =
 * Fix performance issue while saving product
 * Fix warning when _wc_rating_cout value is corrupted
@@ -243,6 +246,7 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 * WP Fastest Cache compatibility - fixed currency switcher problem
 * Added ability to set custom prices for secondary currencies in WC Product Add-Ons
 * Update minimum requirements
+* Added ability to add custom payment methods for each currency
 
 = 4.3.7 =
 * Fixed issue which was changing the current language of the site when saving an order

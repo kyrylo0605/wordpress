@@ -48,10 +48,18 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             add_action( 'updated_postmeta', array( $this, 'updated_custom_tabs' ), 10, 4 );
 
-            add_action( 'wp_ajax_aws-reindex', array( $this, 'reindex_table' ) );
+            add_action( 'wp_ajax_aws-reindex', array( $this, 'reindex_table_ajax' ) );
 
             add_action( 'aws_reindex_table', array( $this, 'reindex_table_job' ) );
 
+        }
+
+        /*
+         * Reindex plugin table ajax hook
+         */
+        public function reindex_table_ajax() {
+            check_ajax_referer( 'aws_admin_ajax_nonce' );
+            $this->reindex_table();
         }
 
         /*

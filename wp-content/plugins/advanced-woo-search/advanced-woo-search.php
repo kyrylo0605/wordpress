@@ -3,7 +3,7 @@
 /*
 Plugin Name: Advanced Woo Search
 Description: Advance ajax WooCommerce product search.
-Version: 1.68
+Version: 1.69
 Author: ILLID
 Author URI: https://advanced-woo-search.com/
 Text Domain: aws
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AWS_VERSION', '1.68' );
+define( 'AWS_VERSION', '1.69' );
 
 
 define( 'AWS_DIR', dirname( __FILE__ ) );
@@ -150,10 +150,11 @@ final class AWS_Main {
 		wp_enqueue_style( 'aws-style', AWS_URL . '/assets/css/common.css', array(), AWS_VERSION );
         wp_enqueue_script('aws-script', AWS_URL . '/assets/js/common.js', array('jquery'), AWS_VERSION, true);
         wp_localize_script('aws-script', 'aws_vars', array(
-            'sale'      => __('Sale!', 'aws'),
-            'sku'       => __('SKU', 'aws'),
-            'showmore'  => $this->get_settings('show_more_text') ? AWS_Helpers::translate( 'show_more_text', stripslashes( $this->get_settings('show_more_text') ) ) : __('View all results', 'aws'),
-            'noresults' => $this->get_settings('not_found_text') ? AWS_Helpers::translate( 'not_found_text', stripslashes( $this->get_settings('not_found_text') ) ) : __('Nothing found', 'aws')
+            'sale'       => __('Sale!', 'aws'),
+            'sku'        => __('SKU', 'aws'),
+            'showmore'   => $this->get_settings('show_more_text') ? AWS_Helpers::translate( 'show_more_text', stripslashes( $this->get_settings('show_more_text') ) ) : __('View all results', 'aws'),
+            'noresults'  => $this->get_settings('not_found_text') ? AWS_Helpers::translate( 'not_found_text', stripslashes( $this->get_settings('not_found_text') ) ) : __('Nothing found', 'aws'),
+            'ajax_nonce' => wp_create_nonce( 'aws_ajax_nonce' ),
         ));
 	}
 
@@ -164,10 +165,10 @@ final class AWS_Main {
 		$plugin_base = plugin_basename( __FILE__ );
 
 		if ( $file == $plugin_base ) {
-			$setting_link = '<a href="' . admin_url('admin.php?page=aws-options') . '">'.__( 'Settings', 'aws' ).'</a>';
+			$setting_link = '<a href="' . admin_url('admin.php?page=aws-options') . '">'.esc_html__( 'Settings', 'aws' ).'</a>';
 			array_unshift( $links, $setting_link );
 
-            $premium_link = '<a href="https://advanced-woo-search.com/?utm_source=plugin&utm_medium=settings-link&utm_campaign=aws-pro-plugin" target="_blank">'.__( 'Get Premium', 'aws' ).'</a>';
+            $premium_link = '<a href="https://advanced-woo-search.com/?utm_source=plugin&utm_medium=settings-link&utm_campaign=aws-pro-plugin" target="_blank">'.esc_html__( 'Get Premium', 'aws' ).'</a>';
             array_unshift( $links, $premium_link );
 		}
 
@@ -246,7 +247,7 @@ function aws_is_plugin_active_for_network( $plugin ) {
 function aws_install_woocommerce_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'Advanced Woo Search plugin is enabled but not effective. It requires WooCommerce in order to work.', 'aws' ); ?></p>
+		<p><?php esc_html_e( 'Advanced Woo Search plugin is enabled but not effective. It requires WooCommerce in order to work.', 'aws' ); ?></p>
 	</div>
 	<?php
 }

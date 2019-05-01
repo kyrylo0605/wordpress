@@ -58,10 +58,20 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 'data-use-analytics' => $use_analytics,
                 'data-min-chars'     => $min_chars,
                 'data-buttons-order' => $buttons_order,
+                'data-is-mobile'     => wp_is_mobile() ? 'true' : 'false',
             );
 
+
+            /**
+             * Filter form data parameters before output
+             * @since 1.69
+             * @param array $params Data parameters array
+             */
+            $params = apply_filters( 'aws_front_data_parameters', $params );
+
+
             foreach( $params as $key => $value ) {
-                $params_string .= $key . '="' . $value . '" ';
+                $params_string .= $key . '="' . esc_attr( $value ) . '" ';
             }
 
             $markup = '';
@@ -70,17 +80,17 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
 
             $markup .= '<div class="aws-wrapper">';
 
-                $markup .= '<input  type="text" name="s" value="' . get_search_query() . '" class="aws-search-field" placeholder="' . $placeholder . '" autocomplete="off" />';
+                $markup .= '<input  type="text" name="s" value="' . get_search_query() . '" class="aws-search-field" placeholder="' . esc_attr( $placeholder ) . '" autocomplete="off" />';
                 $markup .= '<input type="hidden" name="post_type" value="product">';
                 $markup .= '<input type="hidden" name="type_aws" value="true">';
 
                 if ( $current_lang ) {
-                    $markup .= '<input type="hidden" name="lang" value="' . $current_lang . '">';
+                    $markup .= '<input type="hidden" name="lang" value="' . esc_attr( $current_lang ) . '">';
                 }
 
                 if ( $url_query_parts ) {
                     foreach( $url_query_parts as $url_query_key => $url_query_value  ) {
-                        $markup .= '<input type="hidden" name="' . $url_query_key . '" value="' . $url_query_value . '">';
+                        $markup .= '<input type="hidden" name="' . esc_attr( $url_query_key ) . '" value="' . esc_attr( $url_query_value ) . '">';
                     }
                 }
 

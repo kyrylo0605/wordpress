@@ -60,7 +60,7 @@ if ( ! class_exists( 'AWS_Order' ) ) :
             }
 
             if ( isset( $_GET['rating_filter'] ) && $_GET['rating_filter'] ) {
-                $rating = explode( ',', $_GET['rating_filter'] );
+                $rating = explode( ',', sanitize_text_field( $_GET['rating_filter'] ) );
             }
 
             if ( isset( $query->query_vars['tax_query'] ) ) {

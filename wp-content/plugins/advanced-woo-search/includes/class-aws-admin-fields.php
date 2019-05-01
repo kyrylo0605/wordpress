@@ -53,9 +53,9 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'text': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <input type="text" name="<?php echo $value['id']; ?>" class="regular-text" value="<?php echo isset( $plugin_options[ $value['id'] ] ) ? stripslashes( $plugin_options[ $value['id'] ] ) : ''; ?>">
+                                <input type="text" name="<?php echo esc_attr( $value['id'] ); ?>" class="regular-text" value="<?php echo isset( $plugin_options[ $value['id'] ] ) ? esc_attr( stripslashes( $plugin_options[ $value['id'] ] ) ) : ''; ?>">
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
                             </td>
                         </tr>
@@ -63,20 +63,20 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'image': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <input type="text" name="<?php echo $value['id']; ?>" class="regular-text" value="<?php echo stripslashes( $plugin_options[ $value['id'] ] ); ?>">
+                                <input type="text" name="<?php echo esc_attr( $value['id'] ); ?>" class="regular-text" value="<?php echo esc_attr( stripslashes( $plugin_options[ $value['id'] ] ) ); ?>">
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
-                                <img style="display: block;max-width: 100px;margin-top: 20px;" src="<?php echo stripslashes( $plugin_options[ $value['id'] ] ); ?>">
+                                <img style="display: block;max-width: 100px;margin-top: 20px;" src="<?php echo esc_url( $plugin_options[ $value['id'] ] ); ?>">
                             </td>
                         </tr>
                         <?php break;
 
                     case 'number': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <input type="number" name="<?php echo $value['id']; ?>" class="regular-text" value="<?php echo stripslashes( $plugin_options[ $value['id'] ] ); ?>">
+                                <input type="number" name="<?php echo esc_attr( $value['id'] ); ?>" class="regular-text" value="<?php echo esc_attr( stripslashes( $plugin_options[ $value['id'] ] ) ); ?>">
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
                             </td>
                         </tr>
@@ -84,9 +84,9 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'textarea': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <textarea id="<?php echo $value['id']; ?>" name="<?php echo $value['id']; ?>" cols="65" rows="4"><?php print stripslashes( $plugin_options[ $value['id'] ] ); ?></textarea>
+                                <textarea id="<?php echo esc_attr( $value['id'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" cols="65" rows="4"><?php print stripslashes( $plugin_options[ $value['id'] ] ); ?></textarea>
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
                             </td>
                         </tr>
@@ -94,11 +94,11 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'checkbox': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <?php $checkbox_options = $plugin_options[ $value['id'] ]; ?>
                                 <?php foreach ( $value['choices'] as $val => $label ) { ?>
-                                    <input type="checkbox" name="<?php echo $value['id'] . '[' . $val . ']'; ?>" id="<?php echo $value['id'] . '_' . $val; ?>" value="1" <?php checked( $checkbox_options[$val], '1' ); ?>> <label for="<?php echo $value['id'] . '_' . $val; ?>"><?php echo $label; ?></label><br>
+                                    <input type="checkbox" name="<?php echo esc_attr( $value['id'] . '[' . $val . ']' ); ?>" id="<?php echo esc_attr( $value['id'] . '_' . $val ); ?>" value="1" <?php checked( $checkbox_options[$val], '1' ); ?>> <label for="<?php echo esc_attr( $value['id'] . '_' . $val ); ?>"><?php echo esc_html( $label ); ?></label><br>
                                 <?php } ?>
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
                             </td>
@@ -107,10 +107,10 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'radio': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <?php foreach ( $value['choices'] as $val => $label ) { ?>
-                                    <input class="radio" type="radio" name="<?php echo $value['id']; ?>" id="<?php echo $value['id'].$val; ?>" value="<?php echo $val; ?>" <?php checked( $plugin_options[ $value['id'] ], $val ); ?>> <label for="<?php echo $value['id'].$val; ?>"><?php echo $label; ?></label><br>
+                                    <input class="radio" type="radio" name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'].$val ); ?>" value="<?php echo esc_attr( $val ); ?>" <?php checked( $plugin_options[ $value['id'] ], $val ); ?>> <label for="<?php echo esc_attr( $value['id'].$val ); ?>"><?php echo esc_html( $label ); ?></label><br>
                                 <?php } ?>
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
                             </td>
@@ -119,11 +119,11 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'select': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <select name="<?php echo $value['id']; ?>">
+                                <select name="<?php echo esc_attr( $value['id'] ); ?>">
                                     <?php foreach ( $value['choices'] as $val => $label ) { ?>
-                                        <option value="<?php echo $val; ?>" <?php selected( $plugin_options[ $value['id'] ], $val ); ?>><?php echo $label; ?></option>
+                                        <option value="<?php echo esc_attr( $val ); ?>" <?php selected( $plugin_options[ $value['id'] ], $val ); ?>><?php echo esc_html( $label ); ?></option>
                                     <?php } ?>
                                 </select>
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
@@ -133,13 +133,13 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'select_advanced': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <select name="<?php echo $value['id'].'[]'; ?>" multiple class="chosen-select">
+                                <select name="<?php echo esc_attr( $value['id'].'[]' ); ?>" multiple class="chosen-select">
                                     <?php $values = $plugin_options[ $value['id'] ]; ?>
                                     <?php foreach ( $value['choices'] as $val => $label ) {  ?>
                                         <?php $selected = ( is_array( $values ) && in_array( $val, $values ) ) ? ' selected="selected" ' : ''; ?>
-                                        <option value="<?php echo $val; ?>"<?php echo $selected; ?>><?php echo $label; ?></option>
+                                        <option value="<?php echo esc_attr( $val ); ?>"<?php echo $selected; ?>><?php echo esc_html( $label ); ?></option>
                                     <?php } ?>
                                 </select>
                                 <br><span class="description"><?php echo $value['desc']; ?></span>
@@ -148,9 +148,9 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                     <?php $sub_options = $value['sub_option']; ?>
                                     <br><br>
                                     <p>
-                                        <label for="<?php echo $sub_options['id']; ?>">
-                                            <input type="checkbox" value="1" id="<?php echo $sub_options['id']; ?>" name="<?php echo $sub_options['id']; ?>" <?php checked( $plugin_options[ $sub_options['id'] ], '1' ); ?>>
-                                            <?php echo $sub_options['desc']; ?>
+                                        <label for="<?php echo esc_attr( $sub_options['id'] ); ?>">
+                                            <input type="checkbox" value="1" id="<?php echo esc_attr( $sub_options['id'] ); ?>" name="<?php echo esc_attr( $sub_options['id'] ); ?>" <?php checked( $plugin_options[ $sub_options['id'] ], '1' ); ?>>
+                                            <?php echo esc_html( $sub_options['desc'] ); ?>
                                         </label>
                                     </p>
                                 <?php endif; ?>
@@ -161,13 +161,13 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'radio-image': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <ul class="img-select">
                                     <?php foreach ( $value['choices'] as $val => $img ) { ?>
                                         <li class="option">
-                                            <input class="radio" type="radio" name="<?php echo $value['id']; ?>" id="<?php echo $value['id'].$val; ?>" value="<?php echo $val; ?>" <?php checked( $plugin_options[ $value['id'] ], $val ); ?>>
-                                            <span class="ico" style="background: url('<?php echo AWS_URL . '/assets/img/' . $img; ?>') no-repeat 50% 50%;"></span>
+                                            <input class="radio" type="radio" name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'].$val ); ?>" value="<?php echo esc_attr( $val ); ?>" <?php checked( $plugin_options[ $value['id'] ], $val ); ?>>
+                                            <span class="ico" style="background: url('<?php echo esc_url( AWS_URL . '/assets/img/' . $img ); ?>') no-repeat 50% 50%;"></span>
                                         </li>
                                     <?php } ?>
                                 </ul>
@@ -178,7 +178,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'sortable': ?>
                         <tr valign="top">
-                            <th scope="row"><?php echo $value['name']; ?></th>
+                            <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
 
                                 <script>
@@ -195,7 +195,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                                                 });
                                                 var serviceListOut = serviceList.substring(1);
-                                                jQuery('#<?php echo $value['id']; ?>').attr('value', serviceListOut);
+                                                jQuery('#<?php echo esc_attr( $value['id'] ); ?>').attr('value', serviceListOut);
                                             }
                                         }).disableSelection();
 
@@ -213,8 +213,8 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                 <div class="sortable-container">
 
                                     <div class="sortable-title">
-                                        <?php _e( 'Active sources', 'aws' ) ?><br>
-                                        <?php _e( 'Change order by drag&drop', 'aws' ) ?>
+                                        <?php esc_html_e( 'Active sources', 'aws' ) ?><br>
+                                        <?php esc_html_e( 'Change order by drag&drop', 'aws' ) ?>
                                     </div>
 
                                     <ul id="sti-sortable2" class="sti-sortable enabled connectedSortable">
@@ -222,7 +222,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                         if ( count( $active_buttons ) > 0 ) {
                                             foreach ($active_buttons as $button) {
                                                 if ( ! $button ) continue;
-                                                echo '<li id="' . $button . '" class="sti-btn sti-' . $button . '-btn">' . $button . '</li>';
+                                                echo '<li id="' . esc_attr( $button ) . '" class="sti-btn sti-' . esc_attr( $button ) . '-btn">' . $button . '</li>';
                                             }
                                         }
                                         ?>
@@ -233,15 +233,15 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                 <div class="sortable-container">
 
                                     <div class="sortable-title">
-                                        <?php _e( 'Deactivated sources', 'aws' ) ?><br>
-                                        <?php _e( 'Excluded from search results', 'aws' ) ?>
+                                        <?php esc_html_e( 'Deactivated sources', 'aws' ) ?><br>
+                                        <?php esc_html_e( 'Excluded from search results', 'aws' ) ?>
                                     </div>
 
                                     <ul id="sti-sortable1" class="sti-sortable disabled connectedSortable">
                                         <?php
                                         if ( count( $inactive_buttons ) > 0 ) {
                                             foreach ($inactive_buttons as $button) {
-                                                echo '<li id="' . $button . '" class="sti-btn sti-' . $button . '-btn">' . $button . '</li>';
+                                                echo '<li id="' . esc_attr( $button ) . '" class="sti-btn sti-' . esc_attr( $button ) . '-btn">' . $button . '</li>';
                                             }
                                         }
                                         ?>
@@ -249,7 +249,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                                 </div>
 
-                                <input type="hidden" id="<?php echo $value['id']; ?>" name="<?php echo $value['id']; ?>" value="<?php echo $plugin_options[ $value['id'] ]; ?>" />
+                                <input type="hidden" id="<?php echo esc_attr( $value['id'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" value="<?php echo esc_attr( $plugin_options[ $value['id'] ] ); ?>" />
 
                             </td>
                         </tr>
@@ -257,7 +257,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                     case 'heading': ?>
                         <tr valign="top">
-                            <th scope="row"><h3 class="aws-heading"><?php echo $value['name']; ?></h3></th>
+                            <th scope="row"><h3 class="aws-heading"><?php echo esc_html( $value['name'] ); ?></h3></th>
                         </tr>
                         <?php break;
 
@@ -268,7 +268,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
             echo '</tbody>';
             echo '</table>';
 
-            echo '<p class="submit"><input name="Submit" type="submit" class="button-primary" value="' . __( 'Save Changes', 'aws' ) . '" /></p>';
+            echo '<p class="submit"><input name="Submit" type="submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'aws' ) . '" /></p>';
 
         }
 

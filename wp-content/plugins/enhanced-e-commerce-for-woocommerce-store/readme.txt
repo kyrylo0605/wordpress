@@ -6,10 +6,10 @@ Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce, e-
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 3.6
-Tested up to: 5.0
+Tested up to: 5.1
 Requires PHP: 5.6
-Stable tag: 2.1.6
-Version: 2.1.6
+Stable tag: 2.1.7
+Version: 2.1.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,7 +49,7 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 
 
 = Need an Advanced Google Analytics Plugin? =
-We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Adwords Conversion Tracking, Facebook Pixel Tracking, 15+ Custom Dimenensions & Metrics & much more. <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">Learn More</a>
+We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Adwords Conversion Tracking, Facebook Pixel Tracking, 15+ Custom Dimenensions & Metrics & much more. <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">Learn More</a>
 
 == Note : ==
 == Our plugin does not support the below features out of the box ==
@@ -132,19 +132,19 @@ You can Find all The Enhanced Ecommerce Reports in your Analytics Account under 
 
 = Products with variant not getting recorded in GA =
 
-Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Adwords Conversion Tracking? =
 
-The free version of our plugin does not provide Adwords Conversion Tracking feature. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Adwords Conversion Tracking feature. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Facebook Pixel Tracking? =
 
-The free version of our plugin does not provide Facebook Pixel Tracking feature. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Facebook Pixel Tracking feature. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Google Optimize Snippet Adding Support? =
 
-The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin.
 
 = I have noticed that some transactions are missing in my GA account, compared to my Woocmmerce backend (Orders) =
 
@@ -173,7 +173,7 @@ Configuring goals are out of the scope of our plugin. Our plugin is designed to 
 
 = Does your Plugin support Product Refund? =
 
-Our existing plugin does not track product refund data, however you can buy our <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium plugin</a> to get access to product Refund data 
+Our existing plugin does not track product refund data, however you can buy our <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium plugin</a> to get access to product Refund data 
 
 = Does your plugin supports Multilingual Wordpress site? =
 
@@ -181,11 +181,11 @@ Our plugin does not support Multilingual Wordpress site.
 
 = Does your plugin supports Child/Custom Theme? =
 
-The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at analytics2(at)tatvic(dot)com.
+The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at analytics2(at)tatvic(dot)com.
 
 = Have you Provided Full support for the free version plugin? =
 
-We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at analytics2(at)tatvic(dot)com.
+We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at analytics2(at)tatvic(dot)com.
 
 = How to verify if you have implemented the Plugin well? =
 
@@ -201,145 +201,143 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
 
 == Changelog ==
 
-= 1.0 - 25/06/2014 =
- * Initial release
+= 2.1.7 - 29/04/2018 =
+ * Compatibility with WC 3.6
+ * Minor Bug Fixes
 
-= 1.0.6.1 - 15/08/2014 =
- * Added new feature - Product impressions and Product click on category page view , including the    default pagination
- * Fixed-Allow Special Characters in javascript
+= 2.1.6 - 26/12/2018 =
+ * Fixed: session_start issue
 
-= 1.0.7 - 28/08/2014 =
- * Added new feature - Display Advertising Feature
- * Fixed-Allow back quotes and single quotes in product name, category name etc.
+= 2.1.5 - 17/12/2018 =
+ * Minor Bug Fixes
 
-= 1.0.8 - 09/09/2014 =
- * Fixed- Minor bugs 
+= 2.1.4 - 05/11/2018 =
+ * Woocommerce 3.5 compatibility
+ * Minor Bug Fixes
 
-= 1.0.9.1 - 09/11/2014 =
- * Fixed- Minor bug on order page
+= 2.1.3 - 17/10/2018 =
+ * Fixed: Product name issue on Order Received Page
+ * Fixed: Session Isssue
+ * Minor Bug Fixes
 
-= 1.0.10 - 26/09/2014 =
- * Allows user to set local currency
- * Captures Impressions, Product Clicks and Add to Cart on Featured Product section and Recent Product section on Homepage
- * Captures Impressions, Product Clicks and Add to Cart on Related Product section on Product Page
+= 2.1.2 - 14/09/2018 =
+ * Multisite admin sidebar Issue resolved
+ * Optimization in Impression Call
+ * Minor Bug Fixes
 
-= 1.0.11 - 28/10/2014 =
+= 2.1.1 - 26/07/2018 =
+ * Admin User Tracking Issue resolved
+ * Fatal Error Resolved
+ * Minor Bug Fixes
+
+= 2.1.0 - 19/07/2018 =
+ * New User Interface
+ * Minor Bug Fixes
+
+= 2.0.3 - 04/06/2018 =
+ * Minor Bug Fixes
+
+= 2.0.2 - 23/05/2018 =
+ * IP Anonymization Feature
+ * Google Analytics Opt Out
+ * Update the Privacy Policy under GDPR Compliance
+
+= 2.0.1 - 24/04/2018 =
+ * Minor Bug Fixes & Optimization.
+
+= 2.0.0 - 07/03/2018 =
+ * New Implementation with Global Site Tag (gtag.js)
+ * gtag.js supported
+ * Minor Bug Fixes & Optimization.
+
+= 1.2.2 - 31/01/2018 =
+ * Compatibility with Woocommerce 3.3
+ * Minor Bug Fixes & Optimization.
+
+= 1.2.1.2 - 26/12/2017 =
+ * Minor Fixes
+
+= 1.2.1 - 12/12/2017 =
+ * Improvisation for Product Page
+ * Minor Bug Fixes
+
+= 1.2.0.1 - 06/11/2017 =
+ * Quick Bug Fixes.
+
+= 1.2.0 - 17/10/2017 =
+ * Compatibility with Woocommerce 3.2
+ * Minor Bug Fixes & Optimization.
+
+= 1.1.2 - 04/09/2017 =
+ * Quick Fix of Minor Bugs.
+
+= 1.1.1 - 04/09/2017 =
+ * Minor Optimization on Order-Received Page.
+
+= 1.1.0 - 08/08/2017 =
+ * Minor Bug Fixes & Optimization.
+
+= 1.0.21.1 - 13/07/2017 =
+ * Minor Changes.
+
+= 1.0.21 - 12/05/2017 =
+ * Minor Bug Fixes.
+
+= 1.0.20 - 14/04/2017 =
+ * Fixed - Compatibility with Woocommerce 3.x
+ * Minor Bug Fixes.
+
+= 1.0.19 - 21/12/2016 =
+ * Fixed - Compatibility with Wordpress 4.7 & Woocommerce 2.6.x
+ * Minor Bug Fixes.
+
+= 1.0.18 - 11/04/2016 =
+ * Fixed - Compatibility with Google Tag Manager for Wordpress by DuracellTomi
+
+= 1.0.17 - 19/02/2016 =
+ * Fixed - Notice: Undefined index: tab
+ * Minor Bug Fixes as per Wordpress Guidlines
+
+= 1.0.16 - 01/04/2015 =
+ * Minor Bug Fixes as per Wordpress Guidlines
+
+=  1.0.15 - 28/03/2015 =
+ * Email Field made optional
+
+= 1.0.14 - 10/02/2015 =
+ * Fixed - session_start() function warning 
+ * Fixed - Notice: Undefined variable: coupons_list
+ * Fixed - woocommerce deprecated function warning
+
+= 1.0.13 - 19/12/2014 =
+ * Currency as field removed from the plugin. Reason: we now automatically passed the currency which you may have set in WooCommerce store
  * Fixed - Minor bugs
 
 = 1.0.12 - 19/11/2014 =
  * Fixed - Settings not getting saved on few stores
  * Fixed - Broken layout issue
 
-Important Note: When you update the plugin, please save your settings again.
-
-= 1.0.13 - 19/12/2014 =
- * Currency as field removed from the plugin. Reason: we now automatically passed the currency which you may have set in WooCommerce store
+= 1.0.11 - 28/10/2014 =
  * Fixed - Minor bugs
 
- = 1.0.14 - 10/02/2015 =
- * Fixed - session_start() function warning 
- * Fixed - Notice: Undefined variable: coupons_list
- * Fixed - woocommerce deprecated function warning
+= 1.0.10 - 26/09/2014 =
+ * Allows user to set local currency
+ * Captures Impressions, Product Clicks and Add to Cart on Featured Product section and Recent Product section on Homepage
+ * Captures Impressions, Product Clicks and Add to Cart on Related Product section on Product Page
 
- =  1.0.15 - 28/03/2015 =
- * Email Field made optional
+= 1.0.9.1 - 09/11/2014 =
+ * Fixed- Minor bug on order page
 
- = 1.0.16 - 01/04/2015 =
- * Minor Bug Fixes as per Wordpress Guidlines
+= 1.0.8 - 09/09/2014 =
+ * Fixed- Minor bugs 
 
-= 1.0.17 - 19/02/2016 =
- * Fixed - Notice: Undefined index: tab
- * Minor Bug Fixes as per Wordpress Guidlines
+= 1.0.7 - 28/08/2014 =
+ * Added new feature - Display Advertising Feature
+ * Fixed-Allow back quotes and single quotes in product name, category name etc.
 
- = 1.0.18 - 11/04/2016 =
- * Fixed - Compatibility with Google Tag Manager for Wordpress by DuracellTomi
+= 1.0.6.1 - 15/08/2014 =
+ * Added new feature - Product impressions and Product click on category page view , including the    default pagination
+ * Fixed-Allow Special Characters in javascript
 
- = 1.0.19 - 21/12/2016 =
- * Fixed - Compatibility with Wordpress 4.7 & Woocommerce 2.6.x
- * Minor Bug Fixes.
-
- = 1.0.20 - 14/04/2017 =
- * Fixed - Compatibility with Woocommerce 3.x
- * Minor Bug Fixes.
-
- = 1.0.21 - 12/05/2017 =
- * Minor Bug Fixes.
-
- = 1.0.21.1 - 13/07/2017 =
- * Minor Changes.
-
- = 1.1.0 - 08/08/2017 =
- * Minor Bug Fixes & Optimization.
-
- = 1.1.1 - 04/09/2017 =
- * Minor Optimization on Order-Received Page.
-
- = 1.1.2 - 04/09/2017 =
- * Quick Fix of Minor Bugs.
-
- = 1.2.0 - 17/10/2017 =
- * Compatibility with Woocommerce 3.2
- * Minor Bug Fixes & Optimization.
-
- = 1.2.0.1 - 06/11/2017 =
- * Quick Bug Fixes.
-
- = 1.2.1 - 12/12/2017 =
- * Improvisation for Product Page
- * Minor Bug Fixes
-
- = 1.2.1.1 - 20/12/2017 =
- * Quick Fixes for Product Page & ATC
- * Minor Bug Fixes
-
- = 1.2.1.2 - 26/12/2017 =
- * Minor Fixes
-
- = 1.2.2 - 31/01/2018 =
- * Compatibility with Woocommerce 3.3
- * Minor Bug Fixes & Optimization.
-
- = 2.0.0 - 07/03/2018 =
- * New Implementation with Global Site Tag (gtag.js)
- * gtag.js supported
- * Minor Bug Fixes & Optimization.
-
- = 2.0.1 - 24/04/2018 =
- * Minor Bug Fixes & Optimization.
-
- = 2.0.2 - 23/05/2018 =
- * IP Anonymization Feature
- * Google Analytics Opt Out
- * Update the Privacy Policy under GDPR Compliance
-
- = 2.0.3 - 04/06/2018 =
- * Minor Bug Fixes
-
- = 2.1.0 - 19/07/2018 =
- * New User Interface
- * Minor Bug Fixes
-
- = 2.1.1 - 26/07/2018 =
- * Admin User Tracking Issue resolved
- * Fatal Error Resolved
- * Minor Bug Fixes
-
- = 2.1.2 - 14/09/2018 =
- * Multisite admin sidebar Issue resolved
- * Optimization in Impression Call
- * Minor Bug Fixes
-
- = 2.1.3 - 17/10/2018 =
- * Fixed: Product name issue on Order Received Page
- * Fixed: Session Isssue
- * Minor Bug Fixes
-
- = 2.1.4 - 05/11/2018 =
- * Woocommerce 3.5 compatibility
- * Minor Bug Fixes
-
- = 2.1.5 - 17/12/2018 =
- * Minor Bug Fixes
-
-  = 2.1.6 - 26/12/2018 =
- * Fixed: session_start issue
+= 1.0 - 25/06/2014 =
+ * Initial release

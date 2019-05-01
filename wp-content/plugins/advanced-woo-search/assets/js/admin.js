@@ -37,7 +37,8 @@ jQuery(document).ready(function ($) {
             url: ajaxurl,
             data: {
                 action: 'aws-reindex',
-                data: data
+                data: data,
+                _ajax_nonce: aws_vars.ajax_nonce
             },
             dataType: "json",
             timeout:0,
@@ -116,7 +117,8 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             url: ajaxurl,
             data: {
-                action: 'aws-clear-cache'
+                action: 'aws-clear-cache',
+                _ajax_nonce: aws_vars.ajax_nonce
             },
             dataType: "json",
             success: function (data) {

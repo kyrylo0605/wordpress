@@ -35,7 +35,7 @@
 									  </thead>
 									  <tbody>
 										<tr>
-										  <td class="w-25 option">Basic UA Tracking</td>
+										  <td class="w-25 option">Basic UA Tracking (Pageviews)</td>
 										  <td><i class="fa fa-check"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
@@ -65,12 +65,12 @@
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
 										<tr>
-										  <td class="option">Product Variation</td>
+										  <td class="option">Product Variations (eg. color,size)</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
 										<tr>
-										  <td class="option">Automated Product Refund</td>
+										  <td class="option">Automated Product Refund (from Admin Panel)</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
@@ -80,12 +80,17 @@
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
 										<tr>
-										  <td class="option">Facebook Pixel Tracking</td>
+										  <td class="option">Facebook Pixel Implementation (Standard Ecommerce Events)</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
 										<tr>
 										  <td class="option">Add Google Optimize Snippet</td>
+										  <td><i class="fa fa-times"></i></td>
+										  <td><i class="fa fa-check"></i></td>
+										</tr>
+										<tr>
+										  <td class="option">Site Speed Sample Rate</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
@@ -127,6 +132,11 @@
 										</tr>
 										<tr>
 										  <td class="option">Paid Customization (As per the requirement)</td>
+										  <td><i class="fa fa-times"></i></td>
+										  <td><i class="fa fa-check"></i></td>
+										</tr>
+										<tr>
+										  <td class="option">Data Studio Dashboards (Paid)</td>
 										  <td><i class="fa fa-times"></i></td>
 										  <td><i class="fa fa-check"></i></td>
 										</tr>
