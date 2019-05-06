@@ -64,7 +64,7 @@ if ( ! class_exists( 'AWS_Cache' ) ) :
          */
         public function get_cache_name( $s ) {
 
-            $s = sanitize_title( $s );
+            $s = sanitize_text_field( $s );
             $cache_option_name = 'aws_search_term_' . $s;
 
             if ( has_filter('wpml_current_language') ) {
@@ -126,7 +126,7 @@ if ( ! class_exists( 'AWS_Cache' ) ) :
 
             $values = $wpdb->prepare(
                 "(%s, %s)",
-                sanitize_title( $cache_option_name ), json_encode( $result_array )
+                sanitize_text_field( $cache_option_name ), json_encode( $result_array )
             );
 
             $query  = "INSERT IGNORE INTO {$this->cache_table_name}
@@ -152,7 +152,7 @@ if ( ! class_exists( 'AWS_Cache' ) ) :
             global $wpdb;
 
             $result = '';
-            $where = $wpdb->prepare( " name LIKE %s", sanitize_title( $cache_option_name ) );
+            $where = $wpdb->prepare( " name LIKE %s", sanitize_text_field( $cache_option_name ) );
 
             $sql = "SELECT *
                 FROM

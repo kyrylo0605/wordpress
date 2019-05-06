@@ -73,7 +73,7 @@ class AWS_Admin {
             'results' => esc_html__( 'Search Results', 'aws' )
         );
 
-        $current_tab = empty( $_GET['tab'] ) ? 'general' : sanitize_title( $_GET['tab'] );
+        $current_tab = empty( $_GET['tab'] ) ? 'general' : sanitize_text_field( $_GET['tab'] );
 
         $tabs_html = '';
 

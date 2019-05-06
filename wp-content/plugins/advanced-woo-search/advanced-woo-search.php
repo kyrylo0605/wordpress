@@ -3,7 +3,7 @@
 /*
 Plugin Name: Advanced Woo Search
 Description: Advance ajax WooCommerce product search.
-Version: 1.69
+Version: 1.70
 Author: ILLID
 Author URI: https://advanced-woo-search.com/
 Text Domain: aws
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AWS_VERSION', '1.69' );
+define( 'AWS_VERSION', '1.70' );
 
 
 define( 'AWS_DIR', dirname( __FILE__ ) );
@@ -154,7 +154,6 @@ final class AWS_Main {
             'sku'        => __('SKU', 'aws'),
             'showmore'   => $this->get_settings('show_more_text') ? AWS_Helpers::translate( 'show_more_text', stripslashes( $this->get_settings('show_more_text') ) ) : __('View all results', 'aws'),
             'noresults'  => $this->get_settings('not_found_text') ? AWS_Helpers::translate( 'not_found_text', stripslashes( $this->get_settings('not_found_text') ) ) : __('Nothing found', 'aws'),
-            'ajax_nonce' => wp_create_nonce( 'aws_ajax_nonce' ),
         ));
 	}
 

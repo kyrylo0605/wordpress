@@ -76,8 +76,7 @@
                     keyword : searchFor,
                     page: 0,
                     lang: d.lang,
-                    pageurl: window.location.href,
-                    _ajax_nonce: aws_vars.ajax_nonce
+                    pageurl: window.location.href
                 };
 
                 requests.push(

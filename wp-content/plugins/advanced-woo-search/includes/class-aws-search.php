@@ -63,8 +63,6 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 define( 'DOING_AJAX', true );
             }
 
-            check_ajax_referer( 'aws_ajax_nonce' );
-
             echo json_encode( $this->search() );
 
             die;
@@ -78,7 +76,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             global $wpdb;
 
-            $this->lang = isset( $_REQUEST['lang'] ) ? sanitize_title( $_REQUEST['lang'] ) : '';
+            $this->lang = isset( $_REQUEST['lang'] ) ? sanitize_text_field( $_REQUEST['lang'] ) : '';
 
             if ( $this->lang ) {
                 do_action( 'wpml_switch_language', $this->lang );
