@@ -22,8 +22,6 @@ https://www.youtube.com/watch?v=HCz4mkMMXos
 
 <h4>Free backup features</h4>
 <ul>
-<li><strong>Migrate site</strong> - migrate site from one domain to another</li>
-<li>Fully automatic migration - no any <strong>find & replace</strong> rules are required for migration</li>
 <li>Backup site - backup site as many times as you want</li>
 <li>Backup files, database or both</li>
 <li>Choose which folders to backup</li>
@@ -46,6 +44,8 @@ See <strong>BackupGuard Free</strong> in action here: <a href="https://www.youtu
 
 <h4>Pro backup features</h4>
 <ul>
+<li><strong>Migrate site</strong> - migrate site from one domain to another</li>
+<li>Fully automatic migration - no any <strong>find & replace</strong> rules are required for migration</li>
 <li>Multiple scheduled backups - schedule your database and files to backup with different frequencies</li>
 <li>Upload to Dropbox, G Drive, Amazon S3, OneDrive & SFTP/FTP</li>
 <li>Import from Dropbox, G Drive, Amazon S3, OneDrive & SFTP/FTP</li>
@@ -157,6 +157,10 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+
+= 1.1.85 =
+* Migration removed from free package
+* Other minor bug fixes and improvements
 
 = 1.1.84 =
 * Now you can perform migration with free version

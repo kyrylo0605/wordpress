@@ -61,7 +61,7 @@ class SGCharsetHandler
 			}
 		}
 
-		return @mysql_get_client_info();
+		return SG_MYSQL_VERSION;
 	}
 
 	public function mysqlHasCapability($cap)

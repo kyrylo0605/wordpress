@@ -61,11 +61,17 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 		$args = array(
 			'headers'     => $this->headers,
 			'sslverify'   => false,
-			'body'        => $body
+			'body'        => $body,
+			'stream'      => $this->stream
 		);
 
 		$response = wp_remote_post($this->url, $args);
-		$this->body = wp_remote_retrieve_body($response);
+		if ($this->stream && !($response instanceof WP_Error)) {
+			$this->body = file_get_contents($response['filename']);
+		}
+		else {
+			$this->body = wp_remote_retrieve_body($response);
+		}
 		$this->httpCode = wp_remote_retrieve_response_code($response);
 		
 		$headers = wp_remote_retrieve_headers($response);
@@ -87,7 +93,8 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 	{
 		$args = array(
 			'headers'     => $this->headers,
-			'sslverify'   => false
+			'sslverify'   => false,
+			'stream'      => $this->stream
 		);
 
 		if (count($this->params)) {
@@ -102,7 +109,12 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 		}
 
 		$response = wp_remote_get($this->url, $args);
-		$this->body = wp_remote_retrieve_body($response);
+		if ($this->stream && !($response instanceof WP_Error)) {
+			$this->body = file_get_contents($response['filename']);
+		}
+		else {
+			$this->body = wp_remote_retrieve_body($response);
+		}
 		$this->httpCode = wp_remote_retrieve_response_code($response);
 
 		$headers = wp_remote_retrieve_headers($response);
@@ -133,11 +145,17 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 			'headers'     => $this->headers,
 			'sslverify'   => false,
 			'method'      => $type,
-			'body'        => $body
+			'body'        => $body,
+			'stream'      => $this->stream
 		);
 
 		$response = wp_remote_request($this->url, $args);
-		$this->body = wp_remote_retrieve_body($response);
+		if ($this->stream && !($response instanceof WP_Error)) {
+			$this->body = file_get_contents($response['filename']);
+		}
+		else {
+			$this->body = wp_remote_retrieve_body($response);
+		}
 		$this->httpCode = wp_remote_retrieve_response_code($response);
 		
 		$headers = wp_remote_retrieve_headers($response);
