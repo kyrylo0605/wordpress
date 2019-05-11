@@ -3,8 +3,8 @@ Contributors: richplugins
 Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: google, reviews, google reviews, google places, google places reviews, testimonials, google review widget, google business reviews, slider, google review, review, google place review, google map reviews, google reviews pro, facebook reviews, facebook page reviews, yelp reviews, yelp business reviews
 Requires at least: 2.8
-Tested up to: 5.1
-Stable tag: 1.7.4
+Tested up to: 5.2
+Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,10 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.7.5 =
+* Update to WordPress 5.2
+* Bugfix: conflict with a Bootstrap css in the widget
 
 = 1.7.4 =
 * Improve: added auto schedule for refreshing Google reviews
