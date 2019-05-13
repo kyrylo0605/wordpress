@@ -439,6 +439,12 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
             // Diacritical marks
             $string = strtr( $string, AWS_Helpers::get_diacritic_chars() );
 
+            if ( function_exists( 'mb_strtolower' ) ) {
+                $string = mb_strtolower( $string );
+            } else {
+                $string = strtolower( $string );
+            }
+
             /**
              * Filters normalized string
              *

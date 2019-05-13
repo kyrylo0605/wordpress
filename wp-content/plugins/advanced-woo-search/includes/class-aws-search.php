@@ -98,8 +98,6 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             do_action( 'aws_search_start', $s );
 
 
-            //$s = strtolower( $s );
-
             $cache_option_name = '';
             
             if ( $cache === 'true' && ! $keyword  ) {

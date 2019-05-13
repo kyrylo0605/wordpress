@@ -722,7 +722,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 'fields'           => 'ids',
                 'post_type'        => 'product',
                 'post_status'      => 'publish',
-                'suppress_filters' => false,
                 'no_found_rows'    => 1,
                 'include'          => $product_id,
                 'lang'             => ''
@@ -788,12 +787,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             ), " ", $str );
 
             $str = str_replace( 'Ăź', 'ss', $str );
-
-            if ( function_exists( 'mb_strtolower' ) ) {
-                $str = mb_strtolower( $str );
-            } else {
-                $str = strtolower( $str );
-            }
 
             $str = preg_replace( '/^[a-z]$/i', "", $str );
 
