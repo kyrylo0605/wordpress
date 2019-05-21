@@ -6,10 +6,10 @@ Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce, e-
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 3.6
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 2.1.7
-Version: 2.1.7
+Stable tag: 2.1.8
+Version: 2.1.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,9 @@ It generally depends upon the traffic of the store. But in general it may take m
 To avoid sending your own transaction data or sessions data in Google Analytics, our plugin doesn't sent the data to GA when you are logged in. Having said, if you are logged in as Shop Manager, plugin will send the data to GA.
 
 == Changelog ==
+
+= 2.1.8 - 21/05/2018 =
+ * Minor Bug Fix for category page event
 
 = 2.1.7 - 29/04/2018 =
  * Compatibility with WC 3.6

@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.1.7';
+    public $tvc_eeVer = '2.1.8';
 	
 	protected $tvc_aga;
 	
@@ -793,7 +793,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                     "non_interaction": true,
                                     "items": [{
                                         "id" : t_prod_data_json[t_prod_url_key].tvc_i,
-                                        "name":t_prod_data_json[t_prod_url_key].tvc_i,
+                                        "name":t_prod_data_json[t_prod_url_key].tvc_n,
                                         "category" : t_prod_data_json[t_prod_url_key].tvc_c,
                                         "price": t_prod_data_json[t_prod_url_key].tvc_p,
                                         "quantity" :t_qty

@@ -70,7 +70,7 @@ class Enhanced_Ecommerce_Google_Analytics {
 		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
 			$this->version = PLUGIN_NAME_VERSION;
 		} else {
-			$this->version = '2.1.7';
+			$this->version = '2.1.8';
 		}
 		$this->plugin_name = 'enhanced-ecommerce-google-analytics';
 		$this->load_dependencies();
