@@ -159,15 +159,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/gutenberg-blocks.git",
-            "reference": "139be1219a8c2bd581875253f363c4c085f86b6c"
+            "reference": "e0033130f16856795af6bf7b76187d56e751910e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/139be1219a8c2bd581875253f363c4c085f86b6c",
-            "reference": "139be1219a8c2bd581875253f363c4c085f86b6c",
+            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/e0033130f16856795af6bf7b76187d56e751910e",
+            "reference": "e0033130f16856795af6bf7b76187d56e751910e",
             "shasum": ""
         },
-        "time": "2019-04-20 22:23:06",
+        "time": "2019-05-08 13:56:40",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -191,17 +191,17 @@
     },
     {
         "name": "codeinwp/themeisle-sdk",
-        "version": "3.0.5",
-        "version_normalized": "3.0.5.0",
+        "version": "3.0.6",
+        "version_normalized": "3.0.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-            "reference": "7ead6c057d783ea6c827d5b5de52a25c0e72de58"
+            "reference": "cde61ab54f93495f0c5b7901cc5072f320f969ff"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/7ead6c057d783ea6c827d5b5de52a25c0e72de58",
-            "reference": "7ead6c057d783ea6c827d5b5de52a25c0e72de58",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/cde61ab54f93495f0c5b7901cc5072f320f969ff",
+            "reference": "cde61ab54f93495f0c5b7901cc5072f320f969ff",
             "shasum": ""
         },
         "require-dev": {
@@ -209,7 +209,7 @@
             "squizlabs/php_codesniffer": "^3.1",
             "wp-coding-standards/wpcs": "^1.0.0"
         },
-        "time": "2019-03-07 15:42:52",
+        "time": "2019-05-21 11:49:48",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",

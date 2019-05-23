@@ -2,7 +2,7 @@
 /*
 Plugin Name: SiteOrigin Widgets Bundle
 Description: A collection of all widgets, neatly bundled into a single plugin. It's also a framework to code your own widgets on top of.
-Version: 1.15.6
+Version: 1.15.7
 Text Domain: so-widgets-bundle
 Domain Path: /lang
 Author: SiteOrigin
@@ -12,7 +12,7 @@ License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-define('SOW_BUNDLE_VERSION', '1.15.6');
+define('SOW_BUNDLE_VERSION', '1.15.7');
 define('SOW_BUNDLE_BASE_FILE', __FILE__);
 
 // Allow JS suffix to be pre-set
@@ -87,8 +87,6 @@ class SiteOrigin_Widgets_Bundle {
 		// Add compatibility for Autoptimize.
 		if ( class_exists('autoptimizeMain', false) ) {
 			add_filter( 'autoptimize_filter_css_exclude', array( $this, 'include_widgets_css_in_autoptimize'), 10, 2 );
-			add_action( 'siteorigin_widgets_stylesheet_added', array( $this, 'clear_autoptimize_cache' ) );
-			add_action( 'siteorigin_widgets_stylesheet_deleted', array( $this, 'clear_autoptimize_cache' ) );
 		}
 	}
 
@@ -862,14 +860,6 @@ class SiteOrigin_Widgets_Bundle {
 		return $excluded;
 	}
 
-	/**
-	 * Clears the Autoptimize cache when widgets CSS files are regenerated or deleted.
-	 */
-	public function clear_autoptimize_cache() {
-		if ( class_exists( 'autoptimizeCache' ) ) {
-			autoptimizeCache::clearall();
-		}
-	}
 }
 
 // create the initial single
