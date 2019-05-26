@@ -24,6 +24,9 @@
 				<!-- Multiple Radios -->
 				<div class="form-group">
 					<div class="col-md-12">
+						<input type="text" name="sg-custom-backup-name" id="sg-custom-backup-name" placeholder="Custom backup name (optional)">
+					</div>
+					<div class="col-md-12">
 						<div class="radio">
 							<label for="fullbackup-radio">
 								<input type="radio" name="backupType" id="fullbackup-radio" value="1" checked="checked">

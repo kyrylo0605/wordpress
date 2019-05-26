@@ -207,6 +207,13 @@ function backupGuardGetBackupOptions($options)
 		'SG_BACKUP_FILE_PATHS' => ''
 	);
 
+	if (isset($options['sg-custom-backup-name']) && $options['sg-custom-backup-name']) {
+		SGConfig::set("SG_CUSTOM_BACKUP_NAME", $options['sg-custom-backup-name']);
+	}
+	else {
+		SGConfig::set("SG_CUSTOM_BACKUP_NAME", '');
+	}
+
 	//If background mode
 	$isBackgroundMode = !empty($options['backgroundMode']) ? 1 : 0;
 

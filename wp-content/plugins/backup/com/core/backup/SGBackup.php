@@ -530,6 +530,10 @@ class SGBackup implements SGIBackupDelegate
 
 	private function getBackupFileName()
 	{
+		if (SGConfig::get("SG_CUSTOM_BACKUP_NAME"))  {
+			return SGConfig::get("SG_CUSTOM_BACKUP_NAME");
+		}
+
 		$sgBackupPrefix = SG_BACKUP_FILE_NAME_DEFAULT_PREFIX;
 		if (function_exists('backupGuardGetCustomPrefix') && SGBoot::isFeatureAvailable('CUSTOM_BACKUP_NAME')) {
 			$sgBackupPrefix = backupGuardGetCustomPrefix();

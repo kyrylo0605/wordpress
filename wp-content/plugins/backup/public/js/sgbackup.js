@@ -196,7 +196,8 @@ sgBackup.manualBackup = function(){
 	jQuery('.modal-footer .btn-primary').html(BG_BACKUP_STRINGS.backupInProgress);
 
 	//Reset Status
-	var resetStatusHandler = new sgRequestHandler('resetStatus', {});
+	var backupName = jQuery("#sg-custom-backup-name").val();
+	var resetStatusHandler = new sgRequestHandler('resetStatus', {backupName: backupName});
 	resetStatusHandler.callback = function(response, error){
 		var manualBackupForm = jQuery('#manualBackup');
 		var manualBackupHandler = new sgRequestHandler('manualBackup', manualBackupForm.serialize());
@@ -209,9 +210,7 @@ sgBackup.manualBackup = function(){
 			if (response === 0 || response === false || response === '0' || response === 'false') {
 				response = BG_BACKUP_STRINGS.errorMessage;
 			}
-
-			alert(response);
-			location.reload();
+			sgBackup.restManualBackupModal();
 			return false;
 		}
 		manualBackupHandler.run();
@@ -219,6 +218,11 @@ sgBackup.manualBackup = function(){
 	};
 	resetStatusHandler.run();
 };
+
+sgBackup.restManualBackupModal = function() {
+	jQuery('.modal-footer .btn-primary').removeAttr('disabled');
+	jQuery('.modal-footer .btn-primary').html('Backup');
+}
 
 sgBackup.cancelDonwload = function(name) {
 	var cancelDonwloadHandler = new sgRequestHandler('cancelDownload', {name: name});

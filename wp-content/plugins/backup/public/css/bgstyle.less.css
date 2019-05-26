@@ -1,3 +1,7 @@
+#sg-custom-backup-name {
+  width: 100%;
+}
+
 .backup-guard-label-success {
   color: green;
 }
