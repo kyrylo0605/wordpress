@@ -107,7 +107,7 @@ $options['form'][] = array(
 
 $options['form'][] = array(
     "name"  => __( "Nothing found field", "aws" ),
-    "desc"  => __( "Text when there is no search results. HTML tags is allowed.", "aws" ),
+    "desc"  => __( "Text when there is no search results.", "aws" ),
     "id"    => "not_found_text",
     "value" => __( "Nothing found", "aws" ),
     "type"  => "textarea"

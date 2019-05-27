@@ -206,7 +206,7 @@ msgid "Nothing found field"
 msgstr ""
 
 #: includes/options.php:41
-msgid "Text when there is no search results. HTML tags is allowed."
+msgid "Text when there is no search results."
 msgstr ""
 
 #: includes/options.php:43

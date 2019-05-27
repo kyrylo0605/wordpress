@@ -87,6 +87,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             $s = $keyword ? esc_attr( $keyword ) : esc_attr( $_POST['keyword'] );
             $s = htmlspecialchars_decode( $s );
 
+            $this->data['s_nonormalize'] = $s;
+
             $s = AWS_Helpers::normalize_string( $s );
 
 
@@ -732,6 +734,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             $search_query = '';
 
             $filtered_terms = $this->data['search_terms'];
+            $filtered_terms[] = $this->data['s_nonormalize'];
 
             if ( $filtered_terms && ! empty( $filtered_terms ) ) {
                 foreach ( $filtered_terms as $search_term ) {
@@ -770,9 +773,11 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 				{$search_query}
 				AND $wpdb->term_taxonomy.taxonomy = '{$taxonomy}'
 				AND $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
+				AND count > 0
 			    {$excludes}
 			LIMIT 0, 10";
 
+            $sql = trim( preg_replace( '/\s+/', ' ', $sql ) );
 
             $search_results = $wpdb->get_results( $sql );
 
