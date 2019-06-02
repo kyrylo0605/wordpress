@@ -29,6 +29,7 @@
 	</div>
   <div class="card-body">
 	<ul>
+	  <li style="padding-bottom:5px;"><img src='<?php echo plugins_url('../images/cotlw.png', __FILE__ )  ?>' />&nbsp;<a href="https://wordpress.org/plugins/woo-chrome-one-tap-login/" target="_blank">Chrome One Tap Login for Woocommerce</a>&nbsp;&nbsp;<img src='<?php echo plugins_url('../images/cotlw.gif', __FILE__ )  ?>' /></li>
 		<li style="padding-bottom:5px;"><img src='<?php echo plugins_url('../images/m1.png', __FILE__ )  ?>' />&nbsp;<a href=" https://1.envato.market/c/1289541/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-magento%2F9899649" target="_blank">Actionable Google Analytics for Magento</a></li>
 		<li style="padding-bottom:5px;"><img src='<?php echo plugins_url('../images/m2.png', __FILE__ )  ?>' />&nbsp;<a href="https://marketplace.magento.com/tatvic-actionablegoogleanalytics.html" target="_blank">Actionable Google Analytics for Magento2</a></li>
 		<li style="padding-bottom:5px;"><img src='<?php echo plugins_url('../images/shopify_new.png', __FILE__ )  ?>' />&nbsp;<a href="https://apps.shopify.com/google-universal-analytics-enhanced-ecommerce" target="_blank">Actionable Google Analytics for Shopify</a></li>

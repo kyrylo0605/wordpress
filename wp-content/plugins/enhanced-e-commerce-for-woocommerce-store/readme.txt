@@ -8,8 +8,8 @@ Author: Tatvic
 Requires at least: 3.6
 Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 2.1.8
-Version: 2.1.8
+Stable tag: 2.1.9
+Version: 2.1.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -201,10 +201,13 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
 
 == Changelog ==
 
-= 2.1.8 - 21/05/2018 =
+= 2.1.9 - 28/05/2019 =
+ * Minor Bug Fix 
+ 
+= 2.1.8 - 21/05/2019 =
  * Minor Bug Fix for category page event
 
-= 2.1.7 - 29/04/2018 =
+= 2.1.7 - 29/04/2019 =
  * Compatibility with WC 3.6
  * Minor Bug Fixes
 

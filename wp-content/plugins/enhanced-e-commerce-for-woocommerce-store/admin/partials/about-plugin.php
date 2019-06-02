@@ -149,7 +149,7 @@
 										</tr>
 									  </tfoot>
 									</table>
-									<p class="description" style="font-size: 15px;"><strong>Feel free to contact us regarding premium version inquiry at <span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong>.<br/>Developers & Marketers can also contact us for the bulk license for their clients.</p>
+									<p class="description" style="font-size: 15px;"><strong>Feel free to contact us regarding premium version inquiry at <span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong>.<br/>Agencies & Marketers can also contact us for the bulk licenses for their clients.</p>
 								</div>
 								</div>
 							</div>
