@@ -4,12 +4,10 @@
 			<p v-html="strings.error_report"></p>
 		</div>
 		<div class="buttons">
-			<form method="get" :action="logUrl">
-				<button class="button button-primary" type="submit">
-					<i class="dashicons dashicons-download"></i>
-					{{strings.download_error_log}}
-				</button>
-			</form>
+			<a :href="logUrl" target="_blank" class="button button-primary" type="submit">
+				<i class="dashicons dashicons-download"></i>
+				{{strings.download_error_log}}
+			</a>
 		</div>
 	</div>
 </template>
@@ -20,18 +18,18 @@
     data () {
       return {
         collapsed: true
-      };
+      }
     },
     computed: {
       errorMessage () {
-        return this.$store.state.errorToast;
+        return this.$store.state.errorToast
       },
       strings () {
-        return this.$store.state.strings;
+        return this.$store.state.strings
       },
       logUrl () {
-        return themeisleSitesLibApi.logUrl;
+        return themeisleSitesLibApi.logUrl
       }
     },
-  };
+  }
 </script>

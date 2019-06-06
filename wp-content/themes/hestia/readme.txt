@@ -17,6 +17,12 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 == Changelog ==
+= 2.4.5 - 2019-05-27  = 
+
+* Fixed editor visual integration with the latest update of WordPress
+* Fixed duplicated comments area when using Elementor Pro templates
+
+
 = 2.4.4 - 2019-04-22  = 
 
 * Removed weird scroll on the blog page

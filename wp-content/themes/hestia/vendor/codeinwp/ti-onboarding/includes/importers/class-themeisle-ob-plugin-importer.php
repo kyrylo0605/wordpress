@@ -32,7 +32,6 @@ class Themeisle_OB_Plugin_Importer {
 		$this->logger = Themeisle_OB_WP_Import_Logger::get_instance();
 	}
 
-
 	/**
 	 * Install Plugins.
 	 *
@@ -79,15 +78,17 @@ class Themeisle_OB_Plugin_Importer {
 			if ( in_array( $plugin_slug, $active_plugins ) ) {
 				continue;
 			}
-			$this->logger->log( "Installing {$plugin_slug}." );
+			$this->logger->log( "Installing {$plugin_slug}.", 'progress' );
 			$this->install_single_plugin( $plugin_slug );
-			$this->logger->log( "Activating {$plugin_slug}." );
+			$this->logger->log( "Activating {$plugin_slug}.", 'progress' );
 			$this->activate_single_plugin( $plugin_slug );
 		}
 
-		$this->logger->log( 'Installed and activated plugins.' );
+		$this->logger->log( 'Installed and activated plugins.', 'success' );
 
 		do_action( 'themeisle_ob_after_plugins_install' );
+
+		update_option( 'themeisle_ob_plugins_installed', 'yes' );
 
 		return new WP_REST_Response(
 			array(

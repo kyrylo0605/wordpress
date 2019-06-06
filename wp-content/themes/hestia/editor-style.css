@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:300,400,500,700");
 /* Grid desktop MS / No grid support */
 a {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -955,6 +959,7 @@ h2.hestia-title {
 
 .tooltip {
   opacity: 0;
+  -webkit-transition: opacity,-webkit-transform 0.2s ease;
   transition: opacity,-webkit-transform 0.2s ease;
   transition: opacity,transform 0.2s ease;
   transition: opacity,transform 0.2s ease,-webkit-transform 0.2s ease;
@@ -988,6 +993,7 @@ h2.hestia-title {
   border-radius: 3px;
   color: #555;
   background: #fff;
+  -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
   font-size: 12px;
   line-height: 1.5;
@@ -1004,6 +1010,7 @@ h2.hestia-title {
 .screen-reader-text:focus {
   background-color: #f1f1f1;
   border-radius: 3px;
+  -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   clip: auto !important;
   color: #21759b;
@@ -1179,6 +1186,7 @@ img.alignright, .wp-caption.alignright {
 .gallery img {
   border: none !important;
   border-radius: 6px;
+  -webkit-box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
@@ -1204,15 +1212,9 @@ img.alignright, .wp-caption.alignright {
 }
 
 .flex-row {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .layout-alternative2 .category {

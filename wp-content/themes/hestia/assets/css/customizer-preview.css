@@ -321,8 +321,7 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .customize-partial-refreshing:before {
   content: url(../img/ajax-loader.gif) !important;
   top: 50% !important;
-  -webkit-transform: translate3d(-50%, 0, 0);
-          transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 0, 0);
   border: none !important;
   bottom: auto !important;
   right: auto !important;

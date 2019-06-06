@@ -194,6 +194,7 @@ class Themeisle_OB_Admin {
 			'widgets'                 => __( 'Widgets', 'hestia' ),
 			'backup_disclaimer'       => __( 'We recommend you backup your website content before attempting a full site import.', 'hestia' ),
 			'placeholders_disclaimer' => __( 'Due to copyright issues, some of the demo images will not be imported and will be replaced by placeholder images.', 'hestia' ),
+			'unsplash_gallery_link'   => __( 'Here is our own collection of related images you can use for your site.', 'hestia' ),
 			'import_done'             => __( 'Content was successfully imported. Enjoy your new site!', 'hestia' ),
 			'pro_demo'                => __( 'Available in the PRO version', 'hestia' ),
 			'copy_error_code'         => __( 'Copy error code', 'hestia' ),

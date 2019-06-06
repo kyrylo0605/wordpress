@@ -1,9 +1,10 @@
 
- ### v2.4.4 - 2019-04-22 
+ ### v2.4.5 - 2019-05-27 
  **Changes:** 
- * Removed weird scroll on the blog page
+ * Fixed editor visual integration with the latest update of WordPress
+* Fixed duplicated comments area when using Elementor Pro templates
  
- ### v2.4.3 - 2019-04-22 
+ ### v2.4.4 - 2019-04-22 
  **Changes:** 
  * New logging mechanism to the onboarding module
 * Improved the whole routine for the content import in the onboarding module
