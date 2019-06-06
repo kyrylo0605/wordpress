@@ -3177,20 +3177,7 @@
 			TOUCH = "ontouchstart" in window,
 			POINTER_IE10 = window.navigator.msPointerEnabled && !window.navigator.pointerEnabled && !TOUCH,
 			POINTER = (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) && !TOUCH,
-			USE_TOUCH = TOUCH || POINTER,
-			SUPPORTS_PASSIVE = false;
-
-
-	// @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
-	try {
-		var opts = Object.defineProperty({}, 'passive', {
-			get: function() {
-				SUPPORTS_PASSIVE = true;
-			}
-		});
-		window.addEventListener("testPassive", null, opts);
-		window.removeEventListener("testPassive", null, opts);
-	} catch (e) {}
+			USE_TOUCH = TOUCH || POINTER;
 
 	_.Swipe = _utils.Class.extend(/** @lend FooGallery.Swipe */{
 		/**
@@ -3264,18 +3251,10 @@
 		 * @function init
 		 */
 		init: function(){
-			var self = this, elem = self.$el.get(0);
-			if (SUPPORTS_PASSIVE && self.events.start == 'touchstart' && !!elem.addEventListener){
-				elem.addEventListener('touchstart', self.onStart, { passive: true });
-			} else {
-				self.$el.on(self.events.start, {self: self}, self.onStart);
-			}
+			var self = this;
+			self.$el.on(self.events.start, {self: self}, self.onStart);
 			self.$el.on(self.events.move, {self: self}, self.onMove);
-			if (SUPPORTS_PASSIVE && self.events.end == 'touchend' && !!elem.addEventListener){
-				elem.addEventListener('touchend', self.onEnd, { passive: true });
-			} else {
-				self.$el.on(self.events.end, {self: self}, self.onEnd);
-			}
+			self.$el.on(self.events.end, {self: self}, self.onEnd);
 			if (_is.string(self.events.leave)) self.$el.on(self.events.leave, {self: self}, self.onEnd);
 			self.$el.data(DATA_NAME, self);
 		},
@@ -3285,18 +3264,10 @@
 		 * @function destroy
 		 */
 		destroy: function(){
-			var self = this, elem = self.$el.get(0);
-			if (SUPPORTS_PASSIVE && self.events.start == 'touchstart' && !!elem.removeEventListener){
-				elem.removeEventListener('touchstart', self.onStart, { passive: true });
-			} else {
-				self.$el.off(self.events.start, self.onStart);
-			}
+			var self = this;
+			self.$el.off(self.events.start, self.onStart);
 			self.$el.off(self.events.move, self.onMove);
-			if (SUPPORTS_PASSIVE && self.events.end == 'touchend' && !!elem.removeEventListener){
-				elem.removeEventListener('touchend', self.onEnd, { passive: true });
-			} else {
-				self.$el.off(self.events.end, self.onEnd);
-			}
+			self.$el.off(self.events.end, self.onEnd);
 			if (_is.string(self.events.leave)) self.$el.off(self.events.leave, self.onEnd);
 			self.$el.removeData(DATA_NAME);
 		},
@@ -5381,6 +5352,17 @@
 			self.$anchor = self.$inner.children(sel.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
 			self.$image = self.$anchor.find(sel.image);
 			self.$caption = self.$inner.children(sel.caption.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+
+			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !self.$image.length ){
+				console.error("FooGallery Error: Invalid HTML markup. Check the item markup for additional elements or malformed HTML in the title or description.", self);
+				self.isError = true;
+				self.tmpl.raise("error-item", [self]);
+				if (self.$el.length !== 0){
+					self.$el.remove();
+				}
+				return false;
+			}
+
 			self.isAttached = self.$el.parent().length > 0;
 			self.isLoading = self.$el.is(sel.loading);
 			self.isLoaded = self.$el.is(sel.loaded);
@@ -7734,27 +7716,28 @@
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
-			var self = this, visible = self.$el.is(':visible'), maxWidth = self.getContainerWidth(),
+			var self = this, containerWidth = self.getContainerWidth(),
 					$test = $('<div/>', {'class': self.$el.attr('class')}).css({
 						position: 'absolute',
-						top: 0,
+						top: -9999,
 						left: -9999,
 						visibility: 'hidden',
-						maxWidth: maxWidth
+						maxWidth: containerWidth
 					}).appendTo('body');
 
+			var borderSize = 0;
+			if (self.$el.hasClass("fg-border-thin")) borderSize = 4;
+			if (self.$el.hasClass("fg-border-medium")) borderSize = 10;
+			if (self.$el.hasClass("fg-border-thick")) borderSize = 16;
+			var border = borderSize * 2;
+
 			self._items = $.map(self.tmpl.getItems(), function(item, i){
-				var width = item.width, height = item.height;
-				item.$caption.css("max-width", width);
-				if (!visible){
-					var $clone = item.$el.clone();
-					$clone.appendTo($test);
-					width = $clone.outerWidth();
-					height = $clone.outerHeight();
-				} else {
-					width = item.$el.outerWidth();
-					height = item.$el.outerHeight();
-				}
+				var maxWidth = containerWidth - border, single = item.width > maxWidth;
+				var $clone = item.$el.clone().css({width: '', height: ''})
+						.find(".fg-image,.fg-caption").css("width", single ? maxWidth : item.width).end()
+						.appendTo($test);
+				var width = $clone.outerWidth(), height = $clone.outerHeight();
+				$clone.remove();
 				return {
 					index: i,
 					width: width,
