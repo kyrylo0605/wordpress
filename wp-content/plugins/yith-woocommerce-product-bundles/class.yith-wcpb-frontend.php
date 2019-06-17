@@ -102,7 +102,7 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
             add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'woocommerce_order_again_add_to_cart_validation' ), 10, 6 );
 
             // S H I P P I N G
-            add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'woocommerce_cart_shipping_packages' ) );
+            add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'woocommerce_cart_shipping_packages' ), 99 );
         }
 
         /**

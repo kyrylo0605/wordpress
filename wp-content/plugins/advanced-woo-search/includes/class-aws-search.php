@@ -730,28 +730,57 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             $result_array = array();
             $search_array = array();
+            $relevance_array = array();
             $excludes = '';
             $search_query = '';
+            $relevance_query = '';
 
             $filtered_terms = $this->data['search_terms'];
             $filtered_terms[] = $this->data['s_nonormalize'];
 
+            /**
+             * Max number of terms to show
+             * @since 1.73
+             * @param int
+             */
+            $terms_number = apply_filters( 'aws_search_terms_number', 10 );
+
             if ( $filtered_terms && ! empty( $filtered_terms ) ) {
+
                 foreach ( $filtered_terms as $search_term ) {
+
+                    $search_term_len = strlen( $search_term );
+                    $relevance = 40 + 2 * $search_term_len;
+                    $search_term_norm = preg_replace( '/(s|es|ies)$/i', '', $search_term );
+
+                    if ( $search_term_norm && $search_term_len > 3 && strlen( $search_term_norm ) > 2 ) {
+                        $search_term = $search_term_norm;
+                    }
+
                     $like = '%' . $wpdb->esc_like($search_term) . '%';
                     $search_array[] = $wpdb->prepare('( name LIKE %s )', $like);
+
+                    $relevance_array[] = $wpdb->prepare( "( case when ( name LIKE %s ) then {$relevance} else 0 end )", $like );
+
                 }
+
             } else {
+
                 return $result_array;
+
+            }
+
+            if ( $relevance_array && ! empty( $relevance_array ) ) {
+                $relevance_query = sprintf( ' (SUM( %s )) ', implode( ' + ', $relevance_array ) );
+            } else {
+                $relevance_query = '0';
             }
 
             $search_query .= sprintf( ' AND ( %s )', implode( ' OR ', $search_array ) );
 
             /**
              * Exclude certain terms from search
-             *
              * @since 1.58
-             *
              * @param array
              */
             $exclude_terms = apply_filters( 'aws_terms_exclude_' . $taxonomy, array() );
@@ -765,7 +794,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 				distinct($wpdb->terms.name),
 				$wpdb->terms.term_id,
 				$wpdb->term_taxonomy.taxonomy,
-				$wpdb->term_taxonomy.count
+				$wpdb->term_taxonomy.count,
+				{$relevance_query} as relevance
 			FROM
 				$wpdb->terms
 				, $wpdb->term_taxonomy
@@ -775,7 +805,9 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 				AND $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id
 				AND count > 0
 			    {$excludes}
-			LIMIT 0, 10";
+			    GROUP BY term_id
+			    ORDER BY relevance DESC
+			LIMIT 0, {$terms_number}";
 
             $sql = trim( preg_replace( '/\s+/', ' ', $sql ) );
 

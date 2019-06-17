@@ -136,6 +136,10 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 			$continue   = get_option( 'yith-wacp-show-continue-shopping' ) == 'yes';
 			$cart_url   = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : WC()->cart->get_cart_url();
 			$product    = isset( $_REQUEST['product_id'] ) ? wc_get_product( $_REQUEST['product_id'] ) : false;
+			// let's filter button urls
+            $cart_url               = apply_filters( 'yith_wacp_go_cart_url', $cart_url );
+            $continue_shopping_url  = apply_filters( 'yith_wacp_continue_shopping_url', '#' );
+
 			// add to cart popup
 			ob_start();
 			?>
@@ -165,10 +169,10 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 
 			<div class="actions">
 				<?php if( $view_cart ) : ?>
-					<a class="<?php echo apply_filters( 'yith_wacp_go_cart_class', 'button go-cart' ) ?>" href="<?php echo $cart_url; ?>"><?php _e( 'View cart', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
+					<a class="<?php echo apply_filters( 'yith_wacp_go_cart_class', 'button go-cart' ) ?>" href="<?php echo esc_url( $cart_url ); ?>"><?php _e( 'View cart', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
 				<?php endif ?>
 				<?php if( $continue ) : ?>
-					<a class="<?php echo apply_filters( 'yith_wacp_continue_shopping_class', 'button continue-shopping' ) ?>" href="#"><?php _e( 'Continue shopping', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
+					<a class="<?php echo apply_filters( 'yith_wacp_continue_shopping_class', 'button continue-shopping' ) ?>" href="<?php echo esc_url( $continue_shopping_url ); ?>"><?php _e( 'Continue shopping', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
 				<?php endif; ?>
 			</div>
 
