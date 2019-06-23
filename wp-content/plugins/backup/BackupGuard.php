@@ -752,39 +752,11 @@ function backupGuardloadTextDomain()
 	}
 }
 
-
+/*
 if (backupGuardShouldShowDiscountNotice()) {
 	add_action('admin_notices', 'backup_guard_discount_notice');
 }
 
-function backup_guard_discount_notice()
-{
-	$capabilities = backupGuardGetCapabilities();
-
-	if ($capabilities == BACKUP_GUARD_CAPABILITIES_PLATINUM) {
-		return;
-	}
-
-	?>
-		<div class="backup-guard-discount-notice updated notice is-dismissible">
-			<h3>Summer is coming and you should not worry about the safety of your websites. Time to upgrade to our <span style="color: red;">Platinum</span> plan with a <span style="color: red;">50% discount</span>.  Enjoy these benefits of our platinum plan:</h3>
-			<h4>Enjoy these premium features:</h4>
-			<ul>
-				<li><b>All Gold Features +</b></li>
-				<li><b>Unlimited Websites (Lifetime Usage)</b></li>
-				<li><b>Automatic</b> Backups <b>(multiple profiles)</b></li>
-				<li>Set <b>Custom Cloud Destination Path</b></li>
-				<li>Customer <b>Emergency</b> Support (1 year)</li>
-				<li>Unlimited Updates (1 year)</li>
-			</ul>
-			<h3><a target="_blank" href="<?php echo SG_BACKUP_SITE_PRICING_URL ?>">Upgrade Now!</a></h3>
-			<a target="_blank" href="<?php echo SG_BACKUP_SITE_PRICING_URL ?>"><img style="border: 0px; position: absolute; width: 100px; bottom: 9px; right: 9px;" src="<?php echo SG_IMAGE_URL.'bg_160.png' ?>"></a>
-		</div>
-	<?php
-}
-
-
-/*
 function backup_guard_discount_notice()
 {
 	$capabilities = backupGuardGetCapabilities();

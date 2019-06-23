@@ -19,7 +19,15 @@ jQuery('.bg-deactivation-survey-popup-cancel').click(function(e) {
 
 jQuery("#bg-skip-and-deactivate").on("click", function () {
 	event.preventDefault();
-	window.location.replace(deactivationUrl);
+	
+	var data = {
+		action: 'backup_guard_storeSurveyResult',
+		skip: 'skip'
+	};
+
+	jQuery.post(ajaxurl, data, function(response) {
+		window.location.replace(deactivationUrl);
+	});
 });
 
 jQuery('#bg-deactivation-survey-reason').on('change', function () {

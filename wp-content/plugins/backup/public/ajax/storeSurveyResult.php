@@ -8,11 +8,21 @@ if(backupGuardIsAjax() && count($_POST)) {
 	$_POST = backupGuardSanitizeTextField($_POST);
 
 	$error = '';
-	$firstname = $_POST['firstname'];
-	$lastname = $_POST['lastname'];
-	$email = $_POST['email'];
-	$response = $_POST['response'];
-	$url = site_url();
+
+	if (isset($_POST['skip'])) {
+		$firstname = 'skip';
+		$lastname = 'skip';
+		$email = 'skip';
+		$response = 'skip';
+		$url = site_url();
+	}
+	else {
+		$firstname = $_POST['firstname'];
+		$lastname = $_POST['lastname'];
+		$email = $_POST['email'];
+		$response = $_POST['response'];
+		$url = site_url();
+	}
 
 	$client = new BackupGuard\Client();
 	$id = $client->storeSurveyResult($url, $firstname, $lastname, $email, $response);
