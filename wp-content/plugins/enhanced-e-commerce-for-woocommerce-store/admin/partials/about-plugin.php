@@ -145,7 +145,7 @@
 										<tr>
 											<th class="w-25"></th>
 											<th class=""></th>
-											<th class=""><a href="https://1.envato.market/c/1291997/275988/4415?u=https%3A%2F%2Fcodecanyon.net%2Fitem%2Factionable-google-analytics-for-woocommerce%2F9899552" target="_blank"><button class="btn btn-primary"><strong>Buy Premium Plugin</strong></button></a></th>
+											<th class=""><a href="https://1.envato.market/Yvn3R" target="_blank"><button class="btn btn-primary"><strong>Buy Premium Plugin</strong></button></a></th>
 										</tr>
 									  </tfoot>
 									</table>

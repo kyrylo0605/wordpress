@@ -23,6 +23,8 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
         private $posts_by_query = array();
 
+        private $data = array();
+
         /**
          * Return a singleton instance of the current class
          *
@@ -58,11 +60,18 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             // Add header
 		    add_action( 'pre_get_posts', array( $this, 'action_pre_get_posts' ), 5 );
 
+            // Overwrite query
+            add_action( 'pre_get_posts', array( $this, 'pre_get_posts_overwrite' ), 999 );
+
             // Nukes the FOUND_ROWS() database query
 		    add_filter( 'found_posts_query', array( $this, 'filter_found_posts_query' ), 5, 2 );
 
             // Update filters links
             add_filter( 'woocommerce_layered_nav_link', array( $this, 'woocommerce_layered_nav_link' ) );
+
+            add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 10, 2 );
+
+            add_filter( 'body_class', array( $this, 'body_class' ), 999 );
 
         }
 
@@ -82,25 +91,13 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             $new_posts = array();
 
             $search_query = $query->query_vars['s'];
-            
-            $posts_array = (array) aws_search( $search_query );
+            $search_res = $this->search( $search_query, $query );
             $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
-            $post_array_products = $posts_array['products'];
 
-            // Filter and order output
-            if ( $post_array_products && is_array( $post_array_products ) && ! empty( $post_array_products ) ) {
-                $post_array_products = AWS()->order( $post_array_products, $query );
-            }
+            $query->found_posts = count( $search_res['all'] );
+            $query->max_num_pages = ceil( count( $search_res['all'] ) / $posts_per_page );
 
-            $query->found_posts = count( $post_array_products );
-            $query->max_num_pages = ceil( count( $post_array_products ) / $posts_per_page );
-
-            $paged  = $query->query_vars['paged'] ? $query->query_vars['paged'] : 1;
-            $offset = ( $paged > 1 ) ? $paged * $posts_per_page - $posts_per_page : 0;
-
-            $products = array_slice( $post_array_products, $offset, $posts_per_page );
-
-            foreach ( $products as $post_array ) {
+            foreach ( $search_res['products'] as $post_array ) {
                 $post = new stdClass();
 
                 $post_array = (array) $post_array;
@@ -160,6 +157,38 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         }
 
         /**
+         * Filter the posts array.
+         *
+         * @param array $posts
+         * @param object $query
+         * @return array|null
+         */
+        public function posts_pre_query( $posts, $query ) {
+
+            if ( isset( $_GET['type_aws'] ) && isset( $query->query_vars['s'] ) && $query->query && isset( $query->query['fields'] ) && $query->query['fields'] == 'ids' &&
+                isset( $this->data['is_elementor'] ) && $this->data['is_elementor']  )
+            {
+
+                $products_ids = array();
+                $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
+                $search_query = $_GET['s'];
+
+                $search_res = $this->search( $search_query, $query );
+
+                $query->found_posts = count( $search_res['all'] );
+                $query->max_num_pages = ceil( count( $search_res['all'] ) / $posts_per_page );
+
+                foreach ( $search_res['products'] as $product ) {
+                    $products_ids[] = $product['id'];
+                }
+
+                $posts = $products_ids;
+
+            }
+            return $posts;
+        }
+
+        /**
          * Filter the posts array to contain ES query results in EP_Post form. Pull previously queried posts.
          *
          * @param array $posts
@@ -205,6 +234,36 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         }
 
         /**
+         * Make necessary changes in main query.
+         *
+         * @param $query
+         */
+        public function pre_get_posts_overwrite( $query ) {
+            if ( ! $this->aws_searchpage_enabled( $query ) ) {
+                return;
+            }
+
+            // Divi builder fix
+            if ( defined( 'ET_CORE' ) && $GLOBALS && isset( $GLOBALS['et_builder_used_in_wc_shop'] ) && $GLOBALS['et_builder_used_in_wc_shop'] ) {
+
+                $GLOBALS['et_builder_used_in_wc_shop'] = false;
+
+                $query->set( 'page_id', 0 );
+                $query->set( 'post_type', 'product' );
+                $query->set( 'posts_per_page', apply_filters( 'aws_posts_per_page', get_option( 'posts_per_page' ) ) );
+                $query->set( 'wc_query', 'product_query' );
+                $query->set( 'meta_query', array() );
+
+                $query->is_singular          = false;
+                $query->is_page              = false;
+                $query->is_post_type_archive = true;
+                $query->is_archive           = true;
+
+            }
+
+        }
+
+        /**
          * Remove the found_rows from the SQL Query
          *
          * @param string $sql
@@ -217,6 +276,36 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             }
 
             return '';
+        }
+
+        /**
+         * Perform the search.
+         *
+         * @param string $s
+         * @param object $query
+         * @return array
+         */
+        private function search( $s, $query ) {
+
+            $posts_array = (array) aws_search( $s );
+            $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
+            $post_array_products = $posts_array['products'];
+
+            // Filter and order output
+            if ( $post_array_products && is_array( $post_array_products ) && ! empty( $post_array_products ) ) {
+                $post_array_products = AWS()->order( $post_array_products, $query );
+            }
+
+            $paged  = $query->query_vars['paged'] ? $query->query_vars['paged'] : 1;
+            $offset = ( $paged > 1 ) ? $paged * $posts_per_page - $posts_per_page : 0;
+
+            $products = array_slice( $post_array_products, $offset, $posts_per_page );
+
+            return array(
+                'all'      => $post_array_products,
+                'products' => $products
+            );
+
         }
 
         /*
@@ -239,6 +328,19 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
             return $link;
 
+        }
+
+        /*
+         * Check some strings inside body classes
+         */
+        function body_class( $classes ) {
+            foreach( $classes as $class ) {
+                if ( strpos( $class, 'elementor-page-' ) !== false ) {
+                    $this->data['is_elementor'] = true;
+                    break;
+                }
+            }
+            return $classes;
         }
 
         /**

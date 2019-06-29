@@ -430,7 +430,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 {$query['lang']}
                 GROUP BY ID
                 ORDER BY
-                    relevance DESC
+                    relevance DESC, id DESC
 				LIMIT 0, {$results_num}
 		    ";
 
@@ -806,7 +806,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 				AND count > 0
 			    {$excludes}
 			    GROUP BY term_id
-			    ORDER BY relevance DESC
+			    ORDER BY relevance DESC, term_id DESC
 			LIMIT 0, {$terms_number}";
 
             $sql = trim( preg_replace( '/\s+/', ' ', $sql ) );
