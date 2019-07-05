@@ -44,6 +44,10 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 parse_str( $url_array['query'], $url_query_parts );
             }
 
+            $form_action = home_url( '/' );
+            if ( function_exists( 'pll_home_url' ) ) {
+                $form_action = pll_home_url();
+            }
 
             $params_string = '';
 
@@ -76,7 +80,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
 
             $markup = '';
             $markup .= '<div class="aws-container" ' . $params_string . '>';
-            $markup .= '<form class="aws-search-form" action="' . home_url('/') . '" method="get" role="search" >';
+            $markup .= '<form class="aws-search-form" action="' . $form_action . '" method="get" role="search" >';
 
             $markup .= '<div class="aws-wrapper">';
 

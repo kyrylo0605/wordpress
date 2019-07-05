@@ -3,7 +3,7 @@ Contributors: bradvin, fooplugins, freemius
 Donate link: http://fooplugins.com
 Tags: lightbox,media,images,gallery,modal,gutenberg
 Requires at least: 3.5.1
-Tested up to: 5.2.1
+Tested up to: 5.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,10 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 2. Phone example
 
 == Changelog ==
+
+= 2.7.3 =
+* Fix : Fixed get_blog_list error
+* Update : Freemius SDK 2.3.0
 
 = 2.7.1 =
 * Fix : Fixed swipe issues in Chrome

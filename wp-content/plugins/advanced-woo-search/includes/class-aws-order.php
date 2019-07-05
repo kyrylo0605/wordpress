@@ -43,6 +43,7 @@ if ( ! class_exists( 'AWS_Order' ) ) :
             $price_min = false;
             $price_max = false;
             $rating = false;
+            $brand = false;
 
             $attr_filter = array();
 
@@ -61,6 +62,10 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
             if ( isset( $_GET['rating_filter'] ) && $_GET['rating_filter'] ) {
                 $rating = explode( ',', sanitize_text_field( $_GET['rating_filter'] ) );
+            }
+
+            if ( isset( $_GET['filtering'] ) && $_GET['filtering'] && isset( $_GET['filter_product_brand'] ) ) {
+                $brand = explode( ',', sanitize_text_field( $_GET['filter_product_brand'] ) );
             }
 
             if ( isset( $query->query_vars['tax_query'] ) ) {
@@ -95,6 +100,26 @@ if ( ! class_exists( 'AWS_Order' ) ) :
                             continue;
                         }
                     }
+                }
+
+                if ( $brand && is_array( $brand ) ) {
+
+                    $skip = true;
+                    $p_brands = get_the_terms( $post_array['id'], 'product_brand' );
+
+                    if ( ! is_wp_error( $p_brands ) && ! empty( $p_brands ) ) {
+                        foreach ( $p_brands as $p_brand ) {
+                            if ( in_array( $p_brand->term_id,  $brand ) ) {
+                                $skip = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if ( $skip ) {
+                        continue;
+                    }
+
                 }
 
                 if ( $attr_filter && ! empty( $attr_filter ) ) {
