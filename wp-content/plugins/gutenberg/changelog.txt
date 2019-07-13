@@ -1,5 +1,82 @@
 == Changelog ==
 
+= 6.1.1 =
+
+### Bug Fixes
+
+- Prevent automatic conversion of widgets to blocks when using the customizer.
+- Fix missing block properties on block registration filters used for the deprecated versions.
+
+= 6.1.0 =
+
+### Enhancements
+
+*   [Introduce motion](https://github.com/WordPress/gutenberg/pull/16065)/animation when reordering/adding/removing blocks.
+*   Improve the [Image block link settings](https://github.com/WordPress/gutenberg/pull/15570) and move it to the block toolbar.
+*   Use a snackbar notice when clicking “[Copy all content](https://github.com/WordPress/gutenberg/pull/16265)”.
+*   Show [REST API error messages](https://github.com/WordPress/gutenberg/pull/15657) as notices.
+*   Clarify the wording of the view link in the [Permalink panel](https://github.com/WordPress/gutenberg/pull/16041).
+*   [Hide the “Copy all content”](https://github.com/WordPress/gutenberg/pull/16286) button if the post is empty.
+*   [Hide the ungroup action](https://github.com/WordPress/gutenberg/pull/16332) when there are no inner blocks.
+*   Use admin schemes dependent [focus state for primary buttons](https://github.com/WordPress/gutenberg/pull/16275).
+*   Add support for the [table cells scope attribute](https://github.com/WordPress/gutenberg/pull/16154) when pasting.
+
+### Experiments
+
+*   Introduce a new [Customizer Panel](https://github.com/WordPress/gutenberg/pull/16204) to edit block-based widget areas.
+*   Add the [block inspector](https://github.com/WordPress/gutenberg/pull/16203) to the widgets screen.
+*   Add a [global inserter](http://add/inserter-widget-areas) to the widgets screen.
+
+### Bug Fixes
+
+*   Show the [pre-publish panel for contributors](https://github.com/WordPress/gutenberg/pull/16424).
+*   Fix the [save in progress state](https://github.com/WordPress/gutenberg/pull/16303) of the Publish/Update Button.
+*   Fix [adding/removing columns from the table block](https://github.com/WordPress/gutenberg/pull/16410) when using header/footer sections.
+*   Fix Image block not [preserving custom dimensions](https://github.com/WordPress/gutenberg/pull/16125) when opening the media library.
+*   [Resize Image blocks](https://github.com/WordPress/gutenberg/pull/16398) properly when changing the width from the inspector.
+*   Fix php error that can potentially be triggered by [gutenberg_is_block_editor](https://github.com/WordPress/gutenberg/pull/16201).
+*   Fix error when using the [“tag” block attribute source type](https://github.com/WordPress/gutenberg/pull/16290).
+*   Fix [chrome rendering bug](https://github.com/WordPress/gutenberg/pull/16325) happening when resizing images.
+*   Fix the [data-block style selector](https://github.com/WordPress/gutenberg/pull/16207) to avoid affecting third-party components.
+*   Allow the [columns layout options](https://github.com/WordPress/gutenberg/pull/16371) to wrap on small screens.
+*   Fix [isShallowEqual](https://github.com/WordPress/gutenberg/pull/16329) edge case when the second argument is undefined.
+*   Prevent the [disabled block switcher icon](https://github.com/WordPress/gutenberg/pull/16390) from becoming unreadable.
+*   Fix [Group Block deprecation](https://github.com/WordPress/gutenberg/pull/16348) and any deprecation relying on hooks.
+*   A11y:
+    *   Make the [top toolbar wrap](https://github.com/WordPress/gutenberg/pull/16250) at high zoom levels.
+    *   Fix the [sticky notices](https://github.com/WordPress/gutenberg/pull/16255) at high zoom levels.
+
+### Performance
+
+*   Improve the performance of the [i18n Tannin library](https://github.com/WordPress/gutenberg/pull/16337).
+*   Track the [block parent](https://github.com/WordPress/gutenberg/pull/16392) in the state to optimize hierarchy selectors.
+*   Add a [cache key](https://github.com/WordPress/gutenberg/pull/16407) tracked in state to optimize the getBlock selector.
+
+### Documentation
+
+*   Document the [plugin release tool](https://github.com/WordPress/gutenberg/pull/16366).
+*   Document the use-cases of the [dynamic blocks](https://github.com/WordPress/gutenberg/pull/16228).
+*   Tweaks and typos: [1](https://github.com/WordPress/gutenberg/pull/16267), [2](https://github.com/WordPress/gutenberg/pull/16153), [3](https://github.com/WordPress/gutenberg/pull/16170), [4](https://github.com/WordPress/gutenberg/pull/16312), [5](https://github.com/WordPress/gutenberg/pull/16320), [6](https://github.com/WordPress/gutenberg/pull/16138).
+
+### Various
+
+*   Introduce a [PluginDocumentSettingPanel](https://github.com/WordPress/gutenberg/pull/13361) slot to allow third-party plugins to add panels to the document sidebar tab.
+*   [Deploy the playground](https://github.com/WordPress/gutenberg/pull/16345) automatically to Github Pages. [https://wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/)
+*   Extract a [generic RichText](http://try/move-rich-text) [component](https://github.com/WordPress/gutenberg/pull/16299) to the @wordpress/rich-text package.
+*   Refactor the [editor initialization](https://github.com/WordPress/gutenberg/pull/15444) to rely on a component.
+*   Remove unused internal [asType utility](https://github.com/WordPress/gutenberg/pull/16291).
+*   Fix [react-no-unsafe-timeout ESlint rule](https://github.com/WordPress/gutenberg/pull/16292) when using variable assignment.
+*   Add support for [watching block.json files](https://github.com/WordPress/gutenberg/pull/16150) when running “npm run dev”.
+*   Remove: experimental status from [blockEditor.transformStyles](https://github.com/WordPress/gutenberg/pull/16126).
+*   Upgrade [PHPCS composer dependencies](https://github.com/WordPress/gutenberg/pull/16387) and use [strict comparisons](https://github.com/WordPress/gutenberg/pull/16381) to align with the PHPCS guidelines.
+*   Fix a small console warning when running [performance tests](https://github.com/WordPress/gutenberg/pull/16409).
+
+### Mobile
+
+*   Correct the position of the [block insertion indicator](https://github.com/WordPress/gutenberg/pull/16272).
+*   Unify [Editor and Layout](https://github.com/WordPress/gutenberg/pull/16260) components with the web component hierarchy.
+
+
 = 6.0.0 =
 
 ### Features

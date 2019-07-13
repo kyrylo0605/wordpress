@@ -44,10 +44,8 @@
 		 */
 		public function __construct( $plugin_name, $version )
 		{
-			
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
-			
 		}
 		
 		/**
@@ -56,7 +54,6 @@
 		
 		public function enqueue_styles()
 		{
-			
 			wp_enqueue_style( 'wp-color-picker' );
 			// wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/weather-atlas-admin.min.css', array (), $this->version, 'all' );
 			
@@ -68,23 +65,29 @@
 		
 		public function enqueue_scripts()
 		{
-			
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 			wp_enqueue_script( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker-alpha', plugin_dir_url( __FILE__ ) . 'js/wp-color-picker-alpha.min.js', array ( 'wp-color-picker' ), '2.1.2', FALSE );
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/weather-atlas-admin.min.js', array ( 'jquery' ), $this->version, FALSE );
-			
 		}
 		
 		static function function_weather_atlas_plugin_action_links( $links )
 		{
-			
-			$links_suffix = array (
-				"<a href='https://wordpress.org/support/plugin/weather-atlas' target='_blank'> &#9432; " . __( 'Support', 'weather-atlas' ) . "</a>",
-				"<a href='https://wordpress.org/support/plugin/weather-atlas/reviews/' target='_blank'> &#9733; " . __( 'Reviews', 'weather-atlas' ) . "</a>"
+			$links_prefix = array (
+				"<a href='https://www.weather-atlas.com/plugins/' target='_blank'><span style='color:#ff0000'>&#9733;</span> <b>" . __( 'Upgrade to Premium version', 'weather-atlas' ) . "</b></a><br />"
 			);
 			
-			return array_merge( $links, $links_suffix );
+			$links_suffix = array (
+				"<a href='https://wordpress.org/support/plugin/weather-atlas' target='_blank'> " . __( 'Support', 'weather-atlas' ) . "</a>",
+				"<a href='https://wordpress.org/support/plugin/weather-atlas/reviews/' target='_blank'> " . __( 'Reviews', 'weather-atlas' ) . "</a>"
+			);
 			
+			return array_merge( $links_prefix, $links, $links_suffix );
 		}
 	}
+	
+	if ( ( empty( get_option( 'weather_atlas_version' ) ) ) OR ( version_compare( get_option( 'weather_atlas_version' ), $this->version ) == - 1 ) )
+	{
+		update_option( 'weather_atlas_version', $this->version );
+	}
+	// get_option( 'weather_atlas_version' );

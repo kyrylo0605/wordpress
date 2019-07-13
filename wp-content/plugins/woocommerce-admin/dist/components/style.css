@@ -218,8 +218,6 @@ The CSSTransition element creates a containing div without a class
     .woocommerce-card {
       margin-bottom: 12px;
       width: auto; } }
-  .woocommerce-card:hover {
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); }
   .woocommerce-card.is-inactive {
     background-color: #f6f6f6;
     box-shadow: none; }
@@ -1266,6 +1264,30 @@ button.woocommerce-filters-date__tab {
 .woocommerce-gravatar {
   border-radius: 50%; }
 
+.woocommerce-list__item {
+  padding: 16px;
+  display: flex;
+  margin-bottom: 0; }
+  .woocommerce-list__item .woocommerce-list__item-title {
+    display: block;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1a1a1a; }
+  .woocommerce-list__item .woocommerce-list__item-description {
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    color: #50575d; }
+  .woocommerce-list__item .woocommerce-list__item-before {
+    margin-right: 16px;
+    display: flex;
+    align-items: center; }
+  .woocommerce-list__item .woocommerce-list__item-after {
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    margin-left: auto; }
+
 /** @format */
 .woocommerce-order-status {
   display: flex;
@@ -1616,7 +1638,8 @@ button.woocommerce-filters-date__tab {
       font-size: 0.8em;
       line-height: 1.4;
       color: #6c7781;
-      background: white; }
+      background: white;
+      white-space: nowrap; }
 
 .components-panel .woocommerce-search-list {
   padding: 0; }

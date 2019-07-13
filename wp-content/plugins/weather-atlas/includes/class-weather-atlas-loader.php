@@ -42,10 +42,8 @@
 		 */
 		public function __construct()
 		{
-			
 			$this->actions = array ();
 			$this->filters = array ();
-			
 		}
 		
 		/**
@@ -93,7 +91,6 @@
 		 */
 		private function add( $hooks, $hook, $component, $callback, $priority, $accepted_args )
 		{
-			
 			$hooks[] = array (
 				'hook'          => $hook,
 				'component'     => $component,
@@ -103,7 +100,6 @@
 			);
 			
 			return $hooks;
-			
 		}
 		
 		/**
@@ -111,7 +107,6 @@
 		 */
 		public function run()
 		{
-			
 			foreach ( $this->filters as $hook )
 			{
 				add_filter( $hook[ 'hook' ], array (
@@ -127,7 +122,6 @@
 					$hook[ 'callback' ]
 				), $hook[ 'priority' ], $hook[ 'accepted_args' ] );
 			}
-			
 		}
 		
 	}

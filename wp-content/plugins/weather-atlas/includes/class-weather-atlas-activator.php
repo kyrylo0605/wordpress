@@ -25,7 +25,6 @@
 		 */
 		public static function activate()
 		{
-			
 		}
 		
 	}

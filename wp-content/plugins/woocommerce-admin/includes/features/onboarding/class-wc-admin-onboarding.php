@@ -18,6 +18,20 @@ class WC_Admin_Onboarding {
 	protected static $instance = null;
 
 	/**
+	 * Name of themes transient.
+	 *
+	 * @var string
+	 */
+	const THEMES_TRANSIENT = 'wc_onboarding_themes';
+
+	/**
+	 * Name of product data transient.
+	 *
+	 * @var string
+	 */
+	const PRODUCT_DATA_TRANSIENT = 'wc_onboarding_product_data';
+
+	/**
 	 * Get class instance.
 	 */
 	public static function get_instance() {
@@ -32,7 +46,10 @@ class WC_Admin_Onboarding {
 	 */
 	public function __construct() {
 		add_action( 'woocommerce_components_settings', array( $this, 'component_settings' ), 20 ); // Run after WC_Admin_Loader.
+		add_action( 'woocommerce_theme_installed', array( $this, 'delete_themes_transient' ) );
+		add_action( 'after_switch_theme', array( $this, 'delete_themes_transient' ) );
 		add_filter( 'woocommerce_admin_is_loading', array( $this, 'is_loading' ) );
+		add_filter( 'woocommerce_rest_prepare_themes', array( $this, 'add_uploaded_theme_data' ) );
 	}
 
 	/**
@@ -74,7 +91,6 @@ class WC_Admin_Onboarding {
 	/**
 	 * Get a list of allowed product types for the onboarding wizard.
 	 *
-	 * @todo Prices for products should be pulled dynamically.
 	 * @return array
 	 */
 	public static function get_allowed_product_types() {
@@ -111,18 +127,130 @@ class WC_Admin_Onboarding {
 	}
 
 	/**
+	 * Get a list of themes for the onboarding wizard.
+	 *
+	 * @return array
+	 */
+	public static function get_themes() {
+		$themes = get_transient( self::THEMES_TRANSIENT );
+		if ( false === $themes ) {
+			$theme_data = wp_remote_get( 'https://woocommerce.com/wp-json/wccom-extensions/1.0/search?category=themes' );
+			$themes     = array();
+
+			if ( ! is_wp_error( $theme_data ) ) {
+				$theme_data = json_decode( $theme_data['body'] );
+
+				foreach ( $theme_data->products as $theme ) {
+					$slug                                       = sanitize_title( $theme->slug );
+					$themes[ $slug ]                            = (array) $theme;
+					$themes[ $slug ]['is_installed']            = false;
+					$themes[ $slug ]['has_woocommerce_support'] = true;
+				}
+			}
+
+			$installed_themes = wp_get_themes();
+			$active_theme     = get_option( 'stylesheet' );
+
+			foreach ( $installed_themes as $slug => $theme ) {
+				$theme_data = self::get_theme_data( $theme );
+
+				if ( ! $theme_data['has_woocommerce_support'] && $active_theme !== $slug ) {
+					continue;
+				}
+
+				$installed_themes = wp_get_themes();
+				$themes[ $slug ]  = $theme_data;
+			}
+
+			$themes = array( $active_theme => $themes[ $active_theme ] ) + $themes;
+
+			set_transient( self::THEMES_TRANSIENT, $themes, DAY_IN_SECONDS );
+		}
+
+		$themes = apply_filters( 'woocommerce_admin_onboarding_themes', $themes );
+		return array_values( $themes );
+	}
+
+	/**
+	 * Get theme data used in onboarding theme browser.
+	 *
+	 * @param WP_Theme $theme Theme to gather data from.
+	 * @return array
+	 */
+	public static function get_theme_data( $theme ) {
+		return array(
+			'slug'                    => sanitize_title( $theme->stylesheet ),
+			'title'                   => $theme->get( 'Name' ),
+			'price'                   => '0.00',
+			'is_installed'            => true,
+			'image'                   => $theme->get_screenshot(),
+			'has_woocommerce_support' => self::has_woocommerce_support( $theme ),
+		);
+	}
+
+	/**
+	 * Add theme data to response from themes controller.
+	 *
+	 * @param WP_REST_Response $response Rest response.
+	 * @return WP_REST_Response
+	 */
+	public static function add_uploaded_theme_data( $response ) {
+		if ( ! isset( $response->data['theme'] ) ) {
+			return $response;
+		}
+
+		$theme                        = wp_get_theme( $response->data['theme'] );
+		$response->data['theme_data'] = self::get_theme_data( $theme );
+
+		return $response;
+	}
+
+	/**
+	 * Check if theme has declared support for WooCommerce
+	 *
+	 * @param WP_Theme $theme Theme to check.
+	 * @return bool
+	 */
+	public static function has_woocommerce_support( $theme ) {
+		$themes = array( $theme );
+		if ( $theme->get( 'Template' ) ) {
+			$parent_theme = wp_get_theme( $theme->get( 'Template' ) );
+			$themes[]     = $parent_theme;
+		}
+
+		foreach ( $themes as $theme ) {
+			$directory = new RecursiveDirectoryIterator( $theme->theme_root . '/' . $theme->stylesheet );
+			$iterator  = new RecursiveIteratorIterator( $directory );
+			$files     = new RegexIterator( $iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH );
+
+			foreach ( $files as $file ) {
+				$content = file_get_contents( $file[0] );
+				if ( preg_match( '/add_theme_support\(([^(]*)(\'|\")woocommerce(\'|\")([^(]*)/si', $content, $matches ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Append dynamic product data from API.
 	 *
 	 * @param array $product_types Array of product types.
 	 * @return array
 	 */
 	public static function append_product_data( $product_types ) {
-		$product_data_transient_name = 'wc_onboarding_product_data';
-		$woocommerce_products        = get_transient( $product_data_transient_name );
+		$woocommerce_products = get_transient( self::PRODUCT_DATA_TRANSIENT );
 		if ( false === $woocommerce_products ) {
 			$woocommerce_products = wp_remote_get( 'https://woocommerce.com/wp-json/wccom-extensions/1.0/search?category=product-type' );
-			set_transient( $product_data_transient_name, $woocommerce_products, DAY_IN_SECONDS );
+			if ( is_wp_error( $woocommerce_products ) ) {
+				return $product_types;
+			}
+
+			set_transient( self::PRODUCT_DATA_TRANSIENT, $woocommerce_products, DAY_IN_SECONDS );
 		}
+
 		$product_data = json_decode( $woocommerce_products['body'] );
 		$products     = array();
 
@@ -145,6 +273,13 @@ class WC_Admin_Onboarding {
 	}
 
 	/**
+	 * Delete the stored themes transient.
+	 */
+	public static function delete_themes_transient() {
+		delete_transient( self::THEMES_TRANSIENT );
+	}
+
+	/**
 	 * Add profiler items to component settings.
 	 *
 	 * @param array $settings Component settings.
@@ -160,6 +295,8 @@ class WC_Admin_Onboarding {
 		// Only fetch if the onboarding wizard is incomplete.
 		if ( $this->should_show_profiler() ) {
 			$settings['onboarding']['productTypes'] = self::get_allowed_product_types();
+			$settings['onboarding']['themes']       = self::get_themes();
+			$settings['onboarding']['activeTheme']  = get_option( 'stylesheet' );
 		}
 
 		return $settings;
@@ -180,4 +317,4 @@ class WC_Admin_Onboarding {
 	}
 }
 
-new WC_Admin_Onboarding();
+WC_Admin_Onboarding::get_instance();

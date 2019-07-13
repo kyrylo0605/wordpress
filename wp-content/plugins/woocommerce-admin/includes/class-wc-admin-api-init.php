@@ -131,7 +131,9 @@ class WC_Admin_Api_Init {
 		require_once WC_ADMIN_ABSPATH . 'includes/api/class-wc-admin-rest-reports-stock-controller.php';
 		require_once WC_ADMIN_ABSPATH . 'includes/api/class-wc-admin-rest-reports-stock-stats-controller.php';
 		require_once WC_ADMIN_ABSPATH . 'includes/api/class-wc-admin-rest-taxes-controller.php';
+		require_once WC_ADMIN_ABSPATH . 'includes/api/class-wc-admin-rest-themes-controller.php';
 		require_once WC_ADMIN_ABSPATH . 'includes/api/class-wc-admin-rest-customers-controller.php';
+		require_once WC_ADMIN_ABSPATH . 'includes/api/class-wc-admin-rest-reports-export-controller.php';
 
 		$controllers = array(
 			'WC_Admin_REST_Admin_Notes_Controller',
@@ -151,6 +153,7 @@ class WC_Admin_Api_Init {
 			'WC_Admin_REST_Reports_Controller',
 			'WC_Admin_REST_Setting_Options_Controller',
 			'WC_Admin_REST_Reports_Import_Controller',
+			'WC_Admin_REST_Reports_Export_Controller',
 			'WC_Admin_REST_Reports_Products_Controller',
 			'WC_Admin_REST_Reports_Variations_Controller',
 			'WC_Admin_REST_Reports_Products_Stats_Controller',
@@ -169,6 +172,7 @@ class WC_Admin_Api_Init {
 			'WC_Admin_REST_Reports_Customers_Controller',
 			'WC_Admin_REST_Reports_Customers_Stats_Controller',
 			'WC_Admin_REST_Taxes_Controller',
+			'WC_Admin_REST_Themes_Controller',
 		);
 
 		if ( WC_Admin_Loader::is_feature_enabled( 'onboarding' ) ) {

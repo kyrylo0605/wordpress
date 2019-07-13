@@ -44,10 +44,8 @@
 		 */
 		public function __construct( $plugin_name, $version )
 		{
-			
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
-			
 		}
 		
 		/**
@@ -55,7 +53,6 @@
 		 */
 		public function enqueue_styles()
 		{
-			
 			wp_enqueue_style( 'wpb-google-fonts', '//fonts.googleapis.com/css?family=Open+Sans', FALSE );
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/weather-atlas-public.min.css', array (), $this->version, 'all' );
 			wp_enqueue_style( 'weather-icons', plugin_dir_url( __FILE__ ) . 'font/weather-icons/weather-icons.min.css', array (), $this->version, 'all' );
@@ -68,11 +65,9 @@
 		 */
 		public function enqueue_scripts()
 		{
-			
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/weather-atlas-public.min.js', array ( 'jquery' ), $this->version, FALSE );
 			wp_enqueue_script( 'jquery-cookie', plugin_dir_url( __FILE__ ) . 'js/jquery-cookie.min.js', array ( 'jquery' ), $this->version, FALSE );
-			
 		}
 		
 		/*

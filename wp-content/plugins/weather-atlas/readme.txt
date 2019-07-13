@@ -3,7 +3,7 @@ Contributors:       weatheratlas
 Donate link:        https://www.weather-atlas.com
 Tags:               weather, weather widget, weather plugin, weather forecast, forecast, responsive weather, weather geolocation, weather location, weather atlas, awesome weather, accuweather, openweathermap, weatherbug, weather underground, wunderground, hourly weather forecast
 Requires at least:  4.0
-Tested up to:       4.9
+Tested up to:       5.3
 Stable tag:         trunk
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,10 +13,9 @@ Highly customizable, simple & beautiful / Responsive design / Detailed current c
 == Description ==
 
 = Weather widget demo (several live sites) =
-* [evanscounty.org](https://evanscounty.org/)
+* [tgfamsterdam.com](https://www.tgfamsterdam.com/fun-to-know/)
 * [marbella-tennis-lessons.com](https://www.marbella-tennis-lessons.com/en/tennis-weather/)
 * [morethangolfmarrakech.co.uk](https://www.morethangolfmarrakech.co.uk/dependableweather/)
-* [tgfamsterdam.com](https://www.tgfamsterdam.com/fun-to-know/)
 * [swimtca.com](http://swimtca.com/)
 
 >[Support](https://wordpress.org/support/plugin/weather-atlas)
@@ -208,6 +207,11 @@ Widgets show cached weather data (stored in your database), and periodically upd
 
 
 == Changelog ==
+
+= 1.1.5 =
+*Release Date: 2019-07-12*
+
+* Tidying up code and fixing minor bugs
 
 = 1.1.4 =
 *Release Date: 2018-06-17*

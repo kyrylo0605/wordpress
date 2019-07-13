@@ -701,6 +701,9 @@ class SGArchive
 
 								if (!$inprogress) {
 									$this->cdrFilesCount--;
+
+									@rename($tmpPath, $path);
+									$this->delegate->didExtractFile($path);
 								}
 
 								$token = $this->delegate->getToken();

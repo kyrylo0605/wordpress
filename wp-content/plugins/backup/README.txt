@@ -158,6 +158,9 @@ When you are facing an issue of any kind with any of our products, the first thi
 
 == Changelog ==
 
+= 1.1.88 =
+* Issue with restore have been fixed
+
 = 1.1.87 =
 * Minor bug fixes and improvements
 
