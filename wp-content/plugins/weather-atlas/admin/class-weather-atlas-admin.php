@@ -91,3 +91,13 @@
 		update_option( 'weather_atlas_version', $this->version );
 	}
 	// get_option( 'weather_atlas_version' );
+	/*
+	 if ( version_compare( get_option( 'weather_atlas_version' ), '1.2.1' ) < 0 )
+	{
+
+	}
+	else
+	{
+
+	}
+	*/

@@ -105,10 +105,13 @@
 	line-height : 1.3
 	}
 .weather-atlas-wrapper .weather-atlas-footer {
-	padding    : .25em;
+	padding    : .25em 1em;
 	font-size  : .85em;
 	text-align : center;
 	background : rgba(0, 0, 0, .05)
+	}
+.weather-atlas-wrapper .weather-atlas-footer .weather-atlas-footer-block {
+	display : inline-block
 	}
 .weather-atlas-wrapper .city_name,
 .ui-menu,

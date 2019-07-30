@@ -7,7 +7,7 @@
 	 * Plugin Name:       Weather Atlas Widget
 	 * Plugin URI:        https://wordpress.org/plugins/weather-atlas/
 	 * Description:       Highly customizable, simple & beautiful Weather Widget / Responsive web design / Detailed current conditions, hourly & long-term weather forecast
-	 * Version:           1.1.5
+	 * Version:           1.2.1
 	 * Author:            Yu Media Group d.o.o.
 	 * Author URI:        https://www.weather-atlas.com
 	 * License:           GPL-2.0+

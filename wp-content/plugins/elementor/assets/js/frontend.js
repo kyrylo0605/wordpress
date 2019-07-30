@@ -1,4 +1,4 @@
-/*! elementor - v2.6.1 - 10-07-2019 */
+/*! elementor - v2.6.7 - 30-07-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -974,7 +974,7 @@ module.exports = function (name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1016,6 +1016,12 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 /***/ }),
 /* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(156);
+
+/***/ }),
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -1025,7 +1031,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1034,12 +1040,6 @@ module.exports = function (it) {
   return Object(defined(it));
 };
 
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(156);
 
 /***/ }),
 /* 62 */
@@ -1172,7 +1172,7 @@ module.exports = function (bitmap, value) {
 
 
 var anObject = __webpack_require__(20);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var toInteger = __webpack_require__(39);
 var advanceStringIndex = __webpack_require__(92);
@@ -1928,7 +1928,7 @@ __webpack_require__(84)('match', 1, function (defined, MATCH, $match, maybeCallN
 // 6 -> Array#findIndex
 var ctx = __webpack_require__(57);
 var IObject = __webpack_require__(86);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var asc = __webpack_require__(104);
 module.exports = function (TYPE, $create) {
@@ -3125,8 +3125,8 @@ module.exports = exporter;
 "use strict";
 
 var $export = __webpack_require__(36);
-var aFunction = __webpack_require__(59);
-var toObject = __webpack_require__(60);
+var aFunction = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var fails = __webpack_require__(24);
 var $sort = [].sort;
 var test = [1, 2, 3];
@@ -3638,7 +3638,7 @@ exports.default = void 0;
 
 var _stringify = _interopRequireDefault(__webpack_require__(144));
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(6));
 
@@ -5389,14 +5389,13 @@ var VideoModule = elementorModules.frontend.handlers.Base.extend({
     }
 
     var newSourceUrl = $videoIframe[0].src.replace('&autoplay=0', '');
+    $videoIframe[0].src = newSourceUrl + '&autoplay=1';
 
     if ($videoIframe[0].src.includes('vimeo.com')) {
       var videoSrc = $videoIframe[0].src,
-          indexOfStartTimeKey = videoSrc.indexOf('#t='); // insert the autoplay flag before the '#t=' param. Param '#t=' must be last in the URL
+          timeMatch = /#t=[^&]*/.exec(videoSrc); // Param '#t=' must be last in the URL
 
-      $videoIframe[0].src = videoSrc.slice(0, indexOfStartTimeKey) + '&autoplay=1' + videoSrc.slice(indexOfStartTimeKey);
-    } else {
-      $videoIframe[0].src = newSourceUrl + '&autoplay=1';
+      $videoIframe[0].src = videoSrc.slice(0, timeMatch.index) + videoSrc.slice(timeMatch.index + timeMatch[0].length) + timeMatch[0];
     }
   },
   animateVideo: function animateVideo() {

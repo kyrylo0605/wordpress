@@ -151,7 +151,7 @@
 .elementor-templates-modal .dialog-buttons-wrapper {
   background-color: #fff;
   border: none;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   padding: 5px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
@@ -1723,6 +1723,8 @@ body.elementor-page .elementor-widget-menu-anchor {
     background-color: #005be2; }
   .elementor-social-icon-dribbble {
     background-color: #ea4c89; }
+  .elementor-social-icon-elementor {
+    background-color: #D30C5C; }
   .elementor-social-icon-envelope {
     background-color: #ea4335; }
   .elementor-social-icon-facebook, .elementor-social-icon-facebook-f {
@@ -1870,17 +1872,47 @@ body.elementor-page .elementor-widget-menu-anchor {
     align-items: center; }
   .elementor-star-rating__title {
     margin-left: 10px; }
-  .elementor-star-rating--align-right .elementor-star-rating__wrapper {
+
+.elementor-star-rating--align-right .elementor-star-rating__wrapper {
+  text-align: right;
+  justify-content: flex-start; }
+
+.elementor-star-rating--align-left .elementor-star-rating__wrapper {
+  text-align: left;
+  justify-content: flex-end; }
+
+.elementor-star-rating--align-center .elementor-star-rating__wrapper {
+  text-align: center;
+  justify-content: center; }
+
+.elementor-star-rating--align-justify .elementor-star-rating__title {
+  margin-left: auto; }
+
+@media (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+  .elementor-star-rating-tablet--align-right .elementor-star-rating__wrapper {
     text-align: right;
     justify-content: flex-start; }
-  .elementor-star-rating--align-left .elementor-star-rating__wrapper {
+  .elementor-star-rating-tablet--align-left .elementor-star-rating__wrapper {
     text-align: left;
     justify-content: flex-end; }
-  .elementor-star-rating--align-center .elementor-star-rating__wrapper {
+  .elementor-star-rating-tablet--align-center .elementor-star-rating__wrapper {
     text-align: center;
     justify-content: center; }
-  .elementor-star-rating--align-justify .elementor-star-rating__title {
-    margin-left: auto; }
+  .elementor-star-rating-tablet--align-justify .elementor-star-rating__title {
+    margin-left: auto; } }
+
+@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+  .elementor-star-rating-mobile--align-right .elementor-star-rating__wrapper {
+    text-align: right;
+    justify-content: flex-start; }
+  .elementor-star-rating-mobile--align-left .elementor-star-rating__wrapper {
+    text-align: left;
+    justify-content: flex-end; }
+  .elementor-star-rating-mobile--align-center .elementor-star-rating__wrapper {
+    text-align: center;
+    justify-content: center; }
+  .elementor-star-rating-mobile--align-justify .elementor-star-rating__title {
+    margin-left: auto; } }
 
 .last-star {
   letter-spacing: 0; }

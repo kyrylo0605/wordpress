@@ -63,6 +63,8 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 'data-min-chars'     => $min_chars,
                 'data-buttons-order' => $buttons_order,
                 'data-is-mobile'     => wp_is_mobile() ? 'true' : 'false',
+                'data-page-id'       => get_queried_object_id(),
+                'data-tax'           => get_query_var('taxonomy')
             );
 
 
@@ -84,7 +86,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
 
             $markup .= '<div class="aws-wrapper">';
 
-                $markup .= '<input  type="text" name="s" value="' . get_search_query() . '" class="aws-search-field" placeholder="' . esc_attr( $placeholder ) . '" autocomplete="off" />';
+                $markup .= '<input  type="search" name="s" value="' . get_search_query() . '" class="aws-search-field" placeholder="' . esc_attr( $placeholder ) . '" autocomplete="off" />';
                 $markup .= '<input type="hidden" name="post_type" value="product">';
                 $markup .= '<input type="hidden" name="type_aws" value="true">';
 

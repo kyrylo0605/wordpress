@@ -58,7 +58,7 @@
 		public function __construct()
 		{
 			$this->plugin_name = 'weather-atlas';
-			$this->version     = '1.1.5';
+			$this->version     = '1.2.1';
 			
 			$widget_ops = array (
 				'description' => __( 'Display current conditions and weather forecast on your website.', 'weather-atlas' )
@@ -102,21 +102,20 @@
 				$city_selector = $_COOKIE[ 'city_selector' ];
 			}
 			
-			$unit_c_f          = ! empty( $instance[ 'unit_c_f' ] ) ? $instance[ 'unit_c_f' ] : 'f';
-			$language          = ! empty( $instance[ 'language' ] ) ? $instance[ 'language' ] : 'en';
-			$layout            = ! empty( $instance[ 'layout' ] ) ? $instance[ 'layout' ] : 'vertical';
-			$font_size         = ! empty( $instance[ 'font_size' ] ) ? $instance[ 'font_size' ] : FALSE;
-			$background_color  = ! empty( $instance[ 'background_color' ] ) ? $instance[ 'background_color' ] : FALSE;
-			$text_color        = ! empty( $instance[ 'text_color' ] ) ? $instance[ 'text_color' ] : FALSE;
-			$style             = ! empty( $instance[ 'style' ] ) ? $instance[ 'style' ] : FALSE;
-			$heading           = ! empty( $instance[ 'heading' ] ) ? $instance[ 'heading' ] : FALSE;
-			$header            = ! empty( $instance[ 'header' ] ) ? $instance[ 'header' ] : FALSE;
-			$sunrise_sunset    = isset( $instance[ 'sunrise_sunset' ] ) ? $instance[ 'sunrise_sunset' ] : 1;
-			$current           = isset( $instance[ 'current' ] ) ? $instance[ 'current' ] : 1;
-			$hourly            = isset( $instance[ 'hourly' ] ) ? $instance[ 'hourly' ] : 0;
-			$daily             = isset( $instance[ 'daily' ] ) ? $instance[ 'daily' ] : 3;
-			$detailed_forecast = isset( $instance[ 'detailed_forecast' ] ) ? $instance[ 'detailed_forecast' ] : 1;
-			$is_shortcode      = 0;
+			$unit_c_f         = ! empty( $instance[ 'unit_c_f' ] ) ? $instance[ 'unit_c_f' ] : 'f';
+			$layout           = ! empty( $instance[ 'layout' ] ) ? $instance[ 'layout' ] : 'vertical';
+			$font_size        = ! empty( $instance[ 'font_size' ] ) ? $instance[ 'font_size' ] : FALSE;
+			$background_color = ! empty( $instance[ 'background_color' ] ) ? $instance[ 'background_color' ] : FALSE;
+			$text_color       = ! empty( $instance[ 'text_color' ] ) ? $instance[ 'text_color' ] : FALSE;
+			$style            = ! empty( $instance[ 'style' ] ) ? $instance[ 'style' ] : FALSE;
+			$heading          = ! empty( $instance[ 'heading' ] ) ? $instance[ 'heading' ] : FALSE;
+			$header           = ! empty( $instance[ 'header' ] ) ? $instance[ 'header' ] : FALSE;
+			$sunrise_sunset   = isset( $instance[ 'sunrise_sunset' ] ) ? $instance[ 'sunrise_sunset' ] : 1;
+			$current          = isset( $instance[ 'current' ] ) ? $instance[ 'current' ] : 1;
+			$hourly           = isset( $instance[ 'hourly' ] ) ? $instance[ 'hourly' ] : 0;
+			$daily            = isset( $instance[ 'daily' ] ) ? $instance[ 'daily' ] : 3;
+			// $detailed_forecast = isset( $instance[ 'detailed_forecast' ] ) ? $instance[ 'detailed_forecast' ] : 1;
+			$is_shortcode = 0;
 			
 			echo $before_widget;
 			echo $before_title;
@@ -127,21 +126,20 @@
 			echo $after_title;
 			
 			echo weather_atlas_widget( array (
-				                           'city_selector'     => $city_selector,
-				                           'unit_c_f'          => $unit_c_f,
-				                           'language'          => $language,
-				                           'layout'            => $layout,
-				                           'font_size'         => $font_size,
-				                           'background_color'  => $background_color,
-				                           'text_color'        => $text_color,
-				                           'style'             => $style,
-				                           'header'            => $header,
-				                           'sunrise_sunset'    => $sunrise_sunset,
-				                           'current'           => $current,
-				                           'hourly'            => $hourly,
-				                           'daily'             => $daily,
-				                           'detailed_forecast' => $detailed_forecast,
-				                           'is_shortcode'      => $is_shortcode
+				                           'city_selector'    => $city_selector,
+				                           'unit_c_f'         => $unit_c_f,
+				                           'layout'           => $layout,
+				                           'font_size'        => $font_size,
+				                           'background_color' => $background_color,
+				                           'text_color'       => $text_color,
+				                           'style'            => $style,
+				                           'header'           => $header,
+				                           'sunrise_sunset'   => $sunrise_sunset,
+				                           'current'          => $current,
+				                           'hourly'           => $hourly,
+				                           'daily'            => $daily,
+				                           // 'detailed_forecast' => $detailed_forecast,
+				                           'is_shortcode'     => $is_shortcode
 			                           ) );
 			
 			echo $after_widget;
@@ -155,23 +153,24 @@
 		 */
 		public function update( $new_instance, $old_instance )
 		{
-			$instance                        = $old_instance;
-			$instance[ 'city_name' ]         = strip_tags( $new_instance[ 'city_name' ] );
-			$instance[ 'city_selector' ]     = strip_tags( $new_instance[ 'city_selector' ] );
-			$instance[ 'unit_c_f' ]          = strip_tags( $new_instance[ 'unit_c_f' ] );
-			$instance[ 'language' ]          = strip_tags( $new_instance[ 'language' ] );
-			$instance[ 'layout' ]            = strip_tags( $new_instance[ 'layout' ] );
-			$instance[ 'font_size' ]         = strip_tags( $new_instance[ 'font_size' ] );
-			$instance[ 'background_color' ]  = strip_tags( $new_instance[ 'background_color' ] );
-			$instance[ 'text_color' ]        = strip_tags( $new_instance[ 'text_color' ] );
-			$instance[ 'style' ]             = strip_tags( $new_instance[ 'style' ] );
-			$instance[ 'heading' ]           = strip_tags( $new_instance[ 'heading' ] );
-			$instance[ 'header' ]            = strip_tags( $new_instance[ 'header' ] );
-			$instance[ 'sunrise_sunset' ]    = strip_tags( $new_instance[ 'sunrise_sunset' ] );
-			$instance[ 'current' ]           = strip_tags( $new_instance[ 'current' ] );
-			$instance[ 'hourly' ]            = strip_tags( $new_instance[ 'hourly' ] );
-			$instance[ 'daily' ]             = strip_tags( $new_instance[ 'daily' ] );
-			$instance[ 'detailed_forecast' ] = strip_tags( $new_instance[ 'detailed_forecast' ] );
+			$instance                       = $old_instance;
+			$instance[ 'city_name' ]        = strip_tags( $new_instance[ 'city_name' ] );
+			$instance[ 'city_selector' ]    = strip_tags( $new_instance[ 'city_selector' ] );
+			$instance[ 'unit_c_f' ]         = strip_tags( $new_instance[ 'unit_c_f' ] );
+			$instance[ 'language' ]         = strip_tags( $new_instance[ 'language' ] );
+			$instance[ 'layout' ]           = strip_tags( $new_instance[ 'layout' ] );
+			$instance[ 'font_size' ]        = strip_tags( $new_instance[ 'font_size' ] );
+			$instance[ 'background_color' ] = strip_tags( $new_instance[ 'background_color' ] );
+			$instance[ 'text_color' ]       = strip_tags( $new_instance[ 'text_color' ] );
+			$instance[ 'style' ]            = strip_tags( $new_instance[ 'style' ] );
+			$instance[ 'heading' ]          = strip_tags( $new_instance[ 'heading' ] );
+			$instance[ 'header' ]           = strip_tags( $new_instance[ 'header' ] );
+			$instance[ 'sunrise_sunset' ]   = strip_tags( $new_instance[ 'sunrise_sunset' ] );
+			$instance[ 'current' ]          = strip_tags( $new_instance[ 'current' ] );
+			$instance[ 'hourly' ]           = strip_tags( $new_instance[ 'hourly' ] );
+			$instance[ 'daily' ]            = strip_tags( $new_instance[ 'daily' ] );
+			
+			// $instance[ 'detailed_forecast' ] = strip_tags( $new_instance[ 'detailed_forecast' ] );
 			
 			return $instance;
 		}
@@ -184,24 +183,50 @@
 		
 		public function form( $instance )
 		{
-			$city_name         = ! empty( $instance[ 'city_name' ] ) ? $instance[ 'city_name' ] : 'New York ~ New York, USA (2372139)';
-			$city_selector     = isset( $instance[ 'city_selector' ] ) ? $instance[ 'city_selector' ] : 2372139;
-			$unit_c_f          = ! empty( $instance[ 'unit_c_f' ] ) ? $instance[ 'unit_c_f' ] : 'f';
-			$language          = ! empty( $instance[ 'language' ] ) ? $instance[ 'language' ] : 'en';
-			$layout            = ! empty( $instance[ 'layout' ] ) ? $instance[ 'layout' ] : 'vertical';
-			$font_size         = ! empty( $instance[ 'font_size' ] ) ? $instance[ 'font_size' ] : FALSE;
-			$background_color  = ! empty( $instance[ 'background_color' ] ) ? $instance[ 'background_color' ] : FALSE;
-			$text_color        = ! empty( $instance[ 'text_color' ] ) ? $instance[ 'text_color' ] : FALSE;
-			$style             = ! empty( $instance[ 'style' ] ) ? $instance[ 'style' ] : FALSE;
-			$heading           = ! empty( $instance[ 'heading' ] ) ? $instance[ 'heading' ] : FALSE;
-			$header            = ! empty( $instance[ 'header' ] ) ? $instance[ 'header' ] : FALSE;
-			$sunrise_sunset    = isset( $instance[ 'sunrise_sunset' ] ) ? $instance[ 'sunrise_sunset' ] : 1;
-			$current           = isset( $instance[ 'current' ] ) ? $instance[ 'current' ] : 1;
-			$hourly            = isset( $instance[ 'hourly' ] ) ? $instance[ 'hourly' ] : 0;
-			$daily             = isset( $instance[ 'daily' ] ) ? $instance[ 'daily' ] : 3;
-			$detailed_forecast = isset( $instance[ 'detailed_forecast' ] ) ? $instance[ 'detailed_forecast' ] : 0;
+			$get_locale_root_array = explode( "_", get_locale() );
+			$get_locale_root       = $get_locale_root_array[ 0 ];
+			if ( $get_locale_root == 'de' )
+			{
+				$language_root_wp = 'de';
+			}
+			elseif ( $get_locale_root == 'en' )
+			{
+				$language_root_wp = 'en';
+			}
+			elseif ( $get_locale_root == 'es' )
+			{
+				$language_root_wp = 'es';
+			}
+			elseif ( $get_locale_root == 'ru' )
+			{
+				$language_root_wp = 'ru';
+			}
+			elseif ( $get_locale_root == 'zh' )
+			{
+				$language_root_wp = 'zh';
+			}
+			else
+			{
+				$language_root_wp = 'en';
+			}
 			
-			echo "<script>/*<![CDATA[*/var weather_atlas_language = '$language';/*]]>*/</script>";
+			$city_name        = ! empty( $instance[ 'city_name' ] ) ? $instance[ 'city_name' ] : 'New York ~ New York, USA (2372139)';
+			$city_selector    = isset( $instance[ 'city_selector' ] ) ? $instance[ 'city_selector' ] : 2372139;
+			$unit_c_f         = ! empty( $instance[ 'unit_c_f' ] ) ? $instance[ 'unit_c_f' ] : 'f';
+			$layout           = ! empty( $instance[ 'layout' ] ) ? $instance[ 'layout' ] : 'vertical';
+			$font_size        = ! empty( $instance[ 'font_size' ] ) ? $instance[ 'font_size' ] : FALSE;
+			$background_color = ! empty( $instance[ 'background_color' ] ) ? $instance[ 'background_color' ] : FALSE;
+			$text_color       = ! empty( $instance[ 'text_color' ] ) ? $instance[ 'text_color' ] : FALSE;
+			$style            = ! empty( $instance[ 'style' ] ) ? $instance[ 'style' ] : FALSE;
+			$heading          = ! empty( $instance[ 'heading' ] ) ? $instance[ 'heading' ] : FALSE;
+			$header           = ! empty( $instance[ 'header' ] ) ? $instance[ 'header' ] : FALSE;
+			$sunrise_sunset   = isset( $instance[ 'sunrise_sunset' ] ) ? $instance[ 'sunrise_sunset' ] : 1;
+			$current          = isset( $instance[ 'current' ] ) ? $instance[ 'current' ] : 1;
+			$hourly           = isset( $instance[ 'hourly' ] ) ? $instance[ 'hourly' ] : 0;
+			$daily            = isset( $instance[ 'daily' ] ) ? $instance[ 'daily' ] : 3;
+			// $detailed_forecast = isset( $instance[ 'detailed_forecast' ] ) ? $instance[ 'detailed_forecast' ] : 0;
+			
+			echo "<script>/*<![CDATA[*/var weather_atlas_language = '$language_root_wp';/*]]>*/</script>";
 			
 			echo "<h3 style='margin:1.5em 0 0 0'>";
 			echo __( 'Location', 'weather-atlas' );
@@ -315,12 +340,14 @@
 			echo "<br />";
 			echo __( 'options', 'weather-atlas' ) . ": 0 / 1 / 2 / 3 / 4 / 5";
 			
+			/*
 			echo "<hr />";
 			echo "<i>detailed_forecast=</i>";
 			echo "<br />";
 			echo __( 'default', 'weather-atlas' ) . ": 1";
 			echo "<br />";
 			echo __( 'options', 'weather-atlas' ) . ": 0 / 1";
+			*/
 			
 			echo "<hr />";
 			echo "<br />";
@@ -345,17 +372,17 @@
 			), $unit_c_f );
 			echo "</p>";
 			
-			echo "<p>";
-			echo "<label for='" . $this->get_field_id( 'language' ) . "'>";
+			echo "<h3 style='margin:3em 0 0 0'>";
 			echo __( 'Language', 'weather-atlas' );
-			echo "</label>";
-			echo weather_atlas_admin_render_select( $this->get_field_id( 'language' ), $this->get_field_name( 'language' ), array (
-				'de' => 'deutsche',
-				'en' => 'english',
-				'es' => 'español',
-				'ru' => 'русский',
-				'zh' => '中文'
-			), $language );
+			echo "</h3>";
+			echo "<p>";
+			echo __( 'The widget\'s language is automatically chosen based on your Settings / General / Site Language settings.', 'weather-atlas' );
+			echo "<br />";
+			echo __( 'If a local translation does not exist, fallback language is English.', 'weather-atlas' );
+			echo " <a href='https://wordpress.org/plugins/weather-atlas/#languages' target='_blank'>";
+			echo __( 'How to translate the widget to my language?', 'weather-atlas' );
+			echo "</a>";
+			
 			echo "</p>";
 			
 			echo "<h3 style='margin:3em 0 0 0'>";
@@ -530,6 +557,7 @@
 			echo "</small>";
 			echo "</p>";
 			
+			/*
 			echo "<h3 style='margin:3em 0 0 0'>";
 			echo __( 'Detailed forecast', 'weather-atlas' );
 			echo "</h3>";
@@ -557,11 +585,13 @@
 			echo __( 'shows "<i>Weather from Weather Atlas</i>" at the bottom of the widget', 'weather-atlas' );
 			echo "</small>";
 			echo "</p>";
+			*/
+			
 			echo "<br /><br />";
 			
 			echo "<hr />";
 			echo "<div style='text-align:center'>";
-			echo "<a href='https://www.weather-atlas.com/plugins/' target='_blank' style='text-decoration:none'><span style='color:#ff0000'>&#9733;</span> <b>" . __( 'Upgrade to Premium version', 'weather-atlas' ) . " &raquo;</b><br /><i>" . __( 'Noooooo... why, oh, why you too?', 'weather-atlas' ) . "</i></a><br />";
+			echo "<a href='https://www.weather-atlas.com/plugins/' target='_blank' style='text-decoration:none'><span style='color:#ff0000'>&#9733;</span> <b>" . __( 'Upgrade to Premium version', 'weather-atlas' ) . " &raquo;</b></a>";
 			echo "</div>";
 			echo "<hr />";
 			
@@ -704,6 +734,33 @@
 	
 	function weather_atlas_widget( $attributes )
 	{
+		$get_locale_root_array = explode( "_", get_locale() );
+		$get_locale_root       = $get_locale_root_array[ 0 ];
+		if ( $get_locale_root == 'de' )
+		{
+			$language_root_wp = 'de';
+		}
+		elseif ( $get_locale_root == 'en' )
+		{
+			$language_root_wp = 'en';
+		}
+		elseif ( $get_locale_root == 'es' )
+		{
+			$language_root_wp = 'es';
+		}
+		elseif ( $get_locale_root == 'ru' )
+		{
+			$language_root_wp = 'ru';
+		}
+		elseif ( $get_locale_root == 'zh' )
+		{
+			$language_root_wp = 'zh';
+		}
+		else
+		{
+			$language_root_wp = 'en';
+		}
+		
 		$city_selector    = isset( $attributes[ 'city_selector' ] ) ? $attributes[ 'city_selector' ] : 2372139;
 		$country_selector = isset( $attributes[ 'country_selector' ] ) ? $attributes[ 'country_selector' ] : 250;
 		$http_root        = isset( $attributes[ 'http_root' ] ) ? $attributes[ 'http_root' ] : "https://www.weather-us.com";
@@ -734,15 +791,14 @@
 		}
 		$def_units_degree  = '°';
 		$def_units_percent = '%';
-		$language          = ! empty( $attributes[ 'language' ] ) ? $attributes[ 'language' ] : 'en';
 		$layout            = ! empty( $attributes[ 'layout' ] ) ? $attributes[ 'layout' ] : 'vertical';
 		$header            = ! empty( $attributes[ 'header' ] ) ? $attributes[ 'header' ] : FALSE;
 		$sunrise_sunset    = isset( $attributes[ 'sunrise_sunset' ] ) ? $attributes[ 'sunrise_sunset' ] : 1;
 		$current           = isset( $attributes[ 'current' ] ) ? $attributes[ 'current' ] : 1;
 		$hourly            = isset( $attributes[ 'hourly' ] ) ? $attributes[ 'hourly' ] : 0;
 		$daily             = isset( $attributes[ 'daily' ] ) ? $attributes[ 'daily' ] : 3;
-		$detailed_forecast = isset( $attributes[ 'detailed_forecast' ] ) ? $attributes[ 'detailed_forecast' ] : 1;
-		$is_shortcode      = isset( $attributes[ 'is_shortcode' ] ) ? $attributes[ 'is_shortcode' ] : 1;
+		// $detailed_forecast = isset( $attributes[ 'detailed_forecast' ] ) ? $attributes[ 'detailed_forecast' ] : 1;
+		$is_shortcode = isset( $attributes[ 'is_shortcode' ] ) ? $attributes[ 'is_shortcode' ] : 1;
 		
 		$weather_atlas_data = weather_atlas_data( $city_selector );
 		
@@ -757,13 +813,17 @@
 				$city_selector                         = array_key_exists( 'city_selector', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'city_selector' ] : FALSE;
 				$country_selector                      = array_key_exists( 'country_selector', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'country_selector' ] : FALSE;
 				$http_root                             = array_key_exists( 'http_root', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'http_root' ] : FALSE;
-				${'country_name_' . $language}         = array_key_exists( 'country_name_' . $language, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'country_name_' . $language ] : FALSE;
-				${'country_name_rewrite_' . $language} = array_key_exists( 'country_name_rewrite_' . $language, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'country_name_rewrite_' . $language ] : FALSE;
-				${'city_name_' . $language}            = array_key_exists( 'city_name_' . $language, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'city_name_' . $language ] : FALSE;
-				${'city_name_rewrite_' . $language}    = array_key_exists( 'city_name_rewrite_' . $language, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'city_name_rewrite_' . $language ] : FALSE;
-				$time_of_sunrise                       = array_key_exists( 'time_of_sunrise', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'time_of_sunrise' ] : FALSE;
-				$time_of_sunset                        = array_key_exists( 'time_of_sunset', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'time_of_sunset' ] : FALSE;
-				$timezone_abbr                         = array_key_exists( 'timezone_abbr', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'timezone_abbr' ] : FALSE;
+				${'country_name_' . $language_root_wp} = array_key_exists( 'country_name_' . $language_root_wp, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'country_name_' . $language_root_wp ] : FALSE;
+				if ( $country_selector == 250 )
+				{
+					${'country_name_' . $language_root_wp} = strtok( ${'country_name_' . $language_root_wp}, "," );
+				}
+				${'country_name_rewrite_' . $language_root_wp} = array_key_exists( 'country_name_rewrite_' . $language_root_wp, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'country_name_rewrite_' . $language_root_wp ] : FALSE;
+				${'city_name_' . $language_root_wp}            = array_key_exists( 'city_name_' . $language_root_wp, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'city_name_' . $language_root_wp ] : FALSE;
+				${'city_name_rewrite_' . $language_root_wp}    = array_key_exists( 'city_name_rewrite_' . $language_root_wp, $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'city_name_rewrite_' . $language_root_wp ] : FALSE;
+				$time_of_sunrise                               = array_key_exists( 'time_of_sunrise', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'time_of_sunrise' ] : FALSE;
+				$time_of_sunset                                = array_key_exists( 'time_of_sunset', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'time_of_sunset' ] : FALSE;
+				$timezone_abbr                                 = array_key_exists( 'timezone_abbr', $weather_atlas_data_array[ 'city' ] ) ? $weather_atlas_data_array[ 'city' ][ 'timezone_abbr' ] : FALSE;
 			}
 			
 			if ( array_key_exists( "current", $weather_atlas_data_array ) )
@@ -771,7 +831,7 @@
 				${'current_temp_' . $unit_c_f}           = array_key_exists( 'current_temp_' . $unit_c_f, $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_temp_' . $unit_c_f ] : FALSE;
 				${'current_temp_feelslike_' . $unit_c_f} = array_key_exists( 'current_temp_feelslike_' . $unit_c_f, $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_temp_feelslike_' . $unit_c_f ] : FALSE;
 				$current_icon                            = array_key_exists( 'current_icon', $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_icon' ] : FALSE;
-				${'current_text_' . $language}           = array_key_exists( 'current_text_' . $language, $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_text_' . $language ] : FALSE;
+				$current_text_en                         = array_key_exists( 'current_text_en', $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_text_en' ] : FALSE;
 				${'current_wind_' . $unit_kph_mph}       = array_key_exists( 'current_wind_' . $unit_kph_mph, $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_wind_' . $unit_kph_mph ] : FALSE;
 				$current_wind_dir                        = array_key_exists( 'current_wind_dir', $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_wind_dir' ] : FALSE;
 				$current_wind_deg                        = array_key_exists( 'current_wind_deg', $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_wind_deg' ] : FALSE;
@@ -781,17 +841,6 @@
 				// ${'current_precip_' . $unit_mm_in}         = array_key_exists( 'current_precip_' . $unit_mm_in, $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_precip_' . $unit_mm_in ] : FALSE;
 				// ${'current_visibility_' . $unit_km_mi}         = array_key_exists( 'current_visibility_' . $unit_km_mi, $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_visibility_' . $unit_km_mi ] : FALSE;
 				$current_uv_index = array_key_exists( 'current_uv_index', $weather_atlas_data_array[ 'current' ] ) ? $weather_atlas_data_array[ 'current' ][ 'current_uv_index' ] : FALSE;
-			}
-			
-			if ( array_key_exists( "def", $weather_atlas_data_array ) )
-			{
-				${'def_feelslike_' . $language}         = array_key_exists( 'def_feelslike_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_feelslike_' . $language ] : FALSE;
-				${'def_wind_' . $language}              = array_key_exists( 'def_wind_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_wind_' . $language ] : FALSE;
-				${'def_humidity_relative_' . $language} = array_key_exists( 'def_humidity_relative_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_humidity_relative_' . $language ] : FALSE;
-				${'def_pressure_' . $language}          = array_key_exists( 'def_pressure_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_pressure_' . $language ] : FALSE;
-				${'def_uv_index_' . $language}          = array_key_exists( 'def_uv_index_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_uv_index_' . $language ] : FALSE;
-				${'def_weather_forecast_' . $language}  = array_key_exists( 'def_weather_forecast_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_weather_forecast_' . $language ] : FALSE;
-				${'def_forecast_detailed_' . $language} = array_key_exists( 'def_forecast_detailed_' . $language, $weather_atlas_data_array[ 'def' ] ) ? $weather_atlas_data_array[ 'def' ][ 'def_forecast_detailed_' . $language ] : FALSE;
 			}
 			
 			$font_size = ! empty( $attributes[ 'font_size' ] ) ? $attributes[ 'font_size' ] : FALSE;
@@ -831,13 +880,13 @@
 				$return .= "<div class='weather-atlas-header-title'>";
 			}
 			
-			if ( ! empty( ${'city_name_' . $language} ) )
+			if ( ( ! empty( $header ) ) AND ( empty ( $_COOKIE[ 'city_selector' ] ) ) )
 			{
-				$header_title = $header ? $header : ${'city_name_' . $language};
+				$header_title = $header;
 			}
 			else
 			{
-				$header_title = $header;
+				$header_title = ${'city_name_' . $language_root_wp};
 			}
 			/*
 				$header_title = apply_filters( 'filter_bad_words', $header_title );
@@ -849,7 +898,8 @@
 				$return .= "</div>";
 				
 				$return .= "<div class='city_selector_toggle_div autocomplete' style='display:none;'>";
-				$return .= "<script>/*<![CDATA[*/var weather_atlas_language = '$language';/*]]>*/</script>";
+				
+				$return .= "<script>/*<![CDATA[*/var weather_atlas_language = '$language_root_wp';/*]]>*/</script>";
 				$return .= "<input class='city_name' id='city_name' name='city_name' type='text' value='' placeholder='";
 				$return .= __( 'type and select location from drop-down', 'weather-atlas' );
 				$return .= "'>";
@@ -888,9 +938,11 @@
 			{
 				$return .= "<span class='temp'>" . ${'current_temp_' . $unit_c_f} . "$def_units_degree</span>";
 			}
-			if ( ! empty( ${'current_text_' . $language} ) )
+			if ( ! empty( $current_text_en ) )
 			{
-				$return .= "<div class='current_text'>" . ${'current_text_' . $language} . "</div>";
+				$return .= "<div class='current_text'>";
+				$return .= __( $current_text_en, 'weather-atlas' );
+				$return .= "</div>";
 			}
 			if ( ( ! empty ( $sunrise_sunset ) ) AND ( ! empty ( $time_of_sunrise ) ) AND ( ! empty ( $time_of_sunset ) ) AND ( ! empty ( $timezone_abbr ) ) )
 			{
@@ -901,17 +953,17 @@
 			if ( ( ! empty ( $current ) ) AND ( array_key_exists( "current", $weather_atlas_data_array ) ) )
 			{
 				$return .= "<span class='current_text_2'>";
-				if ( ( ! empty( ${'def_feelslike_' . $language} ) ) AND ( is_numeric( ${'current_temp_feelslike_' . $unit_c_f} ) ) )
+				if ( is_numeric( ${'current_temp_feelslike_' . $unit_c_f} ) )
 				{
-					$return .= ${'def_feelslike_' . $language} . ": ";
+					$return .= __( 'Feels like', 'weather-atlas' ) . ": ";
 					$return .= ${'current_temp_feelslike_' . $unit_c_f} . "<small>" . $def_units_temperature . "</small><br />";
 				}
-				if ( ( ! empty( ${'def_wind_' . $language} ) ) AND ( is_numeric( ${'current_wind_' . $unit_kph_mph} ) ) )
+				if ( is_numeric( ${'current_wind_' . $unit_kph_mph} ) )
 				{
-					$return .= ${'def_wind_' . $language} . ": ";
+					$return .= __( 'Wind', 'weather-atlas' ) . ": ";
 					$return .= ${'current_wind_' . $unit_kph_mph} . "<small>" . $def_units_windspeed . "</small>";
 					
-					if ( $language == 'en' )
+					if ( $language_root_wp == 'en' )
 					{
 						$return .= " " . $current_wind_dir;
 					}
@@ -921,19 +973,19 @@
 					}
 					$return .= "<br />";
 				}
-				if ( ( ! empty( ${'def_humidity_relative_' . $language} ) ) AND ( is_numeric( $current_humidity_relative ) ) )
+				if ( is_numeric( $current_humidity_relative ) )
 				{
-					$return .= ${'def_humidity_relative_' . $language} . ": ";
+					$return .= __( 'Humidity', 'weather-atlas' ) . ": ";
 					$return .= $current_humidity_relative . "<small>" . $def_units_percent . "</small><br />";
 				}
-				if ( ( ! empty( ${'def_pressure_' . $language} ) ) AND ( is_numeric( ${'current_pressure_' . $unit_mb_in} ) ) )
+				if ( is_numeric( ${'current_pressure_' . $unit_mb_in} ) )
 				{
-					$return .= ${'def_pressure_' . $language} . ": ";
+					$return .= __( 'Pressure', 'weather-atlas' ) . ": ";
 					$return .= ${'current_pressure_' . $unit_mb_in} . "<small>" . $def_units_pressure . "</small><br />";
 				}
-				if ( ( ! empty( ${'def_uv_index_' . $language} ) ) AND ( is_numeric( $current_uv_index ) ) )
+				if ( is_numeric( $current_uv_index ) )
 				{
-					$return .= ${'def_uv_index_' . $language} . ": ";
+					$return .= __( 'UV index', 'weather-atlas' ) . ": ";
 					$return .= $current_uv_index;
 				}
 				$return .= "</span>";
@@ -958,7 +1010,10 @@
 						
 						if ( is_numeric( ${'hour'} ) )
 						{
-							$return .= $hour . "<small>h</small>";
+							$return .= $hour;
+							$return .= "<small>";
+							$return .= __( 'h', 'weather-atlas' );
+							$return .= "</small>";
 						}
 						
 						$return .= "</span>";
@@ -973,8 +1028,8 @@
 					{
 						${'hour_temp_' . $unit_c_f} = array_key_exists( 'hour_temp_' . $unit_c_f, $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_temp_' . $unit_c_f ] : FALSE;
 						// ${'hour_temp_feelslike_' . $unit_c_f} = array_key_exists( 'hour_temp_feelslike_' . $unit_c_f, $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_temp_feelslike_' . $unit_c_f ] : FALSE;
-						$hour_icon                  = array_key_exists( 'hour_icon', $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_icon' ] : FALSE;
-						${'hour_text_' . $language} = array_key_exists( 'hour_text_' . $language, $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_text_' . $language ] : FALSE;
+						$hour_icon    = array_key_exists( 'hour_icon', $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_icon' ] : FALSE;
+						$hour_text_en = array_key_exists( 'hour_text_en', $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_text_en' ] : FALSE;
 						// ${'hour_wind_' . $unit_kph_mph}     = array_key_exists( 'hour_wind_' . $unit_kph_mph, $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_wind_' . $unit_kph_mph ] : FALSE;
 						// $hour_wind_dir                      = array_key_exists( 'hour_wind_dir', $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_wind_dir' ] : FALSE;
 						// $hour_wind_deg                      = array_key_exists( 'hour_wind_deg', $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_wind_deg' ] : FALSE;
@@ -987,9 +1042,11 @@
 						// $hour_uv_index                      = array_key_exists( 'hour_uv_index', $weather_atlas_data_array[ 'hourly' ][ $ii ] ) ? $weather_atlas_data_array[ 'hourly' ][ $ii ][ 'hour_uv_index' ] : FALSE;
 						
 						$return .= "<span class='extended_hour extended_hour_$ii'";
-						if ( ! empty( ${'hour_text_' . $language} ) )
+						if ( ! empty( $hour_text_en ) )
 						{
-							$return .= " title='" . ${'hour_text_' . $language} . "'";
+							$return .= " title='";
+							$return .= __( $hour_text_en, 'weather-atlas' );
+							$return .= "'";
 						}
 						$return .= ">";
 						if ( is_numeric( ${'hour_temp_' . $unit_c_f} ) )
@@ -1016,10 +1073,10 @@
 					{
 						$return .= "<span class='extended_day extended_day_$ii'>";
 						
-						${'day_name_' . $language . '_short'} = array_key_exists( 'day_name_' . $language . '_short', $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_name_' . $language . '_short' ] : FALSE;
-						if ( ! empty( ${'day_name_' . $language . '_short'} ) )
+						$day_name_en_short = array_key_exists( 'day_name_en_short', $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_name_en_short' ] : FALSE;
+						if ( ! empty( $day_name_en_short ) )
 						{
-							$return .= ${'day_name_' . $language . '_short'};
+							$return .= __( $day_name_en_short, 'weather-atlas' );
 						}
 						
 						$return .= "</span>";
@@ -1035,7 +1092,7 @@
 						${'day_temp_high_' . $unit_c_f} = array_key_exists( 'day_temp_high_' . $unit_c_f, $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_temp_high_' . $unit_c_f ] : FALSE;
 						${'day_temp_low_' . $unit_c_f}  = array_key_exists( 'day_temp_low_' . $unit_c_f, $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_temp_low_' . $unit_c_f ] : FALSE;
 						$day_icon                       = array_key_exists( 'day_icon', $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_icon' ] : FALSE;
-						${'day_text_' . $language}      = array_key_exists( 'day_text_' . $language, $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_text_' . $language ] : FALSE;
+						$day_text_en                    = array_key_exists( 'day_text_en', $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_text_en' ] : FALSE;
 						
 						// ${'day_wind_' . $unit_kph_mph} = array_key_exists( 'day_wind_' . $unit_kph_mph, $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_wind_' . $unit_kph_mph ] : FALSE;
 						// $day_wind_dir                  = array_key_exists( 'day_wind_dir', $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_wind_dir' ] : FALSE;
@@ -1046,9 +1103,11 @@
 						// $day_uv_index                  = array_key_exists( 'day_uv_index', $weather_atlas_data_array[ 'daily' ][ $ii ] ) ? $weather_atlas_data_array[ 'daily' ][ $ii ][ 'day_uv_index' ] : FALSE;
 						
 						$return .= "<span class='extended_day extended_day_$ii'";
-						if ( ! empty( ${'day_text_' . $language} ) )
+						if ( ! empty( $day_text_en ) )
 						{
-							$return .= " title='" . ${'day_text_' . $language} . "'";
+							$return .= " title='";
+							$return .= __( $day_text_en, 'weather-atlas' );
+							$return .= "'";
 						}
 						$return .= ">";
 						
@@ -1082,10 +1141,10 @@
 			
 			$return .= "<div class='weather-atlas-footer' style='border-top:$border_color'>";
 			
-			$return .= "<a href='$http_root/$language";
-			if ( ( ! empty ( ${'country_name_rewrite_' . $language} ) AND ( ${'city_name_rewrite_' . $language} ) ) )
+			$return .= "<a href='$http_root/$language_root_wp";
+			if ( ( ! empty ( ${'country_name_rewrite_' . $language_root_wp} ) AND ( ${'city_name_rewrite_' . $language_root_wp} ) ) )
 			{
-				$return .= "/" . ${'country_name_rewrite_' . $language} . "/" . ${'city_name_rewrite_' . $language};
+				$return .= "/" . ${'country_name_rewrite_' . $language_root_wp} . "/" . ${'city_name_rewrite_' . $language_root_wp};
 			}
 			if ( ( $country_selector == 250 ) AND ( $unit_c_f == 'c' ) )
 			{
@@ -1096,24 +1155,27 @@
 				$return .= "?units=f,in,in,mi";
 			}
 			$return .= "' title='Weather Atlas - ";
-			if ( ! empty( ${'def_weather_forecast_' . $language} ) )
-			{
-				$return .= ${'def_weather_forecast_' . $language};
-			}
-			if ( ( ! empty( ${'city_name_' . $language} ) ) AND ( ! empty ( ${'country_name_' . $language} ) ) )
-			{
-				$return .= " " . ${'city_name_' . $language} . ", " . ${'country_name_' . $language};
-			}
+			$return .= __( 'Weather forecast', 'weather-atlas' );
+			$return .= " " . ${'city_name_' . $language_root_wp} . ", " . ${'country_name_' . $language_root_wp};
+			$return .= "' style='color:$text_color;' target='_blank'>";
+			
+			/*
 			if ( ( empty ( $detailed_forecast ) ) AND ( empty ( $_COOKIE[ 'city_selector' ] ) ) )
 			{
-				$return .= "' style='color:$text_color;' target='_blank'>";
 				$return .= "Weather from Weather Atlas";
 			}
-			elseif ( ! empty( ${'def_forecast_detailed_' . $language} ) )
+			else
 			{
-				$return .= "' style='color:$text_color;text-transform:lowercase' target='_blank'>";
-				$return .= ${'def_forecast_detailed_' . $language} . " &#9656;";
+				$return .= __( 'Detailed forecast', 'weather-atlas' ) . " &#9656;";
 			}
+			*/
+			$return .= __( 'Weather forecast', 'weather-atlas' );
+			$return .= " <span class='weather-atlas-footer-block'>";
+			$return .= ${'city_name_' . $language_root_wp} . ", " . ${'country_name_' . $language_root_wp};
+			
+			$return .= " &#9656;";
+			$return .= "</span>";
+			
 			$return .= "</a>";
 			
 			$return .= "</div>";

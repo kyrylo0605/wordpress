@@ -1,4 +1,4 @@
-/*! elementor - v2.6.1 - 10-07-2019 */
+/*! elementor - v2.6.7 - 30-07-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -995,7 +995,7 @@ module.exports = function (name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1037,6 +1037,12 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 /***/ }),
 /* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(156);
+
+/***/ }),
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -1046,7 +1052,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1055,12 +1061,6 @@ module.exports = function (it) {
   return Object(defined(it));
 };
 
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(156);
 
 /***/ }),
 /* 62 */
@@ -1193,7 +1193,7 @@ module.exports = function (bitmap, value) {
 
 
 var anObject = __webpack_require__(20);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var toInteger = __webpack_require__(39);
 var advanceStringIndex = __webpack_require__(92);
@@ -2194,7 +2194,7 @@ __webpack_require__(84)('match', 1, function (defined, MATCH, $match, maybeCallN
 // 6 -> Array#findIndex
 var ctx = __webpack_require__(57);
 var IObject = __webpack_require__(86);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var asc = __webpack_require__(104);
 module.exports = function (TYPE, $create) {
@@ -3627,7 +3627,7 @@ module.exports = _superPropBase;
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(20);
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 var SPECIES = __webpack_require__(8)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
@@ -3735,8 +3735,8 @@ module.exports = _defineProperty;
 "use strict";
 
 var $export = __webpack_require__(36);
-var aFunction = __webpack_require__(59);
-var toObject = __webpack_require__(60);
+var aFunction = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var fails = __webpack_require__(24);
 var $sort = [].sort;
 var test = [1, 2, 3];
@@ -3982,7 +3982,7 @@ module.exports = function (isEntries) {
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var ControlBaseView;
 ControlBaseView = Marionette.CompositeView.extend({
@@ -4267,7 +4267,7 @@ module.exports = function (Constructor, NAME, next) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(47);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var IE_PROTO = __webpack_require__(140)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
@@ -4377,7 +4377,7 @@ var _typeof2 = _interopRequireDefault(__webpack_require__(62));
 
 var _parseInt2 = _interopRequireDefault(__webpack_require__(147));
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var _environment = _interopRequireDefault(__webpack_require__(150));
 
@@ -5804,7 +5804,7 @@ if (__webpack_require__(18) && /./g.flags != 'g') __webpack_require__(35).f(RegE
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 __webpack_require__(233);
 
@@ -6746,7 +6746,7 @@ module.exports = elementorModules.ViewModule.extend({
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 module.exports = Marionette.Region.extend({
   storage: null,
@@ -7032,7 +7032,7 @@ __webpack_require__(170);
 
 __webpack_require__(136);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 (function ($) {
   var Stylesheet = function Stylesheet() {
@@ -7444,7 +7444,7 @@ __webpack_require__(80)(KEY);
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 module.exports = Marionette.CompositeView.extend({
   templateHelpers: function templateHelpers() {
@@ -10207,7 +10207,7 @@ var App = Marionette.Application.extend({
     NProgress.done();
     var previewWindow = this.$preview[0].contentWindow;
 
-    if (!previewWindow.elementorFrontend || elementor.config.preview.debug_data.error) {
+    if (!previewWindow.elementorFrontend) {
       this.onPreviewLoadingError();
       return;
     }
@@ -10948,7 +10948,7 @@ __webpack_require__(196);
 
 __webpack_require__(197);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var _values = _interopRequireDefault(__webpack_require__(149));
 
@@ -11279,9 +11279,12 @@ function (_Marionette$Composite) {
           title: indicatorSettings.title
         }).attr('data-section', indicatorSettings.section).html("<i class=\"eicon-".concat(indicatorSettings.icon, "\"></i>"));
 
-        _this2.ui.indicators.append($indicator);
+        _this2.ui.indicators.append($indicator); // Added delay of 500ms because the indicators bar has a CSS transition attribute of .5s
 
-        $indicator.tipsy();
+
+        $indicator.tipsy({
+          delayIn: 300
+        });
       });
     }
   }, {
@@ -11846,7 +11849,7 @@ exports.default = _default;
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 __webpack_require__(38);
 
@@ -12315,6 +12318,8 @@ exports.default = void 0;
 
 __webpack_require__(67);
 
+var _keys = _interopRequireDefault(__webpack_require__(59));
+
 __webpack_require__(38);
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(6));
@@ -12455,6 +12460,13 @@ function (_elementorModules$Mod) {
       var activeTab = selected.library || icons[0].name;
 
       if ('svg' === selected.library) {
+        activeTab = icons[0].name;
+      } // selected Library exists
+
+
+      if (!(0, _keys.default)(icons).some(function (library) {
+        return library === activeTab;
+      })) {
         activeTab = icons[0].name;
       } // Show recommended tab if selected from it
 
@@ -13100,7 +13112,7 @@ var _Object$getOwnPropertyDescriptor = __webpack_require__(145);
 
 var _Object$getOwnPropertySymbols = __webpack_require__(292);
 
-var _Object$keys = __webpack_require__(61);
+var _Object$keys = __webpack_require__(59);
 
 var defineProperty = __webpack_require__(169);
 
@@ -13708,7 +13720,7 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(169));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(207));
 
-var _Icon = _interopRequireDefault(__webpack_require__(314));
+var _icon = _interopRequireDefault(__webpack_require__(314));
 
 var Tab =
 /*#__PURE__*/
@@ -13826,7 +13838,7 @@ function (_Component) {
           containerClass += ' elementor-selected';
         }
 
-        return _react.default.createElement(_Icon.default, {
+        return _react.default.createElement(_icon.default, {
           key: type + '-' + iconName,
           library: type,
           keyID: iconName,
@@ -14242,7 +14254,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 __webpack_require__(67);
 
@@ -14466,7 +14478,7 @@ __webpack_require__(173);
 
 __webpack_require__(141);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 __webpack_require__(67);
 
@@ -14880,8 +14892,8 @@ helpers = {
     } // Multiple conditions with relations.
 
 
-    if (conditions) {
-      return elementor.conditions.check(conditions, values);
+    if (conditions && !elementor.conditions.check(conditions, values)) {
+      return false;
     }
 
     if (_.isEmpty(condition)) {
@@ -15261,7 +15273,7 @@ module.exports = function (KEY) {
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var ImagesManager;
 
@@ -17266,7 +17278,6 @@ module.exports = Marionette.CompositeView.extend({
     'click @ui.apply': 'onApplyClick'
   },
   isRevisionApplied: false,
-  jqueryXhr: null,
   currentPreviewId: null,
   currentPreviewItem: null,
   initialize: function initialize() {
@@ -17276,22 +17287,16 @@ module.exports = Marionette.CompositeView.extend({
   },
   getRevisionViewData: function getRevisionViewData(revisionView) {
     var self = this;
-    this.jqueryXhr = elementor.history.revisions.getRevisionDataAsync(revisionView.model.get('id'), {
+    elementor.history.revisions.getRevisionDataAsync(revisionView.model.get('id'), {
       success: function success(data) {
         elementor.history.revisions.setEditorData(data.elements);
         elementor.settings.page.model.set(data.settings);
         self.setRevisionsButtonsActive(true);
-        self.jqueryXhr = null;
         revisionView.$el.removeClass('elementor-revision-item-loading');
         self.enterReviewMode();
       },
       error: function error(errorMessage) {
         revisionView.$el.removeClass('elementor-revision-item-loading');
-
-        if ('abort' === self.jqueryXhr.statusText) {
-          return;
-        }
-
         self.currentPreviewItem = null;
         self.currentPreviewId = null;
         alert(errorMessage);
@@ -17389,17 +17394,13 @@ module.exports = Marionette.CompositeView.extend({
       return;
     }
 
-    if (this.jqueryXhr) {
-      this.jqueryXhr.abort();
-    }
-
     if (self.currentPreviewItem) {
-      self.currentPreviewItem.$el.removeClass('elementor-revision-current-preview');
+      self.currentPreviewItem.$el.removeClass('elementor-revision-current-preview elementor-revision-item-loading');
     }
 
     childView.$el.addClass('elementor-revision-current-preview elementor-revision-item-loading');
 
-    if (elementor.saver.isEditorChanged() && null === self.currentPreviewId) {
+    if (elementor.saver.isEditorChanged() && (null === self.currentPreviewId || elementor.config.current_revision_id === self.currentPreviewId)) {
       elementor.saver.saveEditor({
         status: 'autosave',
         onSuccess: function onSuccess() {
@@ -18015,7 +18016,7 @@ module.exports = Backbone.Model.extend({
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 __webpack_require__(38);
 
@@ -20709,7 +20710,7 @@ __webpack_require__(38);
 
 __webpack_require__(238);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 __webpack_require__(170);
 
@@ -21021,7 +21022,7 @@ module.exports = ControlSelectItemView;
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var _values = _interopRequireDefault(__webpack_require__(149));
 
@@ -21881,13 +21882,16 @@ function (_Marionette$Behavior) {
           editModel = this.view.getEditModel(),
           hOrientation = editModel.getSetting('_offset_orientation_h'),
           vOrientation = editModel.getSetting('_offset_orientation_v'),
-          settingToChange = {};
-      var xPos = ui.position.left,
+          settingToChange = {},
+          isRTL = elementorFrontend.config.is_rtl;
+      var parentWidth = this.$el.offsetParent().width(),
+          elementWidth = this.$el.outerWidth(true),
+          left = ui.position.left,
+          right = parentWidth - left - elementWidth;
+      var xPos = isRTL ? right : left,
           yPos = ui.position.top,
           offsetX = '_offset_x',
           offsetY = '_offset_y';
-      var parentWidth = this.$el.offsetParent().width(),
-          elementWidth = this.$el.outerWidth(true);
 
       if ('end' === hOrientation) {
         xPos = parentWidth - xPos - elementWidth;
@@ -22548,7 +22552,7 @@ __webpack_require__(38);
 
 __webpack_require__(67);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var _stringify = _interopRequireDefault(__webpack_require__(144));
 
@@ -23249,7 +23253,7 @@ module.exports = BaseRegion.extend({
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var EditModeItemView = __webpack_require__(412),
     PanelLayoutView;

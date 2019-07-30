@@ -1,4 +1,4 @@
-/*! elementor - v2.6.1 - 10-07-2019 */
+/*! elementor - v2.6.7 - 30-07-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -975,7 +975,7 @@ module.exports = function (name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1016,7 +1016,8 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 59 */
+/* 59 */,
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -1026,7 +1027,6 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 60 */,
 /* 61 */,
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2662,7 +2662,7 @@ module.exports = __webpack_require__(165);
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(20);
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 var SPECIES = __webpack_require__(8)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;

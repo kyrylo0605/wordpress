@@ -74,7 +74,8 @@
                 var data = {
                     action: 'aws_action',
                     keyword : searchFor,
-                    page: 0,
+                    page: d.pageId,
+                    tax: d.tax,
                     lang: d.lang,
                     pageurl: window.location.href
                 };
@@ -348,7 +349,7 @@
         instance++;
 
         self.data( pluginPfx, {
-            minChars  : ( self.data('min-chars')   !== undefined ) ? self.data('min-chars') : 1,
+            minChars  : ( self.data('min-chars') !== undefined ) ? self.data('min-chars') : 1,
             lang : ( self.data('lang') !== undefined ) ? self.data('lang') : false,
             showLoader: ( self.data('show-loader') !== undefined ) ? self.data('show-loader') : true,
             showMore: ( self.data('show-more') !== undefined ) ? self.data('show-more') : true,
@@ -356,7 +357,9 @@
             showClear: ( self.data('show-clear') !== undefined ) ? self.data('show-clear') : false,
             useAnalytics: ( self.data('use-analytics') !== undefined ) ? self.data('use-analytics') : false,
             instance: instance,
-            resultBlock: '#aws-search-result-' + instance
+            resultBlock: '#aws-search-result-' + instance,
+            pageId: ( self.data('page-id') !== undefined ) ? self.data('page-id') : 0,
+            tax: ( self.data('tax') !== undefined ) ? self.data('tax') : 0
         });
 
 

@@ -1,4 +1,4 @@
-/*! elementor - v2.6.1 - 10-07-2019 */
+/*! elementor - v2.6.7 - 30-07-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -338,7 +338,7 @@ module.exports = function (it) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(20);
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 var SPECIES = __webpack_require__(8)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
@@ -1133,7 +1133,7 @@ module.exports = function (it, key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1156,7 +1156,7 @@ module.exports = function (fn, that, length) {
 
 /***/ }),
 
-/***/ 59:
+/***/ 60:
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -1167,7 +1167,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 60:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1267,7 +1267,7 @@ module.exports = function (bitmap, value) {
 
 
 var anObject = __webpack_require__(20);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var toInteger = __webpack_require__(39);
 var advanceStringIndex = __webpack_require__(92);
@@ -1715,7 +1715,7 @@ module.exports = function (S, index, unicode) {
 // 6 -> Array#findIndex
 var ctx = __webpack_require__(57);
 var IObject = __webpack_require__(86);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var asc = __webpack_require__(104);
 module.exports = function (TYPE, $create) {

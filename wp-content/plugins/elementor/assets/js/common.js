@@ -1,4 +1,4 @@
-/*! elementor - v2.6.1 - 10-07-2019 */
+/*! elementor - v2.6.7 - 30-07-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -975,7 +975,7 @@ module.exports = function (name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1017,6 +1017,12 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 /***/ }),
 /* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(156);
+
+/***/ }),
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -1026,7 +1032,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1035,12 +1041,6 @@ module.exports = function (it) {
   return Object(defined(it));
 };
 
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(156);
 
 /***/ }),
 /* 62 */
@@ -1173,7 +1173,7 @@ module.exports = function (bitmap, value) {
 
 
 var anObject = __webpack_require__(20);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var toInteger = __webpack_require__(39);
 var advanceStringIndex = __webpack_require__(92);
@@ -3021,7 +3021,7 @@ exports.default = void 0;
 
 var _stringify = _interopRequireDefault(__webpack_require__(144));
 
-var _keys = _interopRequireDefault(__webpack_require__(61));
+var _keys = _interopRequireDefault(__webpack_require__(59));
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(6));
 

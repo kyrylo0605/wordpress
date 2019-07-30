@@ -1,4 +1,4 @@
-/*! elementor - v2.6.1 - 10-07-2019 */
+/*! elementor - v2.6.7 - 30-07-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -995,7 +995,7 @@ module.exports = function (name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(59);
+var aFunction = __webpack_require__(60);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1036,7 +1036,8 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 59 */
+/* 59 */,
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -1046,7 +1047,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1057,7 +1058,6 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 61 */,
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1514,7 +1514,7 @@ module.exports = Array.isArray || function isArray(arg) {
 // 6 -> Array#findIndex
 var ctx = __webpack_require__(57);
 var IObject = __webpack_require__(86);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var toLength = __webpack_require__(43);
 var asc = __webpack_require__(104);
 module.exports = function (TYPE, $create) {
@@ -2814,7 +2814,7 @@ module.exports = function (Constructor, NAME, next) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(47);
-var toObject = __webpack_require__(60);
+var toObject = __webpack_require__(61);
 var IE_PROTO = __webpack_require__(140)('IE_PROTO');
 var ObjectProto = Object.prototype;
 

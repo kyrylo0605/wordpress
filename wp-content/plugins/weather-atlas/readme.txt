@@ -13,10 +13,15 @@ Highly customizable, simple & beautiful / Responsive design / Detailed current c
 == Description ==
 
 = Weather widget demo (several live sites) =
-* [tgfamsterdam.com](https://www.tgfamsterdam.com/fun-to-know/)
-* [marbella-tennis-lessons.com](https://www.marbella-tennis-lessons.com/en/tennis-weather/)
-* [morethangolfmarrakech.co.uk](https://www.morethangolfmarrakech.co.uk/dependableweather/)
 * [swimtca.com](http://swimtca.com/)
+* [marbella-tennis-lessons.com](https://www.marbella-tennis-lessons.com/en/tennis-weather/)
+* [northshoremyrtlebeach.com](https://northshoremyrtlebeach.com/hotel-map/)
+* [morethangolfmarrakech.co.uk](https://www.morethangolfmarrakech.co.uk/dependableweather/)
+* [magic-croatia.hr](https://www.magic-croatia.hr/)
+* [aqualand-corfu.com](https://aqualand-corfu.com/)
+* [airciu.com](https://www.airciu.com/)
+* [ballinghambolstonehentland-pc.gov.uk](https://ballinghambolstonehentland-pc.gov.uk/)
+* [theamericanmag.com](https://theamericanmag.com/)
 
 >[Support](https://wordpress.org/support/plugin/weather-atlas)
 >If you have any questions on implementation or styling the widget, or suggestions for improvements or new functions, please [contact us freely at support forum](https://wordpress.org/support/plugin/weather-atlas#new-topic-0), as we strive to help every user install (rarely needed), and blend in the widget perfectly on their website, and also improve widget's future versions with users' most wanted features.
@@ -84,13 +89,12 @@ And there is an option to place weather directly in articles, by using shortcode
 = Any location worldwide =
 There are over 800.000 locations from 238 countries and territories. Guess you’ll find your location :)
 
-= Multi Languages and units =
-Currently supported languages are:
- - English
- - Spanish
- - Chinese
- - Russian
- - German
+= Languages =
+The widget's language is automatically chosen based on your Settings / General / Site Language settings.
+If a local translation does not exist, the fallback language is English.
+You can quickly update local translation and adapt the widget to your preferred language. (more on this in [FAQ section](../plugins/weather-atlas/#languages)).
+
+= Units =
 Temperature and other weather data are displayed in either Imperial (°F, in, mi) or Metric system (°C, mb, mm, km).
 
 = Multiple widgets option =
@@ -152,7 +156,7 @@ Please read "After activation" in [Installation](../plugins/weather-atlas/#insta
 By placing "shortcode" in the article.
 
 Shortcode can be basic: [shortcode-weather-atlas city_selector=2372139]
-or with options: [shortcode-weather-atlas city_selector=2372139 language="es" layout="horizontal" background_color="#8224e3" style="float:right;width:200px" hourly=5 daily=0]
+or with options: [shortcode-weather-atlas city_selector=2372139 layout="horizontal" background_color="#8224e3" style="float:right;width:200px" hourly=5 daily=0]
 
 (omitted options load default option value)
 
@@ -194,6 +198,22 @@ Widgets show cached weather data (stored in your database), and periodically upd
 
 (for issues and other questions please check plugin's [support forum](https://wordpress.org/support/plugin/weather-atlas))
 
+= Languages =
+The widget's language is automatically chosen based on your Settings / General / Site Language settings.
+If a local translation does not exist, the fallback language is English.
+
+How to translate the widget to my language?
+You can quickly update local translation and adapt the widget to your preferred language.
+
+Procedure:
+1. [Find and update translation you need](https://translate.wordpress.org/projects/wp-plugins/weather-atlas/)
+The translation you need is the same as your Admin panel / General / Site Language settings.
+2. In your WP site, go to Admin panel / Dashboard / Updates, and check for updates.
+When your translation gets approved, you will see notice "New translations are available".
+Choosing "Update Translations" will download and install your updated local translations and they will become visible on your site.
+
+(for issues and other questions please check plugin's [support forum](https://wordpress.org/support/plugin/weather-atlas))
+
 
 == Screenshots ==
 
@@ -207,6 +227,16 @@ Widgets show cached weather data (stored in your database), and periodically upd
 
 
 == Changelog ==
+
+= 1.2.1 =
+*Release Date: 2019-07-29*
+
+* Fixing minor bugs
+
+= 1.2.0 =
+*Release Date: 2019-07-16*
+
+* Rewritten code to support translation to all languages
 
 = 1.1.5 =
 *Release Date: 2019-07-12*
