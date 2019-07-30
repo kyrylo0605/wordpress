@@ -32,6 +32,7 @@ export default new Vuex.Store({
     frontPageId: -1,
     migration: 'inactive',
     onboard: themeisleSitesLibApi.onboarding,
+    readyImport: themeisleSitesLibApi.readyImport,
     contentImported: themeisleSitesLibApi.contentImported,
     importOptions: {
       content: true,

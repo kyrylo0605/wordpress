@@ -31,3 +31,8 @@ if ( ! class_exists( 'Themeisle_Onboarding' ) ) {
 if ( ! class_exists( 'Themeisle_OB_WP_Import_Logger' ) ) {
 	require_once dirname( __FILE__ ) . '/includes/importers/helpers/class-themeisle-ob-import-logger.php';
 }
+
+if ( class_exists( 'WP_CLI' ) && ! class_exists( 'Themeisle_OB_WP_Cli' ) ) {
+	require_once 'includes/class-themeisle-ob-wp-cli.php';
+}
+

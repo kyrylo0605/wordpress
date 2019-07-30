@@ -9,24 +9,24 @@
 	padding-right:30px
 }
 
-.bazaarlite-notice {
+.bazaar_lite-notice {
 	width:100;
 	display:block;
 	border-color:#ec7063;
 	padding:25px
 }
 
-.bazaarlite-notice .dismiss-notice {
+.bazaar_lite-notice .dismiss-notice {
 	margin-top:5px;
 	font-size:12px;
 }
 
-.bazaarlite-notice .bazaarlite-noticedescription {
+.bazaar_lite-notice .bazaar_lite-noticedescription {
 	float:left;
 	font-size:14px;
 }
 
-.bazaarlite-notice .button {
+.bazaar_lite-notice .button {
 	background: #ec7063;
 	border:solid 2px #ec7063;
 	color:#fff !important;
@@ -41,9 +41,9 @@
 	font-weight:bold
 }
 
-.bazaarlite-notice .button:hover ,
-.bazaarlite-notice .button:active ,
-.bazaarlite-notice .button:focus {
+.bazaar_lite-notice .button:hover ,
+.bazaar_lite-notice .button:active ,
+.bazaar_lite-notice .button:focus {
 	border-color: #e74c3c;
 	background-color:#e74c3c;
 }

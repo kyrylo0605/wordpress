@@ -149,8 +149,8 @@ class Hestia_Core {
 		add_action( 'customize_preview_init', array( $admin, 'enqueue_customizer_script' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $admin, 'enqueue_customizer_controls' ) );
 		add_filter( 'tiny_mce_before_init', array( $admin, 'editor_inline_style' ) );
-		add_action( 'init', array( $admin, 'load_site_import' ) );
-		add_action( 'init', array( $admin, 'do_about_page' ) );
+		add_action( 'init', array( $admin, 'load_site_import' ), 998 );
+		add_action( 'init', array( $admin, 'do_about_page' ), 999 );
 		add_filter( 'after_switch_theme', array( $admin, 'maybe_switched_from_zerif' ) );
 		add_filter( 'admin_init', array( $admin, 'add_zerif_frontpage_import' ) );
 

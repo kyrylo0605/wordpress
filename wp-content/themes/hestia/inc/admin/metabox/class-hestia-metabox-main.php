@@ -15,8 +15,17 @@ class Hestia_Metabox_Main extends Hestia_Metabox_Controls_Base {
 	 * Add controls.
 	 */
 	public function add_controls() {
-		$this->sidebar_control();
-		$this->content_toggles();
+		$post_type = '';
+		if ( array_key_exists( 'post_type', $_GET ) ) {
+			$post_type = $_GET['post_type'];
+		}
+		if ( empty( $post_type ) && array_key_exists( 'post', $_GET ) ) {
+			$post_type = get_post_type( $_GET['post'] );
+		}
+		if ( $post_type !== 'product' && class_exists( 'WooCommerce' ) ) {
+			$this->sidebar_control();
+			$this->content_toggles();
+		}
 	}
 
 	/**

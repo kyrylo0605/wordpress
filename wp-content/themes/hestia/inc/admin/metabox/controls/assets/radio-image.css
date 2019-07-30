@@ -1,3 +1,6 @@
+.ui-buttonset{
+    text-align: center;
+}
 .ui-buttonset label {
     display: inline-block;
     padding: 3px;
@@ -21,6 +24,13 @@
     border-color: #00b6ff;
     -webkit-box-shadow: 0 0 1px #3ec8ff;
     box-shadow: 0 0 5px #3EC8FE;
+}
+
+.ui-buttonset span.ui-button-text{
+    padding: 0;
+}
+.ui-buttonset label.ui-button{
+    margin-right: 0;
 }
 .reset-data-wrapper{
   padding: 0 2px 0;

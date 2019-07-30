@@ -2,8 +2,9 @@
 Contributors: alexvtn
 Tags: custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, flexible-header, footer-widgets, post-formats, right-sidebar, sticky-post, theme-options, threaded-comments, translation-ready, one-column, two-columns, three-columns, grid-layout, blog, e-commerce, news
 Requires at least: 4.0
-Tested up to: 5.1.1
-Stable tag: 1.5.8
+Tested up to: 5.2.2
+Stable tag: 1.5.9
+Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +19,13 @@ Bazaar Lite WordPress Theme, Copyright 2019 ThemeinProgress.
 Bazaar Lite is distributed under the terms of the GPLv2 or later
 
 == Changelog ==
+
+= 1.5.9 =
+Release date - July, 29 - 2019
+
+* Added - Skip links button
+* Added - New "wp_body_open" WordPress hook
+* Edit - Code optimized
 
 = 1.5.8 =
 Release date - April, 24 - 2019
@@ -268,9 +276,6 @@ Slick Slider By Ken Wheeler - https://github.com/kenwheeler/slick/
 
 Swipebox By Constantin Saguin - https://github.com/brutaldesign/swipebox/
 * swipebox.css v1.2.8 - Licensed under MIT license ( Applies to slick.css file in /bazaar-lite/assets/css/ )
-
-jQuery imagesLoaded By desandro - https://imagesloaded.desandro.com/
-* imagesLoaded.js v4.1.4 - Licensed under MIT license ( Applies to imagesLoaded.js file in /bazaar-lite/assets/js/ )
 
 jQuery Easing By George McGinley Smith - http://gsgd.co.uk/sandbox/jquery/easing/
 * jquery.easing.js v1.3 - Licensed under BSD License ( Applies to jquery.easing.js file in /bazaar-lite/assets/js/ )

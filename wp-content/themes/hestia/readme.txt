@@ -17,6 +17,28 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 == Changelog ==
+= 2.4.8 - 2019-07-23  = 
+
+* Speed improvement update for the Hestia Default Demo
+* [Hestia PRO] Fixed licensing issue in the onboarding mechanism
+
+
+= 2.4.7 - 2019-07-22  = 
+
+* Fixed issue with Starter Sites not available in the pro packages
+
+
+= 2.4.6 - 2019-07-18  = 
+
+* New Customizer option to control the header area on single product pages
+* [Hestia PRO] New meta option to control the header area on individual single product pages
+* Fixed alignment issue between the author title and the author image on mobile devices
+* Fixed header layout issue on the category page being affected by the first article layout
+* Move two items per line instead of one in the Our Team section for a better spacing
+* Lower header area and font sizes on mobile for better usage of the space
+* Darken color for the labels on the Checkout page
+
+
 = 2.4.5 - 2019-05-27  = 
 
 * Fixed editor visual integration with the latest update of WordPress

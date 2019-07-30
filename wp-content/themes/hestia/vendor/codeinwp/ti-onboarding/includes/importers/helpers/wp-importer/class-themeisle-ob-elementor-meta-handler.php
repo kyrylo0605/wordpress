@@ -94,7 +94,12 @@ class Themeisle_OB_Elementor_Meta_Handler {
 				if ( filter_var( $value, FILTER_VALIDATE_URL ) === false ) {
 					return;
 				}
+
 				$url = parse_url( $value );
+
+				if ( ! isset( $url['host'] ) || ! isset( $url_parts['host'] ) ) {
+					return;
+				}
 
 				if ( $url['host'] !== $url_parts['host'] ) {
 					$value = str_replace( $this->import_url, $site_url, $value );

@@ -35,7 +35,7 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		$custom_css = '';
 
 		$color_accent    = get_theme_mod( 'accent_color', apply_filters( 'hestia_accent_color_default', '#e91e63' ) );
-		$header_gradient = get_theme_mod( 'hestia_header_gradient_color', apply_filters( 'hestia_header_gradient_default', '#a81d84' ) );
+		$header_gradient = get_theme_mod( 'hestia_header_gradient_color' );
 
 		$custom_css .= ! empty( $color_accent ) ? '	
 		a, 

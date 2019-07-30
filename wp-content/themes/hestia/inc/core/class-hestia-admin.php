@@ -504,114 +504,46 @@ class Hestia_Admin {
 	 * Render welcome notice content
 	 */
 	public function welcome_notice_content() {
-		$theme_args      = wp_get_theme();
-		$name            = apply_filters( 'ti_wl_theme_name', $theme_args->__get( 'Name' ) );
-		$slug            = $theme_args->__get( 'stylesheet' );
+		$theme_args = wp_get_theme();
+		$name       = apply_filters( 'ti_wl_theme_name', $theme_args->__get( 'Name' ) );
+		$template   = $theme_args->get( 'Template' );
+		$slug       = $theme_args->__get( 'stylesheet' );
+		$theme_page = ! empty( $template ) ? $template . '-welcome' : $slug . '-welcome';
+
 		$notice_template = '
 			<div class="ti-notice-wrapper">
 				<div class="ti-notice-text">%1$s</div>
-			</div>
-			<style>%2$s</style>';
+			</div>';
 
 		$ob_btn = sprintf(
 			/* translators: 1 - options page url, 2 - button text */
-			'<a href="%1$s" class="button button-primary" style="text-decoration: none;">%2$s</a>',
-			esc_url( admin_url( 'themes.php?page=' . $slug . '-welcome' ) ),
-			esc_html__( 'Go to the theme settings', 'hestia' )
+			'<a href="%1$s" class="onboarding-btn">%2$s</a>',
+			esc_url( admin_url( 'customize.php' ) ),
+			esc_html__( 'or customize the theme', 'hestia' )
 		);
 		$options_page_btn = sprintf(
 			/* translators: 1 - onboarding url, 2 - button text */
-			'<a href="%1$s" class="onboarding-btn">%2$s</a>',
-			esc_url( admin_url( 'themes.php?page=' . $slug . '-welcome&onboarding=yes#sites_library' ) ),
-			sprintf( esc_html__( 'or try one of our ready to use Starter Sites', 'hestia' ) )
+			'<a href="%1$s" class="button button-primary" style="text-decoration: none;">%2$s</a>',
+			esc_url( admin_url( 'themes.php?page=' . $theme_page . '&onboarding=yes&readyimport=hestia-default#sites_library' ) ),
+			sprintf( esc_html__( 'Import Demo Content', 'hestia' ) )
 		);
 
 		$content = sprintf(
 			/* translators: 1 - notice title, 2 - notice message, 3 - options page button, 4 - starter sites button, 5 - notice closing button */
-			'<h3>%1$s</h3>
-					<p>%2$s</p>
-					<p>%3$s %4$s</p>
-					<p class="ti-return-dashboard"><span>%5$s</span></p>',
-			sprintf(
-				esc_html__( 'Congratulations!', 'hestia' ),
-				$name
-			),
+			'<p>%1$s</p>
+					<p>%2$s %3$s</p>',
 			sprintf(
 				/* translators: %s - theme name */
 				esc_html__( '%s is now installed and ready to use. We\'ve assembled some links to get you started.', 'hestia' ),
-				$name
+				'<strong>' . $name . '</strong>'
 			),
-			$ob_btn,
 			$options_page_btn,
-			esc_html__( 'Return to your dashboard', 'hestia' )
+			$ob_btn
 		);
 
-		$style = '
-		.wrap .notice.ti-welcome-notice{
-			padding:10px;
-			margin: 20px 0;
-		}
-		.ti-notice-wrapper {
-			display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    flex-direction: column;
-		    padding: 40px 0 10px;
-		}
-		.ti-notice-image, .ti-notice-text, .ti-notice-button {text-align:center;}
-		.ti-notice-image{
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    flex-direction: column;
-			width: 90px;
-			height: 90px;
-			border-radius: 50%;
-			background: #fff;
-			margin-bottom:20px;
-		}
-		.ti-notice-image img{
-			max-width:80px;
-		}
-		.ti-notice-text{
-			display: flex;
-			flex-direction: column;
-		}
-		.ti-notice-text h3{
-		    margin: 0 12px 8px;
-		    padding: 0;
-		    font-size: 16px;
-		    font-weight: 500;
-		    color: #23282d;
-		}
-		.ti-notice-text p:first-of-type{
-			font-size: 15px;
-		}
-		.ti-notice-text .button.button-primary:active {
-			vertical-align: inherit;
-		}
-		.onboarding-btn,
-		.onboarding-btn:hover{
-		    color: inherit;
-		    text-decoration: none;
-		}
-		.ti-notice-text p.ti-return-dashboard{
-			margin-top: 30px;
-		}
-		.ti-return-dashboard span{
-			align-self: end;
-			color: #b5b5b5;
-			text-decoration: none;
-			font-weight: 300;			
-		}
-		.ti-return-dashboard span:hover {
-			cursor: pointer;
-		}
-		';
 		echo sprintf(
 			$notice_template,
-			$content,
-			$style
+			$content
 		);
 	}
 

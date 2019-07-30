@@ -19,7 +19,7 @@ class Themeisle_Onboarding {
 	 *
 	 * @var string Version string.
 	 */
-	const VERSION = '1.4.1';
+	const VERSION = '1.6.1';
 	/**
 	 * Sites Library API URL.
 	 *

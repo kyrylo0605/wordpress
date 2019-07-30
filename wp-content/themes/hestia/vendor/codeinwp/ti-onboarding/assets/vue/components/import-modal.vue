@@ -13,7 +13,7 @@
 						<strong><i class="dashicons dashicons-info"></i>{{strings.note}}:</strong>
 						<ol>
 							<li>{{strings.backup_disclaimer}}</li>
-							<li>{{strings.placeholders_disclaimer}}</li>
+							<li>{{strings.placeholders_disclaimer_new}}</li>
 							<li v-if="this.siteData.unsplash_gallery"><a :href="this.siteData.unsplash_gallery" target="_blank">{{strings.unsplash_gallery_link}}</a></li>
 						</ol>
 					</div>
@@ -222,6 +222,9 @@
         if (editor === 'gutenberg') {
           url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=edit'
         }
+        if( editor === 'brizy' ) {
+			url = this.homeUrl + '/?brizy-edit'
+		}
         if (customizerRedirect === 'customizer') {
           url = this.homeUrl + '/wp-admin/customize.php'
         }

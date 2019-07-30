@@ -532,3 +532,32 @@ function hestia_woocommerce_loop_category_classes( $classes ) {
 
 	return $classes;
 }
+
+/**
+ * Function to place the sale tag when classic blog layout is selected for products header.
+ */
+function hestia_sale_tag_placement() {
+	if ( ! is_product() ) {
+		return;
+	}
+
+	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
+	add_action( 'woocommerce_before_single_product_summary', 'hestia_wrap_product_image', 18 );
+	add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 21 );
+	add_action( 'woocommerce_before_single_product_summary', 'hestia_close_wrap', 22 );
+}
+add_action( 'hestia_do_header', 'hestia_sale_tag_placement', 15 );
+
+/**
+ * Wrap product image in a div.
+ */
+function hestia_wrap_product_image() {
+	echo '<div class="hestia-product-image-wrap">';
+}
+
+/**
+ * Close product image wrap.
+ */
+function hestia_close_wrap() {
+	echo '</div>';
+}

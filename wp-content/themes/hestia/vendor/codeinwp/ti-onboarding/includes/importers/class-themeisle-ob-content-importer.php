@@ -149,7 +149,7 @@ class Themeisle_OB_Content_Importer {
 	 *
 	 * @return string
 	 */
-	private function save_xhr_return_path( $content ) {
+	public function save_xhr_return_path( $content ) {
 		$wp_upload_dir = wp_upload_dir( null, false );
 		$file_path     = $wp_upload_dir['basedir'] . '/themeisle-demo-import.xml';
 		ob_start();
@@ -170,7 +170,7 @@ class Themeisle_OB_Content_Importer {
 	 *
 	 * @return int
 	 */
-	private function setup_front_page( $args ) {
+	public function setup_front_page( $args ) {
 		if ( ! is_array( $args ) ) {
 			return;
 		}
@@ -209,7 +209,7 @@ class Themeisle_OB_Content_Importer {
 	 *
 	 * @param array $pages the shop pages array.
 	 */
-	private function setup_shop_pages( $pages ) {
+	public function setup_shop_pages( $pages ) {
 		$this->logger->log( 'Setting up shop page.', 'progress' );
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			$this->logger->log( 'No WooCommerce.', 'success' );
@@ -256,7 +256,7 @@ class Themeisle_OB_Content_Importer {
 	 *
 	 * @return WP_Error|true
 	 */
-	private function import_file( $file_path, $req_body = array() ) {
+	public function import_file( $file_path, $req_body = array() ) {
 		if ( empty( $file_path ) || ! file_exists( $file_path ) || ! is_readable( $file_path ) ) {
 			return new WP_Error( 'ti__ob_content_err_1', 'No content file' );
 		}
@@ -274,8 +274,8 @@ class Themeisle_OB_Content_Importer {
 	 * Load the importer.
 	 */
 	private function load_importer() {
-		require dirname( __FILE__ ) . '/helpers/wp-importer/class-themeisle-ob-wordpress-import.php';
-		require dirname( __FILE__ ) . '/helpers/wp-importer/parsers.php';
+		require_once dirname( __FILE__ ) . '/helpers/wp-importer/class-themeisle-ob-wordpress-import.php';
+		require_once dirname( __FILE__ ) . '/helpers/wp-importer/parsers.php';
 	}
 
 }

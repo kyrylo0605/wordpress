@@ -648,7 +648,8 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 
 			return $upload;
 		}
-		if ( $info = wp_check_filetype( $upload['file'] ) ) {
+		$info = wp_check_filetype( $upload['file'] );
+		if ( $info ) {
 			$post['post_mime_type'] = $info['type'];
 		} else {
 			$error = new WP_Error( 'attachment_processing_error', 'Invalid file type' );

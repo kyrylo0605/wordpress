@@ -1,3 +1,47 @@
+## [1.6.1](https://github.com/Codeinwp/ti-onboarding/compare/v1.6.0...v1.6.1) (2019-07-15)
+
+
+### Bug Fixes
+
+* allow defined screenshots for local demos [fixes [#63](https://github.com/Codeinwp/ti-onboarding/issues/63)] ([3d25571](https://github.com/Codeinwp/ti-onboarding/commit/3d25571))
+* allow defined screenshots for local demos [fixes [#63](https://github.com/Codeinwp/ti-onboarding/issues/63)] ([d721c5e](https://github.com/Codeinwp/ti-onboarding/commit/d721c5e))
+
+# [1.6.0](https://github.com/Codeinwp/ti-onboarding/compare/v1.5.1...v1.6.0) (2019-07-15)
+
+
+### Features
+
+* add import on access [[#68](https://github.com/Codeinwp/ti-onboarding/issues/68)] ([7efd81f](https://github.com/Codeinwp/ti-onboarding/commit/7efd81f))
+
+## [1.5.1](https://github.com/Codeinwp/ti-onboarding/compare/v1.5.0...v1.5.1) (2019-07-08)
+
+
+### Bug Fixes
+
+* use wp_filesystem instead of file_get_contents ([b217a9d](https://github.com/Codeinwp/ti-onboarding/commit/b217a9d))
+* use wp_filesystem instead of file_get_contents ([2045b89](https://github.com/Codeinwp/ti-onboarding/commit/2045b89))
+
+# [1.5.0](https://github.com/Codeinwp/ti-onboarding/compare/v1.4.2...v1.5.0) (2019-06-28)
+
+
+### Bug Fixes
+
+* add filter to allow outbound link query args changes ([5bfe265](https://github.com/Codeinwp/ti-onboarding/commit/5bfe265))
+* wp-cli plugin install on import ([4b471c2](https://github.com/Codeinwp/ti-onboarding/commit/4b471c2))
+
+
+### Features
+
+* add WP CLI utilities ([66cfb0f](https://github.com/Codeinwp/ti-onboarding/commit/66cfb0f))
+
+## [1.4.2](https://github.com/Codeinwp/ti-onboarding/compare/v1.4.1...v1.4.2) (2019-06-05)
+
+
+### Bug Fixes
+
+* license check for Neve Pro ([36527ff](https://github.com/Codeinwp/ti-onboarding/commit/36527ff))
+* license check for Neve Pro ([5c5f250](https://github.com/Codeinwp/ti-onboarding/commit/5c5f250))
+
 ## [1.4.1](https://github.com/Codeinwp/ti-onboarding/compare/v1.4.0...v1.4.1) (2019-05-24)
 
 

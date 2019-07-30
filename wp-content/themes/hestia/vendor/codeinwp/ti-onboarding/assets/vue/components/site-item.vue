@@ -1,25 +1,25 @@
 <template>
-	<div class="site-box" :class="siteData.pricing">
-		<div class="preview-image" :class="{ 'demo-pro' : siteData.in_pro }">
-			<div class="preview-action" @click="showPreview()">
-				<span class="previewButton">
-				{{this.$store.state.strings.preview_btn}}
-				</span>
-			</div>
-			<img :src="siteData.screenshot" :alt="siteData.title">
-		</div>
-		<div class="footer">
-			<h4>{{siteData.title}}</h4>
-			<div class="theme-actions">
-				<button class="button button-secondary" v-on:click="showPreview()">
-					{{this.$store.state.strings.preview_btn}}
-				</button>
-				<button class="button button-primary" v-if="! siteData.in_pro" v-on:click="importSite()">
-					{{strings.import_btn}}
-				</button>
-			</div>
-		</div>
-	</div>
+    <div class="site-box" :class="siteData.pricing">
+        <div class="preview-image" :class="{ 'demo-pro' : siteData.in_pro }">
+            <div class="preview-action" @click="showPreview()">
+                <span class="previewButton">
+                {{this.$store.state.strings.preview_btn}}
+                </span>
+            </div>
+            <img :src="siteData.screenshot" :alt="siteData.title">
+        </div>
+        <div class="footer">
+            <h4>{{siteData.title}}</h4>
+            <div class="theme-actions">
+                <button class="button button-secondary" v-on:click="showPreview()">
+                    {{this.$store.state.strings.preview_btn}}
+                </button>
+                <button class="button button-primary" v-if="! siteData.in_pro" v-on:click="importSite()">
+                    {{strings.import_btn}}
+                </button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -42,9 +42,9 @@
       },
       siteSlug: {
         default: '',
-		type: String,
-		required: true
-	  }
+        type: String,
+        required: true
+      }
     },
     methods: {
       setupImportData: function () {
@@ -64,6 +64,12 @@
         this.setupImportData()
         this.$store.commit('showPreview', true)
         this.$store.commit('populatePreview', { siteData : this.siteData, currentItem: this.siteSlug})
+      }
+    },
+    created() {
+      if( this.$store.state.readyImport && this.$store.state.readyImport === this.$props.siteSlug) {
+        this.setupImportData()
+        this.importSite()
       }
     }
   }

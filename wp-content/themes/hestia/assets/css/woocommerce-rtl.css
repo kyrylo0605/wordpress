@@ -50,6 +50,14 @@
 .woocommerce.archive .blog-post .section {
   padding: 0 15px 70px;
 }
+.woocommerce.single-product.header-layout-classic-blog .blog-post {
+  background: #fff;
+}
+.woocommerce.single-product.header-layout-classic-blog .blog-post .col-md-12 > div[id^=product].product {
+  margin: 0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
 .woocommerce.single-product .main.main-raised {
   margin: 0;
   border-radius: 0;
@@ -270,9 +278,20 @@
 .woocommerce.single-product .summary .price ins {
   text-decoration: none;
 }
+.woocommerce.single-product.header-layout-classic-blog .hestia-product-image-wrap {
+  position: relative;
+}
+.woocommerce.single-product.header-layout-classic-blog .product[id^="product-"] span.onsale {
+  top: -10px;
+  right: -10px;
+}
 .woocommerce.single-product .product .images {
   margin-bottom: 60px;
   position: relative;
+  width: 100%;
+}
+.woocommerce.single-product .product .hestia-product-image-wrap {
+  float: right;
   width: 45%;
 }
 .woocommerce.single-product .product .summary {
@@ -1604,7 +1623,7 @@ div[id^=woocommerce_layered_nav_filters].widget li a:before {
   width: 47%;
 }
 .woocommerce-checkout .form-row label {
-  color: #999999;
+  color: #3C4858;
 }
 .woocommerce-checkout .select2-container--default .select2-selection--single,
 .woocommerce-checkout .select2-dropdown {
@@ -1797,10 +1816,6 @@ div[id^=woocommerce_layered_nav_filters].widget li a:before {
     width: 85%;
   }
 
-  .woocommerce.single-product .product span.onsale {
-    top: 86px;
-  }
-
   .nav-cart.responsive-nav-cart {
     display: inline-block;
   }
@@ -1907,14 +1922,23 @@ div[id^=woocommerce_layered_nav_filters].widget li a:before {
   }
 
   .woocommerce.single-product .product .images,
-  .woocommerce.single-product .product .summary {
+  .woocommerce.single-product .product .summary,
+  .woocommerce.single-product .product .hestia-product-image-wrap {
     width: 100%;
+    position: relative;
   }
   .woocommerce.single-product .product .summary {
     padding-right: 0;
   }
   .woocommerce.single-product .product span.onsale {
-    right: 15px;
+    right: -5px;
+    top: -5px;
+  }
+  .woocommerce.single-product.header-layout-classic-blog .blog-post .col-md-12 {
+    padding: 0;
+  }
+  .woocommerce.single-product.header-layout-classic-blog .blog-post .col-md-12 > div[id^=product].product {
+    padding: 30px 15px 30px 15px;
   }
   .woocommerce.single-product .blog-post .col-md-12 {
     padding: 0;

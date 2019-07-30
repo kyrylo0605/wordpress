@@ -135,7 +135,7 @@ class Themeisle_OB_Theme_Mods_Importer {
 	 *
 	 * @param array $menus represents the menu data as as [location => slug] retrieved from the API.
 	 */
-	private function setup_nav_menus( $menus ) {
+	public function setup_nav_menus( $menus ) {
 		do_action( 'themeisle_ob_before_nav_menus_setup' );
 
 		if ( empty( $menus ) || ! is_array( $menus ) ) {

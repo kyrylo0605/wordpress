@@ -3,12 +3,11 @@
   "theme_mods": {
     "hestia_contact_form_shortcode": "[wpforms id=\"4228\"]",
     "show_on_front": "page",
-    "zerif_frontpage_was_imported": "not-zerif",
     "hestia_feature_thumbnail": "https://mlxguv3ljvjp.i.optimole.com/dd03bc1a5d147448d653208d529d7f75/auto/auto/85/https/demo.themeisle.com/hestia-default/wp-content/themes/hestia/assets/img/contact.jpg",
-    "custom_css_post_id": "-1",
+    "custom_css_post_id": -1,
     "hestia_feature_thumbnail_buffer": "https://mlxguv3ljvjp.i.optimole.com/dd03bc1a5d147448d653208d529d7f75/auto/auto/85/https/demo.themeisle.com/hestia-default/wp-content/themes/hestia/assets/img/contact.jpg",
-    "hestia_ribbon_hide": "",
-    "hestia_about_hide": "1",
+    "hestia_ribbon_hide": false,
+    "hestia_about_hide": true,
     "hestia_big_title_title": "Slick Material Design",
     "hestia_big_title_text": "Beatiful, Elegantly Coded, One-Page WordPress Theme for Business",
     "hestia_big_title_button_text": "See More",
@@ -24,25 +23,26 @@
     "hestia_testimonials_title": "What clients say",
     "hestia_blog_title": "Blog",
     "hestia_contact_title": "Get in Touch",
-    "hestia_contact_content_new": "<div class=\"hestia-info info info-horizontal\"><div class=\"icon icon-primary\"><i class=\"fa fa-map-marker\"></i></div><div class=\"description\"><h4 class=\"info-title\">Find us at the office</h4><p>Bld Mihail Kogalniceanu, nr. 8,7652 Bucharest, Romania</p></div></div><div class=\"hestia-info info info-horizontal\"><div class=\"icon icon-primary\"><i class=\"fa fa-mobile\"></i></div><div class=\"description\"><h4 class=\"info-title\">Give us a ring</h4><p>Michael Jordan <br />+40 762 321 762<br />Mon - Fri, 8:00-22:00</p></div></div>",
+    "hestia_contact_content_new": "<div class=\"hestia-info info-horizontal\">\n<div class=\"icon icon-primary\"><i class=\"fa fa-map-marker\"></i></div>\n<div class=\"description\">\n<h4 class=\"info-title\" style=\"font-size: 18px\">Find us at the office</h4>\n<p style=\"color: #ccc\">Bld Mihail Kogalniceanu, nr. 8, 7652 Bucharest, Romania</p>\n\n</div>\n</div>\n<div class=\"hestia-info info-horizontal\">\n<div class=\"icon icon-primary\"><i class=\"fa fa-mobile\"></i></div>\n<div class=\"description\">\n<h4 class=\"info-title\" style=\"font-size: 18px\">Give us a ring</h4>\n<p style=\"color: #ccc\">Michael Jordan +40 762 321 762 Mon - Fri, 8:00-22:00</p>\n\n</div>\n</div>",
     "hestia_big_title_button_link": "#",
     "hestia_ribbon_button_url": "#",
-    "hestia_big_title_background": "https://demo.themeisle.com/hestia-default/wp-content/uploads/sites/174/2018/11/tropical-beach-1.jpg",
-    "hestia_contact_background": "https://demo.themeisle.com/hestia-default/wp-content/uploads/sites/174/2018/11/31529251932_1a1d928c17_o.jpg",
-    "hestia_ribbon_background": "https://demo.themeisle.com/hestia-default/wp-content/uploads/sites/174/2018/11/31529251932_1a1d928c17_o.jpg",
+    "hestia_big_title_background": "https://demo.themeisle.com/hestia-default/wp-content/uploads/sites/174/2019/07/architecture-1.jpg",
+    "hestia_contact_background": "https://demo.themeisle.com/hestia-default/wp-content/uploads/sites/174/2019/07/architecture-1.jpg",
+    "hestia_ribbon_background": "https://demo.themeisle.com/hestia-default/wp-content/uploads/sites/174/2019/07/architecture-1.jpg",
     "hestia_ribbon_button_text": "Subscribe",
     "hestia_blog_sidebar_layout": "full-width",
     "hestia_shop_subtitle": "Showcase your products in this beautiful shop section.",
     "hestia_blog_subtitle": "Display the latest posts on the front page.",
     "hestia_team_subtitle": "Provide basic info such as avatar, biography and contact links about your employees.",
     "hestia_testimonials_subtitle": "People that are using our products are happy to share their experience.",
-    "hestia_shop_items": "4",
+    "hestia_shop_items": 4,
     "hestia_contact_subtitle": "You need more information about us?",
     "__ti_import_menus_location": {
       "primary": "main-menu",
       "footer": "footer-menu"
     }
   },
+  "wp_options": [],
   "widgets": {
     "sidebar-1": {
       "search-2": {

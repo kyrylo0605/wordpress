@@ -41,10 +41,10 @@ do_action( 'hestia_before_search_wrapper' );
 							get_template_part( 'template-parts/content' );
 						endwhile;
 						the_posts_pagination();
-					else :
-						get_template_part( 'template-parts/content', 'none' );
+						else :
+							get_template_part( 'template-parts/content', 'none' );
 					endif;
-					?>
+						?>
 				</div>
 				<?php
 				if ( $hestia_blog_sidebar_layout === 'sidebar-right' ) {

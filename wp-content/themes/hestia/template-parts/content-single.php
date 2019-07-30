@@ -23,6 +23,8 @@ $wrap_class     = apply_filters( 'hestia_filter_single_post_content_classes', 'c
 
 			<?php
 
+			do_action( 'hestia_before_single_post_wrap' );
+
 			if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'single' ) ) {
 
 				echo '<div class="single-post-wrap entry-content">';

@@ -72,9 +72,25 @@ class Themeisle_OB_Plugin_Importer {
 			);
 		}
 
+		$this->run_plugins_install( $plugins );
+
+		return new WP_REST_Response(
+			array(
+				'success' => true,
+				'log'     => $this->log,
+			)
+		);
+	}
+
+	/**
+	 * Install and activate plugins.
+	 *
+	 * @param array $plugins_array plugins formated slug => true.
+	 */
+	public function run_plugins_install( $plugins_array ) {
 		$active_plugins = get_option( 'active_plugins' );
 
-		foreach ( $plugins as $plugin_slug => $nicename ) {
+		foreach ( $plugins_array as $plugin_slug => $true ) {
 			if ( in_array( $plugin_slug, $active_plugins ) ) {
 				continue;
 			}
@@ -89,13 +105,6 @@ class Themeisle_OB_Plugin_Importer {
 		do_action( 'themeisle_ob_after_plugins_install' );
 
 		update_option( 'themeisle_ob_plugins_installed', 'yes' );
-
-		return new WP_REST_Response(
-			array(
-				'success' => true,
-				'log'     => $this->log,
-			)
-		);
 	}
 
 	/**

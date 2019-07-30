@@ -252,7 +252,7 @@
 					$( '.home.page.page-template-default .main' ).css( 'margin-top', navbar_height - 46 );
 				}
 			} else {
-				$( '.wrapper.classic-blog' ).find( '.main' ).css( 'margin-top', navbar_height );
+				$( '.header-layout-classic-blog' ).find( '.main' ).css( 'margin-top', navbar_height );
 				$( '.carousel .item .container' ).css( 'padding-top', navbar_height + 50 );
 				if ( $( '.home.page.page-template-default .navbar' ).hasClass( 'no-slider' ) ) {
 					$( '.home.page.page-template-default .main' ).css( 'margin-top', navbar_height );
@@ -268,12 +268,13 @@
 				}
 				$( '.fl-builder-edit .pagebuilder-section' ).css( 'padding-top', navbar_height + beaver_offset );
 				$( '.page-header.header-small .container' ).css( 'padding-top', navbar_height + 100 );
-				var headerHeight = $( '.single-product .page-header.header-small' ).height();
+				var headerHeight = $( '.single-product .page-header' ).height();
 				var offset = headerHeight + 100;
 				$( '.single-product .page-header.header-small .container' ).css( 'padding-top', headerHeight - offset );
 
 				var marginOffset = headerHeight - navbar_height - 172;
-				$( '.woocommerce.single-product .blog-post .col-md-12 > div[id^=product].product' ).css( 'margin-top', -marginOffset );
+				$( '.woocommerce.single-product:not(.header-layout-classic-blog) .blog-post .col-md-12 > div[id^=product].product' ).css( 'margin-top', -marginOffset );
+
 			} else {
 				$( '.page-header.header-small .container , .woocommerce.single-product .blog-post .col-md-12 > div[id^=product].product' ).removeAttr( 'style' );
 			}

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hestia Pro 2.4.5\n"
 "Report-Msgid-Bugs-To: https://github.com/Codeinwp/hestia-pro/issues\n"
-"POT-Creation-Date: 2019-05-24 09:13:09+00:00\n"
+"POT-Creation-Date: 2019-07-17 10:31:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,7 +55,7 @@ msgid ""
 "PHP to the latest version."
 msgstr ""
 
-#: inc/addons/admin/class-hestia-metabox-addon.php:20
+#: inc/addons/admin/class-hestia-metabox-addon.php:48
 msgid "Header Layout"
 msgstr ""
 
@@ -400,15 +400,15 @@ msgstr ""
 msgid "Save Hooks"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:182
-#: inc/addons/class-hestia-main-addon.php:189
+#: inc/addons/class-hestia-main-addon.php:229
+#: inc/addons/class-hestia-main-addon.php:236
 #. translators: %s - Theme name
 msgid ""
 "Need more details? Please check our full documentation for detailed "
 "information on how to use %s."
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:184
+#: inc/addons/class-hestia-main-addon.php:231
 #: inc/addons/customizer/class-hestia-customizer-notices-addon.php:75
 msgid ""
 "Extend your theme functionality with various modules like Social Media "
@@ -416,7 +416,7 @@ msgid ""
 "page builder addons and free stock featured images."
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:186
+#: inc/addons/class-hestia-main-addon.php:233
 #. translators: %1$s - Theme name
 msgid ""
 "We want to make sure you have the best experience using %1$s and that is "
@@ -424,18 +424,18 @@ msgid ""
 "will enjoy using %1$s, as much as we enjoy creating great products."
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:195
-#: inc/addons/class-hestia-main-addon.php:197
+#: inc/addons/class-hestia-main-addon.php:242
+#: inc/addons/class-hestia-main-addon.php:244
 #. translators: %s - Theme name
 msgid "About %s"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:199
+#: inc/addons/class-hestia-main-addon.php:246
 #. translators: %s - Theme name
 msgid "Welcome to %s! - Version "
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:201
+#: inc/addons/class-hestia-main-addon.php:248
 #. translators: %s - Theme name
 msgid ""
 "%s is a modern WordPress theme for professionals. It fits creative "
@@ -448,42 +448,42 @@ msgid ""
 "friendly, and uses Material Kit for design."
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:217
+#: inc/addons/class-hestia-main-addon.php:264
 #: inc/core/class-hestia-public.php:782
 msgid "Blog Subscribe Section"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:279
+#: inc/addons/class-hestia-main-addon.php:326
 msgid "Secondary"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:284
+#: inc/addons/class-hestia-main-addon.php:331
 #: inc/core/class-hestia-public.php:473
 #: inc/customizer/general/class-hestia-typography-controls.php:146
 msgid "Body"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:289
+#: inc/addons/class-hestia-main-addon.php:336
 msgid "Header Overlay"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:294
+#: inc/addons/class-hestia-main-addon.php:341
 msgid "Header Text"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:299
+#: inc/addons/class-hestia-main-addon.php:346
 msgid "Navbar Background"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:304
+#: inc/addons/class-hestia-main-addon.php:351
 msgid "Navbar Text"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:309
+#: inc/addons/class-hestia-main-addon.php:356
 msgid "Navbar Text Hover"
 msgstr ""
 
-#: inc/addons/class-hestia-main-addon.php:314
+#: inc/addons/class-hestia-main-addon.php:361
 #: inc/addons/customizer/general/class-hestia-color-controls-addon.php:117
 msgid "Transparent Navbar Text Color"
 msgstr ""
@@ -833,6 +833,7 @@ msgstr ""
 
 #: inc/addons/customizer/front-page/class-hestia-shop-controls-addon.php:43
 #: inc/customizer/front-page/class-hestia-shop-controls.php:83
+#: inc/customizer/general/class-hestia-header-controls.php:199
 #: inc/views/front-page/class-hestia-shop-section.php:72
 msgid "Products"
 msgstr ""
@@ -1080,25 +1081,26 @@ msgstr ""
 #: inc/customizer/general/class-hestia-blog-settings-controls.php:100
 #: inc/customizer/general/class-hestia-header-controls.php:124
 #: inc/customizer/general/class-hestia-header-controls.php:172
+#: inc/customizer/general/class-hestia-header-controls.php:199
 msgid "Layout"
 msgstr ""
 
 #: inc/addons/customizer/general/class-hestia-footer-controls-addon.php:123
 #: inc/addons/customizer/general/class-hestia-header-controls-addon.php:183
-#: inc/admin/metabox/class-hestia-metabox-main.php:33
+#: inc/admin/metabox/class-hestia-metabox-main.php:42
 #: inc/customizer/general/class-hestia-general-controls.php:192
 msgid "Left Sidebar"
 msgstr ""
 
 #: inc/addons/customizer/general/class-hestia-footer-controls-addon.php:127
-#: inc/admin/metabox/class-hestia-metabox-main.php:29
+#: inc/admin/metabox/class-hestia-metabox-main.php:38
 #: inc/customizer/general/class-hestia-general-controls.php:188
 msgid "Full Width"
 msgstr ""
 
 #: inc/addons/customizer/general/class-hestia-footer-controls-addon.php:131
 #: inc/addons/customizer/general/class-hestia-header-controls-addon.php:187
-#: inc/admin/metabox/class-hestia-metabox-main.php:37
+#: inc/admin/metabox/class-hestia-metabox-main.php:46
 #: inc/customizer/general/class-hestia-general-controls.php:196
 msgid "Right Sidebar"
 msgstr ""
@@ -1358,22 +1360,22 @@ msgstr ""
 msgid "Get the PRO version!"
 msgstr ""
 
-#: inc/admin/metabox/class-hestia-metabox-main.php:47
+#: inc/admin/metabox/class-hestia-metabox-main.php:56
 #: inc/compatibility/class-hestia-gutenberg.php:389
 #: inc/core/class-hestia-public.php:332
 #: inc/customizer/front-page/class-hestia-big-title-controls.php:130
 msgid "Sidebar"
 msgstr ""
 
-#: inc/admin/metabox/class-hestia-metabox-main.php:92
+#: inc/admin/metabox/class-hestia-metabox-main.php:101
 msgid "Components"
 msgstr ""
 
-#: inc/admin/metabox/class-hestia-metabox-main.php:93
+#: inc/admin/metabox/class-hestia-metabox-main.php:102
 msgid "Disable Navigation"
 msgstr ""
 
-#: inc/admin/metabox/class-hestia-metabox-main.php:98
+#: inc/admin/metabox/class-hestia-metabox-main.php:107
 msgid "Disable Footer"
 msgstr ""
 
@@ -1682,30 +1684,30 @@ msgstr ""
 msgid "24/7 HelpDesk Professional Support"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:520
+#: inc/core/class-hestia-admin.php:523
 #. translators: 1 - options page url, 2 - button text
 msgid "Go to the theme settings"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:526
+#: inc/core/class-hestia-admin.php:529
 #. translators: 1 - onboarding url, 2 - button text
 msgid "or try one of our ready to use Starter Sites"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:536
+#: inc/core/class-hestia-admin.php:539
 #. translators: 1 - notice title, 2 - notice message, 3 - options page button,
 #. 4 - starter sites button, 5 - notice closing button
 msgid "Congratulations!"
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:541
+#: inc/core/class-hestia-admin.php:544
 #. translators: %s - theme name
 msgid ""
 "%s is now installed and ready to use. We've assembled some links to get you "
 "started."
 msgstr ""
 
-#: inc/core/class-hestia-admin.php:546
+#: inc/core/class-hestia-admin.php:549
 msgid "Return to your dashboard"
 msgstr ""
 
@@ -1715,12 +1717,12 @@ msgstr ""
 
 #: inc/core/class-hestia-public.php:335 inc/core/class-hestia-public.php:490
 #: inc/customizer/general/class-hestia-header-controls.php:71
-#: inc/customizer/general/class-hestia-header-controls.php:310
+#: inc/customizer/general/class-hestia-header-controls.php:230
 msgid "Very Top Bar"
 msgstr ""
 
 #: inc/core/class-hestia-public.php:336
-#: inc/customizer/general/class-hestia-header-controls.php:299
+#: inc/customizer/general/class-hestia-header-controls.php:219
 msgid "Navigation"
 msgstr ""
 
@@ -2034,7 +2036,7 @@ msgstr ""
 
 #: inc/customizer/front-page/class-hestia-contact-controls.php:111
 #: inc/helpers/layout-functions.php:759
-#: inc/views/front-page/class-hestia-contact-section.php:91
+#: inc/views/front-page/class-hestia-contact-section.php:95
 msgid "Contact Us"
 msgstr ""
 
@@ -2043,7 +2045,7 @@ msgid "Form Title"
 msgstr ""
 
 #: inc/customizer/front-page/class-hestia-contact-controls.php:221
-#: inc/views/front-page/class-hestia-contact-section.php:90
+#: inc/views/front-page/class-hestia-contact-section.php:94
 msgid "Get in Touch"
 msgstr ""
 
@@ -2137,7 +2139,7 @@ msgstr ""
 msgid "Enable Search in Menu"
 msgstr ""
 
-#: inc/customizer/general/class-hestia-header-controls.php:254
+#: inc/customizer/general/class-hestia-header-controls.php:286
 msgid "Header Settings"
 msgstr ""
 
@@ -2272,12 +2274,12 @@ msgstr ""
 msgid "%1$s ago %2$s"
 msgstr ""
 
-#: inc/views/blog/class-hestia-header-layout-manager.php:317
+#: inc/views/blog/class-hestia-header-layout-manager.php:318
 #. translators: search result
 msgid "Search Results for: %s"
 msgstr ""
 
-#: inc/views/blog/class-hestia-header-layout-manager.php:389
+#: inc/views/blog/class-hestia-header-layout-manager.php:390
 #. translators: %1$s is Author name wrapped, %2$s is Date
 msgid "Published by %1$s on %2$s"
 msgstr ""
@@ -2311,14 +2313,14 @@ msgstr ""
 msgid "Change this subtitle in the %s."
 msgstr ""
 
-#: inc/views/front-page/class-hestia-contact-section.php:86
+#: inc/views/front-page/class-hestia-contact-section.php:90
 #: inc/views/front-page/class-hestia-shop-section.php:68
 #: inc/views/front-page/class-hestia-subscribe-section.php:65
 #. translators: 1 - link to customizer setting. 2 - 'customizer'
 msgid "Change this subtitle in %s."
 msgstr ""
 
-#: inc/views/front-page/class-hestia-contact-section.php:86
+#: inc/views/front-page/class-hestia-contact-section.php:90
 #: inc/views/front-page/class-hestia-shop-section.php:68
 #: inc/views/front-page/class-hestia-subscribe-section.php:65
 msgid "customizer"

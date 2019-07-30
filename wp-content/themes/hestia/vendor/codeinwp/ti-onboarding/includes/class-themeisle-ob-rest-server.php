@@ -76,7 +76,7 @@ class Themeisle_OB_Rest_Server {
 		$sdk_modules = \ThemeisleSDK\Common\Module_Factory::get_modules_map();
 		$theme       = get_stylesheet();
 
-		if ( ! array_key_exists( $theme, $sdk_modules ) ) {
+		if ( $theme === 'neve' ) {
 			$theme = 'neve-pro-addon';
 		}
 
@@ -340,7 +340,14 @@ class Themeisle_OB_Rest_Server {
 				if ( file_exists( get_template_directory() . '/onboarding/' . $template_slug . '/screenshot.jpg' ) ) {
 					$ss_extension = '.jpg';
 				}
-				$returnable[ $editor ][ $template_slug ]['screenshot'] = esc_url( get_template_directory_uri() . '/onboarding/' . $template_slug . '/screenshot' . $ss_extension );
+
+				$ss_src = get_template_directory_uri() . '/onboarding/' . $template_slug . '/screenshot' . $ss_extension;
+
+				if ( isset( $this->theme_support['local'][ $editor ][ $template_slug ]['screenshot'] ) ) {
+					$ss_src = $this->theme_support['local'][ $editor ][ $template_slug ]['screenshot'];
+				}
+
+				$returnable[ $editor ][ $template_slug ]['screenshot'] = esc_url( $ss_src );
 
 				if ( isset( $template_data['edit_content_redirect'] ) ) {
 					$returnable[ $editor ][ $template_slug ]['edit_content_redirect'] = esc_html( $template_data['edit_content_redirect'] );
@@ -427,10 +434,13 @@ class Themeisle_OB_Rest_Server {
 				$returnable[ $editor ][ $template_slug ]['source']        = 'remote';
 				$returnable[ $editor ][ $template_slug ]['in_pro']        = true;
 				$returnable[ $editor ][ $template_slug ]['outbound_link'] = add_query_arg(
-					array(
-						'utm_medium'   => 'about-' . get_template(),
-						'utm_source'   => $template_slug,
-						'utm_campaign' => 'siteslibrary',
+					apply_filters(
+						'ti_onboarding_outbound_query_args',
+						array(
+							'utm_medium'   => 'about-' . get_template(),
+							'utm_source'   => $template_slug,
+							'utm_campaign' => 'siteslibrary',
+						)
 					),
 					$this->theme_support['pro_link']
 				);
