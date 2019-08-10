@@ -132,8 +132,8 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 
 			$show_image = get_option( 'yith-wacp-show-image', 'no' ) == 'yes';
 			$show_price = get_option( 'yith-wacp-show-price', 'no' ) == 'yes';
-			$view_cart  = get_option( 'yith-wacp-show-go-cart' ) == 'yes';
-			$continue   = get_option( 'yith-wacp-show-continue-shopping' ) == 'yes';
+			$view_cart  = get_option( 'yith-wacp-show-go-cart', 'yes' ) == 'yes';
+			$continue   = get_option( 'yith-wacp-show-continue-shopping', 'yes' ) == 'yes';
 			$cart_url   = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : WC()->cart->get_cart_url();
 			$product    = isset( $_REQUEST['product_id'] ) ? wc_get_product( $_REQUEST['product_id'] ) : false;
 			// let's filter button urls

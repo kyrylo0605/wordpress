@@ -3247,14 +3247,24 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 			var ctrlDown = false;
 
 			$(document).keydown(function(e) {
-				if (e.keyCode === 17) {
+				if ( e.keyCode === 17 ) {
 					ctrlDown = true;
-				} else if (ctrlDown && e.keyCode === 80) {
-					window.open(wpforms_builder.preview_url);
+				}
+				else if ( ctrlDown && e.keyCode === 80 ) {
+					// Open Form Preview tab on Ctrl+p.
+					window.open( wpforms_builder.preview_url );
 					ctrlDown = false;
 					return false;
-				} else if (ctrlDown && e.keyCode === 69) {
-					window.open(wpforms_builder.entries_url);
+				}
+				else if ( ctrlDown && e.keyCode === 69 ) {
+					// Open Entries tab on Ctrl+e.
+					window.open( wpforms_builder.entries_url );
+					ctrlDown = false;
+					return false;
+				}
+				else if ( ctrlDown && e.keyCode === 83 ) {
+					// Trigger the Builder save on Ctrl+s.
+					$( '#wpforms-save', $builder ).click();
 					ctrlDown = false;
 					return false;
 				}

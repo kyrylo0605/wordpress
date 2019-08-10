@@ -210,6 +210,8 @@ namespace WPForms {
 			require_once WPFORMS_PLUGIN_DIR . 'includes/class-conditional-logic-core.php';
 			require_once WPFORMS_PLUGIN_DIR . 'includes/emails/class-emails.php';
 			require_once WPFORMS_PLUGIN_DIR . 'includes/integrations.php';
+			require_once WPFORMS_PLUGIN_DIR . 'includes/class-license.php';
+			require_once WPFORMS_PLUGIN_DIR . 'includes/class-updater.php';
 
 			// Admin/Dashboard only includes, also in ajax.
 			if ( is_admin() ) {
@@ -239,8 +241,15 @@ namespace WPForms {
 		 */
 		private function includes_magic() {
 
-			// Autoloader is put into its own file to save space here.
-			require_once WPFORMS_PLUGIN_DIR . 'autoloader.php';
+			// Autoload Composer packages.
+			require_once WPFORMS_PLUGIN_DIR . 'vendor/autoload.php';
+
+			if ( version_compare( phpversion(), '5.5', '>=' ) ) {
+				/*
+				 * Load PHP 5.5 email subsystem.
+				 */
+				add_action( 'wpforms_loaded', array( '\WPForms\Emails\Summaries', 'get_instance' ) );
+			}
 
 			/*
 			 * Load admin components. Exclude from frontend.
@@ -278,6 +287,7 @@ namespace WPForms {
 			$this->process    = new \WPForms_Process();
 			$this->smart_tags = new \WPForms_Smart_Tags();
 			$this->logs       = new \WPForms_Logging();
+			$this->license    = new \WPForms_License();
 
 			if ( is_admin() ) {
 				if ( ! wpforms_setting( 'hide-announcements', false ) ) {
@@ -291,6 +301,29 @@ namespace WPForms {
 
 			// Hook now that all of the WPForms stuff is loaded.
 			do_action( 'wpforms_loaded' );
+
+			$this->updater();
+		}
+
+		/**
+		 * Load plugin updater.
+		 *
+		 * @since 1.5.4
+		 */
+		public function updater() {
+
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			$key = $this->license->get();
+
+			if ( ! $key ) {
+				return;
+			}
+
+			// Fire a hook for Addons to register their updater since we know the key is present.
+			do_action( 'wpforms_updater', $key );
 		}
 	}
 }

@@ -29,11 +29,11 @@ $total_pages    = $results->max_num_pages;
 <table class="yith-wcpb-select-product-box__products__table widefat striped">
     <thead>
     <tr>
-        <td class="column-image"><?php _e( 'Image', 'yith-woocommerce-product-bundle' ) ?></td>
-        <td class="column-name"><?php _e( 'Name', 'yith-woocommerce-product-bundle' ) ?></td>
-        <td class="column-price"><?php _e( 'Price', 'yith-woocommerce-product-bundle' ) ?></td>
-        <td class="column-type"><?php _e( 'Type', 'yith-woocommerce-product-bundle' ) ?></td>
-        <td class="column-action"><?php _e( 'Action', 'yith-woocommerce-product-bundle' ) ?></td>
+        <td class="column-image"><?php _e( 'Image', 'yith-woocommerce-product-bundles' ) ?></td>
+        <td class="column-name"><?php _e( 'Name', 'yith-woocommerce-product-bundles' ) ?></td>
+        <td class="column-price"><?php _e( 'Price', 'yith-woocommerce-product-bundles' ) ?></td>
+        <td class="column-type"><?php _e( 'Type', 'yith-woocommerce-product-bundles' ) ?></td>
+        <td class="column-action"><?php _e( 'Action', 'yith-woocommerce-product-bundles' ) ?></td>
     </tr>
     </thead>
     <tbody>
@@ -52,15 +52,15 @@ $total_pages    = $results->max_num_pages;
                 </div>
                 <div class="product-info">
                     <?php if ( !$product->is_in_stock() ) : ?>
-                        <span class="product-single-info out-of-stock"><?php _e( 'Out of stock', 'yith-woocommerce-product-bundle' ) ?></span>
+                        <span class="product-single-info out-of-stock"><?php _e( 'Out of stock', 'yith-woocommerce-product-bundles' ) ?></span>
                     <?php endif; ?>
                 </div>
             </td>
             <td class="column-price"><?php echo $product->get_price_html() ?></td>
             <td class="column-type"><?php echo $product_type ?></td>
             <td class="column-action">
-                <span class="yith-wcpb-add-product" data-id="<?php echo $product->get_id() ?>"><?php _e( 'Add', 'yith-woocommerce-product-bundle' ) ?></span>
-                <span class="yith-wcpb-product-added"><?php _e( 'Added', 'yith-woocommerce-product-bundle' ) ?></span>
+                <span class="yith-wcpb-add-product" data-id="<?php echo $product->get_id() ?>"><?php _e( 'Add', 'yith-woocommerce-product-bundles' ) ?></span>
+                <span class="yith-wcpb-product-added"><?php _e( 'Added', 'yith-woocommerce-product-bundles' ) ?></span>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -74,8 +74,8 @@ $total_pages    = $results->max_num_pages;
     $next_page     = min( $total_pages, ( $page + 1 ) );
     ?>
     <span class="first <?php echo $prev_disabled ?>" data-page="1">&laquo;</span>
-    <span class="prev <?php echo $prev_disabled ?>" data-page="<?php echo $prev_page ?>"><?php _e( 'prev', 'yith-woocommerce-product-bundle' ) ?></span>
+    <span class="prev <?php echo $prev_disabled ?>" data-page="<?php echo $prev_page ?>"><?php _e( 'prev', 'yith-woocommerce-product-bundles' ) ?></span>
     <span class="current"><?php echo sprintf( "%s/%s", $page, $total_pages ) ?></span>
-    <span class="next <?php echo $next_disabled ?>" data-page="<?php echo $next_page ?>"><?php _e( 'next', 'yith-woocommerce-product-bundle' ) ?></span>
+    <span class="next <?php echo $next_disabled ?>" data-page="<?php echo $next_page ?>"><?php _e( 'next', 'yith-woocommerce-product-bundles' ) ?></span>
     <span class="last <?php echo $next_disabled ?>" data-page="<?php echo $total_pages ?>">&raquo;</span>
 </div>

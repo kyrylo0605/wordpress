@@ -13,7 +13,7 @@ function fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofoll
             <span class="wp-facebook-stars"><?php fbrev_stars($rating); ?></span>
         </div>
         <?php if ($show_powered) { ?>
-        <div class="wp-facebook-powered">powered by <span>Facebook</span></div>
+        <div class="wp-facebook-powered"><?php echo fbrev_i('powered by %s', '<span>Facebook</span>'); ?></div>
         <?php } ?>
     </div>
     <?php

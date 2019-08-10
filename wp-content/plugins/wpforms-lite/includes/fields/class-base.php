@@ -188,6 +188,9 @@ abstract class WPForms_Field {
 					if ( 'default' === $key ) {
 						$value = false;
 					}
+					if ( 'wpforms-selected' === $value ) {
+						$value = '';
+					}
 				}
 			);
 		}
@@ -337,7 +340,8 @@ abstract class WPForms_Field {
 			if ( null !== $default_key ) {
 				foreach ( $properties['inputs'] as $input_key => $choice_arr ) {
 					if ( $input_key === $default_key ) {
-						$properties['inputs'][ $input_key ]['default'] = true;
+						$properties['inputs'][ $input_key ]['default']              = true;
+						$properties['inputs'][ $input_key ]['container']['class'][] = 'wpforms-selected';
 						// Stop iterating over choices.
 						break;
 					}
@@ -373,7 +377,8 @@ abstract class WPForms_Field {
 			if ( null !== $default_key ) {
 				foreach ( $field['choices'] as $choice_key => $choice_arr ) {
 					if ( $choice_key === $default_key ) {
-						$properties['inputs'][ $choice_key ]['default'] = true;
+						$properties['inputs'][ $choice_key ]['default']              = true;
+						$properties['inputs'][ $choice_key ]['container']['class'][] = 'wpforms-selected';
 						break;
 					}
 				}
@@ -881,7 +886,7 @@ abstract class WPForms_Field {
 			case 'choices_payments':
 				$values     = ! empty( $field['choices'] ) ? $field['choices'] : $this->defaults;
 				$class      = array();
-				$input_type = 'payment-multiple' === $field['type'] ? 'radio' : 'checkbox';
+				$input_type = in_array( $field['type'], array( 'payment-multiple', 'payment-select' ), true ) ? 'radio' : 'checkbox';
 
 				if ( ! empty( $field['choices_images'] ) ) {
 					$class[] = 'show-images';

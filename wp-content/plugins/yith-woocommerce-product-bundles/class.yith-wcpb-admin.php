@@ -107,6 +107,8 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             add_filter( 'woocommerce_admin_order_item_count', array( $this, 'woocommerce_admin_order_item_count' ), 10, 2 );
             add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'woocommerce_hidden_order_itemmeta' ) );
 
+            add_action( 'wp_ajax_woocommerce_add_order_item', array( $this, 'prevent_adding_bundle_products_in_orders' ), 5 );
+
             // Premium Tabs
             add_action( 'yith_wcpb_premium_tab', array( $this, 'show_premium_tab' ) );
 
@@ -117,7 +119,6 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          * Hide bundled_by meta in admin order
          *
          * @param array $hidden
-         *
          * @access public
          * @since  1.0.0
          * @author Leanza Francesco <leanzafrancesco@gmail.com>
@@ -130,10 +131,8 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
         /**
          * add CSS class in admin order bundled items
          *
-         *
          * @param string $class
          * @param array  $item
-         *
          * @access public
          * @since  1.0.0
          * @author Leanza Francesco <leanzafrancesco@gmail.com>
@@ -151,11 +150,9 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          *
          * @param int      $count
          * @param WC_Order $order
-         *
          * @access public
          * @since  1.0.0
          * @author Leanza Francesco <leanzafrancesco@gmail.com>
-         *
          * @return int|string
          */
         public function woocommerce_admin_order_item_count( $count, $order ) {
@@ -308,11 +305,9 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
 
         /**
          * Action Links
-         *
          * add the action links to plugin admin page
          *
          * @param $links | links plugin array
-         *
          * @return   mixed Array
          * @since    1.0
          * @author   Leanza Francesco <leanzafrancesco@gmail.com>
@@ -325,13 +320,11 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
 
         /**
          * plugin_row_meta
-         *
          * add the action links to plugin admin page
          *
          * @param $row_meta_args
          * @param $plugin_meta
          * @param $plugin_file
-         *
          * @return   array
          * @since    1.0
          * @use      plugin_row_meta
@@ -388,6 +381,33 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             }
 
             $this->_panel = new YIT_Plugin_Panel_WooCommerce( $args );
+        }
+
+        /**
+         * don't allow adding bundle to orders through "Add products" box in orders
+         *
+         * @since 1.2.21
+         */
+        public function prevent_adding_bundle_products_in_orders() {
+            if ( isset( $_POST[ 'data' ] ) ) {
+                $items_to_add = array_filter( wp_unslash( (array) $_POST[ 'data' ] ) );
+
+                $bundle_titles = array();
+                foreach ( $items_to_add as $item ) {
+                    if ( !isset( $item[ 'id' ], $item[ 'qty' ] ) || empty( $item[ 'id' ] ) ) {
+                        continue;
+                    }
+                    $product_id = absint( $item[ 'id' ] );
+                    $product    = wc_get_product( $product_id );
+                    if ( $product && $product->is_type( 'yith_bundle' ) ) {
+                        $bundle_titles[] = $product->get_formatted_name();
+                    }
+                }
+
+                if ( $bundle_titles ) {
+                    wp_send_json_error( array( 'error' => sprintf( __( 'You are trying to add the following Bundle products to the order: %s. You cannot add Bundle products to orders through this box since this type of products needs to follow the normal WooCommerce "Add-to-cart > Cart > Checkout > Order" process.', 'yith-booking-for-woocommerce' ), implode( ', ', $bundle_titles ) ) ) );
+                }
+            }
         }
 
         public function admin_enqueue_scripts() {

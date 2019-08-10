@@ -1,4 +1,4 @@
-/*! elementor - v2.6.7 - 30-07-2019 */
+/*! elementor - v2.6.8 - 07-08-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -14226,7 +14226,7 @@ function (_Component) {
         id: "elementor-icons-manager__promotion__link",
         target: "_blank",
         rel: "noopener noreferrer"
-      }, elementor.translate('go_pro_»')));
+      }, elementor.translate('go_pro')));
     });
     return _this;
   }
@@ -14662,6 +14662,12 @@ helpers = {
     }
 
     elementor.channels.editor.trigger('Icon:insertion', iconType, iconValue, attributes, tag, view);
+
+    if ('object' === returnType) {
+      return {
+        rendered: false
+      };
+    }
   },
   isIconMigrated: function isIconMigrated(settings, controlName) {
     if (settings.__fa4_migrated && settings.__fa4_migrated[controlName]) {

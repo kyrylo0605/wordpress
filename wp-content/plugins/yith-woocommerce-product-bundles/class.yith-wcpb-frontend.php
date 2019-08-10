@@ -292,7 +292,7 @@ if ( !class_exists( 'YITH_WCPB_Frontend' ) ) {
             if ( $quantity <= 0 )
                 return false;
 
-            $cart_item_data = ( array ) apply_filters( 'woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id );
+            $cart_item_data = ( array ) apply_filters( 'woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id, $quantity );
             $cart_id        = WC()->cart->generate_cart_id( $product_id, $variation_id, $variation, $cart_item_data );
             $cart_item_key  = WC()->cart->find_product_in_cart( $cart_id );
 

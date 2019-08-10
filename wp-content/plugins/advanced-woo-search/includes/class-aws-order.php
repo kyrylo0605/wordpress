@@ -60,6 +60,14 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
             }
 
+            if ( ! $price_min && isset( $_GET['min_price'] ) && $_GET['min_price'] ) {
+                $price_min = sanitize_text_field( $_GET['min_price'] );
+            }
+
+            if ( ! $price_max && isset( $_GET['max_price'] ) && $_GET['max_price'] ) {
+                $price_max = sanitize_text_field( $_GET['max_price'] );
+            }
+
             if ( isset( $_GET['rating_filter'] ) && $_GET['rating_filter'] ) {
                 $rating = explode( ',', sanitize_text_field( $_GET['rating_filter'] ) );
             }
@@ -318,6 +326,9 @@ if ( ! class_exists( 'AWS_Order' ) ) :
          * Compare price values asc
          */
         private function compare_price_asc( $a, $b ) {
+            if ( ! is_numeric( $a['f_price'] ) || ! is_numeric( $b['f_price'] ) ) {
+                return 0;
+            }
             $a = intval( $a['f_price'] * 100 );
             $b = intval( $b['f_price'] * 100 );
             if ($a == $b) {
@@ -330,6 +341,9 @@ if ( ! class_exists( 'AWS_Order' ) ) :
          * Compare price values desc
          */
         private function compare_price_desc( $a, $b ) {
+            if ( ! is_numeric( $a['f_price'] ) || ! is_numeric( $b['f_price'] ) ) {
+                return 0;
+            }
             $a = intval( $a['f_price'] * 100 );
             $b = intval( $b['f_price'] * 100 );
             if ($a == $b) {

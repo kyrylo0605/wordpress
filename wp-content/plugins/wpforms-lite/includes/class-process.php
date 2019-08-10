@@ -272,7 +272,7 @@ class WPForms_Process {
 		}
 
 		if ( ! empty( $errors[ $form_id ] ) ) {
-			if ( empty( $this->errors[ $form_id ]['header'] ) ) {
+			if ( empty( $errors[ $form_id ]['header'] ) ) {
 				$errors[ $form_id ]['header'] = esc_html__( 'Form has not been submitted, please see the errors below.', 'wpforms-lite' );
 			}
 			$this->errors = $errors;

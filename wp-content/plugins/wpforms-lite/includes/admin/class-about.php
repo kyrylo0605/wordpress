@@ -274,8 +274,7 @@ class WPForms_About {
 				<figure>
 					<img src="<?php echo WPFORMS_PLUGIN_URL; ?>assets/images/about/team.jpg" alt="<?php esc_attr_e( 'The WPForms Team photo', 'wpforms-lite' ); ?>">
 					<figcaption>
-						<?php esc_html_e( 'The WPForms Team: Ethan, Jess, Slava, Syed, Jared, and Lindsay.', 'wpforms-lite' ); ?><br>
-						<?php esc_html_e( 'Not pictured: Pavlo, Matt, Calista, Daisy, Ijiene.', 'wpforms-lite' ); ?>
+						<?php esc_html_e( 'The WPForms Team', 'wpforms-lite' ); ?><br>
 					</figcaption>
 				</figure>
 			</div>
@@ -287,17 +286,18 @@ class WPForms_About {
 				<?php
 				foreach ( $am_plugins as $plugin => $details ) :
 
-					$is_mi     = ( 'google-analytics-for-wordpress/googleanalytics.php' === $plugin );
-					$is_mi_pro = false;
-					if ( $is_mi ) {
+					$have_pro = ( ! empty( $details['pro'] ) && ! empty( $details['pro']['plug'] ) );
+					$show_pro = false;
+					if ( $have_pro ) {
 						if ( array_key_exists( $plugin, $all_plugins ) ) {
 							if ( is_plugin_active( $plugin ) ) {
-								$is_mi_pro = true;
+								$show_pro = true;
 							}
-						} elseif ( array_key_exists( $details['pro']['plug'], $all_plugins ) ) {
-							$is_mi_pro = true;
 						}
-						if ( $is_mi_pro ) {
+						if ( array_key_exists( $details['pro']['plug'], $all_plugins ) ) {
+							$show_pro = true;
+						}
+						if ( $show_pro ) {
 							$plugin  = $details['pro']['plug'];
 							$details = $details['pro'];
 						}
@@ -328,7 +328,7 @@ class WPForms_About {
 						if ( isset( $details['act'] ) && 'go-to-url' === $details['act'] ) {
 							$status_class = 'status-go-to-url';
 						}
-						$status_text  = esc_html__( 'Not Installed', 'wpforms-lite' );
+						$status_text = esc_html__( 'Not Installed', 'wpforms-lite' );
 						// Button text/status.
 						$action_class = $status_class . ' button button-primary';
 						$action_text  = esc_html__( 'Install Plugin', 'wpforms-lite' );
@@ -351,7 +351,7 @@ class WPForms_About {
 									<strong>
 										<?php
 										printf(
-											/* translators: %s - status text. */
+											/* translators: %s - addon status label. */
 											esc_html__( 'Status: %s', 'wpforms-lite' ),
 											'<span class="status-label ' . $status_class . '">' . $status_text . '</span>'
 										);
@@ -776,6 +776,14 @@ class WPForms_About {
 				'name' => esc_html__( 'WP Mail SMTP', 'wpforms-lite' ),
 				'desc' => esc_html__( 'SMTP (Simple Mail Transfer Protocol) is an industry standard for sending emails. SMTP helps increase email deliverability by using proper authentication.', 'wpforms-lite' ),
 				'url'  => 'https://downloads.wordpress.org/plugin/wp-mail-smtp.zip',
+				'pro'  => array(
+					'plug' => 'wp-mail-smtp-pro/wp_mail_smtp.php',
+					'icon' => WPFORMS_PLUGIN_URL . 'assets/images/about/plugin-smtp.png',
+					'name' => esc_html__( 'WP Mail SMTP Pro', 'wpforms-lite' ),
+					'desc' => esc_html__( 'SMTP (Simple Mail Transfer Protocol) is an industry standard for sending emails. SMTP helps increase email deliverability by using proper authentication.', 'wpforms-lite' ),
+					'url'  => 'https://wpmailsmtp.com/pricing/',
+					'act'  => 'go-to-url',
+				),
 			),
 		);
 

@@ -3,7 +3,7 @@ Contributors: wpforms, jaredatch, smub, slaFFik
 Tags: contact form, contact form plugin, forms, form builder, custom form, contact button, contact me, custom contact form, form manager, form, forms builder, forms creator, captcha, recaptcha, Akismet, email form, web form, feedback form, payment form, survey form, donation form, email submit form, message form, mailchimp, mailchimp form, aweber, aweber form, paypal, paypal form, stripe, stripe form, getresponse, getresponse form, email subscription, contact form widget, user registration form, wordpress registration, wordpress login form, feedback
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 1.5.3.1
+Stable tag: 1.5.4.2
 Requires PHP: 5.3.3
 License: GNU General Public License v2.0 or later
 
@@ -391,7 +391,6 @@ WPForms is fully compatible with all versions of Google reCAPTCHA:
 
 Lastly, <a href="https://wpforms.com/addons/custom-catpcha-addon/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend">Custom Captchas</a> are available which allow you to create math or question based captchas for your contact forms.
 
-
 == Notes ==
 
 WPForms is absolutely, positively the most <a href="https://wpforms.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend" title="Best WordPress contact form plugin">beginner friendly WordPress contact form plugin</a> on the market. It is both easy and powerful.
@@ -407,6 +406,25 @@ Thank you
 Syed Balkhi
 
 == Changelog ==
+
+= 1.5.4.2 =
+- Changed: Renamed certain actions with typos in their names, backwards-compatible. Added a deprecation text using `do_action_deprecated()`.
+- Fixed: About Us page behaviour when WP Mail SMTP Pro is installed.
+- Fixed: reCAPTCHA settings could be saved without providing reCAPTCHA type.
+
+= 1.5.4.1 =
+- Fixed: Plugin Settings > Misc > 'View Email Summary Example' link errors.
+
+= 1.5.4 =
+- Added: Email Summaries.
+- Added: Form builder hotkey to save changes, CTRL + S.
+- Changed: Team photo under WPForms > About Us. :)
+- Fixed: Dynamic field population populates checkbox and radio fields values but not adding 'wpforms-selected' class to its containers.
+- Fixed: Dropdown field attributes are now accessible with `wpforms_field_properties` filter.
+- Fixed: Form builder field buttons overflowing when translated.
+- Fixed: Dashboard widget PHP error.
+- Fixed: Form can be submitted multiple times if "Submit button processing text" form setting empty.
+- Fixed: "Error loading block" in Gutenberg if Additional CSS form settings are provided.
 
 = 1.5.3.1 =
 - Fixed: Checkbox field validation issue when field is not required.

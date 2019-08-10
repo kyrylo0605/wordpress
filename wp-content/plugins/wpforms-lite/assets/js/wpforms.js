@@ -284,8 +284,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 								// Normal form.
 								if ( altText ) {
-									$submit.text( altText ).prop( 'disabled', true );
+									$submit.text( altText );
 								}
+
+								$submit.prop( 'disabled', true );
 
 								// Remove name attributes if needed.
 								$( '.wpforms-input-temp-name' ).removeAttr( 'name' );
@@ -1297,19 +1299,30 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		 */
 		currentIpToCountry: function( callback ) {
 
-			$.get( 'https://ipapi.co/jsonp', function() {}, 'jsonp' )
-
-				.always( function( resp ) {
-
-					var countryCode = ( resp && resp.country ) ? resp.country : '';
-
-					if ( ! countryCode ) {
-						var lang = app.getFirstBrowserLanguage();
-						countryCode = lang.indexOf( '-' ) > -1 ? lang.split( '-' ).pop() : '';
+			$.get( 'https://geo.wpforms.com/v2/geolocate/json/' )
+				.done( function( resp ) {
+					if ( resp && resp.country_code ) {
+						callback( resp.country_code );
+					} else {
+						fallback();
 					}
-
-					callback( countryCode );
+				} )
+				.fail( function( resp ) {
+					fallback();
 				} );
+
+			var fallback = function() {
+
+				$.get( 'https://ipapi.co/jsonp', function() {}, 'jsonp' )
+					 .always( function( resp ) {
+						 var countryCode = ( resp && resp.country ) ? resp.country : '';
+						 if ( ! countryCode ) {
+							 var lang = app.getFirstBrowserLanguage();
+							 countryCode = lang.indexOf( '-' ) > -1 ? lang.split( '-' ).pop() : '';
+						 }
+						 callback( countryCode );
+					 } );
+			};
 		},
 
 		/**

@@ -184,6 +184,9 @@
 	padding: 12px 5px 12px 18px;
 	border-radius: 2px;
 	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 #wpforms-panel-fields .wpforms-add-fields-button.upgrade-modal,

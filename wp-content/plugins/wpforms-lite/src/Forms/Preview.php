@@ -117,7 +117,7 @@ class Preview {
 	public function the_title( $title ) {
 
 		if ( in_the_loop() ) {
-			$title = sprintf(
+			$title = sprintf( /* translators: %s - form title. */
 				esc_html__( '%s Preview', 'wpforms-lite' ),
 				! empty( $this->form_data['settings']['form_title'] ) ? sanitize_text_field( $this->form_data['settings']['form_title'] ) : esc_html__( 'Form', 'wpforms-lite' )
 			);

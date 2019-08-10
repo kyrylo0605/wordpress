@@ -38,7 +38,7 @@ class WPForms_Settings {
 	public function init() {
 
 		// Check what page we are on.
-		$page = isset( $_GET['page'] ) ? $_GET['page'] : '';
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.CSRF.NonceVerification
 
 		// Only load if we are actually on the settings page.
 		if ( 'wpforms-settings' === $page ) {
@@ -50,7 +50,7 @@ class WPForms_Settings {
 			$this->save_settings();
 
 			// Determine the current active settings tab.
-			$this->view = isset( $_GET['view'] ) ? esc_html( $_GET['view'] ) : 'general';
+			$this->view = isset( $_GET['view'] ) ? sanitize_key( wp_unslash( $_GET['view'] ) ) : 'general'; // phpcs:ignore WordPress.CSRF.NonceVerification
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueues' ) );
 			add_action( 'wpforms_admin_page', array( $this, 'output' ) );
@@ -68,11 +68,11 @@ class WPForms_Settings {
 	public function save_settings() {
 
 		// Check nonce and other various security checks.
-		if ( ! isset( $_POST['wpforms-settings-submit'] ) ) {
+		if ( ! isset( $_POST['wpforms-settings-submit'] ) || empty( $_POST['nonce'] ) ) {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'wpforms-settings-nonce' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wpforms-settings-nonce' ) ) {
 			return;
 		}
 
@@ -151,6 +151,35 @@ class WPForms_Settings {
 	 * @since 1.0.0
 	 */
 	public function enqueues() {
+
+		$min = \wpforms_get_min_suffix();
+
+		// Enqueue Lite's assets.
+		if ( ! wpforms()->pro ) {
+			\wp_enqueue_script(
+				'wpforms-upgrade',
+				\WPFORMS_PLUGIN_URL . "lite/assets/js/admin/upgrade{$min}.js",
+				array( 'jquery' ),
+				\WPFORMS_VERSION,
+				true
+			);
+
+			\wp_localize_script(
+				'wpforms-upgrade',
+				'wpforms_upgrade',
+				array(
+					'error'                         => esc_html__( 'Oops!', 'wpforms-lite' ),
+					'error_intro'                   => esc_html__( 'Unfortunately, there was an server connection error:', 'wpforms-lite' ),
+					'upgrd_to_pro_license_ok_title' => esc_html__( 'Almost Done', 'wpforms-lite' ),
+					'upgrd_to_pro_license_ok_msg'   => esc_html__( 'We can automatically upgrade the installed version to WPForms PRO.', 'wpforms-lite' ),
+					'upgrd_to_pro_btn_ok'           => esc_html__( 'Ok', 'wpforms-lite' ),
+					'upgrd_to_pro_btn_upgrade'      => esc_html__( 'Upgrade now', 'wpforms-lite' ),
+					'upgrd_to_pro_btn_activate'     => esc_html__( 'Activate now', 'wpforms-lite' ),
+					'upgrd_to_pro_btn_cancel'       => esc_html__( 'Do upgrade later', 'wpforms-lite' ),
+				)
+			);
+		}
+
 		do_action( 'wpforms_settings_enqueue' );
 	}
 
@@ -414,7 +443,7 @@ class WPForms_Settings {
 					'id'      => 'recaptcha-type',
 					'name'    => esc_html__( 'Type', 'wpforms-lite' ),
 					'type'    => 'radio',
-					'default' => 'default',
+					'default' => 'v2',
 					'options' => array(
 						'v2'        => esc_html__( 'Checkbox reCAPTCHA v2', 'wpforms-lite' ),
 						'invisible' => esc_html__( 'Invisible reCAPTCHA v2', 'wpforms-lite' ),
@@ -563,7 +592,7 @@ class WPForms_Settings {
 	 *
 	 * @since 1.3.9
 	 *
-	 * @param string $view
+	 * @param string $view View slug.
 	 *
 	 * @return array
 	 */

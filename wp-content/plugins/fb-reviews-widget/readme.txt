@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, facebook reviews, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.2
-Stable tag: 1.5.5
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,7 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 * Free!
 * SEO
 * Trim long reviews with "read more" link
+* Support page builders: Elementor, Page Origin, Beaver Builder, WPBakery, Divi
 * Display all Facebook page reviews per location
 * Shows real reviews from Facebook users to increase user confidence
 * Easy get of Facebook pages and instantly show reviews
@@ -74,6 +75,14 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.5.7 =
+* Check and fix all translations
+
+= 1.5.6 =
+* Bugfix: fix French translation
+* Bugfix: fix German translation
+* Bugfix: css max-width photo conflict
 
 = 1.5.5 =
 * Update to WordPress 5.2

@@ -83,6 +83,9 @@ $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_site\_tran
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_timeout\_wpforms\_%'" );
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_site\_transient\_timeout\_wpforms\_%'" );
 
+// Remove plugin cron jobs.
+wp_clear_scheduled_hook( 'wpforms_email_summaries_cron' );
+
 // Remove uploaded files.
 $uploads_directory = wp_upload_dir();
 if ( ! empty( $uploads_directory['error'] ) ) {

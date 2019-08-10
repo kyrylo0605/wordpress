@@ -22,9 +22,10 @@ if ( $multiple && !is_array( $value ) )
 $class = isset( $class ) ? $class : 'yith-plugin-fw-select';
 ?>
     <select<?php echo $multiple_html ?>
-        id="<?php echo $id ?>"
+            id="<?php echo $id ?>"
         name="<?php echo $name ?><?php if ( $multiple ) echo "[]" ?>" <?php if ( isset( $std ) ) : ?>
         data-std="<?php echo ( $multiple ) ? implode( ' ,', $std ) : $std ?>"<?php endif ?>
+
         class="<?php echo $class ?>"
 	    <?php echo $placeholder ?>
         <?php echo $custom_attributes ?>

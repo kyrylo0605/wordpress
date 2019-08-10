@@ -56,7 +56,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                             <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <input type="text" name="<?php echo esc_attr( $value['id'] ); ?>" class="regular-text" value="<?php echo isset( $plugin_options[ $value['id'] ] ) ? esc_attr( stripslashes( $plugin_options[ $value['id'] ] ) ) : ''; ?>">
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -66,7 +66,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                             <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <input type="text" name="<?php echo esc_attr( $value['id'] ); ?>" class="regular-text" value="<?php echo esc_attr( stripslashes( $plugin_options[ $value['id'] ] ) ); ?>">
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                                 <img style="display: block;max-width: 100px;margin-top: 20px;" src="<?php echo esc_url( $plugin_options[ $value['id'] ] ); ?>">
                             </td>
                         </tr>
@@ -77,7 +77,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                             <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <input type="number" name="<?php echo esc_attr( $value['id'] ); ?>" class="regular-text" value="<?php echo esc_attr( stripslashes( $plugin_options[ $value['id'] ] ) ); ?>">
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -87,7 +87,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                             <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
                                 <textarea id="<?php echo esc_attr( $value['id'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" cols="65" rows="4"><?php print stripslashes( $plugin_options[ $value['id'] ] ); ?></textarea>
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -100,7 +100,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                 <?php foreach ( $value['choices'] as $val => $label ) { ?>
                                     <input type="checkbox" name="<?php echo esc_attr( $value['id'] . '[' . $val . ']' ); ?>" id="<?php echo esc_attr( $value['id'] . '_' . $val ); ?>" value="1" <?php checked( $checkbox_options[$val], '1' ); ?>> <label for="<?php echo esc_attr( $value['id'] . '_' . $val ); ?>"><?php echo esc_html( $label ); ?></label><br>
                                 <?php } ?>
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -112,7 +112,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                 <?php foreach ( $value['choices'] as $val => $label ) { ?>
                                     <input class="radio" type="radio" name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'].$val ); ?>" value="<?php echo esc_attr( $val ); ?>" <?php checked( $plugin_options[ $value['id'] ], $val ); ?>> <label for="<?php echo esc_attr( $value['id'].$val ); ?>"><?php echo esc_html( $label ); ?></label><br>
                                 <?php } ?>
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -126,7 +126,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                         <option value="<?php echo esc_attr( $val ); ?>" <?php selected( $plugin_options[ $value['id'] ], $val ); ?>><?php echo esc_html( $label ); ?></option>
                                     <?php } ?>
                                 </select>
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -142,7 +142,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                         <option value="<?php echo esc_attr( $val ); ?>"<?php echo $selected; ?>><?php echo esc_html( $label ); ?></option>
                                     <?php } ?>
                                 </select>
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
 
                                 <?php if ( $value['sub_option'] ): ?>
                                     <?php $sub_options = $value['sub_option']; ?>
@@ -171,7 +171,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                         </li>
                                     <?php } ?>
                                 </ul>
-                                <br><span class="description"><?php echo $value['desc']; ?></span>
+                                <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>
                         <?php break;
@@ -202,7 +202,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                     });
                                 </script>
 
-                                <span class="description"><?php echo $value['desc']; ?></span><br><br>
+                                <span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span><br><br>
 
                                 <?php
                                 $all_buttons = $value['choices'];
@@ -213,8 +213,8 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                 <div class="sortable-container">
 
                                     <div class="sortable-title">
-                                        <?php esc_html_e( 'Active sources', 'aws' ) ?><br>
-                                        <?php esc_html_e( 'Change order by drag&drop', 'aws' ) ?>
+                                        <?php esc_html_e( 'Active sources', 'advanced-woo-search' ) ?><br>
+                                        <?php esc_html_e( 'Change order by drag&drop', 'advanced-woo-search' ) ?>
                                     </div>
 
                                     <ul id="sti-sortable2" class="sti-sortable enabled connectedSortable">
@@ -233,8 +233,8 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                                 <div class="sortable-container">
 
                                     <div class="sortable-title">
-                                        <?php esc_html_e( 'Deactivated sources', 'aws' ) ?><br>
-                                        <?php esc_html_e( 'Excluded from search results', 'aws' ) ?>
+                                        <?php esc_html_e( 'Deactivated sources', 'advanced-woo-search' ) ?><br>
+                                        <?php esc_html_e( 'Excluded from search results', 'advanced-woo-search' ) ?>
                                     </div>
 
                                     <ul id="sti-sortable1" class="sti-sortable disabled connectedSortable">
@@ -268,7 +268,7 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
             echo '</tbody>';
             echo '</table>';
 
-            echo '<p class="submit"><input name="Submit" type="submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'aws' ) . '" /></p>';
+            echo '<p class="submit"><input name="Submit" type="submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'advanced-woo-search' ) . '" /></p>';
 
         }
 

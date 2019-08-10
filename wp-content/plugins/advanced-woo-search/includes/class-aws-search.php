@@ -571,12 +571,12 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         if ( $product->is_in_stock() ) {
                             $stock_status = array(
                                 'status' => true,
-                                'text'   => esc_html__( 'In stock', 'aws' )
+                                'text'   => esc_html__( 'In stock', 'advanced-woo-search' )
                             );
                         } else {
                             $stock_status = array(
                                 'status' => false,
-                                'text'   => esc_html__( 'Out of stock', 'aws' )
+                                'text'   => esc_html__( 'Out of stock', 'advanced-woo-search' )
                             );
                         }
                     }
