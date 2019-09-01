@@ -1,9 +1,9 @@
 === SiteOrigin Widgets Bundle ===
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
-Tested up to: 5.2
-Stable tag: 1.15.7
-Build time: 2019-05-22T09:57:58-07:00
+Tested up to: 5.2.2
+Stable tag: 1.15.8
+Build time: 2019-08-19T15:01:23+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/premium/
@@ -64,6 +64,17 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.15.8 - 20 August 2019 =
+* Run FitText setup on window resize events.
+* TinyMCE field: Copy any missing content CSS urls from main editor.
+* Post Carousel: Prevent scrolling past the last item.
+* Contact Form: Prevent sending to testing/dev emails.
+* Widget block: Add `h3` wrapper for widget titles.
+* Image widget: Remove `width:inherit;` IE8 fix for bound setting which breaks in IE11.
+* Sliders: Added padding to slider navigation arrows.
+* Accordion: Check if if anchor is present in URL and scroll to Accordion item.
+* Various form description and styling fixes.
 
 = 1.15.7 - 22 May 2019 =
 * Widget Block: Ensure changed data is retained after previewing.

@@ -294,8 +294,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $relevance_title_like   = 40 + 2 * $search_term_len;
                 $relevance_content_like = 35 + 1 * $search_term_len;
 
-
-                $search_term_norm = preg_replace( '/(s|es|ies)$/i', '', $search_term );
+                $search_term_norm = AWS_Plurals::singularize( $search_term );
 
                 if ( $search_term_norm && $search_term_len > 3 && strlen( $search_term_norm ) > 2 ) {
                     $search_term = $search_term_norm;
@@ -751,7 +750,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
                     $search_term_len = strlen( $search_term );
                     $relevance = 40 + 2 * $search_term_len;
-                    $search_term_norm = preg_replace( '/(s|es|ies)$/i', '', $search_term );
+                    $search_term_norm = AWS_Plurals::singularize( $search_term );
 
                     if ( $search_term_norm && $search_term_len > 3 && strlen( $search_term_norm ) > 2 ) {
                         $search_term = $search_term_norm;

@@ -820,7 +820,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             if ( ! empty( $str_array ) && $str_array ) {
                 foreach( $str_array as $str_item_term => $str_item_num ) {
                     if ( $str_item_term  ) {
-                        $new_array_key = preg_replace( '/(s|es|ies)$/i', '', $str_item_term );
+                        $new_array_key = AWS_Plurals::singularize( $str_item_term );
 
                         if ( $new_array_key && strlen( $str_item_term ) > 3 && strlen( $new_array_key ) > 2 ) {
                             if ( ! isset( $str_new_array[$new_array_key] ) ) {

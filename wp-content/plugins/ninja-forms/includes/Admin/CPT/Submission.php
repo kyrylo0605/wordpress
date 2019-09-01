@@ -175,7 +175,7 @@ class NF_Admin_CPT_Submission
             if( in_array( $field[ 'settings' ][ 'type' ], array_values( $hidden_field_types ) ) ) continue;
 
             $id = $field[ 'id' ];
-            $label = $field[ 'settings' ][ 'label' ];
+            $label = isset( $field[ 'settings' ][ 'label' ] ) ? $field[ 'settings'][ 'label' ] : '';
             $columns[ $id ] = ( isset( $field[ 'settings' ][ 'admin_label' ] ) && $field[ 'settings' ][ 'admin_label' ] ) ? $field[ 'settings' ][ 'admin_label' ] : $label;
         }
 

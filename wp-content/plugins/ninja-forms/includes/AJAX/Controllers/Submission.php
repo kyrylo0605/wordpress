@@ -278,10 +278,24 @@ class NF_AJAX_Controllers_Submission extends NF_Abstracts_Controller
              */
             
             global $wpdb;
+            // @TODO: Rewrite this to use our submissions API.
             $sql = $wpdb->prepare( "SELECT COUNT(m.meta_id) FROM `" . $wpdb->prefix . "postmeta` AS m LEFT JOIN `" . $wpdb->prefix . "posts` AS p ON p.id = m.post_id WHERE m.meta_key = '_field_%d' AND m.meta_value = '%s' AND p.post_status = 'publish'", $unique_field_id, $unique_field_value );
             $result = $wpdb->get_results( $sql, 'ARRAY_N' );
             if ( intval( $result[ 0 ][ 0 ] ) > 0 ) {
                 $this->_errors['fields'][ $unique_field_id ] = array( 'slug' => 'unique_field', 'message' => $unique_field_error );
+                $this->_respond();
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Verify the submission limit.
+        |--------------------------------------------------------------------------
+        */
+        if ( isset( $this->_data[ 'settings' ][ 'sub_limit_number' ] ) && ! empty( $this->_data[ 'settings' ][ 'sub_limit_number' ] ) ) {
+            $subs = Ninja_Forms()->form( $this->_form_id )->get_subs();
+            if ( count( $subs ) >= intval( $this->_data[ 'settings' ][ 'sub_limit_number' ] ) ) {
+                $this->_errors[ 'form' ][] = $this->_data[ 'settings' ][ 'sub_limit_msg' ];
                 $this->_respond();
             }
         }

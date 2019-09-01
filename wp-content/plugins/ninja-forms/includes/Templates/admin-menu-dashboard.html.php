@@ -126,7 +126,7 @@
                     <div class="pricing-title"><?php _e( 'PERSONAL', 'ninja-forms' ); ?></div>
                     <div class="pricing-price">$99 / <?php _e( 'year', 'ninja-forms' ); ?></div>
                     <div class="pricing-savings"><?php _e( 'SAVE OVER $280!', 'ninja-forms' ); ?></div>
-                    <div class="pricing-cta"><a target="_blank" href="https://ninjaforms.com/checkout/?edd_action=add_to_cart&download_id=471356&utm_source=ninja-forms-plugin&utm_medium=memberships-integrations-tab&utm_campaign=personal-buy-now" class="nf-button primary"><?php _e( 'Buy Now', 'ninja-forms' ); ?></a></div>
+                    <div class="pricing-cta"><a target="_blank" href="https://ninjaforms.com/checkout/?edd_action=add_to_cart&download_id=471356&utm_source=Ninja+Forms+Plugin&utm_medium=Apps+and+Integrations&utm_campaign=Dashboard+Memberships&utm_content=Personal+Buy+Now" class="nf-button primary"><?php _e( 'Buy Now', 'ninja-forms' ); ?></a></div>
                 </div>
                 <div class="pricing-body">
                     <div>
@@ -184,7 +184,7 @@
                     <div class="pricing-title"><?php _e( 'PROFESSIONAL', 'ninja-forms' ); ?></div>
                     <div class="pricing-price">$199 / <?php _e( 'year', 'ninja-forms' ); ?></div>
                     <div class="pricing-savings"><?php _e( 'SAVE OVER', 'ninja-forms' ); ?> $1500!</div>
-                    <div class="pricing-cta"><a target="_blank" href="https://ninjaforms.com/checkout/?edd_action=add_to_cart&download_id=471355&?utm_source=ninja-forms-plugin&utm_medium=memberships-integrations-tab&utm_campaign=professional-buy-now" class="nf-button primary"><?php _e( 'Buy Now', 'ninja-forms' ); ?></a></div>
+                    <div class="pricing-cta"><a target="_blank" href="https://ninjaforms.com/checkout/?edd_action=add_to_cart&download_id=471355&?utm_source=Ninja+Forms+Plugin&utm_medium=Apps+and+Integrations&utm_campaign=Dashboard+Memberships&utm_content=Professional+Buy+Now" class="nf-button primary"><?php _e( 'Buy Now', 'ninja-forms' ); ?></a></div>
                 </div>
                 <div class="pricing-body">
                     <div>
@@ -236,7 +236,7 @@
                     <div class="pricing-title"><?php _e( 'AGENCY', 'ninja-forms' ); ?></div>
                     <div class="pricing-price">$499 / year</div>
                     <div class="pricing-savings"><?php _e( 'SAVE OVER', 'ninja-forms' ); ?> $3100!</div>
-                    <div class="pricing-cta"><a target="_blank" href="https://ninjaforms.com/checkout/?edd_action=add_to_cart&download_id=203757&utm_medium=plugin&utm_source=plugin-dashboard&utm_campaign=Ninja+Forms+Memberships&utm_content=Agency+Membership" class="nf-button primary"><?php _e( 'Buy Now', 'ninja-forms' ); ?></a></div>
+                    <div class="pricing-cta"><a target="_blank" href="https://ninjaforms.com/checkout/?edd_action=add_to_cart&download_id=203757&utm_source=Ninja+Forms+Plugin&utm_medium=Apps+and+Integrations&utm_campaign=Dashboard+Memberships&utm_content=Agency+Buy+Now" class="nf-button primary"><?php _e( 'Buy Now', 'ninja-forms' ); ?></a></div>
                 </div>
                 <div class="pricing-body">
                     <div>
@@ -267,7 +267,7 @@
 
     <div class="widget widget-plan-notice">
         <p class="widget-title"><?php _e( 'What else comes with Ninja Forms?', 'ninja-forms' ); ?></p>
-        <a href="https://ninjaforms.com/extensions//?utm_medium=plugin&utm_source=plugin-dashboard&utm_campaign=Ninja+Forms+Memberships&utm_content=Features" target="_blank" class="nf-button primary feature-list-link"><?php _e( 'Checkout our full list of features!', 'ninja-forms' ); ?> <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+        <a href="https://ninjaforms.com/extensions/?utm_source=Ninja+Forms+Plugin&utm_medium=Apps+and+Integrations&utm_campaign=Dashboard+Features+Link" target="_blank" class="nf-button primary feature-list-link"><?php _e( 'Checkout our full list of features!', 'ninja-forms' ); ?> <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
     </div>
 
 

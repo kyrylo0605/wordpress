@@ -109,8 +109,66 @@ class Licenser extends Abstract_Module {
 		$valid_string      = apply_filters( $this->product->get_key() . '_lc_valid_string', 'Valid' );
 		$invalid_string    = apply_filters( $this->product->get_key() . '_lc_invalid_string', 'Invalid' );
 		$license_message   = apply_filters( $this->product->get_key() . '_lc_license_message', 'Enter your license from %s purchase history in order to get %s updates' );
+		?>
+		<style type="text/css">
+			input.themeisle-sdk-text-input-valid {
+				border: 1px solid #7ad03a;
+			}
 
-		echo '<p ><input ' . ( ( 'valid' === $status ) ? ( 'style="border:1px solid #7ad03a; "' ) : '' ) . ' type="text" id="' . $this->product->get_key() . '_license" name="' . $this->product->get_key() . '_license" value="' . $value . '" /><a ' . ( ( 'valid' === $status ) ? ( 'style="color:#fff;background:  #7ad03a; display: inline-block;text-decoration: none;font-size: 13px;line-height: 26px;height: 26px; margin-left:5px; padding: 0 10px 1px;  -webkit-border-radius: 3px;border-radius: 3px; ">' . $valid_string ) : ( 'style="color:#fff;background:  #dd3d36; display: inline-block;text-decoration: none;font-size: 13px;line-height: 26px;height: 26px; margin-left:5px; padding: 0 10px 1px;  -webkit-border-radius: 3px;border-radius: 3px; ">' . $invalid_string ) ) . ' </a>&nbsp;&nbsp;&nbsp;<button name="' . $this->product->get_key() . '_btn_trigger" ' . ( ( 'valid' === $status ) ? ( ' class="button button-primary">' . $deactivate_string ) : ( ' class="button button-primary" value="yes" type="submit" >' . $activate_string ) ) . ' </button></p><p class="description">' . sprintf( $license_message, '<a  href="' . $this->get_api_url() . '">' . $this->get_distributor_name() . '</a> ', $this->product->get_type() ) . '</p>';
+			input.themeisle-sdk-license-input {
+				width: 300px;
+				padding: 5px;
+			}
+
+			.themeisle-sdk-license-deactivate-cta {
+				color: #fff;
+				background: #7ad03a;
+				display: inline-block;
+				text-decoration: none;
+				font-size: 13px;
+				line-height: 30px;
+				height: 26px;
+				margin-left: 5px;
+				padding: 0 10px 3px;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+			}
+
+			.themeisle-sdk-license-activate-cta {
+				color: #fff;
+				background: #dd3d36;
+				display: inline-block;
+				text-decoration: none;
+				font-size: 13px;
+				line-height: 30px;
+				height: 26px;
+				margin-left: 5px;
+				padding: 0 10px 3px;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+			}
+
+			button.button.themeisle-sdk-licenser-button-cta {
+				line-height: 26px;
+				height: 29px;
+				vertical-align: top;
+			}
+
+		</style>
+		<?php
+		echo sprintf(
+			'<p>%s<input class="themeisle-sdk-license-input %s" type="text" id="%s_license" name="%s_license" value="%s" /><a class="%s">%s</a>&nbsp;&nbsp;&nbsp;<button name="%s_btn_trigger" class="button button-primary themeisle-sdk-licenser-button-cta" value="yes" type="submit" >%s</button></p><p class="description">%s</p>',
+			( ( 'valid' === $status ) ? sprintf( '<input type="hidden" value="%s" name="%s_license" />', $this->product->get_key(), $value ) : '' ),
+			( ( 'valid' === $status ) ? 'themeisle-sdk-text-input-valid' : '' ),
+			$this->product->get_key(),
+			( ( 'valid' === $status ) ? $this->product->get_key() . '_mask' : $this->product->get_key() ),
+			( ( 'valid' === $status ) ? ( str_repeat( '*', 30 ) . substr( $value, - 5 ) ) : $value ),
+			( 'valid' === $status ? 'themeisle-sdk-license-deactivate-cta' : 'themeisle-sdk-license-activate-cta' ),
+			( 'valid' === $status ? $valid_string : $invalid_string ),
+			$this->product->get_key(),
+			( 'valid' === $status ? $deactivate_string : $activate_string ),
+			sprintf( $license_message, '<a  href="' . $this->get_api_url() . '">' . $this->get_distributor_name() . '</a> ', $this->product->get_type() )
+		);
 
 	}
 
@@ -424,7 +482,7 @@ class Licenser extends Abstract_Module {
 	function update_nag() {
 		$theme        = wp_get_theme( $this->product->get_slug() );
 		$api_response = get_transient( $this->product_key );
-		if ( false === $api_response ) {
+		if ( false === $api_response || ! isset( $api_response->new_version ) ) {
 			return;
 		}
 		$update_url     = wp_nonce_url( 'update.php?action=upgrade-theme&amp;theme=' . urlencode( $this->product->get_slug() ), 'upgrade-theme_' . $this->product->get_slug() );
@@ -436,7 +494,7 @@ class Licenser extends Abstract_Module {
 				'<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4s">Check out what\'s new</a> or <a href="%5$s"%6$s>update now</a>.',
 				$theme->get( 'Name' ),
 				$api_response->new_version,
-				'#TB_inline?width=640&amp;inlineId=' . $this->product->get_version() . '_changelog',
+				sprintf( '%s&TB_iframe=true&amp;width=1024&amp;height=800', $this->product->get_changelog() ),
 				$theme->get( 'Name' ),
 				$update_url,
 				$update_onclick
@@ -486,7 +544,7 @@ class Licenser extends Abstract_Module {
 
 				return false;
 			}
-			$update_data->sections = maybe_unserialize( $update_data->sections );
+			$update_data->sections = isset( $update_data->sections ) ? maybe_unserialize( $update_data->sections ) : null;
 
 			set_transient( $this->product_key, $update_data, 12 * HOUR_IN_SECONDS );
 		}
@@ -509,18 +567,17 @@ class Licenser extends Abstract_Module {
 		$api_params = array(
 			'edd_action' => 'get_version',
 			'version'    => $this->product->get_version(),
-			'license'    => $this->license_key,
-			'name'       => $this->product->get_name(),
+			'license'    => empty( $this->license_key ) ? 'free' : '',
+			'name'       => rawurlencode( $this->product->get_name() ),
 			'slug'       => $this->product->get_slug(),
-			'author'     => $this->get_distributor_name(),
+			'author'     => rawurlencode( $this->get_distributor_name() ),
 			'url'        => rawurlencode( home_url() ),
 		);
 		$response   = wp_remote_get(
-			$this->get_api_url(),
+			add_query_arg( $api_params, $this->get_api_url() ),
 			array(
 				'timeout'   => 15,
 				'sslverify' => false,
-				'body'      => $api_params,
 			)
 		);
 		if ( is_wp_error( $response ) || 200 != wp_remote_retrieve_response_code( $response ) ) {

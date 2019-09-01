@@ -89,6 +89,10 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 
 == Changelog ==
 
+= 2.7.5 =
+* Fix : Fixed admin bug with certain galleries
+* Update : Updated to latest FooBox client JS & CSS
+
 = 2.7.3 =
 * Fix : Fixed get_blog_list error
 * Update : Freemius SDK 2.3.0

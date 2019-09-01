@@ -1,3 +1,37 @@
+## [3.1.2](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.1...v3.1.2) (2019-08-12)
+
+
+### Bug Fixes
+
+* phpunit test case ([efe851c](https://github.com/Codeinwp/themeisle-sdk/commit/efe851c))
+* url format for license endpoint, improve changelog handling and license checks ([a492c68](https://github.com/Codeinwp/themeisle-sdk/commit/a492c68))
+
+## [3.1.1](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.0...v3.1.1) (2019-08-08)
+
+
+### Bug Fixes
+
+* adds is_file for file existence check ([d1205c4](https://github.com/Codeinwp/themeisle-sdk/commit/d1205c4))
+* adds is_file for file existence check ([be119c1](https://github.com/Codeinwp/themeisle-sdk/commit/be119c1))
+
+# [3.1.0](https://github.com/Codeinwp/themeisle-sdk/compare/v3.0.10...v3.1.0) (2019-08-05)
+
+
+### Bug Fixes
+
+* adds extra comments for rest of the options, fix [#64](https://github.com/Codeinwp/themeisle-sdk/issues/64) ([018b22f](https://github.com/Codeinwp/themeisle-sdk/commit/018b22f))
+* hide license key when active under a password mask, fix [#67](https://github.com/Codeinwp/themeisle-sdk/issues/67) ([c0633c2](https://github.com/Codeinwp/themeisle-sdk/commit/c0633c2))
+* new uninstall feedback popup issues ([5bda4bd](https://github.com/Codeinwp/themeisle-sdk/commit/5bda4bd))
+* phpcs indentation errors ([d59ed4f](https://github.com/Codeinwp/themeisle-sdk/commit/d59ed4f))
+* undefined notices on license check, fix [#60](https://github.com/Codeinwp/themeisle-sdk/issues/60) ([7f56a97](https://github.com/Codeinwp/themeisle-sdk/commit/7f56a97))
+* uninstall feedback popup placement [[#61](https://github.com/Codeinwp/themeisle-sdk/issues/61)] ([1102d6c](https://github.com/Codeinwp/themeisle-sdk/commit/1102d6c))
+
+
+### Features
+
+* new product feedback popup ([f0dbab3](https://github.com/Codeinwp/themeisle-sdk/commit/f0dbab3))
+* new uninstall feedback form for themes ([8a29f21](https://github.com/Codeinwp/themeisle-sdk/commit/8a29f21))
+
 ## [3.0.10](https://github.com/Codeinwp/themeisle-sdk/compare/v3.0.9...v3.0.10) (2019-07-16)
 
 

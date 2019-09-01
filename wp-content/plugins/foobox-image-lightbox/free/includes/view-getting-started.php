@@ -180,9 +180,8 @@ $button_text = $show_trial_message ? __( 'Already convinced? Upgrade to PRO!', '
 		<?php if ( !class_exists( 'FooGallery_Plugin' ) ) { ?>
 		<h2><?php _e( 'Looking for a Gallery Plugin?', 'foobox-image-lightbox' );?></h2>
 		<p>
-			<?php printf( __( 'Creating galleries has never been easier with our free %s plugin and our premium %s extension, both of which work beautifully with FooBox!', 'foobox-image-lightbox' ),
-					'<strong><a target="_blank" href="' . $foogallery_url . '">FooGallery</a></strong>',
-					'<strong><a target="_blank" href="http://fooplugins.com/plugins/foovideo?utm_source=fooboxfreeplugin&utm_medium=fooboxfreefoovideolink&utm_campaign=foobox_free_admin_notice">FooVideo</a></strong>'); ?>
+			<?php printf( __( 'Creating image and video galleries has never been easier with our %s plugin, which works beautifully with FooBox!', 'foobox-image-lightbox' ),
+					'<strong><a target="_blank" href="' . $foogallery_url . '">FooGallery</a></strong>' ); ?>
 		</p>
 		<h4><?php printf( '<a href="%s" target="_blank">%s</a>', $foogallery_url, __( 'Download FooGallery', 'foobox-image-lightbox' ) ); ?></h4>
 		<?php } ?>

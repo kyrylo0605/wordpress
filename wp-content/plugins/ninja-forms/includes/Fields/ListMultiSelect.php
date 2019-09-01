@@ -34,7 +34,7 @@ class NF_Fields_ListMultiselect extends NF_Abstracts_List
 
         $field_options = $field->get_setting( 'options' );
         $field_options = apply_filters( 'ninja_forms_render_options', $field_options, $field->get_settings() );
-        $field_options = apply_filters( 'ninja_forms_render_options_' . $field->get_type(), $field_options, $field->get_settings() );
+        $field_options = apply_filters( 'ninja_forms_render_options_' . $this->_type, $field_options, $field->get_settings() );
 
         $options = '';
         foreach( $field_options as $option ){

@@ -35,7 +35,7 @@ class NF_Fields_ListCountry extends NF_Abstracts_List
         );
 
         add_filter( 'ninja_forms_custom_columns',                          array( $this, 'custom_columns'   ), 10, 2 );
-        add_filter( 'ninja_forms_render_options_' . $this->_name,          array( $this, 'filter_options'   ), 10, 2 );
+        add_filter( 'ninja_forms_render_options_' . $this->_type,          array( $this, 'filter_options'   ), 10, 2 );
         add_filter( 'ninja_forms_subs_export_field_value_' . $this->_name, array( $this, 'filter_csv_value' ), 10, 2 );
     }
 
@@ -88,7 +88,7 @@ class NF_Fields_ListCountry extends NF_Abstracts_List
 
         $options = $this->get_options();
         $options = apply_filters( 'ninja_forms_render_options', $options, $field->get_settings() );
-        $options = apply_filters( 'ninja_forms_render_options_' . $field->get_type(), $options, $field->get_settings() );
+        $options = apply_filters( 'ninja_forms_render_options_' . $this->_type, $options, $field->get_settings() );
 
         ob_start();
         echo "<select name='fields[$id]'>";

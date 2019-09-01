@@ -72,6 +72,16 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             add_filter( 'aws_terms_exclude_product_cat', array( $this, 'filter_protected_cats_term_exclude' ) );
             add_filter( 'aws_exclude_products', array( $this, 'filter_products_exclude' ) );
 
+            // Seamless integration
+            if ( AWS()->get_settings( 'seamless' ) === 'true' ) {
+                add_filter( 'et_html_main_header', array( $this, 'et_html_main_header' ) );
+            }
+
+            // Wholesale plugin hide certain products
+            if ( class_exists( 'WooCommerceWholeSalePrices' ) ) {
+                add_filter( 'aws_search_results_products',  array( $this,'wholesale_hide_products' ) );
+            }
+
         }
 
         /*
@@ -375,8 +385,61 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
         }
 
+        /*
+         * Divi theme seamless integration for header
+         */
+        public function et_html_main_header( $html ) {
+            if ( function_exists( 'aws_get_search_form' ) ) {
+                $pattern = '/(<form.*?<\/form>)/i';
+                $form = aws_get_search_form(false);
+                $html = '<style>.aws-container { float: right;margin-right: 40px;margin-top: 20px; }</style>' . $html;
+                $html = trim(preg_replace('/\s\s+/', ' ', $html));
+                $html = preg_replace( $pattern, $form, $html );
+            }
+            return $html;
+        }
+
+        /*
+         * Wholesale plugin hide products
+         */
+        public function wholesale_hide_products( $products ) {
+
+            $user_role = 'all';
+            if ( is_user_logged_in() ) {
+                $user = wp_get_current_user();
+                $roles = ( array ) $user->roles;
+                $user_role = $roles[0];
+            }
+
+            $all_registered_wholesale_roles = unserialize( get_option( 'wwp_options_registered_custom_roles' ) );
+            if ( ! is_array( $all_registered_wholesale_roles ) ) {
+                $all_registered_wholesale_roles = array();
+            }
+
+            $new_products_array = array();
+
+            foreach( $products as $product ) {
+
+                $custom_fields = get_post_meta( $product['id'], 'wwpp_product_wholesale_visibility_filter' );
+                $custom_price = get_post_meta( $product['id'], 'wholesale_customer_wholesale_price' );
+
+                if ( $custom_fields && ! empty( $custom_fields ) && $custom_fields[0] !== 'all' && $custom_fields[0] !== $user_role ) {
+                    continue;
+                }
+
+                if ( is_user_logged_in() && !empty( $all_registered_wholesale_roles ) && isset( $all_registered_wholesale_roles[$user_role] )
+                    && get_option( 'wwpp_settings_only_show_wholesale_products_to_wholesale_users', false ) === 'yes' && ! $custom_price ) {
+                    continue;
+                }
+
+                $new_products_array[] = $product;
+
+            }
+
+            return $new_products_array;
+
+        }
+
     }
 
 endif;
-
-AWS_Integrations::instance();

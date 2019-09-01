@@ -3,7 +3,7 @@ Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorho
 Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
 Requires at least: 5.0
 Tested up to: 5.2
-Stable tag: 3.4.16
+Stable tag: 3.4.18
 License: GPLv2 or later
 
 Ninja Forms is an easy to use drag and drop form builder with an intuitive UI that can be used to create contact forms, email subscription forms, lead generation forms, WordPress registration and login forms, order forms, payment and donation forms, and much more!
@@ -137,28 +137,70 @@ This section describes how to install the plugin and get it working.
 
 == Upgrade Notice ==
 
-= 3.4.16 (19 June 2019) =
+= 3.4.18 (15 August 2019) =
+
+*Security:*
+
+* Removed an outdated template that was localizing a couple server variables.
 
 *Bugs:*
 
-* Resolved an issue that sometimes caused required updates to fail due to allowed server memory.
-* Public form link should now be more reliable without needing to update site permalinks.
-* Corrected a typo in the shortcode output of the Display Your Form settings.
-* Dailed back our add-on updater script. It was checking for updates too often.
-* Resolved an issue that was sometimes causing form submission to hang on processing, even though it had finished submitting data.
-* Corrected a typo in the help text for auto-adding a submit button.
-* Dynamic options in lists should now work properly everywhere, not just on form display.
-* Fixed a couple of broken links on our Get Help page.
-* The public link setting should no longer appear on the dashboard for forms where it is not enabled.
-* Resolved an issue that sometimes caused the form dashboard to not display.
-* Temporarily disabled required updates in order to investigate a reported issue with them freezing.
+* Currency masks should no longer prevent text fields from working properly in calculations.
+* Cleaned up a few php notices due to older functions.
+* Corrected the issue that was preventing required updates from completing. (Required updates remain disabled for the time being.)
+* Number fields with a minimum value will now display that value as a placeholder, not a value.
+* Switched the first and last name translations in our French translation pack.
+* Added a missing attribute that was required by screen readers to the fields on our submission editor page.
+* Resolved an error that was causing multi-select lists to not work properly in calculations.
+* Submission limits should now be honored for forms that were displayed before the limit was reached.
+* Dynamic option values should now work for ALL list types.
+* Resolved an issue that was causing forms to display as code in some page builders.
+* SendWP registration should no longer cause an error when the SendWP plugin is already installed.
+* Resolved an issue that was causing several of our action settings to display improperly in Firefox.
+* Corrected a problem that was sometimes causing submission of forms with a PayPal action to fail.
 
 *Changes:*
 
-* Updated our Details page in the WordPress repo.
-* Date fields can no longer be added to calculations.
+* The Advanced tab in the form builder should now communicate that developer mode is disabled, if that is the case.
+* Added currency support for the Russian Ruble and the Chinese Yuan.
 
 == Changelog ==
+
+= 3.4.18 (15 August 2019) =
+
+*Bugs:*
+
+* SendWP registration should no longer cause an error when the SendWP plugin is already installed.
+* Resolved an issue that was causing several of our action settings to display improperly in Firefox.
+* Corrected a problem that was sometimes causing submission of forms with a PayPal action to fail.
+
+*Changes:*
+
+* Added currency support for the Chinese Yuan.
+
+= 3.4.17 (12 August 2019) =
+
+*Security:*
+
+* Removed an outdated template that was localizing a couple server variables.
+
+*Bugs:*
+
+* Currency masks should no longer prevent text fields from working properly in calculations.
+* Cleaned up a few php notices due to older functions.
+* Corrected the issue that was preventing required updates from completing. (Required updates remain disabled for the time being.)
+* Number fields with a minimum value will now display that value as a placeholder, not a value.
+* Switched the first and last name translations in our French translation pack.
+* Added a missing attribute that was required by screen readers to the fields on our submission editor page.
+* Resolved an error that was causing multi-select lists to not work properly in calculations.
+* Submission limits should now be honored for forms that were displayed before the limit was reached.
+* Dynamic option values should now work for ALL list types.
+* Resolved an issue that was causing forms to display as code in some page builders.
+
+*Changes:*
+
+* The Advanced tab in the form builder should now communicate that developer mode is disabled, if that is the case.
+* Added currency support for the Russian Ruble.
 
 = 3.4.16 (19 June 2019) =
 

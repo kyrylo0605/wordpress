@@ -79,6 +79,34 @@ class NF_Abstracts_ModelFactory
     }
 
     /**
+     * PHP MAGIC method for catching undefined methods.
+     * Use this as a passthrough for methods of the form model.
+     * 
+     * @param $method (String) The name of the called method.
+     * @param $args (Array) The arguments supplied to the method.
+     * 
+     * @return (Mixed) Will match the return type of the supplied method.
+     * 
+     * @since UPDATE_VERSION_ON_MERGE
+     */
+    public function __call( $method, $args ) {
+        // If this is a method of the form model...
+        if ( method_exists( $this->_object, $method ) ) {
+            // Instantiate a reflector method.
+            $mirror = new ReflectionMethod( get_class( $this->_object ), $method );
+            // If the method is not private...
+            if ( ! $mirror->isPrivate() ) {
+                // If args were supplied...
+                if ( ! empty( $args ) ) {
+                    // Pass them into the function.
+                    return $this->_object->{$method}( $args );
+                }
+                return $this->_object->{$method}();
+            }
+        }
+    }
+
+    /**
      * Returns the parent object set by the constructor for chained methods.
      *
      * @return object
