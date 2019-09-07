@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 1.78
+Stable tag: 1.79
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Advanced Woo Search - powerful live search plugin for WooCommerce. Just start ty
 = Main Features =
 
 * **Products search** - Search across all your WooCommerce products
-* **Search in** - Search in product **title**, **content**, **excerpt**, **categories**, **tags** and **sku**. Or just in some of them
+* **Search in** - Search in product **title**, **content**, **excerpt**, **categories**, **tags**, **ID** and **sku**. Or just in some of them
 * **Settings page** - User-friendly settings page with lot of options
 * **Shortcode** and **widget** - Use shortcode and widget to place search box anywhere you want
 * **Product image** - Each search result contains product image
@@ -29,7 +29,8 @@ Advanced Woo Search - powerful live search plugin for WooCommerce. Just start ty
 * Supports **variable products**
 * Support for your current **search page**. Plugin search results will be integrated to your current page layout.
 * Automatically synchronize all products data. No need to re-index all content manually after avery change.
-* Plurals support
+* **Plurals** support
+* **Synonyms** support
 * Diacritical marks support
 * Google Analytics support
 * Seamless integration option for easy replacing your current search form
@@ -102,6 +103,14 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.79 =
+* Add - Synonyms support
+* Add - Search by product ID
+* Fix - Divi theme integration bug with double search form
+* Fix - Bug with cache for search results
+* Fix - Support for WooCommerce hooks
+* Fix - Support for search exclude plugin
 
 = 1.78 =
 * Update - Better plurals search support

@@ -52,7 +52,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
             $params_string = '';
 
             $params = array(
-                'data-url'           => admin_url('admin-ajax.php'),
+                'data-url'           => class_exists( 'WC_AJAX' ) ? WC_AJAX::get_endpoint( 'aws_action' ) : admin_url( 'admin-ajax.php' ),
                 'data-siteurl'       => home_url(),
                 'data-lang'          => $current_lang ? $current_lang : '',
                 'data-show-loader'   => $show_loader,

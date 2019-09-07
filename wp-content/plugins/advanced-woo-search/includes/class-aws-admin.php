@@ -112,6 +112,16 @@ class AWS_Admin {
                 }
 
                 $new_value = isset( $_POST[ $values['id'] ] ) ? $_POST[ $values['id'] ] : '';
+
+                if ( $values['type'] === 'textarea' ) {
+                    if ( function_exists('sanitize_textarea_field') ) {
+                        $update_settings[ $values['id'] ] = (string) sanitize_textarea_field( $new_value );
+                    } else {
+                        $update_settings[ $values['id'] ] = (string) str_replace( "<\n", "&lt;\n", wp_strip_all_tags( $new_value ) );
+                    }
+                    continue;
+                }
+
                 $update_settings[ $values['id'] ] = (string) sanitize_text_field( $new_value );
 
                 if ( isset( $values['sub_option'] ) ) {
@@ -251,6 +261,15 @@ class AWS_Admin {
             foreach ($section as $values) {
 
                 if ( $values['type'] === 'heading' ) {
+                    continue;
+                }
+
+                if ( $values['type'] === 'textarea' ) {
+                    if ( function_exists('sanitize_textarea_field') ) {
+                        $default_settings[ $values['id'] ] = (string) sanitize_textarea_field( $values['value'] );
+                    } else {
+                        $default_settings[ $values['id'] ] = (string) str_replace( "<\n", "&lt;\n", wp_strip_all_tags( $values['value'] ) );
+                    }
                     continue;
                 }
 

@@ -47,7 +47,7 @@
                     return;
                 }
 
-                if ( typeof cachedResponse[searchFor] != 'undefined') {
+                if ( cachedResponse.hasOwnProperty( searchFor ) ) {
                     methods.showResults( cachedResponse[searchFor] );
                     return;
                 }

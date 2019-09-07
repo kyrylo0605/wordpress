@@ -86,7 +86,9 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
                         <tr valign="top">
                             <th scope="row"><?php echo esc_html( $value['name'] ); ?></th>
                             <td>
-                                <textarea id="<?php echo esc_attr( $value['id'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" cols="65" rows="4"><?php print stripslashes( $plugin_options[ $value['id'] ] ); ?></textarea>
+                                <?php $textarea_cols = isset( $value['cols'] ) ? $value['cols'] : "55"; ?>
+                                <?php $textarea_rows = isset( $value['rows'] ) ? $value['rows'] : "4"; ?>
+                                <textarea id="<?php echo esc_attr( $value['id'] ); ?>" name="<?php echo esc_attr( $value['id'] ); ?>" cols="<?php echo $textarea_cols; ?>" rows="<?php echo $textarea_rows; ?>"><?php print stripslashes( $plugin_options[ $value['id'] ] ); ?></textarea>
                                 <br><span class="description"><?php echo wp_kses_post( $value['desc'] ); ?></span>
                             </td>
                         </tr>

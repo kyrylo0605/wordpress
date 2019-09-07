@@ -75,11 +75,17 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             // Seamless integration
             if ( AWS()->get_settings( 'seamless' ) === 'true' ) {
                 add_filter( 'et_html_main_header', array( $this, 'et_html_main_header' ) );
+                add_filter( 'et_html_slide_header', array( $this, 'et_html_main_header' ) );
             }
 
             // Wholesale plugin hide certain products
             if ( class_exists( 'WooCommerceWholeSalePrices' ) ) {
-                add_filter( 'aws_search_results_products',  array( $this,'wholesale_hide_products' ) );
+                add_filter( 'aws_search_results_products', array( $this,'wholesale_hide_products' ) );
+            }
+
+            // Search Exclude plugin
+            if ( class_exists( 'SearchExclude' ) ) {
+                add_filter( 'aws_index_product_ids', array( $this, 'search_exclude_filter' ) );
             }
 
         }
@@ -390,11 +396,18 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
          */
         public function et_html_main_header( $html ) {
             if ( function_exists( 'aws_get_search_form' ) ) {
-                $pattern = '/(<form.*?<\/form>)/i';
+
+                $pattern = '/(<form[\s\S]*?<\/form>)/i';
                 $form = aws_get_search_form(false);
-                $html = '<style>.aws-container { float: right;margin-right: 40px;margin-top: 20px; }</style>' . $html;
+
+                if ( strpos( $html, 'aws-container' ) !== false ) {
+                    $pattern = '/(<div class="aws-container"[\s\S]*?<form.*?<\/form><\/div>)/i';
+                }
+
+                $html = '<style>.et_search_outer .aws-container { float: right;margin-right: 40px;margin-top: 20px; }</style>' . $html;
                 $html = trim(preg_replace('/\s\s+/', ' ', $html));
                 $html = preg_replace( $pattern, $form, $html );
+
             }
             return $html;
         }
@@ -437,6 +450,25 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
 
             return $new_products_array;
+
+        }
+
+        /*
+         * Remove products that was excluded with Search Exclude plugin ( https://wordpress.org/plugins/search-exclude/ )
+         */
+        public function search_exclude_filter( $products ) {
+
+            $excluded = get_option('sep_exclude');
+
+            if ( $excluded && is_array( $excluded ) && ! empty( $excluded ) && $products && is_array( $products ) ) {
+                foreach( $products as $key => $product_id ) {
+                    if ( false !== array_search( $product_id, $excluded ) ) {
+                        unset( $products[$key] );
+                    }
+                }
+            }
+
+            return $products;
 
         }
 

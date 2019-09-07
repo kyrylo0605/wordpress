@@ -1,9 +1,9 @@
 === FooGallery - Image Gallery WordPress Plugin ===
-Contributors: bradvin, steveush, fooplugins
+Contributors: bradvin, steveush, fooplugins, freemius
 Donate link: http://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive, album, media gallery, masonry gallery, portfolio, justified gallery, video gallery, photography, youtube gallery
 Requires at least: 3.9
-Tested up to: 5.2.2
+Tested up to: 5.2.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -144,6 +144,15 @@ Hell, yes! Check out our [developer page](http://foo.gallery/developers/)
 Update now to get all the latest features, bug fixes and improvements!
 
 == Changelog ==
+
+= 1.8.12 =
+* Fix : Previews not working on new galleries
+
+= 1.8.11 =
+* New : Added advanced gallery settings for custom settings and custom attributes
+* Fix : Rewrite of Simple Portfolio to incorrect thumb heights
+* Fix : Lazy-load issues for certain themes
+* Update : FooGallery client side 1.3.3
 
 = 1.8.8 =
 * New : Implemented the Datasource architecture within the plugin

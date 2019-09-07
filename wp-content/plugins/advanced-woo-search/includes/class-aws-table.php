@@ -290,16 +290,19 @@ if ( ! class_exists( 'AWS_Table' ) ) :
          */
         private function fill_table( $posts ) {
 
+            /**
+             * Products that will be indexed
+             * @since 1.79
+             * @param array $posts Array of products IDs
+             */
+            $posts = apply_filters( 'aws_index_product_ids', $posts );
+
             foreach ( $posts as $found_post_id ) {
 
                 $data = array();
 
                 $data['terms'] = array();
                 $data['id'] = $found_post_id;
-
-                if ( $this->is_excluded( $data['id'] ) ) {
-                    continue;
-                }
 
                 $product = wc_get_product( $data['id'] );
 
@@ -326,6 +329,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 $data['lang'] = $lang ? $lang : '';
 
                 $sku = $product->get_sku();
+
+                $ids = $data['id'];
 
                 $title = apply_filters( 'the_title', get_the_title( $data['id'] ), $data['id'] );
 
@@ -354,6 +359,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                             if ( $variation_sku ) {
                                 $sku = $sku . ' ' . $variation_sku;
                             }
+
+                            $ids = $ids . ' ' . $child_id;
 
                             if ( $variation_desc ) {
                                 $content = $content . ' ' . $variation_desc;
@@ -428,6 +435,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 $data['terms']['content']  = $this->extract_terms( $content );
                 $data['terms']['excerpt']  = $this->extract_terms( $excerpt );
                 $data['terms']['sku']      = $this->extract_terms( $sku );
+                $data['terms']['id']       = $this->extract_terms( $ids );
 
 
                 if ( $cat_array && ! empty( $cat_array ) ) {
@@ -476,6 +484,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                     $translated_post_data['terms']['content'] = $this->extract_terms( $translated_content );
                                     $translated_post_data['terms']['excerpt'] = $this->extract_terms( $translated_excerpt );
                                     $translated_post_data['terms']['sku'] = $this->extract_terms( $sku );
+                                    $translated_post_data['terms']['id'] = $this->extract_terms( $translated_post->ID );
 
                                     
                                     //Insert translated product data into table
@@ -525,6 +534,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                     $translated_post_data['terms']['content'] = $this->extract_terms( $translated_content );
                                     $translated_post_data['terms']['excerpt'] = $this->extract_terms( $translated_excerpt );
                                     $translated_post_data['terms']['sku'] = $this->extract_terms( $sku );
+                                    $translated_post_data['terms']['id'] = $this->extract_terms( $ids );
 
 
                                     //Insert translated product data into table
@@ -736,23 +746,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
         }
 
         /*
-         * Check is product excluded with Search Exclude plugin ( https://wordpress.org/plugins/search-exclude/ )
-         */
-        private function is_excluded( $id ) {
-
-            $excluded = get_option('sep_exclude');
-
-            if ( $excluded && is_array( $excluded ) && ! empty( $excluded ) ) {
-                if ( false !== array_search( $id, $excluded ) ) {
-                    return true;
-                }
-            }
-
-            return false;
-
-        }
-
-        /*
          * Extract terms from content
          */
         private function extract_terms( $str ) {
@@ -835,6 +828,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     }
                 }
             }
+
+            $str_new_array = AWS_Helpers::get_synonyms( $str_new_array );
 
             return $str_new_array;
 

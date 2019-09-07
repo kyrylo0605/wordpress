@@ -487,6 +487,65 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
         }
 
         /*
+         * Add synonyms
+         */
+        static public function get_synonyms( $str_array ) {
+
+            $synonyms = AWS()->get_settings( 'synonyms' );
+            $synonyms_array = array();
+            $new_str_array = array();
+
+            if ( $synonyms ) {
+                $synonyms_array = preg_split( '/\r\n|\r|\n|&#13;&#10;/', $synonyms );
+            }
+
+            if ( $str_array && is_array( $str_array ) && ! empty( $str_array ) && $synonyms_array && ! empty( $synonyms_array ) ) {
+
+                $synonyms_array = array_map( 'trim', $synonyms_array );
+
+                /**
+                 * Filters synonyms array before adding them to the index table where need
+                 * @since 1.79
+                 * @param array $synonyms_array Array of synonyms groups
+                 */
+                $synonyms_array = apply_filters( 'aws_synonyms_option_array', $synonyms_array );
+
+                foreach ( $synonyms_array as $synonyms_string ) {
+
+                    if ( $synonyms_string ) {
+
+                        $synonym_array = explode( ',', $synonyms_string );
+
+                        if ( $synonym_array && ! empty( $synonym_array ) ) {
+                            $synonym_array = array_map( 'trim', $synonym_array );
+                            foreach ( $synonym_array as $synonym_item ) {
+                                if ( $synonym_item && isset( $str_array[$synonym_item] ) ) {
+                                    $new_str_array = array_merge( $new_str_array, $synonym_array );
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            if ( $new_str_array ) {
+                $new_str_array = array_unique( $new_str_array );
+                foreach ( $new_str_array as $new_str_array_item ) {
+                    if ( ! isset( $str_array[$new_str_array_item] ) ) {
+                        $str_array[$new_str_array_item] = 1;
+                    }
+                }
+            }
+
+            return $str_array;
+
+        }
+
+        /*
          * Strip shortcodes
          */
         static public function strip_shortcodes( $str ) {

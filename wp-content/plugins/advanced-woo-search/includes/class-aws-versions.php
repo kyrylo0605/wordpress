@@ -270,6 +270,19 @@ if ( ! class_exists( 'AWS_Versions' ) ) :
 
                 }
 
+                if ( version_compare( $current_version, '1.79', '<' ) ) {
+
+                    $settings = get_option( 'aws_settings' );
+
+                    if ( $settings ) {
+                        if ( ! isset( $settings['synonyms'] ) ) {
+                            $settings['synonyms'] = 'buy, pay, purchase, acquire&#13;&#10;box, housing, unit, package';
+                            update_option( 'aws_settings', $settings );
+                        }
+                    }
+
+                }
+
             }
 
             update_option( 'aws_plugin_ver', AWS_VERSION );

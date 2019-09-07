@@ -5,7 +5,7 @@ Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multili
 License: GPLv2
 Requires at least: 4.7
 Tested up to: 5.2.1
-Stable tag: 4.6.5
+Stable tag: 4.6.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
 
@@ -140,6 +140,9 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
+= 4.6.6 =
+* Fix error when using updated WPML String Translation without updating WPML
+
 = 4.6.5 =
 * The Events Calendar: convert currency for event_cost.
 * Wrong product price set after purchase in combination with custom prices for secondary currency and enabled stock
@@ -157,7 +160,6 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 * Fix no link to reviews in other languages if no reviews left in current one
 * Fix "set_product_language" REST API call not supported "PUT" method
 * Fix endpoints on My Account page when using a custom base permalink
-* Fix stock_status synchronization for variable products with stock management on product level
 * Fixed performance issues while translating Product via WPML Translation Editor with a lot of variations
 * Fixed overridden discounted item price when manually creating/editing order from the admin
 * Fixed customer email language when changing order from "On Hold" to "Processing"
@@ -194,6 +196,7 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 = 4.5.0 =
 * Add "get_post_metadata" hook to filter Woocommerce product data
 * Added function in troubleshooting page to fix broken variations
+* Fixed DB error when saving a variation with specific steps
 * Fix refreshing of status icon when ATE Job of updated content is synced
 * Fix few notices when removing a Elementor widget and refresh page
 * Fetch ATE translations from WCML Product Translation Tab
@@ -233,7 +236,6 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 = 4.4.0 =
 * Added the ability to associate BACS accounts with currencies
-* Fix and removed duplicated entries in code
 * Hide reviews in other languages link, if there are no reviews in product
 * Update WCML Logo
 * Removed Product Type Column from WCML backend and added compatibility with the WC Product Type Column plugin

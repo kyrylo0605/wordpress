@@ -700,9 +700,9 @@ if (SGBoot::isFeatureAvailable('ALERT_BEFORE_UPDATE')) {
 }
 
 // Register the new dashboard widget with the 'wp_dashboard_setup' action
-add_action('wp_dashboard_setup', 'add_dashboard_widgets' );
+add_action('wp_dashboard_setup', 'backup_guard_add_dashboard_widgets');
 
-function add_dashboard_widgets()
+function backup_guard_add_dashboard_widgets()
 {
 	require_once(SG_CORE_PATH.'SGConfig.php');
 

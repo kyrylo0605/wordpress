@@ -49,8 +49,12 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             $this->data['settings'] = get_option( 'aws_settings' );
 
-            add_action( 'wp_ajax_aws_action', array( $this, 'action_callback' ) );
-            add_action( 'wp_ajax_nopriv_aws_action', array( $this, 'action_callback' ) );
+            if ( isset( $_REQUEST['wc-ajax'] ) ) {
+                add_action( 'wc_ajax_aws_action', array( $this, 'action_callback' ) );
+            } else {
+                add_action( 'wp_ajax_aws_action', array( $this, 'action_callback' ) );
+                add_action( 'wp_ajax_nopriv_aws_action', array( $this, 'action_callback' ) );
+            }
 
         }
         
@@ -341,6 +345,11 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         case 'sku':
                             $relevance_array['sku'][] = $wpdb->prepare( "( case when ( term_source = 'sku' AND term = '%s' ) then 300 else 0 end )", $search_term );
                             $relevance_array['sku'][] = $wpdb->prepare( "( case when ( term_source = 'sku' AND term LIKE %s ) then 50 else 0 end )", $like );
+                            break;
+
+                        case 'id':
+                            $relevance_array['id'][] = $wpdb->prepare( "( case when ( term_source = 'id' AND term = '%s' ) then 300 else 0 end )", $search_term );
+                            $relevance_array['id'][] = $wpdb->prepare( "( case when ( term_source = 'id' AND term LIKE %s ) then 5 else 0 end )", $like );
                             break;
 
                     }

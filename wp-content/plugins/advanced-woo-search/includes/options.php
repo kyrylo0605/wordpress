@@ -52,7 +52,7 @@ $options['general'][] = array(
     "desc"  => __( "Search source: Drag&drop sources to activate or deactivate them.", "advanced-woo-search" ),
     "id"    => "search_in",
     "value" => "title,content,sku,excerpt",
-    "choices" => array( "title", "content", "sku", "excerpt", "category", "tag" ),
+    "choices" => array( "title", "content", "sku", "excerpt", "category", "tag", "id" ),
     "type"  => "sortable"
 );
 
@@ -73,6 +73,18 @@ $options['general'][] = array(
     "desc"  => __( "Comma separated list of words that will be excluded from search.", "advanced-woo-search" ) . '<br>' . __( "Re-index required on change.", "advanced-woo-search" ),
     "id"    => "stopwords",
     "value" => "a, also, am, an, and, are, as, at, be, but, by, call, can, co, con, de, do, due, eg, eight, etc, even, ever, every, for, from, full, go, had, has, hasnt, have, he, hence, her, here, his, how, ie, if, in, inc, into, is, it, its, ltd, me, my, no, none, nor, not, now, of, off, on, once, one, only, onto, or, our, ours, out, over, own, part, per, put, re, see, so, some, ten, than, that, the, their, there, these, they, this, three, thru, thus, to, too, top, un, up, us, very, via, was, we, well, were, what, when, where, who, why, will",
+    "cols"  => "85",
+    "rows"  => "3",
+    "type"  => "textarea"
+);
+
+$options['general'][] = array(
+    "name"  => __( "Synonyms", "advanced-woo-search" ),
+    "desc"  => __( "Comma separated list of synonym words. Each group of synonyms must be on separated text line.", "advanced-woo-search" ) . '<br>' . __( "Re-index required on change.", "advanced-woo-search" ),
+    "id"    => "synonyms",
+    "value" => "buy, pay, purchase, acquire&#13;&#10;box, housing, unit, package",
+    "cols"  => "85",
+    "rows"  => "3",
     "type"  => "textarea"
 );
 

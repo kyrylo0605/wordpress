@@ -406,6 +406,12 @@ msgstr ""
 msgid "Re-index required on change."
 msgstr ""
 
+msgid "Synonyms"
+msgstr ""
+
+msgid "Comma separated list of synonym words. Each group of synonyms must be on separated text line."
+msgstr ""
+
 #: includes/options.php:42
 msgid "Use Google Analytics"
 msgstr ""
