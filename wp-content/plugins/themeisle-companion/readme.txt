@@ -3,7 +3,7 @@ Contributors: themeisle, codeinwp, rodicaelena, baicusandrei, hardeepasrani
 Tags: widget, admin, widgets, sharing, sections, themes, stock photos, custom icons, icons, menu icons, stock, templates
 Requires at least: 4.7
 Tested up to: 5.2
-Requires PHP: 5.4
+Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -109,6 +109,16 @@ Activating the Orbit Fox plugin is just like any other plugin. If you've uploade
 5. Social Sharing Module
 
 == Changelog ==
+= 2.8.10 - 2019-09-13  = 
+
+* Development
+
+
+= 2.8.8 - 2019-09-11  = 
+
+* Fixes Constant Warning for Beaver Widgets Module
+
+
 = 2.8.7 - 2019-08-13  = 
 
 * Fix error notice in menu icons

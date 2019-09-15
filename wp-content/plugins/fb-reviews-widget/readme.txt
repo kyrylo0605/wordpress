@@ -1,22 +1,22 @@
-=== Facebook Reviews ===
+=== Plugin Name ===
 Contributors: richplugins
 Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
-Tags: Facebook, reviews, facebook reviews, testimonials, google, facebook page reviews
+Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.2
-Stable tag: 1.5.7
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Facebook Reviews Widget show Facebook Page reviews on your WordPress website to increase user confidence and SEO.
+Facebook Reviews Widget shows Facebook Page reviews and recommendations on your WordPress website to increase user confidence and SEO.
 
 == Description ==
 
+The plugin display Facebook Page Reviews and Recommendations on your websites in sidebar widget to get more traffic and user trusts.
+
+This plugin uses the Facebook Graph API and requires an admin rights to the FB page to get the reviews and recommendations.
+
 Why better to use <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin">Business version</a> of the plugin
-
-The plugin display Facebook Page Reviews on your websites in sidebar widget to get more traffic and user trusts.
-
-This plugin uses the Facebook Graph API and requires an admin rights to the FB page to get the reviews.
 
 [youtube https://www.youtube.com/watch?v=o0HV-bJ6_qE]
 
@@ -27,7 +27,7 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 * Free!
 * SEO
 * Trim long reviews with "read more" link
-* Support page builders: Elementor, Page Origin, Beaver Builder, WPBakery, Divi
+* Support page builders: Elementor, SiteOrigin, Beaver Builder, WPBakery, Divi and others
 * Display all Facebook page reviews per location
 * Shows real reviews from Facebook users to increase user confidence
 * Easy get of Facebook pages and instantly show reviews
@@ -42,11 +42,11 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 [Upgrade to Business](https://richplugins.com/business-reviews-bundle-wordpress-plugin)
 
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
-* Trying to get more than 5 Google reviews
+* Display all Google and Facebook reviews
 * Google Rich Snippets (schema.org)
-* Support shortcode, powerful <b>Shortcode Builder</b>
+* Support shortcode, powerful <b>Collection Builder</b>
 * Slider/Grid themes to show G+ reviews like testimonials
-* Facebook Trust Badge (right/left fixed or embedded)
+* Facebook Trust Badge (right/left float or embedded)
 * 'Write a review' button to available leave Google review directly on your website
 * Show/hide any elements (business, reviews, avatars, names, time and etc)
 * Any Sorting: recent, oldest, rating, striped
@@ -75,6 +75,17 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.6 =
+* Bugfix: escape GET parameters for a setting page
+
+= 1.5.9 =
+* Plugin's name changed
+* Plugin's logo changed
+* Bugfix: sanitize POST parameters
+
+= 1.5.8 =
+* Plugin description and images changes
 
 = 1.5.7 =
 * Check and fix all translations

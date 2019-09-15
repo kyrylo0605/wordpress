@@ -5,7 +5,7 @@ Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multili
 License: GPLv2
 Requires at least: 4.7
 Tested up to: 5.2.1
-Stable tag: 4.6.6
+Stable tag: 4.6.7
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
 
@@ -139,6 +139,36 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 6. Shop URLs translation screen
 
 == Changelog ==
+
+= 4.6.7 =
+* Fix Shop Manager rights in editing translations.
+* Added admin notice when WooCommerce Dynamic Pricing & Discounts plugin by RightPress is installed to inform about compatibility issues
+* Add a "wcml_settings_ui_after_default" action to settings page to allow users add custom options
+* Add `wcml_get_woocommerce_currency` global function to get default WC currency value from DB
+* Fixed problem when Shop Manager was not able to edit translations.
+* Fixed compatibility issues where discounts weren't shown properly when using WooCommerce Dynamic Pricing and WooCommerce Brands together.
+* Fix 'IN' queries which can cause performance issues on big sites
+* Product variations not synchronized to second language
+* Shop page disappears on front-end in default language after updating shop page in secondary language
+* PayPal Payment Gateways settings make unsupported currency available to pay if supported one selected
+* Order again button on My Account view order pages not working for variable products
+* Not possible to disable api key for custom exchange rate service
+* Coupon was wrongly applied to product which doesn't have it
+* Skip WCML Wizard is not closing notice window needs refresh the page
+* Fixed PHP Notices when linking variable product translations
+* Fixed notice on Direct bank transfer settings page
+* Fixed the rate plugin message not being dismissible.
+* Show wizard notice on WP Dashboard and WCML Dashboard pages only
+* Linking variable product with original can cause error
+* Added default currency support for Direct Bank Transfer gateway settings
+* Variation sale price not set for translations if using bulk action
+* Price filtering widget does not work in WooCommerce >= 3.6.0 due to changes in how the widget works
+* Fix DB error on WooCommerce Reports page while filtering by product
+* Fixed `_stock_status` synchronization for variable products when "Enable stock management at product level'' is selected
+* Do not display the "Hide completed" switcher from the Translation Editor
+* Fix WooCommerce Subscriptions compatibility issue with Customer Renewal Invoice email has wrong language
+* WYSIWYG custom field is rendered as a text field in Translation Editor when using Types plugin
+* Wrong prices displayed on the front-end when the custom sale price is set in combination with a date range
 
 = 4.6.6 =
 * Fix error when using updated WPML String Translation without updating WPML

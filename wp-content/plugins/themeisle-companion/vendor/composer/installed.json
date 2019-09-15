@@ -191,17 +191,17 @@
     },
     {
         "name": "codeinwp/themeisle-sdk",
-        "version": "3.1.2",
-        "version_normalized": "3.1.2.0",
+        "version": "3.1.5",
+        "version_normalized": "3.1.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-            "reference": "a286316f5dd93cc91bbc5faeb09fff8f3977676b"
+            "reference": "1f98fb7bd044ac52721cd49a1aeca8864d95b23d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/a286316f5dd93cc91bbc5faeb09fff8f3977676b",
-            "reference": "a286316f5dd93cc91bbc5faeb09fff8f3977676b",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/1f98fb7bd044ac52721cd49a1aeca8864d95b23d",
+            "reference": "1f98fb7bd044ac52721cd49a1aeca8864d95b23d",
             "shasum": ""
         },
         "require-dev": {
@@ -209,7 +209,7 @@
             "squizlabs/php_codesniffer": "^3.1",
             "wp-coding-standards/wpcs": "^1.0.0"
         },
-        "time": "2019-08-12 11:34:12",
+        "time": "2019-09-11 15:16:53",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",

@@ -70,8 +70,8 @@ if (isset($_POST['fbrev_active']) && isset($_GET['fbrev_active'])) {
 }
 
 if (isset($_POST['fbrev_setting'])) {
-    update_option('fbrev_app_id', $_POST['fbrev_app_id']);
-    update_option('fbrev_app_secret', $_POST['fbrev_app_secret']);
+    update_option('fbrev_app_id', trim(sanitize_text_field($_POST['fbrev_app_id'])));
+    update_option('fbrev_app_secret', trim(sanitize_text_field($_POST['fbrev_app_secret'])));
 }
 
 wp_register_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css', __FILE__));
@@ -79,7 +79,7 @@ wp_enqueue_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css',
 
 wp_enqueue_script('jquery');
 
-$tab              = isset($_GET['fbrev_tab']) && strlen($_GET['fbrev_tab']) > 0 ? $_GET['fbrev_tab'] : 'about';
+$tab              = isset($_GET['fbrev_tab']) && strlen($_GET['fbrev_tab']) > 0 ? esc_attr($_GET['fbrev_tab']) : 'about';
 $fbrev_app_id     = get_option('fbrev_app_id');
 $fbrev_app_secret = get_option('fbrev_app_secret');
 $fbrev_enabled    = get_option('fbrev_active') == '1';
