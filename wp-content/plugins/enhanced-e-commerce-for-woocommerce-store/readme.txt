@@ -1,22 +1,23 @@
 ===  Enhanced Ecommerce Google Analytics Plugin for WooCommerce ===
 Contributors: Tatvic
-Plugin Name: Enhanced Ecommerce for Woocommerce store
+Plugin Name: Enhanced Ecommerce for WooCommerce Store
 Plugin URI: http://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
-Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce, e-commerce, woo-commerce,Ecommerce,woocommerce, commerce, Wordpress Enhanced Ecommerce, Woocommerce Enhanced Ecommerce, Woocommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
+Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce, e-commerce, woo-commerce,Ecommerce,WooCommerce, commerce, Wordpress Enhanced Ecommerce, WooCommerce Enhanced Ecommerce, WooCommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 3.6
 Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 2.2.0
-Version: 2.2.0
+Stable tag: 2.2.1
+Version: 2.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Provides integration between Enhanced Ecommerce feature of Google Analytics and WooCommerce.
 
 == Description ==
-<a href="https://www.tatvic.com/enhanced-ecommerce-google-analytics-plugin-woocommerce/" target="_blank">Enhanced Ecommerce Google Analytics</a> is a Free Plugin for Woocommerce stores which allows you to use the newly launched feature of Google Analytics – Enhanced Ecommerce.You can track the user behavior across your e-commerce store starting from product views to thank you page. Enhanced Ecommerce is only supported by Universal Analytics.
+
+<a href="https://www.tatvic.com/enhanced-ecommerce-google-analytics-plugin-woocommerce/" target="_blank">Enhanced Ecommerce Google Analytics</a> is a Free Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics - Enhanced Ecommerce feature. You can track user behavior across your store starting from home page to thankyou page and take informed decisions to drive business/marketing outcomes. Enhanced Ecommerce is supported by Universal Analytics.
 
 = Features of Plugin =
 1. Quick & Easy installation from the wordpress interface
@@ -49,7 +50,7 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 
 
 = Need an Advanced Google Analytics Plugin? =
-We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Adwords Conversion Tracking, Facebook Pixel Tracking, 15+ Custom Dimenensions & Metrics & much more. <a href="https://1.envato.market/Yvn3R" target="_blank">Learn More</a>
+We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of all the 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Google Ads Conversion Tracking, Facebook Pixel Tracking, 20+ Custom Dimensions & Metrics & much more. <a href="https://1.envato.market/Yvn3R" target="_blank">Learn More</a>
 
 == Note : ==
 == Our plugin does not support the below features out of the box ==
@@ -61,14 +62,14 @@ We have an Advanced Google Analytics Plugin for WooCommerce which includes track
 
 == Installation ==
 
-1. Download the plugin file to your system and unzip it
-2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory
-3. Activate the plugin from the Plugins menu within the WordPress admin
-4. Enter your Universal Analytics ID for the plugin to enable the tracking code
+1. Download the plugin file to your system and unzip it.
+2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory.
+3. Activate the plugin from the Plugins menu within the WordPress admin.
+4. Enter your Universal Analytics ID for the plugin to enable the tracking code.
 
 == Screenshots ==
 1. Enable Enhanced E-commerce for your profile/view. This is a profile / view level setting and can be accessed under Admin > View > E-commerce Settings. Also, add meaningful labels for your checkout steps. We recommend you to label as, Step 1 : Checkout View; Step 2 : Login; Step 3 : Proceed to payment;
-2. Next, you need to activate your plugin from the Settings page by clicking the checkbox – “Add Enhanced Ecommerce Tracking Code". You can access the same from: Tatvic EE Plugin > Enhanced Ecommerce for Woocommerce.
+2. Next, you need to activate your plugin from the Settings page by clicking the checkbox – “Add Enhanced Ecommerce Tracking Code". You can access the same from: Tatvic EE Plugin > Enhanced Ecommerce for WooCommerce.
 3. To Track Guest Users, Check the box – Add Code to Track the Login Steps of Guest Users. If you have a Guest Check out & if it’s Unchecked, then it might cause an uneven funnel reporting in Google Analytics.
 
 == Frequently Asked Questions ==
@@ -90,7 +91,7 @@ As our plugin automatically tracks all the Enhanced Ecommerce data ( including p
 
 = Does this plugin match with GDPR compliance? =
 
-Yes, our plugin is under GDPR complaince. For more information, read the <a href="https://www.tatvic.com/privacy-policy/?ref=plugin_policy&utm_source=plugin_backend&utm_medium=woocommerce_free_plugin&utm_campaign=GDPR_complaince_ecomm_plugins" target="_blank">privacy policy</a> of our plugin.
+Yes, our plugin is under GDPR compliance. For more information, read the <a href="https://www.tatvic.com/privacy-policy/?ref=plugin_policy&utm_source=plugin_backend&utm_medium=woocommerce_free_plugin&utm_campaign=GDPR_complaince_ecomm_plugins" target="_blank">privacy policy</a> of our plugin.
 
 = Why are my PayPal transaction data not getting recorded in GA? =
 
@@ -134,9 +135,9 @@ You can Find all The Enhanced Ecommerce Reports in your Analytics Account under 
 
 Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
 
-= Does this plugin provide Adwords Conversion Tracking? =
+= Does this plugin provide Google Ads Conversion Tracking? =
 
-The free version of our plugin does not provide Adwords Conversion Tracking feature. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Google Ads Conversion Tracking feature. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Facebook Pixel Tracking? =
 
@@ -146,7 +147,7 @@ The free version of our plugin does not provide Facebook Pixel Tracking feature.
 
 The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
 
-= I have noticed that some transactions are missing in my GA account, compared to my Woocmmerce backend (Orders) =
+= I have noticed that some transactions are missing in my GA account, compared to my WooCommerce backend (Orders) =
 
 Possible reasons for not getting the accurate Transactions (in sales performance report) are as below :
 
@@ -201,6 +202,10 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
 
 == Changelog ==
 
+= 2.2.1 - 24/09/2019 =
+ * Compatibility with WooCommerce 3.7.0
+ * Minor Bug Fixes
+
 = 2.2.0 - 25/06/2019 =
  * Minor Bug Fix 
 
@@ -211,7 +216,7 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
  * Minor Bug Fix for category page event
 
 = 2.1.7 - 29/04/2019 =
- * Compatibility with WC 3.6
+ * Compatibility with WooCommerce 3.6
  * Minor Bug Fixes
 
 = 2.1.6 - 26/12/2018 =
@@ -221,16 +226,16 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
  * Minor Bug Fixes
 
 = 2.1.4 - 05/11/2018 =
- * Woocommerce 3.5 compatibility
+ * Compatibility with WooCommerce 3.5
  * Minor Bug Fixes
 
 = 2.1.3 - 17/10/2018 =
  * Fixed: Product name issue on Order Received Page
- * Fixed: Session Isssue
+ * Fixed: Session Issue
  * Minor Bug Fixes
 
 = 2.1.2 - 14/09/2018 =
- * Multisite admin sidebar Issue resolved
+ * Multisites admin sidebar Issue resolved
  * Optimization in Impression Call
  * Minor Bug Fixes
 
@@ -260,7 +265,7 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
  * Minor Bug Fixes & Optimization.
 
 = 1.2.2 - 31/01/2018 =
- * Compatibility with Woocommerce 3.3
+ * Compatibility with WooCommerce 3.3
  * Minor Bug Fixes & Optimization.
 
 = 1.2.1.2 - 26/12/2017 =
@@ -274,7 +279,7 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
  * Quick Bug Fixes.
 
 = 1.2.0 - 17/10/2017 =
- * Compatibility with Woocommerce 3.2
+ * Compatibility with WooCommerce 3.2
  * Minor Bug Fixes & Optimization.
 
 = 1.1.2 - 04/09/2017 =
@@ -293,11 +298,11 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
  * Minor Bug Fixes.
 
 = 1.0.20 - 14/04/2017 =
- * Fixed - Compatibility with Woocommerce 3.x
+ * Fixed - Compatibility with WooCommerce 3.x
  * Minor Bug Fixes.
 
 = 1.0.19 - 21/12/2016 =
- * Fixed - Compatibility with Wordpress 4.7 & Woocommerce 2.6.x
+ * Fixed - Compatibility with Wordpress 4.7 & WooCommerce 2.6.x
  * Minor Bug Fixes.
 
 = 1.0.18 - 11/04/2016 =
@@ -305,10 +310,10 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
 
 = 1.0.17 - 19/02/2016 =
  * Fixed - Notice: Undefined index: tab
- * Minor Bug Fixes as per Wordpress Guidlines
+ * Minor Bug Fixes as per Wordpress Guidelines
 
 = 1.0.16 - 01/04/2015 =
- * Minor Bug Fixes as per Wordpress Guidlines
+ * Minor Bug Fixes as per Wordpress Guidelines
 
 =  1.0.15 - 28/03/2015 =
  * Email Field made optional
@@ -316,7 +321,7 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
 = 1.0.14 - 10/02/2015 =
  * Fixed - session_start() function warning 
  * Fixed - Notice: Undefined variable: coupons_list
- * Fixed - woocommerce deprecated function warning
+ * Fixed - WooCommerce deprecated function warning
 
 = 1.0.13 - 19/12/2014 =
  * Currency as field removed from the plugin. Reason: we now automatically passed the currency which you may have set in WooCommerce store

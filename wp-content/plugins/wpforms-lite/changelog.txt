@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.5.5.1 =
+- Fixed: Broken reCAPTCHA checkbox in Builder > Settings > General if reCAPTCHA type does not set in WPForms > Settings.
+- Fixed: Email field server-side validation issue.
+- Fixed: Broken "Bulk add" option in Builder in IE 11.
+- Fixed: Broken image choices selection and styling (layout) issue in IE 11.
+- Fixed: Backward compatible filters for some fields when displaying them were missing.
+
 = 1.5.5 =
 - Added: WPForms details inside Site Health Info reports (Tools > Site Health > Info).
 - Added: Filter `wpforms_emails_summaries_is_disabled` to easily disable Email Summaries functionality.

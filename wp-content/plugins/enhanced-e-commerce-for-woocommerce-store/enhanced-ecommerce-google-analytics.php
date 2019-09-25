@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -16,20 +15,22 @@
  * Plugin Name:       Enhanced E-commerce for Woocommerce store
  * Plugin URI:        https://www.tatvic.com/tatvic-labs/woocommerce-extension/
  * Description:       Allows Enhanced E-commerce Google Analytics tracking code to be inserted into WooCommerce store pages.
- * Version:           2.2.0
+ * Version:           2.2.1
  * Author:            Tatvic
- * Author URI:        tatvic.com
+ * Author URI:        www.tatvic.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       tatvic.com
+ * Text Domain:       www.tatvic.com
  * Domain Path:       /languages
  * WC requires at least: 1.4.1
- * WC tested up to: 3.6.0
+ * WC tested up to: 3.7.0
  */
 
-// If this file is called directly, abort.
+/**
+ * If this file is called directly, abort.
+ */
 if ( ! defined( 'WPINC' ) ) {
-	die;
+    die;
 }
 
 /**
@@ -37,14 +38,14 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '2.2.0' );
+define( 'PLUGIN_NAME_VERSION', '2.2.1' );
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-enhanced-ecommerce-google-analytics-activator.php
  */
 function activate_enhanced_ecommerce_google_analytics() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-enhanced-ecommerce-google-analytics-activator.php';
-	Enhanced_Ecommerce_Google_Analytics_Activator::activate();
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-enhanced-ecommerce-google-analytics-activator.php';
+    Enhanced_Ecommerce_Google_Analytics_Activator::activate();
 }
 
 /**
@@ -52,8 +53,8 @@ function activate_enhanced_ecommerce_google_analytics() {
  * This action is documented in includes/class-enhanced-ecommerce-google-analytics-deactivator.php
  */
 function deactivate_enhanced_ecommerce_google_analytics() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-enhanced-ecommerce-google-analytics-deactivator.php';
-	Enhanced_Ecommerce_Google_Analytics_Deactivator::deactivate();
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-enhanced-ecommerce-google-analytics-deactivator.php';
+    Enhanced_Ecommerce_Google_Analytics_Deactivator::deactivate();
 }
 register_activation_hook( __FILE__, 'activate_enhanced_ecommerce_google_analytics' );
 register_deactivation_hook( __FILE__, 'deactivate_enhanced_ecommerce_google_analytics' );
@@ -77,7 +78,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-enhanced-ecommerce-google-
 function run_enhanced_ecommerce_google_analytics() {
 
     $plugin = new Enhanced_Ecommerce_Google_Analytics();
-	$plugin->run();
-  
+    $plugin->run();
+
 }
 run_enhanced_ecommerce_google_analytics();

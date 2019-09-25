@@ -1,4 +1,4 @@
-/*! elementor - v2.7.1 - 10-09-2019 */
+/*! elementor - v2.7.3 - 24-09-2019 */
 @charset "UTF-8";
 *, :before, :after {
   margin: 0;
@@ -1099,8 +1099,8 @@ select {
           width: 13px;
           top: 3px;
           bottom: 0;
-          left: 8px;
-          right: 0;
+          right: 8px;
+          left: 0;
           -webkit-border-radius: 50%;
                   border-radius: 50%;
           z-index: -1; }

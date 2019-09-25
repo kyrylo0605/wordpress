@@ -1670,40 +1670,48 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 		 * Field choice bulk insert the new choices.
 		 *
 		 * @since 1.3.7
+		 *
+		 * @param {object} el DOM element.
 		 */
-		fieldChoiceBulkAddInsert: function(el) {
+		fieldChoiceBulkAddInsert: function( el ) {
 
-			var $this          = $(el),
-				$container     = $this.closest('.wpforms-field-option-row'),
-				$textarea      = $container.find('textarea'),
-				$list          = $container.find('.choices-list'),
-				$choice        = $list.find('li:first-of-type').clone().wrap('<div>').parent(),
-				choice         = '',
-				fieldID        = $container.data('field-id'),
-				type           = $list.data('field-type'),
-				nextID         = Number( $list.attr('data-next-id') ),
-				newValues      = $textarea.val().split("\n"),
-				newChoices     = '';
+			var $this = $( el ),
+				$container = $this.closest( '.wpforms-field-option-row' ),
+				$textarea = $container.find( 'textarea' ),
+				$list = $container.find( '.choices-list' ),
+				$choice = $list.find( 'li:first-of-type' ).clone().wrap( '<div>' ).parent(),
+				choice = '',
+				fieldID = $container.data( 'field-id' ),
+				type = $list.data( 'field-type' ),
+				nextID = Number( $list.attr( 'data-next-id' ) ),
+				newValues = $textarea.val().split( '\n' ),
+				newChoices = '';
 
-			$this.prop('disabled', true).html($this.html()+' '+s.spinner);
-			$choice.find('input.value,input.label').attr('value','');
+			$this.prop( 'disabled', true ).html( $this.html() + ' ' + s.spinner );
+			$choice.find( 'input.value,input.label' ).attr( 'value', '' );
 			choice = $choice.html();
 
-			for(var key in newValues) {
-				var value     = newValues[key],
+			for ( var key in newValues ) {
+				if ( ! newValues.hasOwnProperty( key ) ) {
+					continue;
+				}
+				var value     = newValues[ key ],
 					newChoice = choice;
 				value = value.trim();
-				newChoice = newChoice.replace( /\[choices\]\[(\d+)\]/g ,'[choices]['+nextID+']' );
-				newChoice = newChoice.replace( /data-key="(\d+)"/g ,'data-key="'+nextID+'"' );
-				newChoice = newChoice.replace( /value="" class="label"/g ,'value="'+value+'" class="label"' );
+				newChoice = newChoice.replace( /\[choices\]\[(\d+)\]/g, '[choices][' + nextID + ']' );
+				newChoice = newChoice.replace( /data-key="(\d+)"/g, 'data-key="' + nextID + '"' );
+				newChoice = newChoice.replace( /value="" class="label"/g, 'value="' + value + '" class="label"' );
+
+				// For some reasons IE has its own atrribute order.
+				newChoice = newChoice.replace( /class="label" type="text" value=""/g, 'class="label" type="text" value="' + value + '"' );
 				newChoices += newChoice;
 				nextID++;
 			}
-			$list.attr('data-next-id', nextID).append(newChoices)
+			$list.attr( 'data-next-id', nextID ).append( newChoices );
 
-			app.fieldChoiceUpdate(type, fieldID);
-			$builder.trigger('wpformsFieldChoiceAdd');
-			app.fieldChoiceBulkAddToggle( $container.find('.toggle-bulk-add-display') );
+			app.fieldChoiceUpdate( type, fieldID );
+			$builder.trigger( 'wpformsFieldChoiceAdd' );
+			app.fieldChoiceBulkAddToggle( $container.find( '.toggle-bulk-add-display' ) );
 		},
 
 		/**
@@ -2983,7 +2991,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 		 *
 		 * @since 1.0.1
 		 */
-		smartTagToggle: function(el) {
+		smartTagToggle: function( el ) {
 
 			var $this = $( el ),
 				$label = $this.closest( 'label' );
@@ -2992,7 +3000,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 
 				// Smart tags are showing, so hide/remove them
 				var $list = $label.next( '.smart-tags-list-display' );
-				$list.slideUp( 400, function () {
+				$list.slideUp( 400, function() {
 					$list.remove();
 				} );
 				$this.find( 'span' ).text( wpforms_builder.smart_tags_show );
@@ -3041,9 +3049,14 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 					}
 				}
 
+				var isFieldOption = $label.attr( 'for' ).indexOf( 'wpforms-field-option-' ) !== -1;
+
 				if ( type === 'other' || type === 'all' ) {
 					smartTagList += '<li class="heading">' + wpforms_builder.other + '</li>';
 					for ( var smarttag_key in wpforms_builder.smart_tags ) {
+						if ( isFieldOption && wpforms_builder.smart_tags_disabled_for_fields.indexOf( smarttag_key ) > -1 ) {
+							continue;
+						}
 						smartTagList += '<li><a href="#" data-type="other" data-meta=\'' + smarttag_key + '\'>' + wpforms_builder.smart_tags[ smarttag_key ] + '</a></li>';
 					}
 				}

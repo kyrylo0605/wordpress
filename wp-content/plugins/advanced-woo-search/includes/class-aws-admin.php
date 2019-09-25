@@ -295,7 +295,7 @@ class AWS_Admin {
             wp_enqueue_script( 'jquery-ui-sortable' );
             wp_enqueue_script( 'plugin-admin-scripts', AWS_URL . '/assets/js/admin.js', array('jquery'), AWS_VERSION );
             wp_localize_script( 'plugin-admin-scripts', 'aws_vars', array(
-                'ajaxurl' => admin_url('admin-ajax.php' ),
+                'ajaxurl' => admin_url( 'admin-ajax.php', 'relative' ),
                 'ajax_nonce' => wp_create_nonce( 'aws_admin_ajax_nonce' ),
             ) );
         }

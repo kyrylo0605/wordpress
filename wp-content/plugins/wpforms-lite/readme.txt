@@ -3,7 +3,7 @@ Contributors: wpforms, jaredatch, smub, slaFFik
 Tags: contact form, contact form plugin, forms, form builder, custom form, contact button, contact me, custom contact form, form manager, form, forms builder, forms creator, captcha, recaptcha, Akismet, email form, web form, feedback form, payment form, survey form, donation form, email submit form, message form, mailchimp, mailchimp form, aweber, aweber form, paypal, paypal form, stripe, stripe form, getresponse, getresponse form, email subscription, contact form widget, user registration form, wordpress registration, wordpress login form, feedback
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 1.5.5
+Stable tag: 1.5.5.1
 Requires PHP: 5.3.3
 License: GNU General Public License v2.0 or later
 
@@ -400,6 +400,13 @@ Thank you
 Syed Balkhi
 
 == Changelog ==
+
+= 1.5.5.1 =
+- Fixed: Broken reCAPTCHA checkbox in Builder > Settings > General if reCAPTCHA type does not set in WPForms > Settings.
+- Fixed: Email field server-side validation issue.
+- Fixed: Broken "Bulk add" option in Builder in IE 11.
+- Fixed: Broken image choices selection and styling (layout) issue in IE 11.
+- Fixed: Backward compatible filters for some fields when displaying them were missing.
 
 = 1.5.5 =
 - Added: WPForms details inside Site Health Info reports (Tools > Site Health > Info).

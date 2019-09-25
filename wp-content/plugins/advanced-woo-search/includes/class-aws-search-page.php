@@ -296,6 +296,10 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
                 $post_array_products = AWS()->order( $post_array_products, $query );
             }
 
+            if ( is_numeric( $posts_per_page ) && (int) $posts_per_page < 0 ) {
+                $posts_per_page = 999999;
+            }
+
             $paged  = $query->query_vars['paged'] ? $query->query_vars['paged'] : 1;
             $offset = ( $paged > 1 ) ? $paged * $posts_per_page - $posts_per_page : 0;
 

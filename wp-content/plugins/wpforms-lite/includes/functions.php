@@ -652,8 +652,6 @@ function wpforms_get_conditional_logic_form_fields_supported() {
 	return apply_filters( 'wpforms_get_conditional_logic_form_fields_supported', $fields_supported );
 }
 
-
-
 /**
  * Get meta key value for a form field.
  *
@@ -673,9 +671,9 @@ function wpforms_get_form_field_meta( $id = '', $key = '', $form_data = '' ) {
 
 	if ( ! empty( $form_data['fields'][ $id ]['meta'][ $key ] ) ) {
 		return $form_data['fields'][ $id ]['meta'][ $key ];
-	} else {
-		return '';
 	}
+
+	return '';
 }
 
 /**

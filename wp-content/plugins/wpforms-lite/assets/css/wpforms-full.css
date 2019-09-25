@@ -835,7 +835,7 @@ div.wpforms-container-full .wpforms-form ul.wpforms-image-choices-modern img {
 
 div.wpforms-container-full .wpforms-form ul.wpforms-image-choices-modern label {
 	background-color: #fff;
-	display: inline-block;
+	display: block;
 	margin: 0 auto;
 	padding: 0;
 	border: 1px solid #fff;
@@ -902,7 +902,7 @@ div.wpforms-container-full .wpforms-form ul.wpforms-image-choices-classic img {
 
 div.wpforms-container-full .wpforms-form ul.wpforms-image-choices-classic label {
 	background-color: #fff;
-	display: inline-block;
+	display: block;
 	margin: 0 auto;
 	padding: 0;
 	border: 2px solid #fff;

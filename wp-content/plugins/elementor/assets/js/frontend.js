@@ -1,4 +1,4 @@
-/*! elementor - v2.7.1 - 10-09-2019 */
+/*! elementor - v2.7.3 - 24-09-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -500,7 +500,7 @@ module.exports = function (exec) {
 
 // 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
 var $export = __webpack_require__(37);
-var $find = __webpack_require__(99)(5);
+var $find = __webpack_require__(100)(5);
 var KEY = 'find';
 var forced = true;
 // Shouldn't skip holes
@@ -889,7 +889,7 @@ module.exports = function (it) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(18);
-var dPs = __webpack_require__(100);
+var dPs = __webpack_require__(101);
 var enumBugKeys = __webpack_require__(54);
 var IE_PROTO = __webpack_require__(52)('IE_PROTO');
 var Empty = function () { /* empty */ };
@@ -1216,7 +1216,7 @@ module.exports = false;
 "use strict";
 
 
-var regexpFlags = __webpack_require__(98);
+var regexpFlags = __webpack_require__(99);
 
 var nativeExec = RegExp.prototype.exec;
 // This always refers to the native implementation, because the
@@ -2019,6 +2019,53 @@ module.exports = __webpack_require__(134);
 
 "use strict";
 
+
+var anObject = __webpack_require__(19);
+var toLength = __webpack_require__(42);
+var advanceStringIndex = __webpack_require__(92);
+var regExpExec = __webpack_require__(85);
+
+// @@match logic
+__webpack_require__(86)('match', 1, function (defined, MATCH, $match, maybeCallNative) {
+  return [
+    // `String.prototype.match` method
+    // https://tc39.github.io/ecma262/#sec-string.prototype.match
+    function match(regexp) {
+      var O = defined(this);
+      var fn = regexp == undefined ? undefined : regexp[MATCH];
+      return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+    },
+    // `RegExp.prototype[@@match]` method
+    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@match
+    function (regexp) {
+      var res = maybeCallNative($match, regexp, this);
+      if (res.done) return res.value;
+      var rx = anObject(regexp);
+      var S = String(this);
+      if (!rx.global) return regExpExec(rx, S);
+      var fullUnicode = rx.unicode;
+      rx.lastIndex = 0;
+      var A = [];
+      var n = 0;
+      var result;
+      while ((result = regExpExec(rx, S)) !== null) {
+        var matchStr = String(result[0]);
+        A[n] = matchStr;
+        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+        n++;
+      }
+      return n === 0 ? null : A;
+    }
+  ];
+});
+
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 // 21.2.5.3 get RegExp.prototype.flags
 var anObject = __webpack_require__(19);
 module.exports = function () {
@@ -2034,7 +2081,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 0 -> Array#forEach
@@ -2084,7 +2131,7 @@ module.exports = function (TYPE, $create) {
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(14);
@@ -2103,7 +2150,7 @@ module.exports = __webpack_require__(13) ? Object.defineProperties : function de
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
@@ -2115,7 +2162,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2368,53 +2415,6 @@ setToStringTag(global.JSON, 'JSON', true);
 
 
 /***/ }),
-/* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var anObject = __webpack_require__(19);
-var toLength = __webpack_require__(42);
-var advanceStringIndex = __webpack_require__(92);
-var regExpExec = __webpack_require__(85);
-
-// @@match logic
-__webpack_require__(86)('match', 1, function (defined, MATCH, $match, maybeCallNative) {
-  return [
-    // `String.prototype.match` method
-    // https://tc39.github.io/ecma262/#sec-string.prototype.match
-    function match(regexp) {
-      var O = defined(this);
-      var fn = regexp == undefined ? undefined : regexp[MATCH];
-      return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
-    },
-    // `RegExp.prototype[@@match]` method
-    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@match
-    function (regexp) {
-      var res = maybeCallNative($match, regexp, this);
-      if (res.done) return res.value;
-      var rx = anObject(regexp);
-      var S = String(this);
-      if (!rx.global) return regExpExec(rx, S);
-      var fullUnicode = rx.unicode;
-      rx.lastIndex = 0;
-      var A = [];
-      var n = 0;
-      var result;
-      while ((result = regExpExec(rx, S)) !== null) {
-        var matchStr = String(result[0]);
-        A[n] = matchStr;
-        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
-        n++;
-      }
-      return n === 0 ? null : A;
-    }
-  ];
-});
-
-
-/***/ }),
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2554,7 +2554,7 @@ module.exports = function (Constructor, NAME, next) {
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(15);
-var toLength = __webpack_require__(101);
+var toLength = __webpack_require__(102);
 var toAbsoluteIndex = __webpack_require__(115);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
@@ -2664,7 +2664,7 @@ module.exports = __webpack_require__(121);
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(102);
+__webpack_require__(103);
 __webpack_require__(125);
 __webpack_require__(126);
 __webpack_require__(127);
@@ -3320,7 +3320,7 @@ module.exports = exporter;
 
 __webpack_require__(225);
 var anObject = __webpack_require__(19);
-var $flags = __webpack_require__(98);
+var $flags = __webpack_require__(99);
 var DESCRIPTORS = __webpack_require__(20);
 var TO_STRING = 'toString';
 var $toString = /./[TO_STRING];
@@ -3485,7 +3485,7 @@ module.exports = function (KEY) {
 // 21.2.5.3 get RegExp.prototype.flags()
 if (__webpack_require__(20) && /./g.flags != 'g') __webpack_require__(36).f(RegExp.prototype, 'flags', {
   configurable: true,
-  get: __webpack_require__(98)
+  get: __webpack_require__(99)
 });
 
 
@@ -4249,7 +4249,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(103);
+__webpack_require__(98);
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(4));
 
@@ -5313,7 +5313,7 @@ function (_BaseLoader) {
   }, {
     key: "getURLRegex",
     value: function getURLRegex() {
-      return /^(?:https?:\/\/)?(?:www|player\.)?(?:vimeo\.com\/(\d+))([^?&#"'>]?)/;
+      return /^(?:https?:\/\/)?(?:www|player\.)?(?:vimeo\.com\/)?(?:video\/)?(\d+)([^?&#"'>]?)/;
     }
   }, {
     key: "isApiLoaded",
@@ -5584,7 +5584,7 @@ __webpack_require__(181);
 
 __webpack_require__(140);
 
-__webpack_require__(103);
+__webpack_require__(98);
 
 __webpack_require__(26);
 
@@ -6032,7 +6032,7 @@ function (_elementorModules$fro) {
       };
       swiperOptions.breakpoints[elementorBreakpoints.lg] = {
         slidesPerView: +elementSettings.slides_to_show_tablet || defaultLGDevicesSlidesCount,
-        slidesPerGroup: +elementSettings.slides_to_scroll_tablet || defaultLGDevicesSlidesCount
+        slidesPerGroup: +elementSettings.slides_to_scroll_tablet || 1
       };
 
       if (!this.isEdit && 'yes' === elementSettings.autoplay) {
@@ -6048,8 +6048,14 @@ function (_elementorModules$fro) {
 
       if (isSingleSlide) {
         swiperOptions.effect = elementSettings.effect;
+
+        if ('fade' === elementSettings.effect) {
+          swiperOptions.fadeEffect = {
+            crossFade: true
+          };
+        }
       } else {
-        swiperOptions.slidesPerGroup = +elementSettings.slides_to_scroll || defaultLGDevicesSlidesCount;
+        swiperOptions.slidesPerGroup = +elementSettings.slides_to_scroll || 1;
       }
 
       if (elementSettings.image_spacing_custom) {
@@ -6144,7 +6150,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(103);
+__webpack_require__(98);
 
 __webpack_require__(80);
 
@@ -6348,7 +6354,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(103);
+__webpack_require__(98);
 
 __webpack_require__(89);
 
@@ -6913,7 +6919,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(103);
+__webpack_require__(98);
 
 __webpack_require__(80);
 
@@ -7268,12 +7274,15 @@ __webpack_require__(26);
 
 __webpack_require__(161);
 
+__webpack_require__(98);
+
 __webpack_require__(80);
 
 module.exports = elementorModules.ViewModule.extend({
   oldAspectRatio: null,
   oldAnimation: null,
   swiper: null,
+  player: null,
   getDefaultSettings: function getDefaultSettings() {
     return {
       classes: {
@@ -7382,7 +7391,7 @@ module.exports = elementorModules.ViewModule.extend({
     var self = this,
         classes = self.getSettings('classes'),
         $item = jQuery('<div>', {
-      class: "".concat(classes.item, " ").concat(classes.preventClose)
+      class: classes.item
     }),
         $image = jQuery('<img>', {
       src: imageURL,
@@ -7533,6 +7542,8 @@ module.exports = elementorModules.ViewModule.extend({
     return jQuery(this.swiper.slides).filter(this.getSettings('selectors.slideshow.' + slideState + 'Slide'));
   },
   playSlideVideo: function playSlideVideo() {
+    var _this = this;
+
     var $activeSlide = this.getSlide('active'),
         videoURL = $activeSlide.data('elementor-slideshow-video');
 
@@ -7547,15 +7558,73 @@ module.exports = elementorModules.ViewModule.extend({
         $videoWrapper = jQuery('<div>', {
       class: classes.videoWrapper
     }),
-        $videoFrame = jQuery('<iframe>', {
-      src: videoURL
-    }),
         $playIcon = $activeSlide.children('.' + classes.playButton);
+    var videoType, apiProvider;
     $videoContainer.append($videoWrapper);
-    $videoWrapper.append($videoFrame);
     $activeSlide.append($videoContainer);
+
+    if (-1 !== videoURL.indexOf('vimeo.com')) {
+      videoType = 'vimeo';
+      apiProvider = elementorFrontend.utils.vimeo;
+    } else if (videoURL.match(/^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com)/)) {
+      videoType = 'youtube';
+      apiProvider = elementorFrontend.utils.youtube;
+    }
+
+    var videoID = apiProvider.getVideoIDFromURL(videoURL);
+    apiProvider.onApiReady(function (apiObject) {
+      if ('youtube' === videoType) {
+        _this.prepareYTVideo(apiObject, videoID, $videoContainer, $videoWrapper, $playIcon);
+      } else if ('vimeo' === videoType) {
+        _this.prepareVimeoVideo(apiObject, videoID, $videoContainer, $videoWrapper, $playIcon);
+      }
+    });
     $playIcon.addClass(classes.playing).removeClass(classes.hidden);
-    $videoFrame.on('load', function () {
+  },
+  prepareYTVideo: function prepareYTVideo(YT, videoID, $videoContainer, $videoWrapper, $playIcon) {
+    var _this2 = this;
+
+    var classes = this.getSettings('classes'),
+        $videoPlaceholderElement = jQuery('<div>');
+    var startStateCode = YT.PlayerState.PLAYING;
+    $videoWrapper.append($videoPlaceholderElement); // Since version 67, Chrome doesn't fire the `PLAYING` state at start time
+
+    if (window.chrome) {
+      startStateCode = YT.PlayerState.UNSTARTED;
+    }
+
+    $videoContainer.addClass('elementor-loading' + ' ' + classes.invisible);
+    this.player = new YT.Player($videoPlaceholderElement[0], {
+      videoId: videoID,
+      events: {
+        onReady: function onReady() {
+          $playIcon.addClass(classes.hidden);
+          $videoContainer.removeClass(classes.invisible);
+
+          _this2.player.playVideo();
+        },
+        onStateChange: function onStateChange(event) {
+          if (event.data === startStateCode) {
+            $videoContainer.removeClass('elementor-loading' + ' ' + classes.invisible);
+          }
+        }
+      },
+      playerVars: {
+        controls: 0,
+        rel: 0
+      }
+    });
+  },
+  prepareVimeoVideo: function prepareVimeoVideo(Vimeo, videoId, $videoContainer, $videoWrapper, $playIcon) {
+    var classes = this.getSettings('classes'),
+        vimeoOptions = {
+      id: videoId,
+      autoplay: true,
+      transparent: false,
+      playsinline: false
+    };
+    this.player = new Vimeo.Player($videoWrapper, vimeoOptions);
+    this.player.ready().then(function () {
       $playIcon.addClass(classes.hidden);
       $videoContainer.removeClass(classes.invisible);
     });

@@ -1,4 +1,4 @@
-/*! elementor - v2.7.1 - 10-09-2019 */
+/*! elementor - v2.7.3 - 24-09-2019 */
 .dialog-widget-content {
   background-color: #fff;
   position: absolute;
@@ -297,6 +297,9 @@
         color: #fff; }
 
 .elementor-templates-modal__sidebar {
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
   width: 25%;
   background-color: rgba(255, 255, 255, 0.3); }
 
@@ -1953,6 +1956,8 @@ ul.elementor-icon-list-items.elementor-inline-items {
           flex-shrink: 0; }
   .elementor-widget .elementor-icon-list-icon i {
     width: 1.25em; }
+  .elementor-widget .elementor-icon-list-icon svg {
+    width: 1em; }
 
 .elementor-widget.elementor-align-center .elementor-icon-list-item, .elementor-widget.elementor-align-center .elementor-icon-list-item a {
   -webkit-box-pack: center;

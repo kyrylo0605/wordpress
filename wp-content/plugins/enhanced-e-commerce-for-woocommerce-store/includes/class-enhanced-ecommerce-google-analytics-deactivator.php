@@ -33,5 +33,4 @@ class Enhanced_Ecommerce_Google_Analytics_Deactivator {
 		if (!current_user_can('activate_plugins'))
 			return;    
 	}
-
 }

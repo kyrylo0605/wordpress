@@ -265,6 +265,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             $query = array();
 
+            $query['select'] = '';
             $query['search'] = '';
             $query['source'] = '';
             $query['relevance'] = '';
@@ -369,6 +370,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $source_array[] = "term_source = '{$search_in_term}'";
             }
 
+            $query['select'] = ' distinct ID';
             $query['relevance'] = sprintf( ' (SUM( %s )) ', implode( ' + ', $new_relevance_array ) );
             $query['search'] = sprintf( ' AND ( %s )', implode( ' OR ', $search_array ) );
             $query['source'] = sprintf( ' AND ( %s )', implode( ' OR ', $source_array ) );
@@ -424,7 +426,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             $query = apply_filters( 'aws_search_query_array', $query );
 
             $sql = "SELECT
-                    distinct ID,
+                    {$query['select']},
                     {$query['relevance']} as relevance
                 FROM
                     {$table_name}

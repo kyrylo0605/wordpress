@@ -575,15 +575,14 @@ class WPForms_Frontend {
 		}
 
 		// This filter is for backwards compatibility purposes.
-		$types = array( 'text', 'textarea', 'number', 'email', 'hidden', 'url', 'html', 'divider', 'password', 'phone', 'address', 'checkbox', 'radio' );
+		$types = array( 'text', 'textarea', 'name', 'number', 'email', 'hidden', 'url', 'html', 'divider', 'password', 'phone', 'address', 'select', 'checkbox', 'radio' );
 		if ( in_array( $field['type'], $types, true ) ) {
 			$field = apply_filters( "wpforms_{$field['type']}_field_display", $field, $attributes, $form_data );
 		} elseif ( 'credit-card' === $field['type'] ) {
 			$field = apply_filters( 'wpforms_creditcard_field_display', $field, $attributes, $form_data );
-		} elseif ( 'payment-multiple' === $field['type'] ) {
-			$field = apply_filters( 'wpforms_payment_multiple_field_display', $field, $attributes, $form_data );
-		} elseif ( 'payment-checkbox' === $field['type'] ) {
-			$field = apply_filters( 'wpforms_payment_checkbox_field_display', $field, $attributes, $form_data );
+		} elseif ( in_array( $field['type'], array( 'payment-multiple', 'payment-single', 'payment-checkbox' ), true ) ) {
+			$filter_field_type = str_replace( '-', '_', $field['type'] );
+			$field             = apply_filters( 'wpforms_' . $filter_field_type . '_field_display', $field, $attributes, $form_data );
 		}
 
 		$form_id  = absint( $form_data['id'] );

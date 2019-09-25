@@ -303,6 +303,7 @@
                         }
                         if ( typeof ga !== 'undefined' ) {
                             ga('send', 'event', 'AWS search', 'AWS Search Term', label);
+                            ga( 'send', 'pageview', '/?s=' + encodeURIComponent( 'ajax-search:' + label ) );
                         }
                     }
                     catch (error) {

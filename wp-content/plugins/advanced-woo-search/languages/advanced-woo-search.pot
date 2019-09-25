@@ -420,8 +420,14 @@ msgstr ""
 msgid "Use google analytics to track searches. You need google analytics to be installed on your site."
 msgstr ""
 
+msgid "Data will be visible inside Google Analytics 'Site Search' report. Need to activate 'Site Search' feature inside GA. %s"
+msgstr ""
+
+msgid "More info"
+msgstr ""
+
 #: includes/options.php:42
-msgid "Will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term."
+msgid "Also will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term."
 msgstr ""
 
 msgid "In stock"

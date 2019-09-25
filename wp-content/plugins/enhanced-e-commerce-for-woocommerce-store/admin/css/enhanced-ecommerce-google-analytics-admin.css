@@ -11,37 +11,37 @@ body{
 	background: #f1f1f1 !important;
 }
 .nav-link.active{
-    color: #fff !important;
-    background-color: #2D73C5 !important;
+	color: #fff !important;
+	background-color: #2D73C5 !important;
 }
 a.aga-tab{
-    color:#4A4A4A !important;
-    line-height: 2em;
+	color:#4A4A4A !important;
+	line-height: 2em;
 }
 .table td{
-    vertical-align: middle !important;
+	vertical-align: middle !important;
 }
 td{
-    width:8%;
+	width:8%;
 }
 .popover{
-    max-width:500px !important;
+	max-width:500px !important;
 }
 .popover-body{
-     text-align: justify;
-    text-justify: inter-word;
+	text-align: justify;
+	text-justify: inter-word;
 }
 input[type=text],input[type=email],input[type=number],textarea{
-    border:1.3px solid #b4b9be;
+	border:1.3px solid #b4b9be;
 }
 input[type=checkbox]{
 	border:1.2px solid #b4b9be;
 	background:#fff;
-  -webkit-transition: all 1.5s ease;
-  -moz-transition: all 1.5s ease;
-  -o-transition: all 1.5s ease;
-  -ms-transition: all 1.5s ease;
-  transition: all 1.5s ease;
+	-webkit-transition: all 1.5s ease;
+	-moz-transition: all 1.5s ease;
+	-o-transition: all 1.5s ease;
+	-ms-transition: all 1.5s ease;
+	transition: all 1.5s ease;
 }
 input[type=checkbox]:checked::before {
 	height:16px;
@@ -68,5 +68,4 @@ h5{
 		margin-left: 6% !important;
 		width:auto;
 	}
-
 }

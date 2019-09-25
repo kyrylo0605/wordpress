@@ -26,7 +26,6 @@
  */
 class Enhanced_Ecommerce_Google_Analytics_i18n {
 
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -41,7 +40,4 @@ class Enhanced_Ecommerce_Google_Analytics_i18n {
 		);
 
 	}
-
-
-
 }
