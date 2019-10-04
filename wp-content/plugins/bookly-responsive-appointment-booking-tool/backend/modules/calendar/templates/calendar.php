@@ -98,5 +98,6 @@ use Bookly\Backend\Modules\Calendar\Proxy;
         </div>
 
         <?php Components\Dialogs\Appointment\Delete\Dialog::render() ?>
+        <?php Components\Dialogs\Queue\Dialog::render() ?>
     </div>
 </div>

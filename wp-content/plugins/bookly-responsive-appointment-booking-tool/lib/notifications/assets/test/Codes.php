@@ -74,7 +74,7 @@ class Codes extends Assets\Item\Codes
                 'token' => null,
             ),
         );
-
+        $this->series_token             = '1000100010001000100010001';
         $this->agenda_date              = Utils\DateTime::formatDate( current_time( 'mysql' ) );
         $this->appointment_token        = '';
         $this->amount_due               = '';

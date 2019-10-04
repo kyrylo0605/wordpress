@@ -10,6 +10,12 @@ Version: <?php echo Lib\Plugin::getVersion() ?>
 <div id="bookly-form-<?php echo $form_id ?>" class="bookly-form" data-form_id="<?php echo $form_id ?>">
     <div style="text-align: center"><img src="<?php echo includes_url( 'js/tinymce/skins/lightgray/img/loader.gif' ) ?>" alt="<?php esc_attr_e( 'Loading...', 'bookly' ) ?>" /></div>
 </div>
+<?php if ( get_option( 'bookly_app_show_powered_by' ) ) : ?>
+    <div class="powered-by-bookly"><?php esc_html_e( 'Powered by', 'bookly' ) ?>
+        <a href="https://www.booking-wp-plugin.com/?utm_source=referral&utm_medium=booking_widget" target="_blank">Bookly</a> —
+        <a href="https://www.booking-wp-plugin.com/?utm_source=referral&utm_medium=booking_widget" target="_blank">WordPress Booking Plugin</a>
+    </div>
+<?php endif ?>
 <script type="text/javascript">
     (function (win, fn) {
         var done = false, top = true,

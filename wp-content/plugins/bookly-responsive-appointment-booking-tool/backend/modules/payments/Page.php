@@ -47,6 +47,7 @@ class Page extends Lib\Base\Component
             'details'       => __( 'Details', 'bookly' ),
             'areYouSure'    => __( 'Are you sure?', 'bookly' ),
             'noResultFound' => __( 'No result found', 'bookly' ),
+            'searching'     => __( 'Searching', 'bookly' ),
             'invoice'       => array(
                 'enabled' => (int) Lib\Config::invoicesActive(),
                 'button'  => __( 'Invoice', 'bookly' ),
@@ -63,13 +64,13 @@ class Page extends Lib\Base\Component
             Lib\Entities\Payment::TYPE_PAYULATAM,
             Lib\Entities\Payment::TYPE_PAYSON,
             Lib\Entities\Payment::TYPE_MOLLIE,
-            Lib\Entities\Payment::TYPE_COUPON,
+            Lib\Entities\Payment::TYPE_FREE,
             Lib\Entities\Payment::TYPE_WOOCOMMERCE,
         );
 
         $providers = Lib\Entities\Staff::query()->select( 'id, full_name' )->sortBy( 'full_name' )->whereNot( 'visibility', 'archive' )->fetchArray();
         $services  = Lib\Entities\Service::query()->select( 'id, title' )->sortBy( 'title' )->fetchArray();
-        $customers = Lib\Entities\Customer::query( 'c' )->select( 'c.id, c.full_name, c.first_name, c.last_name' )->fetchArray();
+        $customers = Lib\Entities\Customer::query()->count() < Lib\Entities\Customer::REMOTE_LIMIT ? Lib\Entities\Customer::query( 'c' )->select( 'c.id, c.full_name, c.first_name, c.last_name' )->fetchArray() : false;
 
         self::renderTemplate( 'index', compact( 'types', 'providers', 'services', 'customers' ) );
     }

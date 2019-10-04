@@ -71,7 +71,7 @@ class Query
     /** @var string */
     protected $namespace;
 
-    /** @var string  */
+    /** @var string */
     protected $alias;
 
     /** @var array */
@@ -178,7 +178,7 @@ class Query
             'table'  => call_user_func( array( $entity, 'getTableName' ) ),
             'schema' => call_user_func( array( $entity, 'getSchema' ) ),
             'on'     => $on,
-            'type'   => 'LEFT'
+            'type'   => 'LEFT',
         );
 
         return $this;
@@ -198,7 +198,7 @@ class Query
             'table'  => $table,
             'schema' => null,
             'on'     => $on,
-            'type'   => 'LEFT'
+            'type'   => 'LEFT',
         );
 
         return $this;
@@ -254,7 +254,7 @@ class Query
             'table'  => call_user_func( array( $entity, 'getTableName' ) ),
             'schema' => call_user_func( array( $entity, 'getSchema' ) ),
             'on'     => $on,
-            'type'   => 'INNER'
+            'type'   => 'INNER',
         );
 
         return $this;
@@ -466,7 +466,7 @@ class Query
      * Add an OR statement to the where clause (e.g. (var = foo OR var = bar OR
      * var = baz)).
      *
-     * @param  array $where
+     * @param  array  $where
      * @param  string $glue
      * @return self
      */
@@ -481,7 +481,7 @@ class Query
      * Add an AND statement to the where clause (e.g. (var1 = foo AND var2 = bar
      * AND var3 = baz)).
      *
-     * @param  array $where
+     * @param  array  $where
      * @param  string $glue
      * @return self
      */
@@ -596,13 +596,17 @@ class Query
      * Runs the same query as find, but with no limit and don't retrieve the
      * results, just the total items found.
      *
+     * @param bool $only_rows_count
      * @return integer
      */
-    public function count()
+    public function count( $only_rows_count = false )
     {
         global $wpdb;
 
-        return array_sum( $wpdb->get_col( $this->composeQuery( true ) ) );
+        $result = $wpdb->get_col( $this->composeQuery( true ) );
+        return $only_rows_count
+            ? count( $result )
+            : array_sum( $result );
     }
 
     /**
@@ -747,7 +751,7 @@ class Query
         // SET for UPDATE
         if ( ! empty( $this->set ) ) {
             foreach ( $this->set as $s ) {
-                if( $s['type'] == 'set' ) {
+                if ( $s['type'] == 'set' ) {
                     list ( $field, $format ) = $this->_normalize( $s['column'] );
                     if ( $s['value'] === null ) {
                         $set .= $field . ' = NULL,';

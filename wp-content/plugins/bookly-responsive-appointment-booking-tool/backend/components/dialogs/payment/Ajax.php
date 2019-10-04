@@ -102,4 +102,25 @@ class Ajax extends Lib\Base\Ajax
             wp_send_json_success( array( 'payment_title' => $payment_title, 'payment_type' => $payment->getPaid() == $payment->getTotal() ? 'full' : 'partial' ) );
         }
     }
+
+    /**
+     * Extend parent method to control access on staff member level.
+     *
+     * @param string $action
+     * @return bool
+     */
+    protected static function hasAccess( $action )
+    {
+        if ( parent::hasAccess( $action ) ) {
+            if ( ! Lib\Utils\Common::isCurrentUserAdmin() && $action === 'completePayment' ) {
+                $staff = new Lib\Entities\Staff();
+
+                return $staff->loadBy( array( 'wp_user_id' => get_current_user_id() ) );
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -40,6 +40,7 @@ abstract class Plugin extends Base\Plugin
         Backend\Components\Notices\CollectStatsAjax::init();
         Backend\Components\Notices\LiteRebrandingAjax::init();
         Backend\Components\Notices\NpsAjax::init();
+        Backend\Components\Notices\PoweredByAjax::init();
         Backend\Components\Notices\SubscribeAjax::init();
         Backend\Components\Support\ButtonsAjax::init();
         Backend\Components\TinyMce\Tools::init();
@@ -91,7 +92,7 @@ abstract class Plugin extends Base\Plugin
         if ( get_option( 'bookly_gen_collect_stats' ) ) {
             // Store admin preferred language.
             add_filter( 'wp_authenticate_user', function ( $user ) {
-                if ( $user instanceof \WP_User && $user->has_cap( 'manage_options' ) && isset ( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+                if ( $user instanceof \WP_User && $user->has_cap( Utils\Common::getRequiredCapability() ) && isset ( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
                     $locale = strtok( $_SERVER['HTTP_ACCEPT_LANGUAGE'], ',;' );
                     update_option( 'bookly_admin_preferred_language', $locale );
                 }

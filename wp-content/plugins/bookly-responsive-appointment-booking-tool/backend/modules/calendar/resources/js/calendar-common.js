@@ -235,7 +235,7 @@ jQuery(function ($) {
                 });
             },
             onSelect: function (dateText, inst) {
-                var d = new Date(dateText);
+                var d = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
                 $container.fullCalendar('gotoDate', d);
                 if ($container.fullCalendar('getView').type != 'agendaDay' &&
                     $container.fullCalendar('getView').type != 'multiStaffDay') {
@@ -278,6 +278,9 @@ jQuery(function ($) {
                         ladda.stop();
                         $container.fullCalendar('removeEvents', calEvent.id);
                         obj.$deleteDialog.modal('hide');
+                        if (response.data && response.data.queue && response.data.queue.length) {
+                            $(document.body).trigger('bookly.queue_dialog', [response.data.queue]);
+                        }
                     }
                 });
             });

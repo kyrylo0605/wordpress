@@ -60,10 +60,10 @@ class Page extends Lib\Base\Component
         $title = __( 'Addons', 'bookly' );
         $count = self::getNotSeenCount();
         if ( $count ) {
-            add_submenu_page( 'bookly-menu', $title, sprintf( '%s <span class="update-plugins count-%d"><span class="update-count">%d</span></span>', $title, $count, $count ), 'manage_options',
+            add_submenu_page( 'bookly-menu', $title, sprintf( '%s <span class="update-plugins count-%d"><span class="update-count">%d</span></span>', $title, $count, $count ), Lib\Utils\Common::getRequiredCapability(),
                 self::pageSlug(), function () { Page::render(); } );
         } else {
-            add_submenu_page( 'bookly-menu', $title, $title, 'manage_options',
+            add_submenu_page( 'bookly-menu', $title, $title, Lib\Utils\Common::getRequiredCapability(),
                 self::pageSlug(), function () { Page::render(); } );
         }
     }

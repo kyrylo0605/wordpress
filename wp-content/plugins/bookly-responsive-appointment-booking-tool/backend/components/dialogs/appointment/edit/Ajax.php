@@ -55,6 +55,7 @@ class Ajax extends Lib\Base\Ajax
             ),
             'extras_consider_duration' => (int) Lib\Proxy\ServiceExtras::considerDuration( true ),
             'extras_multiply_nop'      => (int) get_option( 'bookly_service_extras_multiply_nop', 1 ),
+            'customer_gr_def_app_status' => Lib\Proxy\CustomerGroups::prepareDefaultAppointmentStatuses( array( 0 => get_option( 'bookly_gen_default_appointment_status' ) ) ),
         );
 
         // Staff list.
@@ -127,20 +128,25 @@ class Ajax extends Lib\Base\Ajax
 
         /** @var Lib\Entities\Customer $customer */
         // Customers list.
-        foreach ( Lib\Entities\Customer::query()->sortBy( 'full_name' )->find() as $customer ) {
-            $name = $customer->getFullName();
-            if ( $customer->getEmail() != '' || $customer->getPhone() != '' ) {
-                $name .= ' (' . trim( $customer->getEmail() . ', ' . $customer->getPhone(), ', ' ) . ')';
-            }
+        $customers_count = Lib\Entities\Customer::query( 'c' )->count();
+        if ( $customers_count < Lib\Entities\Customer::REMOTE_LIMIT ) {
+            foreach ( Lib\Entities\Customer::query()->sortBy( 'full_name' )->find() as $customer ) {
+                $name = $customer->getFullName();
+                if ( $customer->getEmail() != '' || $customer->getPhone() != '' ) {
+                    $name .= ' (' . trim( $customer->getEmail() . ', ' . $customer->getPhone(), ', ' ) . ')';
+                }
 
-            $result['customers'][] = array(
-                'id'                 => $customer->getId(),
-                'name'               => $name,
-                'status'             => Lib\Proxy\CustomerGroups::prepareDefaultAppointmentStatus( get_option( 'bookly_gen_default_appointment_status' ), $customer->getGroupId() ),
-                'custom_fields'      => array(),
-                'timezone'           => Lib\Proxy\Pro::getLastCustomerTimezone( $customer->getId() ),
-                'number_of_persons'  => 1,
-            );
+                $result['customers'][] = array(
+                    'id'            => $customer->getId(),
+                    'name'          => $name,
+                    'group_id'      => $customer->getGroupId(),
+                    'custom_fields' => array(),
+                    'timezone'      => Lib\Proxy\Pro::getLastCustomerTimezone( $customer->getId() ),
+                    'number_of_persons' => 1,
+                );
+            }
+        } else {
+            $result['customers'] = false;
         }
 
         // Time list.
@@ -252,8 +258,13 @@ class Ajax extends Lib\Base\Ajax
                     p.total   AS payment_total,
                     p.type    AS payment_type,
                     p.details AS payment_details,
-                    p.status  AS payment_status' )
+                    p.status  AS payment_status,
+                    c.full_name,
+                    c.email,
+                    c.phone,
+                    c.group_id')
                 ->leftJoin( 'Payment', 'p', 'p.id = ca.payment_id' )
+                ->leftJoin( 'Customer', 'c', 'c.id = ca.customer_id' )
                 ->where( 'ca.appointment_id', $appointment->getId() )
                 ->fetchArray();
             foreach ( $customers as $customer ) {
@@ -285,6 +296,19 @@ class Ajax extends Lib\Base\Ajax
                     }
                 }
                 $custom_fields = (array) json_decode( $customer['custom_fields'], true );
+                $name = $customer['full_name'];
+                if ( $customer['email'] != '' || $customer['phone'] != '' ) {
+                    $name .= ' (' . trim( $customer['email'] . ', ' . $customer['phone'], ', ' ) . ')';
+                }
+                $response['data']['customers_data'][] = array(
+                    'id'                => $customer['customer_id'],
+                    'name'              => $name,
+                    'group_id'          => $customer['group_id'],
+                    'status'            => $customer['status'],
+                    'custom_fields'     => array(),
+                    'timezone'          => Lib\Proxy\Pro::getLastCustomerTimezone( $customer['customer_id'] ),
+                    'number_of_persons' => 1,
+                );
                 $response['data']['customers'][] = array(
                     'id'                       => $customer['customer_id'],
                     'ca_id'                    => $customer['id'],
@@ -304,7 +328,8 @@ class Ajax extends Lib\Base\Ajax
                     'payment_id'               => $customer['payment_id'],
                     'payment_type'             => $customer['payment'] != $customer['payment_total'] ? 'partial' : 'full',
                     'payment_title'            => $payment_title,
-                    'status'                  => $customer['status'],
+                    'group_id'                 => $customer['group_id'],
+                    'status'                   => $customer['status'],
                     'timezone'                 => Lib\Proxy\Pro::getCustomerTimezone( $customer['time_zone'], $customer['time_zone_offset'] ),
                 );
             }
@@ -332,7 +357,7 @@ class Ajax extends Lib\Base\Ajax
         $repeat               = json_decode( self::parameter( 'repeat', '[]' ), true );
         $schedule             = self::parameter( 'schedule', array() );
         $customers            = json_decode( self::parameter( 'customers', '[]' ), true );
-        $notification         = self::parameter( 'notification', 'no' );
+        $notification         = self::parameter( 'notification', false );
         $internal_note        = self::parameter( 'internal_note' );
         $created_from         = self::parameter( 'created_from' );
 
@@ -409,6 +434,7 @@ class Ajax extends Lib\Base\Ajax
         if ( ! isset ( $response['errors'] ) ) {
             $duration = Lib\Slots\DatePoint::fromStr( $end_date )->diff( Lib\Slots\DatePoint::fromStr( $start_date ) );
             if ( ! $skip_date && $repeat['enabled'] ) {
+                $queue = array();
                 // Series.
                 if ( ! empty ( $schedule ) ) {
                     /** @var DataHolders\Order[] $orders */
@@ -433,7 +459,7 @@ class Ajax extends Lib\Base\Ajax
                             ->save();
 
                         // Create order
-                        if ( $notification != 'no' ) {
+                        if ( $notification ) {
                             $orders[ $customer['id'] ] = DataHolders\Order::create( Lib\Entities\Customer::find( $customer['id'] ) )
                                 ->addItem( 0, DataHolders\Series::create( $series ) );
                         }
@@ -486,10 +512,10 @@ class Ajax extends Lib\Base\Ajax
                                 Lib\Proxy\Pro::syncGoogleCalendarEvent( $appointment );
                                 // Outlook Calendar.
                                 Lib\Proxy\OutlookCalendar::syncEvent( $appointment );
-                                // Waiting list.
-                                Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
 
-                                if ( $notification != 'no' ) {
+                                if ( $notification ) {
+                                    // Waiting list.
+                                    Lib\Proxy\WaitingList::handleParticipantsChange( $queue, $appointment );
                                     foreach ( $ca_list as $ca ) {
                                         $item = DataHolders\Simple::create( $ca )
                                             ->setService( $service )
@@ -503,13 +529,14 @@ class Ajax extends Lib\Base\Ajax
                             Proxy\RecurringAppointments::createBackendPayment( $series, $customer );
                         }
                     }
-                    if ( $notification != 'no' ) {
+                    if ( $notification ) {
                         foreach ( $orders as $order ) {
-                            Lib\Notifications\Booking\Sender::sendForOrder( $order, array(), $notification == 'all' );
+                            Lib\Notifications\Booking\Sender::sendForOrder( $order, array(), $notification == 'all', $queue );
                         }
                     }
                 }
                 $response['success'] = true;
+                $response['queue']   = array( 'all' => $queue, 'changed_status' => array() );
                 $response['data']    = array( 'staffId' => $staff_id );  // make FullCalendar refetch events
             } else {
                 // Single appointment.
@@ -546,28 +573,31 @@ class Ajax extends Lib\Base\Ajax
                     Lib\Proxy\Pro::syncGoogleCalendarEvent( $appointment );
                     // Outlook Calendar.
                     Lib\Proxy\OutlookCalendar::syncEvent( $appointment );
-                    // Waiting list.
-                    Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
+
+                    $queue_changed_status = array();
+                    $queue = array();
 
                     // Send notifications.
-                    if ( $notification == 'changed_status' ) {
-                        foreach ( $ca_status_changed as $ca ) {
-                            Lib\Notifications\Booking\Sender::sendForCA( $ca, $appointment );
-                        }
-                    } elseif ( $notification == 'all' ) {
+                    if ( $notification ) {
+                        // Waiting list.
+                        $queue = Lib\Proxy\WaitingList::handleParticipantsChange( $queue, $appointment );
+
                         $ca_list = $appointment->getCustomerAppointments( true );
                         foreach ( $ca_status_changed as $ca ) {
-                            // The value "just_created" was initialized for the objects of this array
-                            Lib\Notifications\Booking\Sender::sendForCA( $ca, $appointment, array(), true );
+                            if ( $appointment_id ) {
+                                Lib\Notifications\Booking\Sender::sendForCA( $ca, $appointment, array(), false, $queue_changed_status );
+                            }
+                            Lib\Notifications\Booking\Sender::sendForCA( $ca, $appointment, array(), true, $queue );
                             unset( $ca_list[ $ca->getId() ] );
                         }
                         foreach ( $ca_list as $ca ) {
-                            Lib\Notifications\Booking\Sender::sendForCA( $ca, $appointment, array(), true );
+                            Lib\Notifications\Booking\Sender::sendForCA( $ca, $appointment, array(), true, $queue );
                         }
                     }
 
                     $response['success'] = true;
                     $response['data']    = self::_getAppointmentForFC( $staff_id, $appointment->getId() );
+                    $response['queue']   = array( 'all' => $queue, 'changed_status' => $queue_changed_status );
                 } else {
                     $response['errors'] = array( 'db' => __( 'Could not save appointment in database.', 'bookly' ) );
                 }
@@ -825,10 +855,12 @@ class Ajax extends Lib\Base\Ajax
                 // Check customers for appointments limit
                 foreach ( $customers as $index => $customer ) {
                     if ( $service->appointmentsLimitReached( $customer['id'], array( $start_date ) ) ) {
-                        $customer_error                           = Lib\Entities\Customer::find( $customer['id'] );
+                        $customer_error = Lib\Entities\Customer::find( $customer['id'] );
                         $result['customers_appointments_limit'][] = sprintf( __( '%s has reached the limit of bookings for this service', 'bookly' ), $customer_error->getFullName() );
                     }
                 }
+
+                $result['customers_appointments_limit'] = array_unique( $result['customers_appointments_limit'] );
             }
         }
 

@@ -4,11 +4,11 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.2
-Stable tag: 1.6
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Facebook Reviews Widget shows Facebook Page reviews and recommendations on your WordPress website to increase user confidence and SEO.
+Facebook Reviews Widget! Shows Facebook page reviews and recommendations on your WordPress website to increase user confidence and SEO.
 
 == Description ==
 
@@ -75,6 +75,9 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.6.1 =
+* Bugfix: some style fixes
 
 = 1.6 =
 * Bugfix: escape GET parameters for a setting page

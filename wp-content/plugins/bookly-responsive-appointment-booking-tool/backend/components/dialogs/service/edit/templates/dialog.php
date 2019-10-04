@@ -3,7 +3,6 @@ use Bookly\Backend\Components\Controls\Buttons;
 use Bookly\Backend\Components\Controls\Inputs;
 use Bookly\Backend\Modules\Services\Proxy;
 use Bookly\Lib;
-
 ?>
 <div id="bookly-edit-service-modal" class="modal fade" tabindex=-1 role="dialog">
     <div class="modal-dialog modal-lg">
@@ -18,20 +17,20 @@ use Bookly\Lib;
                         <li class="active">
                             <a id="bookly-services-general-tab" href="#bookly-services-general" data-toggle="tab">
                                 <i class="fa fa-cog fa-fw"></i>
-                                <span class="bookly-nav-tabs-title"><?php _e( 'General', 'bookly' ) ?></span>
+                                <span class="bookly-nav-tabs-title"><?php esc_html_e( 'General', 'bookly' ) ?></span>
                             </a>
                         </li>
-                        <li class="bookly-js-service bookly-js-service-simple">
+                        <li class="bookly-js-service bookly-js-service-simple bookly-js-service-compound bookly-js-service-collaborative">
                             <a id="bookly-services-time-tab" href="#bookly-services-time" data-toggle="tab">
                                 <i class="fa fa-clock fa-fw"></i>
-                                <span class="bookly-nav-tabs-title"><?php _e( 'Time', 'bookly' ) ?></span>
+                                <span class="bookly-nav-tabs-title"><?php esc_html_e( 'Time', 'bookly' ) ?></span>
                             </a>
                         </li>
                         <?php if ( Lib\Config::proActive() ) : ?>
                             <li class="bookly-js-service bookly-js-service-simple bookly-js-service-collaborative bookly-js-service-compound">
                                 <a id="bookly-services-advanced-tab" href="#bookly-services-advanced" data-toggle="tab">
                                     <i class="fa fa-cogs fa-fw"></i>
-                                    <span class="bookly-nav-tabs-title"><?php _e( 'Advanced', 'bookly' ) ?></span>
+                                    <span class="bookly-nav-tabs-title"><?php esc_html_e( 'Advanced', 'bookly' ) ?></span>
                                 </a>
                             </li>
                         <?php endif ?>

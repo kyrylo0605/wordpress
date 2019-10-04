@@ -209,11 +209,9 @@ class Generator implements \Iterator
                             }
                         }
                         // For multi-day services try to find available day in the past.
-                        if ( $this->srv_duration_days > 1 && $slot->state() == Range::AVAILABLE ) {
-                            if ( ( $slot = $this->_tryFindPastSlot( $slot ) ) == false ) {
-                                // Skip it if no past slot was found.
-                                continue;
-                            }
+                        if ( $this->srv_duration_days > 1 && ( $slot->fullyBooked() || ( $slot = $this->_tryFindPastSlot( $slot ) ) == false ) ) {
+                            // Skip it if no past slot was found.
+                            continue;
                         }
                         // Decide which slot to add.
                         if ( $ex_slot && $ex_slot->notFullyBooked() && ( $slot->waitingListStarted() || $ex_slot->noWaitingListStarted() ) ) {
@@ -262,7 +260,20 @@ class Generator implements \Iterator
                         $new_ranges = $new_ranges->merge( $r->subtract( $remove, $removed_range ) );
                         /** @var Range $removed_range */
                         if ( $removed_range ) {
-                            $removed->push( $removed_range->replaceNop( $booking->nop() ) );
+                            $removed->push( $removed_range );
+                            // Find range that should be marked as fully booked and add it to results.
+                            $r = $r->transform( null, - $this->srv_duration - $this->extras_duration );
+                            if ( $r->valid() ) {
+                                $r = $r->transform( null, $this->slot_length );
+                                $new_ranges->push(
+                                    $r->intersect(
+                                        $removed_range->transform(
+                                            - $this->srv_duration - $this->extras_duration + $this->slot_length,
+                                            null
+                                        )
+                                    )->replaceState( Range::FULLY_BOOKED )
+                                );
+                            }
                         }
                     } else {
                         $new_ranges->push( $r );
@@ -271,26 +282,26 @@ class Generator implements \Iterator
                 $ranges = $new_ranges;
                 // If some ranges were removed add them back with appropriate state.
                 if ( $removed->isNotEmpty() ) {
-                    $data = $removed->get( 0 )->data()->replaceState( Range::FULLY_BOOKED );
                     // Handle waiting list.
-                    if ( $this->waiting_list_enabled && $booking->serviceId() == $this->srv_id && $booking->range()->length() - $booking->extrasDuration() == ( $this->srv_duration_days > 1 ? $this->srv_duration_days * DAY_IN_SECONDS : $this->srv_duration ) ) {
-                        if ( $booking->onWaitingList() ) {
-                            $data = $data->replaceOnWaitingList( $booking->onWaitingList() );
-                        }
+                    if (
+                        $this->waiting_list_enabled && $booking->serviceId() == $this->srv_id &&
+                        $booking->range()->length() - $booking->extrasDuration() == (
+                            $this->srv_duration_days > 1 ? $this->srv_duration_days * DAY_IN_SECONDS : $this->srv_duration
+                        )
+                    ) {
                         $booking_range = $booking->range();
                         foreach ( $removed->all() as $range ) {
                             // Find range which contains booking start point.
                             if ( $range->contains( $booking_range->start() ) ) {
+                                $data = $range->data()->replaceState( Range::WAITING_LIST_STARTED )->replaceNop( $booking->nop() );
+                                if ( $booking->onWaitingList() ) {
+                                    $data = $data->replaceOnWaitingList( $booking->onWaitingList() );
+                                }
                                 // Create partially booked range and add it to collection.
-                                $ranges->push( $booking_range->resize( $this->slot_length )->replaceData(
-                                    $data->replaceState( Range::WAITING_LIST_STARTED )
-                                ) );
+                                $ranges->push( $booking_range->resize( $this->slot_length )->replaceData( $data ) );
                                 break;
                             }
                         }
-                    }
-                    foreach ( $removed->all() as $range ) {
-                        $ranges->push( $range->replaceData( $data ) );
                     }
                     // Handle partially booked appointments (when number of persons is less than max capacity).
                     if (
@@ -305,7 +316,7 @@ class Generator implements \Iterator
                         foreach ( $removed->all() as $range ) {
                             // Find range which contains booking start point.
                             if ( $range->contains( $booking_range->start() ) ) {
-                                $data = $data->replaceState( Range::PARTIALLY_BOOKED );
+                                $data = $range->data()->replaceState( Range::PARTIALLY_BOOKED )->replaceNop( $booking->nop() );
                                 // Create partially booked range and add it to collection.
                                 $ranges->push( $booking_range->resize( $this->slot_length )->replaceData( $data ) );
                                 break;

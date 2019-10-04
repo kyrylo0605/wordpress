@@ -211,6 +211,8 @@ jQuery(function ($) {
                         updateStaffChoice = false;
                     }
                     submitServiceFrom($serviceDialog, 0);
+                }).on('hidden.bs.modal', function () {
+                    $('body').addClass('modal-open');
                 });
 
                 /**

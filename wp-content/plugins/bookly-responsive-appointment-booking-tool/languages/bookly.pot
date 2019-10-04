@@ -2199,7 +2199,7 @@ msgstr ""
 msgid "Local"
 msgstr ""
 
-msgid "Coupon"
+msgid "Free"
 msgstr ""
 
 msgid "Completed"
@@ -2279,11 +2279,11 @@ msgid ""
 "\n"
 "Your system sent a total of {total} messages last week (that's {delta} "
 "{sign} than the week before).\n"
-"Cost of sending {total} messages was {amount}. You current Bookly SMS "
+"Cost of sending {total} messages was {amount}. Your current Bookly SMS "
 "balance is {balance}.\n"
 "\n"
 "Thank you for using Bookly SMS. We wish you a lucky week!\n"
-"Bookly SMS Team."
+"Bookly SMS Team"
 msgstr ""
 
 msgid "more"
@@ -2304,6 +2304,9 @@ msgstr ""
 msgid ""
 "To view the details of these appointments, please contact your website "
 "administrator in order to verify Bookly Pro license."
+msgstr ""
+
+msgid "Admins"
 msgstr ""
 
 msgid "Passwords must be the same."
@@ -2470,6 +2473,9 @@ msgid "No appointments for selected period."
 msgstr ""
 
 msgid "No result found"
+msgstr ""
+
+msgid "Searching"
 msgstr ""
 
 msgid "Archived"
@@ -2727,6 +2733,9 @@ msgstr ""
 msgid "Please enter old password."
 msgstr ""
 
+msgid "Last month"
+msgstr ""
+
 msgid "Sender ID request is sent."
 msgstr ""
 
@@ -2751,21 +2760,6 @@ msgid "disable"
 msgstr ""
 
 msgid "Edit..."
-msgstr ""
-
-#, php-format
-msgid ""
-"Hello,\n"
-"\n"
-"Thank you for registering at Bookly SMS service. Please click the link below "
-"to verify your email address.\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"Bookly"
-msgstr ""
-
-msgid "Bookly SMS service  email confirmation"
 msgstr ""
 
 msgid "Auto-Recharge has failed, please replenish your balance directly."
@@ -2854,6 +2848,12 @@ msgid ""
 msgstr ""
 
 msgid "Help us improve Bookly by sending anonymous usage stats"
+msgstr ""
+
+msgid ""
+"Allow the plugin to set a Powered by Bookly notice on the booking widget to "
+"spread information about the plugin. This will allow the team to improve the "
+"product and enhance its functionality."
 msgstr ""
 
 msgid "Service paid locally"
@@ -3141,9 +3141,6 @@ msgid "Add Services"
 msgstr ""
 
 msgid "Try Bookly Pro add-on"
-msgstr ""
-
-msgid "Last month"
 msgstr ""
 
 msgid "No payments for selected period and criteria."
@@ -3649,6 +3646,9 @@ msgstr ""
 msgid "Add Service"
 msgstr ""
 
+msgid "Days Off"
+msgstr ""
+
 msgid "Create staff"
 msgstr ""
 
@@ -3715,6 +3715,9 @@ msgstr ""
 msgid "-- Search customers --"
 msgstr ""
 
+msgid "Internal note"
+msgstr ""
+
 msgid ""
 "If you have added a new customer to this appointment or changed the "
 "appointment status for an existing customer, and for these records you want "
@@ -3724,16 +3727,10 @@ msgid ""
 "selecting \"Send as for new\"."
 msgstr ""
 
-msgid "Don't send"
-msgstr ""
-
 msgid "Send if new or status changed"
 msgstr ""
 
 msgid "Send as for new"
-msgstr ""
-
-msgid "Internal note"
 msgstr ""
 
 msgid "Edit appointment"
@@ -4037,6 +4034,9 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
+msgid "Powered by"
+msgstr ""
+
 msgid "No time is available for selected criteria."
 msgstr ""
 
@@ -4249,12 +4249,6 @@ msgstr ""
 msgid "Please select a customer"
 msgstr ""
 
-msgid ""
-"If email or SMS notifications are enabled and you want customers and staff "
-"member to be notified about this package after saving, select appropriate "
-"option before clicking Save."
-msgstr ""
-
 msgid "Save & schedule"
 msgstr ""
 
@@ -4280,15 +4274,6 @@ msgstr ""
 msgid ""
 "You are trying to schedule an appointment in the past. Please select another "
 "time slot."
-msgstr ""
-
-msgid ""
-"If email or SMS notifications are enabled and you want customers or staff "
-"member to be notified about this appointments after saving, select "
-"appropriate option before clicking Save."
-msgstr ""
-
-msgid "If appointments changed"
 msgstr ""
 
 msgid "Select appointment date"
@@ -4404,6 +4389,11 @@ msgstr ""
 msgid "I will pay now with PayPal"
 msgstr ""
 
+msgid ""
+"You are not required to pay for the booked services, click Next to complete "
+"the booking process."
+msgstr ""
+
 msgid "Street Number"
 msgstr ""
 
@@ -4423,6 +4413,26 @@ msgid "Notification to customer about pending appointments"
 msgstr ""
 
 msgid "Extras"
+msgstr ""
+
+#, php-format
+msgid ""
+"There is a new version of %s available. <a href=\"%s\" %s>View version %s "
+"details</a>."
+msgstr ""
+
+#, php-format
+msgid "View %s version %s details"
+msgstr ""
+
+#, php-format
+msgid ""
+"Automatic update is available during active support period, %1$s renew now "
+"%3$s or %2$s I've already renewed support. %3$s"
+msgstr ""
+
+#, php-format
+msgid "If you want to update the plugin manually, visit this %s page. %s"
 msgstr ""
 
 msgid "Check for updates"
@@ -4511,6 +4521,10 @@ msgstr ""
 msgid ""
 "Purchase code verification is temporarily unavailable. Please try again "
 "later."
+msgstr ""
+
+#, php-format
+msgid "Your support period has expired on %s."
 msgstr ""
 
 msgid "Print"
@@ -4637,6 +4651,9 @@ msgid ""
 "with a booking."
 msgstr ""
 
+msgid "Columns"
+msgstr ""
+
 msgid "To find your client ID and client secret, do the following:"
 msgstr ""
 
@@ -4753,7 +4770,16 @@ msgid ""
 "bookings will be disabled."
 msgstr ""
 
+msgid "Cart"
+msgstr ""
+
 msgid "Select product"
+msgstr ""
+
+#, php-format
+msgid ""
+"To use the cart, disable integration with WooCommerce <a href=\"%s\">here</"
+"a>."
 msgstr ""
 
 msgid "Google Calendar"
@@ -4887,6 +4913,10 @@ msgid "Form view in case of multiple booking"
 msgstr ""
 
 #, php-format
+msgid "Form in case of 100% discount"
+msgstr ""
+
+#, php-format
 msgid ""
 "Please configure Facebook App integration in <a href=\"%s\">settings</a> "
 "first."
@@ -4934,9 +4964,6 @@ msgid ""
 msgstr ""
 
 msgid "Titles"
-msgstr ""
-
-msgid "Columns"
 msgstr ""
 
 msgid "Add Bookly appointments list"
@@ -5293,6 +5320,9 @@ msgstr ""
 msgid ""
 "You selected to book {appointments_count} appointments with total price "
 "{total_price}."
+msgstr ""
+
+msgid "Coupon"
 msgstr ""
 
 msgid "Coupons"
@@ -5700,6 +5730,21 @@ msgstr ""
 msgid "New Item"
 msgstr ""
 
+msgid "Show title"
+msgstr ""
+
+msgid "Show price"
+msgstr ""
+
+msgid "Show image"
+msgstr ""
+
+msgid "Show duration"
+msgstr ""
+
+msgid "Show summary"
+msgstr ""
+
 msgid "Show Extras step"
 msgstr ""
 
@@ -5715,15 +5760,6 @@ msgstr ""
 msgid ""
 "Below you can find a list of services selected for booking.\n"
 "Click BOOK MORE if you want to add more services."
-msgstr ""
-
-msgid "Cart"
-msgstr ""
-
-#, php-format
-msgid ""
-"To use the cart, disable integration with WooCommerce <a href=\"%s\">here</"
-"a>."
 msgstr ""
 
 msgid "Show Cart step"
@@ -5756,9 +5792,6 @@ msgstr ""
 msgid ""
 "If you select busy, then a customer with this status will occupy a place in "
 "appointment. If you select free, then a place will be considered as free."
-msgstr ""
-
-msgid "Free"
 msgstr ""
 
 msgid "Busy"

@@ -40,16 +40,37 @@ jQuery(function($) {
 
     $('.bookly-js-select')
         .val(null)
-        .on('select2:unselecting', function(e) {
-            e.preventDefault();
-            $(this).val(null).trigger('change');
-        })
         .select2({
             allowClear: true,
             theme: 'bootstrap',
             language: {
                 noResults: function() { return BooklyL10n.noResultFound; }
             }
+        });
+
+    $('.bookly-js-select-ajax')
+        .select2({
+            width: '100%',
+            theme: 'bootstrap',
+            allowClear: true,
+            language  : {
+                noResults: function() { return BooklyL10n.no_result_found; },
+                searching: function () { return BooklyL10n.searching; }
+            },
+            ajax: {
+                url: ajaxurl,
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    params.page = params.page || 1;
+                    return {
+                        action: $(this).data('action'),
+                        filter: params.term,
+                        page: params.page,
+                        csrf_token : BooklyL10n.csrfToken
+                    };
+                }
+            },
         });
 
     /**
@@ -84,9 +105,9 @@ jQuery(function($) {
             render: function ( data, type, row, meta ) {
                 var buttons = '';
                 if (BooklyL10n.invoice.enabled) {
-                    buttons += '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="view-invoice" data-payment_id="' + row.id + '"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</a>';
+                    buttons += '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="view-invoice" data-payment_id="' + row.id + '"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</button>';
                 }
-                return buttons + '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#bookly-payment-details-modal" data-payment_id="' + row.id + '"><i class="glyphicon glyphicon-list-alt"></i> ' + BooklyL10n.details + '</a>';
+                return buttons + '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#bookly-payment-details-modal" data-payment_id="' + row.id + '"><i class="glyphicon glyphicon-list-alt"></i> ' + BooklyL10n.details + '</button>';
             }
         },
         {
@@ -185,7 +206,7 @@ jQuery(function($) {
                 cancelLabel: BooklyL10n.dateRange.cancel,
                 fromLabel:   BooklyL10n.dateRange.from,
                 toLabel:     BooklyL10n.dateRange.to,
-                customRangeLabel: BooklyL10n.dateRange.custom_range,
+                customRangeLabel: BooklyL10n.dateRange.customRange,
                 daysOfWeek:  BooklyL10n.datePicker.dayNamesShort,
                 monthNames:  BooklyL10n.datePicker.monthNames,
                 firstDay:    parseInt(BooklyL10n.dateRange.firstDay),
@@ -233,7 +254,7 @@ jQuery(function($) {
                 dataType : 'json',
                 success  : function(response) {
                     if (response.success) {
-                        dt.rows($checkboxes.closest('td')).remove().draw();
+                        dt.ajax.reload();
                     } else {
                         alert(response.data.message);
                     }

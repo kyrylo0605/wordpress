@@ -498,8 +498,9 @@ class Ajax extends Lib\Base\Ajax
         $userData = new Lib\UserBookingData( self::parameter( 'form_id' ) );
 
         if ( $userData->load() ) {
-            $payment_disabled = Lib\Config::paymentStepDisabled();
-            $show_cart        = Lib\Config::showStepCart();
+            /** @var string $payment_step   'skip' | 'show' | 'show-100%-discount'  */
+            $payment_step = Lib\Config::paymentStepDisabled() ? 'skip' : 'show';
+            $show_cart    = Lib\Config::showStepCart();
             if ( ! $show_cart ) {
                 $userData->addChainToCart();
             }
@@ -513,52 +514,72 @@ class Ajax extends Lib\Base\Ajax
             $cart_info = $userData->cart->getInfo();
 
             if ( $cart_info->getTotal() <= 0 || $cart_info->getDeposit() <= 0 ) {
-                $payment_disabled = true;
+                if ( $cart_info->withDiscount() ) {
+                    $payment_step = 'show-100%-discount';
+                } else {
+                    $payment_step = 'skip';
+                }
             }
 
-            if ( $payment_disabled == false ) {
+            if ( $payment_step !== 'skip' ) {
                 $progress_tracker = self::_prepareProgressTracker( Steps::PAYMENT, $userData );
+                $payment_options  = array();
 
                 // Prepare info texts.
                 $cart_items_count = count( $userData->cart->getItems() );
-                $info_text_tpl    = Lib\Utils\Common::getTranslatedOption(
-                    $cart_items_count > 1
-                        ? 'bookly_l10n_info_payment_step_several_apps'
-                        : 'bookly_l10n_info_payment_step_single_app'
-                );
-                $info_text        = InfoText::prepare( Steps::PAYMENT, $info_text_tpl, $userData );
+                if ( $payment_step === 'show' ) {
+                    $options = array();
+                    if ( Lib\Config::payLocallyEnabled() ) {
+                        $options['local'] = array(
+                            'html' => self::renderTemplate( '_payment_local', array( 'form_id' => self::parameter( 'form_id' ) ), false ),
+                            'pay'  => $cart_info->getPayNow(),
+                        );
+                    }
+                    $options = Proxy\Shared::preparePaymentOptions(
+                        $options,
+                        self::parameter( 'form_id' ),
+                        Lib\Proxy\Shared::showPaymentSpecificPrices( false ),
+                        $cart_info,
+                        $userData->extractPaymentStatus()
+                    );
+                    $order = explode( ',', get_option( 'bookly_pmt_order' ) );
 
-                $options = array();
-                if ( Lib\Config::payLocallyEnabled() ) {
-                    $options['local'] = self::renderTemplate( '_payment_local', array( 'form_id' => self::parameter( 'form_id' ) ), false );
-                }
-                $options = Proxy\Shared::preparePaymentOptions(
-                    $options,
-                    self::parameter( 'form_id' ),
-                    Lib\Proxy\Shared::showPaymentSpecificPrices( false ),
-                    $cart_info,
-                    $userData->extractPaymentStatus()
-                );
-                $order = explode( ',', get_option( 'bookly_pmt_order' ) );
-                $payment_options =  array();
-                if ( $order ) {
-                    foreach ( $order as $payment_system ) {
-                        if ( array_key_exists( $payment_system, $options ) ) {
-                            $payment_options[] = $options[ $payment_system ];
+                    if ( $order ) {
+                        foreach ( $order as $payment_system ) {
+                            if ( array_key_exists( $payment_system, $options ) ) {
+                                $payment_options[] = $options[ $payment_system ]['html'];
+                            }
+                        }
+                    }
+                    foreach ( $options as $slug => $data ) {
+                        if ( ! $order || ! in_array( $slug, $order ) ) {
+                            if ( $data['pay'] == 0 ) {
+                                $payment_step = 'show-100%-discount';
+                                $payment_options = array();
+                                break;
+                            }
+                            $payment_options[] = $data['html'];
                         }
                     }
                 }
-                foreach ( $options as $slug => $data ) {
-                    if ( ! $order || ! in_array( $slug, $order ) ) {
-                        $payment_options[] = $data;
-                    }
+
+                if ( $payment_step === 'show-100%-discount' ) {
+                    $info_text_tpl = Lib\Utils\Common::getTranslatedOption( 'bookly_l10n_info_payment_step_with_100percents_off_price' );
+                } else {
+                    $info_text_tpl = Lib\Utils\Common::getTranslatedOption(
+                        $cart_items_count > 1
+                            ? 'bookly_l10n_info_payment_step_several_apps'
+                            : 'bookly_l10n_info_payment_step_single_app'
+                    );
                 }
+
+                $info_text = InfoText::prepare( Steps::PAYMENT, $info_text_tpl, $userData );
 
                 // Set response.
                 $response = array(
-                    'success'                => true,
-                    'disabled'               => false,
-                    'html'                   => self::renderTemplate( '7_payment', array(
+                    'success'  => true,
+                    'disabled' => false,
+                    'html'     => self::renderTemplate( '7_payment', array(
                         'form_id'          => self::parameter( 'form_id' ),
                         'progress_tracker' => $progress_tracker,
                         'info_text'        => $info_text,
@@ -702,7 +723,7 @@ class Ajax extends Lib\Base\Ajax
             $failed_cart_key = $userData->cart->getFailedKey();
             if ( $failed_cart_key === null ) {
                 $cart_info = $userData->cart->getInfo();
-                $is_payment_disabled  = Lib\Config::paymentStepDisabled();
+                $is_payment_disabled    = Lib\Config::paymentStepDisabled();
                 $is_pay_locally_enabled = Lib\Config::payLocallyEnabled();
                 if ( $is_payment_disabled || $is_pay_locally_enabled || $cart_info->getPayNow() <= 0 ) {
                     // Handle coupon.
@@ -713,23 +734,42 @@ class Ajax extends Lib\Base\Ajax
                     // Handle payment.
                     $payment = null;
                     if ( ! $is_payment_disabled ) {
-                        if ( $coupon && $cart_info->getTotal() <= 0 ) {
-                            // Create fake payment record for 100% discount coupons.
+                        if ( $cart_info->getTotal() <= 0 ) {
+                            if ( $cart_info->withDiscount() ) {
+                                $payment = new Lib\Entities\Payment();
+                                $payment
+                                    ->setType( Lib\Entities\Payment::TYPE_FREE )
+                                    ->setStatus( Lib\Entities\Payment::STATUS_COMPLETED )
+                                    ->setPaidType( Lib\Entities\Payment::PAY_IN_FULL )
+                                    ->setTotal( 0 )
+                                    ->setPaid( 0 )
+                                    ->save();
+                            }
+                        } else {
                             $payment = new Lib\Entities\Payment();
+                            $options = Proxy\Shared::preparePaymentOptions(
+                                array(),
+                                self::parameter( 'form_id' ),
+                                Lib\Proxy\Shared::showPaymentSpecificPrices( false ),
+                                $cart_info,
+                                $userData->extractPaymentStatus()
+                            );
+                            $status = Lib\Entities\Payment::STATUS_PENDING;
+                            $type   = Lib\Entities\Payment::TYPE_LOCAL;
+                            foreach ( $options as $gateway => $data ) {
+                                if ( $data['pay'] == 0 ) {
+                                    $status = Lib\Entities\Payment::STATUS_COMPLETED;
+                                    $type   = Lib\Entities\Payment::TYPE_FREE;
+                                    $cart_info->setGateway( $gateway );
+                                    $payment->setGatewayPriceCorrection( $cart_info->getPriceCorrection() );
+                                    break;
+                                }
+                            }
+
                             $payment
-                                ->setStatus( Lib\Entities\Payment::STATUS_COMPLETED )
+                                ->setType( $type )
+                                ->setStatus( $status )
                                 ->setPaidType( Lib\Entities\Payment::PAY_IN_FULL )
-                                ->setType( Lib\Entities\Payment::TYPE_COUPON )
-                                ->setTotal( 0 )
-                                ->setPaid( 0 )
-                                ->save();
-                        } elseif ( $cart_info->getTotal() > 0 ) {
-                            // Create record for local payment.
-                            $payment = new Lib\Entities\Payment();
-                            $payment
-                                ->setStatus( Lib\Entities\Payment::STATUS_PENDING )
-                                ->setPaidType( Lib\Entities\Payment::PAY_IN_FULL )
-                                ->setType( Lib\Entities\Payment::TYPE_LOCAL )
                                 ->setTotal( $cart_info->getTotal() )
                                 ->setTax( $cart_info->getTotalTax() )
                                 ->setPaid( 0 )
@@ -878,7 +918,7 @@ class Ajax extends Lib\Base\Ajax
                             // Outlook Calendar.
                             Lib\Proxy\OutlookCalendar::syncEvent( $appointment );
                             // Waiting list.
-                            Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
+                            Lib\Proxy\WaitingList::handleParticipantsChange( false, $appointment );
                         }
                     }
                     Lib\Notifications\Booking\Sender::send( $item );
@@ -928,7 +968,7 @@ class Ajax extends Lib\Base\Ajax
                         // Outlook Calendar.
                         Lib\Proxy\OutlookCalendar::syncEvent( $appointment );
                         // Waiting list.
-                        Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
+                        Lib\Proxy\WaitingList::handleParticipantsChange( false, $appointment );
                     }
                 }
                 $url = get_option( 'bookly_url_reject_page_url' );
@@ -1011,22 +1051,22 @@ class Ajax extends Lib\Base\Ajax
         $result = '';
 
         if ( get_option( 'bookly_app_show_progress_tracker' ) ) {
-            $payment_disabled = Lib\Config::paymentStepDisabled();
-            if ( ! $payment_disabled && $step > Steps::SERVICE ) {
+            $skip_payment_step = Lib\Config::paymentStepDisabled();
+            if ( ! $skip_payment_step && $step > Steps::SERVICE ) {
                 if ( $step < Steps::CART ) {
                     // step Cart.
                     // Assume that payment is disabled and check chain items.
                     // If one is incomplete or its price is more than zero then the payment step should be displayed.
-                    $payment_disabled = true;
+                    $skip_payment_step = true;
                     foreach ( $userData->chain->getItems() as $item ) {
                         if ( $item->hasPayableExtras() ) {
-                            $payment_disabled = false;
+                            $skip_payment_step = false;
                             break;
                         } else {
                             if ( $item->getService()->getType() == Lib\Entities\Service::TYPE_SIMPLE ) {
                                 $staff_ids = $item->getStaffIds();
                                 $staff     = null;
-                                if ( count( $staff_ids ) == 1 ) {
+                                if ( count( $staff_ids ) === 1 ) {
                                     $staff = Lib\Entities\Staff::find( $staff_ids[0] );
                                 }
                                 if ( $staff ) {
@@ -1037,17 +1077,17 @@ class Ajax extends Lib\Base\Ajax
                                         'location_id' => Lib\Proxy\Locations::prepareStaffLocationId( $item->getLocationId(), $staff->getId() ) ?: null,
                                     ) );
                                     if ( $staff_service->getPrice() > 0 ) {
-                                        $payment_disabled = false;
+                                        $skip_payment_step = false;
                                         break;
                                     }
                                 } else {
-                                    $payment_disabled = false;
+                                    $skip_payment_step = false;
                                     break;
                                 }
                             } else {
                                 // Service::TYPE_COMPOUND
                                 if ( $item->getService()->getPrice() > 0 ) {
-                                    $payment_disabled = false;
+                                    $skip_payment_step = false;
                                     break;
                                 }
                             }
@@ -1056,18 +1096,21 @@ class Ajax extends Lib\Base\Ajax
                 } else {
                     $cart_info = $userData->cart->getInfo();
                     if ( $cart_info->getTotal() == 0 || $cart_info->getDeposit() == 0 ) {
-                        $payment_disabled = true;
+                        $skip_payment_step = !$cart_info->withDiscount();
                     }
                 }
             }
 
             $result = self::renderTemplate( '_progress_tracker', array(
-                'step' => $step,
-                'show_cart' => Lib\Config::showStepCart(),
-                'payment_disabled'   => $payment_disabled,
-                'skip_service_step'  => Lib\Session::hasFormVar( self::parameter( 'form_id' ), 'skip_service_step' ),
+                'step'       => $step,
+                'skip_steps' => array(
+                    'service' => Lib\Session::hasFormVar( self::parameter( 'form_id' ), 'skip_service_step' ),
+                    'extras'  => ! ( Lib\Config::serviceExtrasActive() && get_option( 'bookly_service_extras_enabled' ) ),
+                    'cart'    => ! Lib\Config::showStepCart(),
+                    'payment' => $skip_payment_step,
+                ),
                 // step extras before step time
-                'step_extras_active' => $step > 3 || ( $step >= 2 && self::parameter( 'action' ) == 'bookly_render_extras' )
+                'step_extras_active' => $step > 3 || ( $step >= 2 && self::parameter( 'action' ) == 'bookly_render_extras' ),
             ), false );
         }
 

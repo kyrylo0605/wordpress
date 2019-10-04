@@ -126,10 +126,10 @@ abstract class Routines
 {notification_list}
 
 Your system sent a total of {total} messages last week (that\'s {delta} {sign} than the week before).
-Cost of sending {total} messages was {amount}. You current Bookly SMS balance is {balance}.
+Cost of sending {total} messages was {amount}. Your current Bookly SMS balance is {balance}.
 
 Thank you for using Bookly SMS. We wish you a lucky week!
-Bookly SMS Team.', 'bookly' );
+Bookly SMS Team', 'bookly' );
                         $message = strtr( $message,
                             array(
                                 '{notification_list}' => $notification_list,

@@ -82,8 +82,8 @@
         // save right arrow
         var right = null;
         // create new previous 12 months
-        for (var i = 0; i < 12; i++ ) {
-          $(e.data._target).prepend('<div class="jCalMo"></div>');
+        for (var i = 11; i >= 0; i-- ) {
+          $(e.data._target).prepend('<div class="jCalMo" data-index="' + i + '"></div>');
           e.data.day = new Date( $('div[id*=' + e.data.cID + 'd_]:first', e.data._target).attr('id').replace(e.data.cID + 'd_', '').replace(/_/g, '/') );
           e.data.day.setDate(1);
           e.data.day.setMonth( e.data.day.getMonth() - 1);
@@ -115,7 +115,7 @@
         var left = false;
         // create new next 12 month
         for (var i = 0; i < 12; i++) {
-          $(e.data._target).append('<div class="jCalMo"></div>');
+          $(e.data._target).append('<div class="jCalMo" data-index="' + i + '"></div>');
           e.data.day = new Date( $('div[id^=' + e.data.cID + 'd_]:last', e.data._target).attr('id').replace(e.data.cID + 'd_', '').replace(/_/g, '/') );
           e.data.day.setDate(1);
           e.data.day.setMonth( e.data.day.getMonth() + 1 );

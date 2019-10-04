@@ -426,10 +426,6 @@ msgid "Send notifications"
 msgstr "Envoyer notifications"
 
 #: 
-msgid "Don't send"
-msgstr "Ne pas envoyer"
-
-#: 
 msgid "Internal note"
 msgstr "Note interne"
 
@@ -860,10 +856,6 @@ msgstr "Info"
 #: 
 msgid "This text can be inserted into notifications with %s code."
 msgstr "Ce texte est inséré dans les notifications avec le code %s."
-
-#: 
-msgid "New Category"
-msgstr "Nouvelle catégorie"
 
 #: 
 msgid "Add Service"
@@ -1416,10 +1408,6 @@ msgstr "Choisir l'utilisateur WP"
 #: 
 msgid "To make staff member invisible to your customers set the visibility to \"Private\"."
 msgstr "Pour rendez ce membre d'équipe invisible pour les clients, choisissez \"Privé\"."
-
-#: 
-msgid "New Staff Member"
-msgstr "Nouveau membre équipe"
 
 #: 
 msgid "Schedule"
@@ -2002,24 +1990,6 @@ msgstr "Rendez-vous"
 #: 
 msgid "sent to our system"
 msgstr "envoyé à notre système"
-
-#: 
-msgid "Hope you had a good weekend! Here's a summary of messages we've delivered last week:\n"
-"{notification_list}\n"
-"\n"
-"Your system sent a total of {total} messages last week (that's {delta} {sign} than the week before).\n"
-"Cost of sending {total} messages was {amount}. You current Bookly SMS balance is {balance}.\n"
-"\n"
-"Thank you for using Bookly SMS. We wish you a lucky week!\n"
-"Bookly SMS Team."
-msgstr "Nous espérons que vous avez passé un bon week-end! Voici un récapitulatif des messages que nous avons envoyé la semaine dernière:\n"
-"{notification_list}\n"
-"\n"
-"Votre système a envoyé un total de {total} messages la semaine dernière( c'est {delta} {sign} que le semaine précédente).\n"
-"Le cout d'envoi de {total} messages est de {amount}. Votre crédit de SMS Bookly est de {balance}.\n"
-"\n"
-"Meric d'utiliser Bookly SMS. Nous vous souhaitons une bonne semaine!\n"
-"L'équipe Bookly SMS."
 
 #: 
 msgid "more"
@@ -3889,10 +3859,6 @@ msgid "Please select a customer"
 msgstr "Veuillez choisir un client"
 
 #: 
-msgid "If email or SMS notifications are enabled and you want customers and staff member to be notified about this package after saving, select appropriate option before clicking Save."
-msgstr "Si les notifications par e-mail ou SMS sont activées, et que vous voulez que les clients et membres de l'équipe soit informés de ce package après l'enregistrement, sélectionnez l'option appropriée avant de cliquer sur 'Enregistrer'"
-
-#: 
 msgid "Save & schedule"
 msgstr "Enregistrer & Planifier"
 
@@ -3919,14 +3885,6 @@ msgstr "Malheureusement, vous ne pouvez pas réserver ce rendez-vous, car la lim
 #: 
 msgid "You are trying to schedule an appointment in the past. Please select another time slot."
 msgstr "Vous essayez de programmer un rendez-vous dans le passé. Veuillez choisir un autre créneau horaire."
-
-#: 
-msgid "If email or SMS notifications are enabled and you want customers or staff member to be notified about this appointments after saving, select appropriate option before clicking Save."
-msgstr "Si les notifications par e-mail ou SMS sont activées, et que vous voulez que les clients et membres de l'équipe soit informés de ce rendez-vous après l'enregistrement, sélectionnez l'option appropriée avant de cliquer sur 'Enregistrer'"
-
-#: 
-msgid "If appointments changed"
-msgstr "Si les rendez-vous ont changé"
 
 #: 
 msgid "Select appointment date"
@@ -5796,10 +5754,6 @@ msgid "To help us improve Bookly, the plugin anonymously collects usage informat
 msgstr "Pour nous aider à améliorer Bookly, le plugin collecte des données anonymes d'utilisation. Vous pouvez refuser le partage des informations dans Settings > General"
 
 #: 
-msgid "Let the plugin anonymously collect usage information to help Bookly team improve the product."
-msgstr "Permettre au plugin de collecter des informations d'utilisation anonymes pour permettre à l'équipe Bookly d'améliorer le produit."
-
-#: 
 msgid "Disagree"
 msgstr "Refuser"
 
@@ -6145,44 +6099,8 @@ msgid "Last month"
 msgstr "Mois dernier"
 
 #: 
-msgid "Hello,\n"
-"\n"
-"Thank you for registering at Bookly SMS service. Please click the link below to verify your email address.\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"Bookly"
-msgstr "Bonjour,\n"
-"\n"
-"Merci de vous être enregistré au service Bookly SMS. Veuillez cliquer sur le lien ci-dessous pour la vérification de votre adresse e-mail.\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"Bookly."
-
-#: 
-msgid "Bookly SMS service  email confirmation"
-msgstr "Service Bookly SMS de confirmation d'e-mail"
-
-#: 
-msgid "Add new item to the category"
-msgstr "Ajouter nouvel élément à la catégorie"
-
-#: 
-msgid "Edit category name"
-msgstr "Modifier nom de catégorie"
-
-#: 
-msgid "Delete category"
-msgstr "Supprimer catégorie"
-
-#: 
 msgid "Archive"
 msgstr "Archiver"
-
-#: 
-msgid "The working time in the provider's schedule is associated with another location."
-msgstr "La période dans le planning du fournisseur est associée  à un autre site"
 
 #: 
 msgid "Set slot length as service duration"
@@ -6513,14 +6431,6 @@ msgstr "Envoyer copie de la facture à d'autres e-mails"
 #: 
 msgid "Enter one or more email addresses separated by commas."
 msgstr "Entrer une ou plusieurs adresses e-mail séparées par des virgules."
-
-#: 
-msgid "Show archived staff"
-msgstr "Afficher staff archivé"
-
-#: 
-msgid "Hide archived staff"
-msgstr "Cacher staff archivé"
 
 #: 
 msgid "Can't change calendar for archived staff"
@@ -7083,11 +6993,6 @@ msgid "Notification to customer about pending appointments"
 msgstr "Notification au client des rendez-vous en cours"
 
 #: 
-msgid "Use drag & drop to shift employees between categories and change their position in a list. The order of staff members will be displayed at the frontend the same way you configure it here."
-msgstr "Utilisez la fonction glisser-déplacer pour déplacer les employés d'une catégorie à l'autre et modifier leur position dans la liste. L'ordre des membres de l'équipe sera affiché de la même manière que vous l'avez configuré ici.\n"
-""
-
-#: 
 msgid "Cancellation confirmation"
 msgstr "Confirmation de l'annulation"
 
@@ -7194,35 +7099,6 @@ msgstr "Important: Votre site web doit utiliser <b>HTTPS</b>. L'API Outlook Cale
 #: 
 msgid "To find your Application ID and Application Secret, do the following:"
 msgstr "Pour trouver votre Application Id et Application Secret, procédez de la manière suivante:"
-
-#: 
-msgid "Navigate to the <a href=\"%s\" target=\"_blank\">Microsoft App Registration Portal</a>."
-msgstr "Allez sur <a href=\"%s\" target=\"_blank\">Microsoft App Registration Portal</a>."
-
-#: 
-msgid "Sign in with either a personal or work or school Microsoft account. If you don't have either, sign up for a new personal account."
-msgstr "Connectez-vous avec un compte Microsoft personnel, professionnel ou scolaire. Si vous n'en avez pas, ouvrez un nouveau compte personnel.\n"
-""
-
-#: 
-msgid "Choose <b>Add an app</b>. Enter a name for the app and choose <b>Create application</b>. The registration page displays, listing the properties of your app."
-msgstr "Choisissez <b>Add an app</b>. Entrez le nom de l'app. puis choisissez <b>Create application</b>. La page d'enregistrement s'affiche. Elle liste les propriétés de votre app."
-
-#: 
-msgid "Copy the <b>Application ID</b>. This is the unique identifier for your app. You'll use it in the form below on this page."
-msgstr "Copiez le  <b>Application ID</b>. C'est l'identifiant unique de votre app. Utilisez-le dans le formulaire au bas de cette page."
-
-#: 
-msgid "Under <b>Application Secrets</b>, choose <b>Generate New Password</b>. Copy the app secret from the <b>New password generated</b> dialog box before closing it. You'll use the secret in the form below on this page."
-msgstr "Dans <b>Application Secrets</b>, choisissez <b>Generate New Password</b>. Copiez l'App. Secret depuis la boîte de dialogue <b>New password generated</b> avant de la fermer. Utilisez le code secret dans le formulaire au bas de cette page."
-
-#: 
-msgid "Under <b>Platforms</b>, choose <b>Add Platform</b>, and select <b>Web</b>. In <b>Redirect URLs</b> enter the <b>Redirect URI</b> found below on this page."
-msgstr "Dans <b>Platforms</b>, choisissez <b>Add Platform</b>, puis sélectionnez <b>Web</b>. Dans <b>Redirect URLs</b> entrez <b>URL de redirection</b> trouvé au bas de cette page."
-
-#: 
-msgid "Under <b>Microsoft Graph Permissions</b>, choose <b>Add</b> next to <b>Delegated Permissions</b>, and select <b>Calendars.ReadWrite</b> in the <b>Select Permission</b> dialog box. Close it by clicking <b>Ok</b>."
-msgstr "Dans <b>Microsoft Graph Permissions</b>, choisissez <b>Add</b> à coté de  <b>Delegated Permissions</b>, et sélectionnez <b>Calendars.ReadWrite</b> dans la boîte de dialogue <b>Select Permission</b>. fermez en cliquant sur <b>Ok</b>."
 
 #: 
 msgid "<b>Save</b> your changes."
@@ -7359,5 +7235,108 @@ msgstr ""
 
 #: 
 msgid "2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> section, click <b>Add endpoint</b> to reveal a form to add a new endpoint for receiving events."
+msgstr ""
+
+#: 
+msgid "Quick search staff"
+msgstr ""
+
+#: 
+msgid "Add staff..."
+msgstr ""
+
+#: 
+msgid "Create staff"
+msgstr ""
+
+#: 
+msgid "Edit staff"
+msgstr ""
+
+#: 
+msgid "This service is no longer provided."
+msgstr ""
+
+#: 
+msgid "3. Enter the following URL as the destination for events <b>%s</b> and click <b>Add endpoint</b>."
+msgstr ""
+
+#: 
+msgid "4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent.payment_failed</b> and click <b>Add endpoint</b>."
+msgstr ""
+
+#: 
+msgid "Bookly Stripe add-on has been upgraded to support <a href=\"%s\" target=\"_blank\">SCA</a>. You must update your Stripe settings to keep the integration with the upgraded add-on."
+msgstr ""
+
+#: 
+msgid "1. Make sure that <b>Publishable Key</b> is provided in <a href=\"%s\">payment settings</a>."
+msgstr ""
+
+#: 
+msgid "Sign in to the <a href=\"%s\" target=\"_blank\">Azure portal</a> using either a work or school account or a personal Microsoft account."
+msgstr ""
+
+#: 
+msgid "If your account gives you access to more than one tenant, select your account in the top right corner, and set your portal session to the Azure AD tenant that you want."
+msgstr ""
+
+#: 
+msgid "In the left-hand navigation pane, select the <b>Azure Active Directory</b> service, and then select <b>App registrations &gt; New registration</b>."
+msgstr ""
+
+#: 
+msgid "When the <b>Register an application</b> page appears, enter your application's <b>Name</b> and <b>Redirect URI</b> found below on this page. When finished, select <b>Register</b>."
+msgstr ""
+
+#: 
+msgid "Azure AD assigns a unique application (client) ID to your app, and you're taken to your application's <b>Overview</b> page."
+msgstr ""
+
+#: 
+msgid "Copy the <b>Application (client) ID</b> and insert it into the form below on this page."
+msgstr ""
+
+#: 
+msgid "Under <b>Certificates &amp; secrets</b>, choose <b>New client secret</b>, set <b>Expires</b> to <b>Never</b> and click <b>Add</b>. Copy the app secret from the <b>Client secrets</b> list before leaving the page. Insert the secret into the form below on this page."
+msgstr ""
+
+#: 
+msgid "Under <b>API permissions</b>, choose <b>Add a permission</b>, and select <b>Microsoft Graph &gt; Delegated permissions</b>. In <b>Select permissions</b> find <b>Calendars.ReadWrite</b>, select it and click <b>Add permissions</b> button."
+msgstr ""
+
+#: 
+msgid "To receive REST API credentials, in <b>My Apps & Credentials</b> of your PayPal account do the following steps:"
+msgstr ""
+
+#: 
+msgid "Click <b>Create App</b> and enter application details."
+msgstr ""
+
+#: 
+msgid "Once created, copy <b>Client ID</b> and <b>Secret</b> and use them in the form below."
+msgstr ""
+
+#: 
+msgid "Secret"
+msgstr ""
+
+#: 
+msgid "Admins"
+msgstr ""
+
+#: 
+msgid "Searching"
+msgstr ""
+
+#: 
+msgid "Hope you had a good weekend! Here's a summary of messages we've delivered last week:\n"
+"{notification_list}\n"
+"\n"
+"Your system sent a total of {total} messages last week (that's {delta} {sign} than the week before).\n"
+"Cost of sending {total} messages was {amount}. Your current Bookly SMS balance is {balance}.\n"
+"\n"
+"Thank you for using Bookly SMS. We wish you a lucky week!\n"
+"Bookly SMS Team"
 msgstr ""
 

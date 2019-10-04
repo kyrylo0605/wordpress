@@ -21,7 +21,7 @@ jQuery(function ($) {
         $codes               = $('table.bookly-codes', $modalNotification),
         $status              = $("select[name='notification[settings][status]']", containers.settings),
         $defaultStatuses,
-        useTinyMCE           = typeof(tinyMCE) !== 'undefined',
+        useTinyMCE           = !BooklyNotificationDialogL10n.sms && typeof(tinyMCE) !== 'undefined',
         $textarea            = $('#bookly-js-message', containers.message)
     ;
 
@@ -218,12 +218,14 @@ jQuery(function ($) {
         } else {
             $defaultStatuses = $status.html();
         }
-        if ($status.find('option[value="' + data.settings.status + '"]').length > 0) {
-            $status.val(data.settings.status);
-        } else {
-            var custom_status = data.settings.status.charAt(0).toUpperCase() + data.settings.status.slice(1);
+        if (data.settings.status !== null) {
+            if ($status.find('option[value="' + data.settings.status + '"]').length > 0) {
+                $status.val(data.settings.status);
+            } else {
+                var custom_status = data.settings.status.charAt(0).toUpperCase() + data.settings.status.slice(1);
 
-            $status.append($("<option></option>", {value: data.settings.status, text: custom_status.replace(/\-/g, ' ')})).val(data.settings.status);
+                $status.append($("<option></option>", {value: data.settings.status, text: custom_status.replace(/\-/g, ' ')})).val(data.settings.status);
+            }
         }
 
         $("input[name='notification[settings][services][any]'][value='" + data.settings.services.any + "']", containers.settings).prop('checked', true);

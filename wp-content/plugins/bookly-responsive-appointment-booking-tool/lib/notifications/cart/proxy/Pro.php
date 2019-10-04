@@ -8,7 +8,7 @@ use Bookly\Lib\DataHolders\Booking\Order;
  * Class Pro
  * @package Bookly\Lib\Notifications\Cart\Proxy
  *
- * @method static void sendCombinedToClient( Order $order ) Send combined notifications to client.
+ * @method static array|bool sendCombinedToClient( array|bool $queue, Order $order ) Send combined notifications to client.
  */
 abstract class Pro extends Lib\Base\Proxy
 {

@@ -34,7 +34,7 @@ class Ajax extends Page
         $start_date    = new \DateTime( self::parameter( 'start' ) );
         $end_date      = new \DateTime( self::parameter( 'end' ) );
         // FullCalendar sends end date as 1 day further.
-        $end_date->sub( $one_day );
+        // $end_date->sub( $one_day );
 
         if ( Lib\Utils\Common::isCurrentUserSupervisor() ) {
             $staff_ids = explode( ',', self::parameter( 'staff_ids' ) );
@@ -181,7 +181,8 @@ class Ajax extends Page
     {
         $query = Lib\Entities\Appointment::query( 'a' )
             ->where( 'st.id', $staff_id )
-            ->whereBetween( 'DATE(a.start_date)', $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+            ->whereLt( 'DATE(a.start_date)', $end_date->format( 'Y-m-d' ) )
+            ->whereRaw( 'DATE(DATE_ADD(a.end_date, INTERVAL IF(ca.extras_consider_duration, a.extras_duration, 0) SECOND)) >= \'%s\'', array( $start_date->format( 'Y-m-d' ) ) );
 
         Proxy\Shared::prepareAppointmentsQueryForFC( $query, $staff_id, $start_date, $end_date );
 

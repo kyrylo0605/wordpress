@@ -154,7 +154,7 @@ abstract class Common
      */
     public static function isCurrentUserAdmin()
     {
-        return current_user_can( 'manage_options' );
+        return current_user_can( 'manage_options' ) || current_user_can( 'manage_bookly' );
     }
 
     /**
@@ -164,7 +164,17 @@ abstract class Common
      */
     public static function isCurrentUserSupervisor()
     {
-        return current_user_can( 'manage_options' ) || current_user_can( 'manage_bookly_appointments' );
+        return current_user_can( 'manage_options' ) || current_user_can( 'manage_bookly' ) || current_user_can( 'manage_bookly_appointments' );
+    }
+
+    /**
+     * Get required capability for view menu.
+     *
+     * @return string
+     */
+    public static function getRequiredCapability()
+    {
+        return current_user_can( 'manage_options' ) ? 'manage_options' : 'manage_bookly';
     }
 
     /**

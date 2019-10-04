@@ -11,7 +11,9 @@ use Bookly\Lib\DataHolders\Booking as DataHolders;
 class Payment extends Lib\Base\Entity
 {
     const TYPE_LOCAL        = 'local';
-    const TYPE_COUPON       = 'coupon';  // when price reduced to zero due to coupon
+    /** @deprecated for compatibility with bookly-addon-taxes <= ver: 1.8 */
+    const TYPE_COUPON       = 'free';
+    const TYPE_FREE         = 'free';
     const TYPE_PAYPAL       = 'paypal';
     const TYPE_STRIPE       = 'stripe';
     const TYPE_AUTHORIZENET = 'authorize_net';
@@ -54,7 +56,7 @@ class Payment extends Lib\Base\Entity
 
     protected static $schema = array(
         'id'          => array( 'format' => '%d' ),
-        'coupon_id'   => array( 'format' => '%d' ),
+        'coupon_id'   => array( 'format' => '%d', 'reference' => array( 'entity' => 'Coupon', 'namespace' => '\BooklyCoupons\Lib\Entities', 'required' => 'bookly-addon-coupons' ) ),
         'type'        => array( 'format' => '%s' ),
         'total'       => array( 'format' => '%f' ),
         'tax'         => array( 'format' => '%f' ),
@@ -84,7 +86,7 @@ class Payment extends Lib\Base\Entity
             case self::TYPE_PAYULATAM:    return 'PayU Latam';
             case self::TYPE_PAYSON:       return 'Payson';
             case self::TYPE_MOLLIE:       return 'Mollie';
-            case self::TYPE_COUPON:       return __( 'Coupon', 'bookly' );
+            case self::TYPE_FREE:         return __( 'Free', 'bookly' );
             case self::TYPE_WOOCOMMERCE:  return 'WooCommerce';
             default:                      return '';
         }
@@ -123,6 +125,7 @@ class Payment extends Lib\Base\Entity
             'tax_in_price'        => 'excluded',
             'tax_paid'            => null,
             'extras_multiply_nop' => $extras_multiply_nop,
+            'gateway'             => $cart_info->getGateway()
         );
 
         foreach ( $order->getItems() as $item ) {
@@ -229,6 +232,7 @@ class Payment extends Lib\Base\Entity
                 'group_discount'   => isset( $details['customer_group']['discount_format'] ) ? $details['customer_group']['discount_format'] : false,
                 'coupon'           => $details['coupon'],
                 'price_correction' => $this->gateway_price_correction,
+                'gateway'          => $details['gateway'],
                 'paid'             => $this->paid,
                 'tax_paid'         => $details['tax_paid'],
                 'total'            => $this->total,

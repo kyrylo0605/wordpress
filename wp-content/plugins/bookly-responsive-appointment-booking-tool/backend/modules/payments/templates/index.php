@@ -42,10 +42,12 @@ use Bookly\Backend\Modules\Payments\Proxy;
                     </div>
                     <div class="col-md-1 col-lg-2">
                         <div class="form-group">
-                            <select class="form-control bookly-js-select" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>">
-                                <?php foreach ( $customers as $customer ) : ?>
-                                    <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
-                                <?php endforeach ?>
+                            <select class="form-control <?php echo $customers === false ? 'bookly-js-select-ajax' : 'bookly-js-select' ?>" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>" data-action="bookly_get_customers_list">
+                                <?php if ( $customers !== false ) : ?>
+                                    <?php foreach ( $customers as $customer ) : ?>
+                                        <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </select>
                         </div>
                     </div>

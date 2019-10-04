@@ -50,9 +50,9 @@ class Page extends Lib\Base\Component
             ),
         ) );
 
-        $alert         = array( 'success' => array(), 'error' => array() );
-        $prices        = array();
-        $sms           = new Lib\SMS();
+        $alert  = array( 'success' => array(), 'error' => array() );
+        $prices = array();
+        $sms    = new Lib\SMS();
 
         $email_confirm_required = false;
         $show_registration_form = false;
@@ -64,22 +64,19 @@ class Page extends Lib\Base\Component
             $sms->logout();
         } elseif ( self::hasParameter( 'form-registration' ) ) {
             if ( self::parameter( 'accept_tos', false ) ) {
-                $token = $sms->register(
+                $success = $sms->register(
                     self::parameter( 'username' ),
                     self::parameter( 'password' ),
                     self::parameter( 'password_repeat' )
                 );
-                if ( $token !== false ) {
+                if ( $success ) {
                     $email_confirm_required = self::parameter( 'username' );
-                    self::_sendEmailConfirmNotification( $token, self::parameter( 'username' ) );
                 } else {
                     $show_registration_form = true;
                 }
             } else {
                 $alert['error'][] = __( 'Please accept terms and conditions.', 'bookly' );
             }
-        } elseif ( self::hasParameter( 'token' ) ) {
-            $sms->confirmEmail( self::parameter( 'token' ) );
         }
         if ( $email_confirm_required !== false || self::hasParameter( 'form-registration' ) ) {
             $is_logged_in = false;
@@ -122,7 +119,7 @@ class Page extends Lib\Base\Component
         wp_localize_script( 'bookly-daterangepicker.js', 'BooklyL10n',
             array(
                 'csrfToken'          => Lib\Utils\Common::getCsrfToken(),
-                'alert'              => $alert,
+                'smsAlert'           => $alert,
                 'areYouSure'         => __( 'Are you sure?', 'bookly' ),
                 'cancel'             => __( 'Cancel', 'bookly' ),
                 'country'            => get_option( 'bookly_cst_phone_default_country' ),
@@ -135,9 +132,8 @@ class Page extends Lib\Base\Component
                     'utils'   => is_rtl() ? '' : plugins_url( 'intlTelInput.utils.js', Lib\Plugin::getDirectory() . '/frontend/resources/js/intlTelInput.utils.js' ),
                     'enabled' => get_option( 'bookly_cst_phone_default_country' ) != 'disabled',
                 ),
-
                 'datePicker' => Lib\Utils\DateTime::datePickerOptions(),
-                'dateRange' => Lib\Utils\DateTime::dateRangeOptions(),
+                'dateRange'  => Lib\Utils\DateTime::dateRangeOptions( array( 'lastMonth' => __( 'Last month', 'bookly' ), ) ),
                 'sender_id'          => array(
                     'sent'        => __( 'Sender ID request is sent.', 'bookly' ),
                     'set_default' => __( 'Sender ID is reset to default.', 'bookly' ),
@@ -169,25 +165,6 @@ class Page extends Lib\Base\Component
     }
 
     /**
-     * Send notification to confirm email.
-     *
-     * @param string $token
-     * @param string $email
-     */
-    private static function _sendEmailConfirmNotification( $token, $email )
-    {
-        $confirm_url = admin_url( 'admin.php?' . build_query( array( 'page' => self::pageSlug(), 'token' => $token ) ) );
-        $message     = sprintf( __( "Hello,\n\nThank you for registering at Bookly SMS service. Please click the link below to verify your email address.\n\n<a href='%s'>%s</a>\n\nBookly", 'bookly' ), $confirm_url, $confirm_url );
-
-        wp_mail(
-            $email,
-            __( 'Bookly SMS service – email confirmation', 'bookly' ),
-            get_option( 'bookly_email_send_as' ) == 'html' ? wpautop( $message ) : $message,
-            Lib\Utils\Common::getEmailHeaders()
-        );
-    }
-
-    /**
      * Show 'SMS Notifications' submenu with counter inside Bookly main menu.
      */
     public static function addBooklyMenuItem()
@@ -199,7 +176,7 @@ class Page extends Lib\Base\Component
             'bookly-menu',
             $sms,
             $count ? sprintf( '%s <span class="update-plugins count-%d"><span class="update-count">%d</span></span>', $sms, $count, $count ) : $sms,
-            'manage_options',
+            Lib\Utils\Common::getRequiredCapability(),
             self::pageSlug(),
             function () { Page::render(); }
         );

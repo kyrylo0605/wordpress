@@ -2,12 +2,10 @@
 use Bookly\Lib\Utils\Common;
 use Bookly\Lib\Utils\DateTime;
 use Bookly\Lib\Entities\Service;
-use Bookly\Backend\Components\Controls\Buttons;
-use Bookly\Backend\Components\Controls\Inputs;
 use Bookly\Backend\Modules\Services\Proxy;
 ?>
-<div class=" bookly-js-service-time-container">
-    <div class="form-group">
+<div class="bookly-js-service-time-container">
+    <div class="form-group bookly-js-service bookly-js-service-simple">
         <label for="bookly-service-duration">
             <?php esc_html_e( 'Duration', 'bookly' ) ?>
         </label>
@@ -37,14 +35,16 @@ use Bookly\Backend\Modules\Services\Proxy;
             </div>
         </div>
     </div>
-    <div class="form-group bookly-js-service bookly-js-service-simple">
+    <div class="form-group">
         <label for="bookly-service-slot-length">
             <?php esc_html_e( 'Time slot length', 'bookly' ) ?>
         </label>
         <p class="help-block"><?php esc_html_e( 'The time interval which is used as a step when building all time slots for the service at the Time step. The setting overrides global settings in Settings → General. Use Default to apply global settings.', 'bookly' ) ?></p>
         <select id="bookly-service-slot-length" class="form-control" name="slot_length">
             <option value="<?php echo Service::SLOT_LENGTH_DEFAULT ?>"<?php selected( $service['slot_length'], Service::SLOT_LENGTH_DEFAULT ) ?>><?php esc_html_e( 'Default', 'bookly' ) ?></option>
-            <option value="<?php echo Service::SLOT_LENGTH_AS_SERVICE_DURATION ?>"<?php selected( $service['slot_length'], Service::SLOT_LENGTH_AS_SERVICE_DURATION ) ?>><?php esc_html_e( 'Slot length as service duration', 'bookly' ) ?></option>
+            <?php if ( $service['type'] === Service::TYPE_SIMPLE ) : ?>
+                <option value="<?php echo Service::SLOT_LENGTH_AS_SERVICE_DURATION ?>"<?php selected( $service['slot_length'], Service::SLOT_LENGTH_AS_SERVICE_DURATION ) ?>><?php esc_html_e( 'Slot length as service duration', 'bookly' ) ?></option>
+            <?php endif ?>
             <?php foreach ( array( 300, 600, 720, 900, 1200, 1800, 2700, 3600, 5400, 7200, 10800, 14400, 21600 ) as $duration ): ?>
                 <option value="<?php echo $duration ?>"<?php selected( $service['slot_length'], $duration ) ?>><?php echo esc_html( DateTime::secondsToInterval( $duration ) ) ?></option>
             <?php endforeach ?>

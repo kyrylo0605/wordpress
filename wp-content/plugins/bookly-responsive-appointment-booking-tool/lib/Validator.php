@@ -20,7 +20,7 @@ class Validator
         if ( $data['email'] == '' && ( Config::emailRequired() || get_option( 'bookly_cst_create_account', 0 ) ) ) {
             $this->errors[ $field ] = Utils\Common::getTranslatedOption( 'bookly_l10n_required_email' );
         } else {
-            if ( $data['email'] != '' && ! is_email( $data['email'] ) ) {
+            if ( $data['email'] != '' && ! is_email( trim( $data['email'] ) ) ) {
                 $this->errors[ $field ] = __( 'Invalid email', 'bookly' );
             }
             // Check email for uniqueness when a new WP account is going to be created.

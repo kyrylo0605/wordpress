@@ -70,7 +70,7 @@ class StaffServices extends Lib\Base\Form
     public function save()
     {
         $staff_id    = $this->data['staff_id'];
-        $location_id = array_key_exists( 'location_id', $this->data ) ? $this->data['location_id'] : null;
+        $location_id = array_key_exists( 'location_id', $this->data ) && $this->data['location_id'] ? $this->data['location_id'] : null;
         if ( $staff_id ) {
             Lib\Entities\StaffService::query()
                 ->delete()

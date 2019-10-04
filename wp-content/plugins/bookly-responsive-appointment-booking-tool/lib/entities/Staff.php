@@ -28,7 +28,7 @@ class Staff extends Lib\Base\Entity
     /** @var  string */
     protected $visibility = 'public';
     /** @var  int */
-    protected $position = 9999;
+    protected $position;
     /** @var  string */
     protected $google_data;
     /** @var  string */
@@ -39,7 +39,7 @@ class Staff extends Lib\Base\Entity
     protected static $schema = array(
         'id'                 => array( 'format' => '%d' ),
         'wp_user_id'         => array( 'format' => '%d' ),
-        'category_id'        => array( 'format' => '%d' ),
+        'category_id'        => array( 'format' => '%d', 'reference' => array( 'entity' => 'StaffCategory', 'namespace' => '\BooklyPro\Lib\Entities', 'required' => 'bookly-addon-pro' ) ),
         'attachment_id'      => array( 'format' => '%d' ),
         'full_name'          => array( 'format' => '%s' ),
         'email'              => array( 'format' => '%s' ),
@@ -47,7 +47,7 @@ class Staff extends Lib\Base\Entity
         'info'               => array( 'format' => '%s' ),
         'working_time_limit' => array( 'format' => '%d' ),
         'visibility'         => array( 'format' => '%s' ),
-        'position'           => array( 'format' => '%d' ),
+        'position'           => array( 'format' => '%d', 'sequent' => true ),
         'google_data'        => array( 'format' => '%s' ),
         'outlook_data'       => array( 'format' => '%s' ),
     );

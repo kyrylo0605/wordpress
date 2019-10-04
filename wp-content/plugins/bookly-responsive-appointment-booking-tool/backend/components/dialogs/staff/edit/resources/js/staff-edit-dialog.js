@@ -39,6 +39,9 @@ jQuery(function ($) {
         editStaff(staff_id);
     }
 
+    /**
+     * Edit staff member.
+     */
     function editStaff(staff_id) {
         $modalTitle.html(staff_id ? BooklyStaffEditDialogL10n.editStaff : BooklyStaffEditDialogL10n.createStaff);
         $('#bookly-staff-delete', $modalFooter).toggle(staff_id != 0);
@@ -53,7 +56,7 @@ jQuery(function ($) {
             booklyAlert(response.data.alert);
             $modalFooter.show();
             holidays = response.data.holidays;
-            let $details_container = $('#bookly-details-container', $modalBody),
+            let $details_container  = $('#bookly-details-container',  $modalBody),
                 $services_container = $('#bookly-services-container', $modalBody),
                 $schedule_container = $('#bookly-schedule-container', $modalBody),
                 $holidays_container = $('#bookly-holidays-container', $modalBody),
@@ -83,40 +86,38 @@ jQuery(function ($) {
     /**
      * Delete staff member.
      */
+    function deleteStaff(_data, ladda) {
+        ladda.start();
+        let data = $.extend({
+            action       : 'bookly_remove_staff',
+            'staff_ids[]': staff_id,
+            csrf_token   : BooklyStaffEditDialogL10n.csrfToken
+        }, _data);
+
+        $.post(ajaxurl, data, function (response) {
+            ladda.stop();
+            if (!response.success) {
+                switch (response.data.action) {
+                    case 'show_modal':
+                        $deleteCascadeModal.modal('show');
+                        break;
+                    case 'confirm':
+                        if (confirm(BooklyStaffEditDialogL10n.areYouSure)) {
+                            deleteStaff( $.extend(data, {force_delete: true}), ladda);
+                        }
+                        break;
+                }
+            } else {
+                $modal.modal('hide');
+                $staffList.DataTable().ajax.reload();
+            }
+        });
+    };
+
     $modalFooter
         .on('click', '#bookly-staff-delete', function (e) {
             e.preventDefault();
-
-            var ladda = Ladda.create(this),
-                data  = {
-                    action: 'bookly_remove_staff',
-                    'staff_ids[]': staff_id,
-                    csrf_token: BooklyStaffEditDialogL10n.csrfToken
-                };
-            ladda.start();
-
-            var delete_staff = function (ajaxurl, data) {
-                $.post(ajaxurl, data, function (response) {
-                    ladda.stop();
-                    if (!response.success) {
-                        switch (response.data.action) {
-                            case 'show_modal':
-                                $deleteCascadeModal.modal('show');
-                                break;
-                            case 'confirm':
-                                if (confirm(BooklyStaffEditDialogL10n.areYouSure)) {
-                                    delete_staff(ajaxurl, $.extend(data, {force_delete: true}));
-                                }
-                                break;
-                        }
-                    } else {
-                        $modal.modal('hide');
-                        $staffList.DataTable().ajax.reload();
-                    }
-                });
-            };
-
-            delete_staff(ajaxurl, data);
+            deleteStaff( {}, Ladda.create(this));
         });
 
     $modalBody
@@ -213,8 +214,7 @@ jQuery(function ($) {
         .on('click', '.bookly-js-delete', function () {
             $modalBody.html('<div class="bookly-loading"></div>');
             ladda = Ladda.create(this);
-            ladda.start();
-            delete_staff(ajaxurl, $.extend(data, {force_delete: true}));
+            deleteStaff({force_delete: true}, ladda);
             $deleteCascadeModal.modal('hide');
             ladda.stop();
         })

@@ -425,10 +425,6 @@ msgid "Send notifications"
 msgstr "告知を送信する"
 
 #: 
-msgid "Don't send"
-msgstr "送信しないでください"
-
-#: 
 msgid "Internal note"
 msgstr "内部メモ"
 
@@ -857,10 +853,6 @@ msgstr "情報"
 #: 
 msgid "This text can be inserted into notifications with %s code."
 msgstr "このテキストは、％sコードの通知に挿入できます。"
-
-#: 
-msgid "New Category"
-msgstr "新しいカテゴリー"
 
 #: 
 msgid "Add Service"
@@ -1416,10 +1408,6 @@ msgstr "WPユーザーから選択する"
 #: 
 msgid "To make staff member invisible to your customers set the visibility to \"Private\"."
 msgstr "あなたの顧客をスタッフの目に見えないようにするために、可視性を「プライベート」に設定します。"
-
-#: 
-msgid "New Staff Member"
-msgstr "新しいスタッフメンバー"
 
 #: 
 msgid "Schedule"
@@ -2001,24 +1989,6 @@ msgstr "面会"
 #: 
 msgid "sent to our system"
 msgstr "当社のシステムに送られました"
-
-#: 
-msgid "Hope you had a good weekend! Here's a summary of messages we've delivered last week:\n"
-"{notification_list}\n"
-"\n"
-"Your system sent a total of {total} messages last week (that's {delta} {sign} than the week before).\n"
-"Cost of sending {total} messages was {amount}. You current Bookly SMS balance is {balance}.\n"
-"\n"
-"Thank you for using Bookly SMS. We wish you a lucky week!\n"
-"Bookly SMS Team."
-msgstr "良い週末を過ごされましたでしょうか。先週お知らせしたメッセージの概要は次のとおりです。：\n"
-"{notification_list}\n"
-"\n"
-"先週、あなたのシステムは合計 {total} 通のメッセージを送信しました（これは前週より{delta} {sign} となっております）。\n"
-"メッセージを送信するのにかかった総額は{amount}となっております。 現在のあなたのBookly SMSの残高は{balance}.となっております。\n"
-"\n"
-"この度は、Bookly SMSをご利用いただきありがとうございます。 どうか、あなたが、楽しい週末を過ごされますように！\n"
-"ブックリーSMSチーム。"
 
 #: 
 msgid "more"
@@ -3883,10 +3853,6 @@ msgid "Please select a customer"
 msgstr "顧客を選択してください"
 
 #: 
-msgid "If email or SMS notifications are enabled and you want customers and staff member to be notified about this package after saving, select appropriate option before clicking Save."
-msgstr "E メールまたはSMS通知が有効になっていて、保存後に顧客およびスタッフにこのパッケージについての通知が必要な場合は、適切なオプションを選択してから[保存]をクリックします。"
-
-#: 
 msgid "Save & schedule"
 msgstr "保存してスケジュールする"
 
@@ -3913,14 +3879,6 @@ msgstr "残念ながら、予約の前に必要な時間制限が切れている
 #: 
 msgid "You are trying to schedule an appointment in the past. Please select another time slot."
 msgstr "あなたは過去に面会の予定を立てようとしたようです。 別の時間枠を選択してください。"
-
-#: 
-msgid "If email or SMS notifications are enabled and you want customers or staff member to be notified about this appointments after saving, select appropriate option before clicking Save."
-msgstr "EメールまたはSMS通知が有効になっていて、保存後に顧客またはスタッフにこの予定についての通知が必要な場合は、[保存]をクリックする前に適切なオプションを選択します。"
-
-#: 
-msgid "If appointments changed"
-msgstr "面会予定が変更された場合"
 
 #: 
 msgid "Select appointment date"
@@ -5784,10 +5742,6 @@ msgid "To help us improve Bookly, the plugin anonymously collects usage informat
 msgstr "Booklyを改善するために、プラグインは匿名でお客様の使用情報を収集します。 [設定]> [一般]で情報を共有しないように変更することができます。"
 
 #: 
-msgid "Let the plugin anonymously collect usage information to help Bookly team improve the product."
-msgstr "プラグインが匿名でお客様の使用情報を収集し、Booklyチームが製品を改善するために使用します。"
-
-#: 
 msgid "Disagree"
 msgstr "同意しない"
 
@@ -6133,45 +6087,8 @@ msgid "Last month"
 msgstr "先月"
 
 #: 
-msgid "Hello,\n"
-"\n"
-"Thank you for registering at Bookly SMS service. Please click the link below to verify your email address.\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"Bookly"
-msgstr "こんにちは、\n"
-"\n"
-"Bookly SMSサービスにご登録いただきありがとうございます。あなたのメールアドレスを確認するには、下のリンクをクリックしてくださ\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"\n"
-"Bookly"
-
-#: 
-msgid "Bookly SMS service  email confirmation"
-msgstr "Bookly SMSサービスのEメールの確認"
-
-#: 
-msgid "Add new item to the category"
-msgstr "新しい項目をカテゴリーに追加する"
-
-#: 
-msgid "Edit category name"
-msgstr "カテゴリー名を編集する"
-
-#: 
-msgid "Delete category"
-msgstr "カテゴリーを削除する"
-
-#: 
 msgid "Archive"
 msgstr "アーカイブ"
-
-#: 
-msgid "The working time in the provider's schedule is associated with another location."
-msgstr "プロバイダーのスケジュール内の作業時間は別の場所に関連付けられています。"
 
 #: 
 msgid "Set slot length as service duration"
@@ -6504,14 +6421,6 @@ msgstr "請求書を別のメールにコピーする"
 #: 
 msgid "Enter one or more email addresses separated by commas."
 msgstr " 1つまたは複数の電Eメールアドレスをコンマで区切って入力してください。"
-
-#: 
-msgid "Show archived staff"
-msgstr "アーカイブされたスタッフを表示する"
-
-#: 
-msgid "Hide archived staff"
-msgstr "アーカイブされたスタッフを非表示にする"
 
 #: 
 msgid "Can't change calendar for archived staff"
@@ -7070,10 +6979,6 @@ msgid "Notification to customer about pending appointments"
 msgstr "保留中の面会予定に関する顧客への通知"
 
 #: 
-msgid "Use drag & drop to shift employees between categories and change their position in a list. The order of staff members will be displayed at the frontend the same way you configure it here."
-msgstr "ドラッグアンドドロップの機能を使用して従業員をカテゴリ間で移動させたり、リスト内の位置を変更したりできます。スタッフの順番は、ここで設定したのと同じようにフロントエンドに表示されます。"
-
-#: 
 msgid "Cancellation confirmation"
 msgstr "キャンセルの確認"
 
@@ -7180,35 +7085,6 @@ msgstr "重要事項：あなたのウェブサイトでは<b> HTTPS </b>を使�
 #: 
 msgid "To find your Application ID and Application Secret, do the following:"
 msgstr "アプリケーションIDとアプリケーションシークレットを見つけるには、次の手順に従ってください："
-
-#: 
-msgid "Navigate to the <a href=\"%s\" target=\"_blank\">Microsoft App Registration Portal</a>."
-msgstr "<a href=\"%s\" target=\"_blank\"> Microsoft（マイクロソフト）アプリ登録ポータル</a>に移動します。"
-
-#: 
-msgid "Sign in with either a personal or work or school Microsoft account. If you don't have either, sign up for a new personal account."
-msgstr "個人用または職場用あるいは学校用のMicrosoft（マイクロソフト）アカウントでサインインしてください。どちらもお持ちでない場合は、新しく個人用アカウントに登録してください。"
-
-#: 
-msgid "Choose <b>Add an app</b>. Enter a name for the app and choose <b>Create application</b>. The registration page displays, listing the properties of your app."
-msgstr "[<b>アプリを追加する</b>]を選択してください。アプリの名前を入力して[<b>アプリケーションを作成する</b>]を選択します。登録ページが表示され、アプリのプロパティが一覧表示されます。"
-
-#: 
-msgid "Copy the <b>Application ID</b>. This is the unique identifier for your app. You'll use it in the form below on this page."
-msgstr "<b>アプリケーションID </b>をコピーします。これはあなたのアプリ特有の識別子です。このページの下のフォームで使用します。"
-
-#: 
-msgid "Under <b>Application Secrets</b>, choose <b>Generate New Password</b>. Copy the app secret from the <b>New password generated</b> dialog box before closing it. You'll use the secret in the form below on this page."
-msgstr "[<b>アプリケーション•シークレット</b>]で、[<b>新しいパスワードを生成する</b>]を選択して下さい。 閉じる前に、[<b>新しいパスワード生成済み</b>]のダイアログボックスからアプリケーション•シークレットをコピーしてください。 このページの下のフォ―ムでシークレットを使用します。"
-
-#: 
-msgid "Under <b>Platforms</b>, choose <b>Add Platform</b>, and select <b>Web</b>. In <b>Redirect URLs</b> enter the <b>Redirect URI</b> found below on this page."
-msgstr "[<b>プラットフォーム</b>]で[<b>プラットフォームを追加する</b>]を選択し、[<b> ウェブ </b>]を選択します。 [<b>リダイレクトURL </b>]に、このページの下にある[<b>リダイレクトURI </b>]を入力してください。"
-
-#: 
-msgid "Under <b>Microsoft Graph Permissions</b>, choose <b>Add</b> next to <b>Delegated Permissions</b>, and select <b>Calendars.ReadWrite</b> in the <b>Select Permission</b> dialog box. Close it by clicking <b>Ok</b>."
-msgstr "[<b> Microsoft Graph（マイクロソフト•グラフ）のアクセス許可</b>]で、[<b>代理アクセス許可</b>]の横にある[<b>追加する</b>]を選択してください。\n"
-"ダイアログボックスの[<b>アクセス許可を選択する</b>]で、[<b>カレンダー、読み書き</b>]を選択します。 [<b> OK </b>]をクリックして閉じてください。"
 
 #: 
 msgid "<b>Save</b> your changes."
@@ -7344,5 +7220,108 @@ msgstr ""
 
 #: 
 msgid "2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> section, click <b>Add endpoint</b> to reveal a form to add a new endpoint for receiving events."
+msgstr ""
+
+#: 
+msgid "Quick search staff"
+msgstr ""
+
+#: 
+msgid "Add staff..."
+msgstr ""
+
+#: 
+msgid "Create staff"
+msgstr ""
+
+#: 
+msgid "Edit staff"
+msgstr ""
+
+#: 
+msgid "This service is no longer provided."
+msgstr ""
+
+#: 
+msgid "3. Enter the following URL as the destination for events <b>%s</b> and click <b>Add endpoint</b>."
+msgstr ""
+
+#: 
+msgid "4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent.payment_failed</b> and click <b>Add endpoint</b>."
+msgstr ""
+
+#: 
+msgid "Bookly Stripe add-on has been upgraded to support <a href=\"%s\" target=\"_blank\">SCA</a>. You must update your Stripe settings to keep the integration with the upgraded add-on."
+msgstr ""
+
+#: 
+msgid "1. Make sure that <b>Publishable Key</b> is provided in <a href=\"%s\">payment settings</a>."
+msgstr ""
+
+#: 
+msgid "Sign in to the <a href=\"%s\" target=\"_blank\">Azure portal</a> using either a work or school account or a personal Microsoft account."
+msgstr ""
+
+#: 
+msgid "If your account gives you access to more than one tenant, select your account in the top right corner, and set your portal session to the Azure AD tenant that you want."
+msgstr ""
+
+#: 
+msgid "In the left-hand navigation pane, select the <b>Azure Active Directory</b> service, and then select <b>App registrations &gt; New registration</b>."
+msgstr ""
+
+#: 
+msgid "When the <b>Register an application</b> page appears, enter your application's <b>Name</b> and <b>Redirect URI</b> found below on this page. When finished, select <b>Register</b>."
+msgstr ""
+
+#: 
+msgid "Azure AD assigns a unique application (client) ID to your app, and you're taken to your application's <b>Overview</b> page."
+msgstr ""
+
+#: 
+msgid "Copy the <b>Application (client) ID</b> and insert it into the form below on this page."
+msgstr ""
+
+#: 
+msgid "Under <b>Certificates &amp; secrets</b>, choose <b>New client secret</b>, set <b>Expires</b> to <b>Never</b> and click <b>Add</b>. Copy the app secret from the <b>Client secrets</b> list before leaving the page. Insert the secret into the form below on this page."
+msgstr ""
+
+#: 
+msgid "Under <b>API permissions</b>, choose <b>Add a permission</b>, and select <b>Microsoft Graph &gt; Delegated permissions</b>. In <b>Select permissions</b> find <b>Calendars.ReadWrite</b>, select it and click <b>Add permissions</b> button."
+msgstr ""
+
+#: 
+msgid "To receive REST API credentials, in <b>My Apps & Credentials</b> of your PayPal account do the following steps:"
+msgstr ""
+
+#: 
+msgid "Click <b>Create App</b> and enter application details."
+msgstr ""
+
+#: 
+msgid "Once created, copy <b>Client ID</b> and <b>Secret</b> and use them in the form below."
+msgstr ""
+
+#: 
+msgid "Secret"
+msgstr ""
+
+#: 
+msgid "Admins"
+msgstr ""
+
+#: 
+msgid "Searching"
+msgstr ""
+
+#: 
+msgid "Hope you had a good weekend! Here's a summary of messages we've delivered last week:\n"
+"{notification_list}\n"
+"\n"
+"Your system sent a total of {total} messages last week (that's {delta} {sign} than the week before).\n"
+"Cost of sending {total} messages was {amount}. Your current Bookly SMS balance is {balance}.\n"
+"\n"
+"Thank you for using Bookly SMS. We wish you a lucky week!\n"
+"Bookly SMS Team"
 msgstr ""
 

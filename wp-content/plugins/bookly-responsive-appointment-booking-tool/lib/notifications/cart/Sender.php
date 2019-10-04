@@ -21,7 +21,7 @@ abstract class Sender extends Booking\BaseSender
     public static function send( Order $order )
     {
         if ( Config::proActive() ) {
-            Proxy\Pro::sendCombinedToClient( $order );
+            Proxy\Pro::sendCombinedToClient( false, $order );
         }
 
         $codes = new Codes( $order );

@@ -25,7 +25,7 @@ class StaffScheduleItem extends Lib\Base\Entity
     protected static $schema = array(
         'id'          => array( 'format' => '%d' ),
         'staff_id'    => array( 'format' => '%d', 'reference' => array( 'entity' => 'Staff' ) ),
-        'location_id' => array( 'format' => '%d' ),
+        'location_id' => array( 'format' => '%d', 'reference' => array( 'entity' => 'Location', 'namespace' => '\BooklyLocations\Lib\Entities', 'required' => 'bookly-addon-locations' ) ),
         'day_index'   => array( 'format' => '%d' ),
         'start_time'  => array( 'format' => '%s' ),
         'end_time'    => array( 'format' => '%s' ),

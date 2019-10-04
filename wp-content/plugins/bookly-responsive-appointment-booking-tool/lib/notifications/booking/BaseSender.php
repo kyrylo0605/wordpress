@@ -20,11 +20,12 @@ abstract class BaseSender extends Base\Sender
      * Notify client.
      *
      * @param Notification[] $notifications
-     * @param Item $item
-     * @param Order $order
-     * @param \Bookly\Lib\Notifications\Assets\Item\Codes $codes
+     * @param Item           $item
+     * @param Order          $order
+     * @param Codes          $codes
+     * @param bool|array     $queue
      */
-    protected static function notifyClient( array $notifications, Item $item, Order $order, Codes $codes )
+    protected static function notifyClient( array $notifications, Item $item, Order $order, Codes $codes, &$queue = false )
     {
         if ( $item->getCA()->getLocale() ) {
             WPML::switchLang( $item->getCA()->getLocale() );
@@ -37,11 +38,13 @@ abstract class BaseSender extends Base\Sender
 
         foreach ( $notifications as $notification ) {
             if ( $notification->matchesItemForClient( $item ) ) {
-                static::sendToClient( $order->getCustomer(), $notification, $codes, $attachments );
+                static::sendToClient( $order->getCustomer(), $notification, $codes, $attachments, $queue );
             }
         }
 
-        $attachments->clear();
+        if ( $queue === false ) {
+            $attachments->clear();
+        }
 
         WPML::restoreLang();
     }
@@ -50,16 +53,17 @@ abstract class BaseSender extends Base\Sender
      * Notify staff and/or administrators.
      *
      * @param Notification[] $notifications
-     * @param Item $item
-     * @param Order $order
-     * @param \Bookly\Lib\Notifications\Assets\Item\Codes $codes
+     * @param Item           $item
+     * @param Order          $order
+     * @param Codes          $codes
+     * @param array|bool     $queue
      */
-    protected static function notifyStaffAndAdmins( array $notifications, Item $item, Order $order, Codes $codes )
+    protected static function notifyStaffAndAdmins( array $notifications, Item $item, Order $order, Codes $codes, &$queue = false )
     {
         WPML::switchToDefaultLang();
 
         if ( $item->isSeries() ) {
-            Proxy\RecurringAppointments::sendSeries( $notifications, $item, $order, $codes );
+            $queue = Proxy\RecurringAppointments::sendSeries( $queue, $notifications, $item, $order, $codes );
         } else {
             // Reply to customer.
             $reply_to = null;
@@ -81,11 +85,13 @@ abstract class BaseSender extends Base\Sender
                 $attachments = new Attachments( $codes );
                 foreach ( $notifications as $notification ) {
                     if ( $notification->matchesItemForStaff( $sub_item, $item->getService() ) ) {
-                        static::sendToStaff( $sub_item->getStaff(), $notification, $codes, $attachments, $reply_to );
-                        static::sendToAdmins( $notification, $codes, $attachments, $reply_to );
+                        static::sendToStaff( $sub_item->getStaff(), $notification, $codes, $attachments, $reply_to, $queue );
+                        static::sendToAdmins( $notification, $codes, $attachments, $reply_to, $queue );
                     }
                 }
-                $attachments->clear();
+                if ( $queue === false ) {
+                    $attachments->clear();
+                }
             }
         }
 

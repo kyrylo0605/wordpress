@@ -174,21 +174,31 @@ class Order
         /** @var Lib\Entities\CustomerAppointment[] $ca_list */
         $ca_list = Lib\Entities\CustomerAppointment::query()->where( 'payment_id', $payment->getId() )->find();
         if ( $ca_list ) {
+            $item_key = 0;
             $customer = Lib\Entities\Customer::find( $ca_list[0]->getCustomerId() );
             $order    = static::create( $customer );
             $order->setPayment( $payment );
-            foreach ( $ca_list as $i => $customer_appointment ) {
-                $series      = null;
-                $compound    = null;
-                $appointment = Lib\Entities\Appointment::find( $customer_appointment->getAppointmentId() );
+            /**
+             * @var Lib\DataHolders\Booking\Compound[] $componds
+             * @var Lib\DataHolders\Booking\Collaborative[] $collaboratives
+             */
+            $componds = $collaboratives = array();
+            foreach ( $ca_list as $ca ) {
+                $type   = Lib\Entities\Service::TYPE_SIMPLE;
+                $series = null;
 
-                // Compound.
-                if ( $customer_appointment->getCompoundServiceId() !== null ) {
-                    $service  = Lib\Entities\Service::find( $customer_appointment->getCompoundServiceId() );
-                    $compound = Lib\DataHolders\Booking\Compound::create( $service )
-                        ->setToken( $customer_appointment->getCompoundToken() );
-                } else {
-                    $service  = Lib\Entities\Service::find( $appointment->getServiceId() );
+                if ( $ca->getCompoundServiceId() !== null ) {
+                    $type = Lib\Entities\Service::TYPE_COMPOUND;
+                    if ( ! array_key_exists( $ca->getCompoundToken(), $componds ) ) {
+                        $componds[ $ca->getCompoundToken() ] = Lib\DataHolders\Booking\Compound::create( Lib\Entities\Service::find( $ca->getCompoundServiceId() ) )
+                               ->setToken( $ca->getCompoundToken() );
+                    }
+                } elseif ( $ca->getCollaborativeServiceId() !== null ) {
+                    $type = Lib\Entities\Service::TYPE_COLLABORATIVE;
+                    if ( ! array_key_exists( $ca->getCollaborativeToken(), $collaboratives ) ) {
+                        $collaboratives[ $ca->getCollaborativeToken() ] = Lib\DataHolders\Booking\Collaborative::create( Lib\Entities\Service::find( $ca->getCollaborativeServiceId() ) )
+                            ->setToken( $ca->getCollaborativeToken() );
+                    }
                 }
 
                 // Series.
@@ -199,17 +209,20 @@ class Order
                     }
                 }
 
-                $item = Lib\DataHolders\Booking\Simple::create( $customer_appointment )
-                    ->setService( $service )
-                    ->setAppointment( $appointment );
+                $item = Lib\DataHolders\Booking\Simple::create( $ca );
 
-                if ( $compound ) {
-                    $item = $compound->addItem( $item );
+                if ( $type === Lib\Entities\Service::TYPE_COMPOUND ) {
+                    $item = $componds[ $ca->getCompoundToken() ]->addItem( $item );
+                } elseif ( $type === Lib\Entities\Service::TYPE_COLLABORATIVE ) {
+                    $item = $collaboratives[ $ca->getCollaborativeToken() ]->addItem( $item );
                 }
-                if ( $series ) {
-                    $series->addItem( $i, $item );
-                } else {
-                    $order->addItem( $i, $item );
+
+                if ( count( $item->getItems() ) === 1 ) {
+                    if ( $series ) {
+                        $series->addItem( $item_key ++, $item );
+                    } else {
+                        $order->addItem( $item_key ++, $item );
+                    }
                 }
             }
 

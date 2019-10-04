@@ -94,7 +94,7 @@ class Service extends Lib\Base\Entity
     /** @var  string */
     protected $visibility = Service::VISIBILITY_PUBLIC;
     /** @var  int */
-    protected $position = 9999;
+    protected $position;
 
 
     protected static $table = 'bookly_services';
@@ -131,7 +131,7 @@ class Service extends Lib\Base\Entity
         'time_requirements'            => array( 'format' => '%s' ),
         'collaborative_equal_duration' => array( 'format' => '%d' ),
         'visibility'                   => array( 'format' => '%s' ),
-        'position'                     => array( 'format' => '%d' ),
+        'position'                     => array( 'format' => '%d', 'sequent' => true ),
     );
 
     /** @var \BooklyServiceExtras\Lib\Entities\ServiceExtra[] */

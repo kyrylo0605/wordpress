@@ -48,7 +48,7 @@ class Appointment extends Lib\Base\Entity
 
     protected static $schema = array(
         'id'                       => array( 'format' => '%d' ),
-        'location_id'              => array( 'format' => '%d' ),
+        'location_id'              => array( 'format' => '%d', 'reference' => array( 'entity' => 'Location', 'namespace' => '\BooklyLocations\Lib\Entities', 'required' => 'bookly-addon-locations' ) ),
         'staff_id'                 => array( 'format' => '%d', 'reference' => array( 'entity' => 'Staff' ) ),
         'staff_any'                => array( 'format' => '%d' ),
         'service_id'               => array( 'format' => '%d', 'reference' => array( 'entity' => 'Service' ) ),

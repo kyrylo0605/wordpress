@@ -149,6 +149,7 @@ use Bookly\Backend\Modules\Appearance\Proxy;
                         </div>
 
                         <?php Proxy\Cart::renderCartStepSettings() ?>
+                        <?php Proxy\ServiceExtras::renderStepSettings() ?>
 
                         <div class="bookly-js-details-settings bookly-margin-top-lg container-fluid" style="display:none">
 
@@ -201,7 +202,7 @@ use Bookly\Backend\Modules\Appearance\Proxy;
                         </div>
                         <div class="bookly-js-payment-settings bookly-margin-top-lg" style="display:none">
                             <?php Proxy\Coupons::renderShowCoupons() ?>
-                            <?php Proxy\Pro::renderMultipleBookingSelector() ?>
+                            <?php Proxy\Pro::renderBookingStatesSelector() ?>
                         </div>
 
                         <div class="bookly-js-done-settings bookly-margin-top-lg" style="display:none">

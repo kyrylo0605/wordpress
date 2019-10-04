@@ -141,22 +141,20 @@ jQuery(function ($) {
             processing : BooklyL10n.processing
         }
     }).on('row-reordered', function (e, diff, edit) {
-        var positions = [];
-        function sortByPosition(a, b){
-            return ((a.position < b.position) ? -1 : ((a.position > b.position) ? 1 : 0));
-        }
-        dt.data().each(function (service) {
-            positions.push({position: service.position, id: service.id});
+        let positions = [];
+        dt.data().each(function (item) {
+            positions.push({position: parseInt(item.position), id: item.id});
         });
         $.ajax({
-            url     : ajaxurl,
-            type    : 'POST',
-            data: {
+            url  : ajaxurl,
+            type : 'POST',
+            data : {
                 action     : 'bookly_update_staff_position',
                 csrf_token : BooklyL10n.csrfToken,
-                'positions[]': $.map(positions.sort(sortByPosition), function (value) {
-                    return value.id;
-                })
+                positions  : (positions.sort((a, b) => a.position - b.position))
+                    .map(function (value) {
+                        return value.id;
+                    })
             },
             dataType: 'json',
             success : function (response) {
@@ -248,10 +246,6 @@ jQuery(function ($) {
         });
 
     $('.bookly-js-select')
-        .on('select2:unselecting', function(e) {
-            e.preventDefault();
-            $(this).val(null).trigger('change');
-        })
         .select2({
             width: '100%',
             theme: 'bootstrap',

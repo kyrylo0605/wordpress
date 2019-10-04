@@ -23,7 +23,9 @@ class Attachments extends Order\Attachments
         if ( $notification->getAttachIcs() ) {
             if ( ! isset( $this->files['ics'] ) ) {
                 // ICS.
-                if ( $this->codes->getItem()->isSeries() && Lib\Config::recurringAppointmentsActive() ) {
+                if ( $this->codes instanceof \BooklyPro\Lib\Notifications\Assets\Combined\Codes ) {
+                    $ics = Proxy\Pro::createICS( $this->codes );
+                } elseif ( $this->codes->getItem()->isSeries() && Lib\Config::recurringAppointmentsActive() ) {
                     $ics = Proxy\RecurringAppointments::createICS( $this->codes );
                 } else {
                     $ics = new ICS( $this->codes );

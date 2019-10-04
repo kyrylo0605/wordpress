@@ -33,9 +33,10 @@ abstract class Reminder
      * @param Codes $codes
      * @param Attachments $attachments
      * @param array $reply_to
+     * @param array|bool $queue
      * @return bool
      */
-    public static function sendToAdmins(Notification $notification, Codes $codes, $attachments = null, $reply_to = null )
+    public static function sendToAdmins(Notification $notification, Codes $codes, $attachments = null, $reply_to = null, &$queue = false )
     {
         if ( ! $notification->getToAdmin() ) {
             // No recipient.
@@ -47,7 +48,9 @@ abstract class Reminder
                 self::RECIPIENT_ADMINS,
                 get_option( 'bookly_sms_administrator_phone', '' ),
                 $notification,
-                $codes
+                $codes,
+                array( 'name' => __( 'Admins', 'bookly' ) ),
+                $queue
             );
         } else {
             return static::_sendEmailTo(
@@ -56,7 +59,11 @@ abstract class Reminder
                 $notification,
                 $codes,
                 $attachments,
-                $reply_to
+                $reply_to,
+                null,
+                null,
+                array( 'name' => __( 'Admins', 'bookly' ) ),
+                $queue
             );
         }
     }
@@ -68,9 +75,10 @@ abstract class Reminder
      * @param Notification $notification
      * @param Codes $codes
      * @param Attachments $attachments
+     * @param bool|array $queue
      * @return bool
      */
-    public static function sendToClient( Customer $customer, Notification $notification, Codes $codes, $attachments = null )
+    public static function sendToClient( Customer $customer, Notification $notification, Codes $codes, $attachments = null, &$queue = false )
     {
         if ( ! $notification->getToCustomer() ) {
             // No recipient.
@@ -82,7 +90,9 @@ abstract class Reminder
                 self::RECIPIENT_CLIENT,
                 $customer->getPhone(),
                 $notification,
-                $codes
+                $codes,
+                array( 'name' => $customer->getFullName() ),
+                $queue
             );
         } else {
             return static::_sendEmailTo(
@@ -90,7 +100,12 @@ abstract class Reminder
                 $customer->getEmail(),
                 $notification,
                 $codes,
-                $attachments
+                $attachments,
+                null,
+                null,
+                null,
+                array( 'name' => $customer->getFullName() ),
+                $queue
             );
         }
     }
@@ -103,9 +118,10 @@ abstract class Reminder
      * @param Codes $codes
      * @param Attachments $attachments
      * @param array $reply_to
+     * @param array|bool $queue
      * @return bool
      */
-    public static function sendToStaff( Staff $staff, Notification $notification, Codes $codes, $attachments = null, $reply_to = null )
+    public static function sendToStaff( Staff $staff, Notification $notification, Codes $codes, $attachments = null, $reply_to = null, &$queue = false )
     {
         if ( ! $notification->getToStaff() || $staff->isArchived() ) {
             // No recipient.
@@ -117,7 +133,9 @@ abstract class Reminder
                 self::RECIPIENT_STAFF,
                 $staff->getPhone(),
                 $notification,
-                $codes
+                $codes,
+                array( 'name' => $staff->getFullName() ),
+                $queue
             );
         } else {
             return static::_sendEmailTo(
@@ -126,7 +144,11 @@ abstract class Reminder
                 $notification,
                 $codes,
                 $attachments,
-                $reply_to
+                $reply_to,
+                null,
+                null,
+                array( 'name' => $staff->getFullName() ),
+                $queue
             );
         }
     }
@@ -142,6 +164,8 @@ abstract class Reminder
      * @param array $reply_to
      * @param string $force_send_as
      * @param array $force_from
+     * @param array $queue_data
+     * @param bool|array $queue
      * @return bool
      */
     protected static function _sendEmailTo(
@@ -152,7 +176,9 @@ abstract class Reminder
         $attachments = null,
         $reply_to = null,
         $force_send_as = null,
-        $force_from = null
+        $force_from = null,
+        $queue_data = array(),
+        &$queue = false
     )
     {
         if ( empty ( $to_email ) ) {
@@ -191,7 +217,22 @@ abstract class Reminder
         }
 
         // Do send.
-        return wp_mail( $to_email, $subject, $message, $headers, $attachments ? $attachments->createFor( $notification ) : array() );
+        if ( $queue !== false ) {
+            $queue[] = array(
+                'data'        => $queue_data,
+                'gateway'     => $notification->getGateway(),
+                'name'        => $notification->getName(),
+                'address'     => $to_email,
+                'subject'     => $subject,
+                'message'     => $message,
+                'headers'     => $headers,
+                'attachments' => $attachments ? $attachments->createFor( $notification ) : array(),
+            );
+
+            return true;
+        } else {
+            return wp_mail( $to_email, $subject, $message, $headers, $attachments ? $attachments->createFor( $notification ) : array() );
+        }
     }
 
     /**
@@ -201,9 +242,11 @@ abstract class Reminder
      * @param string $phone
      * @param Notification $notification
      * @param Codes $codes
+     * @param array $queue_data,
+     * @param array|bool $queue
      * @return bool
      */
-    protected static function _sendSmsTo( $recipient, $phone, $notification, Codes $codes )
+    protected static function _sendSmsTo( $recipient, $phone, $notification, Codes $codes, $queue_data = array(), &$queue = false )
     {
         if ( $phone == '' ) {
             return false;
@@ -222,6 +265,21 @@ abstract class Reminder
         $message = $codes->replaceForSms( $message );
 
         // Do send.
-        return self::$sms->sendSms( $phone, $message['personal'], $message['impersonal'], $notification->getTypeId() );
+        if ( $queue !== false ) {
+            $queue[] = array(
+                'data'       => $queue_data,
+                'gateway'    => $notification->getGateway(),
+                'name'       => $notification->getName(),
+                'address'    => $phone,
+                'message'    => $message['personal'],
+                'impersonal' => $message['impersonal'],
+                'type_id'    => $notification->getTypeId(),
+            );
+
+            return true;
+        } else {
+            return self::$sms->sendSms( $phone, $message['personal'], $message['impersonal'], $notification->getTypeId() );
+        }
+
     }
 }

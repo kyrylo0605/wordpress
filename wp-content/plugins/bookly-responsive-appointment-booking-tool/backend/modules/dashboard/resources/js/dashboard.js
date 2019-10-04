@@ -31,7 +31,7 @@ jQuery(function ($) {
             toLabel    : BooklyL10n.dateRange.to,
             customRangeLabel: BooklyL10n.dateRange.customRange,
             daysOfWeek : BooklyL10n.datePicker.dayNamesShort,
-            monthNames : BooklyL10n.datePicker.dayNames,
+            monthNames : BooklyL10n.datePicker.monthNames,
             firstDay   : parseInt(BooklyL10n.dateRange.firstDay),
             format     : BooklyL10n.dateRange.dateFormat
         }

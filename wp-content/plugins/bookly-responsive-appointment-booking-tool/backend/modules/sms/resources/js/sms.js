@@ -7,7 +7,7 @@ jQuery(function($) {
         $form_login    = $('.bookly-login-form')
     ;
 
-    booklyAlert(BooklyL10n.alert);
+    booklyAlert(BooklyL10n.smsAlert);
 
     $('.show-register-form').on('click', function (e) {
         e.preventDefault();
@@ -280,7 +280,7 @@ jQuery(function($) {
         cancelLabel     : BooklyL10n.dateRange.cancel,
         fromLabel       : BooklyL10n.dateRange.from,
         toLabel         : BooklyL10n.dateRange.to,
-        customRangeLabel: BooklyL10n.dateRange.custom_range,
+        customRangeLabel: BooklyL10n.dateRange.customRange,
         daysOfWeek      : BooklyL10n.datePicker.dayNamesShort,
         monthNames      : BooklyL10n.datePicker.monthNames,
         firstDay        : parseInt(BooklyL10n.dateRange.firstDay),

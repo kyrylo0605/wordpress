@@ -78,7 +78,7 @@ msgstr "Instellingen opgeslagen."
 
 #: 
 msgid "Your custom CSS was saved. Please refresh the page to see your changes."
-msgstr "Uw aangepaste CSS is opgeslagen. Vernieuw de pagina om uw wijzigingen te zien."
+msgstr "Je aangepaste CSS is opgeslagen. Vernieuw de pagina om je wijzigingen te zien."
 
 #: 
 msgid "Visible when the chosen time slot has been already booked"
@@ -166,7 +166,7 @@ msgstr "Bewerk aangepaste CSS"
 
 #: 
 msgid "Set up your custom CSS styles"
-msgstr "Stel uw aangepaste CSS-stijlen in"
+msgstr "Stel je aangepaste CSS-stijlen in"
 
 #: 
 msgid "Save"
@@ -210,7 +210,7 @@ msgstr "Toon elke dag in één kolom"
 
 #: 
 msgid "Show Login button"
-msgstr "Toon Login knop"
+msgstr "Toon login-knop"
 
 #: 
 msgid "Do not forget to update your email and SMS codes for customer names"
@@ -238,7 +238,7 @@ msgstr "Toepassen"
 
 #: 
 msgid "To"
-msgstr "Tot"
+msgstr "Aan"
 
 #: 
 msgid "From"
@@ -246,7 +246,7 @@ msgstr "Van"
 
 #: 
 msgid "Are you sure?"
-msgstr "Weet u het zeker?"
+msgstr "Weet je het zeker?"
 
 #: 
 msgid "No appointments for selected period."
@@ -423,10 +423,6 @@ msgstr "Nieuwe klant"
 #: 
 msgid "Send notifications"
 msgstr "Verstuur meldingen"
-
-#: 
-msgid "Don't send"
-msgstr "Niet verzenden"
 
 #: 
 msgid "Internal note"
@@ -859,10 +855,6 @@ msgstr "Info"
 #: 
 msgid "This text can be inserted into notifications with %s code."
 msgstr "Deze tekst kan in meldingen worden ingevoegd met %s code."
-
-#: 
-msgid "New Category"
-msgstr "Nieuwe categorie"
 
 #: 
 msgid "Add Service"
@@ -1415,10 +1407,6 @@ msgstr "Kies uit WP-gebruikers"
 #: 
 msgid "To make staff member invisible to your customers set the visibility to \"Private\"."
 msgstr "Om medewerker onzichtbaar te maken voor uw klanten stel de zichtbaarheid in op \"Privé\"."
-
-#: 
-msgid "New Staff Member"
-msgstr "Nieuwe medewerker"
 
 #: 
 msgid "Schedule"
@@ -2002,24 +1990,6 @@ msgstr "Afspraak"
 #: 
 msgid "sent to our system"
 msgstr "verzonden naar ons systeem"
-
-#: 
-msgid "Hope you had a good weekend! Here's a summary of messages we've delivered last week:\n"
-"{notification_list}\n"
-"\n"
-"Your system sent a total of {total} messages last week (that's {delta} {sign} than the week before).\n"
-"Cost of sending {total} messages was {amount}. You current Bookly SMS balance is {balance}.\n"
-"\n"
-"Thank you for using Bookly SMS. We wish you a lucky week!\n"
-"Bookly SMS Team."
-msgstr "Ik hoop dat u een goed weekend had! Hier volgt een overzicht van de berichten die we vorige week hebben geleverd:\n"
-"{notification_list}\n"
-"\n"
-"Uw systeem stuurde een totaal van {total} berichten vorige week (dat is {delta} {sign} dan de week ervoor).\n"
-"Kosten van het verzenden van {total} berichten was {amount}. Uw huidige Bookly SMS saldo is {balance}.\n"
-"\n"
-"Bedankt voor het gebruiken Bookly SMS. Wij wensen u een gelukkige week!\n"
-"Bookly SMS Team."
 
 #: 
 msgid "more"
@@ -3882,10 +3852,6 @@ msgid "Please select a customer"
 msgstr "Gelieve een klant te selecteren"
 
 #: 
-msgid "If email or SMS notifications are enabled and you want customers and staff member to be notified about this package after saving, select appropriate option before clicking Save."
-msgstr "Als e-mail of SMS meldingen ingeschakeld zijn en u wilt dat klanten en personeelsleden worden geïnformeerd over dit pakket na bewaren, selecteer dan de toepasselijke optie voordat u op Bewaren klikt."
-
-#: 
 msgid "Save & schedule"
 msgstr "Bewaren & plannen"
 
@@ -3912,14 +3878,6 @@ msgstr "Helaas bent u niet in staat een afspraak te boeken omdat de vereiste tij
 #: 
 msgid "You are trying to schedule an appointment in the past. Please select another time slot."
 msgstr "U probeert een afspraak te plannen in het verleden. Gelieve een ander tijdslot te kiezen."
-
-#: 
-msgid "If email or SMS notifications are enabled and you want customers or staff member to be notified about this appointments after saving, select appropriate option before clicking Save."
-msgstr "Indien e-mail of SMS meldingen ingeschakeld zijn en u uw klanten of personeelsleden wilt informeren na het bewaren, selecteer dan de toepasselijke optie voordat u op Bewaren klikt."
-
-#: 
-msgid "If appointments changed"
-msgstr "Indien afspraken wijzigen"
 
 #: 
 msgid "Select appointment date"
@@ -5782,10 +5740,6 @@ msgid "To help us improve Bookly, the plugin anonymously collects usage informat
 msgstr "Om te helpen om Bookly te verbeteren, verzameld de plugin anoniem gebruiksinformatie. U kunt zich afmelden van het delen van informatie in Instellingen > Algemeen."
 
 #: 
-msgid "Let the plugin anonymously collect usage information to help Bookly team improve the product."
-msgstr "Laat de plugin anoniem gebruiksinformatie verzamelen om het Bookly team te helpen met het verbeteren van het product."
-
-#: 
 msgid "Disagree"
 msgstr "Oneens"
 
@@ -6130,44 +6084,8 @@ msgid "Last month"
 msgstr "Afgelopen maand"
 
 #: 
-msgid "Hello,\n"
-"\n"
-"Thank you for registering at Bookly SMS service. Please click the link below to verify your email address.\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"Bookly"
-msgstr "Hallo,\n"
-"\n"
-"Bedankt voor het registreren bij de Bookly SMS service. Klik op onderstaande link om uw e-mailadres te verifiëren.\n"
-"\n"
-"<a href='%s'>%s</a>\n"
-"\n"
-"Bookly"
-
-#: 
-msgid "Bookly SMS service  email confirmation"
-msgstr "Bookly SMS service e-mail bevestiging"
-
-#: 
-msgid "Add new item to the category"
-msgstr "Voeg nieuw item aan categorie toe"
-
-#: 
-msgid "Edit category name"
-msgstr "Wijzig naam categorie"
-
-#: 
-msgid "Delete category"
-msgstr "Verwijder categorie"
-
-#: 
 msgid "Archive"
 msgstr "Archiveer"
-
-#: 
-msgid "The working time in the provider's schedule is associated with another location."
-msgstr "De werktijd in de planning van de leverancier is gekoppeld met een andere locatie."
 
 #: 
 msgid "Set slot length as service duration"
@@ -6496,14 +6414,6 @@ msgstr "Kopieer factuur naar andere e-mail(s)"
 #: 
 msgid "Enter one or more email addresses separated by commas."
 msgstr "Vul een of mesrdere e-mailadressen in, gescheiden door komma's."
-
-#: 
-msgid "Show archived staff"
-msgstr "Toon gearchiveerd personeel"
-
-#: 
-msgid "Hide archived staff"
-msgstr "Verberg gearchiveerd personeel"
 
 #: 
 msgid "Can't change calendar for archived staff"
@@ -7062,10 +6972,6 @@ msgid "Notification to customer about pending appointments"
 msgstr "Melding aan klant over afspraken in de wacht"
 
 #: 
-msgid "Use drag & drop to shift employees between categories and change their position in a list. The order of staff members will be displayed at the frontend the same way you configure it here."
-msgstr "Gebruik slepen & laten vallen om werknemers tussen categorieën te schuiven en hun positie in de lijst te wijzigen. De volgorde van personeelsleden zal worden weergegeven aan de frontend op dezelfde manier zoals u het hier configureert."
-
-#: 
 msgid "Cancellation confirmation"
 msgstr "Bevestiging annuleren"
 
@@ -7172,34 +7078,6 @@ msgstr "Belangrijk: Uw website moet <b>HTTPS</b> gebruiken. De Outlook Kalender 
 #: 
 msgid "To find your Application ID and Application Secret, do the following:"
 msgstr "Om uw Applicatie ID en Applicatie Geheim te vinden, doet u het volgende:"
-
-#: 
-msgid "Navigate to the <a href=\"%s\" target=\"_blank\">Microsoft App Registration Portal</a>."
-msgstr "Navigeer naar de <a href=\"%s\" target=\"_blank\">Microsoft App Registratie Portal</a>."
-
-#: 
-msgid "Sign in with either a personal or work or school Microsoft account. If you don't have either, sign up for a new personal account."
-msgstr "Log in met een persoonlijke of werk of school Microsoft account. Als u deze niet heeft, meld u dan aan voor een nieuw persoonlijk account."
-
-#: 
-msgid "Choose <b>Add an app</b>. Enter a name for the app and choose <b>Create application</b>. The registration page displays, listing the properties of your app."
-msgstr "Kies <b> Een app toevoegen</b>. Vul een naam voor de app in en kies <b>Aanmaken applicatie</b>. De registratiepagina verschijnt, en toont de eigenschappen van uw app."
-
-#: 
-msgid "Copy the <b>Application ID</b>. This is the unique identifier for your app. You'll use it in the form below on this page."
-msgstr "Kopieer de <b>Applicatie ID</b>. Dit is het unieke identificatiemiddel voor uw app. U gebruikt het in onderstaand formulier op deze pagina."
-
-#: 
-msgid "Under <b>Application Secrets</b>, choose <b>Generate New Password</b>. Copy the app secret from the <b>New password generated</b> dialog box before closing it. You'll use the secret in the form below on this page."
-msgstr "Onder <b>Applicatie Geheimen</b>, kies <b>Genereer Nieuw Wachtwoord</b>. Kopieer het app geheim vanuit het <b>Nieuwe Wachtwoord gegenereerd</b> dialoogvenster voordat u het sluit. U gebruikt het geheim in onderstaand formulier op deze pagina."
-
-#: 
-msgid "Under <b>Platforms</b>, choose <b>Add Platform</b>, and select <b>Web</b>. In <b>Redirect URLs</b> enter the <b>Redirect URI</b> found below on this page."
-msgstr "Onder <b>Platformen</b>, kies <b>Platform Toevoegen</b>, en selecteer <b>Web</b>. In <b>Doorsturen URL's</b> vul de <b>Doorgestuurde URI</b> in die onderaan deze pagina is gevonden."
-
-#: 
-msgid "Under <b>Microsoft Graph Permissions</b>, choose <b>Add</b> next to <b>Delegated Permissions</b>, and select <b>Calendars.ReadWrite</b> in the <b>Select Permission</b> dialog box. Close it by clicking <b>Ok</b>."
-msgstr "Onder <b>Microsoft Graph Permissies</b>, ckies <b>Toevoegen</b> naast <b>Gedelegeerde Permissies</b>, en selecteer dan <b>Kalenders.LezenSchrijven</b> in het <b>Selecteer Permissie</b> dialoogvenster. Sluit het door te klikken op <b>Ok</b>."
 
 #: 
 msgid "<b>Save</b> your changes."
@@ -7335,5 +7213,108 @@ msgstr ""
 
 #: 
 msgid "2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> section, click <b>Add endpoint</b> to reveal a form to add a new endpoint for receiving events."
+msgstr ""
+
+#: 
+msgid "Quick search staff"
+msgstr ""
+
+#: 
+msgid "Add staff..."
+msgstr ""
+
+#: 
+msgid "Create staff"
+msgstr ""
+
+#: 
+msgid "Edit staff"
+msgstr ""
+
+#: 
+msgid "This service is no longer provided."
+msgstr ""
+
+#: 
+msgid "3. Enter the following URL as the destination for events <b>%s</b> and click <b>Add endpoint</b>."
+msgstr ""
+
+#: 
+msgid "4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent.payment_failed</b> and click <b>Add endpoint</b>."
+msgstr ""
+
+#: 
+msgid "Bookly Stripe add-on has been upgraded to support <a href=\"%s\" target=\"_blank\">SCA</a>. You must update your Stripe settings to keep the integration with the upgraded add-on."
+msgstr ""
+
+#: 
+msgid "1. Make sure that <b>Publishable Key</b> is provided in <a href=\"%s\">payment settings</a>."
+msgstr ""
+
+#: 
+msgid "Sign in to the <a href=\"%s\" target=\"_blank\">Azure portal</a> using either a work or school account or a personal Microsoft account."
+msgstr ""
+
+#: 
+msgid "If your account gives you access to more than one tenant, select your account in the top right corner, and set your portal session to the Azure AD tenant that you want."
+msgstr ""
+
+#: 
+msgid "In the left-hand navigation pane, select the <b>Azure Active Directory</b> service, and then select <b>App registrations &gt; New registration</b>."
+msgstr ""
+
+#: 
+msgid "When the <b>Register an application</b> page appears, enter your application's <b>Name</b> and <b>Redirect URI</b> found below on this page. When finished, select <b>Register</b>."
+msgstr ""
+
+#: 
+msgid "Azure AD assigns a unique application (client) ID to your app, and you're taken to your application's <b>Overview</b> page."
+msgstr ""
+
+#: 
+msgid "Copy the <b>Application (client) ID</b> and insert it into the form below on this page."
+msgstr ""
+
+#: 
+msgid "Under <b>Certificates &amp; secrets</b>, choose <b>New client secret</b>, set <b>Expires</b> to <b>Never</b> and click <b>Add</b>. Copy the app secret from the <b>Client secrets</b> list before leaving the page. Insert the secret into the form below on this page."
+msgstr ""
+
+#: 
+msgid "Under <b>API permissions</b>, choose <b>Add a permission</b>, and select <b>Microsoft Graph &gt; Delegated permissions</b>. In <b>Select permissions</b> find <b>Calendars.ReadWrite</b>, select it and click <b>Add permissions</b> button."
+msgstr ""
+
+#: 
+msgid "To receive REST API credentials, in <b>My Apps & Credentials</b> of your PayPal account do the following steps:"
+msgstr ""
+
+#: 
+msgid "Click <b>Create App</b> and enter application details."
+msgstr ""
+
+#: 
+msgid "Once created, copy <b>Client ID</b> and <b>Secret</b> and use them in the form below."
+msgstr ""
+
+#: 
+msgid "Secret"
+msgstr ""
+
+#: 
+msgid "Admins"
+msgstr ""
+
+#: 
+msgid "Searching"
+msgstr ""
+
+#: 
+msgid "Hope you had a good weekend! Here's a summary of messages we've delivered last week:\n"
+"{notification_list}\n"
+"\n"
+"Your system sent a total of {total} messages last week (that's {delta} {sign} than the week before).\n"
+"Cost of sending {total} messages was {amount}. Your current Bookly SMS balance is {balance}.\n"
+"\n"
+"Thank you for using Bookly SMS. We wish you a lucky week!\n"
+"Bookly SMS Team"
 msgstr ""
 

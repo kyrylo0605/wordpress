@@ -65,10 +65,12 @@ use Bookly\Lib\Utils\DateTime;
                     <div class="clearfix visible-md-block"></div>
                     <div class="col-md-3 col-lg-2">
                         <div class="form-group">
-                            <select class="form-control bookly-js-select" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>">
-                                <?php foreach ( $customers as $customer ) : ?>
-                                    <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
-                                <?php endforeach ?>
+                            <select class="form-control <?php echo $customers === false ? 'bookly-js-select-ajax' : 'bookly-js-select' ?>" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>" data-action="bookly_get_customers_list">
+                                <?php if ( $customers !== false ) : ?>
+                                    <?php foreach ( $customers as $customer ) : ?>
+                                        <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </select>
                         </div>
                     </div>
@@ -135,6 +137,7 @@ use Bookly\Lib\Utils\DateTime;
 
         <?php Dialogs\Appointment\Delete\Dialog::render() ?>
         <?php Dialogs\Appointment\Edit\Dialog::render() ?>
+        <?php Dialogs\Queue\Dialog::render() ?>
         <?php Proxy\Shared::renderAddOnsComponents() ?>
     </div>
 </div>

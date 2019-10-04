@@ -10,6 +10,19 @@ use Bookly\Lib;
 class Ajax extends Lib\Base\Ajax
 {
     /**
+     * @inheritdoc
+     */
+    protected static function permissions()
+    {
+        $permissions = get_option( 'bookly_gen_allow_staff_edit_profile' ) ? array( '_default' => 'user' ) : array();
+        if ( Lib\Config::staffCabinetActive() ) {
+            $permissions = array( '_default' => 'user' );
+        }
+
+        return $permissions;
+    }
+
+    /**
      * Get purchases list.
      */
     public static function getPurchasesList()
@@ -270,5 +283,53 @@ class Ajax extends Lib\Base\Ajax
     {
         update_option( 'bookly_sms_administrator_phone', self::parameter( 'bookly_sms_administrator_phone' ) );
         wp_send_json_success();
+    }
+
+    /**
+     * Send queue
+     */
+    public static function sendQueue()
+    {
+        $queue = self::parameter( 'queue', array() );
+        $sms   = new Lib\SMS();
+
+        foreach ( $queue as $notification ) {
+            if ( $notification['gateway'] == 'sms' ) {
+                $sms->sendSms( $notification['address'], $notification['message'], $notification['impersonal'], $notification['type_id'] );
+            } else {
+                wp_mail( $notification['address'], $notification['subject'], $notification['message'], $notification['headers'], isset( $notification['attachments'] ) ? $notification['attachments'] : array() );
+            }
+        }
+        self::_deleteAttachmentFiles( self::parameter( 'queue_full', array() ) );
+
+        wp_send_json_success();
+    }
+
+    /**
+     * Delete attachments files
+     */
+    public static function clearAttachments()
+    {
+        self::_deleteAttachmentFiles( self::parameter( 'queue', array() ) );
+
+        wp_send_json_success();
+    }
+
+    /**
+     * Delete attachment files
+     *
+     * @param $queue
+     */
+    private static function _deleteAttachmentFiles( $queue )
+    {
+        foreach ( $queue as $notification ) {
+            if ( isset( $notification['attachments'] ) ) {
+                foreach ( $notification['attachments'] as $file ) {
+                    if ( file_exists( $file ) ) {
+                        unlink( $file );
+                    }
+                }
+            }
+        }
     }
 }

@@ -35,6 +35,7 @@ class Dialog extends BooklyLib\Base\Component
             'csrfToken'       => BooklyLib\Utils\Common::getCsrfToken(),
             'recurringActive' => (int) BooklyLib\Config::recurringAppointmentsActive(),
             'defaultNotification' => self::getDefaultNotification(),
+            'sms'                 => true,
             'title' => array(
                 'container' => __( 'Sms', 'bookly' ),
                 'new'       => __( 'New sms notification', 'bookly' ),

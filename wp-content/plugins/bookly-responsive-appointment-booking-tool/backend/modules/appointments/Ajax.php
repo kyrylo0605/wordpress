@@ -60,7 +60,7 @@ class Ajax extends Lib\Base\Ajax
                 $ca_list[] = $ca_data['ca_id'];
             }
         }
-
+        $queue = array();
         /** @var Lib\Entities\CustomerAppointment $ca */
         foreach ( Lib\Entities\CustomerAppointment::query()->whereIn( 'id', $ca_list )->find() as $ca ) {
             if ( self::parameter( 'notify' ) ) {
@@ -81,7 +81,9 @@ class Ajax extends Lib\Base\Ajax
                 Lib\Notifications\Booking\Sender::sendForCA(
                     $ca,
                     null,
-                    array( 'cancellation_reason' => self::parameter( 'reason' ) )
+                    array( 'cancellation_reason' => self::parameter( 'reason' ) ),
+                    false,
+                    $queue
                 );
             }
             $ca->deleteCascade();
@@ -95,7 +97,7 @@ class Ajax extends Lib\Base\Ajax
             }
         }
 
-        wp_send_json_success();
+        wp_send_json_success( compact( 'queue' ) );
     }
 
     /**

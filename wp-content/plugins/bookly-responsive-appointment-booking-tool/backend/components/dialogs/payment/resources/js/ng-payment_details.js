@@ -18,12 +18,14 @@
                         if (payment_id === undefined) {
                             if (e.relatedTarget) {
                                 payment_id = e.relatedTarget.getAttribute('data-payment_id');
-                                var payment_bind = e.relatedTarget.getAttribute('data-payment_bind'),
-                                    customer_id  = e.relatedTarget.getAttribute('data-customer_id');
+                                var payment_bind   = e.relatedTarget.getAttribute('data-payment_bind'),
+                                    customer_id    = e.relatedTarget.getAttribute('data-customer_id'),
+                                    customer_index = e.relatedTarget.getAttribute('data-customer_index');
                             } else if (element.data('payment_id')) {
                                 payment_id = element.data('payment_id');
-                                var payment_bind = element.data('payment_bind'),
-                                    customer_id  = element.data('customer_id');
+                                var payment_bind   = element.data('payment_bind'),
+                                    customer_id    = element.data('customer_id'),
+                                    customer_index = element.data('customer_index');
                             }
                         }
                         jQuery.ajax({
@@ -58,7 +60,7 @@
                                                         });
                                                     }
                                                     // Reload DataTable.
-                                                    var $table = jQuery('table#bookly-payments-list.dataTable');
+                                                    var $table = jQuery('table#bookly-payments-list.dataTable, table#bookly-appointments-list.dataTable');
                                                     if ($table.length) {
                                                         $table.DataTable().ajax.reload();
                                                     }
@@ -84,7 +86,8 @@
                                                                 payment_id    : payment_id,
                                                                 payment_title : response.data.payment_title,
                                                                 payment_type  : response.data.payment_type,
-                                                                customer_id   : customer_id
+                                                                customer_id   : customer_id,
+                                                                customer_index: customer_index
                                                             });
                                                         });
                                                     }
@@ -125,7 +128,7 @@
                                                 if (response.success) {
                                                     element.trigger('refresh', [payment_id]);
                                                     // Reload DataTable.
-                                                    var $table = jQuery('table#bookly-payments-list.dataTable');
+                                                    var $table = jQuery('table#bookly-payments-list.dataTable, table#bookly-appointments-list.dataTable');
                                                     if ($table.length) {
                                                         $table.DataTable().ajax.reload();
                                                     }

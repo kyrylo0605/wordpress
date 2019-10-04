@@ -60,6 +60,7 @@ class Page extends Lib\Base\Component
             'cf_columns'      => $cf_columns,
             'filter'          => (array) get_user_meta( get_current_user_id(), 'bookly_filter_appointments_list', true ),
             'no_result_found' => __( 'No result found', 'bookly' ),
+            'searching'       => __( 'Searching', 'bookly' ),
             'attachments'     => __( 'Attachments', 'bookly' ),
             'tasks'           => array(
                 'enabled' => Lib\Config::tasksActive(),
@@ -69,7 +70,7 @@ class Page extends Lib\Base\Component
 
         // Filters data
         $staff_members = Lib\Entities\Staff::query( 's' )->select( 's.id, s.full_name' )->whereNot( 'visibility', 'archive' )->fetchArray();
-        $customers = Lib\Entities\Customer::query( 'c' )->select( 'c.id, c.full_name, c.first_name, c.last_name' )->fetchArray();
+        $customers = Lib\Entities\Customer::query()->count() < Lib\Entities\Customer::REMOTE_LIMIT ? Lib\Entities\Customer::query( 'c' )->select( 'c.id, c.full_name, c.first_name, c.last_name' )->fetchArray() : false;
         $services  = Lib\Entities\Service::query( 's' )->select( 's.id, s.title' )->where( 'type', Lib\Entities\Service::TYPE_SIMPLE )->fetchArray();
 
         self::renderTemplate( 'index', compact( 'custom_fields', 'staff_members', 'customers', 'services', 'show_attachments' ) );

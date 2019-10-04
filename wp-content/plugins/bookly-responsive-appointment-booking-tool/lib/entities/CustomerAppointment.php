@@ -75,7 +75,7 @@ class CustomerAppointment extends Lib\Base\Entity
     protected static $schema = array(
         'id'                       => array( 'format' => '%d' ),
         'series_id'                => array( 'format' => '%d', 'reference' => array( 'entity' => 'Series' ) ),
-        'package_id'               => array( 'format' => '%d' ),
+        'package_id'               => array( 'format' => '%d', 'reference' => array( 'entity' => 'Package', 'namespace' => '\BooklyPackages\Lib\Entities', 'required' => 'bookly-addon-packages' ) ),
         'customer_id'              => array( 'format' => '%d', 'reference' => array( 'entity' => 'Customer' ) ),
         'appointment_id'           => array( 'format' => '%d', 'reference' => array( 'entity' => 'Appointment' ) ),
         'payment_id'               => array( 'format' => '%d', 'reference' => array( 'entity' => 'Payment' ) ),
@@ -139,7 +139,7 @@ class CustomerAppointment extends Lib\Base\Entity
                 // Outlook Calendar.
                 Lib\Proxy\OutlookCalendar::syncEvent( $appointment );
                 // Waiting list.
-                Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
+                Lib\Proxy\WaitingList::handleParticipantsChange( false, $appointment );
             }
             if ( $compound_collaborative ) {
                 /** @var CustomerAppointment[] $ca_list */
@@ -201,7 +201,7 @@ class CustomerAppointment extends Lib\Base\Entity
                             // Outlook Calendar.
                             Lib\Proxy\OutlookCalendar::syncEvent( $appointment );
                             // Waiting list.
-                            Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
+                            Lib\Proxy\WaitingList::handleParticipantsChange( false, $appointment );
                         }
                     }
                 }

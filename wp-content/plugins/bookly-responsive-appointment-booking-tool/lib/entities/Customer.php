@@ -9,6 +9,8 @@ use Bookly\Lib;
  */
 class Customer extends Lib\Base\Entity
 {
+    const REMOTE_LIMIT  = 100;
+
     /** @var int */
     protected $wp_user_id;
     /** @var int */
@@ -54,7 +56,7 @@ class Customer extends Lib\Base\Entity
         'id'                 => array( 'format' => '%d' ),
         'wp_user_id'         => array( 'format' => '%d' ),
         'facebook_id'        => array( 'format' => '%d' ),
-        'group_id'           => array( 'format' => '%d' ),
+        'group_id'           => array( 'format' => '%d', 'reference' => array( 'entity' => 'CustomerGroups', 'namespace' => '\BooklyCustomerGroups\Lib\Entities', 'required' => 'bookly-addon-customer-groups' ) ),
         'full_name'          => array( 'format' => '%s' ),
         'first_name'         => array( 'format' => '%s' ),
         'last_name'          => array( 'format' => '%s' ),
@@ -100,7 +102,7 @@ class Customer extends Lib\Base\Entity
             // Google Calendar.
             Lib\Proxy\Pro::syncGoogleCalendarEvent( $appointment );
             // Waiting list.
-            Lib\Proxy\WaitingList::handleParticipantsChange( $appointment );
+            Lib\Proxy\WaitingList::handleParticipantsChange( false, $appointment );
         }
     }
 

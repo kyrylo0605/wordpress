@@ -27,6 +27,7 @@
                 id                  : null,
                 staff               : null,
                 staff_any           : null,
+                customer_gr_def_app_status: [],
                 service             : null,
                 custom_service_name : null,
                 custom_service_price: null,
@@ -53,7 +54,9 @@
                 customers             : [],
                 notification          : null,
                 series_id             : null,
-                expand_customers_list : false
+                expand_customers_list : false,
+                queue_type            : false,
+                queue                 : [],
             },
             l10n : {
                 staff_any: BooklyL10nAppDialog.staff_any
@@ -72,8 +75,87 @@
                                 ds.form.staff = data.staff[0];
                             }
 
+                            if (data.customers === false) {
+                                ds.data.customers = [];
+                                ds.data.customers_remote = true;
+                                // Init select2 remote.
+                                jQuery('#bookly-appointment-dialog-select2').select2({
+                                    width     : '100%',
+                                    theme     : 'bootstrap',
+                                    allowClear: false,
+                                    language  : {
+                                        noResults: function () {
+                                            return BooklyL10nAppDialog.no_result_found;
+                                        },
+                                        searching: function () {
+                                            return BooklyL10nAppDialog.searching;
+                                        }
+                                    },
+                                    ajax      : {
+                                        url           : ajaxurl,
+                                        dataType      : 'json',
+                                        delay         : 250,
+                                        data          : function (params) {
+                                            params.page = params.page || 1;
+                                            return {
+                                                action    : 'bookly_get_customers_list',
+                                                filter    : params.term,
+                                                page      : params.page,
+                                                timezone  : true,
+                                                csrf_token: BooklyL10nAppDialog.csrf_token
+                                            };
+                                        },
+                                        processResults: function (data) {
+                                            data.results.forEach(function (customer) {
+                                                if (!ds.findCustomer(customer.id)) {
+                                                    ds.resetCustomer(customer);
+                                                    ds.data.customers.push(customer);
+                                                }
+                                            });
+                                            return {
+                                                results   : data.results.map(function (item) {
+                                                    return {id: item.id, text: item.name}
+                                                }),
+                                                pagination: data.pagination
+                                            };
+                                        }
+                                    },
+                                }).on("select2:selecting", function (data) {
+                                    data.preventDefault();
+                                    var $scope = angular.element(jQuery('#bookly-appointment-dialog')).scope();
+                                    $scope.$apply(function ($scope) {
+                                        let clone = {};
+                                        angular.copy($scope.dataSource.data.customers.find(x => x.id === data.params.args.data.id), clone);
+                                        $scope.dataSource.resetCustomer(clone);
+                                        $scope.form.customers.push(clone);
+                                        $scope.onCustomersChange();
+                                    });
+                                    jQuery(this).select2('close');
+                                });
+                            } else {
+                                jQuery('#bookly-appointment-dialog-select2').select2({
+                                    width     : '100%',
+                                    theme     : 'bootstrap',
+                                    allowClear: false,
+                                    language  : {
+                                        noResults: function () {
+                                            return BooklyL10nAppDialog.no_result_found;
+                                        }
+                                    }
+                                }).on('select2:select select2:unselect', function (data) {
+                                    var $scope = angular.element(jQuery('#bookly-appointment-dialog')).scope();
+                                    $scope.$apply(function ($scope) {
+                                        let clone = {};
+                                        angular.copy($scope.dataSource.data.customers.find(x => x.id === data.params.data.id), clone);
+                                        $scope.dataSource.resetCustomer(clone);
+                                        $scope.form.customers.push(clone);
+                                        $scope.onCustomersChange();
+                                    });
+                                });
+                            }
                             ds.form.start_time = data.start_time[0];
                             ds.form.end_time   = data.end_time[1];
+                            ds.form.customer_gr_def_app_status = data.customer_gr_def_app_status;
                             deferred.resolve();
                         },
                         'json'
@@ -145,26 +227,30 @@
             },
             resetCustomers : function() {
                 ds.data.customers.forEach(function(customer) {
-                    customer.custom_fields            = [];
-                    customer.extras                   = [];
-                    customer.extras_consider_duration = ds.data.extras_consider_duration;
-                    customer.extras_multiply_nop      = ds.data.extras_multiply_nop;
-                    customer.number_of_persons        = 1;
-                    customer.notes                    = null;
-                    customer.collaborative_token      = null;
-                    customer.collaborative_service    = null;
-                    customer.compound_token           = null;
-                    customer.compound_service         = null;
-                    customer.payment_id               = null;
-                    customer.payment_type             = null;
-                    customer.payment_title            = null;
-                    customer.payment_create           = false;
-                    customer.payment_price            = null;
-                    customer.payment_tax              = null;
-                    customer.package_id               = null;
-                    customer.series_id                = null;
-                    customer.ca_id                    = null;
+                    ds.resetCustomer(customer);
                 });
+            },
+            resetCustomer: function(customer) {
+                customer.custom_fields            = [];
+                customer.extras                   = [];
+                customer.extras_consider_duration = ds.data.extras_consider_duration;
+                customer.extras_multiply_nop      = ds.data.extras_multiply_nop;
+                customer.number_of_persons        = !ds.form.service || ds.getTotalNumberOfNotCancelledPersons() ? 1 : ds.form.service.capacity_min;
+                customer.notes                    = null;
+                customer.collaborative_token      = null;
+                customer.collaborative_service    = null;
+                customer.compound_token           = null;
+                customer.compound_service         = null;
+                customer.payment_id               = null;
+                customer.payment_type             = null;
+                customer.payment_title            = null;
+                customer.payment_create           = false;
+                customer.payment_price            = null;
+                customer.payment_tax              = null;
+                customer.package_id               = null;
+                customer.series_id                = null;
+                customer.ca_id                    = null;
+                customer.status                   = ds.form.customer_gr_def_app_status[parseInt(customer.group_id||0)];
             },
             getDataForStartTime : function() {
                 var result = ds.data.start_time.slice();
@@ -374,7 +460,9 @@
                 },
                 customers             : [],
                 internal_note         : null,
-                expand_customers_list : false
+                expand_customers_list : false,
+                queue_type            : false,
+                queue                 : [],
             });
             $scope.errors = {};
             dataSource.setEndTimeBasedOnService();
@@ -405,6 +493,9 @@
                                 staff      = $scope.dataSource.findStaff(response.data.staff_id);
                             $scope.dataSource.data.app_start_time = response.data.start_time;
                             $scope.dataSource.data.app_end_time   = response.data.end_time;
+                            if ($scope.dataSource.data.customers_remote) {
+                                jQuery.extend($scope.dataSource.data.customers, response.data.customers_data);
+                            }
                             jQuery.extend($scope.form, {
                                 screen               : 'main',
                                 id                   : appointment_id,
@@ -613,19 +704,7 @@
             $scope.onRepeatChange();
         };
 
-        $scope.onCustomersChange = function(old_customers, old_nop) {
-            if (dataSource.form.service && dataSource.form.customers.length > old_customers.length) {
-                var ids = jQuery.map(old_customers, function(customer) {
-                    return customer.id;
-                });
-                var nop = dataSource.form.service.capacity_min - old_nop;
-                dataSource.form.customers.some(function (item) {
-                    if (jQuery.inArray(item.id, ids) == -1) {
-                        item.number_of_persons = nop > 0 ? nop : 1;
-                        return true;
-                    }
-                });
-            }
+        $scope.onCustomersChange = function() {
             $scope.errors.customers_appointments_limit = [];
             checkAppointmentErrors();
         };
@@ -635,6 +714,9 @@
         };
 
         $scope.processForm = function() {
+            if ($scope.form.screen === 'queue') {
+                return $scope.queueSend();
+            }
             $scope.loading = true;
 
             $scope.errors = {};
@@ -700,14 +782,20 @@
                     created_from         : typeof BooklySCCalendarL10n !== 'undefined' ? 'staff-cabinet' : 'backend'
                 },
                 function (response) {
-                    $scope.$apply(function($scope) {
+                    $scope.$apply(function ($scope) {
                         if (response.success) {
                             if (callback) {
                                 // Call callback.
                                 callback(response.data);
                             }
-                            // Close the dialog.
-                            $element.children().modal('hide');
+                            $scope.form.queue = response.queue;
+                            if (response.queue.all.length || response.queue.changed_status.length) {
+                                $scope.form.queue_type = $scope.form.queue.changed_status.length ? 'changed_status' : 'all'
+                                $scope.form.screen = 'queue';
+                            } else {
+                                // Close the dialog.
+                                $element.children().modal('hide');
+                            }
                         } else {
                             $scope.errors = response.errors;
                         }
@@ -720,8 +808,64 @@
 
         // On 'Cancel' button click.
         $scope.closeDialog = function () {
+            if ($scope.form.screen === 'queue') {
+                var queue = [];
+                jQuery.each($scope.form.queue, function (type, value) {
+                    jQuery.each(value, function (key, email) {
+                        queue.push(email);
+                    });
+                });
+                jQuery.post(
+                    ajaxurl,
+                    {
+                        action    : 'bookly_clear_attachments',
+                        csrf_token: BooklyL10nAppDialog.csrf_token,
+                        queue     : queue
+                    },
+                    'json'
+                );
+            }
             // Close the dialog.
             $element.children().modal('hide');
+        };
+        // On 'Cancel' button click in queue window.
+        $scope.queueSend = function () {
+            var ladda = Ladda.create(jQuery('button.bookly-js-queue-send').get(0));
+            ladda.start();
+            var queue = [];
+            jQuery.each($scope.form.queue[$scope.form.queue_type], function (key, email) {
+                if (email.checked == 1) {
+                    queue.push(email);
+                }
+            });
+            var queue_full = [];
+            jQuery.each($scope.form.queue, function (type, value) {
+                jQuery.each(value, function (key, email) {
+                    queue_full.push(email);
+                });
+            });
+            jQuery.post(
+                ajaxurl,
+                {
+                    action    : 'bookly_send_queue',
+                    csrf_token: BooklyL10nAppDialog.csrf_token,
+                    queue     : queue,
+                    queue_full: queue_full
+                },
+                function (response) {
+                    ladda.stop();
+                    $scope.$apply(function ($scope) {
+                        if (response.success) {
+                            // Close the dialog.
+                            $element.children().modal('hide');
+                        } else {
+                            $scope.errors = response.errors;
+                        }
+                        $scope.loading = false;
+                    });
+                },
+                'json'
+            );
         };
 
         $scope.statusToString = function (status) {
@@ -956,10 +1100,11 @@
          * Payment Details                                                                                            *
          **************************************************************************************************************/
 
-        $scope.attachPaymentModal = function (customer) {
+        $scope.attachPaymentModal = function (customer, index ) {
             var $dialog = jQuery('#bookly-payment-attach-modal');
             $scope.form.attach = {
                 customer_id   : customer.id,
+                customer_index: index,
                 payment_method: 'create',
                 payment_price : null,
                 payment_tax   : null,
@@ -970,15 +1115,15 @@
             });
         };
 
-        $scope.attachPayment = function (attach_method, price, tax, payment_id, customer_id) {
+        $scope.attachPayment = function (attach_method, price, tax, payment_id, customer_id, customer_index) {
             var $dialog = jQuery('#bookly-payment-details-modal');
             if (attach_method == 'search') {
-                $dialog.data('payment_id', payment_id).data('payment_bind', true).data('customer_id', customer_id).modal({show: true}).on('hidden.bs.modal', function () {
+                $dialog.data('payment_id', payment_id).data('payment_bind', true).data('customer_id', customer_id).data('customer_index', customer_index).modal({show: true}).on('hidden.bs.modal', function () {
                     jQuery('body').addClass('modal-open');
                 });
             } else {
-                jQuery.each($scope.dataSource.data.customers, function (key, item) {
-                    if (item.id == customer_id) {
+                jQuery.each($scope.dataSource.form.customers, function (key, item) {
+                    if (item.id == customer_id && key == customer_index) {
                         item.payment_create = true;
                         item.payment_price = price;
                         item.payment_tax = tax;
@@ -988,11 +1133,11 @@
             }
         };
 
-        $scope.callbackPayment = function (payment_action, payment_id, payment_title, customer_id, payment_type) {
+        $scope.callbackPayment = function (payment_action, payment_id, payment_title, customer_id, customer_index, payment_type) {
             if (payment_action == 'bind') {
                 // Bind payment
-                jQuery.each($scope.dataSource.data.customers, function (key, item) {
-                    if (item.id == customer_id) {
+                jQuery.each($scope.dataSource.form.customers, function (key, item) {
+                    if (item.id == customer_id && key == customer_index) {
                         item.payment_id = payment_id;
                         item.payment_type = payment_type;
                         item.payment_title = payment_title;
@@ -1000,7 +1145,7 @@
                 });
             } else {
                 // Complete payment
-                jQuery.each($scope.dataSource.data.customers, function (key, item) {
+                jQuery.each($scope.dataSource.form.customers, function (key, item) {
                     if (item.payment_id == payment_id) {
                         item.payment_type = 'full';
                         item.payment_title = payment_title;
@@ -1329,15 +1474,6 @@
             return input;
         };
     });
-
-    jQuery('#bookly-select2').select2({
-        width: '100%',
-        theme: 'bootstrap',
-        allowClear: false,
-        language  : {
-            noResults: function() { return BooklyL10nAppDialog.no_result_found; }
-        }
-    });
 })();
 
 /**
@@ -1347,16 +1483,19 @@
  * @param function callback
  */
 var showAppointmentDialog = function (appointment_id, staff_id, start_date, callback) {
-    if (jQuery.fn.tooltip.Constructor.VERSION.split('.')[0] === '4') {
+    if (jQuery.fn.tooltip.Constructor.VERSION !== undefined && jQuery.fn.tooltip.Constructor.VERSION.split('.')[0] === '4') {
         jQuery('#bookly-tbs .modal.fade').removeClass('fade');
     }
     var $dialog = jQuery('#bookly-appointment-dialog');
     var $scope = angular.element($dialog[0]).scope();
     $scope.$apply(function ($scope) {
         $scope.loading = true;
-        $dialog
-            .find('.modal-title')
-            .text(appointment_id ? BooklyL10nAppDialog.title.edit_appointment : BooklyL10nAppDialog.title.new_appointment);
+        $scope.form.titles = {
+            new  : BooklyL10nAppDialog.title.new_appointment,
+            edit : BooklyL10nAppDialog.title.edit_appointment,
+            queue: BooklyL10nAppDialog.title.send_notifications
+        };
+        $scope.form.title = appointment_id ? BooklyL10nAppDialog.title.edit_appointment : BooklyL10nAppDialog.title.new_appointment;
         // Populate data source.
         $scope.dataSource.loadData().then(function() {
             $scope.loading = false;

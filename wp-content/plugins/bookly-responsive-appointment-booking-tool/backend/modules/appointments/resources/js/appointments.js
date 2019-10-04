@@ -206,6 +206,7 @@ jQuery(function($) {
             $('[data-toggle="popover"]').on('click', function (e) {
                 e.preventDefault();
             }).popover();
+            dt.responsive.recalc();
         },
         ajax: {
             url : ajaxurl,
@@ -293,6 +294,7 @@ jQuery(function($) {
             service     : $serviceFilter.val(),
             status      : $statusFilter.val()
         }));
+        $exportDialog.modal('hide');
 
         return true;
     });
@@ -362,6 +364,9 @@ jQuery(function($) {
                 $('#bookly-delete-dialog').modal('hide');
                 if (response.success) {
                     dt.draw(false);
+                    if (response.data && response.data.queue && response.data.queue.length) {
+                        $(document.body).trigger('bookly.queue_dialog', [response.data.queue]);
+                    }
                 } else {
                     alert(response.data.message);
                 }
@@ -409,7 +414,7 @@ jQuery(function($) {
                 cancelLabel: BooklyL10n.dateRange.cancel,
                 fromLabel  : BooklyL10n.dateRange.from,
                 toLabel    : BooklyL10n.dateRange.to,
-                customRangeLabel: BooklyL10n.dateRange.custom_range,
+                customRangeLabel: BooklyL10n.dateRange.customRange,
                 daysOfWeek : BooklyL10n.datePicker.dayNamesShort,
                 monthNames : BooklyL10n.datePicker.monthNames,
                 firstDay   : parseInt(BooklyL10n.dateRange.firstDay),
@@ -451,7 +456,7 @@ jQuery(function($) {
                 cancelLabel: BooklyL10n.dateRange.cancel,
                 fromLabel  : BooklyL10n.dateRange.from,
                 toLabel    : BooklyL10n.dateRange.to,
-                customRangeLabel: BooklyL10n.dateRange.custom_range,
+                customRangeLabel: BooklyL10n.dateRange.customRange,
                 daysOfWeek : BooklyL10n.datePicker.monthNamesShort,
                 monthNames : BooklyL10n.datePicker.monthNames,
                 firstDay   : parseInt(BooklyL10n.dateRange.firstDay),
@@ -485,10 +490,6 @@ jQuery(function($) {
      * On filters change.
      */
     $('.bookly-js-select')
-        .on('select2:unselecting', function(e) {
-            e.preventDefault();
-            $(this).val(null).trigger('change');
-        })
         .select2({
             width: '100%',
             theme: 'bootstrap',
@@ -496,6 +497,31 @@ jQuery(function($) {
             language  : {
                 noResults: function() { return BooklyL10n.no_result_found; }
             }
+        });
+
+    $('.bookly-js-select-ajax')
+        .select2({
+            width: '100%',
+            theme: 'bootstrap',
+            allowClear: true,
+            language  : {
+                noResults: function() { return BooklyL10n.no_result_found; },
+                searching: function () { return BooklyL10n.searching; }
+            },
+            ajax: {
+                url: ajaxurl,
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    params.page = params.page || 1;
+                    return {
+                        action: $(this).data('action'),
+                        filter: params.term,
+                        page: params.page,
+                        csrf_token : BooklyL10n.csrf_token
+                    };
+                }
+            },
         });
 
     $idFilter.on('keyup', function () { dt.ajax.reload(); });

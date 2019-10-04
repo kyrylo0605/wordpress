@@ -48,7 +48,7 @@ use Bookly\Backend\Components\Controls\Inputs;
                 </div>
                 <div class="modal-footer">
                     <?php Inputs::renderCsrf() ?>
-                    <?php Buttons::renderCustom( null, 'btn-lg btn-success', esc_attr__( 'Send', 'bookly' ) ) ?>
+                    <?php Buttons::renderCustom( null, 'btn-lg btn-success', esc_attr__( 'Send', 'bookly' ), array( 'disabled' => 'disabled' ) ) ?>
                 </div>
             </form>
         </div>

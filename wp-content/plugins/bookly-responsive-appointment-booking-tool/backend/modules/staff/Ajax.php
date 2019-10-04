@@ -140,66 +140,6 @@ class Ajax extends Lib\Base\Ajax
         wp_send_json_success();
     }
 
-    /**
-     * Reset breaks.
-     */
-    public static function resetBreaks()
-    {
-        $breaks = self::parameter( 'breaks' );
-
-        if ( ! Lib\Utils\Common::isCurrentUserAdmin() ) {
-            // Check permissions to prevent one staff member from updating profile of another staff member.
-            do {
-                if ( self::parameter( 'staff_cabinet' ) && Lib\Config::staffCabinetActive() ) {
-                    $allow = true;
-                } else {
-                    $allow = get_option( 'bookly_gen_allow_staff_edit_profile' );
-                }
-                if ( $allow ) {
-                    $breaks = self::parameter( 'breaks' );
-                    $staff = new Lib\Entities\Staff();
-                    $staff->load( $breaks['staff_id'] );
-                    if ( $staff->getWpUserId() == get_current_user_id() ) {
-                        break;
-                    }
-                }
-                do_action( 'admin_page_access_denied' );
-                wp_die( 'Bookly: ' . __( 'You do not have sufficient permissions to access this page.' ) );
-            } while ( 0 );
-        }
-
-        $html_breaks = array();
-
-        // Remove all breaks for staff member.
-        $break = new Lib\Entities\ScheduleItemBreak();
-        $break->removeBreaksByStaffId( $breaks['staff_id'] );
-
-        // Restore previous breaks.
-        if ( isset( $breaks['breaks'] ) && is_array( $breaks['breaks'] ) ) {
-            foreach ( $breaks['breaks'] as $day ) {
-                $schedule_item_break = new Lib\Entities\ScheduleItemBreak();
-                $schedule_item_break->setFields( $day );
-                $schedule_item_break->save();
-            }
-        }
-
-        $staff = new Lib\Entities\Staff();
-        $staff->load( $breaks['staff_id'] );
-
-        // Make array with breaks (html) for each day.
-        foreach ( $staff->getScheduleItems() as $item ) {
-            /** @var Lib\Entities\StaffScheduleItem $item */
-            $html_breaks[ $item->getId() ] = self::renderTemplate( '_breaks', array(
-                'day_is_not_available' => null === $item->getStartTime(),
-                'item'                 => $item,
-                'break_start'          => new TimeChoice( array( 'use_empty' => false, 'type' => 'break_from' ) ),
-                'break_end'            => new TimeChoice( array( 'use_empty' => false, 'type' => 'to' ) ),
-            ), false );
-        }
-
-        wp_send_json( $html_breaks );
-    }
-
      /**
      * Extend parent method to control access on staff member level.
      *

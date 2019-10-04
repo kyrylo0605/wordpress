@@ -41,10 +41,12 @@ class Dialog extends Lib\Base\Component
             'datePicker'      => Lib\Utils\DateTime::datePickerOptions(),
             'cf_per_service'  => (int) Lib\Config::customFieldsPerService(),
             'no_result_found' => __( 'No result found', 'bookly' ),
+            'searching'       => __( 'Searching', 'bookly' ),
             'staff_any'       => get_option( 'bookly_l10n_option_employee' ),
             'title'           => array(
-                'edit_appointment' => __( 'Edit appointment', 'bookly' ),
-                'new_appointment'  => __( 'New appointment',  'bookly' ),
+                'edit_appointment'   => __( 'Edit appointment', 'bookly' ),
+                'new_appointment'    => __( 'New appointment', 'bookly' ),
+                'send_notifications' => __( 'Send notifications', 'bookly' ),
             ),
         ) );
 

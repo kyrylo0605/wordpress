@@ -185,6 +185,14 @@ class CartInfo
     }
 
     /**
+     * @return string
+     */
+    public function getGateway()
+    {
+        return $this->gateway;
+    }
+
+    /**
      * Get amount of discount/extra charge for payment gateway.
      *
      * @return float
@@ -266,6 +274,14 @@ class CartInfo
     public function getGroupDiscount()
     {
         return $this->group_discount;
+    }
+
+    /**
+     * @return bool
+     */
+    public function withDiscount()
+    {
+        return ( $this->coupon_discount + $this->group_discount + $this->price_correction ) < 0;
     }
 
     /**************************************************************************

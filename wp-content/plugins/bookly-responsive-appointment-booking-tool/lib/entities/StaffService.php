@@ -33,7 +33,7 @@ class StaffService extends Lib\Base\Entity
         'id'            => array( 'format' => '%d' ),
         'staff_id'      => array( 'format' => '%d', 'reference' => array( 'entity' => 'Staff' ) ),
         'service_id'    => array( 'format' => '%d', 'reference' => array( 'entity' => 'Service' ) ),
-        'location_id'   => array( 'format' => '%d' ),
+        'location_id'   => array( 'format' => '%d', 'reference' => array( 'entity' => 'Location', 'namespace' => '\BooklyLocations\Lib\Entities', 'required' => 'bookly-addon-locations' ) ),
         'price'         => array( 'format' => '%f' ),
         'capacity_min'  => array( 'format' => '%d' ),
         'capacity_max'  => array( 'format' => '%d' ),

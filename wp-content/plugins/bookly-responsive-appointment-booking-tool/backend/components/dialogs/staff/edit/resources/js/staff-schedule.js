@@ -106,7 +106,7 @@ jQuery(function ($) {
                         $.ajax({
                             url: ajaxurl,
                             type: 'POST',
-                            data: {action: 'bookly_reset_breaks', breaks: $(this).data('default-breaks'), staff_cabinet: $(this).data('staff-cabinet') || 0, csrf_token: obj.options.l10n.csrfToken},
+                            data: {action: 'bookly_staff_cabinet_reset_breaks', breaks: $(this).data('default-breaks'), staff_cabinet: $(this).data('staff-cabinet') || 0, csrf_token: obj.options.l10n.csrfToken},
                             dataType: 'json',
                             success: function (response) {
                                 for (var k in response) {

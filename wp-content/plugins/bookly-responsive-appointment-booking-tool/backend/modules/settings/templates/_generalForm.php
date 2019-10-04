@@ -18,6 +18,7 @@ use Bookly\Backend\Modules\Settings\Proxy;
         Selects::renderSingle( 'bookly_gen_allow_staff_edit_profile', __( 'Allow staff members to edit their profiles', 'bookly' ), __( 'If this option is enabled then all staff members who are associated with WordPress users will be able to edit their own profiles, services, schedule and days off.', 'bookly' ) );
         Selects::renderSingle( 'bookly_gen_link_assets_method', __( 'Method to include Bookly JavaScript and CSS files on the page', 'bookly' ), __( 'With "Enqueue" method the JavaScript and CSS files of Bookly will be included on all pages of your website. This method should work with all themes. With "Print" method the files will be included only on the pages which contain Bookly booking form. This method may not work with all themes.', 'bookly' ), array( array( 'enqueue', 'Enqueue' ), array( 'print', 'Print' ) ) );
         Selects::renderSingle( 'bookly_gen_collect_stats', __( 'Help us improve Bookly by sending anonymous usage stats', 'bookly' ) );
+        Selects::renderSingle( 'bookly_app_show_powered_by', __( 'Allow the plugin to set a Powered by Bookly notice on the booking widget to spread information about the plugin. This will allow the team to improve the product and enhance its functionality.', 'bookly' ) );
     ?>
     <div class="panel-footer">
         <?php ControlInputs::renderCsrf() ?>

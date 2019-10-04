@@ -49,6 +49,8 @@ class Ajax extends Lib\Base\Ajax
             ->whereBetween( 'ca.created', $start->format( 'Y-m-d' ), $end->format( 'Y-m-d' ) )
             ->groupBy( 'DATE(ca.created), p.id, ca.status' )
             ->fetchArray();
+
+        $custom_statuses = (array) Lib\Proxy\CustomStatuses::getAll();
         // Consider payment for all appointments only 1 time
         $payment_ids = array();
         foreach ( $records as $record ) {
@@ -63,6 +65,9 @@ class Ajax extends Lib\Base\Ajax
             }
             if ( array_key_exists( $status, $data['totals'] ) ) {
                 $data['totals'][ $status ] += $quantity;
+            } elseif ( isset ( $custom_statuses[ $status ] ) && $custom_statuses[ $status ]->getBusy() ) {
+                // Consider as APPROVED.
+                $data['totals']['approved'] += $quantity;
             }
             $data['totals']['total']   += $quantity;
             $data['totals']['revenue'] += $revenue;

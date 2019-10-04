@@ -7,9 +7,37 @@ namespace Bookly\Lib;
  */
 class Updater extends Base\Updater
 {
+    function update_17_6()
+    {
+        $this->alterTables( array(
+            'bookly_payments' => array(
+                'ALTER TABLE `%s` CHANGE `type` `type` ENUM("local", "free", "paypal", "authorize_net", "stripe", "2checkout", "payu_biz", "payu_latam", "payson", "mollie", "woocommerce") NOT NULL DEFAULT "local"',
+            ),
+        ) );
+
+        $payments_table = $this->getTableName( 'bookly_payments' );
+
+        $disposable_options[] = $this->disposable( __FUNCTION__ . '-add-gateway', function () use ( $payments_table ) {
+            /** @global \wpdb $wpdb */
+            global $wpdb;
+
+            $update  = 'UPDATE `' . $payments_table . '` SET `details` = %s WHERE id = %d';
+            $records = $wpdb->get_results( 'SELECT id, `type`, `details` FROM `' . $payments_table . '` WHERE `details` NOT LIKE \'%"gateway"%\'', ARRAY_A );
+            foreach ( $records as $record ) {
+                $details = str_replace( '"extras_multiply_nop"', '"gateway":"' . $record['type'] . '","extras_multiply_nop"', $record['details'] );
+                $wpdb->query( $wpdb->prepare( $update, $details, $record['id'] ) );
+            }
+        } );
+
+        add_option( 'bookly_app_show_powered_by', '0' );
+
+        foreach ( $disposable_options as $option_name ) {
+            delete_option( $option_name );
+        }
+    }
+
     function update_17_5()
     {
-        /** @global \wpdb $wpdb */
         global $wpdb;
 
         $minutes = (int) get_option( 'bookly_gen_time_slot_length' );
@@ -1365,7 +1393,7 @@ class Updater extends Base\Updater
             $this->getTableName( 'ab_payments' )
         ) );
         $wpdb->query( sprintf(
-            'ALTER TABLE `%s` CHANGE COLUMN `type` `type` ENUM("local","coupon","paypal","authorize_net","stripe","2checkout","payu_latam","payson","mollie","woocommerce") NOT NULL DEFAULT "local"',
+            'ALTER TABLE `%s` CHANGE COLUMN `type` `type` ENUM("local","free","paypal","authorize_net","stripe","2checkout","payu_latam","payson","mollie","woocommerce") NOT NULL DEFAULT "local"',
             $this->getTableName( 'ab_payments' )
         ) );
         $this->dropTableColumns( $this->getTableName( 'ab_payments' ), array( 'transaction_id', 'token' ) );

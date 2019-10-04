@@ -30,7 +30,7 @@ class Series extends Item
      */
     public function getAppointment()
     {
-        return $this->items[0]->getAppointment();
+        return $this->getFirsItem()->getAppointment();
     }
 
     /**
@@ -38,7 +38,7 @@ class Series extends Item
      */
     public function getCA()
     {
-        return $this->items[0]->getCA();
+        return $this->getFirsItem()->getCA();
     }
 
     /**
@@ -46,7 +46,7 @@ class Series extends Item
      */
     public function getDeposit()
     {
-        return $this->items[0]->getDeposit();
+        return $this->getFirsItem()->getDeposit();
     }
 
     /**
@@ -54,7 +54,7 @@ class Series extends Item
      */
     public function getExtras()
     {
-        return $this->items[0]->getExtras();
+        return $this->getFirsItem()->getExtras();
     }
 
     /**
@@ -86,7 +86,7 @@ class Series extends Item
      */
     public function getService()
     {
-        return $this->items[0]->getService();
+        return $this->getFirsItem()->getService();
     }
 
     /**
@@ -94,7 +94,7 @@ class Series extends Item
      */
     public function getServiceDuration()
     {
-        return $this->items[0]->getServiceDuration();
+        return $this->getFirsItem()->getServiceDuration();
     }
 
     /**
@@ -102,7 +102,7 @@ class Series extends Item
      */
     public function getServicePrice()
     {
-        return $this->items[0]->getServicePrice();
+        return $this->getFirsItem()->getServicePrice();
     }
 
     /**
@@ -120,7 +120,7 @@ class Series extends Item
      */
     public function getStaff()
     {
-        return $this->items[0]->getStaff();
+        return $this->getFirsItem()->getStaff();
     }
 
     /**
@@ -158,7 +158,7 @@ class Series extends Item
      */
     public function getTotalEnd()
     {
-        return $this->items[0]->getTotalEnd();
+        return $this->getFirsItem()->getTotalEnd();
     }
 
     /**
@@ -197,5 +197,18 @@ class Series extends Item
     public static function create( Lib\Entities\Series $series )
     {
         return new static( $series );
+    }
+
+    /**
+     * Get fist item from array items.
+     *
+     * @return Item
+     */
+    protected function getFirsItem()
+    {
+        // Keep internal pointer of items array
+        $clone = $this->items;
+
+        return reset( $clone );
     }
 }

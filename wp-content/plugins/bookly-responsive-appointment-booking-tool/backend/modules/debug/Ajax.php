@@ -2,12 +2,14 @@
 namespace Bookly\Backend\Modules\Debug;
 
 use Bookly\Lib;
+use Bookly\Backend\Modules\Debug\Lib\QueryBuilder;
+use Bookly\Backend\Modules\Debug\Lib\Schema;
 
 /**
  * Class Ajax
  * @package Bookly\Backend\Modules\Debug
  */
-class Ajax extends Page
+class Ajax extends Lib\Base\Ajax
 {
     /**
      * Export database data.
@@ -18,7 +20,7 @@ class Ajax extends Page
         global $wpdb;
 
         $result = array();
-
+        $schema = new Schema();
         foreach ( apply_filters( 'bookly_plugins', array() ) as $plugin ) {
             /** @var Lib\Base\Plugin $plugin */
             $installer_class = $plugin::getRootNamespace() . '\Lib\Installer';
@@ -28,7 +30,7 @@ class Ajax extends Page
             foreach ( $plugin::getEntityClasses() as $entity_class ) {
                 $table_name = $entity_class::getTableName();
                 $result['entities'][ $entity_class ] = array(
-                    'fields' => self::_getTableStructure( $table_name ),
+                    'fields' => array_keys( $schema->getTableStructure( $table_name ) ),
                     'values' => $wpdb->get_results( 'SELECT * FROM ' . $table_name, ARRAY_N )
                 );
             }
@@ -143,6 +145,9 @@ class Ajax extends Page
         exit ( 0 );
     }
 
+    /**
+     * manual
+     */
     public static function getFieldData()
     {
         /** @global \wpdb */
@@ -486,22 +491,23 @@ class Ajax extends Page
         }
     }
 
+    /**
+     * Execute query
+     */
     public static function executeQuery()
     {
-        /** @global \wpdb */
-        global $wpdb;
+        $success = self::execute( self::parameter( 'query' ) );
 
-        ob_start();
-        $result = $wpdb->query( self::parameter( 'query' ) );
-        ob_end_clean();
-
-        if ( $result ) {
+        if ( $success === true ) {
             wp_send_json_success( array( 'message' => 'Query completed successfully' ) );
         } else {
-            wp_send_json_error( array( 'message' => $wpdb->last_error ) );
+            wp_send_json_error( array( 'message' => $success ) );
         }
     }
 
+    /**
+     * manual
+     */
     public static function getConstraintData()
     {
         /** @global \wpdb */
@@ -585,14 +591,14 @@ class Ajax extends Page
         }
     }
 
+    /**
+     * manual
+     */
     public static function addConstraint()
     {
-        /** @global \wpdb */
-        global $wpdb;
-
         $table  = self::parameter( 'table' );
         $column = self::parameter( 'column' );
-        $ref_table = self::parameter( 'ref_table' );
+        $ref_table  = self::parameter( 'ref_table' );
         $ref_column = self::parameter( 'ref_column' );
 
         $sql = sprintf( 'ALTER TABLE `%s` ADD CONSTRAINT FOREIGN KEY (`%s`) REFERENCES `%s` (`%s`)', $table, $column, $ref_table, $ref_column );
@@ -619,22 +625,20 @@ class Ajax extends Page
                 wp_send_json_error( array( 'message' => 'Select ON UPDATE action' ) );
         }
 
-        ob_start();
-        $result = $wpdb->query( $sql );
-        ob_end_clean();
+        $success = self::execute( $sql );
 
-        if ( $result ) {
+        if ( $success === true ) {
             wp_send_json_success( array( 'message' => 'Constraint created' ) );
         } else {
-            wp_send_json_error( array( 'message' => $wpdb->last_error ) );
+            wp_send_json_error( array( 'message' => $success ) );
         }
     }
 
+    /**
+     * manual
+     */
     public static function fixConsistency()
     {
-        /** @global \wpdb */
-        global $wpdb;
-
         $rule   = self::parameter( 'rule' );
         $table  = self::parameter( 'table' );
         $column = self::parameter( 'column' );
@@ -654,15 +658,114 @@ class Ajax extends Page
                 wp_send_json_success( array( 'message' => 'No manipulation actions were performed' ) );
         }
 
+        $success = self::execute( $sql );
+
+        if ( $success === true ) {
+            wp_send_json_success( array( 'message' => 'Successful, click Add constraint' ) );
+        } else {
+            wp_send_json_error( array( 'message' => $success ) );
+        }
+    }
+
+    public static function fixDataBaseSchema()
+    {
+        $errors  = array();
+        $queries = 0;
+        $schema  = new Schema();
+        /** @var Lib\Base\Plugin $plugin */
+        foreach ( apply_filters( 'bookly_plugins', array() ) as $plugin ) {
+            foreach ( $plugin::getEntityClasses() as $entity_class ) {
+                $table_name = $entity_class::getTableName();
+                if ( ! $schema->existsTable( $table_name ) ) {
+                    $queries ++;
+                    $success = self::execute( QueryBuilder::getCreateTable( $table_name ) );
+                    if ( $success !== true ) {
+                        $errors[] = sprintf( 'Can`t create table <b>%s</b>, Error:%s', $table_name, $success );
+                    }
+                }
+                if ( $schema->existsTable( $table_name ) ) {
+                    $table_structure = $schema->getTableStructure( $table_name );
+                    $entity_schema   = $entity_class::getSchema();
+
+                    // Comparing model schema with real DB schema
+                    foreach ( $entity_schema as $column => $data ) {
+                        if ( array_key_exists( $column, $table_structure ) ) {
+                            $expect = QueryBuilder::getColumnData( $table_name, $column );
+                            $actual = $table_structure[ $column ];
+                            unset( $expect['key'], $actual['key'] );
+                            if ( $expect && array_diff_assoc( $actual, $expect ) ) {
+                                $sql = QueryBuilder::getChangeColumn( $table_name, $column );
+                                if ( $table_structure[ $column ]['key'] == 'PRI' ) {
+                                    $sql = str_replace( ' primary key', '', $sql );
+                                }
+                                $queries ++;
+                                $success = self::execute( $sql );
+                                if ( $success !== true ) {
+                                    $errors[] = sprintf( 'Can`t change column <b>%s.%s</b>, Error:%s', $table_name, $column, $success );
+                                }
+                            }
+                        } else {
+                            $queries ++;
+                            $success = self::execute( QueryBuilder::getAddColumn( $table_name, $column ) );
+                            if ( $success !== true ) {
+                                $errors[] = sprintf( 'Can`t add column <b>%s.%s</b>, Error:%s', $table_name, $column, $success );
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach ( $plugin::getEntityClasses() as $entity_class ) {
+                $table_name = $entity_class::getTableName();
+                if ( $schema->existsTable( $table_name ) ) {
+                    $entity_constraints = $entity_class::getConstraints();
+                    $table_constraints  = $schema->getTableConstraints( $table_name );
+                    // Comparing model constraints with real DB constraints
+                    foreach ( $entity_constraints as $constraint ) {
+                        $key = $constraint['column_name'] . $constraint['referenced_table_name'] . $constraint['referenced_column_name'];
+                        if ( ! array_key_exists( $key, $table_constraints ) ) {
+                            $query = QueryBuilder::getAddConstraint( $table_name, $constraint['column_name'], $constraint['referenced_table_name'], $constraint['referenced_column_name'] );
+                            if ( $query !== '' ) {
+                                $queries ++;
+                                $success = self::execute( $query );
+                                if ( $success !== true ) {
+                                    $errors[] = sprintf( 'Can`t add constraint <b>%s.%s</b> REFERENCES `%s` (`%s`), Error:%s', $table_name, $constraint['column_name'], $constraint['referenced_table_name'], $constraint['referenced_column_name'], $success );
+                                }
+                            }
+                        }
+                    }
+
+                    foreach ( $table_constraints as $constraint ) {
+                        if ( $constraint['reference_exists'] === false ) {
+                            $queries ++;
+                            $success = self::execute( QueryBuilder::getDropForeignKey( $table_name, $constraint['constraint_name'] ) );
+                            if ( $success !== true ) {
+                                $errors[] = sprintf( 'Can`t drop foreign key <b>%s</b>, Error:%s', $constraint['constraint_name'], $success );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $message = ( $queries - count( $errors ) ) . ' queries completed successfully, with errors ' . count( $errors );
+        $errors
+            ? wp_send_json_error( compact( 'errors', 'message' ) )
+            : wp_send_json_success( compact( 'message' ) );
+    }
+
+    /**
+     * @param string $sql
+     * @return bool|string
+     */
+    protected static function execute( $sql )
+    {
+        global $wpdb;
 
         ob_start();
         $result = $wpdb->query( $sql );
         ob_end_clean();
 
-        if ( $result !== false ) {
-            wp_send_json_success( array( 'message' => 'Successful, click Add constraint' ) );
-        } else {
-            wp_send_json_error( array( 'message' => $wpdb->last_error ) );
-        }
+        return $result !== false ? true : $wpdb->last_error;
     }
 }

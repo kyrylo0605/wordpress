@@ -62,10 +62,10 @@ class Page extends Lib\Base\Component
         $messages = __( 'Messages', 'bookly' );
         $count    = self::getMessagesCount();
         if ( $count ) {
-            add_submenu_page( 'bookly-menu', $messages, sprintf( '%s <span class="update-plugins count-%d"><span class="update-count">%d</span></span>', $messages, $count, $count ), 'manage_options',
+            add_submenu_page( 'bookly-menu', $messages, sprintf( '%s <span class="update-plugins count-%d"><span class="update-count">%d</span></span>', $messages, $count, $count ), Lib\Utils\Common::getRequiredCapability(),
                 self::pageSlug(), function () { Page::render(); } );
         } else {
-            add_submenu_page( 'bookly-menu', $messages, $messages, 'manage_options',
+            add_submenu_page( 'bookly-menu', $messages, $messages, Lib\Utils\Common::getRequiredCapability(),
                 self::pageSlug(), function () { Page::render(); } );
         }
     }

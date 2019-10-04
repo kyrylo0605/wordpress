@@ -124,6 +124,49 @@ class Ajax extends Lib\Base\Ajax
     }
 
     /**
+     * Get list of customers.
+     */
+    public static function getCustomersList()
+    {
+        global $wpdb;
+
+        $max_results = 20;
+        $filter      = self::parameter( 'filter' );
+        $page        = self::parameter( 'page' );
+        $query       = Lib\Entities\Customer::query( 'c' );
+
+        $query->select( 'SQL_CALC_FOUND_ROWS c.id, c.group_id, c.full_name AS text, c.email, c.phone' );
+
+        if ( $filter != '' ) {
+            $search_value = Lib\Query::escape( $filter );
+            $query
+                ->whereLike( 'c.full_name', "%{$search_value}%" );
+        }
+
+        $query->limit( $max_results )->offset( ( $page - 1 ) * $max_results );
+
+        $customers = array();
+        foreach ( $query->fetchArray() as $customer ) {
+            $name = $customer['text'];
+            if ( $customer['email'] != '' || $customer['phone'] != '' ) {
+                $name .= ' (' . trim( $customer['email'] . ', ' . $customer['phone'], ', ' ) . ')';
+            }
+            $customer['name'] = $name;
+            if ( self::parameter( 'timezone' ) ) {
+                $customer['timezone'] = Lib\Proxy\Pro::getLastCustomerTimezone( $customer['id'] );
+            }
+            $customers[] = $customer;
+        }
+
+        wp_send_json( array(
+            'results'    => $customers,
+            'pagination' => array(
+                'more' => ( int ) $wpdb->get_var( 'SELECT FOUND_ROWS()' ) > $max_results * $page,
+            ),
+        ) );
+    }
+
+    /**
      * Merge customers.
      */
     public static function mergeCustomers()

@@ -9,11 +9,11 @@ class SMS
 {
     const API_URL = 'http://sms.booking-wp-plugin.com';
 
+    const REGISTER            = '/1.2/users';                            //POST
+
     const AUTHENTICATE        = '/1.1/users';                            //GET
-    const CONFIRM_EMAIL       = '/1.1/confirm';                          //POST
     const GET_INVOICE         = '/1.1/users/%token%/invoice';            //GET
     const GET_PROFILE_INFO    = '/1.1/users/%token%';                    //GET
-    const REGISTER            = '/1.1/users';                            //POST
     const SEND_SMS            = '/1.1/users/%token%/sms';                //POST
     const SET_INVOICE_DATA    = '/1.1/users/%token%/invoice';            //POST
 
@@ -74,12 +74,7 @@ class SMS
             return false;
         }
 
-        $response = $this->sendPostRequest( self::REGISTER, $data );
-        if ( $response ) {
-            return $response->token;
-        }
-
-        return false;
+        return $this->sendPostRequest( self::REGISTER, $data ) !== false;
     }
 
     /**
@@ -101,27 +96,6 @@ class SMS
             return true;
         } elseif ( in_array( 'Email confirm required', $this->errors ) ) {
             return 'ERROR_EMAIL_CONFIRM_REQUIRED';
-        }
-
-        return false;
-    }
-
-    /**
-     * Apply email confirmation token.
-     *
-     * @param string $token
-     * @return bool
-     */
-    public function confirmEmail( $token )
-    {
-        $data = array( '_token' => $token );
-
-        $response = $this->sendPostRequest( self::CONFIRM_EMAIL, $data );
-        if ( $response ) {
-            update_option( 'bookly_sms_token', $response->token );
-            $this->token = $response->token;
-
-            return true;
         }
 
         return false;
@@ -531,7 +505,7 @@ class SMS
             $response->pending = null;
             foreach ( $response->list as &$item ) {
                 $item->date = Utils\DateTime::formatDate( Utils\DateTime::UTCToWPTimeZone( $item->date ) );
-                if ($item->name == '') {
+                if ( $item->name == '' ) {
                     $item->name = '<i>' . __( 'Default', 'bookly' ) . '</i>';
                 }
                 $item->status_date = $item->status_date ? Utils\DateTime::formatDate( Utils\DateTime::UTCToWPTimeZone( $item->status_date ) ) : '';

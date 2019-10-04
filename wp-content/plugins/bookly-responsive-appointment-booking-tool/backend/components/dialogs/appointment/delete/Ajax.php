@@ -25,6 +25,8 @@ class Ajax extends Lib\Base\Ajax
         $appointment_id = self::parameter( 'appointment_id' );
         $reason         = self::parameter( 'reason' );
 
+        $queue = array();
+
         if ( self::parameter( 'notify' ) ) {
             $ca_list = Lib\Entities\CustomerAppointment::query()
                 ->where( 'appointment_id', $appointment_id )
@@ -51,12 +53,12 @@ class Ajax extends Lib\Base\Ajax
                             $ca->setStatus( Lib\Entities\CustomerAppointment::STATUS_REJECTED );
                         }
                 }
-                Lib\Notifications\Booking\Sender::sendForCA( $ca, null, array( 'cancellation_reason' => $reason ) );
+                Lib\Notifications\Booking\Sender::sendForCA( $ca, null, array( 'cancellation_reason' => $reason ), false, $queue );
             }
         }
 
         Lib\Entities\Appointment::find( $appointment_id )->delete();
 
-        wp_send_json_success();
+        wp_send_json_success( compact( 'queue' ) );
     }
 }

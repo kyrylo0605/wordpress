@@ -14,7 +14,7 @@ use Bookly\Lib\Entities\CustomerAppointment;
                 <form ng-submit=processForm()>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div class="modal-title h2"><?php esc_html_e( 'New appointment', 'bookly' ) ?></div>
+                        <div class="modal-title h2">{{ form.screen == 'queue' ? form.titles.queue : form.title }}</div>
                     </div>
                     <div ng-show=loading class="modal-body">
                         <div class="bookly-loading"></div>
@@ -203,10 +203,10 @@ use Bookly\Lib\Entities\CustomerAppointment;
                             <div <?php if ( ! Config::waitingListActive() ): ?>ng-show="!form.service || dataSource.getTotalNumberOfNotCancelledPersons() < form.service.capacity_max"<?php endif ?>>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <select id="bookly-select2" multiple data-placeholder="<?php esc_attr_e( '-- Search customers --', 'bookly' ) ?>"
+                                        <select id="bookly-appointment-dialog-select2" multiple data-placeholder="<?php esc_attr_e( '-- Search customers --', 'bookly' ) ?>"
                                                 class="form-control"
-                                                ng-model="form.customers" ng-options="c.name for c in dataSource.data.customers"
-                                                ng-change="onCustomersChange({{form.customers}}, {{dataSource.getTotalNumberOfNotCancelledPersons()}})">
+                                                >
+                                            <option ng-repeat="customer in dataSource.data.customers" value="{{customer.id}}">{{customer.name}}</option>
                                         </select>
                                         <span class="input-group-btn">
                                             <a class="btn btn-success" ng-click="openNewCustomerDialog()">
@@ -224,26 +224,48 @@ use Bookly\Lib\Entities\CustomerAppointment;
                         </div>
 
                         <div class=form-group>
-                            <label for="bookly-notification"><?php esc_html_e( 'Send notifications', 'bookly' ) ?></label>
-                            <p class="help-block"><?php esc_html_e( 'If you have added a new customer to this appointment or changed the appointment status for an existing customer, and for these records you want the corresponding email or SMS notifications to be sent to their recipients, select the "Send if new or status changed" option before clicking Save. You can also send notifications as if all customers were added as new by selecting "Send as for new".', 'bookly' ) ?></p>
-                            <select class="form-control" style="margin-top: 0" ng-model=form.notification id="bookly-notification" ng-init="form.notification = '<?php echo get_user_meta( get_current_user_id(), 'bookly_appointment_form_send_notifications', true ) ?>' || 'no'" >
-                                <option value="no"><?php esc_html_e( 'Don\'t send', 'bookly' ) ?></option>
-                                <option value="changed_status"><?php esc_html_e( 'Send if new or status changed', 'bookly' ) ?></option>
-                                <option value="all"><?php esc_html_e( 'Send as for new', 'bookly' ) ?></option>
-                            </select>
-                        </div>
-
-                        <div class=form-group>
                             <label for="bookly-internal-note"><?php esc_html_e( 'Internal note', 'bookly' ) ?></label>
                             <textarea class="form-control" ng-model=form.internal_note id="bookly-internal-note"></textarea>
                         </div>
                     </div>
+                    <div ng-hide="loading || form.screen != 'queue'" class="modal-body">
+                        <div class="form-group" ng-hide="!form.queue.all.length || !form.queue.changed_status.length">
+                            <label for="bookly-notification"><?php esc_html_e( 'Send notifications', 'bookly' ) ?></label>
+                            <p class="help-block"><?php esc_html_e( 'If you have added a new customer to this appointment or changed the appointment status for an existing customer, and for these records you want the corresponding email or SMS notifications to be sent to their recipients, select the "Send if new or status changed" option before clicking Save. You can also send notifications as if all customers were added as new by selecting "Send as for new".', 'bookly' ) ?></p>
+                            <div class="radio"><label><input type="radio" name="queue_type" value="changed_status" ng-model=form.queue_type><?php esc_html_e( 'Send if new or status changed', 'bookly' ) ?></label></div>
+                            <div class="radio"><label><input type="radio" name="queue_type" value="all"  ng-model=form.queue_type><?php esc_html_e( 'Send as for new', 'bookly' ) ?></label></div>
+                        </div>
+                        <div ng-repeat="(key, value) in form.queue.all">
+                            <div class="checkbox bookly-margin-bottom-lg bookly-margin-top-remove" ng-hide="form.queue_type == 'changed_status'">
+                                <label>
+                                    <input type=checkbox ng-model=value.checked ng-true-value="1" ng-false-value="0" ng-init="value.checked=1"/> <i class="fa fa-fw" ng-class="{'fa-sms':value.gateway == 'sms', 'fa-envelope':value.gateway != 'sms'}"></i> <b>{{value.data.name}}</b> ({{value.address}})<br/>
+                                    {{ value.name }}
+                                </label>
+                            </div>
+                        </div>
+                        <div ng-repeat="(key, value) in form.queue.changed_status">
+                            <div class="checkbox bookly-margin-bottom-lg bookly-margin-top-remove" ng-hide="form.queue_type != 'changed_status'">
+                                <label>
+                                    <input type=checkbox ng-model=value.checked ng-true-value="1" ng-false-value="0" ng-init="value.checked=1"/> <i class="fa fa-fw" ng-class="{'fa-sms':value.gateway == 'sms', 'fa-envelope':value.gateway != 'sms'}"></i> <b>{{value.data.name}}</b> ({{value.address}})<br/>
+                                    {{ value.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <?php Proxy\RecurringAppointments::renderSchedule() ?>
+                    <div ng-hide="loading || form.screen != 'main'" class="modal-body bookly-padding-top-remove" style="margin-top: -15px;">
+                        <div class="checkbox bookly-margin-bottom-lg bookly-margin-top-remove">
+                            <label>
+                                <input type=checkbox ng-model=form.notification ng-true-value="1" ng-false-value="0" ng-init="form.notification=<?php echo get_user_meta( get_current_user_id(), 'bookly_appointment_form_send_notifications', true ) ?: 0 ?>"/><b><?php esc_html_e( 'Send notifications', 'bookly' ) ?></b>
+                            </label>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <div ng-hide=loading>
                             <?php Proxy\Shared::renderAppointmentDialogFooter() ?>
-                            <?php Buttons::renderSubmit( null, null, null, array( 'ng-hide' => 'form.repeat.enabled && !form.skip_date && form.screen == \'main\'', 'ng-disabled' => '!form.skip_date && form.repeat.enabled && schIsScheduleEmpty()', 'formnovalidate' => '' ) ) ?>
-                            <?php Buttons::renderCustom( null, 'btn-lg btn-default', __( 'Cancel', 'bookly' ), array( 'ng-click' => 'closeDialog()', 'data-dismiss' => 'modal' ) ) ?>
+                            <?php Buttons::renderSubmit( null, null, null, array( 'ng-hide' => 'form.screen == \'queue\' || (form.repeat.enabled && !form.skip_date && form.screen == \'main\')', 'ng-disabled' => '!form.skip_date && form.repeat.enabled && schIsScheduleEmpty()', 'formnovalidate' => '' ) ) ?>
+                            <?php Buttons::renderSubmit( null, 'bookly-js-queue-send', esc_html__( 'Send', 'bookly' ), array( 'ng-show' => 'form.screen == \'queue\'' ) ) ?>
+                            <?php Buttons::renderCustom( null, 'btn-lg btn-default', esc_html__( 'Cancel', 'bookly' ), array( 'ng-click' => 'closeDialog()', 'data-dismiss' => 'modal' ) ) ?>
                         </div>
                     </div>
                 </form>
@@ -251,7 +273,7 @@ use Bookly\Lib\Entities\CustomerAppointment;
         </div>
     </div>
     <div customer-dialog=createCustomer(customer)></div>
-    <div payment-details-dialog="callbackPayment(payment_action, payment_id, payment_title, customer_id, payment_type)"></div>
+    <div payment-details-dialog="callbackPayment(payment_action, payment_id, payment_title, customer_id, customer_index, payment_type)"></div>
 
     <?php Dialogs\Appointment\CustomerDetails\Dialog::render() ?>
     <?php AttachPaymentProxy\Pro::renderAttachPaymentDialog() ?>

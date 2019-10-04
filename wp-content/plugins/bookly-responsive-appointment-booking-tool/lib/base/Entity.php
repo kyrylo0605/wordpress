@@ -39,9 +39,9 @@ abstract class Entity extends Cache
      * Must be defined in the child class as
      * array(
      *     '[FIELD_NAME]' => array(
-     *         'format'  => '[FORMAT]',
-     *         'default' => '[DEFAULT_VALUE]',
-     *     )
+     *         'format'    => '[FORMAT]',
+     *         'default'   => '[DEFAULT_VALUE]',
+     *         'reference' => '[ [entity], [namespace], [required] ]'
      * )
      * @static
      * @var array
@@ -211,7 +211,14 @@ abstract class Entity extends Cache
             }
             $value = $this->{$field};
             if ( $value === null ) {
-                $set[]    = sprintf( '`%s` = NULL', $field );
+                if ( isset( static::$schema[ $field ]['sequent'] ) && static::$schema[ $field ]['sequent'] ) {
+                    // Set greater than max value
+                    $set[]    = sprintf( '`%s` = %s', $field, static::$schema[ $field ]['format'] );
+                    $max      = (int) self::$wpdb->get_var( sprintf( 'SELECT MAX(`%s`) FROM `%s`', $field, $this->table_name ) );
+                    $values[] = ++ $max;
+                } else {
+                    $set[] = sprintf( '`%s` = NULL', $field );
+                }
             } else {
                 $set[] = sprintf( '`%s` = %s', $field, static::$schema[ $field ]['format'] );
                 $values[] = $value;
@@ -301,18 +308,27 @@ abstract class Entity extends Cache
         $constraints = array();
         foreach ( static::$schema as $field_name => $options ) {
             if ( array_key_exists( 'reference', $options ) ) {
-                $ref_entity = $options['reference']['entity'];
-                if ( isset ( $options['reference']['namespace'] ) ) {
-                    $ref_entity = $options['reference']['namespace'] . '\\' . $ref_entity;
+                if ( array_key_exists( 'required', $options['reference'] ) ) {
+                    $addon = str_replace( ' ', '', ucwords( str_replace( array( 'bookly-addon-', '-' ), array( '', ' ' ), $options['reference']['required'] ) ) );
+                    // Check if required addon is active
+                    $add_reference = call_user_func( array( '\Bookly\Lib\Config', lcfirst( $addon . 'Active' ) ) );
                 } else {
-                    $called_class = get_called_class();
-                    $ref_entity = substr( $called_class, 0, strrpos( $called_class, '\\' ) ) . '\\' . $ref_entity;
+                    $add_reference = true;
                 }
-                $constraints[] = array(
-                    'column_name'            => $field_name,
-                    'referenced_table_name'  => call_user_func( array( $ref_entity, 'getTableName' ) ),
-                    'referenced_column_name' => isset ( $options['reference']['field'] ) ? $options['reference']['field'] : 'id',
-                );
+                if ( $add_reference ) {
+                    $ref_entity = $options['reference']['entity'];
+                    if ( isset ( $options['reference']['namespace'] ) ) {
+                        $ref_entity = $options['reference']['namespace'] . '\\' . $ref_entity;
+                    } else {
+                        $called_class = get_called_class();
+                        $ref_entity   = substr( $called_class, 0, strrpos( $called_class, '\\' ) ) . '\\' . $ref_entity;
+                    }
+                    $constraints[] = array(
+                        'column_name'            => $field_name,
+                        'referenced_table_name'  => call_user_func( array( $ref_entity, 'getTableName' ) ),
+                        'referenced_column_name' => isset ( $options['reference']['field'] ) ? $options['reference']['field'] : 'id',
+                    );
+                }
             }
         }
 

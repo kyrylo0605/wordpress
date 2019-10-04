@@ -22,7 +22,7 @@ class SubService extends Lib\Base\Entity
     /** @var  int */
     protected $duration;
     /** @var  int */
-    protected $position = 9999;
+    protected $position;
 
     /** @var Service */
     public $service;
@@ -35,7 +35,7 @@ class SubService extends Lib\Base\Entity
         'service_id'     => array( 'format' => '%d', 'reference' => array( 'entity' => 'Service' ) ),
         'sub_service_id' => array( 'format' => '%d', 'reference' => array( 'entity' => 'Service' ) ),
         'duration'       => array( 'format' => '%d' ),
-        'position'       => array( 'format' => '%d' ),
+        'position'       => array( 'format' => '%d', 'sequent' => true ),
     );
 
     /**************************************************************************

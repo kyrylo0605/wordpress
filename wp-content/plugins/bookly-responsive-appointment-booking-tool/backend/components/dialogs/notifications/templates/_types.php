@@ -26,7 +26,7 @@ use Bookly\Lib\Config;
                                 data-set="instantly"
                                 data-recipients='["customer"]'
                                 data-icon='<?php echo esc_attr( Notification::getIcon( Notification::TYPE_NEW_BOOKING_COMBINED ) ) ?>'
-                                data-attach='["invoice"]'><?php echo esc_attr( Notification::getTitle( Notification::TYPE_NEW_BOOKING_COMBINED ) ) ?></option>
+                                data-attach='["ics","invoice"]'><?php echo esc_attr( Notification::getTitle( Notification::TYPE_NEW_BOOKING_COMBINED ) ) ?></option>
                     <?php endif ?>
                     <option value="<?php echo Notification::TYPE_CUSTOMER_APPOINTMENT_STATUS_CHANGED ?>"
                             data-set="instantly"

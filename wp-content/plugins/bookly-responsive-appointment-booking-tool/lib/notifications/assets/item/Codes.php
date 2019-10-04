@@ -3,6 +3,7 @@ namespace Bookly\Lib\Notifications\Assets\Item;
 
 use Bookly\Lib\Config;
 use Bookly\Lib\DataHolders\Booking\Item;
+use Bookly\Lib\Entities\Staff;
 use Bookly\Lib\Notifications\Assets\Order;
 use Bookly\Lib\Notifications\WPML;
 use Bookly\Lib\Utils;
@@ -54,7 +55,7 @@ class Codes extends Order\Codes
     // Taxes
     public $service_tax;
     public $service_tax_rate;
-    /** @var \Bookly\Lib\Entities\Staff */
+    /** @var Staff */
     public $staff;
 
     /** @var Item */
@@ -69,7 +70,7 @@ class Codes extends Order\Codes
      *
      * @param Item $item
      * @param string $recipient  "client" or "staff"
-     * @param \Bookly\Lib\Entities\Staff $staff
+     * @param Staff $staff
      */
     public function prepareForItem( Item $item, $recipient, $staff = null )
     {

@@ -208,11 +208,14 @@ jQuery(function($) {
                     ladda.stop();
                     if (response.success) {
                         booklyAlert({success: [BooklyL10n.sentSuccessfully]});
+                        $modalTestEmail.modal('hide');
                     }
                 }
             });
         })
         .on('shown.bs.modal', function () {
+            var $send = $(this).find('.btn-success');
+            $send.prop('disabled', true);
             $testNotificationsList.html('');
             var active = 0;
             (dt.rows().data()).each(function (notification) {
@@ -224,12 +227,11 @@ jQuery(function($) {
                 }
             });
             $('.bookly-js-count', $modalTestEmail).html(active);
+            $send.prop('disabled', false);
         });
 
     $testNotificationsList
         .on('change', ':checkbox', function () {
             $('.bookly-js-count', $modalTestEmail).html($(':checked', $testNotificationsList).length);
         });
-
-    booklyAlert(BooklyL10n.alert);
 });

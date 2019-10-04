@@ -320,6 +320,20 @@ abstract class Config
     }
 
     /**
+     * Check whether multiple services booking is enabled.
+     *
+     * @return bool
+     */
+    public static function multipleServicesBookingEnabled()
+    {
+        return ( Config::cartActive() ||
+                 Config::chainAppointmentsActive() ||
+                 Config::multiplyAppointmentsActive() ||
+                 Config::recurringAppointmentsActive()
+        );
+    }
+
+    /**
      * @return bool
      */
     public static function payLocallyEnabled()

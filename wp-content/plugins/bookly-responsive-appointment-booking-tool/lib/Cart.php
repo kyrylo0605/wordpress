@@ -148,7 +148,8 @@ class Cart
      */
     public function save( DataHolders\Order $order, $time_zone, $time_zone_offset, &$booking_numbers )
     {
-        foreach ( $this->getItems() as $i => $cart_item ) {
+        $item_key = 0;
+        foreach ( $this->getItems() as $cart_item ) {
             // Init.
             $payment_id    = $order->hasPayment() ? $order->getPayment()->getId() : null;
             $service       = $cart_item->getService();
@@ -165,16 +166,14 @@ class Cart
                     ->setToken( Utils\Common::generateToken(
                         '\Bookly\Lib\Entities\CustomerAppointment',
                         'compound_token'
-                    ) )
-                ;
-            } else if ( $service->isCollaborative() ) {
+                    ) );
+            } elseif ( $service->isCollaborative() ) {
                 // Collaborative.
                 $collaborative = DataHolders\Collaborative::create( $service )
                     ->setToken( Utils\Common::generateToken(
                         '\Bookly\Lib\Entities\CustomerAppointment',
                         'collaborative_token'
-                    ) )
-                ;
+                    ) );
             }
 
             // Series.
@@ -182,13 +181,11 @@ class Cart
                 if ( $order->hasItem( $series_unique_id ) ) {
                     $series = $order->getItem( $series_unique_id );
                 } else {
-                    $series_item_id = 0;
                     $series_entity = new Entities\Series();
                     $series_entity
                         ->setRepeat( '{}' )
                         ->setToken( Common::generateToken( get_class( $series_entity ), 'token' ) )
-                        ->save()
-                    ;
+                        ->save();
 
                     $series = DataHolders\Series::create( $series_entity );
                     $order->addItem( $series_unique_id, $series );
@@ -245,17 +242,7 @@ class Cart
                         'end_date'   => $end_datetime,
                     ) );
                 }
-                if ( $appointment->isLoaded() == false ) {
-                    // Create new appointment.
-                    $appointment
-                        ->setLocationId( $cart_item->getLocationId() ?: null )
-                        ->setServiceId( $service_id )
-                        ->setStaffId( $staff_id )
-                        ->setStaffAny( count( $cart_item->getStaffIds() ) > 1 )
-                        ->setStartDate( $start_datetime )
-                        ->setEndDate( $end_datetime )
-                        ->save();
-                } else {
+                if ( $appointment->isLoaded() ) {
                     $update = false;
                     if ( ! $appointment->getLocationId() && $cart_item->getLocationId() ) {
                         // Set location if it was not set previously.
@@ -270,6 +257,16 @@ class Cart
                     if ( $update ) {
                         $appointment->save();
                     }
+                } else {
+                    // Create new appointment.
+                    $appointment
+                        ->setLocationId( $cart_item->getLocationId() ?: null )
+                        ->setServiceId( $service_id )
+                        ->setStaffId( $staff_id )
+                        ->setStaffAny( count( $cart_item->getStaffIds() ) > 1 )
+                        ->setStartDate( $start_datetime )
+                        ->setEndDate( $end_datetime )
+                        ->save();
                 }
 
                 if ( $compound || $collaborative ) {
@@ -293,7 +290,7 @@ class Cart
                     ->setCustomFields( json_encode( $service_custom_fields ) )
                     ->setStatus( $put_on_waiting_list
                         ? CustomerAppointment::STATUS_WAITLISTED
-                        : Proxy\CustomerGroups::prepareDefaultAppointmentStatus( get_option( 'bookly_gen_default_appointment_status' ), $order->getCustomer()->getGroupId() ) )
+                        : Proxy\CustomerGroups::takeDefaultAppointmentStatus( get_option( 'bookly_gen_default_appointment_status' ), $order->getCustomer()->getGroupId() ) )
                     ->setTimeZone( $time_zone )
                     ->setTimeZoneOffset( $time_zone_offset )
                     ->setCollaborativeServiceId( $collaborative ? $collaborative->getService()->getId() : null )
@@ -324,18 +321,19 @@ class Cart
                 // Add entities to result.
                 $item = DataHolders\Simple::create( $customer_appointment )
                     ->setService( $service )
-                    ->setAppointment( $appointment )
-                ;
+                    ->setAppointment( $appointment );
+
                 if ( $compound ) {
                     $item = $compound->addItem( $item );
-                }
-                if ( $collaborative ) {
+                } elseif ( $collaborative ) {
                     $item = $collaborative->addItem( $item );
                 }
-                if ( $series ) {
-                    $series->addItem( $series_item_id++, $item );
-                } else {
-                    $order->addItem( $i, $item );
+                if ( count( $item->getItems() ) === 1 ) {
+                    if ( $series ) {
+                        $series->addItem( $item_key ++, $item );
+                    } else {
+                        $order->addItem( $item_key ++, $item );
+                    }
                 }
             }
         }

@@ -24,9 +24,9 @@ use Bookly\Backend\Modules\Staff\Proxy;
         </li>
         <?php Proxy\Shared::renderStaffTab( $staff ) ?>
         <li>
-            <a id="bookly-holidays-tab" href="#daysoff" data-toggle="tab">
+            <a id="bookly-holidays-tab" href="#days_off" data-toggle="tab">
                 <i class="fas fa-calendar fa-fw"></i>
-                <span class="bookly-nav-tabs-title"><?php esc_html_e( 'Days off', 'bookly' ) ?></span>
+                <span class="bookly-nav-tabs-title"><?php esc_html_e( 'Days Off', 'bookly' ) ?></span>
             </a>
         </li>
     </ul>
@@ -47,7 +47,7 @@ use Bookly\Backend\Modules\Staff\Proxy;
     <div class="tab-pane" id="special_days">
         <div id="bookly-special-days-container" style="display: none"></div>
     </div>
-    <div class="tab-pane" id="daysoff">
+    <div class="tab-pane" id="days_off">
         <div id="bookly-holidays-container" style="display: none"></div>
     </div>
 </div>

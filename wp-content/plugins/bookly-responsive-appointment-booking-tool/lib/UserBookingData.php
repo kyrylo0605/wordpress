@@ -567,7 +567,7 @@ class UserBookingData
             $customer->setPhone( $this->getPhone() );
         }
         if ( $this->getEmail() != '' ) {
-            $customer->setEmail( $this->getEmail() );
+            $customer->setEmail( trim( $this->getEmail() ) );
         }
         if ( $this->getBirthdayYmd() != '' ) {
             $customer->setBirthday( $this->getBirthdayYmd() );

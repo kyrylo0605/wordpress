@@ -30,7 +30,7 @@ class Ajax extends Lib\Base\Ajax
         wp_send_json( array(
             'draw'            => ( int ) self::parameter( 'draw' ),
             'recordsTotal'    => $total,
-            'recordsFiltered' => count( $data ),
+            'recordsFiltered' => $total,
             'data'            => $data,
         ) );
     }

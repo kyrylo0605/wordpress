@@ -212,7 +212,7 @@ abstract class API
             $history_schema[ 'bookings_payment_' . Entities\Payment::TYPE_PAYULATAM ] = 0;
         }
 
-        $history_schema[ 'bookings_payment_' . Entities\Payment::TYPE_COUPON ] = Config::couponsActive() ? 0 : null;
+        $history_schema['bookings_payment_coupon'] = Config::couponsActive() ? 0 : null;
         $history_schema[ 'bookings_payment_' . Entities\Payment::TYPE_WOOCOMMERCE ] = get_option( 'bookly_wc_enabled' ) ? 0 : null;
 
         if ( Config::serviceExtrasActive() && get_option( 'bookly_service_extras_enabled' ) ) {

@@ -2,16 +2,19 @@
 namespace Bookly\Backend\Modules\Debug;
 
 use Bookly\Lib;
+use Bookly\Backend\Modules\Debug\Lib\Schema;
+use Bookly\Backend\Modules\Debug\Lib\QueryBuilder;
 
 /**
  * Class Page
  * @package Bookly\Backend\Modules\Debug
  */
-class Page extends Lib\Base\Ajax
+class Page extends Lib\Base\Component
 {
     const TABLE_STATUS_OK      = 1;
     const TABLE_STATUS_ERROR   = 0;
     const TABLE_STATUS_WARNING = 2;
+    const TABLE_STATUS_INFO    = 3;
 
     /**
      * Render page.
@@ -39,48 +42,66 @@ class Page extends Lib\Base\Ajax
             'module'  => array( 'js/debug.js' => array( 'jquery' ) ),
         ) );
 
-        $debug = array();
+        $debug  = array();
+        $schema = new Schema();
         /** @var Lib\Base\Plugin $plugin */
         foreach ( apply_filters( 'bookly_plugins', array() ) as $plugin ) {
             foreach ( $plugin::getEntityClasses() as $entity_class ) {
-                $tableName = $entity_class::getTableName();
-                $debug[ $tableName ] = array(
+                $table_name = $entity_class::getTableName();
+                $debug[ $table_name ] = array(
                     'fields'      => null,
                     'constraints' => null,
                     'status'      => null,
                 );
-                if ( self::_tableExists( $tableName ) ) {
-                    $tableStructure     = self::_getTableStructure( $tableName );
-                    $tableConstraints   = self::_getTableConstraints( $tableName );
-                    $entitySchema       = $entity_class::getSchema();
-                    $entityConstraints  = $entity_class::getConstraints();
-                    $debug[ $tableName ]['status'] = self::TABLE_STATUS_OK;
-                    $debug[ $tableName ]['fields'] = array();
+                if ( $schema->existsTable( $table_name ) ) {
+                    $table_structure    = $schema->getTableStructure( $table_name );
+                    $table_constraints  = $schema->getTableConstraints( $table_name );
+                    $entity_schema      = $entity_class::getSchema();
+                    $entity_constraints = $entity_class::getConstraints();
+                    $debug[ $table_name ]['status'] = self::TABLE_STATUS_OK;
+                    $debug[ $table_name ]['fields'] = array();
 
                     // Comparing model schema with real DB schema
-                    foreach ( $entitySchema as $field => $data ) {
-                        if ( in_array( $field, $tableStructure ) ) {
-                            $debug[ $tableName ]['fields'][ $field ] = 1;
+                    foreach ( $entity_schema as $field => $data ) {
+                        if ( array_key_exists( $field, $table_structure ) ) {
+                            $debug[ $table_name ]['fields'][ $field ] = 1;
+                            $expect = QueryBuilder::getColumnData( $table_name, $field );
+                            $actual = $table_structure[ $field ];
+                            unset( $expect['key'], $actual['key'] );
+                            $diff = array_diff_assoc( $actual, $expect );
+                            if ( $expect && $diff ) {
+                                $debug[ $table_name ]['status'] = self::TABLE_STATUS_INFO;
+                                $debug[ $table_name ]['info'][ $field ] = array_keys( $diff );
+                            }
                         } else {
-                            $debug[ $tableName ]['fields'][ $field ] = 0;
-                            $debug[ $tableName ]['status'] = self::TABLE_STATUS_WARNING;
+                            $debug[ $table_name ]['fields'][ $field ] = 0;
+                            $debug[ $table_name ]['status'] = self::TABLE_STATUS_WARNING;
                         }
                     }
 
                     // Comparing model constraints with real DB constraints
-                    foreach ( $entityConstraints as $constraint ) {
+                    foreach ( $entity_constraints as $constraint ) {
                         $key = $constraint['column_name'] . $constraint['referenced_table_name'] . $constraint['referenced_column_name'];
-                        $debug[ $tableName ]['constraints'][ $key ] = $constraint;
-                        if ( array_key_exists ( $key, $tableConstraints ) ) {
-                            $debug[ $tableName ]['constraints'][ $key ]['status'] = 1;
+                        $debug[ $table_name ]['constraints'][ $key ] = $constraint;
+                        if ( array_key_exists ( $key, $table_constraints ) ) {
+                            $debug[ $table_name ]['constraints'][ $key ]['status'] = 1;
                         } else {
-                            $debug[ $tableName ]['constraints'][ $key ]['status'] = 0;
-                            $debug[ $tableName ]['status'] = self::TABLE_STATUS_WARNING;
+                            $debug[ $table_name ]['constraints'][ $key ]['status'] = 0;
+                            $debug[ $table_name ]['status'] = self::TABLE_STATUS_WARNING;
+                        }
+                    }
+                    $debug[ $table_name ]['constraints_3d'] = array();
+                    foreach ( $table_constraints as $constraint_name => $constraint ) {
+                        $key = $constraint['column_name'] . $constraint['referenced_table_name'] . $constraint['referenced_column_name'];
+                        if ( ! isset( $debug[ $table_name ]['constraints'][ $key ] ) ) {
+                            $debug[ $table_name ]['constraints_3d'][ $key ] = $constraint;
+                            $debug[ $table_name ]['constraints_3d'][ $key ]['status'] = 0;
+                            $debug[ $table_name ]['status'] = self::TABLE_STATUS_WARNING;
                         }
                     }
 
                 } else {
-                    $debug[ $tableName ]['status'] = self::TABLE_STATUS_ERROR;
+                    $debug[ $table_name ]['status'] = self::TABLE_STATUS_ERROR;
                 }
             }
         }
@@ -95,77 +116,5 @@ class Page extends Lib\Base\Ajax
         ksort( $debug );
         $import_status = self::parameter( 'status' );
         self::renderTemplate( 'index', compact( 'debug', 'import_status' ) );
-    }
-
-    /**
-     * Get table structure
-     *
-     * @param string $tableName
-     * @return array
-     */
-    protected static function _getTableStructure( $tableName )
-    {
-        global $wpdb;
-
-        $tableStructure = array();
-        $results = $wpdb->get_results( 'DESCRIBE `' . $tableName . '`;' );
-        if ( $results ) {
-            foreach ( $results as $row ) {
-                $tableStructure[] = $row->Field;
-            }
-        }
-
-        return $tableStructure;
-    }
-
-    /**
-     * Get table constraints
-     *
-     * @param string $tableName
-     * @return array
-     */
-    protected static function _getTableConstraints( $tableName )
-    {
-        global $wpdb;
-
-        $tableConstraints = array();
-        $results = $wpdb->get_results(
-            'SELECT
-                 COLUMN_NAME,
-                 CONSTRAINT_NAME,
-                 REFERENCED_COLUMN_NAME,
-                 REFERENCED_TABLE_NAME
-            FROM information_schema.KEY_COLUMN_USAGE
-            WHERE
-              TABLE_NAME = "' . $tableName . '"
-              AND CONSTRAINT_SCHEMA = SCHEMA()
-              AND CONSTRAINT_NAME <> "PRIMARY";'
-        );
-        if ( $results ) {
-            foreach ( $results as $row ) {
-                $constraint = array(
-                    'column_name'            => $row->COLUMN_NAME,
-                    'referenced_table_name'  => $row->REFERENCED_COLUMN_NAME,
-                    'referenced_column_name' => $row->REFERENCED_TABLE_NAME,
-                );
-                $key = $row->COLUMN_NAME . $row->REFERENCED_TABLE_NAME . $row->REFERENCED_COLUMN_NAME;
-                $tableConstraints[ $key ] = $constraint;
-            }
-        }
-
-        return $tableConstraints;
-    }
-
-    /**
-     * Verifying if table exists
-     *
-     * @param string $tableName
-     * @return int
-     */
-    protected static function _tableExists( $tableName )
-    {
-        global $wpdb;
-
-        return $wpdb->query( 'SHOW TABLES LIKE "' . $tableName . '"' );
     }
 }

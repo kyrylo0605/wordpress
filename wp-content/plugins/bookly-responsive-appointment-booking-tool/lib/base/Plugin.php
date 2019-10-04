@@ -110,8 +110,11 @@ abstract class Plugin
                 // WP 4.9+ plugin or theme editor
                 ! isset( $_GET['wp_scrape_key'] )
                 &&
-                // WP 5.2+ Site Health feature=loopback_requests
-                ! ( isset( $_POST['action'] ) && $_POST['action'] == 'health-check-site-status' )
+                ! ( isset( $_POST['action'] ) &&
+                    (  $_POST['action'] == 'health-check-site-status'       // Health Check & Troubleshooting plugin
+                    || $_POST['action'] == 'health-check-loopback-requests' // WP 5.2+ Site Health
+                    )
+                )
             ) {
                 // Start session.
                 @session_start();
