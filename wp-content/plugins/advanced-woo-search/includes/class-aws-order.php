@@ -60,11 +60,11 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
             }
 
-            if ( ! $price_min && isset( $_GET['min_price'] ) && $_GET['min_price'] ) {
+            if ( ! $price_min && isset( $_GET['min_price'] ) ) {
                 $price_min = sanitize_text_field( $_GET['min_price'] );
             }
 
-            if ( ! $price_max && isset( $_GET['max_price'] ) && $_GET['max_price'] ) {
+            if ( ! $price_max && isset( $_GET['max_price'] ) ) {
                 $price_max = sanitize_text_field( $_GET['max_price'] );
             }
 
@@ -94,7 +94,7 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
             foreach( $this->products as $post_array ) {
 
-                if ( $price_min && $price_max ) {
+                if ( ( $price_min || $price_min == '0' ) && $price_max ) {
                     if ( isset( $post_array['f_price'] ) && $post_array['f_price'] ) {
                         if ( $post_array['f_price'] > $price_max || $post_array['f_price'] < $price_min ) {
                             continue;
@@ -134,9 +134,11 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
                     $product = wc_get_product( $post_array['id'] );
                     $attributes = $product->get_attributes();
+                    $product_terms_array = array();
                     $skip = true;
 
                     if ( $attributes && ! empty( $attributes ) ) {
+
                         foreach( $attributes as $attr_name => $attribute_object ) {
                             if ( $attribute_object ) {
                                 if ( ( is_object( $attribute_object ) && method_exists( $attribute_object, 'is_taxonomy' ) && $attribute_object->is_taxonomy() ) ||
@@ -146,60 +148,70 @@ if ( ! class_exists( 'AWS_Order' ) ) :
                                         $product_terms = wp_get_object_terms( $post_array['id'], $attr_name );
 
                                         if ( ! is_wp_error( $product_terms ) && ! empty( $product_terms ) ) {
-
-                                            $product_terms_array = array();
-
                                             foreach ( $product_terms as $product_term ) {
                                                 $product_terms_array[$product_term->slug] = $product_term->slug;
                                             }
-
-                                            $operator = $attr_filter[$attr_name]['operator'];
-                                            $terms = $attr_filter[$attr_name]['terms'];
-
-                                            if ( $terms && is_array( $terms ) && ! empty( $terms ) ) {
-
-                                                if ( $operator === 'AND' ) {
-
-                                                    $has_all = true;
-
-                                                    foreach( $terms as $term ) {
-                                                        if ( ! isset( $product_terms_array[$term] ) ) {
-                                                            $has_all = false;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                    if ( $has_all ) {
-                                                        $skip = false;
-                                                    }
-
-                                                }
-
-                                                if ( $operator === 'IN' || $operator === 'OR' ) {
-
-                                                    $has_all = false;
-
-                                                    foreach( $terms as $term ) {
-                                                        if ( isset( $product_terms_array[$term] ) ) {
-                                                            $has_all = true;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                    if ( $has_all ) {
-                                                        $skip = false;
-                                                    }
-
-                                                }
-
-                                            }
-
                                         }
 
                                     }
                                 }
                             }
                         }
+
+                        if ( $product_terms_array ) {
+
+                            foreach( $attr_filter as $attr_filter_name => $attr_filter_object ) {
+
+                                $skip = true;
+                                $attr_filter_operator = $attr_filter_object['operator'];
+                                $attr_filter_terms = $attr_filter_object['terms'];
+
+                                if ( $attr_filter_terms && is_array( $attr_filter_terms ) && ! empty( $attr_filter_terms ) ) {
+
+                                    if ( $attr_filter_operator === 'AND' ) {
+
+                                        $has_all = true;
+
+                                        foreach( $attr_filter_terms as $term ) {
+                                            if ( ! isset( $product_terms_array[$term] ) ) {
+                                                $has_all = false;
+                                                break;
+                                            }
+                                        }
+
+                                        if ( $has_all ) {
+                                            $skip = false;
+                                        }
+
+                                    }
+
+                                    if ( $attr_filter_operator === 'IN' || $attr_filter_operator === 'OR' ) {
+
+                                        $has_all = false;
+
+                                        foreach( $attr_filter_terms as $term ) {
+                                            if ( isset( $product_terms_array[$term] ) ) {
+                                                $has_all = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if ( $has_all ) {
+                                            $skip = false;
+                                        }
+
+                                    }
+
+                                    if ( $skip ) {
+                                        break;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
                     }
 
                     if ( $skip ) {

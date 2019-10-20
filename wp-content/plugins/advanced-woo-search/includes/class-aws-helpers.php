@@ -517,7 +517,7 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
                         $synonym_array = explode( ',', $synonyms_string );
 
                         if ( $synonym_array && ! empty( $synonym_array ) ) {
-                            $synonym_array = array_map( 'trim', $synonym_array );
+                            $synonym_array = array_map( array( 'AWS_Helpers', 'normalize_string' ), $synonym_array );
                             foreach ( $synonym_array as $synonym_item ) {
                                 if ( $synonym_item && isset( $str_array[$synonym_item] ) ) {
                                     $new_str_array = array_merge( $new_str_array, $synonym_array );

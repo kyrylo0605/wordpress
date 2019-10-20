@@ -52,10 +52,10 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         public function setup() {
 
             // Make sure we return nothing for MySQL posts query
-            add_filter( 'posts_request', array( $this, 'filter_posts_request' ), 10, 2 );
+            add_filter( 'posts_request', array( $this, 'filter_posts_request' ), 999, 2 );
 
             // Query and filter to WP_Query
-            add_filter( 'the_posts', array( $this, 'filter_the_posts' ), 10, 2 );
+            add_filter( 'the_posts', array( $this, 'filter_the_posts' ), 999, 2 );
 
             // Add header
 		    add_action( 'pre_get_posts', array( $this, 'action_pre_get_posts' ), 5 );
@@ -66,10 +66,12 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             // Nukes the FOUND_ROWS() database query
 		    add_filter( 'found_posts_query', array( $this, 'filter_found_posts_query' ), 5, 2 );
 
-            // Update filters links
+            // WooCommerce default widget filters
             add_filter( 'woocommerce_layered_nav_link', array( $this, 'woocommerce_layered_nav_link' ) );
+            add_filter( 'woocommerce_get_filtered_term_product_counts_query', array( $this, 'woocommerce_get_filtered_term_product_counts_query' ), 999 );
+            add_filter( 'woocommerce_price_filter_sql', array( $this, 'woocommerce_price_filter_sql' ), 999 );
 
-            add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 10, 2 );
+            add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 999, 2 );
 
             add_filter( 'body_class', array( $this, 'body_class' ), 999 );
 
@@ -305,6 +307,8 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
             $products = array_slice( $post_array_products, $offset, $posts_per_page );
 
+            $this->data['all_products'] = $post_array_products;
+
             return array(
                 'all'      => $post_array_products,
                 'products' => $products
@@ -331,6 +335,65 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
             }
 
             return $link;
+
+        }
+
+        /*
+        * Enable cache for WooCommerce filter widget
+        */
+        public function woocommerce_layered_nav_count_maybe_cache( $cache ) {
+            if ( ! isset( $_GET['type_aws'] ) ) {
+                return $cache;
+            }
+            return true;
+        }
+
+        /*
+         * Change WooCommerce attributes filter widget query
+         */
+        public function woocommerce_get_filtered_term_product_counts_query( $query ) {
+            if ( ! isset( $_GET['type_aws'] ) ) {
+                return $query;
+            }
+
+            $search = ' AND ' . WC_Query::get_main_search_query_sql();
+            $product_ids = array();
+
+            $query['where'] = str_replace( $search, '', $query['where'] );
+
+            if ( isset( $this->data['all_products'] ) && $this->data['all_products'] ) {
+                global $wpdb;
+
+                foreach( $this->data['all_products'] as $sproduct ) {
+                    $product_ids[] = $sproduct['id'];
+                }
+
+                $query['where'] .= " AND {$wpdb->posts}.ID IN (". implode( ',', array_map( 'absint', $product_ids ) ) .")";
+
+            }
+
+            return $query;
+        }
+
+        /*
+         * Change WooCommerce price filter widget query
+         */
+        public function woocommerce_price_filter_sql( $sql ) {
+
+            if ( isset( $_GET['type_aws'] ) && isset( $this->data['all_products'] ) && $this->data['all_products'] ) {
+                global $wpdb;
+
+                foreach( $this->data['all_products'] as $sproduct ) {
+                    $product_ids[] = $sproduct['id'];
+                }
+
+                $sql = "SELECT min( min_price ) as min_price, MAX( max_price ) as max_price
+                        FROM {$wpdb->wc_product_meta_lookup}
+                        WHERE product_id IN (". implode( ',', array_map( 'absint', $product_ids ) ) .")";
+
+            }
+
+            return $sql;
 
         }
 

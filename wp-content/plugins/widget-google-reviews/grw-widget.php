@@ -11,10 +11,7 @@
 //https://wordpress.org/support/topic/fix-for-fatal-error-require/
 class Goog_Reviews_Widget extends WP_Widget {
 
-    public $options;
-    public $api_key;
-
-    public $widget_fields = array(
+    public static $widget_fields = array(
         'title'                => '',
         'place_name'           => '',
         'place_id'             => '',
@@ -57,7 +54,7 @@ class Goog_Reviews_Widget extends WP_Widget {
     }
 
     function grw_widget_scripts($hook) {
-        if ($hook == 'widgets.php' || ($hook == 'post.php' && defined('SITEORIGIN_PANELS_VERSION'))) {
+        if ($hook == 'widgets.php' || $hook == 'settings_page_grw' || ($hook == 'post.php' && defined('SITEORIGIN_PANELS_VERSION'))) {
 
             wp_register_style('rplg_wp_css', plugins_url('/static/css/rplg-wp.css', __FILE__), array(), GRW_VERSION);
             wp_enqueue_style('rplg_wp_css', plugins_url('/static/css/rplg-wp.css', __FILE__));
@@ -82,8 +79,8 @@ class Goog_Reviews_Widget extends WP_Widget {
 
         if (grw_enabled()) {
             extract($args);
-            foreach ($this->widget_fields as $variable => $value) {
-                ${$variable} = !isset($instance[$variable]) ? $this->widget_fields[$variable] : esc_attr($instance[$variable]);
+            foreach (self::$widget_fields as $variable => $value) {
+                ${$variable} = !isset($instance[$variable]) ? self::$widget_fields[$variable] : esc_attr($instance[$variable]);
             }
 
             echo $before_widget;
@@ -112,16 +109,16 @@ class Goog_Reviews_Widget extends WP_Widget {
 
     function update($new_instance, $old_instance) {
         $instance = $old_instance;
-        foreach ($this->widget_fields as $field => $value) {
-            $instance[$field] = strip_tags(stripslashes($new_instance[$field]));
+        foreach (self::$widget_fields as $field => $value) {
+            $instance[$field] = isset($new_instance[$field]) ? strip_tags(stripslashes($new_instance[$field])) : '';
         }
         return $instance;
     }
 
     function form($instance) {
         global $wp_version;
-        foreach ($this->widget_fields as $field => $value) {
-            if (array_key_exists($field, $this->widget_fields)) {
+        foreach (self::$widget_fields as $field => $value) {
+            if (array_key_exists($field, self::$widget_fields)) {
                 ${$field} = !isset($instance[$field]) ? $value : esc_attr($instance[$field]);
             }
         }

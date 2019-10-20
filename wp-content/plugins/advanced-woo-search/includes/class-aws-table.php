@@ -297,6 +297,13 @@ if ( ! class_exists( 'AWS_Table' ) ) :
              */
             $posts = apply_filters( 'aws_index_product_ids', $posts );
 
+            /**
+             * Apply or not WP filters to indexed contetn
+             * @since 1.82
+             * @param bool false
+             */
+            $apply_filters = apply_filters( 'aws_index_apply_filters', false );
+
             foreach ( $posts as $found_post_id ) {
 
                 $data = array();
@@ -332,13 +339,17 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 $ids = $data['id'];
 
-                $title = apply_filters( 'the_title', get_the_title( $data['id'] ), $data['id'] );
+                $title = get_the_title( $data['id'] );
 
-                $content = apply_filters( 'the_content', get_post_field( 'post_content', $data['id'] ), $data['id'] );
+                $content = get_post_field( 'post_content', $data['id'] );
+
                 $excerpt = get_post_field( 'post_excerpt', $data['id'] );
                 $cat_array = AWS_Helpers::get_terms_array( $data['id'], 'product_cat' );
                 $tag_array = AWS_Helpers::get_terms_array( $data['id'], 'product_tag' );
 
+                if ( $apply_filters ) {
+                    $content = apply_filters( 'the_content', $content, $data['id'] );
+                }
 
                 // Get all child products if exists
                 if ( $product->is_type( 'variable' ) && class_exists( 'WC_Product_Variation' ) ) {
@@ -473,9 +484,13 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                     $translated_post_data['lang'] = $lang_obj->language_code;
                                     $translated_post_data['terms'] = array();
 
-                                    $translated_title = apply_filters( 'the_title', get_the_title( $translated_post->ID ), $translated_post->ID );
-                                    $translated_content = apply_filters( 'the_content', get_post_field( 'post_content', $translated_post->ID ), $translated_post->ID );
+                                    $translated_title = get_the_title( $translated_post->ID );
+                                    $translated_content = get_post_field( 'post_content', $translated_post->ID );
                                     $translated_excerpt = get_post_field( 'post_excerpt', $translated_post->ID );
+
+                                    if ( $apply_filters ) {
+                                        $translated_content = apply_filters( 'the_content', $translated_content, $translated_post->ID );
+                                    }
 
                                     $translated_content = AWS_Helpers::strip_shortcodes( $translated_content );
                                     $translated_excerpt = AWS_Helpers::strip_shortcodes( $translated_excerpt );
@@ -550,17 +565,6 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 }
 
-                /**
-                 * Filters product data array before it will be added to index table.
-                 *
-                 * @since 1.62
-                 *
-                 * @param array $data Product data array.
-                 * @param int $data['id'] Product id.
-                 * @param object $product Current product object.
-                 */
-                $data = apply_filters( 'aws_indexed_data', $data, $data['id'], $product );
-
                 //Insert data into table
                 $this->insert_into_table( $data );
 
@@ -575,36 +579,50 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             global $wpdb;
 
+            /**
+             * Filters product data array before it will be added to index table.
+             *
+             * @since 1.62
+             *
+             * @param array $data Product data array.
+             * @param int $data['id'] Product id.
+             * @param null ( since 1.82 )
+             */
+            $data = apply_filters( 'aws_indexed_data', $data, $data['id'], null );
+
             $values = array();
 
-            foreach( $data['terms'] as $source => $all_terms ) {
+            if ( $data && is_array( $data ) && isset( $data['terms'] ) ) {
 
-                $term_id = 0;
+                foreach( $data['terms'] as $source => $all_terms ) {
 
-                if ( preg_match( '/\%(\d+)\%/', $source, $matches ) ) {
-                    if ( isset( $matches[1] ) ) {
-                        $term_id = $matches[1];
-                        $source = preg_replace( '/\%(\d+)\%/', '', $source );
-                    }
-                }
+                    $term_id = 0;
 
-                foreach ( $all_terms as $term => $count ) {
-
-                    if ( ! $term ) {
-                        continue;
+                    if ( preg_match( '/\%(\d+)\%/', $source, $matches ) ) {
+                        if ( isset( $matches[1] ) ) {
+                            $term_id = $matches[1];
+                            $source = preg_replace( '/\%(\d+)\%/', '', $source );
+                        }
                     }
 
-                    $value = $wpdb->prepare(
-                        "(%d, %s, %s, %s, %d, %d, %d, %d, %s, %s)",
-                        $data['id'], $term, $source, 'product', $count, $data['in_stock'], $data['on_sale'], $term_id, $data['visibility'], $data['lang']
-                    );
+                    foreach ( $all_terms as $term => $count ) {
 
-                    $values[] = $value;
+                        if ( ! $term ) {
+                            continue;
+                        }
+
+                        $value = $wpdb->prepare(
+                            "(%d, %s, %s, %s, %d, %d, %d, %d, %s, %s)",
+                            $data['id'], $term, $source, 'product', $count, $data['in_stock'], $data['on_sale'], $term_id, $data['visibility'], $data['lang']
+                        );
+
+                        $values[] = $value;
+
+                    }
 
                 }
 
             }
-
 
             if ( count( $values ) > 0 ) {
 

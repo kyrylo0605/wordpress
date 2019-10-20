@@ -24,10 +24,11 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
         /*
          * Constructor
          */
-        public function __construct( $options ) {
+        public function __construct( $tab_name ) {
 
-            $this->options_array = $options;
-            $this->plugin_options = get_option( 'aws_settings' );
+            $options = AWS_Admin_Options::options_array( $tab_name );
+            $this->options_array = $options[$tab_name];
+            $this->plugin_options = AWS_Admin_Options::get_settings();
 
             $this->generate_fields();
 

@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: google, reviews, google reviews, google places, google places reviews, testimonials, google review widget, google business reviews, slider, google review, review, google place review, google map reviews, google reviews pro, facebook reviews, facebook page reviews, yelp reviews, yelp business reviews
 Requires at least: 2.8
 Tested up to: 5.2
-Stable tag: 1.7.7
+Stable tag: 1.7.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,7 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 * Free!
 * SEO
 * Refresh reviews
+* Shortcode support!
 * Trim long reviews with "read more" link
 * Support page builders: Elementor, Page Origin, Beaver Builder, WPBakery, Divi
 * Displays up to 5 Google business reviews per location
@@ -46,7 +47,7 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 * Displays all Google reviews through Business API
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Google Rich Snippets (schema.org)
-* Support shortcode, powerful <b>Shortcode Builder</b>
+* Powerful <b>Collection Builder</b>
 * Slider/Grid themes to show G+ reviews like testimonials
 * Google Trust Badge (right/left fixed or embedded)
 * 'Write a review' button to available leave Google review directly on your website
@@ -75,6 +76,15 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.7.9 =
+* Bugfix: is_admin checks for notice
+
+= 1.7.8 =
+* Improve: shortcode support
+* Improve: added new locale bg_BG
+* Improve: admin notie
+* Bugfix: undefined widget property in Elementor
 
 = 1.7.7 =
 * Bugfix: some style fixes

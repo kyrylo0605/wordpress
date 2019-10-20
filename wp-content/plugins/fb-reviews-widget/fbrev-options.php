@@ -2,6 +2,14 @@
 
 <div class="fbrev-pages"></div>
 
+<?php global $wp_version; if (version_compare($wp_version, '3.5', '>=')) { wp_enqueue_media(); ?>
+<div class="form-group">
+    <img id="<?php echo $this->get_field_id('page_photo_img'); ?>" src="<?php echo $page_photo; ?>" alt="<?php echo $page_name; ?>" class="fbrev-page-photo-img" style="display:<?php if ($page_photo) { ?>inline-block<?php } else { ?>none<?php } ?>;width:32px;height:32px;border-radius:50%;">
+    <a id="<?php echo $this->get_field_id('page_photo_btn'); ?>" href="#" class="fbrev-page-photo-btn"><?php echo fbrev_i('Change page photo'); ?></a>
+    <input type="hidden" id="<?php echo $this->get_field_id('page_photo'); ?>" name="<?php echo $this->get_field_name('page_photo'); ?>" value="<?php echo $page_photo; ?>" class="fbrev-page-photo" tabindex="2"/>
+</div>
+<?php } ?>
+
 <div class="form-group">
     <input type="text" id="<?php echo $this->get_field_id('page_name'); ?>" name="<?php echo $this->get_field_name('page_name'); ?>" value="<?php echo $page_name; ?>" class="fbrev-page-name" placeholder="<?php echo fbrev_i('Page Name'); ?>" readonly />
 </div>

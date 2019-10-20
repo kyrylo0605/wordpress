@@ -157,7 +157,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
             <div class="nav-tab-wrapper">
                 <a href="#about"     class="nav-tab<?php if ($tab == 'about')     { ?> nav-tab-active<?php } ?>"><?php echo grw_i('About'); ?></a>
                 <a href="#setting"   class="nav-tab<?php if ($tab == 'setting')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Settings'); ?></a>
-                <a href="#shortcode" class="nav-tab<?php if ($tab == 'shortcode') { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Shortcode Builder'); ?></a>
+                <a href="#shortcode" class="nav-tab<?php if ($tab == 'shortcode') { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Shortcode'); ?></a>
                 <a href="#support"   class="nav-tab<?php if ($tab == 'support')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Support'); ?></a>
                 <a href="#advance"   class="nav-tab<?php if ($tab == 'advance')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Advance'); ?></a>
             </div>
@@ -251,8 +251,20 @@ $grw_google_api_key = get_option('grw_google_api_key');
             </div>
 
             <div id="shortcode" class="tab-content" style="display:<?php echo $tab == 'shortcode' ? 'block' : 'none'?>;">
-                <h3>Shortcode Builder is available in the Business version of the plugin</h3>
-                <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank" style="color:#00bf54;font-size:16px;text-decoration:underline;"><?php echo grw_i('Upgrade to Business'); ?></a>
+                <h3>Shortcode</h3>
+                <div class="rplg-flex-row">
+                    <div class="rplg-flex-col3">
+                        <div class="widget-content">
+                            <?php $grw_widget = new Goog_Reviews_Widget; $grw_widget->form(array()); ?>
+                        </div>
+                    </div>
+                    <div class="rplg-flex-col6">
+                        <div class="shortcode-content">
+                            <textarea id="rplg_shortcode" style="display:block;width:100%;height:200px;padding:10px" onclick="window.rplg_shortcode.select();document.execCommand('copy');window.rplg_shortcode_msg.innerHTML='Shortcode copied, please paste it to the page content';" readonly>Connect Google place to show the shortcode</textarea>
+                            <p id="rplg_shortcode_msg"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="support" class="tab-content" style="display:<?php echo $tab == 'support' ? 'block' : 'none'?>;">
@@ -275,7 +287,11 @@ $grw_google_api_key = get_option('grw_google_api_key');
                     <div class="rplg-flex-col">
                         <div class="rplg-support-question">
                             <h3>Why I see only 5 Google reviews?</h3>
-                            <p>The plugin uses the Google Places API to get your reviews. The API only returns the 5 most helpful reviews. Unfortunately, it is a limitation of Google, not specifically the plugin.</p>
+                            <p>The plugin uses the Google Places API to get your reviews. The API only returns the 5 most helpful reviews. When Google changes the 5 most helpful the plugin will automatically add the new one to your database. Thus slowly building up a database of reviews. It's a limitation of Google, not specifically the plugin.</p>
+                            <p>The plugin can only download what Google returns in their Places API. It is usually the 5 Most Helpful (not newest) reviews. You can check what the API returns by entering your Place ID and Goolge API key in this url:</p>
+                            <code>https://maps.googleapis.com/maps/api/place/details/json?placeid=YOUR_PLACE_ID&key=YOUR_GOOGLE_API_KEY</code>
+                            <p>However, if you got new reviews for your Google place, but the plugin does not show these, it means that Google didn't include it to 5 most helpful and the plugin just can't get this. It's a limitation of Google, not the plugin.</p>
+                            <p>Also, please check that the 'Refresh' option is enable in the widget. It will call the Google API once in three days (to avoid a Google Billing and keeps the API key is free) to check the new most helpful reviews.</p>
                         </div>
                     </div>
                     <div class="rplg-flex-col">
@@ -364,6 +380,32 @@ jQuery(document).ready(function($) {
         $(activeId).show().siblings('.tab-content').hide();
         $this.addClass('nav-tab-active').siblings().removeClass('nav-tab-active');
         e.preventDefault();
+    });
+
+    var el = document.body.querySelector('.widget-content'),
+        elms = '.widget-content input[type="text"][name],' +
+               '.widget-content input[type="hidden"][name],' +
+               '.widget-content input[type="checkbox"][name]';
+
+    $(elms).change(function() {
+        if (!this.getAttribute('name')) return;
+        if (!el.querySelector('.grw-google-place-id').value) return;
+
+        var args = '',
+            ctrls = el.querySelectorAll(elms);
+        for (var i = 0; i < ctrls.length; i++) {
+            var ctrl = ctrls[i],
+                match = ctrl.getAttribute('name').match(/\[\]\[(.*?)\]/);
+            if (match && match.length > 1) {
+                var name = match[1];
+                if (ctrl.type == 'checkbox') {
+                    if (ctrl.checked) args += ' ' + name + '=true';
+                } else {
+                    if (ctrl.value) args += ' ' + name + '=' + '"' + ctrl.value + '"';
+                }
+            }
+        }
+        window.rplg_shortcode.value = '[grw' + args + ']';
     });
 });
 </script>

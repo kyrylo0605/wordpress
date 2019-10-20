@@ -91,7 +91,7 @@ function fbrev_init(data) {
     jQuery(document).ready(function($) {
 
         var file_frame;
-        $('.fbrev-business-photo-btn', el).on('click', function(e) {
+        $('.fbrev-page-photo-btn', el).on('click', function(e) {
             e.preventDefault();
             if (file_frame) {
                 file_frame.open();
@@ -105,12 +105,15 @@ function fbrev_init(data) {
             });
 
             file_frame.on('select', function() {
-                var place_photo_hidden = $('.fbrev-business-photo', el),
-                    place_photo_img = $('.fbrev-business-photo-img', el);
+                var place_photo_hidden = $('.fbrev-page-photo', el),
+                    place_photo_img = $('.fbrev-page-photo-img', el);
                 attachment = file_frame.state().get('selection').first().toJSON();
                 place_photo_hidden.val(attachment.url);
                 place_photo_img.attr('src', attachment.url);
                 place_photo_img.show();
+
+                // To make 'Save' button enable in the widget
+                jQuery(place_photo_hidden).change();
 
                 data.cb && data.cb();
             });

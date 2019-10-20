@@ -1,8 +1,8 @@
 <?php
-function fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofollow_link, $show_powered = true) {
+function fbrev_page($page_id, $page_name, $page_img, $rating, $open_link, $nofollow_link, $show_powered = true) {
     ?>
     <div class="wp-facebook-left">
-        <img src="https://graph.facebook.com/<?php echo $page_id; ?>/picture" alt="<?php echo $page_name; ?>">
+        <img src="<?php echo $page_img; ?>" alt="<?php echo $page_name; ?>">
     </div>
     <div class="wp-facebook-right">
         <div class="wp-facebook-name">

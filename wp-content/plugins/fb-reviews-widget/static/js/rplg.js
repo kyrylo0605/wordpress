@@ -1,9 +1,41 @@
+function rplg_badge_init(el, name, root_class) {
+    var btn = el.querySelector('.wp-' + name + '-badge'),
+        form = el.querySelector('.wp-' + name + '-form');
+
+    if (!btn || !form) return;
+
+    var wpac = document.createElement('div');
+    wpac.className = root_class + ' wpac';
+
+    if (btn.className.indexOf('-fixed') > -1) {
+        wpac.appendChild(btn);
+    }
+    wpac.appendChild(form);
+    document.body.appendChild(wpac);
+
+    btn.onclick = function() {
+        rplg_load_imgs(wpac);
+        form.style.display='block';
+    };
+}
+
+function rplg_load_imgs(el) {
+    var imgs = el.querySelectorAll('img.rplg-blazy[data-src]');
+    for (var i = 0; i < imgs.length; i++) {
+        imgs[i].setAttribute('src', imgs[i].getAttribute('data-src'));
+        imgs[i].removeAttribute('data-src');
+    }
+}
+
 function rplg_next_reviews(name, pagin) {
     var parent = this.parentNode,
         selector = '.wp-' + name + '-review.wp-' + name + '-hide';
         reviews = parent.querySelectorAll(selector);
     for (var i = 0; i < pagin && i < reviews.length; i++) {
-        reviews[i] && (reviews[i].className = reviews[i].className.replace('wp-' + name + '-hide', ' '));
+        if (reviews[i]) {
+            reviews[i].className = reviews[i].className.replace('wp-' + name + '-hide', ' ');
+            rplg_load_imgs(reviews[i]);
+        }
     }
     reviews = parent.querySelectorAll(selector);
     if (reviews.length < 1) {
@@ -29,6 +61,21 @@ function _rplg_popup(url, width, height, prms, top, left) {
     return window.open(url, '', 'location=1,status=1,resizable=yes,width='+width+',height='+height+',top='+top+',left='+left);
 }
 
+function _rplg_timeago(els) {
+    for (var i = 0; i < els.length; i++) {
+        var clss = els[i].className, time;
+        if (clss.indexOf('google') > -1) {
+            time = parseInt(els[i].getAttribute('data-time'));
+            time *= 1000;
+        } else if (clss.indexOf('facebook') > -1) {
+            time = new Date(els[i].getAttribute('data-time').replace(/\+\d+$/, '')).getTime();
+        } else {
+            time = new Date(els[i].getAttribute('data-time').replace(/ /, 'T')).getTime();
+        }
+        els[i].innerHTML = WPacTime.getTime(time, _rplg_lang(), 'ago');
+    }
+}
+
 function _rplg_init_blazy(attempts) {
     if (!window.Blazy) {
         if (attempts > 0) {
@@ -40,18 +87,6 @@ function _rplg_init_blazy(attempts) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var reviewTimes = document.querySelectorAll('.wpac [data-time]');
-    for (var i = 0; i < reviewTimes.length; i++) {
-        var clss = reviewTimes[i].className, time;
-        if (clss.indexOf('google') > -1) {
-            time = parseInt(reviewTimes[i].getAttribute('data-time'));
-            time *= 1000;
-        } else if (clss.indexOf('facebook') > -1) {
-            time = new Date(reviewTimes[i].getAttribute('data-time').replace(/\+\d+$/, '') + '.000Z').getTime();
-        } else {
-            time = new Date(reviewTimes[i].getAttribute('data-time').replace(/ /, 'T')).getTime();
-        }
-        reviewTimes[i].innerHTML = WPacTime.getTime(time, _rplg_lang(), 'ago');
-    }
+    _rplg_timeago(document.querySelectorAll('.wpac [data-time]'));
     _rplg_init_blazy(10);
 });

@@ -42,14 +42,17 @@ class AWS_Admin {
     * Constructor
     */
     public function __construct() {
+
         add_action( 'admin_menu', array( &$this, 'add_admin_page' ) );
         add_action( 'admin_init', array( &$this, 'register_settings' ) );
 
-        if ( ! get_option( 'aws_settings' ) ) {
-            $this->initialize_settings();
+        if ( ! AWS_Admin_Options::get_settings() ) {
+            $default_settings = AWS_Admin_Options::get_default_settings();
+            update_option( 'aws_settings', $default_settings );
         }
 
         add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+
     }
 
     /**
@@ -64,7 +67,6 @@ class AWS_Admin {
      */
     public function display_admin_page() {
 
-        $options = $this->options_array();
         $nonce = wp_create_nonce( 'plugin-settings' );
 
         $tabs = array(
@@ -86,58 +88,8 @@ class AWS_Admin {
 
         $tabs_html = '<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">'.$tabs_html.'</h2>';
 
-
         if ( isset( $_POST["Submit"] ) && current_user_can( 'manage_options' ) && isset( $_POST["_wpnonce"] ) && wp_verify_nonce( $_POST["_wpnonce"], 'plugin-settings' ) ) {
-
-            $update_settings = $this->get_settings();
-
-            foreach ( $options[$current_tab] as $values ) {
-
-                if ( $values['type'] === 'heading' ) {
-                    continue;
-                }
-
-                if ( $values['type'] === 'checkbox' ) {
-
-                    $checkbox_array = array();
-
-                    foreach ( $values['choices'] as $key => $value ) {
-                        $new_value = isset( $_POST[ $values['id'] ][$key] ) ? '1' : '0';
-                        $checkbox_array[$key] = (string) sanitize_text_field( $new_value );
-                    }
-
-                    $update_settings[ $values['id'] ] = $checkbox_array;
-
-                    continue;
-                }
-
-                $new_value = isset( $_POST[ $values['id'] ] ) ? $_POST[ $values['id'] ] : '';
-
-                if ( $values['type'] === 'textarea' ) {
-                    if ( function_exists('sanitize_textarea_field') ) {
-                        $update_settings[ $values['id'] ] = (string) sanitize_textarea_field( $new_value );
-                    } else {
-                        $update_settings[ $values['id'] ] = (string) str_replace( "<\n", "&lt;\n", wp_strip_all_tags( $new_value ) );
-                    }
-                    continue;
-                }
-
-                $update_settings[ $values['id'] ] = (string) sanitize_text_field( $new_value );
-
-                if ( isset( $values['sub_option'] ) ) {
-                    $new_value = isset( $_POST[ $values['sub_option']['id'] ] ) ? $_POST[ $values['sub_option']['id'] ] : '';
-                    $update_settings[ $values['sub_option']['id'] ] = (string) sanitize_text_field( $new_value );
-                }
-            }
-
-            update_option( 'aws_settings', $update_settings );
-
-            AWS_Helpers::register_wpml_translations( $update_settings );
-
-            do_action( 'aws_settings_saved' );
-            
-            do_action( 'aws_cache_clear' );
-
+            AWS_Admin_Options::update_settings();
         }
 
         echo '<div class="wrap">';
@@ -152,14 +104,14 @@ class AWS_Admin {
 
         switch ($current_tab) {
             case('form'):
-                new AWS_Admin_Fields( $options['form'] );
+                new AWS_Admin_Fields( 'form' );
                 break;
             case('results'):
-                new AWS_Admin_Fields( $options['results'] );
+                new AWS_Admin_Fields( 'results' );
                 break;
             default:
                 $this->update_table();
-                new AWS_Admin_Fields( $options['general'] );
+                new AWS_Admin_Fields( 'general' );
         }
 
         echo '<input type="hidden" name="_wpnonce" value="' . esc_attr( $nonce ) . '">';
@@ -226,16 +178,6 @@ class AWS_Admin {
     }
 
     /*
-	 * Options array that generate settings page
-	 */
-    public function options_array() {
-
-        require_once AWS_DIR .'/includes/options.php';
-
-        return $options;
-    }
-
-    /*
 	 * Register plugin settings
 	 */
     public function register_settings() {
@@ -248,40 +190,6 @@ class AWS_Admin {
     public function get_settings() {
         $plugin_options = get_option( 'aws_settings' );
         return $plugin_options;
-    }
-
-    /**
-     * Initialize settings to their default values
-     */
-    public function initialize_settings() {
-        $options = $this->options_array();
-        $default_settings = array();
-
-        foreach ( $options as $section ) {
-            foreach ($section as $values) {
-
-                if ( $values['type'] === 'heading' ) {
-                    continue;
-                }
-
-                if ( $values['type'] === 'textarea' ) {
-                    if ( function_exists('sanitize_textarea_field') ) {
-                        $default_settings[ $values['id'] ] = (string) sanitize_textarea_field( $values['value'] );
-                    } else {
-                        $default_settings[ $values['id'] ] = (string) str_replace( "<\n", "&lt;\n", wp_strip_all_tags( $values['value'] ) );
-                    }
-                    continue;
-                }
-
-                $default_settings[$values['id']] = (string) sanitize_text_field( $values['value'] );
-
-                if (isset( $values['sub_option'])) {
-                    $default_settings[$values['sub_option']['id']] = (string) sanitize_text_field( $values['sub_option']['value'] );
-                }
-            }
-        }
-
-        update_option( 'aws_settings', $default_settings );
     }
 
     /*

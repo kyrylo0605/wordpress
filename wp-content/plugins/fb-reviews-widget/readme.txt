@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.2
-Stable tag: 1.6.1
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,7 @@ Why better to use <a href="https://richplugins.com/business-reviews-bundle-wordp
 
 * Free!
 * SEO
+* Shortcode support!
 * Trim long reviews with "read more" link
 * Support page builders: Elementor, SiteOrigin, Beaver Builder, WPBakery, Divi and others
 * Display all Facebook page reviews per location
@@ -44,7 +45,7 @@ Why better to use <a href="https://richplugins.com/business-reviews-bundle-wordp
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Display all Google and Facebook reviews
 * Google Rich Snippets (schema.org)
-* Support shortcode, powerful <b>Collection Builder</b>
+* Powerful <b>Collection Builder</b>
 * Slider/Grid themes to show G+ reviews like testimonials
 * Facebook Trust Badge (right/left float or embedded)
 * 'Write a review' button to available leave Google review directly on your website
@@ -75,6 +76,21 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.6.4 =
+* Bugfix: is_admin checks for notice
+
+= 1.6.3 =
+* Improve: shortcode support bugfix
+* Improve: upload page photo bugfix
+* Bugfix: remove undefined grw_i function
+
+= 1.6.2 =
+* Improve: shortcode support
+* Improve: upload page photo
+* Improve: added new locale bg_BG
+* Improve: admin notie
+* Bugfix: undefined widget property in Elementor
 
 = 1.6.1 =
 * Bugfix: some style fixes

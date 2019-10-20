@@ -7,6 +7,10 @@
   clear: both;
 }
 
+.form-group {
+  position: relative;
+}
+
 .widget-content .form-group {
   margin: 10px 0 0;
 }
@@ -26,14 +30,6 @@
 /*-------------------------------- Commons --------------------------------*/
 .rplg-widget {
   margin: 10px 0;
-}
-
-.rplg-options-toggle {
-  padding: 10px;
-  margin: 10px 0 0;
-  cursor: pointer;
-  border: 1px solid #dbdbdb;
-  background: #eee url('../img/button-down-black.svg') no-repeat right;
 }
 
 .rplg-options {
@@ -57,108 +53,129 @@
   text-decoration: underline;
 }
 
+.rplg-quest {
+  position: absolute;
+  top: -2px;
+  right: 2px;
+  width: 16px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  background: #eee;
+}
+
+.rplg-quest + div {
+  padding: 6px;
+  margin: 5px 0 0;
+  border-radius: 2px;
+  background: #eee;
+}
+
 /*-------------------------------- google finder --------------------------------*/
 .grw-step {
-    display: inline-block;
-    width: 20px;
-    line-height: 20px;
-    padding: 2px;
-    margin: 0 6px 0 0;
-    text-align: center;
-    background: #ffe045;
-    border-radius: 50%;
+  display: inline-block;
+  width: 20px;
+  line-height: 20px;
+  padding: 2px;
+  margin: 0 6px 0 0;
+  text-align: center;
+  background: #ffe045;
+  border-radius: 50%;
 }
 
 #shortcode .grw-step,
 #shortcode .yrw-step {
-    width: 28px;
-    padding: 4px;
+  width: 28px;
+  padding: 4px;
 }
 
 .grw-places, .grw-reviews {
-    max-height: 200px;
-    overflow: auto;
-    border: 1px solid #f3f3f3;
+  max-height: 200px;
+  overflow: auto;
+  border: 1px solid #f3f3f3;
 }
 
 .grw-place {
-    margin: 0;
-    padding: 6px;
-    cursor: pointer;
+  margin: 0;
+  padding: 6px;
+  cursor: pointer;
 }
 
 .grw-place img {
-    border: none;
-    float: left;
-    height: 40px;
-    margin-right: 5px;
-    width: 40px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+  border: none;
+  float: left;
+  height: 40px;
+  margin-right: 5px;
+  width: 40px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }
 
 .grw-place .media-body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .grw-place .media-heading {
-    margin: 0;
-    padding-right: 6px;
-    font-size: 13px;
-    font-weight: bold;
+  margin: 0;
+  padding-right: 6px;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .grw-place .grw-grating {
-    font-size: 12px;
-    font-weight: 700;
-    color: #e7711b;
-    margin: 0 6px 0 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #e7711b;
+  margin: 0 6px 0 0;
 }
 
 .grw-place .grw-gstars {
-    padding-left: 7px;
+  padding-left: 7px;
 }
 
 .grw-place small {
-    display: block;
-    font-size: 11px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  display: block;
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .grw-place:hover {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 .grw-place.grw-active {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .grw-place .grw-gtime {
-    color: #999;
-    font-size: 13px;
-    text-decoration: none;
+  color: #999;
+  font-size: 13px;
+  text-decoration: none;
 }
 
 .grw-place .grw-gtext {
-    color: #222;
-    font-size: 13px;
-    line-height: 18px;
-    max-width: 100%;
-    overflow: hidden;
-    white-space: pre-wrap;
+  color: #222;
+  font-size: 13px;
+  line-height: 18px;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
 }
 
 .grw-five-reviews-note {
-    margin: 4px 0;
-    color: #d32323;
-    text-align: center;
+  margin: 4px 0;
+  color: #d32323;
+  text-align: center;
 }
 
 .grw-save-reviews-container {
-    position: relative;
+  position: relative;
 }
 
 .grw-tooltip {
@@ -236,95 +253,95 @@
 
 /*-------------------------------- yelp finder --------------------------------*/
 .yrw-step {
-    display: inline-block;
-    width: 20px;
-    line-height: 20px;
-    padding: 2px;
-    margin: 0 6px 0 0;
-    text-align: center;
-    background: #ffe045;
-    border-radius: 50%;
+  display: inline-block;
+  width: 20px;
+  line-height: 20px;
+  padding: 2px;
+  margin: 0 6px 0 0;
+  text-align: center;
+  background: #ffe045;
+  border-radius: 50%;
 }
 
 .yrw-businesses, .yrw-reviews {
-    max-height: 200px;
-    overflow: auto;
-    border: 1px solid #f3f3f3;
+  max-height: 200px;
+  overflow: auto;
+  border: 1px solid #f3f3f3;
 }
 
 .yrw-business {
-    margin: 0;
-    padding: 6px;
-    cursor: pointer;
+  margin: 0;
+  padding: 6px;
+  cursor: pointer;
 }
 
 .yrw-business img {
-    border: none;
-    float: left;
-    height: 40px;
-    margin-right: 5px;
-    width: 40px;
-    width: 20px;
-    height: 20px;
+  border: none;
+  float: left;
+  height: 40px;
+  margin-right: 5px;
+  width: 40px;
+  width: 20px;
+  height: 20px;
 }
 
 .yrw-business .media-body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .yrw-business .media-heading {
-    margin: 0;
-    padding-right: 6px;
-    font-size: 13px;
-    font-weight: bold;
+  margin: 0;
+  padding-right: 6px;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .yrw-business .yrw-yrating {
-    font-size: 12px;
-    font-weight: 700;
-    color: #d32323;
-    margin: 0 6px 0 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #d32323;
+  margin: 0 6px 0 0;
 }
 
 .yrw-business .yrw-ystars {
-    padding-left: 7px;
+  padding-left: 7px;
 }
 
 .yrw-business small {
-    display: block;
-    font-size: 11px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  display: block;
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .yrw-business:hover {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 .yrw-business.yrw-active {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .yrw-business .yrw-ytime {
-    color: #999;
-    font-size: 13px;
-    text-decoration: none;
+  color: #999;
+  font-size: 13px;
+  text-decoration: none;
 }
 
 .yrw-business .yrw-ytext {
-    color: #222;
-    font-size: 13px;
-    line-height: 18px;
-    max-width: 100%;
-    overflow: hidden;
-    white-space: pre-wrap;
+  color: #222;
+  font-size: 13px;
+  line-height: 18px;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
 }
 
 .yrw-three-reviews-note {
-    margin: 4px 0;
-    color: #d32323;
-    text-align: center;
+  margin: 4px 0;
+  color: #d32323;
+  text-align: center;
 }
 
 .yrw-tooltip {
@@ -408,7 +425,7 @@
 }
 
 #shortcode .fbrev-connect {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .fbrev-pages .fbrev-page {
@@ -432,5 +449,6 @@
 }
 
 .fbrev-pages span {
+  display: inline-block;
   margin: 4px 16px;
 }

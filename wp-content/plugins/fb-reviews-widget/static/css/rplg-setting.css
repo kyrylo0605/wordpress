@@ -110,6 +110,9 @@
     .rplg-flex-col3 {
         width: 33.3%;
     }
+    .rplg-flex-col6 {
+        width: 66.7%;
+    }
 }
 
 .rplg-support-question {
@@ -137,6 +140,12 @@
     background-color: #4caf50;
 }
 
+.rplg-alert-danger {
+    color: #e51c23;
+    border-color: #f7a4af;
+    background-color: #f9bdbb;
+}
+
 .rplg-alert a:not(.close),
 .rplg-alert .alert-link {
     color: #fff;
@@ -145,4 +154,15 @@
 
 .rplg-socials > * {
     vertical-align: middle!important;
+}
+
+.rplg-setting .widget-content,
+.rplg-setting .shortcode-content {
+    padding: 0 20px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+.rplg-setting .shortcode-content {
+    padding: 20px 20px 0;
 }

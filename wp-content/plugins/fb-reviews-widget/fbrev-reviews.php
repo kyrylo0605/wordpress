@@ -24,6 +24,8 @@ if (count($reviews) > 0) {
     $rating = number_format((float)$rating, 1, '.', '');
 }
 
+$page_img = strlen($page_photo) > 0 ? $page_photo : 'https://graph.facebook.com/' . $page_id . '/picture';
+
 if (is_numeric($max_width)) {
     $max_width = $max_width . 'px';
 }
@@ -35,7 +37,7 @@ if (is_numeric($max_height)) {
 <div class="wp-fbrev wpac" style="<?php if (isset($max_width) && strlen($max_width) > 0) { ?>width:<?php echo $max_width;?>!important;<?php } ?><?php if (isset($max_height) && strlen($max_height) > 0) { ?>height:<?php echo $max_height;?>!important;overflow-y:auto!important;<?php } ?><?php if ($centered) { ?>margin:0 auto!important;<?php } ?>">
     <div class="wp-facebook-list<?php if ($dark_theme) { ?> wp-dark<?php } ?>">
         <div class="wp-facebook-place">
-            <?php fbrev_page($page_id, $page_name, $rating, $reviews, $open_link, $nofollow_link); ?>
+            <?php fbrev_page($page_id, $page_name, $page_img, $rating, $open_link, $nofollow_link); ?>
         </div>
         <div class="wp-facebook-content-inner">
             <?php fbrev_page_reviews($page_id, $reviews, $text_size, $pagination, $disable_user_link, $open_link, $nofollow_link, $lazy_load_img); ?>

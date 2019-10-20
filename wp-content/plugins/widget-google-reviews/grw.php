@@ -4,7 +4,7 @@ Plugin Name: Google Reviews Widget
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.7.7
+Version: 1.7.9
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',            '1.7.7');
+define('GRW_VERSION',            '1.7.9');
 define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s50-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -24,6 +24,9 @@ function grw_options() {
         'grw_active',
         'grw_google_api_key',
         'grw_language',
+        'grw_activation_time',
+        'grw_rev_notice_hide',
+        'rplg_rev_notice_show',
     );
 }
 
@@ -81,6 +84,9 @@ add_filter('plugin_row_meta', 'grw_plugin_row_meta', 10, 2);
 
 /*-------------------------------- Database --------------------------------*/
 function grw_activation($network_wide = false) {
+    $now = time();
+    update_option('grw_activation_time', $now);
+
     add_option('grw_is_multisite', $network_wide);
     if (grw_does_need_update()) {
         grw_install();
@@ -194,6 +200,35 @@ function grw_reset_data($reset_db) {
         $wpdb->query("DROP TABLE IF EXISTS " . $wpdb->prefix . "grp_google_review;");
     }
 }
+
+/*-------------------------------- Shortcode --------------------------------*/
+function grw_shortcode($atts) {
+    global $wpdb;
+
+    if (!grw_enabled()) return '';
+
+    $shortcode_atts = array();
+    foreach (Goog_Reviews_Widget::$widget_fields as $field => $value) {
+        $shortcode_atts[$field] = isset($atts[$field]) ? strip_tags(stripslashes($atts[$field])) : '';
+    }
+
+    foreach ($shortcode_atts as $variable => $value) {
+        ${$variable} = esc_attr($shortcode_atts[$variable]);
+    }
+
+    ob_start();
+    if (empty($place_id)) {
+        ?>
+        <div class="grw-error" style="padding:10px;color:#b94a48;background-color:#f2dede;border-color:#eed3d7;max-width:200px;">
+            <?php echo grw_i('<b>Google Reviews Business</b>: required attribute place_id is not defined'); ?>
+        </div>
+        <?php
+    } else {
+        include(dirname(__FILE__) . '/grw-reviews.php');
+    }
+    return preg_replace('/[\n\r]/', '', ob_get_clean());
+}
+add_shortcode("grw", "grw_shortcode");
 
 /*-------------------------------- Request --------------------------------*/
 function grw_request_handler() {
@@ -408,6 +443,49 @@ function grw_lang_init() {
     load_plugin_textdomain('grw', false, basename( dirname( __FILE__ ) ) . '/languages');
 }
 add_action('plugins_loaded', 'grw_lang_init');
+
+/*-------------------------------- Leave review --------------------------------*/
+function grw_admin_notice() {
+    if (!is_admin()) return;
+
+    $activation_time = get_option('grw_activation_time');
+
+    if ($activation_time == '') {
+        $activation_time = time() - 86400*28;
+        update_option('grw_activation_time', $activation_time);
+    }
+
+    $rev_notice = isset($_GET['grw_rev_notice']) ? $_GET['grw_rev_notice'] : '';
+    if ($rev_notice == 'later') {
+        $activation_time = time() - 86400*23;
+        update_option('grw_activation_time', $activation_time);
+        update_option('grw_rev_notice_hide', 'later');
+    } else if ($rev_notice == 'never') {
+        update_option('grw_rev_notice_hide', 'never');
+    }
+
+    $rev_notice_hide = get_option('grw_rev_notice_hide');
+    $rev_notice_show = get_option('rplg_rev_notice_show');
+
+    if ($rev_notice_show == '' || $rev_notice_show == 'grw') {
+
+        if ($rev_notice_hide != 'never' && $activation_time < (time() - 86400*30)) {
+            update_option('rplg_rev_notice_show', 'grw');
+            $class = 'notice notice-info is-dismissible';
+            $url = remove_query_arg(array('taction', 'tid', 'sortby', 'sortdir', 'opt'));
+            $url_later = esc_url(add_query_arg('grw_rev_notice', 'later', $url));
+            $url_never = esc_url(add_query_arg('grw_rev_notice', 'never', $url));
+
+            $notice = '<p style="font-weight:normal;color:#156315">Hey, I noticed you have been using my <b>Google Reviews Widget</b> plugin for a while now – that’s awesome!<br>Could you please do me a BIG favor and give it a 5-star rating on WordPress?<br><br>--<br>Thanks!<br>Daniel K.<br></p><ul style="font-weight:bold;"><li><a href="https://wordpress.org/support/plugin/widget-google-reviews/reviews/#new-post" target="_blank">OK, you deserve it</a></li><li><a href="' . $url_later . '">Not now, maybe later</a></li><li><a href="' . $url_never . '">Do not remind me again</a></li></ul><p>By the way, if you have been thinking about upgrading to the <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">Business</a> version, here is a 25% off coupon you can use! ->  <b>business25off</b></p>';
+
+            printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $notice);
+        } else {
+            update_option('rplg_rev_notice_show', '');
+        }
+
+    }
+}
+add_action('admin_notices', 'grw_admin_notice');
 
 /*-------------------------------- Helpers --------------------------------*/
 function grw_enabled() {
