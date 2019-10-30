@@ -65,7 +65,8 @@
 }
 
 /* Field description */
-.wpforms-container .wpforms-field-description {
+.wpforms-container .wpforms-field-description,
+.wpforms-container .wpforms-field-limit-text {
 	font-size: 0.85em;
 	margin: 5px 0 0 0;
 }

@@ -21,8 +21,8 @@ if( ! function_exists( 'yith_plugin_fw_promo_notices' ) ){
 	        return false;
         }
 
-		$base_url                   = apply_filters( 'yith_plugin_fw_promo_base_url', YIT_CORE_PLUGIN_PATH . '/lib/promo/' );
-		$xml                        = apply_filters( 'yith_plugin_fw_promo_xml_url', $base_url . 'yith-promo.xml' );
+		$base_url                   = apply_filters( 'yith_plugin_fw_promo_base_url', YIT_CORE_PLUGIN_URL . '/lib/promo/' );
+		$xml                        = apply_filters( 'yith_plugin_fw_promo_xml_url', YIT_CORE_PLUGIN_PATH . '/lib/promo/yith-promo.xml' );
 		$transient                  = "yith_promo_message";
 		$remote_data                = get_site_transient( $transient );
 		$regenerate_promo_transient = isset( $_GET['yith_regenerate_promo_transient'] ) && 'yes' == $_GET['yith_regenerate_promo_transient'] ? $_GET['yith_regenerate_promo_transient'] : '';

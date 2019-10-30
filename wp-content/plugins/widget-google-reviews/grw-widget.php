@@ -28,6 +28,7 @@ class Goog_Reviews_Widget extends WP_Widget {
         'open_link'            => true,
         'nofollow_link'        => true,
         'lazy_load_img'        => true,
+        'def_reviews_link'     => false,
         'reviews_lang'         => '',
     );
 

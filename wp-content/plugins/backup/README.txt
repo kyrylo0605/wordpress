@@ -158,6 +158,9 @@ When you are facing an issue of any kind with any of our products, the first thi
 
 == Changelog ==
 
+= 1.1.90 =
+* Halloween campaign
+
 = 1.1.89 =
 * Conflicts were resolved
 

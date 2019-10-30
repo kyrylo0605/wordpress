@@ -172,6 +172,93 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				boxWidth: '400px',
 				animateFromElement: false
 			};
+
+			$builder.on(
+				'change',
+				'.wpforms-field-option-row-limit_enabled input',
+				function( event ) {
+					app.updateTextFieldsLimitControls( $( event.target ).parents( '.wpforms-field-option-row-limit_enabled' ).data().fieldId, event.target.checked );
+				}
+			);
+
+			// File uploader - change style.
+			$builder
+				.on(
+					'change',
+					'.wpforms-field-option-file-upload .wpforms-field-option-row-style select, .wpforms-field-option-file-upload .wpforms-field-option-row-max_file_number input',
+					function( event ) {
+						app.fieldFileUploadPreviewUpdate( event.target );
+					}
+				);
+		},
+
+		/**
+		 * Update upload selector.
+		 *
+		 * @since 1.5.6
+		 *
+		 * @param {object} target Changed :input.
+		 */
+		fieldFileUploadPreviewUpdate: function( target ) {
+
+			var $options = $( target ).parents( '.wpforms-field-option-file-upload' );
+			var fieldId = $options.data( 'field-id' );
+
+			var styleOption = $options.find( '#wpforms-field-option-' + fieldId + '-style' ).val();
+			var $maxFileNumberRow = $options.find( '#wpforms-field-option-row-' + fieldId + '-max_file_number' );
+			var maxFileNumber = parseInt( $maxFileNumberRow.find( 'input' ).val(), 10 );
+
+			var $preview = $( '#wpforms-field-' + fieldId );
+			var classicPreview = '.wpforms-file-upload-builder-classic';
+			var modernPreview = '.wpforms-file-upload-builder-modern';
+
+			if ( styleOption === 'classic' ) {
+				$( classicPreview, $preview ).removeClass( 'wpforms-hide' );
+				$( modernPreview, $preview ).addClass( 'wpforms-hide' );
+				$maxFileNumberRow.addClass( 'wpforms-row-hide' );
+			} else {
+
+				// Change hint and title.
+				if ( maxFileNumber > 1 ) {
+					$preview
+						.find( '.modern-title' )
+						.text( wpforms_builder.file_upload.preview_title_plural );
+					$preview
+						.find( '.modern-hint' )
+						.text( wpforms_builder.file_upload.preview_hint.replace( '{maxFileNumber}', maxFileNumber ) )
+						.removeClass( 'wpforms-hide' );
+				} else {
+					$preview
+						.find( '.modern-title' )
+						.text( wpforms_builder.file_upload.preview_title_single );
+					$preview
+						.find( '.modern-hint' )
+						.text( wpforms_builder.file_upload.preview_hint.replace( '{maxFileNumber}', 1 ) )
+						.addClass( 'wpforms-hide' );
+				}
+
+				// Display the preview.
+				$( classicPreview, $preview ).addClass( 'wpforms-hide' );
+				$( modernPreview, $preview ).removeClass( 'wpforms-hide' );
+				$maxFileNumberRow.removeClass( 'wpforms-row-hide' );
+			}
+		},
+
+		/**
+		 * Update limit controls by changing checkbox.
+		 *
+		 * @since 1.5.6
+		 *
+		 * @param {number} id Field id.
+		 * @param {bool} checked Whether an option is checked or not.
+		 */
+		updateTextFieldsLimitControls: function( id, checked ) {
+
+			if ( ! checked ) {
+				$( '#wpforms-field-option-row-' + id + '-limit_controls' ).addClass( 'wpforms-hide' );
+			} else {
+				$( '#wpforms-field-option-row-' + id + '-limit_controls' ).removeClass( 'wpforms-hide' );
+			}
 		},
 
 		/**
@@ -1262,7 +1349,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 
 			var $btn = $( '#wpforms-add-fields-' + type );
 
-			if ( $btn.hasClass( 'upgrade-modal' ) || $btn.hasClass( 'education-modal' ) ) {
+			if ( $btn.hasClass( 'upgrade-modal' ) || $btn.hasClass( 'education-modal' ) || $btn.hasClass( 'warning-modal' ) ) {
 				return;
 			}
 
@@ -1438,7 +1525,7 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				   }
 			});
 
-			$('.wpforms-add-fields-button').not('.upgrade-modal').draggable({
+			$('.wpforms-add-fields-button').not('.upgrade-modal').not('.warning-modal').draggable({
 				connectToSortable: '.wpforms-field-wrap',
 				delay: 200,
 				helper: function(event) {

@@ -39,8 +39,6 @@ if ( ! class_exists( 'AWS_Plurals' ) ) :
             '/(tive)s$/i' => '\1',
             '/(hive)s$/i' => '\1',
             '/(drive)s$/i' => '\1',
-            '/([le])ves$/i' => '\1f',
-            '/([^rfoa])ves$/i' => '\1fe',
             '/(^analy)ses$/i' => '\1sis',
             '/(analy|diagno|^ba|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$/i' => '\1\2sis',
             '/([ti])a$/i' => '\1um',

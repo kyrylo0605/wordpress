@@ -1,10 +1,10 @@
 === Contact Form by WPForms - Drag & Drop Form Builder for WordPress ===
 Contributors: wpforms, jaredatch, smub, slaFFik
 Tags: contact form, contact form plugin, forms, form builder, custom form, contact button, contact me, custom contact form, form manager, form, forms builder, forms creator, captcha, recaptcha, Akismet, email form, web form, feedback form, payment form, survey form, donation form, email submit form, message form, mailchimp, mailchimp form, aweber, aweber form, paypal, paypal form, stripe, stripe form, getresponse, getresponse form, email subscription, contact form widget, user registration form, wordpress registration, wordpress login form, feedback
-Requires at least: 4.8
+Requires at least: 4.9
 Tested up to: 5.2
-Stable tag: 1.5.5.1
-Requires PHP: 5.3.3
+Stable tag: 1.5.6
+Requires PHP: 5.4
 License: GNU General Public License v2.0 or later
 
 The best WordPress contact form plugin. Drag & Drop online form builder that helps you create beautiful contact forms with just a few clicks.
@@ -400,6 +400,13 @@ Thank you
 Syed Balkhi
 
 == Changelog ==
+
+= 1.5.6 =
+- IMPORANT: Support for PHP 5.3 has been discontinued. If you are running PHP 5.3, you MUST upgrade PHP before installing WPForms 1.5.6. Failure to do that will disable WPForms core functionality.
+- Added: Single Line Text/Paragraph fields limitation options (limit by character or word count).
+- Added: "Community" sub-menu page for easy access to helpful resources and links.
+- Changed: Minimum PHP version requirement is now PHP 5.4.
+- Changed: Minimum WordPress version requirement is now WordPress 4.9.
 
 = 1.5.5.1 =
 - Fixed: Broken reCAPTCHA checkbox in Builder > Settings > General if reCAPTCHA type does not set in WPForms > Settings.

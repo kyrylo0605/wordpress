@@ -22,7 +22,7 @@ function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_pow
     <?php
 }
 
-function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img) {
+function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img, $def_reviews_link) {
     ?>
     <div class="wp-google-reviews">
     <?php
@@ -78,7 +78,8 @@ function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination,
         <?php echo grw_i('Next Reviews'); ?>
     </a>
     <?php } else {
-    grw_anchor('https://search.google.com/local/reviews?placeid=' . $place_id, 'wp-google-url', grw_i('See All Reviews'), true, true);
+    $reviews_link = $def_reviews_link ? $place->url : 'https://search.google.com/local/reviews?placeid=' . $place_id;
+    grw_anchor($reviews_link, 'wp-google-url', grw_i('See All Reviews'), true, true);
     }
 }
 

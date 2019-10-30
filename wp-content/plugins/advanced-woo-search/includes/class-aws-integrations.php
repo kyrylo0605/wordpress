@@ -66,6 +66,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 add_filter( 'aws_search_pre_filter_products', array( $this, 'wc_marketplace_products_filter' ), 10, 2 );
             }
 
+            // Maya shop theme
+            if ( defined( 'YIW_THEME_PATH' ) ) {
+                add_action( 'wp_head', array( $this, 'myashop_head_action' ) );
+            }
+
             // Porto theme
             add_filter( 'porto_search_form_content', array( $this, 'porto_search_form_content_filter' ) );
 
@@ -76,6 +81,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             if ( AWS()->get_settings( 'seamless' ) === 'true' ) {
                 add_filter( 'et_html_main_header', array( $this, 'et_html_main_header' ) );
                 add_filter( 'et_html_slide_header', array( $this, 'et_html_main_header' ) );
+                add_filter( 'generate_navigation_search_output', array( $this, 'generate_navigation_search_output' ) );
             }
 
             // Wholesale plugin hide certain products
@@ -318,6 +324,40 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         }
 
         /*
+         * Maya shop theme support
+         */
+        public function myashop_head_action() { ?>
+
+            <style>
+                #header .aws-container {
+                    margin: 0;
+                    position: absolute;
+                    right: 0;
+                    bottom: 85px;
+                }
+
+                @media only screen and (max-width: 960px) {
+                    #header .aws-container {
+                        bottom: 118px !important;
+                        right: 10px !important;
+                    }
+                }
+
+                @media only screen and (max-width: 600px) {
+                    #header .aws-container {
+                        position: relative !important;
+                        bottom: auto !important;
+                        right: auto !important;
+                        display: inline-block !important;
+                        margin-top: 20px !important;
+                        margin-bottom: 20px !important;
+                    }
+                }
+            </style>
+
+        <?php }
+
+        /*
          * Porto theme seamless integration
          */
         public function porto_search_form_content_filter( $markup ) {
@@ -408,6 +448,18 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $html = trim(preg_replace('/\s\s+/', ' ', $html));
                 $html = preg_replace( $pattern, $form, $html );
 
+            }
+            return $html;
+        }
+
+        /*
+         * Generatepress theme support
+         */
+        public function generate_navigation_search_output( $html ) {
+            if ( function_exists( 'aws_get_search_form' ) ) {
+                $html = '<style>.navigation-search .aws-container .aws-search-form{height: 60px;} .navigation-search .aws-container{margin-right: 60px;} .navigation-search .aws-container .search-field{border:none;} </style>';
+                $html .= '<div class="navigation-search">' . aws_get_search_form( false ) . '</div>';
+                $html = str_replace( 'aws-search-field', 'aws-search-field search-field', $html );
             }
             return $html;
         }

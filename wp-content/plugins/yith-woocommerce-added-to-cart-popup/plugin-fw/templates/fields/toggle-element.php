@@ -31,6 +31,7 @@ $values          = maybe_unserialize( $values );
 $sortable        = isset( $sortable ) ? $sortable : false;
 $class_wrapper   = $sortable ? 'ui-sortable' : '';
 $onoff_id        = isset( $onoff_field['id'] ) ? $onoff_field['id'] : '';
+$ajax_nonce      = wp_create_nonce( 'save-toggle-element' );
 
 if ( empty( $values ) && ! $show_add_button && $elements ) {
     $values = array();
@@ -41,7 +42,7 @@ if ( empty( $values ) && ! $show_add_button && $elements ) {
 }
 
 ?>
-<div class="yith-toggle_wrapper <?php echo $class_wrapper ?>" id="<?php echo $id ?>">
+<div class="yith-toggle_wrapper <?php echo $class_wrapper ?>" id="<?php echo $id ?>" data-nonce="<?php echo $ajax_nonce; ?>">
 	<?php
 
 	if ( $show_add_button ):

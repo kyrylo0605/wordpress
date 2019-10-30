@@ -9,6 +9,21 @@ function backupGuardShouldShowDiscountNotice()
 	return true;
 }
 
+function checkDueDateDiscount()
+{
+	$startDate = '2019-10-27';
+	$endDate = '2019-11-04';
+
+	$timezone = 'Asia/Yerevan';
+	$timeDate = new DateTime('now', new DateTimeZone($timezone));
+	$currentTime = strtotime($timeDate->format('Y-m-d H:i:s'));
+
+	$startDate = strtotime($startDate);
+	$finishDate = strtotime($endDate);
+
+	return ($currentTime > $startDate && $currentTime < $finishDate);
+}
+
 function _backupGuardT($key, $return = false)
 {
 	if (SG_ENV_ADAPTER == SG_ENV_WORDPRESS) {
@@ -204,6 +219,7 @@ function backupGuardShouldUpdate()
 
 	if ($currentVersion !== $oldVersion) {
 		SGConfig::set('SG_BACKUP_GUARD_VERSION', $currentVersion, true);
+		SGConfig::set('SG_HIDE_DISCOUNT_NOTICE', '0', true);
 		SGBoot::didUpdatePluginVersion();
 		return SG_FORCE_DB_TABLES_RESET;
 	}

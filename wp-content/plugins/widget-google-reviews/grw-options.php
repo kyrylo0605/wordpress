@@ -70,36 +70,50 @@
     </label>
 </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('reduce_avatars_size'); ?>" name="<?php echo $this->get_field_name('reduce_avatars_size'); ?>" type="checkbox" value="1" <?php checked('1', $reduce_avatars_size); ?>/>
-        <?php echo grw_i('Reduce avatars size'); ?>
-        <span class="rplg-quest rplg-toggle" title="Click to help">?</span>
-        <div style="display:none">
-            By default the Google Places API returns the reviewer's avatars of 128px in size, this option reduces the size to 50px.
-        </div>
-    </label>
-</div>
+<div class="rplg-options-toggle rplg-toggle"><?php echo grw_i('Advance Options'); ?></div>
+<div class="rplg-options" style="display:none">
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('lazy_load_img'); ?>" name="<?php echo $this->get_field_name('lazy_load_img'); ?>" type="checkbox" value="1" <?php checked('1', $lazy_load_img); ?>/>
+            <?php echo grw_i('Lazy load images'); ?>
+        </label>
+    </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('lazy_load_img'); ?>" name="<?php echo $this->get_field_name('lazy_load_img'); ?>" type="checkbox" value="1" <?php checked('1', $lazy_load_img); ?>/>
-        <?php echo grw_i('Lazy load images'); ?>
-    </label>
-</div>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('reduce_avatars_size'); ?>" name="<?php echo $this->get_field_name('reduce_avatars_size'); ?>" type="checkbox" value="1" <?php checked('1', $reduce_avatars_size); ?>/>
+            <?php echo grw_i('Reduce avatars size'); ?>
+            <span class="rplg-quest rplg-toggle" title="Click to help">?</span>
+            <div style="display:none">
+                By default the Google Places API returns the reviewer's avatars of 128px in size, this option reduces the size to 50px.
+            </div>
+        </label>
+    </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('open_link'); ?>" name="<?php echo $this->get_field_name('open_link'); ?>" type="checkbox" value="1" <?php checked('1', $open_link); ?>/>
-        <?php echo grw_i('Open links in new Window'); ?>
-    </label>
-</div>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('def_reviews_link'); ?>" name="<?php echo $this->get_field_name('def_reviews_link'); ?>" type="checkbox" value="1" <?php checked('1', $def_reviews_link); ?>/>
+            <?php echo grw_i('Use default reviews link'); ?>
+            <span class="rplg-quest rplg-toggle" title="Click to help">?</span>
+            <div style="display:none">
+                If the direct link to all reviews <b>https://search.google.com/local/reviews?placeid=&lt;PLACE_ID&gt;</b> does not work with your Google place, please use this option to use the default reviews link to Google map.
+            </div>
+        </label>
+    </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('nofollow_link'); ?>" name="<?php echo $this->get_field_name('nofollow_link'); ?>" type="checkbox" value="1" <?php checked('1', $nofollow_link); ?>/>
-        <?php echo grw_i('Use no follow links'); ?>
-    </label>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('open_link'); ?>" name="<?php echo $this->get_field_name('open_link'); ?>" type="checkbox" value="1" <?php checked('1', $open_link); ?>/>
+            <?php echo grw_i('Open links in new Window'); ?>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('nofollow_link'); ?>" name="<?php echo $this->get_field_name('nofollow_link'); ?>" type="checkbox" value="1" <?php checked('1', $nofollow_link); ?>/>
+            <?php echo grw_i('Use no follow links'); ?>
+        </label>
+    </div>
 </div>
 
 <div class="form-group">

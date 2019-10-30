@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.5.6 =
+- IMPORANT: Support for PHP 5.3 has been discontinued. If you are running PHP 5.3, you MUST upgrade PHP before installing WPForms 1.5.6. Failure to do that will disable WPForms core functionality.
+- Added: Single Line Text/Paragraph fields limitation options (limit by character or word count).
+- Added: "Community" sub-menu page for easy access to helpful resources and links.
+- Changed: Minimum PHP version requirement is now PHP 5.4.
+- Changed: Minimum WordPress version requirement is now WordPress 4.9.
+
 = 1.5.5.1 =
 - Fixed: Broken reCAPTCHA checkbox in Builder > Settings > General if reCAPTCHA type does not set in WPForms > Settings.
 - Fixed: Email field server-side validation issue.

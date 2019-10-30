@@ -120,9 +120,9 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          *
          * @param array $hidden
          * @access public
-         * @since  1.0.0
-         * @author Leanza Francesco <leanzafrancesco@gmail.com>
          * @return array
+         * @author Leanza Francesco <leanzafrancesco@gmail.com>
+         * @since  1.0.0
          */
         public function woocommerce_hidden_order_itemmeta( $hidden ) {
             return array_merge( $hidden, array( '_bundled_by', '_cartstamp' ) );
@@ -134,9 +134,9 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          * @param string $class
          * @param array  $item
          * @access public
-         * @since  1.0.0
-         * @author Leanza Francesco <leanzafrancesco@gmail.com>
          * @return string
+         * @author Leanza Francesco <leanzafrancesco@gmail.com>
+         * @since  1.0.0
          */
         public function woocommerce_admin_html_order_item_class( $class, $item ) {
             if ( isset( $item[ 'bundled_by' ] ) )
@@ -151,9 +151,9 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          * @param int      $count
          * @param WC_Order $order
          * @access public
-         * @since  1.0.0
-         * @author Leanza Francesco <leanzafrancesco@gmail.com>
          * @return int|string
+         * @author Leanza Francesco <leanzafrancesco@gmail.com>
+         * @since  1.0.0
          */
         public function woocommerce_admin_order_item_count( $count, $order ) {
             $counter = 0;
@@ -309,10 +309,10 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          *
          * @param $links | links plugin array
          * @return   mixed Array
-         * @since    1.0
-         * @author   Leanza Francesco <leanzafrancesco@gmail.com>
          * @return mixed
          * @use      plugin_action_links_{$plugin_file_name}
+         * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+         * @since    1.0
          */
         public function action_links( $links ) {
             return yith_add_action_links( $links, $this->_panel_page, defined( 'YITH_WCPB_PREMIUM' ) );
@@ -365,7 +365,8 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             $args = array(
                 'create_menu_page' => true,
                 'parent_slug'      => '',
-                'page_title'       => 'Product Bundles',
+                'class'            => yith_set_wrapper_class(),
+                'page_title'       => 'WooCommerce Product Bundles',
                 'menu_title'       => 'Product Bundles',
                 'capability'       => 'manage_options',
                 'parent'           => '',
@@ -430,6 +431,7 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
                 wp_localize_script( 'yith_wcpb_bundle_options_metabox', 'ajax_object', array(
                     'free_not_simple'     => __( 'You can add only simple products with the FREE version of YITH WooCommerce Product Bundles', 'yith-woocommerce-product-bundles' ),
                     'yith_bundle_product' => __( 'You cannot add a bundle product', 'yith-woocommerce-product-bundles' ),
+                    'minimum_characters'  => apply_filters( 'yith_wcpb_minimum_characters_ajax_search', 3 )
                 ) );
             }
         }
@@ -461,9 +463,9 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
         /**
          * Get the premium landing uri
          *
-         * @since   1.0.0
-         * @author  Andrea Grillo <andrea.grillo@yithemes.com>
          * @return  string The premium landing link
+         * @author  Andrea Grillo <andrea.grillo@yithemes.com>
+         * @since   1.0.0
          */
         public function get_premium_landing_uri() {
             return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing . '?refer_id=1030585';

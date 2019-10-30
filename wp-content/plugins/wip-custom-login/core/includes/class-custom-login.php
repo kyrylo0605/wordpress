@@ -14,7 +14,7 @@ if( !class_exists( 'wip_custom_login_class' ) ) {
 		 
 		public function __construct( $fields = array() ) {
 
-			add_action('login_headertitle', array(&$this, 'logo_title'));
+			add_action('login_headertext', array(&$this, 'logo_title'));
 			add_filter('login_headerurl', array(&$this, 'logo_url'));
 			add_action('login_enqueue_scripts', array(&$this, 'admin_style') );
 

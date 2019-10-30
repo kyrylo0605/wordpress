@@ -88,7 +88,7 @@ if ($view_mode != 'list') { ?>
         <div class="wp-google-body"></div>
         <div class="wp-google-content">
             <div class="wp-google-content-inner">
-                <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img); ?>
+                <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img, $def_reviews_link); ?>
             </div>
         </div>
         <div class="wp-google-footer">
@@ -106,7 +106,7 @@ if ($view_mode != 'list') { ?>
             <?php grw_place($rating, $place, $place_img, $reviews, $dark_theme); ?>
         </div>
         <div class="wp-google-content-inner">
-            <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img); ?>
+            <?php grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img, $def_reviews_link); ?>
         </div>
     </div>
 </div>

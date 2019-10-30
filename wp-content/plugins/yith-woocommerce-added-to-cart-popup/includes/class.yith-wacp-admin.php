@@ -149,14 +149,15 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 			$args = array(
 				'create_menu_page' => true,
 				'parent_slug'      => '',
-				'page_title'       => _x( 'Added to Cart Popup', 'Plugin name', 'yith-woocommerce-added-to-cart-popup' ),
+				'page_title'       => _x( 'YITH WooCommerce Added to Cart Popup', 'Plugin name', 'yith-woocommerce-added-to-cart-popup' ),
 				'menu_title'       => _x( 'Added to Cart Popup', 'Plugin name', 'yith-woocommerce-added-to-cart-popup' ),
 				'capability'       => 'manage_options',
 				'parent'           => '',
 				'parent_page'      => 'yit_plugin_panel',
 				'page'             => $this->_panel_page,
 				'admin-tabs'       => apply_filters( 'yith-wacp-admin-tabs', $admin_tabs ),
-				'options-path'     => YITH_WACP_DIR . '/plugin-options'
+				'options-path'     => YITH_WACP_DIR . '/plugin-options',
+                'class'            => yith_set_wrapper_class()
 			);
 
 			/* === Fixed: not updated theme  === */

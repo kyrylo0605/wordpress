@@ -202,7 +202,7 @@ class WPForms_Builder {
 			'wpforms-font-awesome',
 			WPFORMS_PLUGIN_URL . 'assets/css/font-awesome.min.css',
 			null,
-			'4.4.0'
+			'4.7.0'
 		);
 
 		wp_enqueue_style(
@@ -419,6 +419,11 @@ class WPForms_Builder {
 			'pro'                            => wpforms()->pro,
 			'is_gutenberg'                   => version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) && ! is_plugin_active( 'classic-editor/classic-editor.php' ),
 			'cl_fields_supported'            => wpforms_get_conditional_logic_form_fields_supported(),
+			'file_upload'                    => array(
+				'preview_title_single' => esc_html__( 'Click or drag a file to this area to upload.', 'wpforms-lite' ),
+				'preview_title_plural' => esc_html__( 'Click or drag files to this area to upload.', 'wpforms-lite' ),
+				'preview_hint'         => esc_html__( 'You can upload up to {maxFileNumber} files.', 'wpforms-lite' ),
+			),
 		);
 
 		$strings = apply_filters( 'wpforms_builder_strings', $strings, $this->form );

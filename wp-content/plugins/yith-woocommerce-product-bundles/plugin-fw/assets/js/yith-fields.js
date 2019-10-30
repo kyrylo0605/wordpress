@@ -434,8 +434,11 @@ jQuery( function ( $ ) {
         var toggle      = $( this ),
             action      = 'yith_plugin_fw_save_toggle_element',
             formdata    = toggle.serializeToggleElement(),
-            id          = toggle.find( '.yith-toggle_wrapper' ).attr( 'id' ),
+            wrapper     = toggle.find( '.yith-toggle_wrapper' ),
+            id          = wrapper.attr( 'id' ),
             current_tab = $.urlParam( 'tab' );
+
+        formdata.append( 'security', wrapper.data('nonce') );
 
         if ( typeof array_keys != 'undefined' && array_keys.length > 0 ) {
             formdata.append( 'yith_toggle_elements_order_keys', array_keys );

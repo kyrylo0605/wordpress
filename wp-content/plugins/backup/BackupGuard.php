@@ -752,8 +752,7 @@ function backupGuardloadTextDomain()
 	}
 }
 
-/*
-if (backupGuardShouldShowDiscountNotice()) {
+if (backupGuardShouldShowDiscountNotice() && checkDueDateDiscount()) {
 	add_action('admin_notices', 'backup_guard_discount_notice');
 }
 
@@ -761,77 +760,18 @@ function backup_guard_discount_notice()
 {
 	$capabilities = backupGuardGetCapabilities();
 	$upgradeUrl = BG_UPGRADE_URL;
-
-	if ($capabilities != BACKUP_GUARD_CAPABILITIES_FREE && $capabilities != BACKUP_GUARD_CAPABILITIES_PLATINUM) {
-		$auth = SGAuthClient::getInstance();
-		$merchantId = $auth->getMerchantOrderId(SG_PRODUCT_IDENTIFIER);
-
-		$upgradeUrl .= $merchantId;
-	}
-
 	?>
 	<div class="backup-guard-discount-notice updated notice is-dismissible">
-		<?php if ($capabilities == BACKUP_GUARD_CAPABILITIES_FREE): ?>
-			<h3>Christmas magic for your website security. Take advantage of our Christmas deal and <span style="color: red;">save 30%</span> when you subscribe to Backup Guard. The benefits include migration, cloud backups scheduling and not only.</h3>
-			<h3><a target="_blank" href="<?php echo $upgradeUrl ?>">Upgrade Now!</a></h3>
-			<h4>Enjoy these premium features:</h4>
-			<ul>
-				<li>Multiple Websites (Lifetime Usage)</li>
-				<li>Backup to Cloud Services <b>(Google Drive, One Drive, Amazon S3 etc.)</b></li>
-				<li>Backup <b>Retention</b></li>
-				<li><b>Restore</b> from all Supported <b>Clouds</b></li>
-				<li>Delete Local Copy after Upload</li>
-				<li>Customize Backup Name</li>
-				<li><b>Customer Priority Support (1 year)</b></li>
-				<li><b>Unlimited Updates (1 year)</b></li>
-			</ul>
-		<?php elseif ($capabilities == BACKUP_GUARD_CAPABILITIES_SILVER): ?>
-			<h3>Christmas magic for your website security. Take advantage of our Christmas deal and <span style="color: red;">save 30%</span> when you upgrade to the Gold plan. The benefits include migration, cloud backups scheduling and not only.</h3>
-			<h3><a target="_blank" href="<?php echo $upgradeUrl ?>">Upgrade Now!</a></h3>
-			<h4>Enjoy these Gold plan features:</h4>
-			<ul>
-				<li><b>Up to 5 Websites (Lifetime Usage)</b></li>
-				<li><b>All Silver Features +</b></li>
-				<li><b>Cloud Backup</b> to Google, Amazon S3 and One Drive</li>
-				<li>Backup <b>Retention</b></li>
-				<li><b>Restore</b> from all Supported <b>Clouds</b></li>
-				<li>Delete Local Copy after Upload</li>
-				<li>Customize Backup Name</li>
-				<li><b>Customer Priority Support (1 year)</b></li>
-			</ul>
-		<?php elseif ($capabilities == BACKUP_GUARD_CAPABILITIES_GOLD): ?>
-			<h3>Christmas magic for your website security. Take advantage of our Christmas deal and <span style="color: red;">save 30%</span> when you upgrade to the Platinum plan. The benefits include unlimited websites, automatic backups and not only.</h3>
-			<h3><a target="_blank" href="<?php echo $upgradeUrl ?>">Upgrade Now!</a></h3>
-			<h4>Enjoy these Platinum plan features:</h4>
-			<ul>
-				<li><b>Unlimited Websites (Lifetime Usage)</b></li>
-				<li><b>All Gold Features +</b></li>
-				<li><b>Automatic</b> Backups <b>(multiple profiles)</b></li>
-				<li>Set <b>Custom Cloud Destination Path</b></li>
-				<li>Customer <b>Emergency</b> Support (1 year)</li>
-				<li>Unlimited Updates (1 year)</li>
-			</ul>
-		<?php elseif ($capabilities == BACKUP_GUARD_CAPABILITIES_PLATINUM): ?>
-			<h3>Christmas magic for your website security. Take advantage of our Christmas deal and <span style="color: red;">save 50%</span> when you subscribe to <span style="color: red;">SECURITY</span> plugin by Backup Guard. The benefits include brute force protection, one-click scan, block unwanted IPs, etc.</h3>
-			<h3><a target="_blank" href="<?php echo $upgradeUrl ?>">Check Now!</a></h3>
-			<h4>Enjoy these security features:</h4>
-			<ul>
-				<li><b>Limit Login Attempts</b></li>
-				<li><b>Scanner:</b> infected frames, vulnerabilities, infected redirections</li>
-				<li><b>Firewall:</b> block bad bots, referrer spam, bad query strings, proxy ports and HTTP headers, etc.</li>
-				<li><b>Monitoring:</b> bandwidth, traffic</li>
-			</ul>
-
-			<h3><a target="_blank" href="<?php echo $upgradeUrl ?>">Check Now!</a></h3>
-		<?php endif; ?>
-
-		<?php if ($capabilities != BACKUP_GUARD_CAPABILITIES_PLATINUM): ?>
-			<h3><a target="_blank" href="<?php echo $upgradeUrl ?>">Upgrade Now!</a></h3>
-		<?php endif; ?>
-
-		<h4>Offer valid until December 26, 11:59 PM PST</h4>
-		<a target="_blank" href="<?php echo SG_BACKUP_SITE_PRICING_URL ?>"><img style="border: 0px; position: absolute; width: 100px; bottom: 9px; right: 9px;" src="<?php echo SG_IMAGE_URL.'bg_160.png' ?>"></a>
+		<a href="<?php echo BG_UPGRADE_URL; ?>" target="_blank"><div class="discount-banner" style="background-image: url('<?php echo SG_IMAGE_URL ?>halloween.jpg');background-repeat: no-repeat; background-position: center; height: 200px;"></div></a>
 	</div>
+	<style>
+		.backup-guard-discount-notice.updated.notice.is-dismissible {
+			padding: 0;
+			border-left-color: #fea500 !important;
+		}
+		.backup-guard-discount-notice button:before {
+			color: #fea500 !important;
+		}
+	</style>
 	<?php
 }
-*/

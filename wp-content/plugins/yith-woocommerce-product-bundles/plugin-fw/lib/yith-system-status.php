@@ -81,6 +81,14 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 				return;
 			}
 
+			/**
+			 * Add to prevent trigger admin_init called directly
+			 * wp-admin/admin-post.php?page=yith_system_info
+			 */
+			if ( ! is_user_logged_in() ) {
+				return;
+			}
+
 			$system_info  = get_option( 'yith_system_info' );
 			$error_notice = ( $system_info['errors'] === true ? ' <span class="yith-system-info-menu update-plugins">!</span>' : '' );
 
@@ -159,6 +167,7 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 */
 		public function check_system_status() {
 
+
 			if ( '' == get_option( 'yith_system_info' ) || ( isset( $_GET['page'] ) && $_GET['page'] == $this->_page ) ) {
 
 				$this->add_requirements( __( 'YITH Plugins', 'yith-plugin-fw' ), array( 'min_wp_version' => '4.9', 'min_wc_version' => '3.4', 'min_php_version' => '5.6.20' ) );
@@ -200,7 +209,7 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 									break;
 
 								default:
-									if ( ! version_compare( $value, $required_value, '>=' ) ) {
+									if ( ! version_compare( $value, $required_value, '>=' ) && $value != 'n/a' ) {
 										$check_results[ $key ]['errors'][ $plugin_name ] = $required_value;
 										$errors                                          = true;
 									}
@@ -297,13 +306,20 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 */
 		public function get_system_info() {
 
-			//Get TLS version
-			$ch = curl_init( 'https://www.howsmyssl.com/a/check' );
-			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-			$data = curl_exec( $ch );
-			curl_close( $ch );
-			$json = json_decode( $data );
-			$tls  = $json != null ? str_replace( 'TLS ', '', $json->tls_version ) : '';
+			$tls = $imagick_version = 'n/a';
+
+			if ( function_exists( 'curl_init' ) && apply_filters( 'yith_system_status_check_ssl', true ) ) {
+				//Get TLS version
+				$ch = curl_init();
+				curl_setopt( $ch, CURLOPT_URL, 'https://www.howsmyssl.com/a/check' );
+				curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+				curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+				curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+				$data = curl_exec( $ch );
+				curl_close( $ch );
+				$json = json_decode( $data );
+				$tls  = $json != null ? str_replace( 'TLS ', '', $json->tls_version ) : '';
+			}
 
 			//Get PHP version
 			preg_match( "#^\d+(\.\d+)*#", PHP_VERSION, $match );
@@ -315,15 +331,14 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 				$wp_memory_limit = max( $wp_memory_limit, $this->memory_size_to_num( @ini_get( 'memory_limit' ) ) );
 			}
 
-			$imagick_version = '0.0.0';
-			if ( class_exists( 'Imagick' ) ) {
+			if ( class_exists( 'Imagick' ) && is_callable( array( 'Imagick', 'getVersion' ) ) ) {
 				preg_match( "/([0-9]+\.[0-9]+\.[0-9]+)/", Imagick::getVersion()['versionString'], $imatch );
 				$imagick_version = $imatch[0];
 			}
 
 			return apply_filters( 'yith_system_additional_check', array(
 				'min_wp_version'    => get_bloginfo( 'version' ),
-				'min_wc_version'    => function_exists( 'WC' ) ? WC()->version : __( 'Not installed', 'yith-plugin-fw' ),
+				'min_wc_version'    => function_exists( 'WC' ) ? WC()->version : 'n/a',
 				'wp_memory_limit'   => $wp_memory_limit,
 				'min_php_version'   => $php_version,
 				'min_tls_version'   => $tls,
@@ -350,8 +365,9 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 * @author  Alberto Ruggiero
 		 */
 		public function memory_size_to_num( $memory_size ) {
-			$unit       = strtoupper( substr( $memory_size, - 1 ) );
-			$size       = substr( $memory_size, 0, - 1 );
+			$unit = strtoupper( substr( $memory_size, - 1 ) );
+			$size = substr( $memory_size, 0, - 1 );
+
 			$multiplier = array(
 				'P' => 5,
 				'T' => 4,
@@ -359,8 +375,11 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 				'M' => 2,
 				'K' => 1,
 			);
-			for ( $i = 1; $i <= $multiplier[ $unit ]; $i ++ ) {
-				$size *= 1024;
+
+			if ( isset( $multiplier[ $unit ] ) ) {
+				for ( $i = 1; $i <= $multiplier[ $unit ]; $i ++ ) {
+					$size *= 1024;
+				}
 			}
 
 			return $size;

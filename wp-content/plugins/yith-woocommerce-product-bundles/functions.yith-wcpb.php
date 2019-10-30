@@ -126,3 +126,17 @@ if ( !function_exists( 'yith_wcpb_get_bundle_products_by_item' ) ) {
         return get_posts( $args );
     }
 }
+
+if ( !function_exists( 'yith_wcpb_get_price_to_display' ) ) {
+    /**
+     * @param WC_Product   $product
+     * @param string|float $price
+     * @param int          $qty
+     * @return float
+     *
+     * @since 1.3.2
+     */
+    function yith_wcpb_get_price_to_display( $product, $price = '', $qty = 1 ) {
+        return (float) wc_get_price_to_display( $product, array( 'qty' => $qty, 'price' => $price ) );
+    }
+}

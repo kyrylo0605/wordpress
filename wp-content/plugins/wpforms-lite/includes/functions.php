@@ -1991,11 +1991,7 @@ function wpforms_show_fields_options_setting() {
  */
 function wpforms_is_empty_string( $string ) {
 
-	if ( is_string( $string ) && '' === $string ) {
-		return true;
-	}
-
-	return false;
+	return is_string( $string ) && '' === $string;
 }
 
 /**
@@ -2009,7 +2005,6 @@ function wpforms_is_empty_string( $string ) {
  * @return string
  */
 function wpforms_get_form_preview_url( $form_id, $new_window = false ) {
-
 
 	$url = add_query_arg(
 		array(
@@ -2028,4 +2023,55 @@ function wpforms_get_form_preview_url( $form_id, $new_window = false ) {
 	}
 
 	return $url;
+}
+
+/**
+ * Include a template - alias to \WPForms\Helpers\Template::get_html.
+ * Uses 'require' if $args are passed or 'load_template' if not.
+ *
+ * @since 1.5.6
+ *
+ * @param string $template_name Template name.
+ * @param array  $args          Arguments.
+ * @param bool   $extract       Extract arguments.
+ *
+ * @throws \RuntimeException If extract() tries to modify the scope.
+ *
+ * @return string Compiled HTML.
+ */
+function wpforms_render( $template_name, $args = array(), $extract = false ) {
+
+	return \WPForms\Helpers\Templates::get_html( $template_name, $args, $extract );
+}
+
+/**
+ * Chain monad, useful for chaining certain array or string related functions.
+ *
+ * @since 1.5.6
+ *
+ * @param mixed $value Any data.
+ *
+ * @return \WPForms\Helpers\Chain
+ */
+function wpforms_chain( $value ) {
+
+	return \WPForms\Helpers\Chain::of( $value );
+}
+
+/**
+ * Get the current installation license type (always lowercase).
+ *
+ * @since 1.5.6
+ *
+ * @return string|false
+ */
+function wpforms_get_license_type() {
+
+	$type = \wpforms_setting( 'type', '', 'wpforms_license' );
+
+	if ( empty( $type ) || ! \wpforms()->pro ) {
+		return false;
+	}
+
+	return strtolower( $type );
 }
