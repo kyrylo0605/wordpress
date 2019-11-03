@@ -57,6 +57,7 @@ class Hestia_Core {
 				'customizer-main',
 				'customizer-notices',
 				'header-controls',
+				'footer-controls',
 				'top-bar',
 				'header',
 				'footer',
@@ -103,6 +104,7 @@ class Hestia_Core {
 				'buttons-style-controls',
 				'woocommerce-header-manager',
 				'gutenberg',
+				'wp-forms',
 				'sync-about',
 			)
 		);

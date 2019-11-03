@@ -28,6 +28,21 @@ class Themeisle_OB_Plugin_Importer {
 	 */
 	private $logger;
 
+	/**
+	 * Exceptions entry files mapping.
+	 *
+	 * slug => entry-file
+	 *
+	 * @var array
+	 */
+	private $exception_mapping = array(
+		'advanced-css-editor'              => 'css-editor.php',
+		'contact-form-7'                   => 'wp-contact-form-7.php',
+		'wpforms-lite'                     => 'wpforms.php',
+		'beaver-builder-lite-version'      => 'fl-builder.php',
+		'wpzoom-addons-for-beaver-builder' => 'wpzoom-bb-addon-pack.php',
+	);
+
 	public function __construct() {
 		$this->logger = Themeisle_OB_WP_Import_Logger::get_instance();
 	}
@@ -186,16 +201,8 @@ class Themeisle_OB_Plugin_Importer {
 	private function get_plugin_path( $slug ) {
 		$plugin_dir = WP_PLUGIN_DIR . '/' . $slug;
 
-		if ( $slug === 'advanced-css-editor' ) {
-			return $plugin_dir . '/css-editor.php';
-		}
-
-		if ( $slug === 'contact-form-7' ) {
-			return $plugin_dir . '/wp-contact-form-7.php';
-		}
-
-		if ( $slug === 'wpforms-lite' ) {
-			return $plugin_dir . '/wpforms.php';
+		if ( array_key_exists( $slug, $this->exception_mapping ) ) {
+			return trailingslashit( $plugin_dir ) . $this->exception_mapping[ $slug ];
 		}
 
 		$plugin_path = $plugin_dir . '/' . $slug . '.php';

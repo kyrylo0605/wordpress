@@ -115,7 +115,6 @@
   opacity: 1;
 }
 
-.customize-partial-edit-shortcut-hestia_contact_form_shortcode,
 .customize-partial-edit-shortcut-hestia_contact_content_new,
 .customize-partial-edit-shortcut-hestia_shop_items,
 .customize-partial-edit-shortcut-hestia_blog_items,
@@ -202,7 +201,8 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-subscribe-title-area,
 .hestia-blogs-title-area,
 .hestia-contact-title-area,
-.hestia-portfolio-title-area {
+.hestia-portfolio-title-area,
+.pirate-forms-placeholder-align {
   transition: .3s ease;
 }
 .hestia-features-title-area:hover .customize-partial-edit-shortcut,
@@ -213,7 +213,8 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-subscribe-title-area:hover .customize-partial-edit-shortcut,
 .hestia-blogs-title-area:hover .customize-partial-edit-shortcut,
 .hestia-contact-title-area:hover .customize-partial-edit-shortcut,
-.hestia-portfolio-title-area:hover .customize-partial-edit-shortcut {
+.hestia-portfolio-title-area:hover .customize-partial-edit-shortcut,
+.pirate-forms-placeholder-align:hover .customize-partial-edit-shortcut {
   opacity: 1;
 }
 .hestia-features-title-area .customize-partial-edit-shortcut,
@@ -224,7 +225,8 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-subscribe-title-area .customize-partial-edit-shortcut,
 .hestia-blogs-title-area .customize-partial-edit-shortcut,
 .hestia-contact-title-area .customize-partial-edit-shortcut,
-.hestia-portfolio-title-area .customize-partial-edit-shortcut {
+.hestia-portfolio-title-area .customize-partial-edit-shortcut,
+.pirate-forms-placeholder-align .customize-partial-edit-shortcut {
   transition: .3s ease;
   opacity: 0;
 }
@@ -236,7 +238,8 @@ body.page .hestia-blogs:not(.is-shortcode):hover:before,
 .hestia-subscribe-title-area .customize-partial-edit-shortcut button,
 .hestia-blogs-title-area .customize-partial-edit-shortcut button,
 .hestia-contact-title-area .customize-partial-edit-shortcut button,
-.hestia-portfolio-title-area .customize-partial-edit-shortcut button {
+.hestia-portfolio-title-area .customize-partial-edit-shortcut button,
+.pirate-forms-placeholder-align .customize-partial-edit-shortcut button {
   margin: 0;
 }
 

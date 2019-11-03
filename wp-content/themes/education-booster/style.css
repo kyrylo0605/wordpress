@@ -4,14 +4,14 @@ Theme URI: https://keonthemes.com/downloads/education-booster
 Author: Keon Themes
 Author URI: https://keonthemes.com
 Description: Education Booster is a powerful WordPress theme that specializes in education. Education Booster is a robust and reliable, colorful and youthful, clean and pristine, easy to use and readily responsive WordPress creative website theme for professionals, colleges, schools, universities or private educational institutions. Education Booster has a streamlined, practical design that is sure to attract many readers.
-Version: 1.1.9
+Version: 1.2.1
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: education-booster
 Tags: education, blog, grid-Layout, two-columns, flexible-header, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, full-width-template, post-formats, rtl-language-support, theme-options, sticky-post, threaded-comments, translation-ready
 
-This theme, like WordPress, is licensed under the GPL.
-Use it to make something cool, have fun, and share what you've learned with others.
+Education Booster WordPress Theme, Copyright 2019 Keon Themes
+Education Booster is distributed under the terms of the GNU General Public License v3
 */
 /*--------------------------------------------------------------
 TABLE OF CONTENTS
@@ -1130,17 +1130,24 @@ dd a {
 
 /* Text meant only for screen readers. */
 .screen-reader-text {
+  border: 0;
   clip: rect(1px, 1px, 1px, 1px);
-  position: absolute !important;
+  clip-path: inset(50%);
   height: 1px;
-  width: 1px;
+  margin: -1px;
   overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+  /* Many screen reader and browser combinations announce broken words as they would appear visually. */
 }
 .screen-reader-text:focus {
   background-color: #e6e6e6;
   border-radius: 3px;
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
   clip: auto !important;
+  clip-path: none;
   color: #1a1a1a;
   display: block;
   font-size: 14px;
@@ -1182,7 +1189,7 @@ dd a {
 }
 
 a {
-  color: #034f98;
+  color: #0085BA;
   text-decoration: none;
   -webkit-transition: color 0.3s;
   -moz-transition: color 0.3s;
@@ -1190,12 +1197,12 @@ a {
   -o-transition: color 0.3s;
   transition: color 0.3s;
 }
-a:hover, a:focus, a:active {
-  color: #0081FE;
-}
 a:focus, a:hover, a:active, a:visited {
   outline: none;
   text-decoration: none;
+}
+a:focus {
+  outline: thin dotted;
 }
 
 form {
@@ -7315,5 +7322,3 @@ body.search-results .block-grid .post-content .post-format-outer > span {
 /*--------------------------------------------------------------
    		  !!! KEON THEMES (https://keonthemes.com) !!!
 --------------------------------------------------------------*/
-
-/*# sourceMappingURL=style.css.map */

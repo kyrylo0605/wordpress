@@ -28,6 +28,35 @@ class Logo extends Abstract_Component {
 	const SHOW_TAGLINE = 'show_tagline';
 
 	/**
+	 * Default spacing value
+	 *
+	 * @var array
+	 */
+	protected $default_padding_value = array(
+		'mobile'       => array(
+			'top'    => 10,
+			'right'  => 0,
+			'bottom' => 10,
+			'left'   => 0,
+		),
+		'tablet'       => array(
+			'top'    => 10,
+			'right'  => 0,
+			'bottom' => 10,
+			'left'   => 0,
+		),
+		'desktop'      => array(
+			'top'    => 10,
+			'right'  => 0,
+			'bottom' => 10,
+			'left'   => 0,
+		),
+		'mobile-unit'  => 'px',
+		'tablet-unit'  => 'px',
+		'desktop-unit' => 'px',
+	);
+
+	/**
 	 * Logo constructor.
 	 *
 	 * @since   1.0.0
@@ -36,7 +65,7 @@ class Logo extends Abstract_Component {
 	public function init() {
 		$this->set_property( 'label', __( 'Logo & Site Identity', 'neve' ) );
 		$this->set_property( 'id', $this->get_class_const( 'COMPONENT_ID' ) );
-		$this->set_property( 'width', 2 );
+		$this->set_property( 'width', 3 );
 		$this->set_property( 'section', 'title_tagline' );
 	}
 
@@ -106,10 +135,11 @@ class Logo extends Abstract_Component {
 				'label'             => __( 'Logo max width (px)', 'neve' ),
 				'type'              => '\Neve\Customizer\Controls\Range',
 				'options'           => [
-					'type'        => 'range-value',
-					'media_query' => true,
-					'step'        => 1,
-					'input_attr'  => [
+					'type'                     => 'range-value',
+					'hide_responsive_switches' => true,
+					'media_query'              => true,
+					'step'                     => 1,
+					'input_attr'               => [
 						'mobile'  => [
 							'min'     => 0,
 							'max'     => 350,

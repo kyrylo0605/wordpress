@@ -373,7 +373,7 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 	 * @return bool
 	 */
 	public function check_if_woo() {
-		return class_exists( 'WooCommerce' );
+		return class_exists( 'WooCommerce', false );
 	}
 
 	/**

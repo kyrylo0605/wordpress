@@ -18,10 +18,20 @@ class Themeisle_OB_WXR_Parser {
 	private $logger;
 
 	/**
-	 * Themeisle_OB_WXR_Parser constructor.
+	 * Used page builder.
+	 *
+	 * @var string
 	 */
-	public function __construct() {
-		$this->logger = Themeisle_OB_WP_Import_Logger::get_instance();
+	private $page_builder;
+
+	/**
+	 * Themeisle_OB_WXR_Parser constructor.
+	 *
+	 * @param string $page_builder the page builder used.
+	 */
+	public function __construct( $page_builder = '' ) {
+		$this->page_builder = $page_builder;
+		$this->logger       = Themeisle_OB_WP_Import_Logger::get_instance();
 	}
 
 	/**
@@ -33,9 +43,30 @@ class Themeisle_OB_WXR_Parser {
 	 */
 	public function parse( $file ) {
 		$this->logger->log( "Starting parsing file:{$file}", 'progress' );
+		$result = null;
+
+		if ( $this->page_builder === 'beaver-builder' ) {
+			if ( extension_loaded( 'xml' ) ) {
+				$parser = new Themeisle_OB_Beaver_ParserXML();
+
+				$result = $parser->parse( $file );
+			} else {
+				$this->logger->log( 'xml not active.' );
+			}
+			if ( is_wp_error( $result ) ) {
+				$this->logger->log( "Parse failed with message: {$result->get_error_message()}" );
+			}
+
+			if ( $result === null ) {
+				$this->logger->log( 'Nothing got parsed from XML.' );
+			}
+
+			return $result;
+		}
+
 		// Attempt to use proper XML parsers first
 		if ( extension_loaded( 'simplexml' ) ) {
-			$parser = new Themeisle_OB_WXR_Parser_SimpleXML;
+			$parser = new Themeisle_OB_WXR_Parser_SimpleXML();
 			$this->logger->log( 'Using Themeisle_OB_WXR_Parser_SimpleXML...', 'progress' );
 			$result = $parser->parse( $file );
 			// If SimpleXML succeeds or this is an invalid WXR file then return the results
@@ -272,6 +303,11 @@ class Themeisle_OB_WXR_Parser_SimpleXML {
  * WXR Parser that makes use of the XML Parser PHP extension.
  */
 class Themeisle_OB_WXR_Parser_XML {
+	/**
+	 * XML Tags.
+	 *
+	 * @var array
+	 */
 	public $wp_tags     = array(
 		'wp:post_id',
 		'wp:post_date',
@@ -320,6 +356,13 @@ class Themeisle_OB_WXR_Parser_XML {
 		'wp:comment_user_id',
 	);
 
+	/**
+	 * Parse the XML
+	 *
+	 * @param $file
+	 *
+	 * @return array|WP_Error
+	 */
 	public function parse( $file ) {
 		global $wp_filesystem;
 		WP_Filesystem();
@@ -489,5 +532,154 @@ class Themeisle_OB_WXR_Parser_XML {
 				}
 		}
 		$this->cdata = false;
+	}
+}
+
+/**
+ * Class Themeisle_OB_Beaver_ParserXML
+ *
+ * Brought in from Beaver Builder Lite.
+ *
+ * Beaver XML Parser
+ */
+class Themeisle_OB_Beaver_ParserXML extends Themeisle_OB_WXR_Parser_XML {
+
+	function tag_close( $parser, $tag ) {
+		switch ( $tag ) {
+			case 'wp:comment':
+				unset( $this->sub_data['key'], $this->sub_data['value'] ); // remove meta sub_data
+				if ( ! empty( $this->sub_data ) ) {
+					$this->data['comments'][] = $this->sub_data;
+				}
+				$this->sub_data = false;
+				break;
+			case 'wp:commentmeta':
+				$this->sub_data['commentmeta'][] = array(
+					'key'   => $this->sub_data['key'],
+					'value' => $this->sub_data['value'],
+				);
+				break;
+			case 'category':
+				if ( ! empty( $this->sub_data ) ) {
+					$this->sub_data['name'] = $this->cdata;
+					$this->data['terms'][]  = $this->sub_data;
+				}
+				$this->sub_data = false;
+				break;
+			case 'wp:postmeta':
+				if ( ! empty( $this->sub_data ) ) {
+					if ( stristr( $this->sub_data['key'], '_fl_builder_' ) ) {
+						$this->sub_data['value'] = Themeisle_OB_Beaver_Data_Fix::run( serialize( $this->sub_data['value'] ) );
+					}
+					$this->data['postmeta'][] = $this->sub_data;
+				}
+				$this->sub_data = false;
+				break;
+			case 'item':
+				$this->posts[] = $this->data;
+				$this->data    = false;
+				break;
+			case 'wp:category':
+			case 'wp:tag':
+			case 'wp:term':
+				$n = substr( $tag, 3 );
+				array_push( $this->$n, $this->data );
+				$this->data = false;
+				break;
+			case 'wp:author':
+				if ( ! empty( $this->data['author_login'] ) ) {
+					$this->authors[ $this->data['author_login'] ] = $this->data;
+				}
+				$this->data = false;
+				break;
+			case 'wp:base_site_url':
+				$this->base_url = $this->cdata;
+				break;
+			case 'wp:base_blog_url':
+				$this->base_blog_url = $this->cdata;
+				break;
+			case 'wp:wxr_version':
+				$this->wxr_version = $this->cdata;
+				break;
+			default:
+				if ( $this->in_sub_tag ) {
+					$this->sub_data[ $this->in_sub_tag ] = ! empty( $this->cdata ) ? $this->cdata : '';
+					$this->in_sub_tag                    = false;
+				} elseif ( $this->in_tag ) {
+					$this->data[ $this->in_tag ] = ! empty( $this->cdata ) ? $this->cdata : '';
+					$this->in_tag                = false;
+				}
+		}
+		$this->cdata = false;
+	}
+}
+
+/**
+ * Brought in from Beaver Builder Lite
+ *
+ * Portions borrowed from https://github.com/Blogestudio/Fix-Serialization/blob/master/fix-serialization.php
+ *
+ * Attempts to fix broken serialized data.
+ *
+ * @since 1.8
+ */
+final class Themeisle_OB_Beaver_Data_Fix {
+
+	/**
+	 * @since 1.8
+	 * @return string
+	 */
+	static public function run( $data ) {
+		// return if empty
+		if ( empty( $data ) ) {
+			return $data;
+		}
+
+		$data = maybe_unserialize( $data );
+
+		// return if maybe_unserialize() returns an object or array, this is good.
+		if ( is_object( $data ) || is_array( $data ) ) {
+			return $data;
+		}
+
+		return preg_replace_callback( '!s:(\d+):([\\\\]?"[\\\\]?"|[\\\\]?"((.*?)[^\\\\])[\\\\]?");!', 'Themeisle_OB_Beaver_Data_Fix::regex_callback', $data );
+	}
+
+	/**
+	 * @since 1.8
+	 * @return string
+	 */
+	static public function regex_callback( $matches ) {
+		if ( ! isset( $matches[3] ) ) {
+			return $matches[0];
+		}
+
+		return 's:' . strlen( self::unescape_mysql( $matches[3] ) ) . ':"' . self::unescape_quotes( $matches[3] ) . '";';
+	}
+
+	/**
+	 * Unescape to avoid dump-text issues.
+	 *
+	 * @since 1.8
+	 * @access private
+	 * @return string
+	 */
+	static private function unescape_mysql( $value ) {
+		return str_replace(
+			array( '\\\\', "\\0", "\\n", "\\r", '\Z', "\'", '\"' ),
+			array( '\\', "\0", "\n", "\r", "\x1a", "'", '"' ),
+			$value
+		);
+	}
+
+	/**
+	 * Fix strange behaviour if you have escaped quotes in your replacement.
+	 *
+	 * @since 1.8
+	 * @access private
+	 * @return string
+	 */
+	static private function unescape_quotes( $value ) {
+		return str_replace( '\"', '"', $value );
 	}
 }

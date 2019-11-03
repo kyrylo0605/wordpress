@@ -63,9 +63,21 @@ if ( function_exists('wp_body_open') ) {
 
                     <div class="<?php echo $menu_class; ?>">
 
+                        <button class="menu-toggle" aria-controls="mainmenu" aria-expanded="false" type="button">
+                            <span aria-hidden="true"><?php esc_html_e( 'Menu', 'bazaar-lite' ); ?></span>
+                            <span class="dashicons" aria-hidden="true"></span>
+                        </button>
+
                         <nav id="mainmenu" class="<?php echo bazaarlite_setting('wip_menu_layout'); ?>">
-                            
-                            <?php wp_nav_menu( array('theme_location' => 'main-menu', 'container' => 'false','depth' => 3  )); ?>
+
+                            <?php 
+                                                
+                                wp_nav_menu( array(
+                                    'theme_location' => 'main-menu',
+                                    'container' => 'false'
+                                )); 
+                                                
+                            ?>
                         
                         </nav>
                         	

@@ -38,7 +38,7 @@ class Nav extends Abstract_Component {
 	public function init() {
 		$this->set_property( 'label', __( 'Primary Menu', 'neve' ) );
 		$this->set_property( 'id', $this->get_class_const( 'COMPONENT_ID' ) );
-		$this->set_property( 'width', 2 );
+		$this->set_property( 'width', 6 );
 		$this->set_property( 'section', 'header_menu_primary' );
 
 		$this->default_align = 'right';
@@ -162,7 +162,7 @@ class Nav extends Abstract_Component {
 			'search' => __( 'Search', 'neve' ),
 		);
 
-		if ( class_exists( 'WooCommerce' ) ) {
+		if ( class_exists( 'WooCommerce', false ) ) {
 			array_push( $order_default_components, 'cart' );
 			$components['cart'] = __( 'Cart', 'neve' );
 		}
@@ -227,7 +227,7 @@ class Nav extends Abstract_Component {
 		$decoded = json_decode( $value, true );
 
 		foreach ( $decoded as $val ) {
-			if ( ! in_array( $val, $allowed ) ) {
+			if ( ! in_array( $val, $allowed, true ) ) {
 				return json_encode( $allowed );
 			}
 		}
@@ -254,7 +254,7 @@ class Nav extends Abstract_Component {
 	 */
 	public function add_style( array $css_array = array() ) {
 		$color    = SettingsManager::get_instance()->get( $this->get_id() . '_' . self::COLOR_ID );
-		$selector = '.builder-item--' . $this->get_id() . ' > .nv-nav-wrap > .nav-menu-primary > ul.primary-menu-ul ';
+		$selector = '.builder-item--' . $this->get_id() . ' .nav-menu-primary > .primary-menu-ul ';
 		if ( ! empty( $color ) ) {
 			$css_array[ $selector . 'li:not(.woocommerce-mini-cart-item) > a, 
 			' . $selector . 'li > a .caret-wrap .caret' ] = array( 'color' => sanitize_hex_color( $color ) );
@@ -286,7 +286,7 @@ class Nav extends Abstract_Component {
 			return;
 		}
 		$default_last = 'search';
-		if ( class_exists( 'WooCommerce' ) ) {
+		if ( class_exists( 'WooCommerce', false ) ) {
 			$default_last = 'search-cart';
 		}
 

@@ -2,18 +2,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WIP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-30 20:43+0200\n"
-"PO-Revision-Date: 2017-03-30 20:45+0200\n"
+"POT-Creation-Date: 2019-08-12 16:33+0200\n"
+"PO-Revision-Date: 2019-08-12 16:35+0200\n"
 "Last-Translator: Alessandro Vellutini <vellutini@hotmail.it>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;esc_attr_e;esc_attr__\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;esc_attr_e;esc_attr__;"
+"esc_html__;esc_html_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: 404.php:17
@@ -49,8 +50,8 @@ msgstr "Commenti"
 
 #: comments.php:41
 #, php-format
-msgid "<cite>%s</cite>"
-msgstr "<cite>%s</cite>"
+msgid "%s"
+msgstr "%s"
 
 #: comments.php:43
 #, php-format
@@ -81,7 +82,7 @@ msgstr "Lascia un commento"
 msgid "Write a Reply or Comment"
 msgstr "Scrivi una risposta o commento."
 
-#: comments.php:98 woocommerce/single-product-reviews.php:62
+#: comments.php:98 woocommerce/single-product-reviews.php:73
 #, php-format
 msgid "Leave a Reply to %s"
 msgstr "Lascia una risposta a %s"
@@ -92,11 +93,11 @@ msgstr "Immagine di sfondo a piena pagina."
 
 #: core/admin/customize/customize.php:14
 msgid ""
-"Do you want to set a full background image? (After the upload, check "
-"'Fixed', from the Background Attachment section)"
+"Do you want to set a full background image? (After the upload, check Fixed, "
+"from the Background Attachment section)"
 msgstr ""
-"Vuoi impostare uno sfondo a piena pagina? (Dopo l'upload, seleziona \"Fixed"
-"\" dalle impostazioni di attaccamento dell'immagine)"
+"Vuoi impostare uno sfondo a piena pagina? (Dopo l’upload, seleziona “Fixed” "
+"dalle impostazioni di attaccamento dell’immagine)"
 
 #: core/admin/customize/customize.php:19 core/admin/customize/customize.php:71
 #: core/admin/customize/customize.php:87 core/admin/customize/customize.php:103
@@ -111,7 +112,7 @@ msgstr ""
 #: core/admin/customize/customize.php:757
 #: core/admin/customize/customize.php:773
 #: core/admin/customize/customize.php:789
-#: core/admin/customize/customize.php:1133
+#: core/admin/customize/customize.php:1144
 msgid "No"
 msgstr "No"
 
@@ -128,13 +129,13 @@ msgstr "No"
 #: core/admin/customize/customize.php:758
 #: core/admin/customize/customize.php:774
 #: core/admin/customize/customize.php:790
-#: core/admin/customize/customize.php:1134
+#: core/admin/customize/customize.php:1145
 msgid "Yes"
 msgstr "Si"
 
-#: core/admin/customize/customize.php:31 core/includes/class-customize.php:322
-msgid "Get support"
-msgstr "Ottieni supporto."
+#: core/admin/customize/customize.php:31 core/includes/class-notice.php:82
+msgid "Upgrade to Bazaar Premium"
+msgstr "Aggiorna a Bazar Premium"
 
 #: core/admin/customize/customize.php:43 core/admin/customize/customize.php:44
 #: core/admin/customize/customize.php:65
@@ -171,10 +172,10 @@ msgstr "Immagini slideshow fisse"
 
 #: core/admin/customize/customize.php:114
 msgid ""
-"Do you want to set the 'background-attachment' css rule as fixed, for the "
+"Do you want to set the background-attachment css rule as fixed, for the "
 "slideshow images?"
 msgstr ""
-"Vuoi impostare la regola css 'background-attachment' in fixed, per le "
+"Vuoi impostare la regola css ‘background-attachment’ come fissa, per le "
 "immagini dello slideshow?"
 
 #: core/admin/customize/customize.php:129
@@ -465,6 +466,18 @@ msgstr ""
 "Imposta una larghezza, per una risoluzione superiore a 1200 pixel (per "
 "esempio 1170 e non1170px)"
 
+#: core/admin/customize/customize.php:712
+msgid "Screen greater than 1400px"
+msgstr "Risoluzione superiore a 1400px"
+
+#: core/admin/customize/customize.php:713
+msgid ""
+"Set a width, in px, for a screen greater than 1400px pixel (for example 1370 "
+"and not 1370px ) "
+msgstr ""
+"Imposta una larghezza, per una risoluzione superiore a 1400 pixel (per "
+"esempio 1370 e non 1370px)"
+
 #: core/admin/customize/customize.php:725
 msgid "Settings"
 msgstr " Impostazioni"
@@ -524,10 +537,11 @@ msgid "Home Blog Layout"
 msgstr "Layout per la Homepage"
 
 #: core/admin/customize/customize.php:833
-msgid "If you've set the latest articles, for the homepage, choose a layout."
+msgid ""
+"If you&#39;ve set the latest articles, for the homepage, choose a layout."
 msgstr ""
-"Se hai scelto di visualizzare gli ultimi articoli, nella pagina principale, "
-"scegli un layout"
+"Se hai impostato gli ultimi articoli per la pagina principale, seleziona un "
+"layout."
 
 #: core/admin/customize/customize.php:838
 #: core/admin/customize/customize.php:857
@@ -750,108 +764,116 @@ msgstr ""
 "pulsate)"
 
 #: core/admin/customize/customize.php:1116
+msgid "Telegram Account"
+msgstr "Account Telegram"
+
+#: core/admin/customize/customize.php:1117
+msgid "Insert Telegram account (empty if you want to hide the button)"
+msgstr "Inserisci l’account Telegram (vuoto se vuoi nascondere il pulsante)"
+
+#: core/admin/customize/customize.php:1127
 msgid "Email Address"
 msgstr "Indirizzo email"
 
-#: core/admin/customize/customize.php:1117
+#: core/admin/customize/customize.php:1128
 msgid "Insert Email Address (empty if you want to hide the button)"
 msgstr ""
 "Inserisci la tua email, lascia il campo vuoto per non visualizzare il "
 "pulsante."
 
-#: core/admin/customize/customize.php:1127
+#: core/admin/customize/customize.php:1138
 msgid "Feed Rss Button"
 msgstr "Pulsante Feed Rss"
 
-#: core/admin/customize/customize.php:1128
+#: core/admin/customize/customize.php:1139
 msgid "Do you want to display the Feed Rss button?"
 msgstr "Vuoi visualizzare il pulsante dei feed Rss?"
 
-#: core/admin/customize/customize.php:1145
-#: core/admin/customize/customize.php:1146
+#: core/admin/customize/customize.php:1156
+#: core/admin/customize/customize.php:1157
 msgid "Typography"
 msgstr "Tipografia"
 
-#: core/admin/customize/customize.php:1157
+#: core/admin/customize/customize.php:1168
 msgid "Logo"
 msgstr "Logo"
 
-#: core/admin/customize/customize.php:1167
-#: core/admin/customize/customize.php:1190
-#: core/admin/customize/customize.php:1213
+#: core/admin/customize/customize.php:1178
+#: core/admin/customize/customize.php:1201
+#: core/admin/customize/customize.php:1224
 msgid "Font size"
 msgstr "Grandezza del font"
 
-#: core/admin/customize/customize.php:1168
+#: core/admin/customize/customize.php:1179
 msgid "Insert a size, for logo font (For example, 30px) "
 msgstr "Inserisci una grandezza, per il font del logo (Ad esempio, 30px)"
 
-#: core/admin/customize/customize.php:1180
+#: core/admin/customize/customize.php:1191
 msgid "Menu"
 msgstr "Menu"
 
-#: core/admin/customize/customize.php:1191
+#: core/admin/customize/customize.php:1202
 msgid "Insert a size, for menu font (For example, 14px) "
 msgstr "Inserisci una grandezza, per il menu ( Per esempio, 14px )"
 
-#: core/admin/customize/customize.php:1203
+#: core/admin/customize/customize.php:1214
 msgid "Content"
 msgstr "Contenuto"
 
-#: core/admin/customize/customize.php:1214
+#: core/admin/customize/customize.php:1225
 msgid "Insert a size, for content font (For example, 14px) "
 msgstr ""
 "Inserisci una grandezza, per il font dei contenuti ( Per esempio, 14px )"
 
-#: core/admin/customize/customize.php:1227
+#: core/admin/customize/customize.php:1238
 msgid "Headlines"
 msgstr "Titoli"
 
-#: core/admin/customize/customize.php:1237
+#: core/admin/customize/customize.php:1248
 msgid "H1 headline"
 msgstr "Elementi H1"
 
-#: core/admin/customize/customize.php:1238
+#: core/admin/customize/customize.php:1249
 msgid "Insert a size, for for H1 elements (For example, 24px) "
 msgstr "Inserisci una grandezza, per i titoli H1 ( Per esempio, 24px )"
 
-#: core/admin/customize/customize.php:1248
+#: core/admin/customize/customize.php:1259
 msgid "H2 headline"
 msgstr "Elementi H2"
 
-#: core/admin/customize/customize.php:1249
+#: core/admin/customize/customize.php:1260
 msgid "Insert a size, for for H2 elements (For example, 22px) "
 msgstr "Inserisci una grandezza, per i titoli H2 ( Per esempio, 22px )"
 
-#: core/admin/customize/customize.php:1259
+#: core/admin/customize/customize.php:1270
 msgid "H3 headline"
 msgstr "Elementi H3"
 
-#: core/admin/customize/customize.php:1260
+#: core/admin/customize/customize.php:1271
 msgid "Insert a size, for for H3 elements (For example, 20px) "
 msgstr "Inserisci una grandezza, per i titoli H3 ( Per esempio, 20px )"
 
-#: core/admin/customize/customize.php:1270
+#: core/admin/customize/customize.php:1281
 msgid "H4 headline"
 msgstr "\"\"Elementi H4"
 
-#: core/admin/customize/customize.php:1271
+#: core/admin/customize/customize.php:1282
 msgid "Insert a size, for for H4 elements (For example, 18px) "
 msgstr "Inserisci una grandezza, per i titoli H4 ( Per esempio, 18px )"
 
-#: core/admin/customize/customize.php:1281
+#: core/admin/customize/customize.php:1292
 msgid "H5 headline"
 msgstr "Elementi H5"
 
-#: core/admin/customize/customize.php:1282
+#: core/admin/customize/customize.php:1293
 msgid "Insert a size, for for H5 elements (For example, 16px) "
 msgstr "Inserisci una grandezza, per i titoli H5 ( Per esempio, 16px )"
 
-#: core/admin/customize/customize.php:1292
+#: core/admin/customize/customize.php:1303
 msgid "H6 headline"
 msgstr "Elementi H6"
 
-#: core/admin/customize/customize.php:1293
+#: core/admin/customize/customize.php:1304
 msgid "Insert a size, for for H6 elements (For example, 14px) "
 msgstr "Inserisci una grandezza, per i titoli H6 ( Per esempio, 14px )"
 
@@ -896,90 +918,419 @@ msgstr "Questa sidebar verrà visualizzata a fondo pagina"
 msgid "View your shopping cart"
 msgstr "Visualizza il carrello"
 
-#: core/includes/class-customize.php:34 core/includes/class-notice.php:62
-msgid "Upgrade to Bazaar Premium"
+#: core/includes/class-customize.php:336
+msgid "Bazaar premium version"
+msgstr "Versione premium di Bazaar"
+
+#: core/includes/class-customize.php:338
+msgid ""
+"Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, "
+"unlimited sidebars, portfolio section and much more."
+msgstr ""
+"Aggiorna alla versione premium di Bazaar, per attivare oltre 600 Google "
+"Fonts, barre laterali illimitate, sezione Portfolio e molto altro."
+
+#: core/includes/class-customize.php:342
+msgid "Upgrade to Bazaar premium"
 msgstr "Aggiorna a Bazar Premium"
 
-#: core/includes/class-customize.php:326
+#: core/includes/class-customize.php:350
+msgid "Become a supporter"
+msgstr "Diventa un supporter"
+
+#: core/includes/class-customize.php:352
 msgid ""
-"If you've opened a new support ticket from <strong>WordPress.org</strong>, "
-"please send a reminder to <strong>support@wpinprogress.com</strong>, to get "
-"a faster reply."
+"If you like this theme and support, I'd appreciate any of the following:"
 msgstr ""
-"Se hai aperto un nuovo ticket su <strong>WordPress.org</strong>, per favore "
-"invia un promemoria a <strong>support@wpinprogress.com</strong>, per "
-"ottenere rapidamente una risposta."
+"Se ti piace il tema oppure il servizio di supporto, è gradita una delle "
+"seguenti azioni:"
 
-#: core/includes/class-customize.php:330
-msgid "Open a new ticket"
-msgstr "Apri un nuovo ticket."
-
-#: core/includes/class-customize.php:331
-msgid "Send a reminder"
-msgstr "Invia un promemoria."
-
-#: core/includes/class-customize.php:336
-msgid ""
-"If you like this theme and support, <strong>I'd appreciate</strong> any of "
-"the following:"
-msgstr ""
-"Se ti piace il tema oppure il servizio di supporto, <strong>è gradita</"
-"strong> una delle seguenti azioni:"
-
-#: core/includes/class-customize.php:340
+#: core/includes/class-customize.php:356
 msgid "Rate this Theme"
 msgstr "Valuta questo tema."
 
-#: core/includes/class-customize.php:341
-msgid "Like on Facebook"
-msgstr "Seguici su Facebook."
-
-#: core/includes/class-customize.php:342
+#: core/includes/class-customize.php:357
 msgid "Subscribe our newsletter"
 msgstr "Registrati alla nostra newsletter."
 
-#: core/includes/class-customize.php:343
-msgid "Download our free WordPress themes"
-msgstr "Scarica i nostri temi gratuiti per Wordpress"
-
-#: core/includes/class-notice.php:58
+#: core/includes/class-notice.php:67
 msgid ""
-"Upgrade to the premium version of Bazaar, to enable an extensive option "
-"panel, 600+ Google Fonts, unlimited sidebars, portfolio and much more."
+"Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, "
+"unlimited sidebars, portfolio and much more. "
 msgstr ""
-"Aggiorna alla versione premium di Bazaar per attivare un pannello di "
-"controllo completo, oltre 600 Google Fonts, barre laterali illimitate, "
-"sezione portfolio e molto altro."
+"Aggiorna alla versione premium di Bazaar, per attivare oltre 600 Google "
+"Fonts, barre laterali illimitate, sezione Portfolio e molto altro. "
 
-#: core/includes/class-notice.php:59
+#: core/includes/class-notice.php:70
+#: core/includes/class-plugin-activation.php:400
 msgid "Dismiss this notice"
 msgstr "Nascondi questo avviso"
 
-#: core/main.php:214
+#: core/includes/class-plugin-activation.php:332
+msgid "Install Required Plugins"
+msgstr "Installa i plugins necessari."
+
+#: core/includes/class-plugin-activation.php:333
+msgid "Install Plugins"
+msgstr "Installa plugins"
+
+#: core/includes/class-plugin-activation.php:335
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr "Installazione plugin: %s"
+
+#: core/includes/class-plugin-activation.php:337
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr "Aggiornamento Plugin: %1$s"
+
+#: core/includes/class-plugin-activation.php:338
+msgid "Something went wrong with the plugin API."
+msgstr "Qualcosa è andato storto con le API del plugin."
+
+#: core/includes/class-plugin-activation.php:390
+msgid "Return to Required Plugins Installer"
+msgstr "Ritorna all’installatore dei plugin richiesti."
+
+#: core/includes/class-plugin-activation.php:391
+#: core/includes/class-plugin-activation.php:840
+#: core/includes/class-plugin-activation.php:2546
+#: core/includes/class-plugin-activation.php:3593
+msgid "Return to the Dashboard"
+msgstr "Ritorna alla dashboard."
+
+#: core/includes/class-plugin-activation.php:392
+#: core/includes/class-plugin-activation.php:3172
+msgid "Plugin activated successfully."
+msgstr "Plugin attivato con successo."
+
+#: core/includes/class-plugin-activation.php:393
+msgid "The following plugin was activated successfully:"
+msgstr "Il seguente plugin è stato attivato con successo:"
+
+#: core/includes/class-plugin-activation.php:395
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr "Nessuna risposta. Il plugin %1$s era già stato attivato."
+
+#: core/includes/class-plugin-activation.php:397
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+"Plugin non attivato. Una versione più recente di %s è richiesta per questo "
+"tema. Si prega di aggiornare il plugin."
+
+#: core/includes/class-plugin-activation.php:399
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr "Tutti i plugins installati ed attivati con successo. %1$s"
+
+#: core/includes/class-plugin-activation.php:401
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+"Ci sono uno o pi&ugrave; dei plugin richiesti o consigliati da installare, "
+"aggiornare o attivare."
+
+#: core/includes/class-plugin-activation.php:402
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+"Si prega di contattare l’amministratore di questo sito per richiedere "
+"assistenza."
+
+#: core/includes/class-plugin-activation.php:524
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+"Questo plugin deve essere aggiornato per essere compatibile con il nostro "
+"tema."
+
+#: core/includes/class-plugin-activation.php:525
+msgid "Update Required"
+msgstr "Aggiornamento richiesto."
+
+#: core/includes/class-plugin-activation.php:643
+msgid "Set the parent_slug config variable instead."
+msgstr "Impostare invece la variabile di configurazione parent_slug."
+
+#: core/includes/class-plugin-activation.php:947
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+"Il pacchetto di plug-in remoto non contiene una cartella con lo slum "
+"desiderato ed il comando rinomina non ha funzionato."
+
+#: core/includes/class-plugin-activation.php:947
+#: core/includes/class-plugin-activation.php:950
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+"Si prega di contattare lo sviluppatore del plugin e richiedere di sviluppare "
+"il plugin seguendo le linee guida di WordPress."
+
+#: core/includes/class-plugin-activation.php:950
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+"Il pacchetto di plugin è costituito da più di un file, ma i file non sono "
+"confezionati in una cartella."
+
+#: core/includes/class-plugin-activation.php:1995
+#, php-format
+msgid "TGMPA v%s"
+msgstr "TGMPA v%s"
+
+#: core/includes/class-plugin-activation.php:2286
+msgid "Required"
+msgstr "Richiesto"
+
+#: core/includes/class-plugin-activation.php:2289
+msgid "Recommended"
+msgstr "Raccomandato"
+
+#: core/includes/class-plugin-activation.php:2305
+msgid "WordPress Repository"
+msgstr "Repository WordPress"
+
+#: core/includes/class-plugin-activation.php:2308
+msgid "External Source"
+msgstr "Risorse esterne"
+
+#: core/includes/class-plugin-activation.php:2311
+msgid "Pre-Packaged"
+msgstr "Preconfezionato."
+
+#: core/includes/class-plugin-activation.php:2328
+msgid "Not Installed"
+msgstr "Non installato."
+
+#: core/includes/class-plugin-activation.php:2332
+msgid "Installed But Not Activated"
+msgstr "Tutti i plugins installati ed attivati con successo. %1$s"
+
+#: core/includes/class-plugin-activation.php:2334
+msgid "Active"
+msgstr "Attivo"
+
+#: core/includes/class-plugin-activation.php:2340
+msgid "Required Update not Available"
+msgstr "L’aggiornamento richiesto non è disponibile."
+
+#: core/includes/class-plugin-activation.php:2343
+msgid "Requires Update"
+msgstr "È richiesto l’aggiornamento."
+
+#: core/includes/class-plugin-activation.php:2346
+msgid "Update recommended"
+msgstr "Aggiornamento raccomandato"
+
+#: core/includes/class-plugin-activation.php:2503
+msgid "Installed version:"
+msgstr "Versione installata:"
+
+#: core/includes/class-plugin-activation.php:2511
+msgid "Minimum required version:"
+msgstr "Versione minima richiesta:"
+
+#: core/includes/class-plugin-activation.php:2523
+msgid "Available version:"
+msgstr "Versione disponibile"
+
+#: core/includes/class-plugin-activation.php:2546
+msgid "No plugins to install, update or activate."
+msgstr "Nessun plugin da installare, aggiornare o attivare."
+
+#: core/includes/class-plugin-activation.php:2560
+msgid "Plugin"
+msgstr "Plugin"
+
+#: core/includes/class-plugin-activation.php:2561
+msgid "Source"
+msgstr "Fonte"
+
+#: core/includes/class-plugin-activation.php:2562
+msgid "Type"
+msgstr "Tipo"
+
+#: core/includes/class-plugin-activation.php:2566
+msgid "Version"
+msgstr "Versione"
+
+#: core/includes/class-plugin-activation.php:2567
+msgid "Status"
+msgstr "Stato"
+
+#: core/includes/class-plugin-activation.php:2616
+#, php-format
+msgid "Install %2$s"
+msgstr "Installa %2$s"
+
+#: core/includes/class-plugin-activation.php:2621
+#, php-format
+msgid "Update %2$s"
+msgstr "Aggiorna %2$s"
+
+#: core/includes/class-plugin-activation.php:2627
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: core/includes/class-plugin-activation.php:2697
+msgid "Upgrade message from the plugin author:"
+msgstr "Messaggio di aggiornamento dall’autore del plugin:"
+
+#: core/includes/class-plugin-activation.php:2730
+msgid "Install"
+msgstr "Installa"
+
+#: core/includes/class-plugin-activation.php:2736
+msgid "Update"
+msgstr "Aggiornamento"
+
+#: core/includes/class-plugin-activation.php:2739
+msgid "Activate"
+msgstr "Attivare"
+
+#: core/includes/class-plugin-activation.php:2770
+msgid "No plugins were selected to be installed. No action taken."
+msgstr "Nessun plugin selezionato per essere installato. Nessuna risposta."
+
+#: core/includes/class-plugin-activation.php:2772
+msgid "No plugins were selected to be updated. No action taken."
+msgstr "Nessun plugin selezionato per essere aggiornato. Nessuna risposta."
+
+#: core/includes/class-plugin-activation.php:2813
+msgid "No plugins are available to be installed at this time."
+msgstr "Nessun plugin è disponibile per essere installato in questo momento."
+
+#: core/includes/class-plugin-activation.php:2815
+msgid "No plugins are available to be updated at this time."
+msgstr "Nessun plugin è disponibile per essere aggiornato in questo momento."
+
+#: core/includes/class-plugin-activation.php:2921
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+"Nessun plugin sono stati selezionati per essere attivati. Nessuna azione "
+"intrapresa."
+
+#: core/includes/class-plugin-activation.php:2947
+msgid "No plugins are available to be activated at this time."
+msgstr "Nessun plugin è disponibile per essere attivato in questo momento."
+
+#: core/includes/class-plugin-activation.php:3171
+msgid "Plugin activation failed."
+msgstr "Installazione plugin fallita."
+
+#: core/includes/class-plugin-activation.php:3511
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr "Aggiornamento plugin %1$s (%2$d/%3$d)"
+
+#: core/includes/class-plugin-activation.php:3514
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+"Si è verificato un errore durante l’installazione %1$s: <strong>%2$s</"
+"strong>."
+
+#: core/includes/class-plugin-activation.php:3516
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr "L’installazione di %1$s è fallita."
+
+#: core/includes/class-plugin-activation.php:3520
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+"Il processo d’installazione ed attivazione è partito. Questo processo può "
+"richiedere del tempo su alcuni hosting, si prega di attendere."
+
+#: core/includes/class-plugin-activation.php:3522
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr "%1$s installato ed attivato con successo."
+
+#: core/includes/class-plugin-activation.php:3522
+#: core/includes/class-plugin-activation.php:3530
+msgid "Show Details"
+msgstr "Visualizza dettagli"
+
+#: core/includes/class-plugin-activation.php:3522
+#: core/includes/class-plugin-activation.php:3530
+msgid "Hide Details"
+msgstr "Nascondi dettagli"
+
+#: core/includes/class-plugin-activation.php:3523
+msgid "All installations and activations have been completed."
+msgstr "Tutte le installazioni e le attivazione sono state completate."
+
+#: core/includes/class-plugin-activation.php:3525
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr "Installazione ed attivazione plugin %1$s (%2$d/%3$d)"
+
+#: core/includes/class-plugin-activation.php:3528
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+"Il processo d’installazione è partito. Questo processo può richiedere del "
+"tempo su alcuni hosting, si prega di attendere."
+
+#: core/includes/class-plugin-activation.php:3530
+#, php-format
+msgid "%1$s installed successfully."
+msgstr "%1$s installato con successo."
+
+#: core/includes/class-plugin-activation.php:3531
+msgid "All installations have been completed."
+msgstr "Tutte le installazioni sono state completate."
+
+#: core/includes/class-plugin-activation.php:3533
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr "Installazione plugin %1$s (%2$d/%3$d)"
+
+#: core/main.php:42
+msgid "You need to update your PHP version to run this theme."
+msgstr "È necessario aggiornare la versione PHP per attivare questo tema."
+
+#: core/main.php:45
+#, php-format
+msgid "Actual version is: %1$s, required version is: %2$s."
+msgstr ""
+
+#: core/main.php:262
 msgid "Archives"
 msgstr "Archivi"
 
-#: core/main.php:358
+#: core/main.php:406
 msgid "Home"
 msgstr "Home"
 
-#: core/main.php:378
+#: core/main.php:426
 msgid "<span>Search </span> results for "
 msgstr "<span>Risultati </span> ricerca per:"
 
-#: core/main.php:382
+#: core/main.php:430
 msgid "Page 404"
 msgstr "Pagina 404"
 
-#: core/main.php:386
+#: core/main.php:434
 msgid "Attachment: "
 msgstr "Allegato:"
 
-#: core/main.php:467
+#: core/main.php:515
 msgid "Read more"
 msgstr "Leggi tutto"
 
-#: core/main.php:476
+#: core/main.php:524
 msgid "More"
 msgstr "Leggi tutto"
 
@@ -1042,7 +1393,7 @@ msgstr "Nessun articolo trovato in questo blog"
 msgid "Calendar"
 msgstr "Calendario"
 
-#: core/templates/social_buttons.php:56
+#: core/templates/social_buttons.php:57
 msgid "Rss"
 msgstr "Rss"
 
@@ -1055,10 +1406,6 @@ msgid "Theme by"
 msgstr "Theme by"
 
 #: footer.php:23
-msgid "http://wordpress.org/"
-msgstr "http://wordpress.org/"
-
-#: footer.php:23
 msgid "A Semantic Personal Publishing Platform"
 msgstr "Una piattaforma di editoria personale semantica"
 
@@ -1066,6 +1413,10 @@ msgstr "Una piattaforma di editoria personale semantica"
 #, php-format
 msgid "Proudly powered by %s"
 msgstr "Proudly powered by %s"
+
+#: header.php:22
+msgid "Skip to content"
+msgstr "Salta al contenuto"
 
 #: layouts/archive-blog.php:47 layouts/search-blog.php:47
 msgid "No article found in this category."
@@ -1075,7 +1426,7 @@ msgstr "Nessun articolo trovato in questa categoria"
 msgid "Cart Totals"
 msgstr "Totale carrello"
 
-#: woocommerce/cart/cart-totals.php:24 woocommerce/checkout/review-order.php:50
+#: woocommerce/cart/cart-totals.php:24
 msgid "Subtotal"
 msgstr "Subtotale"
 
@@ -1083,9 +1434,8 @@ msgstr "Subtotale"
 msgid "Shipping"
 msgstr "Spedizione"
 
-#: woocommerce/cart/cart-totals.php:78 woocommerce/cart/cart.php:41
-#: woocommerce/checkout/review-order.php:18
-#: woocommerce/checkout/review-order.php:97
+#: woocommerce/cart/cart-totals.php:78 woocommerce/cart/cart.php:44
+#: woocommerce/cart/cart.php:129
 msgid "Total"
 msgstr "Totale"
 
@@ -1111,179 +1461,137 @@ msgstr "Aggiorna il carrello"
 msgid "Proceed to Checkout"
 msgstr "Vai alla cassa"
 
-#: woocommerce/cart/cart.php:28
+#: woocommerce/cart/cart.php:32
 msgid "Cart"
 msgstr "Carrello"
 
-#: woocommerce/cart/cart.php:38 woocommerce/checkout/review-order.php:17
+#: woocommerce/cart/cart.php:41 woocommerce/cart/cart.php:85
 msgid "Product"
 msgstr "Prodotto"
 
-#: woocommerce/cart/cart.php:39
+#: woocommerce/cart/cart.php:42 woocommerce/cart/cart.php:105
 msgid "Price"
 msgstr "Prezzo"
 
-#: woocommerce/cart/cart.php:40
+#: woocommerce/cart/cart.php:43 woocommerce/cart/cart.php:111
 msgid "Quantity"
 msgstr "Quantità"
 
-#: woocommerce/cart/cart.php:58
+#: woocommerce/cart/cart.php:66
 msgid "Remove this item"
 msgstr "Rimuovi questo elemento"
 
-#: woocommerce/cart/cart.php:134
-msgid "Coupon"
-msgstr "Coupon"
+#: woocommerce/cart/cart.php:100
+msgid "Available on backorder"
+msgstr ""
 
-#: woocommerce/cart/cart.php:134 woocommerce/checkout/form-coupon.php:31
+#: woocommerce/cart/cart.php:147
+msgid "Coupon:"
+msgstr "Coupon:"
+
+#: woocommerce/cart/cart.php:147 woocommerce/checkout/form-coupon.php:39
 msgid "Coupon code"
 msgstr "Codice coupon"
 
-#: woocommerce/cart/cart.php:134 woocommerce/checkout/form-coupon.php:35
-msgid "Apply Coupon"
-msgstr "Applica coupon"
+#: woocommerce/cart/cart.php:147 woocommerce/checkout/form-coupon.php:43
+msgid "Apply coupon"
+msgstr ""
 
-#: woocommerce/checkout/form-checkout.php:20
+#: woocommerce/checkout/form-checkout.php:26
 msgid "You must be logged in to checkout."
 msgstr "Devi essere registrato per andare alla cassa"
 
-#: woocommerce/checkout/form-checkout.php:52
+#: woocommerce/checkout/form-checkout.php:57
 msgid "Your order"
 msgstr "Il tuo ordine"
 
-#: woocommerce/checkout/form-coupon.php:24
-msgid "Have a coupon? "
-msgstr "Hai un coupon?"
+#: woocommerce/checkout/form-coupon.php:30
+msgid "Have a coupon?"
+msgstr "Hai un buono sconto?"
 
-#: woocommerce/checkout/form-coupon.php:24
+#: woocommerce/checkout/form-coupon.php:30
 msgid "Click here to enter your code"
 msgstr "Clicca qui per inserire il tuo codice"
 
-#: woocommerce/global/form-login.php:26
-msgid "Username or email"
-msgstr "Nome utente o e-mail"
+#: woocommerce/checkout/form-coupon.php:36
+msgid "If you have a coupon code, please apply it below."
+msgstr "Se disponi di un codice promozionale, inseriscilo di seguito."
 
-#: woocommerce/global/form-login.php:30
-msgid "Password"
-msgstr "Password"
-
-#: woocommerce/global/form-login.php:39
-msgid "Login"
-msgstr "Accedi"
-
-#: woocommerce/global/form-login.php:42
-msgid "Remember me"
-msgstr "Ricordami"
-
-#: woocommerce/global/form-login.php:46
-msgid "Lost your password?"
-msgstr "Hai perso la tua password?"
-
-#: woocommerce/order/form-tracking.php:20
-msgid ""
-"To track your order please enter your Order ID in the box below and press "
-"the \"Track\" button. This was given to you on your receipt and in the "
-"confirmation email you should have received."
-msgstr ""
-"Per tracciare il tuo ordine, si prega di inserire l’ID del tuo ordine nel "
-"campo seguente e di cliccare sul pulsante “Traccia”. Questo è stato inviato "
-"insieme alla ricevuta e dovrebbe essere stato inviato nella e-mail di "
-"conferma."
-
-#: woocommerce/order/form-tracking.php:22
-msgid "Order ID"
-msgstr "ID ordine"
-
-#: woocommerce/order/form-tracking.php:22
-msgid "Found in your order confirmation email."
-msgstr "Trovato via e-mail di conferma dell’ordine ."
-
-#: woocommerce/order/form-tracking.php:23
-msgid "Billing Email"
-msgstr "Email di fatturazione"
-
-#: woocommerce/order/form-tracking.php:23
-msgid "Email you used during checkout."
-msgstr "Indirizzo email utilizzato alla cassa"
-
-#: woocommerce/order/form-tracking.php:26
-msgid "Track"
-msgstr "Traccia"
-
-#: woocommerce/single-product-reviews.php:26
+#: woocommerce/single-product-reviews.php:36
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: woocommerce/single-product-reviews.php:47
+#: woocommerce/single-product-reviews.php:58
 msgid "There are no reviews yet."
 msgstr "Non ci sono ancora recensioni"
 
-#: woocommerce/single-product-reviews.php:61
+#: woocommerce/single-product-reviews.php:72
 msgid "Add a review"
 msgstr "Aggiungi una revisione"
 
-#: woocommerce/single-product-reviews.php:66
+#: woocommerce/single-product-reviews.php:76
 msgid "Name"
 msgstr "Nome"
 
-#: woocommerce/single-product-reviews.php:68
+#: woocommerce/single-product-reviews.php:78
 msgid "Email"
 msgstr "E-mail"
 
-#: woocommerce/single-product-reviews.php:71
+#: woocommerce/single-product-reviews.php:81
 msgid "Submit"
 msgstr "Invia"
 
-#: woocommerce/single-product-reviews.php:77
+#: woocommerce/single-product-reviews.php:87
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a review."
+msgstr "Devi essere <a href=“%s”>loggato</a> per lasciare il tuo voto."
+
+#: woocommerce/single-product-reviews.php:91
 msgid "Your Rating"
 msgstr "La tua valutazione"
 
-#: woocommerce/single-product-reviews.php:78
+#: woocommerce/single-product-reviews.php:92
 msgid "Rate&hellip;"
 msgstr "Valutazione&hellip;"
 
-#: woocommerce/single-product-reviews.php:79
+#: woocommerce/single-product-reviews.php:93
 msgid "Perfect"
 msgstr "Perfetto"
 
-#: woocommerce/single-product-reviews.php:80
+#: woocommerce/single-product-reviews.php:94
 msgid "Good"
 msgstr "Ottimo"
 
-#: woocommerce/single-product-reviews.php:81
+#: woocommerce/single-product-reviews.php:95
 msgid "Average"
 msgstr "Media"
 
-#: woocommerce/single-product-reviews.php:82
+#: woocommerce/single-product-reviews.php:96
 msgid "Not that bad"
 msgstr "Non così male"
 
-#: woocommerce/single-product-reviews.php:83
+#: woocommerce/single-product-reviews.php:97
 msgid "Very Poor"
 msgstr "Molto povero"
 
-#: woocommerce/single-product-reviews.php:87
-msgid "Your Review"
-msgstr "Il tuo voto"
+#: woocommerce/single-product-reviews.php:101
+msgid "Your review"
+msgstr "La tua recensione"
 
-#: woocommerce/single-product-reviews.php:96
+#: woocommerce/single-product-reviews.php:110
 msgid ""
 "Only logged in customers who have purchased this product may leave a review."
 msgstr ""
 "Solo i clienti che hanno effettuato l’accesso e acquistato questo prodotto "
 "posso lasciare una recensione."
 
-#: woocommerce/single-product/meta.php:26
-msgid "SKU:"
-msgstr "SKU:"
+#: woocommerce/single-product/product-image.php:38
+msgid "Awaiting product image"
+msgstr ""
 
-#: woocommerce/single-product/meta.php:26
-msgid "N/A"
-msgstr "N/A"
-
-#: woocommerce/single-product/related.php:46
-msgid "Related Products"
-msgstr "Prodotti correlati"
+#: woocommerce/single-product/related.php:31
+msgid "Related products"
+msgstr "prodotti Correlati"
 
 #: woocommerce/single-product/review.php:43
 #, php-format
@@ -1302,101 +1610,141 @@ msgstr "Il tuo commento è in attesa di approvazione."
 msgid "verified owner"
 msgstr "Proprietario verificato"
 
-#: woocommerce/single-product/up-sells.php:47
+#: woocommerce/single-product/up-sells.php:32
 msgid "You may also like&hellip;"
 msgstr "Ti potrebbe anche interessare&hellip;"
+
+#~ msgid "<cite>%s</cite>"
+#~ msgstr "<cite>%s</cite>"
+
+#~ msgid ""
+#~ "Do you want to set a full background image? (After the upload, check "
+#~ "'Fixed', from the Background Attachment section)"
+#~ msgstr ""
+#~ "Vuoi impostare uno sfondo a piena pagina? (Dopo l'upload, seleziona "
+#~ "\"Fixed\" dalle impostazioni di attaccamento dell'immagine)"
+
+#~ msgid "Get support"
+#~ msgstr "Ottieni supporto."
+
+#~ msgid ""
+#~ "Do you want to set the 'background-attachment' css rule as fixed, for the "
+#~ "slideshow images?"
+#~ msgstr ""
+#~ "Vuoi impostare la regola css 'background-attachment' in fixed, per le "
+#~ "immagini dello slideshow?"
+
+#~ msgid ""
+#~ "If you've set the latest articles, for the homepage, choose a layout."
+#~ msgstr ""
+#~ "Se hai scelto di visualizzare gli ultimi articoli, nella pagina "
+#~ "principale, scegli un layout"
+
+#~ msgid ""
+#~ "If you've opened a new support ticket from <strong>WordPress.org</"
+#~ "strong>, please send a reminder to <strong>support@wpinprogress.com</"
+#~ "strong>, to get a faster reply."
+#~ msgstr ""
+#~ "Se hai aperto un nuovo ticket su <strong>WordPress.org</strong>, per "
+#~ "favore invia un promemoria a <strong>support@wpinprogress.com</strong>, "
+#~ "per ottenere rapidamente una risposta."
+
+#~ msgid "Open a new ticket"
+#~ msgstr "Apri un nuovo ticket."
+
+#~ msgid "Send a reminder"
+#~ msgstr "Invia un promemoria."
+
+#~ msgid ""
+#~ "If you like this theme and support, <strong>I'd appreciate</strong> any "
+#~ "of the following:"
+#~ msgstr ""
+#~ "Se ti piace il tema oppure il servizio di supporto, <strong>è gradita</"
+#~ "strong> una delle seguenti azioni:"
+
+#~ msgid "Like on Facebook"
+#~ msgstr "Seguici su Facebook."
+
+#~ msgid "Download our free WordPress themes"
+#~ msgstr "Scarica i nostri temi gratuiti per Wordpress"
+
+#~ msgid ""
+#~ "Upgrade to the premium version of Bazaar, to enable an extensive option "
+#~ "panel, 600+ Google Fonts, unlimited sidebars, portfolio and much more."
+#~ msgstr ""
+#~ "Aggiorna alla versione premium di Bazaar per attivare un pannello di "
+#~ "controllo completo, oltre 600 Google Fonts, barre laterali illimitate, "
+#~ "sezione portfolio e molto altro."
+
+#~ msgid "http://wordpress.org/"
+#~ msgstr "http://wordpress.org/"
+
+#~ msgid "Coupon"
+#~ msgstr "Coupon"
+
+#~ msgid "Apply Coupon"
+#~ msgstr "Applica coupon"
+
+#~ msgid "Have a coupon? "
+#~ msgstr "Hai un coupon?"
+
+#~ msgid "Username or email"
+#~ msgstr "Nome utente o e-mail"
+
+#~ msgid "Password"
+#~ msgstr "Password"
+
+#~ msgid "Login"
+#~ msgstr "Accedi"
+
+#~ msgid "Remember me"
+#~ msgstr "Ricordami"
+
+#~ msgid "Lost your password?"
+#~ msgstr "Hai perso la tua password?"
+
+#~ msgid ""
+#~ "To track your order please enter your Order ID in the box below and press "
+#~ "the \"Track\" button. This was given to you on your receipt and in the "
+#~ "confirmation email you should have received."
+#~ msgstr ""
+#~ "Per tracciare il tuo ordine, si prega di inserire l’ID del tuo ordine nel "
+#~ "campo seguente e di cliccare sul pulsante “Traccia”. Questo è stato "
+#~ "inviato insieme alla ricevuta e dovrebbe essere stato inviato nella e-"
+#~ "mail di conferma."
+
+#~ msgid "Order ID"
+#~ msgstr "ID ordine"
+
+#~ msgid "Found in your order confirmation email."
+#~ msgstr "Trovato via e-mail di conferma dell’ordine ."
+
+#~ msgid "Billing Email"
+#~ msgstr "Email di fatturazione"
+
+#~ msgid "Email you used during checkout."
+#~ msgstr "Indirizzo email utilizzato alla cassa"
+
+#~ msgid "Track"
+#~ msgstr "Traccia"
+
+#~ msgid "Your Review"
+#~ msgstr "Il tuo voto"
+
+#~ msgid "SKU:"
+#~ msgstr "SKU:"
+
+#~ msgid "N/A"
+#~ msgstr "N/A"
+
+#~ msgid "Related Products"
+#~ msgstr "Prodotti correlati"
 
 #~ msgid "<a href=\"%1$s\" class=\"dismiss-notice\">Dismiss this notice</a>"
 #~ msgstr "<a href=“%1$s” class=“dismiss-notice”>Nascondi questo avviso</a>"
 
-#~ msgid "Install Required Plugins"
-#~ msgstr "Installa i plugins necessari."
-
-#~ msgid "Install Plugins"
-#~ msgstr "Installa plugins"
-
-#~ msgid "Installing Plugin: %s"
-#~ msgstr "Installazione plugin: %s"
-
-#~ msgid "Something went wrong with the plugin API."
-#~ msgstr "Qualcosa è andato storto con le API del plugin."
-
-#~ msgid "Return to Required Plugins Installer"
-#~ msgstr "Ritorna all’installatore dei plugin richiesti."
-
 #~ msgid "Return to the dashboard"
 #~ msgstr "Ritorna alla dashboard."
-
-#~ msgid "Plugin activated successfully."
-#~ msgstr "Plugin attivato con successo."
-
-#~ msgid "The following plugin was activated successfully:"
-#~ msgstr "Il seguente plugin è stato attivato con successo:"
-
-#~ msgid "No action taken. Plugin %1$s was already active."
-#~ msgstr "Nessuna risposta. Il plugin %1$s era già stato attivato."
-
-#~ msgid ""
-#~ "Plugin not activated. A higher version of %s is needed for this theme. "
-#~ "Please update the plugin."
-#~ msgstr ""
-#~ "Plugin non attivato. Una versione più recente di %s è richiesta per "
-#~ "questo tema. Si prega di aggiornare il plugin."
-
-#~ msgid "All plugins installed and activated successfully. %1$s"
-#~ msgstr "Tutti i plugins installati ed attivati con successo. %1$s"
-
-#~ msgid "Please contact the administrator of this site for help."
-#~ msgstr ""
-#~ "Si prega di contattare l’amministratore di questo sito per richiedere "
-#~ "assistenza."
-
-#~ msgid "This plugin needs to be updated to be compatible with your theme."
-#~ msgstr ""
-#~ "Questo plugin deve essere aggiornato per essere compatibile con il nostro "
-#~ "tema."
-
-#~ msgid "Required"
-#~ msgstr "Richiesto"
-
-#~ msgid "Recommended"
-#~ msgstr "Raccomandato"
-
-#~ msgid "WordPress Repository"
-#~ msgstr "Repository WordPress"
-
-#~ msgid "External Source"
-#~ msgstr "Risorse esterne"
-
-#~ msgid "Pre-Packaged"
-#~ msgstr "Preconfezionato."
-
-#~ msgid "Not Installed"
-#~ msgstr "Non installato."
-
-#~ msgid "Installed But Not Activated"
-#~ msgstr "Tutti i plugins installati ed attivati con successo. %1$s"
-
-#~ msgid "Active"
-#~ msgstr "Attivo"
-
-#~ msgid "Required Update not Available"
-#~ msgstr "L’aggiornamento richiesto non è disponibile."
-
-#~ msgid "Requires Update"
-#~ msgstr "È richiesto l’aggiornamento."
-
-#~ msgid "Update recommended"
-#~ msgstr "Aggiornamento raccomandato"
-
-#~ msgid "Installed version:"
-#~ msgstr "Versione installata:"
-
-#~ msgid "Minimum required version:"
-#~ msgstr "Versione minima richiesta:"
-
-#~ msgid "Available version:"
-#~ msgstr "Versione disponibile"
 
 #~ msgid ""
 #~ "No plugins to install, update or activate. <a href=\"%1$s\">Return to the "
@@ -1404,87 +1752,6 @@ msgstr "Ti potrebbe anche interessare&hellip;"
 #~ msgstr ""
 #~ "Nessun plugin da installare, aggiornare o attivare. <a href=\"%1$s"
 #~ "\">Ritorna alla dashboard</a>"
-
-#~ msgid "Plugin"
-#~ msgstr "Plugin"
-
-#~ msgid "Source"
-#~ msgstr "Fonte"
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
-
-#~ msgid "Version"
-#~ msgstr "Versione"
-
-#~ msgid "Status"
-#~ msgstr "Stato"
-
-#~ msgid "Install"
-#~ msgstr "Installa"
-
-#~ msgid "Update"
-#~ msgstr "Aggiornamento"
-
-#~ msgid "Activate"
-#~ msgstr "Attivare"
-
-#~ msgid "No plugins were selected to be installed. No action taken."
-#~ msgstr "Nessun plugin selezionato per essere installato. Nessuna risposta."
-
-#~ msgid "No plugins were selected to be updated. No action taken."
-#~ msgstr "Nessun plugin selezionato per essere aggiornato. Nessuna risposta."
-
-#~ msgid "No plugins are available to be installed at this time."
-#~ msgstr ""
-#~ "Nessun plugin è disponibile per essere installato in questo momento."
-
-#~ msgid "No plugins are available to be updated at this time."
-#~ msgstr ""
-#~ "Nessun plugin è disponibile per essere aggiornato in questo momento."
-
-#~ msgid "Plugin activation failed."
-#~ msgstr "Installazione plugin fallita."
-
-#~ msgid "Updating Plugin %1$s (%2$d/%3$d)"
-#~ msgstr "Aggiornamento plugin %1$s (%2$d/%3$d)"
-
-#~ msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-#~ msgstr ""
-#~ "Si è verificato un errore durante l’installazione %1$s: <strong>%2$s</"
-#~ "strong>."
-
-#~ msgid "The installation of %1$s failed."
-#~ msgstr "L’installazione di %1$s è fallita."
-
-#~ msgid ""
-#~ "The installation and activation process is starting. This process may "
-#~ "take a while on some hosts, so please be patient."
-#~ msgstr ""
-#~ "Il processo d’installazione ed attivazione è partito. Questo processo può "
-#~ "richiedere del tempo su alcuni hosting, si prega di attendere."
-
-#~ msgid "%1$s installed and activated successfully."
-#~ msgstr "%1$s installato ed attivato con successo."
-
-#~ msgid "All installations and activations have been completed."
-#~ msgstr "Tutte le installazioni e le attivazione sono state completate."
-
-#~ msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-#~ msgstr "Installazione ed attivazione plugin %1$s (%2$d/%3$d)"
-
-#~ msgid ""
-#~ "The installation process is starting. This process may take a while on "
-#~ "some hosts, so please be patient."
-#~ msgstr ""
-#~ "Il processo d’installazione è partito. Questo processo può richiedere del "
-#~ "tempo su alcuni hosting, si prega di attendere."
-
-#~ msgid "All installations have been completed."
-#~ msgstr "Tutte le installazioni sono state completate."
-
-#~ msgid "Installing Plugin %1$s (%2$d/%3$d)"
-#~ msgstr "Installazione plugin %1$s (%2$d/%3$d)"
 
 #~ msgid ""
 #~ "Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, "

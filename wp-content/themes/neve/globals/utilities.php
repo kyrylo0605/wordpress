@@ -38,8 +38,10 @@ function neve_hooks() {
 		'post'       => array(
 			'neve_before_post_content',
 			'neve_after_post_content',
+			'neve_before_loop',
 		),
 		'page'       => array(
+			'neve_before_page_header',
 			'neve_before_content',
 			'neve_after_content',
 			'neve_before_page_comments',
@@ -76,22 +78,31 @@ function neve_cart_icon( $echo = false ) {
 	if ( $echo === false ) {
 		return $svg;
 	}
-	echo neve_kses_svg( $svg ); // WPCS: XSS OK.
+	echo neve_kses_svg( $svg ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
  * Search Icon
  *
  * @param bool $echo should be echoed.
+ * @param bool $amp_ready Should we add the AMP binding.
  *
  * @return string
  */
-function neve_search_icon( $echo = false ) {
-	$svg = '<span class="nv-icon nv-search"><svg width="15" height="15" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>';
+function neve_search_icon( $echo = false, $amp_ready = false ) {
+
+	$amp_state = '';
+	if ( $amp_ready ) {
+		$amp_state = ' on="tap:nv-search-icon-responsive.toggleClass(class=\'active\')" ';
+	}
+
+	$svg = '<span class="nv-icon nv-search" ' . $amp_state . '>
+				<svg width="15" height="15" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg>
+			</span>';
 	if ( $echo === false ) {
 		return $svg;
 	}
-	echo neve_kses_svg( $svg ); // WPCS: XSS OK.
+	echo $svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -155,6 +166,38 @@ function neve_kses_svg( $input ) {
 }
 
 /**
+ * Get standard fonts
+ *
+ * @return array
+ */
+function neve_get_standard_fonts() {
+	return apply_filters(
+		'neve_standard_fonts_array',
+		array(
+			'Arial, Helvetica, sans-serif',
+			'Arial Black, Gadget, sans-serif',
+			'Bookman Old Style, serif',
+			'Comic Sans MS, cursive',
+			'Courier, monospace',
+			'Georgia, serif',
+			'Garamond, serif',
+			'Impact, Charcoal, sans-serif',
+			'Lucida Console, Monaco, monospace',
+			'Lucida Sans Unicode, Lucida Grande, sans-serif',
+			'MS Sans Serif, Geneva, sans-serif',
+			'MS Serif, New York, sans-serif',
+			'Palatino Linotype, Book Antiqua, Palatino, serif',
+			'Tahoma, Geneva, sans-serif',
+			'Times New Roman, Times, serif',
+			'Trebuchet MS, Helvetica, sans-serif',
+			'Verdana, Geneva, sans-serif',
+			'Paratina Linotype',
+			'Trebuchet MS',
+		)
+	);
+}
+
+/**
  * Get all google fonts.
  *
  * @return array
@@ -162,7 +205,7 @@ function neve_kses_svg( $input ) {
 function neve_get_google_fonts() {
 	return apply_filters(
 		'neve_google_fonts_array',
-		// Updated on 17/07/19
+		// Updated on 09/08/19
 		array(
 			'ABeeZee',
 			'Abel',
@@ -280,6 +323,7 @@ function neve_get_google_fonts() {
 			'BenchNine',
 			'Bentham',
 			'Berkshire Swash',
+			'Beth Ellen',
 			'Bevan',
 			'Bigelow Rules',
 			'Bigshot One',
@@ -292,6 +336,7 @@ function neve_get_google_fonts() {
 			'Black And White Picture',
 			'Black Han Sans',
 			'Black Ops One',
+			'Blinker',
 			'Bokor',
 			'Bonbon',
 			'Boogaloo',
@@ -383,6 +428,7 @@ function neve_get_google_fonts() {
 			'Crafty Girls',
 			'Creepster',
 			'Crete Round',
+			'Crimson Pro',
 			'Crimson Text',
 			'Croissant One',
 			'Crushed',
@@ -419,6 +465,9 @@ function neve_get_google_fonts() {
 			'Dorsa',
 			'Dosis',
 			'Dr Sugiyama',
+			'Droid Sans',
+			'Droid Sans Mono',
+			'Droid Serif',
 			'Duru Sans',
 			'Dynalight',
 			'EB Garamond',
@@ -450,6 +499,7 @@ function neve_get_google_fonts() {
 			'Expletus Sans',
 			'Fahkwang',
 			'Fanwood Text',
+			'Farro',
 			'Farsan',
 			'Fascinate',
 			'Fascinate Inline',
@@ -462,6 +512,7 @@ function neve_get_google_fonts() {
 			'Felipa',
 			'Fenix',
 			'Finger Paint',
+			'Fira Code',
 			'Fira Mono',
 			'Fira Sans',
 			'Fira Sans Condensed',
@@ -513,6 +564,7 @@ function neve_get_google_fonts() {
 			'Grand Hotel',
 			'Gravitas One',
 			'Great Vibes',
+			'Grenze',
 			'Griffy',
 			'Gruppo',
 			'Gudea',
@@ -622,6 +674,7 @@ function neve_get_google_fonts() {
 			'Kumar One Outline',
 			'Kurale',
 			'La Belle Aurore',
+			'Lacquer',
 			'Laila',
 			'Lakki Reddy',
 			'Lalezar',
@@ -634,6 +687,13 @@ function neve_get_google_fonts() {
 			'Lekton',
 			'Lemon',
 			'Lemonada',
+			'Lexend Deca',
+			'Lexend Exa',
+			'Lexend Giga',
+			'Lexend Mega',
+			'Lexend Peta',
+			'Lexend Tera',
+			'Lexend Zetta',
 			'Libre Barcode 128',
 			'Libre Barcode 128 Text',
 			'Libre Barcode 39',
@@ -641,6 +701,8 @@ function neve_get_google_fonts() {
 			'Libre Barcode 39 Extended Text',
 			'Libre Barcode 39 Text',
 			'Libre Baskerville',
+			'Libre Caslon Display',
+			'Libre Caslon Text',
 			'Libre Franklin',
 			'Life Savers',
 			'Lilita One',
@@ -648,12 +710,14 @@ function neve_get_google_fonts() {
 			'Limelight',
 			'Linden Hill',
 			'Literata',
+			'Liu Jian Mao Cao',
 			'Lobster',
 			'Lobster Two',
 			'Londrina Outline',
 			'Londrina Shadow',
 			'Londrina Sketch',
 			'Londrina Solid',
+			'Long Cang',
 			'Lora',
 			'Love Ya Like A Sister',
 			'Loved by the King',
@@ -663,6 +727,7 @@ function neve_get_google_fonts() {
 			'Lustria',
 			'M PLUS 1p',
 			'M PLUS Rounded 1c',
+			'Ma Shan Zheng',
 			'Macondo',
 			'Macondo Swash Caps',
 			'Mada',
@@ -888,6 +953,8 @@ function neve_get_google_fonts() {
 			'Rasa',
 			'Rationale',
 			'Ravi Prakash',
+			'Red Hat Display',
+			'Red Hat Text',
 			'Redressed',
 			'Reem Kufi',
 			'Reenie Beanie',
@@ -928,6 +995,7 @@ function neve_get_google_fonts() {
 			'Saira Condensed',
 			'Saira Extra Condensed',
 			'Saira Semi Condensed',
+			'Saira Stencil One',
 			'Salsa',
 			'Sanchez',
 			'Sancreek',
@@ -963,6 +1031,7 @@ function neve_get_google_fonts() {
 			'Signika',
 			'Signika Negative',
 			'Simonetta',
+			'Single Day',
 			'Sintony',
 			'Sirin Stencil',
 			'Six Caps',
@@ -1085,6 +1154,7 @@ function neve_get_google_fonts() {
 			'ZCOOL QingKe HuangYou',
 			'ZCOOL XiaoWei',
 			'Zeyada',
+			'Zhi Mang Xing',
 			'Zilla Slab',
 			'Zilla Slab Highlight',
 		)

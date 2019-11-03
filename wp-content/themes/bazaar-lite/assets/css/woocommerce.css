@@ -1,3 +1,12 @@
+/*
+ * Bazaar Lite WooCommerce css file
+ * https://www.themeinprogress.com
+ *
+ * Copyright 2019, ThemeinProgress
+ * Licensed under MIT license
+ * https://opensource.org/licenses/mit-license.php
+ */
+
 /* ===============================================
    Woocommerce Header cart
    ============================================= */
@@ -490,7 +499,10 @@ body.woocommerce-checkout .post-article header.title ,
 	background:#fff;
 }
 
-.woocommerce-cart table.cart td.actions .coupon .input-text {
+.woocommerce #content table.cart td.actions .input-text,
+.woocommerce table.cart td.actions .input-text,
+.woocommerce-page #content table.cart td.actions .input-text,
+.woocommerce-page table.cart td.actions .input-text {
 	border-color: #ddd;
     padding: 10px;
     margin: 0;
@@ -626,7 +638,8 @@ body.minimal-layout .woocommerce-info {
 }
 
 .woocommerce div.product .woocommerce-tabs ul.tabs li.active ,
-.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover{
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:focus{
     z-index: 2;
 	color:#48c9b0;
 }
@@ -736,7 +749,19 @@ body.minimal-layout .woocommerce-info {
 .woocommerce a.button:hover, 
 .woocommerce button.button:hover, 
 .woocommerce input.button:hover,
-.woocommerce .wc-proceed-to-checkout input:hover {
+.woocommerce .wc-proceed-to-checkout input:hover,
+.woocommerce #respond input#submit.alt:focus, 
+.woocommerce a.button.alt:focus, 
+.woocommerce button.button.alt:focus, 
+.woocommerce input.button.alt:focus,
+.woocommerce a.button:focus,
+.woocommerce a.add_to_cart_button:focus,
+.woocommerce .woocommerce-message a.button:focus ,
+.woocommerce #respond input#submit:focus, 
+.woocommerce a.button:focus, 
+.woocommerce button.button:focus, 
+.woocommerce input.button:focus,
+.woocommerce .wc-proceed-to-checkout input:focus {
 	border: solid  1px #1abc9c;
 	color:#fff;
 	background:#1abc9c;

@@ -46,11 +46,15 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 	public $fetch_attachments    = true;
 	public $url_remap            = array();
 	public $featured_images      = array();
+	public $page_builder         = null;
 
 	/**
 	 * Themeisle_OB_WP_Import constructor.
+	 *
+	 * @param string $page_builder the page builder used.
 	 */
-	public function __construct() {
+	public function __construct( $page_builder = '' ) {
+		$this->page_builder = $page_builder;
 		require_once ABSPATH . 'wp-admin/includes/import.php';
 		require_once ABSPATH . 'wp-admin/includes/post.php';
 		require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
@@ -839,7 +843,7 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 	 */
 	private function parse( $file ) {
 		$this->logger->log( 'Parsing XML file.', 'success' );
-		$parser = new Themeisle_OB_WXR_Parser();
+		$parser = new Themeisle_OB_WXR_Parser( $this->page_builder );
 
 		return $parser->parse( $file );
 	}

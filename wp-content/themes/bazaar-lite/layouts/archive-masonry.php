@@ -1,9 +1,9 @@
-<div class="container masonry-container">
+<div id="content" class="container masonry-container">
 	
 	<?php 
 	
 		do_action('bazaarlite_masonry'); 
-		do_action( 'bazaarlite_pagination');
+		do_action('bazaarlite_pagination');
 	
 	?>
 

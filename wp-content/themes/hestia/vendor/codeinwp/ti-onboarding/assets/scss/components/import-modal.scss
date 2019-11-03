@@ -97,6 +97,10 @@
     line-height: 1.6;
     color: #23282d;
     font-size: 14px;
+    &.warning {
+      background: #f7e4d2;
+      border: 1px solid #dfac9a;
+    }
     strong {
       font-size: 18px;
       font-weight: 400;
@@ -136,6 +140,11 @@
   width: 100%;
   box-sizing: border-box;
   display: inline-block;
+  &.disabled {
+    pointer-events: none;
+    opacity: .6;
+    cursor: not-allowed;
+  }
   h4 {
     font-size: 18px;
     font-weight: 400;

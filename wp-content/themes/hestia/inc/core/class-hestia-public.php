@@ -22,15 +22,12 @@ class Hestia_Public {
 	 */
 	public function enqueue_scripts() {
 		// Bootstrap
-		if ( ! class_exists( 'Elementor\Frontend' ) ) {
+		if ( ! class_exists( 'Elementor\Frontend', false ) ) {
 			wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css', array(), HESTIA_VENDOR_VERSION );
 			wp_style_add_data( 'bootstrap', 'rtl', 'replace' );
 			wp_style_add_data( 'bootstrap', 'suffix', '.min' );
 			wp_enqueue_style( 'hestia-font-sizes', get_template_directory_uri() . '/assets/css/font-sizes' . ( ( HESTIA_DEBUG ) ? '' : '.min' ) . '.css', array(), HESTIA_VERSION );
 		}
-
-		// FontAwesome
-		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), HESTIA_VENDOR_VERSION );
 
 		$stylesheet = $this->get_stylesheet();
 		// Main Stylesheet
@@ -38,6 +35,7 @@ class Hestia_Public {
 		wp_style_add_data( 'hestia_style', 'rtl', 'replace' );
 		wp_style_add_data( 'hestia_style', 'suffix', '.min' );
 
+		$this->enqueue_font_awesome();
 		$this->enqueue_woocommerce();
 		$this->enqueue_custom_fonts();
 
@@ -102,7 +100,7 @@ class Hestia_Public {
 	 * Handle WooCommerce Enqueue.
 	 */
 	private function enqueue_woocommerce() {
-		if ( ! class_exists( 'WooCommerce' ) ) {
+		if ( ! class_exists( 'WooCommerce', false ) ) {
 			return;
 		}
 
@@ -255,7 +253,7 @@ class Hestia_Public {
 	 * Enqueue font sizes before elementor.
 	 */
 	public function enqueue_before_elementor() {
-		if ( class_exists( 'Elementor\Frontend' ) ) {
+		if ( class_exists( 'Elementor\Frontend', false ) ) {
 			wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css', array(), HESTIA_VENDOR_VERSION );
 			wp_style_add_data( 'bootstrap', 'rtl', 'replace' );
 			wp_style_add_data( 'bootstrap', 'suffix', '.min' );
@@ -276,12 +274,12 @@ class Hestia_Public {
 	 * Instantiates Classes that handle the content migration from other TI themes.
 	 */
 	private function import_flagship_content() {
-		if ( class_exists( 'Hestia_Content_Import' ) ) {
+		if ( class_exists( 'Hestia_Content_Import', false ) ) {
 			$importer = new Hestia_Content_Import();
 			$importer->import();
 		}
 
-		if ( class_exists( 'Hestia_Import_Zerif' ) ) {
+		if ( class_exists( 'Hestia_Import_Zerif', false ) ) {
 			$zerif_importer = new Hestia_Import_Zerif();
 			$zerif_importer->import();
 		}
@@ -649,9 +647,9 @@ class Hestia_Public {
 	 * Setup Woocommerce Support
 	 */
 	private function setup_woocommerce() {
-		if ( ! class_exists( 'WooCommerce' ) ) {
+		if ( ! class_exists( 'WooCommerce', false ) ) {
 			$woocommerce_notice = HESTIA_PHP_INCLUDE . 'customizer/utils/customizer-info/class/class-hestia-customizer-info-singleton.php';
-			if ( file_exists( $woocommerce_notice ) ) {
+			if ( is_file( $woocommerce_notice ) ) {
 				require_once( $woocommerce_notice );
 			}
 
@@ -691,7 +689,7 @@ class Hestia_Public {
 	 * Setup Jetpack Support
 	 */
 	private function setup_jetpack() {
-		if ( ! class_exists( 'Jetpack' ) ) {
+		if ( ! class_exists( 'Jetpack', false ) ) {
 			return;
 		}
 		add_theme_support( 'jetpack-portfolio' );
@@ -776,12 +774,27 @@ class Hestia_Public {
 	 */
 	public function set_i18n() {
 		$this->generic_strings = array(
-			'header_title_defaut'    => esc_html__( 'Lorem Ipsum', 'hestia' ),
-			'header_content_defaut'  => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'hestia' ),
-			'theme_info_title'       => esc_html__( 'Hestia', 'hestia' ),
-			'blog_subscribe_widgets' => esc_html__( 'Blog Subscribe Section', 'hestia' ),
-			'onboarding_message'     => esc_html__( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
-			'sites_library'          => esc_html__( 'Sites Library', 'hestia' ),
+			'header_title_defaut'      => esc_html__( 'Lorem Ipsum', 'hestia' ),
+			'header_content_defaut'    => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'hestia' ),
+			'theme_info_title'         => esc_html__( 'Hestia', 'hestia' ),
+			'blog_subscribe_widgets'   => esc_html__( 'Blog Subscribe Section', 'hestia' ),
+			'onboarding_message'       => esc_html__( 'This process will set up your website, install required plugins, import demo content (pages, posts, media) and set up the customizer options.', 'hestia' ),
+			'sites_library'            => esc_html__( 'Sites Library', 'hestia' ),
+			'contact_form_description' => sprintf(
+				/* translators: %1$s is Plugin name */
+				esc_html__( 'In order to add a contact form to this section, you need to install the %1$s plugin. Then follow %2$sthis guide%3$s to create your form.', 'hestia' ),
+				esc_html( 'WPForms Lite' ),
+				'<a href="' . esc_url( 'https://docs.themeisle.com/article/949-how-to-create-the-hestia-contact-form-in-wpforms' ) . '" target="_blank">',
+				'</a>'
+			),
 		);
+	}
+
+	/**
+	 * Add font awesome & v4 shims.
+	 */
+	private function enqueue_font_awesome() {
+		wp_enqueue_style( 'font-awesome-5-all', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css', array(), HESTIA_VENDOR_VERSION );
+		wp_enqueue_style( 'font-awesome-4-shim', get_template_directory_uri() . '/assets/font-awesome/css/v4-shims.min.css', array(), HESTIA_VENDOR_VERSION );
 	}
 }

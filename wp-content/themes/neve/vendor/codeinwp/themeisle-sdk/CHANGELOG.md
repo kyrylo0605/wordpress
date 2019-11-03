@@ -1,3 +1,80 @@
+## [3.1.6](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.5...v3.1.6) (2019-09-24)
+
+
+### Bug Fixes
+
+* remove license related options when deactivated ([02cd6ce](https://github.com/Codeinwp/themeisle-sdk/commit/02cd6ce))
+* remove license related options when deactivated ([d3c1a1f](https://github.com/Codeinwp/themeisle-sdk/commit/d3c1a1f))
+
+## [3.1.5](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.4...v3.1.5) (2019-09-11)
+
+
+### Bug Fixes
+
+* allow unloading certain module features ([2a2559a](https://github.com/Codeinwp/themeisle-sdk/commit/2a2559a))
+* license activation workflow, show error message when failed to a… ([ade795c](https://github.com/Codeinwp/themeisle-sdk/commit/ade795c))
+* license activation workflow, show error message when failed to activate ([2f5cbae](https://github.com/Codeinwp/themeisle-sdk/commit/2f5cbae))
+
+## [3.1.4](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.3...v3.1.4) (2019-08-23)
+
+
+### Bug Fixes
+
+* license key was missing on get_version call ([365cde6](https://github.com/Codeinwp/themeisle-sdk/commit/365cde6))
+* license key was missing on get_version call ([c02f225](https://github.com/Codeinwp/themeisle-sdk/commit/c02f225))
+
+## [3.1.3](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.2...v3.1.3) (2019-08-20)
+
+
+### Bug Fixes
+
+* license deactivation behaviour https://github.com/Codeinwp/visua… ([59c4afe](https://github.com/Codeinwp/themeisle-sdk/commit/59c4afe))
+* license deactivation behaviour https://github.com/Codeinwp/visualizer-pro/issues/192 ([f641e18](https://github.com/Codeinwp/themeisle-sdk/commit/f641e18))
+
+## [3.1.2](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.1...v3.1.2) (2019-08-12)
+
+
+### Bug Fixes
+
+* phpunit test case ([efe851c](https://github.com/Codeinwp/themeisle-sdk/commit/efe851c))
+* url format for license endpoint, improve changelog handling and license checks ([a492c68](https://github.com/Codeinwp/themeisle-sdk/commit/a492c68))
+
+## [3.1.1](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.0...v3.1.1) (2019-08-08)
+
+
+### Bug Fixes
+
+* adds is_file for file existence check ([d1205c4](https://github.com/Codeinwp/themeisle-sdk/commit/d1205c4))
+* adds is_file for file existence check ([be119c1](https://github.com/Codeinwp/themeisle-sdk/commit/be119c1))
+
+# [3.1.0](https://github.com/Codeinwp/themeisle-sdk/compare/v3.0.10...v3.1.0) (2019-08-05)
+
+
+### Bug Fixes
+
+* adds extra comments for rest of the options, fix [#64](https://github.com/Codeinwp/themeisle-sdk/issues/64) ([018b22f](https://github.com/Codeinwp/themeisle-sdk/commit/018b22f))
+* hide license key when active under a password mask, fix [#67](https://github.com/Codeinwp/themeisle-sdk/issues/67) ([c0633c2](https://github.com/Codeinwp/themeisle-sdk/commit/c0633c2))
+* new uninstall feedback popup issues ([5bda4bd](https://github.com/Codeinwp/themeisle-sdk/commit/5bda4bd))
+* phpcs indentation errors ([d59ed4f](https://github.com/Codeinwp/themeisle-sdk/commit/d59ed4f))
+* undefined notices on license check, fix [#60](https://github.com/Codeinwp/themeisle-sdk/issues/60) ([7f56a97](https://github.com/Codeinwp/themeisle-sdk/commit/7f56a97))
+* uninstall feedback popup placement [[#61](https://github.com/Codeinwp/themeisle-sdk/issues/61)] ([1102d6c](https://github.com/Codeinwp/themeisle-sdk/commit/1102d6c))
+
+
+### Features
+
+* new product feedback popup ([f0dbab3](https://github.com/Codeinwp/themeisle-sdk/commit/f0dbab3))
+* new uninstall feedback form for themes ([8a29f21](https://github.com/Codeinwp/themeisle-sdk/commit/8a29f21))
+
+## [3.0.10](https://github.com/Codeinwp/themeisle-sdk/compare/v3.0.9...v3.0.10) (2019-07-16)
+
+
+### Bug Fixes
+
+* compatibility with lower PHP versions ([065ac8e](https://github.com/Codeinwp/themeisle-sdk/commit/065ac8e))
+* not loading licenser when SDK comes from theme [[#62](https://github.com/Codeinwp/themeisle-sdk/issues/62)] ([b706ca7](https://github.com/Codeinwp/themeisle-sdk/commit/b706ca7))
+* not loading licenser when SDK comes from theme [[#65](https://github.com/Codeinwp/themeisle-sdk/issues/65) ([419d8e6](https://github.com/Codeinwp/themeisle-sdk/commit/419d8e6))
+* preserve loaded when adding the licenser one ([cd50434](https://github.com/Codeinwp/themeisle-sdk/commit/cd50434))
+
 ## [3.0.9](https://github.com/Codeinwp/themeisle-sdk/compare/v3.0.8...v3.0.9) (2019-06-26)
 
 

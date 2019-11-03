@@ -2,10 +2,13 @@
 Contributors: keonthemes
 Tags: education, blog, grid-Layout, two-columns, flexible-header, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, full-width-template, post-formats, rtl-language-support, theme-options, sticky-post, threaded-comments, translation-ready
 Requires at least: 4.7
-Tested up to: 5.1
-Stable tag: 1.1.9
+Tested up to: 5.2.4
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+Education Booster WordPress Theme, Copyright 2019 Keon Themes
+Education Booster is distributed under the terms of the GNU General Public License v3
 
 Education Booster is clean and responsive theme that suitable for both education and creative businesses. Education Booster is fully Gutenberg and Classic editor compatible.
 
@@ -19,6 +22,14 @@ Education Booster is a powerful WordPress theme that specializes in education. E
 Education Booster includes support for WooCommerce, Contact From 7 and Jetpack.
 
 == Changelog ==
+
+= 1.2.1 = 
+* Added license and copyright information in readme and style files.
+
+= 1.2.0 =
+* Added support for wp_body_open action.
+* Making Accessibility Ready ( Skip to link ).
+* Added theme info files.
 
 = 1.1.9 =
 * Screenshot updated.
@@ -65,6 +76,12 @@ Education Booster includes support for WooCommerce, Contact From 7 and Jetpack.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.1 = 
+* This version added license and copyright information in readme and style files.
+
+= 1.2.0 =
+* This version added support for wp_body_open action, Skip to link and added theme information.
 
 = 1.1.9 =
 * This version updated the theme screenshot.

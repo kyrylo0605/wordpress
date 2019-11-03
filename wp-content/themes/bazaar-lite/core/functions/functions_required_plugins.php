@@ -27,13 +27,16 @@ if (!function_exists('bazaarlite_required_plugins')) {
 				'slug'      => 'wip-woocarousel-lite',
 				'required'  => false,
 			),
-	
 			array(
 				'name'      => 'WIP Custom Login',
 				'slug'      => 'wip-custom-login',
 				'required'  => false,
 			),
-
+			array(
+				'name'      => 'Chatbox Manager',
+				'slug'      => 'wa-chatbox-manager',
+				'required'  => false,
+			),
 			array(
 				'name'      => 'Regenerate Thumbnails',
 				'slug'      => 'regenerate-thumbnails',

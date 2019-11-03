@@ -1,4 +1,55 @@
 
+ ### v2.4.3 - 2019-10-10 
+ **Changes:** 
+ * [Feat] Compatibility with the Header Footer for Beaver Builder plugin
+* [Feat] Integrate Cypress E2E testing
+* [Fix] Header button component padding affected by general buttons options
+* [Fix] Set newly created pages to Full width
+* [Fix] Embeds in the Classic Editor
+* [Fix] Compatibility with the Smush Lazy Loading
+ 
+ ### v2.4.2 - 2019-09-23 
+ **Changes:** 
+ * [Fix] Alignment options for the Secondary and Footer menus
+* [Fix] Style ul/li on WooCommerce single product short descriptions
+* [Fix] Add support for responsive embeds
+* New Beaver Builder Starter Sites: Freelancer & Life Coach
+ 
+ ### v2.4.1 - 2019-09-13 
+ **Changes:** 
+ * [Feat] New background image options for the header and the footer
+* [Feat] Allow custom shortcodes in the HTML components of the header
+* [Fix] Improve the cart menu icon, remove empty products message on the dropdown menu
+* [Fix] Issue with duplicating thumbnails when using SG Optimizer Lazy Load option
+* [Fix] On-print behavior, causing duplicating of the header elements
+* [Fix] Page scroll while menu sidebar is open
+* [Fix] Search icon alignment options
+* [Fix] Issue with hiding the thumbnail on single post pages
+* [Fix] Improve header customization UX
+* [Fix] Validation errors in AMP
+* New Starter Sites
+* Tattoo - https://themeisle.com/demo/?theme=Tattoo
+* Life Coach - https://themeisle.com/demo/?theme=Life%20Coach
+* Creative Portfolio - https://themeisle.com/demo/?theme=Creative%20Portfolio
+* Redesigned Starter Sites
+* Energy Panels - https://themeisle.com/demo/?theme=Energy%20Panels
+* Lawyers - https://themeisle.com/demo/?theme=Lawyers
+* Freelancer - https://themeisle.com/demo/?theme=Freelancer
+* New Beaver Builder Starter Sites
+ 
+ ### v2.4.0 - 2019-08-14 
+ **Changes:** 
+ * Fix issue with standard fonts not loading
+* Fix compatibility with Async loading of javascript files
+* Fix issue with page title on pages built with Elementor
+* Adds individual line-height option
+* Adds breadcrumbs compatibility with Yoast, Seopress, Rankmath and NavXT
+* Performance improvements to the codebase, optimize CSS/JS file loading
+* Adds 5 more starter sites
+  ### v2.3.22 - 2019-08-02 
+ **Changes:** 
+ * Speed updates for the Starter Sites Library
+ 
  ### v2.3.21 - 2019-07-30 
  **Changes:** 
  * [Feat] Color options for each header and footer rows

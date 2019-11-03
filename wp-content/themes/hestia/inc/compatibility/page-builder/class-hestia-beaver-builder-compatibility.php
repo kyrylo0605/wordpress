@@ -57,7 +57,7 @@ class Hestia_Beaver_Builder_Compatibility extends Hestia_Page_Builder_Helper {
 	 * @return bool
 	 */
 	protected function is_edited_with_builder( $pid ) {
-		if ( class_exists( 'FLBuilderModel' ) ) {
+		if ( class_exists( 'FLBuilderModel', false ) ) {
 			if ( FLBuilderModel::is_builder_enabled() == true ) {
 				return true;
 			}
@@ -86,7 +86,7 @@ class Hestia_Beaver_Builder_Compatibility extends Hestia_Page_Builder_Helper {
 	 */
 	public function header_footer_render() {
 
-		if ( ! class_exists( 'FLThemeBuilderLayoutData' ) ) {
+		if ( ! class_exists( 'FLThemeBuilderLayoutData', false ) ) {
 			return;
 		}
 
@@ -134,7 +134,7 @@ class Hestia_Beaver_Builder_Compatibility extends Hestia_Page_Builder_Helper {
 	 * @return bool
 	 */
 	private function is_plugin_preview() {
-		if ( class_exists( 'FLBuilderModel' ) ) {
+		if ( class_exists( 'FLBuilderModel', false ) ) {
 			if ( FLBuilderModel::is_builder_active() == true ) {
 				return true;
 			}

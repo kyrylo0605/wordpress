@@ -1,4 +1,48 @@
 
+ ### v2.5.4 - 2019-10-21 
+ **Changes:** 
+ * [Fix] Blog page Infinite Scroll compatibility with the Alternative layout
+* [Fix] Cover block text color not updating
+* [Fix][Hestia Pro] Shop page Infinite Scroll compatibility with widgets filtering
+* [Fix][Hestia Pro] Header layout selection for the Shop page
+* [Fix][Hestia Pro] Slider arrows position on RTL
+ 
+ ### v2.5.3 - 2019-09-13 
+ **Changes:** 
+ * [Fix] Improved About page layout
+* [Fix] License validation mechanism for Starter Sites
+ 
+ ### v2.5.2 - 2019-09-12 
+ **Changes:** 
+ * [Fix] Compatibility with Elementor Pro Menu Cart widget
+* [Fix] Mail and phone icons compatibility with FA5
+* [Fix] Primary menu icons spacing and alignment
+* [Fix] Uppercase submenu items back to Sentence case
+* [Fix] WooCommerce product gallery images not clickable on mobile
+* [Perf] Small performance fixes
+ 
+ ### v2.5.1 - 2019-08-13 
+ **Changes:** 
+ * [Fix] - Header layout on the front page
+* [Fix] - Removed Hestia's custom integration with Gutenberg
+* [Fix] - Social menu icons compatibility with FA5
+ 
+ ### v2.5.0 - 2019-08-08 
+ **Changes:** 
+ * Migrated to Font Awesome 5
+* Updated the Starter Sites library
+ 
+ ### v2.4.9 - 2019-08-01 
+ **Changes:** 
+ * Allow copyright text to be changed in both Hestia and Hestia PRO
+* Allow HTML tags in the title and subtitle fields of the Portfolio section
+* Create a WPForms form as a default value for the Contact section
+* Updated the Google Fonts Library
+* Fixed header layout on the tags archive page
+* Fixed issue with accent color not affecting links in the front-end
+* Made sure the header image is translatable with WPML
+* Fixed sidebar layout metabox not appearing when WooCommerce was not installed
+ 
  ### v2.4.8 - 2019-07-23 
  **Changes:** 
  * Speed improvement update for the Hestia Default Demo

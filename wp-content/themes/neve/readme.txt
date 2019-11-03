@@ -17,7 +17,65 @@ Neve is a super fast, easily customizable, multi-purpose theme. It’s perfect f
 Neve WordPress theme, Copyright 2018 Themeisle
 Neve is distributed under the terms of the GNU GPLv2 or later
 
-== Changelog == 
+== Changelog ==
+= 2.4.3 - 2019-10-10  = 
+
+* [Feat] Compatibility with the Header Footer for Beaver Builder plugin
+* [Feat] Integrate Cypress E2E testing
+* [Fix] Header button component padding affected by general buttons options
+* [Fix] Set newly created pages to Full width
+* [Fix] Embeds in the Classic Editor
+* [Fix] Compatibility with the Smush Lazy Loading
+
+
+= 2.4.2 - 2019-09-23  = 
+
+* [Fix] Alignment options for the Secondary and Footer menus
+* [Fix] Style ul/li on WooCommerce single product short descriptions
+* [Fix] Add support for responsive embeds
+* New Beaver Builder Starter Sites: Freelancer & Life Coach
+
+
+= 2.4.1 - 2019-09-13  = 
+
+* [Feat] New background image options for the header and the footer
+* [Feat] Allow custom shortcodes in the HTML components of the header
+* [Fix] Improve the cart menu icon, remove empty products message on the dropdown menu
+* [Fix] Issue with duplicating thumbnails when using SG Optimizer Lazy Load option
+* [Fix] On-print behavior, causing duplicating of the header elements
+* [Fix] Page scroll while menu sidebar is open
+* [Fix] Search icon alignment options
+* [Fix] Issue with hiding the thumbnail on single post pages
+* [Fix] Improve header customization UX
+* [Fix] Validation errors in AMP
+* New Starter Sites
+* Tattoo - https://themeisle.com/demo/?theme=Tattoo
+* Life Coach - https://themeisle.com/demo/?theme=Life%20Coach
+* Creative Portfolio - https://themeisle.com/demo/?theme=Creative%20Portfolio
+* Redesigned Starter Sites
+* Energy Panels - https://themeisle.com/demo/?theme=Energy%20Panels
+* Lawyers - https://themeisle.com/demo/?theme=Lawyers
+* Freelancer - https://themeisle.com/demo/?theme=Freelancer
+* New Beaver Builder Starter Sites
+
+
+= 2.4.0 - 2019-08-14  = 
+
+* Fix issue with standard fonts not loading
+* Fix compatibility with Async loading of javascript files
+* Fix issue with page title on pages built with Elementor
+* Adds individual line-height option
+* Adds breadcrumbs compatibility with Yoast, Seopress, Rankmath and NavXT
+* Performance improvements to the codebase, optimize CSS/JS file loading
+* Adds 5 more starter sites
+
+
+
+= 2.3.22 - 2019-08-02  = 
+
+* Speed updates for the Starter Sites Library
+
+ 
 = 2.3.21 - 2019-07-30  = 
 
 * [Feat] Color options for each header and footer rows
@@ -465,13 +523,16 @@ Starter Sites screenshots resources:
 * https://stocksnap.io/photo/GSBJXWRSDV
 
 - Energy Panels
-* https://mystock.themeisle.com/photo/citylights/
+* http://mystock.themeisle.com/photo/sunny-rome/
+* http://mystock.themeisle.com/photo/tour-eiffel/
 
 - Lawyers
-* https://stocksnap.io/photo/GVUWVKUHZE
+* http://mystock.themeisle.com/photo/architecture-3/
+* http://mystock.themeisle.com/photo/architecture-2/
 
 - Freelancer
-* https://mystock.themeisle.com/photo/photographer-3/
+* http://mystock.themeisle.com/photo/programming-laptop/
+* http://mystock.themeisle.com/photo/code-in-wp/
 
 - Shop
 * https://stocksnap.io/photo/SS2GVMJTWH
@@ -494,11 +555,13 @@ Starter Sites screenshots resources:
 * https://stocksnap.io/photo/BZ4FJO6KZE
 
 - Showcase
-* http://mystock.themeisle.com/photo/thinking-time/
-* http://mystock.themeisle.com/photo/photographer-2/
+* http://mystock.themeisle.com/photo/mountain/
+* http://mystock.themeisle.com/photo/mountain-at-sunset/
+* http://mystock.themeisle.com/photo/forest-landscape/
 
 - Business Consulting
-* https://mystock.themeisle.com/photo/new-york-cityscape/
+* http://mystock.themeisle.com/photo/photographer-2/
+* http://mystock.themeisle.com/photo/cameras/
 
 - Architecture
 * http://mystock.themeisle.com/photo/wind/
@@ -529,6 +592,104 @@ Starter Sites screenshots resources:
 * https://stocksnap.io/photo/BG80NXTTHY
 * https://stocksnap.io/photo/NV1FLKIE9U
 * https://stocksnap.io/photo/IUFVZUDPO5
+
+- Wedding
+* https://stocksnap.io/photo/3RI84R6CYH
+* https://stocksnap.io/photo/GEVAEIZQH1
+* https://stocksnap.io/photo/UXZ782X55D
+
+- TheMotion
+* http://mystock.themeisle.com/photo/code-in-wp/
+* http://mystock.themeisle.com/photo/empty-beach-2/
+* http://mystock.themeisle.com/photo/traffic-sign/
+* http://mystock.themeisle.com/photo/android/
+
+- Life Coach
+* http://mystock.themeisle.com/photo/city-park-night/
+* http://mystock.themeisle.com/photo/temple-2/
+
+- Tattoo
+* http://mystock.themeisle.com/photo/unconventional-store-with-unicorn-in-the-window/
+* http://mystock.themeisle.com/photo/street-at-night/
+
+- Job Listing
+* http://mystock.themeisle.com/photo/registration/
+* http://mystock.themeisle.com/photo/stockholm-street/
+
+- Barber Shop
+* https://stocksnap.io/photo/R9YRHH2JQY
+* http://mystock.themeisle.com/photo/fancy-restaurant/
+
+- Personal Trainer
+* http://mystock.themeisle.com/photo/street-vendor-selling-fruits-on-his-fruit-cart/
+* http://mystock.themeisle.com/photo/yoga-2/
+* http://mystock.themeisle.com/photo/mac-and-cheese-pizza/
+* http://mystock.themeisle.com/photo/hotel-with-terrace-on-the-sea/
+* http://mystock.themeisle.com/photo/indian-restaurant-dishes/
+
+- Creative Portfolio
+* http://mystock.themeisle.com/photo/rocking-chair-on-a-blue-carpet/
+* http://mystock.themeisle.com/photo/vintage-framed-photo-of-desserts/
+* http://mystock.themeisle.com/photo/bathtub-in-the-center-of-the-room/
+* http://mystock.themeisle.com/photo/registration/
+* http://mystock.themeisle.com/photo/big-ben/
+* http://mystock.themeisle.com/photo/glass-building/
+
+- Real Estate
+* http://mystock.themeisle.com/photo/city/
+* http://mystock.themeisle.com/photo/glass-building-2/
+
+- Events
+* http://mystock.themeisle.com/photo/young-boy-attending-a-concert/
+* http://mystock.themeisle.com/photo/performing-artist-with-cool-projections-behind/
+* http://mystock.themeisle.com/photo/drummer-plays-drums-kit/
+* http://mystock.themeisle.com/photo/concert/
+* http://mystock.themeisle.com/photo/rock-on/
+
+- Wedding Photography
+* http://mystock.themeisle.com/photo/wedding-flower-decorations/
+* http://mystock.themeisle.com/photo/bride-and-groom-table-decorated-with-flowers-2/
+* http://mystock.themeisle.com/photo/bride-and-groom/
+
+- Photography Studio
+* https://stocksnap.io/photo/3IJLXXN9OY
+* https://stocksnap.io/photo/83PSG6Y1FM
+
+- Video Agency
+* http://mystock.themeisle.com/photo/cameras/
+* http://mystock.themeisle.com/photo/protest/
+* http://mystock.themeisle.com/photo/selfie/
+* http://mystock.themeisle.com/photo/flatiron-2/
+
+- Furniture Shop
+* http://mystock.themeisle.com/photo/bathtub-in-the-center-of-the-room/
+* http://mystock.themeisle.com/photo/resort-premium-room/
+* http://mystock.themeisle.com/photo/rocking-chair-on-a-blue-carpet/
+* http://mystock.themeisle.com/photo/resort-room-with-a-view/
+* http://mystock.themeisle.com/photo/couch-with-two-green-pillows/
+
+- Farm
+* http://mystock.themeisle.com/photo/yellow-and-green/
+* http://mystock.themeisle.com/photo/oranges/
+* http://mystock.themeisle.com/photo/swamp/
+* http://mystock.themeisle.com/photo/strawberries-and-oranges-for-sale-in-baskets/
+* http://mystock.themeisle.com/photo/rosehip/
+
+- Photographer
+* http://mystock.themeisle.com/photo/old-casino/
+* http://mystock.themeisle.com/photo/photographer-3/
+* http://mystock.themeisle.com/photo/sea-breeze/
+* http://mystock.themeisle.com/photo/church/
+* http://mystock.themeisle.com/photo/flatiron-2/
+
+- Kindergarten
+* https://stocksnap.io/photo/NY963ZH6T2
+* https://stocksnap.io/photo/PBHFF6RJPH
+
+- Florist
+* https://stocksnap.io/photo/01SN8V4M9O
+* http://mystock.themeisle.com/photo/wedding-bouquet/
+* http://mystock.themeisle.com/photo/wedding-flower-decorations/
 
 
 

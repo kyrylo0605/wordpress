@@ -147,20 +147,17 @@ abstract class Control_Base {
 			return;
 		}
 		if ( isset( $_POST[ $this->id ] ) ) {
-			$value = wp_unslash( $_POST[ $this->id ] ); // WPCS: sanitization ok.
-
-			if ( $value === $this->settings['default'] ) {
-				delete_post_meta( $post_id, $this->id );
+			$value = wp_unslash( $_POST[ $this->id ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			update_post_meta( $post_id, $this->id, $this->sanitize_value( $value ) );
+			return;
+		} else {
+			if ( $this->type === 'checkbox' ) {
+				update_post_meta( $post_id, $this->id, $this->sanitize_value( 'off' ) );
 
 				return;
 			}
-
-			update_post_meta( $post_id, $this->id, $this->sanitize_value( $value ) );
-
-			return;
 		}
 		delete_post_meta( $post_id, $this->id );
-
 	}
 
 	/**
@@ -182,7 +179,7 @@ abstract class Control_Base {
 				break;
 			case 'checkbox':
 				$allowed_values = array( 'on', 'off' );
-				if ( ! in_array( $value, $allowed_values ) ) {
+				if ( ! in_array( $value, $allowed_values, true ) ) {
 					return esc_html( $this->settings['default'] );
 				}
 

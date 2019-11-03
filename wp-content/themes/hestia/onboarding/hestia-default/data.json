@@ -42,7 +42,56 @@
       "footer": "footer-menu"
     }
   },
-  "wp_options": [],
+  "wp_options": {
+    "obfx_data": {
+      "core_settings": [],
+      "module_status": {
+        "social-sharing": {
+          "showed_notices": []
+        },
+        "gutenberg-blocks": {
+          "showed_notices": [],
+          "active": false
+        },
+        "uptime-monitor": {
+          "showed_notices": []
+        },
+        "google-analytics": {
+          "showed_notices": []
+        },
+        "companion-legacy": {
+          "showed_notices": [],
+          "active": true
+        },
+        "elementor-widgets": {
+          "showed_notices": []
+        },
+        "template-directory": {
+          "showed_notices": [],
+          "active": false
+        },
+        "menu-icons": {
+          "showed_notices": [],
+          "active": false
+        },
+        "mystock-import": {
+          "showed_notices": [],
+          "active": false
+        },
+        "policy-notice": {
+          "showed_notices": []
+        },
+        "safe-updates": {
+          "showed_notices": []
+        }
+      },
+      "module_settings": {
+        "safe-updates": {
+          "auto_update_checks": "0"
+        }
+      }
+    }
+  },
   "widgets": {
     "sidebar-1": {
       "search-2": {
@@ -73,10 +122,10 @@
     }
   },
   "recommended_plugins": {
-    "woocommerce": "WooCommerce",
-    "wpforms-lite": "Contact Form by WPForms &#8211; Drag &amp; Drop Form Builder for WordPress"
+    "woocommerce": "WooCommerce"
   },
   "mandatory_plugins": {
+    "wpforms-lite": "Contact Form by WPForms &#8211; Drag &amp; Drop Form Builder for WordPress",
     "themeisle-companion": "Orbit Fox by ThemeIsle"
   },
   "default_off_recommended_plugins": [

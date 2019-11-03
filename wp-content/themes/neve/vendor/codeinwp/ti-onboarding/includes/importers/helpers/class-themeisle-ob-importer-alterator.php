@@ -117,7 +117,7 @@ class Themeisle_OB_Importer_Alterator {
 	 * @return array
 	 */
 	public function skip_shop_pages( $posts ) {
-		if ( ! isset( $this->site_json_data['shopPages'] ) || $this->site_json_data['shopPages'] === null ) {
+		if ( ! isset( $this->site_json_data['shopPages'] ) || $this->site_json_data['shopPages'] === null || ! is_array( $this->site_json_data['shopPages'] ) ) {
 			return $posts;
 		}
 

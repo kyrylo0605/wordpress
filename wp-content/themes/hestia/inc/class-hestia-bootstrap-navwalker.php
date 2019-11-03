@@ -127,7 +127,7 @@ class Hestia_Bootstrap_Navwalker extends Walker_Nav_Menu {
 			 */
 
 			if ( ! empty( $item->attr_title ) && ! $is_wpml_item ) {
-				$item_output .= '<a' . $attributes . '><i class="fa ' . esc_attr( $item->attr_title ) . ' "></i>&nbsp;';
+				$item_output .= '<a' . $attributes . '><i class="' . esc_attr( hestia_display_fa_icon( $item->attr_title ) ) . '"></i>&nbsp;';
 			} elseif ( in_array( 'hestia-mm-heading', $item->classes ) && ( $item->url === '#' ) ) {
 				$item_output .= '<span class="mm-heading-wrapper">';
 			} elseif ( in_array( 'hestia-mm-heading', $item->classes ) ) {

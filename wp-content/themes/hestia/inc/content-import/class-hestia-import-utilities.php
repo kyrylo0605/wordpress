@@ -220,7 +220,7 @@ class Hestia_Import_Utilities {
 				foreach ( $data as $content_block ) {
 					$contact_html .= '<div class="info info-horizontal">';
 					if ( ! empty( $content_block['icon_value'] ) ) {
-						$contact_html .= '<div class="icon icon-primary"><i class="fa ' . $content_block['icon_value'] . '"></i></div>';
+						$contact_html .= '<div class="icon icon-primary"><i class="fas ' . $content_block['icon_value'] . '"></i></div>';
 					}
 					if ( ! empty( $content_block['text'] ) ) {
 						$contact_html .= '<div class="description">';
@@ -334,7 +334,7 @@ class Hestia_Import_Utilities {
 				}
 
 				if ( strpos( $choice, '_icon' ) !== false && ! empty( $icon ) ) {
-					$ribbon_html .= '<div class="icon" style="color: #008ed6"><i class="fa ' . esc_attr( $icon ) . '"></i></div>';
+					$ribbon_html .= '<div class="icon" style="color: #008ed6"><i class="' . esc_attr( hestia_display_fa_icon( $icon ) ) . '"></i></div>';
 				}
 				if ( strpos( $choice, '_image' ) !== false && ! empty( $image ) ) {
 					$ribbon_html .= '<div class="card card-plain" style="max-width: 100px;"><img src="' . esc_url( $image ) . '"/></div>';
@@ -547,7 +547,7 @@ class Hestia_Import_Utilities {
 	 * @since 1.1.51
 	 */
 	public function update_portfolio( $post_type ) {
-		if ( ! class_exists( 'Jetpack' ) || ! ( Jetpack::is_module_active( 'custom-content-types' ) ) ) {
+		if ( ! class_exists( 'Jetpack', false ) || ! ( Jetpack::is_module_active( 'custom-content-types' ) ) ) {
 			return;
 		}
 

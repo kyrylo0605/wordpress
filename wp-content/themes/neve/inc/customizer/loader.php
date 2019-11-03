@@ -87,12 +87,27 @@ class Loader {
 			NEVE_VERSION,
 			true
 		);
+
+		$editor_dependencies = array(
+			'wp-i18n',
+			'wp-components',
+			'wp-edit-post',
+			'wp-element',
+		);
+		wp_enqueue_script( 'react-controls', get_template_directory_uri() . '/inc/customizer/controls/react/bundle/controls.js', $editor_dependencies, NEVE_VERSION, true );
+		wp_enqueue_style( 'react-controls', get_template_directory_uri() . '/inc/customizer/controls/react/bundle/controls.css', array( 'wp-components' ), NEVE_VERSION );
 	}
 
 	/**
 	 * Enqueue customizer preview script.
 	 */
 	public function enqueue_customizer_preview() {
+		wp_enqueue_style(
+			'neve-customizer-preview-style',
+			NEVE_ASSETS_URL . 'css/customizer-preview' . ( ( NEVE_DEBUG ) ? '' : '.min' ) . '.css',
+			array(),
+			NEVE_VERSION
+		);
 		wp_enqueue_script(
 			'neve-customizer-preview',
 			NEVE_ASSETS_URL . 'js/customizer-preview' . ( ( NEVE_DEBUG ) ? '' : '.min' ) . '.js',
@@ -100,6 +115,15 @@ class Loader {
 			NEVE_VERSION,
 			true
 		);
+		wp_enqueue_script(
+			'neve-hfg-customizer-preview',
+			NEVE_ASSETS_URL . 'js/hfg-customizer-preview.js',
+			array(),
+			NEVE_VERSION,
+			true
+		);
+		wp_localize_script( 'neve-hfg-customizer-preview', 'neveHFGPreview', apply_filters( 'neve_hfg_preview_localization_filter', array() ) );
+		wp_enqueue_script( 'neve-hfg-customizer-preview' );
 	}
 
 	/**

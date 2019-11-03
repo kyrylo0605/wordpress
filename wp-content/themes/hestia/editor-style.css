@@ -100,7 +100,7 @@ input[type="button"],
   font-weight: 400;
 }
 
-.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+.btn:not(.btn-just-icon):not(.btn-fab) i {
   font-size: 18px;
 }
 .btn.btn-just-icon {
@@ -110,7 +110,7 @@ input[type="button"],
 .btn.btn-just-icon.btn-lg {
   font-size: 22px;
 }
-.btn .fa {
+.btn i {
   font-size: 17px;
 }
 
@@ -221,17 +221,17 @@ table > thead > tr > th {
   font-size: 14px;
 }
 
-.carousel .carousel-control .fa {
+.carousel .carousel-control i {
   font-size: 50px;
 }
 
 .card .footer .stats {
   line-height: 30px;
 }
-.card .footer .stats .fa {
+.card .footer .stats i {
   font-size: 18px;
 }
-.card .category .fa {
+.card .category i {
   line-height: 0;
 }
 
@@ -261,7 +261,7 @@ table > thead > tr > th {
 .navbar .navbar-nav > li > a {
   font-weight: 400;
 }
-.navbar .navbar-nav > li > a .fa {
+.navbar .navbar-nav > li > a i {
   font-size: 20px;
 }
 .navbar .dropdown-menu li > a {
@@ -270,7 +270,7 @@ table > thead > tr > th {
 .navbar .dropdown-menu li > a > i {
   font-size: 20px;
 }
-.navbar .dropdown-menu li > a .fa {
+.navbar .dropdown-menu li > a i {
   font-size: 20px;
 }
 .navbar .hestia-mm-heading > span {
@@ -773,14 +773,14 @@ aside .widget a {
   }
 
   .navbar .navbar-nav li > a > i,
-  .navbar .navbar-nav li > a .fa {
+  .navbar .navbar-nav li > a i {
     font-size: 22px;
   }
   .navbar .navbar-nav li .caret {
     font-size: 20px;
   }
   .navbar .navbar-nav li .dropdown > i,
-  .navbar .navbar-nav li .dropdown .fa {
+  .navbar .navbar-nav li .dropdown i {
     font-size: 20px;
   }
   .navbar .navbar-nav .dropdown .dropdown-menu li a {

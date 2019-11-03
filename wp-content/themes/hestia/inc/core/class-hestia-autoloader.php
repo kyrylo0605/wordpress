@@ -91,6 +91,7 @@ class Hestia_Autoloader {
 			'Hestia_Blog_Settings_Controls'               => HESTIA_PHP_INCLUDE . 'customizer/general',
 			'Hestia_Upsell_Manager'                       => HESTIA_PHP_INCLUDE . 'customizer/general',
 			'Hestia_Buttons_Style_Controls'               => HESTIA_PHP_INCLUDE . 'customizer/general',
+			'Hestia_Footer_Controls'                      => HESTIA_PHP_INCLUDE . 'customizer/general',
 			'Hestia_Big_Title_Controls'                   => HESTIA_PHP_INCLUDE . 'customizer/front-page',
 			'Hestia_About_Controls'                       => HESTIA_PHP_INCLUDE . 'customizer/front-page',
 			'Hestia_Shop_Controls'                        => HESTIA_PHP_INCLUDE . 'customizer/front-page',
@@ -106,6 +107,7 @@ class Hestia_Autoloader {
 			'Hestia_Child'                                => HESTIA_PHP_INCLUDE . 'compatibility/child-themes',
 			'Hestia_Child_Customizer'                     => HESTIA_PHP_INCLUDE . 'compatibility/child-themes',
 			'Hestia_Woocommerce_Header_Manager'           => HESTIA_PHP_INCLUDE . 'compatibility/woocommerce',
+			'Hestia_Wp_Forms'                             => HESTIA_PHP_INCLUDE . 'compatibility/wp-forms',
 			'Hestia_Infinite_Scroll'                      => HESTIA_PHP_INCLUDE . 'infinite-scroll',
 			'Hestia_Tweaks'                               => HESTIA_PHP_INCLUDE . 'views',
 			'Hestia_Top_Bar'                              => HESTIA_PHP_INCLUDE . 'views/main',
@@ -205,7 +207,7 @@ class Hestia_Autoloader {
 
 		$filename  = 'class-' . str_replace( '_', '-', strtolower( $class_name ) ) . '.php';
 		$full_path = trailingslashit( $this->classes_to_load[ $class_name ] ) . $filename;
-		if ( file_exists( $full_path ) ) {
+		if ( is_file( $full_path ) ) {
 			require $full_path;
 		}
 

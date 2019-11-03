@@ -47,6 +47,7 @@ class Themeisle_OB_Content_Importer {
 		$params           = $request->get_body_params();
 		$body             = $params['data'];
 		$content_file_url = $body['contentFile'];
+		$page_builder     = isset( $body['editor'] ) ? $body['editor'] : '';
 
 		if ( empty( $content_file_url ) ) {
 			$this->logger->log( "No content file to import at url {$content_file_url}" );
@@ -77,11 +78,12 @@ class Themeisle_OB_Content_Importer {
 
 		if ( $body['source'] === 'remote' ) {
 			$this->logger->log( 'Saving remote XML', 'progress' );
-			require_once( ABSPATH . '/wp-admin/includes/file.php' );
-			global $wp_filesystem;
-			WP_Filesystem();
-			$content_file      = $wp_filesystem->get_contents( $content_file_url );
-			$content_file_path = $this->save_xhr_return_path( $content_file );
+
+			$response_file = wp_remote_get( $content_file_url );
+			if ( is_wp_error( $response_file ) ) {
+				$this->logger->log( "Error saving the remote file:  {$response_file->get_error_message()}.", 'success' );
+			}
+			$content_file_path = $this->save_xhr_return_path( wp_remote_retrieve_body( $response_file ) );
 			$this->logger->log( "Saved remote XML at path {$content_file_path}.", 'success' );
 		} else {
 			$this->logger->log( 'Using local XML.', 'success' );
@@ -89,7 +91,7 @@ class Themeisle_OB_Content_Importer {
 		}
 
 		$this->logger->log( 'Starting content import...', 'progress' );
-		$import_status = $this->import_file( $content_file_path, $body );
+		$import_status = $this->import_file( $content_file_path, $body, $page_builder );
 
 		if ( is_wp_error( $import_status ) ) {
 			$this->logger->log( "Import crashed with message: {$import_status->get_error_message()}" );
@@ -125,13 +127,6 @@ class Themeisle_OB_Content_Importer {
 
 		if ( empty( $frontpage_id ) ) {
 			$this->logger->log( 'No front page ID.' );
-
-			return new WP_REST_Response(
-				array(
-					'data'    => 'ti__ob_front_page_id_err_1',
-					'success' => false,
-				)
-			);
 		}
 
 		return new WP_REST_Response(
@@ -152,13 +147,10 @@ class Themeisle_OB_Content_Importer {
 	public function save_xhr_return_path( $content ) {
 		$wp_upload_dir = wp_upload_dir( null, false );
 		$file_path     = $wp_upload_dir['basedir'] . '/themeisle-demo-import.xml';
-		ob_start();
-		echo $content;
-		$result = ob_get_clean();
 		require_once( ABSPATH . '/wp-admin/includes/file.php' );
 		global $wp_filesystem;
 		WP_Filesystem();
-		$wp_filesystem->put_contents( $file_path, $result );
+		$wp_filesystem->put_contents( $file_path, $content );
 
 		return $file_path;
 	}
@@ -174,11 +166,10 @@ class Themeisle_OB_Content_Importer {
 		if ( ! is_array( $args ) ) {
 			return;
 		}
-
-		if ( $args['front_page'] === null && $args['blog_page'] === null ) {
+		if ( empty( $args['front_page'] ) && empty( $args['blog_page'] ) ) {
 			$this->logger->log( 'No front page to set up.', 'success' );
 
-			return;
+			return null;
 		}
 
 		update_option( 'show_on_front', 'page' );
@@ -236,16 +227,13 @@ class Themeisle_OB_Content_Importer {
 	 * Maybe bust cache for elementor plugin.
 	 */
 	private function maybe_bust_elementor_cache() {
-		if ( class_exists( '\Elementor\Plugin' ) ) {
-			wp_remote_post(
-				esc_url( admin_url( 'admin-ajax.php' ) ),
-				array(
-					'body' => array(
-						'action' => 'elementor_clear_cache',
-					),
-				)
-			);
+		if ( ! class_exists( '\Elementor\Plugin' ) ) {
+			return;
 		}
+		if ( null === \Elementor\Plugin::instance()->files_manager ) {
+			return;
+		}
+		\Elementor\Plugin::instance()->files_manager->clear_cache();
 	}
 
 	/**
@@ -253,10 +241,11 @@ class Themeisle_OB_Content_Importer {
 	 *
 	 * @param string $file_path the file path to import.
 	 * @param array  $req_body  the request body to be passed to the alterator.
+	 * @param string $builder   the page builder used.
 	 *
 	 * @return WP_Error|true
 	 */
-	public function import_file( $file_path, $req_body = array() ) {
+	public function import_file( $file_path, $req_body = array(), $builder = '' ) {
 		if ( empty( $file_path ) || ! file_exists( $file_path ) || ! is_readable( $file_path ) ) {
 			return new WP_Error( 'ti__ob_content_err_1', 'No content file' );
 		}
@@ -264,7 +253,7 @@ class Themeisle_OB_Content_Importer {
 		require_once 'helpers/class-themeisle-ob-importer-alterator.php';
 		$alterator = new Themeisle_OB_Importer_Alterator( $req_body );
 
-		$importer = new Themeisle_OB_WP_Import();
+		$importer = new Themeisle_OB_WP_Import( $builder );
 		$result   = $importer->import( $file_path );
 
 		return $result;

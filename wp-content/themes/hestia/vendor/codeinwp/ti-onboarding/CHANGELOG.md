@@ -1,3 +1,92 @@
+## [1.7.8](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.7...v1.7.8) (2019-10-10)
+
+
+### Bug Fixes
+
+* external plugins handling ([106600a](https://github.com/Codeinwp/ti-onboarding/commit/106600a))
+* external plugins handling ([dadcb73](https://github.com/Codeinwp/ti-onboarding/commit/dadcb73)), closes [Codeinwp/neve-pro-addon#308](https://github.com/Codeinwp/neve-pro-addon/issues/308)
+
+## [1.7.7](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.6...v1.7.7) (2019-10-08)
+
+
+### Bug Fixes
+
+* cli import not accounting for local json on remote sites ([de0a523](https://github.com/Codeinwp/ti-onboarding/commit/de0a523))
+* cli import not accounting for local json on remote sites ([b4bfc55](https://github.com/Codeinwp/ti-onboarding/commit/b4bfc55))
+
+## [1.7.6](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.5...v1.7.6) (2019-09-20)
+
+
+### Bug Fixes
+
+* improve XML remote file importing ([b30baca](https://github.com/Codeinwp/ti-onboarding/commit/b30baca))
+* improve XML remote file importing ([bf61816](https://github.com/Codeinwp/ti-onboarding/commit/bf61816))
+
+## [1.7.5](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.4...v1.7.5) (2019-09-12)
+
+
+### Bug Fixes
+
+* adds redundant files to the exported ones, fix additional notices and warnings and phpunit tests ([a1b08c1](https://github.com/Codeinwp/ti-onboarding/commit/a1b08c1))
+* elementor cache busting ([207c372](https://github.com/Codeinwp/ti-onboarding/commit/207c372))
+* elementor cache busting ([b8e41a6](https://github.com/Codeinwp/ti-onboarding/commit/b8e41a6))
+* remove redundant code, site import process and caching ([780eced](https://github.com/Codeinwp/ti-onboarding/commit/780eced))
+
+## [1.7.4](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.3...v1.7.4) (2019-09-12)
+
+
+### Bug Fixes
+
+* allow local json parse for remote demo sites ([1a96f4b](https://github.com/Codeinwp/ti-onboarding/commit/1a96f4b))
+* allow local json parse for remote demo sites ([45f2ef3](https://github.com/Codeinwp/ti-onboarding/commit/45f2ef3))
+
+## [1.7.3](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.2...v1.7.3) (2019-09-12)
+
+
+### Bug Fixes
+
+* remove license check for remote sites disable ([b30af37](https://github.com/Codeinwp/ti-onboarding/commit/b30af37))
+* remove license check for remote sites disable ([ad91b91](https://github.com/Codeinwp/ti-onboarding/commit/ad91b91)), closes [#73](https://github.com/Codeinwp/ti-onboarding/issues/73)
+* remove license check for upsell sites disable ([aafe464](https://github.com/Codeinwp/ti-onboarding/commit/aafe464)), closes [#73](https://github.com/Codeinwp/ti-onboarding/issues/73)
+
+## [1.7.2](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.1...v1.7.2) (2019-09-12)
+
+
+### Bug Fixes
+
+* remove ini_set calls ([f533007](https://github.com/Codeinwp/ti-onboarding/commit/f533007))
+* remove ini_set calls ([04b02ed](https://github.com/Codeinwp/ti-onboarding/commit/04b02ed)), closes [#86](https://github.com/Codeinwp/ti-onboarding/issues/86)
+
+## [1.7.1](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.0...v1.7.1) (2019-09-12)
+
+
+### Bug Fixes
+
+* allow no front page setup ([b4f39b4](https://github.com/Codeinwp/ti-onboarding/commit/b4f39b4))
+* allow no front page setup ([b9c81ba](https://github.com/Codeinwp/ti-onboarding/commit/b9c81ba)), closes [Codeinwp/shop-isle-pro#456](https://github.com/Codeinwp/shop-isle-pro/issues/456)
+
+# [1.7.0](https://github.com/Codeinwp/ti-onboarding/compare/v1.6.3...v1.7.0) (2019-09-11)
+
+
+### Features
+
+* add Beaver Builder import compatibility [Codeinwp/neve[#734](https://github.com/Codeinwp/ti-onboarding/issues/734)] ([c66680a](https://github.com/Codeinwp/ti-onboarding/commit/c66680a))
+
+## [1.6.3](https://github.com/Codeinwp/ti-onboarding/compare/v1.6.2...v1.6.3) (2019-08-02)
+
+
+### Bug Fixes
+
+* release commit ([29639b6](https://github.com/Codeinwp/ti-onboarding/commit/29639b6))
+* release commit ([404c142](https://github.com/Codeinwp/ti-onboarding/commit/404c142))
+
+## [1.6.2](https://github.com/Codeinwp/ti-onboarding/compare/v1.6.1...v1.6.2) (2019-07-29)
+
+
+### Bug Fixes
+
+* release commit ([74277f9](https://github.com/Codeinwp/ti-onboarding/commit/74277f9))
+
 ## [1.6.1](https://github.com/Codeinwp/ti-onboarding/compare/v1.6.0...v1.6.1) (2019-07-15)
 
 

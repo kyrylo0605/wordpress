@@ -2,8 +2,8 @@
 Contributors: alexvtn
 Tags: custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, flexible-header, footer-widgets, post-formats, right-sidebar, sticky-post, theme-options, threaded-comments, translation-ready, one-column, two-columns, three-columns, grid-layout, blog, e-commerce, news
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: 1.5.9
+Tested up to: 5.2.4
+Stable tag: 1.6.3
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,33 @@ Bazaar Lite WordPress Theme, Copyright 2019 ThemeinProgress.
 Bazaar Lite is distributed under the terms of the GPLv2 or later
 
 == Changelog ==
+
+= 1.6.3 =
+Release date - November, 01 - 2019
+
+* Removed - Google plus button
+* Tested with WordPress 5.2.4
+* Edit - Code optimized
+
+= 1.6.2 =
+Release date - October, 08 - 2019
+
+* Added - Keyboard navigation
+
+= 1.6.1 =
+Release date - August, 25 - 2019
+
+* Optimized - Copyright content
+* Updated - WooCommerce templates
+* Fixed - Missed template.js file
+* Fixed - Coupon input field on cart page
+* Edit - Code optimized
+
+= 1.6.0 =
+Release date - August, 12 - 2019
+
+* Updated - Italian translation file
+* Edit - Code optimized
 
 = 1.5.9 =
 Release date - July, 29 - 2019
@@ -301,6 +328,9 @@ jQuery prettyPhoto By Stephane Caron - http://www.no-margin-for-errors.com
 jQuery Slick Slider By Ken Wheeler - https://github.com/kenwheeler/slick/
 * jquery.slick.js v1.6.0 - Licensed under MIT license ( Applies to jquery.slick.js file in /bazaar-lite/assets/js/ )
 
+navigation.js file By Automattic, Inc. - https://underscores.me/
+* navigation.js - Licensed under GPLv2 or later ( Applies to navigation.js file in /bazaar-lite/assets/js/ )
+
 HTML5 Shiv By @afarkas @jdalton @jon_neal @rem - https://github.com/aFarkas/html5shiv
 * html5shiv.js v3.7.0 - Licensed under MIT and GPL2 license ( Applies to html5shiv.js file in /bazaar-lite/assets/scripts/ )
 
@@ -340,3 +370,6 @@ The following scripts and styles are self created and they are released under MI
 * /bazaar-lite/assets/css/template.css
 * /bazaar-lite/assets/css/minimal_layout.css
 * /bazaar-lite/assets/js/template.js
+* /bazaar-lite/core/admin/assets/css/customize.css
+* /bazaar-lite/core/admin/assets/css/theme.css
+* /bazaar-lite/core/admin/assets/js/panel.js

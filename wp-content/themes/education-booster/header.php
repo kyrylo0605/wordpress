@@ -17,6 +17,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php do_action( 'wp_body_open' ); ?>
 
 	<div id="page" class="site">
 		<a class="skip-link screen-reader-text" href="#content">
@@ -95,7 +96,7 @@
 					<div class="col-xs-5 col-sm-3 col-md-8" id="primary-nav-container">
 						<div class="wrap-nav main-navigation">
 							<div id="navigation" class="hidden-xs hidden-sm">
-							    <nav class="nav">
+							    <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Primary Menu', 'education-booster' ); ?>">
 									<?php echo educationbooster_get_menu( 'primary' ); ?>
 							    </nav>
 							</div>
@@ -104,7 +105,9 @@
 							<?php if( !educationbooster_get_option( 'disable_search_icon' ) ): ?>
 							<span class="search-icon">
 								<a href="#">
-									<span class="kfi kfi-search" aria-hidden="true"></span>
+									<button aria-expanded="false">
+										<span class="kfi kfi-search" aria-hidden="true"></span>
+									</button>
 								</a>
 								<div id="search-form">
 									<?php get_search_form(); ?>
@@ -131,3 +134,5 @@
 				</div>
 			</div>
 		</header><!-- #masthead -->
+		<div id="content" class="wrapper site-main">
+

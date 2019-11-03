@@ -1,4 +1,4 @@
-<div class="container">
+<div id="content" class="container masonry-container">
 	
     <div class="row" id="blog" >
 

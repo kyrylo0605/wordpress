@@ -185,7 +185,7 @@ class Hestia_Contact_Section extends Hestia_Abstract_Main {
 	public function content_default() {
 		$html = '<div class="hestia-info info info-horizontal">
 			<div class="icon icon-primary">
-				<i class="fa fa-map-marker"></i>
+				<i class="fas fa-map-marker-alt"></i>
 			</div>
 			<div class="description">
 				<h4 class="info-title"> Find us at the office </h4>
@@ -194,7 +194,7 @@ class Hestia_Contact_Section extends Hestia_Abstract_Main {
 		</div>
 		<div class="hestia-info info info-horizontal">
 			<div class="icon icon-primary">
-				<i class="fa fa-mobile"></i>
+				<i class="fas fa-mobile-alt"></i>
 			</div>
 			<div class="description">
 				<h4 class="info-title">Give us a ring</h4>

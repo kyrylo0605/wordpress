@@ -42,7 +42,7 @@ class Themeisle_OB_WP_Cli {
 	 */
 	private $data = array();
 
-	private $locations = [ 'local', 'remote' ];
+	private $locations = array( 'local', 'remote' );
 
 	/**
 	 * Theme mods importer.
@@ -90,7 +90,7 @@ class Themeisle_OB_WP_Cli {
 	public function load_commands() {
 		foreach ( $this->commands as $callback => $command ) {
 			try {
-				\WP_CLI::add_command( self::CLI_NAMESPACE . ' ' . $command, [ $this, $callback ] );
+				\WP_CLI::add_command( self::CLI_NAMESPACE . ' ' . $command, array( $this, $callback ) );
 			} catch ( \Exception $e ) {
 				error_log( 'Error loading cli commnands' . $e->getMessage() );
 			}
@@ -111,15 +111,15 @@ class Themeisle_OB_WP_Cli {
 			$this->locations = array( $source );
 		}
 
-		$defaults = [
-			'editors' => [],
-			'local'   => [],
-			'remote'  => [],
-		];
+		$defaults = array(
+			'editors' => array(),
+			'local'   => array(),
+			'remote'  => array(),
+		);
 
 		$this->data = wp_parse_args( $this->data, $defaults );
 		$editors    = $this->data['editors'];
-		$all_sites  = [];
+		$all_sites  = array();
 		foreach ( $this->locations as $site_source ) {
 			if ( ! isset( $this->data[ $site_source ] ) || empty( $this->data[ $site_source ] ) ) {
 				continue;
@@ -132,7 +132,12 @@ class Themeisle_OB_WP_Cli {
 					$this->data[ $site_source ][ $editor ][ $site_slug ]['slug']   = $site_slug;
 					$this->data[ $site_source ][ $editor ][ $site_slug ]['editor'] = $editor;
 					$this->data[ $site_source ][ $editor ][ $site_slug ]['source'] = $site_source;
-
+					if ( isset( $data['local_json'] ) ) {
+						$this->data[ $site_source ][ $editor ][ $site_slug ]['local_json'] = $data['local_json'];
+					}
+					if ( isset( $data['remote_json'] ) ) {
+						$this->data[ $site_source ][ $editor ][ $site_slug ]['remote_json'] = $data['remote_json'];
+					}
 					$all_sites[ $site_slug ] = $this->data[ $site_source ][ $editor ][ $site_slug ];
 				}
 			}
@@ -174,7 +179,9 @@ class Themeisle_OB_WP_Cli {
 		$json_array = $this->get_starter_site_json( $site );
 		$this->import_plugins_for_starter_site( $json_array );
 		$xml = $this->get_starter_site_xml( $site, $json_array );
-		$this->import_xml_file( $xml, $json_array );
+		WP_CLI::line( 'Importing content file...' );
+		$this->import_xml_file( $xml, $json_array, $site['editor'] );
+		WP_CLI::line( 'Done!' );
 		$this->import_theme_mods( $json_array );
 		$this->setup_pages( $json_array );
 		$this->import_widgets( $json_array );
@@ -265,14 +272,16 @@ class Themeisle_OB_WP_Cli {
 	/**
 	 * Import XML file
 	 *
-	 * @param string $path XML file path.
-	 * @param array  $json json data for site.
+	 * @param string $path   XML file path.
+	 * @param array  $json   json data for site.
+	 * @param string $editor page builder.
 	 */
-	private function import_xml_file( $path, $json ) {
+	private function import_xml_file( $path, $json, $editor ) {
 		if ( ! file_exists( $path ) || ! is_readable( $path ) ) {
 			WP_CLI::warning( "Cannot import XML file. Either the file is not readable or it does not exist (${path})" );
 		}
-		$this->content_importer->import_file( $path, $json );
+		$this->content_importer->import_file( $path, $json, $editor );
+		WP_CLI::success( 'Content imported.' );
 	}
 
 	/**
@@ -317,6 +326,17 @@ class Themeisle_OB_WP_Cli {
 	 *   - all
 	 * ---
 	 *
+	 * [--field=<field>]
+	 * : Which field to list.
+	 * ---
+	 * default: null
+	 * options:
+	 *   - slug
+	 *   - editor
+	 *   - source
+	 *   - title
+	 * ---
+	 *
 	 * [--show-url=<bool>]
 	 * : Should display URLs (true / false).
 	 * ---
@@ -335,12 +355,23 @@ class Themeisle_OB_WP_Cli {
 	 *
 	 */
 	public function list_sites( $args, $assoc_args ) {
-		$fields = [
+		$fields = array(
 			'slug',
 			'editor',
 			'source',
 			'title',
-		];
+		);
+
+		if ( $assoc_args['field'] ) {
+			if ( in_array( $assoc_args['field'], $fields, true ) ) {
+				$formatter = new WP_CLI\Formatter( $assoc_args, null );
+				$formatter->display_items( $this->get_all_sites(), array( $assoc_args['field'] ) );
+			} else {
+				WP_CLI::error( 'Error' );
+			}
+
+			return;
+		}
 
 		if ( $assoc_args['show-url'] === 'true' ) {
 			$fields[] = 'url';
@@ -364,12 +395,13 @@ class Themeisle_OB_WP_Cli {
 		if ( $source === 'local' ) {
 			return get_template_directory() . '/onboarding/' . $slug . '/export.xml';
 		}
+		set_time_limit( 0 );
 		WP_CLI::line( 'Saving... ' . $json['content_file'] );
-		global $wp_filesystem;
-		WP_Filesystem();
-		$content_file = $wp_filesystem->get_contents( $json['content_file'] );
 
-		return $this->content_importer->save_xhr_return_path( $content_file );
+		$response_file     = wp_remote_get( $json['content_file'] );
+		$content_file_path = $this->content_importer->save_xhr_return_path( wp_remote_retrieve_body( $response_file ) );
+		WP_CLI::line( 'Saved content file in ' . $content_file_path );
+		return $content_file_path;
 	}
 
 	/**
@@ -389,7 +421,10 @@ class Themeisle_OB_WP_Cli {
 		if ( $source === 'local' ) {
 			return json_decode( $wp_filesystem->get_contents( get_template_directory() . '/onboarding/' . $slug . '/data.json' ), true );
 		}
-		$site_url      = $this->data[ $source ][ $editor ][ $slug ]['url'];
+		if ( isset( $site['local_json'] ) ) {
+			return json_decode( $wp_filesystem->get_contents( $site['local_json'] ), true );
+		}
+		$site_url      = isset( $site['remote_json'] ) ? $site['remote_json'] : $this->data[ $source ][ $editor ][ $slug ]['url'];
 		$request       = wp_remote_get( $site_url . 'wp-json/ti-demo-data/data' );
 		$response_code = wp_remote_retrieve_response_code( $request );
 		if ( $response_code !== 200 || empty( $request['body'] ) || ! isset( $request['body'] ) ) {
