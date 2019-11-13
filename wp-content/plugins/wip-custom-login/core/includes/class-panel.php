@@ -78,7 +78,7 @@ if( !class_exists( 'wip_custom_login_panel' ) ) {
 
 				wp_enqueue_style ( 'WIP_custom_login', $file_dir.'css/panel.css' ); 
 				wp_enqueue_style ( 'WIP_custom_login_on_off', $file_dir.'css/on_off.css' );
-				wp_enqueue_style ( 'WIP_custom_login_googlefonts', '//fonts.googleapis.com/css?family=Roboto');
+				wp_enqueue_style ( 'WIP_custom_login_googlefonts', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i');
 				
 				wp_enqueue_media();
 				wp_enqueue_script( 'jquery');
@@ -270,15 +270,51 @@ if( !class_exists( 'wip_custom_login_panel' ) ) {
 	
 						case 'navigation': ?>
 
-							<div id="WIP_custom_login_banner">
+							<div id="WIP_custom_login_banner_bundle">
 					
-								<h1> <?php _e( 'WIP Custom Login.', 'wip-custom-login'); ?> </h1>
-								<p>  <?php _e( 'To enable all features, like the slideshow as background, please upgrade to the premium version.', 'wip-custom-login'); ?></p>
-								
-								<div class="big-button"> 
-									<a href="<?php echo esc_url( 'https://www.themeinprogress.com/c-login-free-custom-login-wordpress-plugin/?aff=panel'); ?>" target="_blank"><?php _e( 'Upgrade to the premium version.', 'wip-custom-login'); ?></a>
-								</div>
-										
+								<h1> <?php _e( 'Important', 'wip-custom-login'); ?> </h1>
+								<p>
+									<?php _e( 'We are working to integrate new features on premium version, meantime we have a special promotion for a limited time', 'wip-custom-login'); ?><br/>
+                                    <?php _e( 'Until November 17, 2019 you can purchase all premium WordPress themes and plugins available on ThemeinProgress starting from only €10.', 'wip-custom-login'); ?>
+								</p>
+
+                                <ul>
+                                    <li>
+                                        <h4><?php _e( 'Personal plan', 'wip-custom-login'); ?></h4>
+                                        <h5><?php _e( 'Only €10', 'wip-custom-login'); ?></h5>
+                                        <?php _e( '18 WordPress themes', 'wip-custom-login'); ?><br>
+                                        <?php _e( '3 WordPress plugins', 'wip-custom-login'); ?><br>
+                                        <?php _e( '1 year of updates', 'wip-custom-login'); ?><br>
+                                        <?php _e( 'Unlimited Site License', 'wip-custom-login'); ?><br>
+                                        <?php _e( 'Premium support for 1 site', 'wip-custom-login'); ?><br>
+                                        <em><?php _e( 'Direct payment on PayPal', 'wip-custom-login'); ?></em>
+                                        <a target="_blank" class="more_button" href="https://www.themeinprogress.com/checkout/?item=Customer-Bundle&plan=personal">Buy Now</a>
+                                    </li>
+                                    <li>
+                                        <h4><?php _e( 'Professional plan', 'wip-custom-login'); ?></h4>
+                                        <h5><?php _e( 'Only €20', 'wip-custom-login'); ?></h5>
+                                        <?php _e( '18 WordPress themes', 'wip-custom-login'); ?><br>
+                                        <?php _e( '3 WordPress plugins', 'wip-custom-login'); ?><br>
+                                        <?php _e( '1 year of updates', 'wip-custom-login'); ?><br>
+                                        <?php _e( 'Unlimited Site License', 'wip-custom-login'); ?><br>
+                                        <?php _e( 'Premium support for 3 site', 'wip-custom-login'); ?><br>
+                                        <em><?php _e( 'Direct payment on PayPal', 'wip-custom-login'); ?></em>
+                                        <a target="_blank" class="more_button" href="https://www.themeinprogress.com/checkout/?item=Customer-Bundle&plan=professional">Buy Now</a>
+                                    </li>
+                                    <li class="last-child-plan">
+                                        <h4><?php _e( 'Business plan', 'wip-custom-login'); ?></h4>
+                                        <h5><?php _e( 'Only €30', 'wip-custom-login'); ?></h5>
+                                        <?php _e( '18 WordPress themes', 'wip-custom-login'); ?><br>
+                                        <?php _e( '3 WordPress plugins', 'wip-custom-login'); ?><br>
+                                        <?php _e( '1 year of updates', 'wip-custom-login'); ?><br>
+                                        <?php _e( 'Unlimited Site License', 'wip-custom-login'); ?><br>
+                                        <?php _e( 'Premium support for 25 site', 'wip-custom-login'); ?><br>
+                                        <em><?php _e( 'Direct payment on PayPal', 'wip-custom-login'); ?></em>
+                                        <a target="_blank" class="more_button" href="https://www.themeinprogress.com/checkout/?item=Customer-Bundle&plan=business">Buy Now</a>
+                                    </li>
+                                    <div class="clear"></div>
+                                </ul>
+                
 							</div>
 		
 							<div id="WIP_custom_login_tabs">

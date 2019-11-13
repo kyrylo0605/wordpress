@@ -146,6 +146,7 @@ function backup_guard_backups_page()
 		// Localize the script with new data
 		wp_localize_script('backup-guard-backups-js', 'BG_BACKUP_STRINGS', array(
 			'confirm'                  => _backupGuardT('Are you sure you want to cancel import?', true),
+			'nonce' => wp_create_nonce('backupGuardAjaxNonce'),
 			'invalidBackupOption'      => _backupGuardT('Please choose at least one option.', true),
 			'invalidDirectorySelected' => _backupGuardT('Please choose at least one directory.', true),
 			'invalidCloud'             => _backupGuardT('Please choose at least one cloud.', true),
@@ -481,6 +482,7 @@ function backup_guard_awake_nopriv()
 
 function backup_guard_cancel_download()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'cancelDownload.php');
 }
 

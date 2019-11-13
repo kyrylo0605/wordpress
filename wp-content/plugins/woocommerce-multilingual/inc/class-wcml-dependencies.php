@@ -2,9 +2,9 @@
 
 class WCML_Dependencies {
 
-	const MIN_WPML = '4.2.8';
-	const MIN_WPML_TM = '2.8.7';
-	const MIN_WPML_ST = '2.10.6';
+	const MIN_WPML = '4.0.0';
+	const MIN_WPML_TM = '2.6';
+	const MIN_WPML_ST = '2.8';
 	const MIN_WOOCOMMERCE = '3.3.0';
 
 	private $missing = array();
@@ -31,7 +31,7 @@ class WCML_Dependencies {
 	}
 
 	function check() {
-		global $woocommerce_wpml, $sitepress, $woocommerce;
+		global $sitepress, $woocommerce;
 
 		if ( ! defined( 'ICL_SITEPRESS_VERSION' ) || ICL_PLUGIN_INACTIVE || is_null( $sitepress ) || ! class_exists( 'SitePress' ) ) {
 			$this->missing['WPML'] = $this->tracking_link->generate( 'https://wpml.org/' );
@@ -57,7 +57,7 @@ class WCML_Dependencies {
 			$this->allok = false;
 		}
 
-		if ( ! defined( 'WPML_TM_VERSION' ) ) {
+		if ( ! defined( 'WPML_TM_VERSION' ) || ! has_action( 'wpml_loaded', 'wpml_tm_load' ) ) {
 			$this->missing['WPML Translation Management'] = $this->tracking_link->generate( 'https://wpml.org/' );
 			$this->allok                                  = false;
 		} elseif ( version_compare( WPML_TM_VERSION, self::MIN_WPML_TM, '<' ) ) {
@@ -84,8 +84,6 @@ class WCML_Dependencies {
 
 		if ( isset( $sitepress ) ) {
 			$this->allok = $this->allok & $sitepress->setup();
-		} else {
-			$this->load_twig_support();
 		}
 
 		return $this->allok;
@@ -377,17 +375,4 @@ class WCML_Dependencies {
 		return $url;
 	}
 
-	/**
-	 * The support for the Twig templates comes from WPML by default
-	 * When WPML is not active, WCML will load it
-	 */
-	private function load_twig_support() {
-
-		if ( ! class_exists( 'WCML\Twig_Autoloader' ) ) {
-			WCML\Twig_Autoloader::register();
-		}
-
-	}
-
 }
-  

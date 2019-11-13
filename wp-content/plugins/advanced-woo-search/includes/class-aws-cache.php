@@ -152,7 +152,7 @@ if ( ! class_exists( 'AWS_Cache' ) ) :
             global $wpdb;
 
             $result = '';
-            $where = $wpdb->prepare( " name LIKE %s", sanitize_text_field( $cache_option_name ) );
+            $where = $wpdb->prepare( " name = %s", sanitize_text_field( $cache_option_name ) );
 
             $sql = "SELECT *
                 FROM

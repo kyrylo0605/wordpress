@@ -211,6 +211,7 @@ namespace WPForms {
 			require_once WPFORMS_PLUGIN_DIR . 'includes/class-conditional-logic-core.php';
 			require_once WPFORMS_PLUGIN_DIR . 'includes/emails/class-emails.php';
 			require_once WPFORMS_PLUGIN_DIR . 'includes/integrations.php';
+			require_once WPFORMS_PLUGIN_DIR . 'includes/deprecated.php';
 
 			// Admin/Dashboard only includes, also in ajax.
 			if ( is_admin() ) {

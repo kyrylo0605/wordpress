@@ -449,7 +449,7 @@ class Dokan_Commission {
         }
 
         if ( is_null( $commission_rate ) ) {
-            return null;
+            return $commission_rate;
         }
 
         $earning = null;

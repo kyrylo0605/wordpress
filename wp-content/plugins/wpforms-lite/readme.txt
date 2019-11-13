@@ -2,8 +2,8 @@
 Contributors: wpforms, jaredatch, smub, slaFFik
 Tags: contact form, contact form plugin, forms, form builder, custom form, contact button, contact me, custom contact form, form manager, form, forms builder, forms creator, captcha, recaptcha, Akismet, email form, web form, feedback form, payment form, survey form, donation form, email submit form, message form, mailchimp, mailchimp form, aweber, aweber form, paypal, paypal form, stripe, stripe form, getresponse, getresponse form, email subscription, contact form widget, user registration form, wordpress registration, wordpress login form, feedback
 Requires at least: 4.9
-Tested up to: 5.2
-Stable tag: 1.5.6
+Tested up to: 5.3
+Stable tag: 1.5.6.2
 Requires PHP: 5.4
 License: GNU General Public License v2.0 or later
 
@@ -400,6 +400,16 @@ Thank you
 Syed Balkhi
 
 == Changelog ==
+
+= 1.5.6.2 =
+- Added: Default value for "Paragraph text" field.
+- Fixed: WordPress 5.3 compatibility.
+- Fixed: Smart Phone countries squashed dropdown on screen-width <= 600px on themes with Base form styling selected.
+- Fixed: Field's Default value `0` disappears after saving and exiting the form builder.
+- Fixed: Smart Email field did not recognize `.dev` top level domains as valid.
+
+= 1.5.6.1 =
+- N/A: Pro only release.
 
 = 1.5.6 =
 - IMPORANT: Support for PHP 5.3 has been discontinued. If you are running PHP 5.3, you MUST upgrade PHP before installing WPForms 1.5.6. Failure to do that will disable WPForms core functionality.

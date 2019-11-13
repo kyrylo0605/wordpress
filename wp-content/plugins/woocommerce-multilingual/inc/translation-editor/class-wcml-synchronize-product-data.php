@@ -2,7 +2,7 @@
 
 class WCML_Synchronize_Product_Data{
 
-    const CUSTOM_FIELD_KEY_SEPARATOR = ':::';
+	const CUSTOM_FIELD_KEY_SEPARATOR = ':::';
 
     /** @var woocommerce_wpml */
     private $woocommerce_wpml;
@@ -49,6 +49,7 @@ class WCML_Synchronize_Product_Data{
             add_action( 'wpml_translation_update', array( $this, 'icl_connect_translations_action' ) );
 
             add_action( 'deleted_term_relationships', array( $this, 'delete_term_relationships_update_term_count' ), 10, 2 );
+            add_action( 'deleted_post_meta', array( $this, 'delete_empty_post_meta_for_translations' ), 10, 3 );
         }
 
 	    add_action( 'woocommerce_product_set_visibility', array( $this, 'sync_product_translations_visibility' ) );
@@ -181,29 +182,46 @@ class WCML_Synchronize_Product_Data{
 		$taxonomy_exceptions = array( 'product_type', 'product_visibility' );
 		$sync_taxonomies     = $this->sitepress->get_setting( 'sync_post_taxonomies' );
 
+		$taxonomies = array_filter(
+			$taxonomies,
+			function ( $taxonomy ) use ( $sync_taxonomies, $taxonomy_exceptions ) {
+				return $sync_taxonomies || in_array( $taxonomy, $taxonomy_exceptions, true );
+			}
+		);
+
 		remove_filter( 'terms_clauses', array( $this->sitepress, 'terms_clauses' ), 10 );
-		foreach ( $taxonomies as $taxonomy ) {
-			if (
-				$sync_taxonomies ||
-				in_array( $taxonomy, $taxonomy_exceptions )
-			) {
-				$terms    = wp_get_object_terms( $original_product_id, $taxonomy );
+
+		$found     = false;
+		$all_terms = WPML_Non_Persistent_Cache::get( $original_product_id, __CLASS__, $found );
+		if ( ! $found ) {
+			$all_terms = wp_get_object_terms( $original_product_id, $taxonomies );
+			WPML_Non_Persistent_Cache::set( $original_product_id, $all_terms, __CLASS__ );
+		}
+		if ( ! is_wp_error( $all_terms ) ) {
+			foreach ( $taxonomies as $taxonomy ) {
 				$tt_ids   = array();
 				$tt_names = array();
-				if ( $terms ) {
-					foreach ( $terms as $term ) {
-						if ( in_array( $term->taxonomy, $taxonomy_exceptions ) ) {
-							$tt_names[] = $term->name;
-							continue;
-						}
-						$tt_ids[] = $term->term_id;
+				$terms    = array_filter(
+					$all_terms,
+					function ( $term ) use ( $taxonomy ) {
+						return $term->taxonomy === $taxonomy;
 					}
+				);
+				if ( ! $terms ) {
+					continue;
+				}
+				foreach ( $terms as $term ) {
+					if ( in_array( $term->taxonomy, $taxonomy_exceptions, true ) ) {
+						$tt_names[] = $term->name;
+						continue;
+					}
+					$tt_ids[] = $term->term_id;
+				}
 
-					if ( ! $this->woocommerce_wpml->terms->is_translatable_wc_taxonomy( $taxonomy ) ) {
-						wp_set_post_terms( $tr_product_id, $tt_names, $taxonomy );
-					} else {
-						$this->wcml_update_term_count_by_ids( $tt_ids, $lang, $taxonomy, $tr_product_id );
-					}
+				if ( ! $this->woocommerce_wpml->terms->is_translatable_wc_taxonomy( $taxonomy ) ) {
+					wp_set_post_terms( $tr_product_id, $tt_names, $taxonomy );
+				} else {
+					$this->wcml_update_term_count_by_ids( $tt_ids, $lang, $taxonomy, $tr_product_id );
 				}
 			}
 		}
@@ -515,10 +533,10 @@ class WCML_Synchronize_Product_Data{
     }
 
     //duplicate product post meta
-    public function duplicate_product_post_meta( $original_product_id, $trnsl_product_id, $data = false ){
+    public function duplicate_product_post_meta( $original_product_id, $translated_product_id, $data = false ){
         global $iclTranslationManagement;
 
-        if( $this->check_if_product_fields_sync_needed( $original_product_id, $trnsl_product_id, 'postmeta_fields' ) || $data ){
+        if( $this->check_if_product_fields_sync_needed( $original_product_id, $translated_product_id, 'postmeta_fields' ) || $data ){
             $all_meta = get_post_custom( $original_product_id );
             $post_fields = null;
 
@@ -535,17 +553,20 @@ class WCML_Synchronize_Product_Data{
 
                 foreach ( $meta as $meta_value ) {
                     if( $key == '_downloadable_files' ){
-                        $this->woocommerce_wpml->downloadable->sync_files_to_translations( $original_product_id, $trnsl_product_id, $data );
+                        $this->woocommerce_wpml->downloadable->sync_files_to_translations( $original_product_id, $translated_product_id, $data );
                     }elseif ( $data ) {
                         if ( WPML_TRANSLATE_CUSTOM_FIELD  === $setting->status() ) {
-                            $post_fields = $this->sync_custom_field_value( $key, $data, $trnsl_product_id, $post_fields, $original_product_id );
+                            $post_fields = $this->sync_custom_field_value( $key, $data, $translated_product_id, $post_fields, $original_product_id );
                         }
                     }
                 }
             }
+
+	        $wcml_data_store = wcml_product_data_store_cpt();
+	        $wcml_data_store->update_lookup_table_data( $translated_product_id );
         }
 
-        do_action( 'wcml_after_duplicate_product_post_meta', $original_product_id, $trnsl_product_id, $data );
+        do_action( 'wcml_after_duplicate_product_post_meta', $original_product_id, $translated_product_id, $data );
     }
 
     public function sync_custom_field_value( $custom_field, $translation_data, $trnsl_product_id, $post_fields,  $original_product_id = false, $is_variation = false ){
@@ -773,6 +794,27 @@ class WCML_Synchronize_Product_Data{
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param array  $meta_ids    An array of deleted metadata entry IDs.
+	 * @param int    $object_id   Object ID.
+	 * @param string $meta_key    Meta key.
+	 */
+	public function delete_empty_post_meta_for_translations( $meta_ids, $object_id, $meta_key ){
+
+		if(
+			wpml_collect( [ 'product', 'product_variation' ] )->contains( get_post_type( $object_id ) ) &&
+			$this->woocommerce_wpml->products->is_original_product( $object_id )
+		){
+			$translations = $this->post_translations->get_element_translations( $object_id, false, true );
+			remove_action( 'deleted_post_meta', array( $this, 'delete_empty_post_meta_for_translations' ), 10, 3 );
+			foreach( $translations as $translation ) {
+				delete_post_meta( $translation, $meta_key );
+			}
+			add_action( 'deleted_post_meta', array( $this, 'delete_empty_post_meta_for_translations' ), 10, 3 );
+		}
+
 	}
 
 

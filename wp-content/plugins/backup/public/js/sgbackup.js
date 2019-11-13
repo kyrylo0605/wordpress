@@ -225,7 +225,7 @@ sgBackup.restManualBackupModal = function() {
 }
 
 sgBackup.cancelDonwload = function(name) {
-	var cancelDonwloadHandler = new sgRequestHandler('cancelDownload', {name: name});
+	var cancelDonwloadHandler = new sgRequestHandler('cancelDownload', {name: name, token: BG_BACKUP_STRINGS.nonce});
 	cancelDonwloadHandler.callback = function(response){
 		sgBackup.hideAjaxSpinner();
 		location.reload();

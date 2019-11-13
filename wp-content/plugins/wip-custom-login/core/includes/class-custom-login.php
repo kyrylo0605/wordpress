@@ -56,28 +56,44 @@ if( !class_exists( 'wip_custom_login_class' ) ) {
 					
 					<?php if ( wip_custom_login_setting('wip_custom_login_background_image')) : ?>
 					   
-						background-image: url('<?php echo wip_custom_login_setting('wip_custom_login_background_image'); ?>');
-						background-repeat: <?php echo wip_custom_login_setting('wip_custom_login_background_repeat', 'repeat');?>;
-						background-repeat: <?php echo wip_custom_login_setting('wip_custom_login_background_position', '');?>;
-						background-repeat: <?php echo wip_custom_login_setting('wip_custom_login_background_attachment', 'normal');?>;
+						background-image: url('<?php echo esc_html(wip_custom_login_setting('wip_custom_login_background_image')); ?>');
+						background-repeat: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_background_repeat', 'repeat'));?>;
+						background-repeat: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_background_position', ''));?>;
+						background-repeat: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_background_attachment', 'normal'));?>;
 						
 					<?php endif; ?>
 					
-                    background-color: <?php echo wip_custom_login_setting('wip_custom_login_background_color', '#f1f1f1');?>;
+                    background-color: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_background_color', '#f1f1f1'));?>;
 					padding-top:150px;
 					height:auto;
 
 				}
-                
+
+                <?php 
+					if ( 
+						wip_custom_login_setting('wip_custom_login_loginbox_position') && 
+						wip_custom_login_setting('wip_custom_login_loginbox_position') <> 'center'
+					) :
+				?>
+				   
+					body.login div#login {
+						position:relative;
+						float: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_position', 'left'));?>;
+						margin:auto;
+						<?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_position', 'left'));?> : 50px;
+					}
+	
+                <?php endif; ?>
+
                 body.login div#login h1 a {
 
 					<?php if ( wip_custom_login_setting('wip_custom_login_logo_url')) : ?>
 					   
-						background-image: url('<?php echo wip_custom_login_setting('wip_custom_login_logo_url'); ?>');
+						background-image: url('<?php echo esc_html(wip_custom_login_setting('wip_custom_login_logo_url')); ?>');
 						-webkit-background-size: inherit;
 						background-size: inherit ;
-						width:<?php echo wip_custom_login_setting('wip_custom_login_logo_width', '140px');?>;
-						height:<?php echo wip_custom_login_setting('wip_custom_login_logo_height', '140px');?>
+						width:<?php echo esc_html(wip_custom_login_setting('wip_custom_login_logo_width', '140px'));?>;
+						height:<?php echo esc_html(wip_custom_login_setting('wip_custom_login_logo_height', '140px'));?>
 						
 					<?php endif; ?>
 
@@ -88,26 +104,26 @@ if( !class_exists( 'wip_custom_login_class' ) ) {
                     margin-bottom:0; 
                     padding:0;
                     clear: both;
-                    border: 1px solid <?php echo wip_custom_login_setting('wip_custom_login_loginbox_border', '#d2d2d2');?>;
+                    border: 1px solid <?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_border', '#d2d2d2'));?>;
                     margin-bottom: 24px;
                     text-align: left;
                     border-collapse: separate;
                     padding: 42px 40px;
-                    background: <?php echo wip_custom_login_setting('wip_custom_login_loginbox_background', '#fff');?>;
+                    background: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_background', '#fff'));?>;
                     position: relative;
                     display: block;
                     -webkit-border-radius: 6px;
                     -moz-border-radius: 6px;
                     border-radius: 6px;
-                    width:<?php echo wip_custom_login_setting('wip_custom_login_loginbox_width', '350px');?>;;
+                    width:<?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_width', '350px'));?>;
 			    }
                 
                 body.login .jetpack-sso-or span {
-                    background: <?php echo wip_custom_login_setting('wip_custom_login_loginbox_background', '#fff');?>;
+                    background: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_background', '#fff'));?>;
 			    }
                 
                 body.login .jetpack-sso-or:before {
-                    border-color: <?php echo wip_custom_login_setting('wip_custom_login_loginbox_border', '#d2d2d2');?>;
+                    border-color: <?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_border', '#d2d2d2'));?>;
 			    }
                 
                 body.login div#login #backtoblog, 
@@ -127,13 +143,13 @@ if( !class_exists( 'wip_custom_login_class' ) ) {
                 body.login div#login #nav a,
                 body.login div#login label ,
                 body.login div#login p {
-                    color:<?php echo wip_custom_login_setting('wip_custom_login_loginbox_textcolor', '#333');?>;
+                    color:<?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_textcolor', '#333'));?>;
                 }
 
                 body.login #loginform #jetpack-sso-wrap a:hover,    
                 body.login div#login #backtoblog a:hover, 
                 body.login div#login #nav a:hover{
-                    color:<?php echo wip_custom_login_setting('wip_custom_login_loginbox_linkcolor_hover', '#008ec2');?>;
+                    color:<?php echo esc_html(wip_custom_login_setting('wip_custom_login_loginbox_linkcolor_hover', '#008ec2'));?>;
                 }
                     
                 body.login div#login p.message {
@@ -185,7 +201,7 @@ if( !class_exists( 'wip_custom_login_class' ) ) {
                 body.login div#login form .input, 
                 body.login div#login input[type="text"] ,
                 body.login div#login input[type="submit"] {
-                    font-family:<?php echo wip_custom_login_setting('wip_custom_login_font', 'Montserrat');?>
+                    font-family:<?php echo esc_html(wip_custom_login_setting('wip_custom_login_font', 'Montserrat'));?>
                 }
 
                 body.login #loginform #jetpack-sso-wrap a,    

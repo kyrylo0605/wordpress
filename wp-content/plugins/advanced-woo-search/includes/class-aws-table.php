@@ -277,7 +277,9 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                       on_sale INT(11) NOT NULL DEFAULT 0,
                       term_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
                       visibility VARCHAR(20) NOT NULL DEFAULT 0,
-                      lang VARCHAR(20) NOT NULL DEFAULT 0
+                      lang VARCHAR(20) NOT NULL DEFAULT 0,
+                      KEY id (id),
+                      KEY term_id (term_id)
                 ) $charset_collate;";
 
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

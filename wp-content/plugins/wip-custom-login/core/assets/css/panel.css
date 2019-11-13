@@ -75,7 +75,7 @@ input[type=file]:focus {
 #WIP_custom_login_header h2 { 
 	text-align: left;
 	font-size: 20px;
-	font-family: 'Roboto', Geneva, sans-serif;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
 	color: #fff;
 	font-weight:400;
 	text-shadow:none;
@@ -108,27 +108,27 @@ WIP_custom_login_header h2.features {
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
-	font-family: 'Roboto', Geneva, sans-serif;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner h1 {
 	font-size:21px;
 	color:#fff;
 	margin:0 auto 15px auto;
-	font-family: 'Roboto', Geneva, sans-serif;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner h2 {
 	color:#fff;
 	font-size:18px;
-	font-family: 'Roboto', Geneva, sans-serif;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner p {
 	color:#fff;
 	font-size:16px;
 	margin:30px auto;
-	font-family: 'Roboto', Geneva, sans-serif;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner .big-button a {
@@ -141,7 +141,7 @@ WIP_custom_login_header h2.features {
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
 	-o-transition: all .3s ease;
-	font-family: 'Roboto', Geneva, sans-serif;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
 	font-size: 14px;
 	text-align: center;
 	position: relative;
@@ -158,6 +158,105 @@ WIP_custom_login_header h2.features {
 #WIP_custom_login_banner .big-button a:hover {
 	border-color: #fff;
 	background:none;
+	color:#fff;
+}
+
+/* ===============================================
+   BANNER BUNDLE
+   =============================================== */
+
+#WIP_custom_login_banner_bundle {
+	background:#2ecc71;
+	width: 90%;
+    padding: 4%;
+	text-align:center; 
+	margin-top:15px;
+	color:#fff;
+	display:block;
+	vertical-align:top;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+}
+
+#WIP_custom_login_banner_bundle h1 {
+	font-size:28px;
+	color:#fff;
+	margin:0 auto 15px auto;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+}
+
+#WIP_custom_login_banner_bundle h2 {
+	color:#fff;
+	font-size:22px;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+}
+
+#WIP_custom_login_banner_bundle h4 {
+	color:#fff;
+	font-size:18px;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+}
+
+#WIP_custom_login_banner_bundle h5 {
+	color:#fff;
+	font-size:16px;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+}
+
+#WIP_custom_login_banner_bundle p {
+	color:#fff;
+	font-size:16px;
+	margin:0 auto;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+	line-height:1.8em
+}
+
+#WIP_custom_login_banner_bundle ul {
+    margin-top: 4%;
+    margin-bottom: 0px;
+}
+
+#WIP_custom_login_banner_bundle li {
+    width: 32%;
+    margin: 0;
+    margin-right: 2%;
+    padding: 0;
+    float: left;
+	font-size:16px;
+    background: #27ae60;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+	line-height:1.8em
+}
+
+#WIP_custom_login_banner_bundle li.last-child-plan {
+    margin-right: 0;
+}
+
+#WIP_custom_login_banner_bundle a.more_button {
+	background: #e67e22;
+	color:#fff;
+	text-decoration:none;
+	padding: 10px 0;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	font-family: 'Source Sans Pro', Geneva, sans-serif;
+	font-size: 16px;
+	text-align: center;
+	position: relative;
+	margin:30px auto;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	display:inline-block;
+	text-transform:uppercase;
+	width:80%;
+}
+
+#WIP_custom_login_banner_bundle a.more_button:hover {
+	background:#d35400;
 	color:#fff;
 }
 
@@ -251,7 +350,7 @@ WIP_custom_login_header h2.features {
 	-webkit-transition: all .3s ease; 	
 	-moz-transition: all .3s ease; 
 	-o-transition: all .3s ease; 
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	float:left; 
 	font-size:14px; 
 	text-shadow:none;
@@ -310,7 +409,7 @@ WIP_custom_login_header h2.features {
    =============================================== */
 
 .WIP_custom_login_container .wip_mainbox { 
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	font-size:14px; 
 	line-height:1.4em; 
 	background:#fff; 
@@ -322,7 +421,7 @@ WIP_custom_login_header h2.features {
 }
 
 .WIP_custom_login_container .wip_mainbox-open { 
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	font-size:14px; 
 	line-height:1.4em; 
 	background:#f3f3f3; 
@@ -342,7 +441,7 @@ WIP_custom_login_header h2.features {
 	padding:15px; 
 	font-size:16px;
 	margin:15px 0 0 0; 
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	font-weight:normal;
 	text-shadow:none; 
 	color:#fff; 
@@ -359,7 +458,7 @@ WIP_custom_login_header h2.features {
 	margin:10px 0 0 0; 
 	font-weight:normal;
 	color: #fff;
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 }
 
 .WIP_custom_login_container h5.element:hover { 
@@ -464,7 +563,7 @@ WIP_custom_login_header h2.features {
 .WIP_custom_login_container .metaboxes .orders .WIP_custom_login_box label,
 .WIP_custom_login_container .WIP_custom_login_box label {
 	color:#333; 
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	float:left; 
 	width:20%;
 	font-size:14px;
@@ -482,13 +581,13 @@ WIP_custom_login_header h2.features {
 	width:100%;
 	float:none;
 	display:block;
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	font-size:12px; 
 }
 
 .WIP_custom_login_container .WIP_custom_login_box p {
 	color:#333; 
-	font-family:'Roboto',Helvetica, Geneva, sans-serif; 
+	font-family:'Source Sans Pro',Helvetica, Geneva, sans-serif; 
 	font-style:italic; 
 	font-size:12px; 
     margin:5px 0 0 0;
