@@ -1,0 +1,543 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WIP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-24 22:10+0200\n"
+"PO-Revision-Date: 2019-10-24 22:10+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;esc_html__;esc_attr__\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: core/admin/panel.php:19 core/admin/panel.php:35 core/admin/panel.php:37
+msgid "Chatbox Generator"
+msgstr "Generatore di chatbox"
+
+#: core/admin/panel.php:20
+msgid "Import/Export"
+msgstr "Importa/Esporta"
+
+#: core/admin/panel.php:38
+msgid "Click on 'New chatbox' button to add a new chatbox."
+msgstr "Clicca sul pulsante ‘Nuova chatbox’ per aggiungere una nuova chatbox."
+
+#: core/admin/panel.php:56 core/admin/panel.php:58
+msgid "Import / Export"
+msgstr "Importa / Esporta"
+
+#: core/includes/class-notice.php:76
+msgid "Dismiss this notice"
+msgstr "Rimuovi questa notifica"
+
+#: core/includes/class-panel.php:38 core/includes/class-panel.php:39
+msgid "TIP Plugins"
+msgstr "TIP Plugins"
+
+#: core/includes/class-panel.php:51 core/includes/class-panel.php:52
+#: core/includes/class-panel.php:330
+msgid "WA Chatbox Manager"
+msgstr "WA Chatbox Manager"
+
+#: core/includes/class-panel.php:268
+msgid "Options saved successfully."
+msgstr "Opzioni salvate con successo."
+
+#: core/includes/class-panel.php:331
+msgid "Version: "
+msgstr "Versione: "
+
+#: core/includes/class-panel.php:332
+msgid "by ThemeinProgress"
+msgstr "by ThemeinProgress"
+
+#: core/includes/class-panel.php:333
+msgid " - Documentation"
+msgstr " - Documentazione"
+
+#: core/includes/class-panel.php:500
+msgid "Upload"
+msgstr "Carica"
+
+#: core/includes/class-panel.php:663
+msgid "Current plugin settings"
+msgstr "Opzioni plugin correnti."
+
+#: core/includes/class-panel.php:672
+msgid "Download current plugin settings"
+msgstr "Scarica le impostazioni correnti del plugin"
+
+#: core/includes/class-panel.php:684 core/includes/class-panel.php:691
+msgid "Reset plugin settings"
+msgstr "Cancella le opzioni del plugin."
+
+#: core/includes/class-panel.php:693
+msgid ""
+"If you click the button above, the plugin options return to its default "
+"values"
+msgstr "Cliccando il pulsante che segue, le opzioni salvate verranno eliminate"
+
+#: core/includes/class-panel.php:705 core/includes/class-panel.php:712
+msgid "Import plugin settings"
+msgstr "Importa le opzioni del plugin."
+
+#: core/includes/class-panel.php:753
+msgid ""
+"<span>You have reached the limit of 3 chatboxes. You can unlock this limit "
+"visiting this LINK</span> "
+msgstr ""
+"<span>Hai raggiunto il limite di 3 chatbox. Puoi sbloccare questo limite "
+"visitando questo LINK</span>"
+
+#: core/includes/class-panel.php:755
+msgid "Upgrade to WA Chatbox Manager premium"
+msgstr "Aggiorna a WA Chatbox Manager premium"
+
+#: core/includes/class-panel.php:785
+msgid "Chatbox name."
+msgstr "Nome della chatbox."
+
+#: core/includes/class-panel.php:792
+msgid "Add the name of this chatbox."
+msgstr "Aggiungi il nome di questa chatbox."
+
+#: core/includes/class-panel.php:804
+msgid "WhatsApp number"
+msgstr "Numero WhatsApp"
+
+#: core/includes/class-panel.php:812
+msgid ""
+"Add the WhatsApp number of this chatbox including the country code, for "
+"example +393331234567"
+msgstr ""
+"Aggiungi il numero WhatsApp per questa chatbox, incluso il prefisso "
+"internazionale, ad esempio +393331234567"
+
+#: core/includes/class-panel.php:814
+msgid "How to include properly the phone number"
+msgstr "Come includere correttamente il numero di telefono"
+
+#: core/includes/class-panel.php:826
+msgid "Text to display"
+msgstr "Testo da visualizzare"
+
+#: core/includes/class-panel.php:834
+msgid "Add the text of this chatbox."
+msgstr "Aggiungi il testo di questa chatbox."
+
+#: core/includes/class-panel.php:846
+msgid "Pre-filled message"
+msgstr "Messaggio preimpostato"
+
+#: core/includes/class-panel.php:854
+msgid "Add the pre-filled message of this chatbox."
+msgstr "Aggiungi il messaggio preimpostato di questa chatbox."
+
+#: core/includes/class-panel.php:866
+msgid "Fixed position"
+msgstr "Posizione fissa"
+
+#: core/includes/class-panel.php:875
+msgid "Bottom right"
+msgstr "In basso a destra"
+
+#: core/includes/class-panel.php:876
+msgid "Bottom left"
+msgstr "In basso a sinistra"
+
+#: core/includes/class-panel.php:877
+msgid "Bottom center"
+msgstr "In basso al centro"
+
+#: core/includes/class-panel.php:878
+msgid "Top right"
+msgstr "In alto a destra"
+
+#: core/includes/class-panel.php:879
+msgid "Top left"
+msgstr "In alto a sinistra"
+
+#: core/includes/class-panel.php:880
+msgid "Top center"
+msgstr "In alto al centro"
+
+#: core/includes/class-panel.php:885
+msgid "Set the fixed position where you want to place this chatbox."
+msgstr "Imposta la posizione fissa dove vuoi visualizzare questa chatbox."
+
+#: core/includes/class-panel.php:897
+msgid "Position"
+msgstr "Posizione"
+
+#: core/includes/class-panel.php:903
+msgid "Top position"
+msgstr "Posizionamento in alto"
+
+#: core/includes/class-panel.php:904
+msgid "Insert the top position, please do not include \"px\""
+msgstr "Inserisci il posizionamento in alto, si prega di non includere “px”"
+
+#: core/includes/class-panel.php:910
+msgid "Right position."
+msgstr "Posizionamento a destra"
+
+#: core/includes/class-panel.php:912
+msgid "Insert the right position, please do not include \"px\""
+msgstr "Inserisci il posizionamento a destra, si prega di non includere “px”"
+
+#: core/includes/class-panel.php:918
+msgid "Bottom position."
+msgstr "Posizionamento in basso"
+
+#: core/includes/class-panel.php:920
+msgid "Insert the bottom position, please do not include \"px\""
+msgstr "Inserisci il posizionamento in basso, si prega di non includere “px”"
+
+#: core/includes/class-panel.php:926
+msgid "Left position."
+msgstr "Posizionamento a sinistra"
+
+#: core/includes/class-panel.php:928
+msgid "Insert the left position, please do not include \"px\""
+msgstr "Inserisci il posizionamento a sinistra, si prega di non includere “px”"
+
+#: core/includes/class-panel.php:940
+msgid "Size"
+msgstr "Grandezza"
+
+#: core/includes/class-panel.php:948
+msgid "Insert the size of this icon, please do not include \"px\""
+msgstr "Inserisci la grandezza di questa icona, si prega di non includere “px”"
+
+#: core/includes/class-panel.php:960
+msgid "Icon"
+msgstr "Icona"
+
+#: core/includes/class-panel.php:969
+msgid "Icon 1"
+msgstr "Icona 1"
+
+#: core/includes/class-panel.php:970
+msgid "Icon 2"
+msgstr "Icona 2"
+
+#: core/includes/class-panel.php:971
+msgid "None"
+msgstr "Nessuna"
+
+#: core/includes/class-panel.php:975
+msgid "Select a icon for this chatbox."
+msgstr "Seleziona un’icona per questa chatbox."
+
+#: core/includes/class-panel.php:987
+msgid "Layout"
+msgstr "Layout"
+
+#: core/includes/class-panel.php:996
+msgid "Layout 1"
+msgstr "Layout 1"
+
+#: core/includes/class-panel.php:997
+msgid "Layout 2"
+msgstr "Layout 2"
+
+#: core/includes/class-panel.php:998
+msgid "Layout 3"
+msgstr "Layout 3"
+
+#: core/includes/class-panel.php:999
+msgid "Layout 4"
+msgstr "Layout 4"
+
+#: core/includes/class-panel.php:1000
+msgid "Layout 5"
+msgstr "Layout 5"
+
+#: core/includes/class-panel.php:1004
+msgid "Select a layout for this chatbox."
+msgstr "Seleziona un layout per questa chatbox."
+
+#: core/includes/class-panel.php:1016
+msgid "Chatbox type"
+msgstr "Tipo di chatbox"
+
+#: core/includes/class-panel.php:1025
+msgid "Floating button"
+msgstr "Pulsante fluttuante"
+
+#: core/includes/class-panel.php:1026
+msgid "After content"
+msgstr "Dopo il contenuto"
+
+#: core/includes/class-panel.php:1030
+msgid "Which type of chatbox you want to display?"
+msgstr "Quale tipo di chatbox vuoi visualizzare?"
+
+#: core/includes/class-panel.php:1046
+msgid "Homepage"
+msgstr "Homepage"
+
+#: core/includes/class-panel.php:1063
+msgid "Do you want to load this chatbox on the homepage?"
+msgstr "Vuoi caricare questa chatbox nella homepage?"
+
+#: core/includes/class-panel.php:1081
+msgid "Search"
+msgstr "Cerca"
+
+#: core/includes/class-panel.php:1100
+msgid "Do you want to load this chatbox on the search result pages?"
+msgstr "Vuoi caricare questa chatbox nei risultati di ricerca?"
+
+#: core/includes/class-panel.php:1115
+msgid "Whole website (posts, pages, taxonomies)"
+msgstr "Intero sito (articoli, pagine, tassonomie)"
+
+#: core/includes/class-panel.php:1132
+msgid "Do you want to load this chatbox on whole website?"
+msgstr "Vuoi caricare questa chatbox in tutto il sito?"
+
+#: core/includes/class-panel.php:1147
+msgid "Custom post types."
+msgstr "Tipi post personalizzati"
+
+#: core/includes/class-panel.php:1148
+msgid "Below each available custom post type."
+msgstr "Di seguito ogni tipo di post personalizzato disponibile."
+
+#: core/includes/class-panel.php:1164 core/includes/class-panel.php:1256
+msgid " match value."
+msgstr " valore di corrispondenza."
+
+#: core/includes/class-panel.php:1173 core/includes/class-panel.php:1265
+msgid "Include"
+msgstr "Includi"
+
+#: core/includes/class-panel.php:1174 core/includes/class-panel.php:1266
+msgid "Exclude"
+msgstr "Escludi"
+
+#: core/includes/class-panel.php:1179
+msgid "Do you want to include or exclude this custom post type?"
+msgstr ""
+"Vuoi include o escludere questo post personalizzato (custom post type)?"
+
+#: core/includes/class-panel.php:1191
+msgid "Include these items."
+msgstr "Includi questi elementi."
+
+#: core/includes/class-panel.php:1201 core/includes/class-panel.php:1293
+msgid "Type [All] to include all items."
+msgstr "Inserisci [All] per includere tutti gli elementi."
+
+#: core/includes/class-panel.php:1213
+msgid "Exclude these items."
+msgstr "Escludi questi elementi."
+
+#: core/includes/class-panel.php:1223 core/includes/class-panel.php:1315
+msgid "Type [All] to exclude all items."
+msgstr "Inserisci [All] per escludere tutti gli elementi."
+
+#: core/includes/class-panel.php:1239
+msgid "Custom taxonomies."
+msgstr "Tassonomie personalizzate."
+
+#: core/includes/class-panel.php:1240
+msgid "Below each available Custom taxonomy."
+msgstr "Di seguito ogni tassonomia personalizzata disponibile."
+
+#: core/includes/class-panel.php:1271
+msgid "Do you want to include or exclude this custom taxonomy?"
+msgstr ""
+"Vuoi include o escludere questa tassonomia personalizzata (custom taxonomy)?"
+
+#: core/includes/class-panel.php:1283
+msgid "Include these items. "
+msgstr "Includi questi elementi. "
+
+#: core/includes/class-panel.php:1305
+msgid "Exclude these items. "
+msgstr "Escludi questi elementi. "
+
+#: init.php:71
+msgid "Settings"
+msgstr "Impostazioni"
+
+#~ msgid "License Key"
+#~ msgstr "Chiave di licenza"
+
+#~ msgid "License Key."
+#~ msgstr "Chiave di licenza."
+
+#~ msgid "Insert the license key received by email to activate "
+#~ msgstr "Inserisci la chiave di licenza ricevuta per email per attivare "
+
+#~ msgid "Unexpected Error! The query returned with an error."
+#~ msgstr "Errore inaspettato! La query è stata restituita con un errore"
+
+#~ msgid "WA Chatbox Manager Pro"
+#~ msgstr "WA Chatbox Manager Pro"
+
+#~ msgid "Please activate "
+#~ msgstr "Si prega di attivare "
+
+#~ msgid ""
+#~ "Leave empty if you want to share this link on WhatsApp including one of "
+#~ "available dynamic values"
+#~ msgstr ""
+#~ "Lascia vuoto se vuoi condividere questo link su WhatsApp includendo uno "
+#~ "dei valori dinamici disponibili"
+
+#~ msgid ""
+#~ "Add the pre-filled message of this chatbox, if needed you can include "
+#~ "these dynamic values."
+#~ msgstr ""
+#~ "Aggiungi il testo preimpostato di questa chatbox, se necessario puoi "
+#~ "includere questi valori dinamici."
+
+#~ msgid "[v]TITLE[/v] returns the TITLE of current post/page"
+#~ msgstr "[v]TITLE[/v] restituisce il TITOLO della pagina/articolo corrente"
+
+#~ msgid "[v]LINK[/v] returns the URL of current post/page"
+#~ msgstr "[v]LINK[/v] restituisce l’URL della pagina/articolo corrente"
+
+#~ msgid "Shake button"
+#~ msgstr "Pulsante che si scuote"
+
+#~ msgid "Do you want to enable the shake animation?"
+#~ msgstr "Vuoi attivare l’animazione del pulsante che si scuote?"
+
+#~ msgid "View details"
+#~ msgstr "Visualizza dettagli"
+
+#~ msgid "More information about %s"
+#~ msgstr "Maggiori informazioni su %s"
+
+#~ msgid "Check for updates"
+#~ msgstr "Ricontrollare aggiornamenti"
+
+#~ msgid "Unknown update checker status \"%s\""
+#~ msgstr "Stato del controllo degli aggiornamenti sconosciuto “%s”"
+
+#~ msgid "There is no changelog available."
+#~ msgstr "Non è disponibile alcun changelog"
+
+#~ msgid "Add the WhatsApp number of this chatbox"
+#~ msgstr "Aggiungi il numero WhatsApp di questa chatbox."
+
+#~ msgid "Upgrade to Sueva Premium"
+#~ msgstr "Uddl"
+
+#~ msgid "User Role"
+#~ msgstr "Ruolo utente"
+
+#~ msgid "Script Generator"
+#~ msgstr "Generatore script"
+
+#~ msgid "Roles"
+#~ msgstr "Ruoli"
+
+#~ msgid "Choose the user role that can't load all saved scripts."
+#~ msgstr ""
+#~ "Seleziona ogni ruolo utente che non può caricare tutti gli script salvati."
+
+#~ msgid ""
+#~ "Click on + to add a new slot, then click on Save button to save the slot."
+#~ msgstr ""
+#~ "Clicca su + per aggiungere un nuovo slot, successivamente clicca sul "
+#~ "pulsante salva per salvare lo slot."
+
+#~ msgid "Custom Script Manager Pro"
+#~ msgstr "Custom Script Manager Pro"
+
+#~ msgid "Script name."
+#~ msgstr "Nome dello script."
+
+#~ msgid "Add the name of this script."
+#~ msgstr "Aggiungi il nome di questo script."
+
+#~ msgid "Script position."
+#~ msgstr "Posizione dello script."
+
+#~ msgid "Header script"
+#~ msgstr "Script nella testata"
+
+#~ msgid "Footer script"
+#~ msgstr "Script nel piè di pagina"
+
+#~ msgid "WooCommerce conversion script"
+#~ msgstr "Script conversione WooCommerce"
+
+#~ msgid "Post Excerpt"
+#~ msgstr "Riassunto post"
+
+#~ msgid "Post Content"
+#~ msgstr "Contenuto post"
+
+#~ msgid "Select a position for this script"
+#~ msgstr "Seleziona una posizione per questo script."
+
+#~ msgid "After how many characters do you want to load this script?"
+#~ msgstr "Dopo quanti caratteri vuoi caricare questo script?"
+
+#~ msgid ""
+#~ "Type 0 to load the script before the post excerpt, -1 to load the script "
+#~ "after the post excerpt or any value, our system avoid to break the post "
+#~ "excerpt."
+#~ msgstr ""
+#~ "Inserisci 0 per caricare lo script prima del riassunto del post, -1 per "
+#~ "caricare lo script dopo il riassunto del post oppure qualsiasi valore, il "
+#~ "nostro sistema evita di rompere il riassunto del post."
+
+#~ msgid "After how many paragraphs do you want to load this script?"
+#~ msgstr "Dopo quanti paragrafi vuoi caricare questo script?"
+
+#~ msgid ""
+#~ "Type 0 to load the script before the post content, -1 to load the script "
+#~ "after the post  content or any value, our system avoid to break the post "
+#~ "content."
+#~ msgstr ""
+#~ "Inserisci 0 per caricare lo script prima del contenuto del post, -1 per "
+#~ "caricare lo script dopo il contenuto del post oppure qualsiasi valore, il "
+#~ "nostro sistema evita di rompere il contenuto del post."
+
+#~ msgid "Do you want to load this script on the homepage?"
+#~ msgstr "Vuoi caricare questo script nella homepage?"
+
+#~ msgid "Do you want to load this script on the search result pages?"
+#~ msgstr "Vuoi caricare questo script nei risultati di ricerca?"
+
+#~ msgid "Do you want to load this script on whole website?"
+#~ msgstr "Vuoi caricare questo script in tutto il sito?"
+
+#~ msgid ""
+#~ "Choose the user role that can&lsquo;t load the following script, Note "
+#~ "that if an user role is disabled from the main settings, you can&lsquo;t "
+#~ "enable it from this section."
+#~ msgstr ""
+#~ "Seleziona ogni ruolo utente che non può caricare il seguente script. Nota "
+#~ "che se un utente è disabilitato dalle opzioni principali, non è possibile "
+#~ "abilitarlo da qui."
+
+#~ msgid "Custom script"
+#~ msgstr "Script personalizzato"
+
+#~ msgid "Put here your CSS, HTML, Javascript or WordPress shortcode."
+#~ msgstr ""
+#~ "Inserisci qui il codice CSS, HTML, Javascript o shortcode WordPress."
+
+#~ msgid "Delete"
+#~ msgstr "Cancella"
+
+#~ msgid "Activate"
+#~ msgstr "Attiva"
+
+#~ msgid "Categories: "
+#~ msgstr "Categorie: "
