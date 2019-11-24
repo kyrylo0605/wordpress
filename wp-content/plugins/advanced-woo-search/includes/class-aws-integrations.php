@@ -79,9 +79,17 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             // Seamless integration
             if ( AWS()->get_settings( 'seamless' ) === 'true' ) {
+
+                add_filter( 'aws_js_seamless_selectors', array( $this, 'js_seamless_selectors' ) );
+
                 add_filter( 'et_html_main_header', array( $this, 'et_html_main_header' ) );
                 add_filter( 'et_html_slide_header', array( $this, 'et_html_main_header' ) );
                 add_filter( 'generate_navigation_search_output', array( $this, 'generate_navigation_search_output' ) );
+                add_filter( 'et_pb_search_shortcode_output', array( $this, 'divi_builder_search_module' ) );
+                add_filter( 'et_pb_menu_shortcode_output', array( $this, 'divi_builder_search_module' ) );
+                add_filter( 'et_pb_fullwidth_menu_shortcode_output', array( $this, 'divi_builder_search_module' ) );
+                add_action( 'wp_head', array( $this, 'head_js_integration' ) );
+
             }
 
             // Wholesale plugin hide certain products
@@ -463,6 +471,86 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
             return $html;
         }
+
+        /*
+         * Divi builder replace search module
+         */
+        public function divi_builder_search_module( $output ) {
+            if ( function_exists( 'aws_get_search_form' ) && is_string( $output ) ) {
+
+                $pattern = '/(<form[\s\S]*?<\/form>)/i';
+                $form = aws_get_search_form(false);
+
+                if ( strpos( $output, 'aws-container' ) !== false ) {
+                    $pattern = '/(<div class="aws-container"[\s\S]*?<form.*?<\/form><\/div>)/i';
+                }
+
+                $output = trim(preg_replace('/\s\s+/', ' ', $output));
+                $output = preg_replace( $pattern, $form, $output );
+
+            }
+            return $output;
+        }
+
+        /*
+         * Selector filter of js seamless
+         */
+        public function js_seamless_selectors( $selectors ) {
+
+            // shopkeeper theme
+            if ( function_exists( 'shopkeeper_theme_setup' ) ) {
+                $selectors[] = '.site-search .woocommerce-product-search';
+            }
+
+            return $selectors;
+
+        }
+
+        /*
+         * Js seamless integration method
+         */
+        public function head_js_integration() {
+
+            /**
+             * Filter seamless integrations js selectors for forms
+             * @since 1.85
+             * @param array $forms Array of css selectors
+             */
+            $forms = apply_filters( 'aws_js_seamless_selectors', array() );
+
+            if ( ! is_array( $forms ) || empty( $forms ) ) {
+                return;
+            }
+
+            $forms_selector = implode( ',', $forms );
+
+            ?>
+
+            <script>
+                window.addEventListener('load', function() {
+                    var forms = document.querySelectorAll("<?php echo $forms_selector; ?>");
+
+                    var awsFormHtml = <?php echo json_encode( str_replace( 'aws-container', 'aws-container aws-js-seamless', aws_get_search_form( false ) ) ); ?>;
+
+                    if ( forms ) {
+
+                        for ( var i = 0; i < forms.length; i++ ) {
+                            if ( forms[i].parentNode.outerHTML.indexOf('aws-container') === -1 ) {
+                                forms[i].outerHTML = awsFormHtml;
+                            }
+                        }
+
+                        window.setTimeout(function(){
+                            jQuery('.aws-js-seamless').each( function() {
+                                jQuery(this).aws_search();
+                            });
+                        }, 1000);
+
+                    }
+                }, false);
+            </script>
+
+        <?php }
 
         /*
          * Wholesale plugin hide products

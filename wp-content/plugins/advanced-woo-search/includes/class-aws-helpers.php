@@ -519,10 +519,44 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
                         if ( $synonym_array && ! empty( $synonym_array ) ) {
                             $synonym_array = array_map( array( 'AWS_Helpers', 'normalize_string' ), $synonym_array );
                             foreach ( $synonym_array as $synonym_item ) {
+
                                 if ( $synonym_item && isset( $str_array[$synonym_item] ) ) {
                                     $new_str_array = array_merge( $new_str_array, $synonym_array );
                                     break;
                                 }
+
+                                if ( $synonym_item && preg_match( '/\s/',$synonym_item )  ) {
+                                    $synonym_words = explode( ' ', $synonym_item );
+                                    if ( $synonym_words && ! empty( $synonym_words ) ) {
+
+                                        $str_array_keys = array_keys( $str_array );
+                                        $synonym_prev_word_pos = 0;
+                                        $use_this = true;
+
+                                        foreach ( $synonym_words as $synonym_word ) {
+                                            if ( $synonym_word && isset( $str_array[$synonym_word] ) ) {
+                                                $synonym_current_word_pos = array_search( $synonym_word, $str_array_keys );
+                                                $synonym_prev_word_pos = $synonym_prev_word_pos ? $synonym_prev_word_pos : $synonym_current_word_pos;
+
+                                                if ( ( $synonym_prev_word_pos !== $synonym_current_word_pos ) && ++$synonym_prev_word_pos !== $synonym_current_word_pos ) {
+                                                    $use_this = false;
+                                                    break;
+                                                }
+
+                                            } else {
+                                                $use_this = false;
+                                                break;
+                                            }
+                                        }
+
+                                        if ( $use_this ) {
+                                            $new_str_array = array_merge( $new_str_array, $synonym_array );
+                                            break;
+                                        }
+
+                                    }
+                                }
+
                             }
                         }
 

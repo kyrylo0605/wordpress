@@ -11,8 +11,8 @@ function backupGuardShouldShowDiscountNotice()
 
 function checkDueDateDiscount()
 {
-	$startDate = '2019-10-27';
-	$endDate = '2019-11-04';
+	$startDate = '2019-11-27';
+	$endDate = '2019-12-02';
 
 	$timezone = 'Asia/Yerevan';
 	$timeDate = new DateTime('now', new DateTimeZone($timezone));

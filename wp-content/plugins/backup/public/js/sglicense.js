@@ -21,7 +21,7 @@ sgBackup.linkLicense = function()
 
 	sgBackup.showAjaxSpinner('#bg-wrapper');
 
-	var ajaxHandler = new sgRequestHandler('link_license', {productId: productId});
+	var ajaxHandler = new sgRequestHandler('link_license', {productId: productId, token: BG_BACKUP_STRINGS.nonce});
 	ajaxHandler.callback = function(response) {
 		sgBackup.hideAjaxSpinner();
 		if (response == '0') {

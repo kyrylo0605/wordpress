@@ -266,7 +266,10 @@ class NF_AJAX_Controllers_Submission extends NF_Abstracts_Controller
         | Check for unique field settings.
         |--------------------------------------------------------------------------
         */
-        if ( isset ( $this->_data[ 'settings' ][ 'unique_field' ] ) && ! empty( $this->_data[ 'settings' ][ 'unique_field' ] ) ) {
+        if ( isset( $this->_data[ 'resume' ] ) && $this->_data[ 'resume' ] ){
+            // On Resume Submission, we don't need to run this check again.
+            // This section intentionally left blank.
+        } elseif ( isset ( $this->_data[ 'settings' ][ 'unique_field' ] ) && ! empty( $this->_data[ 'settings' ][ 'unique_field' ] ) ) {
             /*
              * Get our unique field
              */

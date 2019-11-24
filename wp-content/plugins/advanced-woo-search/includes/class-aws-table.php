@@ -72,6 +72,15 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             $index_meta = $data ? $data : $_POST['data'];
             $status = false;
 
+            // If something goes wrong during last index start from latest indexed product
+            if ( 'start' === $index_meta ) {
+                $aws_index_processed = get_transient( 'aws_index_processed' );
+
+                if ( $aws_index_processed ) {
+                    $index_meta = $aws_index_processed;
+                }
+            }
+
             // No current index going on. Let's start over
             if ( 'start' === $index_meta ) {
                 $status = 'start';
@@ -135,6 +144,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                         $index_meta['offset'] = $index_meta['found_posts'];
                     }
 
+                    set_transient( 'aws_index_processed', $index_meta, 60*60 );
+
                 } else {
                     // We are done (with this site)
 
@@ -143,6 +154,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                     do_action('aws_cache_clear');
 
                     update_option( 'aws_reindex_version', AWS_VERSION );
+
+                    delete_transient( 'aws_index_processed' );
 
                 }
 
@@ -528,34 +541,49 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                                 continue;
                             }
 
-                            if ( function_exists( 'qtranxf_isAvailableIn' ) && qtranxf_isAvailableIn( $data['id'], $current_lang ) ) {
+                            if ( function_exists( 'qtranxf_getAvailableLanguages' ) ) {
 
-                                if ( method_exists( $product, 'get_description' ) && method_exists( $product, 'get_name' ) && method_exists( $product, 'get_short_description' ) ) {
+                                global $wpdb;
 
-                                    $translated_post_data = array();
-                                    $translated_post_data['id'] = $data['id'];
-                                    $translated_post_data['in_stock'] = $data['in_stock'];
-                                    $translated_post_data['on_sale'] = $data['on_sale'];
-                                    $translated_post_data['visibility'] = $data['visibility'];
-                                    $translated_post_data['lang'] = $current_lang;
-                                    $translated_post_data['terms'] = array();
+                                $qtrans_content = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %d", $data['id'] ) );
 
-                                    $translated_title = qtranxf_use( $current_lang, $product->get_name(), true, true );
-                                    $translated_content = qtranxf_use( $current_lang, $product->get_description(), true, true );
-                                    $translated_excerpt = qtranxf_use( $current_lang, $product->get_short_description(), true, true );
+                                if ( $qtrans_content ) {
 
-                                    $translated_content = AWS_Helpers::strip_shortcodes( $translated_content );
-                                    $translated_excerpt = AWS_Helpers::strip_shortcodes( $translated_excerpt );
+                                    $languages_title = qtranxf_getAvailableLanguages( $qtrans_content->post_title );
+                                    $languages_content = qtranxf_getAvailableLanguages( $qtrans_content->post_content );
 
-                                    $translated_post_data['terms']['title'] = $this->extract_terms( $translated_title );
-                                    $translated_post_data['terms']['content'] = $this->extract_terms( $translated_content );
-                                    $translated_post_data['terms']['excerpt'] = $this->extract_terms( $translated_excerpt );
-                                    $translated_post_data['terms']['sku'] = $this->extract_terms( $sku );
-                                    $translated_post_data['terms']['id'] = $this->extract_terms( $ids );
+                                    if ( ( $languages_title && in_array( $current_lang, $languages_title ) ) || ( $languages_content && in_array( $current_lang, $languages_content ) ) ) {
+
+                                        if ( method_exists( $product, 'get_description' ) && method_exists( $product, 'get_name' ) && method_exists( $product, 'get_short_description' ) ) {
+
+                                            $translated_post_data = array();
+                                            $translated_post_data['id'] = $data['id'];
+                                            $translated_post_data['in_stock'] = $data['in_stock'];
+                                            $translated_post_data['on_sale'] = $data['on_sale'];
+                                            $translated_post_data['visibility'] = $data['visibility'];
+                                            $translated_post_data['lang'] = $current_lang;
+                                            $translated_post_data['terms'] = array();
+
+                                            $translated_title = qtranxf_use( $current_lang, $product->get_name(), true, true );
+                                            $translated_content = qtranxf_use( $current_lang, $product->get_description(), true, true );
+                                            $translated_excerpt = qtranxf_use( $current_lang, $product->get_short_description(), true, true );
+
+                                            $translated_content = AWS_Helpers::strip_shortcodes( $translated_content );
+                                            $translated_excerpt = AWS_Helpers::strip_shortcodes( $translated_excerpt );
+
+                                            $translated_post_data['terms']['title'] = $this->extract_terms( $translated_title );
+                                            $translated_post_data['terms']['content'] = $this->extract_terms( $translated_content );
+                                            $translated_post_data['terms']['excerpt'] = $this->extract_terms( $translated_excerpt );
+                                            $translated_post_data['terms']['sku'] = $this->extract_terms( $sku );
+                                            $translated_post_data['terms']['id'] = $this->extract_terms( $ids );
 
 
-                                    //Insert translated product data into table
-                                    $this->insert_into_table( $translated_post_data );
+                                            //Insert translated product data into table
+                                            $this->insert_into_table( $translated_post_data );
+
+                                        }
+
+                                    }
 
                                 }
 

@@ -22,7 +22,8 @@ jQuery("#bg-skip-and-deactivate").on("click", function () {
 	
 	var data = {
 		action: 'backup_guard_storeSurveyResult',
-		skip: 'skip'
+		skip: 'skip',
+		token: BG_BACKUP_STRINGS.nonce
 	};
 
 	jQuery.post(ajaxurl, data, function(response) {
@@ -87,7 +88,8 @@ jQuery('.bg-deactivation-survey-result-submit').click(function(e) {
 			email: email,
 			firstname: firstname,
 			lastname: lastname,
-			response: reason
+			response: reason,
+			token: BG_BACKUP_STRINGS.nonce
 		};
 
 		jQuery.post(ajaxurl, data, function(response) {

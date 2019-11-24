@@ -810,7 +810,6 @@ Label Three
             #>
              <div class='image-option-media-value'>
                 <input type="text" class="setting" value="{{{ data.value }}}" data-id="value">
-                <input type="hidden" class="setting" value="{{{ data.image_id }}}" data-id="image_id">
             </div>
             <#
         }
@@ -845,6 +844,7 @@ Label Three
             <input type="text" class="setting" value="{{{ data.image }}}" data-id="image" style="width: 100%;margin-top: 5px;" disabled>
             <span class="extra open-media-manager dashicons dashicons-admin-media merge-tags" style="top:30px;"></span>
         </label>
+        <input type="hidden" class="setting" value="{{{ data.image_id }}}" data-id="image_id">
     </div>
     <div class="option-image-container" style="display:inline-block;width:45%;">
     <#

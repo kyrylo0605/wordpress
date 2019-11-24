@@ -20,7 +20,7 @@ sgBackup.login = function()
 	var email = jQuery('#email').val();
 	var password = jQuery('#password').val();
 
-	var ajaxHandler = new sgRequestHandler('login', {email: email, password: password});
+	var ajaxHandler = new sgRequestHandler('login', {email: email, password: password, token: BG_BACKUP_STRINGS.nonce});
 	ajaxHandler.callback = function(response) {
 		sgBackup.hideAjaxSpinner();
 		if (response.status == 0) {

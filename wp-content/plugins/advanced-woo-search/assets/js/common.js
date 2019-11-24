@@ -274,7 +274,7 @@
                     var top = 0;
                     var left = 0;
 
-                    if ( bodyPosition === 'relative' ) {
+                    if ( bodyPosition === 'relative' || bodyPosition === 'absolute' ) {
                         top = offset.top + $(self).innerHeight() - bodyOffset.top;
                         left = offset.left - bodyOffset.left;
                     } else {

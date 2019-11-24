@@ -65,6 +65,10 @@ function before_deactivate_backup_guard()
 	wp_enqueue_style('before-deactivate-backup-guard-css', plugin_dir_url(__FILE__).'public/css/deactivationSurvey.css');
 	wp_enqueue_script('before-deactivate-backup-guard-js', plugin_dir_url(__FILE__).'public/js/deactivationSurvey.js', array('jquery'));
 
+	wp_localize_script('before-deactivate-backup-guard-js', 'BG_BACKUP_STRINGS', array(
+		'nonce' => wp_create_nonce('backupGuardAjaxNonce')
+	));
+	
 	require_once(plugin_dir_path(__FILE__).'public/include/uninstallSurveyPopup.php');
 }
 
@@ -294,6 +298,10 @@ function enqueue_backup_guard_scripts($hook)
 	wp_localize_script('backup-guard-main-js', 'BG_MAIN_STRINGS', array(
 		'confirmCancel' => _backupGuardT('Are you sure you want to cancel?', true)
 	));
+	
+	wp_localize_script('backup-guard-main-js', 'BG_BACKUP_STRINGS', array(
+		'nonce' => wp_create_nonce('backupGuardAjaxNonce')
+	));
 }
 
 // adding actions to handle modal ajax requests
@@ -311,48 +319,56 @@ add_action( 'wp_ajax_backup_guard_getBackupContent', 'backup_guard_get_backup_co
 
 function backup_guard_get_file_download_progress()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'getFileDownloadProgress.php');
 	exit();
 }
 
 function backup_guard_create_schedule()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalCreateSchedule.php');
 	exit();
 }
 
 function backup_guard_get_manual_modal()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalManualBackup.php');
 	exit();
 }
 
 function backup_guard_get_manual_restore_modal()
 {
+    check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalManualRestore.php');
 	exit();
 }
 
 function backup_guard_get_backup_content()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once (SG_PUBLIC_AJAX_PATH.'getBackupContent.php');
 	exit();
 }
 
 function backup_guard_get_import_modal()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalImport.php');
 	exit();
 }
 
 function backup_guard_get_ftp_modal()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalFtpSettings.php');
 	exit();
 }
 
 function backup_guard_get_amazon_modal()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalAmazonSettings.php');
 	exit();
 }
@@ -370,6 +386,7 @@ function backup_guard_get_terms_modal()
 
 function backup_guard_get_review_modal()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'modalReview.php');
 	exit();
 }
@@ -420,21 +437,25 @@ function backup_guard_register_ajax_callbacks()
 
 function backup_guard_store_survey_result()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'storeSurveyResult.php');
 }
 
 function backup_guard_store_subscriber_info()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'storeSubscriberInfo.php');
 }
 
 function backup_guard_set_user_info_verification_popup_state()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'setUserInfoVerificationPopupState.php');
 }
 
 function backup_guard_dismiss_discount_notice()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'dismissDiscountNotice.php');
 }
 
@@ -445,6 +466,7 @@ function backup_guard_is_feature_available()
 
 function backup_guard_check_php_version_compatibility()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'checkPHPVersionCompatibility.php');
 }
 
@@ -472,6 +494,7 @@ function backup_guard_awake()
 
 function backup_guard_awake_nopriv()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	$token = @$_GET['token'];
 	$method = @$_GET['method'];
 
@@ -488,31 +511,37 @@ function backup_guard_cancel_download()
 
 function backup_guard_list_storage()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'listStorage.php');
 }
 
 function backup_guard_download_from_cloud()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'downloadFromCloud.php');
 }
 
 function backup_guard_hide_notice()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'hideNotice.php');
 }
 
 function backup_guard_cancel_backup()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'cancelBackup.php');
 }
 
 function backup_guard_check_backup_creation()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'checkBackupCreation.php');
 }
 
 function backup_guard_check_restore_creation()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'checkRestoreCreation.php');
 }
 
@@ -538,11 +567,13 @@ function backup_guard_cloud_gdrive()
 
 function backup_guard_curl_checker()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'curlChecker.php');
 }
 
 function backup_guard_delete_backup()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'deleteBackup.php');
 }
 
@@ -553,6 +584,7 @@ function backup_guard_download_backup()
 
 function backup_guard_get_action()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'getAction.php');
 }
 
@@ -568,11 +600,13 @@ function backup_guard_get_import_backup()
 
 function backup_guard_manual_backup()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'manualBackup.php');
 }
 
 function backup_guard_reset_status()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'resetStatus.php');
 }
 
@@ -583,6 +617,7 @@ function backup_guard_restore()
 
 function backup_guard_save_cloud_folder()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'saveCloudFolder.php');
 }
 
@@ -598,6 +633,7 @@ function backup_guard_settings()
 
 function backup_guard_set_review_popup_state()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'setReviewPopupState.php');
 }
 
@@ -608,16 +644,19 @@ function backup_guard_send_usage_statistics()
 
 function backup_guard_login()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'login.php');
 }
 
 function backup_guard_logout()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'logout.php');
 }
 
 function backup_guard_link_license()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'linkLicense.php');
 }
 
@@ -764,15 +803,145 @@ function backup_guard_discount_notice()
 	$upgradeUrl = BG_UPGRADE_URL;
 	?>
 	<div class="backup-guard-discount-notice updated notice is-dismissible">
-		<a href="<?php echo BG_UPGRADE_URL; ?>" target="_blank"><div class="discount-banner" style="background-image: url('<?php echo SG_IMAGE_URL ?>halloween.jpg');background-repeat: no-repeat; background-position: center; height: 200px;"></div></a>
+		<div class="sgbg-col sgbg-col1"></div>
+		<div class="sgbg-col sgbg-col2"></div>
+		<div class="sgbg-col sgbg-col3">
+			<div class="sgbg-text-col-1">
+				-50%
+			</div>
+			<div class="sgbg-text-col-2">
+				<div class="sgbg-discount-text-1">Discount</div>
+				<div class="sgbg-discount-text-2">All Backup Guard Solutions</div>
+			</div>
+		</div>
+		<div class="sgbg-col sgbg-col4">
+			<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>
+		</div>
 	</div>
 	<style>
 		.backup-guard-discount-notice.updated.notice.is-dismissible {
 			padding: 0;
-			border-left-color: #fea500 !important;
+			border-left-color: #FFFFFF !important;
+			background-color: #000000;
+			height: 160px;
 		}
 		.backup-guard-discount-notice button:before {
-			color: #fea500 !important;
+			color: #ffffff !important;
+		}
+		.sgbg-col {
+			display: inline-block;
+			width: 25%;
+			height: 100%;
+			padding: 0 25px;
+			box-sizing: border-box;
+		}
+		.sgbg-col1 {
+			width: 10%;
+			background-color: #FFFFFF;
+			background-image: url("<?php echo SG_IMAGE_URL ?>BgBFLogo.jpg");
+			background-size: 80%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		.sgbg-col2 {
+			width: 20%;
+			background-image: url("<?php echo SG_IMAGE_URL ?>BF.png");
+			background-size: contain;
+			margin-left: 70px;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		.sgbg-col3 {
+			vertical-align: top;
+			width: 45%;
+			margin-top: 55px;
+		}
+		.sgbg-col4 {
+			width: 10%;
+		}
+		.sgbg-text-col-1,
+		.sgbg-text-col-2 {
+			width: 49%;
+			display: inline-block;
+			color: #FFFFFF;
+		}
+		.sgbg-text-col-1 {
+			font-size: 100px;
+			line-height: 0;
+			font-weight: bold;
+			text-align: right;
+			padding-right: 26px;
+			box-sizing: border-box;
+		}
+		.sgbg-discount-text-2 {
+			font-size: 19px;
+		}
+		.sgbg-discount-text-1 {
+			font-size: 60px;
+			padding-bottom: 27px;
+			font-weight: bold;
+		}
+		.sgbg-col4 {
+			vertical-align: top;
+		}
+		.sgbg-button {
+			width: 183px;
+			height: 67px;
+			font-size: 20px;
+			border: #ffffff;
+			border-radius: 10px;
+			margin-top: 48px;
+			background-color: #FFFFFF;
+			color: #000000;
+			cursor: pointer !important;
+		}
+		.sgbg-button:hover {
+			background-color: #000000;
+			border: 1px solid #FFFFFF;
+			color: #FFFFFF;
+		}
+		.backup-guard-discount-notice .notice-dismiss::before {
+			content: "x";
+			font-weight: 300;
+			font-family: Arial, sans-serif;
+		}
+
+		@media (max-width: 1810px) {
+			.sgbg-text-col-1 {
+				font-size: 80px;
+			}
+			.sgbg-discount-text-1 {
+				font-size: 43px;
+			}
+			.sgbg-discount-text-2 {
+				font-size: 15px;
+			}
+			.sgbg-discount-text-1 {
+				padding-bottom: 18px;
+			}
+			.sgbg-col3 {
+				margin-top: 60px;
+			}
+		}
+		@media (max-width: 1477px) {
+			.sgbg-discount-text-2 {
+				font-size: 12px;
+			}
+			.sgbg-discount-text-1 {
+				font-size: 35px;
+			}
+			.sgbg-discount-text-1 {
+				padding-bottom: 13px;
+			}
+			.sgbg-col {
+				padding: 0;
+			}
+			.sgbg-col2 {
+				margin-left: 40px;
+			}
+			.sgbg-col2 {
+				margin-left: 0;
+			}
 		}
 	</style>
 	<?php

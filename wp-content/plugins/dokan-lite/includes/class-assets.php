@@ -27,6 +27,7 @@ class Dokan_Assets {
      */
     public function enqueue_admin_scripts( $hook ) {
         global $post;
+        global $wp_version;
 
         // load vue app inside the parent menu only
         if ( 'toplevel_page_dokan' == $hook ) {
@@ -68,6 +69,7 @@ class Dokan_Assets {
                     'flex-width'  => $has_flex_width,
                     'flex-height' => $has_flex_height
                 ],
+                'ajax_loader'        => DOKAN_PLUGIN_ASSEST . '/images/spinner-2x.gif',
             ) );
 
             // Load common styles and scripts
@@ -98,6 +100,10 @@ class Dokan_Assets {
 
             // fire the admin app
             wp_enqueue_script( 'dokan-vue-admin' );
+
+            if ( version_compare( $wp_version, '5.3', '<' ) ) {
+                wp_enqueue_style( 'dokan-wp-version-before-5-3' );
+            }
         }
 
         if ( 'dokan_page_dokan-modules' === $hook ) {
@@ -260,6 +266,10 @@ class Dokan_Assets {
             'dokan-vue-frontend' => array(
                 'src'     => DOKAN_PLUGIN_ASSEST . '/css/vue-frontend.css',
                 'version' => filemtime( DOKAN_DIR . '/assets/css/vue-frontend.css' ),
+            ),
+            'dokan-wp-version-before-5-3' => array(
+                'src'     => DOKAN_PLUGIN_ASSEST . '/css/wp-version-before-5-3.css',
+                'version' => filemtime( DOKAN_DIR . '/assets/css/wp-version-before-5-3.css' ),
             ),
         );
 
