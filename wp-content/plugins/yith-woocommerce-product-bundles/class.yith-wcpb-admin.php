@@ -365,6 +365,7 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             $args = array(
                 'create_menu_page' => true,
                 'parent_slug'      => '',
+                'plugin_slug'      => YITH_WCPB_SLUG,
                 'class'            => yith_set_wrapper_class(),
                 'page_title'       => 'WooCommerce Product Bundles',
                 'menu_title'       => 'Product Bundles',

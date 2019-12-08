@@ -18,7 +18,11 @@ add_action( 'admin_enqueue_scripts', 'yith_plugin_fw_notice_dismiss', 20 );
 
 if( ! function_exists( 'yith_plugin_fw_promo_notices' ) ){
 	function yith_plugin_fw_promo_notices(){
-	    if( function_exists( 'current_user_can' ) && ! current_user_can( 'administrator' ) ){
+	    global $pagenow;
+	    $not_administrator = function_exists( 'current_user_can' ) && ! current_user_can( 'administrator' );
+	    $is_dashboard = 'index.php' == $pagenow;
+
+	    if( $not_administrator || $is_dashboard ){
 	        return false;
         }
 
@@ -196,9 +200,10 @@ if( ! function_exists( 'yith_plugin_fw_get_promo_transient_expiry_date' ) ){
 
 if( ! function_exists( 'yith_plugin_fw_regenerate_transient' ) ){
     function yith_plugin_fw_regenerate_transient(){
-        if( false === get_option( 'yith_plugin_fw_promo_2019', false ) ){
+        if( false === get_option( 'yith_plugin_fw_promo_2019_bis', false ) ){
+	        delete_option( 'yith_plugin_fw_promo_2019' );
 	        delete_site_transient( 'yith_promo_message' );
-	        update_option( 'yith_plugin_fw_promo_2019', true );
+	        update_option( 'yith_plugin_fw_promo_2019_bis', true );
         }
     }
 }

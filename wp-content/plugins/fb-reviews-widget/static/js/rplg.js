@@ -86,7 +86,21 @@ function _rplg_init_blazy(attempts) {
     window.rplg_blazy = new Blazy({selector: 'img.rplg-blazy'});
 }
 
+function _rplg_read_more() {
+    var read_more = document.querySelectorAll('.wp-more-toggle');
+    for (var i = 0; i < read_more.length; i++) {
+        (function(rm) {
+        rm.onclick = function() {
+            rm.parentNode.removeChild(rm.previousSibling.previousSibling);
+            rm.previousSibling.className = '';
+            rm.textContent = '';
+        };
+        })(read_more[i]);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     _rplg_timeago(document.querySelectorAll('.wpac [data-time]'));
+    _rplg_read_more();
     _rplg_init_blazy(10);
 });

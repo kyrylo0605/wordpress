@@ -219,7 +219,7 @@ class woocommerce_wpml {
 		$this->store->add_hooks();
 		$this->strings = new WCML_WC_Strings( $this, $sitepress );
 		$this->strings->add_hooks();
-		$this->emails = new WCML_Emails( $this, $sitepress, $woocommerce, $wpdb );
+		$this->emails = new WCML_Emails( $this->strings, $sitepress, WC_Emails::instance(), $wpdb );
 		$this->emails->add_hooks();
 		$this->terms = new WCML_Terms( $this, $sitepress, $wpdb );
 		$this->terms->add_hooks();
@@ -323,7 +323,7 @@ class woocommerce_wpml {
 		if ( array_key_exists( $key, $this->settings ) ) {
 			return $this->settings[ $key ];
 		}
-		return $default;
+		return get_option( 'wcml_' . $key, $default );
 	}
 
 	/**
@@ -337,6 +337,21 @@ class woocommerce_wpml {
 		}
 		update_option( '_wcml_settings', $this->settings );
 	}
+
+	/**
+	 * @param string     $key
+	 * @param mixed      $value
+	 * @param bool|false $autoload It only applies to these settings stored as separate options.
+	 */
+	public function update_setting( $key, $value, $autoload = false ) {
+		if ( array_key_exists( $key, $this->settings ) ) {
+			$this->settings [ $key ] = $value;
+			$this->update_settings( $this->settings );
+		} else {
+			update_option( 'wcml_' . $key, $value, $autoload );
+		}
+	}
+
 
 	public function update_setting_ajx() {
 		$nonce = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );

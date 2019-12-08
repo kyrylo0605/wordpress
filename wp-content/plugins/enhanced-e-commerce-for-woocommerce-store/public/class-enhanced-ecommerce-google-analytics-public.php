@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.2.0';
+    public $tvc_eeVer = '2.3.0';
 
     protected $tvc_aga;
 
@@ -266,7 +266,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                 $_product = $order->get_product_from_item($item);
                 if (isset($_product->variation_data)) {
                     $categories=esc_js(wc_get_formatted_variation($_product->get_variation_attributes(), true));
-
                 } else {
                     $out = array();
                     if(version_compare($woocommerce->version, "2.7", "<")){
@@ -367,7 +366,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     function add_to_cart() {
         if ($this->disable_tracking($this->ga_eeT))
             return;
-        //return if not product page       
+        //return if not product page
         if (!is_single())
             return;
         global $product,$woocommerce;
@@ -574,7 +573,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                 }
 
             } else {
-                //else prod add in homepage recent json  
+                //else prod add in homepage recent json
                 if(version_compare($woocommerce->version, "2.7", "<")){
                     $homepage_json_rp[get_permalink($product->id)] =array(
                         "tvc_id" => esc_html($product->id),

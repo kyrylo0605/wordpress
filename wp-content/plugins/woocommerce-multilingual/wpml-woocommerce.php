@@ -8,7 +8,7 @@
  * Text Domain: woocommerce-multilingual
  * Requires at least: 4.7
  * Tested up to: 5.3
- * Version: 4.7.3
+ * Version: 4.7.5
  * Plugin Slug: woocommerce-multilingual
  * WC requires at least: 3.3.0
  * WC tested up to: 3.8.0
@@ -33,7 +33,7 @@ if ( ! $wpml_php_version_check->is_ok() ) {
 	return;
 }
 
-define( 'WCML_VERSION', '4.7.3' );
+define( 'WCML_VERSION', '4.7.5' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -71,6 +71,8 @@ if ( WPML_Core_Version_Check::is_ok( WCML_PLUGIN_PATH . '/wpml-dependencies.json
  * Load WooCommerce Multilingual after WPML is loaded
  */
 function wcml_loader() {
+	\WPML\Container\share( \WCML\Container\Config::getSharedInstances() );
+
 	$xdomain_data = new WCML_xDomain_Data( new WPML_Cookie() );
 	$xdomain_data->add_hooks();
 
@@ -78,6 +80,8 @@ function wcml_loader() {
 		'WCML_Privacy_Content_Factory',
 		'WCML_ATE_Activate_Synchronization',
 		\WCML\RewriteRules\Hooks::class,
+		\WCML\Email\Settings\Hooks::class,
+		\WCML\Email\OrderItems\Hooks::class,
 	);
 
 	if (

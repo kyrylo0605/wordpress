@@ -66,16 +66,23 @@ class Woo_Product_Categories extends EAW_WP_Widget {
 		}
 
 		$args = apply_filters(
-			'eaw_product_categories_args', array(
-				'limit'            => $limit,
-				'columns'          => $columns,
-				'child_categories' => 0,
-				'orderby'          => 'name',
-				'title'            => $title,
+			'eaw_product_categories_args',
+			array_merge(
+                array(
+                    'limit'            => $limit,
+                    'columns'          => $columns,
+                    'child_categories' => 0,
+                    'orderby'          => 'name',
+                    'title'            => $title,
+                ),
+				$args
 			)
 		);
 
-		echo $args['before_widget'];
+		if ( isset( $args['before_widget'] ) ) {
+			echo $args['before_widget'];
+		}
+
 		// echo '<div class="widget-woo-categories">';
 		echo '<section class="eaw-product-section widget-woo-categories">';
 
@@ -98,7 +105,10 @@ class Woo_Product_Categories extends EAW_WP_Widget {
 
 		echo '</section>';
 		// echo '</div>';
-		echo $args['after_widget'];
+
+		if ( isset( $args['after_widget'] ) ) {
+			echo $args['after_widget'];
+		}
 
 		if ( ! $this->is_preview() ) {
 			$cache[ $args['widget_id'] ] = ob_get_flush();

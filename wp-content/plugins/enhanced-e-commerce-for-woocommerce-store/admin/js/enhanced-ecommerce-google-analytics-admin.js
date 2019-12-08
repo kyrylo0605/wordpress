@@ -29,5 +29,14 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	
+	jQuery(document).ready(function(){
+		jQuery('.download').click(function(){
+			jQuery.confirm({
+				theme : 'supervan',
+				type: 'red',
+				title: 'Note !',
+				content: 'Deactivate the Enhanced Ecommerce Google analytics (Tatvic EE Plugin) before activating the free trial.',
+			});
+		});
+	});
 })( jQuery );

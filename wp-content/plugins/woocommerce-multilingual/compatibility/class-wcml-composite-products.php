@@ -511,7 +511,7 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper{
 	}
 
 	public function get_composite_data( $product_id ){
-		return get_post_meta( $product_id, '_bto_data', true );
+		return get_post_meta( $product_id, '_bto_data', true ) ?: [];
 	}
 
 
@@ -586,7 +586,7 @@ class WCML_Composite_Products extends WCML_Compatibility_Helper{
 
 	public function apply_rounding_rules( $price ) {
 
-		if ( is_composite_product() && wcml_is_multi_currency_on() ) {
+		if ( $price && is_composite_product() && wcml_is_multi_currency_on() ) {
 			$current_currency = $this->woocommerce_wpml->multi_currency->get_client_currency();
 			if( $current_currency !== wcml_get_woocommerce_currency_option() ) {
 				$price = $this->woocommerce_wpml->multi_currency->prices->apply_rounding_rules( $price, $current_currency );

@@ -6,15 +6,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/elementor-extra-widgets.git",
-            "reference": "6e39e2bd4502b22e44fe2aba4b75f6086b12b0ce"
+            "reference": "f908127bd044b81a7aa74fb92d61a63ad19f5b7a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/elementor-extra-widgets/zipball/6e39e2bd4502b22e44fe2aba4b75f6086b12b0ce",
-            "reference": "6e39e2bd4502b22e44fe2aba4b75f6086b12b0ce",
+            "url": "https://api.github.com/repos/Codeinwp/elementor-extra-widgets/zipball/f908127bd044b81a7aa74fb92d61a63ad19f5b7a",
+            "reference": "f908127bd044b81a7aa74fb92d61a63ad19f5b7a",
             "shasum": ""
         },
-        "time": "2019-11-13 11:11:38",
+        "time": "2019-12-02 09:28:52",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -749,12 +749,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-content-forms.git",
-            "reference": "7ebc856a0dd987db3edfc3c4aedffabf948117cb"
+            "reference": "cdb970b402799248b372054685e3cea8e6cae992"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/7ebc856a0dd987db3edfc3c4aedffabf948117cb",
-            "reference": "7ebc856a0dd987db3edfc3c4aedffabf948117cb",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/cdb970b402799248b372054685e3cea8e6cae992",
+            "reference": "cdb970b402799248b372054685e3cea8e6cae992",
             "shasum": ""
         },
         "require": {
@@ -764,7 +764,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
             "wptrt/wpthemereview": "*"
         },
-        "time": "2019-11-18 13:38:29",
+        "time": "2019-12-02 09:28:39",
         "type": "library",
         "installation-source": "source",
         "autoload": {

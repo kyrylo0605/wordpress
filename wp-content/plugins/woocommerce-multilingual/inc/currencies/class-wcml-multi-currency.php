@@ -1,9 +1,12 @@
 <?php
 
-// Our case:
-// Muli-currency can be enabled by an option in wp_options - wcml_multi_currency_enabled
-// User currency will be set in the woocommerce session as 'client_currency'
-//
+/**
+ * Class WCML_Multi_Currency
+ *
+ * Our case:
+ * Multi-currency can be enabled by an option in wp_options - wcml_multi_currency_enabled
+ * User currency will be set in the woocommerce session as 'client_currency'
+ */
 class WCML_Multi_Currency {
 
 	/** @var  array */
@@ -102,8 +105,8 @@ class WCML_Multi_Currency {
 
 		$this->init_currencies();
 
-		$this->load_filters = $this->_load_filters();
-		$this->prices       = new WCML_Multi_Currency_Prices( $this );
+		$this->load_filters = $this->are_filters_need_loading();
+		$this->prices       = new WCML_Multi_Currency_Prices( $this, $woocommerce_wpml->get_setting( 'currency_options' ) );
 		$this->prices->add_hooks();
 		if ( $this->load_filters ) {
 			$table_rate_shipping_multi_currency = new WCML_Multi_Currency_Table_Rate_Shipping();
@@ -152,7 +155,7 @@ class WCML_Multi_Currency {
 
 	}
 
-	private function _load_filters() {
+	public function are_filters_need_loading() {
 		$load = false;
 
 		if ( ! is_admin() && $this->get_client_currency() !== wcml_get_woocommerce_currency_option() ) {
@@ -326,6 +329,19 @@ class WCML_Multi_Currency {
 
 	public function get_currency_codes() {
 		return $this->currency_codes;
+	}
+
+	/**
+	 * @return mixed|string
+	 */
+	public function get_currency_code() {
+		$currency_code  = wcml_get_woocommerce_currency_option();
+		$currency_codes = $this->get_currency_codes();
+		if ( ! in_array( $currency_code, $currency_codes, true ) ) {
+			$currency_code = $this->woocommerce_wpml->multi_currency->get_default_currency();
+		}
+
+		return $currency_code;
 	}
 
 	public function get_currency_details_by_code( $code ) {

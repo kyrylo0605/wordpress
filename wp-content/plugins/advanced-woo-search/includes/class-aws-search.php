@@ -500,13 +500,39 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $show_featured        = AWS()->get_settings( 'show_featured' );
 
 
-                foreach ( $posts_ids as $post_id ) {
+                if ( function_exists( 'wc_get_products' ) ) {
 
-                    $product = wc_get_product( $post_id );
+                    $posts_items = wc_get_products( array(
+                        'numberposts'         => -1,
+                        'posts_per_page'      => -1,
+                        'status'              => 'publish',
+                        'include'             => $posts_ids,
+                        'ignore_sticky_posts' => true,
+                        'suppress_filters'    => true,
+                        'no_found_rows'       => 1,
+                        'lang'                => '',
+                        'orderby'             => 'include',
+                    ));
 
-                    if( ! is_a( $product, 'WC_Product' ) ) {
+                } else {
+
+                    $posts_items = $posts_ids;
+
+                }
+
+                foreach ( $posts_items as $post_item ) {
+
+                    if ( ! is_object( $post_item ) ) {
+                        $product = wc_get_product( $post_item );
+                    } else {
+                        $product = $post_item;
+                    }
+
+                    if ( ! is_a( $product, 'WC_Product' ) ) {
                         continue;
                     }
+
+                    $post_id = method_exists( $product, 'get_id' ) ? $product->get_id() : $post_item;
 
                     /**
                      * Filter additional product data

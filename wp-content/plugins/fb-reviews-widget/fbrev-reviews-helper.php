@@ -2,7 +2,7 @@
 function fbrev_page($page_id, $page_name, $page_img, $rating, $open_link, $nofollow_link, $show_powered = true) {
     ?>
     <div class="wp-facebook-left">
-        <img src="<?php echo $page_img; ?>" alt="<?php echo $page_name; ?>">
+        <img src="<?php echo $page_img; ?>" alt="<?php echo $page_name; ?>" width="50" height="50" title="<?php echo $page_name; ?>">
     </div>
     <div class="wp-facebook-right">
         <div class="wp-facebook-name">
@@ -120,12 +120,12 @@ function fbrev_trim_text($text, $size) {
             $idx = $size;
         }
         if ($idx > 0) {
-            $visible_text = substr($text, 0, $idx);
-            $invisible_text = substr($text, $idx, strlen($text));
+            $visible_text = substr($text, 0, $idx - 1);
+            $invisible_text = substr($text, $idx - 1, strlen($text));
         }
         echo $visible_text;
         if (strlen($invisible_text) > 0) {
-            ?><span class="wp-more"><?php echo $invisible_text; ?></span><span class="wp-more-toggle" onclick="this.previousSibling.className='';this.textContent='';"><?php echo fbrev_i('read more'); ?></span><?php
+            ?><span>... </span><span class="wp-more"><?php echo $invisible_text; ?></span><span class="wp-more-toggle"><?php echo fbrev_i('read more'); ?></span><?php
         }
     } else {
         echo $text;
@@ -133,10 +133,10 @@ function fbrev_trim_text($text, $size) {
 }
 
 function fbrev_anchor($url, $class, $text, $open_link, $nofollow_link) {
-    ?><a href="<?php echo $url; ?>" class="<?php echo $class; ?>" <?php if ($open_link) { ?>target="_blank"<?php } ?> <?php if ($nofollow_link) { ?>rel="nofollow"<?php } ?>><?php echo $text; ?></a><?php
+    ?><a href="<?php echo $url; ?>" class="<?php echo $class; ?>" <?php if ($open_link) { ?>target="_blank"<?php } ?> rel="<?php if ($nofollow_link) { ?>nofollow <?php } ?>noopener"><?php echo $text; ?></a><?php
 }
 
 function fbrev_image($src, $alt, $lazy, $def_ava = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', $atts = '') {
-    ?><img <?php if ($lazy) { ?>src="<?php echo $def_ava; ?>" data-<?php } ?>src="<?php echo $src; ?>" class="rplg-review-avatar<?php if ($lazy) { ?> rplg-blazy<?php } ?>" alt="<?php echo $alt; ?>" onerror="if(this.src!='<?php echo $def_ava; ?>')this.src='<?php echo $def_ava; ?>';" <?php echo $atts; ?>><?php
+    ?><img <?php if ($lazy) { ?>src="<?php echo $def_ava; ?>" data-<?php } ?>src="<?php echo $src; ?>" class="rplg-review-avatar<?php if ($lazy) { ?> rplg-blazy<?php } ?>" alt="<?php echo $alt; ?>" width="50" height="50" title="<?php echo $alt; ?>" onerror="if(this.src!='<?php echo $def_ava; ?>')this.src='<?php echo $def_ava; ?>';" <?php echo $atts; ?>><?php
 }
 ?>

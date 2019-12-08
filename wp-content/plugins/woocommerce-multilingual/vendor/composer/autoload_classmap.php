@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'WCML\\Container\\Config' => $baseDir . '/classes/Container/Config.php',
+    'WCML\\Email\\OrderItems\\Hooks' => $baseDir . '/classes/Email/OrderItems/Hooks.php',
+    'WCML\\Email\\Settings\\Hooks' => $baseDir . '/classes/Email/Settings/Hooks.php',
     'WCML\\Media\\Wrapper\\Factory' => $baseDir . '/classes/media/Wrapper/Factory.php',
     'WCML\\Media\\Wrapper\\IMedia' => $baseDir . '/classes/media/Wrapper/IMedia.php',
     'WCML\\Media\\Wrapper\\NonTranslatable' => $baseDir . '/classes/media/Wrapper/NonTranslatable.php',
@@ -201,7 +204,7 @@ return array(
     'WCML_Woobe' => $baseDir . '/compatibility/class-wcml-woobe.php',
     'WCML_WpFastest_Cache' => $baseDir . '/compatibility/class-wcml-wpfastest-cache.php',
     'WCML_Wpb_Vc' => $baseDir . '/compatibility/class-wcml-wpb-vc.php',
-    'WCML_YIKES_Custom_Product_Tabs_Pro' => $baseDir . '/compatibility/class-wcml-yikes-custom-product-tabs-pro.php',
+    'WCML_YIKES_Custom_Product_Tabs' => $baseDir . '/compatibility/class-wcml-yikes-custom-product-tabs.php',
     'WCML_YITH_WCQV' => $baseDir . '/compatibility/class-wcml-yith-wcqv.php',
     'WCML_gravityforms' => $baseDir . '/compatibility/class-wcml-gravityforms.php',
     'WCML_wcExporter' => $baseDir . '/compatibility/class-wcml-wcexporter.php',

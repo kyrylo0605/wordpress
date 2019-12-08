@@ -27,7 +27,7 @@ class WCML_Compatibility {
 	 */
 	private $tp;
 	/**
-	 * @var WPML_Element_Translation
+	 * @var WPML_Post_Translation
 	 */
 	private $wpml_post_translations;
 
@@ -39,7 +39,7 @@ class WCML_Compatibility {
 	 * @param wpdb                             $wpdb             Database object.
 	 * @param WPML_Element_Translation_Package $tp               Element Translation Package.
 	 */
-	function __construct( SitePress $sitepress, woocommerce_wpml $woocommerce_wpml, wpdb $wpdb, WPML_Element_Translation_Package $tp, WPML_Element_Translation $wpml_post_translations ) {
+	function __construct( SitePress $sitepress, woocommerce_wpml $woocommerce_wpml, wpdb $wpdb, WPML_Element_Translation_Package $tp, WPML_Post_Translation $wpml_post_translations ) {
 		$this->sitepress              = $sitepress;
 		$this->woocommerce_wpml       = $woocommerce_wpml;
 		$this->wpdb                   = $wpdb;
@@ -87,7 +87,7 @@ class WCML_Compatibility {
 
 		// WooCommerce Variation Swatches and Photos.
 		if ( class_exists( 'WC_SwatchesPlugin' ) ) {
-			$this->variation_sp = new WCML_Variation_Swatches_And_Photos( $this->sitepress );
+			$this->variation_sp = new WCML_Variation_Swatches_And_Photos( $this->woocommerce_wpml );
 			$this->variation_sp->add_hooks();
 		}
 
@@ -136,7 +136,7 @@ class WCML_Compatibility {
 
 		// WooCommerce Bookings.
 		if ( defined( 'WC_BOOKINGS_VERSION' ) && version_compare( WC_BOOKINGS_VERSION, '1.7.8', '>=' ) ) {
-			$this->bookings = new WCML_Bookings( $this->sitepress, $this->woocommerce_wpml, $woocommerce, $this->wpdb, $this->tp );
+			$this->bookings = new WCML_Bookings( $this->sitepress, $this->woocommerce_wpml, $woocommerce, $this->wpdb, $this->tp, $this->wpml_post_translations );
 			$this->bookings->add_hooks();
 
 			// WooCommerce Accommodation Bookings.
@@ -293,8 +293,8 @@ class WCML_Compatibility {
 		}
 
 		// Custom Product Tabs PRO.
-		if ( class_exists( 'YIKES_Custom_Product_Tabs_Pro' ) ) {
-			$this->custom_product_tabs = new WCML_YIKES_Custom_Product_Tabs_Pro( $this->woocommerce_wpml, $this->sitepress, $this->tp );
+		if ( class_exists( 'YIKES_Custom_Product_Tabs' ) ) {
+			$this->custom_product_tabs = new WCML_YIKES_Custom_Product_Tabs( $this->woocommerce_wpml, $this->sitepress, $this->tp );
 			$this->custom_product_tabs->add_hooks();
 		}
 

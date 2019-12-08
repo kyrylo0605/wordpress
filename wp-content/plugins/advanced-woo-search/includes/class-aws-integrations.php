@@ -90,6 +90,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 add_filter( 'et_pb_fullwidth_menu_shortcode_output', array( $this, 'divi_builder_search_module' ) );
                 add_action( 'wp_head', array( $this, 'head_js_integration' ) );
 
+                // Ocean wp theme
+                if ( class_exists( 'OCEANWP_Theme_Class' ) ) {
+                    add_action( 'wp_head', array( $this, 'oceanwp_head_action' ) );
+                }
+
             }
 
             // Wholesale plugin hide certain products
@@ -366,6 +371,64 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         <?php }
 
         /*
+         * Ocean wp theme
+         */
+        public function oceanwp_head_action() { ?>
+
+            <style>
+                .oceanwp-theme #searchform-header-replace .aws-container {
+                    padding-right: 45px;
+                    padding-top: 15px;
+                }
+                .oceanwp-theme #searchform-overlay .aws-container {
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    margin-top: -33px;
+                    width: 100%;
+                    text-align: center;
+                }
+                .oceanwp-theme #searchform-overlay .aws-container form {
+                    position: static;
+                }
+
+                .oceanwp-theme #searchform-overlay a.search-overlay-close {
+                    top: -100px;
+                }
+
+            </style>
+
+            <script>
+
+                window.addEventListener('load', function() {
+
+                    window.setTimeout(function(){
+                        var formOverlay = document.querySelector("#searchform-overlay form");
+                        if ( formOverlay ) {
+                            formOverlay.innerHTML += '<a href="#" class="search-overlay-close"><span></span></a>';
+                        }
+                    }, 300);
+
+                    jQuery(document).on( 'click', 'a.search-overlay-close', function (e) {
+
+                        jQuery( '#searchform-overlay' ).removeClass( 'active' );
+                        jQuery( '#searchform-overlay' ).fadeOut( 200 );
+
+                        setTimeout( function() {
+                            jQuery( 'html' ).css( 'overflow', 'visible' );
+                        }, 400);
+
+                        jQuery( '.aws-search-result' ).hide();
+
+                    } );
+
+                }, false);
+
+            </script>
+
+        <?php }
+
+        /*
          * Porto theme seamless integration
          */
         public function porto_search_form_content_filter( $markup ) {
@@ -466,6 +529,16 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         public function generate_navigation_search_output( $html ) {
             if ( function_exists( 'aws_get_search_form' ) ) {
                 $html = '<style>.navigation-search .aws-container .aws-search-form{height: 60px;} .navigation-search .aws-container{margin-right: 60px;} .navigation-search .aws-container .search-field{border:none;} </style>';
+                $html .= '<script>
+                     window.addEventListener("awsShowingResults", function(e) {
+                         var links = document.querySelectorAll(".aws_result_link");
+                         if ( links ) {
+                            for (var i = 0; i < links.length; i++) {
+                                links[i].className += " search-item";
+                            }
+                        }
+                     }, false);
+                    </script>';
                 $html .= '<div class="navigation-search">' . aws_get_search_form( false ) . '</div>';
                 $html = str_replace( 'aws-search-field', 'aws-search-field search-field', $html );
             }
@@ -502,6 +575,12 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $selectors[] = '.site-search .woocommerce-product-search';
             }
 
+            // ocean wp theme
+            if ( class_exists( 'OCEANWP_Theme_Class' ) ) {
+                $selectors[] = '#searchform-header-replace form';
+                $selectors[] = '#searchform-overlay form';
+            }
+
             return $selectors;
 
         }
@@ -527,6 +606,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             ?>
 
             <script>
+
                 window.addEventListener('load', function() {
                     var forms = document.querySelectorAll("<?php echo $forms_selector; ?>");
 

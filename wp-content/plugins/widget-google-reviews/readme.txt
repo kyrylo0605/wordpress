@@ -3,8 +3,8 @@ Contributors: richplugins
 Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Google, reviews, widget, testimonials, Google Places reviews
 Requires at least: 2.8
-Tested up to: 5.2
-Stable tag: 1.8
+Tested up to: 5.3
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,13 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.8.1 =
+* Update to WordPress 5.3
+* Improve: added dots for read more link
+* Improve: added width, height, title for img elements (SEO)
+* Improve: added rel="noopener" option
+* Improve: added new locale cs_CZ
 
 = 1.8 =
 * Improve: added advance options panel

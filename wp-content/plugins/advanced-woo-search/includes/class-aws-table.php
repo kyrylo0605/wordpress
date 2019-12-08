@@ -106,37 +106,54 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             }
 
             $index_meta = apply_filters( 'aws_index_meta', $index_meta );
-            $posts_per_page = apply_filters( 'aws_index_posts_per_page', 10 );
-
-
-            $args = array(
-                'posts_per_page'      => $posts_per_page,
-                'fields'              => 'ids',
-                'post_type'           => 'product',
-                'post_status'         => 'publish',
-                'offset'              => $index_meta['offset'],
-                'ignore_sticky_posts' => true,
-                'suppress_filters'    => true,
-                'no_found_rows'       => 1,
-                'orderby'             => 'ID',
-                'order'               => 'DESC',
-                'lang'                => ''
-            );
-
-
-            $posts = get_posts( $args );
+            $posts_per_page = apply_filters( 'aws_index_posts_per_page', 20 );
 
             if ( $status !== 'start' ) {
 
-                if ( $posts && count( $posts ) > 0 ) {
+                $posts = array();
 
-                    $queued_posts = array();
+                if ( function_exists( 'wc_get_products' ) ) {
 
-                    foreach( $posts as $post_id ) {
-                        $queued_posts[] = absint( $post_id );
+                    $posts = wc_get_products( array(
+                        'numberposts'         => $posts_per_page,
+                        'posts_per_page'      => $posts_per_page,
+                        'status'              => 'publish',
+                        'offset'              => $index_meta['offset'],
+                        'ignore_sticky_posts' => true,
+                        'suppress_filters'    => true,
+                        'no_found_rows'       => 1,
+                        'orderby'             => 'ID',
+                        'order'               => 'DESC',
+                        'lang'                => ''
+                    ));
+
+                } else {
+
+                    $queued_posts = get_posts( array(
+                        'posts_per_page'      => $posts_per_page,
+                        'fields'              => 'ids',
+                        'post_type'           => 'product',
+                        'post_status'         => 'publish',
+                        'offset'              => $index_meta['offset'],
+                        'ignore_sticky_posts' => true,
+                        'suppress_filters'    => true,
+                        'no_found_rows'       => 1,
+                        'orderby'             => 'ID',
+                        'order'               => 'DESC',
+                        'lang'                => ''
+                    ) );
+
+                    if ( $queued_posts && count( $queued_posts ) ) {
+                        foreach( $queued_posts as $post_id ) {
+                            $posts[] = absint( $post_id );
+                        }
                     }
 
-                    $this->fill_table( $queued_posts );
+                }
+
+                if ( $posts && count( $posts ) > 0 ) {
+
+                    $this->fill_table( $posts );
 
                     $index_meta['offset'] = absint( $index_meta['offset'] + $posts_per_page );
 
@@ -308,7 +325,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             /**
              * Products that will be indexed
              * @since 1.79
-             * @param array $posts Array of products IDs
+             * @param array $posts Array of products IDs or product objects
              */
             $posts = apply_filters( 'aws_index_product_ids', $posts );
 
@@ -319,18 +336,22 @@ if ( ! class_exists( 'AWS_Table' ) ) :
              */
             $apply_filters = apply_filters( 'aws_index_apply_filters', false );
 
-            foreach ( $posts as $found_post_id ) {
+            foreach ( $posts as $post_item ) {
 
                 $data = array();
 
-                $data['terms'] = array();
-                $data['id'] = $found_post_id;
-
-                $product = wc_get_product( $data['id'] );
+                if ( ! is_object( $post_item ) ) {
+                    $product = wc_get_product( $post_item );
+                } else {
+                    $product = $post_item;
+                }
 
                 if( ! is_a( $product, 'WC_Product' ) ) {
                     continue;
                 }
+
+                $data['terms'] = array();
+                $data['id'] = method_exists( $product, 'get_id' ) ? $product->get_id() : $post_item;
 
 
                 $lang = '';
@@ -364,6 +385,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 if ( $apply_filters ) {
                     $content = apply_filters( 'the_content', $content, $data['id'] );
+                } else {
+                    $content = do_shortcode( $content );
                 }
 
                 // Get all child products if exists
@@ -374,6 +397,10 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                         foreach ( $product->get_children() as $child_id ) {
 
                             $variation_product = new WC_Product_Variation( $child_id );
+
+                            if ( method_exists( $variation_product, 'get_status' ) && $variation_product->get_status() === 'private' ) {
+                                continue;
+                            }
 
                             $variation_sku = $variation_product->get_sku();
 
