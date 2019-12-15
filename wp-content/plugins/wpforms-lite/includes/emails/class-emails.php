@@ -116,6 +116,15 @@ class WPForms_WP_Emails {
 	public $entry_id = '';
 
 	/**
+	 * Notification ID that is currently being processed.
+	 *
+	 * @since 1.5.7
+	 *
+	 * @var int
+	 */
+	public $notification_id = '';
+
+	/**
 	 * Get things going.
 	 *
 	 * @since 1.1.3
@@ -346,12 +355,39 @@ class WPForms_WP_Emails {
 		// Hooks before email is sent.
 		do_action( 'wpforms_email_send_before', $this );
 
-		$message     = $this->build_email( $message );
-		$attachments = apply_filters( 'wpforms_email_attachments', $attachments, $this );
-		$subject     = wpforms_decode_string( $this->process_tag( $subject ) );
+		// Deprecated filter for $attachments.
+		$attachments = apply_filters_deprecated(
+			'wpforms_email_attachments',
+			array( $attachments, $this ),
+			'1.5.7 of the WPForms plugin',
+			'wpforms_emails_send_email_data'
+		);
+
+		/*
+		 * Allow to filter data on per-email basis,
+		 * useful for localizations based on recipient email address, form settings,
+		 * or for specific notifications - whatever available in WPForms_WP_Emails class.
+		 */
+		$data = apply_filters(
+			'wpforms_emails_send_email_data',
+			array(
+				'to'          => $to,
+				'subject'     => $subject,
+				'message'     => $message,
+				'headers'     => $this->get_headers(),
+				'attachments' => $attachments,
+			),
+			$this
+		);
 
 		// Let's do this.
-		$sent = wp_mail( $to, $subject, $message, $this->get_headers(), $attachments );
+		$sent = wp_mail(
+			$data['to'],
+			wpforms_decode_string( $this->process_tag( $data['subject'] ) ),
+			$this->build_email( $data['message'] ),
+			$data['headers'],
+			$data['attachments']
+		);
 
 		// Hooks after the email is sent.
 		do_action( 'wpforms_email_send_after', $this );

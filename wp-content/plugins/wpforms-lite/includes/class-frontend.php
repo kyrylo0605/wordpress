@@ -230,7 +230,7 @@ class WPForms_Frontend {
 
 		$form_classes = array( 'wpforms-validate', 'wpforms-form' );
 
-		if ( ! empty( $form_data['settings']['ajax_submit'] ) ) {
+		if ( ! empty( $form_data['settings']['ajax_submit'] ) && ! wpforms_is_amp() ) {
 			$form_classes[] = 'wpforms-ajax-form';
 		}
 
@@ -401,6 +401,12 @@ class WPForms_Frontend {
 				}
 
 			echo '</div>';
+		}
+
+		// Output <noscript> error message.
+		$noscript_msg = apply_filters( 'wpforms_frontend_noscript_error_message', __( 'Please enable JavaScript in your browser to complete this form.', 'wpforms-lite' ), $form_data );
+		if ( ! empty( $noscript_msg ) && ! empty( $form_data['fields'] ) ) {
+			echo '<noscript class="wpforms-error-noscript">' . esc_html( $noscript_msg ) . '</noscript>';
 		}
 
 		// Output header errors if they exist.
@@ -958,7 +964,7 @@ class WPForms_Frontend {
 					esc_html( $submit )
 				);
 
-				if ( ! empty( $settings['ajax_submit'] ) ) {
+				if ( ! empty( $settings['ajax_submit'] ) && ! wpforms_is_amp() ) {
 					printf(
 						'<img src="%s" class="wpforms-submit-spinner" style="display: none;">',
 						esc_url(
@@ -1305,6 +1311,7 @@ class WPForms_Frontend {
 			'val_checklimit'             => wpforms_setting( 'validation-check-limit', esc_html__( 'You have exceeded the number of allowed selections: {#}.', 'wpforms-lite' ) ),
 			'val_limit_characters'       => esc_html__( '{count} of {limit} max characters.', 'wpforms-lite' ),
 			'val_limit_words'            => esc_html__( '{count} of {limit} max words.', 'wpforms-lite' ),
+			'val_recaptcha_fail_msg'     => wpforms_setting( 'recaptcha-fail-msg', esc_html__( 'Google reCAPTCHA verification failed, please try again later.', 'wpforms-lite' ) ),
 			'post_max_size'              => wpforms_size_to_bytes( ini_get( 'post_max_size' ) ),
 			'uuid_cookie'                => false,
 			'locale'                     => wpforms_get_language_code(),

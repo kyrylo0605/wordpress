@@ -8,21 +8,13 @@
  * @package Neve
  */
 
-define( 'NEVE_VERSION', '2.4.3' );
+define( 'NEVE_VERSION', '2.5.3' );
 define( 'NEVE_INC_DIR', trailingslashit( get_template_directory() ) . 'inc/' );
 define( 'NEVE_ASSETS_URL', trailingslashit( get_template_directory_uri() ) . 'assets/' );
 
 if ( ! defined( 'NEVE_DEBUG' ) ) {
 	define( 'NEVE_DEBUG', false );
 }
-
-add_filter( 'neve_the_content', 'do_blocks' );
-add_filter( 'neve_the_content', 'wptexturize' );
-add_filter( 'neve_the_content', 'convert_smilies' );
-add_filter( 'neve_the_content', 'convert_chars' );
-add_filter( 'neve_the_content', 'wpautop' );
-add_filter( 'neve_the_content', 'shortcode_unautop' );
-add_filter( 'neve_the_content', 'do_shortcode' );
 
 /**
  * Themeisle SDK filter.
@@ -84,5 +76,6 @@ require_once get_template_directory() . '/start.php';
 require_once 'globals/utilities.php';
 require_once 'globals/hooks.php';
 require_once 'globals/sanitize-functions.php';
+require_once 'globals/migrations.php';
 
 require_once get_template_directory() . '/header-footer-grid/loader.php';

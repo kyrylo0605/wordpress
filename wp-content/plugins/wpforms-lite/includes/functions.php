@@ -585,6 +585,7 @@ function wpforms_get_form_fields( $form = false, $whitelist = array() ) {
 	$allowed_form_fields = array(
 		'text',
 		'textarea',
+		'number-slider',
 		'select',
 		'radio',
 		'checkbox',
@@ -635,6 +636,7 @@ function wpforms_get_conditional_logic_form_fields_supported() {
 	$fields_supported = array(
 		'text',
 		'textarea',
+		'number-slider',
 		'select',
 		'radio',
 		'email',

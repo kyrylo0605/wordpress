@@ -1,5 +1,5 @@
 <?php
-function fbrev_page($page_id, $page_name, $page_img, $rating, $open_link, $nofollow_link, $show_powered = true) {
+function fbrev_page($page_id, $page_name, $page_img, $rating, $review_count, $hide_based_on, $open_link, $nofollow_link, $show_powered = true) {
     ?>
     <div class="wp-facebook-left">
         <img src="<?php echo $page_img; ?>" alt="<?php echo $page_name; ?>" width="50" height="50" title="<?php echo $page_name; ?>">
@@ -12,6 +12,9 @@ function fbrev_page($page_id, $page_name, $page_img, $rating, $open_link, $nofol
             <span class="wp-facebook-rating"><?php echo $rating; ?></span>
             <span class="wp-facebook-stars"><?php fbrev_stars($rating); ?></span>
         </div>
+        <?php if (!$hide_based_on) { ?>
+        <div class="wp-facebook-powered"><?php echo fbrev_i('Based on %s reviews', $review_count); ?></div>
+        <?php } ?>
         <?php if ($show_powered) { ?>
         <div class="wp-facebook-powered"><?php echo fbrev_i('powered by %s', '<span>Facebook</span>'); ?></div>
         <?php } ?>

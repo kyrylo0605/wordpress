@@ -14,7 +14,7 @@
  * @package themeisle-onboarding
  */
 class Themeisle_OB_Elementor_Meta_Handler {
-	use Themeisle_OB_Image_Src_Handler;
+	use Themeisle_OB;
 
 	/**
 	 * Elementor meta key.

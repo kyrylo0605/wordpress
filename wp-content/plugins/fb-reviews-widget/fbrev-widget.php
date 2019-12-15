@@ -22,6 +22,8 @@ class Fb_Reviews_Widget extends WP_Widget {
         'disable_user_link'    => '',
         'max_width'            => '',
         'max_height'           => '',
+        'hide_based_on'        => false,
+        'hide_reviews'         => false,
         'centered'             => false,
         'open_link'            => true,
         'nofollow_link'        => true,

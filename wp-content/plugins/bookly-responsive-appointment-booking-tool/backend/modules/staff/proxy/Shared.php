@@ -10,7 +10,7 @@ use Bookly\Lib;
  * @method static array  editStaff( array $data, Lib\Entities\Staff $staff ) Prepare edit staff form.
  * @method static void   enqueueStaffProfileScripts() Enqueue scripts for page Staff.
  * @method static void   enqueueStaffProfileStyles() Enqueue styles for page Staff.
- * @method static string getAffectedAppointmentsFilter( string $filter_url, int $staff_id ) Get link with filter for appointments page.
+ * @method static string getAffectedAppointmentsFilter( string $filter_url, int[] $staff_id ) Get link with filter for appointments page.
  * @method static void   preUpdateStaff( Lib\Entities\Staff $staff, array $params ) Do stuff before staff update.
  * @method static void   renderStaffForm( Lib\Entities\Staff $staff ) Render Staff form tab details.
  * @method static int    renderStaffPage( array $params ) Do stuff on staff page render.

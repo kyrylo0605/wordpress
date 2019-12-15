@@ -20,7 +20,7 @@ use Bookly\Lib;
                                 <span class="bookly-nav-tabs-title"><?php esc_html_e( 'General', 'bookly' ) ?></span>
                             </a>
                         </li>
-                        <li class="bookly-js-service bookly-js-service-simple bookly-js-service-compound bookly-js-service-collaborative">
+                        <li class="bookly-js-service bookly-js-service-simple bookly-js-service-collaborative">
                             <a id="bookly-services-time-tab" href="#bookly-services-time" data-toggle="tab">
                                 <i class="fa fa-clock fa-fw"></i>
                                 <span class="bookly-nav-tabs-title"><?php esc_html_e( 'Time', 'bookly' ) ?></span>

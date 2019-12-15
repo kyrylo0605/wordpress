@@ -84,6 +84,7 @@ class WPForms_About {
 			'advanced'     => esc_html__( 'Advanced Form Features', 'wpforms-lite' ),
 			'addons'       => esc_html__( 'WPForms Addons', 'wpforms-lite' ),
 			'support'      => esc_html__( 'Customer Support', 'wpforms-lite' ),
+			'sites'        => esc_html__( 'Number of Sites', 'wpforms-lite' ),
 		);
 
 		// Maybe load tools page.
@@ -118,19 +119,28 @@ class WPForms_About {
 			)
 		);
 
-		$type = $this->get_license_type();
+		$license = $this->get_license_type();
 
 		if (
-			! in_array( $type, self::$licenses_top, true ) || wpforms_debug()
+			(
+				$license === 'pro' ||
+				! in_array( $license, self::$licenses_top, true )
+			) ||
+			wpforms_debug()
 		) {
-			/* translators: $s - license type. */
-			$this->views[ sprintf( esc_html__( '%s vs Pro', 'wpforms-lite' ), ucfirst( $type ) ) ] = array( 'versus' );
+			$vs_tab_name = sprintf( /* translators: %1$s - current license type, %2$s - suggested license type. */
+				esc_html__( '%1$s vs %2$s', 'wpforms-lite' ),
+				ucfirst( $license ),
+				$this->get_next_license( $license )
+			);
+
+			$this->views[ $vs_tab_name ] = array( 'versus' );
 		}
 
 		// Determine the current active settings tab.
 		$this->view = ! empty( $_GET['view'] ) ? esc_html( $_GET['view'] ) : self::DEFAULT_TAB;
 
-		// If the user tries to load an invalid view fallback to About Us.
+		// If the user tries to load an invalid view - fallback to About Us.
 		if (
 			! in_array( $this->view, call_user_func_array( 'array_merge', $this->views ), true ) &&
 			! has_action( 'wpforms_admin_about_display_tab_' . sanitize_key( $this->view ) )
@@ -180,15 +190,16 @@ class WPForms_About {
 
 			<?php
 			if ( $show_nav ) {
+				$license      = $this->get_license_type();
+				$next_license = $this->get_next_license( $license );
 				echo '<ul class="wpforms-admin-tabs">';
 				foreach ( $this->views as $label => $view ) {
-					$view  = (array) $view;
-					$class = in_array( $this->view, $view, true ) ? ' class="active"' : '';
+					$class = in_array( $this->view, $view, true ) ? 'active' : '';
 					echo '<li>';
 					printf(
-						'<a href="%s"%s>%s</a>',
-						admin_url( 'admin.php?page=' . self::SLUG . '&view=' . sanitize_key( $view[0] ) ),
-						$class,
+						'<a href="%s" class="%s">%s</a>',
+						esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&view=' . sanitize_key( $view[0] ) ) ),
+						esc_attr( $class ),
 						esc_html( $label )
 					);
 					echo '</li>';
@@ -454,7 +465,7 @@ class WPForms_About {
 						printf(
 							wp_kses(
 								/* translators: %s - stars. */
-								__( 'We know that you will truly love WPForms. It has over <strong>2000+ five star ratings</strong> (%s) and is active on over 1 million websites.', 'wpforms-lite' ),
+								__( 'We know that you will truly love WPForms. It has over <strong>5000+ five star ratings</strong> (%s) and is active on over 1 million websites.', 'wpforms-lite' ),
 								array(
 									'strong' => array(),
 								)
@@ -634,18 +645,41 @@ class WPForms_About {
 	}
 
 	/**
+	 * Get the next license type. Helper for Versus tab content.
+	 *
+	 * @since 1.5.5
+	 *
+	 * @param string $current Current license type slug.
+	 *
+	 * @return string Next license type slug.
+	 */
+	protected function get_next_license( $current ) {
+
+		$current       = ucfirst( $current );
+		$license_pairs = array(
+			'Lite'  => 'Pro',
+			'Basic' => 'Pro',
+			'Plus'  => 'Pro',
+			'Pro'   => 'Elite',
+		);
+
+		return ! empty( $license_pairs[ $current ] ) ? $license_pairs[ $current ] : 'Elite';
+	}
+
+	/**
 	 * Display the Versus tab content.
 	 *
 	 * @since 1.5.0
 	 */
 	protected function output_versus() {
 
-		$license = $this->get_license_type();
+		$license      = $this->get_license_type();
+		$next_license = $this->get_next_license( $license );
 		?>
 
 		<div class="wpforms-admin-about-section wpforms-admin-about-section-squashed">
 			<h1 class="centered">
-				<strong><?php echo esc_html( ucfirst( $license ) ); ?></strong> vs <strong>Pro</strong>
+				<strong><?php echo esc_html( ucfirst( $license ) ); ?></strong> vs <strong><?php echo esc_html( $next_license ); ?></strong>
 			</h1>
 
 			<p class="centered">
@@ -668,7 +702,7 @@ class WPForms_About {
 				</div>
 				<div class="wpforms-admin-column-33">
 					<h3 class="no-margin">
-						<?php esc_html_e( 'Pro', 'wpforms-lite' ); ?>
+						<?php echo esc_html( $next_license ); ?>
 					</h3>
 				</div>
 			</div>
@@ -678,23 +712,29 @@ class WPForms_About {
 					<?php
 					foreach ( self::$licenses_features as $slug => $name ) {
 						$current = $this->get_license_data( $slug, $license );
-						$pro     = $this->get_license_data( $slug, 'pro' );
+						$next    = $this->get_license_data( $slug, strtolower( $next_license ) );
+
+						if ( empty( $current ) || empty( $next ) ) {
+							continue;
+						}
 						?>
 						<tr class="wpforms-admin-columns">
 							<td class="wpforms-admin-column-33">
-								<p><?php echo $name; ?></p>
+								<p><?php echo esc_html( $name ); ?></p>
 							</td>
 							<td class="wpforms-admin-column-33">
-							<?php if ( ! empty( $current ) && is_array( $current ) ) : ?>
-								<p class="features-<?php echo esc_attr( $current['status'] ); ?>">
-									<?php echo implode( '<br>', $current['text'] ); ?>
-								</p>
-							<?php endif; ?>
+								<?php if ( is_array( $current ) ) : ?>
+									<p class="features-<?php echo esc_attr( $current['status'] ); ?>">
+										<?php echo implode( '<br>', $current['text'] ); ?>
+									</p>
+								<?php endif; ?>
 							</td>
 							<td class="wpforms-admin-column-33">
-								<p class="features-full">
-									<?php echo implode( '<br>', $pro['text'] ); ?>
-								</p>
+								<?php if ( is_array( $current ) ) : ?>
+									<p class="features-full">
+										<?php echo implode( '<br>', $next['text'] ); ?>
+									</p>
+								<?php endif; ?>
 							</td>
 						</tr>
 						<?php
@@ -711,11 +751,14 @@ class WPForms_About {
 				<h3 class="call-to-action centered">
 					<?php
 					if ( 'lite' === $license ) {
-						echo '<a href="' . wpforms_admin_upgrade_link( 'wpforms-about-page' ) . '" target="_blank" rel="noopener noreferrer">';
+						echo '<a href="' . esc_url( wpforms_admin_upgrade_link( 'wpforms-about-page' ) ) . '" target="_blank" rel="noopener noreferrer">';
 					} else {
 						echo '<a href="https://wpforms.com/pricing?utm_source=WordPress&utm_medium=wpforms-about-page&utm_campaign=gettingstarted" target="_blank" rel="noopener noreferrer">';
 					}
-						esc_html_e( 'Get WPForms Pro Today and Unlock all the Powerful Features', 'wpforms-lite' );
+						printf( /* translators: %s - next license level. */
+							esc_html__( 'Get WPForms %s Today and Unlock all the Powerful Features', 'wpforms-lite' ),
+							esc_html( $next_license )
+						);
 					?>
 					</a>
 				</h3>
@@ -1060,28 +1103,84 @@ class WPForms_About {
 				),
 			),
 			'support'      => array(
-				'lite'  => array(
+				'lite'     => array(
 					'status' => 'none',
 					'text'   => array(
 						'<strong>' . esc_html__( 'Limited Support', 'wpforms-lite' ) . '</strong>',
 					),
 				),
-				'basic' => array(
+				'basic'    => array(
 					'status' => 'partial',
 					'text'   => array(
 						'<strong>' . esc_html__( 'Standard Support', 'wpforms-lite' ) . '</strong>',
 					),
 				),
-				'plus'  => array(
+				'plus'     => array(
 					'status' => 'partial',
 					'text'   => array(
 						'<strong>' . esc_html__( 'Standard Support', 'wpforms-lite' ) . '</strong>',
 					),
 				),
-				'pro'   => array(
+				'pro'      => array(
 					'status' => 'full',
 					'text'   => array(
 						'<strong>' . esc_html__( 'Priority Support', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'elite'    => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( 'Premium Support', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'ultimate' => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( 'Premium Support', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'agency'   => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( 'Premium Support', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+			),
+			'sites'        => array(
+				'basic'    => array(
+					'status' => 'partial',
+					'text'   => array(
+						'<strong>' . esc_html__( '1 Site', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'plus'     => array(
+					'status' => 'partial',
+					'text'   => array(
+						'<strong>' . esc_html__( '3 Sites', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'pro'      => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( '5 Sites', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'elite'    => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( 'Unlimited Sites', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'ultimate' => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( 'Unlimited Sites', 'wpforms-lite' ) . '</strong>',
+					),
+				),
+				'agency'   => array(
+					'status' => 'full',
+					'text'   => array(
+						'<strong>' . esc_html__( 'Unlimited Sites', 'wpforms-lite' ) . '</strong>',
 					),
 				),
 			),
@@ -1100,7 +1199,12 @@ class WPForms_About {
 			return false;
 		}
 
-		// For debug purposes: all top level plans has no features difference and are equated to `pro` plan.
+		// Some licenses have partial data.
+		if ( isset( $data[ $feature ][ $license ] ) ) {
+			return $data[ $feature ][ $license ];
+		}
+
+		// Top level plans has no feature difference with `pro` plan in most cases.
 		return $is_licenses_top ? $data[ $feature ]['pro'] : $data[ $feature ][ $license ];
 	}
 
@@ -1122,4 +1226,5 @@ class WPForms_About {
 		return strtolower( $type );
 	}
 }
+
 new WPForms_About();

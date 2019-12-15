@@ -72,7 +72,7 @@
                         width: '100%',
                         theme: 'bootstrap',
                         allowClear: true,
-                        dropdownParent: jQuery('#bookly-customer-dialog'),
+                        placeholder: '',
                         language: {
                             noResults: function () {
                                 return BooklyL10nCustDialog.noResultFound;

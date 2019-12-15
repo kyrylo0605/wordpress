@@ -101,7 +101,7 @@ class Query
      */
     public function __toString()
     {
-        return $this->composeQuery();
+        return apply_filters( 'query', $this->composeQuery() );
     }
 
     /**

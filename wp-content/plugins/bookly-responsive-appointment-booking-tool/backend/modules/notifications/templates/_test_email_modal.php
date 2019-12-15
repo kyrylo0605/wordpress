@@ -15,7 +15,7 @@ use Bookly\Backend\Components\Controls\Inputs;
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="bookly_test_to_email"><?php esc_html_e( 'To email', 'bookly' ) ?></label>
-                                <input id="bookly_test_to_email" class="form-control" type="text" name="to_email" value="admin@example.com"/>
+                                <input id="bookly_test_to_email" class="form-control" type="text" name="to_email" value="admin@bookly.local.com"/>
                             </div>
                         </div>
                     </div>

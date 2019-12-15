@@ -21,6 +21,7 @@ if ( ! class_exists( 'WP_Importer' ) ) {
 }
 
 class Themeisle_OB_WP_Import extends WP_Importer {
+	use Themeisle_OB_Image_Src_Handler;
 	/**
 	 * @var Themeisle_OB_WP_Import_Logger
 	 */
@@ -518,6 +519,16 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 							$meta_handler = new Themeisle_OB_Elementor_Meta_Handler( $value, $this->base_blog_url );
 							$meta_handler->filter_meta();
 							$this->logger->log( 'Filtered elementor meta.', 'success' );
+						}
+						if ( in_array(
+							$key,
+							array(
+								'tve_custom_css',
+								'tve_content_before_more',
+								'tve_updated_post',
+							)
+						) ) {
+							$value = $this->replace_image_urls( $value );
 						}
 						add_post_meta( $post_id, $key, $value );
 						do_action( 'import_post_meta', $post_id, $key, $value );

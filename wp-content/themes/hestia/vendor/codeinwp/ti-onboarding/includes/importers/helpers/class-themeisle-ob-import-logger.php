@@ -182,7 +182,7 @@ class Themeisle_OB_WP_Import_Logger {
 		$log_entry         = array(
 			'message' => $message,
 			'type'    => array_key_exists( $type, $this->icon_map ) ? $this->icon_map[ $type ] : $this->icon_map['generic'],
-			'time'    => date( '[d/M/Y:H:i:s]' ),
+			'time'    => gmdate( '[d/M/Y:H:i:s]' ),
 		);
 		$this->log_string .= $this->get_log_entry( $log_entry );
 	}

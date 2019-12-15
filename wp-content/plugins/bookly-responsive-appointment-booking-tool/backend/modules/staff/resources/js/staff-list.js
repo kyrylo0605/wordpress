@@ -250,6 +250,7 @@ jQuery(function ($) {
             width: '100%',
             theme: 'bootstrap',
             allowClear: true,
+            placeholder: '',
             language  : {
                 noResults: function() { return BooklyL10n.no_result_found; }
             }

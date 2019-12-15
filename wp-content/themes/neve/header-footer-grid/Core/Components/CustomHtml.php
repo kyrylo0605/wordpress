@@ -35,14 +35,17 @@ class CustomHtml extends Abstract_Component {
 		$this->set_property( 'label', __( 'HTML', 'neve' ) );
 		$this->set_property( 'id', $this->get_class_const( 'COMPONENT_ID' ) );
 		$this->set_property( 'width', 3 );
-
+		$this->set_property( 'component_slug', 'hfg-html' );
+		$this->set_property( 'icon', 'welcome-write-blog' );
+		$this->set_property( 'has_typeface_control', true );
+		$this->set_property( 'default_typography_selector', $this->default_typography_selector . '.builder-item--' . $this->get_id() );
 		add_filter( 'wp_kses_allowed_html', array( $this, 'allow_input_form_tags' ), 10, 2 );
 	}
 
 	/**
 	 * Add form and input tag to allowed tags in header_footer_grid context.
 	 *
-	 * @param array        $tags HTML Tags.
+	 * @param array        $tags    HTML Tags.
 	 * @param string|array $context The context for which to retrieve tags.
 	 *
 	 * @return array
@@ -138,6 +141,7 @@ class CustomHtml extends Abstract_Component {
 				'default'           => get_theme_mod( 'neve_top_bar_content', '' ),
 				'preview_default'   => '',
 				'label'             => __( 'HTML', 'neve' ),
+				'description'       => __( 'Arbitrary HTML code. It supports also shortcodes.', 'neve' ),
 				'type'              => 'textarea',
 				'section'           => $this->section,
 			]

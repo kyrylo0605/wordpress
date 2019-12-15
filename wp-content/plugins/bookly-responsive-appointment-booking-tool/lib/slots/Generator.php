@@ -37,6 +37,8 @@ class Generator implements \Iterator
     protected $nop;
     /** @var int */
     protected $extras_duration;
+    /** @var int */
+    protected $full_duration;
     /** @var Range  Requested time range */
     protected $time_limit;
     /** @var int */
@@ -105,6 +107,7 @@ class Generator implements \Iterator
         $this->slot_length          = (int) ( $this->srv_duration_days ? DAY_IN_SECONDS : min( $slot_length, DAY_IN_SECONDS ) );
         $this->nop                  = (int) $nop;
         $this->extras_duration      = (int) ( $this->srv_duration_days < 1 ? $extras_duration : 0 );
+        $this->full_duration        = $this->srv_duration + $this->extras_duration;
         $this->time_limit           = Range::fromTimes( $time_from, $time_to );
         $this->spare_time           = (int) $spare_time;
         $this->waiting_list_enabled = (bool) $waiting_list_enabled;
@@ -160,7 +163,7 @@ class Generator implements \Iterator
                 $ranges = $this->_mapStaffBookings( $ranges, $staff );
 
                 // Remove ranges with hours limit
-                $ranges = ProProxy::prepareGeneratorRanges( $ranges, $staff, $this->srv_duration + $this->extras_duration );
+                $ranges = ProProxy::prepareGeneratorRanges( $ranges, $staff, $this->full_duration );
 
                 // Find slots.
                 $max_capacity = $staff->getService( $this->srv_id, $this->location_id )->capacityMax();
@@ -169,7 +172,7 @@ class Generator implements \Iterator
                     // With available ranges we need to adjust their length.
                     if ( $range->state() == Range::AVAILABLE ) {
                         // Shorten range by service and extras duration.
-                        $range = $range->transform( null, - $this->srv_duration - $this->extras_duration );
+                        $range = $range->transform( null, - $this->full_duration );
                         if ( ! $range->valid() ) {
                             // If range is not valid skip it.
                             continue;
@@ -209,8 +212,7 @@ class Generator implements \Iterator
                             }
                         }
                         // For multi-day services try to find available day in the past.
-                        if ( $this->srv_duration_days > 1 && ( $slot->fullyBooked() || ( $slot = $this->_tryFindPastSlot( $slot ) ) == false ) ) {
-                            // Skip it if no past slot was found.
+                        if ( $this->srv_duration_days > 1 && ( $slot = $this->_tryFindPastSlot( $slot ) ) === false ) {
                             continue;
                         }
                         // Decide which slot to add.
@@ -245,32 +247,25 @@ class Generator implements \Iterator
                 $new_ranges = new RangeCollection();
                 $removed    = new RangeCollection();
                 foreach ( $ranges->all() as $r ) {
-                    if ( $r->overlaps( $range_to_remove ) ) {
-                        // Make sure that removed range will have length of a multiple of slot length.
-                        $extra_left  = $range_to_remove->start()->diff( $r->start() ) % $this->slot_length;
-                        $extra_right = $range_to_remove->end()->diff( $r->start() ) % $this->slot_length;
-                        $remove      = $range_to_remove->transform(
-                            $extra_left
-                                ? - $extra_left
-                                : null,
-                            $extra_right
-                                ? $this->slot_length - $extra_right
-                                : null
-                        );
-                        $new_ranges = $new_ranges->merge( $r->subtract( $remove, $removed_range ) );
+                    if ( $r->available() && $r->overlaps( $range_to_remove ) ) {
+                        $new_ranges = $new_ranges->merge( $r->subtract(
+                            // Make sure that removed range will have length of a multiple of slot length.
+                            $range_to_remove->align( $r, $this->slot_length, $this->full_duration ),
+                            $removed_range
+                        ) );
                         /** @var Range $removed_range */
                         if ( $removed_range ) {
                             $removed->push( $removed_range );
                             // Find range that should be marked as fully booked and add it to results.
-                            $r = $r->transform( null, - $this->srv_duration - $this->extras_duration );
+                            $r = $r->transform( null, - $this->full_duration );
                             if ( $r->valid() ) {
                                 $r = $r->transform( null, $this->slot_length );
                                 $new_ranges->push(
                                     $r->intersect(
                                         $removed_range->transform(
-                                            - $this->srv_duration - $this->extras_duration + $this->slot_length,
+                                            - $this->full_duration + $this->slot_length,
                                             null
-                                        )
+                                        )->align( $r, $this->slot_length, $this->full_duration )
                                     )->replaceState( Range::FULLY_BOOKED )
                                 );
                             }
@@ -280,15 +275,31 @@ class Generator implements \Iterator
                     }
                 }
                 $ranges = $new_ranges;
-                // If some ranges were removed add them back with appropriate state.
-                if ( $removed->isNotEmpty() ) {
+                // If some ranges were removed check whether we need to add them back with appropriate state.
+                if (
+                    $removed->isNotEmpty() &&
+                    ( ! $booking->locationId() || ! $this->location_id || $booking->locationId() == $this->location_id ) &&
+                    $booking->serviceId() == $this->srv_id &&
+                    $booking->range()->length() - $booking->extrasDuration() == ( $this->srv_duration_days > 1 ? $this->srv_duration_days * DAY_IN_SECONDS : $this->srv_duration ) &&
+                    $booking->extrasDuration() >= $this->extras_duration
+                ) {
+                    // Handle partially booked appointments (when number of persons is less than max capacity).
+                    if ( $booking->nop() <= $max_capacity - $this->nop ) {
+                        if ( ! $booking->oneBookingPerSlot() ) {
+                            $booking_range = $booking->range();
+                            foreach ( $removed->all() as $range ) {
+                                // Find range which contains booking start point.
+                                if ( $range->contains( $booking_range->start() ) ) {
+                                    $data = $range->data()->replaceState( Range::PARTIALLY_BOOKED )->replaceNop( $booking->nop() );
+                                    // Create partially booked range and add it to collection.
+                                    $ranges->push( $booking_range->resize( $this->slot_length )->replaceData( $data ) );
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     // Handle waiting list.
-                    if (
-                        $this->waiting_list_enabled && $booking->serviceId() == $this->srv_id &&
-                        $booking->range()->length() - $booking->extrasDuration() == (
-                            $this->srv_duration_days > 1 ? $this->srv_duration_days * DAY_IN_SECONDS : $this->srv_duration
-                        )
-                    ) {
+                    else if ( $this->waiting_list_enabled ) {
                         $booking_range = $booking->range();
                         foreach ( $removed->all() as $range ) {
                             // Find range which contains booking start point.
@@ -297,26 +308,6 @@ class Generator implements \Iterator
                                 if ( $booking->onWaitingList() ) {
                                     $data = $data->replaceOnWaitingList( $booking->onWaitingList() );
                                 }
-                                // Create partially booked range and add it to collection.
-                                $ranges->push( $booking_range->resize( $this->slot_length )->replaceData( $data ) );
-                                break;
-                            }
-                        }
-                    }
-                    // Handle partially booked appointments (when number of persons is less than max capacity).
-                    if (
-                        ! $booking->oneBookingPerSlot() &&
-                        ( ! $booking->locationId() || ! $this->location_id || $booking->locationId() == $this->location_id ) &&
-                        $booking->serviceId() == $this->srv_id &&
-                        $booking->nop() <= $max_capacity - $this->nop &&
-                        $booking->range()->length() - $booking->extrasDuration() == ( $this->srv_duration_days > 1 ? $this->srv_duration_days * DAY_IN_SECONDS : $this->srv_duration ) &&
-                        $booking->extrasDuration() >= $this->extras_duration
-                    ) {
-                        $booking_range = $booking->range();
-                        foreach ( $removed->all() as $range ) {
-                            // Find range which contains booking start point.
-                            if ( $range->contains( $booking_range->start() ) ) {
-                                $data = $range->data()->replaceState( Range::PARTIALLY_BOOKED )->replaceNop( $booking->nop() );
                                 // Create partially booked range and add it to collection.
                                 $ranges->push( $booking_range->resize( $this->slot_length )->replaceData( $data ) );
                                 break;
@@ -339,7 +330,7 @@ class Generator implements \Iterator
     private function _tryFindNextSlot( Range $slot )
     {
         if ( $this->next_connection == self::CONNECTION_CONSECUTIVE ) {
-            $next_start = $slot->start()->modify( $this->srv_duration + $this->extras_duration + $this->spare_time );
+            $next_start = $slot->start()->modify( $this->full_duration + $this->spare_time );
             $padding = $this->srv_padding_right + $this->next_generator->srv_padding_left;
             // There are 2 possible options:
             // 1. next service is done by another staff, then do not take into account padding
@@ -396,26 +387,39 @@ class Generator implements \Iterator
      */
     private function _tryFindPastSlot( Range $slot )
     {
-        $timestamp = $slot->start()->value()->getTimestamp();
+        $timestamp       = $slot->start()->value()->getTimestamp();
+        $start_timestamp = $timestamp - ( $this->srv_duration_days - 1 ) * DAY_IN_SECONDS;
         if ( ! isset( $this->past_slots[ $slot->staffId() ] ) ) {
             $this->past_slots[ $slot->staffId() ] = new RangeCollection();
         }
         // Store slot for further reference.
         // @todo In theory we can hold just $this->srv_duration_days slots in the past.
-        $this->past_slots[ $slot->staffId() ]->put( $timestamp, $slot );
+        if ( $slot->notFullyBooked() ) {
+            $this->past_slots[ $slot->staffId() ]->put( $timestamp, $slot );
+        }
+
+        if ( ! $this->past_slots[ $slot->staffId() ]->has( $start_timestamp ) ) {
+            return false;
+        }
+
+        $start_slot = $this->past_slots[ $slot->staffId() ]->get( $start_timestamp );
+
+        if ( $start_slot && $start_slot->state() == Range::PARTIALLY_BOOKED ) {
+            return $start_slot->replaceNextSlot( $slot->nextSlot() );
+        }
         // Check if there are enough valid days for service duration in the past.
         $day = $slot->start();
-        for ( $d = 1; $d < $this->srv_duration_days; ++ $d ) {
-            $day       = $day->modify( '-1 day' );
+        for ( $d = 0; $d < $this->srv_duration_days; ++ $d ) {
             $timestamp = $day->value()->getTimestamp();
-            if ( ! $this->past_slots[ $slot->staffId() ]->has( $timestamp ) ) {
+            if ( ! $this->past_slots[ $slot->staffId() ]->has( $timestamp ) || $this->past_slots[ $slot->staffId() ]->get( $timestamp )->state() !== Range::AVAILABLE ) {
                 return false;
             }
+            $day = $day->modify( '-1 day' );
         }
-        // Replace slot with one from the day when service starts.
-        $slot = $this->past_slots[ $slot->staffId() ]->get( $timestamp )->replaceNextSlot( $slot->nextSlot() );
 
-        return $slot;
+        // Replace slot with one from the day when service starts.
+
+        return $start_slot->replaceNextSlot( $slot->nextSlot() );
     }
 
     /**

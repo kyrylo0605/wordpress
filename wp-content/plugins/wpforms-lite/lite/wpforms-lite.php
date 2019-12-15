@@ -26,6 +26,7 @@ class WPForms_Lite {
 		add_action( 'wpforms_admin_page', array( $this, 'addons_page' ) );
 		add_action( 'wpforms_admin_settings_after', array( $this, 'settings_cta' ), 10, 1 );
 		add_action( 'wp_ajax_wpforms_lite_settings_upgrade', array( $this, 'settings_cta_dismiss' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueues' ) );
 	}
 
 	/**
@@ -228,6 +229,28 @@ class WPForms_Lite {
 	}
 
 	/**
+	 * Lite admin scripts and styles.
+	 *
+	 * @since 1.5.7
+	 */
+	public function admin_enqueues() {
+
+		if ( ! wpforms_is_admin_page() ) {
+			return;
+		}
+
+		$min = wpforms_get_min_suffix();
+
+		// Admin styles.
+		wp_enqueue_style(
+			'wpforms-lite-admin',
+			WPFORMS_PLUGIN_URL . "lite/assets/css/admin{$min}.css",
+			array(),
+			WPFORMS_VERSION
+		);
+	}
+
+	/**
 	 * Form confirmation settings, supports multiple confirmations.
 	 *
 	 * @since 1.4.8
@@ -414,7 +437,7 @@ class WPForms_Lite {
 				printf(
 					wp_kses(
 						/* translators: %s - star icons. */
-						__( 'We know that you will truly love WPForms. It has over 2000+ five star ratings (%s) and is active on over 1 million websites.', 'wpforms-lite' ),
+						__( 'We know that you will truly love WPForms. It has over 5000+ five star ratings (%s) and is active on over 3 million websites.', 'wpforms-lite' ),
 						array(
 							'i' => array(
 								'class'       => array(),

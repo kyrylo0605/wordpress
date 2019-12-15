@@ -1,6 +1,5 @@
 .nv-navbar {
   background-color: $navbar_background_color;
-  max-height: 100vh;
 }
 
 .primary-menu-ul {
@@ -10,7 +9,6 @@
 
   a {
     color: $body-color;
-    font-weight: 500;
     width: 100%;
     display: flex;
     position: relative;

@@ -163,10 +163,17 @@ class Finder
                             ? $collaborative_max_duration - $extras_durations[ $key ]
                             : ( $chain_item->getUnits() ?: 1 ) * $sub_service->getDuration();
 
-                        $slot_length = $chain_item->getService()->getSlotLength();
+                        // Use default time slot length for compound services.
+                        // Otherwise with settings $slot_length equal 'default' or 'as_service_duration'
+                        // algorithm may skip some available time slots (due to overlapping).
+                        if ( $chain_item->getService()->getType() === Lib\Entities\Service::TYPE_COMPOUND ) {
+                            $slot_length = $this->slot_length;
+                        } else {
+                            $slot_length = $chain_item->getService()->getSlotLength();
+                        }
                         if ( $slot_length === Lib\Entities\Service::SLOT_LENGTH_DEFAULT ) {
                             $slot_length = $this->srv_duration_as_slot_length ? $service_duration : $this->slot_length;
-                        } else if ( $slot_length === Lib\Entities\Service::SLOT_LENGTH_AS_SERVICE_DURATION ) {
+                        } elseif ( $slot_length === Lib\Entities\Service::SLOT_LENGTH_AS_SERVICE_DURATION ) {
                             $slot_length = $service_duration;
                         } else {
                             $slot_length = (int) $slot_length;

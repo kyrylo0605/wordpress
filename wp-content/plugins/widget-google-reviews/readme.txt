@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Google, reviews, widget, testimonials, Google Places reviews
 Requires at least: 2.8
 Tested up to: 5.3
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,7 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 
 [Upgrade to Business](https://richplugins.com/business-reviews-bundle-wordpress-plugin)
 
-* Displays all Google reviews through Business API
+* Displays all reviews through Google My Business (GMB) API
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Google Rich Snippets (schema.org)
 * Powerful <b>Collection Builder</b>
@@ -76,6 +76,10 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 3. Google Reviews sidebar
 
 == Changelog ==
+
+= 1.8.2 =
+* Improve: added 'Based on ... reviews' feature
+* Improve: added hide reviews option
 
 = 1.8.1 =
 * Update to WordPress 5.3

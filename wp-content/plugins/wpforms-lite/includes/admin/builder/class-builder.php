@@ -490,10 +490,27 @@ class WPForms_Builder {
 	 */
 	public function output() {
 
-		$form_id = $this->form ? absint( $this->form->ID ) : '';
+		if ( ! (bool) apply_filters( 'wpforms_builder_output', true ) ) {
+			return;
+		}
+
+		$form_id  = $this->form ? absint( $this->form->ID ) : '';
+		$field_id = ! empty( $this->form_data['field_id'] ) ? $this->form_data['field_id'] : '';
 		?>
 
 		<div id="wpforms-builder" class="wpforms-admin-page">
+
+			<div id="wpforms-builder-mobile-notice">
+
+				<img src="<?php echo esc_url( WPFORMS_PLUGIN_URL . 'assets/images/sullie-builder-mobile.png' ); ?>" alt="<?php esc_attr_e( 'Sullie the WPForms mascot', 'wpforms-lite' ); ?>">
+
+				<h3><?php esc_html_e( 'Oh, hi there!', 'wpforms-lite' ); ?></h3>
+
+				<p><?php esc_html_e( 'Our form builder is optimized for desktop computers and tablets. Please manage your forms on a different device.', 'wpforms-lite' ); ?></p>
+
+				<button type="button"><?php esc_html_e( 'Go back', 'wpforms-lite' ); ?></button>
+
+			</div>
 
 			<div id="wpforms-builder-overlay">
 
@@ -506,17 +523,17 @@ class WPForms_Builder {
 
 			</div>
 
-			<form name="wpforms-builder" id="wpforms-builder-form" method="post" data-id="<?php echo $form_id; ?>">
+			<form name="wpforms-builder" id="wpforms-builder-form" method="post" data-id="<?php echo esc_attr( $form_id ); ?>">
 
-				<input type="hidden" name="id" value="<?php echo $form_id; ?>">
-				<input type="hidden" value="<?php echo absint( $this->form_data['field_id'] ); ?>" name="field_id" id="wpforms-field-id">
+				<input type="hidden" name="id" value="<?php echo esc_attr( $form_id ); ?>">
+				<input type="hidden" value="<?php echo absint( $field_id ); ?>" name="field_id" id="wpforms-field-id">
 
 				<!-- Toolbar -->
 				<div class="wpforms-toolbar">
 
 					<div class="wpforms-left">
 
-						<img src="<?php echo WPFORMS_PLUGIN_URL; ?>assets/images/sullie-alt.png" alt="<?php esc_attr_e( 'Sullie the WPForms mascot', 'wpforms-lite' ); ?>">
+						<img src="<?php echo esc_url( WPFORMS_PLUGIN_URL . 'assets/images/sullie-alt.png' ); ?>" alt="<?php esc_attr_e( 'Sullie the WPForms mascot', 'wpforms-lite' ); ?>">
 
 					</div>
 

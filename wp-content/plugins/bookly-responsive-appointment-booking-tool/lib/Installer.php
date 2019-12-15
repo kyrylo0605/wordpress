@@ -218,6 +218,7 @@ class Installer extends Base\Installer
             'bookly_app_staff_name_with_price'           => '1',
             'bookly_app_show_email_confirm'              => '0',
             'bookly_app_show_powered_by'                 => '0',
+            'bookly_app_prevent_caching'                 => '1',
             'bookly_l10n_button_apply'                   => __( 'Apply', 'bookly' ),
             'bookly_l10n_button_back'                    => __( 'Back', 'bookly' ),
             'bookly_l10n_info_complete_step'             => __( 'Thank you! Your booking is complete. An email with details of your booking has been sent to you.', 'bookly' ),

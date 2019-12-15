@@ -1,4 +1,10 @@
 
+ ### v2.5.5 - 2019-11-14 
+ **Changes:** 
+ * [Feat] Dedicated logo option for the transparent header
+* [Fix] Subscribe form on the blog page
+* [Fix] Line separator compatibility with WP 5.3
+ 
  ### v2.5.4 - 2019-10-21 
  **Changes:** 
  * [Fix] Blog page Infinite Scroll compatibility with the Alternative layout

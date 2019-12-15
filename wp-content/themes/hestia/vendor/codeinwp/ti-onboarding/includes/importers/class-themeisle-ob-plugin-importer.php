@@ -173,12 +173,21 @@ class Themeisle_OB_Plugin_Importer {
 			)
 		);
 
-		require_once 'helpers/class-themeisle-ob-quiet-skin.php';
-		$skin     = new Themeisle_OB_Quiet_Skin(
-			array(
-				'api' => $api,
-			)
-		);
+		if ( version_compare( PHP_VERSION, '5.6' ) === - 1 ) {
+			require_once 'helpers/class-themeisle-ob-quiet-skin-legacy.php';
+			$skin = new Themeisle_OB_Quiet_Skin_Legacy(
+				array(
+					'api' => $api,
+				)
+			);
+		} else {
+			require_once 'helpers/class-themeisle-ob-quiet-skin.php';
+			$skin = new Themeisle_OB_Quiet_Skin(
+				array(
+					'api' => $api,
+				)
+			);
+		}
 		$upgrader = new Plugin_Upgrader( $skin );
 		$install  = $upgrader->install( $api->download_link );
 		if ( $install !== true ) {

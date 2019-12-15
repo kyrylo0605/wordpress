@@ -274,7 +274,7 @@
                             start_time = moment(ds.form.start_time.value, 'HH:mm');
                         for (var units = units_min; units <= units_max; units++) {
                             var end_time = moment(start_time).add(units * ds.form.service.duration, 'seconds'),
-                                end_hour = parseInt(moment(end_time).format('HH')) + Math.floor((end_time.diff(start_time)) / 3600 / 24000) * 24;
+                                end_hour = moment(end_time).diff(moment('00:00', 'HH:mm')) / 3600 / 1000;
                             jQuery.each(ds.data.end_time, function (key, item) {
                                 if (item.value == (end_hour < 10 ? '0' + end_hour : end_hour) + ':' + moment(end_time).format('mm')) {
                                     unit_item = jQuery.extend({}, item);
@@ -310,7 +310,7 @@
                 }
                 return result;
             },
-            setEndTimeBasedOnService : function() {
+            setEndTimeBasedOnService : function () {
                 ds.form.end_time_data = ds.getDataForEndTime();
                 var d = ds.form.service ? ds.form.service.duration * ds.form.service.units_min : ds.data.time_interval;
                 if (d < 86400 || parseInt(ds.form.service.units_max) > 1) {
@@ -323,35 +323,36 @@
                         start_date: null,
                         end_date  : null
                     }
-                }
-                var start_date = moment(ds.form.date.getTime()),
-                    end_date   = moment(ds.form.date.getTime()),
-                    start_time = [0,0],
-                    end_time   = [0,0]
-                ;
-                if (ds.form.service && ds.form.service.duration >= 86400) {
-                    if (ds.form.end_time) {
-                        var _start_time = ds.form.start_time.value.split(':');
-                        var _end_time = ds.form.end_time.value.split(':');
-                        var duration = Math.max(ds.form.service.duration, 60 * (_end_time[0] * 60 + parseInt(_end_time[1]) - _start_time[0] * 60 - parseInt(_start_time[1])));
-                        end_date.add(duration, 'seconds');
-                    } else if (ds.form.service && ds.form.service.units_max > 1) {
-                        end_date.add(ds.form.service.duration * ds.form.service.units_min, 'seconds');
+                } else if (ds.form.date) {
+                    var start_date = moment(ds.form.date.getTime()),
+                        end_date   = moment(ds.form.date.getTime()),
+                        start_time = [0,0],
+                        end_time   = [0,0]
+                    ;
+                    if (ds.form.service && ds.form.service.duration >= 86400) {
+                        if (ds.form.end_time) {
+                            var _start_time = ds.form.start_time.value.split(':');
+                            var _end_time = ds.form.end_time.value.split(':');
+                            var duration = Math.max(ds.form.service.duration, 60 * (_end_time[0] * 60 + parseInt(_end_time[1]) - _start_time[0] * 60 - parseInt(_start_time[1])));
+                            end_date.add(duration, 'seconds');
+                        } else if (ds.form.service && ds.form.service.units_max > 1) {
+                            end_date.add(ds.form.service.duration * ds.form.service.units_min, 'seconds');
+                        } else {
+                            end_date.add(ds.form.service.duration, 'seconds');
+                        }
                     } else {
-                        end_date.add(ds.form.service.duration, 'seconds');
+                        start_time = ds.form.start_time.value.split(':');
+                        end_time = ds.form.end_time.value.split(':');
                     }
-                } else {
-                    start_time = ds.form.start_time.value.split(':');
-                    end_time   = ds.form.end_time.value.split(':');
+                    start_date.hours(start_time[0]);
+                    start_date.minutes(start_time[1]);
+                    end_date.hours(end_time[0]);
+                    end_date.minutes(end_time[1]);
+                    return {
+                        start_date: start_date.format('YYYY-MM-DD HH:mm:00'),
+                        end_date: end_date.format('YYYY-MM-DD HH:mm:00')
+                    };
                 }
-                start_date.hours(start_time[0]);
-                start_date.minutes(start_time[1]);
-                end_date.hours(end_time[0]);
-                end_date.minutes(end_time[1]);
-                return {
-                    start_date : start_date.format('YYYY-MM-DD HH:mm:00'),
-                    end_date   : end_date.format('YYYY-MM-DD HH:mm:00')
-                };
             },
             getTotalNumberOfPersons : function () {
                 var result = 0;
@@ -596,7 +597,7 @@
 
         var checkErrorsXhr = null;
         var checkAppointmentErrors = function() {
-            if ($scope.form.staff) {
+            if ($scope.form.staff && $scope.form.date) {
                 var dates = $scope.dataSource.getStartAndEndDates(),
                     customers = [];
 
@@ -699,9 +700,11 @@
             checkAppointmentErrors();
         };
 
-        $scope.onDateChange = function() {
-            checkAppointmentErrors();
-            $scope.onRepeatChange();
+        $scope.onDateChange = function () {
+            if ($scope.form.date) {
+                checkAppointmentErrors();
+                $scope.onRepeatChange();
+            }
         };
 
         $scope.onCustomersChange = function() {

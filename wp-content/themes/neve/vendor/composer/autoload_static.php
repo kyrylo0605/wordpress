@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb41129d0d87a05f13c02c164b4499c47
+class ComposerStaticInitc49ccce9a41c771a468c2543a7f85072
 {
     public static $files = array (
         '3c811c5eee2f69449ba771bff79ea54a' => __DIR__ . '/..' . '/codeinwp/ti-about-page/load.php',
@@ -50,6 +50,7 @@ class ComposerStaticInitb41129d0d87a05f13c02c164b4499c47
         'HFG\\Core\\Components\\SearchResponsive' => __DIR__ . '/../..' . '/header-footer-grid/Core/Components/SearchResponsive.php',
         'HFG\\Core\\Components\\SecondNav' => __DIR__ . '/../..' . '/header-footer-grid/Core/Components/SecondNav.php',
         'HFG\\Core\\Customizer' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer.php',
+        'HFG\\Core\\Customizer\\Instructions_Section' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer/Instructions_Section.php',
         'HFG\\Core\\Customizer\\SpacingControl' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer/SpacingControl.php',
         'HFG\\Core\\Interfaces\\Builder' => __DIR__ . '/../..' . '/header-footer-grid/Core/Interfaces/Builder.php',
         'HFG\\Core\\Interfaces\\Component' => __DIR__ . '/../..' . '/header-footer-grid/Core/Interfaces/Component.php',
@@ -63,9 +64,9 @@ class ComposerStaticInitb41129d0d87a05f13c02c164b4499c47
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb41129d0d87a05f13c02c164b4499c47::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb41129d0d87a05f13c02c164b4499c47::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb41129d0d87a05f13c02c164b4499c47::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc49ccce9a41c771a468c2543a7f85072::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc49ccce9a41c771a468c2543a7f85072::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc49ccce9a41c771a468c2543a7f85072::$classMap;
 
         }, null, ClassLoader::class);
     }

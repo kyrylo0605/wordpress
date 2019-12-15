@@ -106,15 +106,10 @@ abstract class Plugin
     {
         if ( ! session_id() ) {
             // fix loopback request failure
-            if (
-                // WP 4.9+ plugin or theme editor
+            if (    // WP 4.9+ plugin or theme editor
                 ! isset( $_GET['wp_scrape_key'] )
-                &&
-                ! ( isset( $_POST['action'] ) &&
-                    (  $_POST['action'] == 'health-check-site-status'       // Health Check & Troubleshooting plugin
-                    || $_POST['action'] == 'health-check-loopback-requests' // WP 5.2+ Site Health
-                    )
-                )
+                &&  // WP Site Health
+                ! ( isset( $_POST['action'] ) && strncmp( $_POST['action'], 'health-check-', 13 ) === 0 )
             ) {
                 // Start session.
                 @session_start();

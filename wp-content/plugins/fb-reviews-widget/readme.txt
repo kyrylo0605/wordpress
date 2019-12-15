@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.3
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,10 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 2. Facebook Reviews sidebar
 
 == Changelog ==
+
+= 1.6.6 =
+* Improve: added 'Based on ... reviews' feature
+* Improve: added hide reviews option
 
 = 1.6.5 =
 * Update to WordPress 5.3

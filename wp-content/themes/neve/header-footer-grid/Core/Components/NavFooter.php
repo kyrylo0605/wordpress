@@ -37,7 +37,11 @@ class NavFooter extends Abstract_Component {
 		$this->set_property( 'label', __( 'Footer Menu', 'neve' ) );
 		$this->set_property( 'id', self::COMPONENT_ID );
 		$this->set_property( 'width', 6 );
+		$this->set_property( 'icon', 'tagcloud' );
 		$this->set_property( 'section', 'footer_menu_primary' );
+		$this->set_property( 'has_font_family_control', true );
+		$this->set_property( 'has_typeface_control', true );
+		$this->set_property( 'default_typography_selector', $this->default_typography_selector . '.builder-item--' . $this->get_id() . ' li > a' );
 	}
 
 	/**

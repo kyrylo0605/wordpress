@@ -45,7 +45,7 @@ class Themeisle_OB_WXR_Parser {
 		$this->logger->log( "Starting parsing file:{$file}", 'progress' );
 		$result = null;
 
-		if ( $this->page_builder === 'beaver-builder' ) {
+		if ( $this->page_builder === 'beaver-builder' || $this->page_builder === 'beaver builder' ) {
 			if ( extension_loaded( 'xml' ) ) {
 				$parser = new Themeisle_OB_Beaver_ParserXML();
 

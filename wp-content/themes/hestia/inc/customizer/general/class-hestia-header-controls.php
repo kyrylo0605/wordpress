@@ -99,6 +99,22 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 
 		$this->add_control(
 			new Hestia_Customizer_Control(
+				'hestia_navbar_transparent',
+				array(
+					'sanitize_callback' => 'hestia_sanitize_checkbox',
+					'default'           => apply_filters( 'hestia_navbar_transparent_default', true ),
+				),
+				array(
+					'type'     => 'checkbox',
+					'label'    => esc_html__( 'Transparent Navbar', 'hestia' ),
+					'section'  => 'hestia_navigation',
+					'priority' => 1,
+				)
+			)
+		);
+
+		$this->add_control(
+			new Hestia_Customizer_Control(
 				'hestia_search_in_menu',
 				array(
 					'sanitize_callback' => 'hestia_sanitize_checkbox',
@@ -206,6 +222,26 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 				'Hestia_Customize_Control_Radio_Image'
 			)
 		);
+
+		$this->add_control(
+			new Hestia_Customizer_Control(
+				'hestia_transparent_header_logo',
+				array(
+					'sanitize_callback' => 'absint',
+					'transport'         => $this->selective_refresh,
+				),
+				array(
+					'label'    => esc_html__( 'Transparent Header Logo', 'hestia' ),
+					'section'  => 'title_tagline',
+					'priority' => 9,
+					'active_callback' => array( $this, 'hestia_transparent_header_logo_callback' ),
+					'flex-width'  => true,
+					'flex-height' => true,
+					'height'      => 100,
+				),
+				'WP_Customize_Cropped_Image_Control'
+			)
+		);
 	}
 
 	/**
@@ -258,6 +294,17 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 				array(
 					'selector'        => '.navbar-brand',
 					'settings'        => 'custom_logo',
+					'render_callback' => array( $this, 'logo_callback' ),
+				)
+			)
+		);
+
+		$this->add_partial(
+			new Hestia_Customizer_Partial(
+				'hestia_transparent_header_logo',
+				array(
+					'selector'        => '.navbar-brand',
+					'settings'        => 'hestia_transparent_header_logo',
 					'render_callback' => array( $this, 'logo_callback' ),
 				)
 			)
@@ -340,6 +387,11 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 			$hestia_search_in_menu->section  = 'sidebar-widgets-header-sidebar';
 			$hestia_search_in_menu->priority = - 1;
 		}
+		$hestia_navbar_transparent = $this->get_customizer_object( 'control', 'hestia_navbar_transparent' );
+		if( ! empty( $hestia_navbar_transparent ) ){
+			$hestia_navbar_transparent->section  = 'sidebar-widgets-header-sidebar';
+			$hestia_navbar_transparent->priority = - 2;
+		}
 	}
 
 	/**
@@ -357,14 +409,7 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 	 * @return string
 	 */
 	public function logo_callback() {
-		if ( get_theme_mod( 'custom_logo' ) ) {
-			$logo = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
-			$logo = '<img src="' . esc_url( $logo[0] ) . '">';
-		} else {
-			$logo = '<p>' . get_bloginfo( 'name' ) . '</p>';
-		}
-
-		return $logo;
+		return Hestia_Header::logo();
 	}
 
 	/**
@@ -390,5 +435,13 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 		}
 
 		return $layout;
+	}
+
+	/**
+	 * Active callback for the transparent logo
+	 */
+	public function hestia_transparent_header_logo_callback() {
+		$transparent_navbar = get_theme_mod( 'hestia_navbar_transparent' );
+		return $transparent_navbar === true;
 	}
 }

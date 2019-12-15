@@ -380,17 +380,21 @@ abstract class Common
 
     /**
      * Set nocache constants.
+     *
+     * @param bool $forcibly
      */
-    public static function noCache()
+    public static function noCache( $forcibly = false )
     {
-        if ( ! defined( 'DONOTCACHEPAGE' ) ) {
-            define( 'DONOTCACHEPAGE', true );
-        }
-        if ( ! defined( 'DONOTCACHEOBJECT' ) ) {
-            define( 'DONOTCACHEOBJECT', true );
-        }
-        if ( ! defined( 'DONOTCACHEDB' ) ) {
-            define( 'DONOTCACHEDB', true );
+        if ( $forcibly || get_option( 'bookly_app_prevent_caching' ) ) {
+            if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+                define( 'DONOTCACHEPAGE', true );
+            }
+            if ( ! defined( 'DONOTCACHEOBJECT' ) ) {
+                define( 'DONOTCACHEOBJECT', true );
+            }
+            if ( ! defined( 'DONOTCACHEDB' ) ) {
+                define( 'DONOTCACHEDB', true );
+            }
         }
     }
 }

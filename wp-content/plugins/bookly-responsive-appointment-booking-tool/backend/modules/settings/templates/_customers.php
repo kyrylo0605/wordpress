@@ -14,9 +14,9 @@ use Bookly\Backend\Modules\Settings\Proxy;
 
         Proxy\Pro::renderCustomersBirthday();
         Proxy\Pro::renderCustomersAddress();
+        Proxy\Pro::renderCustomersAddressTemplate();
 
         Proxy\Pro::renderCancelAppointmentAction();
-        Proxy\Pro::renderCombinedNotifications();
         Selects::renderSingle( 'bookly_cst_remember_in_cookie', __( 'Remember personal information in cookies', 'bookly' ), __( 'If this setting is enabled then returning customers will have their personal information fields filled in at the Details step with the data previously saved in cookies.', 'bookly' ) );
         Selects::renderSingle( 'bookly_cst_allow_duplicates', __( 'Allow duplicate customers', 'bookly' ), __( 'If enabled, a new user will be created if any of the registration data during the booking is different.', 'bookly' ) );
         Selects::renderSingle( 'bookly_cst_show_update_details_dialog', __( 'Show confirmation dialog before updating customer\'s data', 'bookly' ), __( 'If this option is enabled and customer enters contact info different from the previous order, a warning message will appear asking to update the data.', 'bookly' ) );

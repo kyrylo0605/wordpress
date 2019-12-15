@@ -1,3 +1,53 @@
+## [1.7.12](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.11...v1.7.12) (2019-12-03)
+
+
+### Bug Fixes
+
+* import modal edit action button not working for divi and thrive ([adf314f](https://github.com/Codeinwp/ti-onboarding/commit/adf314fbd452e1019dfd8f25cdbd270ab1d95188))
+* import modal edit action button not working for divi and thrive ([f56ac00](https://github.com/Codeinwp/ti-onboarding/commit/f56ac0033c5625f07dce93becb0efde46ad3141d)), closes [Codeinwp/neve-pro-addon#423](https://github.com/Codeinwp/neve-pro-addon/issues/423)
+
+## [1.7.11](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.10...v1.7.11) (2019-12-03)
+
+
+### Bug Fixes
+
+* prefix page slugs with 5 char md5 hash generated from import slug ([49f2c1b](https://github.com/Codeinwp/ti-onboarding/commit/49f2c1bf756fe1be3ab71f8230afecf4d98c74ad)), closes [Codeinwp/neve-pro-addon#357](https://github.com/Codeinwp/neve-pro-addon/issues/357)
+* prefix posts/front pages slug [closes Codeinwp/neve-pro-addon[#357](https://github.com/Codeinwp/ti-onboarding/issues/357)] ([e8284a3](https://github.com/Codeinwp/ti-onboarding/commit/e8284a3528a2f943ab9f88568be7846f4293a75e))
+* prefix posts/front pages slug [closes Coodeinwp/neve-pro-addon[#357](https://github.com/Codeinwp/ti-onboarding/issues/357)][WIP] ([46773f1](https://github.com/Codeinwp/ti-onboarding/commit/46773f12014fa19af1931e4cc85608a8b7d4f6a8))
+
+## [1.7.10](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.9...v1.7.10) (2019-11-13)
+
+
+### Bug Fixes
+
+* legacy fix for upgrade skin in wp 5.3 ([892adca](https://github.com/Codeinwp/ti-onboarding/commit/892adcaf8fefb8960cfbdfddb6e3558683f15114))
+* legacy fix for upgrade skin in wp 5.3 ([c15ff08](https://github.com/Codeinwp/ti-onboarding/commit/c15ff081f0acaf96bf2974fd6a441ac1b39dabfa))
+* sniff for latest wpcs ([ab43403](https://github.com/Codeinwp/ti-onboarding/commit/ab4340320aff764b17a2adc7cb03967d191417fc))
+
+## [1.7.9](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.8...v1.7.9) (2019-10-31)
+
+
+### Bug Fixes
+
+* make sure thrive images get URL's changed ([4b3d899](https://github.com/Codeinwp/ti-onboarding/commit/4b3d899))
+* make sure thrive images get URL's changed ([6dacb5d](https://github.com/Codeinwp/ti-onboarding/commit/6dacb5d))
+
+## [1.7.8](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.7...v1.7.8) (2019-10-10)
+
+
+### Bug Fixes
+
+* external plugins handling ([106600a](https://github.com/Codeinwp/ti-onboarding/commit/106600a))
+* external plugins handling ([dadcb73](https://github.com/Codeinwp/ti-onboarding/commit/dadcb73)), closes [Codeinwp/neve-pro-addon#308](https://github.com/Codeinwp/neve-pro-addon/issues/308)
+
+## [1.7.7](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.6...v1.7.7) (2019-10-08)
+
+
+### Bug Fixes
+
+* cli import not accounting for local json on remote sites ([de0a523](https://github.com/Codeinwp/ti-onboarding/commit/de0a523))
+* cli import not accounting for local json on remote sites ([b4bfc55](https://github.com/Codeinwp/ti-onboarding/commit/b4bfc55))
+
 ## [1.7.6](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.5...v1.7.6) (2019-09-20)
 
 

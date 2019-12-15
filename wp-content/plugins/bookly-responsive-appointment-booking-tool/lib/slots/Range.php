@@ -236,6 +236,40 @@ class Range
     }
 
     /**
+     * Computes the result of aligning the edge points to a grid
+     * made up by the start point of given range and given step.
+     *
+     * @param Range $range
+     * @param mixed $step
+     * @param mixed $precursor  Length of possible left sibling
+     * @return self
+     */
+    public function align( self $range, $step, $precursor )
+    {
+        $step = $range->resize( $step )->length();
+        $precursor = $range->resize( $precursor )->length();
+
+        $start = $this->start;
+        $end   = $this->end;
+
+        $mod = $precursor % $step;
+        if ($mod) {
+            $start = $start->modify( $step - $mod );
+        }
+
+        $mod_left = $start->diff( $range->start() ) % $step;
+        $mod_right = $end->diff( $range->start() ) % $step;
+        if ($mod_left) {
+            $start = $start->modify( - $mod_left );
+        }
+        if ($mod_right) {
+            $end = $end->modify( $step - $mod_right );
+        }
+
+        return new static( $start, $end, $this->data );
+    }
+
+    /**
      * Create a copy of the range with new data.
      *
      * @param RangeData $new_data
@@ -418,6 +452,26 @@ class Range
     public function replaceAltSlot( $new_alt_slot )
     {
         return $this->replaceData( $this->data->replaceAltSlot( $new_alt_slot ) );
+    }
+
+    /**
+     * Tells whether range's state is available.
+     *
+     * @return bool
+     */
+    public function available()
+    {
+        return $this->data->state() == self::AVAILABLE;
+    }
+
+    /**
+     * Tells whether range's state is not available.
+     *
+     * @return bool
+     */
+    public function notAvailable()
+    {
+        return $this->data->state() != self::AVAILABLE;
     }
 
     /**

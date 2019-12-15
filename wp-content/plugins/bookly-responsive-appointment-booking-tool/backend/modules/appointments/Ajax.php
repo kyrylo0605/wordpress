@@ -152,6 +152,8 @@ class Ajax extends Lib\Base\Ajax
         }
         $query->addSelect( '(' . $sub_query . ') AS attachment' );
 
+        Lib\Proxy\Locations::prepareAppointmentsQuery( $query );
+
         if ( $filter['id'] != '' ) {
             $query->where( 'a.id', $filter['id'] );
         }
@@ -204,6 +206,8 @@ class Ajax extends Lib\Base\Ajax
         if ( ! empty( $limits ) ) {
             $query->limit( $limits['length'] )->offset( $limits['start'] );
         }
+
+        $locations_active = Lib\Config::locationsActive();
 
         $data = array();
         foreach ( $query->fetchArray() as $row ) {
@@ -268,6 +272,7 @@ class Ajax extends Lib\Base\Ajax
                     'extras'   => $extras,
                 ),
                 'status'            => $row['status'],
+                'location'          => $locations_active ? $row['location'] : '',
                 'payment'           => $payment_title,
                 'payment_raw_title' => $payment_raw_title,
                 'notes'             => $row['notes'],

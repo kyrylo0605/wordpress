@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -443,7 +443,7 @@ enable_page_level_ads: true
 						<div class="pfblock-line"></div>
 						<div class="pfblock-subtitle">
 							<p>Адреса: м.Харків, Україна</p>
-							<p>Тел: +38 (097) 110-06-81</p>
+							<p>Тел: +38 (097) 000-00-00</p>
 							<p>Skype: nana_514</p>
 							<p>Email: kiril06051986@gmail.com</p>
 							<span class="linkedin">

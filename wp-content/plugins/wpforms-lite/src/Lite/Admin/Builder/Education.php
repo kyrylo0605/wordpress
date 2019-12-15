@@ -3,14 +3,9 @@
 namespace WPForms\Lite\Admin\Builder;
 
 /**
- * Form Builder changes and enhancements to educate Lite users on what is
- * available in WPForms Pro.
+ * Form Builder changes and enhancements to educate Lite users on what is available in WPForms Pro.
  *
- * @package    WPForms\Admin\Builder
- * @author     WPForms
- * @since      1.5.1
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2018, WPForms LLC
+ * @since 1.5.1
  */
 class Education {
 
@@ -30,6 +25,9 @@ class Education {
 	 * @since 1.5.1
 	 */
 	public function hooks() {
+
+		// AJAX-callback on targeting `reCAPTCHA` field button.
+		add_action( 'wp_ajax_wpforms_update_field_recaptcha', array( $this, 'recaptcha_field_callback' ) );
 
 		// Only proceed for the form builder.
 		if ( ! \wpforms_is_admin_page( 'builder' ) ) {
@@ -144,7 +142,8 @@ class Education {
 			foreach ( $templates as $template ) {
 				$class = 0 === $x % 3 ? 'first ' : '';
 				?>
-				<div class="wpforms-template upgrade-modal <?php echo \sanitize_html_class( $class ); ?>" id="wpforms-template-<?php echo \sanitize_html_class( $template['slug'] ); ?>">
+				<div class="wpforms-template upgrade-modal <?php echo \sanitize_html_class( $class ); ?>"
+					id="wpforms-template-<?php echo \sanitize_html_class( $template['slug'] ); ?>">
 					<div class="wpforms-template-name wpforms-clear">
 						<?php echo \esc_html( $template['name'] ); ?>
 					</div>
@@ -170,6 +169,15 @@ class Education {
 	 * @return array
 	 */
 	public function fields( $fields ) {
+
+		// Add reCAPTCHA field to Standard group.
+		$fields['standard']['fields'][] = array(
+			'icon'  => 'fa-google',
+			'name'  => \esc_html__( 'reCAPTCHA', 'wpforms-lite' ),
+			'type'  => 'recaptcha',
+			'order' => 180,
+			'class' => 'not-draggable',
+		);
 
 		$fields['fancy']['fields'] = array(
 			array(
@@ -338,7 +346,7 @@ class Education {
 
 		<div class="wpforms-field-option-group">
 
-			<a href="#" class="wpforms-field-option-group-toggle upgrade-modal" data-name="Conditional Logic">
+			<a href="#" class="wpforms-field-option-group-toggle upgrade-modal" data-name="<?php esc_attr_e( 'Conditional Logic', 'wpforms-lite' ); ?>">
 				<?php esc_html_e( 'Conditionals', 'wpforms-lite' ); ?> <i class="fa fa-angle-right"></i>
 			</a>
 
@@ -362,37 +370,37 @@ class Education {
 
 		$settings = array(
 			array(
-				'name'        => 'Conversational Forms',
+				'name'        => esc_html__( 'Conversational Forms', 'wpforms-lite' ),
 				'slug'        => 'conversational-forms',
 				'plugin'      => 'wpforms-conversational-forms/wpforms-conversational-forms.php',
 				'plugin_slug' => 'wpforms-conversational-forms',
 			),
 			array(
-				'name'        => 'Surveys and Polls',
+				'name'        => esc_html__( 'Surveys and Polls', 'wpforms-lite' ),
 				'slug'        => 'surveys-polls',
 				'plugin'      => 'wpforms-surveys-polls/wpforms-surveys-polls.php',
 				'plugin_slug' => 'wpforms-surveys-polls',
 			),
 			array(
-				'name'        => 'Form Pages',
+				'name'        => esc_html__( 'Form Pages', 'wpforms-lite' ),
 				'slug'        => 'form-pages',
 				'plugin'      => 'wpforms-form-pages/wpforms-form-pages.php',
 				'plugin_slug' => 'wpforms-form-pages',
 			),
 			array(
-				'name'        => 'Form Locker',
+				'name'        => esc_html__( 'Form Locker', 'wpforms-lite' ),
 				'slug'        => 'form-locker',
 				'plugin'      => 'wpforms-form-locker/wpforms-form-locker.php',
 				'plugin_slug' => 'wpforms-form-locker',
 			),
 			array(
-				'name'        => 'Form Abandonment',
+				'name'        => esc_html__( 'Form Abandonment', 'wpforms-lite' ),
 				'slug'        => 'form-abandonment',
 				'plugin'      => 'wpforms-form-abandonment/wpforms-form-abandonment.php',
 				'plugin_slug' => 'wpforms-form-abandonment',
 			),
 			array(
-				'name'        => 'Post Submissions',
+				'name'        => esc_html__( 'Post Submissions', 'wpforms-lite' ),
 				'slug'        => 'post-submissions',
 				'plugin'      => 'wpforms-post-submissions/wpforms-post-submissions.php',
 				'plugin_slug' => 'wpforms-post-submissions',
@@ -406,11 +414,10 @@ class Education {
 			printf(
 				'<a href="#" class="wpforms-panel-sidebar-section wpforms-panel-sidebar-section-%s upgrade-modal" data-name="%s">',
 				\esc_attr( $setting['slug'] ),
-				\esc_attr( $modal_name ),
-				\esc_attr( $setting['name'] )
+				\esc_attr( $modal_name )
 			);
-				echo \esc_html( $setting['name'] );
-				echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
+			echo \esc_html( $setting['name'] );
+			echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
 			echo '</a>';
 		}
 	}
@@ -425,14 +432,7 @@ class Education {
 		$providers = wpforms_get_providers_all();
 
 		foreach ( $providers as $provider ) {
-
-			/* translators: %s - addon name*/
-			$modal_name = sprintf( \esc_html__( '%s addon', 'wpforms-lite' ), $provider['name'] );
-			echo '<a href="#" class="wpforms-panel-sidebar-section icon wpforms-panel-sidebar-section-' . \esc_attr( $provider['slug'] ) . ' upgrade-modal" data-name="' . \esc_attr( $modal_name ) . '">';
-				echo '<img src="' . \esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . \esc_attr( $provider['img'] ) . '">';
-				echo \esc_html( $provider['name'] );
-				echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
-			echo '</a>';
+			$this->display_single_addon_btn( $provider );
 		}
 	}
 
@@ -445,26 +445,150 @@ class Education {
 
 		$payments = array(
 			array(
-				'name' => 'PayPal Standard',
+				'name' => esc_html__( 'PayPal Standard', 'wpforms-lite' ),
 				'slug' => 'paypal_standard',
 				'img'  => 'addon-icon-paypal.png',
 			),
 			array(
-				'name' => 'Stripe',
+				'name' => esc_html__( 'Stripe', 'wpforms-lite' ),
 				'slug' => 'stripe',
 				'img'  => 'addon-icon-stripe.png',
 			),
 		);
 
 		foreach ( $payments as $payment ) {
-
-			/* translators: %s - addon name*/
-			$modal_name = sprintf( \esc_html__( '%s addon', 'wpforms-lite' ), $payment['name'] );
-			echo '<a href="#" class="wpforms-panel-sidebar-section icon wpforms-panel-sidebar-section-' . \esc_attr( $payment['slug'] ) . ' upgrade-modal" data-name="' . \esc_attr( $modal_name ) . '">';
-				echo '<img src="' . \esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . \esc_attr( $payment['img'] ) . '">';
-				echo \esc_html( $payment['name'] );
-				echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
-			echo '</a>';
+			$this->display_single_addon_btn( $payment );
 		}
+	}
+
+	/**
+	 * Display a single addon button in a builder.
+	 *
+	 * @since 1.5.7
+	 *
+	 * @param array $addon Required keys: name, slug, img.
+	 */
+	protected function display_single_addon_btn( $addon ) {
+
+		if ( ! isset( $addon['name'], $addon['slug'], $addon['img'] ) ) {
+			return;
+		}
+
+		/* translators: %s - addon name*/
+		$modal_name = sprintf( \esc_html__( '%s addon', 'wpforms-lite' ), $addon['name'] );
+
+		echo '<a href="#" class="wpforms-panel-sidebar-section icon wpforms-panel-sidebar-section-' . \esc_attr( $addon['slug'] ) . ' upgrade-modal" data-name="' . \esc_attr( $modal_name ) . '">';
+		echo '<img src="' . \esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . \esc_attr( $addon['img'] ) . '">';
+		echo \esc_html( $addon['name'] );
+		echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
+		echo '</a>';
+	}
+
+	/**
+	 * Targeting on `reCAPTCHA` field button in the builder.
+	 *
+	 * TODO: Lite and Pro Education duplicate this code.
+	 *
+	 * @since 1.5.7
+	 */
+	public function recaptcha_field_callback() {
+
+		// Run a security check.
+		check_ajax_referer( 'wpforms-builder', 'nonce' );
+
+		// Check for permissions.
+		if ( ! wpforms_current_user_can() ) {
+			die( esc_html__( 'You do not have permission.', 'wpforms-lite' ) );
+		}
+
+		// Check for form ID.
+		if ( ! isset( $_POST['id'] ) || empty( $_POST['id'] ) ) {
+			die( esc_html__( 'No form ID found.', 'wpforms-lite' ) );
+		}
+
+		// Gets an actual form data.
+		$form_id   = absint( $_POST['id'] );
+		$form_data = wpforms()->form->get( $form_id, array( 'content_only' => true ) );
+
+		if ( empty( $form_data ) ) {
+			wp_send_json_error( esc_html__( 'Something wrong. Please, try again later.', 'wpforms-lite' ) );
+		}
+
+		// Check that recaptcha is configured in the settings.
+		$site_key       = wpforms_setting( 'recaptcha-site-key' );
+		$secret_key     = wpforms_setting( 'recaptcha-secret-key' );
+		$recaptcha_type = wpforms_setting( 'recaptcha-type', 'v2' );
+
+		// Get a recaptcha name.
+		switch ( $recaptcha_type ) {
+			case 'v2':
+				$recaptcha_name = esc_html__( 'Google Checkbox v2 reCAPTCHA', 'wpforms-lite' );
+				break;
+			case 'invisible':
+				$recaptcha_name = esc_html__( 'Google Invisible v2 reCAPTCHA', 'wpforms-lite' );
+				break;
+			case 'v3':
+				$recaptcha_name = esc_html__( 'Google v3 reCAPTCHA', 'wpforms-lite' );
+				break;
+			default:
+				$recaptcha_name = '';
+				break;
+		}
+
+		if ( empty( $recaptcha_name ) ) {
+			wp_send_json_error( esc_html__( 'Something wrong. Please, try again later.', 'wpforms-lite' ) );
+		}
+
+		// Prepare a result array.
+		$data = array(
+			'current' => false,
+			'cases'   => array(
+				'not_configured'         => array(
+					'title'   => esc_html__( 'Heads up!', 'wpforms-lite' ),
+					'content' => sprintf(
+						wp_kses( /* translators: %1$s - reCaptcha settings page URL; %2$s - WPForms.com doc URL. */
+							__( 'Google reCAPTCHA isn\'t configured yet. Please complete the setup in your <a href="%1$s" target="_blank">WPForms Settings</a>, and check out our <a href="%2$s" target="_blank" rel="noopener noreferrer">step by step tutorial</a> for full details.', 'wpforms-lite' ),
+							array(
+								'a' => array(
+									'href'   => true,
+									'rel'    => true,
+									'target' => true,
+								),
+							)
+						),
+						esc_url( admin_url( 'admin.php?page=wpforms-settings&view=recaptcha' ) ),
+						'https://wpforms.com/docs/setup-captcha-wpforms/'
+					),
+				),
+				'configured_not_enabled' => array(
+					'title'   => false,
+					/* translators: %s - reCAPTCHA type. */
+					'content' => sprintf( esc_html__( '%s has been enabled for this form. Don\'t forget to save your form!', 'wpforms-lite' ), $recaptcha_name ),
+				),
+				'configured_enabled'     => array(
+					'title'   => false,
+					'content' => esc_html__( 'Are you sure you want to disable Google reCAPTCHA for this form?', 'wpforms-lite' ),
+					'cancel'  => true,
+				),
+			),
+		);
+
+		if ( ! $site_key || ! $secret_key ) {
+
+			// If reCAPTCHA is not configured in the WPForms plugin settings.
+			$data['current'] = 'not_configured';
+
+		} elseif ( ! isset( $form_data['settings']['recaptcha'] ) || '1' !== $form_data['settings']['recaptcha'] ) {
+
+			// If reCAPTCHA is configured in WPForms plugin settings, but wasn't set in form settings.
+			$data['current'] = 'configured_not_enabled';
+
+		} else {
+
+			// If reCAPTCHA is configured in WPForms plugin and form settings.
+			$data['current'] = 'configured_enabled';
+		}
+
+		wp_send_json_success( $data );
 	}
 }

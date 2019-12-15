@@ -23,22 +23,6 @@ class Excerpt extends Base_View {
 	 */
 	public function init() {
 		add_action( 'neve_excerpt_archive', array( $this, 'render_post_excerpt' ), 10, 2 );
-		add_filter( 'neve_the_content', array( $this, 'maybe_load_otter_style' ) );
-	}
-
-	/**
-	 * Load otter style if the plugin exist.
-	 */
-	public function maybe_load_otter_style( $content ) {
-		if ( ! class_exists( 'ThemeIsle\BlockCSS\Block_Frontend', false ) ) {
-			return $content;
-		}
-		global $post;
-		$pid            = $post->ID;
-		$otter_instance = new \ThemeIsle\BlockCSS\Block_Frontend();
-		$otter_instance->enqueue_styles( $pid, true );
-		return $content;
-
 	}
 
 	/**
@@ -47,7 +31,7 @@ class Excerpt extends Base_View {
 	 * @param string $context the provided context in do_action.
 	 */
 	public function render_post_excerpt( $context ) {
-		echo wp_kses_post( $this->get_post_excerpt( $context ) );
+		echo $this->get_post_excerpt( $context ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -62,7 +46,7 @@ class Excerpt extends Base_View {
 
 		$output  = '';
 		$output .= '<div class="excerpt-wrap entry-summary">';
-		$output .= wp_kses_post( $this->get_excerpt( $length ) );
+		$output .= $this->get_excerpt( $length );
 		$output .= '</div>';
 
 		return $output;
@@ -80,24 +64,22 @@ class Excerpt extends Base_View {
 		global $post;
 
 		if ( $length === 300 ) {
-			return apply_filters( 'neve_the_content', get_the_content() );
+			return apply_filters( 'the_content', get_the_content() );
 		}
 
 		if ( strpos( $post->post_content, '<!--more-->' ) ) {
-			return apply_filters( 'neve_the_content', get_the_content() );
+			return apply_filters( 'the_content', get_the_content() );
 		}
 
 		if ( has_excerpt() ) {
-			$content = get_the_excerpt();
-
-			return $content;
+			return apply_filters( 'the_excerpt', get_the_excerpt() );
 		}
 
 		add_filter( 'excerpt_length', array( $this, 'change_excerpt_length' ), 10 );
 		$content = get_the_excerpt();
 		remove_filter( 'excerpt_length', array( $this, 'change_excerpt_length' ), 10 );
 
-		return $content;
+		return apply_filters( 'the_excerpt', $content );
 	}
 
 	/**

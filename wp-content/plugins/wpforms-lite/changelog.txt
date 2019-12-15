@@ -1,5 +1,23 @@
 == Changelog ==
 
+= 1.5.7 =
+- Added: Number Slider field.
+- Added: reCAPTCHA field in Form Builder allowing to easily manage the reCAPTCHA for a form.
+- Added: Admin area quick links menu.
+- Added: Analytics sub-menu page.
+- Added: SMTP sub-menu page.
+- Changed: Improved forms bulk actions processing.
+- Changed: Added a Form Builder splash screen which is displayed on mobile devices.
+- Changed: Display warning message if JavaScript is disabled in the browser.
+- Changed: Improved form front-end display and alignment for Gutenberg focused themes.
+- Changed: Improved invisible reCAPTCHA behavior when form is submitted.
+- Changed: Improved actions and filters for notification emails.
+- Fixed: Duplicate of the duplicated form created on page reload.
+- Fixed: Do not submit the form via AJAX (if enabled in form settings) when in AMP mode.
+- Fixed: WordPress 5.3 admin area styling issues.
+- Fixed: Number field incorrectly processing negative numbers.
+- Fixed: `page_url` Smart Tag issues.
+
 = 1.5.6.2 =
 - Added: Default value for "Paragraph text" field.
 - Fixed: WordPress 5.3 compatibility.

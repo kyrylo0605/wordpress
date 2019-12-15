@@ -70,6 +70,7 @@
 .bookly-form input[type="password"],
 .bookly-form select,
 .bookly-form textarea {
+    display: inline;
     margin: 0 !important;
     outline: none !important;
 }
@@ -83,9 +84,13 @@
     padding: 5px 6px 4px !important;
 }
 .bookly-form label {
+    display: inline;
     float: none;
     width: auto;
     font-size: 14px;
+}
+.bookly-form img {
+    display: inline;
 }
 .bookly-form .bookly-label-error {
     font-size: 12px;
@@ -650,7 +655,7 @@ select.bookly-time-zone-switcher {
     margin: 0 !important;
 }
 
-.bookly-pagination > li {
+.bookly-form .bookly-pagination > li, .bookly-pagination > li {
     line-height: 32px;
     display: inline-block;
     border: 1px solid #cccccc !important;

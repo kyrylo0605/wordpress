@@ -116,6 +116,13 @@ jQuery(function($) {
             responsivePriority: 3
         });
     }
+    if (BooklyL10n.add_columns.location) {
+        columns.push({
+            data: 'location',
+            render: $.fn.dataTable.render.text(),
+            responsivePriority: 3
+        });
+    }
     columns = columns.concat([
         {
             data: 'service.title',
@@ -494,6 +501,7 @@ jQuery(function($) {
             width: '100%',
             theme: 'bootstrap',
             allowClear: true,
+            placeholder: '',
             language  : {
                 noResults: function() { return BooklyL10n.no_result_found; }
             }
@@ -504,6 +512,7 @@ jQuery(function($) {
             width: '100%',
             theme: 'bootstrap',
             allowClear: true,
+            placeholder: '',
             language  : {
                 noResults: function() { return BooklyL10n.no_result_found; },
                 searching: function () { return BooklyL10n.searching; }
@@ -515,7 +524,7 @@ jQuery(function($) {
                 data: function (params) {
                     params.page = params.page || 1;
                     return {
-                        action: $(this).data('action'),
+                        action: this.action === undefined ? $(this).data('ajax--action') : this.action,
                         filter: params.term,
                         page: params.page,
                         csrf_token : BooklyL10n.csrf_token

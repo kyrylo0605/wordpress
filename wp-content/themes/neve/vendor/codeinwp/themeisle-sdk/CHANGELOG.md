@@ -1,3 +1,18 @@
+## [3.1.8](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.7...v3.1.8) (2019-11-18)
+
+
+### Bug Fixes
+
+* update developers name ([6aca63e](https://github.com/Codeinwp/themeisle-sdk/commit/6aca63e))
+
+## [3.1.7](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.6...v3.1.7) (2019-11-07)
+
+
+### Bug Fixes
+
+* license field style on wp5.3 ([0239997](https://github.com/Codeinwp/themeisle-sdk/commit/0239997))
+* license field style on wp5.3 ([86d3a1b](https://github.com/Codeinwp/themeisle-sdk/commit/86d3a1b))
+
 ## [3.1.6](https://github.com/Codeinwp/themeisle-sdk/compare/v3.1.5...v3.1.6) (2019-09-24)
 
 

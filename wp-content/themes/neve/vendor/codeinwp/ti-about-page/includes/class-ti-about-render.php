@@ -84,9 +84,10 @@ class TI_About_Render {
 				$white_label_options = get_option( 'ti_white_label_inputs' );
 				$white_label_options = json_decode( $white_label_options, true );
 				if ( empty( $white_label_options['theme_name'] ) ) { ?>
-					<a href="https://themeisle.com/" class="ti-logo"><img
+					<span class="ti-logo"><img
 							src="<?php echo esc_url( TI_ABOUT_PAGE_URL . 'assets/img/logo.png' ) ?>"
-							alt="logo"/></a>
+							alt="logo"/>
+					</span>
 					<?php
 				} ?>
 			</div>

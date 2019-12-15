@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WooCommerce Admin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Admin 0.23.0\n"
+"Project-Id-Version: WooCommerce Admin 0.23.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-admin\n"
-"POT-Creation-Date: 2019-12-05 23:13:21+00:00\n"
+"POT-Creation-Date: 2019-12-08 18:40:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2330,8 +2330,8 @@ msgid ""
 "out {{helpLink}}what you need{{/helpLink}}."
 msgstr ""
 
-#: languages/woocommerce-admin.php:1657 src/Features/Onboarding.php:705
-#: src/Features/Onboarding.php:709
+#: languages/woocommerce-admin.php:1657 src/Features/Onboarding.php:713
+#: src/Features/Onboarding.php:717
 #: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:193
 msgid "Connect"
 msgstr ""
@@ -5184,69 +5184,69 @@ msgstr ""
 msgid " — %s"
 msgstr ""
 
-#: src/Features/Onboarding.php:628 src/Features/Onboarding.php:712
+#: src/Features/Onboarding.php:632 src/Features/Onboarding.php:720
 msgid "New onboarding experience"
 msgstr ""
 
-#: src/Features/Onboarding.php:629
+#: src/Features/Onboarding.php:633
 msgid ""
 "If you want to try out the new WooCommerce onboarding experience, click the "
 "button below."
 msgstr ""
 
-#: src/Features/Onboarding.php:630 src/Features/Onboarding.php:691
-#: src/Features/Onboarding.php:697
+#: src/Features/Onboarding.php:634 src/Features/Onboarding.php:699
+#: src/Features/Onboarding.php:705
 msgid "Enable"
 msgstr ""
 
-#: src/Features/Onboarding.php:685
+#: src/Features/Onboarding.php:693
 msgid "WooCommerce Onboarding"
 msgstr ""
 
-#: src/Features/Onboarding.php:687
+#: src/Features/Onboarding.php:695
 msgid "Profile Setup Wizard"
 msgstr ""
 
-#: src/Features/Onboarding.php:688
+#: src/Features/Onboarding.php:696
 msgid ""
 "If you need to enable or disable the setup wizard again, please click on "
 "the button below."
 msgstr ""
 
-#: src/Features/Onboarding.php:690 src/Features/Onboarding.php:698
-#: src/Features/Onboarding.php:714
+#: src/Features/Onboarding.php:698 src/Features/Onboarding.php:706
+#: src/Features/Onboarding.php:722
 msgid "Disable"
 msgstr ""
 
-#: src/Features/Onboarding.php:694
+#: src/Features/Onboarding.php:702
 msgid "Task List"
 msgstr ""
 
-#: src/Features/Onboarding.php:695
+#: src/Features/Onboarding.php:703
 msgid ""
 "If you need to enable or disable the task list, please click on the button "
 "below."
 msgstr ""
 
-#: src/Features/Onboarding.php:702
+#: src/Features/Onboarding.php:710
 msgid "Calypso / WordPress.com"
 msgstr ""
 
-#: src/Features/Onboarding.php:704
+#: src/Features/Onboarding.php:712
 msgid "Quickly access the Jetpack connection flow in Calypso."
 msgstr ""
 
-#: src/Features/Onboarding.php:708
+#: src/Features/Onboarding.php:716
 msgid "Quickly access the WooCommerce.com connection flow in Calypso."
 msgstr ""
 
-#: src/Features/Onboarding.php:713
+#: src/Features/Onboarding.php:721
 msgid ""
 "To disable the new WooCommerce onboarding experience, click the button "
 "below."
 msgstr ""
 
-#: src/Features/Onboarding.php:761 src/Features/Onboarding.php:767
+#: src/Features/Onboarding.php:769 src/Features/Onboarding.php:775
 msgid "WooCommerce Helper was not able to connect to WooCommerce.com."
 msgstr ""
 

@@ -68,6 +68,7 @@ class WPForms_Fields {
 				'payment-dropdown',
 				'payment-credit-card',
 				'payment-total',
+				'number-slider',
 			)
 		);
 

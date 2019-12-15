@@ -15,6 +15,8 @@ class WPForms_Overview_Table extends WP_List_Table {
 	 * Number of forms to show per page.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @var int
 	 */
 	public $per_page;
 
@@ -34,14 +36,15 @@ class WPForms_Overview_Table extends WP_List_Table {
 			)
 		);
 
-		// Default number of forms to show per page
-		$this->per_page = apply_filters( 'wpforms_overview_per_page', 20 );
+		// Default number of forms to show per page.
+		$this->per_page = (int) apply_filters( 'wpforms_overview_per_page', 20 );
 	}
 
 	/**
 	 * Retrieve the table columns.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @return array $columns Array of all the list table columns.
 	 */
 	public function get_columns() {
@@ -235,95 +238,6 @@ class WPForms_Overview_Table extends WP_List_Table {
 	}
 
 	/**
-	 * Process the bulk actions.
-	 *
-	 * @since 1.0.0
-	 */
-	public function process_bulk_actions() {
-
-		$ids = isset( $_GET['form_id'] ) ? $_GET['form_id'] : array();
-
-		if ( ! is_array( $ids ) ) {
-			$ids = array( $ids );
-		}
-
-		$ids    = array_map( 'absint', $ids );
-		$action = ! empty( $_REQUEST['action'] ) ? $_REQUEST['action'] : false; // phpcs:ignore
-
-		// Checking the sortable column link.
-		$is_orderby_link = ! empty( $_REQUEST['orderby'] ) && ! empty( $_REQUEST['order'] );
-
-		if ( empty( $ids ) || empty( $action ) || $is_orderby_link ) {
-			return;
-		}
-
-		// Delete one or multiple forms - both delete links and bulk actions.
-		if ( 'delete' === $this->current_action() ) {
-
-			if (
-				wp_verify_nonce( $_GET['_wpnonce'], 'bulk-forms' ) ||
-				wp_verify_nonce( $_GET['_wpnonce'], 'wpforms_delete_form_nonce' )
-			) {
-				foreach ( $ids as $id ) {
-					wpforms()->form->delete( $id );
-				}
-				?>
-				<div class="notice updated">
-					<p>
-						<?php
-						if ( count( $ids ) === 1 ) {
-							esc_html_e( 'Form was successfully deleted.', 'wpforms-lite' );
-						} else {
-							esc_html_e( 'Forms were successfully deleted.', 'wpforms-lite' );
-						}
-						?>
-					</p>
-				</div>
-				<?php
-			} else {
-				?>
-				<div class="notice updated">
-					<p>
-						<?php esc_html_e( 'Security check failed. Please try again.', 'wpforms-lite' ); ?>
-					</p>
-				</div>
-				<?php
-			}
-		}
-
-		// Duplicate form - currently just delete links (no bulk action at the moment).
-		if ( 'duplicate' === $this->current_action() ) {
-
-			if ( wp_verify_nonce( $_GET['_wpnonce'], 'wpforms_duplicate_form_nonce' ) ) {
-				foreach ( $ids as $id ) {
-					wpforms()->form->duplicate( $id );
-				}
-				?>
-				<div class="notice updated">
-					<p>
-						<?php
-						if ( count( $ids ) === 1 ) {
-							esc_html_e( 'Form was successfully duplicated.', 'wpforms-lite' );
-						} else {
-							esc_html_e( 'Forms were successfully duplicated.', 'wpforms-lite' );
-						}
-						?>
-					</p>
-				</div>
-				<?php
-			} else {
-				?>
-				<div class="notice updated">
-					<p>
-						<?php esc_html_e( 'Security check failed. Please try again.', 'wpforms-lite' ); ?>
-					</p>
-				</div>
-				<?php
-			}
-		}
-	}
-
-	/**
 	 * Message to be displayed when there are no forms.
 	 *
 	 * @since 1.0.0
@@ -339,7 +253,7 @@ class WPForms_Overview_Table extends WP_List_Table {
 					),
 				)
 			),
-			admin_url( 'admin.php?page=wpforms-builder' )
+			esc_url( admin_url( 'admin.php?page=wpforms-builder' ) )
 		);
 	}
 
@@ -349,9 +263,6 @@ class WPForms_Overview_Table extends WP_List_Table {
 	 * @since 1.0.0
 	 */
 	public function prepare_items() {
-
-		// Process bulk actions if found.
-		$this->process_bulk_actions();
 
 		// Setup the columns.
 		$columns = $this->get_columns();

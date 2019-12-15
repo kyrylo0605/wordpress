@@ -1,5 +1,5 @@
 <?php
-function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_powered = true) {
+function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $hide_based_on, $show_powered = true) {
     ?>
     <div class="wp-google-left">
         <img src="<?php echo $place_img; ?>" alt="<?php echo $place->name; ?>" width="50" height="50" title="<?php echo $place->name; ?>">
@@ -13,6 +13,9 @@ function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_pow
             <span class="wp-google-rating"><?php echo $rating; ?></span>
             <span class="wp-google-stars"><?php grw_stars($rating); ?></span>
         </div>
+        <?php if (!$hide_based_on && isset($place->review_count)) { ?>
+        <div class="wp-google-powered"><?php echo grw_i('Based on %s reviews', $place->review_count); ?></div>
+        <?php } ?>
         <?php if ($show_powered) { ?>
         <div class="wp-google-powered">
             <img src="<?php echo GRW_PLUGIN_URL; ?>/static/img/powered_by_google_on_<?php if ($dark_theme) { ?>non_<?php } ?>white.png" alt="powered by Google" width="144" height="18" title="powered by Google">

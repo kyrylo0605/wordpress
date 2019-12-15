@@ -1562,6 +1562,9 @@ msgstr ""
 msgid "Show timezone"
 msgstr ""
 
+msgid "Location"
+msgstr ""
+
 msgid "Category"
 msgstr ""
 
@@ -2101,9 +2104,6 @@ msgstr ""
 msgid "Additional address is required"
 msgstr ""
 
-msgid "Location"
-msgstr ""
-
 msgid ""
 "The highlighted time is not available anymore. Please, choose another time "
 "slot."
@@ -2194,6 +2194,29 @@ msgid "To"
 msgstr ""
 
 msgid "From"
+msgstr ""
+
+msgid "Important"
+msgstr ""
+
+msgid ""
+"Though, every new version is thoroughly tested to its highest quality before "
+"deploying, we can't guarantee that after update the plugin will work "
+"properly on all WordPress configurations and completely protect it from the "
+"influence of other plugins."
+msgstr ""
+
+#, php-format
+msgid ""
+"There is a small risk that some issues may appear as a result of updating "
+"the plugin. Please note that, according to %1$s Envato rules %2$s, we will "
+"be able to help you only if you have active item support period."
+msgstr ""
+
+#, php-format
+msgid ""
+"You can renew support %1$s here %3$s or %2$s I've already renewed support. "
+"%3$s"
 msgstr ""
 
 msgid "Local"
@@ -2853,7 +2876,22 @@ msgstr ""
 msgid ""
 "Allow the plugin to set a Powered by Bookly notice on the booking widget to "
 "spread information about the plugin. This will allow the team to improve the "
-"product and enhance its functionality."
+"product and enhance its functionality"
+msgstr ""
+
+msgid "Caching of pages with booking form"
+msgstr ""
+
+msgid ""
+"Select \"Prevent\" if you want Bookly to prevent caching by third-party "
+"caching plugins by adding a DONOTCACHEPAGE constant on pages with booking "
+"form."
+msgstr ""
+
+msgid "Allow"
+msgstr ""
+
+msgid "Prevent"
 msgstr ""
 
 msgid "Service paid locally"
@@ -3877,6 +3915,12 @@ msgid "Subscribe to monthly emails about Bookly improvements and new releases."
 msgstr ""
 
 msgid ""
+"Allow the plugin to set a Powered by Bookly notice on the booking widget to "
+"spread information about the plugin. This will allow the team to improve the "
+"product and enhance its functionality."
+msgstr ""
+
+msgid ""
 "How likely is it that you would recommend Bookly to a friend or colleague?"
 msgstr ""
 
@@ -4415,26 +4459,6 @@ msgstr ""
 msgid "Extras"
 msgstr ""
 
-#, php-format
-msgid ""
-"There is a new version of %s available. <a href=\"%s\" %s>View version %s "
-"details</a>."
-msgstr ""
-
-#, php-format
-msgid "View %s version %s details"
-msgstr ""
-
-#, php-format
-msgid ""
-"Automatic update is available during active support period, %1$s renew now "
-"%3$s or %2$s I've already renewed support. %3$s"
-msgstr ""
-
-#, php-format
-msgid "If you want to update the plugin manually, visit this %s page. %s"
-msgstr ""
-
 msgid "Check for updates"
 msgstr ""
 
@@ -4654,6 +4678,18 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
+msgid ""
+"Select columns that you want to display in a cart summary before the booking "
+"confirmation. Uncheck the box to hide the column. Drag the sandwich icon to "
+"change the order of fields."
+msgstr ""
+
+msgid ""
+"If you use {cart_info} code in notifications, you can select the columns "
+"that you want to display and set the order of fields here. Uncheck the box "
+"to hide the column."
+msgstr ""
+
 msgid "To find your client ID and client secret, do the following:"
 msgstr ""
 
@@ -4768,6 +4804,13 @@ msgstr ""
 msgid ""
 "If you do not provide a valid purchase code within {days}, access to your "
 "bookings will be disabled."
+msgstr ""
+
+msgid "Customer address"
+msgstr ""
+
+msgid ""
+"Configure how the customer's address will be displayed in notifications."
 msgstr ""
 
 msgid "Cart"

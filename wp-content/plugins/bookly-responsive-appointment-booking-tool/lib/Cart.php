@@ -436,7 +436,7 @@ class Cart
                                 Proxy\Shared::prepareStatement( 0, 'COALESCE(s.padding_left,0)', 'Service' ),
                                 Proxy\Shared::prepareStatement( 0, 'COALESCE(s.padding_right,0)', 'Service' ) ) )
                             ->leftJoin( 'Appointment', 'a', 'a.id = ca.appointment_id' )
-                            ->leftJoin( 'StaffService', 'ss', 'ss.staff_id = a.staff_id AND ss.service_id = a.service_id AND ss.location_id <=> a.location_id' )
+                            ->leftJoin( 'StaffService', 'ss', 'ss.staff_id = a.staff_id AND ss.service_id = a.service_id' )
                             ->leftJoin( 'Service', 's', 's.id = a.service_id' )
                             ->where( 'a.staff_id', $staff_id )
                             ->whereIn( 'ca.status', Proxy\CustomStatuses::prepareBusyStatuses( array(
@@ -447,6 +447,13 @@ class Cart
                             ->havingRaw( '%s > bound_left AND bound_right > %s AND ( total_number_of_persons + %d ) > ss.capacity_max',
                                 array( $bound_end->format( 'Y-m-d H:i:s' ), $bound_start->format( 'Y-m-d H:i:s' ), $cart_item->getNumberOfPersons() ) )
                             ->limit( 1 );
+                        if ( Config::locationsActive() && get_option( 'bookly_locations_allow_services_per_location' ) ) {
+                            $query
+                                ->leftJoin( 'StaffLocation', 'sl', 'sl.staff_id = ss.staff_id', '\BooklyLocations\Lib\Entities' )
+                                ->whereRaw( '( ss.location_id IS NULL AND sl.custom_services = 0 ) OR ( ss.location_id IS NOT NULL AND sl.custom_services = 1 AND sl.location_id = ss.location_id )', array() );
+                        } else {
+                            $query->where( 'ss.location_id', null );
+                        }
                         $rows  = $query->execute( Query::HYDRATE_NONE );
 
                         if ( $rows != 0 ) {

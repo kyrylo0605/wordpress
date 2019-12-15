@@ -134,7 +134,6 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				app.fieldGroupToggle($(this),'load');
 			});
 
-
 			app.registerTemplates();
 
 			// Trim long form titles.
@@ -190,6 +189,397 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 						app.fieldFileUploadPreviewUpdate( event.target );
 					}
 				);
+		},
+
+		/**
+		 * Add number slider events listeners.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} $builder JQuery object.
+		 */
+		numberSliderEvents: function( $builder ) {
+
+			// Minimum update.
+			$builder.on(
+				'input',
+				'.wpforms-field-option-row-min_max .wpforms-input-row .wpforms-number-slider-min',
+				app.fieldNumberSliderUpdateMin
+			);
+
+			// Maximum update.
+			$builder.on(
+				'input',
+				'.wpforms-field-option-row-min_max .wpforms-input-row .wpforms-number-slider-max',
+				app.fieldNumberSliderUpdateMax
+			);
+
+			// Change default input value.
+			$builder.on(
+				'input',
+				'.wpforms-number-slider-default-value',
+				_.debounce( app.changeNumberSliderDefaultValue, 500 )
+			);
+
+			// Change step value.
+			$builder.on(
+				'input',
+				'.wpforms-number-slider-step',
+				_.debounce( app.changeNumberSliderStep, 500 )
+			);
+
+			// Change value display.
+			$builder.on(
+				'input',
+				'.wpforms-number-slider-value-display',
+				_.debounce( app.changeNumberSliderValueDisplay, 500 )
+			);
+
+			// Change min value.
+			$builder.on(
+				'input',
+				'.wpforms-number-slider-min',
+				_.debounce( app.changeNumberSliderMin, 500 )
+			);
+
+			// Change max value.
+			$builder.on(
+				'input',
+				'.wpforms-number-slider-max',
+				_.debounce( app.changeNumberSliderMax, 500 )
+			);
+		},
+
+		/**
+		 * Change number slider min option.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		changeNumberSliderMin: function( event ) {
+
+			var fieldID = $( event.target ).parents( '.wpforms-field-option-row' ).data( 'fieldId' );
+			var value   = parseFloat( event.target.value );
+
+			if ( isNaN( value ) ) {
+				return;
+			}
+
+			app.updateNumberSliderDefaultValueAttr( fieldID, event.target.value, 'min' );
+		},
+
+		/**
+		 * Change number slider max option.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		changeNumberSliderMax: function( event ) {
+
+			var fieldID = $( event.target ).parents( '.wpforms-field-option-row' ).data( 'fieldId' );
+			var value   = parseFloat( event.target.value );
+
+			if ( isNaN( value ) ) {
+				return;
+			}
+
+			app.updateNumberSliderDefaultValueAttr( fieldID, event.target.value, 'max' )
+				.updateNumberSliderStepValueMaxAttr( fieldID, event.target.value );
+		},
+
+		/**
+		 * Change number slider value display option.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		changeNumberSliderValueDisplay: function( event ) {
+
+			var str = event.target.value;
+			var fieldID = $( event.target ).parents( '.wpforms-field-option-row' ).data( 'fieldId' );
+			var defaultValue = document.getElementById( 'wpforms-field-option-' + fieldID + '-default_value' );
+
+			if ( str.includes( '{value}' ) && defaultValue ) {
+				app.updateNumberSliderHintStr( fieldID, str )
+					.updateNumberSliderHint( fieldID, defaultValue.value );
+			}
+		},
+
+		/**
+		 * Change number slider step option.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		changeNumberSliderStep: function( event ) {
+
+			var value = parseFloat( event.target.value );
+
+			if ( ! isNaN( value ) ) {
+				var max = parseFloat( event.target.max );
+				var min = parseFloat( event.target.min );
+				var fieldID = $( event.target ).parents( '.wpforms-field-option-row' ).data( 'fieldId' );
+
+				if ( value > max ) {
+					event.target.value = max;
+
+					return;
+				}
+
+				if ( value < min ) {
+					event.target.value = min;
+
+					return;
+				}
+
+				app.updateNumberSliderAttr( fieldID, value, 'step' )
+					.updateNumberSliderDefaultValueAttr( fieldID, value, 'step' );
+			}
+		},
+
+		/**
+		 * Change number slider default value option.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		changeNumberSliderDefaultValue: function( event ) {
+
+			var value = parseFloat( event.target.value );
+
+			if ( ! isNaN( value ) ) {
+				var max     = parseFloat( event.target.max );
+				var min     = parseFloat( event.target.min );
+				var fieldID = $( event.target ).parents( '.wpforms-field-option-row-default_value' ).data( 'fieldId' );
+
+				if ( value > max ) {
+					event.target.value = max;
+
+					return;
+				}
+
+				if ( value < min ) {
+					event.target.value = min;
+
+					return;
+				}
+
+				app.updateNumberSlider( fieldID, value )
+					.updateNumberSliderHint( fieldID, value );
+			}
+		},
+
+		/**
+		 * Update number slider default value attribute.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {number} fieldID Field ID.
+		 * @param {*} newValue Default value attribute.
+		 * @param {*} attr Attribute name.
+		 *
+		 * @returns {object} App instance.
+		 */
+		updateNumberSliderDefaultValueAttr: function( fieldID, newValue, attr ) {
+
+			var input = document.getElementById( 'wpforms-field-option-' + fieldID + '-default_value' );
+
+			if ( input ) {
+				var value = parseFloat( input.value );
+
+				input.setAttribute( attr, newValue );
+				newValue = parseFloat( newValue );
+
+				if ( 'max' === attr && value > newValue ) {
+					input.value = newValue;
+					$( input ).trigger( 'input' );
+				}
+
+				if ( 'min' === attr && value < newValue ) {
+					input.value = newValue;
+					$( input ).trigger( 'input' );
+				}
+			}
+
+			return this;
+		},
+
+		/**
+		 * Update number slider value.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {number} fieldID Field ID.
+		 * @param {string} value Number slider value.
+		 *
+		 * @returns {object} App instance.
+		 */
+		updateNumberSlider: function( fieldID, value ) {
+
+			var numberSlider = document.getElementById( 'wpforms-number-slider-' + fieldID );
+
+			if ( numberSlider ) {
+				numberSlider.value = value;
+			}
+
+			return this;
+		},
+
+		/**
+		 * Update number slider attribute.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {number} fieldID Field ID.
+		 * @param {mixed} value Attribute value.
+		 * @param {*} attr Attribute name.
+		 *
+		 * @returns {object} App instance.
+		 */
+		updateNumberSliderAttr: function( fieldID, value, attr ) {
+
+			var numberSlider = document.getElementById( 'wpforms-number-slider-' + fieldID );
+
+			if ( numberSlider ) {
+				numberSlider.setAttribute( attr, value );
+			}
+
+			return this;
+		},
+
+		/**
+		 * Update number slider hint string.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {number} fieldID Field ID.
+		 * @param {string} str Hint string.
+		 *
+		 * @returns {object} App instance.
+		 */
+		updateNumberSliderHintStr: function( fieldID, str ) {
+
+			var hint = document.getElementById( 'wpforms-number-slider-hint-' + fieldID );
+
+			if ( hint ) {
+				hint.dataset.hint = str;
+			}
+
+			return this;
+		},
+
+		/**
+		 * Update number slider Hint value.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {number} fieldID Field ID.
+		 * @param {string} value Hint value.
+		 *
+		 * @returns {object} App instance.
+		 */
+		updateNumberSliderHint: function( fieldID, value ) {
+
+			var hint = document.getElementById( 'wpforms-number-slider-hint-' + fieldID );
+
+			if ( hint ) {
+				hint.innerHTML = hint.dataset.hint.replace( '{value}', '<b>' + value + '</b>' );
+			}
+
+			return this;
+		},
+
+		/**
+		 * Update min attribute.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		fieldNumberSliderUpdateMin: function( event ) {
+
+			var $options = $( event.target ).parents( '.wpforms-field-option-row-min_max' );
+			var max = parseFloat( $options.find( '.wpforms-number-slider-max' ).val() );
+			var current = parseFloat( event.target.value );
+
+			if ( isNaN( current ) ) {
+				return;
+			}
+
+			if ( max <= current ) {
+				event.preventDefault();
+				this.value = max;
+
+				return;
+			}
+
+			var fieldId = $options.data( 'field-id' );
+			var numberSlider = $builder.find( '#wpforms-field-' + fieldId + ' input[type="range"]' );
+
+			numberSlider.attr( 'min', current );
+		},
+
+		/**
+		 * Update max attribute.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {object} event Input event.
+		 */
+		fieldNumberSliderUpdateMax: function( event ) {
+			var $options = $( event.target ).parents( '.wpforms-field-option-row-min_max' );
+			var min = parseFloat( $options.find( '.wpforms-number-slider-min' ).val() );
+			var current = parseFloat( event.target.value );
+
+			if ( isNaN( current ) ) {
+				return;
+			}
+
+			if ( min >= current ) {
+				event.preventDefault();
+				this.value = min;
+
+				return;
+			}
+
+			var fieldId = $options.data( 'field-id' );
+			var numberSlider = $builder.find( '#wpforms-field-' + fieldId + ' input[type="range"]' );
+
+			numberSlider.attr( 'max', current );
+		},
+
+		/**
+		 * Update max attribute for step value.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @param {number} fieldID Field ID.
+		 * @param {*} newValue Default value attribute.
+		 *
+		 * @returns {object} App instance.
+		 */
+		updateNumberSliderStepValueMaxAttr: function( fieldID, newValue ) {
+
+			var input = document.getElementById( 'wpforms-field-option-' + fieldID + '-step' );
+
+			if ( input ) {
+				var value = parseFloat( input.value );
+
+				input.setAttribute( 'max', newValue );
+				newValue = parseFloat( newValue );
+
+				if ( value > newValue ) {
+					input.value = newValue;
+					$( input ).trigger( 'input' );
+				}
+			}
+
+			return this;
 		},
 
 		/**
@@ -725,12 +1115,12 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 			});
 
 			// Real-time updates for "Show Label" field option
-			$builder.on('input', '.wpforms-field-option-row-label input', function(e) {
-				var $this = $(this),
+			$builder.on( 'input', '.wpforms-field-option-row-label input, .wpforms-field-option-row-name input', function( e ) {
+				var $this = $( this ),
 					value = $this.val(),
-					id    = $this.parent().data('field-id');
-				$('#wpforms-field-'+id).find('.label-title .text').text(value);
-			});
+					id    = $this.parent().data( 'field-id' );
+				$( '#wpforms-field-' + id ).find( '.label-title .text' ).text( value );
+			} );
 
 			// Real-time updates for "Description" field option
 			$builder.on( 'input', '.wpforms-field-option-row-description textarea', function() {
@@ -1110,6 +1500,9 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 
 				$desc.toggleClass( 'disclaimer' );
 			});
+
+			// Real-time updates for Number Slider field.
+			app.numberSliderEvents( $builder );
 		},
 
 		/**
@@ -1353,6 +1746,11 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				return;
 			}
 
+			if ( type === 'recaptcha' ) {
+				app.recaptchaUpdate();
+				return;
+			}
+
 			var defaults = {
 				position   : 'bottom',
 				placeholder: false,
@@ -1453,6 +1851,84 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 		},
 
 		/**
+		 * Update reCAPTCHA setting.
+		 *
+		 * @since 1.5.7
+		 *
+		 * @returns {object} jqXHR
+		 */
+		recaptchaUpdate: function() {
+
+			var data = {
+				action : 'wpforms_update_field_recaptcha',
+				id     : s.formID,
+				nonce  : wpforms_builder.nonce,
+			};
+
+			return $.post( wpforms_builder.ajax_url, data, function( res ) {
+
+				if ( res.success ) {
+					var args = {
+							title: false,
+							content: false,
+							icon: 'fa fa-exclamation-circle',
+							type: 'orange',
+							backgroundDismiss: false,
+							closeIcon: false,
+							boxWidth: '450px',
+							buttons: {
+								confirm: {
+									text: wpforms_builder.ok,
+									btnClass: 'btn-confirm',
+									keys: [ 'enter' ],
+								},
+							},
+						},
+						$enableCheckbox = $( '#wpforms-panel-field-settings-recaptcha' ),
+						caseName        = res.data.current;
+
+					// Possible cases:
+					//
+					// not_configured - IF reCAPTCHA is not configured in the WPForms plugin settings
+					// configured_not_enabled - IF reCAPTCHA is configured in WPForms plugin settings, but wasn't set in form settings
+					// configured_enabled - IF reCAPTCHA is configured in WPForms plugin and form settings
+					if ( 'configured_not_enabled' === caseName || 'configured_enabled' === caseName ) {
+
+						// Get a correct case name.
+						caseName = $enableCheckbox.prop( 'checked' ) ? 'configured_enabled' : 'configured_not_enabled';
+
+						args.buttons.confirm.action = function() {
+
+							// Check/uncheck a `reCAPTCHA` checkbox in form setting.
+							$enableCheckbox
+								.prop( 'checked', ( 'configured_not_enabled' === caseName ) )
+								.trigger( 'change' );
+						};
+					}
+
+					args.title = res.data.cases[ caseName ].title;
+					args.content = res.data.cases[ caseName ].content;
+
+					// Do you need a Cancel button?
+					if ( res.data.cases[ caseName ].cancel ) {
+						args.buttons.cancel = {
+							text: wpforms_builder.cancel,
+							keys: [ 'esc' ],
+						};
+					}
+
+					// Call a Confirm modal.
+					$.confirm( args );
+
+				} else {
+					console.log( res );
+				}
+			} ).fail( function( xhr, textStatus, e ) {
+				console.log( xhr.responseText );
+			} );
+		},
+
+		/**
 		 * Sortable fields in the builder form preview area.
 		 *
 		 * @since 1.0.0
@@ -1525,23 +2001,28 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				   }
 			});
 
-			$('.wpforms-add-fields-button').not('.upgrade-modal').not('.warning-modal').draggable({
-				connectToSortable: '.wpforms-field-wrap',
-				delay: 200,
-				helper: function(event) {
-					var $this = $(this),
-						width = $this.outerWidth(),
-						text  = $this.html(),
-						type  = $this.data('field-type'),
-						$el   = $('<div class="wpforms-field-drag-out wpforms-field-drag">');
-					return $el.html(text).css('width',width).attr('data-original-width',width).attr('data-field-type',type);
-				},
-				revert: 'invalid',
-				cancel: false,
-				scroll: false,
-				opacity: 0.75,
-				containment: 'document'
-			});
+			$( '.wpforms-add-fields-button' )
+				.not( '.not-draggable' )
+				.not( '.upgrade-modal' )
+				.not( '.warning-modal' )
+				.draggable( {
+					connectToSortable: '.wpforms-field-wrap',
+					delay: 200,
+					helper: function() {
+						var $this = $( this ),
+							width = $this.outerWidth(),
+							text = $this.html(),
+							type = $this.data( 'field-type' ),
+							$el = $( '<div class="wpforms-field-drag-out wpforms-field-drag">' );
+
+						return $el.html( text ).css( 'width', width ).attr( 'data-original-width', width ).attr( 'data-field-type', type );
+					},
+					revert: 'invalid',
+					cancel: false,
+					scroll: false,
+					opacity: 0.75,
+					containment: 'document',
+				} );
 		},
 
 		/**
@@ -3071,6 +3552,12 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 			$builder.on( 'blur', '.wpforms-notification .wpforms-panel-field-textarea textarea', function() {
 				app.validateEmailSmartTags( $( this ) );
 			});
+
+			// Mobile notice button click.
+			$builder.on( 'click', '#wpforms-builder-mobile-notice button', app.exitBack );
+
+			// License Alert close button click.
+			$( '#wpforms-builder-license-alert .close' ).on( 'click', app.exitBack );
 		},
 
 		/**
@@ -3388,7 +3875,21 @@ var WPFormsBuilder = window.WPFormsBuilder || ( function( document, window, $ ) 
 				'wpforms-builder-confirmations-message-field',
 				'wpforms-builder-conditional-logic-toggle-field'
 			]);
-		}
+		},
+
+		/**
+		 * Exit builder.
+		 *
+		 * @since 1.5.7
+		 */
+		exitBack: function() {
+
+			if ( 1 < window.history.length && document.referrer ) {
+				window.history.back();
+			} else {
+				window.location.href = wpforms_builder.exit_url;
+			}
+		},
 	};
 
 	// Provide access to public functions/properties.

@@ -140,7 +140,10 @@ class Ajax extends Lib\Base\Ajax
         if ( $filter != '' ) {
             $search_value = Lib\Query::escape( $filter );
             $query
-                ->whereLike( 'c.full_name', "%{$search_value}%" );
+                ->whereLike( 'c.full_name', "%{$search_value}%" )
+                ->whereLike( 'c.phone', "%{$search_value}%", 'OR' )
+                ->whereLike( 'c.email', "%{$search_value}%", 'OR' )
+            ;
         }
 
         $query->limit( $max_results )->offset( ( $page - 1 ) * $max_results );
@@ -258,6 +261,7 @@ class Ajax extends Lib\Base\Ajax
             if ( ! Lib\Utils\Common::isCurrentUserSupervisor() ) {
                 switch ( $action ) {
                     case 'getCustomers':
+                    case 'getCustomersList':
                         return Lib\Entities\Staff::query()
                             ->where( 'wp_user_id', get_current_user_id() )
                             ->count() > 0;

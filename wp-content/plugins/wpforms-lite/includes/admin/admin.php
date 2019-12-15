@@ -241,16 +241,23 @@ function wpforms_admin_header() {
 		return;
 	}
 
+	if ( ! apply_filters( 'wpforms_admin_header', true ) ) {
+		return;
+	}
+
 	// Omit header from Welcome activation screen.
 	if ( 'wpforms-getting-started' === $_REQUEST['page'] ) {
 		return;
 	}
+
+	do_action( 'wpforms_admin_header_before' );
 	?>
 	<div id="wpforms-header-temp"></div>
 	<div id="wpforms-header" class="wpforms-header">
 		<img class="wpforms-header-logo" src="<?php echo WPFORMS_PLUGIN_URL; ?>assets/images/logo.png" alt="WPForms Logo"/>
 	</div>
 	<?php
+	do_action( 'wpforms_admin_header_after' );
 }
 
 add_action( 'in_admin_header', 'wpforms_admin_header', 100 );
@@ -267,60 +274,47 @@ function wpforms_admin_hide_unrelated_notices() {
 		return;
 	}
 
+	// Extra banned classes and callbacks from third-party plugins.
+	$blacklist = array(
+		'classes'   => array(),
+		'callbacks' => array(
+			'wpformsdb_admin_notice', // 'Database for WPforms' plugin.
+		),
+	);
+
 	global $wp_filter;
 
-	if ( ! empty( $wp_filter['user_admin_notices']->callbacks ) && is_array( $wp_filter['user_admin_notices']->callbacks ) ) {
-		foreach ( $wp_filter['user_admin_notices']->callbacks as $priority => $hooks ) {
-			foreach ( $hooks as $name => $arr ) {
-				if ( is_object( $arr['function'] ) && $arr['function'] instanceof Closure ) {
-					unset( $wp_filter['user_admin_notices']->callbacks[ $priority ][ $name ] );
-					continue;
-				}
-				if ( ! empty( $arr['function'][0] ) && is_object( $arr['function'][0] ) && strpos( strtolower( get_class( $arr['function'][0] ) ), 'wpforms' ) !== false ) {
-					continue;
-				}
-				if ( ! empty( $name ) && strpos( $name, 'wpforms' ) === false ) {
-					unset( $wp_filter['user_admin_notices']->callbacks[ $priority ][ $name ] );
-				}
-			}
+	foreach ( array( 'user_admin_notices', 'admin_notices', 'all_admin_notices' ) as $notices_type ) {
+		if ( empty( $wp_filter[ $notices_type ]->callbacks ) || ! is_array( $wp_filter[ $notices_type ]->callbacks ) ) {
+			continue;
 		}
-	}
-
-	if ( ! empty( $wp_filter['admin_notices']->callbacks ) && is_array( $wp_filter['admin_notices']->callbacks ) ) {
-		foreach ( $wp_filter['admin_notices']->callbacks as $priority => $hooks ) {
+		foreach ( $wp_filter[ $notices_type ]->callbacks as $priority => $hooks ) {
 			foreach ( $hooks as $name => $arr ) {
 				if ( is_object( $arr['function'] ) && $arr['function'] instanceof Closure ) {
-					unset( $wp_filter['admin_notices']->callbacks[ $priority ][ $name ] );
+					unset( $wp_filter[ $notices_type ]->callbacks[ $priority ][ $name ] );
 					continue;
 				}
-				if ( ! empty( $arr['function'][0] ) && is_object( $arr['function'][0] ) && strpos( strtolower( get_class( $arr['function'][0] ) ), 'wpforms' ) !== false ) {
+				$class = ! empty( $arr['function'][0] ) && is_object( $arr['function'][0] ) ? strtolower( get_class( $arr['function'][0] ) ) : '';
+				if (
+					! empty( $class ) &&
+					strpos( $class, 'wpforms' ) !== false &&
+					! in_array( $class, $blacklist['classes'], true )
+				) {
 					continue;
 				}
-				if ( ! empty( $name ) && strpos( $name, 'wpforms' ) === false ) {
-					unset( $wp_filter['admin_notices']->callbacks[ $priority ][ $name ] );
-				}
-			}
-		}
-	}
-
-	if ( ! empty( $wp_filter['all_admin_notices']->callbacks ) && is_array( $wp_filter['all_admin_notices']->callbacks ) ) {
-		foreach ( $wp_filter['all_admin_notices']->callbacks as $priority => $hooks ) {
-			foreach ( $hooks as $name => $arr ) {
-				if ( is_object( $arr['function'] ) && $arr['function'] instanceof Closure ) {
-					unset( $wp_filter['all_admin_notices']->callbacks[ $priority ][ $name ] );
-					continue;
-				}
-				if ( ! empty( $arr['function'][0] ) && is_object( $arr['function'][0] ) && strpos( strtolower( get_class( $arr['function'][0] ) ), 'wpforms' ) !== false ) {
-					continue;
-				}
-				if ( ! empty( $name ) && strpos( $name, 'wpforms' ) === false ) {
-					unset( $wp_filter['all_admin_notices']->callbacks[ $priority ][ $name ] );
+				if (
+					! empty( $name ) && (
+						strpos( $name, 'wpforms' ) === false ||
+						in_array( $class, $blacklist['classes'], true ) ||
+						in_array( $name, $blacklist['callbacks'], true )
+					)
+				) {
+					unset( $wp_filter[ $notices_type ]->callbacks[ $priority ][ $name ] );
 				}
 			}
 		}
 	}
 }
-
 add_action( 'admin_print_scripts', 'wpforms_admin_hide_unrelated_notices' );
 
 /**
@@ -446,3 +440,23 @@ function wpforms_get_upgrade_modal_text() {
 		) .
 		'</p>';
 }
+
+/**
+ * Hide the wp-admin area "Version x.x" in footer on WPForms pages.
+ *
+ * @since 1.5.7
+ *
+ * @param string $text Default "Version x.x" or "Get Version x.x" text.
+ *
+ * @return string
+ */
+function wpforms_admin_hide_wp_version( $text ) {
+
+	// Bail if we're not on a WPForms screen or page.
+	if ( wpforms_is_admin_page() ) {
+		return '';
+	}
+
+	return $text;
+}
+add_filter( 'update_footer', 'wpforms_admin_hide_wp_version', PHP_INT_MAX );

@@ -58,8 +58,8 @@ class Ajax extends Page
                 }
             }
         } else {
-            $ids = Lib\Entities\Holiday::query()
-                ->whereBetween( 'date', $range->start()->value()->format( 'Y-m-d' ), $range->end()->value()->format( 'Y-m-d' ) )
+            $ids = Lib\Entities\Holiday::query( 'h' )
+                ->whereRaw( 'CONVERT(DATE_FORMAT(h.date, \'1%%m%%d\'),UNSIGNED INTEGER) BETWEEN %d AND %d', array( $range->start()->value()->format( '1md' ), $range->end()->value()->format( '1md' ) ) )
                 ->where( 'staff_id', null )
                 ->fetchCol( 'id' );
             Lib\Entities\Holiday::query()

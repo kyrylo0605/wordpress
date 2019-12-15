@@ -1,4 +1,58 @@
 
+ ### v2.5.3 - 2019-12-05 
+ **Changes:** 
+ * [Feat] New option to allow both logo and site and tagline in different layouts
+* [Feat] New dedicated typography controls for the Primary, Secondary and Footer menus, HTML, Copyright, Cart and Search icons components on the header builder
+* [Fix] Embeds compatibility issues with Jetpack and the Embed Plus for YouTube – Gallery, [Fix] Channel, Playlist, Live Stream plugin
+* [Fix] Excerpt compatibility with the Seriously Simple Podcasting plugin
+* [Fix] Removed list styling from the All Products block in the WooCommerce Block plugin
+* [Fix] Content width live preview on mobile devices
+* [Fix] Replaced the Last menu item option with dedicated components for new users
+* [Fix] Removed Neve Visual Integration causing issues in the editor
+* [Fix] Copyright component striping spaces before and after links
+* [Fix] Replaced buttons old padding control with a new version
+* [Fix] Padding for the Menu Icon component
+* [Fix] Lists spacing alignment
+* [Fix] Updated Google Fonts list
+* [Fix] Getting post meta value for single product page meta-box
+ 
+ ### v2.5.2 - 2019-11-19 
+ **Changes:** 
+ * [Feat] Improved mobile header/footer builder UX
+* [Feat] New styling controls for the Menu Icon component
+* [Feat] New Filled and Outline style options for buttons
+* [Fix] Uploading background images in the header/footer builder
+* [Fix] Content alignment when Gutenberg is activated
+* [Fix] Multiple embeds not visible on the single post page
+* [Fix] Better alignment for small icon components of the header/footer builder
+* [Fix] Excerpts now inherit text color
+* [Fix] Single product titles now inherit H1 typography options
+* [Fix] Typography units changes did not trigger control refresh
+* [Fix] Enlarged the narrow content in the editor
+* [Fix] Removed hover effect on table rows overriding block colors
+* [Fix] Overriding header/footer builder templates using child themes
+ 
+ ### v2.5.1 - 2019-11-04 
+ **Changes:** 
+ * [Fix] Correct migration of body font size to new version
+ 
+ ### v2.5.0 - 2019-11-04 
+ **Changes:** 
+ * [Feat] Improve header/footer builder UX
+* [Feat] Increased header/footer builder row height to 700px
+* [Feat] Improve typography controls, adds Text Transform, Font Weight, Letter Spacing controls for headings.
+* [Feat] Shadow option for the blog thumbnails
+* [Fix] Removed extra padding-top on embeds
+* [Fix] Embeds not visible on the blog page
+* [Fix] Small compatibility issues with WP 5.3
+* [Fix] Cover block text color not updating
+* [Fix] Reply comments mechanism when Yoast is installed
+* [Fix] Scroll on mobile and tablet and wireframe view in the Divi editor
+* [Fix] Content width on full-width container
+* [Fix] Headings blocks errors with Gutenberg 6.8.0
+* New Beaver Builder Starter Sites
+* New Brizy Starter Sites
+ 
  ### v2.4.3 - 2019-10-10 
  **Changes:** 
  * [Feat] Compatibility with the Header Footer for Beaver Builder plugin
