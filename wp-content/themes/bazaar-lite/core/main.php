@@ -771,7 +771,7 @@ if (!function_exists('bazaarlite_scripts_styles')) {
 		wp_enqueue_script( 'jquery-slick', get_template_directory_uri() . '/assets/js/jquery.slick.js' , array('jquery'), FALSE, TRUE ); 
 		wp_enqueue_script( 'jquery-swipebox', get_template_directory_uri() . '/assets/js/jquery.swipebox.js' , array('jquery'), FALSE, TRUE ); 
 		wp_enqueue_script( 'jquery-tinynav', get_template_directory_uri() . '/assets/js/jquery.tinynav.js' , array('jquery'), FALSE, TRUE ); 
-		wp_enqueue_script( 'bazaar-lite-template',get_template_directory_uri() . '/assets/js/template',array('jquery', 'imagesloaded', 'masonry'), '1.0.0', TRUE ); 
+		wp_enqueue_script( 'bazaar-lite-template',get_template_directory_uri() . '/assets/js/template.js',array('jquery', 'imagesloaded', 'masonry'), '1.0.0', TRUE ); 
 
 		$wip_vars = array(
 			'slick_autoplay' => bazaarlite_setting('wip_slick_autoplay', 'false'),
@@ -779,6 +779,16 @@ if (!function_exists('bazaarlite_scripts_styles')) {
 		);
 
 		wp_localize_script( 'bazaar-lite-template', 'wip_vars', $wip_vars );
+
+		
+		wp_enqueue_script( 'bazaar-lite-navigation', get_template_directory_uri() . '/assets/js/navigation.js' , array('jquery'), '1.0', TRUE ); 
+
+		wp_localize_script( 'bazaar-lite-navigation', 'accessibleNavigationScreenReaderText', array(
+			'expandMain'   => __( 'Open the main menu', 'bazaar-lite' ),
+			'collapseMain' => __( 'Close the main menu', 'bazaar-lite' ),
+			'expandChild'   => __( 'expand submenu', 'bazaar-lite' ),
+			'collapseChild' => __( 'collapse submenu', 'bazaar-lite' ),
+		));
 
 		wp_enqueue_script('html5shiv', get_template_directory_uri().'/assets/scripts/html5shiv.js', FALSE, '3.7.0');
 		wp_script_add_data('html5shiv', 'conditional', 'IE 8' );

@@ -12,6 +12,7 @@
 namespace HFG\Core\Builder;
 
 use HFG\Core\Components\Abstract_Component;
+use HFG\Core\Customizer\Instructions_Section;
 use HFG\Core\Interfaces\Builder;
 use HFG\Core\Interfaces\Component;
 use HFG\Core\Settings;
@@ -26,9 +27,10 @@ use WP_Customize_Manager;
  */
 abstract class Abstract_Builder implements Builder {
 	use Core;
-	const LAYOUT_SETTING = 'layout';
-	const HEIGHT_SETTING = 'height';
-	const SKIN_SETTING   = 'skin';
+	const LAYOUT_SETTING     = 'layout';
+	const HEIGHT_SETTING     = 'height';
+	const SKIN_SETTING       = 'skin';
+	const BACKGROUND_SETTING = 'background';
 	/**
 	 * Internal pointer for current device id.
 	 *
@@ -145,7 +147,7 @@ abstract class Abstract_Builder implements Builder {
 		),
 		'footer'      => array(
 			'top'    => '#ffffff',
-			'bottom' => '#ffffff',
+			'bottom' => '#24292e',
 		),
 		'page_header' => array(
 			'top'    => '#ffffff',
@@ -161,6 +163,13 @@ abstract class Abstract_Builder implements Builder {
 	 * @var array $builder_components
 	 */
 	protected $builder_components = array();
+
+	/**
+	 * The quick links setup array.
+	 *
+	 * @var array
+	 */
+	protected $instructions_array = array();
 
 	/**
 	 * Abstract_Builder constructor.
@@ -240,6 +249,17 @@ abstract class Abstract_Builder implements Builder {
 	public function define_row_settings( $row_id ) {
 
 		$row_setting_id = $this->control_id . '_' . $row_id;
+		$row_class      = '.' . join(
+			'-',
+			array(
+				$this->get_id(),
+				$row_id,
+				'inner',
+			)
+		);
+		if ( $row_id === 'sidebar' ) {
+			$row_class = '.header-menu-sidebar';
+		}
 
 		SettingsManager::get_instance()->add(
 			[
@@ -295,37 +315,42 @@ abstract class Abstract_Builder implements Builder {
 			);
 			SettingsManager::get_instance()->add(
 				[
-					'id'                => self::HEIGHT_SETTING,
-					'group'             => $row_setting_id,
-					'tab'               => SettingsManager::TAB_STYLE,
-					'section'           => $row_setting_id,
-					'label'             => __( 'Row height (px)', 'neve' ),
-					'type'              => '\Neve\Customizer\Controls\Range',
-					'options'           => [
+					'id'                    => self::HEIGHT_SETTING,
+					'group'                 => $row_setting_id,
+					'tab'                   => SettingsManager::TAB_STYLE,
+					'section'               => $row_setting_id,
+					'label'                 => __( 'Row height (px)', 'neve' ),
+					'type'                  => '\Neve\Customizer\Controls\Range',
+					'live_refresh_selector' => $row_class,
+					'live_refresh_css_prop' => array(
+						'prop' => 'height',
+						'unit' => 'px',
+					),
+					'options'               => [
 						'type'        => 'range-value',
 						'media_query' => true,
 						'step'        => 1,
 						'input_attr'  => [
 							'mobile'  => [
 								'min'     => 0,
-								'max'     => 350,
+								'max'     => 700,
 								'default' => 0,
 							],
 							'tablet'  => [
 								'min'     => 0,
-								'max'     => 350,
+								'max'     => 700,
 								'default' => 0,
 							],
 							'desktop' => [
 								'min'     => 0,
-								'max'     => 350,
+								'max'     => 700,
 								'default' => 0,
 							],
 						],
 					],
-					'transport'         => 'post' . $row_setting_id,
-					'sanitize_callback' => array( $this, 'sanitize_responsive_int_json' ),
-					'default'           => '{ "mobile": "0", "tablet": "0", "desktop": "0" }',
+					'transport'             => 'postMessage',
+					'sanitize_callback'     => array( $this, 'sanitize_responsive_int_json' ),
+					'default'               => '{ "mobile": "0", "tablet": "0", "desktop": "0" }',
 				]
 			);
 		}
@@ -334,20 +359,31 @@ abstract class Abstract_Builder implements Builder {
 		if ( isset( $this->default_colors[ $this->get_id() ][ $row_id ] ) && ! empty( $this->default_colors[ $this->get_id() ][ $row_id ] ) ) {
 			$default_color = $this->default_colors[ $this->get_id() ][ $row_id ];
 		}
+		$old_skin = get_theme_mod( $row_setting_id . '_' . self::SKIN_SETTING );
+		if ( ! empty( $old_skin ) ) {
+			$default_color = $old_skin === 'dark-mode' ? '#24292e' : '#ffffff';
+		}
+		$previous      = get_theme_mod( $row_setting_id . '_color' );
+		$default_color = ! empty( $previous ) ? $previous : $default_color;
+
 		SettingsManager::get_instance()->add(
 			[
-				'id'                => 'color',
-				'group'             => $row_setting_id,
-				'tab'               => SettingsManager::TAB_STYLE,
-				'section'           => $row_setting_id,
-				'label'             => __( 'Row color', 'neve' ),
-				'type'              => 'WP_Customize_Color_Control',
-				'options'           => [
+				'id'                    => self::BACKGROUND_SETTING,
+				'group'                 => $row_setting_id,
+				'tab'                   => SettingsManager::TAB_STYLE,
+				'section'               => $row_setting_id,
+				'label'                 => __( 'Row Background', 'neve' ),
+				'type'                  => 'neve_background_control',
+				'live_refresh_selector' => $row_id === 'sidebar' ? $row_class . ' .header-menu-sidebar-bg' : $row_class,
+				'options'               => [
 					'priority' => 100,
 				],
-				'transport'         => 'post' . $row_setting_id,
-				'sanitize_callback' => 'neve_sanitize_colors',
-				'default'           => $default_color,
+				'transport'             => 'postMessage',
+				'sanitize_callback'     => 'neve_sanitize_background',
+				'default'               => [
+					'type'       => 'color',
+					'colorValue' => $default_color,
+				],
 			]
 		);
 
@@ -355,13 +391,13 @@ abstract class Abstract_Builder implements Builder {
 
 		SettingsManager::get_instance()->add(
 			[
-				'id'                => self::SKIN_SETTING,
-				'group'             => $row_setting_id,
-				'tab'               => SettingsManager::TAB_STYLE,
-				'label'             => __( 'Skin Mode', 'neve' ),
-				'section'           => $row_setting_id,
-				'type'              => '\Neve\Customizer\Controls\Radio_Image',
-				'options'           => [
+				'id'                    => self::SKIN_SETTING,
+				'group'                 => $row_setting_id,
+				'tab'                   => SettingsManager::TAB_STYLE,
+				'label'                 => __( 'Skin Mode', 'neve' ),
+				'section'               => $row_setting_id,
+				'type'                  => '\Neve\Customizer\Controls\Radio_Image',
+				'options'               => [
 					'choices' => [
 						'light-mode' => array(
 							'url'  => Settings\Config::get_url() . '/assets/images/customizer/text_mode_dark.svg',
@@ -373,9 +409,10 @@ abstract class Abstract_Builder implements Builder {
 						),
 					],
 				],
-				'transport'         => 'post' . $row_setting_id,
-				'sanitize_callback' => 'wp_filter_nohtml_kses',
-				'default'           => 'light-mode',
+				'transport'             => 'postMessage',
+				'live_refresh_selector' => $row_class,
+				'sanitize_callback'     => 'wp_filter_nohtml_kses',
+				'default'               => 'light-mode',
 			]
 		);
 
@@ -498,6 +535,27 @@ abstract class Abstract_Builder implements Builder {
 			)
 		);
 
+		if ( ! empty( $this->instructions_array ) ) {
+			if ( get_theme_mod( $this->panel . '_layout', false ) !== false ) {
+				$this->instructions_array['image']       = false;
+				$this->instructions_array['description'] = false;
+			}
+
+			$wp_customize->add_section(
+				new Instructions_Section(
+					$wp_customize,
+					$this->section . '_quick_links',
+					array(
+						'priority' => - 100,
+						'panel'    => $this->panel,
+						'type'     => 'hfg_instructions',
+						'options'  => $this->instructions_array,
+					)
+				)
+			);
+		}
+
+
 		Settings\Manager::get_instance()->load( $this->control_id, $wp_customize );
 
 		$this->add_rows_controls( $wp_customize );
@@ -598,7 +656,7 @@ abstract class Abstract_Builder implements Builder {
 		self::$current_builder = $this->get_id();
 		if ( is_customize_preview() ) {
 			$style = $this->css_array_to_css( $this->add_style() );
-			echo '<style type="text/css">' . $style . '</style>';// WPCS: XSS OK.
+			echo '<style type="text/css">' . $style . '</style>';// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		foreach ( $layout as $device_name => $device ) {
 			if ( empty( $device ) ) {
@@ -681,27 +739,66 @@ abstract class Abstract_Builder implements Builder {
 			);
 		}
 
-		if ( $row_index == 'sidebar' ) {
-			$selector = '.header-menu-sidebar.dark-mode .header-menu-sidebar-bg:before, .header-menu-sidebar.light-mode .header-menu-sidebar-bg:before';
+		if ( $row_index === 'sidebar' ) {
+			$selector = '.header-menu-sidebar .header-menu-sidebar-bg';
 		}
+
+		if ( $this->get_id() === 'header' ) {
+			$selector = '.hfg_header ' . $selector;
+		}
+
 		$default_color = '#ffffff';
 		if ( isset( $this->default_colors[ $this->get_id() ][ $row_index ] ) && ! empty( $this->default_colors[ $this->get_id() ][ $row_index ] ) ) {
 			$default_color = $this->default_colors[ $this->get_id() ][ $row_index ];
 		}
-		$color = get_theme_mod( $this->control_id . '_' . $row_index . '_color', $default_color );
+		$previous   = get_theme_mod( $this->control_id . '_' . $row_index . '_color', $default_color );
+		$background = get_theme_mod(
+			$this->control_id . '_' . $row_index . '_background',
+			[
+				'type'       => 'color',
+				'colorValue' => ! empty( $previous ) ? $previous : $default_color,
+			]
+		);
 
-		if ( $color !== $default_color ) {
-			$css_array[ $selector ]                 = array(
-				'background-color' => $color,
-			);
-			$css_array[ $selector . '.dark-mode' ]  = array(
-				'background-color' => $color,
-			);
-			$css_array[ $selector . '.light-mode' ] = array(
-				'background-color' => $color,
+		$css_setup = [];
+
+		if ( $background['type'] === 'color' && ! empty( $background['colorValue'] ) && $background['colorValue'] !== $default_color ) {
+			$css_setup['background-color'] = $background['colorValue'];
+		}
+
+		if ( $background['type'] === 'image' ) {
+			if ( ! empty( $background['imageUrl'] ) ) {
+				$css_setup['background-image'] = 'url("' . esc_url( $background['imageUrl'] ) . '")';
+				$css_setup['background-size']  = 'cover';
+			}
+
+			if ( ! empty( $background['focusPoint'] ) &&
+				! empty( $background['focusPoint']['x'] ) &&
+				! empty( $background['focusPoint']['y'] ) ) {
+				$css_setup['background-position'] = round( $background['focusPoint']['x'] * 100 ) . '% ' . round( $background['focusPoint']['y'] * 100 ) . '%';
+			}
+
+			if ( $background['fixed'] === true ) {
+				$css_setup['background-attachment'] = 'fixed';
+			}
+
+			if ( ! empty( $background['overlayColorValue'] ) && ! empty( $background['overlayOpacity'] ) ) {
+				$css_array[ $selector . ':before' ] = array(
+					'background-color' => $background['overlayColorValue'],
+					'opacity'          => $background['overlayOpacity'] / 100,
+					'content'          => '""',
+					'position'         => 'absolute',
+					'top'              => '0',
+					'bottom'           => '0',
+					'width'            => '100%',
+				);
+			}
+			$css_array[ $selector . ',' . $selector . '.dark-mode,' . $selector . '.light-mode' ] = array(
+				'background-color' => 'transparent',
 			);
 		}
 
+		$css_array[ $selector . ',' . $selector . '.dark-mode,' . $selector . '.light-mode' ] = $css_setup;
 		$css_array = apply_filters( 'neve_row_style', $css_array, $this->control_id, $this->get_id(), $row_index, $selector );
 
 		return $css_array;
@@ -710,7 +807,7 @@ abstract class Abstract_Builder implements Builder {
 	/**
 	 * Render device markup.
 	 *
-	 * @param string $device_name    Device id.
+	 * @param string $device_name Device id.
 	 * @param array  $device_details Device meta.
 	 */
 	public function render_device( $device_name, $device_details ) {
@@ -727,7 +824,7 @@ abstract class Abstract_Builder implements Builder {
 	 * Render components in the row.
 	 *
 	 * @param null|string $device Device id.
-	 * @param null|array  $row    Row details.
+	 * @param null|array  $row Row details.
 	 */
 	public function render_components( $device = null, $row = null ) {
 
@@ -744,7 +841,7 @@ abstract class Abstract_Builder implements Builder {
 		usort(
 			$data,
 			function ( $item1, $item2 ) {
-				if ( $item1['x'] == $item2['x'] ) {
+				if ( $item1['x'] === $item2['x'] ) {
 					return 0;
 				}
 
@@ -752,63 +849,145 @@ abstract class Abstract_Builder implements Builder {
 			}
 		);
 
-		$collection = new \CachingIterator(
+		$collection    = new \CachingIterator(
 			new \ArrayIterator(
 				$data
 			),
 			\CachingIterator::TOSTRING_USE_CURRENT
 		);
-
+		$render_buffer = [];
+		$render_index  = 1;
 		foreach ( $collection as $component_location ) {
+
+			if ( ! isset( $this->builder_components[ $component_location['id'] ] ) ) {
+				continue;
+			}
 			/**
 			 * An instance of Abstract_Component
 			 *
 			 * @var Abstract_Component $component
 			 */
-			if ( ! isset( $this->builder_components[ $component_location['id'] ] ) ) {
-				continue;
-			}
 			$component = $this->builder_components[ $component_location['id'] ];
 			$x         = intval( $component_location['x'] );
 			$width     = intval( $component_location['width'] );
 			$align     = SettingsManager::get_instance()->get( $component_location['id'] . '_' . Abstract_Component::ALIGNMENT_ID, null );
 
+
 			if ( ! $collection->hasNext() && ( $x + $width < $max_columns ) ) {
 				$width += $max_columns - ( $x + $width );
 			}
 
+			$is_auto_width = $component->get_property( 'is_auto_width' );
 			if ( $row_index === 'sidebar' ) {
-				$width = 12;
+				$width         = 12;
+				$is_auto_width = false;
 			}
 
-			$classes   = [ 'builder-item' ];
-			$classes[] = 'col-' . $width . ' col-md-' . $width . ' col-sm-' . $width;
-			$classes[] = 'hfg-item-' . $align;
+			// Let's check if the component is nearby another.
+			$is_near_next = $collection->hasNext();
+			$is_near_prev = $last_item !== null;
+
+			// Check if component is nearby the next component.
+			if ( $collection->hasNext() ) {
+				$next_component_object = $collection->getInnerIterator()->current();
+				if ( $next_component_object['x'] - ( $x + $width ) !== 0 ) {
+					$is_near_next = false;
+				}
+			}
+
+			// Check if component is nearby the prev component.
+			if ( $last_item !== null ) {
+				if ( ( (int) $last_item['x'] + (int) $last_item['width'] ) - $x !== 0 ) {
+					$is_near_prev = false;
+				}
+			}
+
+			// If there is a gap between components, build new group.
+			if ( $last_item !== null && ! $is_near_prev ) {
+				$render_index ++;
+			}
+			// If there are two neighbours and none of them have auto_width, build new group.
+			if ( $is_near_prev && ! $last_item['is_auto_width'] && ! $is_auto_width ) {
+				$render_index ++;
+			}
+			// If there are neighbours prev and next, always group with the next on.
+			if ( $is_near_prev && $is_near_next && ! $last_item['is_auto_width'] && $is_auto_width && ! isset( $render_buffer[ $render_index ] ) ) {
+				$render_index ++;
+			}
+
+			// Use alignment only of non-auto width element.
+			if ( ! $is_auto_width && isset( $render_buffer[ $render_index ] ) ) {
+				$render_buffer[ $render_index ]['align'] = $align;
+			}
+
+
+			$is_first = false;
+			$is_last  = false;
 			if ( $last_item === null ) {
-				$classes[] = 'hfg-item-first';
+				$is_first     = true;
+				$render_index = 0;
 			}
 			if ( ! $collection->hasNext() ) {
-				$classes[] = 'hfg-item-last';
+				$is_last = true;
 			}
+
+
 			if ( $row_index !== 'sidebar' ) {
 				if ( $x > 0 && $last_item !== null ) {
 					$origin = intval( $last_item['width'] ) + intval( $last_item['x'] );
 					if ( ( $x - $origin ) > 0 ) {
-						$x         = $x - $origin;
-						$classes[] = 'offset-' . $x;
+						$x = $x - $origin;
+					} else {
+						$x = 0;
 					}
-				} elseif ( $x > 0 ) {
-					$classes[] = 'offset-' . $x;
 				}
 			}
+			if ( ! isset( $render_buffer[ $render_index ] ) ) {
+				$render_buffer[ $render_index ] = [
+					'components' => [],
+					'align'      => $align,
+					'is_first'   => $is_first,
+					'is_last'    => false,
+				];
+			}
+			$render_buffer[ $render_index ]['is_last']      = $is_last;
+			$render_buffer[ $render_index ]['components'][] = [
+				'component' => $component,
+				'offset'    => $x,
+				'width'     => $width,
+			];
+			$component_location['is_auto_width']            = $is_auto_width;
+			$component_location['align']                    = $align;
+			$last_item                                      = $component_location;
+		}
+		foreach ( $render_buffer as $render_groups ) {
+			$width   = array_sum( array_column( $render_groups['components'], 'width' ) );
+			$x       = max( array_column( $render_groups['components'], 'offset' ) );
+			$align   = $render_groups['align'];
+			$classes = [ 'builder-item' ];
+			if ( $render_groups['is_last'] ) {
+				$classes[] = 'hfg-item-last';
+			}
+			if ( $render_groups['is_first'] ) {
+				$classes[] = 'hfg-item-first';
+			}
+			$classes[] = 'col-' . $width . ' col-md-' . $width . ' col-sm-' . $width;
+			$classes[] = 'hfg-item-' . $align;
 
-			$component->current_x     = $x;
-			$component->current_width = $width;
-			self::$current_component  = $component_location['id'];
+			if ( $row_index !== 'sidebar' && $x > 0 ) {
+				$classes[] = 'offset-' . $x;
+			}
+			if ( count( $render_groups['components'] ) > 1 ) {
+				$classes[] = 'hfg-is-group';
+			}
 			echo sprintf( '<div class="%s">', esc_attr( join( ' ', $classes ) ) );
-			$component->render();
+			foreach ( $render_groups['components'] as $component_data ) {
+				$component_data['component']->current_x     = $x;
+				$component_data['component']->current_width = $width;
+				self::$current_component                    = $component_data['component']->get_id();
+				$component_data['component']->render();
+			}
 			echo '</div>';
-			$last_item = $component_location;
 		}
 	}
 
@@ -823,7 +1002,7 @@ abstract class Abstract_Builder implements Builder {
 	 */
 	public function register_component( $component_to_add ) {
 
-		if ( ! class_exists( $component_to_add ) || ! in_array( 'HFG\Core\Interfaces\Component', class_implements( $component_to_add ) ) ) {
+		if ( ! class_exists( $component_to_add ) || ! in_array( 'HFG\Core\Interfaces\Component', class_implements( $component_to_add ), true ) ) {
 			return false;
 		}
 
@@ -906,6 +1085,12 @@ abstract class Abstract_Builder implements Builder {
 		foreach ( $this->builder_components as $component ) {
 			$components_settings[ $component->get_id() ] = $component->get_settings();
 		}
+		uasort(
+			$components_settings,
+			function( $a, $b ) {
+				return $a['name'] > $b['name'];
+			}
+		);
 
 		return $components_settings;
 	}

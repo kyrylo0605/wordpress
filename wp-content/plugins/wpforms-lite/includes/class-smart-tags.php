@@ -128,7 +128,8 @@ class WPForms_Smart_Tags {
 						break;
 
 					case 'page_url':
-						$url     = get_the_ID() ? get_permalink( get_the_ID() ) : '';
+						global $wp;
+						$url     = empty( $_POST['page_url'] ) ? home_url( add_query_arg( $_GET, $wp->request ) ) : esc_url_raw( wp_unslash( $_POST['page_url'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 						$content = str_replace( '{' . $tag . '}', $url, $content );
 						break;
 

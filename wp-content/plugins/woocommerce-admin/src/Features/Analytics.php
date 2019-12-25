@@ -45,7 +45,7 @@ class Analytics {
 	 * @return array
 	 */
 	public function add_preload_endpoints( $endpoints ) {
-		$endpoints['countries'] = '/wc/v4/data/countries';
+		$endpoints['countries'] = '/wc-analytics/data/countries';
 		return $endpoints;
 	}
 
@@ -145,7 +145,7 @@ class Analytics {
 			),
 		);
 
-		$report_pages = apply_filters( 'woocommerce_admin_report_menu_items', $report_pages );
+		$report_pages = apply_filters( 'woocommerce_analytics_report_menu_items', $report_pages );
 
 		foreach ( $report_pages as $report_page ) {
 			if ( ! is_null( $report_page ) ) {

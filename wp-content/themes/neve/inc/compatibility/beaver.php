@@ -14,7 +14,7 @@ namespace Neve\Compatibility;
  *
  * @package Neve\Compatibility
  */
-class Beaver extends  Page_Builder_Base {
+class Beaver extends Page_Builder_Base {
 
 	/**
 	 * Init function.
@@ -35,10 +35,18 @@ class Beaver extends  Page_Builder_Base {
 	 * @return bool
 	 */
 	protected function is_edited_with_builder( $pid ) {
-		if ( class_exists( '\FLBuilderModel' ) ) {
+		if ( class_exists( '\FLBuilderModel', false ) ) {
 			return \FLBuilderModel::is_builder_enabled( $pid );
 		}
+
 		return false;
+	}
+
+	/**
+	 * Load Beaver compatibility style.
+	 */
+	public function load_style() {
+		wp_add_inline_style( 'neve-style', '.fl-builder.bbhf-transparent-header:not(.bhf-sticky-header) #nv-beaver-header .fl-row-content-wrap{background-color:transparent;border:none;transition:background-color .3s ease-in-out}.fl-builder.bbhf-transparent-header .bhf-fixed-header:not(.bhf-fixed) .fl-row-content-wrap{background-color:transparent;border:none;transition:background-color .3s ease-in-out}.fl-builder.bbhf-transparent-header #nv-beaver-header{position:absolute;z-index:10;width:100%}' );
 	}
 
 	/**
@@ -46,9 +54,10 @@ class Beaver extends  Page_Builder_Base {
 	 */
 	public function add_theme_builder_hooks() {
 
-		if ( ! class_exists( '\FLThemeBuilderLayoutData' ) ) {
+		if ( ! class_exists( '\FLThemeBuilderLayoutData', false ) ) {
 			return;
 		}
+		add_action( 'wp_enqueue_scripts', [ $this, 'load_style' ] );
 		// Get the header ID.
 		$header_ids = \FLThemeBuilderLayoutData::get_current_page_header_ids();
 

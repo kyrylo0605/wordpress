@@ -95,7 +95,7 @@ class Hestia_Customize_Control_Tabs extends WP_Customize_Control {
 				#>
 			<div class="hestia-customizer-tab <# if( i === 1 ){#> active <#}#>" data-tab="{{tab}}">
 				<label class="{{allControlsInTabs}}">
-					<i class="fa fa-{{data.tabs[tab]['icon']}}"></i>
+					<i class="fas fa-{{data.tabs[tab]['icon']}}"></i>
 					{{data.tabs[tab]['label']}}
 				</label>
 			</div>

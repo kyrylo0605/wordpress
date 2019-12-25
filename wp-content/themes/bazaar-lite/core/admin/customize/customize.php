@@ -1003,17 +1003,6 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 
 			array( 
 
-				'label' => esc_html__( 'Google Url','bazaar-lite'),
-				'description' => esc_html__( 'Insert Google Url (empty if you want to hide the button)','bazaar-lite'),
-				'id' => 'wip_footer_google_button',
-				'type' => 'url',
-				'section' => 'footer_section',
-				'std' => '',
-
-			),
-
-			array( 
-
 				'label' => esc_html__( 'Linkedin Url','bazaar-lite'),
 				'description' => esc_html__( 'Insert Linkedin Url (empty if you want to hide the button)','bazaar-lite'),
 				'id' => 'wip_footer_linkedin_button',

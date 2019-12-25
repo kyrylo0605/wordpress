@@ -33,7 +33,17 @@ use Bookly\Backend\Components\Controls\Buttons;
                     </div>
                 </form>
             </div>
-            <div class="bookly-data-button pull-right">
+            <div class="bookly-data-button pull-right" >
+                <div class="dropdown pull-left bookly-margin-right-xs">
+                    <button class="btn btn-lg btn-default dropdown-toggle" type="button" data-spinner-size="40" data-style="zoom-in" data-spinner-color="rgb(62, 66, 74)" id="tools-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="ladda-label">Tools</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu bookly-js-tools" aria-labelledby="dropdownMenu1">
+                        <?php echo $tools ?>
+                    </ul>
+                </div>
+                <?php Bookly\Backend\Components\Controls\Buttons::renderCustom( 'bookly-all-test', 'btn-default btn-lg', 'Tests', array( 'data-spinner-color' => 'rgb(62, 66, 74)' ) ) ?>
                 <?php Bookly\Backend\Components\Controls\Buttons::renderCustom( 'bookly-fix-all-silent', 'btn-success btn-lg', 'Fix database schema ...' ) ?>
             </div>
         </div>

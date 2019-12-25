@@ -73,6 +73,8 @@ class Enhanced_Ecommerce_Google_Analytics_Admin {
             wp_enqueue_style('font_awesome');
             wp_register_style('aga_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
             wp_enqueue_style('aga_bootstrap');
+            wp_register_style('aga_confirm', '//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css');
+            wp_enqueue_style('aga_confirm');
             wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/enhanced-ecommerce-google-analytics-admin.css', array(), $this->version, 'all' );
         }
 
@@ -91,9 +93,10 @@ class Enhanced_Ecommerce_Google_Analytics_Admin {
             wp_enqueue_script('popper_bootstrap');
             wp_register_script('aga_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js');
             wp_enqueue_script('aga_bootstrap');
+            wp_register_script('aga_confirm_js', '//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js');
+            wp_enqueue_script('aga_confirm_js');
             wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/enhanced-ecommerce-google-analytics-admin.js', array( 'jquery' ), $this->version, false );
         }
-
     }
 
     /**
@@ -147,4 +150,5 @@ class Enhanced_Ecommerce_Google_Analytics_Admin {
     public function about_plugin() {
         require_once( 'partials/about-plugin.php');
     }
+
 }

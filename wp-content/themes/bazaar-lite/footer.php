@@ -11,17 +11,28 @@
                     <div class="col-md-5" >
                         
                         <div class="copyright">
-        
+
                             <p>
+        
+                                <?php 
                                 
-								<?php if (bazaarlite_setting('wip_copyright_text')): ?>
-                                   <?php echo wp_filter_post_kses(bazaarlite_setting('wip_copyright_text')); ?>
-                                <?php else: ?>
-                                  <?php esc_html_e('Copyright','bazaar-lite'); ?> <?php echo get_bloginfo("name"); ?> <?php echo date_i18n("Y"); ?> 
-                                <?php endif; ?> 
-                                | <?php esc_html_e('Theme by','bazaar-lite'); ?> <a href="<?php echo esc_url('https://www.themeinprogress.com/'); ?>" target="_blank">Theme in Progress</a> |
-                                <a href="<?php echo esc_url('http://wordpress.org/'); ?>" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'bazaar-lite' ); ?>" rel="generator"><?php printf( esc_html__( 'Proudly powered by %s', 'bazaar-lite' ), 'WordPress' ); ?></a>
-                            
+                                    if ( bazaarlite_setting('wip_copyright_text')) :
+                                    
+                                        echo wp_filter_post_kses(bazaarlite_setting('wip_copyright_text'));
+                                        
+                                    else:
+                                    
+                                        esc_html_e('Copyright ', 'bazaar-lite');
+                                        echo esc_html(get_bloginfo('name'));
+                                        echo esc_html( date_i18n( __( ' Y', 'bazaar-lite' )));
+                                    
+                                    endif;
+                                    
+                                ?>
+        
+                                <a href="<?php echo esc_url('https://www.themeinprogress.com/'); ?>" target="_blank"><?php printf( esc_html__( ' | Theme by %s', 'bazaar-lite' ), 'ThemeinProgress' ); ?></a>
+                                <a href="<?php echo esc_url('http://wordpress.org/'); ?>" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'bazaar-lite' ); ?>" rel="generator"><?php printf( esc_html__( ' | Proudly powered by %s', 'bazaar-lite' ), 'WordPress' ); ?></a>
+                                    
                             </p>
 
                         </div>

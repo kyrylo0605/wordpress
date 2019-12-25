@@ -448,5 +448,10 @@ function grw_small_text(text) {
 }
 
 function grw_request_url(action) {
-    return grwVars.handlerUrl + '&cf_action=' + grwVars.actionPrefix + '_' + action + '&v=' + new Date().getTime();
+    var url = grwVars.handlerUrl;
+    //Sometimes 'admin_url' returns to 'grwVars.handlerUrl' not https url and if the site is https, the request does not pass, it's a fix
+    if (url.indexOf('http://') == 0 && window.location.protocol == 'https:' && url.indexOf('http://' + window.location.host) == 0) {
+        url = url.replace(/^http:/, 'https:');
+    }
+    return url + '&cf_action=' + grwVars.actionPrefix + '_' + action + '&v=' + new Date().getTime();
 }

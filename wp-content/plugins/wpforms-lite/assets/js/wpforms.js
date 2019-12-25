@@ -275,10 +275,18 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 									altText     = $submit.data( 'alt-text' ),
 									recaptchaID = $submit.get( 0 ).recaptchaID;
 
+								$submit.prop( 'disabled', true );
+								$form.find( '#wpforms-field_recaptcha-error' ).remove();
+
 								if ( ! app.empty( recaptchaID ) || recaptchaID === 0 ) {
 
 									// Form contains invisible reCAPTCHA.
-									grecaptcha.execute( recaptchaID );
+									grecaptcha.execute( recaptchaID ).then( null, function( reason ) {
+
+										reason = ( null === reason ) ? '' : '<br>' + reason;
+										$form.find( '.wpforms-recaptcha-container' ).append( '<label id="wpforms-field_recaptcha-error" class="wpforms-error"> ' + wpforms_settings.val_recaptcha_fail_msg + reason + '</label>' );
+										$submit.prop( 'disabled', false );
+									} );
 									return false;
 								}
 
@@ -286,8 +294,6 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 								if ( altText ) {
 									$submit.text( altText );
 								}
-
-								$submit.prop( 'disabled', true );
 
 								// Remove name attributes if needed.
 								$( '.wpforms-input-temp-name' ).removeAttr( 'name' );
@@ -758,6 +764,13 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 			} );
 
+			// Number Slider field: update hints.
+			$( document ).on( 'change input', '.wpforms-field-number-slider input[type=range]', function( event ) {
+				var hintEl = $( event.target ).siblings( '.wpforms-field-number-slider-hint' );
+
+				hintEl.html( hintEl.data( 'hint' ).replace( '{value}', '<b>' + event.target.value + '</b>' ) );
+			} );
+
 			// Enter key event.
 			$( document ).on( 'keydown', '.wpforms-form input', function( e ) {
 
@@ -788,7 +801,6 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				e.preventDefault();
 				$page.find( '.wpforms-page-next' ).click();
 			} );
-
 		},
 
 		/**
@@ -822,10 +834,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			} else if ( ! app.empty( window.wpform_pageScroll ) ) {
 				pageScroll = window.wpform_pageScroll;
 			} else {
-				pageScroll = 75;
+				pageScroll = $indicator.attr( 'scroll' ) !== '0' ? 75 : false;
 			}
 
-			// Toggling between pages.
+			// Toggling between the pages.
 			if ( 'next' === action ) {
 
 				// Validate.
@@ -843,7 +855,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					}
 				}
 
-				// Move to next page.
+				// Move to the next page.
 				if ( valid ) {
 					page2 = next;
 					$page.hide();
@@ -862,7 +874,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				}
 			} else if ( 'prev' === action ) {
 
-				// Move to prev page.
+				// Move to the prev page.
 				page2 = prev;
 				$page.hide();
 				$form.find( '.wpforms-page-' + prev ).show();
@@ -870,7 +882,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				$submit.hide();
 				if ( pageScroll ) {
 
-					// Scroll to top of the form.
+					// Scroll to the top of the form.
 					app.animateScrollTop( $form.offset().top - pageScroll );
 				}
 				$this.trigger( 'wpformsPageChange', [ page2, $form ] );
@@ -1559,6 +1571,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 			formData = new FormData( $form.get( 0 ) );
 			formData.append( 'action', 'wpforms_submit' );
+			formData.append( 'page_url', window.location.href );
 
 			args = {
 				type       : 'post',

@@ -1,0 +1,539 @@
+/* ===============================================
+   GENERALS
+   =============================================== */
+
+button:hover ,
+button:active ,
+button:focus ,
+input:hover ,
+input:active ,
+input:focus ,
+textarea:hover ,
+textarea:active ,
+textarea:focus {
+	outline:none !important;
+	text-decoration:none !important;
+}
+
+input[type=file]:hover ,
+input[type=file]:active ,
+input[type=file]:focus {
+	border:none !important;
+}
+
+.clear {
+	clear:both;
+	float:none !important;
+}
+
+.left {
+	float:left;
+}
+
+.right {
+	float:right;
+}
+
+/* ===============================================
+   NOTICE
+   =============================================== */
+
+.chatbox_manager_notice { 
+	float: left;
+    margin: 20px 0 10px 0;
+    padding: 0;
+    width: calc(100% - 72px);
+    padding-left: 10px;
+}
+
+/* ===============================================
+   SAVE MESSAGE
+   =============================================== */
+
+.updated.fade.message_save.chatbox_manager_panel_message { 
+    margin: 0 0 20px 0;
+    padding: 1.5%;
+    box-shadow: 0 2px 1px -1px #46b450;
+    background: #fff;
+    border: solid 1px #ddd;
+}
+
+/* ===============================================
+   HEADER
+   =============================================== */
+
+#chatbox_manager_panel_header {
+	margin:0 0 20px 0;
+	padding:20px 0; 
+	position:relative;
+}
+
+#chatbox_manager_panel_header a {
+	font-family: 'Source Sans Pro', sans-serif;
+	display:inline-block;
+	color:#616161;
+	margin-left:5px;
+	text-decoration:none;
+	font-weight:600;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+}
+
+#chatbox_manager_panel_header a:hover, 
+#chatbox_manager_panel_header a:active, 
+#chatbox_manager_panel_header a:focus {
+	color:#5C97BF;
+	-webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#chatbox_manager_panel_header .plugin_description {
+	position:relative;
+	text-align:left
+}
+
+#chatbox_manager_panel_header h2 { 
+	text-align: left;
+	font-size: 22px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight:600;
+	color: #616161;
+	text-shadow:none;
+	margin:20px 0 10px 0
+}
+
+#chatbox_manager_panel_header span { 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 12px;
+	color: #616161;
+	font-weight:600
+}
+
+/* ===============================================
+   TABS
+   =============================================== */
+
+#chatbox_manager_panel_tabs { 
+	width:calc(100% - 20px); 
+	height:100%;
+	display:inline-block;
+	vertical-align:top;
+}
+
+.chatbox_manager_panel_tabs { 
+	position:relative; 
+	display: block
+}
+
+#chatbox_manager_panel_tabs-container { 
+	margin:0; 
+	padding:0 5px;
+}
+
+#chatbox_manager_panel_tabs-container p { 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:20px; 
+	text-align:center; 
+	margin:0; 
+	line-height:1.4em;
+}
+
+#chatbox_manager_panel_tabs-container h3 {
+	text-align:center;
+}
+
+#chatbox_manager_panel_tabs ul.chatbox_manager_panel_navigation { 
+	list-style:none; 
+	margin:0; 
+	background:#fafafa;
+	padding:20px;
+	border:solid 1px #ddd; 
+}
+
+#chatbox_manager_panel_tabs ul.orders {
+	padding:0;
+	background:none;
+}
+
+#chatbox_manager_panel_tabs li { 
+	float:left;
+	margin:0;
+}
+
+#chatbox_manager_panel_tabs .select2 li { 
+	margin-top: 5px;
+	margin-right: 5px;
+	font-size:13px
+}
+
+#chatbox_manager_panel_tabs .select2 li input { 
+	margin-top: 0;
+}
+
+#chatbox_manager_panel_tabs li a { 
+	color:#616161; 
+	text-decoration:none; 
+	padding:15px 20px; 
+	display:block;
+	text-align:center; 
+	-webkit-transition: all .3s ease; 	
+	-moz-transition: all .3s ease; 
+	-o-transition: all .3s ease; 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight:600;
+	float:left; 
+	font-size:13px; 
+	text-shadow:none;
+	margin:0 5px 0 0;
+	border: solid 1px #fafafa;
+	text-transform:uppercase
+}
+
+#chatbox_manager_panel_tabs li a:hover, 
+#chatbox_manager_panel_tabs li.ui-tabs-active a, 
+#chatbox_manager_panel_tabs li.ui-state-active a {
+	background:#f1f1f1;
+	color:#616161;
+	text-shadow:none;
+	border: solid 1px #ddd;
+}
+
+#chatbox_manager_panel_tabs li a:focus { 
+    webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* ===============================================
+   BOXS
+   =============================================== */
+
+.chatbox_manager_panel_container .chatbox_manager_panel_mainbox { 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:14px; 
+	line-height:1.4em; 
+	background:#fff; 
+	position:relative;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_openbox { 
+	display:block !important;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_mainbox-open { 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:14px; 
+	line-height:1.4em; 
+	background:#f3f3f3; 
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd; 
+	position:relative; 
+}
+
+.chatbox_manager_panel_container  { 
+	background:url(../images/subparent.png) no-repeat 8% center;
+}
+
+.chatbox_manager_chatboxGenerator .chatbox_manager_panel_mainbox {
+	display:none
+}
+
+.chatbox_manager_panel_container h5.element { 
+	background:url(../images/subparent.png) no-repeat #fafafa 98% center;
+	padding:25px 20px; 
+	font-size:14px;
+	margin:0; 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight:600;
+	text-shadow:none; 
+	color:#616161; 
+	-webkit-transition: all .3s ease; 	
+	-moz-transition: all .3s ease; 
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+	text-transform:uppercase
+}
+
+.chatbox_manager_panel_container h5.element-open { 
+	background:#fafafa;
+	padding:30px 20px; 
+	font-size:14px;
+	margin:10px 0 0 0; 
+	color: #616161;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight:600;
+	border-left:solid 1px #ddd; 
+	border-right:solid 1px #ddd; 
+	border-top:solid 1px #ddd; 
+	text-transform:uppercase
+}
+
+.chatbox_manager_panel_container h5.element.linkable-element {
+	background:none;
+	padding:0; 
+}
+
+.chatbox_manager_panel_container h5.element.linkable-element a {
+	background:url(../images/subparent.png) no-repeat #fafafa 98% center;
+	display:block; 
+	color:#616161;
+	text-decoration:none;
+	padding:25px 20px; 
+	-webkit-transition: all .3s ease; 	
+	-moz-transition: all .3s ease; 
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+.chatbox_manager_panel_container h5.element.linkable-element a:hover {
+	background:url(../images/subparent.png) no-repeat #f1f1f1 98% center;
+	display:block; 
+	color:#616161;
+	text-decoration:none;
+	padding:25px 20px; 
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_mainbox { 
+	border-left:solid 1px #ddd; 
+	border-right:solid 1px #ddd; 
+	border-bottom:solid 1px #ddd; 
+}
+
+.chatbox_manager_panel_chatbox_order .chatbox_manager_panel_container h5.element { 
+	border:solid 1px #ddd; 
+	text-transform: none
+}
+
+.chatbox_manager_panel_container h5.inactive { 
+	background:url(../images/subparent-hover.png) no-repeat #f1f1f1 98% center; 
+	cursor:pointer
+}
+
+.chatbox_manager_panel_container .chatbox_manager_container h5.inactive:hover { 
+	background:url(../images/subparent-hover.png) no-repeat #f1f1f1 98% center; 
+}
+
+/* ===============================================
+   INPUTBOX
+   =============================================== */
+
+.chatbox_manager_panel_container div.chatbox_manager_panel_box ,
+.chatbox_manager_panel_container div.chatbox_manager_inputbox {
+	padding:20px 0 20px 20px;
+	border-bottom:1px solid #f1f1f1;
+	border-top:1px solid #fff;
+}
+
+.chatbox_manager_panel_container div.chatbox_manager_panel_box:first-of-type,
+.chatbox_manager_panel_container div.chatbox_manager_inputbox:first-of-type {
+	border-top:1px solid #f1f1f1;
+}
+
+.chatbox_manager_panel_container div.chatbox_manager_panel_box {
+	background:#fff;
+	max-width:100%;
+	display:block;
+}
+
+.MatchValueBox {
+	background:#fff;
+}
+
+.MatchValueBox:nth-child(2n) {
+	background:#fafafa;
+}
+
+.MatchValueBox  div.chatbox_manager_panel_box {
+	background:none;
+}
+
+.chatbox_manager_panel_chatbox_order div.chatbox_manager_panel_box.deleteSlot ,
+.chatbox_manager_panel_container div.chatbox_manager_panel_box.WIP_plugin_save_box {
+	background:#fafafa;
+	border:none;
+}
+
+.chatbox_manager_chatboxGenerator {
+	padding:20px;
+	border-top:solid 1px #f1f1f1;	
+	border-bottom:solid 1px #f1f1f1;	
+}
+
+.chatbox_manager_chatboxGenerator .chatbox_manager_panel_container {
+	margin-bottom:20px
+}
+
+.chatbox_manager_chatboxGenerator .chatbox_manager_panel_mainbox {
+	border-left:solid 1px #ddd;
+	border-right:solid 1px #ddd;
+}
+
+.chatbox_manager_chatboxGenerator .chatbox_manager_panel_mainbox div.chatbox_manager_panel_box {
+	border-top:solid 1px #fff;
+	border-bottom:solid 1px #f1f1f1;
+}
+
+.chatbox_manager_chatboxGenerator .chatbox_manager_panel_container h5.element {
+	margin-top:0;
+}
+
+div#Slideshow .chatbox_manager_panel_container .chatbox_manager_panel_box .button,
+.chatbox_manager_panel_container div.chatbox_manager_panel_slidebox .button#chatbox_manager_add_chatbox {
+    margin:20px 0 5px 0;
+}
+
+
+div#Slideshow .chatbox_manager_panel_container .chatbox_manager_panel_box .button.delete,
+.chatbox_manager_panel_container div.chatbox_manager_panel_slidebox p.chatbox_manager_input {
+    margin-left:0;
+}
+
+div#Slideshow .chatbox_manager_panel_container .chatbox_manager_panel_box .button.upload_button {
+    margin-left:20%;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box textarea {
+	height:155px;
+	width:98%;
+	font-size:12px;
+	padding:4px 1%;
+	color:#333;
+	line-height:1.5em;
+	background:#fff;
+	border:solid 1px #ddd;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="text"], 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="number"], 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="time"], 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="color"], 
+.chatbox_manager_panel_container .chatbox_manager_panel_box select{
+	width:98%;
+	height:35px;
+	font-size:12px;
+	padding:0 1%;
+	color:#333;
+	line-height:1.5em;
+	background:#fff;
+	border:solid 1px #f1f1f1;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="text"].positionInput, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="number"].positionInput, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="time"].positionInput, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="color"].positionInput {
+	width:15%;
+	padding:0 1%;
+	margin-bottom:25px;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="text"].positionInput + p, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="number"].positionInput + p, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="time"].positionInput + p,
+.chatbox_manager_panel_container .chatbox_manager_panel_box input[type="color"].positionInput + p {
+	margin-left:15px;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box .button.wp-picker-default { 
+    display: inline-block;
+    margin: 0;
+}
+
+.chatbox_manager_panel_container .wp-picker-open+.wp-picker-input-wrap {
+	width:100%;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box label {
+	color:#333; 
+	font-family: 'Source Sans Pro', sans-serif;
+	float:left; 
+	font-size:14px;
+	padding:6px 0;
+	cursor:text;
+	font-weight:600
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box p {
+	color:#333; 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:14px; 
+    margin:5px 0 0 0;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box a {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:14px; 
+    margin:5px 0 0 0;
+	display:block
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box strong {
+	color:#333; 
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:14px; 
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box span.separator{
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box textarea:focus, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box input:focus, 
+.chatbox_manager_panel_container .chatbox_manager_panel_box select:focus {
+    background: #fff;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box input#chatbox_manager_upload_backup:focus { 
+    background: #008ec2;
+    border-color: #006799;
+    -webkit-box-shadow: 0 1px 0 #0073aa,0 0 2px 1px #33b3db;
+    box-shadow: 0 1px 0 #0073aa,0 0 2px 1px #33b3db;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box .button {
+    margin:5px 5px 5px 0;
+	display: inline-block;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box .iphone-check input[type="checkbox"]  {
+    width:280px;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_input label,.chatbox_manager_input em,
+.chatbox_manager_panel_container .chatbox_manager_icons label,.chatbox_manager_icons em {
+	display:block;
+	margin:5px 0;
+}
+
+.chatbox_manager_panel_container .input-left {
+	float:left;
+	width:19%;
+	vertical-align:top;
+	padding:0 0 14px 0;
+}
+
+.chatbox_manager_panel_container .input-right {
+	float:right;
+	width:79%;
+	padding:0
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box.chatbox_manager_input {
+	padding:0;
+	border-top:none;
+	border-bottom:none;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box.chatbox_manager_input label {
+	width:inherit;
+	padding:0;
+	float:none;
+}
+
+.chatbox_manager_panel_container .chatbox_manager_panel_box.chatbox_manager_input .button {
+	margin:0;
+}

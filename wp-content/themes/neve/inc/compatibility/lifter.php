@@ -67,7 +67,7 @@ class Lifter {
 	 * Check if LifterLMS plugin is activated.
 	 */
 	private function should_load() {
-		return class_exists( 'LifterLMS' );
+		return class_exists( 'LifterLMS', false );
 	}
 
 	/**
@@ -181,8 +181,15 @@ class Lifter {
 	 * @return array
 	 */
 	public function add_secondary_button_color( $color_setup ) {
-		$color_setup['color']['selectors']        .= $this->secondary_buttons_selectors['default'];
-		$color_setup['border-color']['selectors'] .= $this->secondary_buttons_selectors['default'];
+		if ( isset( $color_setup['color'] ) ) {
+			$color_setup['color']['selectors'] .= $this->secondary_buttons_selectors['default'];
+		}
+		if ( isset( $color_setup['background-color'] ) ) {
+			$color_setup['background-color']['selectors'] .= $this->secondary_buttons_selectors['default'];
+		}
+		if ( isset( $color_setup['border-color'] ) ) {
+			$color_setup['border-color']['selectors'] .= $this->secondary_buttons_selectors['default'];
+		}
 
 		return $color_setup;
 	}
@@ -195,8 +202,15 @@ class Lifter {
 	 * @return array
 	 */
 	public function add_secondary_button_hover_color( $color_setup ) {
-		$color_setup['color']['selectors']        .= $this->secondary_buttons_selectors['hover'];
-		$color_setup['border-color']['selectors'] .= $this->secondary_buttons_selectors['hover'];
+		if ( isset( $color_setup['color'] ) ) {
+			$color_setup['color']['selectors'] .= $this->secondary_buttons_selectors['hover'];
+		}
+		if ( isset( $color_setup['background-color'] ) ) {
+			$color_setup['background-color']['selectors'] .= $this->secondary_buttons_selectors['hover'];
+		}
+		if ( isset( $color_setup['border-color'] ) ) {
+			$color_setup['border-color']['selectors'] .= $this->secondary_buttons_selectors['hover'];
+		}
 
 		return $color_setup;
 	}

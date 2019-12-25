@@ -5,10 +5,6 @@
  * @package Hestia
  */
 
-if ( ! class_exists( 'WP_Customize_Control' ) ) {
-	return null;
-}
-
 /**
  * Class Hestia_Repeater
  */
@@ -204,7 +200,7 @@ class Hestia_Repeater extends WP_Customize_Control {
 			$this->id = $id;
 		}
 
-		if ( file_exists( get_template_directory() . '/inc/customizer/controls/custom-controls/repeater/icon-picker/icons.php' ) ) {
+		if ( is_file( get_template_directory() . '/inc/customizer/controls/custom-controls/repeater/icon-picker/icons.php' ) ) {
 			$this->customizer_icon_container = '/inc/customizer/controls/custom-controls/repeater/icon-picker/icons';
 		}
 
@@ -224,7 +220,8 @@ class Hestia_Repeater extends WP_Customize_Control {
 	 * Enqueue resources for the control
 	 */
 	public function enqueue() {
-		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), HESTIA_VENDOR_VERSION );
+		wp_enqueue_style( 'font-awesome-5-all', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css', array(), HESTIA_VENDOR_VERSION );
+		wp_enqueue_style( 'font-awesome-4-shim', get_template_directory_uri() . '/assets/font-awesome/css/v4-shims.min.css', array(), HESTIA_VENDOR_VERSION );
 		wp_enqueue_style( 'wp-color-picker' );
 	}
 
@@ -634,13 +631,13 @@ class Hestia_Repeater extends WP_Customize_Control {
 						$style_to_add = 'display:none';
 					}
 					?>
-					<span class="customize-control-title" 
+					<span class="customize-control-title"
 					<?php
 					if ( ! empty( $style_to_add ) ) {
 						echo 'style="' . esc_attr( $style_to_add ) . '"';}
 					?>
 						><?php echo esc_html( $options['label'] ); ?></span>
-					<div class="<?php echo esc_attr( $options['class'] ); ?>" 
+					<div class="<?php echo esc_attr( $options['class'] ); ?>"
 											<?php
 											if ( ! empty( $style_to_add ) ) {
 												echo 'style="' . esc_attr( $style_to_add ) . '"';}
@@ -667,7 +664,7 @@ class Hestia_Repeater extends WP_Customize_Control {
 	 */
 	private function icon_picker_control( $value = '', $show = '' ) {
 		?>
-		<div class="social-repeater-general-control-icon" 
+		<div class="social-repeater-general-control-icon"
 		<?php
 		if ( $show === 'customizer_repeater_image' || $show === 'customizer_repeater_none' ) {
 			echo 'style="display:none;"'; }
@@ -695,7 +692,7 @@ class Hestia_Repeater extends WP_Customize_Control {
 				echo '" type="text">';
 				?>
 				<span class="input-group-addon">
-					<i class="fa <?php echo esc_attr( $value ); ?>"></i>
+					<i class="<?php echo esc_attr( hestia_display_fa_icon( $value ) ); ?>"></i>
 				</span>
 			</div>
 			<?php get_template_part( $this->customizer_icon_container ); ?>
@@ -711,7 +708,7 @@ class Hestia_Repeater extends WP_Customize_Control {
 	 */
 	private function image_control( $value = '', $show = '' ) {
 		?>
-		<div class="customizer-repeater-image-control" 
+		<div class="customizer-repeater-image-control"
 		<?php
 		if ( $show === 'customizer_repeater_icon' || $show === 'customizer_repeater_none' || ( $this->id === 'hestia_features_content' && empty( $show ) ) ) {
 			echo 'style="display:none;"'; }
@@ -804,7 +801,7 @@ class Hestia_Repeater extends WP_Customize_Control {
 						echo esc_attr( $social_icon['icon'] );
 					}
 							echo '" type="text">';
-							echo '<span class="input-group-addon"><i class="fa ' . esc_attr( $social_icon['icon'] ) . '"></i></span>';
+							echo '<span class="input-group-addon"><i class="' . esc_attr( hestia_display_fa_icon( $social_icon['icon'] ) ) . '"></i></span>';
 						echo '</div>';
 						get_template_part( $this->customizer_icon_container );
 						echo '<input type="text" class="customizer-repeater-social-repeater-link" placeholder="' . esc_attr__( 'Link', 'hestia' ) . '" value="';

@@ -3,8 +3,10 @@ jQuery(function($) {
         $dropConstraintModal = $('#bookly-js-drop-constraint'),
         $columnModal = $('#bookly-js-add-field'),
         $tableModal = $('#bookly-js-create-table'),
+        $tools = $('.bookly-js-tools'),
+        $toolsDropDown = $('#tools-dropdown'),
         $status,
-        $create;
+        $buttonAction;
 
     $('.collapse').collapse('hide');
 
@@ -92,6 +94,7 @@ jQuery(function($) {
     $('[data-action=drop-constraint]')
         .on('click', function (e) {
             e.preventDefault();
+            $buttonAction = $(this);
             $status = $(this).closest('td');
             let $tr = $(this).closest('tr'),
                 table     = $tr.closest('.panel-collapse').attr('id'),
@@ -269,8 +272,8 @@ jQuery(function($) {
     $('[data-action=fix-create-table]')
         .on('click', function (e) {
             e.preventDefault();
-            $create = $(this);
-            let table = $create.closest('.panel').find('.panel-collapse').attr('id');
+            $buttonAction = $(this);
+            let table = $buttonAction.closest('.panel').find('.panel-collapse').attr('id');
             $('.bookly-js-loading:first-child', $tableModal).addClass('bookly-loading').removeClass('collapse');
             $('.bookly-js-loading:last-child', $tableModal).addClass('collapse');
             $tableModal.modal();
@@ -318,8 +321,8 @@ jQuery(function($) {
                     if (response.success) {
                         booklyAlert({success: [response.data.message]});
                         $tableModal.modal('hide');
-                        $create.closest('.panel').find('.panel-body').html('Refresh the current page');
-                        $create.remove();
+                        $buttonAction.closest('.panel').find('.panel-body').html('Refresh the current page');
+                        $buttonAction.remove();
                     } else {
                         booklyAlert({error : [response.data.message]});
                     }
@@ -351,8 +354,7 @@ jQuery(function($) {
                     if (response.success) {
                         booklyAlert({success: [response.data.message]});
                         $dropConstraintModal.modal('hide');
-                        $create.closest('.panel').find('.panel-body').html('Refresh the current page');
-                        $create.remove();
+                        $buttonAction.closest('tr').remove();
                     } else {
                         booklyAlert({error : [response.data.message]});
                     }
@@ -364,4 +366,64 @@ jQuery(function($) {
                 }
             });
         });
+
+    $tools.on('click', '[data-action]', function (e) {
+        e.preventDefault();
+        let ladda = Ladda.create($toolsDropDown[0]),
+            data = $(this).data();
+        ladda.start();
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'bookly_run_tool',
+                tool_data: data,
+                tool_name: data.tool,
+                csrf_token: BooklyL10n.csrfToken
+            },
+            dataType: 'json',
+            error: function () {
+                booklyAlert({error: [test + ' error: in query execution.']});
+            }
+        }).then(response => {
+            booklyAlert(response.data.alerts);
+            ladda.stop();
+        });
+    });
+
+    $('#bookly-all-test').on('click', function () {
+        let ladda = Ladda.create(this),
+            count = BooklyL10n.tests.length,
+            error_count = 0,
+            errors = []
+        ladda.start();
+        ladda.setProgress(0.03);
+
+        BooklyL10n.tests.forEach(test => {
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'bookly_run_test',
+                    test_name: test
+                },
+                dataType: 'json',
+                error: function () {
+                    booklyAlert({error: [test + ' error: in query execution.']});
+                }
+            }).then(response => {
+                if (!response.success) {
+                    error_count += 1;
+                    booklyAlert({error: ['Test: ' + response.data.test_name + '<p><pre>' + response.data.error + '</pre></p>']});
+                }
+
+                count -= 1;
+                ladda.setProgress(1 - count / BooklyL10n.tests.length);
+                if (count <= 0) {
+                    ladda.stop();
+                    booklyAlert({success: [(BooklyL10n.tests.length - error_count) + '/' + BooklyL10n.tests.length + ' tests complete successfully']});
+                }
+            });
+        })
+    }).trigger('click');
 });

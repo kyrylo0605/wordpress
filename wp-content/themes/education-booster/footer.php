@@ -7,6 +7,8 @@
  * @since Education Booster 1.0.0
  */
 ?>	
+</div> <!-- end content -->
+
 		<footer class="wrapper site-footer" role="contentinfo">
 			<div class="container">
 				<div class="footer-inner">

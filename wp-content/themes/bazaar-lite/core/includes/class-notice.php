@@ -56,26 +56,32 @@ if( !class_exists( 'bazaar_lite_admin_notice' ) ) {
 			
 		?>
 			
-            <div class="update-nag notice bazaar_lite-notice">
+            <div class="notice notice-warning is-dismissible">
             
-            	<div class="bazaar_lite-noticedescription">
-					
-					<strong><?php esc_html_e( 'Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, unlimited sidebars, portfolio and much more.', 'bazaar-lite' ); ?></strong><br/>
+            	<p>
+            
+            		<strong>
 
-					<?php 
-					
-						printf( 
-							'<a href="%1$s" class="dismiss-notice">' . esc_html__( 'Dismiss this notice', 'bazaar-lite' ) . '</a>', 
-							esc_url( wp_nonce_url( add_query_arg( 'bazaar-lite-dismiss', '1' ), 'bazaar-lite-dismiss-action'))
-						);
-					
-					?>
+						<?php
+                        
+                            esc_html_e( 'Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, unlimited sidebars, portfolio and much more. ', 'bazaar-lite' ); 
+                            
+							printf( 
+								'<a href="%1$s" class="dismiss-notice">' . esc_html__( 'Dismiss this notice', 'bazaar-lite' ) . '</a>', 
+								esc_url( wp_nonce_url( add_query_arg( 'bazaar-lite-dismiss', '1' ), 'bazaar-lite-dismiss-action'))
+							);
+                            
+                        ?>
+                    
+                    </strong>
+                    
+            	</p>
+                    
+            	<p>
+            		
+					<a target="_blank" href="<?php echo esc_url( 'https://www.themeinprogress.com/bazaar-free-ecommerce-wordpress-theme/?ref=2&campaign=bazaar-notice' ); ?>" class="button button-primary"><?php esc_html_e( 'Upgrade to Bazaar Premium', 'bazaar-lite' ); ?></a>
                 
-                </div>
-                
-                <a target="_blank" href="<?php echo esc_url( 'https://www.themeinprogress.com/bazaar-free-ecommerce-wordpress-theme/?ref=2&campaign=bazaar-notice' ); ?>" class="button"><?php esc_html_e( 'Upgrade to Bazaar Premium', 'bazaar-lite' ); ?></a>
-                
-                <div class="clear"></div>
+            	</p>
 
             </div>
 		

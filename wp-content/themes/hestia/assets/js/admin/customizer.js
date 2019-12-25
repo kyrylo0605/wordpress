@@ -304,7 +304,8 @@
                 'hestia_blog_hide',
                 'hestia_blog_title',
                 'hestia_contact_hide',
-                'hestia_contact_title'
+                'hestia_contact_title',
+                'hestia_contact_info'
             ];
 
             /**
@@ -318,7 +319,8 @@
                 'hestia_subscribe_hide',
                 'hestia_subscribe_title',
                 'hestia_contact_hide',
-                'hestia_contact_title'
+                'hestia_contact_title',
+                'hestia_contact_info'
             ];
             fakeShortcutClasses.forEach(function (element) {
                 $('.customize-partial-edit-shortcut-'+element).on('click',function () {

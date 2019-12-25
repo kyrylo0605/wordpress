@@ -66,14 +66,21 @@ class Woo_Recent_Products extends EAW_WP_Widget {
 		}
 
 		$args = apply_filters(
-			'elementor-addon-widgets_product_categories_args', array(
-				'limit'   => $limit,
-				'columns' => $columns,
-				'title'   => $title,
+			'elementor-addon-widgets_product_categories_args',
+			array_merge(
+				array(
+					'limit'     => $limit,
+					'columns'   => $columns,
+					'title'     => $title,
+				),
+				$args
 			)
 		);
 
-		echo $args['before_widget'];
+		if ( isset( $args['before_widget'] ) ) {
+			echo $args['before_widget'];
+		}
+
 		// echo '<div class="woo-recent-products">';
 		echo '<section class="eaw-product-section woo-recent-products">';
 
@@ -94,7 +101,10 @@ class Woo_Recent_Products extends EAW_WP_Widget {
 
 		echo '</section>';
 		// echo '</div>';
-		echo $args['after_widget'];
+
+		if ( isset( $args['after_widget'] ) ) {
+			echo $args['after_widget'];
+		}
 
 		if ( ! $this->is_preview() ) {
 			$cache[ $args['widget_id'] ] = ob_get_flush();

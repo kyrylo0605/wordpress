@@ -116,6 +116,10 @@ class ReportsSync {
 		// Initialize syncing hooks.
 		add_action( 'wp_loaded', array( __CLASS__, 'customers_lookup_update_init' ) );
 		add_action( 'wp_loaded', array( __CLASS__, 'orders_lookup_update_init' ) );
+		add_action( 'woocommerce_update_product', array( __CLASS__, 'clear_stock_count_cache' ) );
+		add_action( 'woocommerce_new_product', array( __CLASS__, 'clear_stock_count_cache' ) );
+		add_action( 'update_option_woocommerce_notify_low_stock_amount', array( __CLASS__, 'clear_stock_count_cache' ) );
+		add_action( 'update_option_woocommerce_notify_no_stock_amount', array( __CLASS__, 'clear_stock_count_cache' ) );
 
 		// Initialize scheduled action handlers.
 		add_action( self::QUEUE_BATCH_ACTION, array( __CLASS__, 'queue_batches' ), 10, 4 );
@@ -181,7 +185,7 @@ class ReportsSync {
 	 */
 	public static function get_import_totals( $days, $skip_existing ) {
 		$orders         = self::get_orders( 1, 1, $days, $skip_existing );
-		$customer_roles = apply_filters( 'woocommerce_admin_import_customer_roles', array( 'customer' ) );
+		$customer_roles = apply_filters( 'woocommerce_analytics_import_customer_roles', array( 'customer' ) );
 		$customer_query = self::get_user_ids_for_batch(
 			$days,
 			$skip_existing,
@@ -282,7 +286,7 @@ class ReportsSync {
 			return;
 		}
 
-		if ( apply_filters( 'woocommerce_disable_order_scheduling', false ) ) {
+		if ( apply_filters( 'woocommerce_analytics_disable_order_scheduling', false ) ) {
 			self::orders_lookup_import_order( $order_id );
 			return;
 		}
@@ -524,7 +528,7 @@ class ReportsSync {
 		 * @param int    $batch_size Batch size.
 		 * @param string $action Batch action name.
 		 */
-		return apply_filters( 'wc_admin_report_regenerate_batch_size', $batch_size, $action );
+		return apply_filters( 'woocommerce_analytics_regenerate_batch_size', $batch_size, $action );
 	}
 
 	/**
@@ -674,7 +678,7 @@ class ReportsSync {
 	 */
 	public static function customer_lookup_import_batch_init( $days, $skip_existing ) {
 		$batch_size      = self::get_batch_size( self::CUSTOMERS_IMPORT_BATCH_ACTION );
-		$customer_roles  = apply_filters( 'woocommerce_admin_import_customer_roles', array( 'customer' ) );
+		$customer_roles  = apply_filters( 'woocommerce_analytics_import_customer_roles', array( 'customer' ) );
 		$customer_query  = self::get_user_ids_for_batch(
 			$days,
 			$skip_existing,
@@ -713,7 +717,7 @@ class ReportsSync {
 		);
 		wc_admin_record_tracks_event( 'import_job_start', $properties );
 
-		$customer_roles = apply_filters( 'woocommerce_admin_import_customer_roles', array( 'customer' ) );
+		$customer_roles = apply_filters( 'woocommerce_analytics_import_customer_roles', array( 'customer' ) );
 		// When we are skipping already imported customers, the table of customers to import gets smaller in
 		// every batch, so we want to always import the first page.
 		$page           = $skip_existing ? 1 : $batch_number;
@@ -867,5 +871,20 @@ class ReportsSync {
 		ReportsCache::invalidate();
 
 		wc_admin_record_tracks_event( 'delete_import_data_job_complete', array( 'type' => 'order' ) );
+	}
+
+	/**
+	 * Clear the count cache when products are added or updated, or when
+	 * the no/low stock options are changed.
+	 *
+	 * @param int $id Post/product ID.
+	 */
+	public static function clear_stock_count_cache( $id ) {
+		delete_transient( 'wc_admin_stock_count_lowstock' );
+		delete_transient( 'wc_admin_product_count' );
+		$status_options = wc_get_product_stock_status_options();
+		foreach ( $status_options as $status => $label ) {
+			delete_transient( 'wc_admin_stock_count_' . $status );
+		}
 	}
 }

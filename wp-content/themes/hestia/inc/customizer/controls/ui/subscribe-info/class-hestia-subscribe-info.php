@@ -6,10 +6,6 @@
  * @since Hestia 1.1.10
  */
 
-if ( ! class_exists( 'WP_Customize_Control' ) ) {
-	return null;
-}
-
 /**
  * A custom text control for Subscribe info.
  *
@@ -64,7 +60,7 @@ class Hestia_Subscribe_Info extends WP_Customize_Control {
 	 * @return string
 	 */
 	private function check_plugin_state() {
-		if ( file_exists( ABSPATH . 'wp-content/plugins/' . $this->path ) ) {
+		if ( is_file( ABSPATH . 'wp-content/plugins/' . $this->path ) ) {
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			if ( is_plugin_active( $this->path ) ) {
 				return $this->check_activation();
@@ -80,7 +76,7 @@ class Hestia_Subscribe_Info extends WP_Customize_Control {
 	 * @return string
 	 */
 	public function check_activation() {
-		if ( ! class_exists( 'SIB_Manager' ) ) {
+		if ( ! class_exists( 'SIB_Manager', false ) ) {
 			return 'install';
 		}
 		if ( SIB_Manager::is_done_validation() == true ) {

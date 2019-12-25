@@ -27,6 +27,10 @@
  * @subpackage Enhanced_Ecommerce_Google_Analytics/includes
  * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
  */
+
+
+
+
 class Enhanced_Ecommerce_Google_Analytics {
 
     /**
@@ -70,13 +74,14 @@ class Enhanced_Ecommerce_Google_Analytics {
         if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
             $this->version = PLUGIN_NAME_VERSION;
         } else {
-            $this->version = '2.2.1';
+            $this->version = '2.0';
         }
         $this->plugin_name = 'enhanced-ecommerce-google-analytics';
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
+        $this->check_dependency();
         add_filter( 'plugin_action_links_' .plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' ), array($this,'tvc_plugin_action_links'),10 );
     }
 
@@ -227,6 +232,7 @@ class Enhanced_Ecommerce_Google_Analytics {
      * @since     1.0.0
      * @return     Enhanced_Ecommerce_Google_Analytics_Loader    Orchestrates the hooks of the plugin.
      */
+
     public function get_loader() {
         return $this->loader;
     }
@@ -237,6 +243,7 @@ class Enhanced_Ecommerce_Google_Analytics {
      * @since     1.0.0
      * @return    string    The version number of the plugin.
      */
+
     public function get_version() {
         return $this->version;
     }
@@ -248,5 +255,17 @@ class Enhanced_Ecommerce_Google_Analytics {
         $links[] = '<a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank">Documentation</a>';
         $links[] = '<a href="https://1.envato.market/Yvn3R" target="_blank"><b>Upgrade to Premium</b></a>';
         return $links;
+    }
+
+    /**
+     * Check Enhance E-commerce Plugin is Activated
+     * Free Plugin
+     */
+
+    public function check_dependency(){
+        if ( function_exists('run_actionable_google_analytics')) {
+            _e('<div class="error"><p><strong>'. wp_sprintf( 'Note: ' ) .'</strong>'. wp_sprintf( 'It seems <strong>Actionable Google Analytics Plugin</strong> is active on your store. Kindly deactivate it in order to avoid data duplication in GA.' ) .'</p></div>');
+            die();
+        }
     }
 }

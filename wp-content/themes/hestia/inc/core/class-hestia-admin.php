@@ -202,7 +202,7 @@ class Hestia_Admin {
 				),
 			),
 		);
-		if ( class_exists( 'TI_About_Page' ) ) {
+		if ( class_exists( 'TI_About_Page', false ) ) {
 			TI_About_Page::init( apply_filters( 'hestia_about_page_array', $config ) );
 		}
 	}
@@ -551,7 +551,7 @@ class Hestia_Admin {
 	 * Load site import module.
 	 */
 	public function load_site_import() {
-		if ( class_exists( 'Themeisle_Onboarding' ) ) {
+		if ( class_exists( 'Themeisle_Onboarding', false ) ) {
 			Themeisle_Onboarding::instance();
 		}
 	}

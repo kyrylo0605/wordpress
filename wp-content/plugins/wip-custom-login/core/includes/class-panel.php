@@ -78,7 +78,7 @@ if( !class_exists( 'wip_custom_login_panel' ) ) {
 
 				wp_enqueue_style ( 'WIP_custom_login', $file_dir.'css/panel.css' ); 
 				wp_enqueue_style ( 'WIP_custom_login_on_off', $file_dir.'css/on_off.css' );
-				wp_enqueue_style ( 'WIP_custom_login_googlefonts', '//fonts.googleapis.com/css?family=Roboto');
+				wp_enqueue_style ( 'WIP_custom_login_googlefonts', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i');
 				
 				wp_enqueue_media();
 				wp_enqueue_script( 'jquery');

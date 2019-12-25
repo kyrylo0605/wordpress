@@ -186,7 +186,7 @@ class Layout_Blog extends Base_Customizer {
 	 */
 	public function sanitize_blog_layout( $value ) {
 		$allowed_values = array( 'default', 'alternative', 'grid' );
-		if ( ! in_array( $value, $allowed_values ) ) {
+		if ( ! in_array( $value, $allowed_values, true ) ) {
 			return 'default';
 		}
 
@@ -202,7 +202,7 @@ class Layout_Blog extends Base_Customizer {
 	 */
 	public function sanitize_pagination_type( $value ) {
 		$allowed_values = array( 'number', 'infinite' );
-		if ( ! in_array( $value, $allowed_values ) ) {
+		if ( ! in_array( $value, $allowed_values, true ) ) {
 			return 'number';
 		}
 
@@ -241,6 +241,29 @@ class Layout_Blog extends Base_Customizer {
 					'active_callback' => array( $this, 'should_show_content_ordering' ),
 				),
 				'Neve\Customizer\Controls\Ordering'
+			)
+		);
+
+		$this->add_control(
+			new Control(
+				'neve_post_thumbnail_box_shadow',
+				array(
+					'sanitize_callback' => 'neve_sanitize_range_value',
+					'default'           => 0,
+				),
+				array(
+					'label'      => esc_html__( 'Thumbnail Shadow', 'neve' ),
+					'section'    => 'neve_blog_archive_layout',
+					'type'       => 'range-value',
+					'step'       => 1,
+					'input_attr' => array(
+						'min'     => 0,
+						'max'     => 5,
+						'default' => 0,
+					),
+					'priority'   => 50,
+				),
+				'Neve\Customizer\Controls\Range'
 			)
 		);
 	}
@@ -304,7 +327,7 @@ class Layout_Blog extends Base_Customizer {
 		$decoded = json_decode( $value, true );
 
 		foreach ( $decoded as $val ) {
-			if ( ! in_array( $val, $allowed ) ) {
+			if ( ! in_array( $val, $allowed, true ) ) {
 				return $allowed;
 			}
 		}
@@ -329,7 +352,7 @@ class Layout_Blog extends Base_Customizer {
 		$decoded = json_decode( $value, true );
 
 		foreach ( $decoded as $val ) {
-			if ( ! in_array( $val, $allowed ) ) {
+			if ( ! in_array( $val, $allowed, true ) ) {
 				return $allowed;
 			}
 		}
@@ -355,7 +378,7 @@ class Layout_Blog extends Base_Customizer {
 		);
 		$content_order = get_theme_mod( 'neve_post_content_ordering', json_encode( $default ) );
 		$content_order = json_decode( $content_order, true );
-		if ( ! in_array( 'title-meta', $content_order ) ) {
+		if ( ! in_array( 'title-meta', $content_order, true ) ) {
 			return false;
 		}
 
@@ -397,11 +420,11 @@ class Layout_Blog extends Base_Customizer {
 	 */
 	public function should_show_masonry() {
 		$blog_layout = get_theme_mod( 'neve_blog_archive_layout', 'grid' );
-		$columns     = get_theme_mod( 'neve_grid_layout', 1 );
+		$columns     = (int) get_theme_mod( 'neve_grid_layout', 1 );
 		if ( $blog_layout !== 'grid' ) {
 			return false;
 		}
-		if ( $columns == 1 ) {
+		if ( $columns === 1 ) {
 			return false;
 		}
 

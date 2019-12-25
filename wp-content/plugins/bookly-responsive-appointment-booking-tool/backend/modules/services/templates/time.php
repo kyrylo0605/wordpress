@@ -35,7 +35,7 @@ use Bookly\Backend\Modules\Services\Proxy;
             </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group bookly-js-service bookly-js-service-simple bookly-js-service-collaborative">
         <label for="bookly-service-slot-length">
             <?php esc_html_e( 'Time slot length', 'bookly' ) ?>
         </label>

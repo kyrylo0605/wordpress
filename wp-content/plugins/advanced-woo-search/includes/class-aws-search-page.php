@@ -289,6 +289,10 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
          */
         private function search( $s, $query ) {
 
+            if ( isset( $this->data['search_res'] ) ) {
+                return $this->data['search_res'];
+            }
+
             $posts_array = (array) aws_search( $s );
             $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
             $post_array_products = $posts_array['products'];
@@ -309,10 +313,12 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
             $this->data['all_products'] = $post_array_products;
 
-            return array(
+            $this->data['search_res'] = array(
                 'all'      => $post_array_products,
                 'products' => $products
             );
+
+            return $this->data['search_res'];
 
         }
 

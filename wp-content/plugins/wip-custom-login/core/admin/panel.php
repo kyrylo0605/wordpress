@@ -166,6 +166,17 @@ $optpanel = array (
 						"options" => wip_custom_login_get_font("", "getlist"),
 						"std" => "Montserrat"),
 
+				array(	"name" => esc_html__( "Login box Position","wip-custom-login"),
+						"desc" => esc_html__( "Login box Position","wip-custom-login"),
+						"id" => "wip_custom_login_loginbox_position",
+						"type" => "select",
+						"options" => array(
+							"left" => "Left",
+							"right" => "Right",
+							"center" => "Center",
+						),
+						"std" => "center"),
+
 				array(	"name" => esc_html__( "Login box textcolor","wip-custom-login"),
 						"desc" => esc_html__( "Choose a color for the text of login box.","wip-custom-login"),
 						"id" => "wip_custom_login_loginbox_textcolor",

@@ -50,6 +50,11 @@ div.wpforms-container-full .wpforms-form * {
 	box-shadow:none;
 }
 
+div.wpforms-container-full {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 div.wpforms-container-full .wpforms-form amp-img > img {
 	position: absolute; /* Override position:static from previous rule, to prevent breaking AMP layout. */
 }
@@ -541,8 +546,8 @@ div.wpforms-container-full .wpforms-form select:disabled {
 
 /* Errors, Warnings, etc
 ----------------------------------------------------------------------------- */
-
-div.wpforms-container-full .wpforms-form .wpforms-error-container {
+div.wpforms-container-full .wpforms-form .wpforms-error-container,
+div.wpforms-container-full .wpforms-form noscript.wpforms-error-noscript {
 	color: #990000;
 }
 
@@ -728,6 +733,54 @@ div.wpforms-container-full .wpforms-form .wpforms-field-credit-card-expiration s
 	width: 10%;
 	text-align: center;
 	line-height: 38px;
+}
+
+/* Number slider field
+----------------------------------------------------------------------------- */
+div.wpforms-container-full .wpforms-form .wpforms-field-number-slider input[type=range] {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 10px;
+	background: #fff;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	outline: none;
+	padding: 0;
+	margin: 10px 0 5px;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field-number-slider input[type=range]::-ms-track {
+	color: transparent;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field-number-slider input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none; /* Override default look */
+	appearance: none;
+	width: 17px;
+	height: 17px;
+	background: #B5B5B5;
+	cursor: pointer;
+	border-radius: 100%;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field-number-slider input[type=range]::-moz-range-thumb {
+	width: 17px;
+	height: 17px;
+	background: #B5B5B5;
+	cursor: pointer;
+	border-radius: 100%;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field-number-slider input[type=range]::-ms-thumb {
+	width: 17px;
+	height: 17px;
+	background: #B5B5B5;
+	cursor: pointer;
+	border-radius: 100%;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field-number-slider .wpforms-field-number-slider-hint {
+	font-size: 13px;
 }
 
 /* Stripe Credit Card field

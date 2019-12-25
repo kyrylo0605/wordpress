@@ -60,23 +60,25 @@ class FormSelector implements IntegrationInterface {
 			WPFORMS_VERSION
 		);
 
+		$attributes = array(
+			'formId'       => array(
+				'type' => 'string',
+			),
+			'displayTitle' => array(
+				'type' => 'boolean',
+			),
+			'displayDesc'  => array(
+				'type' => 'boolean',
+			),
+			'className'    => array(
+				'type' => 'string',
+			),
+		);
+
 		\register_block_type(
 			'wpforms/form-selector',
 			array(
-				'attributes'      => array(
-					'formId'       => array(
-						'type' => 'string',
-					),
-					'displayTitle' => array(
-						'type' => 'boolean',
-					),
-					'displayDesc'  => array(
-						'type' => 'boolean',
-					),
-					'className'    => array(
-						'type' => 'string',
-					),
-				),
+				'attributes'      => \apply_filters( 'wpforms_gutenberg_form_selector_attributes', $attributes ),
 				'editor_style'    => 'wpforms-gutenberg-form-selector',
 				'render_callback' => array( $this, 'get_form_html' ),
 			)
@@ -155,13 +157,12 @@ class FormSelector implements IntegrationInterface {
 			return '';
 		}
 
-		$is_gb_editor = \defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['context'] ) && 'edit' === $_REQUEST['context']; // phpcs:ignore
-
 		$title = ! empty( $attr['displayTitle'] ) ? true : false;
 		$desc  = ! empty( $attr['displayDesc'] ) ? true : false;
 
 		// Disable form fields if called from the Gutenberg editor.
-		if ( $is_gb_editor ) {
+		if ( $this->is_gb_editor() ) {
+
 			\add_filter(
 				'wpforms_frontend_container_class',
 				function ( $classes ) {
@@ -197,8 +198,30 @@ class FormSelector implements IntegrationInterface {
 		}
 
 		\ob_start();
-		\wpforms_display( $id, $title, $desc );
 
-		return \ob_get_clean();
+		\do_action( 'wpforms_gutenberg_block_before' );
+
+		\wpforms_display(
+			$id,
+			\apply_filters( 'wpforms_gutenberg_block_form_title', $title, $id ),
+			\apply_filters( 'wpforms_gutenberg_block_form_desc', $desc, $id )
+		);
+
+		\do_action( 'wpforms_gutenberg_block_after' );
+
+		return \apply_filters( 'wpforms_gutenberg_block_form_content', \ob_get_clean(), $id );
+	}
+
+	/**
+	 * Checking if is Gutenberg REST API call.
+	 *
+	 * @since 1.5.7
+	 *
+	 * @return bool True if is Gutenberg REST API call.
+	 */
+	public function is_gb_editor() {
+
+		// TODO: Find a better way to check if is GB editor API call.
+		return \defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['context'] ) && 'edit' === $_REQUEST['context']; // phpcs:ignore
 	}
 }

@@ -691,6 +691,7 @@ WPForms.Admin.Builder.Providers = WPForms.Admin.Builder.Providers || (function (
 
 							modal.buttons.add.disable();
 							modal.buttons.cancel.disable();
+							modal.$body.addClass( 'wpforms-providers-account-add-modal' );
 
 							app.providerHolder.trigger( 'accountAddModal.onOpenBefore', [ modal ] );
 						},

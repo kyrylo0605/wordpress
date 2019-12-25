@@ -48,8 +48,7 @@ jQuery(document).ready( function() {
 		else if (jQuery(this).parent().attr('data-notice-id') == SG_NOTICE_NOT_WRITABLE_ERROR) {
 			notice = SG_NOTICE_NOT_WRITABLE_ERROR
 		}
-
-		var sgNoticeClosedHandler = new sgRequestHandler('hideNotice', {notice: notice});
+		var sgNoticeClosedHandler = new sgRequestHandler('hideNotice', {notice: notice, token: BG_BACKUP_STRINGS.nonce});
 		sgNoticeClosedHandler.run();
 	});
 
@@ -60,7 +59,7 @@ jQuery(document).ready( function() {
 });
 
 sgBackup.awake = function(){
-	var awakeAjaxHandler = new sgRequestHandler('awake', {});
+	var awakeAjaxHandler = new sgRequestHandler('awake', {token: BG_BACKUP_STRINGS.nonce});
 	awakeAjaxHandler.run();
 }
 
@@ -94,7 +93,8 @@ sgBackup.initModals = function(){
 
 		var ajaxHandler = new sgRequestHandler(url, {
 			param: param,
-			backupType: backupType
+			backupType: backupType,
+			token: BG_BACKUP_STRINGS.nonce
 		});
 
 		ajaxHandler.type = 'GET';
@@ -184,7 +184,7 @@ sgBackup.didOpenModal = function(modalName, param){
 				},
 				'data' : function (node) {
 					var path = node.id;
-					return { action:"backup_guard_getBackupContent", path:path, backupName:param };
+					return { action:"backup_guard_getBackupContent", path:path, backupName:param, token: BG_BACKUP_STRINGS.nonce };
 				}
 			}
 		},
@@ -265,7 +265,7 @@ sgBackup.didOpenModal = function(modalName, param){
 			var reviewUrl = jQuery(this).attr('data-review-url');
 			//Never show again
 			var reviewState = 2;
-			var ajaxHandler = new sgRequestHandler(action, {reviewState: reviewState});
+			var ajaxHandler = new sgRequestHandler(action, {reviewState: reviewState, token: BG_BACKUP_STRINGS.nonce});
 			ajaxHandler.run();
 			window.open(reviewUrl);
 		});
@@ -273,13 +273,13 @@ sgBackup.didOpenModal = function(modalName, param){
 		jQuery('#sgDontAskAgain').click(function(){
 			//Never show again
 			var reviewState = 2;
-			var ajaxHandler = new sgRequestHandler(action, {reviewState: reviewState});
+			var ajaxHandler = new sgRequestHandler(action, {reviewState: reviewState, token: BG_BACKUP_STRINGS.nonce});
 			ajaxHandler.run();
 		});
 
 		jQuery('#sgAskLater').click(function(){
 			var reviewState = 0;
-			var ajaxHandler = new sgRequestHandler(action, {reviewState: reviewState});
+			var ajaxHandler = new sgRequestHandler(action, {reviewState: reviewState, token: BG_BACKUP_STRINGS.nonce});
 			ajaxHandler.run();
 		});
 	}
@@ -451,7 +451,7 @@ sgBackup.initTablePagination = function(){
 
 sgBackup.logout = function()
 {
-	var ajaxHandler = new sgRequestHandler('logout', {});
+	var ajaxHandler = new sgRequestHandler('logout', {token: BG_BACKUP_STRINGS.nonce});
 	ajaxHandler.callback = function(response){
 		location.reload();
 	};

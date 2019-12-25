@@ -75,6 +75,7 @@ class Page extends Lib\Base\Ajax
                         update_option( 'bookly_gen_use_client_time_zone', (int) self::parameter( 'bookly_gen_use_client_time_zone' ) );
                         update_option( 'bookly_gen_collect_stats', self::parameter( 'bookly_gen_collect_stats' ) );
                         update_option( 'bookly_app_show_powered_by', self::parameter( 'bookly_app_show_powered_by' ) );
+                        update_option( 'bookly_app_prevent_caching', (int) self::parameter( 'bookly_app_prevent_caching' ) );
                         $alert['success'][] = __( 'Settings saved.', 'bookly' );
                         break;
                     case 'url': // URL settings form.

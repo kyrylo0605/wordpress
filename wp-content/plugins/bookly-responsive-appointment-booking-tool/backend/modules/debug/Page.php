@@ -99,15 +99,23 @@ class Page extends Lib\Base\Component
                             $debug[ $table_name ]['status'] = self::TABLE_STATUS_WARNING;
                         }
                     }
-
                 } else {
                     $debug[ $table_name ]['status'] = self::TABLE_STATUS_ERROR;
                 }
             }
         }
 
+        $tests = array();
+        foreach ( glob( __DIR__ . '/lib/tests/*.php' ) as $path ) {
+            $test = basename( $path, '.php' );
+            if ( $test !== 'Base' ) {
+                $tests[] = $test;
+            }
+        }
+
         wp_localize_script( 'bookly-debug.js', 'BooklyL10n', array(
             'csrfToken'      => Lib\Utils\Common::getCsrfToken(),
+            'tests'          => $tests,
             'charsetCollate' => $wpdb->has_cap( 'collation' )
                 ? $wpdb->get_charset_collate()
                 : 'DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci'
@@ -115,6 +123,18 @@ class Page extends Lib\Base\Component
 
         ksort( $debug );
         $import_status = self::parameter( 'status' );
-        self::renderTemplate( 'index', compact( 'debug', 'import_status' ) );
+        $tools = '';
+        foreach ( glob( __DIR__ . '/lib/tools/*.php' ) as $path ) {
+            $tool = basename( $path, '.php' );
+            if ( $tool !== 'Base' ) {
+                $tool_class = '\Bookly\Backend\Modules\Debug\Lib\Tools\\' . $tool;
+                if ( class_exists( $tool_class, true ) ) {
+                    /** @var \Bookly\Backend\Modules\Debug\Lib\Tools\Base $tool */
+                    $tool   = new $tool_class;
+                    $tools .= $tool->getMenu();
+                }
+            }
+        }
+        self::renderTemplate( 'index', compact( 'debug', 'import_status', 'tools' ) );
     }
 }

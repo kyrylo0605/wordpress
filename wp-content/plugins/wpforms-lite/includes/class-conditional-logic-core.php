@@ -418,7 +418,7 @@ class WPForms_Conditional_Logic_Core {
 												// these additional operators.
 												$disabled = '';
 												if ( ! empty( $rule['field'] ) && ! empty( $form_fields[ $rule['field'] ]['type'] ) ) {
-													$disabled = in_array( $form_fields[ $rule['field'] ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'net_promoter_score' ), true ) ? '' : ' disabled';
+													$disabled = in_array( $form_fields[ $rule['field'] ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'number-slider', 'net_promoter_score' ), true ) ? '' : ' disabled';
 												}
 
 												printf( '<option value="c" %s%s>%s</option>', selected( $operator, 'c', false ), $disabled, esc_html__( 'contains', 'wpforms-lite' ) );
@@ -447,9 +447,9 @@ class WPForms_Conditional_Logic_Core {
 													$disabled = '';
 												}
 
-												if ( isset( $form_fields[ $rule['field'] ]['type'] ) && in_array( $form_fields[ $rule['field'] ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'net_promoter_score' ), true ) ) {
+												if ( isset( $form_fields[ $rule['field'] ]['type'] ) && in_array( $form_fields[ $rule['field'] ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'number-slider', 'net_promoter_score' ), true ) ) {
 
-													$type = in_array( $form_fields[ $rule['field'] ]['type'], array( 'rating', 'net_promoter_score' ), true ) ? 'number' : 'text';
+													$type = in_array( $form_fields[ $rule['field'] ]['type'], array( 'rating', 'net_promoter_score', 'number-slider' ), true ) ? 'number' : 'text';
 
 													printf(
 														'<input type="%s" name="%s[conditionals][%s][%s][value]" value="%s" class="wpforms-conditional-value" %s>',
@@ -585,7 +585,7 @@ class WPForms_Conditional_Logic_Core {
 					$rule_operator = $rule['operator'];
 					$rule_value    = isset( $rule['value'] ) ? $rule['value'] : '';
 
-					if ( in_array( $fields[ $rule_field ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'net_promoter_score' ), true ) ) {
+					if ( in_array( $fields[ $rule_field ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'number-slider', 'net_promoter_score' ), true ) ) {
 
 						// Text based fields.
 						$left  = trim( strtolower( $fields[ $rule_field ]['value'] ) );

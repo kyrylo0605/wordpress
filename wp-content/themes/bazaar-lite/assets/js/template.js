@@ -125,17 +125,6 @@ jQuery.noConflict()(function($){
 
 	}
 
-	$('nav#mainmenu li').hover(
-		
-		function () {
-			$(this).children('ul').stop(true, true).fadeIn(100);
-		}, 
-		function () {
-			$(this).children('ul').stop(true, true).fadeOut(400);		
-		}
-			
-	);
-
 /* ===============================================
    Scroll to Top Plugin
    =============================================== */

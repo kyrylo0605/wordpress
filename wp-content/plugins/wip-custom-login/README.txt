@@ -4,7 +4,7 @@ Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
 Tags: custom login, wordpress login, customization, themes, plugins, wp-login, login, login logo, custom login page, login page style
 Requires at least: 3.5.0
-Tested up to: 5.2.4
+Tested up to: 5.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,15 @@ WIP Custom Login allows you to customize the login section of WordPress and you 
 You can get the premium version from the link below:
 [https://www.themeinprogress.com/c-login-free-custom-login-wordpress-plugin/](https://www.themeinprogress.com/c-login-free-custom-login-wordpress-plugin)
 
+**Coming soon on premium version**
+
+> <strong>New option panel</strong><br>
+> <strong>New layouts</strong><br>
+> <strong>Redirect the users on login</strong><br>
+> <strong>Social media below the login form</strong><br>
+> <strong>Option to manage the vertical alignment of login form</strong><br>
+> <strong>1 click plugin upgrades</strong><br>
+
 = Installation =
 
 Once you have installed the plugin, you just need to activate the plugin in order to enable it.
@@ -56,6 +65,15 @@ WIP Custom Login will add a new admin page, where you can customize the login pa
 3. Option panel
 
 == Changelog ==
+
+= 1.1.6 =
+
+* Tested with WordPress 5.3
+
+= 1.1.5 =
+
+* Added: New option to manage the horizontal alignment of login form
+* Edit  : Code optimized.
 
 = 1.1.4 =
 

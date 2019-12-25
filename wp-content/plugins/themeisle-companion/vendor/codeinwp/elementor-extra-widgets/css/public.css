@@ -205,6 +205,7 @@
 
 .obfx-grid-container.obfx-grid-style-list .obfx-grid-col-image {
 	width: 40%;
+	margin-bottom: 0;
 }
 
 .obfx-grid-container.obfx-grid-style-list .obfx-grid-col-content {
@@ -219,6 +220,10 @@
 
 .obfx-grid-pagination {
 	width: 100%;
+}
+
+.obfx-grid-pagination .page-numbers{
+	display: inline-block;
 }
 
 .obfx-grid-desktop-1 .obfx-grid-wrapper {

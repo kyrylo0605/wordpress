@@ -640,6 +640,7 @@ class WPForms_Process {
 			$emails = new WPForms_WP_Emails();
 			$emails->__set( 'form_data', $form_data );
 			$emails->__set( 'fields', $fields );
+			$emails->__set( 'notification_id', $notification_id );
 			$emails->__set( 'entry_id', $this->entry_id );
 			$emails->__set( 'from_name', $email['sender_name'] );
 			$emails->__set( 'from_address', $email['sender_address'] );

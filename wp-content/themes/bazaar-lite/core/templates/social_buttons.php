@@ -22,7 +22,6 @@ if (!function_exists('bazaarlite_socials_function')) {
 			"facebook" => array( "icon" => "fa fa-facebook" , "target" => "_blank" ),
 			"twitter" => array( "icon" => "fa fa-twitter" , "target" => "_blank" ),
 			"flickr" => array( "icon" => "fa fa-flickr" , "target" => "_blank" ),
-			"google" => array( "icon" => "fa fa-google-plus" , "target" => "_blank" ),
 			"linkedin" => array( "icon" => "fa fa-linkedin" , "target" => "_blank" ),
 			"pinterest" => array( "icon" => "fa fa-pinterest" , "target" => "_blank" ),
 			"tumblr" => array( "icon" => "fa fa-tumblr" , "target" => "_blank" ),

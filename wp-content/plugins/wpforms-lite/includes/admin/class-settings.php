@@ -556,7 +556,13 @@ class WPForms_Settings {
 
 		$defaults = apply_filters( 'wpforms_settings_defaults', $defaults );
 
-		return empty( $view ) ? $defaults : $defaults[ $view ];
+		if ( empty( $view ) ) {
+			$settings = $defaults;
+		} else {
+			$settings = isset( $defaults[ $view ] ) ? $defaults[ $view ] : array();
+		}
+
+		return $settings;
 	}
 
 	/**

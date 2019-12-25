@@ -3,9 +3,9 @@ Contributors: RebelCode, jeangalea, markzahra, Mekku, xedin.unknown
 Plugin URI: https://www.wprssaggregator.com
 Tags: RSS import, RSS aggregator, feed import, content curation, feed to post
 Requires at least: 4.0 or higher
-Tested up to: 5.2.2
+Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 4.15.2
+Stable tag: 4.17.1
 License: GPLv3
 
 WP RSS Aggregator is the original & most popular WordPress solution for importing RSS feeds, auto-blogging, content curation & aggregation.
@@ -259,22 +259,41 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 == Changelog ==
 
-= 4.15.2 (2019-10-03) =
-
-**Added**
-- Links and integrations with Lorem for custom developer work.
-
-**Changed**
-- The default logging type is now "debug".
-- Feeds are now sorted alphabetically by default.
+= 4.17.1 (2019-12-12) =
 
 **Fixed**
-- Multisite installations only allowed the main site to have activated licenses.
-- License notices now only appear on the main site if the site is a multisite network.
-- Blacklist items would occassionally be saved without a permalink.
-- Older versions of add-ons triggered errors when trying to log messages with the default log type.
-- Fixed checkbox legacy display options not saving correctly.
-- A saved empty useragent string in the settings caused the internal default to not be used.
-- The certificate path option was not defaulting correctly.
-- Media thumbnail images were not being detected properly.
-- An invalid feed would trigger false positive errors on fetch.
+- The new slug option was appearing on the edit pages for posts of all types.
+
+= 4.17 (2019-12-11) =
+
+**Added**
+- New "Tools" that replaces the "Blacklist", "Import/Export" and "Debugging" pages.
+- New option to control whether items with future dates are scheduled or published with truncated dates.
+- New "feeds" shortcode parameter to select feed sources by their slug names.
+- New "1 week" update interval option to update feeds once every week.
+- The "Edit Feed Source" page now allows the slug to be edited.
+- The "Edit Feed Source" page now shows shortcode snippets.
+
+**Changed**
+- RSS feeds that are invalid due to leading whitespace are now trimmed and may now be imported.
+- Images that have the same URL are now downloaded to the media library only once.
+- Updated some styles to match the new WordPress 5.3 aesthetic.
+- Optimized template saving to be more performant and less error prone.
+- Improved error messages in REST API responses.
+- Removed some log messages.
+- Fatal errors are now always logged.
+- Optimized cron-related functionality.
+- The plugin will no longer register cron schedules that already exist.
+- License-related notices are now only shown to users who have access to the Licenses settings page.
+
+**Fixed**
+- The "Import Source" option did not work.
+- Templates now link imported posts to the local post instead of to the original article.
+- Images with HTML entities in the URL could not be downloaded.
+- Feed items without a PolyLang translation did not show up in templates.
+- PHP notices were triggered when trying to download invalid images.
+- The feed item count in the "Feed Sources" page would show zero when certain add-ons are installed.
+- Removed a warning shown in templates about `reset()` expecting an array.
+- Thumbnails imported by Excerpts & Thumbnails were not shown in templates.
+- Some databases would report the following error during logging: "Column 'date' cannot be null".
+- Unserializing the options for the system info triggered PHP notices.

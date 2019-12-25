@@ -64,7 +64,7 @@ jQuery(document).ready( function() {
 		jQuery('.bg-verify-user-info-container').slideUp();
 		jQuery('.bg-verify-user-info-overlay').hide();
 
-		var ajaxHandler = new sgRequestHandler('setUserInfoVerificationPopupState', {});
+		var ajaxHandler = new sgRequestHandler('setUserInfoVerificationPopupState', {token: BG_BACKUP_STRINGS.nonce});
 		ajaxHandler.run();
 	});
 
@@ -124,7 +124,8 @@ jQuery(document).ready( function() {
 				email: email,
 				fname: fname,
 				lname: lname,
-				priority: priority
+				priority: priority,
+				token: BG_BACKUP_STRINGS.nonce
 			});
 
 			ajaxHandler.run();
@@ -154,7 +155,7 @@ sgBackup.toggleMultiDeleteButton = function() {
 }
 
 sgBackup.deleteMultiBackups = function(backupNames){
-	var ajaxHandler = new sgRequestHandler('deleteBackup', {backupName: backupNames});
+	var ajaxHandler = new sgRequestHandler('deleteBackup', {backupName: backupNames, token: BG_BACKUP_STRINGS.nonce});
 	ajaxHandler.callback = function (response) {
 		location.reload();
 	};
@@ -197,10 +198,10 @@ sgBackup.manualBackup = function(){
 
 	//Reset Status
 	var backupName = jQuery("#sg-custom-backup-name").val();
-	var resetStatusHandler = new sgRequestHandler('resetStatus', {backupName: backupName});
+	var resetStatusHandler = new sgRequestHandler('resetStatus', {backupName: backupName, token: BG_BACKUP_STRINGS.nonce });
 	resetStatusHandler.callback = function(response, error){
 		var manualBackupForm = jQuery('#manualBackup');
-		var manualBackupHandler = new sgRequestHandler('manualBackup', manualBackupForm.serialize());
+		var manualBackupHandler = new sgRequestHandler('manualBackup', manualBackupForm.serialize()+'&token='+BG_BACKUP_STRINGS.nonce);
 		manualBackupHandler.dataIsObject = false;
 		//If error
 		if(typeof response.success === 'undefined') {
@@ -225,7 +226,7 @@ sgBackup.restManualBackupModal = function() {
 }
 
 sgBackup.cancelDonwload = function(name) {
-	var cancelDonwloadHandler = new sgRequestHandler('cancelDownload', {name: name});
+	var cancelDonwloadHandler = new sgRequestHandler('cancelDownload', {name: name, token: BG_BACKUP_STRINGS.nonce});
 	cancelDonwloadHandler.callback = function(response){
 		sgBackup.hideAjaxSpinner();
 		location.reload();
@@ -234,7 +235,7 @@ sgBackup.cancelDonwload = function(name) {
 }
 
 sgBackup.listStorage = function(importFrom) {
-	var listStorage = new sgRequestHandler('listStorage', {storage: importFrom});
+	var listStorage = new sgRequestHandler('listStorage', {storage: importFrom, token: BG_BACKUP_STRINGS.nonce});
 	sgBackup.showAjaxSpinner('#sg-modal-inport-from');
 	jQuery('#sg-archive-list-table tbody').empty();
 	
@@ -405,7 +406,8 @@ sgBackup.downloadFromCloud = function (path, name, storage, size) {
     var downloadFromCloudHandler = new sgRequestHandler('downloadFromCloud', {
         path: path,
         storage: storage,
-        size: size
+        size: size,
+	    token: BG_BACKUP_STRINGS.nonce
     });
 
     jQuery('#switch-modal-import-pages-back').hide();
@@ -482,7 +484,7 @@ sgBackup.downloadFromPC =  function(){
 }
 
 sgBackup.fileDownloadProgress = function(file, size){
-    var getFileDownloadProgress = new sgRequestHandler('getFileDownloadProgress', {file: file, size: size});
+    var getFileDownloadProgress = new sgRequestHandler('getFileDownloadProgress', {file: file, size: size, token: BG_BACKUP_STRINGS.nonce});
 
     getFileDownloadProgress.callback = function(response){
         if (typeof response.progress !== 'undefined') {
@@ -503,7 +505,7 @@ sgBackup.fileUploadProgress = function(e){
 }
 
 sgBackup.checkBackupCreation = function(){
-	var sgBackupCreationHandler = new sgRequestHandler('checkBackupCreation', {});
+	var sgBackupCreationHandler = new sgRequestHandler('checkBackupCreation', {token: BG_BACKUP_STRINGS.nonce});
 	sgBackupCreationHandler.dataType = 'html';
 	sgBackupCreationHandler.callback = function(response){
 		jQuery('#sg-modal').modal('hide');
@@ -513,7 +515,7 @@ sgBackup.checkBackupCreation = function(){
 };
 
 sgBackup.checkRestoreCreation = function(){
-	var sgRestoreCreationHandler = new sgRequestHandler('checkRestoreCreation', {});
+	var sgRestoreCreationHandler = new sgRequestHandler('checkRestoreCreation', {token: BG_BACKUP_STRINGS.nonce});
 	sgRestoreCreationHandler.callback = function(response){
 		if (response.status==0 && response.external_enabled==1) {
 			location.href = response.external_url;
@@ -581,7 +583,7 @@ sgBackup.startRestore = function(bname) {
 	var type = jQuery('input[type=radio][name=restoreType]:checked').val();
 	var restoreFilesType = jQuery('input[type=radio][name=restoreFilesType]:checked').val() || "0";
 	var paths = restoreFilesType == "0"? "/" : jQuery("#fileSystemTreeContainer").jstree("get_selected");
-	var checkPHPVersionCompatibility = new sgRequestHandler('checkPHPVersionCompatibility',{bname: bname});
+	var checkPHPVersionCompatibility = new sgRequestHandler('checkPHPVersionCompatibility',{bname: bname, token: BG_BACKUP_STRINGS.nonce});
 
 	checkPHPVersionCompatibility.callback = function(response) {
 		if (typeof response.error != 'undefined') {
@@ -595,7 +597,7 @@ sgBackup.startRestore = function(bname) {
 		}
 
 		sgBackup.showAjaxSpinner('#sg-content-wrapper');
-		var resetStatusHandler = new sgRequestHandler('resetStatus');
+		var resetStatusHandler = new sgRequestHandler('resetStatus', {token: BG_BACKUP_STRINGS.nonce});
 		resetStatusHandler.callback = function(response) {
 			//If error
 			if(typeof response.success === 'undefined') {
@@ -644,7 +646,7 @@ sgBackup.initActiveAction = function(){
 	jQuery('.sg-cancel-backup').click(function(){
 		if (confirm('Are you sure?')) {
 			var actionId = jQuery(this).attr('sg-data-backup-id');
-			var sgCancelHandler = new sgRequestHandler('cancelBackup', {actionId: actionId});
+			var sgCancelHandler = new sgRequestHandler('cancelBackup', {actionId: actionId, token: BG_BACKUP_STRINGS.nonce});
 			sgCancelHandler.run();
 		}
 	});
@@ -658,7 +660,7 @@ sgBackup.initActiveAction = function(){
 sgBackup.getActionProgress = function(actionId){
 	var progressBar = jQuery('.sg-progress .progress-bar', '#sg-status-tabe-data-'+actionId);
 
-	var sgActionHandler = new sgRequestHandler('getAction', {actionId: actionId});
+	var sgActionHandler = new sgRequestHandler('getAction', {actionId: actionId, token: BG_BACKUP_STRINGS.nonce});
 	//Init tooltip
 	var statusTooltip = jQuery('#sg-status-tabe-data-'+actionId+'[data-toggle=tooltip]').tooltip();
 
@@ -744,7 +746,7 @@ sgBackup.initBackupDeletion = function(){
 			url = btn.attr('data-remote'),
 			backupName = [btn.attr('data-sgbackup-name')];
 		if (confirm('Are you sure?')) {
-			var ajaxHandler = new sgRequestHandler(url, {backupName: backupName});
+			var ajaxHandler = new sgRequestHandler(url, {backupName: backupName, token: BG_BACKUP_STRINGS.nonce});
 			ajaxHandler.callback = function (response) {
 				location.reload();
 			};

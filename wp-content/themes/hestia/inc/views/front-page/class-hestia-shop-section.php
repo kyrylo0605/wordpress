@@ -56,7 +56,7 @@ class Hestia_Shop_Section extends Hestia_Abstract_Main {
 			}
 		}
 
-		if ( ! class_exists( 'WooCommerce' ) ) {
+		if ( ! class_exists( 'WooCommerce', false ) ) {
 			return;
 		}
 

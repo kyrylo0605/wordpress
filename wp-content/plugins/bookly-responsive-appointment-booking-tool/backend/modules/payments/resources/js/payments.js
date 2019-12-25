@@ -42,6 +42,7 @@ jQuery(function($) {
         .val(null)
         .select2({
             allowClear: true,
+            placeholder: '',
             theme: 'bootstrap',
             language: {
                 noResults: function() { return BooklyL10n.noResultFound; }
@@ -53,6 +54,7 @@ jQuery(function($) {
             width: '100%',
             theme: 'bootstrap',
             allowClear: true,
+            placeholder: '',
             language  : {
                 noResults: function() { return BooklyL10n.no_result_found; },
                 searching: function () { return BooklyL10n.searching; }
@@ -64,7 +66,7 @@ jQuery(function($) {
                 data: function (params) {
                     params.page = params.page || 1;
                     return {
-                        action: $(this).data('action'),
+                        action: this.action === undefined ? $(this).data('ajax--action') : this.action,
                         filter: params.term,
                         page: params.page,
                         csrf_token : BooklyL10n.csrfToken

@@ -45,6 +45,10 @@ function monsterinsights_get_admin_menu_tooltip() {
 		return;
 	}
 
+	if ( ! current_user_can( 'monsterinsights_save_settings' ) ) {
+		return;
+	}
+
 	if ( $show_tooltip && $show_tooltip + 30 * DAY_IN_SECONDS > time() ) {
 		// Dismissed less than 30 days ago.
 		return;
@@ -197,6 +201,12 @@ function monsterinsights_get_admin_menu_tooltip() {
 				if ( 0 === $menuitem.length ) {
 					$menuitem = $( document.getElementById( 'toplevel_page_monsterinsights_network' ) );
 				}
+				if ( 0 === $menuitem.length ) {
+					$menuitem = $( document.getElementById( 'toplevel_page_monsterinsights_settings' ) );
+				}
+				if ( 0 === $menuitem.length ) {
+					return;
+				}
 
 				if ( $menuitem.length ) {
 					$menuwrapper.append( $tooltip );
@@ -213,6 +223,10 @@ function monsterinsights_get_admin_menu_tooltip() {
 					} else {
 						tooltip_top = menuitem_pos.top - 250;
 						$tooltip.addClass( 'monsterinsights-tooltip-arrow-top' );
+					}
+					// Don't let the tooltip go outside of the screen and make the close button not visible.
+					if ( tooltip_top < 40 ) {
+						tooltip_top = 40;
 					}
 					$tooltip.css( {
 						top: tooltip_top + 'px'

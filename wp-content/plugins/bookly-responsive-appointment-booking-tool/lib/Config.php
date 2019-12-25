@@ -148,7 +148,7 @@ abstract class Config
                 'min_capacity' => (int) $row['capacity_min'],
                 'max_capacity' => (int) $row['capacity_max'],
                 'price'        => $staff_name_with_price
-                    ? html_entity_decode( Utils\Price::format( $row['price'] ) )
+                    ? Utils\Price::format( $row['price'] )
                     : null,
             );
             $location_data = Proxy\Shared::prepareCategoryServiceStaffLocation( $location_data, $row );

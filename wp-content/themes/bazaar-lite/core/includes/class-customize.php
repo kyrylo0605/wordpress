@@ -27,10 +27,6 @@ class bazaarlite_customize {
 			wp_enqueue_script( "jquery-ui-tabs");
 		}
 			
-		if ( !get_option( 'bazaar-lite-dismissed-notice') ) {
-			wp_enqueue_style ( 'bazaar-lite-notice',  $file_dir . 'css/notice.css', array(), '1.0.0' ); 
-		}
-
 	}
 
     public function customize_scripts() {
@@ -359,7 +355,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
                 
                     <li><a class="button" href="<?php echo esc_url( 'https://wordpress.org/support/view/theme-reviews/'.get_stylesheet().'#postform' ); ?>" title="<?php esc_attr_e('Rate this Theme','bazaar-lite');?>" target="_blank"><?php esc_html_e('Rate this Theme','bazaar-lite');?></a></li>
                     <li><a class="button" href="<?php echo esc_url( 'https://www.themeinprogress.com/reserved-area/' ); ?>" title="<?php esc_attr_e('Subscribe our newsletter','bazaar-lite');?>" target="_blank"><?php esc_html_e('Subscribe our newsletter','bazaar-lite');?></a></li>
-                    <li><a class="button" href="<?php echo esc_url( 'https://wordpress.org/themes/author/alexvtn/' ); ?>" title="<?php esc_attr_e('Download our free WordPress themes','bazaar-lite');?>" target="_blank"><?php esc_html_e('Download our free WordPress themes','bazaar-lite');?></a></li>
                 
                 </ul>
     

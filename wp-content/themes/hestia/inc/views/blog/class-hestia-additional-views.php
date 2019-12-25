@@ -79,21 +79,21 @@ class Hestia_Additional_Views extends Hestia_Abstract_Main {
                    data-original-title="' . esc_attr__( 'Share on Facebook', 'hestia' ) . '"
                    class="btn btn-just-icon btn-round btn-facebook"
                    href="' . $facebook_url . '">
-                   <i class="fa fa-facebook"></i>
+                   <i class="fab fa-facebook-f"></i>
                 </a>
                 
                 <a target="_blank" rel="tooltip"
                    data-original-title="' . esc_attr__( 'Share on Twitter', 'hestia' ) . '"
                    class="btn btn-just-icon btn-round btn-twitter"
                    href="' . $twitter_url . '">
-                   <i class="fa fa-twitter"></i>
+                   <i class="fab fa-twitter"></i>
                 </a>
                 
                 <a rel="tooltip"
                    data-original-title=" ' . esc_attr__( 'Share on Email', 'hestia' ) . '"
                    class="btn btn-just-icon btn-round"
                    href="' . $email_url . '">
-                   <i class="fa fa-envelope"></i>
+                   <i class="fas fa-envelope"></i>
                </a>
             </div>
 		</div>';
@@ -172,7 +172,7 @@ class Hestia_Additional_Views extends Hestia_Abstract_Main {
 		}
 		?>
 		<button class="hestia-scroll-to-top">
-			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+			<i class="fas fa-angle-double-up" aria-hidden="true"></i>
 		</button>
 		<?php
 	}

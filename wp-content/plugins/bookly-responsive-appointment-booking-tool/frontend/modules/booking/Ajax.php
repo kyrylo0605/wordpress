@@ -751,7 +751,7 @@ class Ajax extends Lib\Base\Ajax
                                 array(),
                                 self::parameter( 'form_id' ),
                                 Lib\Proxy\Shared::showPaymentSpecificPrices( false ),
-                                $cart_info,
+                                clone $cart_info,
                                 $userData->extractPaymentStatus()
                             );
                             $status = Lib\Entities\Payment::STATUS_PENDING;

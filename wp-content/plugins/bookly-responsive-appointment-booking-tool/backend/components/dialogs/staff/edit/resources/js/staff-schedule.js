@@ -65,7 +65,7 @@ jQuery(function ($) {
                     hideInaccessibleBreaks($break_start, $break_end);
 
                     $popover.find('.bookly-popover-close').on('click', function () {
-                        $popover.popover('hide');
+                        $popover.prev('.bookly-js-toggle-popover').popover('toggle');
                     });
                 });
 
@@ -125,7 +125,7 @@ jQuery(function ($) {
 
                     .on('click', '.break-interval', function () {
                         var $button = $(this);
-                        $('.popover').popover('hide');
+                        $('.popover').prev('.bookly-js-toggle-popover').popover('toggle');
                         var break_id = $button.closest('.bookly-intervals-wrapper').data('break_id');
                         $(this).popover({
                             html: true,
@@ -152,7 +152,7 @@ jQuery(function ($) {
                         hideInaccessibleBreaks($break_start, $break_end, true);
 
                         $popover.find('.bookly-popover-close').on('click', function () {
-                            $popover.popover('hide');
+                            $popover.prev('.bookly-js-toggle-popover').popover('toggle');
                         });
                     })
 
@@ -193,7 +193,7 @@ jQuery(function ($) {
                                             .find('.break-interval')
                                             .text(response.data.interval);
                                     }
-                                    $('.popover').popover('hide');
+                                    $('.popover').prev('.bookly-js-toggle-popover').popover('toggle');
                                 } else {
                                     obj.options.booklyAlert({error: [response.data.message]});
                                 }

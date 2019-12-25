@@ -79,7 +79,7 @@ sgBackup.initCloudSwitchButtons = function(){
         if(state) {
             jQuery('.alert').remove();
             if(storage == 'DROPBOX' || storage == 'GOOGLE_DRIVE' || storage == 'ONE_DRIVE') {
-                var curlRequirementCheck = new sgRequestHandler('curlChecker', {});
+                var curlRequirementCheck = new sgRequestHandler('curlChecker', {token: BG_BACKUP_STRINGS.nonce});
                 that.bootstrapSwitch('indeterminate',true);
                 curlRequirementCheck.callback = function(response){
                     if(typeof response.success !== 'undefined') {
@@ -260,7 +260,7 @@ sgBackup.initCloudFolderSettings = function(){
     jQuery('#sg-save-cloud-folder').click(function(){
         jQuery('.alert').remove();
         var cloudFolderName = jQuery('#cloudFolder').val(),
-            cloundFolderRequest = new sgRequestHandler('saveCloudFolder',{cloudFolder: cloudFolderName}),
+            cloundFolderRequest = new sgRequestHandler('saveCloudFolder',{cloudFolder: cloudFolderName, token: BG_BACKUP_STRINGS.nonce}),
             saveBtn = jQuery(this);
         var alert = sgBackup.alertGenerator(BG_CLOUD_STRINGS.invalidDestinationFolder,'alert-danger');
         if(cloudFolderName.length<=0)

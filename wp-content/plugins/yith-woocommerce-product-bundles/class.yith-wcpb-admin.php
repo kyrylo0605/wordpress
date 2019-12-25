@@ -365,6 +365,7 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             $args = array(
                 'create_menu_page' => true,
                 'parent_slug'      => '',
+                'plugin_slug'      => YITH_WCPB_SLUG,
                 'class'            => yith_set_wrapper_class(),
                 'page_title'       => 'WooCommerce Product Bundles',
                 'menu_title'       => 'Product Bundles',
@@ -468,7 +469,7 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
          * @since   1.0.0
          */
         public function get_premium_landing_uri() {
-            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing . '?refer_id=1030585';
+            return $this->_premium_landing;
         }
     }
 }

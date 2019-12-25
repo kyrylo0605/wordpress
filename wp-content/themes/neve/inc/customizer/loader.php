@@ -87,19 +87,62 @@ class Loader {
 			NEVE_VERSION,
 			true
 		);
+
+		$editor_dependencies = array(
+			'wp-i18n',
+			'wp-components',
+			'wp-edit-post',
+			'wp-element',
+		);
+		wp_register_script( 'react-controls', get_template_directory_uri() . '/inc/customizer/controls/react/bundle/controls.js', $editor_dependencies, NEVE_VERSION, true );
+		wp_localize_script(
+			'react-controls',
+			'NeveReactCustomize',
+			apply_filters(
+				'neve_react_controls_localization',
+				array(
+					'fonts' => array(
+						'System' => neve_get_standard_fonts(),
+						'Google' => neve_get_google_fonts(),
+					),
+				)
+			)
+		);
+		wp_enqueue_script( 'react-controls' );
+		wp_enqueue_style(
+			'react-controls',
+			get_template_directory_uri() .
+			'/inc/customizer/controls/react/bundle/controls.css',
+			array( 'wp-components' ),
+			NEVE_VERSION
+		);
+		wp_enqueue_style(
+			'neve-fonts-control-google-fonts',
+			'https://fonts.googleapis.com/css?family=' . join( '|', neve_get_google_fonts() ) . '&text=Abc',
+			[],
+			NEVE_VERSION
+		);
 	}
 
 	/**
 	 * Enqueue customizer preview script.
 	 */
 	public function enqueue_customizer_preview() {
-		wp_enqueue_script(
+		wp_enqueue_style(
+			'neve-customizer-preview-style',
+			NEVE_ASSETS_URL . 'css/customizer-preview' . ( ( NEVE_DEBUG ) ? '' : '.min' ) . '.css',
+			array(),
+			NEVE_VERSION
+		);
+		wp_register_script(
 			'neve-customizer-preview',
-			NEVE_ASSETS_URL . 'js/customizer-preview' . ( ( NEVE_DEBUG ) ? '' : '.min' ) . '.js',
+			NEVE_ASSETS_URL . 'js/customizer-preview.js',
 			array(),
 			NEVE_VERSION,
 			true
 		);
+		wp_localize_script( 'neve-customizer-preview', 'neveCustomizePreview', apply_filters( 'neve_customize_preview_localization', array() ) );
+		wp_enqueue_script( 'neve-customizer-preview' );
 	}
 
 	/**

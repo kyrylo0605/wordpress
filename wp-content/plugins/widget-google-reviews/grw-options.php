@@ -58,6 +58,20 @@
 
 <div class="form-group">
     <label>
+        <input id="<?php echo $this->get_field_id('hide_based_on'); ?>" name="<?php echo $this->get_field_name('hide_based_on'); ?>" type="checkbox" value="1" <?php checked('1', $hide_based_on); ?>/>
+        <?php echo grw_i('Hide \'Based on ... reviews\''); ?>
+    </label>
+</div>
+
+<div class="form-group">
+    <label>
+        <input id="<?php echo $this->get_field_id('hide_reviews'); ?>" name="<?php echo $this->get_field_name('hide_reviews'); ?>" type="checkbox" value="1" <?php checked('1', $hide_reviews); ?>/>
+        <?php echo grw_i('Hide reviews, leave only rating header'); ?>
+    </label>
+</div>
+
+<div class="form-group">
+    <label>
         <input id="<?php echo $this->get_field_id('centered'); ?>" name="<?php echo $this->get_field_name('centered'); ?>" type="checkbox" value="1" <?php checked('1', $centered); ?>/>
         <?php echo grw_i('Place by center (only if Width is set)'); ?>
     </label>

@@ -263,7 +263,12 @@ use Bookly\Lib\Entities\CustomerAppointment;
                     <div class="modal-footer">
                         <div ng-hide=loading>
                             <?php Proxy\Shared::renderAppointmentDialogFooter() ?>
-                            <?php Buttons::renderSubmit( null, null, null, array( 'ng-hide' => 'form.screen == \'queue\' || (form.repeat.enabled && !form.skip_date && form.screen == \'main\')', 'ng-disabled' => '!form.skip_date && form.repeat.enabled && schIsScheduleEmpty()', 'formnovalidate' => '' ) ) ?>
+                            <?php Buttons::renderSubmit( null, null, null,
+                                array(
+                                    'ng-hide'        => 'form.screen == \'queue\' || (form.repeat.enabled && !form.skip_date && form.screen == \'main\')',
+                                    'ng-disabled'    => '!form.skip_date && form.repeat.enabled && schIsScheduleEmpty() || (!form.date && !form.skip_date)',
+                                    'formnovalidate' => '',
+                                ) ) ?>
                             <?php Buttons::renderSubmit( null, 'bookly-js-queue-send', esc_html__( 'Send', 'bookly' ), array( 'ng-show' => 'form.screen == \'queue\'' ) ) ?>
                             <?php Buttons::renderCustom( null, 'btn-lg btn-default', esc_html__( 'Cancel', 'bookly' ), array( 'ng-click' => 'closeDialog()', 'data-dismiss' => 'modal' ) ) ?>
                         </div>

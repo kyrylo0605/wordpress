@@ -79,9 +79,22 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             // Seamless integration
             if ( AWS()->get_settings( 'seamless' ) === 'true' ) {
+
+                add_filter( 'aws_js_seamless_selectors', array( $this, 'js_seamless_selectors' ) );
+
                 add_filter( 'et_html_main_header', array( $this, 'et_html_main_header' ) );
                 add_filter( 'et_html_slide_header', array( $this, 'et_html_main_header' ) );
                 add_filter( 'generate_navigation_search_output', array( $this, 'generate_navigation_search_output' ) );
+                add_filter( 'et_pb_search_shortcode_output', array( $this, 'divi_builder_search_module' ) );
+                add_filter( 'et_pb_menu_shortcode_output', array( $this, 'divi_builder_search_module' ) );
+                add_filter( 'et_pb_fullwidth_menu_shortcode_output', array( $this, 'divi_builder_search_module' ) );
+                add_action( 'wp_head', array( $this, 'head_js_integration' ) );
+
+                // Ocean wp theme
+                if ( class_exists( 'OCEANWP_Theme_Class' ) ) {
+                    add_action( 'wp_head', array( $this, 'oceanwp_head_action' ) );
+                }
+
             }
 
             // Wholesale plugin hide certain products
@@ -358,6 +371,64 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         <?php }
 
         /*
+         * Ocean wp theme
+         */
+        public function oceanwp_head_action() { ?>
+
+            <style>
+                .oceanwp-theme #searchform-header-replace .aws-container {
+                    padding-right: 45px;
+                    padding-top: 15px;
+                }
+                .oceanwp-theme #searchform-overlay .aws-container {
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    margin-top: -33px;
+                    width: 100%;
+                    text-align: center;
+                }
+                .oceanwp-theme #searchform-overlay .aws-container form {
+                    position: static;
+                }
+
+                .oceanwp-theme #searchform-overlay a.search-overlay-close {
+                    top: -100px;
+                }
+
+            </style>
+
+            <script>
+
+                window.addEventListener('load', function() {
+
+                    window.setTimeout(function(){
+                        var formOverlay = document.querySelector("#searchform-overlay form");
+                        if ( formOverlay ) {
+                            formOverlay.innerHTML += '<a href="#" class="search-overlay-close"><span></span></a>';
+                        }
+                    }, 300);
+
+                    jQuery(document).on( 'click', 'a.search-overlay-close', function (e) {
+
+                        jQuery( '#searchform-overlay' ).removeClass( 'active' );
+                        jQuery( '#searchform-overlay' ).fadeOut( 200 );
+
+                        setTimeout( function() {
+                            jQuery( 'html' ).css( 'overflow', 'visible' );
+                        }, 400);
+
+                        jQuery( '.aws-search-result' ).hide();
+
+                    } );
+
+                }, false);
+
+            </script>
+
+        <?php }
+
+        /*
          * Porto theme seamless integration
          */
         public function porto_search_form_content_filter( $markup ) {
@@ -458,11 +529,108 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         public function generate_navigation_search_output( $html ) {
             if ( function_exists( 'aws_get_search_form' ) ) {
                 $html = '<style>.navigation-search .aws-container .aws-search-form{height: 60px;} .navigation-search .aws-container{margin-right: 60px;} .navigation-search .aws-container .search-field{border:none;} </style>';
+                $html .= '<script>
+                     window.addEventListener("awsShowingResults", function(e) {
+                         var links = document.querySelectorAll(".aws_result_link");
+                         if ( links ) {
+                            for (var i = 0; i < links.length; i++) {
+                                links[i].className += " search-item";
+                            }
+                        }
+                     }, false);
+                    </script>';
                 $html .= '<div class="navigation-search">' . aws_get_search_form( false ) . '</div>';
                 $html = str_replace( 'aws-search-field', 'aws-search-field search-field', $html );
             }
             return $html;
         }
+
+        /*
+         * Divi builder replace search module
+         */
+        public function divi_builder_search_module( $output ) {
+            if ( function_exists( 'aws_get_search_form' ) && is_string( $output ) ) {
+
+                $pattern = '/(<form[\s\S]*?<\/form>)/i';
+                $form = aws_get_search_form(false);
+
+                if ( strpos( $output, 'aws-container' ) !== false ) {
+                    $pattern = '/(<div class="aws-container"[\s\S]*?<form.*?<\/form><\/div>)/i';
+                }
+
+                $output = trim(preg_replace('/\s\s+/', ' ', $output));
+                $output = preg_replace( $pattern, $form, $output );
+
+            }
+            return $output;
+        }
+
+        /*
+         * Selector filter of js seamless
+         */
+        public function js_seamless_selectors( $selectors ) {
+
+            // shopkeeper theme
+            if ( function_exists( 'shopkeeper_theme_setup' ) ) {
+                $selectors[] = '.site-search .woocommerce-product-search';
+            }
+
+            // ocean wp theme
+            if ( class_exists( 'OCEANWP_Theme_Class' ) ) {
+                $selectors[] = '#searchform-header-replace form';
+                $selectors[] = '#searchform-overlay form';
+            }
+
+            return $selectors;
+
+        }
+
+        /*
+         * Js seamless integration method
+         */
+        public function head_js_integration() {
+
+            /**
+             * Filter seamless integrations js selectors for forms
+             * @since 1.85
+             * @param array $forms Array of css selectors
+             */
+            $forms = apply_filters( 'aws_js_seamless_selectors', array() );
+
+            if ( ! is_array( $forms ) || empty( $forms ) ) {
+                return;
+            }
+
+            $forms_selector = implode( ',', $forms );
+
+            ?>
+
+            <script>
+
+                window.addEventListener('load', function() {
+                    var forms = document.querySelectorAll("<?php echo $forms_selector; ?>");
+
+                    var awsFormHtml = <?php echo json_encode( str_replace( 'aws-container', 'aws-container aws-js-seamless', aws_get_search_form( false ) ) ); ?>;
+
+                    if ( forms ) {
+
+                        for ( var i = 0; i < forms.length; i++ ) {
+                            if ( forms[i].parentNode.outerHTML.indexOf('aws-container') === -1 ) {
+                                forms[i].outerHTML = awsFormHtml;
+                            }
+                        }
+
+                        window.setTimeout(function(){
+                            jQuery('.aws-js-seamless').each( function() {
+                                jQuery(this).aws_search();
+                            });
+                        }, 1000);
+
+                    }
+                }, false);
+            </script>
+
+        <?php }
 
         /*
          * Wholesale plugin hide products

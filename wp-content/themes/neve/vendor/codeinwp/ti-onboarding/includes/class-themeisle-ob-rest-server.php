@@ -23,6 +23,7 @@ class Themeisle_OB_Rest_Server {
 	 */
 	private $frontpage_id;
 
+
 	/**
 	 * The theme support contents.
 	 *
@@ -36,11 +37,6 @@ class Themeisle_OB_Rest_Server {
 	 * @var array
 	 */
 	private $data = array();
-
-	/**
-	 * @var bool
-	 */
-	private $valid_lic = false;
 
 	/**
 	 * Initialize the rest functionality.
@@ -61,41 +57,6 @@ class Themeisle_OB_Rest_Server {
 		}
 
 		$this->theme_support = $theme_support[0];
-		$this->valid_lic     = $this->is_valid_lic();
-	}
-
-	/**
-	 * Check license
-	 *
-	 * @return bool
-	 */
-	private function is_valid_lic() {
-		if ( ! class_exists( '\ThemeisleSDK\Common\Module_Factory' ) ) {
-			return false;
-		}
-		$sdk_modules = \ThemeisleSDK\Common\Module_Factory::get_modules_map();
-		$theme       = get_stylesheet();
-
-		if ( $theme === 'neve' ) {
-			$theme = 'neve-pro-addon';
-		}
-
-		if ( ! array_key_exists( $theme, $sdk_modules ) ) {
-			return false;
-		}
-
-		if ( ! isset( $sdk_modules[ $theme ]['licenser'] ) ) {
-			return false;
-		}
-
-		$licenser = $sdk_modules[ $theme ]['licenser'];
-		$validity = $licenser->get_license_status();
-
-		if ( $validity === 'valid' ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**
@@ -187,7 +148,6 @@ class Themeisle_OB_Rest_Server {
 	 * @return WP_REST_Response
 	 */
 	public function init_library() {
-
 		if ( empty( $this->theme_support ) ) {
 			return new WP_REST_Response(
 				array(
@@ -326,6 +286,7 @@ class Themeisle_OB_Rest_Server {
 			return false;
 		}
 		$theme_object = $available_themes[ $previous_theme ];
+
 		return $theme_object->get( 'Template' );
 	}
 
@@ -336,6 +297,13 @@ class Themeisle_OB_Rest_Server {
 	 */
 	private function get_local_templates() {
 		$returnable = array();
+
+		$cache_key   = sprintf( '_%s_templates_local', md5( serialize( $this->theme_support['local'] ) ) );
+		$cached_data = get_transient( $cache_key );
+
+		if ( false !== $cached_data ) {
+			return $cached_data;
+		}
 
 		require_once( ABSPATH . '/wp-admin/includes/file.php' );
 
@@ -381,8 +349,16 @@ class Themeisle_OB_Rest_Server {
 				if ( isset( $template_data['edit_content_redirect'] ) ) {
 					$returnable[ $editor ][ $template_slug ]['edit_content_redirect'] = esc_html( $template_data['edit_content_redirect'] );
 				}
+
+				if ( isset( $template_data['external_plugins'] ) ) {
+					foreach ( $template_data['external_plugins'] as $plugin ) {
+						$returnable[ $editor ][ $template_slug ]['external_plugins'][ $plugin['name'] ] = $plugin['author_url'];
+					}
+				}
 			}
 		}
+
+		set_transient( $cache_key, $returnable, DAY_IN_SECONDS );
 
 		return $returnable;
 	}
@@ -393,11 +369,15 @@ class Themeisle_OB_Rest_Server {
 	 * @return array
 	 */
 	private function get_remote_templates() {
-		if ( $this->valid_lic === false ) {
+		if ( ! isset( $this->theme_support['remote'] ) ) {
 			return array();
 		}
-
-		$returnable = array();
+		$returnable  = array();
+		$cache_key   = sprintf( '_%s_templates_remote', md5( serialize( $this->theme_support['remote'] ) ) );
+		$cached_data = get_transient( $cache_key );
+		if ( false !== $cached_data ) {
+			return $cached_data;
+		}
 
 		foreach ( $this->theme_support['editors'] as $editor ) {
 
@@ -406,26 +386,47 @@ class Themeisle_OB_Rest_Server {
 			}
 
 			foreach ( $this->theme_support['remote'][ $editor ] as $template_slug => $template_data ) {
-				$request       = wp_remote_get( $template_data['url'] . '/wp-json/ti-demo-data/data' );
-				$response_code = wp_remote_retrieve_response_code( $request );
+				if ( isset( $template_data['local_json'] ) ) {
+					require_once( ABSPATH . '/wp-admin/includes/file.php' );
+					global $wp_filesystem;
+					WP_Filesystem();
+					$json_body = $wp_filesystem->get_contents( $template_data['local_json'] );
+				} else {
+					$url = ( isset( $template_data['remote_json'] ) ? $template_data['remote_json'] : $template_data['url'] ) . '/wp-json/ti-demo-data/data';
 
-				if ( $response_code !== 200 ) {
-					continue;
+					$request = wp_remote_get( $url );
+
+					$response_code = wp_remote_retrieve_response_code( $request );
+
+					if ( $response_code !== 200 ) {
+						continue;
+					}
+
+					if ( empty( $request['body'] ) || ! isset( $request['body'] ) ) {
+						continue;
+					}
+
+					$json_body = $request['body'];
 				}
 
-				if ( empty( $request['body'] ) || ! isset( $request['body'] ) ) {
-					continue;
-				}
-
-				$returnable[ $editor ][ $template_slug ]                     = json_decode( $request['body'], true );
+				$returnable[ $editor ][ $template_slug ]                     = json_decode( $json_body, true );
 				$returnable[ $editor ][ $template_slug ]['title']            = esc_html( $template_data['title'] );
 				$returnable[ $editor ][ $template_slug ]['demo_url']         = esc_url( $template_data['url'] );
 				$returnable[ $editor ][ $template_slug ]['screenshot']       = esc_url( $template_data['screenshot'] );
 				$returnable[ $editor ][ $template_slug ]['source']           = 'remote';
-				$returnable[ $editor ][ $template_slug ]['unsplash_gallery'] = $this->theme_support['remote'][ $editor ][ $template_slug ]['unsplash_gallery'] ?: '';
+				$returnable[ $editor ][ $template_slug ]['unsplash_gallery'] = isset( $this->theme_support['remote'][ $editor ][ $template_slug ]['unsplash_gallery'] ) ? $this->theme_support['remote'][ $editor ][ $template_slug ]['unsplash_gallery'] : '';
 
+				if ( isset( $template_data['external_plugins'] ) ) {
+					foreach ( $template_data['external_plugins'] as $plugin ) {
+						if ( $plugin['active'] ) {
+							continue;
+						}
+						$returnable[ $editor ][ $template_slug ]['external_plugins'][ $plugin['name'] ] = $plugin['author_url'];
+					}
+				}
 			}
 		}
+		set_transient( $cache_key, $returnable, DAY_IN_SECONDS );
 
 		return $returnable;
 	}
@@ -436,27 +437,14 @@ class Themeisle_OB_Rest_Server {
 	 * @return array
 	 */
 	private function get_upsell_templates() {
-		if ( $this->valid_lic === true ) {
-			return array();
-		}
-
 		$returnable = array();
 
 		foreach ( $this->theme_support['editors'] as $editor ) {
 			if ( ! isset( $this->theme_support['upsell'][ $editor ] ) ) {
 				continue;
 			}
-
 			foreach ( $this->theme_support['upsell'][ $editor ] as $template_slug => $template_data ) {
-				$request       = wp_remote_get( $template_data['url'] . '/wp-json/ti-demo-data/data' );
-				$response_code = wp_remote_retrieve_response_code( $request );
-				if ( $response_code !== 200 ) {
-					continue;
-				}
-				if ( empty( $request['body'] ) || ! isset( $request['body'] ) ) {
-					continue;
-				}
-				$returnable[ $editor ][ $template_slug ]                  = json_decode( $request['body'], true );
+				$returnable[ $editor ][ $template_slug ]                  = array();
 				$returnable[ $editor ][ $template_slug ]['title']         = esc_html( $template_data['title'] );
 				$returnable[ $editor ][ $template_slug ]['demo_url']      = esc_url( $template_data['url'] );
 				$returnable[ $editor ][ $template_slug ]['screenshot']    = esc_url( $template_data['screenshot'] );

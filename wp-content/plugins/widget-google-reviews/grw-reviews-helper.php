@@ -1,8 +1,8 @@
 <?php
-function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_powered = true) {
+function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $hide_based_on, $show_powered = true) {
     ?>
     <div class="wp-google-left">
-        <img src="<?php echo $place_img; ?>" alt="<?php echo $place->name; ?>">
+        <img src="<?php echo $place_img; ?>" alt="<?php echo $place->name; ?>" width="50" height="50" title="<?php echo $place->name; ?>">
     </div>
     <div class="wp-google-right">
         <div class="wp-google-name">
@@ -13,9 +13,12 @@ function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $show_pow
             <span class="wp-google-rating"><?php echo $rating; ?></span>
             <span class="wp-google-stars"><?php grw_stars($rating); ?></span>
         </div>
+        <?php if (!$hide_based_on && isset($place->review_count)) { ?>
+        <div class="wp-google-powered"><?php echo grw_i('Based on %s reviews', $place->review_count); ?></div>
+        <?php } ?>
         <?php if ($show_powered) { ?>
         <div class="wp-google-powered">
-            <img src="<?php echo GRW_PLUGIN_URL; ?>/static/img/powered_by_google_on_<?php if ($dark_theme) { ?>non_<?php } ?>white.png" alt="powered by Google">
+            <img src="<?php echo GRW_PLUGIN_URL; ?>/static/img/powered_by_google_on_<?php if ($dark_theme) { ?>non_<?php } ?>white.png" alt="powered by Google" width="144" height="18" title="powered by Google">
         </div>
         <?php } ?>
     </div>
@@ -117,12 +120,12 @@ function grw_trim_text($text, $size) {
             $idx = $size;
         }
         if ($idx > 0) {
-            $visible_text = substr($text, 0, $idx);
-            $invisible_text = substr($text, $idx, strlen($text));
+            $visible_text = substr($text, 0, $idx - 1);
+            $invisible_text = substr($text, $idx - 1, strlen($text));
         }
         echo $visible_text;
         if (strlen($invisible_text) > 0) {
-            ?><span class="wp-more"><?php echo $invisible_text; ?></span><span class="wp-more-toggle" onclick="this.previousSibling.className='';this.textContent='';"><?php echo grw_i('read more'); ?></span><?php
+            ?><span>... </span><span class="wp-more"><?php echo $invisible_text; ?></span><span class="wp-more-toggle"><?php echo grw_i('read more'); ?></span><?php
         }
     } else {
         echo $text;
@@ -130,10 +133,10 @@ function grw_trim_text($text, $size) {
 }
 
 function grw_anchor($url, $class, $text, $open_link, $nofollow_link) {
-    ?><a href="<?php echo $url; ?>" class="<?php echo $class; ?>" <?php if ($open_link) { ?>target="_blank"<?php } ?> <?php if ($nofollow_link) { ?>rel="nofollow"<?php } ?>><?php echo $text; ?></a><?php
+    ?><a href="<?php echo $url; ?>" class="<?php echo $class; ?>" <?php if ($open_link) { ?>target="_blank"<?php } ?> rel="<?php if ($nofollow_link) { ?>nofollow <?php } ?>noopener"><?php echo $text; ?></a><?php
 }
 
 function grw_image($src, $alt, $lazy, $def_ava = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', $atts = '') {
-    ?><img <?php if ($lazy) { ?>src="<?php echo $def_ava; ?>" data-<?php } ?>src="<?php echo $src; ?>" class="rplg-review-avatar<?php if ($lazy) { ?> rplg-blazy<?php } ?>" alt="<?php echo $alt; ?>" onerror="if(this.src!='<?php echo $def_ava; ?>')this.src='<?php echo $def_ava; ?>';" <?php echo $atts; ?>><?php
+    ?><img <?php if ($lazy) { ?>src="<?php echo $def_ava; ?>" data-<?php } ?>src="<?php echo $src; ?>" class="rplg-review-avatar<?php if ($lazy) { ?> rplg-blazy<?php } ?>" alt="<?php echo $alt; ?>" width="50" height="50" title="<?php echo $alt; ?>" onerror="if(this.src!='<?php echo $def_ava; ?>')this.src='<?php echo $def_ava; ?>';" <?php echo $atts; ?>><?php
 }
 ?>

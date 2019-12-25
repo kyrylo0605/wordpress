@@ -32,6 +32,14 @@
   margin: 10px 0;
 }
 
+.rplg-options-toggle {
+  padding: 10px;
+  margin: 10px 0 0;
+  cursor: pointer;
+  border: 1px solid #dbdbdb;
+  background: #eee url('../img/button-down-black.svg') no-repeat right;
+}
+
 .rplg-options {
   padding: 0px 4px;
 }

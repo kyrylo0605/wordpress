@@ -5,7 +5,7 @@
 	Plugin Name: WIP Custom Login
 	Plugin URI: https://www.themeinprogress.com
 	Description: WIP Custom Login allows you to customize the login and register section of Wordpress. Thanks to this plugin, you can replace the WordPress logo, set a background image and much more.
-	Version: 1.1.4
+	Version: 1.1.6
 	Text Domain: wip-custom-login
 	Author: ThemeinProgress
 	Author URI: https://www.themeinprogress.com

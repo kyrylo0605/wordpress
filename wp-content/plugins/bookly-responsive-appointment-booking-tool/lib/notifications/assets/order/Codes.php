@@ -77,7 +77,7 @@ class Codes extends Base\Codes
             '{amount_due}'         => Utils\Price::format( $this->amount_due ),
             '{amount_paid}'        => Utils\Price::format( $this->amount_paid ),
             '{client_email}'       => $this->client_email,
-            '{client_address}'     => $this->client_address,
+            '{client_address}'     => $format === 'html' ? nl2br( $this->client_address ) : $this->client_address,
             '{client_name}'        => $this->client_name,
             '{client_first_name}'  => $this->client_first_name,
             '{client_last_name}'   => $this->client_last_name,

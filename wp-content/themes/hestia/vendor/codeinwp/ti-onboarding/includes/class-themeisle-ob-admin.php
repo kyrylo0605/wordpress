@@ -205,6 +205,7 @@ class Themeisle_OB_Admin {
 			'pro_demo'                    => __( 'Available in the PRO version', 'hestia' ),
 			'copy_error_code'             => __( 'Copy error code', 'hestia' ),
 			'download_error_log'          => __( 'Download error log', 'hestia' ),
+			'external_plugins_notice'     => __( 'To import this demo you have to install the following plugins:', 'hestia' ),
 			'error_report'                => sprintf(
 				__( 'Hi! It seems there is a configuration issue with your server that\'s causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this.', 'hestia' ),
 				sprintf( '<a href="https://themeisle.com/contact">%1$s <i class="dashicons dashicons-external"></i></a>', __( 'get in touch', 'hestia' ) )

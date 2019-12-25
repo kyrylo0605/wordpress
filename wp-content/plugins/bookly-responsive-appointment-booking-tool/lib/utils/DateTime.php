@@ -26,6 +26,85 @@ class DateTime
     private static $format_characters_day   = array( 'd', 'D', 'j', 'l', 'N', 'S', 'w', 'z' );
     private static $format_characters_month = array( 'F', 'm', 'M', 'n' );
     private static $format_characters_year  = array( 'o', 'Y', 'y' );
+    private static $format_replacements = array(
+        self::FORMAT_MOMENT_JS => array(
+            'd' => 'DD',   '\d' => '[d]',
+            'D' => 'ddd',  '\D' => '[D]',
+            'j' => 'D',    '\j' => 'j',
+            'l' => 'dddd', '\l' => 'l',
+            'N' => 'E',    '\N' => 'N',
+            'S' => 'o',    '\S' => '[S]',
+            'w' => 'e',    '\w' => '[w]',
+            'z' => 'DDD',  '\z' => '[z]',
+            'W' => 'W',    '\W' => '[W]',
+            'F' => 'MMMM', '\F' => 'F',
+            'm' => 'MM',   '\m' => '[m]',
+            'M' => 'MMM',  '\M' => '[M]',
+            'n' => 'M',    '\n' => 'n',
+            't' => '',     '\t' => 't',
+            'L' => '',     '\L' => 'L',
+            'o' => 'YYYY', '\o' => 'o',
+            'Y' => 'YYYY', '\Y' => 'Y',
+            'y' => 'YY',   '\y' => 'y',
+            'a' => 'a',    '\a' => '[a]',
+            'A' => 'A',    '\A' => '[A]',
+            'B' => '',     '\B' => 'B',
+            'g' => 'h',    '\g' => 'g',
+            'G' => 'H',    '\G' => 'G',
+            'h' => 'hh',   '\h' => '[h]',
+            'H' => 'HH',   '\H' => '[H]',
+            'i' => 'mm',   '\i' => 'i',
+            's' => 'ss',   '\s' => '[s]',
+            'u' => 'SSS',  '\u' => 'u',
+            'e' => 'zz',   '\e' => '[e]',
+            'I' => '',     '\I' => 'I',
+            'O' => '',     '\O' => 'O',
+            'P' => '',     '\P' => 'P',
+            'T' => '',     '\T' => 'T',
+            'Z' => '',     '\Z' => '[Z]',
+            'c' => '',     '\c' => 'c',
+            'r' => '',     '\r' => 'r',
+            'U' => 'X',    '\U' => 'U',
+            '\\' => '',
+        ),
+        self::FORMAT_JQUERY_DATEPICKER => array(
+            // Day
+            'd' => 'dd', '\d' => '\'d\'',
+            'j' => 'd',  '\j' => 'j',
+            'l' => 'DD', '\l' => 'l',
+            'D' => 'D',  '\D' => '\'D\'',
+            'z' => 'o',  '\z' => 'z',
+            // Month
+            'm' => 'mm', '\m' => '\'m\'',
+            'n' => 'm',  '\n' => 'n',
+            'F' => 'MM', '\F' => 'F',
+            // Year
+            'Y' => 'yy', '\Y' => 'Y',
+            'y' => 'y',  '\y' => '\'y\'',
+            // Others
+            'S' => '',   '\S' => 'S',
+            'o' => 'yy', '\o' => '\'o\'',
+            '\\' => '',
+        ),
+        self::FORMAT_PICKADATE => array(
+            // Day
+            'd' => 'dd',   '\d' => '!d',
+            'D' => 'ddd',  '\D' => 'D',
+            'l' => 'dddd', '\l' => 'l',
+            'j' => 'd',    '\j' => 'j',
+            // Month
+            'm' => 'mm',   '\m' => '!m',
+            'M' => 'mmm',  '\M' => 'M',
+            'F' => 'mmmm', '\F' => 'F',
+            'n' => 'm',    '\n' => 'n',
+            // Year
+            'y' => 'yy',   '\y' => 'y',
+            'Y' => 'yyyy', '\Y' => 'Y',
+            // Others
+            'S' => '',     '\S' => 'S',
+            '\\' => '',
+        )
+    );
 
     /**
      * Get week day by day number (0 = Sunday, 1 = Monday...)
@@ -47,6 +126,31 @@ class DateTime
     public static function formatDate( $iso_date )
     {
         return date_i18n( get_option( 'date_format' ), is_numeric( $iso_date ) ? $iso_date : strtotime( $iso_date, current_time( 'timestamp' ) ) );
+    }
+
+    /**
+     * Skip unsupported formatting options in js library
+     *
+     * @param string|integer $iso_date
+     * @param int            $for
+     * @return string
+     */
+    public static function formatDateFor( $iso_date, $for )
+    {
+        $replacements = array();
+        switch ( $for ) {
+            case self::FORMAT_JQUERY_DATEPICKER:
+            case self::FORMAT_MOMENT_JS:
+            case self::FORMAT_PICKADATE:
+                foreach ( self::$format_replacements[ $for ] as $key => $value ) {
+                    if ( $value === '' ) {
+                        $replacements[ $key ] = $value;
+                    }
+                }
+                break;
+        }
+
+        return date_i18n( strtr( get_option( 'date_format' ), $replacements ), is_numeric( $iso_date ) ? $iso_date : strtotime( $iso_date, current_time( 'timestamp' ) ) );
     }
 
     /**
@@ -143,90 +247,10 @@ class DateTime
 
         switch ( $to ) {
             case self::FORMAT_MOMENT_JS:
-                $replacements = array(
-                    'd' => 'DD',   '\d' => '[d]',
-                    'D' => 'ddd',  '\D' => '[D]',
-                    'j' => 'D',    '\j' => 'j',
-                    'l' => 'dddd', '\l' => 'l',
-                    'N' => 'E',    '\N' => 'N',
-                    'S' => 'o',    '\S' => '[S]',
-                    'w' => 'e',    '\w' => '[w]',
-                    'z' => 'DDD',  '\z' => '[z]',
-                    'W' => 'W',    '\W' => '[W]',
-                    'F' => 'MMMM', '\F' => 'F',
-                    'm' => 'MM',   '\m' => '[m]',
-                    'M' => 'MMM',  '\M' => '[M]',
-                    'n' => 'M',    '\n' => 'n',
-                    't' => '',     '\t' => 't',
-                    'L' => '',     '\L' => 'L',
-                    'o' => 'YYYY', '\o' => 'o',
-                    'Y' => 'YYYY', '\Y' => 'Y',
-                    'y' => 'YY',   '\y' => 'y',
-                    'a' => 'a',    '\a' => '[a]',
-                    'A' => 'A',    '\A' => '[A]',
-                    'B' => '',     '\B' => 'B',
-                    'g' => 'h',    '\g' => 'g',
-                    'G' => 'H',    '\G' => 'G',
-                    'h' => 'hh',   '\h' => '[h]',
-                    'H' => 'HH',   '\H' => '[H]',
-                    'i' => 'mm',   '\i' => 'i',
-                    's' => 'ss',   '\s' => '[s]',
-                    'u' => 'SSS',  '\u' => 'u',
-                    'e' => 'zz',   '\e' => '[e]',
-                    'I' => '',     '\I' => 'I',
-                    'O' => '',     '\O' => 'O',
-                    'P' => '',     '\P' => 'P',
-                    'T' => '',     '\T' => 'T',
-                    'Z' => '',     '\Z' => '[Z]',
-                    'c' => '',     '\c' => 'c',
-                    'r' => '',     '\r' => 'r',
-                    'U' => 'X',    '\U' => 'U',
-                    '\\' => '',
-                );
-                return strtr( $php_format, $replacements );
-
-            case self::FORMAT_JQUERY_DATEPICKER:
-                $replacements = array(
-                    // Day
-                    'd' => 'dd', '\d' => '\'d\'',
-                    'j' => 'd',  '\j' => 'j',
-                    'l' => 'DD', '\l' => 'l',
-                    'D' => 'D',  '\D' => '\'D\'',
-                    'z' => 'o',  '\z' => 'z',
-                    // Month
-                    'm' => 'mm', '\m' => '\'m\'',
-                    'n' => 'm',  '\n' => 'n',
-                    'F' => 'MM', '\F' => 'F',
-                    // Year
-                    'Y' => 'yy', '\Y' => 'Y',
-                    'y' => 'y',  '\y' => '\'y\'',
-                    // Others
-                    'S' => '',   '\S' => 'S',
-                    'o' => 'yy', '\o' => '\'o\'',
-                    '\\' => '',
-                );
-                return str_replace( '\'\'', '', strtr( $php_format, $replacements ) );
-
             case self::FORMAT_PICKADATE:
-                $replacements = array(
-                    // Day
-                    'd' => 'dd',   '\d' => '!d',
-                    'D' => 'ddd',  '\D' => 'D',
-                    'l' => 'dddd', '\l' => 'l',
-                    'j' => 'd',    '\j' => 'j',
-                    // Month
-                    'm' => 'mm',   '\m' => '!m',
-                    'M' => 'mmm',  '\M' => 'M',
-                    'F' => 'mmmm', '\F' => 'F',
-                    'n' => 'm',    '\n' => 'n',
-                    // Year
-                    'y' => 'yy',   '\y' => 'y',
-                    'Y' => 'yyyy', '\Y' => 'Y',
-                    // Others
-                    'S' => '',     '\S' => 'S',
-                    '\\' => '',
-                );
-                return strtr( $php_format, $replacements );
+                return strtr( $php_format, self::$format_replacements[ $to ] );
+            case self::FORMAT_JQUERY_DATEPICKER:
+                return str_replace( '\'\'', '', strtr( $php_format, self::$format_replacements[ $to ] ) );
         }
 
         return $php_format;

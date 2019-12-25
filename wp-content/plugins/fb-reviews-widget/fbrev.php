@@ -4,7 +4,7 @@ Plugin Name: Social Reviews & Recommendations
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Allows you to instantly display Facebook reviews and recommendations on your site to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.6.4
+Version: 1.6.6
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.6.4');
+define('FBREV_VERSION',            '1.6.6');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/v3.1/');
 define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -87,29 +87,68 @@ function fbrev_plugin_row_meta($input, $file) {
 }
 add_filter('plugin_row_meta', 'fbrev_plugin_row_meta', 10, 2);
 
-/*-------------------------------- Activation --------------------------------*/
-function fbrev_activation() {
+/*-------------------------------- Activator --------------------------------*/
+function fbrev_check_version() {
+    if (version_compare(get_option('fbrev_version'), FBREV_VERSION, '<')) {
+        fbrev_activate();
+    }
+}
+add_action('init', 'fbrev_check_version');
+
+function fbrev_activation($network_wide = false) {
     $now = time();
     update_option('fbrev_activation_time', $now);
 
-    if (fbrev_does_need_update()) {
-        fbrev_install();
-    }
+    add_option('fbrev_is_multisite', $network_wide);
+    fbrev_activate();
 }
 register_activation_hook(__FILE__, 'fbrev_activation');
 
-function fbrev_install() {
-    $version = (string)get_option('fbrev_version');
-    if (!$version) {
-        $version = '0';
+function fbrev_activate() {
+    $network_wide = get_option('fbrev_is_multisite');
+    if ($network_wide) {
+        fbrev_activate_multisite();
+    } else {
+        fbrev_activate_single_site();
     }
+}
 
-    if (version_compare($version, FBREV_VERSION, '=')) {
-        return;
+function fbrev_activate_multisite() {
+    global $wpdb;
+
+    $site_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+
+    foreach($site_ids as $site_id) {
+        switch_to_blog($site_id);
+        fbrev_activate_single_site();
+        restore_current_blog();
     }
+}
 
+function fbrev_activate_single_site() {
+    $current_version     = FBREV_VERSION;
+    $last_active_version = get_option('fbrev_version');
+
+    if (empty($last_active_version)) {
+        fbrev_first_install();
+        update_option('fbrev_version', $current_version);
+    } elseif ($last_active_version !== $current_version) {
+        fbrev_exist_install($current_version, $last_active_version);
+        update_option('fbrev_version', $current_version);
+    }
+}
+
+function fbrev_first_install() {
     add_option('fbrev_active', '1');
-    update_option('fbrev_version', FBREV_VERSION);
+}
+
+function fbrev_exist_install($current_version, $last_active_version) {
+    global $wpdb;
+    switch($last_active_version) {
+        case version_compare($last_active_version, '1.6.6', '<'):
+            //TODO
+        break;
+    }
 }
 
 /*-------------------------------- Shortcode --------------------------------*/
@@ -157,7 +196,7 @@ add_shortcode("fbrev", "fbrev_shortcode");
 /*-------------------------------- Init language --------------------------------*/
 function fbrev_lang_init() {
     $plugin_dir = basename(dirname(__FILE__));
-    load_plugin_textdomain('fbrev', false, basename( dirname( __FILE__ ) ) . '/languages');
+    load_plugin_textdomain('fbrev', false, $plugin_dir . '/languages');
 }
 add_action('plugins_loaded', 'fbrev_lang_init');
 
@@ -209,17 +248,6 @@ function fbrev_enabled() {
     $active = get_option('fbrev_active');
     if (empty($active) || $active === '0') { return false; }
     return true;
-}
-
-function fbrev_does_need_update() {
-    $version = (string)get_option('fbrev_version');
-    if (empty($version)) {
-        $version = '0';
-    }
-    if (version_compare($version, '1.0', '<')) {
-        return true;
-    }
-    return false;
 }
 
 function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $cache_option, $limit, $show_success_api) {

@@ -234,37 +234,6 @@ function scrollToTop ( param ){
 		return true;
 	}
 };
-/**
- * File skip-link-focus-fix.js.
- *
- * Helps with accessibility for keyboard only users.
- *
- * Learn more: https://git.io/vWdr2
- */
-+(function() {
-	var isIe = /(trident|msie)/i.test( navigator.userAgent );
-
-	if ( isIe && document.getElementById && window.addEventListener ) {
-		window.addEventListener( 'hashchange', function() {
-			var id = location.hash.substring( 1 ),
-				element;
-
-			if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
-				return;
-			}
-
-			element = document.getElementById( id );
-
-			if ( element ) {
-				if ( ! ( /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) ) {
-					element.tabIndex = -1;
-				}
-
-				element.focus();
-			}
-		}, false );
-	}
-})();
 
 /**
 * Setting up functionality for alternative menu
@@ -472,6 +441,45 @@ jQuery( '.kt-contact-form-area input, .kt-contact-form-area textarea' ).on( 'blu
 	var target = jQuery( this ).attr( 'id' );
 	jQuery('label[for="'+target+'"]').removeClass( 'move' );
 });
+
+/**
+* Make menu accessibility
+* @since Education Booster 1.0.0
+*/
+
+var body, masthead, siteNavigation, socialNavigation;
+
+function initMainNavigation( container ) {
+
+	// Add dropdown toggle that displays child menu items.
+	var dropdownToggle = $( '<button />', { 'class': 'dropdown-toggle', 'aria-expanded': false })
+		.append( '<span class="kfi kfi-arrow-carrot-down"></span>' )
+
+	container.find( '.menu-item-has-children > a, .page_item_has_children > a' ).after( dropdownToggle );
+
+	// Toggle buttons and submenu items with active children menu items.
+	container.find( '.current-menu-ancestor > button' ).addClass( 'toggled-on' );
+	container.find( '.current-menu-ancestor > .sub-menu' ).addClass( 'toggled-on' );
+
+	// Add menu items with submenus to aria-haspopup="true".
+	container.find( '.menu-item-has-children, .page_item_has_children' ).attr( 'aria-haspopup', 'true' );
+
+	container.find( '.dropdown-toggle' ).click( function( e ) {
+		var _this            = $( this );
+
+		e.preventDefault();
+		_this.toggleClass( 'toggled-on' );
+		_this.parent().first().toggleClass('focus');
+
+		_this.attr( 'aria-expanded', _this.attr( 'aria-expanded' ) === 'false' ? 'true' : 'false' );
+	} );
+}
+
+initMainNavigation( $( '.main-navigation' ) );
+
+masthead         = $( '#masthead' );
+siteNavigation   = masthead.find( '#site-navigation' );
+socialNavigation = masthead.find( '#social-navigation' );
 
 jQuery( document ).ready( function(){
 

@@ -34,6 +34,9 @@ class Copyright extends Abstract_Component {
 		$this->set_property( 'label', __( 'Copyright', 'neve' ) );
 		$this->set_property( 'id', self::COMPONENT_ID );
 		$this->set_property( 'width', 2 );
+		$this->set_property( 'icon', 'nametag' );
+		$this->set_property( 'has_typeface_control', true );
+		$this->set_property( 'default_typography_selector', $this->default_typography_selector . '.builder-item--' . $this->get_id() );
 	}
 
 	/**

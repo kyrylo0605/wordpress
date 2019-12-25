@@ -14,12 +14,16 @@ class Ajax extends Lib\Base\Ajax
      */
     protected static function permissions()
     {
-        $permissions = get_option( 'bookly_gen_allow_staff_edit_profile' ) ? array( '_default' => 'user' ) : array();
+        $permissions = get_option( 'bookly_gen_allow_staff_edit_profile' ) ? 'user' : null;
         if ( Lib\Config::staffCabinetActive() ) {
-            $permissions = array( '_default' => 'user' );
+            $permissions = 'user';
         }
 
-        return $permissions;
+        return array(
+            '_default'         => $permissions,
+            'sendQueue'        => 'user',
+            'clearAttachments' => 'user',
+        );
     }
 
     /**

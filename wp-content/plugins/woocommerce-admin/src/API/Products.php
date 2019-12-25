@@ -24,7 +24,7 @@ class Products extends \WC_REST_Products_Controller {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'wc/v4';
+	protected $namespace = 'wc-analytics';
 
 	/**
 	 * Adds properties that can be embed via ?_embed=1.
@@ -168,7 +168,7 @@ class Products extends \WC_REST_Products_Controller {
 			$low_stock_amount = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
 			$where           .= "
 			AND wc_product_meta_lookup.stock_quantity IS NOT NULL
-			AND wc_product_meta_lookup.stock_status = 'instock'
+			AND wc_product_meta_lookup.stock_status IN('instock','outofstock')
 			AND (
 				(
 					low_stock_amount_meta.meta_value > ''

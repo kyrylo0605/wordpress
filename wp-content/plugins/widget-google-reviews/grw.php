@@ -4,7 +4,7 @@ Plugin Name: Google Reviews Widget
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.8
+Version: 1.8.2
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',            '1.8');
+define('GRW_VERSION',            '1.8.2');
 define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s50-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -82,52 +82,74 @@ function grw_plugin_row_meta($input, $file) {
 }
 add_filter('plugin_row_meta', 'grw_plugin_row_meta', 10, 2);
 
-/*-------------------------------- Database --------------------------------*/
+/*-------------------------------- Activator --------------------------------*/
+function grw_check_version() {
+    if (version_compare(get_option('grw_version'), GRW_VERSION, '<')) {
+        grw_activate();
+    }
+}
+add_action('init', 'grw_check_version');
+
 function grw_activation($network_wide = false) {
     $now = time();
     update_option('grw_activation_time', $now);
 
     add_option('grw_is_multisite', $network_wide);
-    if (grw_does_need_update()) {
-        grw_install();
-    }
+    grw_activate();
 }
 register_activation_hook(__FILE__, 'grw_activation');
 
-function grw_install() {
-
-    $version = (string)get_option('grw_version');
-    if (!$version) {
-        $version = '0';
-    }
-
+function grw_activate() {
     $network_wide = get_option('grw_is_multisite');
-
     if ($network_wide) {
-        $site_ids = get_sites(array(
-            'fields'     => 'ids',
-            'network_id' => get_current_network_id()
-        ));
-        foreach($site_ids as $site_id) {
-            switch_to_blog($site_id);
-            grw_install_single_site($version);
-            restore_current_blog();
-        }
+        grw_activate_multisite();
     } else {
-        grw_install_single_site($version);
+        grw_activate_single_site();
     }
 }
 
-function grw_install_single_site($version) {
-    grw_install_db();
+function grw_activate_multisite() {
+    global $wpdb;
 
-    if (version_compare($version, GRW_VERSION, '=')) {
-        return;
+    $site_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+
+    foreach($site_ids as $site_id) {
+        switch_to_blog($site_id);
+        grw_activate_single_site();
+        restore_current_blog();
     }
+}
 
+function grw_activate_single_site() {
+    $current_version     = GRW_VERSION;
+    $last_active_version = get_option('grw_version');
+
+    if (empty($last_active_version)) {
+        grw_first_install();
+        update_option('grw_version', $current_version);
+    } elseif ($last_active_version !== $current_version) {
+        grw_exist_install($current_version, $last_active_version);
+        update_option('grw_version', $current_version);
+    }
+}
+
+function grw_first_install() {
+    grw_install_db();
     add_option('grw_active', '1');
     add_option('grw_google_api_key', '');
-    update_option('grw_version', GRW_VERSION);
+}
+
+function grw_exist_install($current_version, $last_active_version) {
+    global $wpdb;
+    switch($last_active_version) {
+        case version_compare($last_active_version, '1.8.2', '<'):
+            $wpdb->query("ALTER TABLE " . $wpdb->prefix . "grp_google_place ADD review_count INTEGER");
+            $place_ids = $wpdb->get_col("SELECT place_id FROM " . $wpdb->prefix . "grp_google_place WHERE rating > 0 LIMIT 5");
+            foreach($place_ids as $place_id) {
+                grw_refresh_reviews(array($place_id));
+            }
+        break;
+    }
 }
 
 function grw_install_db() {
@@ -145,6 +167,7 @@ function grw_install_db() {
            "rating DOUBLE PRECISION,".
            "url VARCHAR(255),".
            "website VARCHAR(255),".
+           "review_count INTEGER,".
            "updated BIGINT(20),".
            "PRIMARY KEY (`id`),".
            "UNIQUE INDEX grp_place_id (`place_id`)".
@@ -353,20 +376,22 @@ function grw_save_reviews($place, $min_filter = 0) {
     $google_place_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM " . $wpdb->prefix . "grp_google_place WHERE place_id = %s", $place->place_id));
     if ($google_place_id) {
         $wpdb->update($wpdb->prefix . 'grp_google_place', array(
-            'name'     => $place->name,
-            'photo'    => $place->business_photo,
-            'rating'   => $place->rating
+            'name'         => $place->name,
+            'photo'        => $place->business_photo,
+            'rating'       => $place->rating,
+            'review_count' => isset($place->user_ratings_total) ? $place->user_ratings_total : null
         ), array('ID'  => $google_place_id));
     } else {
         $wpdb->insert($wpdb->prefix . 'grp_google_place', array(
-            'place_id' => $place->place_id,
-            'name'     => $place->name,
-            'photo'    => $place->business_photo,
-            'icon'     => $place->icon,
-            'address'  => $place->formatted_address,
-            'rating'   => isset($place->rating)  ? $place->rating  : null,
-            'url'      => isset($place->url)     ? $place->url     : null,
-            'website'  => isset($place->website) ? $place->website : null
+            'place_id'     => $place->place_id,
+            'name'         => $place->name,
+            'photo'        => $place->business_photo,
+            'icon'         => $place->icon,
+            'address'      => $place->formatted_address,
+            'rating'       => isset($place->rating)  ? $place->rating  : null,
+            'url'          => isset($place->url)     ? $place->url     : null,
+            'website'      => isset($place->website) ? $place->website : null,
+            'review_count' => isset($place->user_ratings_total) ? $place->user_ratings_total : null
         ));
         $google_place_id = $wpdb->insert_id;
     }
@@ -419,7 +444,7 @@ function grw_refresh_reviews($args) {
     }
 
     $place_id = $args[0];
-    $reviews_lang = $args[1];
+    $reviews_lang = isset($args[1]) ? $args[1] : '';
 
     $url = grw_api_url($place_id, $reviews_lang);
 
@@ -440,7 +465,7 @@ add_action('grw_refresh_reviews', 'grw_refresh_reviews');
 /*-------------------------------- Init language --------------------------------*/
 function grw_lang_init() {
     $plugin_dir = basename(dirname(__FILE__));
-    load_plugin_textdomain('grw', false, basename( dirname( __FILE__ ) ) . '/languages');
+    load_plugin_textdomain('grw', false, $plugin_dir . '/languages');
 }
 add_action('plugins_loaded', 'grw_lang_init');
 
@@ -525,17 +550,6 @@ function grw_business_avatar($response_result_json) {
         }
     }
     return null;
-}
-
-function grw_does_need_update() {
-    $version = (string)get_option('grw_version');
-    if (empty($version)) {
-        $version = '0';
-    }
-    if (version_compare($version, '1.0', '<')) {
-        return true;
-    }
-    return false;
 }
 
 function grw_i($text, $params=null) {

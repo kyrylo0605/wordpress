@@ -168,7 +168,7 @@ class Manager {
 		}
 
 		$args = array(
-			'priority' => -100,
+			'priority' => - 100,
 			'section'  => $section,
 			'tabs'     => array(
 				self::TAB_GENERAL => array(
@@ -232,7 +232,7 @@ class Manager {
 				self::TAB_LAYOUT  => array(),
 				self::TAB_STYLE   => array(),
 			),
-			$tabs 
+			$tabs
 		);
 	}
 
@@ -323,12 +323,32 @@ class Manager {
 			}
 			self::$groups[ $arguments['group'] ][] = $id;
 
-			if ( isset( $arguments['tab'] ) && in_array( $arguments['tab'], array( self::TAB_GENERAL, self::TAB_LAYOUT, self::TAB_STYLE ) ) ) {
+			if ( isset( $arguments['tab'] ) && in_array( $arguments['tab'], array( self::TAB_GENERAL, self::TAB_LAYOUT, self::TAB_STYLE ), true ) ) {
 				if ( ! isset( self::$tabs[ $arguments['group'] ][ $arguments['tab'] ] ) ) {
 					self::$tabs[ $arguments['group'] ][ $arguments['tab'] ] = [];
 				}
 				self::$tabs[ $arguments['group'] ][ $arguments['tab'] ][ $id ] = array();
 			}
+		}
+
+		if ( isset( $arguments['live_refresh_selector'] ) ) {
+			add_filter(
+				'neve_customize_preview_localization',
+				function ( $array ) use ( $arguments ) {
+					if ( ! isset( $array[ $arguments['type'] ] ) ) {
+						$array[ $arguments['type'] ] = [];
+					}
+					$args = [
+						'selector' => $arguments['live_refresh_selector'],
+					];
+					if ( isset( $arguments['live_refresh_css_prop'] ) ) {
+						$args['additional'] = $arguments['live_refresh_css_prop'];
+					}
+					$array[ $arguments['type'] ][ $arguments['group'] . '_' . $arguments['id'] ] = $args;
+
+					return $array;
+				}
+			);
 		}
 
 

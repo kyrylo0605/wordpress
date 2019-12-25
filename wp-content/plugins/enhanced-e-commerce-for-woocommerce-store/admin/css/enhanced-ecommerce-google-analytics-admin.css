@@ -43,6 +43,9 @@ input[type=checkbox]{
 	-ms-transition: all 1.5s ease;
 	transition: all 1.5s ease;
 }
+.align-middle{
+	font-size: 15px;
+}
 input[type=checkbox]:checked::before {
 	height:16px;
 	width:16px;
@@ -68,4 +71,32 @@ h5{
 		margin-left: 6% !important;
 		width:auto;
 	}
+}
+.try-btn{
+	width: auto;
+	border: black;
+	text-align: center;
+	padding: 8px 10px 10px 10px;
+	font-size: 18px;
+	background-color: #00a32a;
+	float: right;
+	top: 60px;
+	height: 38px;
+	color: antiquewhite;
+	font-weight: bold;
+	border-radius: 4px;
+	-moz-box-shadow:    3px 3px 5px 6px #ccc;
+	-webkit-box-shadow: 3px 3px 5px 6px #ccc;
+	box-shadow:         0px 0px 7px 7px #ccc;
+}
+.top-btn{
+	float: right;
+}
+.new-img-blink{
+	width: 40px;
+	height: 25px;
+}
+.new-img-blink-side{
+	width: 40px;
+	height: 20px;
 }

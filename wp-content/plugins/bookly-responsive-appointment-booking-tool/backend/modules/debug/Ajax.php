@@ -12,6 +12,14 @@ use Bookly\Backend\Modules\Debug\Lib\Schema;
 class Ajax extends Lib\Base\Ajax
 {
     /**
+     * @inheritdoc
+     */
+    protected static function permissions()
+    {
+        return array( 'runTest' => 'anonymous' );
+    }
+
+    /**
      * Export database data.
      */
     public static function exportData()
@@ -26,6 +34,7 @@ class Ajax extends Lib\Base\Ajax
             $installer_class = $plugin::getRootNamespace() . '\Lib\Installer';
             /** @var Lib\Base\Installer $installer */
             $installer = new $installer_class();
+            $result['plugins'][ $plugin::getBasename() ] = $plugin::getVersion();
 
             foreach ( $plugin::getEntityClasses() as $entity_class ) {
                 $table_name = $entity_class::getTableName();
@@ -70,6 +79,14 @@ class Ajax extends Lib\Base\Ajax
                 $data = json_decode( $json, true );
                 /** @var Lib\Base\Plugin[] $bookly_plugins */
                 $bookly_plugins = apply_filters( 'bookly_plugins', array() );
+                /** @since Bookly 17.7 */
+                if ( isset( $data['plugins'] ) ) {
+                    foreach ( $bookly_plugins as $plugin ) {
+                        if ( ! array_key_exists( $plugin::getBasename(), $data['plugins'] ) ) {
+                            deactivate_plugins( $plugin::getBasename(), true, is_network_admin() );
+                        }
+                    }
+                }
                 foreach ( array_merge( array( 'bookly-responsive-appointment-booking-tool', 'bookly-addon-pro' ), array_keys( $bookly_plugins ) ) as $slug ) {
                     if ( ! array_key_exists( $slug, $bookly_plugins ) ) {
                         continue;
@@ -767,5 +784,50 @@ class Ajax extends Lib\Base\Ajax
         ob_end_clean();
 
         return $result !== false ? true : $wpdb->last_error;
+    }
+
+    public static function runTest()
+    {
+        $test_name  = self::parameter( 'test_name' );
+        $test_class = '\Bookly\Backend\Modules\Debug\Lib\Tests\\' . $test_name;
+        /** @var \Bookly\Backend\Modules\Debug\Lib\Tests\Base $test */
+        $test = new $test_class( self::parameter( 'test_data' ) );
+        if ( $test->execute() ) {
+            wp_send_json_success();
+        } else {
+            wp_send_json_error( array( 'test_name' => $test->getName(), 'error' => $test->error() ) );
+        }
+    }
+
+    /**
+     *
+     */
+    public static function runTool()
+    {
+        $tool_name  = self::parameter( 'tool_name' );
+        $tool_class = '\Bookly\Backend\Modules\Debug\Lib\Tools\\' . $tool_name;
+        /** @var \Bookly\Backend\Modules\Debug\Lib\Tools\Base $tool */
+        $tool = new $tool_class( self::parameter( 'tool_data' ) );
+        if ( $tool->execute() ) {
+            wp_send_json_success( array( 'test_name' => $tool->getName(), 'alerts' => $tool->alerts() ) );
+        } else {
+            wp_send_json_error( array( 'test_name' => $tool->getName(), 'alerts' => $tool->alerts() ) );
+        }
+
+    }
+
+    /**
+     * Override parent method to exclude actions from CSRF token verification.
+     *
+     * @param string $action
+     * @return bool
+     */
+    protected static function csrfTokenValid( $action = null )
+    {
+        $excluded_actions = array(
+            'runTest',
+        );
+
+        return in_array( $action, $excluded_actions ) || parent::csrfTokenValid( $action );
     }
 }

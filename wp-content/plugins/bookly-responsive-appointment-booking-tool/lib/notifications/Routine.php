@@ -576,7 +576,7 @@ abstract class Routine
     public static function sendNotifications()
     {
         // Disable caching.
-        Lib\Utils\Common::noCache();
+        Lib\Utils\Common::noCache( true );
 
         date_default_timezone_set( 'UTC' );
 

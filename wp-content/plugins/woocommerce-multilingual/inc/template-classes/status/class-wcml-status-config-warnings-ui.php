@@ -1,6 +1,6 @@
 <?php
 
-use WCML\Twig_SimpleFunction;
+use WPML\Core\Twig_SimpleFunction;
 
 class WCML_Status_Config_Warnings_UI extends WCML_Templates_Factory {
 
@@ -46,9 +46,6 @@ class WCML_Status_Config_Warnings_UI extends WCML_Templates_Factory {
                 'check_conf' => __( 'You should check WPML configuration files added by other plugins or manual settings on the %s section.', 'woocommerce-multilingual' ),
                 'cont_set' => '<a href="' . admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=mcsetup' ) . '">'. __( 'Multilingual Content Setup', 'woocommerce-multilingual' ) .'</a>'
             ),
-            'nonces' => array(
-                'fix_strings' => wp_create_nonce( 'wcml_fix_strings_language' )
-            )
         );
 
         return $model;

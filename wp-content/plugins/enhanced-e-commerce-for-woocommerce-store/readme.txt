@@ -1,15 +1,15 @@
-===  Enhanced Ecommerce Google Analytics Plugin for WooCommerce ===
+﻿===  Enhanced Ecommerce Google Analytics Plugin for WooCommerce ===
 Contributors: Tatvic
 Plugin Name: Enhanced Ecommerce for WooCommerce Store
 Plugin URI: http://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
 Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce, e-commerce, woo-commerce,Ecommerce,WooCommerce, commerce, Wordpress Enhanced Ecommerce, WooCommerce Enhanced Ecommerce, WooCommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
 Author URI: https://www.tatvic.com/
 Author: Tatvic
-Requires at least: 3.6
-Tested up to: 5.2
-Requires PHP: 5.6
-Stable tag: 2.2.1
-Version: 2.2.1
+Requires at least: 1.4.1
+Tested up to: 5.3
+Requires PHP: 5.6 or Higher
+Stable tag: 2.3.0
+Version: 2.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,6 +35,7 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 9. Set your local currency
 10. Google Analytics Opt Out
 11. IP Anonymization
+12. = Added Actionable Google Analytics - 14 Days Free Trial =
 
 
 = Installation Instructions  =
@@ -201,6 +202,12 @@ It generally depends upon the traffic of the store. But in general it may take m
 To avoid sending your own transaction data or sessions data in Google Analytics, our plugin doesn't sent the data to GA when you are logged in. Having said, if you are logged in as Shop Manager, plugin will send the data to GA.
 
 == Changelog ==
+
+= 2.3.0 - 02/12/2019 =
+ * Compatibility with WooCommerce 3.8.0
+ * Compatibility with Wordpress 5.3
+ * Minor Bug Fixes
+ * Added 14 Days Free Trial of Actionable Google Analytics
 
 = 2.2.1 - 24/09/2019 =
  * Compatibility with WooCommerce 3.7.0

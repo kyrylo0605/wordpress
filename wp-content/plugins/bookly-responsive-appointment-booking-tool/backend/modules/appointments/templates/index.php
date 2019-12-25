@@ -65,7 +65,7 @@ use Bookly\Lib\Utils\DateTime;
                     <div class="clearfix visible-md-block"></div>
                     <div class="col-md-3 col-lg-2">
                         <div class="form-group">
-                            <select class="form-control <?php echo $customers === false ? 'bookly-js-select-ajax' : 'bookly-js-select' ?>" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>" data-action="bookly_get_customers_list">
+                            <select class="form-control <?php echo $customers === false ? 'bookly-js-select-ajax' : 'bookly-js-select' ?>" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>" <?php echo $customers === false ? 'data-ajax--action' : 'data-action' ?>="bookly_get_customers_list">
                                 <?php if ( $customers !== false ) : ?>
                                     <?php foreach ( $customers as $customer ) : ?>
                                         <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
@@ -105,6 +105,7 @@ use Bookly\Lib\Utils\DateTime;
                             <th><?php esc_html_e( 'Customer Phone', 'bookly' ) ?></th>
                             <th><?php esc_html_e( 'Customer Email', 'bookly' ) ?></th>
                             <?php Proxy\GroupBooking::renderTableHeader() ?>
+                            <?php Proxy\Locations::renderTableHeader() ?>
                             <th><?php echo esc_html( Common::getTranslatedOption( 'bookly_l10n_label_service' ) ) ?></th>
                             <th><?php esc_html_e( 'Duration', 'bookly' ) ?></th>
                             <th><?php esc_html_e( 'Status', 'bookly' ) ?></th>

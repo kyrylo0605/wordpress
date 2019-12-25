@@ -284,7 +284,7 @@ msgstr ""
 msgid "An accordion widget."
 msgstr ""
 
-#: widgets/accordion/accordion.php:47, widgets/accordion/accordion.php:60, widgets/contact/contact.php:48, widgets/cta/cta.php:64, widgets/editor/editor.php:33, widgets/features/features.php:133, widgets/post-carousel/post-carousel.php:98, widgets/price-table/price-table.php:42, widgets/price-table/price-table.php:61, widgets/simple-masonry/simple-masonry.php:44, widgets/simple-masonry/simple-masonry.php:75, widgets/social-media-buttons/social-media-buttons.php:54, widgets/tabs/tabs.php:47, widgets/tabs/tabs.php:60, widgets/taxonomy/taxonomy.php:34, widgets/testimonial/testimonial.php:41, widgets/video/video.php:33, base/inc/fields/posts.class.php:97
+#: widgets/accordion/accordion.php:47, widgets/accordion/accordion.php:60, widgets/contact/contact.php:48, widgets/cta/cta.php:64, widgets/editor/editor.php:33, widgets/features/features.php:135, widgets/post-carousel/post-carousel.php:98, widgets/price-table/price-table.php:42, widgets/price-table/price-table.php:61, widgets/simple-masonry/simple-masonry.php:44, widgets/simple-masonry/simple-masonry.php:75, widgets/social-media-buttons/social-media-buttons.php:54, widgets/tabs/tabs.php:47, widgets/tabs/tabs.php:60, widgets/taxonomy/taxonomy.php:34, widgets/testimonial/testimonial.php:41, widgets/video/video.php:33, base/inc/fields/posts.class.php:97
 msgid "Title"
 msgstr ""
 
@@ -384,11 +384,11 @@ msgstr ""
 msgid "Open in a new window"
 msgstr ""
 
-#: widgets/button/button.php:62, widgets/button/button.php:66, widgets/features/features.php:76, widgets/icon/icon.php:31, widgets/price-table/price-table.php:119
+#: widgets/button/button.php:62, widgets/button/button.php:66, widgets/features/features.php:78, widgets/icon/icon.php:31, widgets/price-table/price-table.php:119
 msgid "Icon"
 msgstr ""
 
-#: widgets/button/button.php:71, widgets/features/features.php:86, widgets/price-table/price-table.php:123, widgets/social-media-buttons/social-media-buttons.php:82
+#: widgets/button/button.php:71, widgets/features/features.php:88, widgets/price-table/price-table.php:123, widgets/social-media-buttons/social-media-buttons.php:82
 msgid "Icon color"
 msgstr ""
 
@@ -404,19 +404,19 @@ msgstr ""
 msgid "Icon Placement"
 msgstr ""
 
-#: widgets/button/button.php:85, widgets/features/features.php:64
+#: widgets/button/button.php:85, widgets/features/features.php:66
 msgid "Top"
 msgstr ""
 
-#: widgets/button/button.php:86, widgets/button/button.php:112, widgets/contact/contact.php:401, widgets/contact/contact.php:416, widgets/contact/contact.php:640, widgets/cta/cta.php:103, widgets/features/features.php:65, widgets/headline/headline.php:92, widgets/headline/headline.php:163, widgets/headline/headline.php:218, widgets/icon/icon.php:50, widgets/image/image.php:49, widgets/image/image.php:61, widgets/social-media-buttons/social-media-buttons.php:153, widgets/social-media-buttons/social-media-buttons.php:164, widgets/testimonial/testimonial.php:255
+#: widgets/button/button.php:86, widgets/button/button.php:112, widgets/contact/contact.php:401, widgets/contact/contact.php:416, widgets/contact/contact.php:640, widgets/cta/cta.php:103, widgets/features/features.php:67, widgets/headline/headline.php:92, widgets/headline/headline.php:163, widgets/headline/headline.php:218, widgets/icon/icon.php:50, widgets/image/image.php:49, widgets/image/image.php:61, widgets/social-media-buttons/social-media-buttons.php:153, widgets/social-media-buttons/social-media-buttons.php:164, widgets/testimonial/testimonial.php:255
 msgid "Right"
 msgstr ""
 
-#: widgets/button/button.php:87, widgets/features/features.php:66
+#: widgets/button/button.php:87, widgets/features/features.php:68
 msgid "Bottom"
 msgstr ""
 
-#: widgets/button/button.php:88, widgets/button/button.php:111, widgets/contact/contact.php:400, widgets/contact/contact.php:415, widgets/contact/contact.php:639, widgets/cta/cta.php:102, widgets/features/features.php:67, widgets/headline/headline.php:91, widgets/headline/headline.php:162, widgets/headline/headline.php:217, widgets/icon/icon.php:49, widgets/image/image.php:48, widgets/image/image.php:60, widgets/social-media-buttons/social-media-buttons.php:152, widgets/social-media-buttons/social-media-buttons.php:163, widgets/testimonial/testimonial.php:254
+#: widgets/button/button.php:88, widgets/button/button.php:111, widgets/contact/contact.php:400, widgets/contact/contact.php:415, widgets/contact/contact.php:639, widgets/cta/cta.php:102, widgets/features/features.php:69, widgets/headline/headline.php:91, widgets/headline/headline.php:162, widgets/headline/headline.php:217, widgets/icon/icon.php:49, widgets/image/image.php:48, widgets/image/image.php:60, widgets/social-media-buttons/social-media-buttons.php:152, widgets/social-media-buttons/social-media-buttons.php:163, widgets/testimonial/testimonial.php:254
 msgid "Left"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 msgid "Use hover effects"
 msgstr ""
 
-#: widgets/button/button.php:148, widgets/contact/contact.php:380, widgets/contact/contact.php:430, widgets/features/features.php:138, widgets/features/features.php:159, widgets/features/features.php:180, widgets/headline/headline.php:78, widgets/headline/headline.php:149
+#: widgets/button/button.php:148, widgets/contact/contact.php:380, widgets/contact/contact.php:430, widgets/features/features.php:140, widgets/features/features.php:161, widgets/features/features.php:182, widgets/headline/headline.php:78, widgets/headline/headline.php:149
 msgid "Font"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgid "Default subject"
 msgstr ""
 
 #: widgets/contact/contact.php:77
-msgid "Subject to use when there isn't one available."
+msgid "Subject to use when there isn't one supplied by the user. If you make use of this option it won't be possible to set the Subject field as required because the default subject will be used as a fallback."
 msgstr ""
 
 #: widgets/contact/contact.php:81
@@ -700,11 +700,11 @@ msgstr ""
 msgid "Phone Number"
 msgstr ""
 
-#: widgets/contact/contact.php:152, widgets/contact/contact.php:747
+#: widgets/contact/contact.php:152, widgets/contact/contact.php:748
 msgid "Subject"
 msgstr ""
 
-#: widgets/contact/contact.php:153, widgets/features/features.php:111, widgets/features/features.php:154, widgets/headline/headline.php:43, widgets/headline/headline.php:114, widgets/price-table/price-table.php:111, widgets/taxonomy/taxonomy.php:51, widgets/testimonial/testimonial.php:82
+#: widgets/contact/contact.php:153, widgets/features/features.php:113, widgets/features/features.php:156, widgets/headline/headline.php:43, widgets/headline/headline.php:114, widgets/price-table/price-table.php:111, widgets/taxonomy/taxonomy.php:51, widgets/testimonial/testimonial.php:82
 msgid "Text"
 msgstr ""
 
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Required Field"
 msgstr ""
 
-#: widgets/contact/contact.php:182, widgets/contact/contact.php:1046
+#: widgets/contact/contact.php:182, widgets/contact/contact.php:1047
 msgid "Required field"
 msgstr ""
 
@@ -816,7 +816,7 @@ msgstr ""
 msgid "Audio"
 msgstr ""
 
-#: widgets/contact/contact.php:286, widgets/contact/contact.php:504, widgets/features/features.php:143, widgets/features/features.php:164, widgets/features/features.php:185, widgets/icon/icon.php:41
+#: widgets/contact/contact.php:286, widgets/contact/contact.php:504, widgets/features/features.php:145, widgets/features/features.php:166, widgets/features/features.php:187, widgets/icon/icon.php:41
 msgid "Size"
 msgstr ""
 
@@ -892,7 +892,7 @@ msgstr ""
 msgid "Field labels"
 msgstr ""
 
-#: widgets/contact/contact.php:390, widgets/contact/contact.php:509, widgets/contact/contact.php:678, widgets/features/features.php:147, widgets/features/features.php:168, widgets/features/features.php:189, widgets/google-map/google-map.php:368, widgets/headline/headline.php:70, widgets/headline/headline.php:141, widgets/headline/headline.php:201, widgets/icon/icon.php:36, widgets/taxonomy/taxonomy.php:56
+#: widgets/contact/contact.php:390, widgets/contact/contact.php:509, widgets/contact/contact.php:678, widgets/features/features.php:149, widgets/features/features.php:170, widgets/features/features.php:191, widgets/google-map/google-map.php:368, widgets/headline/headline.php:70, widgets/headline/headline.php:141, widgets/headline/headline.php:201, widgets/icon/icon.php:36, widgets/taxonomy/taxonomy.php:56
 msgid "Color"
 msgstr ""
 
@@ -1028,63 +1028,63 @@ msgstr ""
 msgid "SiteOrigin Premium"
 msgstr ""
 
-#: widgets/contact/contact.php:731
+#: widgets/contact/contact.php:732
 msgid "Your Name"
 msgstr ""
 
-#: widgets/contact/contact.php:734
+#: widgets/contact/contact.php:735
 msgid "Please enter your name"
 msgstr ""
 
-#: widgets/contact/contact.php:739
+#: widgets/contact/contact.php:740
 msgid "Your Email"
 msgstr ""
 
-#: widgets/contact/contact.php:742
+#: widgets/contact/contact.php:743
 msgid "Please enter a valid email address"
 msgstr ""
 
-#: widgets/contact/contact.php:750
+#: widgets/contact/contact.php:751
 msgid "Please enter a subject"
 msgstr ""
 
-#: widgets/contact/contact.php:755
+#: widgets/contact/contact.php:756
 msgid "Message"
 msgstr ""
 
-#: widgets/contact/contact.php:758
+#: widgets/contact/contact.php:759
 msgid "Please write something"
 msgstr ""
 
-#: widgets/contact/contact.php:1058
+#: widgets/contact/contact.php:1059
 msgid "Invalid email address."
 msgstr ""
 
-#: widgets/contact/contact.php:1137
+#: widgets/contact/contact.php:1138
 msgid "Error sending email, please try again later."
 msgstr ""
 
-#: widgets/contact/contact.php:1163
+#: widgets/contact/contact.php:1164
 msgid "A valid email is required"
 msgstr ""
 
-#: widgets/contact/contact.php:1165
+#: widgets/contact/contact.php:1166
 msgid "The email address is invalid"
 msgstr ""
 
-#: widgets/contact/contact.php:1169
+#: widgets/contact/contact.php:1170
 msgid "Missing subject"
 msgstr ""
 
-#: widgets/contact/contact.php:1203
+#: widgets/contact/contact.php:1204
 msgid "Error validating your Captcha response."
 msgstr ""
 
-#: widgets/contact/contact.php:1235
+#: widgets/contact/contact.php:1236
 msgid "Unfortunately our system identified your message as spam."
 msgstr ""
 
-#: widgets/contact/contact.php:1243
+#: widgets/contact/contact.php:1244
 msgctxt "The name of who sent this email"
 msgid "From"
 msgstr ""
@@ -1173,87 +1173,87 @@ msgstr ""
 msgid "Icon container color"
 msgstr ""
 
-#: widgets/features/features.php:62
+#: widgets/features/features.php:64
 msgid "Icon container position"
 msgstr ""
 
-#: widgets/features/features.php:81, widgets/social-media-buttons/social-media-buttons.php:78
+#: widgets/features/features.php:83, widgets/social-media-buttons/social-media-buttons.php:78
 msgid "Icon title"
 msgstr ""
 
-#: widgets/features/features.php:93
+#: widgets/features/features.php:95
 msgid "Icon image"
 msgstr ""
 
-#: widgets/features/features.php:94
+#: widgets/features/features.php:96
 msgid "Use your own icon image."
 msgstr ""
 
-#: widgets/features/features.php:99
+#: widgets/features/features.php:101
 msgid "Icon image size"
 msgstr ""
 
-#: widgets/features/features.php:106, widgets/image/image.php:68
+#: widgets/features/features.php:108, widgets/image/image.php:68
 msgid "Title text"
 msgstr ""
 
-#: widgets/features/features.php:116
+#: widgets/features/features.php:118
 msgid "More link text"
 msgstr ""
 
-#: widgets/features/features.php:121
+#: widgets/features/features.php:123
 msgid "More link URL"
 msgstr ""
 
-#: widgets/features/features.php:128
+#: widgets/features/features.php:130
 msgid "Font Design"
 msgstr ""
 
-#: widgets/features/features.php:175
+#: widgets/features/features.php:177
 msgid "More Link"
 msgstr ""
 
-#: widgets/features/features.php:198
+#: widgets/features/features.php:200
 msgid "Icon container shape"
 msgstr ""
 
-#: widgets/features/features.php:205
+#: widgets/features/features.php:207
 msgid "Icon container size"
 msgstr ""
 
-#: widgets/features/features.php:211, widgets/social-media-buttons/social-media-buttons.php:117
+#: widgets/features/features.php:213, widgets/social-media-buttons/social-media-buttons.php:117
 msgid "Icon size"
 msgstr ""
 
-#: widgets/features/features.php:217
+#: widgets/features/features.php:219
 msgid "Use icon size for custom icon"
 msgstr ""
 
-#: widgets/features/features.php:223
+#: widgets/features/features.php:225
 msgid "Features per row"
 msgstr ""
 
-#: widgets/features/features.php:229
+#: widgets/features/features.php:231
 msgid "Responsive layout"
 msgstr ""
 
-#: widgets/features/features.php:235
+#: widgets/features/features.php:237
 msgid "Link feature title to more URL"
 msgstr ""
 
-#: widgets/features/features.php:241
+#: widgets/features/features.php:243
 msgid "Link icon to more URL"
 msgstr ""
 
-#: widgets/features/features.php:247
+#: widgets/features/features.php:249
 msgid "Open more URL in a new window"
 msgstr ""
 
-#: widgets/features/features.php:302, widgets/social-media-buttons/social-media-buttons.php:33, base/inc/widgets/base-slider.class.php:153
+#: widgets/features/features.php:304, widgets/social-media-buttons/social-media-buttons.php:33, base/inc/widgets/base-slider.class.php:153
 msgid "Responsive Breakpoint"
 msgstr ""
 
-#: widgets/features/features.php:304
+#: widgets/features/features.php:306
 msgid "This setting controls when the features widget will collapse for mobile devices. The default value is 520px"
 msgstr ""
 
@@ -1761,7 +1761,7 @@ msgstr ""
 msgid "Dynamically adjust your heading font size based on screen size."
 msgstr ""
 
-#: widgets/headline/headline.php:261, widgets/hero/hero.php:235
+#: widgets/headline/headline.php:261
 msgid "FitText Compressor Strength"
 msgstr ""
 
@@ -1873,6 +1873,10 @@ msgstr ""
 msgid "Enter the h1 font size. h2 - h6 will be proportionally sized based on this value."
 msgstr ""
 
+#: widgets/hero/hero.php:235
+msgid "FitText compressor strength"
+msgstr ""
+
 #: widgets/hero/hero.php:246, widgets/layout-slider/layout-slider.php:175
 msgid "Heading shadow intensity"
 msgstr ""
@@ -1894,7 +1898,7 @@ msgid "Link color"
 msgstr ""
 
 #: widgets/hero/hero.php:283
-msgid "Link Hover Color"
+msgid "Link hover color"
 msgstr ""
 
 #: widgets/icon/icon.php:4
@@ -2273,7 +2277,7 @@ msgstr ""
 msgid "Mobile Align"
 msgstr ""
 
-#: widgets/social-media-buttons/social-media-buttons.php:314
+#: widgets/social-media-buttons/social-media-buttons.php:315
 msgid "Add custom social networks with %sSiteOrigin Premium%s"
 msgstr ""
 
@@ -2983,186 +2987,190 @@ msgid "Snapchat"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:47
-msgid "LinkedIn"
+msgid "Skype"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:53
-msgid "Pinterest"
+msgid "LinkedIn"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:59
-msgid "Tumblr"
+msgid "Pinterest"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:65
-msgid "Instagram"
+msgid "Tumblr"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:71
-msgid "VK"
+msgid "Instagram"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:77
-msgid "Flickr"
+msgid "VK"
 msgstr ""
 
 #: widgets/social-media-buttons/data/networks.php:83
+msgid "Flickr"
+msgstr ""
+
+#: widgets/social-media-buttons/data/networks.php:89
 msgid "Vine"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:92
+#: widgets/social-media-buttons/data/networks.php:98
 msgid "500px"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:98
+#: widgets/social-media-buttons/data/networks.php:104
 msgid "AngelList"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:104
+#: widgets/social-media-buttons/data/networks.php:110
 msgid "Bandcamp"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:110
+#: widgets/social-media-buttons/data/networks.php:116
 msgid "Behance"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:116
+#: widgets/social-media-buttons/data/networks.php:122
 msgid "Bitbucket"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:122
+#: widgets/social-media-buttons/data/networks.php:128
 msgid "Blogger"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:128
+#: widgets/social-media-buttons/data/networks.php:134
 msgid "Codepen"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:134
+#: widgets/social-media-buttons/data/networks.php:140
 msgid "Delicious"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:140
+#: widgets/social-media-buttons/data/networks.php:146
 msgid "deviantArt"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:146
+#: widgets/social-media-buttons/data/networks.php:152
 msgid "Dribbble"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:152
+#: widgets/social-media-buttons/data/networks.php:158
 msgid "Dropbox"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:158
+#: widgets/social-media-buttons/data/networks.php:164
 msgid "Foursquare"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:164
+#: widgets/social-media-buttons/data/networks.php:170
 msgid "Github"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:170
+#: widgets/social-media-buttons/data/networks.php:176
 msgid "Gratipay"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:176
+#: widgets/social-media-buttons/data/networks.php:182
 msgid "Goodreads"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:182
+#: widgets/social-media-buttons/data/networks.php:188
 msgid "Hacker News"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:188
+#: widgets/social-media-buttons/data/networks.php:194
 msgid "JSFiddle"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:194
+#: widgets/social-media-buttons/data/networks.php:200
 msgid "Last.fm"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:200
+#: widgets/social-media-buttons/data/networks.php:206
 msgid "Reddit"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:206
+#: widgets/social-media-buttons/data/networks.php:212
 msgid "Slack"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:212
+#: widgets/social-media-buttons/data/networks.php:218
 msgid "Slideshare"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:218
+#: widgets/social-media-buttons/data/networks.php:224
 msgid "Soundcloud"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:224
+#: widgets/social-media-buttons/data/networks.php:230
 msgid "Spotify"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:230
+#: widgets/social-media-buttons/data/networks.php:236
 msgid "Stack Exchange"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:236
+#: widgets/social-media-buttons/data/networks.php:242
 msgid "Stack Overflow"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:242
+#: widgets/social-media-buttons/data/networks.php:248
 msgid "Steam"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:248
+#: widgets/social-media-buttons/data/networks.php:254
 msgid "Strava"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:254
+#: widgets/social-media-buttons/data/networks.php:260
 msgid "StumbleUpon"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:260
+#: widgets/social-media-buttons/data/networks.php:266
 msgid "Telegram"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:266
+#: widgets/social-media-buttons/data/networks.php:272
 msgid "Trello"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:272
+#: widgets/social-media-buttons/data/networks.php:278
 msgid "TripAdvisor"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:278
+#: widgets/social-media-buttons/data/networks.php:284
 msgid "Twitch"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:284
+#: widgets/social-media-buttons/data/networks.php:290
 msgid "Vimeo"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:290
+#: widgets/social-media-buttons/data/networks.php:296
 msgid "WhatsApp"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:296
+#: widgets/social-media-buttons/data/networks.php:302
 msgid "WordPress"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:302
+#: widgets/social-media-buttons/data/networks.php:308
 msgid "Xing"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:308
+#: widgets/social-media-buttons/data/networks.php:314
 msgid "Yahoo"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:314
+#: widgets/social-media-buttons/data/networks.php:320
 msgid "Yelp"
 msgstr ""
 
-#: widgets/social-media-buttons/data/networks.php:320
+#: widgets/social-media-buttons/data/networks.php:326
 msgid "YouTube"
 msgstr ""
 

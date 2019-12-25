@@ -54,6 +54,7 @@ abstract class Price
         'LAK' => array( 'symbol' => '₭',    'format' => '{price|0} {symbol}' ),
         'LBP' => array( 'symbol' => 'ل.ل.', 'format' => '{symbol} {price}' ),
         'LKR' => array( 'symbol' => 'Rs.',  'format' => '{symbol} {price|2}' ),
+        'MKD' => array( 'symbol' => 'ден.', 'format' => '{price|2} {symbol}' ),
         'MUR' => array( 'symbol' => 'Rs',   'format' => '{symbol}{price|2}' ),
         'MXN' => array( 'symbol' => '$',    'format' => '{symbol}{price|2}' ),
         'MYR' => array( 'symbol' => 'RM',   'format' => '{price|2} {symbol}' ),
@@ -135,11 +136,11 @@ abstract class Price
             return strtr( $format, array(
                 '{sign}' => $price < 0 ? '-' : '',
                 '{symbol}' => $symbol,
-                "{price|{$match[1]}}" => number_format_i18n( abs( $price ), $match[1] )
+                "{price|{$match[1]}}" => html_entity_decode( number_format_i18n( abs( $price ), $match[1] ) )
             ) );
         }
 
-        return number_format_i18n( $price, 2 );
+        return html_entity_decode( number_format_i18n( $price, 2 ) );
     }
 
     /**

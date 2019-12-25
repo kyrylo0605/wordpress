@@ -112,6 +112,51 @@ abstract class Plugin extends Base\Plugin
             );
         }, 10, 2 );
 
+        add_action( 'after_plugin_row', function ( $plugin_file, $plugin_data, $status ) {
+            /** @var \Bookly\Lib\Base\Plugin[] $bookly_plugins */
+            $bookly_plugins = apply_filters( 'bookly_plugins', array() );
+            $slug = dirname( $plugin_file );
+
+            if ( array_key_exists( $slug, $bookly_plugins ) ) {
+                $plugin_class = $bookly_plugins[ $slug ];
+                $bookly_update_plugins = get_site_transient( 'bookly_update_plugins' );
+                $key = 'support_required';
+                if ( isset( $bookly_update_plugins[ $slug ][ $key ]['last_version'] ) ) {
+                    $data = $bookly_update_plugins[ $slug ][ $key ];
+                    if ( version_compare( $data['last_version'], $plugin_data['Version'], '>' ) ) {
+                        echo '<tr class="plugin-update-tr active bookly-js-plugin">
+                              <td colspan="3" class="plugin-update colspanchange">
+                                  <div class="update-message notice inline notice-error notice-alt">
+                                    <p>
+                                    ' . esc_html__( 'Important', 'bookly' ) . '!<br>
+                                    ' . esc_html__( 'Though, every new version is thoroughly tested to its highest quality before deploying, we can\'t guarantee that after update the plugin will work properly on all WordPress configurations and completely protect it from the influence of other plugins.', 'bookly' ) . '<br>
+                                    ' . sprintf( __( 'There is a small risk that some issues may appear as a result of updating the plugin. Please note that, according to %1$s Envato rules %2$s, we will be able to help you only if you have active item support period.', 'bookly' ),
+                                        '<a href="https://themeforest.net/page/item_support_policy" target="_blank">',
+                                        '</a>'
+                                        ) . '<br>
+                                    ' . sprintf( __( 'You can renew support %1$s here %3$s or %2$s I\'ve already renewed support. %3$s', 'bookly' ),
+                                        '<a href="' . esc_url( array_key_exists( 'renew_support', $data ) ? $data['renew_support'] : 'https://codecanyon.net/user/ladela' ) . '" target="_blank">',
+                                        '<a href="#" data-bookly-plugin="' . $plugin_class::getRootNamespace() . '" data-csrf="' . Utils\Common::getCsrfToken() . '">',
+                                        '</a>'
+                                        ). ' <span class="spinner" style="float: none; margin: -2px 0 0 2px"></span><br>
+                                    </p>
+                                </div>
+                              </td>
+                          </tr>';
+                    } else {
+                        unset( $bookly_update_plugins[ $slug ][ $key ] );
+                        set_site_transient( 'bookly_update_plugins', $bookly_update_plugins );
+                    }
+                }
+            }
+        }, 10, 3 );
+
+        add_action( 'pre_current_active_plugins', function () {
+            $version   = Plugin::getVersion();
+            $resources = plugins_url( 'backend/resources', Plugin::getMainFile() );
+            wp_enqueue_script( 'bookly-plugins-page', $resources . '/js/plugins.js', array( 'jquery' ), $version );
+        } );
+
         // Register and schedule routines.
         Routines::init();
     }

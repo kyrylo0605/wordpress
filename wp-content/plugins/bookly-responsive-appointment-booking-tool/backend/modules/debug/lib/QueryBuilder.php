@@ -490,7 +490,7 @@ class QueryBuilder
         LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS kcu ON ( rc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME )
             WHERE unique_CONSTRAINT_SCHEMA = SCHEMA()
               AND rc.CONSTRAINT_NAME LIKE 'wp_bookly_%'
-         GROUP BY rc.CONSTRAINT_NAME
+         ORDER BY rc.CONSTRAINT_NAME
          */
 
         $rules = array (

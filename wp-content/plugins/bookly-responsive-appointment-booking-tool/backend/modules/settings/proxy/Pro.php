@@ -11,6 +11,7 @@ use Bookly\Lib;
  * @method static void renderCancellationConfirmationUrl() Render cancellation confirmation URL setting.
  * @method static void renderCreateWordPressUser() Render Create WordPress user account for customers.
  * @method static void renderCustomersAddress() Render address settings in the customers tab.
+ * @method static void renderCustomersAddressTemplate() Customer address template.
  * @method static void renderCustomersBirthday() Render birthday settings in the customers tab.
  * @method static void renderFinalStepUrl() Render final step URL setting.
  * @method static void renderGoogleCalendarMenuItem() Render 'Google Calendar' menu item.

@@ -44,7 +44,7 @@ class Core_Loader {
 			array(
 				'Customizer\Loader',
 				'Views\Tweaks',
-				'Views\Typography',
+				'Views\Font_Manager',
 				'Views\Top_Bar',
 				'Views\Header',
 				'Views\Template_Parts',
@@ -53,6 +53,8 @@ class Core_Loader {
 				'Views\Page_Layout',
 				'Views\Product_Layout',
 				'Views\Content_None',
+				'Views\Content_404',
+				'Views\Breadcrumbs',
 
 				'Views\Layouts\Layout_Container',
 				'Views\Layouts\Layout_Sidebar',
@@ -69,13 +71,14 @@ class Core_Loader {
 				'Views\Inline\Gutenberg_Style_Manager',
 
 				'Compatibility\Generic',
-				'Compatibility\Gutenberg',
 				'Compatibility\WooCommerce',
 				'Compatibility\Elementor',
 				'Compatibility\Header_Footer_Elementor',
 				'Compatibility\Amp',
+				'Compatibility\Header_Footer_Beaver',
 				'Compatibility\Beaver',
 				'Compatibility\Lifter',
+				'Compatibility\PWA',
 
 				'Admin\Metabox\Manager',
 			)
@@ -102,6 +105,7 @@ class Core_Loader {
 		$admin = new Admin();
 		add_action( 'init', array( $admin, 'load_site_import' ) );
 		add_action( 'init', array( $admin, 'do_about_page' ) );
+		add_action( 'ti-about-after-sidebar-content', array( $admin, 'render_logger_toggle' ) );
 
 		$front_end = new Front_End();
 		add_action( 'wp_enqueue_scripts', array( $front_end, 'enqueue_scripts' ) );

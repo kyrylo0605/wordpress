@@ -1,0 +1,363 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WIP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-24 22:10+0200\n"
+"PO-Revision-Date: 2015-02-05 17:47+0100\n"
+"Last-Translator: Alessandro Vellutini <vellutini@hotmail.it>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;esc_html__;esc_attr__\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: core/admin/panel.php:19 core/admin/panel.php:35 core/admin/panel.php:37
+msgid "Chatbox Generator"
+msgstr ""
+
+#: core/admin/panel.php:20
+msgid "Import/Export"
+msgstr ""
+
+#: core/admin/panel.php:38
+msgid "Click on 'New chatbox' button to add a new chatbox."
+msgstr ""
+
+#: core/admin/panel.php:56 core/admin/panel.php:58
+msgid "Import / Export"
+msgstr ""
+
+#: core/includes/class-notice.php:76
+msgid "Dismiss this notice"
+msgstr ""
+
+#: core/includes/class-panel.php:38 core/includes/class-panel.php:39
+msgid "TIP Plugins"
+msgstr ""
+
+#: core/includes/class-panel.php:51 core/includes/class-panel.php:52
+#: core/includes/class-panel.php:330
+msgid "WA Chatbox Manager"
+msgstr ""
+
+#: core/includes/class-panel.php:268
+msgid "Options saved successfully."
+msgstr ""
+
+#: core/includes/class-panel.php:331
+msgid "Version: "
+msgstr ""
+
+#: core/includes/class-panel.php:332
+msgid "by ThemeinProgress"
+msgstr ""
+
+#: core/includes/class-panel.php:333
+msgid " - Documentation"
+msgstr ""
+
+#: core/includes/class-panel.php:500
+msgid "Upload"
+msgstr ""
+
+#: core/includes/class-panel.php:663
+msgid "Current plugin settings"
+msgstr ""
+
+#: core/includes/class-panel.php:672
+msgid "Download current plugin settings"
+msgstr ""
+
+#: core/includes/class-panel.php:684 core/includes/class-panel.php:691
+msgid "Reset plugin settings"
+msgstr ""
+
+#: core/includes/class-panel.php:693
+msgid "If you click the button above, the plugin options return to its default values"
+msgstr ""
+
+#: core/includes/class-panel.php:705 core/includes/class-panel.php:712
+msgid "Import plugin settings"
+msgstr ""
+
+#: core/includes/class-panel.php:753
+msgid "<span>You have reached the limit of 3 chatboxes. You can unlock this limit visiting this LINK</span> "
+msgstr ""
+
+#: core/includes/class-panel.php:755
+msgid "Upgrade to WA Chatbox Manager premium"
+msgstr ""
+
+#: core/includes/class-panel.php:785
+msgid "Chatbox name."
+msgstr ""
+
+#: core/includes/class-panel.php:792
+msgid "Add the name of this chatbox."
+msgstr ""
+
+#: core/includes/class-panel.php:804
+msgid "WhatsApp number"
+msgstr ""
+
+#: core/includes/class-panel.php:812
+msgid "Add the WhatsApp number of this chatbox including the country code, for example +393331234567"
+msgstr ""
+
+#: core/includes/class-panel.php:814
+msgid "How to include properly the phone number"
+msgstr ""
+
+#: core/includes/class-panel.php:826
+msgid "Text to display"
+msgstr ""
+
+#: core/includes/class-panel.php:834
+msgid "Add the text of this chatbox."
+msgstr ""
+
+#: core/includes/class-panel.php:846
+msgid "Pre-filled message"
+msgstr ""
+
+#: core/includes/class-panel.php:854
+msgid "Add the pre-filled message of this chatbox."
+msgstr ""
+
+#: core/includes/class-panel.php:866
+msgid "Fixed position"
+msgstr ""
+
+#: core/includes/class-panel.php:875
+msgid "Bottom right"
+msgstr ""
+
+#: core/includes/class-panel.php:876
+msgid "Bottom left"
+msgstr ""
+
+#: core/includes/class-panel.php:877
+msgid "Bottom center"
+msgstr ""
+
+#: core/includes/class-panel.php:878
+msgid "Top right"
+msgstr ""
+
+#: core/includes/class-panel.php:879
+msgid "Top left"
+msgstr ""
+
+#: core/includes/class-panel.php:880
+msgid "Top center"
+msgstr ""
+
+#: core/includes/class-panel.php:885
+msgid "Set the fixed position where you want to place this chatbox."
+msgstr ""
+
+#: core/includes/class-panel.php:897
+msgid "Position"
+msgstr ""
+
+#: core/includes/class-panel.php:903
+msgid "Top position"
+msgstr ""
+
+#: core/includes/class-panel.php:904
+msgid "Insert the top position, please do not include \"px\""
+msgstr ""
+
+#: core/includes/class-panel.php:910
+msgid "Right position."
+msgstr ""
+
+#: core/includes/class-panel.php:912
+msgid "Insert the right position, please do not include \"px\""
+msgstr ""
+
+#: core/includes/class-panel.php:918
+msgid "Bottom position."
+msgstr ""
+
+#: core/includes/class-panel.php:920
+msgid "Insert the bottom position, please do not include \"px\""
+msgstr ""
+
+#: core/includes/class-panel.php:926
+msgid "Left position."
+msgstr ""
+
+#: core/includes/class-panel.php:928
+msgid "Insert the left position, please do not include \"px\""
+msgstr ""
+
+#: core/includes/class-panel.php:940
+msgid "Size"
+msgstr ""
+
+#: core/includes/class-panel.php:948
+msgid "Insert the size of this icon, please do not include \"px\""
+msgstr ""
+
+#: core/includes/class-panel.php:960
+msgid "Icon"
+msgstr ""
+
+#: core/includes/class-panel.php:969
+msgid "Icon 1"
+msgstr ""
+
+#: core/includes/class-panel.php:970
+msgid "Icon 2"
+msgstr ""
+
+#: core/includes/class-panel.php:971
+msgid "None"
+msgstr ""
+
+#: core/includes/class-panel.php:975
+msgid "Select a icon for this chatbox."
+msgstr ""
+
+#: core/includes/class-panel.php:987
+msgid "Layout"
+msgstr ""
+
+#: core/includes/class-panel.php:996
+msgid "Layout 1"
+msgstr ""
+
+#: core/includes/class-panel.php:997
+msgid "Layout 2"
+msgstr ""
+
+#: core/includes/class-panel.php:998
+msgid "Layout 3"
+msgstr ""
+
+#: core/includes/class-panel.php:999
+msgid "Layout 4"
+msgstr ""
+
+#: core/includes/class-panel.php:1000
+msgid "Layout 5"
+msgstr ""
+
+#: core/includes/class-panel.php:1004
+msgid "Select a layout for this chatbox."
+msgstr ""
+
+#: core/includes/class-panel.php:1016
+msgid "Chatbox type"
+msgstr ""
+
+#: core/includes/class-panel.php:1025
+msgid "Floating button"
+msgstr ""
+
+#: core/includes/class-panel.php:1026
+msgid "After content"
+msgstr ""
+
+#: core/includes/class-panel.php:1030
+msgid "Which type of chatbox you want to display?"
+msgstr ""
+
+#: core/includes/class-panel.php:1046
+msgid "Homepage"
+msgstr ""
+
+#: core/includes/class-panel.php:1063
+msgid "Do you want to load this chatbox on the homepage?"
+msgstr ""
+
+#: core/includes/class-panel.php:1081
+msgid "Search"
+msgstr ""
+
+#: core/includes/class-panel.php:1100
+msgid "Do you want to load this chatbox on the search result pages?"
+msgstr ""
+
+#: core/includes/class-panel.php:1115
+msgid "Whole website (posts, pages, taxonomies)"
+msgstr ""
+
+#: core/includes/class-panel.php:1132
+msgid "Do you want to load this chatbox on whole website?"
+msgstr ""
+
+#: core/includes/class-panel.php:1147
+msgid "Custom post types."
+msgstr ""
+
+#: core/includes/class-panel.php:1148
+msgid "Below each available custom post type."
+msgstr ""
+
+#: core/includes/class-panel.php:1164 core/includes/class-panel.php:1256
+msgid " match value."
+msgstr ""
+
+#: core/includes/class-panel.php:1173 core/includes/class-panel.php:1265
+msgid "Include"
+msgstr ""
+
+#: core/includes/class-panel.php:1174 core/includes/class-panel.php:1266
+msgid "Exclude"
+msgstr ""
+
+#: core/includes/class-panel.php:1179
+msgid "Do you want to include or exclude this custom post type?"
+msgstr ""
+
+#: core/includes/class-panel.php:1191
+msgid "Include these items."
+msgstr ""
+
+#: core/includes/class-panel.php:1201 core/includes/class-panel.php:1293
+msgid "Type [All] to include all items."
+msgstr ""
+
+#: core/includes/class-panel.php:1213
+msgid "Exclude these items."
+msgstr ""
+
+#: core/includes/class-panel.php:1223 core/includes/class-panel.php:1315
+msgid "Type [All] to exclude all items."
+msgstr ""
+
+#: core/includes/class-panel.php:1239
+msgid "Custom taxonomies."
+msgstr ""
+
+#: core/includes/class-panel.php:1240
+msgid "Below each available Custom taxonomy."
+msgstr ""
+
+#: core/includes/class-panel.php:1271
+msgid "Do you want to include or exclude this custom taxonomy?"
+msgstr ""
+
+#: core/includes/class-panel.php:1283
+msgid "Include these items. "
+msgstr ""
+
+#: core/includes/class-panel.php:1305
+msgid "Exclude these items. "
+msgstr ""
+
+#: init.php:71
+msgid "Settings"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Categories: "
+#~ msgstr "Categorisa"

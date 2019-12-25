@@ -7,6 +7,11 @@ namespace Bookly\Lib;
  */
 class Updater extends Base\Updater
 {
+    function update_17_7()
+    {
+        add_option( 'bookly_app_prevent_caching', '1' );
+    }
+
     function update_17_6()
     {
         $this->alterTables( array(

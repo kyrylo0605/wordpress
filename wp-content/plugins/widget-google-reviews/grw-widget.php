@@ -23,6 +23,8 @@ class Goog_Reviews_Widget extends WP_Widget {
         'max_width'            => '',
         'max_height'           => '',
         'refresh_reviews'      => true,
+        'hide_based_on'        => false,
+        'hide_reviews'         => false,
         'centered'             => false,
         'reduce_avatars_size'  => true,
         'open_link'            => true,

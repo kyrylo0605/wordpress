@@ -61,7 +61,12 @@ function educationbooster_scripts(){
 			'absolute'   => true,
 			'prefix'     => '',
 			'dependency' => array( 'jquery', 'masonry' )
-		)
+		),
+		array(
+			'handler'  => 'education-booster-skip-link-focus-fix',
+			'script'   => get_theme_file_uri( '/assets/js/skip-link-focus-fix.min.js' ),
+			'absolute' => true,
+		),
 	);
 
 	educationbooster_enqueue( $scripts );
@@ -437,6 +442,7 @@ add_filter( 'post_class', 'educationbooster_post_class_modification' );
 require_once get_parent_theme_file_path( '/inc/setup.php' );
 require_once get_parent_theme_file_path( '/inc/template-tags.php' );
 require_once get_parent_theme_file_path( '/modules/loader.php' );
+require_once get_parent_theme_file_path( '/theme-info/theme-info.php' );
 
 if( !function_exists( 'educationbooster_get_homepage_sections' ) ):
 /**

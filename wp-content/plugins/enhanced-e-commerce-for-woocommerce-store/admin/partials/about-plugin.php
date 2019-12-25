@@ -1,3 +1,7 @@
+<?php
+$message = new Enhanced_Ecommerce_Google_Settings();
+?>
+
 <style>
     td{
         text-align: center !important;
@@ -16,8 +20,9 @@
     <div class="row" style="margin-left:-11%; !important;">
         <div class= "col col-9">
             <div class="card mw-100" style="padding:0;">
+                <?php $message->show_message();?>
                 <div class="card-header">
-                    <h5>Feature difference between <span style="font-weight: 800;">Free & Premium</span> Plugin</h5>
+                    <h5>Feature difference between <span style="font-weight: 800;">Free & Premium</span> Plugin<a href="http://plugins.tatvic.com/downloads/actionable-google-analytics-free-trial.zip"><button name="download" class="top-btn btn btn-primary download"><strong>14 Days Free Trial !  </strong><img class="new-img-blink" src='<?php echo plugins_url('../images/new-2.gif', __FILE__ )  ?>' /></button></a></h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -144,7 +149,7 @@
                                             <tfoot class="thead-inverse">
                                             <tr>
                                                 <th class="w-25"></th>
-                                                <th class=""></th>
+                                                <th class=""><a href="http://plugins.tatvic.com/downloads/actionable-google-analytics-free-trial.zip"><button class="btn btn-primary download"><strong>14 Days Free Trial ! </strong><img class="new-img-blink" src='<?php echo plugins_url('../images/new-2.gif', __FILE__ )  ?>' /></button></a></th>
                                                 <th class=""><a href="https://1.envato.market/Yvn3R" target="_blank"><button class="btn btn-primary"><strong>Buy Premium Plugin</strong></button></a></th>
                                             </tr>
                                             </tfoot>

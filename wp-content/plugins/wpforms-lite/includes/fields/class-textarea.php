@@ -137,6 +137,9 @@ class WPForms_Field_Textarea extends WPForms_Field {
 		);
 		$this->field_element( 'row', $field, $args );
 
+		// Default value.
+		$this->field_option( 'default_value', $field );
+
 		// Custom CSS classes.
 		$this->field_option( 'css', $field );
 

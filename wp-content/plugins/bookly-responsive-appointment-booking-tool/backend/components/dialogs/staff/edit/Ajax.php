@@ -161,6 +161,16 @@ class Ajax extends Lib\Base\Ajax
         if ( self::$staff ) {
             if ( self::parameter( 'holiday' ) == 'true' ) {
                 $repeat   = (int) ( self::parameter( 'repeat' ) == 'true' );
+                if ( ! $repeat ) {
+                    Lib\Entities\Holiday::query( 'h' )
+                        ->update()
+                        ->set( 'h.repeat_event', 0 )
+                        ->where( 'h.staff_id', self::$staff->getId() )
+                        ->where( 'h.repeat_event', 1 )
+                        ->whereRaw( 'CONVERT(DATE_FORMAT(h.date, \'1%%m%%d\'),UNSIGNED INTEGER) BETWEEN %d AND %d', array( $range->start()->value()->format( '1md' ), $range->end()->value()->format( '1md' ) ) )
+                        ->execute();
+                }
+
                 $holidays = Lib\Entities\Holiday::query()
                     ->whereBetween( 'date', $range->start()->value()->format( 'Y-m-d' ), $range->end()->value()->format( 'Y-m-d' ) )
                     ->where( 'staff_id', self::$staff->getId() )
@@ -180,6 +190,13 @@ class Ajax extends Lib\Base\Ajax
                         ->save();
                 }
             } else {
+                Lib\Entities\Holiday::query( 'h' )
+                    ->delete()
+                    ->where( 'h.staff_id', self::$staff->getId() )
+                    ->where( 'h.repeat_event', 1 )
+                    ->whereRaw( 'CONVERT(DATE_FORMAT(h.date, \'1%%m%%d\'),UNSIGNED INTEGER) BETWEEN %d AND %d', array( $range->start()->value()->format( '1md' ), $range->end()->value()->format( '1md' ) ) )
+                    ->execute();
+
                 Lib\Entities\Holiday::query()
                     ->delete()
                     ->whereBetween( 'date', $range->start()->value()->format( 'Y-m-d' ), $range->end()->value()->format( 'Y-m-d' ) )

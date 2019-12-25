@@ -3,8 +3,8 @@ Contributors: Mihail Barinov
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GSE37FC4Y7CEY
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
-Tested up to: 5.2
-Stable tag: 1.83
+Tested up to: 5.3
+Stable tag: 1.87
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,32 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.87 =
+* Fix - Bug with search results sorting
+* Update - Hide disabled variations from search
+
+= 1.86 =
+* Update - Speed-up index process
+* Update - Speed-up search
+* Update - Generatepress theme integration
+* Update - Ocean WP theme integration
+* Update - Get shortcodes content during the index
+* Add - awsShowingResults js event
+* Fix - Search page bug with multiple searches per load
+
+= 1.85 =
+* Add - Seamless integration with Divi builder
+* Add - Seamless integration for Shopkeeper theme
+* Add - aws_js_seamless_selectors filter
+* Update - When fail index process will start from latest added product, not from the start
+* Update - Search results box layout fixes
+* Update - qTranslate plugin fix
+* Fix - Synonyms support for phrases
+
+= 1.84 =
+* Update - Add indexes for table
+* Update - Cache query sql
 
 = 1.83 =
 * Add - Support for Maya shop theme

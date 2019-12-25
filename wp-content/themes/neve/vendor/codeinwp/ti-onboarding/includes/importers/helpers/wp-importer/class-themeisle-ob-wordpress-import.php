@@ -21,6 +21,7 @@ if ( ! class_exists( 'WP_Importer' ) ) {
 }
 
 class Themeisle_OB_WP_Import extends WP_Importer {
+	use Themeisle_OB;
 	/**
 	 * @var Themeisle_OB_WP_Import_Logger
 	 */
@@ -46,11 +47,15 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 	public $fetch_attachments    = true;
 	public $url_remap            = array();
 	public $featured_images      = array();
+	public $page_builder         = null;
 
 	/**
 	 * Themeisle_OB_WP_Import constructor.
+	 *
+	 * @param string $page_builder the page builder used.
 	 */
-	public function __construct() {
+	public function __construct( $page_builder = '' ) {
+		$this->page_builder = $page_builder;
 		require_once ABSPATH . 'wp-admin/includes/import.php';
 		require_once ABSPATH . 'wp-admin/includes/post.php';
 		require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
@@ -515,6 +520,16 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 							$meta_handler->filter_meta();
 							$this->logger->log( 'Filtered elementor meta.', 'success' );
 						}
+						if ( in_array(
+							$key,
+							array(
+								'tve_custom_css',
+								'tve_content_before_more',
+								'tve_updated_post',
+							)
+						) ) {
+							$value = $this->replace_image_urls( $value );
+						}
 						add_post_meta( $post_id, $key, $value );
 						do_action( 'import_post_meta', $post_id, $key, $value );
 						// if the post has a featured image, take note of this in case of remap
@@ -839,7 +854,7 @@ class Themeisle_OB_WP_Import extends WP_Importer {
 	 */
 	private function parse( $file ) {
 		$this->logger->log( 'Parsing XML file.', 'success' );
-		$parser = new Themeisle_OB_WXR_Parser();
+		$parser = new Themeisle_OB_WXR_Parser( $this->page_builder );
 
 		return $parser->parse( $file );
 	}
