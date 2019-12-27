@@ -92,7 +92,7 @@ jQuery( function ( $ ) {
                 data.s = '';
             }
 
-            data = $.extend( data, { action: 'yith_wcpb_select_product_filter' } );
+            data = $.extend( data, { action: 'yith_wcpb_select_product_box_filtered' } );
 
             let products = $( '.yith-wcpb-select-product-box__products' );
             products.block( block_params );
@@ -137,7 +137,7 @@ jQuery( function ( $ ) {
                                       ajax        : true,
                                       url         : ajaxurl,
                                       ajax_data   : {
-                                          action: 'yith_wcpb_select_product'
+                                          action: 'yith_wcpb_select_product_box'
                                       },
                                       ajax_success: function () {
                                           $( '.yith-wcpb-select-product-box__filter__search' ).focus();

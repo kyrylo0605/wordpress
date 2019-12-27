@@ -95,6 +95,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                     add_action( 'wp_head', array( $this, 'oceanwp_head_action' ) );
                 }
 
+                // Avada theme
+                if ( class_exists( 'Avada' ) ) {
+                    add_action( 'wp_head', array( $this, 'avada_head_action' ) );
+                }
+
             }
 
             // Wholesale plugin hide certain products
@@ -105,6 +110,12 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             // Search Exclude plugin
             if ( class_exists( 'SearchExclude' ) ) {
                 add_filter( 'aws_index_product_ids', array( $this, 'search_exclude_filter' ) );
+            }
+
+            // WooCommerce Product Table plugin
+            if ( class_exists( 'WC_Product_Table_Plugin' ) ) {
+                add_filter( 'wc_product_table_data_config', array( $this, 'wc_product_table_data_config' ) );
+                add_filter( 'aws_posts_per_page', array( $this, 'wc_product_table_posts_per_page' ) );
             }
 
         }
@@ -429,6 +440,47 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         <?php }
 
         /*
+         * Avada wp theme
+         */
+        public function avada_head_action() { ?>
+
+            <style>
+
+                .fusion-flyout-search .aws-container {
+                    margin: 0 auto;
+                    padding: 0;
+                    width: 100%;
+                    width: calc(100% - 40px);
+                    max-width: 600px;
+                    position: absolute;
+                    top: 40%;
+                    left: 20px;
+                    right: 20px;
+                }
+
+            </style>
+
+            <script>
+
+                window.addEventListener('load', function() {
+                    var awsSearch = document.querySelectorAll(".fusion-menu .fusion-main-menu-search a, .fusion-flyout-menu-icons .fusion-icon-search");
+                    if ( awsSearch ) {
+                        for (var i = 0; i < awsSearch.length; i++) {
+                            awsSearch[i].addEventListener('click', function() {
+                                window.setTimeout(function(){
+                                    document.querySelector(".fusion-menu .fusion-main-menu-search .aws-search-field, .fusion-flyout-search .aws-search-field").focus();
+                                }, 100);
+                            }, false);
+                        }
+                    }
+
+                }, false);
+
+            </script>
+
+        <?php }
+
+        /*
          * Porto theme seamless integration
          */
         public function porto_search_form_content_filter( $markup ) {
@@ -690,6 +742,23 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             return $products;
 
+        }
+
+        /*
+         * Fix WooCommerce Product Table for search page
+         */
+        public function wc_product_table_data_config( $config ) {
+            if ( isset( $_GET['type_aws'] ) && isset( $config['search'] ) ) {
+                $config['search']['search'] = '';
+            }
+            return $config;
+        }
+
+        /*
+         * WooCommerce Product Table plugin change number of products on page
+         */
+        public function wc_product_table_posts_per_page( $num ) {
+            return 9999;
         }
 
     }

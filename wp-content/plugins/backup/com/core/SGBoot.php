@@ -173,9 +173,36 @@ class SGBoot
 			if (!self::installActionTable($sgdb)) {
 				throw new SGExceptionDatabaseError('Could not install action table');
 			}
+
+			self::installReviewSettings();
 		}
 		catch (SGException $exception) {
 			die($exception);
+		}
+	}
+
+	private static function installReviewSettings()
+	{
+		$usageDays = SGConfig::get('usageDays');
+		if (!$usageDays) {
+			SGConfig::set('usageDays', 0);
+
+			$timeDate = new \DateTime('now');
+			$installTime = strtotime($timeDate->format('Y-m-d H:i:s'));
+			SGConfig::set('installDate', $installTime);
+			$timeDate->modify('+'.SG_BACKUP_REVIEW_PERIOD.' day');
+
+			$timeNow = strtotime($timeDate->format('Y-m-d H:i:s'));
+			SGConfig::set('openNextTime', $timeNow);
+		}
+		$backupCountReview = SGConfig::get('backupReviewCount');
+		if (!$backupCountReview) {
+			SGConfig::set('backupReviewCount', SG_BACKUP_REVIEW_BACKUP_COUNT);
+		}
+
+		$restoreReviewCount = SGConfig::get('restoreReviewCount');
+		if (!$restoreReviewCount) {
+			SGConfig::set('restoreReviewCount', SG_BACKUP_REVIEW_RESTORE_COUNT);
 		}
 	}
 

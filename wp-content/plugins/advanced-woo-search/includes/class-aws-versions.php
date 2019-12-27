@@ -283,6 +283,20 @@ if ( ! class_exists( 'AWS_Versions' ) ) :
 
                 }
 
+                if ( version_compare( $current_version, '1.89', '<' ) ) {
+
+                    $settings = get_option( 'aws_settings' );
+
+                    if ( $settings ) {
+                        if ( ! isset( $settings['highlight'] ) && isset( $settings['mark_words'] ) ) {
+                            $mark_words = $settings['mark_words'];
+                            $settings['highlight'] = $mark_words;
+                            update_option( 'aws_settings', $settings );
+                        }
+                    }
+
+                }
+
             }
 
             update_option( 'aws_plugin_ver', AWS_VERSION );

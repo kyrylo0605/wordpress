@@ -5,8 +5,8 @@ Author: Backup Guard
 Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
-Tested up to: 5.3
-Stable tag: 1.2.0
+Tested up to: 5.3.2
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,16 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+= 1.2.2 =
+* Admin side redesign
+* Download via PHP settings
+* Bug fixes
+
+= 1.2.1 =
+* Schedule bug fixed
+* Settings save bug fixed
+* Bug fixed related to CSS design conflict.
+
 = 1.2.0 =
 * Security improvements
 * Amazon S3 bug fixed

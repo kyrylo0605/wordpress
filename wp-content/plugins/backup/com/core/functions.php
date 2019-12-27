@@ -455,6 +455,20 @@ function backupGuardDownloadFile($file, $type = 'application/octet-stream')
 	exit;
 }
 
+function backupGuardDownloadViaPhp($backupName, $fileName)
+{
+	$content = file_get_contents(SG_BACKUP_DIRECTORY_URL.$backupName.'/'.$fileName);
+	header('Pragma: public');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	header('Cache-Control: private', false);
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename='.$fileName.';');
+	header('Content-Transfer-Encoding: binary');
+	echo $content;
+	exit;
+}
+
 function backupGuardDownloadFileSymlink($safedir, $filename)
 {
 	$safedir  = backupGuardRemoveSlashes($safedir);

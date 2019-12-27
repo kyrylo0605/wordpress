@@ -224,13 +224,14 @@ class SGBackup implements SGIBackupDelegate
 		$url = @$_SERVER['REQUEST_URI'];
 
 		if (SG_ENV_ADAPTER == SG_ENV_WORDPRESS) {
+			$nonce = wp_create_nonce('backupGuardAjaxNonce');
 			if(strpos($url, 'wp-cron.php')) {
 				$url = substr($url, 0, strpos($url, 'wp-cron.php'));
 				$url .= 'wp-admin/admin-ajax.php';
 			}
 
 			$url = explode('?', $url);
-			$url = $url[0].'?action=backup_guard_awake&token='.$this->token;
+			$url = $url[0].'?action=backup_guard_awake&token='.$this->token.'&_wpnonce='.$nonce;;
 		}
 
 		return $url;
@@ -531,7 +532,7 @@ class SGBackup implements SGIBackupDelegate
 	private function getBackupFileName()
 	{
 		if (SGConfig::get("SG_CUSTOM_BACKUP_NAME"))  {
-			return SGConfig::get("SG_CUSTOM_BACKUP_NAME");
+			return backupGuardRemoveSlashes(SGConfig::get("SG_CUSTOM_BACKUP_NAME"));
 		}
 
 		$sgBackupPrefix = SG_BACKUP_FILE_NAME_DEFAULT_PREFIX;
@@ -553,7 +554,7 @@ class SGBackup implements SGIBackupDelegate
 		}
 
 		//create backup folder
-		if (!@mkdir($backupPath))
+		if (!file_exists($backupPath) && !@mkdir($backupPath))
 		{
 			throw new SGExceptionMethodNotAllowed('Cannot create folder: '.$backupPath);
 		}
@@ -1358,20 +1359,37 @@ class SGBackup implements SGIBackupDelegate
 	public static function download($filename, $type)
 	{
 		$backupDirectory = SG_BACKUP_DIRECTORY.$filename.'/';
+		$backupName = $filename;
+		$downloadViaPhp = SGConfig::get('SG_DOWNLOAD_VIA_PHP');
 
 		switch ($type)
 		{
 			case SG_BACKUP_DOWNLOAD_TYPE_SGBP:
 				$filename .= '.sgbp';
-				backupGuardDownloadFileSymlink($backupDirectory, $filename);
+				if ($downloadViaPhp) {
+					backupGuardDownloadViaPhp($backupName, $filename);
+				}
+				else {
+					backupGuardDownloadFileSymlink($backupDirectory, $filename);
+				}
 				break;
 			case SG_BACKUP_DOWNLOAD_TYPE_BACKUP_LOG:
 				$filename .= '_backup.log';
-				backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
+				if ($downloadViaPhp) {
+					backupGuardDownloadViaPhp($backupName, $filename);
+				}
+				else {
+					backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
+				}
 				break;
 			case SG_BACKUP_DOWNLOAD_TYPE_RESTORE_LOG:
 				$filename .= '_restore.log';
-				backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
+				if ($downloadViaPhp) {
+					backupGuardDownloadViaPhp($backupName, $filename);
+				}
+				else {
+					backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
+				}
 				break;
 		}
 

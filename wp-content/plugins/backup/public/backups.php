@@ -9,7 +9,6 @@ $downloadUrl = admin_url('admin-post.php?action=backup_guard_downloadBackup&');
 ?>
 <?php if(SGConfig::get('SG_REVIEW_POPUP_STATE') == SG_SHOW_REVIEW_POPUP): ?>
 	<!--  Review Box  -->
-	<a href="javascript:void(0)" id="sg-review" class="hidden" data-toggle="modal" data-modal-name="manual-review" data-remote="modalReview"></a>
 	<script type="text/javascript">sgShowReview = 1;</script>
 <?php endif; ?>
 <?php if(!SGConfig::get('SG_HIDE_VERIFICATION_POPUP_STATE') &&  ($pluginCapabilities == BACKUP_GUARD_CAPABILITIES_FREE)): ?>

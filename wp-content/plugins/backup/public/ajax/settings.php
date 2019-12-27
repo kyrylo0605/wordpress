@@ -52,6 +52,13 @@ if (backupGuardIsAjax() && count($_POST)) {
 		SGConfig::set('SG_DISABLE_ADS', '0');
 	}
 
+	if (isset($_POST['sg-download-via-php'])) {
+		SGConfig::set('SG_DOWNLOAD_VIA_PHP', '1');
+	}
+	else {
+		SGConfig::set('SG_DOWNLOAD_VIA_PHP', '0');
+	}
+
 	if (isset($_POST['sg-background-reload-method'])) {
 		SGConfig::set('SG_BACKGROUND_RELOAD_METHOD', (int)$_POST['sg-background-reload-method']);
 	}

@@ -57,18 +57,16 @@
 				</div>
 			</div>
 			<div class="col-md-12" id="modal-import-2">
-				<div class="form-group">
-					<label class="col-md-2 control-label sg-upload-label" for="textinput"><?php _backupGuardT('SGBP file')?></label>
-					<div class="col-md-10">
-						<div class="input-group">
-							<span class="input-group-btn">
-								<span class="btn btn-primary btn-file">
-									<?php _backupGuardT('Browse')?>&hellip; <input class="sg-backup-upload-input" type="file" name="files[]" data-url="<?php echo admin_url('admin-ajax.php')."?action=backup_guard_importBackup" ?>" data-max-file-size="<?php echo backupGuardConvertToBytes($maxUploadSize.'B'); ?>">
-								</span>
+				<div class="form-group import-modal-popup-content">
+					<div class="col-md-9">
+						<input type="text" id="sg-import-file-name" class="form-control sg-backup-input" placeholder="<?php _backupGuardT('SGBP file')?>" readonly>
+					</div>
+					<div class="col-lg-3">
+						<span class="input-group-btn">
+							<span class="btn btn-primary btn-file backup-browse-btn">
+								<?php _backupGuardT('Browse')?>&hellip; <input class="sg-backup-upload-input" type="file" name="files[]" data-url="<?php echo admin_url('admin-ajax.php')."?action=backup_guard_importBackup" ?>" data-max-file-size="<?php echo backupGuardConvertToBytes($maxUploadSize.'B'); ?>">
 							</span>
-							<input type="text" id="sg-import-file-name" class="form-control" readonly>
-						</div>
-						<br/>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -91,10 +89,10 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="pull-left btn btn-default" id="switch-modal-import-pages-back" onclick="sgBackup.previousPage()"><?php _backupGuardT('Back')?></button>
-			<button type="button" class="btn btn-default" id="sg-close-modal-import" data-dismiss="modal"><?php _backupGuardT("Close")?></button>
-			<button type="button" class="btn btn-primary" id="switch-modal-import-pages-next" data-remote="importBackup" onclick="sgBackup.nextPage()"><?php _backupGuardT('Next')?></button>
-			<button type="button" data-remote="importBackup" id="uploadSgbpFile" class="btn btn-primary"><?php _backupGuardT('Import')?></button>
+			<button type="button" class="pull-left btn btn-primary" id="switch-modal-import-pages-back" onclick="sgBackup.previousPage()"><?php _backupGuardT('Back')?></button>
+			<span class="modal-close-button" id="sg-close-modal-import" data-dismiss="modal"><?php _backupGuardT("Close")?></span>
+			<button type="button" class="btn btn-success" id="switch-modal-import-pages-next" data-remote="importBackup" onclick="sgBackup.nextPage()"><?php _backupGuardT('Next')?></button>
+			<button type="button" data-remote="importBackup" id="uploadSgbpFile" class="btn btn-success"><?php _backupGuardT('Import')?></button>
 		</div>
 	</div>
 </div>

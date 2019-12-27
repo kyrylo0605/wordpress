@@ -57,14 +57,12 @@
 
 	<div id="sg-right-column">
 		<ul>
-			<li>
+			<li class="sg-logo-li">
 				<a id="sg-logo" target="_blank" href="<?php echo SG_BACKUP_SITE_URL; ?>"></a>
 			</li>
-			<li></li>
 			<li id="sg-social-buttons">
 				<a class="sg-banner-social-button" id="sg-facebook" target="_blank" href="https://www.facebook.com/backupguard"></a>
 				<a class="sg-banner-social-button" id="sg-twitter" target="_blank" href="https://twitter.com/backupguard"></a>
-				<a class="sg-banner-social-button" id="sg-google-plus" target="_blank" href="https://plus.google.com/118362709330885027766"></a>
 				<a class="sg-banner-social-button" id="sg-youtube" target="_blank" href="https://www.youtube.com/channel/UCZhNYAcWl0VKHevWeakOvwQ"></a>
 			</li>
 			<br>

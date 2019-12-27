@@ -6,6 +6,7 @@ $userEmail = SGConfig::get('SG_NOTIFICATIONS_EMAIL_ADDRESS');
 $isDeleteBackupAfterUploadEnabled = SGConfig::get('SG_DELETE_BACKUP_AFTER_UPLOAD');
 $isDeleteBackupFromCloudEnabled = SGConfig::get('SG_DELETE_BACKUP_FROM_CLOUD');
 $isDisabelAdsEnabled = SGConfig::get('SG_DISABLE_ADS');
+$isDownloadViaPhp = SGConfig::get('SG_DOWNLOAD_VIA_PHP');
 $isAlertBeforeUpdateEnabled = SGConfig::get('SG_ALERT_BEFORE_UPDATE');
 $isShowStatisticsWidgetEnabled = SGConfig::get('SG_SHOW_STATISTICS_WIDGET');
 $isReloadingsEnabled = SGConfig::get('SG_BACKUP_WITH_RELOADINGS');
@@ -135,18 +136,28 @@ $ftpPassiveMode = SGConfig::get('SG_FTP_PASSIVE_MODE');
                                     </div>
                                 </div>
                             <?php endif; ?>
+	                        <div class="form-group">
+		                        <label class="col-md-8 sg-control-label">
+			                        <?php _backupGuardT('Download via PHP'); ?>
+		                        </label>
+		                        <div class="col-md-3 pull-right text-right">
+			                        <label class="sg-switch-container">
+				                        <input type="checkbox" name="sg-download-via-php" sgFeatureName="DOWNLOAD_VIA_PHP" class="sg-switch" <?php echo $isDownloadViaPhp?'checked="checked"':''?>>
+			                        </label>
+		                        </div>
+	                        </div>
 
                             <div class="form-group">
                                 <label class="col-md-5 sg-control-label" for='sg-paths-to-exclude'><?php _backupGuardT("Exclude paths (separated by commas)")?></label>
                                 <div class="col-md-5 pull-right text-right">
-                                    <input class="form-control" id='sg-paths-to-exclude' name='sg-paths-to-exclude' type="text" value="<?php echo SGConfig::get('SG_PATHS_TO_EXCLUDE')?SGConfig::get('SG_PATHS_TO_EXCLUDE'):''?>" placeholder="e.g. wp-content/cache, wp-content/w3tc-cache">
+                                    <input class="form-control sg-backup-input" id='sg-paths-to-exclude' name='sg-paths-to-exclude' type="text" value="<?php echo SGConfig::get('SG_PATHS_TO_EXCLUDE')?SGConfig::get('SG_PATHS_TO_EXCLUDE'):''?>" placeholder="e.g. wp-content/cache, wp-content/w3tc-cache">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-5 sg-control-label" for='sg-tables-to-exclude'><?php _backupGuardT("Tables to exclude (separated by commas)")?></label>
                                 <div class="col-md-5 pull-right text-right">
-                                    <input class="form-control" id='sg-tables-to-exclude' name='sg-tables-to-exclude' type="text" value="<?php echo SGConfig::get('SG_TABLES_TO_EXCLUDE')?SGConfig::get('SG_TABLES_TO_EXCLUDE'):''?>" placeholder="e.g. wp_comments, wp_commentmeta">
+                                    <input class="form-control sg-backup-input" id='sg-tables-to-exclude' name='sg-tables-to-exclude' type="text" value="<?php echo SGConfig::get('SG_TABLES_TO_EXCLUDE')?SGConfig::get('SG_TABLES_TO_EXCLUDE'):''?>" placeholder="e.g. wp_comments, wp_commentmeta">
                                 </div>
                             </div>
 
@@ -155,14 +166,14 @@ $ftpPassiveMode = SGConfig::get('SG_FTP_PASSIVE_MODE');
                                     <label class="col-md-5 sg-control-label" for='amount-of-backups-to-keep'><?php _backupGuardT("Backup retention")?>
                                     </label>
                                     <div class="col-md-5 pull-right text-right">
-                                        <input class="form-control" id='amount-of-backups-to-keep' name='amount-of-backups-to-keep' type="text" value="<?php echo (int)SGConfig::get('SG_AMOUNT_OF_BACKUPS_TO_KEEP')?(int)SGConfig::get('SG_AMOUNT_OF_BACKUPS_TO_KEEP'):SG_NUMBER_OF_BACKUPS_TO_KEEP?>" <?php echo (!SGBoot::isFeatureAvailable('NUMBER_OF_BACKUPS_TO_KEEP'))? 'disabled' : '' ?>>
+                                        <input class="form-control sg-backup-input" id='amount-of-backups-to-keep' name='amount-of-backups-to-keep' type="text" value="<?php echo (int)SGConfig::get('SG_AMOUNT_OF_BACKUPS_TO_KEEP')?(int)SGConfig::get('SG_AMOUNT_OF_BACKUPS_TO_KEEP'):SG_NUMBER_OF_BACKUPS_TO_KEEP?>" <?php echo (!SGBoot::isFeatureAvailable('NUMBER_OF_BACKUPS_TO_KEEP'))? 'disabled' : '' ?>>
                                     </div>
                                 </div>
                             <?php endif; ?>
                             <div class="form-group">
                                 <label class="col-md-5 sg-control-label" for='sg-number-of-rows-to-backup'><?php _backupGuardT("Number of rows to backup at once")?></label>
                                 <div class="col-md-5 pull-right text-right">
-                                    <input class="form-control" id='sg-number-of-rows-to-backup' name='sg-number-of-rows-to-backup' type="text" value="<?php echo (int)SGConfig::get('SG_BACKUP_DATABASE_INSERT_LIMIT')?(int)SGConfig::get('SG_BACKUP_DATABASE_INSERT_LIMIT'):SG_BACKUP_DATABASE_INSERT_LIMIT?>">
+                                    <input class="form-control sg-backup-input" id='sg-number-of-rows-to-backup' name='sg-number-of-rows-to-backup' type="text" value="<?php echo (int)SGConfig::get('SG_BACKUP_DATABASE_INSERT_LIMIT')?(int)SGConfig::get('SG_BACKUP_DATABASE_INSERT_LIMIT'):SG_BACKUP_DATABASE_INSERT_LIMIT?>">
                                 </div>
                             </div>
 

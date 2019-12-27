@@ -157,7 +157,8 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 				'page'             => $this->_panel_page,
 				'admin-tabs'       => apply_filters( 'yith-wacp-admin-tabs', $admin_tabs ),
 				'options-path'     => YITH_WACP_DIR . '/plugin-options',
-                'class'            => yith_set_wrapper_class()
+                'class'            => yith_set_wrapper_class(),
+                'plugin_slug'      => YITH_WACP_SLUG
 			);
 
 			/* === Fixed: not updated theme  === */

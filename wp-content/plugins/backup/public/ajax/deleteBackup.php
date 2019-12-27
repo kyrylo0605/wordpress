@@ -4,6 +4,7 @@
     if(isset($_POST['backupName']))
     {
         $backupName = backupGuardSanitizeTextField($_POST['backupName']);
+        $backupName = backupGuardRemoveSlashes($backupName);
         for ($i=0; $i < count($backupName) ; $i++) {
         	SGBackup::deleteBackup($backupName[$i]);
     	}

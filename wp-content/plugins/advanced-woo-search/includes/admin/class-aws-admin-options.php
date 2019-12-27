@@ -354,7 +354,19 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 "type"  => "radio",
                 'choices' => array(
                     'content'  => __( 'Content', 'advanced-woo-search' ),
-                    'excerpt'  => __( 'Excerpt', 'advanced-woo-search' ),
+                    'excerpt'  => __( 'Short description', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['results'][] = array(
+                "name"  => __( "Description content", "advanced-woo-search" ),
+                "desc"  => __( "What to show in product description?", "advanced-woo-search" ),
+                "id"    => "mark_words",
+                "value" => 'true',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( "Smart scrapping sentences with searching terms from product description.", "advanced-woo-search" ),
+                    'false' => __( "First N words of product description ( number of words that you choose below. )", "advanced-woo-search" ),
                 )
             );
 
@@ -380,6 +392,18 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
             );
 
             $options['results'][] = array(
+                "name"  => __( "Highlight words", "advanced-woo-search" ),
+                "desc"  => __( "Highlight search words inside products content.", "advanced-woo-search" ),
+                "id"    => "highlight",
+                "value" => 'true',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false'  => __( 'Off', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['results'][] = array(
                 "name"  => __( "Show image", "advanced-woo-search" ),
                 "desc"  => __( "Show product image for each search result.", "advanced-woo-search" ),
                 "id"    => "show_image",
@@ -400,18 +424,6 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 'choices' => array(
                     'true'  => __( 'On', 'advanced-woo-search' ),
                     'false'  => __( 'Off', 'advanced-woo-search' ),
-                )
-            );
-
-            $options['results'][] = array(
-                "name"  => __( "Description content", "advanced-woo-search" ),
-                "desc"  => __( "What to show in product description?", "advanced-woo-search" ),
-                "id"    => "mark_words",
-                "value" => 'true',
-                "type"  => "radio",
-                'choices' => array(
-                    'true'  => __( "Smart scrapping sentences with searching terms from product description.", "advanced-woo-search" ),
-                    'false' => __( "First N words of product description ( number of words that you choose below. )", "advanced-woo-search" ),
                 )
             );
 

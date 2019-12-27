@@ -26,7 +26,7 @@
 	var DEFAULTS = {
 
 		starWidth : "32px",
-		normalFill: "gray",
+		normalFill: "rgba(255, 255, 255, 0.2)",
 		ratedFill : "#f39c12",
 		numStars  : 5,
 		maxValue  : 5,

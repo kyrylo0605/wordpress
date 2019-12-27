@@ -112,43 +112,24 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
                 $posts = array();
 
-                if ( function_exists( 'wc_get_products' ) ) {
+                $queued_posts = get_posts( array(
+                    'posts_per_page'      => $posts_per_page,
+                    'fields'              => 'ids',
+                    'post_type'           => 'product',
+                    'post_status'         => 'publish',
+                    'offset'              => $index_meta['offset'],
+                    'ignore_sticky_posts' => true,
+                    'suppress_filters'    => true,
+                    'no_found_rows'       => 1,
+                    'orderby'             => 'ID',
+                    'order'               => 'DESC',
+                    'lang'                => ''
+                ) );
 
-                    $posts = wc_get_products( array(
-                        'numberposts'         => $posts_per_page,
-                        'posts_per_page'      => $posts_per_page,
-                        'status'              => 'publish',
-                        'offset'              => $index_meta['offset'],
-                        'ignore_sticky_posts' => true,
-                        'suppress_filters'    => true,
-                        'no_found_rows'       => 1,
-                        'orderby'             => 'ID',
-                        'order'               => 'DESC',
-                        'lang'                => ''
-                    ));
-
-                } else {
-
-                    $queued_posts = get_posts( array(
-                        'posts_per_page'      => $posts_per_page,
-                        'fields'              => 'ids',
-                        'post_type'           => 'product',
-                        'post_status'         => 'publish',
-                        'offset'              => $index_meta['offset'],
-                        'ignore_sticky_posts' => true,
-                        'suppress_filters'    => true,
-                        'no_found_rows'       => 1,
-                        'orderby'             => 'ID',
-                        'order'               => 'DESC',
-                        'lang'                => ''
-                    ) );
-
-                    if ( $queued_posts && count( $queued_posts ) ) {
-                        foreach( $queued_posts as $post_id ) {
-                            $posts[] = absint( $post_id );
-                        }
+                if ( $queued_posts && count( $queued_posts ) ) {
+                    foreach( $queued_posts as $post_id ) {
+                        $posts[] = absint( $post_id );
                     }
-
                 }
 
                 if ( $posts && count( $posts ) > 0 ) {

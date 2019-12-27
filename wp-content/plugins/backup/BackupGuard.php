@@ -82,7 +82,7 @@ else {
 
 function backup_guard_admin_menu()
 {
-	add_menu_page('Backups', 'BackupGuard', 'manage_options', 'backup_guard_backups', 'backup_guard_backups_page', 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0NjIuOSA1MDEuNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDYyLjkgNTAxLjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGZpbGw9IiNhMGE1YWEiIGQ9Ik00MjYuOSwxOTkuNmgtMTk4bDAuNCwzNEgyNDZoMTYyLjdjLTAuNSwzLjMtMS4xLDYuNi0xLjcsOS45Yy02LjEsMzMtMTUuMyw2Mi4yLTI3LjcsODcuNkg3OS40Yy0xMi4zLTI1LjQtMjEuNi01NC42LTI3LjctODcuNkMzOS4zLDE3Ni4xLDQ0LDExMS41LDQ3LjIsODMuN0M2Ny43LDkwLjUsODguMyw5NCwxMDguNiw5NGM2MC43LDAsMTAzLjMtMzAuMiwxMjAuOC00NS4xQzI0Ni43LDYzLjgsMjg5LjQsOTQsMzUwLjEsOTRoMGMyMC4zLDAsNDAuOS0zLjUsNjEuNC0xMC4zYzEuNiwxMy45LDMuNSwzNy4xLDMuNiw2NS4xaDIzLjdjMC00Ny40LTUuNS04MS4xLTUuOC04My4zbC0yLjQtMTQuNmwtMTMuNyw1LjZjLTIyLjQsOS4yLTQ0LjgsMTMuOC02Ni43LDEzLjhjMCwwLDAsMCwwLDBjLTY4LjMsMC0xMTEuNy00NS4zLTExMi4xLTQ1LjdsLTguNi05LjJsLTguNyw5LjJjLTAuNCwwLjUtNDMuOCw0NS43LTExMi4xLDQ1LjdjLTIxLjksMC00NC40LTQuNi02Ni43LTEzLjhsLTEzLjctNS42bC0yLjQsMTQuNmMtMC42LDMuNi0xNC40LDg4LjcsMi42LDE4MS42QzM4LjUsMzAyLjQsNTcuNSwzNDguOCw4NC44LDM4NWMzNC42LDQ1LjgsODIuNCw3NS4zLDE0Mi4xLDg3LjdsMi40LDAuNWwyLjQtMC41YzU5LjctMTIuMywxMDcuNS00MS44LDE0Mi4xLTg3LjdjMjcuNC0zNi4zLDQ2LjQtODIuNyw1Ni41LTEzNy45YzMtMTYuMiw1LTMyLjIsNi4zLTQ3LjVMNDI2LjksMTk5LjZMNDI2LjksMTk5LjZ6Ii8+PC9zdmc+', 74);
+	add_menu_page('Backups', 'BackupGuard', 'manage_options', 'backup_guard_backups', 'backup_guard_backups_page', 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MzAuMzQgNjYzLjAzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDI8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUzMC4xMSwxODUuNzljLTcxLjktOC44Mi0xMzcuNzMtNDAtMTkwLTg2LjU3djkyLjY1YTI4MC41OSwyODAuNTksMCwwLDAsMTE2LjUyLDUyYy05LjE0LDg5LjQzLTUyLDE2OS41NS0xMTYuNTIsMjI4Ljg3djkwLjRDNDU5Ljg0LDQ3Ny4xMyw1MzAuNiwzMzMuNDIsNTMwLjExLDE4NS43OVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xNzQuMjksMjQ0YTI4MC40NiwyODAuNDYsMCwwLDAsMTE1Ljc3LTUxLjExVjEwMGMtNTIuNDQsNDYuMjgtMTE3LjYyLDc3LTE4OS44Myw4NS4xNUM5OS41NCwzMzMsMTcwLjIyLDQ3Ni44MiwyOTAuMDYsNTYzVjQ3Mi4wOUMyMjYsNDEyLjg2LDE4My40MiwzMzMuMDYsMTc0LjI5LDI0NFoiLz48L3N2Zz4=', 74);
 
 	add_submenu_page('backup_guard_backups', _backupGuardT('Backups', true), _backupGuardT('Backups', true), 'manage_options', 'backup_guard_backups', 'backup_guard_backups_page');
 	add_submenu_page('backup_guard_backups', _backupGuardT('Cloud', true), _backupGuardT('Cloud', true), 'manage_options', 'backup_guard_cloud', 'backup_guard_cloud_page');
@@ -293,6 +293,8 @@ function enqueue_backup_guard_scripts($hook)
 	wp_enqueue_script('backup-guard-rateyo-js', plugin_dir_url(__FILE__).'public/js/jquery.rateyo.js');
 
 	wp_enqueue_script('backup-guard-main-js', plugin_dir_url(__FILE__).'public/js/main.js', array('jquery'), '1.0.0', true);
+	wp_enqueue_script('backup-popup.js', plugin_dir_url(__FILE__).'public/js/popup.js', array('jquery'), '1.0.0', true);
+	wp_enqueue_style('popupTheme.css', plugin_dir_url(__FILE__).'public/css/popupTheme.css');
 
 	// Localize the script with new data
 	wp_localize_script('backup-guard-main-js', 'BG_MAIN_STRINGS', array(
@@ -432,7 +434,23 @@ function backup_guard_register_ajax_callbacks()
 		add_action('wp_ajax_backup_guard_setUserInfoVerificationPopupState', 'backup_guard_set_user_info_verification_popup_state');
 		add_action('wp_ajax_backup_guard_storeSubscriberInfo', 'backup_guard_store_subscriber_info');
 		add_action('wp_ajax_backup_guard_storeSurveyResult', 'backup_guard_store_survey_result');
+		add_action('wp_ajax_backup_guard_reviewDontShow', 'backup_guard_review_dont_show');
+		add_action('wp_ajax_backup_guard_review_later', 'backup_guard_review_later');
 	}
+}
+
+function backup_guard_review_dont_show()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	SGConfig::set('closeReviewBanner', 1);
+	wp_die();
+}
+
+function backup_guard_review_later()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'reviewBannerActions.php');
+	wp_die();
 }
 
 function backup_guard_store_survey_result()
@@ -488,13 +506,14 @@ function backup_guard_import_key_file()
 
 function backup_guard_awake()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	$method = SG_RELOAD_METHOD_AJAX;
 	require_once(SG_PUBLIC_AJAX_PATH.'awake.php');
 }
 
 function backup_guard_awake_nopriv()
 {
-	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	check_ajax_referer('backupGuardAjaxNonce');
 	$token = @$_GET['token'];
 	$method = @$_GET['method'];
 
@@ -804,26 +823,25 @@ function backup_guard_discount_notice()
 	?>
 	<div class="backup-guard-discount-notice updated notice is-dismissible">
 		<div class="sgbg-col sgbg-col1"></div>
-		<div class="sgbg-col sgbg-col2"></div>
-		<div class="sgbg-col sgbg-col3">
-			<div class="sgbg-text-col-1">
-				-50%
-			</div>
-			<div class="sgbg-text-col-2">
-				<div class="sgbg-discount-text-1">Discount</div>
-				<div class="sgbg-discount-text-2">All Backup Guard Solutions</div>
-			</div>
+		<div class="sgbg-col sgbg-col2">
+			<div class="sg-backup-discount-bg"></div>
 		</div>
-		<div class="sgbg-col sgbg-col4">
-			<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>
+		<div class="sgbg-col sgbg-col3">
+			<div class="sg-col3-first-text">Christmas Discount</div>
+			<div class="sg-col3-second-text">on BackupGuard solutions</div>
+			<div class="sg-year-button-wrapper">
+				<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>
+			</div>
 		</div>
 	</div>
 	<style>
 		.backup-guard-discount-notice.updated.notice.is-dismissible {
 			padding: 0;
+			background-image: url("<?php echo SG_IMAGE_URL ?>notice-section-bg.png");
 			border-left-color: #FFFFFF !important;
-			background-color: #000000;
-			height: 160px;
+			background-color: #041594;
+			height: 200px;
+			background-size: 100% 100%;
 		}
 		.backup-guard-discount-notice button:before {
 			color: #ffffff !important;
@@ -832,117 +850,124 @@ function backup_guard_discount_notice()
 			display: inline-block;
 			width: 25%;
 			height: 100%;
-			padding: 0 25px;
 			box-sizing: border-box;
 		}
 		.sgbg-col1 {
+			background-image: url("<?php echo SG_IMAGE_URL ?>section-1-bg.png");
 			width: 10%;
-			background-color: #FFFFFF;
-			background-image: url("<?php echo SG_IMAGE_URL ?>BgBFLogo.jpg");
-			background-size: 80%;
+			background-size: 100%;
 			background-repeat: no-repeat;
 			background-position: center;
+			margin-right: 50px;
+			margin-left: 15px;
+		}
+		.sg-backup-discount-bg {
+			background-image: url("<?php echo SG_IMAGE_URL ?>discount.png");
+			width: 100%;
+			height: 200px;
+			background-size: 100% 100%;
+			margin-left: 48px;
 		}
 		.sgbg-col2 {
-			width: 20%;
-			background-image: url("<?php echo SG_IMAGE_URL ?>BF.png");
+			width: 30%;
 			background-size: contain;
-			margin-left: 70px;
 			background-position: center;
 			background-repeat: no-repeat;
+			vertical-align: top;
 		}
 		.sgbg-col3 {
 			vertical-align: top;
 			width: 45%;
-			margin-top: 55px;
-		}
-		.sgbg-col4 {
-			width: 10%;
+			margin-top: 35px;
 		}
 		.sgbg-text-col-1,
 		.sgbg-text-col-2 {
-			width: 49%;
 			display: inline-block;
 			color: #FFFFFF;
+			margin-bottom: 60px;
 		}
 		.sgbg-text-col-1 {
-			font-size: 100px;
+			font-size: 35px;
 			line-height: 0;
-			font-weight: bold;
 			text-align: right;
-			padding-right: 26px;
 			box-sizing: border-box;
+			vertical-align: middle;
 		}
-		.sgbg-discount-text-2 {
-			font-size: 19px;
-		}
-		.sgbg-discount-text-1 {
-			font-size: 60px;
-			padding-bottom: 27px;
+		.sgbg-text-col-2 {
+			font-size: 120px;
 			font-weight: bold;
+		}
+		.sg-col3-first-text {
+			color: #ffffff;
+			font-size: 45px;
+			font-weight: bold;
+		}
+		.sg-col3-second-text {
+			color: #ffffff;
+			font-size: 30px;
+			padding-left: 128px;
+			margin-top: 25px;
 		}
 		.sgbg-col4 {
 			vertical-align: top;
 		}
 		.sgbg-button {
-			width: 183px;
-			height: 67px;
-			font-size: 20px;
+			width: 120px;
+			height: 42px;
+			font-size: 15px;
+			font-weight: bold;
 			border: #ffffff;
 			border-radius: 10px;
-			margin-top: 48px;
+			margin-top: 27px;
 			background-color: #FFFFFF;
-			color: #000000;
+			color: #041594;
 			cursor: pointer !important;
 		}
 		.sgbg-button:hover {
-			background-color: #000000;
+			background-color: #041594;
 			border: 1px solid #FFFFFF;
 			color: #FFFFFF;
+		}
+		.sg-year-button-wrapper {
+			padding-left: 30%;
 		}
 		.backup-guard-discount-notice .notice-dismiss::before {
 			content: "x";
 			font-weight: 300;
 			font-family: Arial, sans-serif;
 		}
+		@media (max-width: 1546px) {
+			.sg-col3-second-text {
+				padding-left: 65px;
+			}
+			.sg-backup-discount-bg {
+				margin-left: 38px;
+			}
+		@media (max-width: 1405px) {
+			.sg-col3-second-text {
+				padding-left: 65px;
+			}
 
-		@media (max-width: 1810px) {
-			.sgbg-text-col-1 {
-				font-size: 80px;
-			}
-			.sgbg-discount-text-1 {
-				font-size: 43px;
-			}
-			.sgbg-discount-text-2 {
-				font-size: 15px;
-			}
-			.sgbg-discount-text-1 {
-				padding-bottom: 18px;
-			}
-			.sgbg-col3 {
-				margin-top: 60px;
-			}
-		}
-		@media (max-width: 1477px) {
-			.sgbg-discount-text-2 {
-				font-size: 12px;
-			}
-			.sgbg-discount-text-1 {
+			.sg-col3-first-text {
 				font-size: 35px;
 			}
-			.sgbg-discount-text-1 {
-				padding-bottom: 13px;
+
+			.sg-col3-second-text {
+				font-size: 25px;
 			}
-			.sgbg-col {
-				padding: 0;
-			}
-			.sgbg-col2 {
-				margin-left: 40px;
-			}
-			.sgbg-col2 {
-				margin-left: 0;
+
+			.sgbg-col3 {
+				margin-top: 35px;
 			}
 		}
 	</style>
 	<?php
+}
+
+add_action('admin_notices', 'backup_guard_review_banner');
+function backup_guard_review_banner()
+{
+	require_once(SG_LIB_PATH.'SGReviewManager.php');
+	$reviewManager = new SGReviewManager();
+	$reviewManager->renderContent();
 }

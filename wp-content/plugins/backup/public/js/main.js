@@ -29,7 +29,8 @@ jQuery(document).ready( function() {
         spacing: "3px",
         starWidth: "16px",
         starHeight: "16px",
-        rating: 4.5
+        rating: 4.5,
+		ratedFill: "#ffffff"
     });
 
 	if (typeof SG_AJAX_REQUEST_FREQUENCY === 'undefined'){

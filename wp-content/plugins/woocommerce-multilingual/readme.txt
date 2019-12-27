@@ -5,7 +5,7 @@ Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multili
 License: GPLv2
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 4.7.5
+Stable tag: 4.7.6
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -137,30 +137,18 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
-= 4.7.5 =
-* Skip Currency Switcher caching for NginxCache.
-* Improve performance on plugin page.
-* Fixed missing products on shop page in second language for some themes when slug is identical to default language.
-* Fixed wrong strings localization on some WooCommerce ajax actions.
-* Fixed Cash on delivery "Payment method instructions" not translated in the customer order emails.
-* Fixed RTL styling on WCML Status Tab.
-* Fixed notice for Product-Addon and specific field settings.
-* Composite products fixed a wrong displayed discounted price.
-* Fixed not pre-selected custom attributes for variable Bundle product.
-* Fixed missed images for product translation created via REST API.
-* Added new setting option for synchronizing not translated media on translated product front page.
-* Fixed not duplicated variation description while duplicating variable product to another language.
-* Fixed not matched variation on translated variable product page when "Translatable - use translation if available or fallback to default language" mode enabled for products and global attribute terms are translated.
-* Fixed overlapping columns on WooCommerce Order Statuses table.
-* WooCommerce Bookings compatibility - fixed availability count duplication while updating original product and bookings were made in the second language.
-* wcml_client_currency hook not applied in some cases
-* Fixed variation product title modifying after switching language on cart page in specific situations.
-* Fixed mixed strings language on variable product admin edit page in not admin language.
-* Fixed performance when a large number of shipping methods are defined.
-* Long query to get currencies removed from WCML to optimise performance.
-* Fixed cart total shipping converted twice when enabled custom settings for gateways and use not default currency as a currency for gateway.
-* Fixed converted product price when using custom gateway settings for second currency.
-* Fixed notice while importing xliff translations with custom attributes in some specific cases.
+= 4.7.6 =
+* Fix php warning in WCML custom prices module.
+* Fixed unable to add variation to cart for products with more than 30 variations.
+* Remove legacy code for downloading the language pack.
+* Fixed string translation while adding "sold individual" product more than ones from second language.
+* Fixed notices thrown with php 7.4 with multi-currency.
+* Fixed notices thrown with php 7.4 when using multi-currency.
+* Fixed notices thrown with php 7.4 when using WCML with WC Variation Swatches and Photos.
+* Fixed deprecation notices (`Function get_magic_quotes_gpc() is deprecated`) when running PHP 7.4.
+* Fixed a few fatal errors thrown when running PHP 7.4 (e.g. `Fatal error: Uncaught Error: Call to a member function get_setting() on null`) and caused by legacy code passing objects by reference.
+* Fixed language for "Low Stock" and "No Stock" admin emails.
+* Fixed not converted pre-selected price widget prices when switching currency.
 
 = 4.7.0 =
 * Replaced some Twig templates with pure PHP templates as the first step towards the removal of Twig dependencies.

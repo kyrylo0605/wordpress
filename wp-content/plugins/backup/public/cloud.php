@@ -29,7 +29,7 @@ $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 								</label>
 
 								<div class="col-md-7 pull-right text-right">
-									<input id="cloudFolder" name="cloudFolder" type="text" class="form-control input-md" value="<?php echo esc_html(SGConfig::get('SG_STORAGE_BACKUPS_FOLDER_NAME'))?>">
+									<input id="cloudFolder" name="cloudFolder" type="text" class="form-control input-md sg-backup-input" value="<?php echo esc_html(SGConfig::get('SG_STORAGE_BACKUPS_FOLDER_NAME'))?>">
 									<button type="button" id="sg-save-cloud-folder" class="btn btn-success pull-right"><?php _backupGuardT('Save');?></button>
 								</div>
 							</div>

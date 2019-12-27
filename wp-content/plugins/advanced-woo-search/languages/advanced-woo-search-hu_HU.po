@@ -190,7 +190,7 @@ msgid "Content"
 msgstr "Teljes leírás"
 
 #: includes/options.php:80
-msgid "Excerpt"
+msgid "Short description"
 msgstr "Rövid leírás"
 
 #: includes/options.php:85

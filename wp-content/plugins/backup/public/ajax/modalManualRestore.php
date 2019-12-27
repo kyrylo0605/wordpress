@@ -2,6 +2,7 @@
 	require_once(dirname(__FILE__).'/../boot.php');
 	require_once(SG_LIB_PATH.'SGArchive.php');
 	$backupName = $_GET['param'];
+	$backupName = backupGuardRemoveSlashes($backupName);
 	$backupPath = SG_BACKUP_DIRECTORY.$backupName;
 	$backupPath= $backupPath.'/'.$backupName.'.sgbp';
 	$archive = new SGArchive($backupPath,'r');
@@ -45,8 +46,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" onclick="sgBackup.startRestore('<?php echo $backupName ?>')" class="btn btn-primary"><?php _backupGuardT('Restore')?></button>
+						<span class="modal-close-button" data-dismiss="modal">Close</span>
+						<button type="button" onclick="sgBackup.startRestore('<?php echo $backupName ?>')" class="btn btn-success"><?php _backupGuardT('Restore')?></button>
 					</div>
 				</form>
 			</div>

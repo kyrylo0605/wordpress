@@ -119,6 +119,6 @@ class SGScheduleAdapterWordpress implements SGIScheduleAdapter
 
 	public static function isCronAvailable()
 	{
-		return defined('DISABLE_WP_CRON')?DISABLE_WP_CRON:true;
+		return defined('DISABLE_WP_CRON')?!DISABLE_WP_CRON:true;
 	}
 }

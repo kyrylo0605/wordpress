@@ -146,7 +146,7 @@ if ($action == 'finalize') {
 	.sg-logo {
 		text-align: center;
 		padding: 20px 0;
-		background-color: #333;
+		background-color: #0021C8;
 	}
 	.sg-wrapper-less .sg-progress {
 		height: 4px;
@@ -155,6 +155,13 @@ if ($action == 'finalize') {
 	.sg-progress-box p {
 		margin-top: 10px;
 		text-align: center;
+	}
+	.restore-warning {
+		color: #C20000;
+	}
+	.restore-progress-p {
+		font-size: 21px;
+		font-weight: bold;
 	}
 	</style>
 </head>
@@ -166,8 +173,8 @@ if ($action == 'finalize') {
 					<img width="172px" src="<?php echo SG_PUBLIC_URL; ?>img/sglogo.png">
 				</div>
 				<div class="sg-progress-box">
-					<p>Restoring <span id="progressItem">files</span>: <span id="progressTxt">0%</span></p>
-					<p class="text-warning"><small>NOTE: Please don't close your browser until finished.</small></p>
+					<p class="restore-progress-p">Restoring <span id="progressItem">files</span>: <span id="progressTxt">0%</span></p>
+					<p class="restore-warning"><small>NOTE: Please don't close your browser until finished.</small></p>
 					<div class="sg-progress progress">
 						<div id="progressBar" class="progress-bar progress-bar-danger" style="width: 0%;"></div>
 					</div>

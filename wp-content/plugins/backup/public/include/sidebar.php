@@ -9,6 +9,7 @@
 	$buttonUrl = SG_BACKUP_SITE_URL;
 
 	$pluginCapabilities = backupGuardGetCapabilities();
+
 	if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE) {
 		$buttonText = 'Upgrade to ';
 		$buttonUrl = SG_BACKUP_PRODUCTS_URL;
@@ -23,6 +24,10 @@
 
 		$upgradeText = $buttonText.$upgradeTo.' by paying only difference between plans.';
 		$buttonText = $buttonText.$upgradeTo;
+	}
+	$supportUrl = network_admin_url('admin.php?page=backup_guard_support');
+	if ($pluginCapabilities == BACKUP_GUARD_CAPABILITIES_FREE) {
+		$supportUrl = BACKUP_GUARD_WORDPRESS_SUPPORT_URL;
 	}
 ?>
 <div id="sg-sidebar-wrapper" class="metro">
@@ -64,7 +69,7 @@
 				</a>
 			</li>
 			<li class="<?php echo strpos($page,'support')?'active':''?>">
-				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_support'); ?>">
+				<a href="<?php echo $supportUrl; ?>">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><?php _backupGuardT('Support')?>
 				</a>
 			</li>

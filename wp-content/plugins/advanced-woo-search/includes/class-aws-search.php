@@ -267,7 +267,6 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             $query['select'] = '';
             $query['search'] = '';
-            $query['source'] = '';
             $query['relevance'] = '';
             $query['stock'] = '';
             $query['visibility'] = '';
@@ -275,7 +274,6 @@ if ( ! class_exists( 'AWS_Search' ) ) :
             $query['lang'] = '';
 
             $search_array = array();
-            $source_array = array();
             $relevance_array = array();
             $new_relevance_array = array();
 
@@ -366,14 +364,9 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 }
             }
 
-            foreach ( $search_in_arr as $search_in_term ) {
-                $source_array[] = "term_source = '{$search_in_term}'";
-            }
-
             $query['select'] = ' distinct ID';
             $query['relevance'] = sprintf( ' (SUM( %s )) ', implode( ' + ', $new_relevance_array ) );
             $query['search'] = sprintf( ' AND ( %s )', implode( ' OR ', $search_array ) );
-            $query['source'] = sprintf( ' AND ( %s )', implode( ' OR ', $source_array ) );
 
 
             if ( $reindex_version && version_compare( $reindex_version, '1.16', '>=' ) ) {
@@ -432,13 +425,13 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                     {$table_name}
                 WHERE
                     1=1
-                {$query['source']}
                 {$query['search']}
                 {$query['stock']}
                 {$query['visibility']}
                 {$query['exclude_products']}
                 {$query['lang']}
                 GROUP BY ID
+                    having relevance > 0
                 ORDER BY
                     relevance DESC, id DESC
 				LIMIT 0, {$results_num}
@@ -490,7 +483,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $show_excerpt         = AWS()->get_settings( 'show_excerpt' );
                 $excerpt_source       = AWS()->get_settings( 'desc_source' );
                 $excerpt_length       = AWS()->get_settings( 'excerpt_length' );
-                $mark_search_words    = AWS()->get_settings( 'mark_words' );
+                $desc_scrap_words     = AWS()->get_settings( 'mark_words' );
+                $highlight_words      = AWS()->get_settings( 'highlight' );
                 $show_price           = AWS()->get_settings( 'show_price' );
                 $show_outofstockprice = AWS()->get_settings( 'show_outofstock_price' );
                 $show_sale            = AWS()->get_settings( 'show_sale' );
@@ -499,26 +493,7 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 $show_stock_status    = AWS()->get_settings( 'show_stock' );
                 $show_featured        = AWS()->get_settings( 'show_featured' );
 
-
-                if ( function_exists( 'wc_get_products' ) ) {
-
-                    $posts_items = wc_get_products( array(
-                        'numberposts'         => -1,
-                        'posts_per_page'      => -1,
-                        'status'              => 'publish',
-                        'include'             => $posts_ids,
-                        'ignore_sticky_posts' => true,
-                        'suppress_filters'    => true,
-                        'no_found_rows'       => 1,
-                        'lang'                => '',
-                        'orderby'             => 'include',
-                    ));
-
-                } else {
-
-                    $posts_items = $posts_ids;
-
-                }
+                $posts_items = $posts_ids;
 
                 foreach ( $posts_items as $post_item ) {
 
@@ -558,28 +533,29 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
 
                     if ( $show_excerpt === 'true' ) {
+
                         $excerpt = ( $excerpt_source === 'excerpt' && $post_data->post_excerpt ) ? $post_data->post_excerpt : $post_data->post_content;
                         $excerpt = AWS_Helpers::html2txt( $excerpt );
                         $excerpt = str_replace('"', "'", $excerpt);
                         $excerpt = strip_shortcodes( $excerpt );
                         $excerpt = AWS_Helpers::strip_shortcodes( $excerpt );
-                    }
 
-                    if ( $mark_search_words === 'true'  ) {
+                        if ( $desc_scrap_words === 'true'  ) {
 
-                        $marked_content = $this->mark_search_words( $title, $excerpt );
+                            $marked_content = $this->scrap_content( $excerpt );
 
-                        $title   = $marked_content['title'];
+                            if ( $marked_content ) {
+                                $excerpt = $marked_content;
+                            } else {
+                                $excerpt = wp_trim_words( $excerpt, $excerpt_length, '...' );
+                            }
 
-                        if ( $marked_content['content'] ) {
-                            $excerpt = $marked_content['content'];
                         } else {
                             $excerpt = wp_trim_words( $excerpt, $excerpt_length, '...' );
                         }
 
-                    } else {
-                        $excerpt = wp_trim_words( $excerpt, $excerpt_length, '...' );
                     }
+
 
                     if ( $show_price === 'true' && ( $product->is_in_stock() || ( ! $product->is_in_stock() && $show_outofstockprice === 'true' ) ) ) {
                         $price = $product->get_price_html();
@@ -632,6 +608,12 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 //                    $categories = $product->get_categories( ',' );
 //                    $tags = $product->get_tags( ',' );
 
+                    if ( $highlight_words === 'true'  ) {
+                        $title   = $this->highlight_words( $title );
+                        $excerpt = $this->highlight_words( $excerpt );
+                        $sku     = $this->highlight_words( $sku );
+                    }
+
                     $title   = apply_filters( 'aws_title_search_result', $title, $post_id, $product );
                     $excerpt = apply_filters( 'aws_excerpt_search_result', $excerpt, $post_id, $product );
 
@@ -670,25 +652,20 @@ if ( ! class_exists( 'AWS_Search' ) ) :
         }
 
         /*
-         * Mark search words
+         * Scrap content excerpt
          */
-        private function mark_search_words( $title, $content ) {
+        private function scrap_content( $content ) {
 
-            $pattern = array();
-            $exact_pattern = array();
             $exact_words = array();
             $words = array();
 
             foreach( $this->data['search_terms'] as $search_in ) {
 
                 $exact_words[] = '\b' . $search_in . '\b';
-                $exact_pattern[] = '(\b' . $search_in . '\b)+';
 
                 if ( strlen( $search_in ) > 1 ) {
-                    $pattern[] = '(' . $search_in . ')+';
                     $words[] = $search_in;
                 } else {
-                    $pattern[] = '\b[' . $search_in . ']{1}\b';
                     $words[] = '\b' . $search_in . '\b';
                 }
 
@@ -699,15 +676,6 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             usort( $words, array( $this, 'sort_by_length' ) );
             $words = implode( '|', $words );
-
-            usort( $exact_pattern, array( $this, 'sort_by_length' ) );
-            $exact_pattern = implode( '|', $exact_pattern );
-            $exact_pattern = sprintf( '/%s/i', $exact_pattern );
-
-            usort( $pattern, array( $this, 'sort_by_length' ) );
-            $pattern = implode( '|', $pattern );
-            $pattern = sprintf( '/%s/i', $pattern );
-
 
             preg_match( '/([^.?!]*?)(' . $exact_words . '){1}(.*?[.!?])/i', $content, $matches );
 
@@ -740,13 +708,47 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 
             }
 
-            $title = preg_replace($pattern, '<strong>${0}</strong>', $title );
-            $content = preg_replace( $pattern, '<strong>${0}</strong>', $content );
+            return $content;
 
-            return array(
-                'title'   => $title,
-                'content' => $content
-            );
+        }
+
+        /*
+         * Highlight search words
+         */
+        private function highlight_words( $text ) {
+
+            if ( ! $text ) {
+                 return $text;
+            }
+
+            $pattern = array();
+
+            foreach( $this->data['search_terms'] as $search_in ) {
+
+                if ( strlen( $search_in ) > 1 ) {
+                    $pattern[] = '(' . $search_in . ')+';
+                } else {
+                    $pattern[] = '\b[' . $search_in . ']{1}\b';
+                }
+
+            }
+
+            usort( $pattern, array( $this, 'sort_by_length' ) );
+            $pattern = implode( '|', $pattern );
+            $pattern = sprintf( '/%s/i', $pattern );
+
+            /**
+             * Tag to use for highlighting search words inside content
+             * @since 1.88
+             * @param string Tag for highlighting
+             */
+            $highlight_tag = apply_filters( 'aws_highlight_tag', 'strong' );
+
+            $highlight_tag_pattern = '<' . $highlight_tag . '>${0}</' . $highlight_tag . '>';
+
+            $text = preg_replace($pattern, $highlight_tag_pattern, $text );
+
+            return $text;
 
         }
 

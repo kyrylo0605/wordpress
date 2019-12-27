@@ -108,7 +108,7 @@ sgBackup.sgsettings = function(){
     if(jQuery('.sg-email-switch').is(":checked")){
         var emails = jQuery('#sg-email').val().split(",");
 
-        $.each(emails, function( index, value ) {
+        jQuery.each(emails, function( index, value ) {
             value = jQuery.trim(value);
             if(!sgBackup.isValidEmailAddress(value)){
                 error.push(BG_SETTINGS_STRINGS.invalidEmailAddress);

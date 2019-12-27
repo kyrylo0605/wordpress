@@ -331,7 +331,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 
 	private function replaceInvalidCharacters($str)
 	{
-		return preg_replace('/\x00/', '', $str);;
+		return $str;//preg_replace('/\x00/', '', $str);;
 	}
 
 	private function getDatabaseHeaders()
@@ -363,6 +363,8 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 			$this->currentRowCount = $sgDBState->getProgressCursor();
 			$this->nextProgressUpdate = $sgDBState->getProgress();
 			$this->warningsFound = $sgDBState->getWarningsFound();
+
+			$importQuery = $this->getDatabaseHeaders();
 		}
 
 		while (($row = @fgets($fileHandle)) !== false) {
@@ -379,7 +381,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 			}
 
 			if ($trimmedRow && substr($trimmedRow, -9) == "/*SGEnd*/") {
-				$queries = explode("/*SGEnd*/".PHP_EOL, $this->getDatabaseHeaders().$importQuery);
+				$queries = explode("/*SGEnd*/".PHP_EOL, $importQuery);
 				foreach ($queries as $query) {
 					if (!$query) {
 						continue;

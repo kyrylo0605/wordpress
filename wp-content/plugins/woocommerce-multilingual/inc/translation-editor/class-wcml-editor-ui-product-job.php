@@ -23,13 +23,22 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
     private $not_display_fields_for_variables_product;
     private $not_display_custom_fields_for_product;
 
-	function __construct( $job_details, &$woocommerce_wpml, &$sitepress, &$wpdb  ) {
+	/**
+	 * WCML_Editor_UI_Product_Job constructor.
+	 *
+	 * @param array            $job_details
+	 * @param woocommerce_wpml $woocommerce_wpml
+	 * @param SitePress        $sitepress
+	 * @param wpdb             $wpdb
+	 */
+	public function __construct( $job_details, $woocommerce_wpml, $sitepress, $wpdb ) {
 		global $iclTranslationManagement;
 
-        $this->woocommerce_wpml =& $woocommerce_wpml;
-        $this->sitepress        =& $sitepress;
-        $this->tm_instance      =& $iclTranslationManagement;
-        $this->wpdb             =& $wpdb;
+		$this->woocommerce_wpml = $woocommerce_wpml;
+		$this->sitepress        = $sitepress;
+		$this->tm_instance      = $iclTranslationManagement;
+		$this->wpdb             = $wpdb;
+
         $this->not_display_fields_for_variables_product = array( '_purchase_note', '_regular_price', '_sale_price',
                                                                  '_price', '_min_variation_price', '_max_variation_price',
                                                                  '_min_variation_regular_price', '_max_variation_regular_price',
@@ -437,8 +446,8 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
 
                 $trn_attribute = $this->woocommerce_wpml->attributes->get_custom_attribute_translation( $this->product_id, $attr_key, $attribute, $this->get_target_language() );
 
-                $element_data[ $attr_key.'_name' ][ 'translation' ]       = $trn_attribute['name'] ? $trn_attribute['name'] : '';
-                $element_data[ $attr_key ][ 'translation' ]       = $trn_attribute['value'] ? $trn_attribute['value'] : '';
+				$element_data[ $attr_key . '_name' ]['translation'] = $this->get_array_item( $trn_attribute, 'name' );
+				$element_data[ $attr_key ]['translation']           = $this->get_array_item( $trn_attribute, 'value' );
             }
         }
 
@@ -497,6 +506,16 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
 
         return $element_data;
     }
+
+	/**
+	 * @param array  $array
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	private function get_array_item( $array, $key ) {
+		return isset( $array[ $key ] ) && $array[ $key ] ? $array[ $key ] : '';
+	}
 
     public function add_taxonomies_to_element_data( $element_data ){
 
@@ -601,13 +620,6 @@ class WCML_Editor_UI_Product_Job extends WPML_Editor_UI_Job {
         $tr_product_id                = apply_filters( 'translate_object_id', $this->product_id, 'product', false, $this->get_target_language() );
 
 	    new WCML_Editor_Save_Filters( $product_trid, $this->get_target_language() );
-        if ( get_magic_quotes_gpc() ) {
-            foreach ( $translations as $key => $data_item ) {
-                if ( !is_array( $data_item ) ) {
-                    $translations[$key] = stripslashes( $data_item );
-                }
-            }
-        }
 
 	    if ( null === $tr_product_id ) {
 

@@ -265,6 +265,12 @@ msgstr ""
 msgid "Filter button will be visible only if you have more than one active filter for current search form instance."
 msgstr ""
 
+msgid "Highlight words"
+msgstr ""
+
+msgid "Highlight search words inside products content."
+msgstr ""
+
 #: includes/options.php:49
 msgid "Show image"
 msgstr ""
@@ -296,7 +302,7 @@ msgid "Content"
 msgstr ""
 
 #: includes/options.php:80
-msgid "Excerpt"
+msgid "Short description"
 msgstr ""
 
 #: includes/options.php:85

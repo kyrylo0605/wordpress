@@ -161,6 +161,10 @@ define('SG_BACKUP_DOWNLOAD_TYPE_SGBP', 1);
 define('SG_BACKUP_DOWNLOAD_TYPE_BACKUP_LOG', 2);
 define('SG_BACKUP_DOWNLOAD_TYPE_RESTORE_LOG', 3);
 
+define('SG_BACKUP_REVIEW_BACKUP_COUNT', 3);
+define('SG_BACKUP_REVIEW_RESTORE_COUNT', 1);
+define('SG_BACKUP_REVIEW_PERIOD', 30);
+
 //The following constants can be modified at run-time
 define('SG_ACTION_BACKUP_FILES_AVAILABLE', 1);
 define('SG_ACTION_BACKUP_DATABASE_AVAILABLE', 1);
@@ -177,6 +181,8 @@ define('SG_SSH_KEY_FILE_FOLDER_NAME', 'sshKeyFolder/');
 define('SG_MIGRATION_SERVICE_URL', 'https://backup-guard.com/services/migrate-wordpress');
 define('BACKUP_GUARD_PRIVACY_POLICY_URL', "https://backup-guard.com/privacy");
 define('BACKUP_GUARD_TERMS_OF_SERVICE_URL', 'https://backup-guard.com/terms');
+define('BACKUP_GUARD_WORDPRESS_SUPPORT_URL', 'https://wordpress.org/support/plugin/backup/');
+define('BACKUP_GUARD_WORDPRESS_REVIEW_URL', 'https://wordpress.org/support/plugin/backup/reviews/?filter=5');
 
 define('SG_RESTORE_MODE_FULL', 'full');
 define('SG_RESTORE_MODE_FILES', 'files');

@@ -24,7 +24,7 @@
 				<!-- Multiple Radios -->
 				<div class="form-group">
 					<div class="col-md-12">
-						<input type="text" name="sg-custom-backup-name" id="sg-custom-backup-name" placeholder="Custom backup name (optional)">
+						<input type="text" name="sg-custom-backup-name" id="sg-custom-backup-name" class="sg-backup-input" placeholder="Custom backup name (optional)">
 					</div>
 					<div class="col-md-12">
 						<div class="radio">
@@ -130,8 +130,8 @@
 			</div>
 			<div class="modal-footer">
 				<input type="text" name="backup-type" value="<?php echo $backupType?>" hidden>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" onclick="sgBackup.manualBackup()" class="btn btn-primary"><?php _backupGuardT('Backup')?></button>
+				<span class="modal-close-button" data-dismiss="modal">Close</span>
+				<button type="button" onclick="sgBackup.manualBackup()" class="btn btn-success"><?php _backupGuardT('Backup')?></button>
 			</div>
 		</form>
 	</div>

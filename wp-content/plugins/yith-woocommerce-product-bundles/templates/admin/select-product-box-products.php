@@ -2,11 +2,12 @@
 // Exit if accessed directly
 !defined( 'ABSPATH' ) && exit;
 
-
 $per_page      = 5;
 $page          = !empty( $_REQUEST[ 'page' ] ) ? $_REQUEST[ 'page' ] : 1;
 $offset        = $page > 1 ? ( ( $page - 1 ) * $per_page ) : 0;
 $product_types = yith_wcpb_get_allowed_product_types();
+
+$search = !empty( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '';
 
 $args = array(
     'limit'            => $per_page,
@@ -14,9 +15,14 @@ $args = array(
     'type'             => array_keys( $product_types ),
     'status'           => 'publish',
     'paginate'         => true,
-    's'                => !empty( $_REQUEST[ 's' ] ) ? $_REQUEST[ 's' ] : '',
     'suppress_filters' => false,
 );
+
+if ( !!$search && 'sku:' === substr( $search, 0, 4 ) ) {
+    $args[ 'sku' ] = substr( $search, 4 );
+} else {
+    $args[ 's' ] = $search;
+}
 
 $args = apply_filters( 'yith_wcpb_select_product_box_args', $args );
 

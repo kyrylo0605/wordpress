@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 5.3
-Stable tag: 1.87
+Stable tag: 1.90
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ Advanced Woo Search - powerful live search plugin for WooCommerce. Just start ty
 * **Fast** - Nothing extra. Just what you need for proper work
 * **Stop Words** support to exclude certain words from search.
 * Supports **variable products**
-* Support for your current **search page**. Plugin search results will be integrated to your current page layout.
+* **Search results page** support. Plugin search results will be integrated to your current page layout.
 * Automatically synchronize all products data. No need to re-index all content manually after avery change.
 * **Plurals** support
 * **Synonyms** support
@@ -103,6 +103,20 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.90 =
+* Update - Search query fix
+
+= 1.89 =
+* Add - Highlight option
+* Fix - Index method bug
+
+= 1.88 =
+* Add - WooCommerce Product Table plugin support
+* Add - aws_highlight_tag filter
+* Update - Search query speed-up. Removed unused lines
+* Update - Avada theme integration
+* Update - Settings page text
 
 = 1.87 =
 * Fix - Bug with search results sorting

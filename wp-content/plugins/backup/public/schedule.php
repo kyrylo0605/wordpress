@@ -49,7 +49,7 @@ $scheduleParams = backupGuardParseBackupOptions($scheduleParams);
 							<div class="form-group">
 								<label class="col-md-4 sg-control-label" for="sg-schedule-label"><?php _backupGuardT('Schedule label')?></label>
 								<div class="col-md-8">
-									<input class="form-control" name="sg-schedule-label" id="sg-schedule-label" value="<?php echo esc_html($scheduleParams['label'])?>">
+									<input class="form-control sg-backup-input" name="sg-schedule-label" id="sg-schedule-label" value="<?php echo esc_html($scheduleParams['label'])?>">
 								</div>
 							</div>
 							<!-- Schedule interval -->

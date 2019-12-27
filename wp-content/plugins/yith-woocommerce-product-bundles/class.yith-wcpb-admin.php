@@ -91,8 +91,8 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             add_filter( 'woocommerce_product_data_tabs', array( $this, 'woocommerce_product_data_tabs' ) );
             add_action( 'woocommerce_product_data_panels', array( $this, 'woocommerce_product_data_panels' ) );
 
-            add_action( 'wp_ajax_yith_wcpb_select_product', array( $this, 'select_product' ) );
-            add_action( 'wp_ajax_yith_wcpb_select_product_filter', array( $this, 'select_product_filter' ) );
+            add_action( 'wp_ajax_yith_wcpb_select_product_box', array( $this, 'select_product_box' ) );
+            add_action( 'wp_ajax_yith_wcpb_select_product_box_filtered', array( $this, 'select_product_box_filtered' ) );
             add_action( 'wp_ajax_yith_wcpb_add_product_in_bundle', array( $this, 'add_product_in_bundle' ) );
 
             $save_product_meta_hook = version_compare( WC()->version, '3.0.0', '>=' ) ? 'woocommerce_admin_process_product_object' : 'woocommerce_process_product_meta';
@@ -204,12 +204,12 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             <?php
         }
 
-        public function select_product() {
+        public function select_product_box() {
             include YITH_WCPB_TEMPLATE_PATH . '/admin/select-product-box.php';
             die();
         }
 
-        public function select_product_filter() {
+        public function select_product_box_filtered() {
             include YITH_WCPB_TEMPLATE_PATH . '/admin/select-product-box-products.php';
             die();
         }
@@ -365,7 +365,6 @@ if ( !class_exists( 'YITH_WCPB_Admin' ) ) {
             $args = array(
                 'create_menu_page' => true,
                 'parent_slug'      => '',
-                'plugin_slug'      => YITH_WCPB_SLUG,
                 'class'            => yith_set_wrapper_class(),
                 'page_title'       => 'WooCommerce Product Bundles',
                 'menu_title'       => 'Product Bundles',
