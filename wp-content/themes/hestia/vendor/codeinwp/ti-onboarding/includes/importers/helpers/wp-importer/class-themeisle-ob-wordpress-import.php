@@ -21,7 +21,7 @@ if ( ! class_exists( 'WP_Importer' ) ) {
 }
 
 class Themeisle_OB_WP_Import extends WP_Importer {
-	use Themeisle_OB_Image_Src_Handler;
+	use Themeisle_OB;
 	/**
 	 * @var Themeisle_OB_WP_Import_Logger
 	 */

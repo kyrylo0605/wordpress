@@ -8,7 +8,7 @@
  * @package         themeisle-onboarding
  */
 
-require_once 'importers/helpers/trait-themeisle-ob-image-src-handler.php';
+require_once 'importers/helpers/trait-themeisle-ob.php';
 require_once 'importers/class-themeisle-ob-content-importer.php';
 require_once 'importers/class-themeisle-ob-theme-mods-importer.php';
 require_once 'importers/class-themeisle-ob-widgets-importer.php';
@@ -18,7 +18,7 @@ require_once 'importers/class-themeisle-ob-plugin-importer.php';
  * Class Themeisle_OB_WP_Cli
  */
 class Themeisle_OB_WP_Cli {
-	use Themeisle_OB_Image_Src_Handler;
+	use Themeisle_OB;
 	/**
 	 * Command namespace version.
 	 *
@@ -180,10 +180,10 @@ class Themeisle_OB_WP_Cli {
 		$this->import_plugins_for_starter_site( $json_array );
 		$xml = $this->get_starter_site_xml( $site, $json_array );
 		WP_CLI::line( 'Importing content file...' );
-		$this->import_xml_file( $xml, $json_array, $site['editor'] );
+		$this->import_xml_file( $xml, array_merge( array( 'demoSlug' => $site_slug ), $json_array ), $site['editor'] );
 		WP_CLI::line( 'Done!' );
 		$this->import_theme_mods( $json_array );
-		$this->setup_pages( $json_array );
+		$this->setup_pages( $json_array, $args[0] );
 		$this->import_widgets( $json_array );
 	}
 
@@ -204,15 +204,15 @@ class Themeisle_OB_WP_Cli {
 	 *
 	 * @param array $json site json data.
 	 */
-	private function setup_pages( $json ) {
+	private function setup_pages( $json, $demo_slug ) {
 		if ( isset( $json['front_page'] ) ) {
-			$this->content_importer->setup_front_page( $json['front_page'] );
+			$this->content_importer->setup_front_page( $json['front_page'], $demo_slug );
 		} else {
 			WP_CLI::warning( 'Incorrect front page arguments.' );
 		}
 
 		if ( isset( $json['shop_pages'] ) ) {
-			$this->content_importer->setup_shop_pages( $json['shop_pages'] );
+			$this->content_importer->setup_shop_pages( $json['shop_pages'], $demo_slug );
 		} else {
 			WP_CLI::warning( 'No shop page arguments.' );
 		}
@@ -401,6 +401,7 @@ class Themeisle_OB_WP_Cli {
 		$response_file     = wp_remote_get( $json['content_file'] );
 		$content_file_path = $this->content_importer->save_xhr_return_path( wp_remote_retrieve_body( $response_file ) );
 		WP_CLI::line( 'Saved content file in ' . $content_file_path );
+
 		return $content_file_path;
 	}
 

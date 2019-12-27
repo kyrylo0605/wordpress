@@ -81,15 +81,15 @@ jQuery( document ).ready(
                  */
                 wp.customize( 'hestia_feature_thumbnail', function ( value ) {
                     value.bind( function ( newval ) {
-                        jQuery.ajax({
-                            type: 'POST',
-                            data: {
-                                action: 'update_image_buffer',
-                                value: newval,
-                                nonce: imageObject.imagenonce
-                            },
-                            url: imageObject.imagenonce
-                        });
+                    	jQuery.ajax({
+		                   type: 'POST',
+		                   url: imageObject.ajaxurl,
+		                   data: {
+			                   action: 'update_image_buffer',
+			                   value: newval,
+			                   nonce: imageObject.imagenonce,
+		                   }
+                    	});
                     });
                 });
             },

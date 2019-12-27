@@ -1,4 +1,11 @@
 
+ ### v2.5.6 - 2019-12-17 
+ **Changes:** 
+ * [Fix] Logo positioning for the third navigation layout option and no widgets
+* [Fix] Sync between the image set as the featured image for the Frontpage and the image from the About section
+* [Fix] Customizer icons missing when Font Awesome was not loaded
+* [Fix] Compatibility with the Menu Icons plugin while the transparent menu is on
+ 
  ### v2.5.5 - 2019-11-14 
  **Changes:** 
  * [Feat] Dedicated logo option for the transparent header

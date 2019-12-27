@@ -1,3 +1,20 @@
+## [1.7.12](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.11...v1.7.12) (2019-12-03)
+
+
+### Bug Fixes
+
+* import modal edit action button not working for divi and thrive ([adf314f](https://github.com/Codeinwp/ti-onboarding/commit/adf314fbd452e1019dfd8f25cdbd270ab1d95188))
+* import modal edit action button not working for divi and thrive ([f56ac00](https://github.com/Codeinwp/ti-onboarding/commit/f56ac0033c5625f07dce93becb0efde46ad3141d)), closes [Codeinwp/neve-pro-addon#423](https://github.com/Codeinwp/neve-pro-addon/issues/423)
+
+## [1.7.11](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.10...v1.7.11) (2019-12-03)
+
+
+### Bug Fixes
+
+* prefix page slugs with 5 char md5 hash generated from import slug ([49f2c1b](https://github.com/Codeinwp/ti-onboarding/commit/49f2c1bf756fe1be3ab71f8230afecf4d98c74ad)), closes [Codeinwp/neve-pro-addon#357](https://github.com/Codeinwp/neve-pro-addon/issues/357)
+* prefix posts/front pages slug [closes Codeinwp/neve-pro-addon[#357](https://github.com/Codeinwp/ti-onboarding/issues/357)] ([e8284a3](https://github.com/Codeinwp/ti-onboarding/commit/e8284a3528a2f943ab9f88568be7846f4293a75e))
+* prefix posts/front pages slug [closes Coodeinwp/neve-pro-addon[#357](https://github.com/Codeinwp/ti-onboarding/issues/357)][WIP] ([46773f1](https://github.com/Codeinwp/ti-onboarding/commit/46773f12014fa19af1931e4cc85608a8b7d4f6a8))
+
 ## [1.7.10](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.9...v1.7.10) (2019-11-13)
 
 

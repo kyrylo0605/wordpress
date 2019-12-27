@@ -56,14 +56,14 @@
       },
       importSite: function () {
         this.setupImportData()
-        this.$store.commit('populatePreview', { siteData: this.siteData } )
+        this.$store.commit('populatePreview', { siteData: this.siteData, currentItem: this.siteSlug })
         this.$store.commit('showImportModal', true)
       },
       showPreview: function () {
         document.body.classList.add( 'ti-ob--preview-open' )
         this.setupImportData()
-        this.$store.commit('showPreview', true)
         this.$store.commit('populatePreview', { siteData : this.siteData, currentItem: this.siteSlug})
+        this.$store.commit('showPreview', true)
       }
     },
     created() {

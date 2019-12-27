@@ -18,6 +18,20 @@ Neve WordPress theme, Copyright 2018 Themeisle
 Neve is distributed under the terms of the GNU GPLv2 or later
 
 == Changelog ==
+= 2.5.4 - 2019-12-19  = 
+
+* [Feat] New styling options for buttons in the header builder
+* [Feat] New dynamic tags for the header and footer builder
+* [Fix] External fonts not loading in editor
+* [Fix] Removed unnecessary post metadata saved in the database
+* [Fix] Improved primary menu closing animation on mobile
+* [Fix] Button block preview in the editor
+* [Fix] Compatibility with the latest update of Gutenberg
+* [Fix] Improved padding and margin components layout
+* [Fix] Button border-radius control default value not allowing a zero value
+* [Fix] Made default layout full width when the sidebar is empty
+
+
 = 2.5.3 - 2019-12-05  = 
 
 * [Feat] New option to allow both logo and site and tagline in different layouts
@@ -868,3 +882,36 @@ Starter Sites screenshots resources:
 * https://mystock.themeisle.com/photo/code-in-wp/
 * https://mystock.themeisle.com/photo/photographer-2/
 * https://mystock.themeisle.com/photo/browser-tabs/
+
+- Fashion Model Agency
+* https://mystock.themeisle.com/photo/thinking-time/
+* https://mystock.themeisle.com/photo/bride-and-groom/
+* https://mystock.themeisle.com/photo/mannequin/
+* https://stocksnap.io/photo/WB9WHQU68Q
+* https://stocksnap.io/photo/F08ZV0M412
+* https://stocksnap.io/photo/Q8FQMQWYKB
+* https://stocksnap.io/photo/D626O6RC44
+
+- IT Technology Agency
+* https://mystock.themeisle.com/photo/programming-laptop-2/
+* https://mystock.themeisle.com/photo/couple-jogging-together-along-the-river-coas/
+* https://mystock.themeisle.com/photo/new-york-skyscrapers-on-a-cloudy-wheather/
+
+- Christmas Market
+* https://stocksnap.io/photo/A8CFE9WADG
+* https://mystock.themeisle.com/photo/young-boy-attending-a-concert/
+* https://mystock.themeisle.com/photo/pool-party/
+
+- Podcast
+* https://mystock.themeisle.com/photo/tour-eiffel/
+* https://mystock.themeisle.com/photo/new-york-skyscrapers-on-a-cloudy-wheather/
+* https://mystock.themeisle.com/photo/harbour-air-seaplanes-docked-in-maldives-2/
+* https://mystock.themeisle.com/photo/fancy-restaurant/
+* https://mystock.themeisle.com/photo/registration/
+
+- Digital Agency
+* https://stocksnap.io/photo/RCFX768X06
+* https://mystock.themeisle.com/photo/bucharest-at-night/
+* https://mystock.themeisle.com/photo/browser-tabs/
+* https://mystock.themeisle.com/photo/code-in-wp/
+* https://mystock.themeisle.com/photo/tourists/

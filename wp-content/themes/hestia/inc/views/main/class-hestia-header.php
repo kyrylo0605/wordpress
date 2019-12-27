@@ -124,23 +124,27 @@ class Hestia_Header extends Hestia_Abstract_Main {
 		$header_alignment = get_theme_mod( 'hestia_header_alignment', apply_filters( 'hestia_header_alignment_default', 'left' ) );
 
 		if ( $header_alignment !== 'right' ) {
-			return;
+			return false;
 		}
 
+		if ( ! is_active_sidebar( 'header-sidebar' ) && is_customize_preview() ) {
+			hestia_sidebar_placeholder( 'hestia-sidebar-header', 'header-sidebar', 'no-variable-width header-sidebar-wrapper' );
+			return false;
+		}
+
+		echo '<div class="header-sidebar-wrapper">';
 		if ( is_active_sidebar( 'header-sidebar' ) ) {
 			?>
-			<div class="header-sidebar-wrapper">
 				<div class="header-widgets-wrapper">
 					<?php
 					dynamic_sidebar( 'header-sidebar' );
 					?>
 				</div>
-			</div>
 			<?php
 		}
-		if ( ! is_active_sidebar( 'header-sidebar' ) && is_customize_preview() ) {
-			hestia_sidebar_placeholder( 'hestia-sidebar-header', 'header-sidebar', 'no-variable-width header-sidebar-wrapper' );
-		}
+		echo '</div>';
+
+		return true;
 	}
 
 	/**

@@ -222,7 +222,6 @@
 						pageId = this.getPageId(),
 						customizerRedirect = this.siteData.edit_content_redirect,
 						url = this.homeUrl;
-
 				if ( editor === 'elementor' || this.isMigration ) {
 					url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=elementor';
 				}
@@ -234,6 +233,12 @@
 				}
 				if ( editor === 'beaver-builder' ) {
 					url = this.homeUrl + '/?fl_builder';
+				}
+				if ( editor === 'thrive-architect' ) {
+					url = this.homeUrl + '/wp-admin/post.php?post=' + pageId + '&action=architect&tve=true';
+				}
+				if ( editor === 'divi-builder' ) {
+					url = this.homeUrl + '/?et_fb=1&PageSpeed=off';
 				}
 				if ( customizerRedirect === 'customizer' ) {
 					url = this.homeUrl + '/wp-admin/customize.php';

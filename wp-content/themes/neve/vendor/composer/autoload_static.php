@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc49ccce9a41c771a468c2543a7f85072
+class ComposerStaticInitc4cac260192a2d42a1ccd034d51f2ef8
 {
     public static $files = array (
         '3c811c5eee2f69449ba771bff79ea54a' => __DIR__ . '/..' . '/codeinwp/ti-about-page/load.php',
@@ -54,6 +54,7 @@ class ComposerStaticInitc49ccce9a41c771a468c2543a7f85072
         'HFG\\Core\\Customizer\\SpacingControl' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer/SpacingControl.php',
         'HFG\\Core\\Interfaces\\Builder' => __DIR__ . '/../..' . '/header-footer-grid/Core/Interfaces/Builder.php',
         'HFG\\Core\\Interfaces\\Component' => __DIR__ . '/../..' . '/header-footer-grid/Core/Interfaces/Component.php',
+        'HFG\\Core\\Magic_Tags' => __DIR__ . '/../..' . '/header-footer-grid/Core/Magic_Tags.php',
         'HFG\\Core\\Settings\\Config' => __DIR__ . '/../..' . '/header-footer-grid/Core/Settings/Config.php',
         'HFG\\Core\\Settings\\Defaults' => __DIR__ . '/../..' . '/header-footer-grid/Core/Settings/Defaults.php',
         'HFG\\Core\\Settings\\Manager' => __DIR__ . '/../..' . '/header-footer-grid/Core/Settings/Manager.php',
@@ -64,9 +65,9 @@ class ComposerStaticInitc49ccce9a41c771a468c2543a7f85072
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc49ccce9a41c771a468c2543a7f85072::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc49ccce9a41c771a468c2543a7f85072::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc49ccce9a41c771a468c2543a7f85072::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc4cac260192a2d42a1ccd034d51f2ef8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc4cac260192a2d42a1ccd034d51f2ef8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc4cac260192a2d42a1ccd034d51f2ef8::$classMap;
 
         }, null, ClassLoader::class);
     }

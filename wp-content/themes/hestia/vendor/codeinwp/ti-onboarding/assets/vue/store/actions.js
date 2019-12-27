@@ -94,6 +94,7 @@ const importContent = function ({commit, state}, data) {
         'shopPages': data.content.shop_pages ? data.content.shop_pages : null,
         'source': data.source,
         'editor': state.editor ? state.editor : '',
+        'demoSlug': state.currentPreviewSlug,
       }
     },
     responseType: 'json',

@@ -13,7 +13,7 @@
  * Class Themeisle_OB_Theme_Mods_Importer
  */
 class Themeisle_OB_Theme_Mods_Importer {
-	use Themeisle_OB_Image_Src_Handler;
+	use Themeisle_OB;
 
 	/**
 	 * Log

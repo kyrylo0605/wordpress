@@ -31,6 +31,7 @@ return array(
     'HFG\\Core\\Customizer\\SpacingControl' => $baseDir . '/header-footer-grid/Core/Customizer/SpacingControl.php',
     'HFG\\Core\\Interfaces\\Builder' => $baseDir . '/header-footer-grid/Core/Interfaces/Builder.php',
     'HFG\\Core\\Interfaces\\Component' => $baseDir . '/header-footer-grid/Core/Interfaces/Component.php',
+    'HFG\\Core\\Magic_Tags' => $baseDir . '/header-footer-grid/Core/Magic_Tags.php',
     'HFG\\Core\\Settings\\Config' => $baseDir . '/header-footer-grid/Core/Settings/Config.php',
     'HFG\\Core\\Settings\\Defaults' => $baseDir . '/header-footer-grid/Core/Settings/Defaults.php',
     'HFG\\Core\\Settings\\Manager' => $baseDir . '/header-footer-grid/Core/Settings/Manager.php',

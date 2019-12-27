@@ -388,7 +388,7 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 			$hestia_search_in_menu->priority = - 1;
 		}
 		$hestia_navbar_transparent = $this->get_customizer_object( 'control', 'hestia_navbar_transparent' );
-		if( ! empty( $hestia_navbar_transparent ) ){
+		if ( ! empty( $hestia_navbar_transparent ) ) {
 			$hestia_navbar_transparent->section  = 'sidebar-widgets-header-sidebar';
 			$hestia_navbar_transparent->priority = - 2;
 		}
