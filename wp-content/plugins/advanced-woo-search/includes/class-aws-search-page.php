@@ -289,11 +289,19 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
          */
         private function search( $s, $query ) {
 
-            if ( isset( $this->data['search_res'] ) ) {
-                return $this->data['search_res'];
+            $hash = spl_object_hash( $query );
+
+            if ( isset( $this->data['search_res'][$hash] ) ) {
+                return $this->data['search_res'][$hash];
             }
 
-            $posts_array = (array) aws_search( $s );
+            if ( isset( $this->data['search_res']['s'] ) ) {
+                $posts_array = $this->data['search_res']['s'];
+            } else {
+                $posts_array = (array) aws_search( $s );
+                $this->data['search_res']['s'] = $posts_array;
+            }
+
             $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
             $post_array_products = $posts_array['products'];
 
@@ -313,12 +321,12 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
             $this->data['all_products'] = $post_array_products;
 
-            $this->data['search_res'] = array(
+            $this->data['search_res'][$hash] = array(
                 'all'      => $post_array_products,
                 'products' => $products
             );
 
-            return $this->data['search_res'];
+            return $this->data['search_res'][$hash];
 
         }
 

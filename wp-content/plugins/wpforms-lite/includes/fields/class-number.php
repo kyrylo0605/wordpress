@@ -124,14 +124,14 @@ class WPForms_Field_Number extends WPForms_Field {
 
 		// Primary field.
 		printf(
-			'<input type="number" pattern="[0-9]*" %s %s>',
+			'<input type="number" pattern="\d*" %s %s>',
 			wpforms_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
-			$primary['required']
+			esc_attr( $primary['required'] )
 		);
 	}
 
 	/**
-	 * Validates field on form submit.
+	 * Validate field on form submit.
 	 *
 	 * @since 1.0.0
 	 *
@@ -161,7 +161,7 @@ class WPForms_Field_Number extends WPForms_Field {
 	}
 
 	/**
-	 * Formats and sanitizes field.
+	 * Format and sanitize field.
 	 *
 	 * @since 1.3.5
 	 *

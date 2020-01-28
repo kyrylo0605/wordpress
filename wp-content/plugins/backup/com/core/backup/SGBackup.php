@@ -224,14 +224,13 @@ class SGBackup implements SGIBackupDelegate
 		$url = @$_SERVER['REQUEST_URI'];
 
 		if (SG_ENV_ADAPTER == SG_ENV_WORDPRESS) {
-			$nonce = wp_create_nonce('backupGuardAjaxNonce');
 			if(strpos($url, 'wp-cron.php')) {
 				$url = substr($url, 0, strpos($url, 'wp-cron.php'));
 				$url .= 'wp-admin/admin-ajax.php';
 			}
 
 			$url = explode('?', $url);
-			$url = $url[0].'?action=backup_guard_awake&token='.$this->token.'&_wpnonce='.$nonce;;
+			$url = $url[0].'?action=backup_guard_awake&token='.$this->token;
 		}
 
 		return $url;
@@ -519,6 +518,7 @@ class SGBackup implements SGIBackupDelegate
 		@unlink(SG_BACKUP_DIRECTORY.SG_STATE_FILE_NAME);
 		@unlink(SG_BACKUP_DIRECTORY.SG_RELOADER_STATE_FILE_NAME);
 		@unlink(SG_PING_FILE_PATH);
+		SGConfig::set("SG_CUSTOM_BACKUP_NAME", '');
 	}
 
 	private function cleanUp()
@@ -732,6 +732,7 @@ class SGBackup implements SGIBackupDelegate
 			if($restoreFiles != NULL) {
 				$this->restoreFiles = $restoreFiles;
 			}
+			$backupName = backupGuardRemoveSlashes($backupName);
 			$this->prepareForRestore($backupName);
 
 			if ($this->state && ($this->state->getAction() == SG_STATE_ACTION_RESTORING_DATABASE || $this->state->getAction() == SG_STATE_ACTION_MIGRATING_DATABASE)) {

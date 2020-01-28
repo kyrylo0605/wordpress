@@ -2,11 +2,7 @@
 /**
  * Base field template.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 abstract class WPForms_Field {
 
@@ -191,7 +187,7 @@ abstract class WPForms_Field {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param array $field Field data and settings.
+	 * @param array $field      Field data and settings.
 	 * @param array $properties Properties we are modifying.
 	 */
 	protected function field_prefill_remove_choices_defaults( $field, &$properties ) {
@@ -538,7 +534,7 @@ abstract class WPForms_Field {
 	}
 
 	/**
-	 * Creates the field options panel. Used by subclasses.
+	 * Create the field options panel. Used by subclasses.
 	 *
 	 * @since 1.0.0
 	 * @since 1.5.0 Converted to abstract method, as it's required for all fields.
@@ -548,7 +544,7 @@ abstract class WPForms_Field {
 	abstract public function field_options( $field );
 
 	/**
-	 * Creates the field preview. Used by subclasses.
+	 * Create the field preview. Used by subclasses.
 	 *
 	 * @since 1.0.0
 	 * @since 1.5.0 Converted to abstract method, as it's required for all fields.
@@ -1606,7 +1602,7 @@ abstract class WPForms_Field {
 		check_ajax_referer( 'wpforms-builder', 'nonce' );
 
 		// Check for permissions.
-		if ( ! wpforms_current_user_can() ) {
+		if ( ! wpforms_current_user_can( 'edit_forms' ) ) {
 			die( esc_html__( 'You do not have permission.', 'wpforms-lite' ) );
 		}
 
@@ -1741,7 +1737,7 @@ abstract class WPForms_Field {
 	}
 
 	/**
-	 * Validates field on form submit.
+	 * Validate field on form submit.
 	 *
 	 * @since 1.0.0
 	 *
@@ -1758,7 +1754,7 @@ abstract class WPForms_Field {
 	}
 
 	/**
-	 * Formats and sanitizes field.
+	 * Format and sanitize field.
 	 *
 	 * @since 1.0.0
 	 *
@@ -1773,7 +1769,7 @@ abstract class WPForms_Field {
 			$field_submit = implode( "\r\n", $field_submit );
 		}
 
-		$name  = ! empty( $form_data['fields'][ $field_id ]['label'] ) ? sanitize_text_field( $form_data['fields'][ $field_id ]['label'] ) : '';
+		$name = ! empty( $form_data['fields'][ $field_id ]['label'] ) ? sanitize_text_field( $form_data['fields'][ $field_id ]['label'] ) : '';
 
 		// Sanitize but keep line breaks.
 		$value = wpforms_sanitize_textarea_field( $field_submit );

@@ -1311,7 +1311,7 @@ class WP_Installer {
 		}
 		$site_key = preg_replace( "/[^A-Za-z0-9]/", '', $site_key );
 
-		if ( $repository_id && $nonce && wp_create_nonce( 'save_site_key_' . $repository_id ) === $nonce ) {
+		if ( $repository_id && $nonce && wp_verify_nonce( $nonce, 'save_site_key_' . $repository_id ) ) {
 
 			try {
 				$subscription_data = $this->fetch_subscription_data( $repository_id, $site_key, self::SITE_KEY_VALIDATION_SOURCE_REGISTRATION );
@@ -2022,9 +2022,7 @@ class WP_Installer {
 		}
 
 		if ( $subscription_data && ! is_wp_error( $subscription_data ) && $this->repository_has_valid_subscription( $data['repository_id'] ) ) {
-
-			if ( $data['nonce'] == wp_create_nonce( 'install_plugin_' . $data['url'] ) ) {
-
+			if ( wp_verify_nonce( $data['nonce'], 'install_plugin_' . $data['url'] ) ) {
 				$upgrader_skins = new Installer_Upgrader_Skins(); //use our custom (mute) Skin
 				$upgrader       = new Plugin_Upgrader( $upgrader_skins );
 
@@ -2172,7 +2170,8 @@ class WP_Installer {
 		$error = '';
 
 		$plugin_id = sanitize_text_field( $_POST['plugin_id'] );
-		if ( isset( $_POST['nonce'] ) && $plugin_id && $_POST['nonce'] == wp_create_nonce( 'activate_' . $plugin_id ) ) {
+
+		if ( isset( $_POST['nonce'] ) && $plugin_id && wp_verify_nonce( $_POST['nonce'], 'activate_' . $plugin_id ) ) {
 
 			// Deactivate any embedded version
 			$plugin_slug    = dirname( $plugin_id );

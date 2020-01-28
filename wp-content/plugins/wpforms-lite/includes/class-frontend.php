@@ -2,11 +2,7 @@
 /**
  * Form front-end rendering.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Frontend {
 
@@ -1037,7 +1033,10 @@ class WPForms_Frontend {
 
 		global $post;
 
-		if ( has_shortcode( $post->post_content, 'wpforms' ) ) {
+		if (
+			has_shortcode( $post->post_content, 'wpforms' ) ||
+			( function_exists( 'has_block' ) && has_block( 'wpforms/form-selector' ) )
+		) {
 			$this->assets_css();
 		}
 	}
@@ -1306,7 +1305,6 @@ class WPForms_Frontend {
 			'val_time24h'                => wpforms_setting( 'validation-time24h', esc_html__( 'Please enter time in 24-hour format (eg 22:45).', 'wpforms-lite' ) ),
 			'val_requiredpayment'        => wpforms_setting( 'validation-requiredpayment', esc_html__( 'Payment is required.', 'wpforms-lite' ) ),
 			'val_creditcard'             => wpforms_setting( 'validation-creditcard', esc_html__( 'Please enter a valid credit card number.', 'wpforms-lite' ) ),
-			'val_smart_phone'            => wpforms_setting( 'validation-smart-phone', esc_html__( 'Please enter a valid phone number.', 'wpforms-lite' ) ),
 			'val_post_max_size'          => wpforms_setting( 'validation-post_max_size', esc_html__( 'The total size of the selected files {totalSize} Mb exceeds the allowed limit {maxSize} Mb.', 'wpforms-lite' ) ),
 			'val_checklimit'             => wpforms_setting( 'validation-check-limit', esc_html__( 'You have exceeded the number of allowed selections: {#}.', 'wpforms-lite' ) ),
 			'val_limit_characters'       => esc_html__( '{count} of {limit} max characters.', 'wpforms-lite' ),

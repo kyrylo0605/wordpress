@@ -4,7 +4,7 @@ Plugin Name: Social Reviews & Recommendations
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Allows you to instantly display Facebook reviews and recommendations on your site to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.6.6
+Version: 1.6.7
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.6.6');
+define('FBREV_VERSION',            '1.6.7');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/v3.1/');
 define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -33,7 +33,7 @@ function fbrev_options() {
 
 /*-------------------------------- Widget --------------------------------*/
 function fbrev_init_widget() {
-    if (!class_exists('Fb_Reviews_Widget' ) ) {
+    if (!class_exists('Fb_Reviews_Widget')) {
         require 'fbrev-widget.php';
     }
 }
@@ -156,6 +156,7 @@ function fbrev_shortcode($atts) {
     global $wpdb;
 
     if (!fbrev_enabled()) return '';
+    if (!class_exists('Fb_Reviews_Widget')) return '';
 
     $shortcode_atts = array();
     foreach (Fb_Reviews_Widget::$widget_fields as $field => $value) {

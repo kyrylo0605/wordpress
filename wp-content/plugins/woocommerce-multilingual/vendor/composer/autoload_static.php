@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1c06ba8112cf30696ed81802be9382a7
+class ComposerStaticInit9194a01e3b7341913deb206154fe289f
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -26,7 +26,6 @@ class ComposerStaticInit1c06ba8112cf30696ed81802be9382a7
 
     public static $classMap = array (
         'WCML\\Container\\Config' => __DIR__ . '/../..' . '/classes/Container/Config.php',
-        'WCML\\Email\\OrderItems\\Hooks' => __DIR__ . '/../..' . '/classes/Email/OrderItems/Hooks.php',
         'WCML\\Email\\Settings\\Hooks' => __DIR__ . '/../..' . '/classes/Email/Settings/Hooks.php',
         'WCML\\Media\\Wrapper\\Factory' => __DIR__ . '/../..' . '/classes/media/Wrapper/Factory.php',
         'WCML\\Media\\Wrapper\\IMedia' => __DIR__ . '/../..' . '/classes/media/Wrapper/IMedia.php',
@@ -91,7 +90,6 @@ class ComposerStaticInit1c06ba8112cf30696ed81802be9382a7
         'WCML_Exchange_Rates_Fixerio' => __DIR__ . '/../..' . '/classes/multi-currency/exchange-rate-services/class-wcml-exchange-rates-fixerio.php',
         'WCML_Exchange_Rates_UI' => __DIR__ . '/../..' . '/inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php',
         'WCML_Extra_Product_Options' => __DIR__ . '/../..' . '/compatibility/class-wcml-extra-product-options.php',
-        'WCML_File' => __DIR__ . '/../..' . '/inc/currencies/currency-switcher/class-wcml-file.php',
         'WCML_Flatsome' => __DIR__ . '/../..' . '/compatibility/class-wcml-flatsome.php',
         'WCML_Install' => __DIR__ . '/../..' . '/inc/class-wcml-install.php',
         'WCML_JCK_WSSV' => __DIR__ . '/../..' . '/compatibility/class-wcml-jck-wssv.php',
@@ -238,9 +236,9 @@ class ComposerStaticInit1c06ba8112cf30696ed81802be9382a7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1c06ba8112cf30696ed81802be9382a7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1c06ba8112cf30696ed81802be9382a7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1c06ba8112cf30696ed81802be9382a7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9194a01e3b7341913deb206154fe289f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9194a01e3b7341913deb206154fe289f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9194a01e3b7341913deb206154fe289f::$classMap;
 
         }, null, ClassLoader::class);
     }

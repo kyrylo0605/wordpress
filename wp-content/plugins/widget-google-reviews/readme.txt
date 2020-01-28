@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Google, reviews, widget, testimonials, Google Places reviews
 Requires at least: 2.8
 Tested up to: 5.3
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Google reviews widget and shortcode! Shows Google reviews on your WordPress webs
 
 This plugin display Google Business Reviews on your websites in sidebar widget. A unique feature of the plugin is that it saves reviews in WordPress database and have no depend on any services like Google to show reviews in the widget.
 
-[youtube https://www.youtube.com/watch?v=YccWFCkz6H4]
+[youtube https://www.youtube.com/watch?v=KhcDgjxYrNs]
 
 [Online demo](https://richplugins.com/demos/)
 
@@ -24,10 +24,11 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 
 * Free!
 * SEO
-* Refresh reviews
 * Shortcode support!
+* Auto refresh reviews
+* Shows "Based on ... reviews" section
 * Trim long reviews with "read more" link
-* Support page builders: Elementor, Page Origin, Beaver Builder, WPBakery, Divi
+* Support any page builder: Gutenberg, Elementor, Page Origin, Beaver Builder, WPBakery, Divi
 * Displays up to 5 Google business reviews per location
 * Keep all reviews in  WordPress database
 * Shows real reviews from G+ users to increase user confidence
@@ -52,7 +53,7 @@ This plugin display Google Business Reviews on your websites in sidebar widget. 
 * Google Trust Badge (right/left fixed or embedded)
 * 'Write a review' button to available leave Google review directly on your website
 * Show/hide any elements (business, reviews, avatars, names, time and etc)
-* Any Sorting: recent, oldest, rating, striped
+* Any Sorting: recent, oldest, rating, striped, random
 * Include/Exclude words filter
 * Minimum rating filter
 * Priority support
@@ -71,11 +72,18 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 
 == Screenshots ==
 
-1. Google Reviews widget
-2. Google Reviews badge
-3. Google Reviews sidebar
+1. Google Reviews shortcode
+2. Google Reviews widget
+3. Google Reviews shortcode builder
+4. Google Reviews sidebar widget
 
 == Changelog ==
+
+= 1.8.3 =
+* Improve: added new locale sk_SK
+* Improve: added new locale de_AT
+* Improve: update installation video, readme and screenshots
+* Bugfix: Yoast XML plugin makes 'Class not found' error
 
 = 1.8.2 =
 * Improve: added 'Based on ... reviews' feature

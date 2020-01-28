@@ -5,6 +5,7 @@
 	$backupName = backupGuardRemoveSlashes($backupName);
 	$backupPath = SG_BACKUP_DIRECTORY.$backupName;
 	$backupPath= $backupPath.'/'.$backupName.'.sgbp';
+
 	$archive = new SGArchive($backupPath,'r');
 	$headers = $archive->getArchiveHeaders();
 	if($headers["selectivRestoreable"]){
@@ -47,7 +48,7 @@
 					</div>
 					<div class="modal-footer">
 						<span class="modal-close-button" data-dismiss="modal">Close</span>
-						<button type="button" onclick="sgBackup.startRestore('<?php echo $backupName ?>')" class="btn btn-success"><?php _backupGuardT('Restore')?></button>
+						<button type="button" onclick="sgBackup.startRestore('<?php echo addslashes(htmlspecialchars($backupName)) ?>')" class="btn btn-success"><?php _backupGuardT('Restore')?></button>
 					</div>
 				</form>
 			</div>
@@ -63,7 +64,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" onclick="sgBackup.startRestore('<?php echo $backupName ?>')" class="btn btn-primary"><?php _backupGuardT('Restore')?></button>
+					<button type="button" onclick="sgBackup.startRestore('<?php echo htmlspecialchars($backupName) ?>')" class="btn btn-primary"><?php _backupGuardT('Restore')?></button>
 				</div>
 			</div>
 		</div>

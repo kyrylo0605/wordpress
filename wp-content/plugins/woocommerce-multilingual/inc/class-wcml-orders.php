@@ -122,38 +122,51 @@ class WCML_Orders {
 
 	public function woocommerce_order_get_items( $items, $order ) {
 
-		if ( $items ) {
+		if ( $items && ( is_admin() || is_view_order_page() ) ) {
 
 			$language_to_filter = $this->get_order_items_language_to_filter( $order );
 
-			foreach ( $items as $index => $item ) {
-				if ( $item instanceof WC_Order_Item_Product ) {
-					if ( 'line_item' === $item->get_type() ) {
-						$this->adjust_product_item_if_translated( $item, $language_to_filter );
-						$this->adjust_variation_item_if_translated( $item, $language_to_filter );
-					}
-				} elseif ( $item instanceof WC_Order_Item_Shipping ) {
-					$shipping_id = $item->get_method_id();
-					if ( $shipping_id ) {
-
-						if ( method_exists( $item, 'get_instance_id' ) ) {
-							$shipping_id .= $item->get_instance_id();
-						}
-
-						$item->set_method_title(
-							$this->woocommerce_wpml->shipping->translate_shipping_method_title(
-								$item->get_method_title(),
-								$shipping_id,
-								$language_to_filter
-							)
-						);
-					}
-				}
-				$item->save();
-			}
+			$this->adjust_order_item_in_language( $items, $language_to_filter );
 		}
 
 		return $items;
+	}
+
+	/**
+	 * @param array $items
+	 * @param string|bool $language_to_filter
+	 */
+	public function adjust_order_item_in_language( $items, $language_to_filter = false ) {
+
+		if( !$language_to_filter ){
+			$language_to_filter = $this->sitepress->get_current_language();
+		}
+
+		foreach ( $items as $index => $item ) {
+			if ( $item instanceof WC_Order_Item_Product ) {
+				if ( 'line_item' === $item->get_type() ) {
+					$this->adjust_product_item_if_translated( $item, $language_to_filter );
+					$this->adjust_variation_item_if_translated( $item, $language_to_filter );
+				}
+			} elseif ( $item instanceof WC_Order_Item_Shipping ) {
+				$shipping_id = $item->get_method_id();
+				if ( $shipping_id ) {
+
+					if ( method_exists( $item, 'get_instance_id' ) ) {
+						$shipping_id .= $item->get_instance_id();
+					}
+
+					$item->set_method_title(
+						$this->woocommerce_wpml->shipping->translate_shipping_method_title(
+							$item->get_method_title(),
+							$shipping_id,
+							$language_to_filter
+						)
+					);
+				}
+			}
+			$item->save();
+		}
 	}
 
 	/**
@@ -416,9 +429,15 @@ class WCML_Orders {
 		$order_language = get_post_meta( $object->get_id(), 'wpml_language', true );
 
 		if ( $item->get_variation_id() > 0 ) {
-			$item->set_variation_id( apply_filters( 'translate_object_id', $item->get_variation_id(), 'product_variation', false, $order_language ) );
+			$translated_variation_id = apply_filters( 'translate_object_id', $item->get_variation_id(), 'product_variation', false, $order_language );
+			if( ! is_null( $translated_variation_id ) ){
+				$item->set_variation_id( $translated_variation_id );
+            }
 		} else {
-			$item->set_product_id( apply_filters( 'translate_object_id', $item->get_product_id(), 'product', false, $order_language ) );
+		    $translated_product_id = apply_filters( 'translate_object_id', $item->get_product_id(), 'product', false, $order_language );
+			if( ! is_null( $translated_product_id ) ){
+				$item->set_product_id( $translated_product_id );
+			}
 		}
 
 		remove_filter( 'woocommerce_get_item_downloads', array( $this, 'filter_downloadable_product_items' ), 10, 3 );

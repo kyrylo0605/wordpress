@@ -123,7 +123,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
             $markup .= '</form>';
             $markup .= '</div>';
 
-            return apply_filters( 'aws_searchbox_markup', $markup );
+            return apply_filters( 'aws_searchbox_markup', $markup, $params );
 
         }
 

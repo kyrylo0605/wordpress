@@ -26,29 +26,36 @@ class Education {
 	 */
 	public function hooks() {
 
-		// AJAX-callback on targeting `reCAPTCHA` field button.
-		add_action( 'wp_ajax_wpforms_update_field_recaptcha', array( $this, 'recaptcha_field_callback' ) );
+		if ( wp_doing_ajax() ) {
+			add_action( 'wp_ajax_wpforms_dyk_dismiss', array( $this, 'dyk_ajax_dismiss' ) );
+
+			add_action( 'wp_ajax_wpforms_update_field_recaptcha', array( $this, 'recaptcha_field_callback' ) );
+		}
 
 		// Only proceed for the form builder.
-		if ( ! \wpforms_is_admin_page( 'builder' ) ) {
+		if ( ! wpforms_is_admin_page( 'builder' ) ) {
 			return;
 		}
 
-		\add_action( 'wpforms_field_options_after_advanced-options', array( $this, 'field_conditional_logic' ), 10, 2 );
+		add_action( 'wpforms_field_options_after_advanced-options', array( $this, 'field_conditional_logic' ), 10, 2 );
 
-		\add_filter( 'wpforms_lite_builder_strings', array( $this, 'js_strings' ) );
+		add_filter( 'wpforms_lite_builder_strings', array( $this, 'js_strings' ) );
 
-		\add_action( 'wpforms_builder_enqueues_before', array( $this, 'enqueues' ) );
+		add_action( 'wpforms_builder_enqueues_before', array( $this, 'enqueues' ) );
 
-		\add_action( 'wpforms_setup_panel_after', array( $this, 'templates' ) );
+		add_action( 'wpforms_setup_panel_after', array( $this, 'templates' ) );
 
-		\add_filter( 'wpforms_builder_fields_buttons', array( $this, 'fields' ), 50 );
+		add_filter( 'wpforms_builder_fields_buttons', array( $this, 'fields' ), 50 );
 
-		\add_action( 'wpforms_builder_after_panel_sidebar', array( $this, 'settings' ), 100, 2 );
+		add_action( 'wpforms_builder_after_panel_sidebar', array( $this, 'settings' ), 100, 2 );
 
-		\add_action( 'wpforms_providers_panel_sidebar', array( $this, 'providers' ), 50 );
+		add_action( 'wpforms_providers_panel_sidebar', array( $this, 'providers' ), 50 );
 
-		\add_action( 'wpforms_payments_panel_sidebar', array( $this, 'payments' ), 50 );
+		add_action( 'wpforms_payments_panel_sidebar', array( $this, 'payments' ), 50 );
+
+		add_action( 'wpforms_builder_settings_notifications_after', array( $this, 'dyk_notifications' ) );
+
+		add_action( 'wpforms_builder_settings_confirmations_after', array( $this, 'dyk_confirmations' ) );
 	}
 
 	/**
@@ -62,10 +69,10 @@ class Education {
 	 */
 	public function js_strings( $strings ) {
 
-		$strings['upgrade_title']   = \esc_html__( 'is a PRO Feature', 'wpforms-lite' );
-		$strings['upgrade_message'] = '<p>' . \esc_html__( 'We\'re sorry, the %name% is not available on your plan. Please upgrade to the PRO plan to unlock all these awesome features.', 'wpforms-lite' ) . '</p>';
+		$strings['upgrade_title']   = esc_html__( 'is a PRO Feature', 'wpforms-lite' );
+		$strings['upgrade_message'] = '<p>' . esc_html__( 'We\'re sorry, the %name% is not available on your plan. Please upgrade to the PRO plan to unlock all these awesome features.', 'wpforms-lite' ) . '</p>';
 		$strings['upgrade_bonus']   = '<p>' .
-			\wp_kses(
+			wp_kses(
 				__( '<strong>Bonus:</strong> WPForms Lite users get <span>50% off</span> regular price, automatically applied at checkout.', 'wpforms-lite' ),
 				array(
 					'strong' => array(),
@@ -73,10 +80,10 @@ class Education {
 				)
 			) .
 		'</p>';
-		$strings['upgrade_doc']     = '<a href="https://wpforms.com/docs/upgrade-wpforms-lite-paid-license/?utm_source=WordPress&amp;utm_medium=link&amp;utm_campaign=liteplugin" target="_blank" rel="noopener noreferrer" class="already-purchased">' . \esc_html__( 'Already purchased?' ) . '</a>';
-		$strings['upgrade_button']  = \esc_html__( 'Upgrade to PRO', 'wpforms-lite' );
-		$strings['upgrade_url']     = \esc_url( \wpforms_admin_upgrade_link( 'builder-modal' ) );
-		$strings['upgrade_modal']   = \wpforms_get_upgrade_modal_text();
+		$strings['upgrade_doc']     = '<a href="https://wpforms.com/docs/upgrade-wpforms-lite-paid-license/?utm_source=WordPress&amp;utm_medium=link&amp;utm_campaign=liteplugin" target="_blank" rel="noopener noreferrer" class="already-purchased">' . esc_html__( 'Already purchased?' ) . '</a>';
+		$strings['upgrade_button']  = esc_html__( 'Upgrade to PRO', 'wpforms-lite' );
+		$strings['upgrade_url']     = esc_url( wpforms_admin_upgrade_link( 'builder-modal' ) );
+		$strings['upgrade_modal']   = wpforms_get_upgrade_modal_text();
 
 		return $strings;
 	}
@@ -88,13 +95,13 @@ class Education {
 	 */
 	public function enqueues() {
 
-		$min = \wpforms_get_min_suffix();
+		$min = wpforms_get_min_suffix();
 
-		\wp_enqueue_script(
+		wp_enqueue_script(
 			'wpforms-builder-education',
-			\WPFORMS_PLUGIN_URL . "lite/assets/js/admin/builder-education{$min}.js",
+			WPFORMS_PLUGIN_URL . "lite/assets/js/admin/builder-education{$min}.js",
 			array( 'jquery', 'jquery-confirm' ),
-			\WPFORMS_VERSION,
+			WPFORMS_VERSION,
 			false
 		);
 	}
@@ -108,33 +115,33 @@ class Education {
 
 		$templates = array(
 			array(
-				'name'        => \esc_html__( 'Request A Quote Form', 'wpforms-lite' ),
+				'name'        => esc_html__( 'Request A Quote Form', 'wpforms-lite' ),
 				'slug'        => 'request-quote',
-				'description' => \esc_html__( 'Start collecting leads with this pre-made Request a quote form. You can add and remove fields as needed.', 'wpforms-lite' ),
+				'description' => esc_html__( 'Start collecting leads with this pre-made Request a quote form. You can add and remove fields as needed.', 'wpforms-lite' ),
 			),
 			array(
-				'name'        => \esc_html__( 'Donation Form', 'wpforms-lite' ),
+				'name'        => esc_html__( 'Donation Form', 'wpforms-lite' ),
 				'slug'        => 'donation',
-				'description' => \esc_html__( 'Start collecting donation payments on your website with this ready-made Donation form. You can add and remove fields as needed.', 'wpforms-lite' ),
+				'description' => esc_html__( 'Start collecting donation payments on your website with this ready-made Donation form. You can add and remove fields as needed.', 'wpforms-lite' ),
 			),
 			array(
-				'name'        => \esc_html__( 'Billing / Order Form', 'wpforms-lite' ),
+				'name'        => esc_html__( 'Billing / Order Form', 'wpforms-lite' ),
 				'slug'        => 'order',
-				'description' => \esc_html__( 'Collect payments for product and service orders with this ready-made form template. You can add and remove fields as needed.', 'wpforms-lite' ),
+				'description' => esc_html__( 'Collect payments for product and service orders with this ready-made form template. You can add and remove fields as needed.', 'wpforms-lite' ),
 			),
 		);
 		?>
 
 		<div class="wpforms-setup-title">
-			<?php \esc_html_e( 'Unlock Pre-Made Form Templates', 'wpforms-lite' ); ?>
-			<a href="<?php echo \esc_url( \wpforms_admin_upgrade_link( 'builder-templates' ) ); ?>" target="_blank" rel="noopener noreferrer"
+			<?php esc_html_e( 'Unlock Pre-Made Form Templates', 'wpforms-lite' ); ?>
+			<a href="<?php echo esc_url( wpforms_admin_upgrade_link( 'builder-templates' ) ); ?>" target="_blank" rel="noopener noreferrer"
 				class="btn-green wpforms-upgrade-link wpforms-upgrade-modal"
 				style="text-transform: uppercase;font-size: 13px;font-weight: 700;padding: 5px 10px;vertical-align: text-bottom;">
-				<?php \esc_html_e( 'Upgrade', 'wpforms-lite' ); ?>
+				<?php esc_html_e( 'Upgrade', 'wpforms-lite' ); ?>
 			</a>
 		</div>
 		<p class="wpforms-setup-desc">
-			<?php \esc_html_e( 'While WPForms Lite allows you to create any type of form, you can speed up the process by unlocking our other pre-built form templates among other features, so you never have to start from scratch again...', 'wpforms-lite' ); ?>
+			<?php esc_html_e( 'While WPForms Lite allows you to create any type of form, you can speed up the process by unlocking our other pre-built form templates among other features, so you never have to start from scratch again...', 'wpforms-lite' ); ?>
 		</p>
 		<div class="wpforms-setup-templates wpforms-clear" style="opacity:0.5;">
 			<?php
@@ -142,13 +149,13 @@ class Education {
 			foreach ( $templates as $template ) {
 				$class = 0 === $x % 3 ? 'first ' : '';
 				?>
-				<div class="wpforms-template upgrade-modal <?php echo \sanitize_html_class( $class ); ?>"
-					id="wpforms-template-<?php echo \sanitize_html_class( $template['slug'] ); ?>">
+				<div class="wpforms-template upgrade-modal <?php echo sanitize_html_class( $class ); ?>"
+					id="wpforms-template-<?php echo sanitize_html_class( $template['slug'] ); ?>">
 					<div class="wpforms-template-name wpforms-clear">
-						<?php echo \esc_html( $template['name'] ); ?>
+						<?php echo esc_html( $template['name'] ); ?>
 					</div>
 					<div class="wpforms-template-details">
-						<p class="desc"><?php echo \esc_html( $template['description'] ); ?></p>
+						<p class="desc"><?php echo esc_html( $template['description'] ); ?></p>
 					</div>
 				</div>
 				<?php
@@ -173,7 +180,7 @@ class Education {
 		// Add reCAPTCHA field to Standard group.
 		$fields['standard']['fields'][] = array(
 			'icon'  => 'fa-google',
-			'name'  => \esc_html__( 'reCAPTCHA', 'wpforms-lite' ),
+			'name'  => esc_html__( 'reCAPTCHA', 'wpforms-lite' ),
 			'type'  => 'recaptcha',
 			'order' => 180,
 			'class' => 'not-draggable',
@@ -182,105 +189,105 @@ class Education {
 		$fields['fancy']['fields'] = array(
 			array(
 				'icon'  => 'fa-phone',
-				'name'  => \esc_html__( 'Phone', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Phone', 'wpforms-lite' ),
 				'type'  => 'phone',
 				'order' => '1',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-map-marker',
-				'name'  => \esc_html__( 'Address', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Address', 'wpforms-lite' ),
 				'type'  => 'address',
 				'order' => '2',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-calendar-o',
-				'name'  => \esc_html__( 'Date / Time', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Date / Time', 'wpforms-lite' ),
 				'type'  => 'date-time',
 				'order' => '3',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-link',
-				'name'  => \esc_html__( 'Website / URL', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Website / URL', 'wpforms-lite' ),
 				'type'  => 'url',
 				'order' => '4',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-upload',
-				'name'  => \esc_html__( 'File Upload', 'wpforms-lite' ),
+				'name'  => esc_html__( 'File Upload', 'wpforms-lite' ),
 				'type'  => 'file-upload',
 				'order' => '5',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-lock',
-				'name'  => \esc_html__( 'Password', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Password', 'wpforms-lite' ),
 				'type'  => 'password',
 				'order' => '6',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-files-o',
-				'name'  => \esc_html__( 'Page Break', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Page Break', 'wpforms-lite' ),
 				'type'  => 'pagebreak',
 				'order' => '7',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-arrows-h',
-				'name'  => \esc_html__( 'Section Divider', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Section Divider', 'wpforms-lite' ),
 				'type'  => 'divider',
 				'order' => '8',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-eye-slash',
-				'name'  => \esc_html__( 'Hidden Field', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Hidden Field', 'wpforms-lite' ),
 				'type'  => 'hidden',
 				'order' => '9',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-code',
-				'name'  => \esc_html__( 'HTML', 'wpforms-lite' ),
+				'name'  => esc_html__( 'HTML', 'wpforms-lite' ),
 				'type'  => 'html',
 				'order' => '10',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-star',
-				'name'  => \esc_html__( 'Rating', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Rating', 'wpforms-lite' ),
 				'type'  => 'rating',
 				'order' => '11',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-question-circle',
-				'name'  => \esc_html__( 'Captcha', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Captcha', 'wpforms-lite' ),
 				'type'  => 'captcha',
 				'order' => '12',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-pencil',
-				'name'  => \esc_html__( 'Signature', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Signature', 'wpforms-lite' ),
 				'type'  => 'signature',
 				'order' => '13',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-ellipsis-h',
-				'name'  => \esc_html__( 'Likert Scale', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Likert Scale', 'wpforms-lite' ),
 				'type'  => 'likert_scale',
 				'order' => '14',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-tachometer',
-				'name'  => \esc_html__( 'Net Promoter Score', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Net Promoter Score', 'wpforms-lite' ),
 				'type'  => 'net_promoter_score',
 				'order' => '15',
 				'class' => 'upgrade-modal',
@@ -290,35 +297,35 @@ class Education {
 		$fields['payment']['fields'] = array(
 			array(
 				'icon'  => 'fa-file-o',
-				'name'  => \esc_html__( 'Single Item', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Single Item', 'wpforms-lite' ),
 				'type'  => 'payment-single',
 				'order' => '1',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-list-ul',
-				'name'  => \esc_html__( 'Multiple Items', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Multiple Items', 'wpforms-lite' ),
 				'type'  => 'payment-multiple',
 				'order' => '2',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-check-square-o',
-				'name'  => \esc_html__( 'Checkbox Items', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Checkbox Items', 'wpforms-lite' ),
 				'type'  => 'payment-checkbox',
 				'order' => '3',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-caret-square-o-down',
-				'name'  => \esc_html__( 'Dropdown Items', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Dropdown Items', 'wpforms-lite' ),
 				'type'  => 'payment-select',
 				'order' => '4',
 				'class' => 'upgrade-modal',
 			),
 			array(
 				'icon'  => 'fa-money',
-				'name'  => \esc_html__( 'Total', 'wpforms-lite' ),
+				'name'  => esc_html__( 'Total', 'wpforms-lite' ),
 				'type'  => 'payment-total',
 				'order' => '5',
 				'class' => 'upgrade-modal',
@@ -410,13 +417,13 @@ class Education {
 		foreach ( $settings as $setting ) {
 
 			/* translators: %s - addon name*/
-			$modal_name = sprintf( \esc_html__( '%s addon', 'wpforms' ), $setting['name'] );
+			$modal_name = sprintf( esc_html__( '%s addon', 'wpforms' ), $setting['name'] );
 			printf(
 				'<a href="#" class="wpforms-panel-sidebar-section wpforms-panel-sidebar-section-%s upgrade-modal" data-name="%s">',
-				\esc_attr( $setting['slug'] ),
-				\esc_attr( $modal_name )
+				esc_attr( $setting['slug'] ),
+				esc_attr( $modal_name )
 			);
-			echo \esc_html( $setting['name'] );
+			echo esc_html( $setting['name'] );
 			echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
 			echo '</a>';
 		}
@@ -475,11 +482,11 @@ class Education {
 		}
 
 		/* translators: %s - addon name*/
-		$modal_name = sprintf( \esc_html__( '%s addon', 'wpforms-lite' ), $addon['name'] );
+		$modal_name = sprintf( esc_html__( '%s addon', 'wpforms-lite' ), $addon['name'] );
 
-		echo '<a href="#" class="wpforms-panel-sidebar-section icon wpforms-panel-sidebar-section-' . \esc_attr( $addon['slug'] ) . ' upgrade-modal" data-name="' . \esc_attr( $modal_name ) . '">';
-		echo '<img src="' . \esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . \esc_attr( $addon['img'] ) . '">';
-		echo \esc_html( $addon['name'] );
+		echo '<a href="#" class="wpforms-panel-sidebar-section icon wpforms-panel-sidebar-section-' . esc_attr( $addon['slug'] ) . ' upgrade-modal" data-name="' . esc_attr( $modal_name ) . '">';
+		echo '<img src="' . esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . esc_attr( $addon['img'] ) . '">';
+		echo esc_html( $addon['name'] );
 		echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
 		echo '</a>';
 	}
@@ -506,7 +513,7 @@ class Education {
 			die( esc_html__( 'No form ID found.', 'wpforms-lite' ) );
 		}
 
-		// Gets an actual form data.
+		// Get an actual form data.
 		$form_id   = absint( $_POST['id'] );
 		$form_data = wpforms()->form->get( $form_id, array( 'content_only' => true ) );
 
@@ -517,23 +524,7 @@ class Education {
 		// Check that recaptcha is configured in the settings.
 		$site_key       = wpforms_setting( 'recaptcha-site-key' );
 		$secret_key     = wpforms_setting( 'recaptcha-secret-key' );
-		$recaptcha_type = wpforms_setting( 'recaptcha-type', 'v2' );
-
-		// Get a recaptcha name.
-		switch ( $recaptcha_type ) {
-			case 'v2':
-				$recaptcha_name = esc_html__( 'Google Checkbox v2 reCAPTCHA', 'wpforms-lite' );
-				break;
-			case 'invisible':
-				$recaptcha_name = esc_html__( 'Google Invisible v2 reCAPTCHA', 'wpforms-lite' );
-				break;
-			case 'v3':
-				$recaptcha_name = esc_html__( 'Google v3 reCAPTCHA', 'wpforms-lite' );
-				break;
-			default:
-				$recaptcha_name = '';
-				break;
-		}
+		$recaptcha_name = $this->get_recaptcha_name();
 
 		if ( empty( $recaptcha_name ) ) {
 			wp_send_json_error( esc_html__( 'Something wrong. Please, try again later.', 'wpforms-lite' ) );
@@ -590,5 +581,146 @@ class Education {
 		}
 
 		wp_send_json_success( $data );
+	}
+
+	/**
+	 * Retrive a reCAPTCHA type name.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @return string
+	 */
+	public function get_recaptcha_name() {
+		$recaptcha_type = wpforms_setting( 'recaptcha-type', 'v2' );
+
+		// Get a recaptcha name.
+		switch ( $recaptcha_type ) {
+			case 'v2':
+				$recaptcha_name = esc_html__( 'Google Checkbox v2 reCAPTCHA', 'wpforms-lite' );
+				break;
+			case 'invisible':
+				$recaptcha_name = esc_html__( 'Google Invisible v2 reCAPTCHA', 'wpforms-lite' );
+				break;
+			case 'v3':
+				$recaptcha_name = esc_html__( 'Google v3 reCAPTCHA', 'wpforms-lite' );
+				break;
+			default:
+				$recaptcha_name = '';
+				break;
+		}
+
+		return $recaptcha_name;
+	}
+
+	/**
+	 * "Did You Know?" Notifications.
+	 *
+	 * @since 1.5.8
+	 */
+	public function dyk_notifications() {
+
+		$this->dyk_display(
+			'notifications',
+			array(
+				'desc' => esc_html__( 'You can have multiple notifications with conditional logic.', 'wpforms-lite' ),
+			)
+		 );
+	}
+
+	/**
+	 * "Did You Know?" Notifications.
+	 *
+	 * @since 1.5.8
+	 */
+	public function dyk_confirmations() {
+
+		$this->dyk_display(
+			'confirmations',
+			array(
+				'desc' => esc_html__( 'You can have multiple confirmations with conditional logic.', 'wpforms-lite' ),
+			)
+		 );
+	}
+
+	/**
+	 * "Did You Know?" display message.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param string $section  Form builder section/area (slug).
+	 * @param array  $settings Notice settings array.
+	 */
+	public function dyk_display( $section, $settings ) {
+
+		$current_user = wp_get_current_user();
+		$dismissed    = get_user_meta( $current_user->ID, 'wpforms_dismissed', true );
+
+		// Check if not dismissed.
+		if ( ! empty( $dismissed[ 'dyk-builder-' . $section ] ) ) {
+			return;
+		}
+
+		$translations = array(
+			'upgrade_to_pro' => __( 'Upgrade to Pro.', 'wpforms' ),
+			'dissmiss_title' => __( 'Dissmiss this message.', 'wpforms' ),
+			'did_you_know'   => __( 'Did You Know?', 'wpforms' ),
+			'learn_more'     => __( 'Learn More', 'wpforms' ),
+		);
+
+		$learn_more = ( ! empty( $settings['more'] ) ) ? '<a href="' . esc_url( $settings['more'] ) . '" class="learn-more">' . esc_html( $translations['learn_more'] ) . '</a>' : '';
+
+		printf(
+			'<section class="wpforms-dyk">
+				<div class="wpforms-dyk-fbox">
+					<div class="wpforms-dyk-message"><b>%s</b><br>%s</div>
+					<div class="wpforms-dyk-buttons">
+						%s
+						<a href="%s" target="_blank" rel="noopener noreferrer" class="wpforms-btn wpforms-btn-md wpforms-btn-light-grey">%s</a>
+						<button type="button" class="dismiss" title="%s" data-section="%s"/>
+					</div>
+				</div>
+			</section>',
+			esc_html( $translations['did_you_know'] ),
+			esc_html( $settings['desc'] ),
+			$learn_more,  // phpcs:ignore
+			esc_url( wpforms_admin_upgrade_link( 'Form Builder DYK', ucfirst( $section ) ) ),
+			esc_html( $translations['upgrade_to_pro'] ),
+			esc_attr( $translations['dissmiss_title'] ),
+			esc_attr( $section )
+		);
+	}
+
+	/**
+	 * Ajax handler for dissmissing DYK notices.
+	 *
+	 * @since 1.5.8
+	 */
+	public function dyk_ajax_dismiss() {
+
+		// Run a security check.
+		check_ajax_referer( 'wpforms-builder', 'nonce' );
+
+		// Check for permissions.
+		if ( ! wpforms_current_user_can() ) {
+			wp_send_json_error(
+				array(
+					'error' => esc_html__( 'You do not have permission to perform this action.', 'wpforms-lite' ),
+				)
+			);
+		}
+
+		$current_user = wp_get_current_user();
+		$dismissed    = get_user_meta( $current_user->ID, 'wpforms_dismissed', true );
+
+		if ( empty( $dismissed ) ) {
+			$dismissed = array();
+		}
+
+		$section = ! empty( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
+
+		$dismissed[ 'dyk-builder-' . $section ] = time();
+
+		update_user_meta( $current_user->ID, 'wpforms_dismissed', $dismissed );
+		wp_send_json_success();
 	}
 }

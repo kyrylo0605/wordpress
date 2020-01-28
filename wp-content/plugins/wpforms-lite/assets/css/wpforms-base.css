@@ -990,3 +990,13 @@ div.wpforms-gutenberg-form-selector .wpforms-form select:disabled,
 div.wpforms-gutenberg-form-selector .wpforms-form button[type=submit]:disabled {
 	cursor: not-allowed;
 }
+
+/* RTL support
+----------------------------------------------------------------------------- */
+
+/* Phone US format */
+body.rtl .wpforms-field-phone input[type=tel] {
+	direction: ltr;
+	unicode-bidi: embed;
+	text-align: right;
+}

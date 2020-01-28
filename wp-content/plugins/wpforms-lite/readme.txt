@@ -3,7 +3,7 @@ Contributors: wpforms, jaredatch, smub, slaFFik
 Tags: contact form, contact form plugin, forms, form builder, custom form, contact button, contact me, custom contact form, form manager, form, forms builder, forms creator, captcha, recaptcha, Akismet, email form, web form, feedback form, payment form, survey form, donation form, email submit form, message form, mailchimp, mailchimp form, aweber, aweber form, paypal, paypal form, stripe, stripe form, getresponse, getresponse form, email subscription, contact form widget, user registration form, wordpress registration, wordpress login form, feedback
 Requires at least: 4.9
 Tested up to: 5.3
-Stable tag: 1.5.7
+Stable tag: 1.5.8.2
 Requires PHP: 5.4
 License: GNU General Public License v2.0 or later
 
@@ -400,6 +400,30 @@ Thank you
 Syed Balkhi
 
 == Changelog ==
+
+= 1.5.8.2 =
+- Fixed: Can't add new line in textareas in the form builder (Notifications > Message etc).
+- Fixed: Choices editing block inside the form builder is hidden if creating a form using a template.
+
+= 1.5.8.1 =
+- Fixed: "Invalid form" error on form submit if AJAX form submissions is enabled and user is not logged in.
+
+= 1.5.8 =
+- Changed: Sullie logo in the Form Builder got his left hand back.
+- Changed: Hide image choices options if dynamic choices is enabled.
+- Changed: Adjusted Number field input to improve consistency across different browsers/devices.
+- Changed: Improve Block detection to load CSS styles earlier.
+- Changed: Open New Provider Connection modal after account has been added.
+- Changed: Improve the way Lite and Pro versions of the plugin activation handled.
+- Changed: Remove the unnecessary "Required" setting from a Number Slider field.
+- Fixed: Number slider incorrect label display in the form Builder preview panel.
+- Fixed: Quick links menu generating browser console error on Survey Print results page.
+- Fixed: Required validation message isn't removed immediately on choices selection.
+- Fixed: Form Builder styles compatibility with the new WordPress 5.3 styles.
+- Fixed: Correctly process Enter key press in Smart phone field when Enter is used to submit a form.
+- Fixed: Remove not-needed GET params from URL in Builder when a new form created to prevent race conditions with certain providers loading logic.
+- Fixed: Properly scroll in all major browsers to a faulty field in a form, including multi-page forms.
+- Fixed: Textarea character limit check returns an error if the content pasted is too large and contains '\r\n' line breaks.
 
 = 1.5.7 =
 - Added: Number Slider field.

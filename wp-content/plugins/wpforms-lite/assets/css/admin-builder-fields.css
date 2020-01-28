@@ -236,9 +236,6 @@ Admin Form Builder - Fields panel
 #wpforms-panel-fields .wpforms-field-option-row input[type=number],
 #wpforms-panel-fields .wpforms-field-option-row textarea {
 	width: 99%;
-	border: 1px solid #d6d6d6;
-	padding: 6px 8px;
-	box-shadow: none;
 }
 
 #wpforms-panel-fields .wpforms-field-option-row input[type=number] {
@@ -730,7 +727,7 @@ Admin Form Builder - Fields panel
 	background-color: #fff;
 	box-shadow: none;
 	border: 1px solid #ccc;
-	padding: 6px;
+	padding: 6px 24px 6px 6px;
 	height: 38px;
 	font-size: 16px;
 	line-height: 1.3;

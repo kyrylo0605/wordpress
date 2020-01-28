@@ -457,21 +457,28 @@ function backupGuardDownloadFile($file, $type = 'application/octet-stream')
 
 function backupGuardDownloadViaPhp($backupName, $fileName)
 {
-	$content = file_get_contents(SG_BACKUP_DIRECTORY_URL.$backupName.'/'.$fileName);
-	header('Pragma: public');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	header('Cache-Control: private', false);
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename='.$fileName.';');
-	header('Content-Transfer-Encoding: binary');
-	echo $content;
-	exit;
+	$str = backupGuardMakeSymlinkFolder($fileName);
+	@copy(SG_BACKUP_DIRECTORY.$backupName.'/'.$fileName, SG_SYMLINK_PATH.$str.'/'.$fileName);
+
+	if (file_exists(SG_SYMLINK_PATH.$str.'/'.$fileName)) {
+		$remoteGet = wp_remote_get(SG_SYMLINK_URL.$str.'/'.$fileName);
+		if (!is_wp_error($remoteGet)) {
+			$content = wp_remote_retrieve_body($remoteGet);
+			header('Pragma: public');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Cache-Control: private', false);
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename='.$fileName.';');
+			header('Content-Transfer-Encoding: binary');
+			echo $content;
+			exit;
+		}
+	}
 }
 
-function backupGuardDownloadFileSymlink($safedir, $filename)
+function backupGuardMakeSymlinkFolder($filename)
 {
-	$safedir  = backupGuardRemoveSlashes($safedir);
 	$filename = backupGuardRemoveSlashes($filename);
 
 	$downloaddir = SG_SYMLINK_PATH;
@@ -486,8 +493,8 @@ function backupGuardDownloadFileSymlink($safedir, $filename)
 	$string = '';
 
 	for ($i = 1; $i <= rand(4,12); $i++) {
-	   $q = rand(1,24);
-	   $string = $string.$letters[$q];
+		$q = rand(1,24);
+		$string = $string.$letters[$q];
 	}
 
 	$handle = opendir($downloaddir);
@@ -503,8 +510,19 @@ function backupGuardDownloadFileSymlink($safedir, $filename)
 	}
 
 	closedir($handle);
-
 	mkdir($downloaddir . $string, 0777);
+
+	return $string;
+}
+
+function backupGuardDownloadFileSymlink($safedir, $filename)
+{
+	$downloaddir = SG_SYMLINK_PATH;
+	$downloadURL = SG_SYMLINK_URL;
+
+	$safedir  = backupGuardRemoveSlashes($safedir);
+	$string = backupGuardMakeSymlinkFolder($filename);
+
 	$res = @symlink($safedir . $filename, $downloaddir . $string . "/" . $filename);
 	if ($res) {
 		header('Content-Description: File Transfer');

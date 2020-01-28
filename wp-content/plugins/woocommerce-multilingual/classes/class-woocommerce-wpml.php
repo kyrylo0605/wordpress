@@ -91,7 +91,8 @@ class woocommerce_wpml {
 
 		if ( defined( 'ICL_SITEPRESS_VERSION' ) && ! ICL_PLUGIN_INACTIVE && class_exists( 'SitePress' ) ) {
 			$this->cs_properties = new WCML_Currency_Switcher_Properties();
-			$this->cs_templates  = new WCML_Currency_Switcher_Templates( $this, $sitepress->get_wp_api() );
+			$wpml_wp_api = $sitepress->get_wp_api();
+			$this->cs_templates  = new WCML_Currency_Switcher_Templates( $this, $wpml_wp_api, new WPML_File( $wpml_wp_api ) );
 			$this->cs_templates->init_hooks();
 
 			$wc_shortccode_product_category = new WCML_WC_Shortcode_Product_Category( $sitepress );
@@ -148,13 +149,16 @@ class woocommerce_wpml {
 		WCML_Admin_Menus::set_up_menus( $this, $sitepress, $wpdb );
 
 		if ( ! $this->dependencies_are_ok ) {
-			WCML_Capabilities::set_up_capabilities();
+			$is_dashboard_page = isset( $_GET['page'] ) && 'wpml-wcml' === $_GET['page'];
+			if( is_admin() && $is_dashboard_page ){
+				WCML_Capabilities::set_up_capabilities();
 
-			wp_register_style( 'otgs-ico', WCML_PLUGIN_URL . '/res/css/otgs-ico.css', null, WCML_VERSION );
-			wp_enqueue_style( 'otgs-ico' );
+				wp_register_style( 'otgs-ico', WCML_PLUGIN_URL . '/res/css/otgs-ico.css', null, WCML_VERSION );
+				wp_enqueue_style( 'otgs-ico' );
 
-			WCML_Resources::load_management_css();
-			WCML_Resources::load_tooltip_resources();
+				WCML_Resources::load_management_css();
+				WCML_Resources::load_tooltip_resources();
+			}
 			return false;
 		}
 
@@ -217,16 +221,17 @@ class woocommerce_wpml {
 		$this->products->add_hooks();
 		$this->store = new WCML_Store_Pages( $this, $sitepress );
 		$this->store->add_hooks();
-		$this->strings = new WCML_WC_Strings( $this, $sitepress );
+		$this->strings = new WCML_WC_Strings( $this, $sitepress, $wpdb );
 		$this->strings->add_hooks();
-		$this->emails = new WCML_Emails( $this->strings, $sitepress, WC_Emails::instance(), $wpdb );
+		//do not pass mailer instance instead of $woocommerce
+		$this->emails = new WCML_Emails( $this->strings, $sitepress, $woocommerce, $wpdb );
 		$this->emails->add_hooks();
 		$this->terms = new WCML_Terms( $this, $sitepress, $wpdb );
 		$this->terms->add_hooks();
 		$this->attributes = new WCML_Attributes( $this, $sitepress, $wpml_post_translations, $wpml_term_translations, $wpdb );
 		$this->attributes->add_hooks();
 		$this->orders   = new WCML_Orders( $this, $sitepress );
-		$this->shipping = new WCML_WC_Shipping( $sitepress );
+		$this->shipping = new WCML_WC_Shipping( $sitepress, $this->strings );
 		$this->shipping->add_hooks();
 		$this->gateways = new WCML_WC_Gateways( $this, $sitepress );
 		$this->gateways->add_hooks();

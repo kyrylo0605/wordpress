@@ -6,6 +6,7 @@ require_once(SG_LIB_PATH.'SGArchive.php');
 if(backupGuardIsAjax() && count($_POST)) {
 	try {
 		$name = $_POST['bname'];
+		$name = backupGuardRemoveSlashes($name);
 		$path = SG_BACKUP_DIRECTORY.$name.'/'.$name.'.sgbp';
 
 		$sgArchive = new SGArchive($path, 'r');

@@ -27,6 +27,7 @@ jQuery("#bg-skip-and-deactivate").on("click", function () {
 	};
 
 	jQuery.post(ajaxurl, data, function(response) {
+	}).always(function() {
 		window.location.replace(deactivationUrl);
 	});
 });

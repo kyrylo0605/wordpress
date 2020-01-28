@@ -852,7 +852,7 @@ class WCML_Bookings {
 			'_resource_block_costs'
 		) ) ) {
 
-			if ( $this->woocommerce_wpml->settings['enable_multi_currency'] == WCML_MULTI_CURRENCIES_INDEPENDENT ) {
+			if ( WCML_MULTI_CURRENCIES_INDEPENDENT === $this->woocommerce_wpml->settings['enable_multi_currency'] ) {
 
 				$original_id = $this->woocommerce_wpml->products->get_original_product_id( $object_id );
 
@@ -1149,7 +1149,7 @@ class WCML_Bookings {
 		return $actions;
 	}
 
-	function filter_bundled_product_in_cart_contents( $cart_item, $key, $current_language ) {
+	public function filter_bundled_product_in_cart_contents( $cart_item, $key, $current_language ) {
 
 		if ( $cart_item['data'] instanceof WC_Product_Booking && isset( $cart_item['booking'] ) ) {
 
@@ -1190,9 +1190,10 @@ class WCML_Bookings {
 					$booking_info['wc_bookings_field_start_date_time'] = $cart_item['booking']['_time'];
 				}
 
-				$booking_form = new WC_Booking_Form( wc_get_product( $current_id ) );
+				$current_product = wc_get_product( $current_id );
 
-				$cost = $booking_form->calculate_booking_cost( $booking_info );
+				$cost = $this->get_booking_cost( $booking_info, $current_product );
+
 				if ( ! is_wp_error( $cost ) ) {
 					$cart_item['data']->set_price( $cost );
 				}
@@ -1201,6 +1202,17 @@ class WCML_Bookings {
 		}
 
 		return $cart_item;
+	}
+
+	private function get_booking_cost( $booking_info, $current_product ) {
+		if ( class_exists( 'WC_Bookings_Cost_Calculation' ) ) {
+			$cost = WC_Bookings_Cost_Calculation::calculate_booking_cost( wc_bookings_get_posted_data( $booking_info, $current_product ), $current_product );
+		} else {
+			$booking_form = new WC_Booking_Form( $current_product );
+			$cost         = $booking_form->calculate_booking_cost( $booking_info );
+		}
+
+		return $cost;
 	}
 
 	function booking_currency_dropdown() {
@@ -1881,9 +1893,8 @@ class WCML_Bookings {
 
 	}
 
-	function append_persons_to_translation_package( $package, $post ) {
-
-		if ( $post->post_type == 'product' ) {
+	public function append_persons_to_translation_package( $package, $post ) {
+		if ( 'product' === $post->post_type ) {
 			if ( $this->is_booking( $post->ID ) ) {
 
 				$bookable_product = new WC_Product_Booking( $post->ID );
@@ -1913,7 +1924,6 @@ class WCML_Bookings {
 		}
 
 		return $package;
-
 	}
 
 	function save_person_translation( $post_id, $data, $job ) {
@@ -2589,10 +2599,10 @@ class WCML_Bookings {
 	 *
 	 * @return bool
 	 */
-	private function is_booking( $product ){
-	    if( !$product instanceof WC_Product ){
-		    $product = wc_get_product( $product );
-        }
+	private function is_booking( $product ) {
+		if ( ! $product instanceof WC_Product ) {
+			$product = wc_get_product( $product );
+		}
 
 		return $product ? $product->get_type() === 'booking' : false;
 	}

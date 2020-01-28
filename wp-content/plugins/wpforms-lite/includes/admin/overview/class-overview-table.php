@@ -3,11 +3,7 @@
 /**
  * Generates the table on the plugin overview page.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Overview_Table extends WP_List_Table {
 
@@ -129,96 +125,176 @@ class WPForms_Overview_Table extends WP_List_Table {
 	 */
 	public function column_form_name( $form ) {
 
-		// Prepare variables.
-		$name = ! empty( $form->post_title ) ? $form->post_title : $form->post_name;
-		$name = sprintf(
-			'<a class="row-title" href="%s" title="%s"><strong>%s</strong></a>',
-			add_query_arg(
-				array(
-					'view'    => 'fields',
-					'form_id' => $form->ID,
-				),
-				admin_url( 'admin.php?page=wpforms-builder' )
-			),
-			esc_html__( 'Edit This Form', 'wpforms-lite' ),
-			$name
+		// Build the row action links and return the value.
+		return $this->get_column_form_name_title( $form ) . $this->get_column_form_name_row_actions( $form );
+	}
+
+	/**
+	 * Get the form name HTML for the form name column.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param WP_Post $form Form object.
+	 *
+	 * @return string
+	 */
+	protected function get_column_form_name_title( $form ) {
+
+		$title = ! empty( $form->post_title ) ? $form->post_title : $form->post_name;
+		$name  = sprintf(
+			'<span><strong>%s</strong></span>',
+			esc_html( $title )
 		);
+
+		if ( wpforms_current_user_can( 'view_form_single', $form->ID ) ) {
+			$name = sprintf(
+				'<a href="%s" title="%s" class="row-title" target="_blank" rel="noopener noreferrer"><strong>%s</strong></a>',
+				esc_url( wpforms_get_form_preview_url( $form->ID ) ),
+				esc_attr__( 'View preview', 'wpforms-lite' ),
+				esc_html( $title )
+			);
+		}
+
+		if ( wpforms_current_user_can( 'view_entries_form_single', $form->ID ) ) {
+			$name = sprintf(
+				'<a href="%s" title="%s"><strong>%s</strong></a>',
+				esc_url(
+					add_query_arg(
+						array(
+							'view'    => 'list',
+							'form_id' => $form->ID,
+						),
+						admin_url( 'admin.php?page=wpforms-entries' )
+					)
+				),
+				esc_attr__( 'View entries', 'wpforms-lite' ),
+				esc_html( $title )
+			);
+		}
+
+		if ( wpforms_current_user_can( 'edit_form_single', $form->ID ) ) {
+			$name = sprintf(
+				'<a href="%s" title="%s"><strong>%s</strong></a>',
+				esc_url(
+					add_query_arg(
+						array(
+							'view'    => 'fields',
+							'form_id' => $form->ID,
+						),
+						admin_url( 'admin.php?page=wpforms-builder' )
+					)
+				),
+				esc_attr__( 'Edit This Form', 'wpforms-lite' ),
+				esc_html( $title )
+			);
+		}
+
+		return $name;
+	}
+
+	/**
+	 * Get the row actions HTML for the form name column.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param WP_Post $form Form object.
+	 *
+	 * @return string
+	 */
+	protected function get_column_form_name_row_actions( $form ) {
 
 		// Build all of the row action links.
 		$row_actions = array();
 
 		// Edit.
-		$row_actions['edit'] = sprintf(
-			'<a href="%s" title="%s">%s</a>',
-			add_query_arg(
-				array(
-					'view'    => 'fields',
-					'form_id' => $form->ID,
+		if ( wpforms_current_user_can( 'edit_form_single', $form->ID ) ) {
+			$row_actions['edit'] = sprintf(
+				'<a href="%s" title="%s">%s</a>',
+				esc_url(
+					add_query_arg(
+						array(
+							'view'    => 'fields',
+							'form_id' => $form->ID,
+						),
+						admin_url( 'admin.php?page=wpforms-builder' )
+					)
 				),
-				admin_url( 'admin.php?page=wpforms-builder' )
-			),
-			esc_html__( 'Edit This Form', 'wpforms-lite' ),
-			esc_html__( 'Edit', 'wpforms-lite' )
-		);
+				esc_attr__( 'Edit This Form', 'wpforms-lite' ),
+				esc_html__( 'Edit', 'wpforms-lite' )
+			);
+		}
 
 		// Entries.
-		$row_actions['entries'] = sprintf(
-			'<a href="%s" title="%s">%s</a>',
-			add_query_arg(
-				array(
-					'view'    => 'list',
-					'form_id' => $form->ID,
+		if ( wpforms_current_user_can( 'view_entries_form_single', $form->ID ) ) {
+			$row_actions['entries'] = sprintf(
+				'<a href="%s" title="%s">%s</a>',
+				esc_url(
+					add_query_arg(
+						array(
+							'view'    => 'list',
+							'form_id' => $form->ID,
+						),
+						admin_url( 'admin.php?page=wpforms-entries' )
+					)
 				),
-				admin_url( 'admin.php?page=wpforms-entries' )
-			),
-			esc_html__( 'View entries', 'wpforms-lite' ),
-			esc_html__( 'Entries', 'wpforms-lite' )
-		);
+				esc_attr__( 'View entries', 'wpforms-lite' ),
+				esc_html__( 'Entries', 'wpforms-lite' )
+			);
+		}
 
 		// Preview.
-		$row_actions['preview_'] = sprintf(
-			'<a href="%s" title="%s" target="_blank" rel="noopener noreferrer">%s</a>',
-			esc_url( wpforms_get_form_preview_url( $form->ID ) ),
-			esc_html__( 'View preview', 'wpforms-lite' ),
-			esc_html__( 'Preview', 'wpforms-lite' )
-		);
+		if ( wpforms_current_user_can( 'view_form_single', $form->ID ) ) {
+			$row_actions['preview_'] = sprintf(
+				'<a href="%s" title="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+				esc_url( wpforms_get_form_preview_url( $form->ID ) ),
+				esc_attr__( 'View preview', 'wpforms-lite' ),
+				esc_html__( 'Preview', 'wpforms-lite' )
+			);
+		}
 
 		// Duplicate.
-		$row_actions['duplicate'] = sprintf(
-			'<a href="%s" title="%s">%s</a>',
-			wp_nonce_url(
-				add_query_arg(
-					array(
-						'action'  => 'duplicate',
-						'form_id' => $form->ID,
-					),
-					admin_url( 'admin.php?page=wpforms-overview' )
+		if ( wpforms_current_user_can( 'create_forms' ) && wpforms_current_user_can( 'view_form_single', $form->ID ) ) {
+			$row_actions['duplicate'] = sprintf(
+				'<a href="%s" title="%s">%s</a>',
+				esc_url(
+					wp_nonce_url(
+						add_query_arg(
+							array(
+								'action'  => 'duplicate',
+								'form_id' => $form->ID,
+							),
+							admin_url( 'admin.php?page=wpforms-overview' )
+						),
+						'wpforms_duplicate_form_nonce'
+					)
 				),
-				'wpforms_duplicate_form_nonce'
-			),
-			esc_html__( 'Duplicate this form', 'wpforms-lite' ),
-			esc_html__( 'Duplicate', 'wpforms-lite' )
-		);
+				esc_attr__( 'Duplicate this form', 'wpforms-lite' ),
+				esc_html__( 'Duplicate', 'wpforms-lite' )
+			);
+		}
 
 		// Delete.
-		$row_actions['delete'] = sprintf(
-			'<a href="%s" title="%s">%s</a>',
-			wp_nonce_url(
-				add_query_arg(
-					array(
-						'action'  => 'delete',
-						'form_id' => $form->ID,
-					),
-					admin_url( 'admin.php?page=wpforms-overview' )
+		if ( wpforms_current_user_can( 'delete_form_single', $form->ID ) ) {
+			$row_actions['delete'] = sprintf(
+				'<a href="%s" title="%s">%s</a>',
+				esc_url(
+					wp_nonce_url(
+						add_query_arg(
+							array(
+								'action'  => 'delete',
+								'form_id' => $form->ID,
+							),
+							admin_url( 'admin.php?page=wpforms-overview' )
+						),
+						'wpforms_delete_form_nonce'
+					)
 				),
-				'wpforms_delete_form_nonce'
-			),
-			esc_html__( 'Delete this form', 'wpforms-lite' ),
-			esc_html__( 'Delete', 'wpforms-lite' )
-		);
+				esc_attr__( 'Delete this form', 'wpforms-lite' ),
+				esc_html__( 'Delete', 'wpforms-lite' )
+			);
+		}
 
-		// Build the row action links and return the value.
-		return $name . $this->row_actions( apply_filters( 'wpforms_overview_row_actions', $row_actions, $form ) );
+		return $this->row_actions( apply_filters( 'wpforms_overview_row_actions', $row_actions, $form ) );
 	}
 
 	/**
@@ -230,9 +306,13 @@ class WPForms_Overview_Table extends WP_List_Table {
 	 */
 	public function get_bulk_actions() {
 
-		$actions = array(
-			'delete' => esc_html__( 'Delete', 'wpforms-lite' ),
-		);
+		$actions = array();
+
+		if ( wpforms_current_user_can( 'delete_entries' ) ) {
+			$actions = array(
+				'delete' => esc_html__( 'Delete', 'wpforms-lite' ),
+			);
+		}
 
 		return $actions;
 	}
@@ -285,14 +365,18 @@ class WPForms_Overview_Table extends WP_List_Table {
 		$order    = isset( $_GET['order'] ) ? $_GET['order'] : 'DESC';
 		$orderby  = isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'ID';
 		$per_page = $this->get_items_per_page( 'wpforms_forms_per_page', $this->per_page );
-		$data     = wpforms()->form->get( '', array(
+
+		$args = array(
 			'orderby'        => $orderby,
 			'order'          => $order,
 			'nopaging'       => false,
 			'posts_per_page' => $per_page,
 			'paged'          => $page,
 			'no_found_rows'  => false,
-		) );
+			'post_status'    => 'publish',
+		);
+
+		$data = wpforms()->form->get( '', $args );
 
 		// Giddy up.
 		$this->items = $data;

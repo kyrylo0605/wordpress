@@ -8,11 +8,7 @@
  * Heavily influenced by the great AffiliateWP plugin by Pippin Williamson.
  * https://github.com/AffiliateWP/AffiliateWP/blob/master/includes/emails/class-affwp-emails.php
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.1.3
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.1.3
  */
 class WPForms_WP_Emails {
 
@@ -439,7 +435,7 @@ class WPForms_WP_Emails {
 	}
 
 	/**
-	 * Processes a smart tag.
+	 * Process a smart tag.
 	 *
 	 * @since 1.1.3
 	 *
@@ -662,7 +658,7 @@ class WPForms_WP_Emails {
 	/**
 	 * Retrieve the name of the highest priority template file that exists.
 	 *
-	 * Searches in the STYLESHEETPATH before TEMPLATEPATH so that themes which
+	 * Search in the STYLESHEETPATH before TEMPLATEPATH so that themes which
 	 * inherit from a parent theme can just overload one file. If the template is
 	 * not found in either of those, it looks in the theme-compat folder last.
 	 *
@@ -710,7 +706,7 @@ class WPForms_WP_Emails {
 	}
 
 	/**
-	 * Returns a list of paths to check for template locations
+	 * Return a list of paths to check for template locations
 	 *
 	 * @since 1.1.3
 	 *

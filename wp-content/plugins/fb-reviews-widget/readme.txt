@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.3
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,18 +18,20 @@ This plugin uses the Facebook Graph API and requires an admin rights to the FB p
 
 Why better to use <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin">Business version</a> of the plugin
 
-[youtube https://www.youtube.com/watch?v=o0HV-bJ6_qE]
+[youtube https://www.youtube.com/watch?v=TEqz4RDr7EI]
 
-[Online demo](http://demo.richplugins.com/)
+[Online demo](https://richplugins.com/demos)
 
 = Plugin Features =
 
 * Free!
 * SEO
 * Shortcode support!
+* Auto refresh reviews
+* Display ALL Facebook reviews
+* Shows "Based on ... reviews" section
 * Trim long reviews with "read more" link
-* Support page builders: Elementor, SiteOrigin, Beaver Builder, WPBakery, Divi and others
-* Display all Facebook page reviews per location
+* Support page builders: Gutenberg, Elementor, SiteOrigin, Beaver Builder, WPBakery, Divi
 * Shows real reviews from Facebook users to increase user confidence
 * Easy get of Facebook pages and instantly show reviews
 * Review list theme
@@ -73,9 +75,17 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 == Screenshots ==
 
 1. Facebook Reviews widget
-2. Facebook Reviews sidebar
+2. Facebook Reviews shortcode
+3. Facebook Reviews shortcode builder
+4. Facebook Reviews sidebar widget
 
 == Changelog ==
+
+= 1.6.7 =
+* Improve: added new locale sk_SK
+* Improve: added new locale de_AT
+* Improve: update installation video, readme and screenshots
+* Bugfix: Yoast XML plugin makes 'Class not found' error
 
 = 1.6.6 =
 * Improve: added 'Based on ... reviews' feature

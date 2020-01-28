@@ -10,6 +10,7 @@
             $downloadType == SG_BACKUP_DOWNLOAD_TYPE_SGBP)
         {
             $backupName = $_GET['backupName'];
+            $backupName = backupGuardRemoveSlashes($backupName);
             try
             {
                 SGBackup::download($backupName, $downloadType);

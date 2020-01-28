@@ -54,16 +54,17 @@ class WCML_Terms{
 
 			add_filter( 'pre_option_default_product_cat', array( $this, 'pre_option_default_product_cat' ) );
 			add_filter( 'update_option_default_product_cat', array( $this, 'update_option_default_product_cat' ), 1, 2 );
-		}else{
-			add_action( 'update_term_meta', array( $this, 'update_category_count_meta' ), 10, 4 );
 		}
 
+		add_action( 'update_term_meta', array( $this, 'update_category_count_meta' ), 10, 4 );
 		add_action( 'delete_term', array( $this, 'wcml_delete_term' ), 10, 4 );
 		add_filter( 'get_the_terms', array( $this, 'shipping_terms' ), 10, 3 );
 		add_filter( 'get_terms', array( $this, 'filter_shipping_classes_terms' ), 10, 3 );
 
 		add_filter( 'woocommerce_get_product_terms', array( $this, 'get_product_terms_filter' ), 10, 4 );
 		add_action( 'created_term_translation', array( $this, 'set_flag_to_sync' ), 10, 3 );
+
+		add_filter( 'woocommerce_get_product_subcategories_cache_key', array( $this, 'add_lang_parameter_to_cache_key' ) );
 	}
     
     function admin_menu_setup(){
@@ -1011,6 +1012,15 @@ class WCML_Terms{
 
 			add_action( 'update_term_meta', array( $this, 'update_category_count_meta' ), 10, 4 );
 		}
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	public function add_lang_parameter_to_cache_key( $key ){
+		return $key.'-'.$this->sitepress->get_current_language();
 	}
 
 }

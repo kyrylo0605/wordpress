@@ -596,7 +596,7 @@ div.wpforms-container-full .wpforms-form .wpforms-error-alert {
 .wpforms-confirmation-container-full,
 div[submit-success] > .wpforms-confirmation-container-full {
 	color: #333;
-	margin: 0 0 24px 0;
+	margin: 0 auto 24px;
 	padding: 15px 15px;
 }
 
@@ -1476,24 +1476,12 @@ div.wpforms-container-full .wpforms-form .wpforms-limit-text{
 
 	/* Page indicator */
 	div.wpforms-container-full .wpforms-form .wpforms-page-indicator.circles .wpforms-page-indicator-page {
-		float: none;
-		display: block;
-		margin: 0 0 10px 0;
+		margin: 0 10px 0 0;
 	}
 	div.wpforms-container-full .wpforms-form .wpforms-page-indicator.circles .wpforms-page-indicator-page-number {
 		width: 30px;
 		height: 30px;
 		line-height: 30px;
-	}
-	div.wpforms-container-full .wpforms-form .wpforms-page-indicator.connector .wpforms-page-indicator-page {
-		width: 100% !important;
-		padding: 5px 10px;
-	}
-	div.wpforms-container-full .wpforms-form .wpforms-page-indicator.connector .wpforms-page-indicator-page.active {
-		font-weight: 700;
-	}
-	div.wpforms-container-full .wpforms-form .wpforms-page-indicator.connector .wpforms-page-indicator-page-number {
-		display: none;
 	}
 
 	/* Date-Time field */
@@ -1554,4 +1542,14 @@ div.components-panel__body .wpforms-gutenberg-panel-notice {
 	border: 1px solid #bce8f1;
 	color: #31708f;
 	padding: 10px;
+}
+
+/* RTL support
+----------------------------------------------------------------------------- */
+
+/* Phone US format */
+body.rtl .wpforms-field-phone input[type=tel] {
+	direction: ltr;
+	unicode-bidi: embed;
+	text-align: right;
 }

@@ -94,21 +94,21 @@ class WPForms_Field_Number_Slider extends WPForms_Field {
 		$this->field_option( 'basic-options', $field, $args );
 
 		// Label.
-		$this->field_option(
-			'label',
-			array_merge(
-				$field,
-				array(
-					'label' => $this->name,
-				)
-			)
-		);
+		$this->field_option( 'label', $field );
 
 		// Description.
 		$this->field_option( 'description', $field );
 
-		// Required toggle.
-		$this->field_option( 'required', $field );
+		// Required toggle disabled.
+		$this->field_element(
+			'text',
+			$field,
+			array(
+				'slug'  => 'required',
+				'value' => '',
+				'type'  => 'hidden',
+			)
+		);
 
 		// Value: min/max.
 		$lbl = $this->field_element(
@@ -313,15 +313,7 @@ class WPForms_Field_Number_Slider extends WPForms_Field {
 	public function field_preview( $field ) {
 
 		// Label.
-		$this->field_preview_option(
-			'label',
-			array_merge(
-				$field,
-				array(
-					'label' => $this->name,
-				)
-			)
-		);
+		$this->field_preview_option( 'label', $field );
 
 		$value_display = isset( $field['value_display'] ) ? esc_attr( $field['value_display'] ) : esc_html__( 'Selected Value: {value}', 'wpforms-lite' );
 		$default_value = ! empty( $field['default_value'] ) ? (float) $field['default_value'] : 0;

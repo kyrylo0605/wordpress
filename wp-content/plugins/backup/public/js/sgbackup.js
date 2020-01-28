@@ -459,6 +459,10 @@ sgBackup.downloadFromPC =  function(){
 		dataType: 'json',
 		maxChunkSize: 2000000,
 		add: function (e, data) {
+			if (data.originalFiles.length) {
+				var fileName = data.originalFiles[0].name;
+				jQuery('#sg-import-file-name').val(fileName);
+			}
 			jQuery('#uploadSgbpFile').click(function(){
 				if(jQuery('#modal-import-2').is(":visible")) {
 					sgData = data;

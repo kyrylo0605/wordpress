@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 5.3
-Stable tag: 1.90
+Stable tag: 1.92
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,20 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 1.92 =
+* Update - Flatsome theme support
+* Update - Taxonomies search query
+* Fix - Bug with exclude filter for taxonomies search
+* Add - aws_search_tax_exclude filter
+
+= 1.91 =
+* Add - aws_terms_search_query filter
+* Add - aws_search_terms_description filter
+* Add - Support for Elementor pop-up templates
+* Fix - taxonomies search with special characters bug
+* Fix - bug with search results page cache
+* Update - aws_searchbox_markup filter new parameter
 
 = 1.90 =
 * Update - Search query fix

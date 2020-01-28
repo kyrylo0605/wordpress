@@ -3,11 +3,7 @@
 /**
  * Primary overview page inside the admin which lists all forms.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Overview {
 
@@ -20,6 +16,10 @@ class WPForms_Overview {
 
 		// Maybe load overview page.
 		add_action( 'admin_init', array( $this, 'init' ) );
+
+		// Setup screen options. Needs to be here as admin_init hook it too late.
+		add_action( 'load-toplevel_page_wpforms-overview', array( $this, 'screen_options' ) );
+		add_filter( 'set-screen-option', array( $this, 'screen_options_set' ), 10, 3 );
 	}
 
 	/**
@@ -33,10 +33,6 @@ class WPForms_Overview {
 		if ( ! wpforms_is_admin_page( 'overview' ) ) {
 			return;
 		}
-
-		// Setup screen options.
-		add_action( 'load-toplevel_page_wpforms-overview', array( $this, 'screen_options' ) );
-		add_filter( 'set-screen-option', array( $this, 'screen_options_set' ), 10, 3 );
 
 		// Bulk actions.
 		add_action( 'load-toplevel_page_wpforms-overview', array( $this, 'notices' ) );
@@ -86,19 +82,19 @@ class WPForms_Overview {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed  $status
-	 * @param string $option
-	 * @param mixed  $value
+	 * @param bool   $keep   Whether to save or skip saving the screen option value. Default false.
+	 * @param string $option The option name.
+	 * @param int    $value  The number of rows to use.
 	 *
 	 * @return mixed
 	 */
-	public function screen_options_set( $status, $option, $value ) {
+	public function screen_options_set( $keep, $option, $value ) {
 
 		if ( 'wpforms_forms_per_page' === $option ) {
 			return $value;
 		}
 
-		return $status;
+		return $keep;
 	}
 
 	/**
@@ -124,9 +120,11 @@ class WPForms_Overview {
 
 			<h1 class="page-title">
 				<?php esc_html_e( 'Forms Overview', 'wpforms-lite' ); ?>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpforms-builder&view=setup' ) ); ?>" class="add-new-h2 wpforms-btn-orange">
-					<?php esc_html_e( 'Add New', 'wpforms-lite' ); ?>
-				</a>
+				<?php if ( wpforms_current_user_can( 'create_forms' ) ) : ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpforms-builder&view=setup' ) ); ?>" class="add-new-h2 wpforms-btn-orange">
+						<?php esc_html_e( 'Add New', 'wpforms-lite' ); ?>
+					</a>
+				<?php endif; ?>
 			</h1>
 
 			<?php
@@ -214,13 +212,14 @@ class WPForms_Overview {
 			return;
 		}
 
+		if ( empty( $_GET['_wpnonce'] ) ) {
+			return;
+		}
+
 		// Check the nonce.
 		if (
-			empty( $_GET['_wpnonce'] ) ||
-			(
-				! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'bulk-forms' ) &&
-				! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'wpforms_' . $action . '_form_nonce' )
-			)
+			! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'bulk-forms' ) &&
+			! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'wpforms_' . $action . '_form_nonce' )
 		) {
 			return;
 		}
@@ -232,17 +231,15 @@ class WPForms_Overview {
 
 		$processed_forms = count( $this->{'bulk_action_' . $action . '_forms'}( $ids ) );
 
-		if ( ! empty( $action ) ) {
-			// Unset get vars and perform redirect to avoid action reuse.
-			wp_safe_redirect(
-				add_query_arg(
-					$action . 'd',
-					$processed_forms,
-					remove_query_arg( array( 'action', 'action2', '_wpnonce', 'form_id', 'paged', '_wp_http_referer' ) )
-				)
-			);
-			exit;
-		}
+		// Unset get vars and perform redirect to avoid action reuse.
+		wp_safe_redirect(
+			add_query_arg(
+				$action . 'd',
+				$processed_forms,
+				remove_query_arg( array( 'action', 'action2', '_wpnonce', 'form_id', 'paged', '_wp_http_referer' ) )
+			)
+		);
+		exit;
 	}
 
 	/**
@@ -284,10 +281,16 @@ class WPForms_Overview {
 			return [];
 		}
 
+		if ( ! wpforms_current_user_can( 'create_forms' ) ) {
+			return [];
+		}
+
 		$duplicated = [];
 
 		foreach ( $ids as $id ) {
-			$duplicated[ $id ] = wpforms()->form->duplicate( $id );
+			if ( wpforms_current_user_can( 'view_form_single', $id ) ) {
+				$duplicated[ $id ] = wpforms()->form->duplicate( $id );
+			}
 		}
 
 		return array_keys( array_filter( $duplicated ) );

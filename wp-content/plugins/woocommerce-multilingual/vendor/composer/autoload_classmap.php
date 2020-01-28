@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'WCML\\Container\\Config' => $baseDir . '/classes/Container/Config.php',
-    'WCML\\Email\\OrderItems\\Hooks' => $baseDir . '/classes/Email/OrderItems/Hooks.php',
     'WCML\\Email\\Settings\\Hooks' => $baseDir . '/classes/Email/Settings/Hooks.php',
     'WCML\\Media\\Wrapper\\Factory' => $baseDir . '/classes/media/Wrapper/Factory.php',
     'WCML\\Media\\Wrapper\\IMedia' => $baseDir . '/classes/media/Wrapper/IMedia.php',
@@ -72,7 +71,6 @@ return array(
     'WCML_Exchange_Rates_Fixerio' => $baseDir . '/classes/multi-currency/exchange-rate-services/class-wcml-exchange-rates-fixerio.php',
     'WCML_Exchange_Rates_UI' => $baseDir . '/inc/template-classes/multi-currency/class-wcml-exchange-rates-ui.php',
     'WCML_Extra_Product_Options' => $baseDir . '/compatibility/class-wcml-extra-product-options.php',
-    'WCML_File' => $baseDir . '/inc/currencies/currency-switcher/class-wcml-file.php',
     'WCML_Flatsome' => $baseDir . '/compatibility/class-wcml-flatsome.php',
     'WCML_Install' => $baseDir . '/inc/class-wcml-install.php',
     'WCML_JCK_WSSV' => $baseDir . '/compatibility/class-wcml-jck-wssv.php',

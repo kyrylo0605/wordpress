@@ -4,8 +4,6 @@
  * WPForms Lite. Load Lite specific features/functionality.
  *
  * @since 1.2.0
- *
- * @package WPForms
  */
 class WPForms_Lite {
 
@@ -226,6 +224,7 @@ class WPForms_Lite {
 		</div>
 
 		<?php
+		do_action( 'wpforms_builder_settings_notifications_after', 'notifications', $settings );
 	}
 
 	/**
@@ -372,6 +371,7 @@ class WPForms_Lite {
 		</div>
 
 		<?php
+		do_action( 'wpforms_builder_settings_confirmations_after', 'confirmations', $settings );
 	}
 
 	/**

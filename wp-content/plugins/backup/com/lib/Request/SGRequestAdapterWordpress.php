@@ -49,6 +49,21 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 		$this->params = $params;
 	}
 
+	public function getRequestArgs()
+	{
+		$args = array(
+			'headers'     => $this->headers,
+			'sslverify'   => false,
+			'stream'      => $this->stream
+		);
+
+		if (!function_exists("curl_init")) {
+			$args['sslverify'] = true;
+		}
+
+		return $args;
+	}
+
 	public function sendPostRequest()
 	{
 		$body = null;
@@ -58,12 +73,8 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 			$body = $this->params;
 		}
 
-		$args = array(
-			'headers'     => $this->headers,
-			'sslverify'   => false,
-			'body'        => $body,
-			'stream'      => $this->stream
-		);
+		$args = $this->getRequestArgs();
+		$args['body'] = $body;
 
 		$response = wp_remote_post($this->url, $args);
 		if ($this->stream && !($response instanceof WP_Error)) {
@@ -91,11 +102,7 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 
 	public function sendGetRequest()
 	{
-		$args = array(
-			'headers'     => $this->headers,
-			'sslverify'   => false,
-			'stream'      => $this->stream
-		);
+		$args = $this->getRequestArgs();
 
 		if (count($this->params)) {
 			$this->url = rtrim($this->url, '/').'/';
@@ -141,14 +148,10 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 			$body = $this->params;
 		}
 
-		$args = array(
-			'headers'     => $this->headers,
-			'sslverify'   => false,
-			'method'      => $type,
-			'body'        => $body,
-			'stream'      => $this->stream
-		);
-
+		$args = $this->getRequestArgs();
+		$args['body'] = $body;
+		$args['method'] = $type;
+		
 		$response = wp_remote_request($this->url, $args);
 		if ($this->stream && !($response instanceof WP_Error)) {
 			$this->body = file_get_contents($response['filename']);

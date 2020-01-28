@@ -196,3 +196,9 @@
 	min-height: 90px;
 	max-height: 200px;
 }
+
+@media only screen and (max-width: 740px) {
+	.bg-deactivation-survey-popup-container .bg-deactivation-survey-popup-tbl .bg-deactivation-survey-popup-cel .bg-deactivation-survey-popup-content h3 {
+		line-height: 1.1;
+	}
+}

@@ -10,11 +10,7 @@
  * This was contained in an addon until version 1.3.8 when it was rolled into
  * core.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.3.8
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2017, WPForms LLC
+ * @since 1.3.8
  */
 class WPForms_Conditional_Logic_Core {
 
@@ -139,7 +135,7 @@ class WPForms_Conditional_Logic_Core {
 	}
 
 	/**
-	 * Builds the conditional logic settings to display in the form builder.
+	 * Build the conditional logic settings to display in the form builder.
 	 *
 	 * @since 1.3.8
 	 *
@@ -547,7 +543,7 @@ class WPForms_Conditional_Logic_Core {
 	/**
 	 * Process conditional rules.
 	 *
-	 * Checks if a form passes the conditional logic rules that are provided.
+	 * Check if a form passes the conditional logic rules that are provided.
 	 *
 	 * @since 1.3.8
 	 *
@@ -588,8 +584,8 @@ class WPForms_Conditional_Logic_Core {
 					if ( in_array( $fields[ $rule_field ]['type'], array( 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'number-slider', 'net_promoter_score' ), true ) ) {
 
 						// Text based fields.
-						$left  = trim( strtolower( $fields[ $rule_field ]['value'] ) );
-						$right = trim( strtolower( $rule_value ) );
+						$left  = strtolower( trim( $fields[ $rule_field ]['value'] ) );
+						$right = strtolower( trim( $rule_value ) );
 
 						switch ( $rule_operator ) {
 							case '==':
@@ -617,11 +613,11 @@ class WPForms_Conditional_Logic_Core {
 								$pass_rule = ( '' != $left );
 								break;
 							case '>':
-								$left      = preg_replace( '/[^0-9.]/', '', $left );
+								$left      = preg_replace( '/[^-0-9.]/', '', $left );
 								$pass_rule = ( '' !== $left ) && ( floatval( $left ) > floatval( $right ) );
 								break;
 							case '<':
-								$left      = preg_replace( '/[^0-9.]/', '', $left );
+								$left      = preg_replace( '/[^-0-9.]/', '', $left );
 								$pass_rule = ( '' !== $left ) && ( floatval( $left ) < floatval( $right ) );
 								break;
 							default:
@@ -641,7 +637,7 @@ class WPForms_Conditional_Logic_Core {
 
 							// Payment Multiple/Checkbox fields store the option key,
 							// so we can reference that easily.
-							$provided_id = $fields[ $rule_field ]['value_raw'];
+							$provided_id = explode( ',', (string) $fields[ $rule_field ]['value_raw'] );
 
 						} elseif ( isset( $fields[ $rule_field ]['value'] ) && '' != $fields[ $rule_field ]['value'] ) {
 

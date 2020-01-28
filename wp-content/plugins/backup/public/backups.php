@@ -140,7 +140,7 @@ $downloadUrl = admin_url('admin-post.php?action=backup_guard_downloadBackup&');
 								<a class="btn btn-danger btn-xs sg-cancel-backup" sg-data-backup-id="<?php echo $backup['id']?>" href="javascript:void(0)" title="<?php _backupGuardT('Stop')?>">&nbsp;<i class="glyphicon glyphicon-stop" aria-hidden="true"></i>&nbsp;</a>
 								<?php endif; ?>
 							<?php else: ?>
-								<a href="javascript:void(0)" data-sgbackup-name="<?php echo $backup['name'];?>" data-remote="deleteBackup" class="btn btn-danger btn-xs sg-remove-backup" title="<?php _backupGuardT('Delete')?>">&nbsp;<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>&nbsp;</a>
+								<a href="javascript:void(0)" data-sgbackup-name="<?php echo htmlspecialchars($backup['name']);?>" data-remote="deleteBackup" class="btn btn-danger btn-xs sg-remove-backup" title="<?php _backupGuardT('Delete')?>">&nbsp;<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>&nbsp;</a>
 								<div class="btn-group">
 									<a href="javascript:void(0)" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false" title="<?php _backupGuardT('Download')?>">
 										&nbsp;<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>&nbsp;
@@ -149,14 +149,14 @@ $downloadUrl = admin_url('admin-post.php?action=backup_guard_downloadBackup&');
 									<ul class="dropdown-menu">
 										<?php if($backup['files']):?>
 											<li>
-												<a href="<?php echo $downloadUrl.'backupName='.@$backup['name'].'&downloadType='.SG_BACKUP_DOWNLOAD_TYPE_SGBP ?>">
+												<a href="<?php echo $downloadUrl.'backupName='.htmlspecialchars(@$backup['name']).'&downloadType='.SG_BACKUP_DOWNLOAD_TYPE_SGBP ?>">
 													<i class="glyphicon glyphicon-hdd" aria-hidden="true"></i> <?php _backupGuardT('Backup')?>
 												</a>
 											</li>
 										<?php endif;?>
 										<?php if($backup['backup_log']):?>
 											<li>
-												<a href="<?php echo $downloadUrl.'backupName='.@$backup['name'].'&downloadType='.SG_BACKUP_DOWNLOAD_TYPE_BACKUP_LOG ?>">
+												<a href="<?php echo $downloadUrl.'backupName='.htmlspecialchars(@$backup['name']).'&downloadType='.SG_BACKUP_DOWNLOAD_TYPE_BACKUP_LOG ?>">
 													<i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i> <?php _backupGuardT('Backup log')?>
 												</a>
 											</li>
@@ -171,7 +171,7 @@ $downloadUrl = admin_url('admin-post.php?action=backup_guard_downloadBackup&');
 									</ul>
 								</div>
 								<?php if(file_exists(SG_BACKUP_DIRECTORY.$backup['name'].'/'.$backup['name'].'.sgbp')):?>
-									<a href="javascript:void(0)" title="<?php _backupGuardT('Restore')?>" class="btn btn-success btn-xs sg-restore-button" data-toggle="modal" data-modal-name="manual-restore" data-remote="modalManualRestore" data-sgbp-params="<?php echo $backup['name']?>">
+									<a href="javascript:void(0)" title="<?php _backupGuardT('Restore')?>" class="btn btn-success btn-xs sg-restore-button" data-toggle="modal" data-modal-name="manual-restore" data-remote="modalManualRestore" data-sgbp-params="<?php echo htmlspecialchars($backup['name']) ?>">
 										&nbsp;<i class="glyphicon glyphicon-repeat" aria-hidden="true"></i>&nbsp;
 									</a>
 								<?php endif;?>

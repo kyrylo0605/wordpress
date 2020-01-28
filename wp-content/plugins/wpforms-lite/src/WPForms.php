@@ -6,8 +6,6 @@ namespace WPForms {
 	 * Main WPForms class.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @package WPForms
 	 */
 	final class WPForms {
 
@@ -267,6 +265,14 @@ namespace WPForms {
 			// Autoload Composer packages.
 			require_once WPFORMS_PLUGIN_DIR . 'vendor/autoload.php';
 
+			 // Load the class loader.
+			$this->register(
+				[
+					'name' => 'Loader',
+					'hook' => false,
+				]
+			);
+
 			if ( version_compare( phpversion(), '5.5', '>=' ) ) {
 				/*
 				 * Load PHP 5.5 email subsystem.
@@ -326,33 +332,32 @@ namespace WPForms {
 		 *
 		 * @since 1.5.7
 		 *
-		 * @param string $class_name Class to register.
-		 * @param array  $args       Class registration options.
+		 * @param array $class Class registration info.
 		 */
-		public function register( $class_name, $args = array() ) {
+		public function register( $class ) {
 
-			if ( empty( $class_name ) ) {
+			if ( empty( $class['name'] ) || ! is_string( $class['name'] ) ) {
 				return;
 			}
 
-			if ( isset( $args['condition'] ) && empty( $args['condition'] ) ) {
+			if ( isset( $class['condition'] ) && empty( $class['condition'] ) ) {
 				return;
 			}
 
-			$full_name = $this->pro ? '\WPForms\Pro\\' . $class_name : '\WPForms\Lite\\' . $class_name;
-			$full_name = class_exists( $full_name ) ? $full_name : '\WPForms\\' . $class_name;
+			$full_name = $this->pro ? '\WPForms\Pro\\' . $class['name'] : '\WPForms\Lite\\' . $class['name'];
+			$full_name = class_exists( $full_name ) ? $full_name : '\WPForms\\' . $class['name'];
 
 			if ( ! class_exists( $full_name ) ) {
 				return;
 			}
 
 			$pattern  = '/[^a-zA-Z0-9_\\\-]/';
-			$id       = isset( $args['id'] ) ? $args['id'] : '';
+			$id       = isset( $class['id'] ) ? $class['id'] : '';
 			$id       = $id ? preg_replace( $pattern, '', (string) $id ) : $id;
-			$hook     = isset( $args['hook'] ) ? $args['hook'] : 'wpforms_loaded';
+			$hook     = isset( $class['hook'] ) ? $class['hook'] : 'wpforms_loaded';
 			$hook     = $hook ? preg_replace( $pattern, '', (string) $hook ) : $hook;
-			$run      = isset( $args['run'] ) ? $args['run'] : 'init';
-			$priority = isset( $args['priority'] ) && is_int( $args['priority'] ) ? $args['priority'] : 10;
+			$run      = isset( $class['run'] ) ? $class['run'] : 'init';
+			$priority = isset( $class['priority'] ) && is_int( $class['priority'] ) ? $class['priority'] : 10;
 
 			$callback = function () use ( $full_name, $id, $run ) {
 
@@ -385,8 +390,8 @@ namespace WPForms {
 				return;
 			}
 
-			foreach ( $classes as $class_name => $args ) {
-				$this->register( $class_name, $args );
+			foreach ( $classes as $class ) {
+				$this->register( $class );
 			}
 		}
 

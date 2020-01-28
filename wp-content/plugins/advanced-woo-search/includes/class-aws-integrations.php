@@ -100,6 +100,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                     add_action( 'wp_head', array( $this, 'avada_head_action' ) );
                 }
 
+                // Elementor pro
+                if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
+                    add_action( 'wp_footer', array( $this, 'elementor_pro_popup' ) );
+                }
+
             }
 
             // Wholesale plugin hide certain products
@@ -116,6 +121,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             if ( class_exists( 'WC_Product_Table_Plugin' ) ) {
                 add_filter( 'wc_product_table_data_config', array( $this, 'wc_product_table_data_config' ) );
                 add_filter( 'aws_posts_per_page', array( $this, 'wc_product_table_posts_per_page' ) );
+            }
+
+            // Flatsome theme remove search page blocl
+            if ( isset( $_GET['type_aws'] ) && function_exists( 'flatsome_pages_in_search_results' ) ) {
+                remove_action('woocommerce_after_main_content','flatsome_pages_in_search_results', 10);
             }
 
         }
@@ -476,6 +486,27 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
                 }, false);
 
+            </script>
+
+        <?php }
+
+        /*
+         * Elementor popup search form init
+         */
+        public function elementor_pro_popup() { ?>
+
+            <script>
+                window.addEventListener('load', function() {
+                    if (window.jQuery) {
+                        jQuery( document ).on( 'elementor/popup/show', function() {
+                            window.setTimeout(function(){
+                                jQuery('.elementor-container .aws-container').each( function() {
+                                    jQuery(this).aws_search();
+                                });
+                            }, 1000);
+                        } );
+                    }
+                }, false);
             </script>
 
         <?php }

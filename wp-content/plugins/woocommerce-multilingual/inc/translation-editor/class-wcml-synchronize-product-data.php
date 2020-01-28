@@ -345,14 +345,14 @@ class WCML_Synchronize_Product_Data{
 
 			if( $translated_product ){
 				$this->update_stock_value( $translated_product, $stock );
-				wc_update_product_stock_status( $translated_product->get_id(), $product->get_stock_status() );
+				$this->woocommerce_wpml->products->update_stock_status( $translated_product->get_id(), $product->get_stock_status() );
 			}else{
 				$translations = $this->post_translations->get_element_translations( $product_id );
 				foreach( $translations as $translation ){
 					if( $product_id !== $translation ){
 						$_product = wc_get_product( $translation );
 						$this->update_stock_value( $_product, $stock );
-						wc_update_product_stock_status( $translation, $product->get_stock_status() );
+						$this->woocommerce_wpml->products->update_stock_status( $translation, $product->get_stock_status() );
 					}
 				}
 			}
@@ -406,10 +406,6 @@ class WCML_Synchronize_Product_Data{
 
 		$order = wc_get_order( $order_id );
 
-		if ( ! $order || $order->get_data_store()->get_recorded_sales( $order ) ) {
-			return;
-		}
-
 		foreach ( $order->get_items() as $item ) {
 
 			if ( $item instanceof WC_Order_Item_Product ) {
@@ -425,8 +421,8 @@ class WCML_Synchronize_Product_Data{
 			$translations = $this->post_translations->get_element_translations( $product_id );
 			$data_store = WC_Data_Store::load( 'product' );
 			foreach ( $translations as $translation ) {
-				if ( $product_id !== $translation ) {
-					$data_store->update_product_sales( $translation, absint( $qty ), 'increase' );
+				if ( $product_id !== (int)$translation ) {
+					$data_store->update_product_sales( (int)$translation, absint( $qty ), 'increase' );
 				}
 			}
 		}
@@ -439,7 +435,7 @@ class WCML_Synchronize_Product_Data{
 		    $translations = $this->post_translations->get_element_translations( $product_id, false, true );
 
 		    foreach ( $translations as $translation ) {
-		    	wc_update_product_stock_status( $translation, $status );
+			    $this->woocommerce_wpml->products->update_stock_status( $translation, $status );
 			    $this->wc_taxonomies_recount_after_stock_change( $translation );
 		    }
 	    }

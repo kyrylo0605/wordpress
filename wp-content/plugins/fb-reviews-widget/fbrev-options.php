@@ -136,5 +136,3 @@
         </a>
     </div>
 </div>
-
-<input id="<?php echo $this->get_field_id('view_mode'); ?>" name="<?php echo $this->get_field_name('view_mode'); ?>" type="hidden" value="list" />

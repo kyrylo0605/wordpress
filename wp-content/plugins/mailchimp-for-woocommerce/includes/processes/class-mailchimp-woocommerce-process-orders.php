@@ -41,6 +41,9 @@ class MailChimp_WooCommerce_Process_Orders extends MailChimp_WooCommerce_Abstrac
                 return false;
             }
 
+            // see if this store has the auto subscribe setting enabled on initial sync
+            $should_auto_subscribe = (bool) $this->getOption('mailchimp_auto_subscribe', true);
+
             // since we're syncing the customer for the first time, this is where we need to add the override
             // for subscriber status. We don't get the checkbox until this plugin is actually installed and working!
             if (!($status = $item->getCustomer()->getOptInStatus())) {
@@ -48,22 +51,36 @@ class MailChimp_WooCommerce_Process_Orders extends MailChimp_WooCommerce_Abstrac
                     $subscriber = $this->mailchimp()->member(mailchimp_get_list_id(), $item->getCustomer()->getEmailAddress());
                     $status = !in_array($subscriber['status'], array('unsubscribed', 'transactional'));
                 } catch (\Exception $e) {
-                    $status = (bool) $this->getOption('mailchimp_auto_subscribe', true);
+                    if ($e instanceof MailChimp_WooCommerce_RateLimitError) {
+                        mailchimp_error('order_sync.error', mailchimp_error_trace($e, "GET subscriber :: {$item->getId()}"));
+                        throw $e;
+                    }
+                    $status = $should_auto_subscribe;
                 }
                 $item->getCustomer()->setOptInStatus($status);
             }
 
-            mailchimp_debug('order_sync', "#{$item->getId()}", $item->toArray());
+            try {
+                $type = $this->mailchimp()->getStoreOrder($this->store_id, $item->getId(), true) ? 'update' : 'create';
+            } catch (MailChimp_WooCommerce_Error $e) {
+                if ($e instanceof MailChimp_WooCommerce_RateLimitError) {
+                    mailchimp_error('order_sync.error', mailchimp_error_trace($e, "GET order :: {$item->getId()}"));
+                    throw $e;
+                }
+                $type = 'create';
+            }
 
-            $type = $this->mailchimp()->getStoreOrder($this->store_id, $item->getId()) ? 'update' : 'create';
             $call = $type === 'create' ? 'addStoreOrder' : 'updateStoreOrder';
 
             try {
 
                 // if the order is in failed or cancelled status - and it's brand new, we shouldn't submit it.
-                if ($call === 'addStoreOrder' && in_array($item->getFinancialStatus(), array('failed', 'cancelled'))) {
+                if ($call === 'addStoreOrder' && !in_array(strtolower($item->getFinancialStatus()), array('processing', 'completed', 'paid'))) {
+                    mailchimp_log('order_sync', "#{$item->getId()} has a financial status of {$item->getFinancialStatus()} and was skipped.");
                     return false;
                 }
+
+                mailchimp_debug('order_sync', "#{$item->getId()}", $item->toArray());
 
                 try {
                     // make the call
@@ -90,8 +107,15 @@ class MailChimp_WooCommerce_Process_Orders extends MailChimp_WooCommerce_Abstrac
 
                 $this->items[] = array('response' => $response, 'item' => $item);
 
-                return $response;
+                // update the list member if they've got double opt in enabled, and this is a new order.
+                if ($type === 'create') {
+                    mailchimp_update_member_with_double_opt_in($item, ($should_auto_subscribe || $status));
+                }
 
+                return $response;
+            } catch (MailChimp_WooCommerce_RateLimitError $e) {
+                mailchimp_error('order_submit.error', mailchimp_error_trace($e, "$call :: {$item->getId()}"));
+                throw $e;
             } catch (MailChimp_WooCommerce_ServerError $e) {
                 mailchimp_error('order_submit.error', mailchimp_error_trace($e, "$call :: {$item->getId()}"));
                 return false;

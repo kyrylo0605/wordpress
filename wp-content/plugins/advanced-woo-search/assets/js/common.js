@@ -128,7 +128,9 @@
                                         html += '<span class="aws_result_content">';
                                             html += '<span class="aws_result_title">';
                                                 html += taxitem.name;
-                                                html += '<span class="aws_result_count">&nbsp;(' + taxitem.count + ')</span>';
+                                                if ( taxitem.count ) {
+                                                    html += '<span class="aws_result_count">&nbsp;(' + taxitem.count + ')</span>';
+                                                }
                                             html += '</span>';
                                         html += '</span>';
                                     html += '</a>';

@@ -11,11 +11,7 @@ use WPForms\Helpers\PluginSilentUpgrader;
  * WPForms Connect is our service that makes it easy for non-techy users to
  * upgrade to WPForms Pro without having to manually install WPForms Pro plugin.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Admin
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class Connect {
 

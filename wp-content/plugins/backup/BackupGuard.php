@@ -506,14 +506,12 @@ function backup_guard_import_key_file()
 
 function backup_guard_awake()
 {
-	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	$method = SG_RELOAD_METHOD_AJAX;
 	require_once(SG_PUBLIC_AJAX_PATH.'awake.php');
 }
 
 function backup_guard_awake_nopriv()
 {
-	check_ajax_referer('backupGuardAjaxNonce');
 	$token = @$_GET['token'];
 	$method = @$_GET['method'];
 
@@ -823,25 +821,26 @@ function backup_guard_discount_notice()
 	?>
 	<div class="backup-guard-discount-notice updated notice is-dismissible">
 		<div class="sgbg-col sgbg-col1"></div>
-		<div class="sgbg-col sgbg-col2">
-			<div class="sg-backup-discount-bg"></div>
-		</div>
+		<div class="sgbg-col sgbg-col2"></div>
 		<div class="sgbg-col sgbg-col3">
-			<div class="sg-col3-first-text">Christmas Discount</div>
-			<div class="sg-col3-second-text">on BackupGuard solutions</div>
-			<div class="sg-year-button-wrapper">
-				<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>
+			<div class="sgbg-text-col-1">
+				-50%
 			</div>
+			<div class="sgbg-text-col-2">
+				<div class="sgbg-discount-text-1">Discount</div>
+				<div class="sgbg-discount-text-2">All Backup Guard Solutions</div>
+			</div>
+		</div>
+		<div class="sgbg-col sgbg-col4">
+			<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>
 		</div>
 	</div>
 	<style>
 		.backup-guard-discount-notice.updated.notice.is-dismissible {
 			padding: 0;
-			background-image: url("<?php echo SG_IMAGE_URL ?>notice-section-bg.png");
 			border-left-color: #FFFFFF !important;
-			background-color: #041594;
-			height: 200px;
-			background-size: 100% 100%;
+			background-color: #000000;
+			height: 160px;
 		}
 		.backup-guard-discount-notice button:before {
 			color: #ffffff !important;
@@ -850,114 +849,115 @@ function backup_guard_discount_notice()
 			display: inline-block;
 			width: 25%;
 			height: 100%;
+			padding: 0 25px;
 			box-sizing: border-box;
 		}
 		.sgbg-col1 {
-			background-image: url("<?php echo SG_IMAGE_URL ?>section-1-bg.png");
 			width: 10%;
-			background-size: 100%;
+			background-color: #FFFFFF;
+			background-image: url("<?php echo SG_IMAGE_URL ?>BgBFLogo.jpg");
+			background-size: 80%;
 			background-repeat: no-repeat;
 			background-position: center;
-			margin-right: 50px;
-			margin-left: 15px;
-		}
-		.sg-backup-discount-bg {
-			background-image: url("<?php echo SG_IMAGE_URL ?>discount.png");
-			width: 100%;
-			height: 200px;
-			background-size: 100% 100%;
-			margin-left: 48px;
 		}
 		.sgbg-col2 {
-			width: 30%;
+			width: 20%;
+			background-image: url("<?php echo SG_IMAGE_URL ?>BF.png");
 			background-size: contain;
+			margin-left: 70px;
 			background-position: center;
 			background-repeat: no-repeat;
-			vertical-align: top;
 		}
 		.sgbg-col3 {
 			vertical-align: top;
 			width: 45%;
-			margin-top: 35px;
+			margin-top: 55px;
+		}
+		.sgbg-col4 {
+			width: 10%;
 		}
 		.sgbg-text-col-1,
 		.sgbg-text-col-2 {
+			width: 49%;
 			display: inline-block;
 			color: #FFFFFF;
-			margin-bottom: 60px;
 		}
 		.sgbg-text-col-1 {
-			font-size: 35px;
+			font-size: 100px;
 			line-height: 0;
+			font-weight: bold;
 			text-align: right;
+			padding-right: 26px;
 			box-sizing: border-box;
-			vertical-align: middle;
 		}
-		.sgbg-text-col-2 {
-			font-size: 120px;
+		.sgbg-discount-text-2 {
+			font-size: 19px;
+		}
+		.sgbg-discount-text-1 {
+			font-size: 60px;
+			padding-bottom: 27px;
 			font-weight: bold;
-		}
-		.sg-col3-first-text {
-			color: #ffffff;
-			font-size: 45px;
-			font-weight: bold;
-		}
-		.sg-col3-second-text {
-			color: #ffffff;
-			font-size: 30px;
-			padding-left: 128px;
-			margin-top: 25px;
 		}
 		.sgbg-col4 {
 			vertical-align: top;
 		}
 		.sgbg-button {
-			width: 120px;
-			height: 42px;
-			font-size: 15px;
-			font-weight: bold;
+			width: 183px;
+			height: 67px;
+			font-size: 20px;
 			border: #ffffff;
 			border-radius: 10px;
-			margin-top: 27px;
+			margin-top: 48px;
 			background-color: #FFFFFF;
-			color: #041594;
+			color: #000000;
 			cursor: pointer !important;
 		}
 		.sgbg-button:hover {
-			background-color: #041594;
+			background-color: #000000;
 			border: 1px solid #FFFFFF;
 			color: #FFFFFF;
-		}
-		.sg-year-button-wrapper {
-			padding-left: 30%;
 		}
 		.backup-guard-discount-notice .notice-dismiss::before {
 			content: "x";
 			font-weight: 300;
 			font-family: Arial, sans-serif;
 		}
-		@media (max-width: 1546px) {
-			.sg-col3-second-text {
-				padding-left: 65px;
-			}
-			.sg-backup-discount-bg {
-				margin-left: 38px;
-			}
-		@media (max-width: 1405px) {
-			.sg-col3-second-text {
-				padding-left: 65px;
-			}
 
-			.sg-col3-first-text {
+		@media (max-width: 1810px) {
+			.sgbg-text-col-1 {
+				font-size: 80px;
+			}
+			.sgbg-discount-text-1 {
+				font-size: 43px;
+			}
+			.sgbg-discount-text-2 {
+				font-size: 15px;
+			}
+			.sgbg-discount-text-1 {
+				padding-bottom: 18px;
+			}
+			.sgbg-col3 {
+				margin-top: 60px;
+			}
+		}
+		@media (max-width: 1477px) {
+			.sgbg-discount-text-2 {
+				font-size: 12px;
+			}
+			.sgbg-discount-text-1 {
 				font-size: 35px;
 			}
-
-			.sg-col3-second-text {
-				font-size: 25px;
+			.sgbg-discount-text-1 {
+				padding-bottom: 13px;
 			}
-
-			.sgbg-col3 {
-				margin-top: 35px;
+			.sgbg-col {
+				padding: 0;
+			}
+			.sgbg-col2 {
+				margin-left: 40px;
+			}
+			.sgbg-col2 {
+				margin-left: 0;
 			}
 		}
 	</style>
