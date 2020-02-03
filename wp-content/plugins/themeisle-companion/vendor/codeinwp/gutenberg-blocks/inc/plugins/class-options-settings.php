@@ -1,4 +1,9 @@
 <?php
+/**
+ * Options.
+ *
+ * @package ThemeIsle\GutenbergBlocks\Plugins
+ */
 
 namespace ThemeIsle\GutenbergBlocks\Plugins;
 
@@ -34,10 +39,10 @@ class Options_Settings {
 			'themeisle_google_map_block_api_key',
 			array(
 				'type'              => 'string',
-				'description'       => __( 'Google Map API key for the Google Maps Gutenberg Block.', 'themeisle-companion' ),
+				'description'       => __( 'Google Map API key for the Google Maps Gutenberg Block.', 'textdomain' ),
 				'sanitize_callback' => 'sanitize_text_field',
 				'show_in_rest'      => true,
-				'default'           => ''
+				'default'           => '',
 			)
 		);
 
@@ -46,10 +51,10 @@ class Options_Settings {
 			'themeisle_blocks_settings_default_block',
 			array(
 				'type'              => 'boolean',
-				'description'       => __( 'Make Section block your default block for Pages?', 'themeisle-companion' ),
+				'description'       => __( 'Make Section block your default block for Pages?', 'textdomain' ),
 				'sanitize_callback' => 'rest_sanitize_boolean',
 				'show_in_rest'      => true,
-				'default'           => true
+				'default'           => true,
 			)
 		);
 	}
@@ -65,7 +70,7 @@ class Options_Settings {
 			return;
 		}
 
-		$post_type_object = get_post_type_object( 'page' );
+		$post_type_object           = get_post_type_object( 'page' );
 		$post_type_object->template = array(
 			array( 'themeisle-blocks/advanced-columns' ),
 		);
@@ -101,7 +106,7 @@ class Options_Settings {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'themeisle-companion' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0.0' );
 	}
 
 	/**
@@ -113,6 +118,6 @@ class Options_Settings {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'themeisle-companion' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0.0' );
 	}
 }

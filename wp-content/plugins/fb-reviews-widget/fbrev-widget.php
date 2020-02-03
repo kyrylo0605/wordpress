@@ -28,6 +28,7 @@ class Fb_Reviews_Widget extends WP_Widget {
         'open_link'            => true,
         'nofollow_link'        => true,
         'show_success_api'     => true,
+        'fb_rating_calc'       => false,
         'lazy_load_img'        => true,
         'cache'                => '24',
         'api_ratings_limit'    => FBREV_API_RATINGS_LIMIT,
@@ -88,8 +89,14 @@ class Fb_Reviews_Widget extends WP_Widget {
             $response = fbrev_api_rating($page_id, $page_access_token, $instance, $this->id, $cache, $api_ratings_limit, $show_success_api);
             $response_data = $response['data'];
             $response_json = rplg_json_decode($response_data);
-            if (isset($response_json->data)) {
-                $reviews = $response_json->data;
+            if (isset($response_json->ratings) && isset($response_json->ratings->data)) {
+                $reviews = $response_json->ratings->data;
+                if (isset($response_json->overall_star_rating)) {
+                    $facebook_rating = number_format((float)$response_json->overall_star_rating, 1, '.', '');
+                }
+                if (isset($response_json->rating_count) && $response_json->rating_count > 0) {
+                    $facebook_count = $response_json->rating_count;
+                }
                 if ($title) { ?><h2 class="fbrev-widget-title widget-title"><?php echo $title; ?></h2><?php }
                 include(dirname(__FILE__) . '/fbrev-reviews.php');
             } else {

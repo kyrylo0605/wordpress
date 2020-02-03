@@ -39,7 +39,7 @@ class Contact_Admin extends Elementor_Widget_Base {
 	 * @return string
 	 */
 	public function get_title() {
-		return esc_html__( 'Contact Form', 'themeisle-companion' );
+		return esc_html__( 'Contact Form', 'textdomain' );
 	}
 
 	/**
@@ -52,33 +52,33 @@ class Contact_Admin extends Elementor_Widget_Base {
 			array(
 				'key'         => 'name',
 				'type'        => 'text',
-				'label'       => esc_html__( 'Name', 'themeisle-companion' ),
+				'label'       => esc_html__( 'Name', 'textdomain' ),
 				'requirement' => 'required',
-				'placeholder' => esc_html__( 'Name', 'themeisle-companion' ),
+				'placeholder' => esc_html__( 'Name', 'textdomain' ),
 				'field_width' => '100',
 			),
 			array(
 				'key'         => 'email',
 				'type'        => 'email',
-				'label'       => esc_html__( 'Email', 'themeisle-companion' ),
+				'label'       => esc_html__( 'Email', 'textdomain' ),
 				'requirement' => 'required',
-				'placeholder' => esc_html__( 'Email', 'themeisle-companion' ),
+				'placeholder' => esc_html__( 'Email', 'textdomain' ),
 				'field_width' => '100',
 			),
 			array(
 				'key'         => 'phone',
 				'type'        => 'number',
-				'label'       => esc_html__( 'Phone', 'themeisle-companion' ),
+				'label'       => esc_html__( 'Phone', 'textdomain' ),
 				'requirement' => 'optional',
-				'placeholder' => esc_html__( 'Phone', 'themeisle-companion' ),
+				'placeholder' => esc_html__( 'Phone', 'textdomain' ),
 				'field_width' => '100',
 			),
 			array(
 				'key'         => 'message',
 				'type'        => 'textarea',
-				'label'       => esc_html__( 'Message', 'themeisle-companion' ),
+				'label'       => esc_html__( 'Message', 'textdomain' ),
 				'requirement' => 'required',
-				'placeholder' => esc_html__( 'Message', 'themeisle-companion' ),
+				'placeholder' => esc_html__( 'Message', 'textdomain' ),
 				'field_width' => '100',
 			),
 		);
@@ -102,8 +102,8 @@ class Contact_Admin extends Elementor_Widget_Base {
 			'success_message',
 			array(
 				'type'    => 'text',
-				'label'   => esc_html__( 'Success message', 'themeisle-companion' ),
-				'default' => esc_html__( 'Your message has been sent!', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Success message', 'textdomain' ),
+				'default' => esc_html__( 'Your message has been sent!', 'textdomain' ),
 			)
 		);
 
@@ -111,8 +111,8 @@ class Contact_Admin extends Elementor_Widget_Base {
 			'error_message',
 			array(
 				'type'    => 'text',
-				'label'   => esc_html__( 'Error message', 'themeisle-companion' ),
-				'default' => esc_html__( 'Oops! I cannot send this email!', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Error message', 'textdomain' ),
+				'default' => esc_html__( 'Oops! I cannot send this email!', 'textdomain' ),
 			)
 		);
 
@@ -120,9 +120,9 @@ class Contact_Admin extends Elementor_Widget_Base {
 			'to_send_email',
 			array(
 				'type'        => 'text',
-				'label'       => esc_html__( 'Send to', 'themeisle-companion' ),
+				'label'       => esc_html__( 'Send to', 'textdomain' ),
 				'default'     => get_bloginfo( 'admin_email' ),
-				'description' => esc_html__( 'Where should we send the email?', 'themeisle-companion' ),
+				'description' => esc_html__( 'Where should we send the email?', 'textdomain' ),
 			)
 		);
 
@@ -130,29 +130,29 @@ class Contact_Admin extends Elementor_Widget_Base {
 			'submit_label',
 			array(
 				'type'    => 'text',
-				'label'   => esc_html__( 'Submit', 'themeisle-companion' ),
-				'default' => esc_html__( 'Submit', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Submit', 'textdomain' ),
+				'default' => esc_html__( 'Submit', 'textdomain' ),
 			)
 		);
 
 		$this->add_responsive_control(
 			'align_submit',
 			array(
-				'label'     => __( 'Alignment', 'themeisle-companion' ),
+				'label'     => __( 'Alignment', 'textdomain' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'toggle'    => false,
 				'default'   => 'left',
 				'options'   => array(
 					'left'   => array(
-						'title' => __( 'Left', 'themeisle-companion' ),
+						'title' => __( 'Left', 'textdomain' ),
 						'icon'  => 'fa fa-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Center', 'themeisle-companion' ),
+						'title' => __( 'Center', 'textdomain' ),
 						'icon'  => 'fa fa-align-center',
 					),
 					'right'  => array(
-						'title' => __( 'Right', 'themeisle-companion' ),
+						'title' => __( 'Right', 'textdomain' ),
 						'icon'  => 'fa fa-align-right',
 					),
 				),

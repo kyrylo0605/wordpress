@@ -82,50 +82,62 @@
     </label>
 </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('open_link'); ?>" name="<?php echo $this->get_field_name('open_link'); ?>" type="checkbox" value="1" <?php checked('1', $open_link); ?>/>
-        <?php echo fbrev_i('Open links in new Window'); ?>
-    </label>
-</div>
+<div class="rplg-options-toggle rplg-toggle"><?php echo fbrev_i('Advance Options'); ?></div>
+<div class="rplg-options" style="display:none">
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('lazy_load_img'); ?>" name="<?php echo $this->get_field_name('lazy_load_img'); ?>" type="checkbox" value="1" <?php checked('1', $lazy_load_img); ?>/>
+            <?php echo fbrev_i('Lazy load images'); ?>
+        </label>
+    </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('nofollow_link'); ?>" name="<?php echo $this->get_field_name('nofollow_link'); ?>" type="checkbox" value="1" <?php checked('1', $nofollow_link); ?>/>
-        <?php echo fbrev_i('User no follow links'); ?>
-    </label>
-</div>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('show_success_api'); ?>" name="<?php echo $this->get_field_name('show_success_api'); ?>" type="checkbox" value="1" <?php checked('1', $show_success_api); ?>/>
+            <?php echo fbrev_i('Show last success API response'); ?>
+        </label>
+    </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('show_success_api'); ?>" name="<?php echo $this->get_field_name('show_success_api'); ?>" type="checkbox" value="1" <?php checked('1', $show_success_api); ?>/>
-        <?php echo fbrev_i('Show last success API response'); ?>
-    </label>
-</div>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('fb_rating_calc'); ?>" name="<?php echo $this->get_field_name('fb_rating_calc'); ?>" type="checkbox" value="1" <?php checked('1', $fb_rating_calc); ?>/>
+            <?php echo fbrev_i('Calculate FB rating based on current reviews'); ?>
+        </label>
+        <span class="rplg-quest rplg-toggle" title="Click to help">?</span>
+        <div style="display:none">The plugin gets a FB page rating from the FB Graph API, but sometime, this rating becomes outdated. This option calculates the rating manually based on current reviews/recommendations and keeps it up to date.</div>
+    </div>
 
-<div class="form-group">
-    <label>
-        <input id="<?php echo $this->get_field_id('lazy_load_img'); ?>" name="<?php echo $this->get_field_name('lazy_load_img'); ?>" type="checkbox" value="1" <?php checked('1', $lazy_load_img); ?>/>
-        <?php echo fbrev_i('Lazy load images'); ?>
-    </label>
-</div>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('open_link'); ?>" name="<?php echo $this->get_field_name('open_link'); ?>" type="checkbox" value="1" <?php checked('1', $open_link); ?>/>
+            <?php echo fbrev_i('Open links in new Window'); ?>
+        </label>
+    </div>
 
-<div class="form-group">
-    <?php echo fbrev_i('Cache data'); ?>
-    <select id="<?php echo $this->get_field_id('cache'); ?>" name="<?php echo $this->get_field_name('cache'); ?>">
-        <option value="1" <?php selected('1', $cache); ?>><?php echo fbrev_i('1 Hour'); ?></option>
-        <option value="3" <?php selected('3', $cache); ?>><?php echo fbrev_i('3 Hours'); ?></option>
-        <option value="6" <?php selected('6', $cache); ?>><?php echo fbrev_i('6 Hours'); ?></option>
-        <option value="12" <?php selected('12', $cache); ?>><?php echo fbrev_i('12 Hours'); ?></option>
-        <option value="24" <?php selected('24', $cache); ?>><?php echo fbrev_i('1 Day'); ?></option>
-        <option value="48" <?php selected('48', $cache); ?>><?php echo fbrev_i('2 Days'); ?></option>
-        <option value="168" <?php selected('168', $cache); ?>><?php echo fbrev_i('1 Week'); ?></option>
-    </select>
-</div>
+    <div class="form-group">
+        <label>
+            <input id="<?php echo $this->get_field_id('nofollow_link'); ?>" name="<?php echo $this->get_field_name('nofollow_link'); ?>" type="checkbox" value="1" <?php checked('1', $nofollow_link); ?>/>
+            <?php echo fbrev_i('User no follow links'); ?>
+        </label>
+    </div>
 
-<div class="form-group">
-    <label><?php echo fbrev_i('Reviews limit'); ?></label>
-    <input id="<?php echo $this->get_field_id('api_ratings_limit'); ?>" name="<?php echo $this->get_field_name('api_ratings_limit'); ?>" value="<?php echo $api_ratings_limit; ?>" type="text" placeholder="By default: <?php echo FBREV_API_RATINGS_LIMIT; ?>"/>
+    <div class="form-group">
+        <label><?php echo fbrev_i('Reviews limit'); ?></label>
+        <input id="<?php echo $this->get_field_id('api_ratings_limit'); ?>" name="<?php echo $this->get_field_name('api_ratings_limit'); ?>" value="<?php echo $api_ratings_limit; ?>" type="text" placeholder="By default: <?php echo FBREV_API_RATINGS_LIMIT; ?>"/>
+    </div>
+
+    <div class="form-group">
+        <?php echo fbrev_i('Cache data'); ?>
+        <select id="<?php echo $this->get_field_id('cache'); ?>" name="<?php echo $this->get_field_name('cache'); ?>">
+            <option value="1" <?php selected('1', $cache); ?>><?php echo fbrev_i('1 Hour'); ?></option>
+            <option value="3" <?php selected('3', $cache); ?>><?php echo fbrev_i('3 Hours'); ?></option>
+            <option value="6" <?php selected('6', $cache); ?>><?php echo fbrev_i('6 Hours'); ?></option>
+            <option value="12" <?php selected('12', $cache); ?>><?php echo fbrev_i('12 Hours'); ?></option>
+            <option value="24" <?php selected('24', $cache); ?>><?php echo fbrev_i('1 Day'); ?></option>
+            <option value="48" <?php selected('48', $cache); ?>><?php echo fbrev_i('2 Days'); ?></option>
+            <option value="168" <?php selected('168', $cache); ?>><?php echo fbrev_i('1 Week'); ?></option>
+        </select>
+    </div>
 </div>
 
 <div class="form-group">

@@ -4,7 +4,7 @@ Plugin Name: Social Reviews & Recommendations
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Allows you to instantly display Facebook reviews and recommendations on your site to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.6.7
+Version: 1.6.8
 Author URI: https://richplugins.com
 */
 
@@ -13,7 +13,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.6.7');
+define('FBREV_VERSION',            '1.6.8');
 define('FBREV_GRAPH_API',          'https://graph.facebook.com/v3.1/');
 define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -178,8 +178,14 @@ function fbrev_shortcode($atts) {
         $response = fbrev_api_rating($page_id, $page_access_token, $shortcode_atts, md5($page_access_token), $cache, $api_ratings_limit, $show_success_api);
         $response_data = $response['data'];
         $response_json = rplg_json_decode($response_data);
-        if (isset($response_json->data)) {
-            $reviews = $response_json->data;
+        if (isset($response_json->ratings) && isset($response_json->ratings->data)) {
+            $reviews = $response_json->ratings->data;
+            if (isset($response_json->overall_star_rating)) {
+                $facebook_rating = number_format((float)$response_json->overall_star_rating, 1, '.', '');
+            }
+            if (isset($response_json->rating_count) && $response_json->rating_count > 0) {
+                $facebook_count = $response_json->rating_count;
+            }
             if ($title) { ?><h2 class="fbrev-widget-title widget-title"><?php echo $title; ?></h2><?php }
             include(dirname(__FILE__) . '/fbrev-reviews.php');
         } else {
@@ -293,7 +299,7 @@ function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $
         }
 
         //string concatenation instead of 'http_build_query', because 'http_build_query' doesn't always work
-        $api_url = FBREV_GRAPH_API . $page_id . "/ratings?access_token=" . $page_access_token . "&limit=" . $limit . "&fields=reviewer{id,name,picture.width(120).height(120)},created_time,rating,recommendation_type,review_text,open_graph_story{id}";
+        $api_url = FBREV_GRAPH_API . $page_id . "?access_token=" . $page_access_token . "&fields=ratings.fields(reviewer{id,name,picture.width(120).height(120)},created_time,rating,recommendation_type,review_text,open_graph_story{id}).limit(" . $limit . "),overall_star_rating,rating_count";
 
         $api_response = rplg_urlopen($api_url);
 
@@ -305,7 +311,7 @@ function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $
     if ($show_success_api) {
         $response_cache_key_success = 'fbrev_' . $cache_name . '_suc_api_' . $page_id;
         $api_response_json = rplg_json_decode($api_response['data']);
-        if (isset($api_response_json->data)) {
+        if (isset($api_response_json->ratings)) {
             set_transient($response_cache_key_success, $api_response, 0);
         } else {
             $last_success_api_response = get_transient($response_cache_key_success);

@@ -31,7 +31,7 @@ class Pricing_Table extends Widget_Base {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Pricing Table', 'themeisle-companion' );
+		return __( 'Pricing Table', 'textdomain' );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_title',
 			[
-				'label' => __( 'Plan Title', 'themeisle-companion' ),
+				'label' => __( 'Plan Title', 'textdomain' ),
 			]
 		);
 
@@ -108,9 +108,9 @@ class Pricing_Table extends Widget_Base {
 			'title',
 			[
 				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Title', 'themeisle-companion' ),
-				'placeholder' => __( 'Title', 'themeisle-companion' ),
-				'default'     => __( 'Pricing Plan', 'themeisle-companion' ),
+				'label'       => __( 'Title', 'textdomain' ),
+				'placeholder' => __( 'Title', 'textdomain' ),
+				'default'     => __( 'Pricing Plan', 'textdomain' ),
 			]
 		);
 
@@ -118,16 +118,16 @@ class Pricing_Table extends Widget_Base {
 			'title_tag',
 			[
 				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Title HTML tag', 'themeisle-companion' ),
+				'label'   => __( 'Title HTML tag', 'textdomain' ),
 				'default' => 'h3',
 				'options' => [
-					'h1' => __( 'h1', 'themeisle-companion' ),
-					'h2' => __( 'h2', 'themeisle-companion' ),
-					'h3' => __( 'h3', 'themeisle-companion' ),
-					'h4' => __( 'h4', 'themeisle-companion' ),
-					'h5' => __( 'h5', 'themeisle-companion' ),
-					'h6' => __( 'h6', 'themeisle-companion' ),
-					'p'  => __( 'p', 'themeisle-companion' ),
+					'h1' => __( 'h1', 'textdomain' ),
+					'h2' => __( 'h2', 'textdomain' ),
+					'h3' => __( 'h3', 'textdomain' ),
+					'h4' => __( 'h4', 'textdomain' ),
+					'h5' => __( 'h5', 'textdomain' ),
+					'h6' => __( 'h6', 'textdomain' ),
+					'p'  => __( 'p', 'textdomain' ),
 				],
 			]
 		);
@@ -136,9 +136,9 @@ class Pricing_Table extends Widget_Base {
 			'subtitle',
 			[
 				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Subtitle', 'themeisle-companion' ),
-				'placeholder' => __( 'Subtitle', 'themeisle-companion' ),
-				'default'     => __( 'Description', 'themeisle-companion' ),
+				'label'       => __( 'Subtitle', 'textdomain' ),
+				'placeholder' => __( 'Subtitle', 'textdomain' ),
+				'default'     => __( 'Description', 'textdomain' ),
 			]
 		);
 
@@ -146,16 +146,16 @@ class Pricing_Table extends Widget_Base {
 			'subtitle_tag',
 			[
 				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Subtitle HTML Tag', 'themeisle-companion' ),
+				'label'   => __( 'Subtitle HTML Tag', 'textdomain' ),
 				'default' => 'p',
 				'options' => [
-					'h1' => __( 'h1', 'themeisle-companion' ),
-					'h2' => __( 'h2', 'themeisle-companion' ),
-					'h3' => __( 'h3', 'themeisle-companion' ),
-					'h4' => __( 'h4', 'themeisle-companion' ),
-					'h5' => __( 'h5', 'themeisle-companion' ),
-					'h6' => __( 'h6', 'themeisle-companion' ),
-					'p'  => __( 'p', 'themeisle-companion' ),
+					'h1' => __( 'h1', 'textdomain' ),
+					'h2' => __( 'h2', 'textdomain' ),
+					'h3' => __( 'h3', 'textdomain' ),
+					'h4' => __( 'h4', 'textdomain' ),
+					'h5' => __( 'h5', 'textdomain' ),
+					'h6' => __( 'h6', 'textdomain' ),
+					'p'  => __( 'p', 'textdomain' ),
 				],
 			]
 		);
@@ -169,7 +169,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_price_tag',
 			[
-				'label' => __( 'Price Tag', 'themeisle-companion' ),
+				'label' => __( 'Price Tag', 'textdomain' ),
 			]
 		);
 
@@ -177,9 +177,9 @@ class Pricing_Table extends Widget_Base {
 			'price_tag_text',
 			[
 				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Price', 'themeisle-companion' ),
-				'placeholder' => __( 'Price', 'themeisle-companion' ),
-				'default'     => __( '50', 'themeisle-companion' ),
+				'label'       => __( 'Price', 'textdomain' ),
+				'placeholder' => __( 'Price', 'textdomain' ),
+				'default'     => __( '50', 'textdomain' ),
 				'separator'   => 'after',
 			]
 		);
@@ -188,9 +188,9 @@ class Pricing_Table extends Widget_Base {
 			'price_tag_currency',
 			[
 				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Currency', 'themeisle-companion' ),
-				'placeholder' => __( 'Currency', 'themeisle-companion' ),
-				'default'     => __( '$', 'themeisle-companion' ),
+				'label'       => __( 'Currency', 'textdomain' ),
+				'placeholder' => __( 'Currency', 'textdomain' ),
+				'default'     => __( '$', 'textdomain' ),
 			]
 		);
 
@@ -198,11 +198,11 @@ class Pricing_Table extends Widget_Base {
 			'price_tag_currency_position',
 			[
 				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Currency Position', 'themeisle-companion' ),
+				'label'   => __( 'Currency Position', 'textdomain' ),
 				'default' => 'left',
 				'options' => [
-					'left'  => __( 'Before', 'themeisle-companion' ),
-					'right' => __( 'After', 'themeisle-companion' ),
+					'left'  => __( 'Before', 'textdomain' ),
+					'right' => __( 'After', 'textdomain' ),
 				],
 			]
 		);
@@ -211,9 +211,9 @@ class Pricing_Table extends Widget_Base {
 			'price_tag_period',
 			[
 				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Period', 'themeisle-companion' ),
-				'placeholder' => __( '/month', 'themeisle-companion' ),
-				'default'     => __( '/month', 'themeisle-companion' ),
+				'label'       => __( 'Period', 'textdomain' ),
+				'placeholder' => __( '/month', 'textdomain' ),
+				'default'     => __( '/month', 'textdomain' ),
 				'separator'   => 'before',
 			]
 		);
@@ -227,50 +227,50 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_features',
 			[
-				'label' => __( 'Features', 'themeisle-companion' ),
+				'label' => __( 'Features', 'textdomain' ),
 			]
 		);
 
 		$this->add_control(
 			'feature_list',
 			[
-				'label'       => __( 'Plan Features', 'themeisle-companion' ),
+				'label'       => __( 'Plan Features', 'textdomain' ),
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => [
 					[
-						'accent' => __( 'First', 'themeisle-companion' ),
-						'text'   => __( 'Feature', 'themeisle-companion' ),
+						'accent' => __( 'First', 'textdomain' ),
+						'text'   => __( 'Feature', 'textdomain' ),
 					],
 					[
-						'accent' => __( 'Second', 'themeisle-companion' ),
-						'text'   => __( 'Feature', 'themeisle-companion' ),
+						'accent' => __( 'Second', 'textdomain' ),
+						'text'   => __( 'Feature', 'textdomain' ),
 					],
 					[
-						'accent' => __( 'Third', 'themeisle-companion' ),
-						'text'   => __( 'Feature', 'themeisle-companion' ),
+						'accent' => __( 'Third', 'textdomain' ),
+						'text'   => __( 'Feature', 'textdomain' ),
 					],
 				],
 				'fields'      => [
 					[
 						'type'        => Controls_Manager::TEXT,
 						'name'        => 'accent',
-						'label'       => __( 'Accented Text', 'themeisle-companion' ),
-						'description' => __( 'Appears before feature text', 'themeisle-companion' ),
+						'label'       => __( 'Accented Text', 'textdomain' ),
+						'description' => __( 'Appears before feature text', 'textdomain' ),
 						'label_block' => true,
-						'default'     => __( 'Accent', 'themeisle-companion' ),
+						'default'     => __( 'Accent', 'textdomain' ),
 					],
 					[
 						'type'        => Controls_Manager::TEXT,
 						'name'        => 'text',
-						'label'       => __( 'Text', 'themeisle-companion' ),
+						'label'       => __( 'Text', 'textdomain' ),
 						'label_block' => true,
-						'placeholder' => __( 'Plan Features', 'themeisle-companion' ),
-						'default'     => __( 'Feature', 'themeisle-companion' ),
+						'placeholder' => __( 'Plan Features', 'textdomain' ),
+						'default'     => __( 'Feature', 'textdomain' ),
 					],
                     [
                         'type' => Controls_Manager::ICONS,
                         'name'        => 'feature_icon_new',
-                        'label'       => __( 'Icon', 'themeisle-companion' ),
+                        'label'       => __( 'Icon', 'textdomain' ),
                         'default' => [
 	                        'value' => 'fas fa-star',
 	                        'library' => 'solid',
@@ -285,23 +285,23 @@ class Pricing_Table extends Widget_Base {
 		$this->add_responsive_control(
 			'features_align',
 			[
-				'label'     => __( 'Alignment', 'themeisle-companion' ),
+				'label'     => __( 'Alignment', 'textdomain' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
-						'title' => __( 'Left', 'themeisle-companion' ),
+						'title' => __( 'Left', 'textdomain' ),
 						'icon'  => 'fa fa-align-left',
 					],
 					'center'  => [
-						'title' => __( 'Center', 'themeisle-companion' ),
+						'title' => __( 'Center', 'textdomain' ),
 						'icon'  => 'fa fa-align-center',
 					],
 					'right'   => [
-						'title' => __( 'Right', 'themeisle-companion' ),
+						'title' => __( 'Right', 'textdomain' ),
 						'icon'  => 'fa fa-align-right',
 					],
 					'justify' => [
-						'title' => __( 'Justified', 'themeisle-companion' ),
+						'title' => __( 'Justified', 'textdomain' ),
 						'icon'  => 'fa fa-align-justify',
 					],
 				],
@@ -322,7 +322,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label' => __( 'Button', 'themeisle-companion' ),
+				'label' => __( 'Button', 'textdomain' ),
 			]
 		);
 
@@ -330,9 +330,9 @@ class Pricing_Table extends Widget_Base {
 			'button_text',
 			[
 				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Text', 'themeisle-companion' ),
-				'placeholder' => __( 'Buy Now', 'themeisle-companion' ),
-				'default'     => __( 'Buy Now', 'themeisle-companion' ),
+				'label'       => __( 'Text', 'textdomain' ),
+				'placeholder' => __( 'Buy Now', 'textdomain' ),
+				'default'     => __( 'Buy Now', 'textdomain' ),
 			]
 		);
 
@@ -340,8 +340,8 @@ class Pricing_Table extends Widget_Base {
 			'button_link',
 			[
 				'type'        => Controls_Manager::URL,
-				'label'       => __( 'Link', 'themeisle-companion' ),
-				'placeholder' => __( 'https://example.com', 'themeisle-companion' ),
+				'label'       => __( 'Link', 'textdomain' ),
+				'placeholder' => __( 'https://example.com', 'textdomain' ),
 			]
 		);
 
@@ -349,7 +349,7 @@ class Pricing_Table extends Widget_Base {
 			'button_icon_new',
 			[
 				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Icon', 'themeisle-companion' ),
+				'label'            => __( 'Icon', 'textdomain' ),
 				'fa4compatibility' => 'button_icon',
 			]
 		);
@@ -358,11 +358,11 @@ class Pricing_Table extends Widget_Base {
 			'button_icon_align',
 			[
 				'type'      => Controls_Manager::SELECT,
-				'label'     => __( 'Icon Position', 'themeisle-companion' ),
+				'label'     => __( 'Icon Position', 'textdomain' ),
 				'default'   => 'left',
 				'options'   => [
-					'left'  => __( 'Before', 'themeisle-companion' ),
-					'right' => __( 'After', 'themeisle-companion' ),
+					'left'  => __( 'Before', 'textdomain' ),
+					'right' => __( 'After', 'textdomain' ),
 				],
 				'condition' => [
 					'button_icon!' => '',
@@ -374,7 +374,7 @@ class Pricing_Table extends Widget_Base {
 			'button_icon_indent',
 			[
 				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Icon Spacing', 'themeisle-companion' ),
+				'label'     => __( 'Icon Spacing', 'textdomain' ),
 				'range'     => [
 					'px' => [
 						'max' => 50,
@@ -399,7 +399,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_header_style',
 			[
-				'label' => __( 'Header', 'themeisle-companion' ),
+				'label' => __( 'Header', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -407,7 +407,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_responsive_control(
 			'header_padding',
 			[
-				'label'      => __( 'Header Padding', 'themeisle-companion' ),
+				'label'      => __( 'Header Padding', 'textdomain' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -420,7 +420,7 @@ class Pricing_Table extends Widget_Base {
 			'plan_title_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Title Color', 'themeisle-companion' ),
+				'label'     => __( 'Title Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -445,7 +445,7 @@ class Pricing_Table extends Widget_Base {
 			'plan_subtitle_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Subtitle Color', 'themeisle-companion' ),
+				'label'     => __( 'Subtitle Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -470,7 +470,7 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name'     => 'heading_section_bg',
-				'label'    => __( 'Section Background', 'themeisle-companion' ),
+				'label'    => __( 'Section Background', 'textdomain' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .obfx-title-wrapper',
 			]
@@ -485,7 +485,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_price_box',
 			[
-				'label' => __( 'Price Tag', 'themeisle-companion' ),
+				'label' => __( 'Price Tag', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -494,7 +494,7 @@ class Pricing_Table extends Widget_Base {
 			'price_box_padding',
 			[
 				'type'       => Controls_Manager::DIMENSIONS,
-				'label'      => __( 'Price Box Padding', 'themeisle-companion' ),
+				'label'      => __( 'Price Box Padding', 'textdomain' ),
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .obfx-price-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -506,7 +506,7 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'pricing_section_bg',
-				'label'    => __( 'Section Background', 'themeisle-companion' ),
+				'label'    => __( 'Section Background', 'textdomain' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .obfx-price-wrapper',
 			]
@@ -515,7 +515,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'price_tag_heading_currency',
 			[
-				'label'     => __( 'Currency', 'themeisle-companion' ),
+				'label'     => __( 'Currency', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -524,7 +524,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'currency_color',
 			[
-				'label'     => __( 'Currency Color', 'themeisle-companion' ),
+				'label'     => __( 'Currency Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
@@ -549,7 +549,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'price_tag_heading_price',
 			[
-				'label'     => __( 'Price', 'themeisle-companion' ),
+				'label'     => __( 'Price', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -558,7 +558,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'price_text_color',
 			[
-				'label'     => __( 'Price Color', 'themeisle-companion' ),
+				'label'     => __( 'Price Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
@@ -583,7 +583,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'price_tag_heading_period',
 			[
-				'label'     => __( 'Period', 'themeisle-companion' ),
+				'label'     => __( 'Period', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -592,7 +592,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'period_color',
 			[
-				'label'     => __( 'Period Color', 'themeisle-companion' ),
+				'label'     => __( 'Period Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
@@ -623,7 +623,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_features_style',
 			[
-				'label' => __( 'Features', 'themeisle-companion' ),
+				'label' => __( 'Features', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -632,7 +632,7 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name'     => 'features_section_bg',
-				'label'    => __( 'Section Background', 'themeisle-companion' ),
+				'label'    => __( 'Section Background', 'textdomain' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .obfx-feature-list',
 			]
@@ -642,7 +642,7 @@ class Pricing_Table extends Widget_Base {
 			'features_box_padding',
 			[
 				'type'       => Controls_Manager::DIMENSIONS,
-				'label'      => __( 'Features List Padding', 'themeisle-companion' ),
+				'label'      => __( 'Features List Padding', 'textdomain' ),
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .obfx-feature-list' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -653,7 +653,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'features_accented_heading',
 			[
-				'label'     => __( 'Accented', 'themeisle-companion' ),
+				'label'     => __( 'Accented', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -663,7 +663,7 @@ class Pricing_Table extends Widget_Base {
 			'features_accented_text_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Accented Color', 'themeisle-companion' ),
+				'label'     => __( 'Accented Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -687,7 +687,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'features_features_heading',
 			[
-				'label'     => __( 'Features', 'themeisle-companion' ),
+				'label'     => __( 'Features', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -696,7 +696,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'features_text_color',
 			[
-				'label'     => __( 'Features Color', 'themeisle-companion' ),
+				'label'     => __( 'Features Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
@@ -721,7 +721,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'features_icons_heading',
 			[
-				'label'     => __( 'Icons', 'themeisle-companion' ),
+				'label'     => __( 'Icons', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -730,7 +730,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'features_icon_color',
 			[
-				'label'     => __( 'Icon Color', 'themeisle-companion' ),
+				'label'     => __( 'Icon Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
@@ -747,7 +747,7 @@ class Pricing_Table extends Widget_Base {
 			'features_icon_size',
 			[
 				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Icon Size', 'themeisle-companion' ),
+				'label'     => __( 'Icon Size', 'textdomain' ),
 				'default'   => [
 					'size' => 16,
 				],
@@ -767,7 +767,7 @@ class Pricing_Table extends Widget_Base {
 			'features_icon_indent',
 			[
 				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Icon Spacing', 'themeisle-companion' ),
+				'label'     => __( 'Icon Spacing', 'textdomain' ),
 				'default'   => [
 					'size' => 5,
 				],
@@ -792,7 +792,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label' => __( 'Button', 'themeisle-companion' ),
+				'label' => __( 'Button', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -800,7 +800,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(), [
 				'name'     => 'button_section_bg',
-				'label'    => __( 'Section Background', 'themeisle-companion' ),
+				'label'    => __( 'Section Background', 'textdomain' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-button-wrapper',
 			]
@@ -810,7 +810,7 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'typography',
-				'label'    => __( 'Typography', 'themeisle-companion' ),
+				'label'    => __( 'Typography', 'textdomain' ),
 				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-button-wrapper',
 			]
@@ -819,7 +819,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'border_radius',
 			[
-				'label'      => __( 'Border Radius', 'themeisle-companion' ),
+				'label'      => __( 'Border Radius', 'textdomain' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -831,7 +831,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'text_padding',
 			[
-				'label'      => __( 'Padding', 'themeisle-companion' ),
+				'label'      => __( 'Padding', 'textdomain' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -844,7 +844,7 @@ class Pricing_Table extends Widget_Base {
 			'button_icon_size',
 			[
 				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Icon Size', 'themeisle-companion' ),
+				'label'     => __( 'Icon Size', 'textdomain' ),
 				'default'   => [
 					'size' => 16,
 				],
@@ -875,7 +875,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_background_normal',
 			[
-				'label' => __( 'Normal', 'themeisle-companion' ),
+				'label' => __( 'Normal', 'textdomain' ),
 			]
 		);
 
@@ -883,7 +883,7 @@ class Pricing_Table extends Widget_Base {
 			'button_text_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Text Color', 'themeisle-companion' ),
+				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -898,7 +898,7 @@ class Pricing_Table extends Widget_Base {
 			'button_bg_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Background Color', 'themeisle-companion' ),
+				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -924,7 +924,7 @@ class Pricing_Table extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_background_hover',
 			[
-				'label' => __( 'Hover', 'themeisle-companion' ),
+				'label' => __( 'Hover', 'textdomain' ),
 			]
 		);
 
@@ -932,7 +932,7 @@ class Pricing_Table extends Widget_Base {
 			'button_hover_text_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Text Color', 'themeisle-companion' ),
+				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -947,7 +947,7 @@ class Pricing_Table extends Widget_Base {
 			'button_hover_bg_color',
 			[
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Background Color', 'themeisle-companion' ),
+				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
@@ -971,7 +971,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'background_hover_transition',
 			[
-				'label'       => __( 'Transition Duration', 'themeisle-companion' ),
+				'label'       => __( 'Transition Duration', 'textdomain' ),
 				'type'        => Controls_Manager::SLIDER,
 				'default'     => [
 					'size' => 0.3,

@@ -94,13 +94,13 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 	private function get_style_settings( $args ) {
 		$args['style']['sections'] = array(
 			'spacing'              => array(
-				'title'  => esc_html__( 'Spacing', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Spacing', 'textdomain' ),
 				'fields' => array(
 					'column_gap' => array(
 						'responsive' => true,
 						'type'       => 'unit',
 						'units'      => array( 'px' ),
-						'label'      => __( 'Columns Gap', 'themeisle-companion' ),
+						'label'      => __( 'Columns Gap', 'textdomain' ),
 						'slider'     => array(
 							'min'  => 0,
 							'max'  => 60,
@@ -124,7 +124,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 						'responsive' => true,
 						'type'       => 'unit',
 						'units'      => array( 'px' ),
-						'label'      => __( 'Rows Gap', 'themeisle-companion' ),
+						'label'      => __( 'Rows Gap', 'textdomain' ),
 						'slider'     => array(
 							'min'  => 0,
 							'max'  => 60,
@@ -139,11 +139,11 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				),
 			),
 			'label'                => array(
-				'title'  => esc_html__( 'Label', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Label', 'textdomain' ),
 				'fields' => array(
 					'label_color'         => array(
 						'type'       => 'color',
-						'label'      => __( 'Text Color', 'themeisle-companion' ),
+						'label'      => __( 'Text Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -155,7 +155,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'mark_required_color' => array(
 						'type'       => 'color',
-						'label'      => __( 'Mark Color', 'themeisle-companion' ),
+						'label'      => __( 'Mark Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -166,7 +166,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'label_typography'    => array(
 						'type'       => 'typography',
-						'label'      => __( 'Label Typography', 'themeisle-companion' ),
+						'label'      => __( 'Label Typography', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -176,11 +176,11 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				),
 			),
 			'field'                => array(
-				'title'  => esc_html__( 'Field', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Field', 'textdomain' ),
 				'fields' => array(
 					'field_text_color'       => array(
 						'type'       => 'color',
-						'label'      => __( 'Text Color', 'themeisle-companion' ),
+						'label'      => __( 'Text Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -191,7 +191,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'field_background_color' => array(
 						'type'       => 'color',
-						'label'      => __( 'Background Color', 'themeisle-companion' ),
+						'label'      => __( 'Background Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => true,
 						'preview'    => array(
@@ -202,7 +202,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'field_typography'       => array(
 						'type'       => 'typography',
-						'label'      => __( 'Field Typography', 'themeisle-companion' ),
+						'label'      => __( 'Field Typography', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -211,7 +211,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'field_border'           => array(
 						'type'       => 'border',
-						'label'      => __( 'Border', 'themeisle-companion' ),
+						'label'      => __( 'Border', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -221,12 +221,12 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				),
 			),
 			'button'               => array(
-				'title'  => esc_html__( 'Submit Button', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Submit Button', 'textdomain' ),
 				'fields' => array(
 					'button_width'            => array(
 						'responsive'   => 'true',
 						'type'         => 'unit',
-						'label'        => __( 'Width', 'themeisle-companion' ),
+						'label'        => __( 'Width', 'textdomain' ),
 						'units'        => array( 'px', 'vw', '%' ),
 						'default_unit' => 'px', // Optional
 						'preview'      => array(
@@ -238,7 +238,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					'button_height'           => array(
 						'responsive'   => 'true',
 						'type'         => 'unit',
-						'label'        => __( 'Height', 'themeisle-companion' ),
+						'label'        => __( 'Height', 'textdomain' ),
 						'units'        => array( 'px', 'vw', '%' ),
 						'default_unit' => 'px', // Optional
 						'preview'      => array(
@@ -249,7 +249,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_background_color' => array(
 						'type'       => 'color',
-						'label'      => __( 'Button Background Color', 'themeisle-companion' ),
+						'label'      => __( 'Button Background Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -260,7 +260,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_text_color'       => array(
 						'type'       => 'color',
-						'label'      => __( 'Button Text Color', 'themeisle-companion' ),
+						'label'      => __( 'Button Text Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -271,7 +271,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_typography'       => array(
 						'type'       => 'typography',
-						'label'      => __( 'Typography', 'themeisle-companion' ),
+						'label'      => __( 'Typography', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -280,7 +280,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_border'           => array(
 						'type'       => 'border',
-						'label'      => __( 'Border', 'themeisle-companion' ),
+						'label'      => __( 'Border', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -290,11 +290,11 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				),
 			),
 			'button_hover'         => array(
-				'title'  => esc_html__( 'Submit Button Hover', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Submit Button Hover', 'textdomain' ),
 				'fields' => array(
 					'button_background_color_hover' => array(
 						'type'       => 'color',
-						'label'      => __( 'Button Background Color', 'themeisle-companion' ),
+						'label'      => __( 'Button Background Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -305,7 +305,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_text_color_hover'       => array(
 						'type'       => 'color',
-						'label'      => __( 'Button Text Color', 'themeisle-companion' ),
+						'label'      => __( 'Button Text Color', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -316,7 +316,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_typography_hover'       => array(
 						'type'       => 'typography',
-						'label'      => __( 'Typography', 'themeisle-companion' ),
+						'label'      => __( 'Typography', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -325,7 +325,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'button_border_hover'           => array(
 						'type'       => 'border',
-						'label'      => __( 'Border Hover', 'themeisle-companion' ),
+						'label'      => __( 'Border Hover', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -335,21 +335,21 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				),
 			),
 			'notification'         => array(
-				'title'  => esc_html__( 'Notification', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Notification', 'textdomain' ),
 				'fields' => array(
 					'notification_margin'       => array(
 						'type'        => 'dimension',
-						'label'       => __( 'Margin', 'themeisle-companion' ),
+						'label'       => __( 'Margin', 'textdomain' ),
 						'description' => 'px',
 					),
 					'notification_text_padding' => array(
 						'type'        => 'dimension',
-						'label'       => __( 'Padding', 'themeisle-companion' ),
+						'label'       => __( 'Padding', 'textdomain' ),
 						'description' => 'px',
 					),
 					'notification_width'        => array(
 						'type'   => 'unit',
-						'label'  => __( 'Width', 'themeisle-companion' ),
+						'label'  => __( 'Width', 'textdomain' ),
 						'slider' => array(
 							'min'  => 0,
 							'max'  => 100,
@@ -358,7 +358,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_typography'   => array(
 						'type'       => 'typography',
-						'label'      => __( 'Typography', 'themeisle-companion' ),
+						'label'      => __( 'Typography', 'textdomain' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
@@ -367,7 +367,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_box_shadow'   => array(
 						'type'        => 'shadow',
-						'label'       => __( 'Box Shadow', 'themeisle-companion' ),
+						'label'       => __( 'Box Shadow', 'textdomain' ),
 						'show_spread' => true,
 						'preview'     => array(
 							'type'     => 'css',
@@ -377,17 +377,17 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_alignment'    => array(
 						'type'    => 'align',
-						'label'   => __( 'alignment', 'themeisle-companion' ),
+						'label'   => __( 'alignment', 'textdomain' ),
 						'default' => 'left',
 					),
 				),
 			),
 			'notification_success' => array(
-				'title'  => esc_html__( 'Notification Success', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Notification Success', 'textdomain' ),
 				'fields' => array(
 					'notification_success_background_color' => array(
 						'type'       => 'color',
-						'label'      => __( 'Background', 'themeisle-companion' ),
+						'label'      => __( 'Background', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => true,
 						'preview'    => array(
@@ -398,7 +398,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_success_text_color' => array(
 						'type'       => 'color',
-						'label'      => __( 'Text', 'themeisle-companion' ),
+						'label'      => __( 'Text', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -409,7 +409,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_success_border'     => array(
 						'type'    => 'border',
-						'label'   => __( 'Border', 'themeisle-companion' ),
+						'label'   => __( 'Border', 'textdomain' ),
 						'preview' => array(
 							'type'     => 'css',
 							'selector' => '.content-form-' . $this->get_type() . ' .content-form-success',
@@ -418,11 +418,11 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				),
 			),
 			'notification_error'   => array(
-				'title'  => esc_html__( 'Notification Error', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Notification Error', 'textdomain' ),
 				'fields' => array(
 					'notification_error_background_color' => array(
 						'type'       => 'color',
-						'label'      => __( 'Background', 'themeisle-companion' ),
+						'label'      => __( 'Background', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => true,
 						'preview'    => array(
@@ -433,7 +433,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_error_text_color'       => array(
 						'type'       => 'color',
-						'label'      => __( 'Text', 'themeisle-companion' ),
+						'label'      => __( 'Text', 'textdomain' ),
 						'show_reset' => true,
 						'show_alpha' => false,
 						'preview'    => array(
@@ -444,7 +444,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'notification_error_border'           => array(
 						'type'    => 'border',
-						'label'   => __( 'Border', 'themeisle-companion' ),
+						'label'   => __( 'Border', 'textdomain' ),
 						'preview' => array(
 							'type'     => 'css',
 							'selector' => '.content-form-' . $this->get_type() . ' .content-form-error',
@@ -465,23 +465,23 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 	 */
 	private function get_form_settings( $args ) {
 		$args['general']['sections']['settings'] = array(
-			'title'  => esc_html__( 'Fields', 'themeisle-companion' ),
+			'title'  => esc_html__( 'Fields', 'textdomain' ),
 			'fields' => array(
 				'fields'     => array(
 					'multiple'     => true,
 					'type'         => 'form',
-					'label'        => esc_html__( 'Field', 'themeisle-companion' ),
+					'label'        => esc_html__( 'Field', 'textdomain' ),
 					'form'         => $this->get_type() . '_field',
 					'preview_text' => 'label',
 					'default'      => $this->get_default( 'fields' ),
 				),
 				'hide_label' => array(
 					'type'    => 'select',
-					'label'   => __( 'Hide Label', 'themeisle-companion' ),
+					'label'   => __( 'Hide Label', 'textdomain' ),
 					'default' => 'show',
 					'options' => array(
-						'hide' => esc_html__( 'Hide', 'textarea', 'themeisle-companion' ),
-						'show' => esc_html__( 'Show', 'textarea', 'themeisle-companion' ),
+						'hide' => esc_html__( 'Hide', 'textarea' ),
+						'show' => esc_html__( 'Show', 'textarea' ),
 					),
 				),
 			),
@@ -490,25 +490,25 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 		$repeater_fields = array(
 			'label'       => array(
 				'type'  => 'text',
-				'label' => esc_html__( 'Label', 'themeisle-companion' ),
+				'label' => esc_html__( 'Label', 'textdomain' ),
 			),
 			'placeholder' => array(
 				'type'  => 'text',
-				'label' => esc_html__( 'Placeholder', 'themeisle-companion' ),
+				'label' => esc_html__( 'Placeholder', 'textdomain' ),
 			),
 			'type'        => array(
 				'type'    => 'select',
-				'label'   => esc_html__( 'Type', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Type', 'textdomain' ),
 				'options' => array(
-					'text'     => esc_html__( 'Text', 'themeisle-companion' ),
-					'email'    => esc_html__( 'Email', 'themeisle-companion' ),
-					'textarea' => esc_html__( 'Textarea', 'themeisle-companion' ),
-					'password' => esc_html__( 'Password', 'themeisle-companion' ),
+					'text'     => esc_html__( 'Text' ),
+					'email'    => esc_html__( 'Email' ),
+					'textarea' => esc_html__( 'Textarea', 'textdomain' ),
+					'password' => esc_html__( 'Password', 'textdomain' ),
 				),
 			),
 			'field_width' => array(
 				'type'       => 'select',
-				'label'      => esc_html__( 'Field Width', 'themeisle-companion' ),
+				'label'      => esc_html__( 'Field Width', 'textdomain' ),
 				'options'    => array(
 					'100' => '100%',
 					'75'  => '75%',
@@ -521,10 +521,10 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 			),
 			'required'    => array(
 				'type'    => 'select',
-				'label'   => esc_html__( 'Is required?', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Is required?', 'textdomain' ),
 				'options' => array(
-					'required' => esc_html__( 'Required', 'themeisle-companion' ),
-					'optional' => esc_html__( 'Optional', 'themeisle-companion' ),
+					'required' => esc_html__( 'Required', 'textdomain' ),
+					'optional' => esc_html__( 'Optional', 'textdomain' ),
 				),
 			),
 		);
@@ -532,13 +532,13 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 		\FLBuilder::register_settings_form(
 			$this->get_type() . '_field',
 			array(
-				'title' => esc_html__( 'Field', 'themeisle-companion' ),
+				'title' => esc_html__( 'Field', 'textdomain' ),
 				'tabs'  => array(
 					'general' => array(
-						'title'    => esc_html__( 'Field', 'themeisle-companion' ),
+						'title'    => esc_html__( 'Field', 'textdomain' ),
 						'sections' => array(
 							'fields' => array(
-								'title'  => esc_html__( 'Field', 'themeisle-companion' ),
+								'title'  => esc_html__( 'Field', 'textdomain' ),
 								'fields' => apply_filters( $this->get_type() . '_repeater_fields', $repeater_fields ),
 							),
 						),
@@ -561,20 +561,20 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 		$args['general']['sections']['controls'] = apply_filters(
 			$this->get_type() . '_controls_fields',
 			array(
-				'title'  => esc_html__( 'Form Settings', 'themeisle-companion' ),
+				'title'  => esc_html__( 'Form Settings', 'textdomain' ),
 				'fields' => array(
 					'submit_label'    => array(
 						'type'        => 'text',
-						'label'       => esc_html__( 'Submit', 'themeisle-companion' ),
+						'label'       => esc_html__( 'Submit', 'textdomain' ),
 						'default'     => $this->get_default( 'submit_label' ),
-						'description' => esc_html__( 'The Call To Action label', 'themeisle-companion' ),
+						'description' => esc_html__( 'The Call To Action label', 'textdomain' ),
 					),
 					'submit_display'  => array(
 						'type'    => 'select',
-						'label'   => __( 'Submit Display', 'themeisle-companion' ),
+						'label'   => __( 'Submit Display', 'textdomain' ),
 						'options' => array(
-							'inline' => esc_html__( 'Inline', 'textarea', 'themeisle-companion' ),
-							'block'  => esc_html__( 'Block', 'textarea', 'themeisle-companion' ),
+							'inline' => esc_html__( 'Inline', 'textarea' ),
+							'block'  => esc_html__( 'Block', 'textarea' ),
 						),
 						'toggle'  => array(
 							'block' => array(
@@ -584,7 +584,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 					),
 					'submit_position' => array(
 						'type'    => 'align',
-						'label'   => esc_html__( 'Alignment', 'themeisle-companion' ),
+						'label'   => esc_html__( 'Alignment', 'textdomain' ),
 						'default' => 'left',
 					),
 				),
@@ -604,7 +604,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				'sections' => array(),
 			),
 			'style'   => array(
-				'title'    => esc_html__( 'Style', 'themeisle-companion' ),
+				'title'    => esc_html__( 'Style', 'textdomain' ),
 				'sections' => array(),
 			),
 		);
@@ -642,11 +642,11 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 		$style = '';//$this->get_notice_style();
 
 		echo '<div class="content-form-notice-wrapper">';
-		echo '<h3 ' . $style . ' class="content-form-notice content-form-success">' . __( 'This is a preview of how the success notification will look', 'themeisle-companion' ) . '</h3>';
+		echo '<h3 ' . $style . ' class="content-form-notice content-form-success">' . __( 'This is a preview of how the success notification will look', 'textdomain' ) . '</h3>';
 		echo '</div>';
 
 		echo '<div class="content-form-notice-wrapper">';
-		echo '<h3 ' . $style . ' class="content-form-notice content-form-error">' . __( 'This is a preview of how the error notification will look', 'themeisle-companion' ) . '</h3>';
+		echo '<h3 ' . $style . ' class="content-form-notice content-form-error">' . __( 'This is a preview of how the error notification will look', 'textdomain' ) . '</h3>';
 		echo '</div>';
 
 		return true;
@@ -690,8 +690,8 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 			if ( array_key_exists( 'access_key', (array) $widget_settings ) && empty( $widget_settings['access_key'] ) ) {
 				echo '<p>';
 				printf(
-					esc_html__( 'The %s setting is required!', 'themeisle-companion' ),
-					'<strong>' . esc_html__( 'Access Key', 'themeisle-companion' ) . '</strong>'
+					esc_html__( 'The %s setting is required!', 'textdomain' ),
+					'<strong>' . esc_html__( 'Access Key', 'textdomain' ) . '</strong>'
 				);
 				echo '</p>';
 				$has_error = true;
@@ -700,8 +700,8 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 			if ( array_key_exists( 'list_id', (array) $widget_settings ) && empty( $widget_settings['list_id'] ) ) {
 				echo '<p>';
 				printf(
-					esc_html__( 'The %s setting is required!', 'themeisle-companion' ),
-					'<strong>' . esc_html__( 'List id', 'themeisle-companion' ) . '</strong>'
+					esc_html__( 'The %s setting is required!', 'textdomain' ),
+					'<strong>' . esc_html__( 'List id', 'textdomain' ) . '</strong>'
 				);
 				echo '</p>';
 				$has_error = true;
@@ -714,7 +714,7 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 				if ( in_array( $field_map, $mapping, true ) ) {
 					echo '<p>';
 					printf(
-						esc_html__( 'The %s field is mapped to multiple form fields. Please check your field settings.', 'themeisle-companion' ),
+						esc_html__( 'The %s field is mapped to multiple form fields. Please check your field settings.', 'textdomain' ),
 						'<strong>' . $field_map . '</strong>'
 					);
 					echo '</p>';
@@ -732,8 +732,8 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 			if ( array_key_exists( 'to_send_email', (array) $widget_settings ) && empty( $widget_settings['to_send_email'] ) ) {
 				echo '<p>';
 				printf(
-					esc_html__( 'The %s setting is required!', 'themeisle-companion' ),
-					'<strong>' . esc_html__( 'Send to Email Address', 'themeisle-companion' ) . '</strong>'
+					esc_html__( 'The %s setting is required!', 'textdomain' ),
+					'<strong>' . esc_html__( 'Send to Email Address', 'textdomain' ) . '</strong>'
 				);
 				echo '</p>';
 				$has_error = true;
@@ -801,11 +801,11 @@ abstract class Beaver_Widget_Base extends \FLBuilderModule {
 		$required       = $field['required'] === 'required' ? 'required="required"' : '';
 		$width          = array_key_exists( 'field_width', (array) $field ) ? 'style="width:' . $field['field_width'] . '%"' : '';
 		$address_fields = array(
-			'addr2'   => __( 'Address Line 2', 'themeisle-companion' ),
-			'city'    => __( 'City', 'themeisle-companion' ),
-			'state'   => __( 'State/Province/Region', 'themeisle-companion' ),
-			'zip'     => __( 'Postal / Zip Code', 'themeisle-companion' ),
-			'country' => __( 'Country', 'themeisle-companion' ),
+			'addr2'   => __( 'Address Line 2', 'textdomain' ),
+			'city'    => __( 'City', 'textdomain' ),
+			'state'   => __( 'State/Province/Region', 'textdomain' ),
+			'zip'     => __( 'Postal / Zip Code', 'textdomain' ),
+			'country' => __( 'Country', 'textdomain' ),
 		);
 		foreach ( $address_fields as $address_item => $item_label ) {
 			$placeholder = array_key_exists( 'placeholder', (array) $field ) && ! empty( $field['placeholder'] ) ? 'placeholder="' . esc_attr( $item_label ) . '"' : '';

@@ -18,7 +18,7 @@
  *
  * @package    Enhanced_Ecommerce_Google_Analytics
  * @subpackage Enhanced_Ecommerce_Google_Analytics/public
- * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
+ * @author     Chetan Rode <chetan@tatvic.com>
  */
 class Enhanced_Ecommerce_Google_Analytics_Public {
     /**
@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.3.0';
+    public $tvc_eeVer = '2.3.1';
 
     protected $tvc_aga;
 
@@ -242,10 +242,10 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         $order = new WC_Order($order_id);
         //Get Applied Coupon Codes
         $coupons_list = '';
-        if ($order->get_used_coupons()) {
-            $coupons_count = count($order->get_used_coupons());
+        if ($order->get_coupon_codes()) {
+            $coupons_count = count($order->get_coupon_codes());
             $i = 1;
-            foreach ($order->get_used_coupons() as $coupon) {
+            foreach ($order->get_coupon_codes() as $coupon) {
                 $coupons_list .= $coupon;
                 if ($i < $coupons_count)
                     $coupons_list .= ', ';
@@ -263,7 +263,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         // Order items
         if ($order->get_items()) {
             foreach ($order->get_items() as $item) {
-                $_product = $order->get_product_from_item($item);
+                $_product = $item->get_product();
                 if (isset($_product->variation_data)) {
                     $categories=esc_js(wc_get_formatted_variation($_product->get_variation_attributes(), true));
                 } else {

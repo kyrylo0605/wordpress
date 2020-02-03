@@ -39,7 +39,7 @@ class Services extends Widget_Base {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Services', 'themeisle-companion' );
+		return __( 'Services', 'textdomain' );
 	}
 
 	/**
@@ -88,19 +88,19 @@ class Services extends Widget_Base {
 		$this->start_controls_section(
 			'section_content',
 			[
-				'label' => __( 'Services', 'themeisle-companion' ),
+				'label' => __( 'Services', 'textdomain' ),
 			]
 		);
 
 		$this->add_control(
 			'services_list',
 			[
-				'label'       => __( 'Services', 'themeisle-companion' ),
+				'label'       => __( 'Services', 'textdomain' ),
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => [
 					[
-						'title' => __( 'Award-Winning​', 'themeisle-companion' ),
-						'text'  => __( 'Add some text here to describe your services to the page visitors.​', 'themeisle-companion' ),
+						'title' => __( 'Award-Winning​', 'textdomain' ),
+						'text'  => __( 'Add some text here to describe your services to the page visitors.​', 'textdomain' ),
 						'icon_new'  => [
 							'value' => 'fas fa-trophy',
 							'library' => 'solid',
@@ -109,8 +109,8 @@ class Services extends Widget_Base {
 						'type' => 'icon',
 					],
 					[
-						'title' => __( 'Professional​', 'themeisle-companion' ),
-						'text'  => __( 'Add some text here to describe your services to the page visitors.​', 'themeisle-companion' ),
+						'title' => __( 'Professional​', 'textdomain' ),
+						'text'  => __( 'Add some text here to describe your services to the page visitors.​', 'textdomain' ),
 						'icon_new'  => [
 							'value' => 'fas fa-suitcase',
 							'library' => 'solid',
@@ -119,8 +119,8 @@ class Services extends Widget_Base {
 						'type' => 'icon',
 					],
 					[
-						'title' => __( 'Consulting​', 'themeisle-companion' ),
-						'text'  => __( 'Add some text here to describe your services to the page visitors.​', 'themeisle-companion' ),
+						'title' => __( 'Consulting​', 'textdomain' ),
+						'text'  => __( 'Add some text here to describe your services to the page visitors.​', 'textdomain' ),
 						'icon_new'  => [
 							'value' => 'fas fa-handshake',
 							'library' => 'solid',
@@ -134,15 +134,15 @@ class Services extends Widget_Base {
 						'type'    => Controls_Manager::CHOOSE,
 						'name'    => 'type',
 						'label_block' => true,
-						'label'   => __( 'Type', 'themeisle-companion' ),
+						'label'   => __( 'Type', 'textdomain' ),
 						'default' => 'icon',
 						'options'   => [
 							'icon'   => [
-								'title' => __( 'Icon', 'themeisle-companion' ),
+								'title' => __( 'Icon', 'textdomain' ),
 								'icon'  => 'fa fa-diamond',
 							],
 							'image' => [
-								'title' => __( 'Image', 'themeisle-companion' ),
+								'title' => __( 'Image', 'textdomain' ),
 								'icon'  => 'fa fa-photo',
 							],
 						],
@@ -151,19 +151,19 @@ class Services extends Widget_Base {
 						'type'    => Controls_Manager::TEXT,
 						'name'    => 'title',
 						'label_block' => true,
-						'label'   => __( 'Title & Description', 'themeisle-companion' ),
-						'default' => __( 'Service Title', 'themeisle-companion' ),
+						'label'   => __( 'Title & Description', 'textdomain' ),
+						'default' => __( 'Service Title', 'textdomain' ),
 					],
 					[
 						'type'        => Controls_Manager::TEXTAREA,
 						'name'        => 'text',
-						'placeholder' => __( 'Plan Features', 'themeisle-companion' ),
-						'default'     => __( 'Feature', 'themeisle-companion' ),
+						'placeholder' => __( 'Plan Features', 'textdomain' ),
+						'default'     => __( 'Feature', 'textdomain' ),
 					],
 					[
 						'type' => Controls_Manager::ICONS,
 						'name'        => 'icon_new',
-						'label'       => __( 'Icon', 'themeisle-companion' ),
+						'label'       => __( 'Icon', 'textdomain' ),
 						'default' => [
 							'value' => 'fas fa-gem',
 							'library' => 'solid',
@@ -177,7 +177,7 @@ class Services extends Widget_Base {
 						'type'        => Controls_Manager::COLOR,
 						'name'        => 'color',
 						'label_block' => false,
-						'label'       => __( 'Icon Color', 'themeisle-companion' ),
+						'label'       => __( 'Icon Color', 'textdomain' ),
 						'default'     => '#333333',
 						'condition' => [
 							'type' => 'icon',
@@ -186,7 +186,7 @@ class Services extends Widget_Base {
 					[
 						'type'    => Controls_Manager::MEDIA,
 						'name'    => 'image',
-						'label'   => __( 'Image', 'themeisle-companion' ),
+						'label'   => __( 'Image', 'textdomain' ),
 						'condition' => [
 							'type' => 'image',
 						],
@@ -194,9 +194,9 @@ class Services extends Widget_Base {
 					[
 						'type'        => Controls_Manager::URL,
 						'name'        => 'link',
-						'label'       => __( 'Link to', 'themeisle-companion' ),
+						'label'       => __( 'Link to', 'textdomain' ),
 						'separator' => 'before',
-						'placeholder' => __( 'https://example.com', 'themeisle-companion' ),
+						'placeholder' => __( 'https://example.com', 'textdomain' ),
 					],
 				],
 				'title_field' => '{{title}}',
@@ -206,19 +206,19 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'align',
 			[
-				'label'     => '<i class="fa fa-arrows"></i> ' . __( 'Icon Position', 'themeisle-companion' ),
+				'label'     => '<i class="fa fa-arrows"></i> ' . __( 'Icon Position', 'textdomain' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'   => [
-						'title' => __( 'Left', 'themeisle-companion' ),
+						'title' => __( 'Left', 'textdomain' ),
 						'icon'  => 'fa fa-angle-left',
 					],
 					'top' => [
-						'title' => __( 'Top', 'themeisle-companion' ),
+						'title' => __( 'Top', 'textdomain' ),
 						'icon'  => 'fa fa-angle-up',
 					],
 					'right'  => [
-						'title' => __( 'Right', 'themeisle-companion' ),
+						'title' => __( 'Right', 'textdomain' ),
 						'icon'  => 'fa fa-angle-right',
 					],
 				],
@@ -233,7 +233,7 @@ class Services extends Widget_Base {
 			'grid_columns',
 			[
 				'type'           => Controls_Manager::SELECT,
-				'label'          => '<i class="fa fa-columns"></i> ' . __( 'Columns', 'themeisle-companion' ),
+				'label'          => '<i class="fa fa-columns"></i> ' . __( 'Columns', 'textdomain' ),
 				'default'        => 3,
 				'tablet_default' => 2,
 				'mobile_default' => 1,
@@ -256,14 +256,14 @@ class Services extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_icon',
 			[
-				'label' => __( 'Icon / Image', 'themeisle-companion' ),
+				'label' => __( 'Icon / Image', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 		$this->add_control(
 			'icon_space',
 			[
-				'label' => __( 'Spacing', 'themeisle-companion' ),
+				'label' => __( 'Spacing', 'textdomain' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 15,
@@ -284,7 +284,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'icon_size',
 			[
-				'label' => __( 'Size', 'themeisle-companion' ),
+				'label' => __( 'Size', 'textdomain' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -306,7 +306,7 @@ class Services extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_content',
 			[
-				'label' => __( 'Content', 'themeisle-companion' ),
+				'label' => __( 'Content', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -314,21 +314,21 @@ class Services extends Widget_Base {
 		$this->add_responsive_control(
 			'text_align',
 			[
-				'label' => __( 'Alignment', 'themeisle-companion' ),
+				'label' => __( 'Alignment', 'textdomain' ),
 				'type' => Controls_Manager::CHOOSE,
 				'toggle' => false,
 				'default' => 'center',
 				'options' => [
 					'left' => [
-						'title' => __( 'Left', 'themeisle-companion' ),
+						'title' => __( 'Left', 'textdomain' ),
 						'icon' => 'fa fa-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'themeisle-companion' ),
+						'title' => __( 'Center', 'textdomain' ),
 						'icon' => 'fa fa-align-center',
 					],
 					'right' => [
-						'title' => __( 'Right', 'themeisle-companion' ),
+						'title' => __( 'Right', 'textdomain' ),
 						'icon' => 'fa fa-align-right',
 					],
 				],
@@ -342,7 +342,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'heading_title',
 			[
-				'label' => __( 'Title', 'themeisle-companion' ),
+				'label' => __( 'Title', 'textdomain' ),
 				'type' => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -351,7 +351,7 @@ class Services extends Widget_Base {
 		$this->add_responsive_control(
 			'title_bottom_space',
 			[
-				'label' => __( 'Spacing', 'themeisle-companion' ),
+				'label' => __( 'Spacing', 'textdomain' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -368,7 +368,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label' => __( 'Color', 'themeisle-companion' ),
+				'label' => __( 'Color', 'textdomain' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -389,7 +389,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'heading_description',
 			[
-				'label' => __( 'Description', 'themeisle-companion' ),
+				'label' => __( 'Description', 'textdomain' ),
 				'type' => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -398,7 +398,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'description_color',
 			[
-				'label' => __( 'Color', 'themeisle-companion' ),
+				'label' => __( 'Color', 'textdomain' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -430,7 +430,7 @@ class Services extends Widget_Base {
 		$this->start_controls_section(
 			'section_grid_style',
 			[
-				'label' => __( 'Grid', 'themeisle-companion' ),
+				'label' => __( 'Grid', 'textdomain' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -439,7 +439,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'grid_style_columns_margin',
 			[
-				'label'     => __( 'Columns margin', 'themeisle-companion' ),
+				'label'     => __( 'Columns margin', 'textdomain' ),
 				'type'      => Controls_Manager::SLIDER,
 				'default'   => [
 					'size' => 15,
@@ -461,7 +461,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'grid_style_rows_margin',
 			[
-				'label'     => __( 'Rows margin', 'themeisle-companion' ),
+				'label'     => __( 'Rows margin', 'textdomain' ),
 				'type'      => Controls_Manager::SLIDER,
 				'default'   => [
 					'size' => 30,
@@ -492,7 +492,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'grid_items_style_heading',
 			[
-				'label'     => __( 'Items', 'themeisle-companion' ),
+				'label'     => __( 'Items', 'textdomain' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -502,7 +502,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'grid_items_style_padding',
 			[
-				'label'      => __( 'Padding', 'themeisle-companion' ),
+				'label'      => __( 'Padding', 'textdomain' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -515,7 +515,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'grid_items_style_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'themeisle-companion' ),
+				'label'      => __( 'Border Radius', 'textdomain' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -537,7 +537,7 @@ class Services extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_background_normal',
 			[
-				'label' => __( 'Normal', 'themeisle-companion' ),
+				'label' => __( 'Normal', 'textdomain' ),
 			]
 		);
 
@@ -563,7 +563,7 @@ class Services extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_background_hover',
 			[
-				'label' => __( 'Hover', 'themeisle-companion' ),
+				'label' => __( 'Hover', 'textdomain' ),
 			]
 		);
 
@@ -587,7 +587,7 @@ class Services extends Widget_Base {
 		$this->add_control(
 			'hover_transition',
 			[
-				'label'       => __( 'Transition Duration', 'themeisle-companion' ),
+				'label'       => __( 'Transition Duration', 'textdomain' ),
 				'type'        => Controls_Manager::SLIDER,
 				'default'     => [
 					'size' => 0.3,

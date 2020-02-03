@@ -9,9 +9,12 @@ if ($lazy_load_img) {
 
 include_once(dirname(__FILE__) . '/fbrev-reviews-helper.php');
 
-$rating = 0;
-$review_count = count($reviews);
-if ($review_count > 0) {
+
+$review_count = isset($facebook_count) ? $facebook_count : count($reviews);
+if (isset($facebook_rating) && !$fb_rating_calc) {
+    $rating = $facebook_rating;
+} else {
+    $rating = 0;
     foreach ($reviews as $review) {
         if (isset($review->rating)) {
             $rating = $rating + $review->rating;

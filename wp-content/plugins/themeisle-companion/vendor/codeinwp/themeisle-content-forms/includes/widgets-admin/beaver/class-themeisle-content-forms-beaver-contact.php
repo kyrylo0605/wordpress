@@ -21,7 +21,7 @@ class Contact_Admin extends Beaver_Widget_Base {
 	 * @return string
 	 */
 	function get_widget_name() {
-		return esc_html__( 'Contact Form', 'themeisle-companion' );
+		return esc_html__( 'Contact Form', 'textdomain' );
 	}
 
 	/**
@@ -42,40 +42,40 @@ class Contact_Admin extends Beaver_Widget_Base {
 			'fields'          => array(
 				array(
 					'key'         => 'name',
-					'label'       => esc_html__( 'Name', 'themeisle-companion' ),
-					'placeholder' => esc_html__( 'Name', 'themeisle-companion' ),
+					'label'       => esc_html__( 'Name', 'textdomain' ),
+					'placeholder' => esc_html__( 'Name', 'textdomain' ),
 					'type'        => 'text',
 					'field_width' => '100',
 					'required'    => 'required',
 				),
 				array(
 					'key'         => 'email',
-					'label'       => esc_html__( 'Email', 'themeisle-companion' ),
-					'placeholder' => esc_html__( 'Email', 'themeisle-companion' ),
+					'label'       => esc_html__( 'Email', 'textdomain' ),
+					'placeholder' => esc_html__( 'Email', 'textdomain' ),
 					'type'        => 'email',
 					'field_width' => '100',
 					'required'    => 'required',
 				),
 				array(
 					'key'         => 'phone',
-					'label'       => esc_html__( 'Phone', 'themeisle-companion' ),
-					'placeholder' => esc_html__( 'Phone', 'themeisle-companion' ),
+					'label'       => esc_html__( 'Phone', 'textdomain' ),
+					'placeholder' => esc_html__( 'Phone', 'textdomain' ),
 					'type'        => 'number',
 					'field_width' => '100',
 					'required'    => 'optional',
 				),
 				array(
 					'key'         => 'message',
-					'label'       => esc_html__( 'Message', 'themeisle-companion' ),
-					'placeholder' => esc_html__( 'Message', 'themeisle-companion' ),
+					'label'       => esc_html__( 'Message', 'textdomain' ),
+					'placeholder' => esc_html__( 'Message', 'textdomain' ),
 					'type'        => 'textarea',
 					'field_width' => '100',
 					'required'    => 'required',
 				),
 			),
-			'submit_label'    => esc_html__( 'Submit', 'themeisle-companion' ),
-			'success_message' => esc_html__( 'Your message has been sent!', 'themeisle-companion' ),
-			'error_message'   => esc_html__( 'Oops! I cannot send this email!', 'themeisle-companion' ),
+			'submit_label'    => esc_html__( 'Submit', 'textdomain' ),
+			'success_message' => esc_html__( 'Your message has been sent!', 'textdomain' ),
+			'error_message'   => esc_html__( 'Oops! I cannot send this email!', 'textdomain' ),
 		);
 	}
 
@@ -85,9 +85,9 @@ class Contact_Admin extends Beaver_Widget_Base {
 	public function __construct() {
 		parent::__construct(
 			array(
-				'name'        => esc_html__( 'Contact', 'themeisle-companion' ),
-				'description' => esc_html__( 'A contact form.', 'themeisle-companion' ),
-				'category'    => esc_html__( 'Orbit Fox Modules', 'themeisle-companion' ),
+				'name'        => esc_html__( 'Contact', 'textdomain' ),
+				'description' => esc_html__( 'A contact form.', 'textdomain' ),
+				'category'    => esc_html__( 'Orbit Fox Modules', 'textdomain' ),
 				'dir'         => dirname( __FILE__ ),
 				'url'         => plugin_dir_url( __FILE__ ),
 			)
@@ -114,18 +114,18 @@ class Contact_Admin extends Beaver_Widget_Base {
 		$fields['fields'] = array(
 			'success_message' => array(
 				'type'    => 'text',
-				'label'   => esc_html__( 'Success message', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Success message', 'textdomain' ),
 				'default' => $this->get_default( 'success_message' ),
 			),
 			'error_message'   => array(
 				'type'    => 'text',
-				'label'   => esc_html__( 'Error message', 'themeisle-companion' ),
+				'label'   => esc_html__( 'Error message', 'textdomain' ),
 				'default' => $this->get_default( 'error_message' ),
 			),
 			'to_send_email'   => array(
 				'type'        => 'text',
-				'label'       => esc_html__( 'Send to', 'themeisle-companion' ),
-				'description' => esc_html__( 'Where should we send the email?', 'themeisle-companion' ),
+				'label'       => esc_html__( 'Send to', 'textdomain' ),
+				'description' => esc_html__( 'Where should we send the email?', 'textdomain' ),
 				'default'     => get_bloginfo( 'admin_email' ),
 			),
 		) + $fields['fields'];
