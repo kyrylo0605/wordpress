@@ -32,7 +32,7 @@ final class NF_Actions_Email extends NF_Abstracts_Action
     {
         parent::__construct();
 
-        $this->_nicename = __( 'Email', 'ninja-forms' );
+        $this->_nicename = esc_html__( 'Email', 'ninja-forms' );
 
         $settings = Ninja_Forms::config( 'ActionEmailSettings' );
 
@@ -180,7 +180,7 @@ final class NF_Actions_Email extends NF_Abstracts_Action
                     $email = $email[ 1 ];
                 }
                 if( ! is_email( $email ) ) {
-                    $errors[ 'invalid_email' ] = sprintf( __( 'Your email action "%s" has an invalid value for the "%s" setting. Please check this setting and try again.', 'ninja-forms'), $action_settings[ 'label' ], $setting );
+                    $errors[ 'invalid_email' ] = sprintf( esc_html__( 'Your email action "%s" has an invalid value for the "%s" setting. Please check this setting and try again.', 'ninja-forms'), $action_settings[ 'label' ], $setting );
                 }
             }
         }

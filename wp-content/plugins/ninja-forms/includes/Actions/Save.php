@@ -32,7 +32,7 @@ final class NF_Actions_Save extends NF_Abstracts_Action
     {
         parent::__construct();
 
-        $this->_nicename = __( 'Store Submission', 'ninja-forms' );
+        $this->_nicename = esc_html__( 'Store Submission', 'ninja-forms' );
 
         $settings = Ninja_Forms::config( 'ActionSaveSettings' );
 

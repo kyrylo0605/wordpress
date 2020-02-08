@@ -11,7 +11,7 @@ final class NF_MergeTags_Fields extends NF_Abstracts_MergeTags
     public function __construct()
     {
         parent::__construct();
-        $this->title = __( 'Fields', 'ninja-forms' );
+        $this->title = esc_html__( 'Fields', 'ninja-forms' );
         $this->merge_tags = Ninja_Forms()->config( 'MergeTagsFields' );
 
         if( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
