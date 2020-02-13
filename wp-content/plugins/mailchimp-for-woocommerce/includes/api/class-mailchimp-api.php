@@ -221,7 +221,7 @@ class MailChimp_WooCommerce_MailChimpApi
 
         mailchimp_debug('api.subscribe', "Subscribing {$email}", $data);
 
-        return $this->post("lists/$list_id/members", $data);
+        return $this->post("lists/$list_id/members?skip_merge_validation=true", $data);
     }
 
     /**
@@ -270,7 +270,7 @@ class MailChimp_WooCommerce_MailChimpApi
 
         mailchimp_debug('api.update_member', "Updating {$email}", $data);
 
-        return $this->patch("lists/$list_id/members/$hash", $data);
+        return $this->patch("lists/$list_id/members/$hash?skip_merge_validation=true", $data);
     }
 
     /**
@@ -324,9 +324,9 @@ class MailChimp_WooCommerce_MailChimpApi
     {
         $hash = md5(strtolower(trim($email)));
         $tags = mailchimp_get_user_tags_to_update();
-        
+
         if (empty($tags)) return false;
-        
+
         $data = array(
             'tags' => $tags
         );
@@ -407,6 +407,19 @@ class MailChimp_WooCommerce_MailChimpApi
     public function createList(MailChimp_WooCommerce_CreateListSubmission $submission)
     {
         return $this->post('lists', $submission->getSubmission());
+    }
+
+    /**
+     * @param string $list_id
+     * @param MailChimp_WooCommerce_CreateListSubmission $submission
+     * @return array|mixed|null|object
+     * @throws Exception
+     * @throws MailChimp_WooCommerce_Error
+     * @throws MailChimp_WooCommerce_ServerError
+     */
+    public function updateList($list_id, MailChimp_WooCommerce_CreateListSubmission $submission)
+    {
+        return $this->patch("lists/{$list_id}", $submission->getSubmission());
     }
 
     /**
@@ -1038,7 +1051,7 @@ class MailChimp_WooCommerce_MailChimpApi
             }
             $order_id = $order->getId();
             $data = $this->patch("ecommerce/stores/{$store_id}/orders/{$order_id}", $order->toArray());
-            
+
             //update user tags
             $email_address = $order->getCustomer()->getEmailAddress();
 
@@ -1221,12 +1234,48 @@ class MailChimp_WooCommerce_MailChimpApi
         $missing_products = array();
         foreach ($order->items() as $order_item) {
             /** @var \MailChimp_WooCommerce_LineItem $order_item */
-            $job = new MailChimp_WooCommerce_Single_Product($order_item->getId());
-            if ($missing_products[$order_item->getId()] = $job->createModeOnly()->handle()) {
+            // get the line item name from the order detail just in case we need that title for the product.
+            $job = new MailChimp_WooCommerce_Single_Product($order_item->getProductId(), $order_item->getFallbackTitle());
+            if ($missing_products[$order_item->getId()] = $job->createModeOnly()->fromOrderItem($order_item)->handle()) {
                 mailchimp_debug("missing_products.fallback", "Product {$order_item->getId()} had to be re-pushed into Mailchimp");
             }
         }
         return $missing_products;
+    }
+
+    /**
+     * @return MailChimp_WooCommerce_Product
+     */
+    public function createEmptyLineItemProductPlaceholder()
+    {
+        $product = new MailChimp_WooCommerce_Product();
+        $product->setId('empty_line_item_placeholder');
+        $product->setTitle('Empty Line Item Placeholder');
+        $product->setVendor('deleted');
+
+        $variation = new MailChimp_WooCommerce_ProductVariation();
+        $variation->setId($product->getId());
+        $variation->setTitle($product->getTitle());
+        $variation->setInventoryQuantity(0);
+        $variation->setVisibility('hidden');
+        $variation->setPrice(1);
+
+        $product->addVariant($variation);
+
+        if ((bool) mailchimp_get_data('empty_line_item_placeholder', false)) {
+            return $product;
+        }
+
+        $store_id = mailchimp_get_store_id();
+        $api = mailchimp_get_api();
+
+        try {
+            $response = $api->addStoreProduct($store_id, $product);
+            mailchimp_set_data('empty_line_item_placeholder', true, 'yes');
+            return $response;
+        } catch (\Exception $e) {
+            return $product;
+        }
     }
 
     /**
@@ -1736,6 +1785,7 @@ class MailChimp_WooCommerce_MailChimpApi
             if ($http_code == 403) {
                 throw new MailChimp_WooCommerce_RateLimitError();
             }
+
             throw new MailChimp_WooCommerce_Error($data['title'] .' :: '.$data['detail'], $data['status']);
         }
 

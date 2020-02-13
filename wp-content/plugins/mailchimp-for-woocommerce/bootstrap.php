@@ -67,9 +67,6 @@ spl_autoload_register(function($class) {
         
         'MailChimp_WooCommerce_Public' => 'public/class-mailchimp-woocommerce-public.php',
         'MailChimp_WooCommerce_Admin' => 'admin/class-mailchimp-woocommerce-admin.php',
-        
-        // Queue system Action Scheduler
-        'ActionScheduler' => 'includes/vendor/action-scheduler/action-scheduler.php',
     );
 
     // if the file exists, require it
@@ -77,6 +74,9 @@ spl_autoload_register(function($class) {
     if (array_key_exists($class, $classes) && file_exists($path.$classes[$class])) {
         require $path.$classes[$class];
     }
+
+    // require Action Scheduler
+    include_once "includes/vendor/action-scheduler/action-scheduler.php";
 });
 
 /**
@@ -90,7 +90,7 @@ function mailchimp_environment_variables() {
     return (object) array(
         'repo' => 'master',
         'environment' => 'production', // staging or production
-        'version' => '2.3.1',
+        'version' => '2.3.2',
         'php_version' => phpversion(),
         'wp_version' => (empty($wp_version) ? 'Unknown' : $wp_version),
         'wc_version' => function_exists('WC') ? WC()->version : null,
@@ -596,11 +596,11 @@ function mailchimp_get_order_count() {
 function mailchimp_count_posts($type) {
     global $wpdb;
     if ($type === 'shop_order') {
-        $query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s GROUP BY post_status";
+        $query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s";
         $posts = $wpdb->get_results( $wpdb->prepare($query, $type, 'wc-completed'));
     } else {
-        $query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE post_type = %s GROUP BY post_status";
-        $posts = $wpdb->get_results( $wpdb->prepare($query, $type));
+        $query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s";
+        $posts = $wpdb->get_results( $wpdb->prepare($query, $type, 'publish'));
     }
 
     $response = array();
@@ -924,6 +924,7 @@ function mailchimp_clean_database() {
     delete_option('mailchimp-woocommerce-cached-api-lists');
     delete_option('mailchimp-woocommerce-cached-api-ping-check');
     delete_option('mailchimp-woocommerce-errors.store_info');
+    delete_option('mailchimp-woocommerce-empty_line_item_placeholder');
 }
 
 /**

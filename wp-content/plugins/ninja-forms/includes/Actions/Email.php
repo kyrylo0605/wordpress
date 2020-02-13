@@ -84,7 +84,7 @@ final class NF_Actions_Email extends NF_Abstracts_Action
              * @return bool True if already sent. False to fallback to default behavior. Throw a new Exception if there is an error.
              */
             if( ! $sent = apply_filters( 'ninja_forms_action_email_send', false, $action_settings, $message, $headers, $attachments ) ){
-              $sent = wp_mail($action_settings['to'], $action_settings['email_subject'], $message, $headers, $attachments);
+              $sent = wp_mail($action_settings['to'], strip_tags( $action_settings['email_subject'] ), $message, $headers, $attachments);
             }
         } catch ( Exception $e ){
             $sent = false;

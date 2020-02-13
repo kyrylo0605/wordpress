@@ -54,10 +54,10 @@
                                             echo $setting[ 'value' ];
                                             break;
                                         case 'textbox' :
-                                            echo "<input type='text' class='code widefat' name='{$setting['id']}' id='{$setting['id']}' value='{$setting['value']}'>";
+                                            echo "<input type='text' class='code widefat' name='{$setting['id']}' id='{$setting['id']}' value='" . esc_attr($setting['value']) . "'>";
                                             break;
                                         case 'password' :
-                                            echo "<input type='password' class='code widefat' name='{$setting['id']}' id='{$setting['id']}' value='{$setting['value']}'>";
+                                            echo "<input type='password' class='code widefat' name='{$setting['id']}' id='{$setting['id']}' value='" . esc_attr($setting['value']) . ">";
                                             break;		
                                         case 'checkbox' :
                                             $checked = ( $setting[ 'value' ] ) ? 'checked' : '';
@@ -93,6 +93,7 @@
                 </div>
             <?php endforeach; ?>
 
+            <input type="hidden" name="update_ninja_forms_settings_nonce" value="<?php echo wp_create_nonce( "ninja_forms_settings_nonce" ); ?>">
             <input type="hidden" name="update_ninja_forms_settings">
             <input type="submit" class="button button-primary" value="<?php echo $save_button_text; ?>">
 

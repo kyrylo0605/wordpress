@@ -185,13 +185,27 @@ class MailChimp_WooCommerce_Transform_Orders
             // add it into the order item container.
             $item = $this->transformLineItem($key, $order_detail);
 
+            $product = $order_detail->get_product();
+
+            // if we can't find the product, we need to populate this
+            if (empty($product)) {
+                if (($empty_order_item = MailChimp_WooCommerce_Transform_Products::missing_order_item($order_detail))) {
+                    $item->setFallbackTitle($empty_order_item->getTitle());
+                    $item->setProductId($empty_order_item->getId());
+                    $item->setProductVariantId($empty_order_item->getId());
+                    $order->addItem($item);
+                    continue;
+                }
+            }
+
             // if we don't have a product post with this id, we need to add a deleted product to the MC side
-            if (!($product = $order_detail->get_product()) || 'trash' === $product->get_status()) {
+            if (!$product || ($trashed = 'trash' === $product->get_status())) {
 
                 $pid = $order_detail->get_product_id();
-
+                $title = $order_detail->get_name();
+                
                 try {
-                    $deleted_product = MailChimp_WooCommerce_Transform_Products::deleted($pid);
+                    $deleted_product = MailChimp_WooCommerce_Transform_Products::deleted($pid, $title);
                 } catch (\Exception $e) {
                     mailchimp_log('order.items.error', "Order #{$woo->get_id()} :: Product {$pid} does not exist!");
                     continue;
@@ -202,7 +216,7 @@ class MailChimp_WooCommerce_Transform_Orders
                     // swap out the old item id and product variant id with the deleted version.
                     $item->setProductId("deleted_{$pid}");
                     $item->setProductVariantId("deleted_{$pid}");
-
+                    
                     // add the item and continue on the loop.
                     $order->addItem($item);
                     continue;
@@ -296,6 +310,10 @@ class MailChimp_WooCommerce_Transform_Orders
         // fire up a new MC line item
         $item = new MailChimp_WooCommerce_LineItem();
         $item->setId($key);
+
+        // set the fallback title for the order detail name just in case we need to create a product
+        // from this order item.
+        $item->setFallbackTitle($order_detail->get_name());
 
         $item->setPrice($order_detail->get_total());
         $item->setProductId($order_detail->get_product_id());
@@ -420,7 +438,7 @@ class MailChimp_WooCommerce_Transform_Orders
         foreach ($orders as $order) {
             $order = wc_get_order($order);
 
-            if ($order->get_status() !== 'cancelled' && $order->is_paid()) {
+            if ($order->get_status() !== 'cancelled' && (method_exists($order, 'is_paid') && $order->is_paid())) {
                 $stats->total += $order->get_total();
                 $stats->count ++;
             }

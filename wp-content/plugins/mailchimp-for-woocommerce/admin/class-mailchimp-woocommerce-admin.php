@@ -66,6 +66,7 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 		update_option('mailchimp-woocommerce-sync.started_at', false);
 		update_option('mailchimp-woocommerce-sync.completed_at', false);
 		update_option('mailchimp-woocommerce-resource-last-updated', false);
+		update_option('mailchimp-woocommerce-empty_line_item_placeholder', false);
 
 		if (($store_id = mailchimp_get_store_id()) && ($mc = mailchimp_get_api()))  {
             if ($mc->deleteStore($store_id)) {
@@ -112,7 +113,9 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 	 */
 	public function enqueue_scripts($hook) {
 		if ( $hook === 'toplevel_page_mailchimp-woocommerce' ) {
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mailchimp-woocommerce-admin.js', array( 'jquery', 'swal' ), $this->version, false );
+			wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mailchimp-woocommerce-admin.js', array( 'jquery', 'swal' ), $this->version, false );
+			wp_localize_script( $this->plugin_name, 'phpVars', array( 'removeReviewBannerRestUrl' => MailChimp_WooCommerce_Rest_Api::url('review-banner')) );
+			wp_enqueue_script( $this->plugin_name);
 			wp_enqueue_script('swal', "//cdn.jsdelivr.net/npm/sweetalert2@8", '', $this->version, false);
 		}
 	}
@@ -188,6 +191,7 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 	 *
 	 */
 	public function options_update() {
+		global $pagenow;
 
 		$this->handle_abandoned_cart_table();
 
@@ -195,8 +199,10 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 
 		register_setting($this->plugin_name, $this->plugin_name, array($this, 'validate'));
 
-		if (get_option('mailchimp-woocommerce-sync.initial_sync') == 1 && get_option('mailchimp-woocommerce-sync.completed_at') > 0 ) {
-			$this->mailchimp_show_initial_sync_message();
+		if ($pagenow == 'admin.php' && 'mailchimp-woocommerce' === $_GET['page']) {
+			if (get_option('mailchimp-woocommerce-sync.initial_sync') == 1 && get_option('mailchimp-woocommerce-sync.completed_at') > 0 ) {
+				$this->mailchimp_show_initial_sync_message();
+			}
 		}
 	}
 
@@ -828,6 +834,12 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 
         $data['active_tab'] = 'newsletter_settings';
 
+        $list_id = mailchimp_get_list_id();
+
+        if (!empty($list_id)) {
+            $this->updateMailChimpList(array_merge($this->getOptions(), $data), $list_id);
+        }
+
 		return $data;
 	}
 
@@ -868,10 +880,6 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 			'mailchimp_user_tags' => isset($input['mailchimp_user_tags']) ? implode(",",$sanitized_tags) : $this->getOption('mailchimp_user_tags'),
             'mailchimp_product_image_key' => isset($input['mailchimp_product_image_key']) ? $input['mailchimp_product_image_key'] : 'medium',
         );
-
-		if ($data['mailchimp_list'] === 'create_new') {
-			$data['mailchimp_list'] = $this->createMailChimpList(array_merge($this->getOptions(), $data));
-		}
 
 		// as long as we have a list set, and it's currently in MC as a valid list, let's sync the store.
 		if (!empty($data['mailchimp_list']) && $this->api()->hasList($data['mailchimp_list'])) {
@@ -1199,7 +1207,7 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 	 * @param null|array $data
 	 * @return bool|string
 	 */
-	private function createMailChimpList($data = null)
+	private function updateMailChimpList($data = null, $list_id = null)
 	{
 		if (empty($data)) {
 			$data = $this->getOptions();
@@ -1213,6 +1221,7 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 
 		foreach ($required as $requirement) {
 			if (!isset($data[$requirement]) || empty($data[$requirement])) {
+			    mailchimp_log('admin', 'does not have enough data to update the mailchimp list.');
 				return false;
 			}
 		}
@@ -1222,8 +1231,10 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 		// allow the subscribers to choose preferred email type (html or text).
 		$submission->setEmailTypeOption(true);
 
-		// set the store name
-		$submission->setName($data['store_name']);
+        // set the store name if the list id is not set.
+		if (empty($list_id)) {
+            $submission->setName($data['store_name']);
+        }
 
 		// set the campaign defaults
 		$submission->setCampaignDefaults(
@@ -1243,16 +1254,24 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 
 		$submission->setContact($this->address($data));
 
-		try {
-			$response = $this->api()->createList($submission);
+		// let's turn this on for debugging purposes.
+		mailchimp_debug('admin', 'list info submission', array('submission' => print_r($submission->getSubmission(), true)));
 
-			$list_id = array_key_exists('id', $response) ? $response['id'] : false;
+		try {
+			$response = !empty($list_id) ?
+                $this->api()->updateList($list_id, $submission) :
+                $this->api()->createList($submission);
+
+			if (empty($list_id)) {
+			    $list_id = array_key_exists('id', $response) ? $response['id'] : false;
+            }
 
 			$this->setData('errors.mailchimp_list', false);
 
 			return $list_id;
 
 		} catch (MailChimp_WooCommerce_Error $e) {
+            mailchimp_error('admin', $e->getMessage());
 			$this->setData('errors.mailchimp_list', $e->getMessage());
 			return false;
 		}
@@ -1315,9 +1334,10 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
 			$this->setData($time_key, time());
 
 			// on a new store push, we need to make sure we save the site script into a local variable.
-			if ($new) {
-                mailchimp_update_connected_site_script();
-            }
+            mailchimp_update_connected_site_script();
+
+			// we need to update the list again with the campaign defaults
+			$this->updateMailChimpList(null, $list_id);
 
 			return true;
 
@@ -1471,14 +1491,6 @@ class MailChimp_WooCommerce_Admin extends MailChimp_WooCommerce_Options {
         '</a>';
 		
 		add_settings_error('mailchimp-woocommerce_notice', $this->plugin_name.'-initial-sync-end', $text, 'updated');
-	}
-
-	/**
-	 * Remove review banner.
-	 */
-	public function mailchimp_woocommerce_remove_review_banner() {
-		$this->removeData('sync.initial_sync');
-		wp_die();
 	}
 
 	/**

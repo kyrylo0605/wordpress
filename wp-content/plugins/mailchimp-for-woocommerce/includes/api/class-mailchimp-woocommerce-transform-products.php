@@ -39,13 +39,39 @@ class MailChimp_WooCommerce_Transform_Products
     }
 
     /**
+     * @param MailChimp_WooCommerce_LineItem $item
+     * @return MailChimp_WooCommerce_Product
+     */
+    public function fromOrderItem(MailChimp_WooCommerce_LineItem $item)
+    {
+        $product = new MailChimp_WooCommerce_Product();
+
+        $fallback_title = $item->getFallbackTitle();
+        if (empty($fallback_title)) $fallback_title = "deleted_{$item->getProductId()}";
+
+        $product->setId($item->getProductId());
+        $product->setTitle($fallback_title);
+
+        $variant = new MailChimp_WooCommerce_ProductVariation();
+        $variant->setId($item->getProductId());
+        $variant->setTitle($fallback_title);
+        $variant->setInventoryQuantity(0);
+        $variant->setVisibility('hidden');
+        $variant->setSku($item->getFallbackSku());
+
+        $product->addVariant($variant);
+
+        return $product;
+    }
+
+    /**
      * @param WP_Post $post
      * @return MailChimp_WooCommerce_Product
      */
-    public function transform(WP_Post $post)
+    public function transform(WP_Post $post, $fallback_title = null)
     {
         if (!($woo = wc_get_product($post))) {
-            return $this->wooProductNotLoadedCorrectly($post);
+            return $this->wooProductNotLoadedCorrectly($post, $fallback_title);
         }
 
         $variant_posts = $this->getProductVariantPosts($post->ID);
@@ -132,6 +158,14 @@ class MailChimp_WooCommerce_Transform_Products
         $variant->setSku($woo->get_sku());
         $variant->setBackorders($woo->backorders_allowed());
 
+        if (empty($variant->getTitle())) {
+            if (!empty($fallback_title)) {
+                $variant->setTitle($fallback_title);
+            } elseif (!empty($variant->getSku())) {
+                $variant->setTitle($variant->getSku());
+            }
+        }
+
         // only set these properties if the product is currently visible or purchasable.
         if ($woo->is_purchasable() && $woo->is_visible()) {
             if ($woo->is_in_stock()) {
@@ -183,7 +217,7 @@ class MailChimp_WooCommerce_Transform_Products
         $params = array(
             'post_type' => array_merge(array_keys(wc_get_product_types()), array('product')),
             'posts_per_page' => $posts,
-            'post_status' => 'publish',
+            'post_status' => array('private', 'publish', 'draft'),
             'offset' => $offset,
             'orderby' => 'ID',
             'order' => 'ASC',
@@ -209,12 +243,10 @@ class MailChimp_WooCommerce_Transform_Products
     public function getProductVariantPosts($id)
     {
         $variants = get_posts(array(
-            'numberposts' => 99999,
-            'order' => 'ASC',
-            'orderby' => 'ID',
             'post_type' => 'product_variation',
-            'post_parent' => $id,
-            'post_status' => 'publish',
+            'post_status' => array('private', 'publish', 'draft'),
+            'numberposts' => -1,
+            'post_parent' => $id
         ));
 
         if (empty($variants)) {
@@ -255,7 +287,7 @@ class MailChimp_WooCommerce_Transform_Products
      * @return bool|MailChimp_WooCommerce_Product
      * @throws Exception
      */
-    public static function deleted($id)
+    public static function deleted($id, $title)
     {
         $store_id = mailchimp_get_store_id();
         $api = mailchimp_get_api();
@@ -264,11 +296,50 @@ class MailChimp_WooCommerce_Transform_Products
             $product = new MailChimp_WooCommerce_Product();
 
             $product->setId("deleted_{$id}");
-            $product->setTitle("deleted_{$id}");
+            $product->setTitle($title);
 
             $variant = new MailChimp_WooCommerce_ProductVariation();
-            $variant->setId("deleted_{$id}");
-            $variant->setTitle("deleted_{$id}");
+            $variant->setId($product->getId());
+            $variant->setTitle($title);
+            $variant->setInventoryQuantity(0);
+            $variant->setVisibility('hidden');
+
+            $product->addVariant($variant);
+
+            return $api->addStoreProduct($store_id, $product);
+        }
+
+        return $product;
+    }
+
+    /**
+     * @param $id
+     * @return bool|MailChimp_WooCommerce_Product
+     * @throws Exception
+     */
+    public static function missing_order_item($item)
+    {
+        // we can only do this with an order item
+        if (!$item instanceof WC_Order_Item_Product) return false;
+
+        $store_id = mailchimp_get_store_id();
+        $api = mailchimp_get_api();
+
+        $id = $item->get_product_id();
+        $title = $item->get_name();
+
+        // only do this if we haven't pushed this product ID up yet to Mailchimp
+        if (!($product = $api->getStoreProduct($store_id, "deleted_{$id}"))) {
+            $product = new MailChimp_WooCommerce_Product();
+
+            $product->setId("deleted_{$id}");
+            $product->setTitle($title);
+
+            $variant = new MailChimp_WooCommerce_ProductVariation();
+            $variant->setId($product->getId());
+            $variant->setTitle($title);
+            $variant->setInventoryQuantity(0);
+            $variant->setVisibility('hidden');
 
             $product->addVariant($variant);
 
@@ -280,9 +351,10 @@ class MailChimp_WooCommerce_Transform_Products
 
     /**
      * @param \WP_Post $post
+     * @param string|null $fallback_title
      * @return MailChimp_WooCommerce_Product
      */
-    protected function wooProductNotLoadedCorrectly($post)
+    protected function wooProductNotLoadedCorrectly($post, $fallback_title = null)
     {
         $product = new MailChimp_WooCommerce_Product();
         $product->setId($post->ID);
@@ -290,7 +362,7 @@ class MailChimp_WooCommerce_Transform_Products
         $product->setDescription($post->post_content);
         $product->setImageUrl($this->getProductImage($post));
 
-        $variant = $this->variant($post, $post->post_name);
+        $variant = $this->variant($post, ($post->post_name ? $post->post_name : $fallback_title));
 
         if (!$variant->getImageUrl()) {
             $variant->setImageUrl($product->getImageUrl());

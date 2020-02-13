@@ -217,6 +217,10 @@ final class NF_Admin_Menus_Settings extends NF_Abstracts_Submenu
 
     public function update_settings()
     {
+        if( ! wp_verify_nonce( $_POST['update_ninja_forms_settings_nonce'], 'ninja_forms_settings_nonce' ) ) {
+            wp_die( esc_html__( 'Your request could not be verified. Please try again.', 'ninja-forms' ) );
+        }
+        
         if( ! current_user_can( apply_filters( 'ninja_forms_admin_settings_capabilities', 'manage_options' ) ) ) return;
 
         if( ! isset( $_POST[ $this->_prefix ] ) ) return;

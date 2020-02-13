@@ -1,9 +1,9 @@
 === Ninja Forms Contact Form - The Drag and Drop Form Builder for WordPress ===
 Contributors: wpninjasllc, kstover, jameslaws, kbjohnson90, klhall1987, krmoorhouse, jmcelhaney, wpnzach, ericwindhamsd
-Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
+Tags: forms, contact form, email form, form builder, custom form, pdf form, registration form, payment form, login form, contact me, signature form, upload form, file upload form, conditional form, feedback form, appointment form, quote form, survey form, contact button, signup form, form plugin, contact form plugin, subscription form, email subscription form, newsletter form, donation form, booking form, quote request form, multi page form, conditional logic form, subscription form, application form, employment verification form, star rating form, rating form, event form, mailchimp form, campaign monitor form, constant contact form, mailpoet form, aweber form, cleverreach form, emma form, convertkit form, active campaign form, salesforce form, zoho form, capsule form, insightly form, pipelinedeals form, onepagecrm form
 Requires at least: 5.1
 Tested up to: 5.3
-Stable tag: 3.4.22.1
+Stable tag: 3.4.23
 License: GPLv2 or later
 
 The 100% beginner friendly WordPress form builder. Drag & drop form fields to build beautiful, professional contact forms in minutes.
@@ -303,14 +303,43 @@ This section describes how to install the plugin and get it working.
 
 == Upgrade Notice ==
 
-= 3.4.22.1 (4 February 2020) =
+= 3.4.23 (12 February 2020) =
 
 *Security:*
 
-* Hardened the authorization security on several of our form endpoints.
-* Audited all translation functions to prevent injection attacks.
+* Patched a delayed XSS vulnerability in our email action.
+* Hardened the authorization security on our settings page.
+* Patched a stored XSS vulnerability on our settings page. Many thanks to Ben Armstrong at Spider Sec Ltd for practicing responsible disclosure!
+
+*Bugs:*
+
+* Ninja Forms should now properly honor user profile language settings if they are not the site default.
+* Opening the form builder should no longer result in a php warning about an invalid argument.
+* Cleaned up our publish code to avoid a few other php warnings.
+
+*Changes:*
+
+* Updated our event registration template to be more accessibility compliant.
 
 == Changelog ==
+
+= 3.4.23 (12 February 2020) =
+
+*Security:*
+
+* Patched a delayed XSS vulnerability in our email action.
+* Hardened the authorization security on our settings page.
+* Patched a stored XSS vulnerability on our settings page.
+
+*Bugs:*
+
+* Ninja Forms should now properly honor user profile language settings if they are not the site default.
+* Opening the form builder should no longer result in a php warning about an invalid argument.
+* Cleaned up our publish code to avoid a few other php warnings.
+
+*Changes:*
+
+* Updated our event registration template to be more accessibility compliant.
 
 = 3.4.22.1 (4 February 2020) =
 
