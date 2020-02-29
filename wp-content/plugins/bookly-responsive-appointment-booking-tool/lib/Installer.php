@@ -366,7 +366,9 @@ class Installer extends Base\Installer
         // Remove user meta.
         $meta_names = array(
             'bookly_appointment_form_send_notifications',
+            'bookly_appointments_table_settings',
             'bookly_contact_us_btn_clicked',
+            'bookly_customers_table_settings',
             'bookly_delete_customers_options',
             'bookly_dismiss_appearance_notice',
             'bookly_dismiss_collect_stats_notice',
@@ -377,11 +379,15 @@ class Installer extends Base\Installer
             'bookly_dismiss_nps_notice',
             'bookly_dismiss_powered_by_notice',
             'bookly_dismiss_subscribe_notice',
-            'bookly_filter_appointments_list',
-            'bookly_filter_services_categories',
-            'bookly_filter_staff_categories',
-            'bookly_filter_staff_list',
+            'bookly_email_notifications_table_settings',
+            'bookly_payments_table_settings',
             'bookly_show_collecting_stats_notice',
+            'bookly_sms_notifications_table_settings',
+            'bookly_sms_notifications_table_settings',
+            'bookly_sms_prices_table_settings',
+            'bookly_sms_purchases_table_settings',
+            'bookly_sms_sender_table_settings',
+            'bookly_staff_table_settings',
         );
         $wpdb->query( $wpdb->prepare( sprintf( 'DELETE FROM `' . $wpdb->usermeta . '` WHERE meta_key IN (%s)',
             implode( ', ', array_fill( 0, count( $meta_names ), '%s' ) ) ), $meta_names ) );

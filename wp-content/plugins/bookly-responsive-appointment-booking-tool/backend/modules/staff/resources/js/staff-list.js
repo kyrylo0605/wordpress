@@ -1,16 +1,22 @@
 jQuery(function ($) {
-    var $staffList   = $('#staff-list'),
-        $checkAllButton = $('.bookly-js-check-all'),
-        $filter         = $('#bookly-filter'),
+    var $staffList      = $('#bookly-staff-list'),
+        $checkAllButton = $('#bookly-check-all'),
+
         $deleteButton   = $('#bookly-delete'),
         $deleteModal    = $('.bookly-js-delete-cascade-confirm'),
         $staffCount     = $('.bookly-js-staff-count'),
-        $filterVisibility = $('#bookly-filter-visibility'),
-        $filterArchived   = $('#bookly-filter-archived')
+        filters         = {
+            visibility: $('#bookly-filter-visibility'),
+            archived  : $('#bookly-filter-archived'),
+            category  : $('#bookly-filter-category'),
+            search    : $('#bookly-filter-search'),
+        },
+        urlParts        = document.URL.split('#')
     ;
 
     $('.bookly-js-select').val(null);
-    $.each(BooklyL10n.filter, function (field, value) {
+
+    $.each(BooklyL10n.datatables.staff_members.settings.filter, function (field, value) {
         if (value != '') {
             let $elem = $('#bookly-filter-' + field);
             if ($elem.is(':checkbox')) {
@@ -31,100 +37,85 @@ jQuery(function ($) {
         .on('hidden.bs.modal', function () {
             jQuery('body').addClass('modal-open');
         });
-    var columns = [
-        {
-            data      : 'position',
-            searchable: false
-        },
-        {
-            render: function (data, type, row, meta) {
-                return '<i class="bookly-icon bookly-icon-draghandle bookly-cursor-move" title="' + BooklyL10n.reorder + '"></i>';
-            }
-        },
-        {
-            data: 'full_name',
-            responsivePriority: 2
-        },
-    ];
-    if (BooklyL10n.proRequired !== "1") {
-        columns = columns.concat([
-            {
-                responsivePriority: 3,
-                render: function (data, type, row, meta) {
-                    if (row.category_id != null) {
-                        return BooklyL10n.categories.find(x => x.id === row.category_id).name;
-                    } else {
-                        return BooklyL10n.uncategorized;
-                    }
-                }
-            }]);
-    } else {
-
-    }
-    columns = columns.concat([
-        {
-            data: 'email',
-            responsivePriority: 2
-        },
-        {
-            data: 'phone',
-            responsivePriority: 2
-        },
-        {
-            data: 'wp_user',
-            responsivePriority: 2
-        },
-        {
-            responsivePriority: 1,
-            searchable: false,
-            render: function (data, type, row, meta) {
-                return '<button type="button" class="btn btn-default" data-action="edit"><i class="fa fa-fw fa-edit"></i> ' + BooklyL10n.edit + '</a>';
-            }
-        },
-        {
-            responsivePriority: 1,
-            searchable: false,
-            render: function (data, type, row, meta) {
-                return '<input type="checkbox" class="bookly-js-delete" value="' + row.id + '" />';
-            }
-        }
-    ]);
 
     /**
-     * Notification list
+     * Init Columns.
+     */
+    var columns = [];
+
+    $.each(BooklyL10n.datatables.staff_members.settings.columns, function (column, show) {
+        if (show) {
+            switch (column) {
+                case 'category_name':
+                    columns.push({
+                        data: column, render: function (data, type, row, meta) {
+                            return data !== null ? data : BooklyL10n.uncategorized;
+                        }
+                    });
+                    break;
+                default:
+                    columns.push({data: column});
+                    break;
+            }
+        }
+    });
+    columns.push({
+        responsivePriority: 1,
+        orderable         : false,
+        searchable        : false,
+        width             : 90,
+        render            : function (data, type, row, meta) {
+            return '<button type="button" class="btn btn-default" data-action="edit"><i class="fa fa-fw fa-edit"></i> ' + BooklyL10n.edit + '</a>';
+        }
+    });
+    columns.push({
+        responsivePriority: 1,
+        orderable         : false,
+        searchable        : false,
+        render            : function (data, type, row, meta) {
+            return '<input type="checkbox" value="' + row.id + '">';
+        }
+    });
+    let order = [];
+    $.each(BooklyL10n.datatables.staff_members.settings.order, function (key, value) {
+        const index = columns.findIndex(c => c.data === value.column);
+        if (index !== -1) {
+            order.push([index, value.order]);
+        }
+    });
+
+    /**
+     * Init DataTables.
      */
     var dt = $staffList.DataTable({
-        paging    : false,
-        info      : false,
-        processing: true,
-        responsive: true,
-        serverSide: false,
-        rowReorder: {
-            update  : true,
-            dataSrc : 'position',
-            snapX   : true,
-            selector: '.bookly-icon-draghandle'
-        },
-        order     : [0, 'asc'],
-        columnDefs: [
-            {visible: false, targets: 0},
-            {orderable: false, targets: '_all'}
-        ],
-        ajax      : {
+        order       : order,
+        info        : false,
+        searching   : false,
+        lengthChange: false,
+        processing  : true,
+        responsive  : true,
+        pageLength  : 25,
+        pagingType  : 'numbers',
+        serverSide  : true,
+        ajax        : {
             url : ajaxurl,
-            data: {action: '', csrf_token: BooklyL10n.csrfToken},
             type: 'POST',
             data: function (d) {
-                return $.extend({action: 'bookly_get_staff_list', csrf_token: BooklyL10n.csrfToken}, {
-                    filter: {
-                        visibility: $filterVisibility.val(),
-                        archived  : $filterArchived.prop('checked')?1:0
+                let data = $.extend({action: 'bookly_get_staff_list', csrf_token: BooklyL10n.csrfToken, filter: {}}, d);
+
+                Object.keys(filters).map(filter => {
+                    if (filter == 'archived') {
+                        data.filter[filter] = filters[filter].prop('checked') ? 1 : 0;
+                    } else {
+                        data.filter[filter] = filters[filter].val();
                     }
-                }, d);
+                });
+
+                return data;
             },
             dataSrc: function (json) {
-                $staffCount.html(json.data.total);
-                return json.data.list;
+                $staffCount.html(json.recordsFiltered);
+                return json.data;
             }
         },
         columns   : columns,
@@ -140,43 +131,7 @@ jQuery(function ($) {
             zeroRecords: BooklyL10n.zeroRecords,
             processing : BooklyL10n.processing
         }
-    }).on('row-reordered', function (e, diff, edit) {
-        let positions = [];
-        dt.data().each(function (item) {
-            positions.push({position: parseInt(item.position), id: item.id});
-        });
-        $.ajax({
-            url  : ajaxurl,
-            type : 'POST',
-            data : {
-                action     : 'bookly_update_staff_position',
-                csrf_token : BooklyL10n.csrfToken,
-                positions  : (positions.sort((a, b) => a.position - b.position))
-                    .map(function (value) {
-                        return value.id;
-                    })
-            },
-            dataType: 'json',
-            success : function (response) {
-
-            }
-        });
     });
-
-    /**
-     * On filters change.
-     */
-    $filter
-        .on('keyup', function () {
-            dt.search(this.value).draw();
-        })
-        .on('keydown', function (e) {
-            if (e.keyCode == 13) {
-                e.preventDefault();
-                return false;
-            }
-        })
-    ;
 
     /**
      * Select all appointments.
@@ -234,9 +189,9 @@ jQuery(function ($) {
                                 break;
                         }
                     } else {
-                        $(document.body).trigger('service.deleted', [staff]);
                         dt.rows($checkboxes.closest('td')).remove().draw();
                         $staffCount.html(response.data.total);
+                        $(document.body).trigger('staff.deleted', [staff_ids]);
                     }
                     ladda.stop();
                 });
@@ -252,10 +207,25 @@ jQuery(function ($) {
             allowClear: true,
             placeholder: '',
             language  : {
-                noResults: function() { return BooklyL10n.no_result_found; }
+                noResults: function() { return BooklyL10n.noResultFound; }
             }
         });
 
-    $filterVisibility.on('change', function () {dt.ajax.reload();});
-    $filterArchived.on('change', function () {dt.ajax.reload();});
+    /**
+     * On filters change.
+     */
+    filters.search
+        .on('keyup', function () {
+            dt.search(this.value).draw();
+        })
+        .on('keydown', function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                return false;
+            }
+        })
+    ;
+    filters.visibility.on('change', function () {dt.ajax.reload();});
+    filters.archived.on('change', function () {dt.ajax.reload();});
+    filters.category.on('change', function () {dt.ajax.reload();});
 });

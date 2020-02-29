@@ -4,9 +4,7 @@ use Bookly\Backend\Components\Controls\Buttons;
 ?>
 
 <div class="form-group">
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#bookly-custom-css-dialog">
-        <?php _e( 'Edit custom CSS', 'bookly' ); ?>
-    </button>
+    <?php Buttons::renderModalActivator( 'bookly-custom-css-dialog', null, esc_html__( 'Edit custom CSS', 'bookly' ) ) ?>
 </div>
 
 <div id="bookly-custom-css-dialog" class="modal fade" tabindex=-1 role="dialog">

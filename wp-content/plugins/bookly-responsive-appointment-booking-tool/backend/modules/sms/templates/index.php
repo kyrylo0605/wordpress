@@ -2,7 +2,8 @@
 use Bookly\Backend\Components\Controls\Inputs;
 use Bookly\Backend\Components\Controls\Buttons;
 use Bookly\Backend\Components\Support;
-/** @var \Bookly\Lib\SMS $sms */
+use Bookly\Backend\Components\Dialogs;
+/** @var Bookly\Lib\SMS $sms */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -45,10 +46,7 @@ use Bookly\Backend\Components\Support;
                         </div>
                         <div class="col-xs-6 col-sm-4 col-md-3">
                             <form method="post" class="btn-group pull-right">
-                                <a class="btn btn-success" data-toggle="modal" href="#modal_change_password">
-                                    <i class="dashicons dashicons-admin-users"></i>
-                                    <?php echo $sms->getUserName() ?>
-                                </a>
+                                <?php Buttons::renderModalActivator( 'modal_change_password', 'btn-success', $sms->getUserName(), array(), '<i class="dashicons dashicons-admin-users"></i> {caption}', '' ) ?>
                                 <button class="btn btn-default" type="submit" name="form-logout"><?php esc_html_e( 'Log out', 'bookly' ) ?></button>
                             </form>
                         </div>
@@ -207,4 +205,5 @@ use Bookly\Backend\Components\Support;
             </div>
         <?php endif ?>
     </div>
+    <?php Dialogs\TableSettings\Dialog::render() ?>
 </div>

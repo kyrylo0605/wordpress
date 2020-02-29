@@ -1,4 +1,4 @@
-<div id="bg-deactivation-survey-popup-container" class="bg-deactivation-survey-popup-container is-dismissible">
+<div id="bg-deactivation-survey-popup-container" class="bg-deactivation-survey-popup-container is-dismissible" style="display: none;">
 	<div class="bg-deactivation-survey-popup-overlay"></div>
 
  	<div class="bg-deactivation-survey-popup-tbl">

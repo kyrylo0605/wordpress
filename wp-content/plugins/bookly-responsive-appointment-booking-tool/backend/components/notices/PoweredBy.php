@@ -16,7 +16,7 @@ class PoweredBy extends Lib\Base\Component
     {
         if ( Lib\Utils\Common::isCurrentUserAdmin()
             && ! get_option( 'bookly_app_show_powered_by' )
-            && ! get_user_meta( get_current_user_id(), 'bookly_dismiss_powered_by_notice' )
+            && ! get_user_meta( get_current_user_id(), 'bookly_dismiss_powered_by_notice', true )
         ) {
             self::enqueueStyles( array(
                 'frontend' => array( 'css/ladda.min.css', ),

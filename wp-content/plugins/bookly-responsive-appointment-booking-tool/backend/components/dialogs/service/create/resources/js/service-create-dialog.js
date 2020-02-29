@@ -38,6 +38,8 @@ jQuery(function ($) {
                 $serviceTitle.val('');
                 $serviceType.val('simple').trigger('change');
                 $modal.modal('hide');
+
+                BooklyServiceOrderDialogL10n.services.push({id: response.data.id, title: response.data.title});
             } else {
                 booklyAlert({error: [response.data.message]});
             }

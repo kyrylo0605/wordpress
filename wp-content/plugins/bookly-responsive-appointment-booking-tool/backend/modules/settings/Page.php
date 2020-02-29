@@ -129,7 +129,7 @@ class Page extends Lib\Base\Ajax
 
         Proxy\Shared::enqueueAssets();
 
-        wp_localize_script( 'bookly-settings.js', 'BooklyL10n',  array(
+        wp_localize_script( 'bookly-settings.js', 'BooklyL10n', array(
             'alert'              => $alert,
             'current_tab'        => $current_tab,
             'csrf_token'         => Lib\Utils\Common::getCsrfToken(),

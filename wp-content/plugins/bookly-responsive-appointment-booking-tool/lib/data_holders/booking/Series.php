@@ -26,7 +26,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getAppointment()
     {
@@ -34,7 +34,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getCA()
     {
@@ -42,7 +42,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getDeposit()
     {
@@ -50,7 +50,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getExtras()
     {
@@ -82,7 +82,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getService()
     {
@@ -90,7 +90,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getServiceDuration()
     {
@@ -98,7 +98,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getServicePrice()
     {
@@ -116,7 +116,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getStaff()
     {
@@ -124,7 +124,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTax()
     {
@@ -132,7 +132,7 @@ class Series extends Item
             $rates = Lib\Proxy\Taxes::getServiceTaxRates();
             if ( $rates ) {
                 foreach ( $this->getItems() as $item ) {
-                    $this->tax += Lib\Proxy\Taxes::calculateTax( $item->getServicePrice(), $rates[ $item->getService()->getId() ] );
+                    $this->tax += Lib\Proxy\Taxes::calculateTax( $item->getTotalPrice(), $rates[ $item->getService()->getId() ] );
                 }
             }
         }
@@ -141,20 +141,27 @@ class Series extends Item
     }
 
     /**
-     * Set tax.
-     *
-     * @param float $tax
-     * @return $this
+     * @inheritDoc
      */
-    public function setTax( $tax )
+    public function getServiceTax()
     {
-        $this->tax = $tax;
+        if ( ! $this->tax ) {
+            $rates = Lib\Proxy\Taxes::getServiceTaxRates();
+            if ( $rates ) {
+                foreach ( $this->getItems() as $item ) {
+                    $price = $this->getServicePrice();
+                    $nop   = $this->getCA()->getNumberOfPersons();
 
-        return $this;
+                    $this->tax += Lib\Proxy\Taxes::calculateTax( $price * $nop, $rates[ $item->getService()->getId() ] );
+                }
+            }
+        }
+
+        return $this->tax;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTotalEnd()
     {
@@ -162,7 +169,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTotalPrice()
     {
@@ -179,7 +186,7 @@ class Series extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function setStatus( $status )
     {

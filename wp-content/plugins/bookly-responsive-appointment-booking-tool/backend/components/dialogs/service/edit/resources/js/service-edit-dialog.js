@@ -254,12 +254,12 @@ jQuery(function ($) {
                 }
 
                 function submitServiceFrom($panel, update_staff) {
-                    $panel.find('input[name=update_staff]').val(update_staff ? 1 : 0);
-                    $panel.find('input[name=package_service_changed]').val($panel.find('[name=package_service]').data('last_value') != $panel.find('[name=package_service]').val() ? 1 : 0);
-                    var ladda = rangeTools.ladda($panel.find('#bookly-save').get(0)),
-                        data = $panel.find('form').serializeArray();
-                    $(document.body).trigger( 'service.submitForm', [ $panel, data ] );
-                    $.post(ajaxurl, data, function (response) {
+                    $('input[name=update_staff]',$panel).val(update_staff ? 1 : 0);
+                    $('input[name=package_service_changed]',$panel).val($panel.find('[name=package_service]').data('last_value') != $panel.find('[name=package_service]').val() ? 1 : 0);
+                    var ladda = rangeTools.ladda($('#bookly-save',$panel).get(0)),
+                        data = $('form', $panel).serializeArray();
+                    $(document.body).trigger('service.submitForm', [$panel, data]);
+                    $.post(ajaxurl, data, (response) => {
                         if (response.success) {
                             booklyAlert(response.data.alert);
                             if (response.data.new_extras_list) {

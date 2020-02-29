@@ -11,8 +11,6 @@ use Bookly\Lib;
  * @method static Lib\Query prepareCustomerQuery( Lib\Query $query ) Prepare 'Customer Groups' query in customers table.
  * @method static string prepareCustomerSelect( string $select ) Prepare 'Customer Groups' select in customers table.
  * @method static array prepareExportTitles( array $titles ) Prepare 'Customer Groups' titles in customers export.
- * @method static void renderExportDialogRow() Render 'Customer Group' row in export customer dialog.
- * @method static void renderCustomerTableHeader() Render 'Customer Group' in customers table.
  */
 abstract class CustomerGroups extends Lib\Base\Proxy
 {

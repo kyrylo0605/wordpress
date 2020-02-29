@@ -181,16 +181,8 @@
   background: url("../img/G+.png") no-repeat;
 }
 
-#sg-google-plus:hover {
-  background-color: #D9453D;
-}
-
 #sg-youtube {
   background: url("../img/youtube.png") no-repeat;
-}
-
-#sg-youtube:hover {
-  background-color: #E32424;
 }
 
 .sg-star-class {
@@ -3647,7 +3639,7 @@
   background-color: #ffffff;
 }
 .sg-wrapper-less .btn-success {
-  color: #ffffff;
+  color: #ffffff !important;
   background-color: #0021C8;
   border-color: #0021C8;
   border-radius: 8px;
@@ -3658,10 +3650,11 @@
 .sg-wrapper-less .btn-success:active,
 .sg-wrapper-less .btn-success.active,
 .sg-wrapper-less .open > .dropdown-toggle.btn-success {
-  color: #0021C8;
+  color: #0021C8 !important;
   background-color: #ffffff;
   border-color: #0021C8;
   box-shadow: none;
+  text-decoration: none !important;
 }
 .sg-wrapper-less .btn-success:active,
 .sg-wrapper-less .btn-success.active,
@@ -7289,9 +7282,9 @@
   display: block;
 }
 .sg-wrapper-less select {
-  background: #ffffff url("../img/sgselect.png") no-repeat !important;
+  background: #ffffff url("../img/select-arrow.png") no-repeat !important;
   background-size: 24px 20px;
-  background-position: right center !important;
+  background-position: right 5px bottom 45% !important;
   color: #888;
   outline: none;
   display: inline-block;
@@ -7321,7 +7314,7 @@
   width: calc(100% - 210px);
   /*Same as sidebar*/
   border-left: 1px #333333 solid;
-  min-height: 675px;
+  min-height: 680px;
   background-color: #ffffff;
 }
 .sg-wrapper-less .container-fluid {
@@ -7965,4 +7958,52 @@ input.sg-backup-input[readonly] {
 }
 .backup-browse-btn:active {
   box-shadow: none !important;
+}
+.sg-button-red {
+  border: 1px solid #C20000;
+  color: #C20000 !important;
+  display: inline-block;
+  background-color: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px 18px;
+  text-transform: uppercase;
+  outline: 0;
+  transition: background-color .2s ease-out;
+  text-decoration: none;
+  font-weight: bold !important;
+}
+
+.sg-button-red:hover {
+  background-color: #C20000;
+  color: #FFFFFF !important;
+}
+
+.sg-red-color {
+  color: #C20000 !important;
+}
+
+.sg-black-color {
+  color: black !important;
+}
+
+.sg-notice-error-h2 {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.sg-error-notice-wrapper {
+  text-align: center;
+}
+
+.sg-notice-contact-wrapper {
+  margin-top: 0px !important;
+}
+
+.sg-notice-error-p {
+  margin-top: 2px !important;
+}
+
+.sg-error-notice-h2-first {
+  font-size: 1.8em;
 }

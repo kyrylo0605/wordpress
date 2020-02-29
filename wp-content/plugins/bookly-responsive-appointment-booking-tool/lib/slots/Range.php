@@ -253,16 +253,16 @@ class Range
         $end   = $this->end;
 
         $mod = $precursor % $step;
-        if ($mod) {
+        if ( $mod ) {
             $start = $start->modify( $step - $mod );
         }
 
-        $mod_left = $start->diff( $range->start() ) % $step;
+        $mod_left  = $start->diff( $range->start() ) % $step;
         $mod_right = $end->diff( $range->start() ) % $step;
-        if ($mod_left) {
+        if ( $mod_left ) {
             $start = $start->modify( - $mod_left );
         }
-        if ($mod_right) {
+        if ( $mod_right ) {
             $end = $end->modify( $step - $mod_right );
         }
 
@@ -436,11 +436,12 @@ class Range
      * Create a copy of the range with new next slot in data.
      *
      * @param self|null $new_next_slot
+     * @param int|null $next_connection
      * @return self
      */
-    public function replaceNextSlot( $new_next_slot )
+    public function replaceNextSlot( $new_next_slot, $next_connection = null )
     {
-        return $this->replaceData( $this->data->replaceNextSlot( $new_next_slot ) );
+        return $this->replaceData( $this->data->replaceNextSlot( $new_next_slot, $next_connection ) );
     }
 
     /**
@@ -584,16 +585,16 @@ class Range
     }
 
     /**
-     * Get staff IDs of all slots including next ones.
+     * Get staff IDs of all slots including next ones which are done in parallel.
      *
      * @return array
      */
-    public function allStaffIds()
+    public function allParallelStaffIds()
     {
         $result = array( $this->staffId() );
 
-        if ( $this->data()->hasNextSlot() ) {
-            $result = array_merge( $result, $this->nextSlot()->allStaffIds() );
+        if ( $this->data()->hasNextSlot() && $this->data()->nextConnection() == Generator::CONNECTION_PARALLEL ) {
+            $result = array_merge( $result, $this->nextSlot()->allParallelStaffIds() );
         }
 
         return $result;

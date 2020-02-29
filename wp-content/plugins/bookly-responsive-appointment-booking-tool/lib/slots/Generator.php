@@ -118,11 +118,11 @@ class Generator implements \Iterator
         // and who can serve the requested number of persons.
         foreach ( $staff_members as $staff_id => $staff ) {
             // Check that staff provides the service.
-            $location_id = LocationsProxy::servicesPerLocationAllowed() ? $this->location_id : 0;
-            if ( $staff->providesService( $this->srv_id, $location_id ) ) {
+            if ( $staff->providesService( $this->srv_id, $this->location_id ) ) {
                 // Check that requested number of persons meets service capacity.
                 $service = $staff->getService( $this->srv_id, $this->location_id );
                 if ( $service->capacityMax() >= $this->nop && $service->capacityMin() <= $this->nop ) {
+                    $location_id = LocationsProxy::servicesPerLocationAllowed() ? $this->location_id : 0;
                     $this->staff_members[ $staff_id ] = $staff;
                     // Prepare staff schedule.
                     $schedule = $staff->getSchedule( $location_id );
@@ -265,7 +265,8 @@ class Generator implements \Iterator
                                         $removed_range->transform(
                                             - $this->full_duration + $this->slot_length,
                                             null
-                                        )->align( $r, $this->slot_length, $this->full_duration )
+                                        // Align without considering precursor here.
+                                        )->align( $r, $this->slot_length, $this->slot_length )
                                     )->replaceState( Range::FULLY_BOOKED )
                                 );
                             }
@@ -355,7 +356,7 @@ class Generator implements \Iterator
                 if ( $next_slot->fullyBooked() ) {
                     $next_slot = false;
                 } else {
-                    while ( in_array( $slot->staffId(), $next_slot->allStaffIds() ) ) {
+                    while ( in_array( $slot->staffId(), $next_slot->allParallelStaffIds() ) ) {
                         if ( $next_slot->hasAltSlot() ) {
                             // Try alternative slot.
                             $next_slot = $next_slot->altSlot();
@@ -370,7 +371,7 @@ class Generator implements \Iterator
 
         if ( $next_slot ) {
             // Connect slots with each other.
-            $slot = $slot->replaceNextSlot( $next_slot );
+            $slot = $slot->replaceNextSlot( $next_slot, $this->next_connection );
         } else {
             // If no next slot was found then return false.
             return false;

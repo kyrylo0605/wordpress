@@ -18,6 +18,7 @@ class Tools extends Lib\Base\Component
         ) {
             add_action( 'admin_footer',  array( '\Bookly\Backend\Components\TinyMce\Tools', 'renderPopup' ), 10, 0 );
             add_filter( 'media_buttons', array( '\Bookly\Backend\Components\TinyMce\Tools', 'addButton' ), 50, 1 );
+            add_action( 'elementor/editor/footer', array( '\Bookly\Backend\Components\TinyMce\Tools', 'renderPopup' ), 10, 0 );
         }
     }
 

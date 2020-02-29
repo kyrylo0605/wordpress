@@ -1,6 +1,6 @@
 <?php
 $message = new Enhanced_Ecommerce_Google_Settings();
-if(isset($_POST['ee_submit_plugin'])){
+if (isset($_POST['ee_submit_plugin'])) {
     Enhanced_Ecommerce_Google_Settings::add_update_settings('ee_options');
 }
 $data = unserialize(get_option('ee_options'));
@@ -11,7 +11,12 @@ $data = unserialize(get_option('ee_options'));
             <div class="card mw-100" style="padding:0px;">
                 <?php  $message->show_message();?>
                 <div class="card-header">
-                    <h5>Enhanced Ecommerce Google Analytics</h5>
+                    <h3>Enhanced Ecommerce Google Analytics <a href = "https://wordpress.org/support/plugin/enhanced-e-commerce-for-woocommerce-store/reviews/" target="_blank" style="float: right">
+                    <div class="rating">
+                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    </a>
+                    </h3>
                 </div>
                 <div class="card-body">
                     <form id="ee_plugin_form" method="post" action="" enctype="multipart/form-data" >

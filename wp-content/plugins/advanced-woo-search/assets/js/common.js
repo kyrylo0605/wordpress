@@ -77,7 +77,8 @@
                     page: d.pageId,
                     tax: d.tax,
                     lang: d.lang,
-                    pageurl: window.location.href
+                    pageurl: window.location.href,
+                    typedata: 'json'
                 };
 
                 requests.push(
@@ -86,9 +87,8 @@
                         type: 'POST',
                         url: ajaxUrl,
                         data: data,
+                        dataType: 'json',
                         success: function( response ) {
-
-                            var response = $.parseJSON( response );
 
                             cachedResponse[searchFor] = response;
 

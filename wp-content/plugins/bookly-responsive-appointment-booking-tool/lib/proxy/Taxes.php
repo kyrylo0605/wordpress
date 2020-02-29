@@ -9,7 +9,7 @@ use Bookly\Lib\CartItem;
  * @package Bookly\Lib\Proxy
  *
  * @method static void  addBooklyMenuItem() Add 'Taxes' to Bookly menu.
- * @method static float getTaxAmount( CartItem $cart_item ) Get amount of tax.
+ * @method static float getItemTaxAmount( CartItem $cart_item ) Get amount of tax.
  * @method static float calculateTax( float $amount, float $rate )
  * @method static array prepareTaxRateAmounts( array $amounts, CartItem $cart_item, bool $allow_coupon ) Filling up array (%tax, deposit value, service price, etc.) for each service provided for consequent calculation of tax amount.
  * @method static array getServiceTaxRates() Get rate for all services.

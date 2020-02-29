@@ -6,6 +6,8 @@ require_once(SG_PUBLIC_INCLUDE_PATH.'sidebar.php');
 $backups = SGBackup::getAllBackups();
 $pluginCapabilities = backupGuardGetCapabilities();
 $downloadUrl = admin_url('admin-post.php?action=backup_guard_downloadBackup&');
+
+$pluginCapabilities = backupGuardGetCapabilities();
 ?>
 <?php if(SGConfig::get('SG_REVIEW_POPUP_STATE') == SG_SHOW_REVIEW_POPUP): ?>
 	<!--  Review Box  -->
@@ -86,8 +88,16 @@ $downloadUrl = admin_url('admin-post.php?action=backup_guard_downloadBackup&');
 				<?php _backupGuardT('Migrate')?>
 			</a>
 
-			<a href="javascript:void(0)" id="sg-import" class="pull-right btn btn-primary" data-toggle="modal" data-modal-name="import"  data-remote="modalImport"><i class="glyphicon glyphicon-open"></i> <?php _backupGuardT('Import')?></a>
+			<a href="javascript:void(0)" id="sg-import" class="btn btn-primary sg-margin-left-20" data-toggle="modal" data-modal-name="import"  data-remote="modalImport"><i class="glyphicon glyphicon-open"></i> <?php _backupGuardT('Import')?></a>
+			<?php if ($pluginCapabilities == BACKUP_GUARD_CAPABILITIES_FREE): ?>
+			<a href="<?php echo BACKUP_GUARD_WORDPRESS_SUPPORT_URL; ?>" target="_blank">
+				<button type="button" id="sg-report-problem-button" class="sg-button-red pull-right">
+					<i class="glyphicon glyphicon-alert"></i>
 
+					<?php _backupGuardT('Report issue')?>
+				</button>
+			</a>
+			<?php endif; ?>
 			<div class="clearfix"></div><br/>
 			<table class="table table-striped paginated sg-backup-table">
 				<thead>

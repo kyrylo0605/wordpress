@@ -307,6 +307,24 @@ jQuery(function($) {
                     .html(start.format(BooklyL10n.dateRange.dateFormat) + ' - ' + end.format(BooklyL10n.dateRange.dateFormat));
             }
         );
+
+        /**
+         * Init Columns.
+         */
+        let columns = [];
+
+        $.each(BooklyL10n.datatables.sms_purchases.settings.columns, function (column, show) {
+            if (show) {
+                columns.push({data: column});
+            }
+        });
+        columns.push({
+            className: "text-right",
+            render   : function (data, type, row, meta) {
+                return '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="download-invoice"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</a>';
+            }
+        });
+
         var dt = $('#bookly-purchases').DataTable({
             ordering: false,
             paging: false,
@@ -325,20 +343,7 @@ jQuery(function($) {
                 },
                 dataSrc: 'list'
             },
-            columns: [
-                { data: "date" },
-                { data: "time" },
-                { data: "type" },
-                { data: "order" },
-                { data: "status" },
-                { data: "amount" },
-                {
-                    className: "text-right",
-                    render: function (data, type, row, meta) {
-                        return '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="download-invoice"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</a>';
-                    }
-                }
-            ],
+            columns: columns,
             language: {
                 zeroRecords: BooklyL10n.zeroRecords,
                 processing:  BooklyL10n.processing
@@ -380,39 +385,43 @@ jQuery(function($) {
                     .html(start.format(BooklyL10n.dateRange.dateFormat) + ' - ' + end.format(BooklyL10n.dateRange.dateFormat));
             }
         );
-        var dt = $('#bookly-sms').DataTable({
-            ordering: false,
-            paging: false,
-            info: false,
-            searching: false,
-            processing: true,
-            responsive: true,
-            ajax: {
-                url : ajaxurl,
-                data: function (d) {
-                    return {
-                        action: 'bookly_get_sms_list',
-                        csrf_token: BooklyL10n.csrfToken,
-                        range:  $date_range.data('date')
-                    };
-                },
-                dataSrc: 'list'
-            },
-            columns: [
-                { data: "date" },
-                { data: "time" },
-                { data: "message" },
-                { data: "phone" },
-                { data: "sender_id" },
-                { data: "charge" },
-                { data: "status" },
-                { data: "info" }
-            ],
-            language: {
-                zeroRecords: BooklyL10n.zeroRecords,
-                processing:  BooklyL10n.processing
+
+        /**
+         * Init Columns.
+         */
+        let columns = [];
+
+        $.each(BooklyL10n.datatables.sms_details.settings.columns, function (column, show) {
+            if (show) {
+                columns.push({data: column});
             }
         });
+        if (columns.length) {
+            var dt = $('#bookly-sms').DataTable({
+                ordering  : false,
+                paging    : false,
+                info      : false,
+                searching : false,
+                processing: true,
+                responsive: true,
+                ajax      : {
+                    url    : ajaxurl,
+                    data   : function (d) {
+                        return {
+                            action    : 'bookly_get_sms_list',
+                            csrf_token: BooklyL10n.csrfToken,
+                            range     : $date_range.data('date')
+                        };
+                    },
+                    dataSrc: 'list'
+                },
+                columns   : columns,
+                language  : {
+                    zeroRecords: BooklyL10n.zeroRecords,
+                    processing : BooklyL10n.processing
+                }
+            });
+        }
 
         $date_range.on('apply.daterangepicker', function () { dt.ajax.reload(); });
         $(this).on('click', function () { dt.ajax.reload(); });
@@ -447,47 +456,69 @@ jQuery(function($) {
         });
 
     function fillPriceTable() {
-        var dt = $('#bookly-prices').DataTable({
-            ordering: false,
-            paging: false,
-            info: false,
-            searching: false,
-            processing: true,
-            responsive: true,
-            ajax: {
-                url : ajaxurl,
-                data: { action: 'bookly_get_price_list', csrf_token : BooklyL10n.csrfToken },
-                dataSrc: 'list'
-            },
-            columns: [
-                {
-                    responsivePriority: 1,
-                    render: function ( data, type, row, meta ) {
-                        return '<div class="iti-flag ' + row.country_iso_code + '"></div>';
-                    }
-                },
-                { data: "country_name" },
-                { data: "phone_code" },
-                {
-                    render: function ( data, type, row, meta ) {
-                        return '$' + row.price.replace(/0+$/, '');
-                    }
-                },
-                {
-                    render: function ( data, type, row, meta ) {
-                        if (row.price_alt == '') {
-                            return '-';
-                        } else {
-                            return '$' + row.price_alt.replace(/0+$/, '');
-                        }
-                    }
+        /**
+         * Init Columns.
+         */
+        let columns = [];
+
+        $.each(BooklyL10n.datatables.sms_prices.settings.columns, function (column, show) {
+            if (show) {
+                switch (column) {
+                    case 'country_iso_code':
+                        columns.push({
+                            data: column, render: function ( data, type, row, meta ) {
+                                return '<div class="iti-flag ' + data + '"></div>';
+                            }
+                        });
+                        break;
+                    case 'price':
+                        columns.push({
+                            data: column,
+                            className: "text-right",
+                            render: function ( data, type, row, meta ) {
+                                return '$' + data.replace(/0+$/, '');
+                            }
+                        });
+                        break;
+                    case 'price_alt':
+                        columns.push({
+                            data: column,
+                            className: "text-right",
+                            render: function ( data, type, row, meta ) {
+                                if (row.price_alt == '') {
+                                    return '-';
+                                } else {
+                                    return '$' + data.replace(/0+$/, '');
+                                }
+                            }
+                        });
+                        break;
+                    default:
+                        columns.push({data: column});
+                        break;
                 }
-            ],
-            language: {
-                zeroRecords: BooklyL10n.zeroRecords,
-                processing:  BooklyL10n.processing
             }
         });
+        if (columns.length) {
+            var dt = $('#bookly-prices').DataTable({
+                ordering  : false,
+                paging    : false,
+                info      : false,
+                searching : false,
+                processing: true,
+                responsive: true,
+                ajax      : {
+                    url    : ajaxurl,
+                    data   : {action: 'bookly_get_price_list', csrf_token: BooklyL10n.csrfToken},
+                    dataSrc: 'list'
+                },
+                columns   : columns,
+                language  : {
+                    zeroRecords: BooklyL10n.zeroRecords,
+                    processing : BooklyL10n.processing
+                }
+            });
+        }
     }
 
     function getPhoneNumber() {
@@ -513,38 +544,45 @@ jQuery(function($) {
             $cancel_sender_id  = $('#bookly-cancel-sender_id'),
             $sender_id         = $('#bookly-sender-id-input');
 
-        var dt = $('#bookly-sender-ids').DataTable({
-            ordering: false,
-            paging: false,
-            info: false,
-            searching: false,
-            processing: true,
-            responsive: true,
-            ajax: {
-                url: ajaxurl,
-                data: { action: 'bookly_get_sender_ids_list', csrf_token : BooklyL10n.csrfToken },
-                dataSrc: function (json) {
-                    if (json.pending) {
-                        $sender_id.val(json.pending);
-                        $request_sender_id.hide();
-                        $sender_id.prop('disabled',true);
-                        $cancel_sender_id.show();
-                    }
+        /**
+         * Init Columns.
+         */
+        let columns = [];
 
-                    return json.list;
-                }
-            },
-            columns: [
-                { data: "date" },
-                { data: "name" },
-                { data: "status" },
-                { data: "status_date" }
-            ],
-            language: {
-                zeroRecords: BooklyL10n.zeroRecords2,
-                processing:  BooklyL10n.processing
+        $.each(BooklyL10n.datatables.sms_sender.settings.columns, function (column, show) {
+            if (show) {
+                columns.push({data: column});
             }
         });
+        if (columns.length) {
+            var dt = $('#bookly-sender-ids').DataTable({
+                ordering  : false,
+                paging    : false,
+                info      : false,
+                searching : false,
+                processing: true,
+                responsive: true,
+                ajax      : {
+                    url    : ajaxurl,
+                    data   : {action: 'bookly_get_sender_ids_list', csrf_token: BooklyL10n.csrfToken},
+                    dataSrc: function (json) {
+                        if (json.pending) {
+                            $sender_id.val(json.pending);
+                            $request_sender_id.hide();
+                            $sender_id.prop('disabled', true);
+                            $cancel_sender_id.show();
+                        }
+
+                        return json.list;
+                    }
+                },
+                columns   : columns,
+                language  : {
+                    zeroRecords: BooklyL10n.zeroRecords2,
+                    processing : BooklyL10n.processing
+                }
+            });
+        }
 
         $request_sender_id.on('click', function () {
             var ladda = Ladda.create(this);

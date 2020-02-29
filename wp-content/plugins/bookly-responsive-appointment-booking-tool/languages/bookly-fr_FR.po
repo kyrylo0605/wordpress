@@ -8,8 +8,8 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-09 10:46+0000\n"
-"PO-Revision-Date: 2019-12-09 12:13+0000\n"
+"POT-Creation-Date: 2020-02-10 08:54+0000\n"
+"PO-Revision-Date: 2020-02-11 12:52+0000\n"
 "Last-Translator: support@bookly.info\n"
 "Language-Team: French (France)\n"
 "X-Loco-Version: 2.3.1; wp-5.3"
@@ -1419,6 +1419,9 @@ msgstr "Êtes-vous sûr ?"
 msgid "Duplicate dates are not permitted."
 msgstr "Les dates dupliquées ne sont pas permises"
 
+msgid "Date in the past."
+msgstr "Date dans  le passé."
+
 msgid "The requested interval is not available"
 msgstr "L'intervalle demandé n'est pas disponible"
 
@@ -1645,6 +1648,12 @@ msgstr "ID de connexion de l'API"
 msgid "API Transaction Key"
 msgstr "Clé de Transaction de l'API"
 
+msgid "Title"
+msgstr "Titre"
+
+msgid "Rate"
+msgstr "Taux"
+
 msgid "Taxes"
 msgstr "Impôts"
 
@@ -1666,12 +1675,6 @@ msgstr "Hors taxes"
 
 msgid "Add Tax"
 msgstr "Ajouter taxe"
-
-msgid "Title"
-msgstr "Titre"
-
-msgid "Rate"
-msgstr "Taux"
 
 msgid "New tax"
 msgstr "Nouvelle taxe"
@@ -2728,6 +2731,78 @@ msgstr "A"
 msgid "From"
 msgstr "De"
 
+msgid "No."
+msgstr "Non."
+
+msgid "Appointment date"
+msgstr "Date rendez-vous"
+
+msgid "Customer name"
+msgstr "Nom Client"
+
+msgid "Customer phone"
+msgstr "Téléphone Client"
+
+msgid "Customer email"
+msgstr "E-mail Client"
+
+msgid "Created"
+msgstr "Créé"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Last appointment"
+msgstr "Dernièr rendez-vous"
+
+msgid "Total appointments"
+msgstr "Total rendez-vous"
+
+msgid "Payments"
+msgstr "Paiements"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "State"
+msgstr "État"
+
+msgid "Customer"
+msgstr "Client"
+
+msgid "Amount"
+msgstr "Montant"
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Sender ID"
+msgstr "ID Émetteur"
+
+msgid "Cost"
+msgstr "Cout"
+
+msgid "Flag"
+msgstr "Flag"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Regular price"
+msgstr "Prix normal"
+
+msgid "Price with custom Sender ID"
+msgstr "Prix avec ID émetteur personnalisé"
+
+msgid "Order"
+msgstr "Commande"
+
+msgid "Requested ID"
+msgstr "ID demandé"
+
+msgid "Status date"
+msgstr "Date du statut"
+
 msgid "Important"
 msgstr "Important"
 
@@ -2875,9 +2950,6 @@ msgstr "moins"
 msgid "Bookly SMS weekly summary"
 msgstr "Rapport hebdomadaire SMS Bookly"
 
-msgid "Customer"
-msgstr "Client"
-
 msgid "Internal Notes"
 msgstr "Notes internes"
 
@@ -3010,9 +3082,6 @@ msgstr "Notifications e-mail"
 msgid "Customers"
 msgstr "Clients"
 
-msgid "Payments"
-msgstr "Paiements"
-
 msgid "Appearance"
 msgstr "Apparence"
 
@@ -3043,20 +3112,8 @@ msgstr "Précédent"
 msgid "New appointment"
 msgstr "Nouveau rendez-vous"
 
-msgid "No."
-msgstr "Non."
-
 msgid "Created at any time"
 msgstr "Créé pour toutes dates"
-
-msgid "Appointment Date"
-msgstr "Date Rendez-vous"
-
-msgid "Created"
-msgstr "Créé"
-
-msgid "Attachments"
-msgstr "Attachements"
 
 msgid "Any time"
 msgstr "Toutes les dates"
@@ -3069,6 +3126,9 @@ msgstr "Aucun résultat trouvé"
 
 msgid "Searching"
 msgstr "Recherche en cours"
+
+msgid "Attachments"
+msgstr "Attachements"
 
 msgid "Archived"
 msgstr "Archivé"
@@ -3116,9 +3176,6 @@ msgstr ""
 
 msgid "Send weekly summary to administrators"
 msgstr "Envoyer rapport hebdomadaire aux administrateurs"
-
-msgid "Sender ID"
-msgstr "ID Émetteur"
 
 msgid "Change"
 msgstr "Change"
@@ -3219,15 +3276,6 @@ msgstr "Changer mot de passe"
 msgid "Old password"
 msgstr "Ancien mot de passe"
 
-msgid "Type"
-msgstr "Type"
-
-msgid "Order"
-msgstr "Commande"
-
-msgid "Amount"
-msgstr "Montant"
-
 msgid ""
 "We will only charge your PayPal account when your balance falls below $10."
 msgstr ""
@@ -3238,15 +3286,6 @@ msgstr "Activer Recharge Automatique"
 
 msgid "Disable Auto-Recharge"
 msgstr "Désactiver Recharger Automatique"
-
-msgid "Code"
-msgstr "Code"
-
-msgid "Regular price"
-msgstr "Prix normal"
-
-msgid "Price with custom Sender ID"
-msgstr "Prix avec ID émetteur personnalisé"
 
 msgid ""
 "If you do not see your country in the list please contact us at <a "
@@ -3274,12 +3313,6 @@ msgstr "Enregistrer tél. de l'administrateur"
 msgid "Quick search notifications"
 msgstr "Recherche rapide notifications"
 
-msgid "State"
-msgstr "État"
-
-msgid "Delete..."
-msgstr "Supprimer..."
-
 #, php-format
 msgid ""
 "To send scheduled notifications please refer to <a href=\"%1$s\">Bookly "
@@ -3294,12 +3327,6 @@ msgid ""
 msgstr ""
 "Pour envoyer les notifications programmées, veuillez utiliser cette commande "
 "avec votre service cron):"
-
-msgid "Text"
-msgstr "Texte"
-
-msgid "Cost"
-msgstr "Cout"
 
 msgid ""
 "Please take into account that not all countries by law allow custom SMS "
@@ -3327,12 +3354,6 @@ msgstr "Requête"
 
 msgid "Cancel request"
 msgstr "Annuler requête"
-
-msgid "Requested ID"
-msgstr "ID demandé"
-
-msgid "Status Date"
-msgstr "Date du statut"
 
 msgid "Please accept terms and conditions."
 msgstr "Veuillez accepter les Termes et Conditions."
@@ -3377,9 +3398,6 @@ msgstr "activer"
 msgid "disable"
 msgstr "désactiver"
 
-msgid "Edit..."
-msgstr "Modifier..."
-
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr ""
 "La recharge automatique n'a pas réussi. Veuillez compléter votre crédit "
@@ -3398,17 +3416,20 @@ msgstr ""
 msgid "SMS has been sent successfully."
 msgstr "Le SMS a été envoyé avec succès."
 
+msgid "Staff members order"
+msgstr "Ordre des membres de l'équipe"
+
+msgid "Add staff"
+msgstr "Ajouter Equipe"
+
 msgid "Quick search staff"
 msgstr "Recherche rapide équipe"
 
+msgid "Categories"
+msgstr "Catégories"
+
 msgid "Show archived"
 msgstr "Afficher archivés"
-
-msgid "Add staff..."
-msgstr "Ajout de l'équipe..."
-
-msgid "User"
-msgstr "Utilisateur"
 
 msgid "Image"
 msgstr "Image"
@@ -3733,14 +3754,14 @@ msgstr ""
 "Le panier WooCommerce n'est pas configuré. Suivez ce <a href=\"%s\">lien</a> "
 "pour corriger ce problème."
 
+msgid "Services order"
+msgstr "Ordre des services"
+
+msgid "Add service"
+msgstr "Ajouter service"
+
 msgid "Quick search services"
 msgstr "Recherche rapide services"
-
-msgid "Categories..."
-msgstr "Catégories..."
-
-msgid "Add service..."
-msgstr "Ajouter service"
 
 msgid "Update service setting"
 msgstr "Mettre à jour service"
@@ -4007,12 +4028,6 @@ msgstr "Recherche rapide client"
 
 msgid "New customer"
 msgstr "Nouveau client"
-
-msgid "Last appointment"
-msgstr "Dernièr rendez-vous"
-
-msgid "Total appointments"
-msgstr "Total rendez-vous"
 
 msgid "Merge with"
 msgstr "Fusionner avec"
@@ -4444,6 +4459,9 @@ msgstr "Ajouter Service"
 msgid "Days Off"
 msgstr "Jours de congé"
 
+msgid "The date has already passed."
+msgstr "La date est déjà passée."
+
 msgid "Create staff"
 msgstr "Créer Equipe"
 
@@ -4455,6 +4473,9 @@ msgstr "L'heure de début doit être inférieure à l'heure de fin"
 
 msgid "Error adding the break interval"
 msgstr "Erreur lors de l'ajout d'une pause"
+
+msgid "Adjust the order of staff members in your booking form"
+msgstr "Définir l'ordre des membres d'équipe dans le formulaire de réservation"
 
 msgid "Complete payment"
 msgstr "Paiement complet"
@@ -4619,11 +4640,17 @@ msgstr "Modifier service"
 msgid "Advanced"
 msgstr "Avancé"
 
-msgid "Categories"
-msgstr "Catégories"
+msgid "Adjust the order of services in your booking form"
+msgstr "Définir l'ordre des services dans le formulaire de réservation"
 
 msgid "Add category"
 msgstr "Ajouter catégorie"
+
+msgid "Table settings"
+msgstr "Paramétrage table"
+
+msgid "Column"
+msgstr "Colonne"
 
 msgid "Attach ICS file"
 msgstr "Attacher un fichier ICS"
@@ -5101,6 +5128,9 @@ msgstr "Notification pour la création de nouveau package"
 msgid "Notification about package deletion"
 msgstr "Notification de suppression de package"
 
+msgid "Creation date"
+msgstr "Date de création"
+
 msgid "Packages"
 msgstr "Packages"
 
@@ -5123,9 +5153,6 @@ msgstr ""
 
 msgid "New package"
 msgstr "Nouveau Package"
-
-msgid "Creation Date"
-msgstr "Date création"
 
 msgid "Edit package"
 msgstr "Modifier Package"
@@ -5218,6 +5245,9 @@ msgstr "Liste des packages"
 
 msgid "A custom block for displaying packages list"
 msgstr "Bloc personnalisé pour l'affichage de la liste des packages"
+
+msgid "Creation Date"
+msgstr "Date création"
 
 msgid "Expires"
 msgstr "Expire"
@@ -5538,7 +5568,8 @@ msgstr "Synchroniser les membres d'équipe avec Google Calendar."
 
 #, php-format
 msgid "Please configure Google Calendar <a href=\"%s\">settings</a> first"
-msgstr "Veuillez configurer Google Calendar avant. <a href=\"%s\">Réglages</a>"
+msgstr ""
+"Veuillez d'abord configurer Google Calendar. <a href=\"%s\">Séttings</a>"
 
 msgid "Limit working hours per day"
 msgstr "Limite des heures travaillées par jour"
@@ -6053,8 +6084,8 @@ msgid ""
 "Please configure Facebook App integration in <a href=\"%s\">settings</a> "
 "first."
 msgstr ""
-"Veuillez configurer Facebook App integration à <a href=\"%s\">settings</a> "
-"d'abord."
+"Veuillez d'abord configurer Facebook App integration dans <a href=\"%s\">"
+"Settings</a>."
 
 msgid "Ok"
 msgstr "Ok"
@@ -6070,9 +6101,6 @@ msgstr "Montrer bouton login Facebook"
 
 msgid "Show time zone switcher"
 msgstr "Afficher changement fuseau horaire"
-
-msgid "Date of birth"
-msgstr "Date de naissance"
 
 msgid "Import"
 msgstr "Importer"
@@ -6091,6 +6119,9 @@ msgstr ""
 
 msgid "Select file"
 msgstr "Choisir fichier"
+
+msgid "Date of birth"
+msgstr "Date de naissance"
 
 msgid "Analytics"
 msgstr "Analyse"
@@ -6544,21 +6575,6 @@ msgstr ""
 msgid "Coupon"
 msgstr "Code promo"
 
-msgid "Coupons"
-msgstr "Codes promo"
-
-msgid "Add Coupon Series"
-msgstr "Ajouter série code promo"
-
-msgid "Add Coupon"
-msgstr "Ajouter Code promo"
-
-msgid "Coupon code"
-msgstr "Code promo"
-
-msgid "Show only active"
-msgstr "Montrer actif seulement"
-
 msgid "Discount (%)"
 msgstr "Réduction (%)"
 
@@ -6574,17 +6590,32 @@ msgstr "Limite d'utilisation"
 msgid "Number of times used"
 msgstr "Nombre utilisations"
 
+msgid "Active from"
+msgstr "Actif depuis"
+
 msgid "Active until"
 msgstr "Actif seulement"
 
 msgid "Min. appointments"
-msgstr "Min. rendez-vous"
+msgstr "Rendez-vous min."
 
-msgid "Active from"
-msgstr "Actif depuis"
+msgid "Max. appointments"
+msgstr "Rendez-vous max."
 
-msgid "Max appointments"
-msgstr "Nb de rendez-vous max."
+msgid "Coupons"
+msgstr "Codes promo"
+
+msgid "Add Coupon Series"
+msgstr "Ajouter série code promo"
+
+msgid "Add Coupon"
+msgstr "Ajouter Code promo"
+
+msgid "Coupon code"
+msgstr "Code promo"
+
+msgid "Show only active"
+msgstr "Montrer actif seulement"
 
 msgid "Export only active coupons"
 msgstr "Exporter uniquement les codes promo actifs"
@@ -6696,29 +6727,26 @@ msgstr "Ce code promo n'est pas valide ou a expiré"
 msgid "This coupon code has expired"
 msgstr "Le code promo est expiré."
 
+msgid "Group name"
+msgstr "Nom du groupe"
+
+msgid "Number of users"
+msgstr "Nombre d'utilisateurs"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Group"
+msgstr "Groupe"
+
 msgid "Customer Groups"
 msgstr "Groupes de clients"
 
 msgid "New group"
 msgstr "Nouveau groupe"
 
-msgid "Group Name"
-msgstr "Nom du groupe"
-
-msgid "Number of Users"
-msgstr "Nombre d'utilisateurs"
-
-msgid "Description"
-msgstr "Description"
-
-msgid "Appointment Status"
-msgstr "Statut du rendez-vous"
-
 msgid "Customers without group"
 msgstr "Clients dans groupe"
-
-msgid "Group"
-msgstr "Groupe"
 
 msgid "New Group"
 msgstr "Nouveau groupe"
@@ -6746,9 +6774,6 @@ msgstr "Groupe de clients"
 
 msgid "No group"
 msgstr "Aucun groupe"
-
-msgid "Group name"
-msgstr "Nom du groupe"
 
 msgid "Total discount"
 msgstr "Total remise"
@@ -6921,9 +6946,6 @@ msgstr "Afficher créneau liste attente"
 msgid "waiting list of appointment"
 msgstr "liste d'attente des rendez-vous"
 
-msgid "Add service"
-msgstr "Ajouter service"
-
 msgid "Show chain appointments"
 msgstr "Afficher rendez-vous liés"
 
@@ -7042,6 +7064,9 @@ msgstr "Montrer étape Extras"
 msgid "Show extras"
 msgstr "Afficher les suppléments"
 
+msgid "Extras tax"
+msgstr "Taxes additionnelles"
+
 msgid "Extras price"
 msgstr "Prix suppléments"
 
@@ -7064,14 +7089,14 @@ msgstr "Total taxe"
 msgid "Waiting list"
 msgstr "Liste d'attente"
 
+msgid "Free/Busy"
+msgstr "Libre/Occupé"
+
 msgid "Custom statuses"
 msgstr "Statuts personnalisés"
 
 msgid "Add status"
 msgstr "Ajouter statut"
-
-msgid "Free/Busy"
-msgstr "Libre/Occupé"
 
 msgid "New Status"
 msgstr "Nouveau statut"
@@ -7120,6 +7145,9 @@ msgstr "Désactiver modification heures spéciales"
 
 msgid "Please select a location"
 msgstr "Veuillez choisir un site"
+
+msgid "Staff members"
+msgstr "Membres de l'équipe"
 
 msgid "Locations"
 msgstr "Sites"

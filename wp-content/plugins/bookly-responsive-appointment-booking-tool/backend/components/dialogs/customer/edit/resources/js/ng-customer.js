@@ -65,28 +65,32 @@
                     });
                 }
 
-                // Init select2 for wp_users.
                 jQuery('#wp_user')
-                    .val(null)
-                    .select2({
-                        width: '100%',
-                        theme: 'bootstrap',
-                        allowClear: true,
-                        placeholder: '',
-                        language: {
-                            noResults: function () {
-                                return BooklyL10nCustDialog.noResultFound;
-                            }
-                        }
-                    });
+                    .append(jQuery('<option></option>').attr('value', ''));
 
-                // Do stuff on modal hide.
-                element.on('hidden.bs.modal', function () {
-                    // Fix scroll issues when another modal is shown.
-                    if (jQuery('.modal-backdrop').length) {
-                        jQuery('body').addClass('modal-open');
-                    }
-                });
+                // Do customer on modal hide.
+                element
+                    .on('hidden.bs.modal', function () {
+                        // Fix scroll issues when another modal is shown.
+                        if (jQuery('.modal-backdrop').length) {
+                            jQuery('body').addClass('modal-open');
+                        }
+                    })
+                    .one('shown.bs.modal', () => {
+                        jQuery('#wp_user')
+                            .select2({
+                                width: '100%',
+                                theme: 'bootstrap',
+                                allowClear: true,
+                                placeholder: '',
+                                dropdownParent: jQuery('#bookly-customer-dialog'),
+                                language: {
+                                    noResults: function () {
+                                        return BooklyL10nCustDialog.noResultFound;
+                                    }
+                                }
+                            });
+                    });
                 scope.changeWpUser = function () {
                     var $user = jQuery('#wp_user option:selected'),
                         email = $user.attr('data-email') != undefined ? $user.attr('data-email') : '',
@@ -165,6 +169,20 @@
                                     };
                                     // Close the dialog.
                                     element.modal('hide');
+
+                                    // Add new customer to select2 filter
+                                    let $customersFilter = jQuery('#bookly-filter-customer');
+                                    if ($customersFilter.length) {
+                                        let option = jQuery('<option/>', {
+                                            text: response.customer.full_name,
+                                            value: response.customer.id,
+                                            data: {
+                                                search: [response.customer.full_name, response.customer.email, response.customer.phone]
+                                            }
+                                        });
+
+                                        $customersFilter.append(option).trigger('change');
+                                    }
                                 } else {
                                     // Set errors.
                                     jQuery.each(response.errors, function(field, errors) {
@@ -216,5 +234,4 @@
             }
         };
     });
-
 })();

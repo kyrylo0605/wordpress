@@ -3,9 +3,9 @@ Contributors: Ladela
 Tags: Booking, booking system, appointment booking, Booking calendar, reservation calendar, appointment scheduler, appointment calendar
 Donate link: https://www.booking-wp-plugin.com/
 Requires at least: 3.7
-Tested up to: 5.3
+Tested up to: 5.3.2
 Requires PHP: 5.3.7
-Stable tag: 17.7
+Stable tag: 17.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,8 +21,8 @@ https://youtu.be/XkCrADjLt2s
 
 _**PLEASE NOTE** that online payments, unlimited number of staff members and services, and ability to install add-ons are_ **NOT AVAILABLE** in the **free version**. If you would like to find out more about features available with the **Bookly PRO** add-on, please check our [demo](http://demo.booking-wp-plugin.com/?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG/).
 
-[Bookly Homepage](https://www.booking-wp-plugin.com/?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG) | [Pro Features](http://booking-wp-plugin.com/features/?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG) (Bookly Pro add-on required) |
-[Add-ons](https://www.booking-wp-plugin.com/demo-list/?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG) (Bookly Pro add-on required) | [Bookly Help Center](https://support.booking-wp-plugin.com/hc/en-us?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG)  | [Demo](https://www.booking-wp-plugin.com/demo/free/?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG)
+[Bookly Homepage](https://1.envato.market/0KaRE) | [Pro Features](https://1.envato.market/0KaRE) (Bookly Pro add-on required) |
+[Add-ons](https://1.envato.market/xPqVv) (Bookly Pro add-on required) | [Bookly Help Center](https://support.booking-wp-plugin.com/hc/en-us?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG)  | [Demo](https://www.booking-wp-plugin.com/demo/free/?utm_campaign=wp_description&utm_medium=cpc&utm_source=WP_ORG)
 
 
 ## 1. Benefits for the customers
@@ -120,11 +120,11 @@ Also, Bookly is an excellent solution for **web studios** and **developers**, wh
 
 ### FURTHER READING
 
-  * [Bookly Online Scheduling plugin](https://www.booking-wp-plugin.com/?utm_source=WP_ORG&utm_medium=cpc&utm_campaign=wp_further_reading) official page
+  * [Bookly Online Scheduling plugin](https://1.envato.market/gnnrv) official page
   * [Help center](https://support.booking-wp-plugin.com/hc/en-us?utm_source=WP_ORG&utm_medium=cpc&utm_campaign=wp_further_reading)
   * [Bookly demo](https://www.booking-wp-plugin.com/demo/free/?utm_campaign=wp_furtherreading&utm_medium=cpc&utm_source=WP_ORG)
   * [Bookly Pro add-on demo](http://demo.booking-wp-plugin.com/?utm_campaign=wp_furtherreading&utm_medium=cpc&utm_source=WP_ORG)
-  * [Add-ons for Bookly Pro](https://codecanyon.net/user/ladela/portfolio?utm_source=WP_ORG&utm_medium=cpc&utm_campaign=wp_further_reading&ref=ladela)
+  * [Add-ons for Bookly Pro](https://1.envato.market/aooLq)
   * [Youtube channel](http://youtube.com/c/Bookly?utm_source=WP_ORG&utm_medium=cpc&utm_campaign=wp_further_reading)
 
 ### AFTER ACTIVATION
@@ -205,7 +205,7 @@ To learn more, please visit our [Help Center](https://support.booking-wp-plugin.
 
 = I want to learn more about all Bookly features. =
 
-You can find more details about Bookly Pro features [here](https://www.booking-wp-plugin.com/features/?utm_campaign=wp_FAQ&utm_medium=cpc&utm_source=WP_ORG) (paid version requires the Bookly Pro add-on).
+You can find more details about Bookly Pro features [here](https://1.envato.market/0KaRE) (paid version requires the Bookly Pro add-on).
 Check out our [video tutorials](https://www.youtube.com/channel/UCO4v4UcvU43enNcHU8BN5XA?utm_campaign=wp_FAQ&utm_medium=cpc&utm_source=WP_ORG) about main Bookly features.
 
 = How do I suggest a feature for future versions of Bookly? =

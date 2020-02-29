@@ -33,6 +33,8 @@ class Dialog extends Lib\Base\Component
             'module' => array( 'js/ng-customer.js' => array( 'bookly-angular.min.js' ), )
         ) );
 
+        wp_add_inline_script( 'bookly-select2.full.min.js', 'delete jQuery.fn.select2;', 'before' );
+
         wp_localize_script( 'bookly-ng-customer.js', 'BooklyL10nCustDialog', array(
             'csrf_token'      => Lib\Utils\Common::getCsrfToken(),
             'first_last_name' => (int) Lib\Config::showFirstLastName(),

@@ -3,6 +3,11 @@ use Bookly\Backend\Components\Controls;
 use Bookly\Backend\Components\Support;
 use Bookly\Backend\Modules\Services\Proxy;
 use Bookly\Backend\Components\Dialogs;
+/**
+ * @var array $categories
+ * @var array $datatables
+ * @var array $services
+ */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -15,35 +20,50 @@ use Bookly\Backend\Components\Dialogs;
         <div class="panel panel-default bookly-main">
             <div class="panel-body">
                 <div class="row">
+                    <div class="col-md-12 form-inline bookly-margin-bottom-lg text-right">
+                        <div class="form-group">
+                            <?php Controls\Buttons::renderModalActivator( 'bookly-service-order-modal', 'btn-default bookly-btn-block-xs', esc_html__( 'Services order', 'bookly' ) ) ?>
+                        </div>
+                        <div class="form-group">
+                            <?php Controls\Buttons::renderModalActivator( 'bookly-service-categories-modal', null, esc_html__( 'Categories', 'bookly' ) ) ?>
+                        </div>
+                        <div class="form-group">
+                            <?php Controls\Buttons::renderModalActivator( 'bookly-create-service-modal', 'btn-success', esc_html__( 'Add service', 'bookly' ), array(), '<i class="fa fa-fw fa-plus"></i> {caption}' ) ?>
+                        </div>
+                        <?php Dialogs\TableSettings\Dialog::renderButton( 'services' ) ?>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="form-control" type="text" id="bookly-filter" placeholder="<?php esc_attr_e( 'Quick search services', 'bookly' ) ?>" />
+                            <input class="form-control" type="text" id="bookly-filter-search" placeholder="<?php esc_attr_e( 'Quick search services', 'bookly' ) ?>"/>
                         </div>
                     </div>
-                    <div class="col-md-8 form-inline bookly-margin-bottom-lg text-right">
+                    <div class="col-md-3 col-lg-2">
                         <div class="form-group">
-                            <?php Controls\Buttons::renderCustom( 'bookly-js-categories', 'btn-default', esc_html__( 'Categories...', 'bookly' ), array( 'data-toggle' => 'modal', 'data-target'=> '#bookly-service-categories-modal' ) ) ?>
-                        </div>
-                        <div class="form-group">
-                            <?php Controls\Buttons::renderAdd( 'bookly-js-new-service', 'btn-success', esc_html__( 'Add service...', 'bookly' ), array( 'data-toggle' => 'modal', 'data-target'=> '#bookly-create-service-modal' ) ) ?>
+                            <select class="form-control bookly-js-select" id="bookly-filter-category" data-placeholder="<?php esc_attr_e( 'Categories', 'bookly' ) ?>">
+                                <?php foreach ( $categories as $category ) : ?>
+                                    <option value="<?php echo $category['id'] ?>"><?php echo esc_html( $category['name'] ) ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                     </div>
                 </div>
+
                 <table id="services-list" class="table table-striped" style="width: 100%">
                     <thead>
                     <tr>
-                        <th style="display: none;"></th>
-                        <th width="24"></th>
                         <?php if ( Proxy\Shared::prepareServiceTypes( array() ) ) : ?>
                             <th width="24"></th>
                         <?php endif ?>
                         <th width="24"></th>
-                        <th><?php esc_html_e( 'Title', 'bookly' ) ?></th>
-                        <th><?php esc_html_e( 'Category', 'bookly' ) ?></th>
-                        <th><?php esc_html_e( 'Duration', 'bookly' ) ?></th>
-                        <th><?php esc_html_e( 'Price', 'bookly' ) ?></th>
+                        <?php foreach ( $datatables['services']['settings']['columns'] as $column => $show ) : ?>
+                            <?php if ( $show ) : ?>
+                                <th><?php echo $datatables['services']['titles'][ $column ] ?></th>
+                            <?php endif ?>
+                        <?php endforeach ?>
                         <th width="75"></th>
-                        <th width="16"><input type="checkbox" class="bookly-js-check-all"/></th>
+                        <th width="16"><input type="checkbox" id="bookly-check-all" /></th>
                     </tr>
                     </thead>
                 </table>
@@ -57,6 +77,8 @@ use Bookly\Backend\Components\Dialogs;
     <?php Dialogs\Service\Create\Dialog::render() ?>
     <?php Dialogs\Service\Edit\Dialog::render() ?>
     <?php Dialogs\Service\Categories\Dialog::render() ?>
+    <?php Dialogs\Service\Order\Dialog::render( $services ) ?>
+    <?php Dialogs\TableSettings\Dialog::render() ?>
     <div id="bookly-update-service-settings" class="modal fade" tabindex=-1 role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

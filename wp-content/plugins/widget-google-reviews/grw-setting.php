@@ -130,7 +130,7 @@ if (isset($_POST['create_db'])) {
 
 if (isset($_POST['install'])) {
     grw_reset(true);
-    grw_install();
+    grw_activate();
 }
 
 wp_register_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css', __FILE__));

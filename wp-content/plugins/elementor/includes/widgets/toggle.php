@@ -98,6 +98,9 @@ class Widget_Toggle extends Widget_Base {
 				'type' => Controls_Manager::TEXT,
 				'default' => __( 'Toggle Title', 'elementor' ),
 				'label_block' => true,
+				'dynamic' => [
+					'active' => true,
+				],
 			]
 		);
 
@@ -309,7 +312,7 @@ class Widget_Toggle extends Widget_Base {
 				'label' => __( 'Color', 'elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-toggle .elementor-tab-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-tab-title a, {{WRAPPER}} .elementor-toggle-icon' => 'color: {{VALUE}};',
 				],
 				'scheme' => [
 					'type' => Schemes\Color::get_type(),
@@ -324,7 +327,7 @@ class Widget_Toggle extends Widget_Base {
 				'label' => __( 'Active Color', 'elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-toggle .elementor-tab-title.elementor-active' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-tab-title.elementor-active a, {{WRAPPER}} .elementor-tab-title.elementor-active .elementor-toggle-icon' => 'color: {{VALUE}};',
 				],
 				'scheme' => [
 					'type' => Schemes\Color::get_type(),
@@ -384,7 +387,6 @@ class Widget_Toggle extends Widget_Base {
 				],
 				'default' => is_rtl() ? 'right' : 'left',
 				'toggle' => false,
-				'label_block' => false,
 			]
 		);
 
@@ -572,10 +574,10 @@ class Widget_Toggle extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<div class="elementor-toggle" role="tablist">
 			<#

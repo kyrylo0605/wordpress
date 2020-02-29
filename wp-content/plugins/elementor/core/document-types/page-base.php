@@ -178,7 +178,6 @@ abstract class PageBase extends Document {
 					'label' => __( 'Excerpt', 'elementor' ),
 					'type' => Controls_Manager::TEXTAREA,
 					'default' => $document->post->post_excerpt,
-					'label_block' => true,
 				]
 			);
 		}
@@ -227,6 +226,7 @@ abstract class PageBase extends Document {
 
 		$config['category'] = '';
 		$config['type'] = 'page';
+		$config['default_route'] = 'templates/pages';
 
 		return $config;
 	}

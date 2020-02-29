@@ -267,7 +267,7 @@ function backupGuardLoggedMessage()
 	}
 
 	$html = '<span class="bg-logged-msg-container">';
-	$html .= 'Package: '.backupGuardGetProductName();
+	$html .= 'Package: '.backupGuardGetProductName() .' | Version: '.SG_BACKUP_GUARD_VERSION;
 	$html .= ' | Welcome, <b>'.$user['firstname'].'</b>! ';
 	$html .= '(<a href="javascript:void(0)" onclick="sgBackup.logout()">Log Out</a>)</span>';
 	return $html;

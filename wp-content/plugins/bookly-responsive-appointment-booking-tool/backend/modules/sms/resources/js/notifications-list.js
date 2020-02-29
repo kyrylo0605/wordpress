@@ -8,91 +8,127 @@ jQuery(function($) {
         $btnTestEmail           = $('#bookly-js-test-email-notifications'),
         $testNotificationsList  = $('#bookly-js-test-notifications-list', $modalTestEmail),
         $btnDeleteNotifications = $('#bookly-js-delete-notifications'),
-        $filter                 = $('#bookly-filter')
+        $filter                 = $('#bookly-filter'),
+        columns                 = [],
+        order                   = []
     ;
+
+    /**
+     * Init Columns.
+     */
+    $.each(BooklyL10n.datatables[BooklyL10n.gateway + '_notifications'].settings.columns, function (column, show) {
+        if (show) {
+            switch (column) {
+                case 'type':
+                    columns.push({
+                        data: 'order',
+                        render: function (data, type, row, meta) {
+                            return '<span class="hidden">' + data + '</span><i class="fa fa-fw ' + row.icon + '" title="' + row.title + '"></i>';
+                        }
+                    });
+                    break;
+                case 'active':
+                    columns.push({
+                        data: column,
+                        render: function (data, type, row, meta) {
+                            return '<span class="label ' + (row.active == 1 ? 'label-success' : 'label-danger') + '">' + BooklyL10n.state[data] + '</span>' + ' (<a href="#" data-action="toggle-active">' + BooklyL10n.action[data] + '</a>)';
+                        }
+                    });
+                    break;
+                default:
+                    columns.push({data: column});
+                    break;
+            }
+        }
+    });
+    columns.push({
+        className: 'text-right',
+        orderable: false,
+        responsivePriority: 1,
+        render: function (data, type, row, meta) {
+            return ' <button type="button" class="btn btn-default ladda-button" data-action="edit" data-spinner-size="40" data-style="zoom-in" data-spinner-color="#666666"><i class="glyphicon glyphicon-edit"></i> <span class="ladda-label">' + BooklyL10n.edit + '</span></a>';
+        }
+    });
+    columns.push({
+        orderable: false,
+        responsivePriority: 1,
+        render: function (data, type, row, meta) {
+            return '<input type="checkbox" class="bookly-js-delete" value="' + row.id + '" />';
+        }
+    });
+
+    $.each(BooklyL10n.datatables[BooklyL10n.gateway + '_notifications'].settings.order, function (_, value) {
+        const index = columns.findIndex(c => c.data === value.column);
+        if (index !== -1) {
+            order.push([index, value.order]);
+        }
+    });
 
     /**
      * Notification list
      */
-    var dt = $notificationList
-        .DataTable({
-            paging: false,
-            info: false,
-            processing: true,
-            responsive: true,
-            serverSide: false,
-            ajax: {
-                url: ajaxurl,
-                data: {action: 'bookly_get_notifications', csrf_token: BooklyL10n.csrfToken, gateway: BooklyL10n.gateway}
+    var dt = $notificationList.DataTable({
+        paging    : false,
+        info      : false,
+        processing: true,
+        responsive: true,
+        serverSide: false,
+        ajax      : {
+            url : ajaxurl,
+            data: {action: 'bookly_get_notifications', csrf_token: BooklyL10n.csrfToken, gateway: BooklyL10n.gateway}
+        },
+        order     : order,
+        columns   : columns,
+        dom       : "<'row'<'col-sm-6'<'pull-left'>><'col-sm-6'>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row pull-left'<'col-sm-12 bookly-margin-top-lg'p>>",
+        language  : {
+            zeroRecords: BooklyL10n.zeroRecords,
+            processing : BooklyL10n.processing
+        }
+    }).on('click', '[data-action=toggle-active]', function (e) {
+        var row  = dt.row($(this).closest('td')),
+            data = row.data();
+        e.preventDefault();
+        data.active = data.active === '1' ? '0' : '1';
+        $.ajax({
+            url     : ajaxurl,
+            type    : 'POST',
+            data    : {
+                action    : 'bookly_set_notification_state',
+                csrf_token: BooklyL10n.csrfToken,
+                id        : data.id,
+                active    : data.active
             },
-            order: [1, 'asc'],
-            columns: [
-                {
-                    data: 'order',
-                    responsivePriority: 2,
-                    render: function (data, type, row, meta) {
-                        return '<span class="hidden">' + data + '</span><i class="fa fa-fw ' + row.icon + '" title="' + row.title + '"></i>';
-                    }
-                },
-                {
-                    data: 'name',
-                    responsivePriority: 1
-                },
-                {
-                    data: 'active',
-                    responsivePriority: 2,
-                    render: function (data, type, row, meta) {
-                        return '<span class="label ' + (row.active == 1 ? 'label-success' : 'label-danger') + '">' + BooklyL10n.state[data] + '</span>' + ' (<a href="#" data-action="toggle-active">' + BooklyL10n.action[data] + '</a>)';
-                    }
-                },
-                {
-                    data: 'active',
-                    className: 'text-right',
-                    orderable: false,
-                    responsivePriority: 1,
-                    render: function (data, type, row, meta) {
-                        return ' <button type="button" class="btn btn-default ladda-button" data-action="edit" data-spinner-size="40" data-style="zoom-in" data-spinner-color="#666666"><i class="glyphicon glyphicon-edit"></i> <span class="ladda-label">' + BooklyL10n.edit + '</span></a>';
-                    }
-                },
-                {
-                    orderable: false,
-                    responsivePriority: 1,
-                    render: function (data, type, row, meta) {
-                        return '<input type="checkbox" class="bookly-js-delete" value="' + row.id + '" />';
-                    }
+            dataType: 'json',
+            success : function (response) {
+                if (response.success) {
+                    row.data(data).draw();
+                    booklyAlert({success: [BooklyL10n.settingsSaved]});
                 }
-            ],
-            dom: "<'row'<'col-sm-6'<'pull-left'>><'col-sm-6'>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row pull-left'<'col-sm-12 bookly-margin-top-lg'p>>",
-            language: {
-                zeroRecords: BooklyL10n.zeroRecords,
-                processing: BooklyL10n.processing
             }
-        })
-        .on('click', '[data-action=toggle-active]', function (e) {
-            var row = dt.row($(this).closest('td')),
-                data = row.data();
-            e.preventDefault();
-            data.active = data.active === '1' ? '0' : '1';
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action     : 'bookly_set_notification_state',
-                    csrf_token : BooklyL10n.csrfToken,
-                    id         : data.id,
-                    active     : data.active
-                },
-                dataType: 'json',
-                success: function (response) {
-                    if (response.success) {
-                        row.data(data).draw();
-                        booklyAlert({success: [BooklyL10n.settingsSaved]});
-                    }
-                }
+        });
+    });
+    dt.on( 'order',  function () {
+        let order = [];
+        dt.order().forEach(data => {
+            order.push({
+                column: columns[data[0]].data,
+                order: data[1]
             });
         });
+        $.ajax({
+            url  : ajaxurl,
+            type : 'POST',
+            data : {
+                action : 'bookly_update_table_order',
+                table:  BooklyL10n.gateway + '_notifications',
+                csrf_token : BooklyL10n.csrfToken,
+                order : order
+            },
+            dataType : 'json'
+        });
+    });
 
     /**
      * On filters change.
@@ -149,7 +185,7 @@ jQuery(function($) {
         });
 
     /**
-     * Delete taxes.
+     * Delete notifications.
      */
     $btnDeleteNotifications.on('click', function () {
         if (confirm(BooklyL10n.areYouSure)) {

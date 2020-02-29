@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'tubalmartin\\CssMin\\' => array($vendorDir . '/tubalmartin/cssmin/src'),
-    'ThemeIsle\\GutenbergBlocks\\' => array($vendorDir . '/codeinwp/gutenberg-blocks/inc'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'MailerLiteApi\\' => array($vendorDir . '/mailerlite/mailerlite-api-v2-php-sdk/src'),
     'Http\\Promise\\' => array($vendorDir . '/php-http/promise/src'),

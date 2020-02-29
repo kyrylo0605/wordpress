@@ -14,6 +14,8 @@ jQuery(function($) {
         $delete_button    = $('#bookly-delete'),
         $download_invoice = $('#bookly-download-invoices'),
         urlParts          = document.URL.split('#'),
+        columns           = [],
+        order             = [],
         pickers = {
             dateFormat:     'YYYY-MM-DD',
             creationDate: {
@@ -21,6 +23,8 @@ jQuery(function($) {
                 endDate  : moment(),
             },
         };
+
+    $('.bookly-js-select').val(null);
 
     if (urlParts.length > 1) {
         urlParts[1].split('&').forEach(function (part) {
@@ -36,16 +40,48 @@ jQuery(function($) {
                 $('#bookly-filter-' + params[0]).val(params[1]);
             }
         });
+    } else {
+        $.each(BooklyL10n.datatables.payments.settings.filter, function (field, value) {
+            if (value != '') {
+                let $elem = $('#bookly-filter-' + field);
+                if ($elem.is(':checkbox')) {
+                    $elem.prop('checked', value == '1');
+                } else {
+                    $elem.val(value);
+                }
+            }
+            // check if select has correct values
+            if ($('#bookly-filter-' + field).prop('type') == 'select-one') {
+                if ($('#bookly-filter-' + field + ' option[value="' + value + '"]').length == 0) {
+                    $('#bookly-filter-' + field).val(null);
+                }
+            }
+        });
     }
 
-    $('.bookly-js-select')
-        .val(null)
-        .select2({
+    $('.bookly-js-select').select2({
             allowClear: true,
             placeholder: '',
             theme: 'bootstrap',
             language: {
                 noResults: function() { return BooklyL10n.noResultFound; }
+            },
+            matcher: function (params, data) {
+                const term = $.trim(params.term).toLowerCase();
+                if (term === '' || data.text.toLowerCase().indexOf(term) !== -1) {
+                    return data;
+                }
+
+                let result = null;
+                const search = $(data.element).data('search');
+                search &&
+                search.find((text) => {
+                    if (result === null && text.toLowerCase().indexOf(term) !== -1) {
+                        result = data;
+                    }
+                });
+
+                return result;
             }
         });
 
@@ -78,69 +114,80 @@ jQuery(function($) {
     /**
      * Init Columns.
      */
-    var columns = [
-        { data: 'id', responsivePriority: 9 },
-        {
-            data: 'created',
-            responsivePriority: 8,
-            render: function ( data, type, row, meta ) {
-                return row.created_format;
-            }
-        },
-        { data: 'type', responsivePriority: 7 },
-        { data: 'customer', render: $.fn.dataTable.render.text(), responsivePriority: 6 },
-        { data: 'provider', responsivePriority: 4 },
-        { data: 'service', responsivePriority: 3 },
-        {
-            data: 'start_date',
-            responsivePriority: 2,
-            render: function ( data, type, row, meta ) {
-                return row.start_date_format;
-            }
-        },
-        { data: 'paid', responsivePriority: 1 },
-        { data: 'status', responsivePriority: 3 },
-        {
-            responsivePriority: 1,
-            orderable: false,
-            searchable: false,
-            render: function ( data, type, row, meta ) {
-                var buttons = '';
-                if (BooklyL10n.invoice.enabled) {
-                    buttons += '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="view-invoice" data-payment_id="' + row.id + '"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</button>';
-                }
-                return buttons + '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#bookly-payment-details-modal" data-payment_id="' + row.id + '"><i class="glyphicon glyphicon-list-alt"></i> ' + BooklyL10n.details + '</button>';
-            }
-        },
-        {
-            responsivePriority: 1,
-            orderable: false,
-            searchable: false,
-            render: function ( data, type, row, meta ) {
-                return '<input type="checkbox" value="' + row.id + '">';
+    $.each(BooklyL10n.datatables.payments.settings.columns, function (column, show) {
+        if (show) {
+            switch (column) {
+                case 'created':
+                    columns.push({
+                        data: column, render: function (data, type, row, meta) {
+                            return row.created_format;
+                        }
+                    });
+                    break;
+                case 'start_date':
+                    columns.push({
+                        data: column, render: function (data, type, row, meta) {
+                            return row.start_date_format;
+                        }
+                    });
+                    break;
+                case 'customer':
+                    columns.push({data: column, render: $.fn.dataTable.render.text()});
+                    break;
+                default:
+                    columns.push({data: column});
+                    break;
             }
         }
-    ];
+    });
+    columns.push({
+        responsivePriority: 1,
+        orderable: false,
+        searchable: false,
+        width: BooklyL10n.invoice.enabled ? 180 : 90,
+        render: function (data, type, row, meta) {
+            var buttons = '<div style="white-space: nowrap;">';
+            if (BooklyL10n.invoice.enabled) {
+                buttons += '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="view-invoice" data-payment_id="' + row.id + '"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</button>';
+            }
+            return buttons + '<button type="button" class="btn btn-default" data-action="show-payment" data-payment_id="' + row.id + '"><i class="glyphicon glyphicon-list-alt"></i> ' + BooklyL10n.details + '</button></div>';
+        }
+    });
+    columns.push({
+        responsivePriority: 1,
+        orderable: false,
+        searchable: false,
+        render: function (data, type, row, meta) {
+            return '<input type="checkbox" value="' + row.id + '">';
+        }
+    });
+
+    $.each(BooklyL10n.datatables.payments.settings.order, function (_, value) {
+        const index = columns.findIndex(c => c.data === value.column);
+        if (index !== -1) {
+            order.push([index, value.order]);
+        }
+    });
 
     /**
      * Init DataTables.
      */
     var dt = $payments_list.DataTable({
-        order: [[ 0, 'asc' ]],
-        paging: false,
-        info: false,
-        searching: false,
+        order     : order,
+        paging    : false,
+        info      : false,
+        searching : false,
         processing: true,
         responsive: true,
         serverSide: false,
-        ajax: {
-            url: ajaxurl,
-            type: 'POST',
-            data: function ( d ) {
-                return $.extend( {}, d, {
-                    action: 'bookly_get_payments',
+        ajax      : {
+            url    : ajaxurl,
+            type   : 'POST',
+            data   : function (d) {
+                return $.extend({}, d, {
+                    action    : 'bookly_get_payments',
                     csrf_token: BooklyL10n.csrfToken,
-                    filter: {
+                    filter    : {
                         id      : $id_filter.val(),
                         created : $creationDateFilter.data('date'),
                         type    : $type_filter.val(),
@@ -149,7 +196,7 @@ jQuery(function($) {
                         service : $service_filter.val(),
                         status  : $status_filter.val()
                     }
-                } );
+                });
             },
             dataSrc: function (json) {
                 $payment_total.html(json.total);
@@ -157,11 +204,31 @@ jQuery(function($) {
                 return json.data;
             }
         },
-        columns: columns,
-        language: {
+        columns   : columns,
+        language  : {
             zeroRecords: BooklyL10n.zeroRecords,
-            processing: BooklyL10n.processing
+            processing : BooklyL10n.processing
         }
+    });
+    dt.on( 'order',  function () {
+        let order = [];
+        dt.order().forEach(data => {
+            order.push({
+                column: columns[data[0]].data,
+                order: data[1]
+            });
+        });
+        $.ajax({
+            url  : ajaxurl,
+            type : 'POST',
+            data : {
+                action : 'bookly_update_table_order',
+                table: 'payments',
+                csrf_token : BooklyL10n.csrfToken,
+                order : order
+            },
+            dataType : 'json'
+        });
     });
 
     /**
@@ -171,12 +238,19 @@ jQuery(function($) {
         $payments_list.find('tbody input:checkbox').prop('checked', this.checked);
     });
 
-    /**
-     * On coupon select.
-     */
-    $payments_list.on('change', 'tbody input:checkbox', function () {
-        $check_all_button.prop('checked', $payments_list.find('tbody input:not(:checked)').length == 0);
-    });
+    $payments_list
+        // On coupon select.
+        .on('change', 'tbody input:checkbox', function () {
+            $check_all_button.prop('checked', $payments_list.find('tbody input:not(:checked)').length == 0);
+        })
+        // Show invoice
+        .on('click', '[data-action=view-invoice]', function () {
+            window.location = $download_invoice.data('action') + '&invoices=' + $(this).data('payment_id');
+        })
+        // show payment details
+        .on('click', '[data-action=show-payment]', function () {
+            $('#bookly-payment-details-modal').modal('show', this);
+        });
 
     /**
      * Init date range picker.
@@ -264,10 +338,6 @@ jQuery(function($) {
                 }
             });
         }
-    });
-
-    $payments_list.on('click', '[data-action=view-invoice]', function () {
-        window.location = $download_invoice.data('action') + '&invoices=' + $(this).data('payment_id');
     });
 
     $download_invoice.on('click', function () {

@@ -22,6 +22,7 @@ use Bookly\Lib;
  * @method static array  prepareNotificationTypes( array $types, string $gateway ) Prepare notification type IDs.
  * @method static array  preparePaymentDetails( array $details, Lib\DataHolders\Booking\Order $order, Lib\CartInfo $cart_info ) Add info about payment
  * @method static Lib\Query prepareStaffServiceQuery( Lib\Query $query ) Prepare StaffService query for Finder.
+ * @method static array  prepareTableColumns( array $columns, $table ) Prepare table columns for given table.
  * @method static string prepareStatement( string $value, string $statement, string $table ) Prepare default value for sql statement.
  * @method static void   renderAdminNotices( \bool $bookly_page ) Render admin notices from add-ons.
  * @method static bool   showPaymentSpecificPrices( bool $show ) Whether to show specific price for each payment system.

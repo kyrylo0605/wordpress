@@ -1107,6 +1107,9 @@ msgstr ""
 msgid "Duplicate dates are not permitted."
 msgstr ""
 
+msgid "Date in the past."
+msgstr ""
+
 msgid "The requested interval is not available"
 msgstr ""
 
@@ -1326,6 +1329,12 @@ msgstr ""
 msgid "API Transaction Key"
 msgstr ""
 
+msgid "Title"
+msgstr ""
+
+msgid "Rate"
+msgstr ""
+
 msgid "Taxes"
 msgstr ""
 
@@ -1344,12 +1353,6 @@ msgid "Exclude taxes"
 msgstr ""
 
 msgid "Add Tax"
-msgstr ""
-
-msgid "Title"
-msgstr ""
-
-msgid "Rate"
 msgstr ""
 
 msgid "New tax"
@@ -2196,6 +2199,78 @@ msgstr ""
 msgid "From"
 msgstr ""
 
+msgid "No."
+msgstr ""
+
+msgid "Appointment date"
+msgstr ""
+
+msgid "Customer name"
+msgstr ""
+
+msgid "Customer phone"
+msgstr ""
+
+msgid "Customer email"
+msgstr ""
+
+msgid "Created"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Last appointment"
+msgstr ""
+
+msgid "Total appointments"
+msgstr ""
+
+msgid "Payments"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Customer"
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Sender ID"
+msgstr ""
+
+msgid "Cost"
+msgstr ""
+
+msgid "Flag"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Regular price"
+msgstr ""
+
+msgid "Price with custom Sender ID"
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Requested ID"
+msgstr ""
+
+msgid "Status date"
+msgstr ""
+
 msgid "Important"
 msgstr ""
 
@@ -2318,9 +2393,6 @@ msgstr ""
 msgid "Bookly SMS weekly summary"
 msgstr ""
 
-msgid "Customer"
-msgstr ""
-
 msgid "Internal Notes"
 msgstr ""
 
@@ -2441,9 +2513,6 @@ msgstr ""
 msgid "Customers"
 msgstr ""
 
-msgid "Payments"
-msgstr ""
-
 msgid "Appearance"
 msgstr ""
 
@@ -2474,19 +2543,7 @@ msgstr ""
 msgid "New appointment"
 msgstr ""
 
-msgid "No."
-msgstr ""
-
 msgid "Created at any time"
-msgstr ""
-
-msgid "Appointment Date"
-msgstr ""
-
-msgid "Created"
-msgstr ""
-
-msgid "Attachments"
 msgstr ""
 
 msgid "Any time"
@@ -2499,6 +2556,9 @@ msgid "No result found"
 msgstr ""
 
 msgid "Searching"
+msgstr ""
+
+msgid "Attachments"
 msgstr ""
 
 msgid "Archived"
@@ -2544,9 +2604,6 @@ msgid "Send email notification to administrators at low balance"
 msgstr ""
 
 msgid "Send weekly summary to administrators"
-msgstr ""
-
-msgid "Sender ID"
 msgstr ""
 
 msgid "Change"
@@ -2640,15 +2697,6 @@ msgstr ""
 msgid "Old password"
 msgstr ""
 
-msgid "Type"
-msgstr ""
-
-msgid "Order"
-msgstr ""
-
-msgid "Amount"
-msgstr ""
-
 msgid ""
 "We will only charge your PayPal account when your balance falls below $10."
 msgstr ""
@@ -2657,15 +2705,6 @@ msgid "Enable Auto-Recharge"
 msgstr ""
 
 msgid "Disable Auto-Recharge"
-msgstr ""
-
-msgid "Code"
-msgstr ""
-
-msgid "Regular price"
-msgstr ""
-
-msgid "Price with custom Sender ID"
 msgstr ""
 
 msgid ""
@@ -2690,12 +2729,6 @@ msgstr ""
 msgid "Quick search notifications"
 msgstr ""
 
-msgid "State"
-msgstr ""
-
-msgid "Delete..."
-msgstr ""
-
 #, php-format
 msgid ""
 "To send scheduled notifications please refer to <a href=\"%1$s\">Bookly "
@@ -2705,12 +2738,6 @@ msgstr ""
 msgid ""
 "To send scheduled notifications please execute the following command hourly "
 "with your cron:"
-msgstr ""
-
-msgid "Text"
-msgstr ""
-
-msgid "Cost"
 msgstr ""
 
 msgid ""
@@ -2733,12 +2760,6 @@ msgid "Request"
 msgstr ""
 
 msgid "Cancel request"
-msgstr ""
-
-msgid "Requested ID"
-msgstr ""
-
-msgid "Status Date"
 msgstr ""
 
 msgid "Please accept terms and conditions."
@@ -2782,9 +2803,6 @@ msgstr ""
 msgid "disable"
 msgstr ""
 
-msgid "Edit..."
-msgstr ""
-
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr ""
 
@@ -2799,16 +2817,19 @@ msgstr ""
 msgid "SMS has been sent successfully."
 msgstr ""
 
+msgid "Staff members order"
+msgstr ""
+
+msgid "Add staff"
+msgstr ""
+
 msgid "Quick search staff"
 msgstr ""
 
+msgid "Categories"
+msgstr ""
+
 msgid "Show archived"
-msgstr ""
-
-msgid "Add staff..."
-msgstr ""
-
-msgid "User"
 msgstr ""
 
 msgid "Image"
@@ -3062,13 +3083,13 @@ msgid ""
 "correct this problem."
 msgstr ""
 
+msgid "Services order"
+msgstr ""
+
+msgid "Add service"
+msgstr ""
+
 msgid "Quick search services"
-msgstr ""
-
-msgid "Categories..."
-msgstr ""
-
-msgid "Add service..."
 msgstr ""
 
 msgid "Update service setting"
@@ -3289,12 +3310,6 @@ msgid "Quick search customer"
 msgstr ""
 
 msgid "New customer"
-msgstr ""
-
-msgid "Last appointment"
-msgstr ""
-
-msgid "Total appointments"
 msgstr ""
 
 msgid "Merge with"
@@ -3687,6 +3702,9 @@ msgstr ""
 msgid "Days Off"
 msgstr ""
 
+msgid "The date has already passed."
+msgstr ""
+
 msgid "Create staff"
 msgstr ""
 
@@ -3697,6 +3715,9 @@ msgid "The start time must be less than the end one"
 msgstr ""
 
 msgid "Error adding the break interval"
+msgstr ""
+
+msgid "Adjust the order of staff members in your booking form"
 msgstr ""
 
 msgid "Complete payment"
@@ -3846,10 +3867,16 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-msgid "Categories"
+msgid "Adjust the order of services in your booking form"
 msgstr ""
 
 msgid "Add category"
+msgstr ""
+
+msgid "Table settings"
+msgstr ""
+
+msgid "Column"
 msgstr ""
 
 msgid "Attach ICS file"
@@ -4229,6 +4256,9 @@ msgstr ""
 msgid "Notification about package deletion"
 msgstr ""
 
+msgid "Creation date"
+msgstr ""
+
 msgid "Packages"
 msgstr ""
 
@@ -4247,9 +4277,6 @@ msgid "The period in days when the customer can use a package of services."
 msgstr ""
 
 msgid "New package"
-msgstr ""
-
-msgid "Creation Date"
 msgstr ""
 
 msgid "Edit package"
@@ -4333,6 +4360,9 @@ msgid "Packages list"
 msgstr ""
 
 msgid "A custom block for displaying packages list"
+msgstr ""
+
+msgid "Creation Date"
 msgstr ""
 
 msgid "Expires"
@@ -4980,9 +5010,6 @@ msgstr ""
 msgid "Show time zone switcher"
 msgstr ""
 
-msgid "Date of birth"
-msgstr ""
-
 msgid "Import"
 msgstr ""
 
@@ -4996,6 +5023,9 @@ msgid ""
 msgstr ""
 
 msgid "Select file"
+msgstr ""
+
+msgid "Date of birth"
 msgstr ""
 
 msgid "Analytics"
@@ -5368,21 +5398,6 @@ msgstr ""
 msgid "Coupon"
 msgstr ""
 
-msgid "Coupons"
-msgstr ""
-
-msgid "Add Coupon Series"
-msgstr ""
-
-msgid "Add Coupon"
-msgstr ""
-
-msgid "Coupon code"
-msgstr ""
-
-msgid "Show only active"
-msgstr ""
-
 msgid "Discount (%)"
 msgstr ""
 
@@ -5398,16 +5413,31 @@ msgstr ""
 msgid "Number of times used"
 msgstr ""
 
+msgid "Active from"
+msgstr ""
+
 msgid "Active until"
 msgstr ""
 
 msgid "Min. appointments"
 msgstr ""
 
-msgid "Active from"
+msgid "Max. appointments"
 msgstr ""
 
-msgid "Max appointments"
+msgid "Coupons"
+msgstr ""
+
+msgid "Add Coupon Series"
+msgstr ""
+
+msgid "Add Coupon"
+msgstr ""
+
+msgid "Coupon code"
+msgstr ""
+
+msgid "Show only active"
 msgstr ""
 
 msgid "Export only active coupons"
@@ -5514,28 +5544,25 @@ msgstr ""
 msgid "This coupon code has expired"
 msgstr ""
 
+msgid "Group name"
+msgstr ""
+
+msgid "Number of users"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
 msgid "Customer Groups"
 msgstr ""
 
 msgid "New group"
 msgstr ""
 
-msgid "Group Name"
-msgstr ""
-
-msgid "Number of Users"
-msgstr ""
-
-msgid "Description"
-msgstr ""
-
-msgid "Appointment Status"
-msgstr ""
-
 msgid "Customers without group"
-msgstr ""
-
-msgid "Group"
 msgstr ""
 
 msgid "New Group"
@@ -5563,9 +5590,6 @@ msgid "Customer Group"
 msgstr ""
 
 msgid "No group"
-msgstr ""
-
-msgid "Group name"
 msgstr ""
 
 msgid "Total discount"
@@ -5680,9 +5704,6 @@ msgstr ""
 msgid "waiting list of appointment"
 msgstr ""
 
-msgid "Add service"
-msgstr ""
-
 msgid "Show chain appointments"
 msgstr ""
 
@@ -5794,6 +5815,9 @@ msgstr ""
 msgid "Show extras"
 msgstr ""
 
+msgid "Extras tax"
+msgstr ""
+
 msgid "Extras price"
 msgstr ""
 
@@ -5814,13 +5838,13 @@ msgstr ""
 msgid "Waiting list"
 msgstr ""
 
+msgid "Free/Busy"
+msgstr ""
+
 msgid "Custom statuses"
 msgstr ""
 
 msgid "Add status"
-msgstr ""
-
-msgid "Free/Busy"
 msgstr ""
 
 msgid "New Status"
@@ -5864,6 +5888,9 @@ msgid "Disable special hours update"
 msgstr ""
 
 msgid "Please select a location"
+msgstr ""
+
+msgid "Staff members"
 msgstr ""
 
 msgid "Locations"

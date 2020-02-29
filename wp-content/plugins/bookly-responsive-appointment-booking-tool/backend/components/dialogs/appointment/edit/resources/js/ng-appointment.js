@@ -274,7 +274,7 @@
                             start_time = moment(ds.form.start_time.value, 'HH:mm');
                         for (var units = units_min; units <= units_max; units++) {
                             var end_time = moment(start_time).add(units * ds.form.service.duration, 'seconds'),
-                                end_hour = moment(end_time).diff(moment('00:00', 'HH:mm')) / 3600 / 1000;
+                                end_hour = Math.floor(moment(end_time).diff(moment('00:00', 'HH:mm')) / 3600 / 1000);
                             jQuery.each(ds.data.end_time, function (key, item) {
                                 if (item.value == (end_hour < 10 ? '0' + end_hour : end_hour) + ':' + moment(end_time).format('mm')) {
                                     unit_item = jQuery.extend({}, item);
@@ -999,7 +999,6 @@
                 .on('hidden.bs.modal', function () {
                     jQuery('body').addClass('modal-open');
                 });
-
             jQuery(document.body).trigger('bookly.edit.customer_details', [$dialog, $scope.edit_customer]);
         };
 
@@ -1522,3 +1521,16 @@ var showAppointmentDialog = function (appointment_id, staff_id, start_date, call
 
     $dialog.modal('show');
 };
+
+jQuery(function($) {
+    $('#bookly-appointment-dialog')
+        .on('click', '[data-action=show-payment]', function () {
+            jQuery('#bookly-payment-details-modal').modal('show', this);
+        })
+        .on('click', '[data-action=show-collaborative]', function () {
+            jQuery('#bookly-collaborative-services-dialog').modal('show', this);
+        })
+        .on('click', '[data-action=show-compound]', function () {
+            jQuery('#bookly-compound-services-dialog').modal('show', this);
+        });
+});

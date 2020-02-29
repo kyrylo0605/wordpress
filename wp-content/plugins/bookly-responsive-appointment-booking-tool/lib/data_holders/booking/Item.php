@@ -180,6 +180,13 @@ abstract class Item
     abstract public function getTax();
 
     /**
+     * Get tax.
+     *
+     * @return string
+     */
+    abstract public function getServiceTax();
+
+    /**
      * Get appointment end time taking into account extras duration.
      *
      * For compound or collaborative services the total end

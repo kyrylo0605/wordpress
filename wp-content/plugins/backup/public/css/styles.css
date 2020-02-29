@@ -19,7 +19,7 @@
 
 #bg-wrapper a {
 	font-size: 15px;
-	color: #2780e3;
+	color: #0021C8;
 	text-decoration: none;
 }
 
@@ -27,6 +27,15 @@
 #bg-wrapper a:focus {
 	color: #165ba8;
 	text-decoration: underline;
+}
+
+.bg-try-again {
+	color: #0021C8 !important;
+	margin-right: 20px;
+}
+
+.bg-try-again:hover {
+	text-decoration: none !important;
 }
 
 .bg-content {
@@ -65,6 +74,7 @@
 	padding-top: 16px;
 	padding-bottom: 16px;
 	font-size: 18px;
+	border-radius: 0 !important;
 }
 
 .bg-login-content label {
@@ -263,7 +273,7 @@
 .bg-license-container h1 {
 	font-size: 22.5px;
 	font-weight: normal;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	margin-top: 0;
 }
 
@@ -273,9 +283,9 @@
 }
 
 .bg-license-content {
-	padding: 25px;
 	background-color: #fff;
 	overflow: auto;
+	box-sizing: border-box;
 }
 
 .bg-file-icon {
@@ -304,4 +314,26 @@
 .sg-switch-container .bootstrap-switch-default {
 	background-color: #000000 !important;
 	color: #FFFFFF !important;
+}
+
+p.bg-license-btn-wrapper {
+	margin-top: 37px;
+	text-align: center !important;
+}
+
+#link-btn {
+	margin-top: 30px;
+}
+
+select#product {
+	margin-top: 2px;
+	text-indent: 4px;
+}
+
+.bg-license-content {
+	text-align: center;
+}
+
+.bg-license-content.sg-wrapper-less {
+	margin-top: 0 !important;
 }

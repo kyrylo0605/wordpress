@@ -116,6 +116,16 @@ class Page extends Lib\Base\Component
         $alert['error'] = array_merge( $alert['error'], $sms->getErrors() );
         // Services in custom notifications where the recipient is client only.
         $only_client = Lib\Entities\Service::query()->whereIn( 'type', array( Lib\Entities\Service::TYPE_COMPOUND, Lib\Entities\Service::TYPE_COLLABORATIVE ) )->fetchCol( 'id' );
+
+        // Prepare tables settings.
+        $datatables = Lib\Utils\Tables::getSettings( array(
+            'sms_notifications',
+            'sms_purchases',
+            'sms_details',
+            'sms_prices',
+            'sms_sender',
+        ) );
+
         wp_localize_script( 'bookly-daterangepicker.js', 'BooklyL10n',
             array(
                 'csrfToken'          => Lib\Utils\Common::getCsrfToken(),
@@ -134,24 +144,25 @@ class Page extends Lib\Base\Component
                 ),
                 'datePicker' => Lib\Utils\DateTime::datePickerOptions(),
                 'dateRange'  => Lib\Utils\DateTime::dateRangeOptions( array( 'lastMonth' => __( 'Last month', 'bookly' ), ) ),
-                'sender_id'          => array(
+                'sender_id'  => array(
                     'sent'        => __( 'Sender ID request is sent.', 'bookly' ),
                     'set_default' => __( 'Sender ID is reset to default.', 'bookly' ),
                 ),
-                'zeroRecords'        => __( 'No records for selected period.', 'bookly' ),
-                'zeroRecords2'       => __( 'No records.', 'bookly' ),
-                'processing'         => __( 'Processing...', 'bookly' ),
-                'onlyClient'         => $only_client,
-                'invoice'         => array(
+                'zeroRecords'  => __( 'No records for selected period.', 'bookly' ),
+                'zeroRecords2' => __( 'No records.', 'bookly' ),
+                'processing'   => __( 'Processing...', 'bookly' ),
+                'onlyClient'   => $only_client,
+                'invoice'      => array(
                     'button' => __( 'Invoice', 'bookly' ),
                     'alert'  => __( 'To generate an invoice you should fill in company information in Bookly > SMS Notifications > Send invoice.', 'bookly' ),
-                    'link'   => $sms->getInvoiceLink()
+                    'link'   => $sms->getInvoiceLink(),
                 ),
-                'state'              => array( __( 'Disabled', 'bookly' ), __( 'Enabled', 'bookly' ) ),
-                'action'             => array( __( 'enable', 'bookly' ), __( 'disable', 'bookly' ) ),
-                'edit'               => __( 'Edit...', 'bookly' ),
-                'settingsSaved'      => __( 'Settings saved.', 'bookly' ),
-                'gateway'            => 'sms'
+                'state'          => array( __( 'Disabled', 'bookly' ), __( 'Enabled', 'bookly' ) ),
+                'action'         => array( __( 'enable', 'bookly' ), __( 'disable', 'bookly' ) ),
+                'edit'           => __( 'Edit', 'bookly' ),
+                'settingsSaved'  => __( 'Settings saved.', 'bookly' ),
+                'gateway'        => 'sms',
+                'datatables'     => $datatables
             )
         );
         foreach ( range( 1, 23 ) as $hours ) {
@@ -161,7 +172,7 @@ class Page extends Lib\Base\Component
         // Number of undelivered sms.
         $undelivered_count = Lib\SMS::getUndeliveredSmsCount();
 
-        self::renderTemplate( 'index', compact( 'sms', 'is_logged_in', 'prices', 'bookly_ntf_processing_interval_values', 'undelivered_count', 'email_confirm_required', 'show_registration_form' ) );
+        self::renderTemplate( 'index', compact( 'sms', 'is_logged_in', 'prices', 'bookly_ntf_processing_interval_values', 'undelivered_count', 'email_confirm_required', 'show_registration_form', 'datatables' ) );
     }
 
     /**

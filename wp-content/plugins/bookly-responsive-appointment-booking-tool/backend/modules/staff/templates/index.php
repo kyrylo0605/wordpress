@@ -1,6 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components;
 use Bookly\Lib;
+/** @var array $datatables */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -23,9 +24,30 @@ use Bookly\Lib;
             <div class="panel-body">
                 <?php if ( Lib\Utils\Common::isCurrentUserAdmin() ): ?>
                     <div class="row">
+                        <div class="col-md-12 form-inline bookly-margin-bottom-lg text-right">
+                            <div class="form-group">
+                                <?php Components\Controls\Buttons::renderModalActivator( 'bookly-staff-order-modal', 'btn-default bookly-btn-block-xs', esc_html__( 'Staff members order', 'bookly' ) ) ?>
+                            </div>
+                            <?php Components\Dialogs\Staff\Categories\Proxy\Pro::renderAdd() ?>
+                            <div class="form-group">
+                                <?php Components\Controls\Buttons::renderModalActivator( 'bookly-create-staff-modal', 'btn-success bookly-btn-block-xs', esc_html__( 'Add staff', 'bookly' ), array(), '<i class="fa fa-fw fa-plus"></i> {caption}' ) ?>
+                            </div>
+                            <?php Components\Dialogs\TableSettings\Dialog::renderButton( 'staff_members' ) ?>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input class="form-control" type="text" id="bookly-filter" placeholder="<?php esc_attr_e( 'Quick search staff', 'bookly' ) ?>"/>
+                                <input class="form-control" type="text" id="bookly-filter-search" placeholder="<?php esc_attr_e( 'Quick search staff', 'bookly' ) ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-2">
+                            <div class="form-group">
+                                <select class="form-control bookly-js-select" id="bookly-filter-category" data-placeholder="<?php esc_attr_e( 'Categories', 'bookly' ) ?>">
+                                    <?php foreach ( $categories as $category ) : ?>
+                                        <option value="<?php echo $category['id'] ?>"><?php echo esc_html( $category['name'] ) ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -48,33 +70,24 @@ use Bookly\Lib;
                             </div>
                             <?php endif ?>
                         </div>
-                        <div class="col-md-4 form-inline bookly-margin-bottom-lg text-right">
-                            <div class="form-group">
-                                <?php Components\Dialogs\Staff\Categories\Proxy\Pro::renderAdd() ?>
-                            </div>
-                            <div class="form-group">
-                                <?php Components\Controls\Buttons::renderAdd( 'bookly-js-new-staff', 'btn-success', esc_html__( 'Add staff...', 'bookly' ), array( 'data-toggle' => 'modal', 'data-target' => '#bookly-create-staff-modal', ) ) ?>
-                            </div>
-                        </div>
                     </div>
+
                 <?php endif ?>
-                <table id="staff-list" class="table table-striped" style="width: 100%">
+
+                <table id="bookly-staff-list" class="table table-striped" width="100%">
                     <thead>
                     <tr>
-                        <th style="display: none;"></th>
-                        <th width="24"></th>
-                        <th><?php esc_html_e( 'Name', 'bookly' ) ?></th>
-                        <?php if ( Lib\Config::proActive() ): ?>
-                            <th><?php esc_html_e( 'Category', 'bookly' ) ?></th>
-                        <?php endif ?>
-                        <th><?php esc_html_e( 'Email', 'bookly' ) ?></th>
-                        <th><?php esc_html_e( 'Phone', 'bookly' ) ?></th>
-                        <th><?php esc_html_e( 'User', 'bookly' ) ?></th>
+                        <?php foreach ( $datatables['staff_members']['settings']['columns'] as $column => $show ) : ?>
+                            <?php if ( $show ) : ?>
+                                <th><?php echo $datatables['staff_members']['titles'][ $column ] ?></th>
+                            <?php endif ?>
+                        <?php endforeach ?>
                         <th width="75"></th>
-                        <th width="16"><input type="checkbox" class="bookly-js-check-all"/></th>
+                        <th width="16"><input type="checkbox" id="bookly-check-all"/></th>
                     </tr>
                     </thead>
                 </table>
+
                 <div class="text-right bookly-margin-top-lg">
                     <?php if ( Lib\Utils\Common::isCurrentUserAdmin() ): ?>
                         <?php Components\Controls\Buttons::renderDelete() ?>
@@ -84,8 +97,10 @@ use Bookly\Lib;
         </div>
     </div>
 
-    <?php Components\Dialogs\Staff\Edit\Dialog::render() ?>
-    <?php Components\Dialogs\Staff\Categories\Proxy\Pro::renderDialog() ?>
     <?php Components\Dialogs\Common\CascadeDelete::render() ?>
     <?php Components\Dialogs\Common\UnsavedChanges::render() ?>
+    <?php Components\Dialogs\Staff\Categories\Proxy\Pro::renderDialog() ?>
+    <?php Components\Dialogs\Staff\Edit\Dialog::render() ?>
+    <?php Components\Dialogs\Staff\Order\Dialog::render() ?>
+    <?php Components\Dialogs\TableSettings\Dialog::render() ?>
 </div>

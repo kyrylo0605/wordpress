@@ -1,6 +1,6 @@
 jQuery(function ($) {
-    var $modal        = $('#bookly-support-modal'),
-        $btnContactUs = $('#bookly-contact-us-btn'),
+    let $modal        = $('#bookly-contact-us-modal'),
+        $btnContactUs = $('#bookly-contact-us-modal-activator'),
         $btnFeedback  = $('#bookly-feedback-btn')
     ;
 

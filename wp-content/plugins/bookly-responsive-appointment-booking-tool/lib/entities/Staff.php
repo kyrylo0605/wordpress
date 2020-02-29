@@ -95,12 +95,13 @@ class Staff extends Lib\Base\Entity
                     Lib\Proxy\Shared::prepareStatement( 1, 's.capacity_max', 'Service' )
                 ) )
                 ->leftJoin( 'Service', 's', 's.id = ss.service_id' )
+                ->leftJoin( 'Category', 'c', 'c.id = s.category_id' )
                 ->where( 'ss.staff_id', $this->getId() )
                 ->where( 's.type', $type );
             if ( ! Lib\Proxy\Locations::servicesPerLocationAllowed() ) {
                 $query->where( 'ss.location_id', null );
             }
-            $staff_services = $query->fetchArray();
+            $staff_services = $query->sortBy( 'c.position, s.position' )->fetchArray();
 
             foreach ( $staff_services as $data ) {
                 $ss = new StaffService( $data );

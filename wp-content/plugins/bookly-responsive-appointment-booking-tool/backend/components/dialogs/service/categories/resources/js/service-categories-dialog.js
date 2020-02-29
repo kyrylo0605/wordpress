@@ -9,6 +9,7 @@ jQuery(function ($) {
         $save         = $('#bookly-save', $dialog),
         new_category_id
     ;
+
     // Add category
     $newCategory.on('click', function () {
         $categories.append(

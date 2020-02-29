@@ -48,8 +48,12 @@ sgBackup.initIntervalSelection = function() {
     else if(jQuery('#sg-schedule-interval').val() == BG_SCHEDULE_INTERVAL_MONTHLY) {
         jQuery('#sg-schedule-day-of-month-select').show();
     }
+    else if(jQuery('#sg-schedule-interval').val() == BG_SCHEDULE_INTERVAL_HOURLY) {
+        jQuery('#sg-schedule-timezone').hide();
+    }
 
     jQuery('#sg-schedule-interval').on('change', function(){
+        jQuery('#sg-schedule-timezone').show();
         if (jQuery(this).val() == BG_SCHEDULE_INTERVAL_WEEKLY) {
             jQuery('#sg-schedule-day-of-month-select').hide();
             jQuery('#sg-schedule-day-of-week-select').show();
@@ -57,6 +61,9 @@ sgBackup.initIntervalSelection = function() {
         else if (jQuery(this).val() == BG_SCHEDULE_INTERVAL_MONTHLY) {
             jQuery('#sg-schedule-day-of-week-select').hide();
             jQuery('#sg-schedule-day-of-month-select').show();
+        }
+        else if(jQuery('#sg-schedule-interval').val() == BG_SCHEDULE_INTERVAL_HOURLY) {
+            jQuery('#sg-schedule-timezone').hide();
         }
         else {
             sgBackup.toggleDaySelection();

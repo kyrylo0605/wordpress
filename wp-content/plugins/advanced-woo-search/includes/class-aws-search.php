@@ -67,6 +67,10 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 define( 'DOING_AJAX', true );
             }
 
+            if ( ! headers_sent() && isset( $_REQUEST['typedata'] ) ) {
+                header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
+            }
+
             echo json_encode( $this->search() );
 
             die;

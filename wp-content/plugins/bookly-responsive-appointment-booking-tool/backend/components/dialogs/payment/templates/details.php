@@ -43,11 +43,11 @@ if ( ! $can_edit ) {
                     <th><?php esc_html_e( 'Service', 'bookly' ) ?></th>
                     <th><?php esc_html_e( 'Date', 'bookly' ) ?></th>
                     <th><?php esc_html_e( 'Provider', 'bookly' ) ?></th>
-                    <?php if ( $show['deposit'] ): ?>
+                    <?php if ( $show['deposit'] ) : ?>
                         <th class="text-right"><?php esc_html_e( 'Deposit', 'bookly' ) ?></th>
                     <?php endif ?>
                     <th class="text-right"><?php esc_html_e( 'Price', 'bookly' ) ?></th>
-                    <?php if ( $show['taxes'] ): ?>
+                    <?php if ( $show['taxes'] ) : ?>
                         <th class="text-right"><?php esc_html_e( 'Tax', 'bookly' ) ?></th>
                     <?php endif ?>
                 </tr>
@@ -93,7 +93,17 @@ if ( ! $can_edit ) {
                         <?php if ( $show['taxes'] ) : ?>
                             <td class="text-right"><?php echo $item['service_tax'] !== null
                                     ? sprintf( $payment['tax_in_price'] === 'included' ? '(%s)' : '%s', Price::format( $item['service_tax'] ) )
-                                    : '-' ?></td>
+                                    : '-' ?>
+                                <ul class="bookly-list">
+                                    <?php foreach ( $item['extras'] as $extra ) : ?>
+                                        <?php if ( isset( $extra['tax'] ) ) : ?>
+                                            <li>
+                                                <?php echo sprintf( $payment['tax_in_price'] === 'included' ? '(%s)' : '%s', Price::format( $extra['tax'] ) ) ?>
+                                            </li>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                </ul>
+                            </td>
                         <?php endif ?>
                     </tr>
                 <?php endforeach ?>

@@ -94,7 +94,7 @@ use Bookly\Lib\Utils;
      * Contact us
      */
     ?>
-    <a href="#bookly-support-modal" id="bookly-contact-us-btn" class="btn btn-default-outline" title="<?php esc_attr_e( 'Contact us', 'bookly' ) ?>" data-toggle="modal"
+    <a href="#bookly-contact-us-modal" id="bookly-contact-us-modal-activator" class="btn btn-default-outline" title="<?php esc_attr_e( 'Contact us', 'bookly' ) ?>" data-toggle="modal"
         <?php if ( $show_contact_us_notice ) : ?>
             data-processed="false"
             data-trigger="manual" data-placement="bottom" data-html="1"
@@ -103,7 +103,6 @@ use Bookly\Lib\Utils;
     >
         <i class="fas fa-envelope"></i> <span class="visible-lg-inline"><?php esc_html_e( 'Contact us', 'bookly' ) ?></span>
     </a>
-
     <?php
     /**
      * Feature requests
@@ -163,7 +162,7 @@ use Bookly\Lib\Utils;
     >
         <i class="fas fa-comment-dots"></i> <span class="visible-lg-inline"><?php esc_html_e( 'Feedback', 'bookly' ) ?></span>
     </a>
-    <div id="bookly-support-modal" class="modal fade text-left" tabindex=-1>
+    <div id="bookly-contact-us-modal" class="modal fade text-left" tabindex=-1>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

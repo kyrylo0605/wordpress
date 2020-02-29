@@ -502,6 +502,7 @@ class Finder
                 $staff_preference_settings,
                 $row['position']
             );
+            Lib\Proxy\Locations::addServices( $this->staff[ $staff_id ], $staff_id, $row['service_id'] );
         }
 
         // Working schedule.

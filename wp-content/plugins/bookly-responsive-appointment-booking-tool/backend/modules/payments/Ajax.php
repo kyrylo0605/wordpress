@@ -65,6 +65,10 @@ class Ajax extends Lib\Base\Ajax
 
         $payments = $query->fetchArray();
 
+        unset( $filter['created'] );
+
+        Lib\Utils\Tables::updateSettings( 'payments', null, null, $filter );
+
         $data  = array();
         $total = 0;
         foreach ( $payments as $payment ) {

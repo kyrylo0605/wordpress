@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit30ab55facc459163b0f79f1c5c46b092
+class ComposerStaticInit9bbfa19969dd505434af7d564f50eae1
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -23,10 +23,6 @@ class ComposerStaticInit30ab55facc459163b0f79f1c5c46b092
         't' => 
         array (
             'tubalmartin\\CssMin\\' => 19,
-        ),
-        'T' => 
-        array (
-            'ThemeIsle\\GutenbergBlocks\\' => 26,
         ),
         'P' => 
         array (
@@ -58,10 +54,6 @@ class ComposerStaticInit30ab55facc459163b0f79f1c5c46b092
         'tubalmartin\\CssMin\\' => 
         array (
             0 => __DIR__ . '/..' . '/tubalmartin/cssmin/src',
-        ),
-        'ThemeIsle\\GutenbergBlocks\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -237,24 +229,6 @@ class ComposerStaticInit30ab55facc459163b0f79f1c5c46b092
         'Psr\\Http\\Message\\StreamInterface' => __DIR__ . '/..' . '/psr/http-message/src/StreamInterface.php',
         'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
         'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
-        'ThemeIsle\\GutenbergBlocks\\Base_Block' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/class-base-block.php',
-        'ThemeIsle\\GutenbergBlocks\\Base_CSS' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/class-base-css.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\Block_Frontend' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/class-block-frontend.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Advanced_Column_CSS' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/blocks/class-advanced-column-css.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Advanced_Columns_CSS' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/blocks/class-advanced-columns-css.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Advanced_Heading_CSS' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/blocks/class-advanced-heading-css.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Button_Group_CSS' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/blocks/class-button-group-css.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\Blocks\\Font_Awesome_Icons_CSS' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/blocks/class-font-awesome-icons-css.php',
-        'ThemeIsle\\GutenbergBlocks\\CSS\\CSS_Handler' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/css/class-css-handler.php',
-        'ThemeIsle\\GutenbergBlocks\\Main' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/class-main.php',
-        'ThemeIsle\\GutenbergBlocks\\Plugins\\Options_Settings' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/plugins/class-options-settings.php',
-        'ThemeIsle\\GutenbergBlocks\\Render\\About_Author_Block' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/render/class-about-author-block.php',
-        'ThemeIsle\\GutenbergBlocks\\Render\\Google_Map_Block' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/render/class-google-map-block.php',
-        'ThemeIsle\\GutenbergBlocks\\Render\\Plugin_Card_Block' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/render/class-plugin-card-block.php',
-        'ThemeIsle\\GutenbergBlocks\\Render\\Posts_Grid_Block' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/render/class-posts-grid-block.php',
-        'ThemeIsle\\GutenbergBlocks\\Render\\Sharing_Icons_Block' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/render/class-sharing-icons-block.php',
-        'ThemeIsle\\GutenbergBlocks\\Server\\Plugin_Card_Server' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/server/class-plugin-card-server.php',
-        'ThemeIsle\\GutenbergBlocks\\Server\\Template_Library_Server' => __DIR__ . '/..' . '/codeinwp/gutenberg-blocks/inc/server/class-template-library-server.php',
         'tubalmartin\\CssMin\\Colors' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Colors.php',
         'tubalmartin\\CssMin\\Command' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Command.php',
         'tubalmartin\\CssMin\\Minifier' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Minifier.php',
@@ -264,9 +238,9 @@ class ComposerStaticInit30ab55facc459163b0f79f1c5c46b092
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit30ab55facc459163b0f79f1c5c46b092::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit30ab55facc459163b0f79f1c5c46b092::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit30ab55facc459163b0f79f1c5c46b092::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9bbfa19969dd505434af7d564f50eae1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9bbfa19969dd505434af7d564f50eae1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9bbfa19969dd505434af7d564f50eae1::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -37,13 +37,17 @@ class Page extends Lib\Base\Component
             ),
         ) );
 
-        // Customer information fields.
+        $datatables = Lib\Utils\Tables::getSettings( 'customers' );
+        if ( ! $datatables['customers']['exist'] ) {
+            $datatables['customers']['settings']['columns']['full_name']  = ! Lib\Config::showFirstLastName();
+            $datatables['customers']['settings']['columns']['first_name'] = Lib\Config::showFirstLastName();
+            $datatables['customers']['settings']['columns']['last_name']  = Lib\Config::showFirstLastName();
+        }
+
         $info_fields = (array) Lib\Proxy\CustomerInformation::getFieldsWhichMayHaveData();
 
         wp_localize_script( 'bookly-customers.js', 'BooklyL10n', array(
             'csrfToken'       => Lib\Utils\Common::getCsrfToken(),
-            'first_last_name' => (int) Lib\Config::showFirstLastName(),
-            'groupsActive'    => (int) Lib\Config::customerGroupsActive(),
             'infoFields'      => $info_fields,
             'edit'            => __( 'Edit', 'bookly' ),
             'are_you_sure'    => __( 'Are you sure?', 'bookly' ),
@@ -55,9 +59,9 @@ class Page extends Lib\Base\Component
             'create_customer' => __( 'Create customer', 'bookly' ),
             'save'            => __( 'Save', 'bookly' ),
             'search'          => __( 'Quick search customer', 'bookly' ),
-            'proEnabled'      => (int) Lib\Config::proActive(),
+            'datatables'      => $datatables,
         ) );
 
-        self::renderTemplate( 'index', compact( 'info_fields' ) );
+        self::renderTemplate( 'index', compact( 'datatables' ) );
     }
 }

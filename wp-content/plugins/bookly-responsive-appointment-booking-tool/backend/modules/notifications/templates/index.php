@@ -1,10 +1,11 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components\Controls\Buttons;
 use Bookly\Backend\Components\Controls\Inputs;
-use Bookly\Backend\Components\Dialogs\Notifications;
+use Bookly\Backend\Components\Dialogs;
 use Bookly\Backend\Components\Support;
 use Bookly\Lib\Utils\Common;
 use Bookly\Lib\Config;
+/** @var array $datatables */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -27,16 +28,24 @@ use Bookly\Lib\Config;
                             <div class="form-group">
                                 <?php Buttons::renderCustom( 'bookly-js-settings', 'btn-default', esc_html__( 'General settings...', 'bookly' ) ) ?>
                             </div>
-                            <?php Notifications\Dialog::renderNewNotificationButton() ?>
+                            <?php Dialogs\Notifications\Dialog::renderNewNotificationButton() ?>
+                            <?php Dialogs\TableSettings\Dialog::renderButton( 'email_notifications', 'BooklyL10n' ) ?>
                         </div>
                     </div>
+
                     <table id="bookly-js-notification-list" class="table table-striped" style="width: 100%">
                         <thead>
                         <tr>
-                            <th width="1"></th>
-                            <th><?php esc_html_e( 'Name', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'State', 'bookly' ) ?></th>
-                            <th></th>
+                            <?php foreach ( $datatables['email_notifications']['settings']['columns'] as $column => $show ) : ?>
+                                <?php if ( $show ) : ?>
+                                    <?php if ( $column  == 'type' ) : ?>
+                                        <th width="1"></th>
+                                    <?php else : ?>
+                                        <th><?php echo $datatables['email_notifications']['titles'][ $column ] ?></th>
+                                    <?php endif ?>
+                                <?php endif ?>
+                            <?php endforeach ?>
+                            <th width="75"></th>
                             <th width="16"><input type="checkbox" class="bookly-js-check-all"/></th>
                         </tr>
                         </thead>
@@ -72,6 +81,7 @@ use Bookly\Lib\Config;
 
         <?php $self::renderTemplate( '_test_email_modal' ) ?>
         <?php $self::renderTemplate( '_general_settings_modal' ) ?>
-        <?php Notifications\Dialog::render() ?>
+        <?php Dialogs\Notifications\Dialog::render() ?>
+        <?php Dialogs\TableSettings\Dialog::render() ?>
     </div>
 </div>

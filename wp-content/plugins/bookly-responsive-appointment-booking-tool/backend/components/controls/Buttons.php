@@ -1,6 +1,8 @@
 <?php
 namespace Bookly\Backend\Components\Controls;
 
+use Bookly\Lib\Plugin;
+
 /**
  * Class Buttons
  * @package Bookly\Backend\Components\Controls
@@ -38,7 +40,7 @@ class Buttons
     public static function renderDelete( $id = 'bookly-delete', $extra_class = null, $caption = null, array $attributes = array() )
     {
         if ( $caption === null ) {
-            $caption = __( 'Delete...', 'bookly' );
+            $caption = __( 'Delete', 'bookly' ) . '...';
         }
 
         echo self::_createButton(
@@ -107,6 +109,35 @@ class Buttons
         }
 
         echo self::_createButton( 'submit', $id, 'btn-lg btn-success', $extra_class, esc_html( $caption ), $attributes );
+    }
+
+    /**
+     * Render button for open modal window.
+     *
+     * @param string $modal_id
+     * @param string $class
+     * @param string $caption
+     * @param array  $attributes
+     * @param string $caption_template
+     * @param string $ellipsis
+     */
+    public static function renderModalActivator( $modal_id = null, $class = null, $caption = null, array $attributes = array(), $caption_template = '{caption}', $ellipsis = '...' )
+    {
+        $attributes += array(
+            'for-modal' => $modal_id,
+        );
+        if ( ! $class ) {
+            $class = 'btn-default';
+        }
+
+        wp_enqueue_script(
+            'bookly-buttons',
+            plugins_url( '/backend/components/controls/resources/js/buttons.js', Plugin::getBasename() ),
+            array( 'jquery' ),
+            Plugin::getVersion()
+        );
+
+        self::renderCustom( $modal_id . '-activator', $class, $caption . $ellipsis, $attributes, $caption_template );
     }
 
     /**

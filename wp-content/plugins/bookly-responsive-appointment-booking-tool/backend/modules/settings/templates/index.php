@@ -64,6 +64,7 @@ use Bookly\Backend\Components;
                             </div>
                             <?php Proxy\Pro::renderGoogleCalendarTab() ?>
                             <?php Proxy\Shared::renderTab() ?>
+                            <?php Proxy\CustomStatuses::renderTab() ?>
                             <div class="tab-pane" id="bookly_settings_payments">
                                 <?php include '_paymentsForm.php' ?>
                             </div>

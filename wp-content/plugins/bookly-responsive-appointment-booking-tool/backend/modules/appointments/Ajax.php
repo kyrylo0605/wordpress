@@ -23,7 +23,7 @@ class Ajax extends Lib\Base\Ajax
     public static function getAppointments()
     {
         $columns = self::parameter( 'columns' );
-        $order   = self::parameter( 'order' );
+        $order   = self::parameter( 'order', array() );
         $filter  = self::parameter( 'filter' );
         $limits  = array(
             'length' => self::parameter( 'length' ),
@@ -34,7 +34,7 @@ class Ajax extends Lib\Base\Ajax
 
         unset( $filter['date'] );
 
-        update_user_meta( get_current_user_id(), 'bookly_filter_appointments_list', $filter );
+        Lib\Utils\Tables::updateSettings( 'appointments', $columns, $order, $filter );
 
         wp_send_json( array(
             'draw'            => ( int ) self::parameter( 'draw' ),

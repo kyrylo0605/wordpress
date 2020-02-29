@@ -3,6 +3,7 @@ use Bookly\Backend\Components\Controls\Buttons;
 use Bookly\Backend\Components\Dialogs;
 use Bookly\Backend\Components\Support;
 use Bookly\Backend\Modules\Customers\Proxy;
+/** @var array $datatables */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -26,41 +27,29 @@ use Bookly\Backend\Modules\Customers\Proxy;
                             Proxy\Pro::renderImportButton();
                         ?>
                         <div class="form-group">
-                            <button type="button" class="btn btn-success bookly-btn-block-xs" id="bookly-add" data-toggle="modal" data-target="#bookly-customer-dialog"><i class="glyphicon glyphicon-plus"></i> <?php esc_html_e( 'New customer', 'bookly' ) ?></button>
+                            <?php Buttons::renderModalActivator( 'bookly-customer-dialog', 'btn-success bookly-btn-block-xs', esc_html__( 'New customer', 'bookly' ), array(), '<i class="glyphicon glyphicon-plus"></i> {caption}' ) ?>
                         </div>
+                        <?php Dialogs\TableSettings\Dialog::renderButton( 'customers' ) ?>
                     </div>
                 </div>
 
                 <table id="bookly-customers-list" class="table table-striped" width="100%">
                     <thead>
-                        <tr>
-                            <th><?php esc_html_e( get_option( 'bookly_l10n_label_name' ) ) ?></th>
-                            <th><?php esc_html_e( get_option( 'bookly_l10n_label_first_name' ) ) ?></th>
-                            <th><?php esc_html_e( get_option( 'bookly_l10n_label_last_name' ) ) ?></th>
-                            <th><?php esc_html_e( 'User', 'bookly' ) ?></th>
-                            <?php Proxy\CustomerGroups::renderCustomerTableHeader() ?>
-                            <th><?php esc_html_e( get_option( 'bookly_l10n_label_phone' ) ) ?></th>
-                            <th><?php esc_html_e( get_option( 'bookly_l10n_label_email' ) ) ?></th>
-                            <?php foreach ( $info_fields as $field ) : ?>
-                                <th><?php echo $field->label ?></th>
-                            <?php endforeach ?>
-                            <th><?php esc_html_e( 'Notes', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Last appointment', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Total appointments', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Payments', 'bookly' ) ?></th>
-                            <?php Proxy\Pro::renderCustomerAddressTableHeader() ?>
-                            <?php if ( \Bookly\Lib\Config::proActive() ) : ?>
-                                <th>Facebook</th>
+                    <tr>
+                        <?php foreach ( $datatables['customers']['settings']['columns'] as $column => $show ) : ?>
+                            <?php if ( $show ) : ?>
+                                <th><?php echo $datatables['customers']['titles'][ $column ] ?></th>
                             <?php endif ?>
-                            <th></th>
-                            <th width="16"><input type="checkbox" id="bookly-check-all" /></th>
-                        </tr>
+                        <?php endforeach ?>
+                        <th></th>
+                        <th width="16"><input type="checkbox" id="bookly-check-all"/></th>
+                    </tr>
                     </thead>
                 </table>
 
                 <div class="text-right form-inline bookly-margin-top-lg">
                     <div class="form-group">
-                        <button type="button" id="bookly-merge-with" class="btn btn-default" data-toggle="modal" data-target="#bookly-merge-dialog" disabled="disabled" style="display:none"><i class="glyphicon glyphicon-road"></i> <?php esc_html_e( 'Merge with', 'bookly' ) ?></button>
+                        <?php Buttons::renderModalActivator( 'bookly-merge-dialog', null, esc_html__( 'Merge with', 'bookly' ), array( 'disabled' => 'disabled', 'style' => 'display:none' ), '<i class="glyphicon glyphicon-road"></i> {caption}' ) ?>
                     </div>
                     <div class="form-group">
                         <button type="button" id="bookly-select-for-merge" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> <?php esc_html_e( 'Select for merge', 'bookly' ) ?></button>
@@ -78,7 +67,7 @@ use Bookly\Backend\Modules\Customers\Proxy;
 
         <?php
             Proxy\Pro::renderImportDialog();
-            Proxy\Pro::renderExportDialog( $info_fields );
+            Proxy\Pro::renderExportDialog( $datatables['customers']['settings'], $datatables['customers']['titles'] );
             Dialogs\Customer\Delete\Dialog::render();
         ?>
 
@@ -104,5 +93,6 @@ use Bookly\Backend\Modules\Customers\Proxy;
             <div customer-dialog=saveCustomer(customer) customer="customer"></div>
             <?php Dialogs\Customer\Edit\Dialog::render() ?>
         </div>
+        <?php Dialogs\TableSettings\Dialog::render() ?>
     </div>
 </div>

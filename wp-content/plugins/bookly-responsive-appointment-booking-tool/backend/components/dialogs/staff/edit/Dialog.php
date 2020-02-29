@@ -17,7 +17,7 @@ class Dialog extends Lib\Base\Component
     public static function render()
     {
         /** @var \WP_Locale $wp_locale */
-        global $wp_locale;
+        global $wp_locale, $wpdb;
 
         wp_enqueue_media();
 
@@ -57,6 +57,14 @@ class Dialog extends Lib\Base\Component
             ),
         ) );
 
+        $query = Lib\Entities\Staff::query( 's' )
+            ->select( 's.id, s.full_name' )
+            ->tableJoin( $wpdb->users, 'wpu', 'wpu.ID = s.wp_user_id' );
+
+        if ( ! Lib\Utils\Common::isCurrentUserAdmin() ) {
+            $query->where( 's.wp_user_id', get_current_user_id() );
+        }
+
         wp_localize_script( 'bookly-staff-edit-dialog.js', 'BooklyStaffEditDialogL10n', array(
             'csrfToken' => Lib\Utils\Common::getCsrfToken(),
             'intlTelInput'          => array(
@@ -69,20 +77,22 @@ class Dialog extends Lib\Base\Component
                 'firstDay'           => (int) get_option( 'start_of_week' ),
                 'days'               => array_values( $wp_locale->weekday_abbrev ),
                 'months'             => array_values( $wp_locale->month ),
-                'close'              => __( 'Close', 'bookly' ),
-                'repeat'             => __( 'Repeat every year', 'bookly' ),
-                'we_are_not_working' => __( 'We are not working on this day', 'bookly' ),
+                'close'              => esc_attr__( 'Close', 'bookly' ),
+                'repeat'             => esc_attr__( 'Repeat every year', 'bookly' ),
+                'we_are_not_working' => esc_attr__( 'We are not working on this day', 'bookly' ),
+                'special_days_error' => esc_attr__( 'The date has already passed.', 'bookly' ),
             ),
             'services' => array(
-                'capacity_error' => __( 'Min capacity should not be greater than max capacity.', 'bookly' ),
+                'capacity_error' => esc_attr__( 'Min capacity should not be greater than max capacity.', 'bookly' ),
             ),
-            'createStaff'         => __( 'Create staff', 'bookly' ),
-            'editStaff'           => __( 'Edit staff', 'bookly' ),
-            'areYouSure'          => __( 'Are you sure?', 'bookly' ),
-            'settingsSaved'       => __( 'Settings saved.', 'bookly' ),
+            'createStaff'         => esc_attr__( 'Create staff', 'bookly' ),
+            'editStaff'           => esc_attr__( 'Edit staff', 'bookly' ),
+            'areYouSure'          => esc_attr__( 'Are you sure?', 'bookly' ),
+            'settingsSaved'       => esc_attr__( 'Settings saved.', 'bookly' ),
             'proRequired'         => (int) ! Lib\Config::proActive(),
             'limitation'          => Limitation::getHtml(),
-            'activeStaffId'       => self::parameter( 'staff_id', 0 )
+            'activeStaffId'       => self::parameter( 'staff_id', 0 ),
+            'staff'               => $query->sortBy( 'position' )->fetchArray()
         ) );
 
         self::renderTemplate( 'dialog' );

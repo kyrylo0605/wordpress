@@ -1,16 +1,16 @@
 jQuery(function ($) {
     'use strict';
 
-    let $staffList = $('#staff-list'),
-        $modal = $('#bookly-staff-edit-modal'),
-        $modalBody = $('.modal-body', $modal),
-        $modalTitle = $('.modal-title', $modal),
-        $modalFooter = $('.modal-footer ', $modal),
-        $saveBtn = $('.bookly-js-save', $modalFooter),
-        $archiveBtn = $('.bookly-js-staff-archive', $modalFooter),
-        $validateErrors = $('.bookly-js-errors', $modalFooter),
+    let $staffList          = $('#bookly-staff-list'),
+        $modal              = $('#bookly-staff-edit-modal'),
+        $modalBody          = $('.modal-body', $modal),
+        $modalTitle         = $('.modal-title', $modal),
+        $modalFooter        = $('.modal-footer ', $modal),
+        $saveBtn            = $('.bookly-js-save', $modalFooter),
+        $archiveBtn         = $('.bookly-js-staff-archive', $modalFooter),
+        $validateErrors     = $('.bookly-js-errors', $modalFooter),
         $deleteCascadeModal = $('.bookly-js-delete-cascade-confirm'),
-        $staffCount = $('.bookly-js-staff-count'),
+        $staffCount         = $('.bookly-js-staff-count'),
         currentTab,
         staff_id,
         holidays
@@ -23,7 +23,7 @@ jQuery(function ($) {
             editStaff(staff_id);
         });
 
-    $('#bookly-js-new-staff')
+    $('#bookly-create-staff-modal-activator')
         .on('click', function () {
             if (BooklyStaffEditDialogL10n.proRequired == '1' && $staffCount.html() > 0) {
                 booklyAlert({error: [BooklyStaffEditDialogL10n.limitation]});
@@ -147,7 +147,7 @@ jQuery(function ($) {
                 onLoad: function () {
                     $('.panel-footer', $container).hide();
                     $('#bookly-services-save', $container).addClass('bookly-js-save');
-                    $(document.body).trigger('staff_edit.validation', ['staff-services', false, '']);
+                    $(document.body).trigger('staff.validation', ['staff-services', false, '']);
                 },
                 l10n: BooklyStaffEditDialogL10n.services,
             });
@@ -249,7 +249,7 @@ jQuery(function ($) {
         });
 
     $(document.body)
-        .on('staff_edit.save', {},
+        .on('staff.saving', {},
             function (event, result) {
                 if (waitResposes > 0) {
                     if (result.hasOwnProperty('error')){
@@ -264,7 +264,7 @@ jQuery(function ($) {
                     booklyAlert({success: [BooklyStaffEditDialogL10n.settingsSaved]})
                 }
             })
-        .on('staff_edit.validation', {},
+        .on('staff.validation', {},
             function (event, tab, has_error, info) {
                 let id = 'tab-' + tab + '-validation',
                     $container = $validateErrors.find('#' + id);

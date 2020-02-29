@@ -128,6 +128,7 @@ class Payment extends Lib\Base\Entity
             'gateway'             => $cart_info->getGateway()
         );
 
+        $rates = Lib\Proxy\Taxes::getServiceTaxRates();
         foreach ( $order->getItems() as $item ) {
             $items = $item->isSeries() ? $item->getItems() : array( $item );
             /** @var DataHolders\Item $sub_item */
@@ -146,19 +147,27 @@ class Payment extends Lib\Base\Entity
                 } else {
                     $sub_items[] = $sub_item;
                 }
-
                 foreach ( $sub_items as $item ) {
                     if ( $item->getCA()->getExtras() != '[]' ) {
                         $_extras = json_decode( $item->getCA()->getExtras(), true );
+                        $service_id = $item->getService()->getId();
+                        $rate  = array_key_exists( $service_id, $rates ) ? $rates[ $service_id ] : 0;
                         /** @var \BooklyServiceExtras\Lib\Entities\ServiceExtra $extra */
                         foreach ( (array) Lib\Proxy\ServiceExtras::findByIds( array_keys( $_extras ) ) as $extra ) {
                             $quantity = $_extras[ $extra->getId() ];
+                            $extras_amount = $extra->getPrice() * $quantity;
+                            if ( $extras_multiply_nop ) {
+                                $extras_amount *= $item->getCA()->getNumberOfPersons();
+                            }
                             $extras[] = array(
                                 'title'    => $extra->getTitle(),
                                 'price'    => $extra->getPrice(),
                                 'quantity' => $quantity,
+                                'tax'      => Lib\Config::taxesActive()
+                                    ? Lib\Proxy\Taxes::calculateTax( $extras_amount, $rate )
+                                    : null
                             );
-                            $extras_price += $quantity * $extra->getPrice();
+                            $extras_price += $extras_amount;
                         }
                     }
                 }
@@ -183,7 +192,7 @@ class Payment extends Lib\Base\Entity
                     'appointment_date'  => $sub_item->getAppointment()->getStartDate(),
                     'service_name'      => $sub_item->getService()->getTitle(),
                     'service_price'     => $sub_item->getServicePrice(),
-                    'service_tax'       => $wait_listed ? null : $sub_item->getTax(),
+                    'service_tax'       => $wait_listed ? null : $sub_item->getServiceTax(),
                     'wait_listed'       => $wait_listed,
                     'deposit_format'    => $deposit_format,
                     'number_of_persons' => $sub_item->getCA()->getNumberOfPersons(),
@@ -196,6 +205,7 @@ class Payment extends Lib\Base\Entity
         }
 
         $details = Lib\Proxy\Shared::preparePaymentDetails( $details, $order, $cart_info );
+
         if ( $cart_info->getCoupon() ) {
             $this->coupon_id = $cart_info->getCoupon()->getId();
         }

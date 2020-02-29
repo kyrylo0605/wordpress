@@ -2,7 +2,8 @@
 use Bookly\Backend\Components\Controls\Buttons;
 use Bookly\Lib\Utils\Common;
 use Bookly\Backend\Components\Controls\Inputs;
-use Bookly\Backend\Components\Dialogs\Sms;
+use Bookly\Backend\Components\Dialogs;
+/** @var array $datatables */
 ?>
 <input type="hidden" name="form-notifications">
 <div class="form-inline bookly-margin-bottom-xlg">
@@ -38,16 +39,24 @@ use Bookly\Backend\Components\Dialogs\Sms;
             </div>
         </div>
         <div class="col-md-8 form-inline bookly-margin-bottom-lg text-right">
-            <?php Sms\Dialog::renderNewNotificationButton() ?>
+            <?php Dialogs\Sms\Dialog::renderNewNotificationButton() ?>
+            <?php Dialogs\TableSettings\Dialog::renderButton( 'sms_notifications', 'BooklyL10n' ) ?>
         </div>
     </div>
+
     <table id="bookly-js-notification-list" class="table table-striped" style="width: 100%">
         <thead>
         <tr>
-            <th width="1"></th>
-            <th><?php esc_html_e( 'Name', 'bookly' ) ?></th>
-            <th><?php esc_html_e( 'State', 'bookly' ) ?></th>
-            <th></th>
+            <?php foreach ( $datatables['sms_notifications']['settings']['columns'] as $column => $show ) : ?>
+                <?php if ( $show ) : ?>
+                    <?php if ( $column  === 'type' ) : ?>
+                        <th width="1"></th>
+                    <?php else : ?>
+                        <th><?php echo $datatables['sms_notifications']['titles'][ $column ] ?></th>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endforeach ?>
+            <th width="75"></th>
             <th width="16"><input type="checkbox" class="bookly-js-check-all"/></th>
         </tr>
         </thead>
@@ -55,7 +64,7 @@ use Bookly\Backend\Components\Dialogs\Sms;
 
     <div class="form-inline bookly-margin-bottom-lg text-right">
         <?php Inputs::renderCsrf() ?>
-        <?php Buttons::renderCustom( 'bookly-js-delete-notifications', 'btn-danger', esc_html__( 'Delete...', 'bookly' ) ) ?>
+        <?php Buttons::renderCustom( 'bookly-js-delete-notifications', 'btn-danger', esc_html__( 'Delete', 'bookly' ) . '...' ) ?>
     </div>
 
     <div class="alert alert-info">
@@ -71,4 +80,4 @@ use Bookly\Backend\Components\Dialogs\Sms;
         </div>
     </div>
 </form>
-<?php Sms\Dialog::render() ?>
+<?php Dialogs\Sms\Dialog::render() ?>

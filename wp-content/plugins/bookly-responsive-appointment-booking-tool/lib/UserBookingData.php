@@ -810,7 +810,8 @@ class UserBookingData
     {
         if ( $this->getTimeZoneOffset() !== null ) {
             Slots\TimePoint::$client_timezone_offset = - $this->getTimeZoneOffset() * MINUTE_IN_SECONDS;
-            Slots\DatePoint::$client_timezone = $this->getTimeZone() ?: Utils\DateTime::guessTimeZone( Slots\TimePoint::$client_timezone_offset );
+            $timezone = $this->getTimeZone() ?: Utils\DateTime::guessTimeZone( Slots\TimePoint::$client_timezone_offset );
+            Slots\DatePoint::$client_timezone = date_create( $timezone ) === false ? null : $timezone;
         }
 
         return $this;

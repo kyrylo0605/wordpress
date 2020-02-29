@@ -25,7 +25,7 @@ class Ajax extends Lib\Base\Ajax
         global $wpdb;
 
         $columns = self::parameter( 'columns' );
-        $order   = self::parameter( 'order' );
+        $order   = self::parameter( 'order', array() );
         $filter  = self::parameter( 'filter' );
 
         $query = Lib\Entities\Customer::query( 'c' );
@@ -61,13 +61,14 @@ class Ajax extends Lib\Base\Ajax
         $query = Proxy\CustomerGroups::prepareCustomerQuery( $query );
 
         if ( $filter != '' ) {
-            $search_value = Lib\Query::escape( $filter );
-            $query
-                ->whereLike( 'c.full_name', "%{$search_value}%" )
-                ->whereLike( 'c.phone', "%{$search_value}%", 'OR' )
-                ->whereLike( 'c.email', "%{$search_value}%", 'OR' )
-                ->whereLike( 'c.info_fields', "%{$search_value}%", 'OR' )
-            ;
+            $search_value   = Lib\Query::escape( $filter );
+            $search_columns = array( 'c.info_fields LIKE "%%%s%"' );
+            foreach ( $columns as $column ) {
+                if ( in_array( $column['data'], array( 'first_name', 'last_name', 'full_name', 'phone', 'email' ) ) ) {
+                    $search_columns[] = 'c.' . $column['data'] . ' LIKE "%%%s%"';
+                }
+            }
+            $query->whereRaw( implode( ' OR ', $search_columns ), array_fill( 0, count( $search_columns ), "%{$search_value}%" ) );
         }
 
         foreach ( $order as $sort_by ) {
@@ -79,7 +80,9 @@ class Ajax extends Lib\Base\Ajax
         $query->limit( self::parameter( 'length' ) )->offset( self::parameter( 'start' ) );
 
         $data = array();
-        foreach ( $query->fetchArray() as $row ) {
+        $rows = $query->fetchArray();
+        $records_filtered = ( int ) $wpdb->get_var( 'SELECT FOUND_ROWS()' );
+        foreach ( $rows as $row ) {
 
             $address = Lib\Proxy\Pro::getFullAddressByCustomerData( $row );
 
@@ -115,10 +118,12 @@ class Ajax extends Lib\Base\Ajax
             $data[] = $customer_data;
         }
 
+        Lib\Utils\Tables::updateSettings( 'customers', $columns, $order, $filter );
+
         wp_send_json( array(
             'draw'            => ( int ) self::parameter( 'draw' ),
             'recordsTotal'    => $total,
-            'recordsFiltered' => ( int ) $wpdb->get_var( 'SELECT FOUND_ROWS()' ),
+            'recordsFiltered' => $records_filtered,
             'data'            => $data,
         ) );
     }

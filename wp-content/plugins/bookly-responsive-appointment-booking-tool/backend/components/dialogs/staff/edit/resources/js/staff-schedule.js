@@ -84,7 +84,7 @@ jQuery(function ($) {
                         data['staff_id'] = options.get_staff_schedule.staff_id;
                         $.post(ajaxurl, $.param(data), function () {
                             ladda.stop();
-                            obj.options.savingStatus({success: [obj.options.l10n.saved]});
+                            obj.options.saving({success: [obj.options.l10n.saved]});
                         });
                     })
                     // Resets initial schedule values
@@ -356,11 +356,11 @@ jQuery(function ($) {
             staff_id: -1,
             csrf_token: ''
         },
-        savingStatus: function (data) {
-            $(document.body).trigger('staff_edit.save', data);
+        saving: function (alerts) {
+            $(document.body).trigger('staff.saving', [alerts]);
         },
-        booklyAlert: function (data) {
-            booklyAlert(data);
+        booklyAlert: function (alerts) {
+            booklyAlert(alerts);
         },
         onLoad: function () {},
         l10n: {}

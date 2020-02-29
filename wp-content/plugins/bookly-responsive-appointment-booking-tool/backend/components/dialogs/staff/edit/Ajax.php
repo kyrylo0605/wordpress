@@ -108,7 +108,7 @@ class Ajax extends Lib\Base\Ajax
         self::$staff->save();
         StaffProxy\Shared::updateStaff( self::$staff, $params );
 
-        wp_send_json_success();
+        wp_send_json_success( array( 'staff' => self::$staff->getFields() ) );
     }
 
     /**

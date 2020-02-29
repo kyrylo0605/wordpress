@@ -12,8 +12,14 @@ class SGNoticeHandler
 
 	private function checkTimeoutError()
 	{
+		$pluginCapabilities = backupGuardGetCapabilities();
 		if (SGConfig::get('SG_EXCEPTION_TIMEOUT_ERROR')) {
-			SGNotice::getInstance()->addNoticeFromTemplate('timeout_error', SG_NOTICE_ERROR, true);
+			if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE) {
+				SGNotice::getInstance()->addNoticeFromTemplate('timeout_error', SG_NOTICE_ERROR, true);
+			}
+			else {
+				SGNotice::getInstance()->addNoticeFromTemplate('timeout_free_error', SG_NOTICE_ERROR, true);
+			}
 		}
 	}
 

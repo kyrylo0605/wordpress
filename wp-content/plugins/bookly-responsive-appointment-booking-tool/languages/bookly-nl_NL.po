@@ -8,8 +8,8 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-10 16:12+0000\n"
-"PO-Revision-Date: 2019-12-10 16:25+0000\n"
+"POT-Creation-Date: 2020-02-10 14:48+0000\n"
+"PO-Revision-Date: 2020-02-10 15:05+0000\n"
 "Last-Translator: support@bookly.info\n"
 "Language-Team: Dutch\n"
 "X-Loco-Version: 2.3.1; wp-5.3"
@@ -1411,6 +1411,9 @@ msgstr "Weet je het zeker?"
 msgid "Duplicate dates are not permitted."
 msgstr "Dubbele data zijn niet toegestaan."
 
+msgid "Date in the past."
+msgstr "Datum in het verleden."
+
 msgid "The requested interval is not available"
 msgstr "De gevraagde interval is niet beschikbaar"
 
@@ -1641,6 +1644,12 @@ msgstr "API Login ID"
 msgid "API Transaction Key"
 msgstr "API Transactie Sleutel"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "Rate"
+msgstr "Tarief"
+
 msgid "Taxes"
 msgstr "Belastingen"
 
@@ -1663,12 +1672,6 @@ msgstr "Exclusief belastingen"
 
 msgid "Add Tax"
 msgstr "Belasting toevoegen"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Rate"
-msgstr "Tarief"
 
 msgid "New tax"
 msgstr "Nieuwe belasting"
@@ -2721,6 +2724,78 @@ msgstr "Aan"
 msgid "From"
 msgstr "Van"
 
+msgid "No."
+msgstr "Nr."
+
+msgid "Appointment date"
+msgstr "Afspraakdatum"
+
+msgid "Customer name"
+msgstr "Naam klant"
+
+msgid "Customer phone"
+msgstr "Telefoonnummer klant"
+
+msgid "Customer email"
+msgstr "E-mailadres klant"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Last appointment"
+msgstr "Laatste afspraak"
+
+msgid "Total appointments"
+msgstr "Totaal aantal afspraken"
+
+msgid "Payments"
+msgstr "Betalingen"
+
+msgid "Type"
+msgstr "Soort"
+
+msgid "State"
+msgstr "Staat"
+
+msgid "Customer"
+msgstr "Klant"
+
+msgid "Amount"
+msgstr "Bedrag"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Sender ID"
+msgstr "Afzender ID"
+
+msgid "Cost"
+msgstr "Kosten"
+
+msgid "Flag"
+msgstr "Vlag"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Regular price"
+msgstr "Normale prijs"
+
+msgid "Price with custom Sender ID"
+msgstr "Prijs met aangepaste Afzender ID"
+
+msgid "Order"
+msgstr "Volgorde"
+
+msgid "Requested ID"
+msgstr "Aangevraagde ID"
+
+msgid "Status date"
+msgstr "Datum status"
+
 msgid "Important"
 msgstr "Belangrijk"
 
@@ -2867,9 +2942,6 @@ msgstr "minder"
 msgid "Bookly SMS weekly summary"
 msgstr "Bookly SMS wekelijkse samenvatting"
 
-msgid "Customer"
-msgstr "Klant"
-
 msgid "Internal Notes"
 msgstr "Interne Notities"
 
@@ -3001,9 +3073,6 @@ msgstr "E-mailmeldingen"
 msgid "Customers"
 msgstr "Klanten"
 
-msgid "Payments"
-msgstr "Betalingen"
-
 msgid "Appearance"
 msgstr "Weergave"
 
@@ -3034,20 +3103,8 @@ msgstr "Vorige"
 msgid "New appointment"
 msgstr "Nieuwe Afspraak"
 
-msgid "No."
-msgstr "Nr."
-
 msgid "Created at any time"
 msgstr "Aangemaakt op elk moment"
-
-msgid "Appointment Date"
-msgstr "Datum Afspraak"
-
-msgid "Created"
-msgstr "Aangemaakt"
-
-msgid "Attachments"
-msgstr "Bijlagen"
 
 msgid "Any time"
 msgstr "Elk moment"
@@ -3060,6 +3117,9 @@ msgstr "Geen resultaten gevonden"
 
 msgid "Searching"
 msgstr "Zoeken"
+
+msgid "Attachments"
+msgstr "Bijlagen"
 
 msgid "Archived"
 msgstr "Gearchiveerd"
@@ -3105,9 +3165,6 @@ msgstr "Stuur e-mail notificatie aan beheerders bij lage balans"
 
 msgid "Send weekly summary to administrators"
 msgstr "Stuur wekelijkse samenvatting naar beheerders"
-
-msgid "Sender ID"
-msgstr "Afzender ID"
 
 msgid "Change"
 msgstr "Wijzigen"
@@ -3210,15 +3267,6 @@ msgstr "Verander wachtwoord"
 msgid "Old password"
 msgstr "Oude wachtwoord"
 
-msgid "Type"
-msgstr "Soort"
-
-msgid "Order"
-msgstr "Volgorde"
-
-msgid "Amount"
-msgstr "Bedrag"
-
 msgid ""
 "We will only charge your PayPal account when your balance falls below $10."
 msgstr ""
@@ -3230,15 +3278,6 @@ msgstr "Inschakelen Auto-Opladen"
 
 msgid "Disable Auto-Recharge"
 msgstr "Uitschakelen Auto-Opladen"
-
-msgid "Code"
-msgstr "Code"
-
-msgid "Regular price"
-msgstr "Normale prijs"
-
-msgid "Price with custom Sender ID"
-msgstr "Prijs met aangepaste Afzender ID"
 
 msgid ""
 "If you do not see your country in the list please contact us at <a "
@@ -3266,12 +3305,6 @@ msgstr "Bewaar telefoonnummer beheerder"
 msgid "Quick search notifications"
 msgstr "Snelle zoek meldingen"
 
-msgid "State"
-msgstr "Staat"
-
-msgid "Delete..."
-msgstr "Verwijderen..."
-
 #, php-format
 msgid ""
 "To send scheduled notifications please refer to <a href=\"%1$s\">Bookly "
@@ -3286,12 +3319,6 @@ msgid ""
 msgstr ""
 "Om geplande meldingen te verzenden, voer de volgende opdracht per uur uit "
 "met uw cron:"
-
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Cost"
-msgstr "Kosten"
 
 msgid ""
 "Please take into account that not all countries by law allow custom SMS "
@@ -3319,12 +3346,6 @@ msgstr "Verzoeken"
 
 msgid "Cancel request"
 msgstr "Annuleer verzoek"
-
-msgid "Requested ID"
-msgstr "Aangevraagde ID"
-
-msgid "Status Date"
-msgstr "Datum van de Status"
 
 msgid "Please accept terms and conditions."
 msgstr "Accepteer alstublieft onze algemene voorwaarden."
@@ -3369,9 +3390,6 @@ msgstr "inschakelen"
 msgid "disable"
 msgstr "uitschakelen"
 
-msgid "Edit..."
-msgstr "Bewerken..."
-
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr "Auto-Opladen is mislukt, vult uw saldo direct aan."
 
@@ -3388,17 +3406,20 @@ msgstr ""
 msgid "SMS has been sent successfully."
 msgstr "SMS is met succes verstuurd."
 
+msgid "Staff members order"
+msgstr "Volgorde medewerkers"
+
+msgid "Add staff"
+msgstr "Voeg medewerker toe"
+
 msgid "Quick search staff"
 msgstr "Snel doorzoeken personeel"
 
+msgid "Categories"
+msgstr "Categorieën"
+
 msgid "Show archived"
 msgstr "Toon gearchiveerde"
-
-msgid "Add staff..."
-msgstr "Voeg personeel toe..."
-
-msgid "User"
-msgstr "Gebruiker"
 
 msgid "Image"
 msgstr "Afbeelding"
@@ -3721,14 +3742,14 @@ msgstr ""
 "WooCommerce winkelwagen is niet ingesteld. Volg de <a href=\"%s\">link</a> "
 "om dit probleem te verhelpen."
 
+msgid "Services order"
+msgstr "Bestelling diensten"
+
+msgid "Add service"
+msgstr "Voeg dienst toe"
+
 msgid "Quick search services"
 msgstr "Snel doorzoeken services"
-
-msgid "Categories..."
-msgstr "Categorieën..."
-
-msgid "Add service..."
-msgstr "Voeg service toe..."
 
 msgid "Update service setting"
 msgstr "Dienst instellingen bijwerken"
@@ -3990,12 +4011,6 @@ msgstr "Snel klant zoeken"
 
 msgid "New customer"
 msgstr "Nieuwe klant"
-
-msgid "Last appointment"
-msgstr "Laatste afspraak"
-
-msgid "Total appointments"
-msgstr "Totaal aantal afspraken"
 
 msgid "Merge with"
 msgstr "Samenvoegen met"
@@ -4429,6 +4444,9 @@ msgstr "Dienst Toevoegen"
 msgid "Days Off"
 msgstr "Vrije Dagen"
 
+msgid "The date has already passed."
+msgstr "De datum is reeds voorbij."
+
 msgid "Create staff"
 msgstr "Personeel aanmaken"
 
@@ -4440,6 +4458,9 @@ msgstr "De begintijd moet eerder zijn dan de eindtijd"
 
 msgid "Error adding the break interval"
 msgstr "Fout bij toevoegen pauze-interval"
+
+msgid "Adjust the order of staff members in your booking form"
+msgstr "Pas de volgorde van medewerkers in uw boekingsformulier aan"
 
 msgid "Complete payment"
 msgstr "Volledige betaling"
@@ -4602,11 +4623,17 @@ msgstr "Bewerk service"
 msgid "Advanced"
 msgstr "Geavanceerd"
 
-msgid "Categories"
-msgstr "Categorieën"
+msgid "Adjust the order of services in your booking form"
+msgstr "Pas de volgorde van diensten in uw boekingsformulier aan"
 
 msgid "Add category"
 msgstr "Voeg categorie toe"
+
+msgid "Table settings"
+msgstr "Tabel instellingen"
+
+msgid "Column"
+msgstr "Kolom"
 
 msgid "Attach ICS file"
 msgstr "ICS bestand bijvoegen"
@@ -5086,6 +5113,9 @@ msgstr "Melding over nieuw pakket aanmaak"
 msgid "Notification about package deletion"
 msgstr "Melding over pakket verwijderen"
 
+msgid "Creation date"
+msgstr "Aanmaakdatum"
+
 msgid "Packages"
 msgstr "Pakketten"
 
@@ -5109,9 +5139,6 @@ msgstr ""
 
 msgid "New package"
 msgstr "Nieuw pakket"
-
-msgid "Creation Date"
-msgstr "Aanmaakdatum"
 
 msgid "Edit package"
 msgstr "Bewerk pakket"
@@ -5204,6 +5231,9 @@ msgstr "Pakketten lijst"
 
 msgid "A custom block for displaying packages list"
 msgstr "Een aangepast blok voor het weergeven van pakket lijst"
+
+msgid "Creation Date"
+msgstr "Aanmaakdatum"
 
 msgid "Expires"
 msgstr "Verloopt"
@@ -6057,9 +6087,6 @@ msgstr "Toon Facebook inlog knop"
 msgid "Show time zone switcher"
 msgstr "Toon tijdszone switcher"
 
-msgid "Date of birth"
-msgstr "Geboortedatum"
-
 msgid "Import"
 msgstr "Importeren"
 
@@ -6077,6 +6104,9 @@ msgstr ""
 
 msgid "Select file"
 msgstr "Selecteer bestand"
+
+msgid "Date of birth"
+msgstr "Geboortedatum"
 
 msgid "Analytics"
 msgstr "Analytics"
@@ -6528,21 +6558,6 @@ msgstr ""
 msgid "Coupon"
 msgstr "Kortingsbon"
 
-msgid "Coupons"
-msgstr "Kortingsbonnen"
-
-msgid "Add Coupon Series"
-msgstr "Voeg Kortingsbon Serie toe"
-
-msgid "Add Coupon"
-msgstr "Kortingsbon toevoegen"
-
-msgid "Coupon code"
-msgstr "Kortingscode"
-
-msgid "Show only active"
-msgstr "Toon alleen actieve"
-
 msgid "Discount (%)"
 msgstr "Korting (%)"
 
@@ -6558,17 +6573,32 @@ msgstr "Gebruikslimiet"
 msgid "Number of times used"
 msgstr "Aantal keer gebruikt"
 
+msgid "Active from"
+msgstr "Actief vanaf"
+
 msgid "Active until"
 msgstr "Actief tot"
 
 msgid "Min. appointments"
 msgstr "Min. afspraken"
 
-msgid "Active from"
-msgstr "Actief vanaf"
+msgid "Max. appointments"
+msgstr "Max. aantal afspraken"
 
-msgid "Max appointments"
-msgstr "Max afspraken"
+msgid "Coupons"
+msgstr "Kortingsbonnen"
+
+msgid "Add Coupon Series"
+msgstr "Voeg Kortingsbon Serie toe"
+
+msgid "Add Coupon"
+msgstr "Kortingsbon toevoegen"
+
+msgid "Coupon code"
+msgstr "Kortingscode"
+
+msgid "Show only active"
+msgstr "Toon alleen actieve"
 
 msgid "Export only active coupons"
 msgstr "Exporteer alleen actieve kortingsbonnen"
@@ -6682,29 +6712,26 @@ msgstr "Deze kortingscode is ongeldig of is al gebruikt"
 msgid "This coupon code has expired"
 msgstr "Deze kortingsbon code is verlopen"
 
+msgid "Group name"
+msgstr "Groepsnaam"
+
+msgid "Number of users"
+msgstr "Aantal gebruikers"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Group"
+msgstr "Groep"
+
 msgid "Customer Groups"
 msgstr "Klant Groepen"
 
 msgid "New group"
 msgstr "Nieuwe groep"
 
-msgid "Group Name"
-msgstr "Groepsnaam"
-
-msgid "Number of Users"
-msgstr "Aantal Gebruikers"
-
-msgid "Description"
-msgstr "Beschrijving"
-
-msgid "Appointment Status"
-msgstr "Afspraak Status"
-
 msgid "Customers without group"
 msgstr "Klanten zonder groep"
-
-msgid "Group"
-msgstr "Groep"
 
 msgid "New Group"
 msgstr "Nieuwe Groep"
@@ -6732,9 +6759,6 @@ msgstr "Klantengroep"
 
 msgid "No group"
 msgstr "Geen groep"
-
-msgid "Group name"
-msgstr "Groepsnaam"
 
 msgid "Total discount"
 msgstr "Totale korting"
@@ -6903,9 +6927,6 @@ msgstr "Toon wachtlijst sloten"
 msgid "waiting list of appointment"
 msgstr "wachtlijst van afspraken"
 
-msgid "Add service"
-msgstr "Voeg dienst toe"
-
 msgid "Show chain appointments"
 msgstr "Toon keten afspraken"
 
@@ -7020,6 +7041,9 @@ msgstr "Toon Extra's stap"
 msgid "Show extras"
 msgstr "Toon extra's"
 
+msgid "Extras tax"
+msgstr "Extra belasting"
+
 msgid "Extras price"
 msgstr "Extra's prijs"
 
@@ -7042,14 +7066,14 @@ msgstr "Totale belasting"
 msgid "Waiting list"
 msgstr "Wachtlijst"
 
+msgid "Free/Busy"
+msgstr "Vrij/Bezet"
+
 msgid "Custom statuses"
 msgstr "Aangepaste statussen"
 
 msgid "Add status"
 msgstr "Voeg status toe"
-
-msgid "Free/Busy"
-msgstr "Vrij/Bezet"
 
 msgid "New Status"
 msgstr "Nieuwe Status"
@@ -7098,6 +7122,9 @@ msgstr "Schakel speciale uren update uit"
 
 msgid "Please select a location"
 msgstr "Gelieve locatie te selecteren"
+
+msgid "Staff members"
+msgstr "Medewerkers"
 
 msgid "Locations"
 msgstr "Locaties"

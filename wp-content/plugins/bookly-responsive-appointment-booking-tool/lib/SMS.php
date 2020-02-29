@@ -205,7 +205,7 @@ class SMS
                         }
                     }
                     if ( property_exists( $response, 'gateway_status' ) ) {
-                        if ( in_array( $response->gateway_status, array( 1, 10, 11, 12, 13 ) ) ) {  // @see SMS::getSmsList
+                        if ( in_array( $response->gateway_status, array( 1, 10, 11, 12, 13 ) ) ) {  /* @see SMS::getSmsList */
 
                             return true;
                         } elseif ( $response->gateway_status == 3 ) {

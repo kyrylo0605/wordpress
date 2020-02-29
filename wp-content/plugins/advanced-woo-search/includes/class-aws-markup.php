@@ -44,10 +44,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 parse_str( $url_array['query'], $url_query_parts );
             }
 
-            $form_action = home_url( '/' );
-            if ( function_exists( 'pll_home_url' ) ) {
-                $form_action = pll_home_url();
-            }
+            $form_action = AWS_Helpers::get_search_url();
 
             $params_string = '';
 

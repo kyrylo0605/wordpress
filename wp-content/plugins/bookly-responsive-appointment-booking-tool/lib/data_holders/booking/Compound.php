@@ -34,7 +34,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getAppointment()
     {
@@ -42,7 +42,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getCA()
     {
@@ -50,7 +50,7 @@ class Compound extends Item
     }
 
     /**
-     * G@inheritdoc
+     * @inheritDoc
      */
     public function getDeposit()
     {
@@ -58,7 +58,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getExtras()
     {
@@ -96,7 +96,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getService()
     {
@@ -104,7 +104,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getServiceDuration()
     {
@@ -122,7 +122,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getServicePrice()
     {
@@ -130,7 +130,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getStaff()
     {
@@ -138,7 +138,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTax()
     {
@@ -153,17 +153,23 @@ class Compound extends Item
     }
 
     /**
-     * Set tax.
-     *
-     * @param float $tax
-     * @return $this
+     * @inheritDoc
      */
-    public function setTax( $tax )
+    public function getServiceTax()
     {
-        $this->tax = $tax;
+        if ( ! $this->tax ) {
+            $rates = Lib\Proxy\Taxes::getServiceTaxRates();
+            if ( $rates ) {
+                $price = $this->getServicePrice();
+                $nop   = $this->getCA()->getNumberOfPersons();
 
-        return $this;
+                $this->tax = Lib\Proxy\Taxes::calculateTax( $price * $nop, $rates[ $this->getService()->getId() ] );
+            }
+        }
+
+        return $this->tax;
     }
+
 
     /**
      * Get compound token.
@@ -189,7 +195,7 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTotalEnd()
     {
@@ -208,28 +214,17 @@ class Compound extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTotalPrice()
     {
-        // Service price.
-        $service_price = $this->getServicePrice();
+        $extras_total_price = (float) Lib\Proxy\ServiceExtras::getTotalPrice( (array) json_decode( $this->getCA()->getExtras(), true ), $this->getCA()->getNumberOfPersons() );
 
-        // Extras.
-        $extras = (array) Lib\Proxy\ServiceExtras::getInfo( json_decode( $this->getCA()->getExtras(), true ), true );
-        $extras_total_price = 0.0;
-        foreach ( $extras as $extra ) {
-            $extras_total_price += $extra['price'];
-        }
-
-        return $service_price * $this->getCA()->getNumberOfPersons() +
-            $extras_total_price * (
-                $this->getCA()->getExtrasMultiplyNop() ? $this->getCA()->getNumberOfPersons() : 1
-            );
+        return $this->getServicePrice() * $this->getCA()->getNumberOfPersons() + $extras_total_price;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function setStatus( $status )
     {

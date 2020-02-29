@@ -19,7 +19,7 @@ use Bookly\Lib\Utils\Common;
                 <?php if ( Common::isCurrentUserAdmin() ) : ?>
                     <?php Buttons::renderDelete( 'bookly-staff-delete', 'btn-lg pull-left bookly-js-hide-on-loading' ) ?>
                     <?php if ( Config::proActive() ) : ?>
-                        <?php Buttons::renderCustom( null, 'btn-lg btn-danger ladda-button bookly-js-staff-archive pull-left bookly-js-hide-on-loading', esc_html__( 'Archive', 'bookly' ), array(), '<i class="fa fa-archive"></i> {caption}' ) ?>
+                        <?php Buttons::renderCustom( null, 'btn-lg btn-danger ladda-button bookly-js-staff-archive pull-left bookly-js-hide-on-loading', esc_html__( 'Archive', 'bookly' ) . '...', array(), '<i class="fa fa-archive"></i> {caption}' ) ?>
                     <?php endif ?>
                 <?php endif ?>
                 <span class="bookly-js-errors text-danger" style="max-width: 353px;display: inline-grid;"></span>

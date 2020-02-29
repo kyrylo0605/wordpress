@@ -32,7 +32,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getAppointment()
     {
@@ -57,7 +57,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getCA()
     {
@@ -65,7 +65,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getDeposit()
     {
@@ -83,7 +83,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getExtras()
     {
@@ -91,7 +91,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getService()
     {
@@ -128,7 +128,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getServiceDuration()
     {
@@ -136,7 +136,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getServicePrice()
     {
@@ -165,7 +165,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getStaff()
     {
@@ -188,8 +188,9 @@ class Simple extends Item
 
         return $this;
     }
+
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTax()
     {
@@ -204,20 +205,25 @@ class Simple extends Item
     }
 
     /**
-     * Set tax.
-     *
-     * @param float $tax
-     * @return $this
+     * @inheritDoc
      */
-    public function setTax( $tax )
+    public function getServiceTax()
     {
-        $this->tax = $tax;
+        if ( ! $this->tax ) {
+            $rates = Lib\Proxy\Taxes::getServiceTaxRates();
+            if ( $rates ) {
+                $price = $this->getServicePrice();
+                $nop   = $this->getCA()->getNumberOfPersons();
 
-        return $this;
+                $this->tax = Lib\Proxy\Taxes::calculateTax( $price * $nop, $rates[ $this->getService()->getId() ] );
+            }
+        }
+
+        return $this->tax;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTotalEnd()
     {
@@ -226,7 +232,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTotalPrice()
     {
@@ -238,7 +244,7 @@ class Simple extends Item
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function setStatus( $status )
     {

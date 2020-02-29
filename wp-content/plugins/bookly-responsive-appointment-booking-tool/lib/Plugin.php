@@ -34,8 +34,11 @@ abstract class Plugin extends Base\Plugin
         Backend\Components\Dialogs\Customer\Delete\Ajax::init();
         Backend\Components\Dialogs\Customer\Edit\Ajax::init();
         Backend\Components\Dialogs\Payment\Ajax::init();
+        Backend\Components\Dialogs\Service\Order\Ajax::init();
+        Backend\Components\Dialogs\Staff\Order\Ajax::init();
         Backend\Components\Dialogs\Sms\Ajax::init();
         Backend\Components\Dialogs\Staff\Edit\Ajax::init();
+        Backend\Components\Dialogs\TableSettings\Ajax::init();
         Backend\Components\Gutenberg\BooklyForm\Block::init();
         Backend\Components\Notices\CollectStatsAjax::init();
         Backend\Components\Notices\LiteRebrandingAjax::init();
@@ -66,7 +69,7 @@ abstract class Plugin extends Base\Plugin
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public static function run()
     {
@@ -77,7 +80,7 @@ abstract class Plugin extends Base\Plugin
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public static function registerHooks()
     {

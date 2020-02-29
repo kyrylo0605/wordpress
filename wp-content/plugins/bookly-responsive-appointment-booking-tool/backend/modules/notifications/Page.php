@@ -32,19 +32,23 @@ class Page extends Lib\Base\Component
                 'js/ladda.min.js' => array( 'jquery' ),
             )
         ) );
-        $current_notification_id = null;
-        wp_localize_script( 'bookly-alert.js', 'BooklyL10n',  array(
-            'csrfToken'     => Lib\Utils\Common::getCsrfToken(),
+
+        $datatables = Lib\Utils\Tables::getSettings( 'email_notifications' );
+
+        wp_localize_script( 'bookly-alert.js', 'BooklyL10n', array(
+            'csrfToken'        => Lib\Utils\Common::getCsrfToken(),
             'sentSuccessfully' => __( 'Sent successfully.', 'bookly' ),
-            'settingsSaved' => __( 'Settings saved.', 'bookly' ),
-            'areYouSure'    => __( 'Are you sure?', 'bookly' ),
-            'zeroRecords'   => __( 'No records.', 'bookly' ),
-            'processing'    => __( 'Processing...', 'bookly' ),
-            'state'         => array( __( 'Disabled', 'bookly' ), __( 'Enabled', 'bookly' ) ),
-            'action'        => array( __( 'enable', 'bookly' ), __( 'disable', 'bookly' ) ),
-            'edit'          => __( 'Edit...', 'bookly' ),
-            'gateway'       => 'email'
+            'settingsSaved'    => __( 'Settings saved.', 'bookly' ),
+            'areYouSure'       => __( 'Are you sure?', 'bookly' ),
+            'zeroRecords'      => __( 'No records.', 'bookly' ),
+            'processing'       => __( 'Processing...', 'bookly' ),
+            'state'            => array( __( 'Disabled', 'bookly' ), __( 'Enabled', 'bookly' ) ),
+            'action'           => array( __( 'enable', 'bookly' ), __( 'disable', 'bookly' ) ),
+            'edit'             => __( 'Edit', 'bookly' ),
+            'gateway'          => 'email',
+            'datatables'      => $datatables,
         ) );
-        self::renderTemplate( 'index' );
+
+        self::renderTemplate( 'index', compact( 'datatables' ) );
     }
 }

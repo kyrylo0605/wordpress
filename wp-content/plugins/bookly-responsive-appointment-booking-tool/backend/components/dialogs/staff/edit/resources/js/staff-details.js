@@ -135,13 +135,14 @@ jQuery(function ($) {
 
                     save(function (response) {
                         if (response.success) {
-                            obj.options.savingStatus({success: [obj.options.l10n.saved]});
+                            obj.options.saving({success: [obj.options.l10n.saved]}, response.data.staff);
+
                             $('[bookly-js-staff-name-' + obj.options.get_details.id + ']').text($('#bookly-full-name', $form).val());
                             if (typeof obj.options.renderWpUsers === 'function') {
                                 obj.options.renderWpUsers(response.data.wp_users);
                             }
                         } else {
-                            obj.options.savingStatus({error: [response.data.error]});
+                            obj.options.saving({error: [response.data.error]});
                         }
                         ladda.stop();
                     });
@@ -159,7 +160,7 @@ jQuery(function ($) {
                     if (response.success) {
                         window.location.href = $unsaved_changes.data('url');
                     } else {
-                        obj.options.savingStatus({error: [response.data.error]});
+                        obj.options.saving({error: [response.data.error]});
                     }
                     ladda.stop();
                 });
@@ -188,7 +189,6 @@ jQuery(function ($) {
                 data.push({name: 'action', value: 'bookly_update_staff'});
                 data.push({name: 'phone', value: phone});
                 data.push({name: 'tab', value: phone});
-
                 $.ajax({
                     type       : 'POST',
                     url        : ajaxurl,
@@ -214,8 +214,11 @@ jQuery(function ($) {
             csrf_token: ''
         },
         l10n        : {},
-        savingStatus : function (data) {
-            $(document.body).trigger('staff_edit.save', [data]);
+        saving: function (alerts, data) {
+            $(document.body).trigger('staff.saving', [alerts]);
+            if (alerts.hasOwnProperty('success')) {
+                $(document.body).trigger('staff.saved', ['staff-details', data]);
+            }
         }
     };
 

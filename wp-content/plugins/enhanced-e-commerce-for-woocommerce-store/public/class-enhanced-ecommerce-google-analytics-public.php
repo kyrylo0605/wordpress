@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.3.1';
+    public $tvc_eeVer = '2.3.2';
 
     protected $tvc_aga;
 
@@ -242,17 +242,30 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         $order = new WC_Order($order_id);
         //Get Applied Coupon Codes
         $coupons_list = '';
-        if ($order->get_coupon_codes()) {
-            $coupons_count = count($order->get_coupon_codes());
-            $i = 1;
-            foreach ($order->get_coupon_codes() as $coupon) {
-                $coupons_list .= $coupon;
-                if ($i < $coupons_count)
-                    $coupons_list .= ', ';
-                $i++;
+        if(version_compare($woocommerce->version, "3.7", ">")){
+            if ($order->get_coupon_codes()) {
+                $coupons_count = count($order->get_coupon_codes());
+                $i = 1;
+                foreach ($order->get_coupon_codes() as $coupon) {
+                    $coupons_list .= $coupon;
+                    if ($i < $coupons_count)
+                        $coupons_list .= ', ';
+                    $i++;
+                }
             }
+        }else{
+            if ($order->get_used_coupons()) {
+                $coupons_count = count($order->get_used_coupons());
+                $i = 1;
+                foreach ($order->get_used_coupons() as $coupon) {
+                    $coupons_list .= $coupon;
+                    if ($i < $coupons_count)
+                        $coupons_list .= ', ';
+                    $i++;
+                }
+            }    
         }
-
+        
         //get domain name if value is set
         if (!empty($this->ga_Dname)) {
             $set_domain_name = esc_js($this->ga_Dname);

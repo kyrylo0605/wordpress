@@ -19,7 +19,7 @@ class Page extends Lib\Base\Ajax
         self::enqueueStyles( array(
             'wp'       => array( 'wp-color-picker' ),
             'frontend' => array( 'css/ladda.min.css' ),
-            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css' ),
+            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css', 'css/select2.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -30,6 +30,7 @@ class Page extends Lib\Base\Ajax
                 'js/alert.js'                   => array( 'jquery' ),
                 'js/dropdown.js'                => array( 'jquery' ),
                 'js/range_tools.js'             => array( 'jquery' ),
+                'js/select2.full.min.js'        => array( 'jquery' ),
             ),
             'module'   => array( 'js/services-list.js' => array( 'jquery-ui-sortable', 'bookly-dropdown.js' ) ),
             'frontend' => array(
@@ -45,29 +46,36 @@ class Page extends Lib\Base\Ajax
             }
         }
 
+        $services = Lib\Entities\Service::query( 's' )
+            ->whereIn( 's.type', array_keys( Proxy\Shared::prepareServiceTypes( array( Lib\Entities\Service::TYPE_SIMPLE => Lib\Entities\Service::TYPE_SIMPLE ) ) ) )
+            ->sortBy( 'position' )
+            ->fetchArray();
+        $categories = Lib\Entities\Category::query()->sortBy( 'position' )->fetchArray();
+
+        $datatables = Lib\Utils\Tables::getSettings( 'services' );
+
         wp_localize_script( 'bookly-services-list.js', 'BooklyL10n', array(
             'csrfToken'        => Lib\Utils\Common::getCsrfToken(),
-            'are_you_sure'     => __( 'Are you sure?', 'bookly' ),
-            'edit'             => __( 'Edit...', 'bookly' ),
+            'are_you_sure'     => esc_attr__( 'Are you sure?', 'bookly' ),
+            'edit'             => esc_attr__( 'Edit', 'bookly' ),
             'reorder'          => esc_attr__( 'Reorder', 'bookly' ),
             'staff'            => $staff,
-            'categories'       => Lib\Entities\Category::query()->sortBy( 'position' )->fetchArray(),
-            'uncategorized'    => __( 'Uncategorized', 'bookly' ),
-            'capacity_error'   => __( 'Min capacity should not be greater than max capacity.', 'bookly' ),
-            'recurrence_error' => __( 'You must select at least one repeat option for recurring services.', 'bookly' ),
+            'categories'       => $categories,
+            'uncategorized'    => esc_attr__( 'Uncategorized', 'bookly' ),
+            'services'         => $services,
+            'capacity_error'   => esc_attr__( 'Min capacity should not be greater than max capacity.', 'bookly' ),
+            'recurrence_error' => esc_attr__( 'You must select at least one repeat option for recurring services.', 'bookly' ),
+            'noResultFound'    => esc_attr__( 'No result found', 'bookly' ),
             'show_type'        => count( Proxy\Shared::prepareServiceTypes( array() ) ) > 0,
+            'datatables'      => $datatables,
         ) );
 
         // Allow add-ons to enqueue their assets.
         Proxy\Shared::enqueueAssetsForServices();
 
-        $services = Lib\Entities\Service::query( 's' )
-            ->whereIn( 's.type', array_keys( Proxy\Shared::prepareServiceTypes( array( Lib\Entities\Service::TYPE_SIMPLE => Lib\Entities\Service::TYPE_SIMPLE ) ) ) )
-            ->sortBy( 'position' )
-            ->fetchArray();
         foreach ( $services as &$service ) {
-            $service['colors']             = Proxy\Shared::prepareServiceColors( array_fill( 0, 3, $service['color'] ), $service['id'], $service['type'] );
-            $service['sub_services']       = Lib\Entities\SubService::query()
+            $service['colors'] = Proxy\Shared::prepareServiceColors( array_fill( 0, 3, $service['color'] ), $service['id'], $service['type'] );
+            $service['sub_services'] = Lib\Entities\SubService::query()
                 ->where( 'service_id', $service['id'] )
                 ->sortBy( 'position' )
                 ->fetchArray();
@@ -77,6 +85,8 @@ class Page extends Lib\Base\Ajax
         }
         $data['services'] = $services;
         $data['service_types'] = Proxy\Shared::prepareServiceTypes( array( Lib\Entities\Service::TYPE_SIMPLE => __( 'Simple', 'bookly' ) ) );
+        $data['categories'] = $categories;
+        $data['datatables'] = $datatables;
 
         self::renderTemplate( 'index', $data );
     }

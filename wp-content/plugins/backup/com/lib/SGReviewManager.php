@@ -14,7 +14,7 @@ class SGReviewManager
 			// show review
 			$key = 'backupCount';
 			$backupCountReview = $this->getBackupCounts();
-			$customContent = 'We see that you have implemented '.$backupCountReview.' backups.';
+			$customContent = 'Yay! We see that you have made '.$backupCountReview.' backups.';
 			echo $this->reviewContentMessage($customContent, $key);
 			return '';
 		}
@@ -24,7 +24,7 @@ class SGReviewManager
 			// after successfully restore
 			$key = 'restoreCount';
 			$restoreReviewCount = $this->getBackupRestoreCounts();
-			$customContent = 'Congrats, you have restored your website for the '.$restoreReviewCount.' st time!';
+			$customContent = 'Yay! Congrats, you have restored your website for the '.$restoreReviewCount.' st time!';
 			echo $this->reviewContentMessage($customContent, $key);
 			return '';
 		}
@@ -34,7 +34,7 @@ class SGReviewManager
 		if ($isAllowDaysReview) {
 			$key = 'dayCount';
 			$usageDays = $this->getBackupUsageDays();
-			$customContent = 'We had great '.$usageDays.' days with you and we think you have too.';
+			$customContent = 'Yay! You are a part of the BG team for over '.$usageDays.' days now! Hope you enjoy our service!';
 			echo $this->reviewContentMessage($customContent, $key);
 			return '';
 		}
@@ -91,7 +91,7 @@ class SGReviewManager
 				position: relative;
 				text-align: center;
 				background-color: #001DB6;
-				height: 230px;
+				height: 185px;
 				box-sizing: border-box;
 				background-image: url(<?php echo SG_IMAGE_URL.'reviewBg.png' ?>);
 				margin-top: 45px;
@@ -165,6 +165,7 @@ class SGReviewManager
 				width: 256px;
 				float: left;
 				background-color: #FFFFFF;
+				height: 100%;
 			}
 			.sg-backup-review-description-wrapper {
 				max-width: 100%;
@@ -187,9 +188,12 @@ class SGReviewManager
 				color: #ffffff !important;
 				border: none !important;
 			}
-			@media (max-width: 1330px) {
+			@media (max-width: 1350px) {
 				.sg-backup-wow {
 					font-size: 27px;
+				}
+				.sgpb-popup-dialog-main-div-wrapper .sg-backup-review-description {
+					padding: 0 5px;
 				}
 			}
 
@@ -197,13 +201,12 @@ class SGReviewManager
 		<div id="sg-backup-review-wrapper" class="sg-backup-review-wrapper">
 			<span class="banner-x sg-backup-review-button sg-backup-backup-button-2 sg-backup-show-popup-period" data-message-type="<?php echo $type; ?>">x</span>
 			<div class="sg-backup-img-wrapper">
-				<img src="<?php echo SG_IMAGE_URL; ?>reviewBannerLogo.png" width="256px" height="230">
+				<img src="<?php echo SG_IMAGE_URL; ?>sgBackupVerticalLogo.png" width="200px" height="181px">
 			</div>
 			<div class="sg-backup-review-description-wrapper">
 				<div class="sg-backup-review-description">
-					<h1 class="sg-backup-wow">WOW!  <?php echo $customContent; ?></h1>
 					<!--				<h2 class="sg-backup-custom-content"></h2>-->
-					<h2 class="sg-backup-review-h2"><?php _e('It is a Great experience for you and for us.'); ?></h2>
+					<h2 class="sg-backup-review-h2"><?php echo $customContent; ?></h2>
 					<p class="sg-backup-review-mt20"><?php _e('Have your input in the development of our plugin, and we’ll get better and happier. Leave your 5-star positive review and help <br> us go further to the perfection!'); ?></p>
 				</div>
 				<div class="sg-backup-buttons-wrapper">

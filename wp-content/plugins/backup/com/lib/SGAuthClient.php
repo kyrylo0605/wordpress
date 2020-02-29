@@ -109,6 +109,9 @@ class SGAuthClient
 
 	public function isAnyLicenseAvailable($products)
 	{
+		if (empty($products) || $products == -1) {
+			return false;
+		}
 		foreach ($products as $product) {
 			if (!$product['licenses']) {
 				return true;

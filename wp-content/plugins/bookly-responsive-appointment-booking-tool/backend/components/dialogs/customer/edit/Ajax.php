@@ -50,7 +50,9 @@ class Ajax extends Lib\Base\Ajax
                 $params['group_id'] = null;
             }
             $params = Proxy\CustomerInformation::prepareCustomerFormData( $params );
-            $params['info_fields'] = json_encode( $params['info_fields'] );
+            if ( isset( $params['info_fields'] ) ) {
+                $params['info_fields'] = json_encode( $params['info_fields'] );
+            }
             $form = new Forms\Customer();
             $form->bind( $params );
             /** @var Lib\Entities\Customer $customer */

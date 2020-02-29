@@ -3,10 +3,10 @@ use Bookly\Backend\Components\Controls;
 use Bookly\Backend\Components\Dialogs;
 use Bookly\Backend\Components\Support;
 use Bookly\Backend\Modules\Appointments\Proxy;
-use Bookly\Lib\Config;
 use Bookly\Lib\Entities\CustomerAppointment;
 use Bookly\Lib\Utils\Common;
 use Bookly\Lib\Utils\DateTime;
+/** @var array $datatables */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -19,18 +19,21 @@ use Bookly\Lib\Utils\DateTime;
         <div class="panel panel-default bookly-main">
             <div class="panel-body">
                 <div class="row">
-                    <div class="form-inline bookly-margin-bottom-lg text-right">
-                        <?php Proxy\Pro::renderExportButton() ?>
-                        <?php Proxy\Pro::renderPrintButton() ?>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-success bookly-btn-block-xs" id="bookly-add"><i class="glyphicon glyphicon-plus"></i> <?php _e( 'New appointment', 'bookly' ) ?></button>
+                    <div class="col-xs-12">
+                        <div class="form-inline bookly-margin-bottom-lg text-right">
+                            <?php Proxy\Pro::renderExportButton() ?>
+                            <?php Proxy\Pro::renderPrintButton() ?>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success bookly-btn-block-xs" id="bookly-add"><i class="glyphicon glyphicon-plus"></i> <?php esc_html_e( 'New appointment', 'bookly' ) ?>...</button>
+                            </div>
+                            <?php Dialogs\TableSettings\Dialog::renderButton( 'appointments' ) ?>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-lg-1">
                         <div class="form-group">
-                            <input class="form-control" type="text" id="bookly-filter-id" placeholder="<?php esc_attr_e( 'No.', 'bookly' ) ?>" />
+                            <input class="form-control" type="text" id="bookly-filter-id" placeholder="<?php esc_attr_e( 'No.', 'bookly' ) ?>"/>
                         </div>
                     </div>
                     <div class="col-md-3 col-lg-2">
@@ -67,8 +70,8 @@ use Bookly\Lib\Utils\DateTime;
                         <div class="form-group">
                             <select class="form-control <?php echo $customers === false ? 'bookly-js-select-ajax' : 'bookly-js-select' ?>" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>" <?php echo $customers === false ? 'data-ajax--action' : 'data-action' ?>="bookly_get_customers_list">
                                 <?php if ( $customers !== false ) : ?>
-                                    <?php foreach ( $customers as $customer ) : ?>
-                                        <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
+                                    <?php foreach ( $customers as $customer_id => $customer ) : ?>
+                                        <option value="<?php echo $customer_id ?>" data-search='<?php echo json_encode( array_values( $customer ) ) ?>'><?php echo esc_html( $customer['full_name'] ) ?></option>
                                     <?php endforeach ?>
                                 <?php endif ?>
                             </select>
@@ -94,49 +97,31 @@ use Bookly\Lib\Utils\DateTime;
                         </div>
                     </div>
                 </div>
-
                 <table id="bookly-appointments-list" class="table table-striped" width="100%">
                     <thead>
-                        <tr>
-                            <th><?php esc_html_e( 'No.', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Appointment Date', 'bookly' ) ?></th>
-                            <th><?php echo esc_html( Common::getTranslatedOption( 'bookly_l10n_label_employee' ) ) ?></th>
-                            <th><?php esc_html_e( 'Customer Name', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Customer Phone', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Customer Email', 'bookly' ) ?></th>
-                            <?php Proxy\GroupBooking::renderTableHeader() ?>
-                            <?php Proxy\Locations::renderTableHeader() ?>
-                            <th><?php echo esc_html( Common::getTranslatedOption( 'bookly_l10n_label_service' ) ) ?></th>
-                            <th><?php esc_html_e( 'Duration', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Status', 'bookly' ) ?></th>
-                            <th><?php esc_html_e( 'Payment', 'bookly' ) ?></th>
-                            <?php Proxy\Ratings::renderTableHeader() ?>
-                            <?php if ( Config::showNotes() ): ?>
-                                <th><?php echo esc_html( Common::getTranslatedOption( 'bookly_l10n_label_notes' ) ) ?></th>
+                    <tr>
+                        <?php foreach ( $datatables['appointments']['settings']['columns'] as $column => $show ) : ?>
+                            <?php if ( $show ) : ?>
+                                <th><?php echo $datatables['appointments']['titles'][ $column ] ?></th>
                             <?php endif ?>
-                            <?php foreach ( $custom_fields as $custom_field ) : ?>
-                                <th><?php echo $custom_field->label ?></th>
-                            <?php endforeach ?>
-                            <th><?php esc_html_e( 'Created', 'bookly' ) ?></th>
-                            <?php if ( $show_attachments ) : ?>
-                                <th><?php esc_html_e( 'Attachments', 'bookly' ) ?></th>
-                            <?php endif ?>
-                            <th></th>
-                            <th width="16"><input type="checkbox" id="bookly-check-all" /></th>
-                        </tr>
+                        <?php endforeach ?>
+                        <th></th>
+                        <th width="16"><input type="checkbox" id="bookly-check-all"/></th>
+                    </tr>
                     </thead>
                 </table>
 
                 <div class="text-right bookly-margin-top-lg">
-                    <?php Controls\Buttons::renderDelete( null, null, null, array( 'data-toggle' => 'modal', 'data-target'=> '#bookly-delete-dialog' ) ) ?>
+                    <?php Controls\Buttons::renderModalActivator( 'bookly-delete-dialog', 'btn-danger', esc_html__( 'Delete', 'bookly' ) ) ?>
                 </div>
             </div>
         </div>
 
-        <?php Proxy\Pro::renderExportDialog( $custom_fields ) ?>
-        <?php Proxy\Pro::renderPrintDialog( $custom_fields ) ?>
+        <?php Proxy\Pro::renderExportDialog( $datatables['appointments'] ) ?>
+        <?php Proxy\Pro::renderPrintDialog( $datatables['appointments'] ) ?>
 
         <?php Dialogs\Appointment\Delete\Dialog::render() ?>
+        <?php Dialogs\TableSettings\Dialog::render() ?>
         <?php Dialogs\Appointment\Edit\Dialog::render() ?>
         <?php Dialogs\Queue\Dialog::render() ?>
         <?php Proxy\Shared::renderAddOnsComponents() ?>

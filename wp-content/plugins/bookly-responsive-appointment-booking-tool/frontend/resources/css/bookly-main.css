@@ -1499,3 +1499,7 @@ label.bookly-square {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.pac-container {
+    z-index: 1000000!important;
+}

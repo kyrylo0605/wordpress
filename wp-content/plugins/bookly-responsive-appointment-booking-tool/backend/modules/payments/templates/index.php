@@ -2,6 +2,7 @@
 use Bookly\Lib\Entities\Payment;
 use Bookly\Backend\Components;
 use Bookly\Backend\Modules\Payments\Proxy;
+/** @var array $datatables */
 ?>
 <div id="bookly-tbs" class="wrap">
     <div class="bookly-tbs-body">
@@ -13,6 +14,7 @@ use Bookly\Backend\Modules\Payments\Proxy;
         </div>
         <div class="panel panel-default bookly-main">
             <div class="panel-body">
+                <?php Components\Dialogs\TableSettings\Dialog::renderButton( 'payments' ) ?>
                 <div class="row">
                     <div class="col-md-1 col-lg-1">
                         <div class="form-group">
@@ -44,8 +46,8 @@ use Bookly\Backend\Modules\Payments\Proxy;
                         <div class="form-group">
                             <select class="form-control <?php echo $customers === false ? 'bookly-js-select-ajax' : 'bookly-js-select' ?>" id="bookly-filter-customer" data-placeholder="<?php esc_attr_e( 'Customer', 'bookly' ) ?>" <?php echo $customers === false ? 'data-ajax--action' : 'data-action' ?>="bookly_get_customers_list">
                                 <?php if ( $customers !== false ) : ?>
-                                    <?php foreach ( $customers as $customer ) : ?>
-                                        <option value="<?php echo $customer['id'] ?>"><?php echo esc_html( $customer['full_name'] ) ?></option>
+                                    <?php foreach ( $customers as $customer_id => $customer ) : ?>
+                                        <option value="<?php echo $customer_id ?>" data-search='<?php echo json_encode( array_values( $customer ) ) ?>'><?php echo esc_html( $customer['full_name'] ) ?></option>
                                     <?php endforeach ?>
                                 <?php endif ?>
                             </select>
@@ -82,35 +84,35 @@ use Bookly\Backend\Modules\Payments\Proxy;
 
                 <table id="bookly-payments-list" class="table table-striped" width="100%">
                     <thead>
-                        <tr>
-                            <th><?php _e( 'No.', 'bookly' ) ?></th>
-                            <th><?php _e( 'Date', 'bookly' ) ?></th>
-                            <th><?php _e( 'Type', 'bookly' ) ?></th>
-                            <th><?php _e( 'Customer', 'bookly' ) ?></th>
-                            <th><?php _e( 'Provider', 'bookly' ) ?></th>
-                            <th><?php _e( 'Service', 'bookly' ) ?></th>
-                            <th><?php _e( 'Appointment Date', 'bookly' ) ?></th>
-                            <th><?php _e( 'Amount', 'bookly' ) ?></th>
-                            <th><?php _e( 'Status', 'bookly' ) ?></th>
-                            <th></th>
-                            <th width="16"><input type="checkbox" id="bookly-check-all"></th>
-                        </tr>
+                    <tr>
+                        <?php foreach ( $datatables['payments']['settings']['columns'] as $column => $show ) : ?>
+                            <?php if ( $show ) : ?>
+                            <th><?php echo $datatables['payments']['titles'][ $column ] ?></th>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                        <th></th>
+                        <th width="16"><input type="checkbox" id="bookly-check-all"/></th>
+                    </tr>
                     </thead>
-                    <tfoot>
+                    <?php if ( key_exists( 'paid', $datatables['payments']['settings']['columns'] ) && $datatables['payments']['settings']['columns']['paid'] ) : ?>
+                        <tfoot>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th><div class="pull-right"><?php _e( 'Total', 'bookly' ) ?>:</div></th>
-                            <th><span id="bookly-payment-total"></span></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <?php $columns = array_filter( $datatables['payments']['settings']['columns'] ) ?>
+                            <?php $index = array_search( 'paid', array_keys( $columns ) ) ?>
+                            <?php for ( $column = 0; $column < count( $columns ) + 2; $column ++ ) : ?>
+                                <?php if ( $column == $index - 1 ) : ?>
+                                    <th>
+                                        <div class="pull-right"><?php _e( 'Total', 'bookly' ) ?>:</div>
+                                    </th>
+                                <?php elseif ( $column == $index ) : ?>
+                                    <th><span id="bookly-payment-total"></span></th>
+                                <?php else : ?>
+                                    <th></th>
+                                <?php endif ?>
+                            <?php endfor ?>
                         </tr>
-                    </tfoot>
+                        </tfoot>
+                    <?php endif ?>
                 </table>
                 <div class="text-right bookly-margin-top-lg">
                     <?php Proxy\Invoices::renderDownloadButton() ?>
@@ -123,5 +125,6 @@ use Bookly\Backend\Modules\Payments\Proxy;
             <div payment-details-dialog></div>
             <?php Components\Dialogs\Payment\Dialog::render() ?>
         </div>
+        <?php Components\Dialogs\TableSettings\Dialog::render() ?>
     </div>
 </div>

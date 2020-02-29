@@ -94,7 +94,7 @@ jQuery(function ($) {
                         success    : function (response) {
                             ladda.stop();
                             if (response.success) {
-                                obj.options.savingStatus({success: [obj.options.l10n.saved]});
+                                obj.options.saving({success: [obj.options.l10n.saved]});
                             }
                         }
                     });
@@ -176,11 +176,11 @@ jQuery(function ($) {
             csrf_token: ''
         },
         booklyAlert: window.booklyAlert,
-        savingStatus: function (data) {
-            $(document.body).trigger('staff_edit.save', data);
+        saving: function (alerts) {
+            $(document.body).trigger('staff.saving', [alerts]);
         },
         validation: function (has_error, info) {
-            $(document.body).trigger('staff_edit.validation', ['staff-services', has_error, info]);
+            $(document.body).trigger('staff.validation', ['staff-services', has_error, info]);
         },
         onLoad: function () {},
         l10n: {}

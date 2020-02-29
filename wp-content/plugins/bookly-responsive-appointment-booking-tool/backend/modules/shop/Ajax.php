@@ -78,7 +78,7 @@ class Ajax extends Lib\Base\Ajax
                 'rating_class'   => (int) $plugin['rating'] ? '' : 'collapse',
                 'rating'         => $plugin['rating'],
                 'reviews'        => sprintf( _n( '%d review', '%d reviews', $plugin['reviews'], 'bookly' ), $plugin['reviews'] ),
-                'url_class'      => $installed ? 'btn-default' : $plugin['slug'] == 'bookly-addon-pro' ? 'btn-success' : 'btn-success' . $disabled,
+                'url_class'      => $installed ? 'btn-default' : ( $plugin['slug'] == 'bookly-addon-pro' ? 'btn-success' : 'btn-success' . $disabled ),
                 'url_text'       => $installed ? __( 'Installed', 'bookly' ) : __( 'Get it!', 'bookly' ),
                 'url'            => Lib\Utils\Common::prepareUrlReferrers( $plugin['url'] . '?ref=ladela', 'shop' ),
             );

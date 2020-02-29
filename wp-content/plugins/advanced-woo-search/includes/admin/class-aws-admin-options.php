@@ -311,7 +311,7 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 "name"  => __( "Show 'View All Results'", "advanced-woo-search" ),
                 "desc"  => __( "Show link to search results page at the bottom of search results block.", "advanced-woo-search" ),
                 "id"    => "show_more",
-                "value" => 'false',
+                "value" => 'true',
                 "type"  => "radio",
                 'choices' => array(
                     'true'  => __( 'On', 'advanced-woo-search' ),
@@ -323,7 +323,7 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 "name"  => __( "Search Results", "advanced-woo-search" ),
                 "desc"  => __( "Choose how to view search results.", "advanced-woo-search" ),
                 "id"    => "show_page",
-                "value" => 'false',
+                "value" => 'true',
                 "type"  => "radio",
                 'choices' => array(
                     'true'     => __( 'Both ajax search results and search results page', 'advanced-woo-search' ),

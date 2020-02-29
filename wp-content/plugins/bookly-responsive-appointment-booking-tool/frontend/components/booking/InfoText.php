@@ -237,7 +237,7 @@ class InfoText
 
             // Support deprecated codes [[CODE]]
             foreach ( array_keys( $info_text_codes ) as $code_key ) {
-                if ( $code_key{1} == '[' ) {
+                if ( $code_key[1] == '[' ) {
                     $info_text_codes[ '{' . strtolower( substr( $code_key, 2, - 2 ) ) . '}' ] = $info_text_codes[ $code_key ];
                 } else {
                     $info_text_codes[ '[[' . strtoupper( substr( $code_key, 1, - 1 ) ) . ']]' ] = $info_text_codes[ $code_key ];

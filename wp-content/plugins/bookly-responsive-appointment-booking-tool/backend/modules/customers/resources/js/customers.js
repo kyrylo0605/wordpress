@@ -1,66 +1,72 @@
 jQuery(function($) {
     'use strict';
-    var
+    let
         $customersList        = $('#bookly-customers-list'),
         $mergeListContainer   = $('#bookly-merge-list'),
         $mergeList            = $customersList.clone().prop('id', '').find('th:last').remove().end().appendTo($mergeListContainer),
         $filter               = $('#bookly-filter'),
         $checkAllButton       = $('#bookly-check-all'),
         $customerDialog       = $('#bookly-customer-dialog'),
-        $addButton            = $('#bookly-add'),
         $selectForMergeButton = $('#bookly-select-for-merge'),
-        $mergeWithButton      = $('#bookly-merge-with'),
+        $mergeWithButton      = $('#bookly-merge-dialog-activator'),
         $mergeDialog          = $('#bookly-merge-dialog'),
         $mergeButton          = $('#bookly-merge'),
+        columns               = [],
+        order                 = [],
         row
     ;
 
-    var columns = [
-        {data: 'full_name', render: $.fn.dataTable.render.text(), responsivePriority: 2, visible: BooklyL10n.first_last_name == 0},
-        {data: 'first_name', render: $.fn.dataTable.render.text(), responsivePriority: 2, visible: BooklyL10n.first_last_name == 1},
-        {data: 'last_name', render: $.fn.dataTable.render.text(), responsivePriority: 2, visible: BooklyL10n.first_last_name == 1},
-        {data: 'wp_user', render: $.fn.dataTable.render.text(), responsivePriority: 2}
-    ];
-    if (BooklyL10n.groupsActive == 1) {
-        columns.push({data: 'group_name', render: $.fn.dataTable.render.text(), responsivePriority: 2});
-    }
-    columns = columns.concat([
-        {data: 'phone', render: $.fn.dataTable.render.text(), responsivePriority: 2},
-        {data: 'email', render: $.fn.dataTable.render.text(), responsivePriority: 2}
-    ]);
-    BooklyL10n.infoFields.forEach(function (field, i) {
-        columns.push({
-            data: 'info_fields.' + i + '.value' + (field.type === 'checkboxes' ? '[, ]' : ''),
-            render: $.fn.dataTable.render.text(),
-            responsivePriority: 3,
-            orderable: false
-        });
-    });
-    columns = columns.concat([
-        {data: 'notes', render: $.fn.dataTable.render.text(), responsivePriority: 2},
-        {data: 'last_appointment', responsivePriority: 2},
-        {data: 'total_appointments', responsivePriority: 2},
-        {data: 'payments', responsivePriority: 2}
-    ]);
-
-    if (BooklyL10n.proEnabled == 1){
-        columns = columns.concat([
-            {data: 'address', render: $.fn.dataTable.render.text(), responsivePriority: 3, orderable: false},
-            {
-                data: 'facebook_id',
-                responsivePriority: 2,
-                render: function (data, type, row, meta) {
-                    return data ? '<a href="https://www.facebook.com/app_scoped_user_id/' + data + '/" target="_blank"><span class="dashicons dashicons-facebook"></span></a>' : '';
-                }
+    /**
+     * Init table columns.
+     */
+    $.each(BooklyL10n.datatables.customers.settings.columns, function (column, show) {
+        if (show) {
+            switch (column) {
+                case 'id':
+                case 'last_appointment':
+                case 'total_appointments':
+                case 'payments':
+                case 'wp_user':
+                    columns.push({data: column});
+                    break;
+                case 'address':
+                    columns.push({data: column, render: $.fn.dataTable.render.text(), orderable: false});
+                    break;
+                case 'facebook':
+                    columns.push({
+                        data: 'facebook_id',
+                        render: function (data, type, row, meta) {
+                            return data ? '<a href="https://www.facebook.com/app_scoped_user_id/' + data + '/" target="_blank"><span class="dashicons dashicons-facebook"></span></a>' : '';
+                        }
+                    });
+                    break;
+                default:
+                    if (column.startsWith('info_fields_')) {
+                        columns.push({
+                            data: column.replace(/_([^_]*)$/, '.$1.value'),
+                            render: $.fn.dataTable.render.text(),
+                            orderable: false
+                        });
+                    } else {
+                        columns.push({data: column, render: $.fn.dataTable.render.text()});
+                    }
+                    break;
             }
-        ]);
-    }
+        }
+    });
+
+    $.each(BooklyL10n.datatables.customers.settings.order, function (_, value) {
+        const index = columns.findIndex(c => c.data === value.column);
+        if (index !== -1) {
+            order.push([index, value.order]);
+        }
+    });
 
     /**
      * Init DataTables.
      */
     var dt = $customersList.DataTable({
-        order       : [[0, 'asc']],
+        order       : order,
         info        : false,
         searching   : false,
         lengthChange: false,
@@ -86,7 +92,7 @@ jQuery(function($) {
                 orderable         : false,
                 searchable        : false,
                 render            : function (data, type, row, meta) {
-                    return '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#bookly-customer-dialog"><i class="glyphicon glyphicon-edit"></i> ' + BooklyL10n.edit + '</button>';
+                    return '<button type="button" class="btn btn-default" data-action="edit"><i class="glyphicon glyphicon-edit"></i> ' + BooklyL10n.edit + '</button>';
                 }
             },
             {
@@ -114,79 +120,71 @@ jQuery(function($) {
         $customersList.find('tbody input:checkbox').prop('checked', this.checked);
     });
 
-    /**
-     * On customer select.
-     */
-    $customersList.on('change', 'tbody input:checkbox', function () {
-        $checkAllButton.prop('checked', $customersList.find('tbody input:not(:checked)').length == 0);
-        $mergeWithButton.prop('disabled', $customersList.find('tbody input:checked').length != 1);
-    });
-
-    /**
-     * Edit customer.
-     */
-    $customersList.on('click', 'button', function () {
-        row = dt.row($(this).closest('td'));
-    });
-
-    /**
-     * New customer.
-     */
-    $addButton.on('click', function () {
-        row = null;
-    });
+    $customersList
+        // On customer select.
+        .on('change', 'tbody input:checkbox', function () {
+            $checkAllButton.prop('checked', $customersList.find('tbody input:not(:checked)').length == 0);
+            $mergeWithButton.prop('disabled', $customersList.find('tbody input:checked').length != 1);
+        })
+        // Edit customer.
+        .on('click', '[data-action=edit]', function () {
+            row = dt.row($(this).closest('td'));
+            $customerDialog.modal('show');
+        });
 
     /**
      * On show modal.
      */
-    $customerDialog.on('show.bs.modal', function () {
-        var $title = $customerDialog.find('.modal-title');
-        var $button = $customerDialog.find('.modal-footer button:first');
-        var customer;
-        if (row) {
-            customer = $.extend(true, {}, row.data());
-            $title.text(BooklyL10n.edit_customer);
-            $button.text(BooklyL10n.save);
-        } else {
-            customer = {
-                id          : '',
-                wp_user_id  : '',
-                group_id    : '',
-                full_name   : '',
-                first_name  : '',
-                last_name   : '',
-                phone       : '',
-                email       : '',
-                country     : '',
-                state       : '',
-                postcode    : '',
-                city        : '',
-                street      : '',
-                address     : '',
-                info_fields : [],
-                notes       : '',
-                birthday    : ''
-            };
-            BooklyL10n.infoFields.forEach(function (field) {
-                customer.info_fields.push({id: field.id, value: field.type === 'checkboxes' ? [] : ''});
-            });
-            $title.text(BooklyL10n.new_customer);
-            $button.text(BooklyL10n.create_customer);
-        }
+    $customerDialog
+        .on('show.bs.modal', function () {
+            var $title = $customerDialog.find('.modal-title');
+            var $button = $customerDialog.find('.modal-footer button:first');
+            var customer;
+            if (row) {
+                customer = $.extend(true, {}, row.data());
+                $title.text(BooklyL10n.edit_customer);
+                $button.text(BooklyL10n.save);
+            } else {
+                customer = {
+                    id: '',
+                    wp_user_id: '',
+                    group_id: '',
+                    full_name: '',
+                    first_name: '',
+                    last_name: '',
+                    phone: '',
+                    email: '',
+                    country: '',
+                    state: '',
+                    postcode: '',
+                    city: '',
+                    street: '',
+                    address: '',
+                    info_fields: {},
+                    notes: '',
+                    birthday: ''
+                };
+                BooklyL10n.infoFields.forEach(function (field) {
+                    customer.info_fields[field.id] = {id: field.id, value: field.type === 'checkboxes' ? [] : ''};
+                });
+                $title.text(BooklyL10n.new_customer);
+                $button.text(BooklyL10n.create_customer);
+            }
 
-        var $scope = angular.element(this).scope();
-        $scope.$apply(function ($scope) {
-            $scope.customer = customer;
-            setTimeout(function () {
-                if (BooklyL10nCustDialog.intlTelInput.enabled) {
-                    $('#phone', $customerDialog).intlTelInput('setNumber', customer.phone);
-                } else {
-                    $('#phone', $customerDialog).val(customer.phone);
-                }
-                $('#wp_user', $customerDialog).trigger('change.select2');
-            }, 0);
-        });
-    });
+            var $scope = angular.element(this).scope();
+            $scope.$apply(function ($scope) {
+                $scope.customer = customer;
+                setTimeout(function () {
+                    if (BooklyL10nCustDialog.intlTelInput.enabled) {
+                        $('#phone', $customerDialog).intlTelInput('setNumber', customer.phone);
+                    } else {
+                        $('#phone', $customerDialog).val(customer.phone);
+                    }
+                    $('#wp_user', $customerDialog).trigger('change.select2');
+                }, 0);
+            });
+        })
+        .on('hidden.bs.modal', () => row = null);
 
     /**
      * On filters change.
@@ -233,6 +231,7 @@ jQuery(function($) {
             }).trigger('change');
             $mergeWithButton.show();
             $mergeListContainer.show();
+            mdt.responsive.recalc();
         }
     });
 
@@ -286,6 +285,7 @@ jQuery(function($) {
      */
     Ladda.bind('#bookly-import-customers-dialog button[type=submit]');
     Ladda.bind('#bookly-export-customers-dialog button[type=submit]', {timeout: 2000});
+
 });
 
 (function() {

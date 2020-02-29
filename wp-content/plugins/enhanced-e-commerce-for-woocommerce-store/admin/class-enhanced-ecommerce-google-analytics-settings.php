@@ -73,7 +73,7 @@ class Enhanced_Ecommerce_Google_Settings {
     public function show_message(){
         echo '
             <div class="notice notice-warning is-dismissible">
-                    <p>Get all the 9 GA - Enhanced Ecommerce reports, 20+ custom dimensions and metrics, google ads conversion tracking, FB pixel tracking, Google Optimize integration and many more advanced features in the Premium Version.  <a class="download" target="_blank" href="http://plugins.tatvic.com/downloads/actionable-google-analytics-free-trial.zip"><strong>Get your free trial for 14 days now.</strong></a></p>
+                    <strong><p>Get all the 9 GA - Enhanced Ecommerce reports, 20+ custom dimensions and metrics, google ads conversion tracking, FB pixel tracking, Google Optimize integration and many more advanced features in the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552" target="_blank">Premium Version</a>.</p></strong>
             </div>
         ';
     }

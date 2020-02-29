@@ -11,6 +11,7 @@ use Bookly\Lib;
  * @method static void   enqueueStaffProfileScripts() Enqueue scripts for page Staff.
  * @method static void   enqueueStaffProfileStyles() Enqueue styles for page Staff.
  * @method static string getAffectedAppointmentsFilter( string $filter_url, int[] $staff_id ) Get link with filter for appointments page.
+ * @method static Lib\Query prepareGetStaffQuery( Lib\Query $query ) Prepare get staff list query.
  * @method static void   preUpdateStaff( Lib\Entities\Staff $staff, array $params ) Do stuff before staff update.
  * @method static void   renderStaffForm( Lib\Entities\Staff $staff ) Render Staff form tab details.
  * @method static int    renderStaffPage( array $params ) Do stuff on staff page render.
@@ -21,6 +22,7 @@ use Bookly\Lib;
  * @method static void   updateStaff( Lib\Entities\Staff $staff, array $params ) Update staff settings in add-ons.
  * @method static void   updateStaffSchedule( array $_post ) Update staff schedule settings in add-ons.
  * @method static void   updateStaffServices( array $_post ) Update staff services settings in add-ons.
+ * @method static array  searchStaff( array $fields, array $columns, Lib\Query $query ) Search staff, prepare query and fields.
  */
 abstract class Shared extends Lib\Base\Proxy
 {

@@ -7,6 +7,21 @@ namespace Bookly\Lib;
  */
 class Updater extends Base\Updater
 {
+    function update_17_8()
+    {
+        global $wpdb;
+
+        $meta_names = array(
+            'bookly_filter_appointments_list',
+            'bookly_filter_staff_list',
+            'bookly_filter_services_list',
+            'bookly_filter_staff_categories',
+            'bookly_filter_services_categories',
+        );
+        $wpdb->query( $wpdb->prepare( sprintf( 'DELETE FROM `' . $wpdb->usermeta . '` WHERE meta_key IN (%s)',
+            implode( ', ', array_fill( 0, count( $meta_names ), '%s' ) ) ), $meta_names ) );
+    }
+
     function update_17_7()
     {
         add_option( 'bookly_app_prevent_caching', '1' );

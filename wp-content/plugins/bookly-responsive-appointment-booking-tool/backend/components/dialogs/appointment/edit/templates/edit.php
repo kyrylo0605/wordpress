@@ -177,7 +177,7 @@ use Bookly\Lib\Entities\CustomerAppointment;
                                                 <?php endforeach ?>
                                             </ul>
                                         </span>
-                                        <button type="button" class="btn btn-sm btn-default bookly-margin-left-xs" data-toggle="modal" href="#bookly-payment-details-modal" data-payment_id="{{customer.payment_id}}" ng-show="customer.payment_id || customer.payment_create" popover="<?php esc_attr_e( 'Payment', 'bookly' ) ?>: {{customer.payment_title}}" ng-disabled="customer.payment_create">
+                                        <button type="button" class="btn btn-sm btn-default bookly-margin-left-xs" data-action="show-payment" data-payment_id="{{customer.payment_id}}" ng-show="customer.payment_id || customer.payment_create" popover="<?php esc_attr_e( 'Payment', 'bookly' ) ?>: {{customer.payment_title}}" ng-disabled="customer.payment_create">
                                             <span ng-class="{'bookly-js-toggle-popover fa fa-fw': true, 'fa-clipboard-check': customer.payment_type == 'full', 'fa-hourglass': customer.payment_type == 'partial'}"></span>
                                         </button>
 

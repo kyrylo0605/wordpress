@@ -175,8 +175,8 @@ class Appointment extends Lib\Base\Entity
                 ->setPaymentId( $ca_data[ $id ]['payment_id'] )
                 ->setUnits( $units )
                 ->setCreated( current_time( 'mysql' ) )
-                ->setTimeZone( $time_zone['time_zone'] )
-                ->setTimeZoneOffset( $time_zone['time_zone_offset'] )
+                ->setTimeZone( is_array( $time_zone ) ? $time_zone['time_zone'] : $time_zone )
+                ->setTimeZoneOffset( is_array( $time_zone ) ? $time_zone['time_zone_offset'] : $time_zone )
                 ->setExtrasConsiderDuration( $ca_data[ $id ]['extras_consider_duration'] )
                 ->save();
             $ca_status_changed[] = $customer_appointment;

@@ -2,7 +2,6 @@
 namespace Bookly\Backend\Modules\Staff;
 
 use Bookly\Lib;
-use Bookly\Backend\Modules\Staff\Forms\Widgets\TimeChoice;
 
 /**
  * Class Page
@@ -30,16 +29,33 @@ class Ajax extends Lib\Base\Ajax
     {
         global $wpdb;
 
-        $query = Lib\Entities\Staff::query( 's' );
-        $total = $query->count();
-        $query
-            ->select( 's.id, s.category_id, s.full_name, s.visibility, s.position, email, phone, wpu.display_name AS wp_user' )
-            ->tableJoin( $wpdb->users, 'wpu', 'wpu.ID = s.wp_user_id' )
-            ->sortBy( 'position' );
+        $columns = self::parameter( 'columns' );
+        $order   = self::parameter( 'order', array() );
+        $filter  = self::parameter( 'filter' );
+        $limits  = array(
+            'length' => self::parameter( 'length' ),
+            'start'  => self::parameter( 'start' ),
+        );
+
+        $query = Lib\Entities\Staff::query( 's' )
+            ->select( 's.id, s.full_name' )
+            ->tableJoin( $wpdb->users, 'wpu', 'wpu.ID = s.wp_user_id' );
+
         if ( ! Lib\Utils\Common::isCurrentUserAdmin() ) {
             $query->where( 's.wp_user_id', get_current_user_id() );
         }
-        $filter = self::parameter( 'filter' );
+
+        $query->addSelect( 's.category_id,  s.visibility, email, phone, wpu.display_name AS wp_user' );
+
+        Proxy\Shared::prepareGetStaffQuery( $query );
+
+        foreach ( $order as $sort_by ) {
+            $query->sortBy( str_replace( '.', '_', $columns[ $sort_by['column'] ]['data'] ) )
+                  ->order( $sort_by['dir'] == 'desc' ? Lib\Query::ORDER_DESCENDING : Lib\Query::ORDER_ASCENDING );
+        }
+
+        $total = $query->count();
+
         if ( $filter['archived'] ) {
             if ( $filter['visibility'] != '' ) {
                 $query->whereRaw( 's.visibility = %s OR s.visibility = %s', array( $filter['visibility'], 'archive' ) );
@@ -49,27 +65,55 @@ class Ajax extends Lib\Base\Ajax
         } else {
             $query->whereNot( 's.visibility', 'archive' );
         }
-        $list = $query->fetchArray();
 
-        update_user_meta( get_current_user_id(), 'bookly_filter_staff_list', $filter );
-
-        wp_send_json_success( compact( 'list', 'total' ) );
-    }
-
-    /**
-     * Update staff position.
-     */
-    public static function updateStaffPosition()
-    {
-        $staff_sorts = self::parameter( 'positions' );
-        foreach ( $staff_sorts as $position => $id ) {
-            $staff = new Lib\Entities\Staff();
-            $staff->load( $id );
-            $staff->setPosition( $position );
-            $staff->save();
+        if ( $filter['category'] != '' ) {
+            $query->where( 's.category_id', $filter['category'] );
         }
 
-        wp_send_json_success();
+        if ( $filter['search'] != '' ) {
+            $fields = array();
+            foreach ( $columns as $column ) {
+                switch ( $column['data'] ) {
+                    case 'user':
+                        $fields[] = 'wpu.display_name';
+                        break;
+                    case 'full_name':
+                    case 'email':
+                    case 'phone':
+                        $fields[] = 's.' . $column['data'];
+                        break;
+                }
+            }
+
+            $fields = Proxy\Shared::searchStaff( $fields, $columns, $query );
+
+            $search_columns = array();
+            foreach ( $fields as $field ) {
+                $search_columns[] = $field . ' LIKE "%%%s%"';
+            }
+            if ( ! empty( $search_columns ) ) {
+                $query->whereRaw( implode( ' OR ', $search_columns ), array_fill( 0, count( $search_columns ), $filter['search'] ) );
+            }
+        }
+
+        $filtered = $query->count();
+
+        if ( ! empty( $limits ) ) {
+            $query->limit( $limits['length'] )->offset( $limits['start'] );
+        }
+
+        $data = $query->fetchArray();
+
+        unset( $filter['search'] );
+
+        Lib\Utils\Tables::updateSettings( 'staff_members', $columns, $order, $filter );
+
+        wp_send_json( array(
+            'draw'            => ( int ) self::parameter( 'draw' ),
+            'data'            => $data,
+            'recordsTotal'    => $total,
+            'recordsFiltered' => $filtered,
+        ) );
     }
 
     /**

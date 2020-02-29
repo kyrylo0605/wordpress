@@ -25,3 +25,6 @@ msgstr "mehr"
 
 msgid "Next Reviews"
 msgstr "Nächste Bewertungen"
+
+msgid "Based on %s reviews"
+msgstr "Basierend auf %s Rezensionen"

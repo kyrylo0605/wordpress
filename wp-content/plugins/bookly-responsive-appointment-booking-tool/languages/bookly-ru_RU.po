@@ -9,8 +9,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-05 20:06+0000\n"
-"PO-Revision-Date: 2019-12-11 07:55+0000\n"
+"POT-Creation-Date: 2020-02-10 08:14+0000\n"
+"PO-Revision-Date: 2020-02-10 11:06+0000\n"
 "Last-Translator: support@bookly.info\n"
 "Language-Team: Russian\n"
 "X-Loco-Version: 2.3.1; wp-5.3"
@@ -1429,6 +1429,9 @@ msgstr "Вы уверены?"
 msgid "Duplicate dates are not permitted."
 msgstr "Дубликаты дат не разрешены."
 
+msgid "Date in the past."
+msgstr "Дата в прошлом."
+
 msgid "The requested interval is not available"
 msgstr "Запрашиваемый интервал недоступен"
 
@@ -1653,6 +1656,12 @@ msgstr "API Login ID"
 msgid "API Transaction Key"
 msgstr "API Transaction Key"
 
+msgid "Title"
+msgstr "Название"
+
+msgid "Rate"
+msgstr "Ставка"
+
 msgid "Taxes"
 msgstr "Налоги"
 
@@ -1675,12 +1684,6 @@ msgstr "Без налогов"
 
 msgid "Add Tax"
 msgstr "Добавить Налог"
-
-msgid "Title"
-msgstr "Название"
-
-msgid "Rate"
-msgstr "Ставка"
 
 msgid "New tax"
 msgstr "Новый налог"
@@ -2739,6 +2742,78 @@ msgstr "По"
 msgid "From"
 msgstr "С"
 
+msgid "No."
+msgstr "№"
+
+msgid "Appointment date"
+msgstr "Дата записи"
+
+msgid "Customer name"
+msgstr "Имя клиента"
+
+msgid "Customer phone"
+msgstr "Номер телефона клиента"
+
+msgid "Customer email"
+msgstr "Адрес эл. почты клиента"
+
+msgid "Created"
+msgstr "Создана"
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Last appointment"
+msgstr "Последняя запись"
+
+msgid "Total appointments"
+msgstr "Всего записей"
+
+msgid "Payments"
+msgstr "Платежи"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "State"
+msgstr "Состояние"
+
+msgid "Customer"
+msgstr "Клиент"
+
+msgid "Amount"
+msgstr "Сумма"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Sender ID"
+msgstr "ID отправителя"
+
+msgid "Cost"
+msgstr "Стоимость"
+
+msgid "Flag"
+msgstr "Флаг"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Regular price"
+msgstr "Обычная цена"
+
+msgid "Price with custom Sender ID"
+msgstr "Цена с изменённым ID отправителя"
+
+msgid "Order"
+msgstr "Заказ"
+
+msgid "Requested ID"
+msgstr "Запрошенный ID"
+
+msgid "Status date"
+msgstr "Дата статуса"
+
 msgid "Important"
 msgstr "Важно"
 
@@ -2885,9 +2960,6 @@ msgstr "меньше"
 msgid "Bookly SMS weekly summary"
 msgstr "Bookly SMS – Еженедельный отчёт"
 
-msgid "Customer"
-msgstr "Клиент"
-
 msgid "Internal Notes"
 msgstr "Внутренние заметки"
 
@@ -3019,9 +3091,6 @@ msgstr "Email уведомления"
 msgid "Customers"
 msgstr "Клиенты"
 
-msgid "Payments"
-msgstr "Платежи"
-
 msgid "Appearance"
 msgstr "Внешний вид"
 
@@ -3052,20 +3121,8 @@ msgstr "Предыдущая"
 msgid "New appointment"
 msgstr "Новая запись"
 
-msgid "No."
-msgstr "№"
-
 msgid "Created at any time"
 msgstr "Создана в любое время"
-
-msgid "Appointment Date"
-msgstr "Дата Записи"
-
-msgid "Created"
-msgstr "Создана"
-
-msgid "Attachments"
-msgstr "Файлы"
 
 msgid "Any time"
 msgstr "Любое время"
@@ -3078,6 +3135,9 @@ msgstr "Результатов не найдено"
 
 msgid "Searching"
 msgstr "Поиск"
+
+msgid "Attachments"
+msgstr "Файлы"
 
 msgid "Archived"
 msgstr "В архиве"
@@ -3124,9 +3184,6 @@ msgstr "Отправлять уведомления о низком баланс
 
 msgid "Send weekly summary to administrators"
 msgstr "Отправлять еженедельный отчёт администраторам"
-
-msgid "Sender ID"
-msgstr "ID отправителя"
 
 msgid "Change"
 msgstr "Изменить"
@@ -3230,15 +3287,6 @@ msgstr "Смена пароля"
 msgid "Old password"
 msgstr "Старый пароль"
 
-msgid "Type"
-msgstr "Тип"
-
-msgid "Order"
-msgstr "Заказ"
-
-msgid "Amount"
-msgstr "Сумма"
-
 msgid ""
 "We will only charge your PayPal account when your balance falls below $10."
 msgstr ""
@@ -3250,15 +3298,6 @@ msgstr "Включить автопополнение"
 
 msgid "Disable Auto-Recharge"
 msgstr "Выключить автопополнение"
-
-msgid "Code"
-msgstr "Код"
-
-msgid "Regular price"
-msgstr "Обычная цена"
-
-msgid "Price with custom Sender ID"
-msgstr "Цена с изменённым ID отправителя"
 
 msgid ""
 "If you do not see your country in the list please contact us at <a "
@@ -3286,12 +3325,6 @@ msgstr "Сохранить телефон администратора"
 msgid "Quick search notifications"
 msgstr "Быстрый поиск уведомлений"
 
-msgid "State"
-msgstr "Состояние"
-
-msgid "Delete..."
-msgstr "Удалить..."
-
 #, php-format
 msgid ""
 "To send scheduled notifications please refer to <a href=\"%1$s\">Bookly "
@@ -3307,12 +3340,6 @@ msgid ""
 msgstr ""
 "Чтобы отправлять напоминающие уведомления, пожалуйста, настройте cron на "
 "ежечасное исполнение следующей команды:"
-
-msgid "Text"
-msgstr "Текст"
-
-msgid "Cost"
-msgstr "Стоимость"
 
 msgid ""
 "Please take into account that not all countries by law allow custom SMS "
@@ -3340,12 +3367,6 @@ msgstr "Запросить"
 
 msgid "Cancel request"
 msgstr "Отменить запрос"
-
-msgid "Requested ID"
-msgstr "Запрошенный ID"
-
-msgid "Status Date"
-msgstr "Дата статуса"
 
 msgid "Please accept terms and conditions."
 msgstr "Пожалуйста, согласитесь с условиями использования."
@@ -3390,9 +3411,6 @@ msgstr "включить"
 msgid "disable"
 msgstr "выключить"
 
-msgid "Edit..."
-msgstr "Редактировать..."
-
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr ""
 "Не удалось включить автопополнение. Пожалуйста, пополните счёт прямым "
@@ -3411,17 +3429,20 @@ msgstr ""
 msgid "SMS has been sent successfully."
 msgstr "SMS было отправлено успешно."
 
+msgid "Staff members order"
+msgstr "Порядок сотрудников"
+
+msgid "Add staff"
+msgstr "Добавить сотрудника"
+
 msgid "Quick search staff"
 msgstr "Быстрый поиск сотрудника"
 
+msgid "Categories"
+msgstr "Категории"
+
 msgid "Show archived"
 msgstr "Показать архивированных"
-
-msgid "Add staff..."
-msgstr "Добавить сотрудника..."
-
-msgid "User"
-msgstr "Пользователь"
 
 msgid "Image"
 msgstr "Изображение"
@@ -3744,14 +3765,14 @@ msgstr ""
 "Корзина WooCommerce не настроена. Проследуйте по <a href=\"%s\">ссылке</a> "
 "для того, чтобы исправить эту проблему."
 
+msgid "Services order"
+msgstr "Порядок услуг"
+
+msgid "Add service"
+msgstr "Добавить сервис"
+
 msgid "Quick search services"
 msgstr "Быстрый поиск сервиса"
-
-msgid "Categories..."
-msgstr "Категории..."
-
-msgid "Add service..."
-msgstr "Добавить сервис..."
 
 msgid "Update service setting"
 msgstr "Изменение настройки сервиса"
@@ -4018,12 +4039,6 @@ msgstr "Быстрый поиск клиента"
 
 msgid "New customer"
 msgstr "Новый клиент"
-
-msgid "Last appointment"
-msgstr "Последняя запись"
-
-msgid "Total appointments"
-msgstr "Всего записей"
 
 msgid "Merge with"
 msgstr "Объединить с"
@@ -4453,6 +4468,9 @@ msgstr "Добавить сервис"
 msgid "Days Off"
 msgstr "Выходные Дни"
 
+msgid "The date has already passed."
+msgstr "Дата уже прошла."
+
 msgid "Create staff"
 msgstr "Создать сотрудника"
 
@@ -4464,6 +4482,9 @@ msgstr "Начальное время должно быть меньше кон�
 
 msgid "Error adding the break interval"
 msgstr "Ошибка добавления интервала перерыва"
+
+msgid "Adjust the order of staff members in your booking form"
+msgstr "Установите порядок сотрудников в форме бронирования"
 
 msgid "Complete payment"
 msgstr "Завершить платёж"
@@ -4626,11 +4647,17 @@ msgstr "Редактировать сервис"
 msgid "Advanced"
 msgstr "Расширенные"
 
-msgid "Categories"
-msgstr "Категории"
+msgid "Adjust the order of services in your booking form"
+msgstr "Установите порядок сервисов в форме бронирования"
 
 msgid "Add category"
 msgstr "Добавить категорию"
+
+msgid "Table settings"
+msgstr "Настройки таблицы"
+
+msgid "Column"
+msgstr "Столбец"
 
 msgid "Attach ICS file"
 msgstr "Прикрепить файл ICS"
@@ -5114,6 +5141,9 @@ msgstr "Уведомление о создании нового пакета у�
 msgid "Notification about package deletion"
 msgstr "Уведомление об удалении пакета услуг"
 
+msgid "Creation date"
+msgstr "Дата создания"
+
 msgid "Packages"
 msgstr "Пакеты услуг"
 
@@ -5137,9 +5167,6 @@ msgstr ""
 
 msgid "New package"
 msgstr "Новый пакет услуг"
-
-msgid "Creation Date"
-msgstr "Дата создания"
 
 msgid "Edit package"
 msgstr "Редактировать пакет услуг"
@@ -5230,6 +5257,9 @@ msgstr "Список пакетов услуг"
 
 msgid "A custom block for displaying packages list"
 msgstr "Пользовательский блок для отображения списка пакетов услуг"
+
+msgid "Creation Date"
+msgstr "Дата создания"
 
 msgid "Expires"
 msgstr "Дата окончания"
@@ -6083,9 +6113,6 @@ msgstr "Показывать кнопку входа через Facebook"
 msgid "Show time zone switcher"
 msgstr "Показывать переключатель часового пояса"
 
-msgid "Date of birth"
-msgstr "Дата рождения"
-
 msgid "Import"
 msgstr "Импорт"
 
@@ -6103,6 +6130,9 @@ msgstr ""
 
 msgid "Select file"
 msgstr "Выберите файл"
+
+msgid "Date of birth"
+msgstr "Дата рождения"
 
 msgid "Analytics"
 msgstr "Аналитика"
@@ -6563,21 +6593,6 @@ msgstr ""
 msgid "Coupon"
 msgstr "Купон"
 
-msgid "Coupons"
-msgstr "Купоны"
-
-msgid "Add Coupon Series"
-msgstr "Добавить серию купонов"
-
-msgid "Add Coupon"
-msgstr "Добавить купон"
-
-msgid "Coupon code"
-msgstr "Код купона"
-
-msgid "Show only active"
-msgstr "Показать только активные"
-
 msgid "Discount (%)"
 msgstr "Скидка (%)"
 
@@ -6593,17 +6608,32 @@ msgstr "Ограничение на использование (количест
 msgid "Number of times used"
 msgstr "Использован (количество раз)"
 
+msgid "Active from"
+msgstr "Активен с"
+
 msgid "Active until"
 msgstr "Активен до (вкл.)"
 
 msgid "Min. appointments"
 msgstr "Мин. количество записей"
 
-msgid "Active from"
-msgstr "Активен с"
+msgid "Max. appointments"
+msgstr "Макс. количество записей"
 
-msgid "Max appointments"
-msgstr "Максимально записей"
+msgid "Coupons"
+msgstr "Купоны"
+
+msgid "Add Coupon Series"
+msgstr "Добавить серию купонов"
+
+msgid "Add Coupon"
+msgstr "Добавить купон"
+
+msgid "Coupon code"
+msgstr "Код купона"
+
+msgid "Show only active"
+msgstr "Показать только активные"
 
 msgid "Export only active coupons"
 msgstr "Экспортировать только активные купоны"
@@ -6717,29 +6747,26 @@ msgstr "Этот купон недействителен или уже был и
 msgid "This coupon code has expired"
 msgstr "Срок действия у этого купона истёк"
 
+msgid "Group name"
+msgstr "Название группы"
+
+msgid "Number of users"
+msgstr "Количество пользователей"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Group"
+msgstr "Группа"
+
 msgid "Customer Groups"
 msgstr "Группы Клиентов"
 
 msgid "New group"
 msgstr "Новая группа"
 
-msgid "Group Name"
-msgstr "Название Группы"
-
-msgid "Number of Users"
-msgstr "Количество Пользователей"
-
-msgid "Description"
-msgstr "Описание"
-
-msgid "Appointment Status"
-msgstr "Статус Записи"
-
 msgid "Customers without group"
 msgstr "Клиенты без группы"
-
-msgid "Group"
-msgstr "Группа"
 
 msgid "New Group"
 msgstr "Новая Группа"
@@ -6767,9 +6794,6 @@ msgstr "Группа Клиентов"
 
 msgid "No group"
 msgstr "Без группы"
-
-msgid "Group name"
-msgstr "Название группы"
 
 msgid "Total discount"
 msgstr "Общая сумма скидки"
@@ -6932,9 +6956,6 @@ msgstr "Показывать интервалы со списком ожидан
 msgid "waiting list of appointment"
 msgstr "список ожидания на запись"
 
-msgid "Add service"
-msgstr "Добавить сервис"
-
 msgid "Show chain appointments"
 msgstr "Показывать цепочку записей"
 
@@ -7050,6 +7071,9 @@ msgstr "Показывать шаг \"Дополнения\""
 msgid "Show extras"
 msgstr "Показывать дополнения"
 
+msgid "Extras tax"
+msgstr "Налог на дополнения"
+
 msgid "Extras price"
 msgstr "Цена дополнений"
 
@@ -7072,14 +7096,14 @@ msgstr "Общая сумма налога"
 msgid "Waiting list"
 msgstr "Лист ожидания"
 
+msgid "Free/Busy"
+msgstr "Свободно/Занято"
+
 msgid "Custom statuses"
 msgstr "Пользовательские статусы"
 
 msgid "Add status"
 msgstr "Добавить статус"
-
-msgid "Free/Busy"
-msgstr "Свободно/Занято"
 
 msgid "New Status"
 msgstr "Новый Статус"
@@ -7128,6 +7152,9 @@ msgstr "Выключить обновление особых часов рабо
 
 msgid "Please select a location"
 msgstr "Пожалуйста, выберите место"
+
+msgid "Staff members"
+msgstr "Сотрудники"
 
 msgid "Locations"
 msgstr "Места"

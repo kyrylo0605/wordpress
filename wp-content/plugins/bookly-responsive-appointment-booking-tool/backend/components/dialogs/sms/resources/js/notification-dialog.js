@@ -266,4 +266,17 @@ jQuery(function ($) {
 
         $('.bookly-js-loading', $modalNotification).toggleClass('collapse');
     }
+
+    $(document)
+        // Required because Bootstrap blocks all focusin calls from elements outside the dialog
+        .on('focusin', function (e) {
+            if ($(e.target).closest(".ui-autocomplete-input").length) {
+                e.stopImmediatePropagation();
+            }
+            if ($(e.target).closest("#link-selector").length) {
+                e.stopImmediatePropagation();
+            }
+        })
+        // Restore class 'modal-open' because wplink on closing remove this class
+        .on('wplink-close', () => $(document.body).addClass('modal-open'));
 });
