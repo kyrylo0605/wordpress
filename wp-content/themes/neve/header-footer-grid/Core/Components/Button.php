@@ -13,7 +13,6 @@ namespace HFG\Core\Components;
 
 use HFG\Core\Settings\Manager as SettingsManager;
 use HFG\Main;
-use WP_Customize_Manager;
 
 /**
  * Class Button
@@ -63,7 +62,7 @@ class Button extends Abstract_Component {
 	 */
 	public function __construct( $panel ) {
 		parent::__construct( $panel );
-		$this->default_selector = '.builder-item--' . $this->get_id() . ' > .component-wrap > .button.button-primary:first-child';
+		$this->default_selector = '.builder-item--' . $this->get_id() . ' > .component-wrap > .button';
 	}
 
 	/**
@@ -79,6 +78,7 @@ class Button extends Abstract_Component {
 		$this->set_property( 'width', 2 );
 		$this->set_property( 'section', 'header_button' );
 		$this->set_property( 'icon', 'admin-links' );
+		$this->set_property( 'is_auto_width', true );
 	}
 
 	/**
@@ -100,6 +100,7 @@ class Button extends Abstract_Component {
 				'type'               => 'text',
 				'section'            => $this->section,
 				'use_dynamic_fields' => array( 'url' ),
+				'conditional_header' => true,
 			]
 		);
 		SettingsManager::get_instance()->add(
@@ -114,6 +115,7 @@ class Button extends Abstract_Component {
 				'type'               => 'text',
 				'section'            => $this->section,
 				'use_dynamic_fields' => array( 'string' ),
+				'conditional_header' => true,
 			]
 		);
 
@@ -129,15 +131,16 @@ class Button extends Abstract_Component {
 		];
 		SettingsManager::get_instance()->add(
 			[
-				'id'                => self::STYLE_ID,
-				'group'             => $this->get_class_const( 'COMPONENT_ID' ),
-				'tab'               => SettingsManager::TAB_STYLE,
-				'transport'         => 'post' . $this->get_class_const( 'COMPONENT_ID' ),
-				'default'           => $defaults,
-				'sanitize_callback' => 'neve_sanitize_button_appearance',
-				'label'             => __( 'Appearance', 'neve' ),
-				'type'              => 'neve_button_appearance',
-				'section'           => $this->section,
+				'id'                 => self::STYLE_ID,
+				'group'              => $this->get_class_const( 'COMPONENT_ID' ),
+				'tab'                => SettingsManager::TAB_STYLE,
+				'transport'          => 'post' . $this->get_class_const( 'COMPONENT_ID' ),
+				'default'            => $defaults,
+				'sanitize_callback'  => 'neve_sanitize_button_appearance',
+				'label'              => __( 'Appearance', 'neve' ),
+				'type'               => 'neve_button_appearance',
+				'section'            => $this->section,
+				'conditional_header' => true,
 			]
 		);
 	}

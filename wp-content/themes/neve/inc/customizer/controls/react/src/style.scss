@@ -1,3 +1,9 @@
+@import "presets-selector/scss/main";
+
+#sub-accordion-panel-hfg_header #accordion-section-neve_header_presets {
+  display: list-item !important;
+}
+
 $button_color: #555d66;
 #customize-theme-controls .components-circular-option-picker__option:focus:after,
 #customize-theme-controls .components-color-palette__item:focus:after {
@@ -78,6 +84,10 @@ $button_color: #555d66;
   }
 }
 
+.neve-color-control .components-tooltip {
+  display: none !important;
+}
+
 .customize-control-neve_background_control, .neve-button-appearance-control {
   margin-bottom: 20px;
 
@@ -87,7 +97,7 @@ $button_color: #555d66;
   }
 
   .components-tooltip.components-popover {
-    display: none;
+    display: none !important;
   }
 
   .components-color-picker__inputs-field {
@@ -677,3 +687,15 @@ $button_color: #555d66;
     }
   }
 }
+
+
+.components-icon-button, .components-button {
+  .svg-text {
+    fill: #fff;
+  }
+
+  &.active .svg-text {
+    fill: $button_color;
+  }
+}
+

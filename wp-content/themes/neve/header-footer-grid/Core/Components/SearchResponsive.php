@@ -106,6 +106,7 @@ class SearchResponsive extends Abstract_Component {
 					'type' => 'svg-icon-size',
 				),
 				'section'               => $this->section,
+				'conditional_header'    => true,
 			]
 		);
 
@@ -125,6 +126,7 @@ class SearchResponsive extends Abstract_Component {
 					'prop'     => 'fill',
 					'fallback' => '',
 				),
+				'conditional_header'    => true,
 			]
 		);
 
@@ -142,6 +144,7 @@ class SearchResponsive extends Abstract_Component {
 				'live_refresh_css_prop' => array(
 					'prop' => 'fill',
 				),
+				'conditional_header'    => true,
 			]
 		);
 	}

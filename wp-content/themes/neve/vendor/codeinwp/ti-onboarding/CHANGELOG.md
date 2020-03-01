@@ -1,3 +1,25 @@
+## [1.8.2](https://github.com/Codeinwp/ti-onboarding/compare/v1.8.1...v1.8.2) (2020-02-03)
+
+
+### Bug Fixes
+
+* remove autoloaded file ([9856ef4](https://github.com/Codeinwp/ti-onboarding/commit/9856ef45e64bbc93b3423429ebfa9fd5ce46cb03))
+
+## [1.8.1](https://github.com/Codeinwp/ti-onboarding/compare/v1.8.0...v1.8.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* apostrophes for gutenberg demos - disable UTF-8  encode for content ([c094f76](https://github.com/Codeinwp/ti-onboarding/commit/c094f76af37c0f8caf29f3887eafa0d7cb635dbe))
+* apostrophes for gutenberg demos - disable UTF-8  encode for content ([8f6ac52](https://github.com/Codeinwp/ti-onboarding/commit/8f6ac52e57e34411cd652352007b8727fa71d198)), closes [Codeinwp/neve#1268](https://github.com/Codeinwp/neve/issues/1268)
+
+# [1.8.0](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.12...v1.8.0) (2020-01-28)
+
+
+### Features
+
+* use bulk endpoint for json schema ([ef99b97](https://github.com/Codeinwp/ti-onboarding/commit/ef99b97fcfdeacdae35ff20b2f7ab698aa8f1ebf))
+
 ## [1.7.12](https://github.com/Codeinwp/ti-onboarding/compare/v1.7.11...v1.7.12) (2019-12-03)
 
 

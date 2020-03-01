@@ -297,7 +297,9 @@ class Themeisle_OB_Rest_Server {
 	 */
 	private function get_local_templates() {
 		$returnable = array();
-
+		if ( ! isset( $this->theme_support['local'] ) ) {
+			return $returnable;
+		}
 		$cache_key   = sprintf( '_%s_templates_local', md5( serialize( $this->theme_support['local'] ) ) );
 		$cached_data = get_transient( $cache_key );
 
@@ -378,6 +380,12 @@ class Themeisle_OB_Rest_Server {
 		if ( false !== $cached_data ) {
 			return $cached_data;
 		}
+		$bulk_jsons = isset( $this->theme_support['bulk_json'] ) ? $this->theme_support['bulk_json'] : false;
+		if ( $bulk_jsons !== false ) {
+			$request_bulk = wp_remote_get( $bulk_jsons );
+			$bulk_jsons   = wp_remote_retrieve_body( $request_bulk );
+			$bulk_jsons   = json_decode( $bulk_jsons, true );
+		}
 
 		foreach ( $this->theme_support['editors'] as $editor ) {
 
@@ -391,25 +399,34 @@ class Themeisle_OB_Rest_Server {
 					global $wp_filesystem;
 					WP_Filesystem();
 					$json_body = $wp_filesystem->get_contents( $template_data['local_json'] );
+					$json_body = json_decode( $json_body, true );
 				} else {
-					$url = ( isset( $template_data['remote_json'] ) ? $template_data['remote_json'] : $template_data['url'] ) . '/wp-json/ti-demo-data/data';
+					$remote_url = ( isset( $template_data['remote_json'] ) ? $template_data['remote_json'] : $template_data['url'] );
+					$url_parts  = explode( '/', rtrim( $remote_url, '/' ) );
 
-					$request = wp_remote_get( $url );
+					$slug = '/' . $url_parts[ count( $url_parts ) - 1 ] . '/';
+					if ( ! is_array( $bulk_jsons ) || ! isset( $bulk_jsons[ $slug ] ) ) {
+						$single_url = $remote_url . '/wp-json/ti-demo-data/data';
 
-					$response_code = wp_remote_retrieve_response_code( $request );
+						$request = wp_remote_get( $single_url );
 
-					if ( $response_code !== 200 ) {
-						continue;
+						$response_code = wp_remote_retrieve_response_code( $request );
+
+						if ( $response_code !== 200 ) {
+							continue;
+						}
+
+						if ( empty( $request['body'] ) || ! isset( $request['body'] ) ) {
+							continue;
+						}
+
+						$json_body = $request['body'];
+						$json_body = json_decode( $json_body, true );
+					} else {
+						$json_body = $bulk_jsons[ $slug ];
 					}
-
-					if ( empty( $request['body'] ) || ! isset( $request['body'] ) ) {
-						continue;
-					}
-
-					$json_body = $request['body'];
 				}
-
-				$returnable[ $editor ][ $template_slug ]                     = json_decode( $json_body, true );
+				$returnable[ $editor ][ $template_slug ]                     = $json_body;
 				$returnable[ $editor ][ $template_slug ]['title']            = esc_html( $template_data['title'] );
 				$returnable[ $editor ][ $template_slug ]['demo_url']         = esc_url( $template_data['url'] );
 				$returnable[ $editor ][ $template_slug ]['screenshot']       = esc_url( $template_data['screenshot'] );

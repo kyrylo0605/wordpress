@@ -438,6 +438,7 @@ nav#mainmenu .sf-sub-indicator {
 	line-height:22px
 }
 
+nav#mainmenu ul.children , 
 nav#mainmenu ul.sub-menu { 
 	opacity:0; 
 	position: absolute; 
@@ -454,6 +455,7 @@ nav#mainmenu ul.sub-menu {
 	transition: opacity 0.3s ease 0s;
 }
  
+nav#mainmenu ul.children li ,
 nav#mainmenu ul.sub-menu li { 
 	position:relative; 
 	margin:0;
@@ -470,6 +472,7 @@ nav#mainmenu li li.focus > ul {
 	left: 100%; 
 }
 
+nav#mainmenu ul.children li a , 
 nav#mainmenu ul.sub-menu li a { 
 	text-decoration:none; 
 	text-align:left; 
@@ -482,6 +485,7 @@ nav#mainmenu ul.sub-menu li a {
 	font-size:13px;
 }
 
+nav#mainmenu ul.children li ul:before ,
 nav#mainmenu ul.sub-menu li ul:before {
 	display:none;
 }
@@ -493,6 +497,7 @@ nav#mainmenu li.focus > ul {
 	left:0
 }
 
+nav#mainmenu ul.children li ul:before , 
 nav#mainmenu ul.sub-menu li ul:before { 
 	display:none;
 }
