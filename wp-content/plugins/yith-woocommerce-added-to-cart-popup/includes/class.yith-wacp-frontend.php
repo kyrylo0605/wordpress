@@ -2,14 +2,14 @@
 /**
  * Frontend class
  *
- * @author YITH
+ * @author  YITH
  * @package YITH WooCommerce Added to Cart Popup
  * @version 1.0.0
  */
 
 if ( ! defined( 'YITH_WACP' ) ) {
 	exit;
-} // Exit if accessed directly
+} // Exit if accessed directly.
 
 if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 	/**
@@ -23,27 +23,27 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 		/**
 		 * Single instance of the class
 		 *
-		 * @var \YITH_WACP_Frontend
 		 * @since 1.0.0
+		 * @var YITH_WACP_Frontend
 		 */
 		protected static $instance;
 
 		/**
 		 * Plugin version
 		 *
-		 * @var string
 		 * @since 1.0.0
+		 * @var string
 		 */
 		public $version = YITH_WACP_VERSION;
 
 		/**
 		 * Returns single instance of the class
 		 *
-		 * @return \YITH_WACP_Frontend
 		 * @since 1.0.0
+		 * @return YITH_WACP_Frontend
 		 */
-		public static function get_instance(){
-			if( is_null( self::$instance ) ){
+		public static function get_instance() {
+			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
 			}
 
@@ -54,13 +54,11 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 		 * Constructor
 		 *
 		 * @access public
-		 * @since 1.0.0
+		 * @since  1.0.0
 		 */
 		public function __construct() {
 
-			// enqueue scripts
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
-			// load template
 			add_action( 'wp_footer', array( $this, 'load_template' ) );
 
 			add_filter( 'woocommerce_add_to_cart_fragments', array( $this, 'add_to_cart_success_ajax' ), 99, 1 );
@@ -69,36 +67,46 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 		/**
 		 * Enqueue scripts
 		 *
-		 * @since 1.0.0
+		 * @since  1.0.0
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
-		public function enqueue_scripts(){
+		public function enqueue_scripts() {
 
 			$paths      = apply_filters( 'yith_wacp_stylesheet_paths', array( WC()->template_path() . 'yith-wacp-frontend.css', 'yith-wacp-frontend.css' ) );
 			$located    = locate_template( $paths, false, false );
 			$search     = array( get_stylesheet_directory(), get_template_directory() );
 			$replace    = array( get_stylesheet_directory_uri(), get_template_directory_uri() );
 			$stylesheet = ! empty( $located ) ? str_replace( $search, $replace, $located ) : YITH_WACP_ASSETS_URL . '/css/wacp-frontend.css';
-			$min        = ( ! defined('SCRIPT_DEBUG') || ! SCRIPT_DEBUG ) ? '.min' : '';
+			$min        = ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) ? '.min' : '';
 
-			wp_enqueue_style( 'yith-wacp-frontend', $stylesheet );
+			wp_enqueue_style( 'yith-wacp-frontend', $stylesheet, array(), $this->version );
 
-			wp_register_script( 'yith-wacp-frontend-script', YITH_WACP_ASSETS_URL . '/js/wacp-frontend' . $min .'.js', array( 'jquery' ), $this->version, true );
+			wp_register_script( 'yith-wacp-frontend-script', YITH_WACP_ASSETS_URL . '/js/wacp-frontend' . $min . '.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_script( 'yith-wacp-frontend-script' );
 
-			$background         = get_option( "yith-wacp-button-background" );
-			$background_hover   = get_option( "yith-wacp-button-background-hover" );
-			$text_color         = get_option( "yith-wacp-button-text" );
-			$text_color_hover   = get_option( "yith-wacp-button-text-hover" );
+			$button_background_color = get_option(
+				'yith-wacp-button-background',
+				array(
+					'normal' => '#ebe9eb',
+					'hover'  => '#dad8da',
+				)
+			);
+			$button_text_color       = get_option(
+				'yith-wacp-button-text',
+				array(
+					'normal' => '#515151',
+					'hover'  => '#515151',
+				)
+			);
 
 			$inline_css = "
                 #yith-wacp-popup .yith-wacp-content a.button {
-                        background: {$background};
-                        color: {$text_color};
+                        background: {$button_background_color['normal']};
+                        color: {$button_text_color['normal']};
                 }
                 #yith-wacp-popup .yith-wacp-content a.button:hover {
-                        background: {$background_hover};
-                        color: {$text_color_hover};
+                        background: {$button_background_color['hover']};
+                        color: {$button_text_color['hover']};
                 }";
 
 			wp_add_inline_style( 'yith-wacp-frontend', $inline_css );
@@ -108,87 +116,86 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 		/**
 		 * Load popup template
 		 *
-		 * @since 1.0.0
+		 * @since  1.0.0
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function load_template() {
 
-			$args = apply_filters( 'yith_wacp_popup_template_args', array(
-				'animation' => 'fade-in'
-			) );
+			$args = apply_filters( 'yith_wacp_popup_template_args', array( 'animation' => 'fade-in' ) );
 
 			wc_get_template( 'yith-wacp-popup.php', $args, '', YITH_WACP_DIR . 'templates/' );
 		}
 
 		/**
-	     * Added to cart success popup box
-	     *
-	     * @param array
-	     * @return array
-	     * @since 1.0.0
-	     * @author Francesco Licandro <francesco.licandro@yithemes.com>
-	     */
-		public function add_to_cart_success_ajax( $datas ) {
+		 * Added to cart success popup box
+		 *
+		 * @since  1.0.0
+		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
+		 * @param array $fragments Array of fragments.
+		 * @return array
+		 */
+		public function add_to_cart_success_ajax( $fragments ) {
 
-			$show_image = get_option( 'yith-wacp-show-image', 'no' ) == 'yes';
-			$show_price = get_option( 'yith-wacp-show-price', 'no' ) == 'yes';
-			$view_cart  = get_option( 'yith-wacp-show-go-cart', 'yes' ) == 'yes';
-			$continue   = get_option( 'yith-wacp-show-continue-shopping', 'yes' ) == 'yes';
-			$cart_url   = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : WC()->cart->get_cart_url();
-			$product    = isset( $_REQUEST['product_id'] ) ? wc_get_product( $_REQUEST['product_id'] ) : false;
-			// let's filter button urls
-            $cart_url               = apply_filters( 'yith_wacp_go_cart_url', $cart_url );
-            $continue_shopping_url  = apply_filters( 'yith_wacp_continue_shopping_url', '#' );
+			$show_image = get_option( 'yith-wacp-show-image', 'no' ) === 'yes';
+			$show_price = get_option( 'yith-wacp-show-price', 'no' ) === 'yes';
+			$view_cart  = get_option( 'yith-wacp-show-go-cart', 'yes' ) === 'yes';
+			$continue   = get_option( 'yith-wacp-show-continue-shopping', 'yes' ) === 'yes';
+			$cart_url   = wc_get_cart_url();
+			$product    = isset( $_REQUEST['product_id'] ) ? wc_get_product( intval( $_REQUEST['product_id'] ) ) : false;
+			// Let's filter button urls.
+			$cart_url              = apply_filters( 'yith_wacp_go_cart_url', $cart_url );
+			$continue_shopping_url = apply_filters( 'yith_wacp_continue_shopping_url', '#' );
 
-			// add to cart popup
 			ob_start();
 			?>
 
-			<?php if( $product ): ?>
+			<?php if ( $product ) : ?>
 
-				<?php if( $show_image ): ?>
+				<?php if ( $show_image ) : ?>
 					<div class="product-image">
-						<?php echo $product->get_image(); ?>
+						<?php echo $product->get_image(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 				<?php endif; ?>
 
 				<div class="product-info">
-					<p><?php echo '<b>' . $product->get_title() . '</b> ' . __( 'was added to your cart', 'yith-woocommerce-added-to-cart-popup' ) ?></p>
-                    <?php if( $show_price ) : ?>
-                        <div class="product-price">
-                            <?php echo $product->get_price_html() ?>
-                        </div>
-                    <?php endif; ?>
+					<p><?php echo '<b>' . esc_html( $product->get_title() ) . '</b> ' . esc_html__( 'was added to your cart', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
+					<?php if ( $show_price ) : ?>
+						<div class="product-price">
+							<?php echo $product->get_price_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</div>
+					<?php endif; ?>
 				</div>
 
-			<?php else: ?>
+			<?php else : ?>
 
-				<p><?php _e( 'Added to your cart', 'yith-woocommerce-added-to-cart-popup' ) ?></p>
+				<p><?php esc_html_e( 'Added to your cart', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
 
 			<?php endif ?>
 
 			<div class="actions">
-				<?php if( $view_cart ) : ?>
-					<a class="<?php echo apply_filters( 'yith_wacp_go_cart_class', 'button go-cart' ) ?>" href="<?php echo esc_url( $cart_url ); ?>"><?php _e( 'View cart', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
+				<?php if ( $view_cart ) : ?>
+					<a class="<?php echo esc_attr( apply_filters( 'yith_wacp_go_cart_class', 'button go-cart' ) ); ?>"
+						href="<?php echo esc_url( $cart_url ); ?>"><?php esc_html_e( 'View cart', 'yith-woocommerce-added-to-cart-popup' ); ?></a>
 				<?php endif ?>
-				<?php if( $continue ) : ?>
-					<a class="<?php echo apply_filters( 'yith_wacp_continue_shopping_class', 'button continue-shopping' ) ?>" href="<?php echo esc_url( $continue_shopping_url ); ?>"><?php _e( 'Continue shopping', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
+				<?php if ( $continue ) : ?>
+					<a class="<?php echo esc_attr( apply_filters( 'yith_wacp_continue_shopping_class', 'button continue-shopping' ) ); ?>"
+						href="<?php echo esc_url( $continue_shopping_url ); ?>"><?php esc_html_e( 'Continue shopping', 'yith-woocommerce-added-to-cart-popup' ); ?></a>
 				<?php endif; ?>
 			</div>
 
 			<?php
-			$datas['yith_wacp_message'] = ob_get_clean();
+			$fragments['yith_wacp_message'] = ob_get_clean();
 
-			return $datas;
+			return $fragments;
 		}
 	}
 }
 /**
  * Unique access to instance of YITH_WACP_Frontend class
  *
- * @return \YITH_WACP_Frontend
  * @since 1.0.0
+ * @return YITH_WACP_Frontend
  */
-function YITH_WACP_Frontend(){
+function YITH_WACP_Frontend() { // phpcs:ignore
 	return YITH_WACP_Frontend::get_instance();
 }

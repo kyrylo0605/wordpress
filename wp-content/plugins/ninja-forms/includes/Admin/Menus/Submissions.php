@@ -379,7 +379,7 @@ final class NF_Admin_Menus_Submissions extends NF_Abstracts_Submenu
                     $url = admin_url( 'admin.php?page=nf-processing&action=download_all_subs&form_id=' . absint( $_REQUEST['form_id'] ) . '&redirect=' . $redirect );
                     $url = esc_url( $url );
                     ?>
-                    var button = '<a href="<?php echo $url; ?>" class="button-secondary nf-download-all">' . <?php echo esc_html__( 'Download All Submissions', 'ninja-forms' ); ?></a>';
+                    var button = '<a href="<?php echo $url; ?>" class="button-secondary nf-download-all"><?php echo esc_html__( 'Download All Submissions', 'ninja-forms' ); ?></a>';
 //                    jQuery( '#doaction2' ).after( button );
                     <?php
                 }

@@ -809,11 +809,15 @@ Label Three
         if ( 'undefined' != typeof columns.value ) {
             #>
              <div class='image-option-media-value'>
-                <input type="text" class="setting" value="{{{ data.value }}}" data-id="value">
-            </div>
+            <#
+        } else {
+            #>
+             <div style='display:none;'>
             <#
         }
     #>
+                <input type="text" class="setting" value="{{{ data.value }}}" data-id="value">
+            </div>
     <#
         if ( 'undefined' != typeof columns.calc ) {
         #>

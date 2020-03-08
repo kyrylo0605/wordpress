@@ -1,4 +1,4 @@
-/*! elementor - v2.9.3 - 26-02-2020 */
+/*! elementor - v2.9.4 - 04-03-2020 */
 @charset "UTF-8";
 .elementor-control-unit-1 {
   width: 27px; }
@@ -2166,52 +2166,8 @@ html.elementor-html {
 .elementor-edit-area {
   position: relative; }
 
-.elementor {
-  position: relative; }
-  .elementor:not(.elementor-edit-mode):not(:hover) .elementor-document-handle {
-    display: none; }
-  .elementor.loading {
-    opacity: 0.5; }
-
-.elementor-document-handle {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-  background-color: #fcb92c;
-  padding: 5px 10px;
-  font-size: 11px;
-  color: #fff;
-  -webkit-border-radius: 0 0 3px 3px;
-          border-radius: 0 0 3px 3px;
-  cursor: pointer; }
-  .elementor-document-handle:before, .elementor-document-handle:after {
-    content: '';
-    position: absolute;
-    border: solid transparent; }
-  .elementor-document-handle:before {
-    left: -webkit-calc(100% - 1px);
-    left: calc(100% - 1px);
-    border-left-color: #fcb92c;
-    border-width: 0 15px 26px 0; }
-  .elementor-document-handle:after {
-    right: -webkit-calc(100% - 1px);
-    right: calc(100% - 1px);
-    border-right-color: #fcb92c;
-    border-width: 0 0 26px 15px; }
-  .elementor-document-handle .eicon-edit {
-    margin-left: 5px; }
+.elementor.loading {
+  opacity: 0.5; }
 
 .elementor-edit-area-active .elementor-top-section > .elementor-container > .elementor-row {
   min-height: 40px; }
@@ -2769,9 +2725,6 @@ html.elementor-html {
   margin: 60px auto; }
   #elementor-add-new-section[data-view="choose-action"] .elementor-add-section-close {
     display: none; }
-
-.elementor-embedded-editor .elementor-section-wrap:not(:empty) + #elementor-add-new-section {
-  display: none; }
 
 .elementor-add-section-inline {
   margin: 10px auto; }

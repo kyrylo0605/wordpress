@@ -85,10 +85,6 @@ td.yith-wcpb-product-bundled-item-data .price {
     padding : 10px 2px 0 0;
 }
 
-tr.yith-wcpb-child-of-bundle-table-item {
-    height : 30px;
-}
-
 tr.yith-wcpb-child-of-bundle-table-item td.product-name a {
     font-size    : 12px;
     padding-left : 15px;
@@ -105,8 +101,20 @@ tr.yith-wcpb-child-of-bundle-table-item dl.variation dt, tr.yith-wcpb-child-of-b
     line-height : 1.4;
 }
 
-input.yith-wcpb-bundled-quantity {
-    width : 60px;
+.yith-wcpb-child-of-bundle-table-item .product-price > *,
+.yith-wcpb-child-of-bundle-table-item .product-subtotal > *,
+.yith-wcpb-child-of-bundle-table-item .product-total > * {
+    opacity : 0.6;
+}
+
+.yith-wcpb-product-bundled-item-data__quantity input[type=number].yith-wcpb-bundled-quantity {
+    width       : 70px;
+    padding     : 13px 5px;
+    background  : #fff;
+    border      : 1px solid #d1d1d1;
+    text-align  : center;
+    line-height : 1;
+    height      : auto;
 }
 
 .yith-wcpb-product-bundled-item-image .price {
@@ -283,4 +291,56 @@ table.yith-wcpb-table-variations label {
         padding     : inherit;
         line-height : inherit;
     }
+}
+
+/**
+ * Storefront - Quick View - Bundle FIX
+ */
+.storefront-full-width-content.single-product .yith-quick-view-content .product .images {
+    margin : 0 !important;
+}
+
+/**
+ * YITH Proteo
+ */
+.theme-yith-proteo .yith-wcpb-product-bundled-item-image .price ins {
+    font-size : 15px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations {
+    margin-top : 10px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations td {
+    padding-bottom : 20px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations td.label {
+    padding-right : 30px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations td.value {
+    width : 100%;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations .reset_variations {
+    margin-top : 10px;
+    position   : relative;
+    top        : 25px;
+    left       : 0;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations {
+    text-transform : uppercase;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations tr > td .select2-container {
+    width : 100% !important;
+}
+
+/**
+ * Elementor
+*/
+.woocommerce div.product.elementor form.yith-wcpb-bundle-form {
+    display : block !important;
 }

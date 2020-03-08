@@ -176,7 +176,7 @@ final class NF_Actions_Email extends NF_Abstracts_Action
             foreach( (array) $email_addresses as $email ){
                 $email = trim( $email );
                 if ( false !== strpos( $email, '<' ) && false !== strpos( $email, '>' ) ) {
-                    preg_match('/(?:<)[^>]*(?:>)/', $email, $email);
+                    preg_match('/(?:<)([^>]*)(?:>)/', $email, $email);
                     $email = $email[ 1 ];
                 }
                 if( ! is_email( $email ) ) {

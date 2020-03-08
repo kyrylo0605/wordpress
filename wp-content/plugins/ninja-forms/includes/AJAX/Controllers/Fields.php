@@ -19,7 +19,7 @@ class NF_AJAX_Controllers_Fields extends NF_Abstracts_Controller
 	public function maybe_delete_field() {
 
 		// Does the current user have admin privileges
-		if (!current_user_can('manage_options')) {
+		if (!current_user_can(apply_filters('ninja_forms_admin_all_forms_capabilities', 'manage_options'))) {
 			$this->_data['errors'] = esc_html__('Access denied. You must have admin privileges to perform this action.', 'ninja-forms');
 			$this->_respond();
 		}

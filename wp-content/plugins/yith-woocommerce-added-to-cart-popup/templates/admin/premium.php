@@ -46,6 +46,8 @@
     display: table-cell;
     vertical-align: middle;
     line-height: 25px;
+	border: none;
+	background: transparent;
 }
 
 .section-title{
@@ -228,17 +230,17 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Added to Cart Popup%2$s to benefit from all features!','yith-woocommerce-added-to-cart-popup'),'<span class="highlight">','</span>' );?>
+                    <?php echo sprintf( esc_html__('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Added to Cart Popup%2$s to benefit from all features!','yith-woocommerce-added-to-cart-popup'),'<span class="highlight">','</span>' );?>
                 </p>
-                <a href="<?php echo $this->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight"><?php _e('UPGRADE','yith-woocommerce-added-to-cart-popup');?></span>
-                    <span><?php _e('to the premium version','yith-woocommerce-added-to-cart-popup');?></span>
+                <a href="<?php echo esc_url( $this->get_premium_landing_uri() ); ?>" target="_blank" class="premium-cta-button button btn">
+                    <span class="highlight"><?php esc_html_e('UPGRADE','yith-woocommerce-added-to-cart-popup');?></span>
+                    <span><?php esc_html_e('to the premium version','yith-woocommerce-added-to-cart-popup');?></span>
                 </a>
             </div>
         </div>
     </div>
     <div class="one section section-even clear">
-        <h1><?php _e('Premium Features','yith-woocommerce-added-to-cart-popup');?></h1>
+        <h1><?php esc_html_e('Premium Features','yith-woocommerce-added-to-cart-popup');?></h1>
         <div class="landing-container">
             <div class="col-1">
                 <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/01.png" alt="Shop or detail page?" />
@@ -246,10 +248,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/01-icon.png" alt="icon 01"/>
-                    <h2><?php _e('Shop or detail page?','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e('Shop or detail page?','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf(__('Pick your choice and %1$sshow the popup%2$s just to users that add the product in the cart from the Shop page, or also to those who make the same action from the product detail page.', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>');?>
+                    <?php echo sprintf( esc_html__('Pick your choice and %1$sshow the popup%2$s just to users that add the product in the cart from the Shop page, or also to those who make the same action from the product detail page.', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>');?>
                 </p>
             </div>
         </div>
@@ -259,10 +261,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/02-icon.png" alt="icon 02" />
-                    <h2><?php _e('Popup content','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e( 'Popup content','yith-woocommerce-added-to-cart-popup' );?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf(__('What will you choose? %1$sThe list of the elements of the cart, or the information about the last product added?%2$s It\'s up to you: choose what to show in the popup that will be opened once clicked on the "Add to cart" button.%3$s If you want to provide further details in addition to the cart total, you can show the amount of the %1$sshipping fees%2$s and %1$staxes%2$s. ', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>','<br>');?>
+                    <?php echo sprintf( esc_html__( 'What will you choose? %1$sThe list of the elements of the cart, or the information about the last product added?%2$s It\'s up to you: choose what to show in the popup that will be opened once clicked on the "Add to cart" button.%3$s If you want to provide further details in addition to the cart total, you can show the amount of the %1$sshipping fees%2$s and %1$staxes%2$s. ', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>','<br>');?>
                 </p>
             </div>
             <div class="col-1">
@@ -278,10 +280,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/03-icon.png" alt="icon 03" />
-                    <h2><?php _e( '8 entrance animations','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e( '8 entrance animations','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf(__('Eight different styles for the opening of the popup in the pages of your shop.%3$sFrom the classic "Fade" effect, to the more dynamic "3D Flip": with %1$sYITH WooCommerce Added To Cart Popup%2$s you will satisfy also the most demanding users.', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>','<br>');?>
+                    <?php echo sprintf( esc_html__('Eight different styles for the opening of the popup in the pages of your shop.%3$sFrom the classic "Fade" effect, to the more dynamic "3D Flip": with %1$sYITH WooCommerce Added To Cart Popup%2$s you will satisfy also the most demanding users.', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>','<br>');?>
                 </p>
             </div>
         </div>
@@ -291,10 +293,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/04-icon.png" alt="icon 04" />
-                    <h2><?php _e('Popup style','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e('Popup style','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf(__('The default color scheme of the popup can be totally different from the one of the pages in which it will be showed: but do not be afraid, you will not have to change manually the CSS code to have the perfect style.%3$sThanks to the %1$sadvanced option panel%2$s, you will be able to change the colors of all elements contained in the popup, in order to get to the result you want with few clicks.', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>','<br>');?>
+                    <?php echo sprintf(esc_html__('The default color scheme of the popup can be totally different from the one of the pages in which it will be showed: but do not be afraid, you will not have to change manually the CSS code to have the perfect style.%3$sThanks to the %1$sadvanced option panel%2$s, you will be able to change the colors of all elements contained in the popup, in order to get to the result you want with few clicks.', 'yith-woocommerce-added-to-cart-popup'), '<b>', '</b>','<br>');?>
                 </p>
             </div>
             <div class="col-1">
@@ -310,10 +312,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL?>/images/05-icon.png" alt="icon 05" />
-                    <h2><?php _e('Suggested Products','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e('Suggested Products','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf( __( '%1$sA strategic and smart way to highlight%2$s a selection of products in the end of the popup. In this way, you will be able to encourage your users to know more about the products they could have not discovered otherwise.%3$sIf you don\'t want to highlight particular products, this section could also be reserved to WooCommerce %1$s"up-sell"%2$s, %1$s"cross-sell"%2$s or %1$s"related"%2$s products.','yith-woocommerce-added-to-cart-popup' ),'<b>','</b>','<br>' ) ?>
+                    <?php echo sprintf( esc_html__( '%1$sA strategic and smart way to highlight%2$s a selection of products in the end of the popup. In this way, you will be able to encourage your users to know more about the products they could have not discovered otherwise.%3$sIf you don\'t want to highlight particular products, this section could also be reserved to WooCommerce %1$s"up-sell"%2$s, %1$s"cross-sell"%2$s or %1$s"related"%2$s products.','yith-woocommerce-added-to-cart-popup' ),'<b>','</b>','<br>' ) ?>
                 </p>
             </div>
         </div>
@@ -323,10 +325,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/06-icon.png" alt="icon 06" />
-                    <h2><?php _e('Mobile devices','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e('Mobile devices','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf( __('Nowadays, the majority of the users that surf the web uses mobile devices. Be prepared and make your site compatible to every device.%3$sThe premium version of the plugin is %1$sperfectly accessible to every resolution%2$s, and it can be the winning weapon of your shop for all the smartphone and tablet lovers.','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
+                    <?php echo sprintf( esc_html__('Nowadays, the majority of the users that surf the web uses mobile devices. Be prepared and make your site compatible to every device.%3$sThe premium version of the plugin is %1$sperfectly accessible to every resolution%2$s, and it can be the winning weapon of your shop for all the smartphone and tablet lovers.','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
                 </p>
             </div>
             <div class="col-1">
@@ -342,10 +344,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL?>/images/07-icon.png" alt="icon 07" />
-                    <h2><?php _e('Product exclusion','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e('Product exclusion','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf( __('Restrict the features of the plugin only to %1$sspecific products%2$s of the shop.%3$sSelect those on which you want to show the popup to your users, or choose the categories of the products you want to exclude from the plugin behavior.','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
+                    <?php echo sprintf( esc_html__('Restrict the features of the plugin only to %1$sspecific products%2$s of the shop.%3$sSelect those on which you want to show the popup to your users, or choose the categories of the products you want to exclude from the plugin behavior.','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
                 </p>
             </div>
         </div>
@@ -355,13 +357,13 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL ?>/images/08-icon.png" alt="icon 08" />
-                    <h2><?php _e('Add to cart','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e('Add to cart','yith-woocommerce-added-to-cart-popup');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf( __('User experience is essential on your site. It is well-known that an %1$seasy purchase process encourages%2$s the users to increase their cart.','yith-woocommerce-added-to-cart-popup'),'<b>','</b>'); ?>
+                    <?php echo sprintf( esc_html__('User experience is essential on your site. It is well-known that an %1$seasy purchase process encourages%2$s the users to increase their cart.','yith-woocommerce-added-to-cart-popup'),'<b>','</b>'); ?>
                 </p>
                 <p>
-                    <?php echo sprintf( __('With the premium version of the plugin, you can give your users the possibility to add the %1$ssuggested products%2$s to the cart without abandoning the modal window.  ','yith-woocommerce-added-to-cart-popup'),'<b>','</b>'); ?>
+                    <?php echo sprintf( esc_html__('With the premium version of the plugin, you can give your users the possibility to add the %1$ssuggested products%2$s to the cart without abandoning the modal window.  ','yith-woocommerce-added-to-cart-popup'),'<b>','</b>'); ?>
                 </p>
             </div>
             <div class="col-1">
@@ -377,10 +379,10 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YITH_WACP_ASSETS_URL?>/images/09-icon.png" alt="icon 09" />
-                    <h2><?php _e('Add a floating cart icon to your shop.','yith-woocommerce-added-to-cart-popup');?></h2>
+                    <h2><?php esc_html_e( 'Add a floating cart icon to your shop.','yith-woocommerce-added-to-cart-popup' );?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf( __('This way, your users can find the cart icon and check what\'s in the cart at any time. Set up the position of the cart icon as it should appear on the screen and it will always appear there, even if you scroll the page. This way, your users will be able to see the counter of products added to the cart and what\'s in it at any time!','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
+                    <?php echo sprintf( esc_html__('This way, your users can find the cart icon and check what\'s in the cart at any time. Set up the position of the cart icon as it should appear on the screen and it will always appear there, even if you scroll the page. This way, your users will be able to see the counter of products added to the cart and what\'s in it at any time!','yith-woocommerce-added-to-cart-popup'),'<b>','</b>','<br>'); ?>
                 </p>
             </div>
         </div>
@@ -389,11 +391,11 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Added to Cart Popup%2$s to benefit from all features!','yith-woocommerce-added-to-cart-popup'),'<span class="highlight">','</span>' );?>
+                    <?php echo sprintf( esc_html__('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Added to Cart Popup%2$s to benefit from all features!','yith-woocommerce-added-to-cart-popup'),'<span class="highlight">','</span>' );?>
                 </p>
-                <a href="<?php echo $this->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight"><?php _e('UPGRADE','yith-woocommerce-added-to-cart-popup');?></span>
-                    <span><?php _e('to the premium version','yith-woocommerce-added-to-cart-popup');?></span>
+                <a href="<?php echo esc_url( $this->get_premium_landing_uri() ); ?>" target="_blank" class="premium-cta-button button btn">
+                    <span class="highlight"><?php esc_html_e( 'UPGRADE','yith-woocommerce-added-to-cart-popup' );?></span>
+                    <span><?php esc_html_e( 'to the premium version','yith-woocommerce-added-to-cart-popup' );?></span>
                 </a>
             </div>
         </div>

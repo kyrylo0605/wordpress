@@ -150,7 +150,7 @@ $message = new Enhanced_Ecommerce_Google_Settings();
                                             <tr>
                                                 <th class="w-25"></th>
                                                 <th class="w-25"></th>
-                                                <th class=""><a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552" target="_blank"><button class="btn btn-primary"><strong>Premium Plugin</strong></button></a></th>
+                                                <th class=""><a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=TatvicEE&utm_medium=DashboardBuyBottom&utm_campaign=WPlisting" target="_blank"><button class="btn btn-primary"><strong>Premium Plugin</strong></button></a></th>
                                             </tr>
                                             </tfoot>
                                         </table>

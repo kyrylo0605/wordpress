@@ -8,8 +8,8 @@ Author: Tatvic
 Requires at least: 1.4.1
 Tested up to: 5.3.2
 Requires PHP: 5.6 or Higher
-Stable tag: 2.3.2
-Version: 2.3.2
+Stable tag: 2.3.3
+Version: 2.3.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,10 +17,38 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 
 == Description ==
 
-<a href="https://www.tatvic.com/tatvic-labs/woocommerce-extension/">Enhanced Ecommerce Google Analytics</a> is a Free Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. You can track user behavior across your store starting from home page to thankyou page and take informed decisions to drive business/marketing outcomes. Enhanced Ecommerce is supported by Universal Analytics. NO CODING REQUIRED ..!!
+<strong>Google Analytics Plugin for WooCommerce</strong>
+
+We believe it is very essential to listen to what your data is saying. With this belief, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. This plugin helps you in integrating Google Analytics with your WooCommerce stores effortlessly. More than 30000 ecommerce businesses are using this plugin for data driven decision making.
+
+The best part is NO CODING REQUIRED or no need to hire a developer for the set up. You can configure the plugin under 5 minutes and with a single click from your Wordpress backend. <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf">Here is how you can configure the plugin without any hassle.</a>
+
+<strong>Google Analytics + Enhanced Ecommerce Reports</strong>
+
+Enhanced ecommerce Google analytics plugin tracks the entire user journey on your ecommerce store from home page to product views and from cart page to checkout page to thank you page.
+
+You can track the performance of your merchandizing efforts by monitoring how certain products are performing on home page or product listing page and accordingly take informed merchandizing decisions.
+
+You can track which products have greater view to cart ratio or greater view to conversion ratio and based on the data, you can take informed pricing or product decisions and beyond.
+
+Track users who are abandoning the cart, which products are abandoned more in the cart etc. and reach out to the users or update your product listing.
+
+You can track how your checkout form is performing and accordingly work on the UI/UX to increase the conversion rate for your ecommerce business.
+
+Basically, you can track each and every impression and click of product, from which page they are added to cart, how user interact with your checkout page before making the final purchase by our Enhanced ecommerce Google analytics plugin.
+
+<strong>Google Analytics + Audience reports + Behaviour Reports + Acquisition Reports</strong>
+
+<strong>Audience reports</strong> help you in knowing your customers in a whole new way. It gives you detailed insights like from which countries your users are coming from, their age, gender, interests, devices and much more. This helps you in setting up your content and design based on the audience.
+
+<strong>Behaviour reports</strong> helps you get to know how users are interacting with your website, how much time they are spending, how much they browse before making a final purchase and a whole lot more.
+
+<strong>Acquisition reports</strong> tells you which are the sources that are attributing traffic to your website, how are they performing in terms of conversion and much more so that you can channelize your efforts in better marketing ROI.
+
 
 = Features of Plugin =
-1.   Quick & Easy 2 minutes installation from the wordpress interface
+
+1.   Quick & Easy 5 minutes installation from the wordpress interface
 2.   Enables 4 Enhanced Ecommerce reports in Google Analytics
       * Shopping Behaviour Report
       * Checkout Behaviour Report
@@ -40,24 +68,35 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 14.  IP Anonymization
 
 
-= Installation Instructions  =
-*  Enable Enhanced E-commerce for your profile/view in Google Analytics. This is a profile / view level setting and can be accessed under Admin > View > E-commerce Settings
+<strong>Want to unlock more advanced tracking for your WooCommerce store? <a href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">Give a try to our pro version.</a></strong>
 
-*  Add meaningful labels for your checkout steps. We recommend you to label as, Step 1 : Checkout View; Step 2 : Billing Info; Step 3 : Proceed to payment
+== Features of our <a href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">pro version</a>: ==
 
-*  Activate our plug-in from the Settings page from your Wordpress backend. You can access the setting page from sidebar Tatvic EE Plugin > Enhanced Ecommerce for Woocommerce.
+* All the features included in Enhanced ecommerce Google analytics plugin
+* Additional 5 enhanced ecommerce reports in Google Analytics: Overview, product list performance report, order coupon report, Internal promotion report, product coupon report, Affiliate code report
+* Facebook pixel tracking for remarketing on FB
+* Google ads conversion tracking
+* 20 custom dimensions and metrics
+* User id and client id tracking for cross device user tracking
+* Use your own GTM capability
+* Product refund tracking
+* Form field tracking
+* Content grouping
+* 404 tracking
+* Opt in/ consent compatibility with WP GDPR compliance, borlabs cookies etc.
+* Compatibility with other widely used plugins
+* Child theme compatibility
+* Premium support
+* 1 hour custom development
+* Customization as per your requirements(Paid)
 
-*  Find “Add Enhanced Ecommerce Tracking Code” in the settings page and check the box to add the tracking code
+<strong><a href="https://www.tatvic.com/contact/?utm_source=TatvicEE&utm_medium=InstallationDoc&utm_campaign=WPlisting">Reach out to us with your query here for a faster solution.</a></strong>
 
-*  If you have a guest checkout on your WooCommerce store, then Check the box “Add Code to Track the Login Step of Guest Users”. If you have a guest login but you do not check the box, then it might cause an uneven funnel reporting in Google Analytics.
 
-= Need an Advanced Google Analytics Plugin? =
-
-We have an Actionable Google Analytics Plugin for WooCommerce which includes tracking of all the 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Google Ads Conversion Tracking, Facebook Pixel Tracking, 20+ Custom Dimensions & Metrics & much more. This saves 50+ development hours and enable your business for data driven decision making in 5 minutes. Boost your marketing ROI by taking informed decisions. <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552" target="_blank">Learn More</a>
-
-== Note : ==
+== Note For Beginners : ==
 
 == Our plugin does not support the below features out of the box ==
+
 * Highly Customized store
 * Product types other than Simple Product
 * Store with the Subscription product for Orders.
@@ -65,16 +104,12 @@ We have an Actionable Google Analytics Plugin for WooCommerce which includes tra
 * Not fully compatible with the child/custom Theme
 * Reach out to us if you have any of the above requirements and we will be happy to assist.
 
-== Installation ==
-
-1. Download the plugin file to your system and unzip it.
-2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory.
-3. Activate the plugin from the Plugins menu within the WordPress admin.
-4. Enter your Universal Analytics ID for the plugin to enable the tracking code.
-
 == Screenshots ==
+
 1. Enable Enhanced E-commerce for your profile/view. This is a profile / view level setting and can be accessed under Admin > View > E-commerce Settings. Also, add meaningful labels for your checkout steps. We recommend you to label as, Step 1 : Checkout View; Step 2 : Login; Step 3 : Proceed to payment;
+
 2. Next, you need to activate your plugin from the Settings page by clicking the checkbox – “Add Enhanced Ecommerce Tracking Code". You can access the same from: Tatvic EE Plugin > Enhanced Ecommerce for WooCommerce.
+
 3. To Track Guest Users, Check the box – Add Code to Track the Login Steps of Guest Users. If you have a Guest Check out & if it’s Unchecked, then it might cause an uneven funnel reporting in Google Analytics.
 
 == Frequently Asked Questions ==
@@ -207,6 +242,11 @@ It generally depends upon the traffic of the store. But in general it may take m
 To avoid sending your own transaction data or sessions data in Google Analytics, our plugin doesn't sent the data to GA when you are logged in. Having said, if you are logged in as Shop Manager, plugin will send the data to GA.
 
 == Changelog ==
+
+= 2.3.3 - 03/03/2020 =
+ * Compatibility with WooCommerce 3.9.2
+ * Compatibility with Wordpress 5.3.2
+ * Minor UI Fixes
 
 = 2.3.2 - 20/02/2020 =
  * Compatibility with WooCommerce 3.9.2

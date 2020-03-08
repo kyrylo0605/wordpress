@@ -58,8 +58,8 @@ add_action( 'wp_ajax_nf_services_install', function() {
   if ( ! current_user_can('install_plugins') )
     die( json_encode( [ 'error' => esc_html__( 'Sorry, you are not allowed to install plugins on this site.' ) ] ) );
 
-  $plugin = WPN_Helper::sanitize_text_field($_REQUEST['plugin']);
-  $install_path = WPN_Helper::sanitize_text_field($_REQUEST['install_path']);
+  $plugin = \WPN_Helper::sanitize_text_field($_REQUEST['plugin']);
+  $install_path = \WPN_Helper::sanitize_text_field($_REQUEST['install_path']);
 
   include_once( ABSPATH . 'wp-admin/includes/plugin-install.php' ); //for plugins_api..
   $api = plugins_api( 'plugin_information', array(

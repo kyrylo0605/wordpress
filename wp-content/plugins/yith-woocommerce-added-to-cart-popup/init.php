@@ -3,38 +3,41 @@
  * Plugin Name: YITH WooCommerce Added to Cart Popup
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup/
  * Description: The <code><strong>YITH WooCommerce Added to Cart Popup</strong></code> plugin allow you to display a popup cart with suggested products and cart actions after an "add to cart" action. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.3.16
+ * Version: 1.4.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-added-to-cart-popup
  * Domain Path: /languages/
  * WC requires at least: 3.7
- * WC tested up to: 3.9
+ * WC tested up to: 4.0
  *
- * @author YITH
+ * @author  YITH
  * @package YITH WooCommerce Added to Cart Popup
- * @version 1.3.16
+ * @version 1.4.0
  */
-/*  Copyright 2015  YITH  (email : plugins@yithemes.com)
+/**  Copyright 2015-2020  YITH  (email : plugins@yithemes.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, version 2, as
-published by the Free Software Foundation.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
-if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
 
 if ( ! function_exists( 'is_plugin_active' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
 function yith_wacp_free_install_woocommerce_admin_notice() {
@@ -42,7 +45,7 @@ function yith_wacp_free_install_woocommerce_admin_notice() {
 	<div class="error">
 		<p><?php _e( 'YITH WooCommerce Added to Cart Popup is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
 	</div>
-<?php
+	<?php
 }
 
 
@@ -60,8 +63,8 @@ if ( ! function_exists( 'yith_plugin_registration_hook' ) ) {
 register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
-if ( ! defined( 'YITH_WACP_VERSION' ) ){
-	define( 'YITH_WACP_VERSION', '1.3.16' );
+if ( ! defined( 'YITH_WACP_VERSION' ) ) {
+	define( 'YITH_WACP_VERSION', '1.4.0' );
 }
 
 if ( ! defined( 'YITH_WACP_FREE_INIT' ) ) {
@@ -85,7 +88,7 @@ if ( ! defined( 'YITH_WACP_URL' ) ) {
 }
 
 if ( ! defined( 'YITH_WACP_DIR' ) ) {
-	define( 'YITH_WACP_DIR', plugin_dir_path( __FILE__ )  );
+	define( 'YITH_WACP_DIR', plugin_dir_path( __FILE__ ) );
 }
 
 if ( ! defined( 'YITH_WACP_TEMPLATE_PATH' ) ) {
@@ -97,25 +100,26 @@ if ( ! defined( 'YITH_WACP_ASSETS_URL' ) ) {
 }
 
 if ( ! defined( 'YITH_WACP_SLUG' ) ) {
-    define( 'YITH_WACP_SLUG', 'yith-woocommerce-added-to-cart-popup' );
+	define( 'YITH_WACP_SLUG', 'yith-woocommerce-added-to-cart-popup' );
 }
 
 /* Plugin Framework Version Check */
-if( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WACP_DIR . 'plugin-fw/init.php' ) ) {
-	require_once( YITH_WACP_DIR . 'plugin-fw/init.php' );
+if ( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WACP_DIR . 'plugin-fw/init.php' ) ) {
+	require_once YITH_WACP_DIR . 'plugin-fw/init.php';
 }
-yit_maybe_plugin_fw_loader( YITH_WACP_DIR  );
+yit_maybe_plugin_fw_loader( YITH_WACP_DIR );
 
 function yith_wacp_free_init() {
 
-	load_plugin_textdomain( 'yith-woocommerce-added-to-cart-popup', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );
+	load_plugin_textdomain( 'yith-woocommerce-added-to-cart-popup', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-	// Load required classes and functions
-	require_once('includes/class.yith-wacp.php');
+	// Load required classes and functions.
+	require_once 'includes/class.yith-wacp.php';
 
 	// Let's start the game!
 	YITH_WACP();
 }
+
 add_action( 'yith_wacp_free_init', 'yith_wacp_free_init' );
 
 
@@ -123,13 +127,12 @@ function yith_wacp_free_install() {
 
 	if ( ! function_exists( 'WC' ) ) {
 		add_action( 'admin_notices', 'yith_wacp_free_install_woocommerce_admin_notice' );
-	}
-	elseif ( defined( 'YITH_WACP_PREMIUM' ) ) {
+	} elseif ( defined( 'YITH_WACP_PREMIUM' ) ) {
 		add_action( 'admin_notices', 'yith_wacp_install_free_admin_notice' );
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-	}
-	else {
+	} else {
 		do_action( 'yith_wacp_free_init' );
 	}
 }
+
 add_action( 'plugins_loaded', 'yith_wacp_free_install', 11 );

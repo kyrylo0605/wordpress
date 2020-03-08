@@ -111,6 +111,7 @@ $data = unserialize(get_option('ee_options'));
                                     </label>
                                 </td>
                             </tr>
+
                             </tbody>
                         </table>
                         <p class="submit save-for-later" id="save-for-later">

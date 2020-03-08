@@ -40,7 +40,7 @@ if(empty($_GET['tab'])){
 </header>
 <ul class="nav nav-tabs nav-pills" style="margin-left: 10px;margin-top:20px;">
     <li class="nav-item">
-        <a  href="<?php echo $site_url.'general_settings'; ?>"  class="border-left aga-tab nav-link <?php echo $general_class_active; ?>">General Setting</a>
+        <a  href="<?php echo $site_url.'general_settings'; ?>"  class="border-left aga-tab nav-link <?php echo $general_class_active; ?>">General Settings</a>
     </li>
     <li class="nav-item"><a href="<?php echo $site_url.'about_plugin'; ?>" class="border-left aga-tab nav-link <?php echo $advanced_class_active; ?>">Premium <img class="new-img-blink" src='<?php echo plugins_url('../images/new-2.gif', __FILE__ )  ?>' /></a></li>
 </ul>

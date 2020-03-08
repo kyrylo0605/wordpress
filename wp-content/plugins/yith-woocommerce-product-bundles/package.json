@@ -1,6 +1,6 @@
 {
   "name": "yith-woocommerce-product-bundles",
-  "version": "1.1.10",
+  "version": "1.1.22",
   "description": "YITH WooCommerce Product Bundles",
   "main": "Gruntfile.js",
   "scripts": {

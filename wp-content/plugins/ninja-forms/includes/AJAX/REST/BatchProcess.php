@@ -18,7 +18,7 @@ class NF_AJAX_REST_BatchProcess extends NF_AJAX_REST_Controller
         $data = array();
 
         // Does the current user have admin privileges
-        if (!current_user_can('manage_options')) {
+        if (!current_user_can(apply_filters('ninja_forms_admin_all_forms_capabilities', 'manage_options'))) {
             $data['error'] = esc_html__('Request forbidden.', 'ninja-forms');
             return $data;
         }
