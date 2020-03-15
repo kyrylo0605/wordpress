@@ -32,6 +32,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
             $show_more     = AWS()->get_settings( 'show_more' );
             $show_page     = AWS()->get_settings( 'show_page' );
             $show_clear    = AWS()->get_settings( 'show_clear' );
+            $mobile_screen = AWS()->get_settings( 'mobile_overlay' );
             $use_analytics = AWS()->get_settings( 'use_analytics' );
             $buttons_order = AWS()->get_settings( 'buttons_order' );
 
@@ -56,6 +57,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 'data-show-more'     => $show_more,
                 'data-show-page'     => $show_page,
                 'data-show-clear'    => $show_clear,
+                'data-mobile-screen' => $mobile_screen,
                 'data-use-analytics' => $use_analytics,
                 'data-min-chars'     => $min_chars,
                 'data-buttons-order' => $buttons_order,
@@ -98,7 +100,7 @@ if ( ! class_exists( 'AWS_Markup' ) ) :
                 }
 
                 $markup .= '<div class="aws-search-clear">';
-                    $markup .= '<span aria-label="Clear Search">×</span>';
+                    $markup .= '<span>×</span>';
                 $markup .= '</div>';
 
                 $markup .= '<div class="aws-loader"></div>';

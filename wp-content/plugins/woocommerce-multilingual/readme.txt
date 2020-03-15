@@ -5,7 +5,7 @@ Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multili
 License: GPLv2
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 4.7.7
+Stable tag: 4.7.9
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -137,32 +137,31 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
-= 4.7.7 =
-* Fixed not linked order_id for Bookable products.
-* Fixed not filtering of currencies accounts on order confirmation page.
-* Fixed "Break and Abort" rules not applying in secondary language for Table Rate Shipping.
-* Fixed wrong order item id in some special cases.
-* Fixed customer order email strings sent in wrong language.
-* Fixed sale price in original product when checkout via PayPal in some cases.
-* Fixed wrong count for parent product categories in the second language.
-* Fixed wrong "Add to cart" button URL on archive pages in secondary language when "language as parameter set".
-* Fixed default currency wasn't removed from Multi-currency settings after changing in WooCommerce settings.
-* Fixed custom attribute label translation displayed on product view page instead of attribute taxonomy label.
-* Fixed console errors on Multi-Currency settings page if site under https.
-* Fixed wrong shipping rate applying on the cart page for Table Rate Shipping ( Bolder Elements ).
-* Fixed currency not switched with Siteground optimizer 5.0.* version and enabled memcache.
-* Fixed deprecated 'calculate_booking_cost' function in WooCommerce Bookings since 1.15.0.
-* Hide admin language switcher from Dynamic Prices settings page.
-* Fixed shop pages assignment on pages listing in second language.
-* Fixed not synchronized default value for Composite Products.
-* Fixed product total sales meta synchronization.
-* Fixed PHP Notices for Product Addons when 'options' doesn't set for addon.
-* Fixed `wcml_formatted_price` filter not displaying a converted price when current currency is default one.
-* Fixed category names on Shop page when object caching is enabled.
-* Fixed styles on product view page when WPML not active.
-* Fixed unable to switch currency on the reports page.
-* Fixed not translated shipping method title in admin email.
-* Fixed Rest API request for getting products in 'all' languages.
+= 4.7.8 =
+* Make `Additional content` field translatable for Emails.
+* Fixed stock synchronization issue for some extra plugins.
+* Fixed cart item not deleted from cart page in some cases.
+* Fixed Average Rating Widget Filter in all languages.
+* Fixed a fatal error when applying a translation job on a product with tabs on PHP 7.1+.
+* Fixed admin order note language after order status change.
+* Fixed not showing products when shop page is a child page of the front/home page.
+* Fixed display glitch of displaying current currency while adding new one.
+* Fixed compatibility plugins additional content appears not translated when using ATE.
+* Fixed inability to edit 'before discount' field on edit order page.
+* Fixed products in all languages displayed on new booking admin page.
+* Fixed language icon not updated in real-time when using Advanced Translation Editor.
+* Fixed warning message displayed at the wrong moment.
+* Fixed wrong language of custom attributes on cart page with display as translated mode enabled for products.
+* Fixed multiple ajax calls on the front page if few tabs opened in different languages for non-logged users.
+* Fixed Subscriptions early renewal price if not subscription price selected in the shop.
+* Fixed Top Rated product widget displaying wrong products on the second language.
+* Fixed Variable subscription "From" from price display auto converted price instead of custom one.
+* Fixed the dynamic WooCommerce blocks which were not converted in the current language.
+* Fixed product in wrong language selected on new order admin page.
+* WP Super Cache enable cache for switching currency.
+* Lock attributes select on second language native edit screen.
+* Fixed price not shown issue with WooCommerce Bookings.
+* Removed limitation of decimals in multi-currency settings.
 
 = 4.7.0 =
 * Replaced some Twig templates with pure PHP templates as the first step towards the removal of Twig dependencies.

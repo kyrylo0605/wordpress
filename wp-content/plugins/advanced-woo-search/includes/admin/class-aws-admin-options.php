@@ -320,6 +320,18 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
             );
 
             $options['form'][] = array(
+                "name"  => __( "Mobile full screen", "advanced-woo-search" ),
+                "desc"  => __( "Full screen search on focus. Will not works if search form is inside block with position: fixed.", "advanced-woo-search" ),
+                "id"    => "mobile_overlay",
+                "value" => 'false',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false' => __( 'Off', 'advanced-woo-search' )
+                )
+            );
+
+            $options['form'][] = array(
                 "name"  => __( "Search Results", "advanced-woo-search" ),
                 "desc"  => __( "Choose how to view search results.", "advanced-woo-search" ),
                 "id"    => "show_page",

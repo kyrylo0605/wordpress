@@ -3,7 +3,7 @@ Contributors: bradvin, steveush, fooplugins
 Donate link: http://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive, album, media gallery, masonry gallery, portfolio, justified gallery, video gallery, photography, youtube gallery
 Requires at least: 3.9
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,7 @@ Why choose FooGallery? Stunning image gallery layouts, responsive, retina-ready,
 
 **PRO Features**
 
+*   FooGallery PRO Lightbox built in!
 *   Polaroid PRO Gallery Template - [demo](https://fooplugins.com/foogallery/wordpress-polaroid-gallery/)
 *   Grid PRO Gallery Template - [demo](https://fooplugins.com/foogallery/wordpress-grid-gallery/)
 *	Slider PRO Gallery Template - [demo](https://fooplugins.com/foogallery/wordpress-slider-gallery/)
@@ -184,6 +185,18 @@ Simply go to the FooGallery extensions page and activate the Albums extension. I
 Update now to get all the latest features, bug fixes and improvements!
 
 == Changelog ==
+
+= 1.9.8 =
+* New : Added RankMath compatibility - sitemap image indexing
+* New : Added new setting under Hover Effects : Invert Color. Invert the caption icon colors from dark to light
+* New : All hover and loading icons converted to SVG format
+* New : Lazy load gallery images when editing a gallery (improved performance for large galleries in admin)
+* Fix : Previews not updating in some cases
+* Update : FooGallery client side 1.4.0 (MAJOR UPDATE)
+
+= 1.8.20 =
+* Fix : Fix for Masonry template layout issue in Firefox
+* Update : FooGallery client side 1.3.6
 
 = 1.8.18 =
 * New : Elementor compatibility - gallery previews in Elementor editor work, and added a FooGallery widget to the Elementor editor

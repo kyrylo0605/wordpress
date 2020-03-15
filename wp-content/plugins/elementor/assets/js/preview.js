@@ -1,3 +1,5 @@
+/*! elementor - v2.9.6 - 12-03-2020 */
+/*! elementor - v2.9.5 - 09-03-2020 */
 /*! elementor - v2.9.4 - 04-03-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

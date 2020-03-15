@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9194a01e3b7341913deb206154fe289f
+class ComposerStaticInit62ab66f0f70e43b2aa15047590cd4f85
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -25,12 +25,16 @@ class ComposerStaticInit9194a01e3b7341913deb206154fe289f
     );
 
     public static $classMap = array (
+        'WCML\\Block\\Convert\\ConverterProvider' => __DIR__ . '/../..' . '/classes/Block/Convert/ConverterProvider.php',
+        'WCML\\Block\\Convert\\Converter\\ProductsByAttributes' => __DIR__ . '/../..' . '/classes/Block/Convert/Converter/ProductsByAttributes.php',
+        'WCML\\Block\\Convert\\Hooks' => __DIR__ . '/../..' . '/classes/Block/Convert/Hooks.php',
         'WCML\\Container\\Config' => __DIR__ . '/../..' . '/classes/Container/Config.php',
         'WCML\\Email\\Settings\\Hooks' => __DIR__ . '/../..' . '/classes/Email/Settings/Hooks.php',
         'WCML\\Media\\Wrapper\\Factory' => __DIR__ . '/../..' . '/classes/media/Wrapper/Factory.php',
         'WCML\\Media\\Wrapper\\IMedia' => __DIR__ . '/../..' . '/classes/media/Wrapper/IMedia.php',
         'WCML\\Media\\Wrapper\\NonTranslatable' => __DIR__ . '/../..' . '/classes/media/Wrapper/NonTranslatable.php',
         'WCML\\Media\\Wrapper\\Translatable' => __DIR__ . '/../..' . '/classes/media/Wrapper/Translatable.php',
+        'WCML\\Rest\\Frontend\\Language' => __DIR__ . '/../..' . '/classes/Rest/Frontend/Language.php',
         'WCML\\RewriteRules\\Hooks' => __DIR__ . '/../..' . '/classes/RewriteRules/Hooks.php',
         'WCML_ATE_Activate_Synchronization' => __DIR__ . '/../..' . '/classes/ate/class-wcml-ate-activate-synchronization.php',
         'WCML_Accommodation_Bookings' => __DIR__ . '/../..' . '/compatibility/class-wcml-accommodation-bookings.php',
@@ -83,7 +87,6 @@ class ComposerStaticInit9194a01e3b7341913deb206154fe289f
         'WCML_Emails' => __DIR__ . '/../..' . '/inc/class-wcml-emails.php',
         'WCML_Endpoints' => __DIR__ . '/../..' . '/inc/class-wcml-endpoints.php',
         'WCML_Endpoints_Legacy' => __DIR__ . '/../..' . '/inc/class-wcml-endpoints-legacy.php',
-        'WCML_Etheme_Blanco' => __DIR__ . '/../..' . '/compatibility/class-wcml-etheme-blanco.php',
         'WCML_Exchange_Rate_Service' => __DIR__ . '/../..' . '/classes/multi-currency/exchange-rate-services/class-wcml-exchange-rate-service.php',
         'WCML_Exchange_Rates' => __DIR__ . '/../..' . '/classes/multi-currency/class-wcml-exchange-rates.php',
         'WCML_Exchange_Rates_Currencylayer' => __DIR__ . '/../..' . '/classes/multi-currency/exchange-rate-services/class-wcml-exchange-rates-currencylayer.php',
@@ -202,10 +205,8 @@ class ComposerStaticInit9194a01e3b7341913deb206154fe289f
         'WCML_Url_Filters_Redirect_Location' => __DIR__ . '/../..' . '/classes/url-filters/class-wcml-url-filters-redirect-location.php',
         'WCML_Url_Translation' => __DIR__ . '/../..' . '/inc/class-wcml-url-translation.php',
         'WCML_Variation_Swatches_And_Photos' => __DIR__ . '/../..' . '/compatibility/class-wcml-variation-swatches-and-photos.php',
-        'WCML_Vpc' => __DIR__ . '/../..' . '/compatibility/class-wcml-vpc.php',
         'WCML_W3TC_Multi_Currency' => __DIR__ . '/../..' . '/inc/currencies/class-wcml-w3tc-multi-currency.php',
         'WCML_WC_Admin_Duplicate_Product' => __DIR__ . '/../..' . '/inc/translation-editor/class-wcml-wc-admin-duplicate-product.php',
-        'WCML_WC_Ajax_Cart' => __DIR__ . '/../..' . '/compatibility/class-wcml-wc-ajax-cart.php',
         'WCML_WC_Gateways' => __DIR__ . '/../..' . '/inc/class-wcml-wc-gateways.php',
         'WCML_WC_Memberships' => __DIR__ . '/../..' . '/compatibility/class-wcml-wc-memberships.php',
         'WCML_WC_Name_Your_Price' => __DIR__ . '/../..' . '/compatibility/class-wcml-wc-name-your-price.php',
@@ -236,9 +237,9 @@ class ComposerStaticInit9194a01e3b7341913deb206154fe289f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9194a01e3b7341913deb206154fe289f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9194a01e3b7341913deb206154fe289f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9194a01e3b7341913deb206154fe289f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit62ab66f0f70e43b2aa15047590cd4f85::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit62ab66f0f70e43b2aa15047590cd4f85::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit62ab66f0f70e43b2aa15047590cd4f85::$classMap;
 
         }, null, ClassLoader::class);
     }
