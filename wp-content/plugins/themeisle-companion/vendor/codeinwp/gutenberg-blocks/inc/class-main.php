@@ -48,7 +48,7 @@ class Main {
 	 */
 	public function init() {
 		if ( ! defined( 'THEMEISLE_BLOCKS_VERSION' ) ) {
-			define( 'THEMEISLE_BLOCKS_VERSION', '1.4.1' );
+			define( 'THEMEISLE_BLOCKS_VERSION', '1.4.2' );
 			define( 'THEMEISLE_BLOCKS_DEV', false );
 		}
 
@@ -119,10 +119,21 @@ class Main {
 
 		wp_enqueue_style(
 			'themeisle-gutenberg-blocks-editor',
-			plugin_dir_url( $this->get_dir() ) . 'build/edit-blocks.css',
+			plugin_dir_url( $this->get_dir() ) . 'build/editor.css',
 			array( 'wp-edit-blocks' ),
 			$version
 		);
+
+		$wp_version = get_bloginfo( 'version' );
+
+		if ( version_compare( (float) $wp_version, '5.4', '<' ) ) {
+			wp_enqueue_style(
+				'themeisle-block_deprecated_styles',
+				plugin_dir_url( $this->get_dir() ) . 'assets/static/deprecated.css',
+				[],
+				$version
+			);
+		}
 
 		wp_enqueue_style(
 			'glidejs-core',

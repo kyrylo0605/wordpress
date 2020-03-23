@@ -166,3 +166,39 @@
 .rplg-setting .shortcode-content {
     padding: 20px 20px 0;
 }
+
+.rplg-setting .wp-google-place {
+    padding: 20px !important;
+}
+
+.rplg-setting .wp-google-place:hover {
+    cursor: pointer !important;
+    background: #eee !important;
+}
+
+.rplg-setting .wp-google-list,
+.rplg-setting .wp-google-content-inner {
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+.rplg-setting .wp-google-content-inner {
+    padding: 0 15px 10px;
+}
+
+.rplg-setting .wp-more-toggle,
+.rplg-setting .wp-google-url {
+    display: none !important;
+}
+
+.rplg-setting .wp-review-hidden {
+    opacity: .5;
+}
+
+.rplg-setting .wp-review-hide {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 26px;
+    text-decoration: none;
+    text-transform: uppercase;
+}

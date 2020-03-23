@@ -9,7 +9,7 @@ if ($lazy_load_img) {
 
 include_once(dirname(__FILE__) . '/grw-reviews-helper.php');
 
-$reviews_where = '';
+$reviews_where = ' AND hide = \'\'';
 if (strlen($reviews_lang) > 0) {
     $reviews_where = $reviews_where . ' AND language = \'' . $reviews_lang . '\'';
 }

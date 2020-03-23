@@ -21,8 +21,9 @@ function fbrev_connect(el, data) {
 
     fbrev_popup(url, 670, 520, function() {*/
 
-    fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=manage_pages,pages_show_list', 670, 520, function() {
-        WPacXDM.get('https://embed.widgetpack.com', 'https://app.widgetpack.com/widget/facebook/accesstoken', {}, function(res) {
+    var temp_code = fbrev_randstr(16);
+    fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=manage_pages,pages_show_list&state=' + temp_code, 670, 520, function() {
+        WPacXDM.get('https://embed.widgetpack.com', 'https://app.widgetpack.com/widget/facebook/accesstoken?temp_code=' + temp_code, {}, function(res) {
             WPacFastjs.jsonp('https://graph.facebook.com/me/accounts', {access_token: res.accessToken, limit: 250}, function(res) {
 
                 var pagesEl = el.querySelector('.fbrev-pages');
@@ -126,4 +127,14 @@ function fbrev_init(data) {
             $(this).next().slideToggle();
         });
     });
+}
+
+function fbrev_randstr(len) {
+   var result = '',
+       chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+       charsLen = chars.length;
+   for ( var i = 0; i < len; i++ ) {
+      result += chars.charAt(Math.floor(Math.random() * charsLen));
+   }
+   return result;
 }

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Language: nl\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,3 +25,6 @@ msgstr "lees meer"
 
 msgid "Next Reviews"
 msgstr "Volgende beoordelingen"
+
+msgid "Based on %s reviews"
+msgstr "Gebaseerd op %s recensies"

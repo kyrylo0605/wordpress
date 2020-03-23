@@ -136,6 +136,9 @@ if (isset($_POST['install'])) {
 wp_register_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css', __FILE__));
 wp_enqueue_style('rplg_setting_css', plugins_url('/static/css/rplg-setting.css', __FILE__));
 
+wp_register_style('rplg_review_css', plugins_url('/static/css/google-review.css', __FILE__));
+wp_enqueue_style('rplg_review_css', plugins_url('/static/css/google-review.css', __FILE__));
+
 wp_enqueue_script('jquery');
 
 $tab                = isset($_GET['grw_tab']) && strlen($_GET['grw_tab']) > 0 ? $_GET['grw_tab'] : 'about';
@@ -158,6 +161,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
                 <a href="#about"     class="nav-tab<?php if ($tab == 'about')     { ?> nav-tab-active<?php } ?>"><?php echo grw_i('About'); ?></a>
                 <a href="#setting"   class="nav-tab<?php if ($tab == 'setting')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Settings'); ?></a>
                 <a href="#shortcode" class="nav-tab<?php if ($tab == 'shortcode') { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Shortcode'); ?></a>
+                <a href="#reviews"   class="nav-tab<?php if ($tab == 'reviews')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Reviews'); ?></a>
                 <a href="#support"   class="nav-tab<?php if ($tab == 'support')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Support'); ?></a>
                 <a href="#advance"   class="nav-tab<?php if ($tab == 'advance')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Advance'); ?></a>
             </div>
@@ -262,6 +266,31 @@ $grw_google_api_key = get_option('grw_google_api_key');
                         <div class="shortcode-content">
                             <textarea id="rplg_shortcode" style="display:block;width:100%;height:200px;padding:10px" onclick="window.rplg_shortcode.select();document.execCommand('copy');window.rplg_shortcode_msg.innerHTML='Shortcode copied, please paste it to the page content';" readonly>Connect Google place to show the shortcode</textarea>
                             <p id="rplg_shortcode_msg"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reviews" class="tab-content" style="display:<?php echo $tab == 'reviews' ? 'block' : 'none'?>;">
+                <h3>Reviews</h3>
+                <div class="wp-gr">
+                    <div class="rplg-flex-row">
+                        <div class="rplg-flex-col3">
+                            <div class="wp-google-list">
+                                <?php
+                                global $wpdb;
+                                include_once(dirname(__FILE__) . '/grw-reviews-helper.php');
+                                $places = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "grp_google_place");
+                                foreach ($places as $place) {
+                                ?><div class="wp-google-place" data-id="<?php echo $place->id; ?>"><?php
+                                    grw_place($place->rating, $place, $place->photo, array(), false, true, false);
+                                ?></div><?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="rplg-flex-col6">
+                            <div class="wp-google-content-inner"></div>
                         </div>
                     </div>
                 </div>
@@ -406,6 +435,33 @@ jQuery(document).ready(function($) {
             }
         }
         window.rplg_shortcode.value = '[grw' + args + ']';
+    });
+
+    $('.wp-google-place').click(function() {
+        $.get('<?php echo admin_url('options-general.php?page=grw'); ?>&cf_action=grw_db_reviews&v=' + new Date().getTime(), {
+            id: $(this).attr('data-id'),
+            grw_wpnonce: jQuery('#grw_nonce').val()
+        }, function(res) {
+            $('.wp-google-content-inner').html(res);
+            $('.wp-review-hide').click(function() {
+                var $this = $(this);
+                $.post('<?php echo admin_url('options-general.php?page=grw'); ?>&cf_action=grw_hide_review', {
+                    id: $this.attr('data-id'),
+                    grw_wpnonce: jQuery('#grw_nonce').val()
+                }, function(res) {
+                    var parent = $this.parent().parent();
+                    if (res.hide) {
+                        $this.text('show review');
+                        parent.addClass('wp-review-hidden');
+                    } else {
+                        $this.text('hide review');
+                        parent.removeClass('wp-review-hidden');
+                    }
+                }, 'json');
+                return false;
+            });
+        }, 'html');
+        return false;
     });
 });
 </script>

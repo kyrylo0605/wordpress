@@ -25,7 +25,7 @@ function grw_place($rating, $place, $place_img, $reviews, $dark_theme, $hide_bas
     <?php
 }
 
-function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img, $def_reviews_link) {
+function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination, $reduce_avatars_size, $open_link, $nofollow_link, $lazy_load_img, $def_reviews_link, $is_admin = false) {
     ?>
     <div class="wp-google-reviews">
     <?php
@@ -37,7 +37,7 @@ function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination,
                 $hr = true;
             }
         ?>
-        <div class="wp-google-review<?php if ($hr) { ?> wp-google-hide<?php } ?>">
+        <div class="wp-google-review<?php if ($hr) { echo ' wp-google-hide'; } if ($is_admin && $review->hide != '') { echo ' wp-review-hidden'; } ?>">
             <div class="wp-google-left">
                 <?php
                 if (strlen($review->profile_photo_url) > 0) {
@@ -69,6 +69,9 @@ function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination,
                     <span class="wp-google-stars"><?php echo grw_stars($review->rating); ?></span>
                     <span class="wp-google-text"><?php echo grw_trim_text($review->text, $text_size); ?></span>
                 </div>
+                <?php if ($is_admin) {
+                    echo '<a href="#" class="wp-review-hide" data-id=' . $review->id . '>' . ($review->hide == '' ? 'Hide' : 'Show') . ' review</a>';
+                } ?>
             </div>
         </div>
         <?php

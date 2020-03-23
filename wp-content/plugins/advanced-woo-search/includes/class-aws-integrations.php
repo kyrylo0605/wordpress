@@ -422,6 +422,10 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                     top: -100px;
                 }
 
+                #sidr .aws-container {
+                    margin: 30px 20px 0;
+                }
+
             </style>
 
             <script>
@@ -712,6 +716,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             if ( class_exists( 'OCEANWP_Theme_Class' ) ) {
                 $selectors[] = '#searchform-header-replace form';
                 $selectors[] = '#searchform-overlay form';
+                $selectors[] = '#sidr .sidr-class-mobile-searchform';
             }
 
             return $selectors;

@@ -664,7 +664,15 @@ class Licenser extends Abstract_Module {
 		if ( ! is_object( $update_data ) ) {
 			return false;
 		}
-
+		if ( isset( $update_data->slug ) ) {
+			$update_data->slug = $this->product->get_slug();
+		}
+		if ( isset( $update_data->icons ) ) {
+			$update_data->icons = (array) $update_data->icons;
+		}
+		if ( isset( $update_data->banners ) ) {
+			$update_data->banners = (array) $update_data->banners;
+		}
 		return $update_data;
 	}
 
@@ -694,7 +702,6 @@ class Licenser extends Abstract_Module {
 				$_transient_data->response[ $this->product->get_slug() . '/' . $this->product->get_file() ] = $api_response;
 			}
 		}
-
 		return $_transient_data;
 	}
 
