@@ -3013,6 +3013,8 @@ button.swiper-pagination-bullet {
   position: absolute;
   overflow: hidden;
   transition: background-color 400ms; }
+  .elementor-slideshow__share-menu .elementor-slideshow__share-links a {
+    color: #2C2C2C; }
 
 .elementor-slideshow__share-links {
   display: block;
@@ -3021,7 +3023,6 @@ button.swiper-pagination-bullet {
   right: 67px;
   top: 60px;
   background-color: #fff;
-  color: #2C2C2C;
   border-radius: 3px;
   font-size: 16px;
   padding: 14px 20px;

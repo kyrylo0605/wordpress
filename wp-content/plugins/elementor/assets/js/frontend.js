@@ -1,4 +1,4 @@
-/*! elementor - v2.9.6 - 12-03-2020 */
+/*! elementor - v2.9.7 - 25-03-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -7357,10 +7357,6 @@ function (_elementorModules$fro) {
           delay: elementSettings.autoplay_speed,
           disableOnInteraction: 'yes' === elementSettings.pause_on_interaction
         };
-      }
-
-      if (true === swiperOptions.loop) {
-        swiperOptions.loopedSlides = this.getSlidesCount();
       }
 
       if (isSingleSlide) {

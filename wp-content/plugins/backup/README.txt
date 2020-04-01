@@ -5,8 +5,8 @@ Author: Backup Guard
 Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
-Tested up to: 5.3.2
-Stable tag: 1.2.5
+Tested up to: 5.4
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,9 +124,9 @@ That's not all, if you are a paid user, you will receive priority/emergency supp
 
 <a href="https://backup-guard.com/products/backup-wordpress">Backup Guard PRO</a>
 
-= How to fix “MySQL server has gone away” error? =
+= How to fix “MySQL server has gone away” error? =
 
-While restoring your database you may encounter “MySQL server has gone away” warning. There are generally two main causes for this error: 1) the server timed out and closed the connection and 2) server dropped an incorrect or too large packet.
+While restoring your database you may encounter “MySQL server has gone away” warning. There are generally two main causes for this error: 1) the server timed out and closed the connection and 2) server dropped an incorrect or too large packet.
 To fix the issue you will have to contact your hosting provider and ask them increase the size of these two values: max_allowed_packet & wait_timeout
 
 = How do I Restore my Backup? =
@@ -157,6 +157,10 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+= 1.2.6 =
+* Bug fixed related to restore.
+* Admin side design improvement.
+
 = 1.2.5 =
 * Admin side improvement
 * Bug fixed related to restore
@@ -339,7 +343,7 @@ When you are facing an issue of any kind with any of our products, the first thi
 
 = 1.1.49 =
 * External restoration related bugs resolved
-* “wp-content” directory detection related bug resolved
+* “wp-content” directory detection related bug resolved
 
 = 1.1.48 =
 * cURL & Sockets are supported for reloads

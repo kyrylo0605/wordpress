@@ -88,7 +88,7 @@ $pluginCapabilities = backupGuardGetCapabilities();
 				<?php _backupGuardT('Migrate')?>
 			</a>
 
-			<a href="javascript:void(0)" id="sg-import" class="btn btn-primary sg-margin-left-20" data-toggle="modal" data-modal-name="import"  data-remote="modalImport"><i class="glyphicon glyphicon-open"></i> <?php _backupGuardT('Import')?></a>
+			<a href="javascript:void(0)" id="sg-import" class="btn btn-primary sg-margin-left-12" data-toggle="modal" data-modal-name="import"  data-remote="modalImport"><i class="glyphicon glyphicon-open"></i> <?php _backupGuardT('Import')?></a>
 			<?php if ($pluginCapabilities == BACKUP_GUARD_CAPABILITIES_FREE): ?>
 			<a href="<?php echo BACKUP_GUARD_WORDPRESS_SUPPORT_URL; ?>" target="_blank">
 				<button type="button" id="sg-report-problem-button" class="sg-button-red pull-right">

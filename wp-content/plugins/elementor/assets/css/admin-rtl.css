@@ -1,4 +1,4 @@
-/*! elementor - v2.9.6 - 12-03-2020 */
+/*! elementor - v2.9.7 - 25-03-2020 */
 .elementor-button {
   font-weight: 500;
   text-transform: uppercase;
@@ -156,7 +156,8 @@ body.elementor-editor-active #elementor-switch-mode-button {
 body.elementor-editor-active #postdivrich {
   display: none !important; }
 
-body.elementor-editor-active .editor-block-list__layout {
+body.elementor-editor-active .editor-block-list__layout,
+body.elementor-editor-active .block-editor-block-list__layout {
   display: none; }
 
 body.elementor-editor-inactive .elementor-switch-mode-on {

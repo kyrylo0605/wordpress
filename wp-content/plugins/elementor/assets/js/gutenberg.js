@@ -1,4 +1,4 @@
-/*! elementor - v2.9.6 - 12-03-2020 */
+/*! elementor - v2.9.7 - 25-03-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -591,8 +591,9 @@ __webpack_require__(15);
       var self = this;
 
       if (!$('#elementor-editor').length) {
-        self.cache.$editorPanel = $($('#elementor-gutenberg-panel').html());
-        self.cache.$gurenbergBlockList = self.cache.$gutenberg.find('.editor-block-list__layout, .editor-post-text-editor');
+        self.cache.$editorPanel = $($('#elementor-gutenberg-panel').html()); // TODO: `editor-block-list__layout` class for WP < 5.3 support.
+
+        self.cache.$gurenbergBlockList = self.cache.$gutenberg.find('.editor-block-list__layout, .editor-post-text-editor, .block-editor-block-list__layout');
         self.cache.$gurenbergBlockList.after(self.cache.$editorPanel);
         self.cache.$editorPanelButton = self.cache.$editorPanel.find('#elementor-go-to-edit-page-link');
         self.cache.$editorPanelButton.on('click', function (event) {

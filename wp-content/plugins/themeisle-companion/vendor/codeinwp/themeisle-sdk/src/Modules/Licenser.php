@@ -435,7 +435,7 @@ class Licenser extends Abstract_Module {
 	 *
 	 * @return bool|\WP_Error
 	 */
-	private function do_license_process( $license, $action = 'toggle' ) {
+	public function do_license_process( $license, $action = 'toggle' ) {
 		if ( strlen( $license ) < 10 ) {
 			return new \WP_Error( 'themeisle-license-invalid-format', 'Invalid license.' );
 		}
@@ -448,12 +448,6 @@ class Licenser extends Abstract_Module {
 			return new \WP_Error( 'themeisle-license-already-deactivate', 'License not active.' );
 		}
 
-		// retrieve the license from the database.
-		$api_params = array(
-			'license'   => $license,
-			'item_name' => rawurlencode( $this->product->get_name() ),
-			'url'       => rawurlencode( home_url() ),
-		);
 		if ( 'toggle' === $action ) {
 			$action = ( 'valid' !== $status ? ( 'activate' ) : ( 'deactivate' ) );
 		}
@@ -504,7 +498,7 @@ class Licenser extends Abstract_Module {
 			$this->reset_failed_checks();
 		}
 
-		if ( 'deactivate_license' === $api_params['edd_action'] ) {
+		if ( 'deactivate' === $action ) {
 
 			delete_option( $this->product->get_key() . '_license_data' );
 			delete_option( $this->product->get_key() . '_license_plan' );
@@ -801,7 +795,7 @@ class Licenser extends Abstract_Module {
 		$namespace = apply_filters( 'themesle_sdk_namespace_' . md5( $product->get_basefile() ), false );
 
 		if ( false !== $namespace ) {
-			add_filter( 'themeisle_sdk_license_process_' . $namespace, [ $this, 'process_license' ], 10, 2 );
+			add_filter( 'themeisle_sdk_license_process_' . $namespace, [ $this, 'do_license_process' ], 10, 2 );
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				\WP_CLI::add_command( $namespace . ' activate', [ $this, 'cli_activate' ] );
 				\WP_CLI::add_command( $namespace . ' deactivate', [ $this, 'cli_deactivate' ] );

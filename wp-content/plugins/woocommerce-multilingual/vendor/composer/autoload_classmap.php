@@ -11,6 +11,7 @@ return array(
     'WCML\\Block\\Convert\\Hooks' => $baseDir . '/classes/Block/Convert/Hooks.php',
     'WCML\\Container\\Config' => $baseDir . '/classes/Container/Config.php',
     'WCML\\Email\\Settings\\Hooks' => $baseDir . '/classes/Email/Settings/Hooks.php',
+    'WCML\\MO\\Hooks' => $baseDir . '/classes/MO/Hooks.php',
     'WCML\\Media\\Wrapper\\Factory' => $baseDir . '/classes/media/Wrapper/Factory.php',
     'WCML\\Media\\Wrapper\\IMedia' => $baseDir . '/classes/media/Wrapper/IMedia.php',
     'WCML\\Media\\Wrapper\\NonTranslatable' => $baseDir . '/classes/media/Wrapper/NonTranslatable.php',

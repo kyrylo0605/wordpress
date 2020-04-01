@@ -1,4 +1,4 @@
-/*! elementor - v2.9.6 - 12-03-2020 */
+/*! elementor - v2.9.7 - 25-03-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -8971,12 +8971,12 @@ function (_History) {
 
       if (e instanceof $e.modules.HookBreak && this.history) {
         if (this.isDebounceRequired) {
-          // `delete-transaction` is under debounce, because it should `delete-transaction` after `end-transaction`.
+          // `clear-transaction` is under debounce, because it should `clear-transaction` after `end-transaction`.
           this.constructor.debounce(function () {
-            return $e.internal('document/history/delete-transaction');
+            return $e.internal('document/history/clear-transaction');
           });
         } else {
-          $e.internal('document/history/delete-transaction');
+          $e.internal('document/history/clear-transaction');
         }
       }
     }
