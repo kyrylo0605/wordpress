@@ -1,5 +1,6 @@
 <?php
 namespace Bookly\Backend\Components\Settings;
+use Bookly\Backend\Components\Controls;
 
 /**
  * Class Selects
@@ -19,18 +20,28 @@ class Selects
     {
         $values  = (array) get_option( $option_name );
         $control = '';
-        foreach ( $options as $attr ) {
+        foreach ( $options as $i => $option ) {
             $control .= strtr(
-                '<div class="checkbox"><label><input type="checkbox" name="{name}[]" value="{value}"{checked} />{caption}</label></div>',
+                '<div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input"
+                           id="{id}"
+                           name="{name}[]"
+                           value="{value}"{checked}
+                    />
+                    <label class="custom-control-label" for="{id}">
+                        {caption}
+                    </label>
+                </div>',
                 array(
+                    '{id}'      => "{$option_name}_{$i}",
                     '{name}'    => $option_name,
-                    '{value}'   => esc_attr( $attr[0] ),
-                    '{checked}' => checked( in_array( $attr[0], $values ), true, false ),
-                    '{caption}' => esc_html( $attr[1] ),
+                    '{value}'   => esc_attr( $option[0] ),
+                    '{checked}' => checked( in_array( $option[0], $values ), true, false ),
+                    '{caption}' => esc_html( $option[1] ),
                 )
             );
         }
-        $control = "<div class=\"bookly-flags\" id=\"$option_name\">$control</div>";
+        $control = "<div id=\"$option_name\">$control</div>";
 
         echo Inputs::buildControl( $option_name, $label, $help, $control );
     }
@@ -45,36 +56,17 @@ class Selects
      */
     public static function renderRadios( $option_name, $label = null, $help = null, array $radios = array() )
     {
-        $template = '<div class="radio"><label><input type="radio" name="{name}" id="{name}" value="{value}"{attr}> {label}</label></div>';
         if ( empty ( $radios ) ) {
             $radios = array(
-                //  value        title              disabled
-                array( 1, __( 'Enabled', 'bookly' ),  0 ),
-                array( 0, __( 'Disabled', 'bookly' ), 0 ),
-            );
-        }
-        $html = '';
-        foreach ( $radios as $attr ) {
-            $html .= strtr(
-                $template,
-                array(
-                    '{name}'  => $option_name,
-                    '{value}' => esc_attr( $attr[ 0 ] ),
-                    '{attr}'  => empty ( $attr[ 2 ] )
-                        ? checked( get_option( $option_name ), $attr[0], false )
-                        : disabled( true, true, false ),
-                    '{label}' => esc_html( $attr[1] ),
-                )
+                //value => data
+                0 => array( 'title' => __( 'Disabled', 'bookly' ) ),
+                1 => array( 'title' => __( 'Enabled', 'bookly' ) ),
             );
         }
 
-        echo strtr(
-            '<div class="form-group">{label}{help}{control}</div>',
-            array(
-                '{label}'   => $label != '' ? sprintf( '<label>%s</label>', $label ) : '',
-                '{help}'    => $help  != '' ? sprintf( '<p class="help-block">%s</p>', $help ) : '',
-                '{control}' => $html,
-            )
+        Controls\Inputs::renderRadioGroup( $label, $help,
+            $radios,
+            get_option( $option_name ), array( 'name' => $option_name )
         );
     }
 
@@ -111,7 +103,7 @@ class Selects
         }
 
         $control = strtr(
-            '<select id="{name}" class="form-control" name="{name}">{options}</select>',
+            '<select id="{name}" class="form-control custom-select" name="{name}">{options}</select>',
             array(
                 '{name}'    => $option_name,
                 '{options}' => $options_str,

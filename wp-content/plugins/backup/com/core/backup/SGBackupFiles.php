@@ -16,6 +16,7 @@ class SGBackupFiles implements SGArchiveDelegate
 	private $filePath = '';
 	private $sgbp = null;
 	private $delegate = null;
+	private $actionStartTs = 0;
 	private $nextProgressUpdate = 0;
 	private $progressUpdateInterval = 0;
 	private $warningsFound = false;
@@ -114,6 +115,7 @@ class SGBackupFiles implements SGArchiveDelegate
 	{
 		$this->reloadStartTs = time();
 		if ($state->getAction() == SG_STATE_ACTION_PREPARING_STATE_FILE) {
+			$this->actionStartTs = time();
 			SGBackupLog::writeAction('backup files', SG_BACKUP_LOG_POS_START);
 		}
 
@@ -139,7 +141,6 @@ class SGBackupFiles implements SGArchiveDelegate
 		}
 
 		if ($state->getAction() == SG_STATE_ACTION_PREPARING_STATE_FILE) {
-			SGBackupLog::write('Backup files: '.$backupItems);
 
 			$this->resetProgress();
 			$this->prepareFileTree($allItems);
@@ -147,6 +148,7 @@ class SGBackupFiles implements SGArchiveDelegate
 			$this->saveStateData(SG_STATE_ACTION_LISTING_FILES, array(), 0, 0, false, 0);
 
 			SGBackupLog::write('Number of files to backup: '.$this->numberOfEntries);
+			SGBackupLog::write('Root path: '.$this->filePath.'/');
 
 			if (backupGuardIsReloadEnabled()) {
 				$this->reload();
@@ -154,10 +156,10 @@ class SGBackupFiles implements SGArchiveDelegate
 		}
 		else {
 			$this->nextProgressUpdate = $state->getProgress();
-            $this->warningsFound = $state->getWarningsFound();
+			$this->warningsFound = $state->getWarningsFound();
 
-            $this->numberOfEntries = $state->getNumberOfEntries();
-            $this->progressCursor = $state->getProgressCursor();
+			$this->numberOfEntries = $state->getNumberOfEntries();
+			$this->progressCursor = $state->getProgressCursor();
 		}
 
 		$this->cdrSize = $state->getCdrSize();
@@ -172,14 +174,14 @@ class SGBackupFiles implements SGArchiveDelegate
 				fseek($fileTreeHandle, $this->cursor);
 				while (($fileTreeLine = fgets($fileTreeHandle)) !== false) {
 					$file = unserialize($fileTreeLine);
-
+					$filePath = str_replace(ABSPATH, '', $file['path']);
 					if (!$state->getInprogress()) {
-						SGBackupLog::writeAction('backup file: '.$file['path'], SG_BACKUP_LOG_POS_START);
+						SGBackupLog::writeAction('backup file: '.$filePath, SG_BACKUP_LOG_POS_START);
 					}
 
 					$path = $file['path'];
 					$this->addFileToArchive($path);
-					SGBackupLog::writeAction('backup file: '.$file['path'], SG_BACKUP_LOG_POS_END);
+					SGBackupLog::writeAction('backup file: '.$filePath, SG_BACKUP_LOG_POS_END);
 
 					$this->cursor = ftell($fileTreeHandle);
 					$this->cdrSize = $this->sgbp->getCdrFilesCount();
@@ -192,6 +194,7 @@ class SGBackupFiles implements SGArchiveDelegate
 		$this->clear();
 
 		SGBackupLog::writeAction('backup files', SG_BACKUP_LOG_POS_END);
+		SGBackupLog::write('backup files total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 	}
 
 	private function clear()
@@ -242,6 +245,7 @@ class SGBackupFiles implements SGArchiveDelegate
 		//start logging
 		SGBackupLog::writeAction('restore', SG_BACKUP_LOG_POS_START);
 		SGBackupLog::writeAction('restore files', SG_BACKUP_LOG_POS_START);
+		$this->actionStartTs = time();
 	}
 
 	public function restore($filePath)
@@ -261,6 +265,7 @@ class SGBackupFiles implements SGArchiveDelegate
 
 		$this->extractArchive($filePath);
 		SGBackupLog::writeAction('restore files', SG_BACKUP_LOG_POS_END);
+		SGBackupLog::write('restore files total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 	}
 
 	private function extractArchive($filePath)

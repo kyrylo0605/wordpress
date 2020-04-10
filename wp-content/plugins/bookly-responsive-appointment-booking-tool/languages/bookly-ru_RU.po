@@ -9,8 +9,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 08:14+0000\n"
-"PO-Revision-Date: 2020-02-10 11:06+0000\n"
+"POT-Creation-Date: 2020-04-03 11:09+0000\n"
+"PO-Revision-Date: 2020-04-03 11:11+0000\n"
 "Last-Translator: support@bookly.info\n"
 "Language-Team: Russian\n"
 "X-Loco-Version: 2.3.1; wp-5.3"
@@ -79,7 +79,7 @@ msgid ""
 msgstr ""
 "Для работы дополнения Инвойсы требуется информация об адресе клиента, "
 "поэтому настройка \"Сделать ввод адреса обязательным\" в Настройки/Клиенты и "
-"\"Показывать поля для ввода адреса\" в Внеший вид/Детали активированы "
+"\"Показывать поля для ввода адреса\" в Внешний вид/Детали активированы "
 "автоматически и могут быть отключены после деактивации дополнения Инвойсы."
 
 msgid "Invoice due days"
@@ -123,6 +123,9 @@ msgstr "номер счёта"
 
 msgid "Attach invoice"
 msgstr "Прикрепить счёт"
+
+msgid "Empty"
+msgstr "Незаполненный"
 
 msgid ""
 "Invoice due days: Please enter value in the following range (in days) - 1 to "
@@ -185,9 +188,6 @@ msgstr "Телефон"
 msgid "Outlook Calendar integration"
 msgstr "Интеграция с Календарём Outlook"
 
-msgid "Synchronize staff member appointments with Outlook Calendar."
-msgstr "Синхронизировать данные о записях сотрудника с Календарём Outlook"
-
 msgid "Connect"
 msgstr "Подключить"
 
@@ -202,8 +202,14 @@ msgstr "Подключен"
 msgid "disconnect"
 msgstr "Отключить"
 
+msgid "Synchronize staff member appointments with Outlook Calendar."
+msgstr "Синхронизировать данные о записях сотрудника с Календарём Outlook"
+
 msgid "Calendar"
 msgstr "Календарь"
+
+msgid "-- Select calendar --"
+msgstr "-- Выберите календарь --"
 
 msgid ""
 "When you connect a calendar all future and past events will be synchronized "
@@ -214,14 +220,11 @@ msgstr ""
 "синхронизированы в соответствии с выбранным режимом синхронизации. Это может "
 "занять несколько минут. Пожалуйста, подождите."
 
-msgid "-- Select calendar --"
-msgstr "-- Выберите календарь --"
-
 msgid "Can't change calendar for archived staff"
 msgstr "Невозможно изменить календарь для архивированного сотрудника"
 
 msgid "Instructions"
-msgstr "Иструкция"
+msgstr "Инструкция"
 
 msgid ""
 "Important: Your website must use <b>HTTPS</b>. The Outlook Calendar API will "
@@ -263,11 +266,16 @@ msgstr ""
 msgid ""
 "When the <b>Register an application</b> page appears, enter your "
 "application's <b>Name</b> and <b>Redirect URI</b> found below on this page. "
-"When finished, select <b>Register</b>."
+"Make sure that the <b>Supported account types</b> is set to <b>Accounts in "
+"any organizational directory and personal Microsoft accounts</b>. When "
+"finished, select <b>Register</b>."
 msgstr ""
-"После появления страницы <b>Регистрация приложения</b> введите <b>Имя</b> "
-"вашего приложения и <b>URI перенаправления</b>, который можно найти ниже на "
-"этой странице. По завершении щелкните <b>Зарегистрировать</b>."
+"Когда появится страница <b>Регистрация приложения</b>, введите <b>Имя</b> и "
+"<b>Redirect URI</b> вашего приложения, которые можно найти ниже на этой "
+"странице. Убедитесь, что для <b>Поддерживаемые типы учетных записей</b> "
+"установлено значение <b>Учетные записи в любом каталоге организации и личные "
+"учетные записи Майкрософт</b>. По завершении, нажмите <b>Зарегистрировать</b>"
+"."
 
 msgid ""
 "Azure AD assigns a unique application (client) ID to your app, and you're "
@@ -588,9 +596,6 @@ msgstr "Защитный код (Captcha)"
 
 msgid "HTML allowed in all texts and labels."
 msgstr "Допускается использование HTML во всех текстах и названиях."
-
-msgid "Reorder"
-msgstr "Переместить"
 
 msgid "Remove field"
 msgstr "Удалить поле"
@@ -1267,11 +1272,11 @@ msgstr ""
 "подтверждение повторяющейся записи невозможно (по причине изменённого "
 "статуса и др.)."
 
-msgid "Allow this service to have recurring appointments."
-msgstr "Разрешить этому сервису иметь повторяющиеся записи."
-
 msgid "Enabled"
 msgstr "Включено"
+
+msgid "Allow this service to have recurring appointments."
+msgstr "Разрешить этому сервису иметь повторяющиеся записи."
 
 msgid "Frequencies"
 msgstr "Частота"
@@ -1342,17 +1347,17 @@ msgstr "Отправить уведомления"
 msgid "Cancellation reason (optional)"
 msgstr "Причина отмены (необязательно)"
 
-msgid "Cancel"
-msgstr "Отмена"
+msgid "Recurring appointments"
+msgstr "Повторяющиеся записи"
 
 msgid "Close"
 msgstr "Закрыть"
 
-msgid "Recurring appointments"
-msgstr "Повторяющиеся записи"
-
 msgid "Save"
 msgstr "Сохранить"
+
+msgid "I will pay now with Credit Card"
+msgstr "Я оплачу кредитной картой"
 
 msgid "Sandbox Mode"
 msgstr "Sandbox Mode"
@@ -1682,8 +1687,8 @@ msgstr "С налогами"
 msgid "Exclude taxes"
 msgstr "Без налогов"
 
-msgid "Add Tax"
-msgstr "Добавить Налог"
+msgid "Add tax"
+msgstr "Добавить налог"
 
 msgid "New tax"
 msgstr "Новый налог"
@@ -1727,12 +1732,6 @@ msgstr ""
 
 msgid "Customer Information"
 msgstr "Информация о клиенте"
-
-msgid "Required field."
-msgstr "Обязательно поле."
-
-msgid "Ask once."
-msgstr "Запрашивать данные один раз."
 
 msgid "Ask once"
 msgstr "Запрашивать данные один раз"
@@ -1898,6 +1897,9 @@ msgstr ""
 msgid "Google Maps"
 msgstr "Карты Google"
 
+msgid "Show address required"
+msgstr "Необходимо показывать поля для ввода адреса"
+
 msgid "Show google maps field"
 msgstr "Показывать поле google maps"
 
@@ -1935,6 +1937,9 @@ msgstr "Категория"
 
 msgid "Staff"
 msgstr "Персонал"
+
+msgid "Cancel"
+msgstr "Отмена"
 
 msgid "Reschedule"
 msgstr "Перенести"
@@ -2008,6 +2013,9 @@ msgstr "Не допускается"
 msgid "There are no time slots for selected date."
 msgstr "Для выбранной даты нет свободных временных интервалов."
 
+msgid "Profile updated successfully."
+msgstr "Профиль успешно обновлён."
+
 msgid ""
 "Unfortunately, you're not able to cancel the appointment because the "
 "required time limit prior to canceling has expired."
@@ -2015,8 +2023,9 @@ msgstr ""
 "К сожалению, отменить эту запись не удалось, так как истёк срок минимального "
 "промежутка времени между отменой и бронированием."
 
-msgid "Profile updated successfully."
-msgstr "Профиль успешно обновлён."
+msgid ""
+"The selected time is not available anymore. Please, choose another time slot."
+msgstr "Выбранное время больше не доступно. Пожалуйста, выберите другое время."
 
 msgid "Time"
 msgstr "Время"
@@ -2445,15 +2454,6 @@ msgstr ""
 " от {staff_name}.\n"
 "Нажмите на кнопку временного интервала, чтобы продолжить бронирование."
 
-msgid "Card Security Code"
-msgstr "CVV/CVC"
-
-msgid "Expiration Date"
-msgstr "Срок действия"
-
-msgid "Credit Card Number"
-msgstr "Номер карты"
-
 msgid "Confirm email"
 msgstr "Подтвердите адрес эл. почты"
 
@@ -2468,9 +2468,6 @@ msgstr "Фамилия"
 
 msgid "Notes"
 msgstr "Заметки"
-
-msgid "I will pay now with Credit Card"
-msgstr "Я оплачу кредитной картой"
 
 msgid "I will pay locally"
 msgstr "Я оплачу наличными"
@@ -2522,10 +2519,6 @@ msgstr "Пожалуйста, введите свой номер телефон�
 
 msgid "Please select a service"
 msgstr "Пожалуйста, выберите сервис"
-
-msgid ""
-"The selected time is not available anymore. Please, choose another time slot."
-msgstr "Выбранное время больше не доступно. Пожалуйста, выберите другое время."
 
 msgid "Login"
 msgstr "Вход"
@@ -2715,6 +2708,15 @@ msgstr "%d ч"
 msgid "%d min"
 msgstr "%d мин"
 
+msgid "From"
+msgstr "С"
+
+msgid "To"
+msgstr "По"
+
+msgid "Custom range"
+msgstr "Произвольный диапазон"
+
 msgid "Tomorrow"
 msgstr "Завтра"
 
@@ -2732,15 +2734,6 @@ msgstr "Текущий месяц"
 
 msgid "Next month"
 msgstr "Следующий месяц"
-
-msgid "Custom range"
-msgstr "Произвольный диапазон"
-
-msgid "To"
-msgstr "По"
-
-msgid "From"
-msgstr "С"
 
 msgid "No."
 msgstr "№"
@@ -3046,8 +3039,14 @@ msgstr ""
 msgid "Bookly SMS - Low Balance"
 msgstr "Bookly SMS - Низкий баланс"
 
+msgid "Email confirm required."
+msgstr "Требуется подтверждение адреса электронной почты."
+
 msgid "Empty password."
 msgstr "Пустой пароль."
+
+msgid "Incorrect confirmation code."
+msgstr "Неверный код подтверждения."
 
 msgid "Incorrect password."
 msgstr "Неверный пароль."
@@ -3231,22 +3230,42 @@ msgstr ""
 "После регистрации необходимо будет настроить тексты уведомлений, а также "
 "пополнить счёт для того, чтобы начать отсылать SMS."
 
-msgid "Confirm your email"
-msgstr "Подтвердите адрес эл. почты"
-
 msgid "Thank you for registration."
 msgstr "Спасибо за регистрацию."
 
-#, php-format
-msgid "Confirmation is sent to %s."
-msgstr "Подтверждение отправлено на %s."
+msgid "You're almost ready to get started with Bookly SMS Service."
+msgstr "Вы почти готовы начать работу с услугой Bookly SMS."
 
 msgid ""
-"Once you confirm your e-mail address, you will get an access to Bookly SMS "
-"service."
+"An email containing the confirmation code has been sent to your email "
+"address."
 msgstr ""
-"Как только вы подтвердите свой адрес эл. почты, вы получите доступ к сервису "
-"Bookly SMS."
+"Письмо с кодом подтверждения было отправлено на ваш адрес электронной почты."
+
+msgid "To complete registration, please enter the confirmation code below."
+msgstr ""
+"Чтобы завершить регистрацию, пожалуйста, введите ниже код подтверждения."
+
+msgid "Confirmation code"
+msgstr "Код подтверждения"
+
+msgid "Didn't receive the email?"
+msgstr "Не получили письмо?"
+
+#, php-format
+msgid "Is %s the correct email?"
+msgstr "Aдрес электронной почты %s правильный?"
+
+#, php-format
+msgid "If not, you can %s restart the registration process%s."
+msgstr "Если нет, вы можете %s возобновить процесс%s регистрации."
+
+msgid "Check your spam folder."
+msgstr "Проверьте папку Спам."
+
+#, php-format
+msgid "Click %s here %s to resend the email."
+msgstr "Нажмите %s здесь %s, чтобы отправить письмо ещё раз."
 
 msgid "Password"
 msgstr "Пароль"
@@ -3309,18 +3328,18 @@ msgstr ""
 msgid "Administrator phone"
 msgstr "Телефон администратора"
 
+msgid "Send test SMS"
+msgstr "Отправить тестовое SMS"
+
+msgid "Save administrator phone"
+msgstr "Сохранить телефон администратора"
+
 msgid ""
 "Enter a phone number in international format. E.g. for the United States a "
 "valid phone number would be +17327572923."
 msgstr ""
 "Введите номер телефона в международном формате. Например, правильный номер "
 "для России будет +79052022284."
-
-msgid "Send test SMS"
-msgstr "Отправить тестовое SMS"
-
-msgid "Save administrator phone"
-msgstr "Сохранить телефон администратора"
 
 msgid "Quick search notifications"
 msgstr "Быстрый поиск уведомлений"
@@ -3359,14 +3378,14 @@ msgstr "Запросить новый ID отправителя"
 msgid "Reset to default"
 msgstr "Восстановить первоначальное значение"
 
-msgid "Can only contain letters or digits (up to 11 characters)."
-msgstr "Разрешаются буквы и цифры (до 11 знаков включительно)."
-
 msgid "Request"
 msgstr "Запросить"
 
 msgid "Cancel request"
 msgstr "Отменить запрос"
+
+msgid "Can only contain letters or digits (up to 11 characters)."
+msgstr "Разрешаются буквы и цифры (до 11 знаков включительно)."
 
 msgid "Please accept terms and conditions."
 msgstr "Пожалуйста, согласитесь с условиями использования."
@@ -3411,6 +3430,12 @@ msgstr "включить"
 msgid "disable"
 msgstr "выключить"
 
+msgid "The email has been resent"
+msgstr "Письмо было отправлено повторно."
+
+msgid "Service is temporarily unavailable. Please try again later."
+msgstr "Сервис временно недоступен. Пожалуйста, попробуйте позже."
+
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr ""
 "Не удалось включить автопополнение. Пожалуйста, пополните счёт прямым "
@@ -3443,6 +3468,9 @@ msgstr "Категории"
 
 msgid "Show archived"
 msgstr "Показать архивированных"
+
+msgid "Reorder"
+msgstr "Переместить"
 
 msgid "Image"
 msgstr "Изображение"
@@ -3643,46 +3671,14 @@ msgstr ""
 msgid "duration of service"
 msgstr "продолжительность сервиса"
 
-msgid "To set up Facebook integration, do the following:"
-msgstr "Для того, чтобы настроить интеграцию с Facebook, выполните следующее:"
-
-msgid ""
-"Follow the steps at <a href=\"https://developers.facebook."
-"com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
-"com/docs/apps/register</a> to create a Developer Account, register and "
-"configure your <b>Facebook App</b>. Below the App Details Panel click <b>Add "
-"Platform</b> button, select Website and enter your website URL."
-msgstr ""
-"Выполните шаги по ссылке <a href=\"https://developers.facebook."
-"com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
-"com/docs/apps/register</a>, чтобы создать аккаунт разработчика, "
-"зарегистрировать и настроить ваше Facebook приложение. Под панелью "
-"\"Информация о приложении\" нажмите на кнопку <b>Добавить платформу</b>, "
-"выберите Веб-сайт и введите URL-адрес вашего сайта."
-
-msgid ""
-"Go to your <a href=\"https://developers.facebook.com/apps/\" "
-"target=\"_blank\">App Dashboard</a>. In the left side navigation panel of "
-"the App Dashboard, click <b>Settings > Basic</b> to view the App Details "
-"Panel with your <b>App ID</b>. Use it in the form below."
-msgstr ""
-"Откройте вашу <a href=\"https://developers.facebook.com/apps/\" "
-"target=\"_blank\">панель приложений</a>. В левом меню навигации на панели "
-"приложений выберите  <b>Настройки > Основное</b>, чтобы открыть панель "
-"Информация о приложении, в которой будет отображаться <b>ID приложения</b>. "
-"Используйте его в форме ниже."
-
-msgid "App ID"
-msgstr "ID приложения"
-
-msgid "Set order of the fields in calendar"
-msgstr "Установите порядок вывода полей в календаре"
-
 msgid "Appointment with one participant"
 msgstr "Запись с одним клиентом"
 
 msgid "Appointment with many participants"
 msgstr "Запись со многими клиентами"
+
+msgid "Set order of the fields in calendar"
+msgstr "Установите порядок вывода полей в календаре"
 
 msgid "Currency"
 msgstr "Валюта"
@@ -3820,6 +3816,9 @@ msgstr ""
 "день или дольше. Это время будет отображаться в уведомлениях клиентам, "
 "календаре в административной панели и кодах для формы бронирования."
 
+msgid "Slot length as service duration"
+msgstr "Длина интервала в качестве продолжительности сервиса"
+
 msgid ""
 "The time interval which is used as a step when building all time slots for "
 "the service at the Time step. The setting overrides global settings in "
@@ -3829,9 +3828,6 @@ msgstr ""
 "временных списков для услуги на шаге Время. Эта настройка переопределяет "
 "глобальные настройки, указанные в Настройки > Общие. Выберите По умолчанию, "
 "чтобы использовать глобальные настройки."
-
-msgid "Slot length as service duration"
-msgstr "Длина интервала в качестве продолжительности сервиса"
 
 msgid "You must select at least one repeat option for recurring services."
 msgstr ""
@@ -4034,9 +4030,6 @@ msgstr ""
 "Пользовательские CSS были сохранены. Пожалуйста, обновите страницу для того, "
 "чтобы увидеть изменения."
 
-msgid "Quick search customer"
-msgstr "Быстрый поиск клиента"
-
 msgid "New customer"
 msgstr "Новый клиент"
 
@@ -4072,6 +4065,9 @@ msgstr "Редактировать клиента"
 
 msgid "Create customer"
 msgstr "Создать клиента"
+
+msgid "Quick search customer"
+msgstr "Быстрый поиск клиента"
 
 msgid "Addons"
 msgstr "Дополнения"
@@ -4230,12 +4226,6 @@ msgstr "Отправить"
 msgid "Email notifications"
 msgstr "Email уведомления"
 
-msgid "General settings..."
-msgstr "Общие настройки..."
-
-msgid "Test email notifications..."
-msgstr "Тестировать email уведомления..."
-
 msgid "Sender name"
 msgstr "Имя отправителя"
 
@@ -4308,6 +4298,12 @@ msgstr "Передавать информацию о налоге"
 msgid "Price correction"
 msgstr "Коррекция"
 
+msgid "Increase/Discount (%)"
+msgstr "Наценка/скидка (%)"
+
+msgid "Addition/Deduction"
+msgstr "Добавление/вычет"
+
 msgid ""
 "This setting affects the cost of the booking according to the payment "
 "gateway used. Specify a percentage or fixed amount. Use minus (\"-\") sign "
@@ -4317,17 +4313,11 @@ msgstr ""
 "платёжной системы. Укажите сумму в процентах или фиксированную сумму. Для "
 "скидки спользуйте знак минус (\"-\")."
 
-msgid "Increase/Discount (%)"
-msgstr "Наценка/скидка (%)"
-
-msgid "Addition/Deduction"
-msgstr "Добавление/вычет"
-
 msgid "Enter a value"
 msgstr "Введите значение"
 
-msgid "Add..."
-msgstr "Добавить..."
+msgid "Add"
+msgstr "Добавить"
 
 msgid "Reset"
 msgstr "Сбросить"
@@ -4349,23 +4339,23 @@ msgstr ""
 msgid "Recipients"
 msgstr "Получатели"
 
-msgid "Choose who will receive this notification."
-msgstr "Выберите, кто получит это уведомление."
-
 msgid "Client"
 msgstr "Клиент"
 
 msgid "Administrators"
 msgstr "Администраторы"
 
-msgid "Select the type of event at which the notification is sent."
-msgstr "Выберите тип события, для которого отправляется уведомление."
+msgid "Choose who will receive this notification."
+msgstr "Выберите, кто получит это уведомление."
 
 msgid "Instant notifications"
 msgstr "Мгновенные уведомления"
 
 msgid "Scheduled notifications (require cron setup)"
 msgstr "Напоминающие уведомления (необходимо настроить cron)"
+
+msgid "Select the type of event at which the notification is sent."
+msgstr "Выберите тип события, для которого отправляется уведомление."
 
 msgid ""
 "This notification is sent once for a booking made by a customer and includes "
@@ -4420,8 +4410,11 @@ msgstr "Редактировать sms уведомление"
 msgid "Create notification"
 msgstr "Создать уведомление"
 
-msgid "New notification..."
-msgstr "Новое уведомление..."
+msgid "New notification"
+msgstr "Новое уведомление"
+
+msgid "Select from WP users"
+msgstr "Выбрать из пользователей WP"
 
 msgid ""
 "If this staff member requires separate login to access personal calendar, a "
@@ -4446,8 +4439,8 @@ msgstr ""
 "Если Вы оставите это поле пустым, сотрудник не сможет получить доступ к "
 "календарю из административной панели."
 
-msgid "Select from WP users"
-msgstr "Выбрать из пользователей WP"
+msgid "Archive"
+msgstr "Архивировать"
 
 msgid ""
 "To make staff member invisible to your customers set the visibility to "
@@ -4455,9 +4448,6 @@ msgid ""
 msgstr ""
 "Чтобы сделать сотрудника  невидимым для клиентов, установите видимость в "
 "значение \"Закрытый\"."
-
-msgid "Archive"
-msgstr "Архивировать"
 
 msgid "No services found. Please add services."
 msgstr "Сервисы не найдены. Пожалуйста, добавьте сервисы."
@@ -4544,6 +4534,12 @@ msgstr "-- Поиск клиентов --"
 msgid "Internal note"
 msgstr "Внутренняя заметка"
 
+msgid "Send if new or status changed"
+msgstr "Отправить, если новый или статус изменился"
+
+msgid "Send as for new"
+msgstr "Отправить как для новых"
+
 msgid ""
 "If you have added a new customer to this appointment or changed the "
 "appointment status for an existing customer, and for these records you want "
@@ -4558,12 +4554,6 @@ msgstr ""
 "статус изменился\" прежде, чем нажать Сохранить. Вы также можете отправить "
 "уведомления, как если бы все клиенты были добавлены как новые, выбрав "
 "\"Отправить как для новых\"."
-
-msgid "Send if new or status changed"
-msgstr "Отправить, если новый или статус изменился"
-
-msgid "Send as for new"
-msgstr "Отправить как для новых"
 
 msgid "Edit appointment"
 msgstr "Редактировать запись"
@@ -4652,6 +4642,9 @@ msgstr "Установите порядок сервисов в форме бр�
 
 msgid "Add category"
 msgstr "Добавить категорию"
+
+msgid "Adjust the order of categories in your booking form"
+msgstr "Установите порядок категорий в форме бронирования"
 
 msgid "Table settings"
 msgstr "Настройки таблицы"
@@ -4822,6 +4815,18 @@ msgstr "Свяжитесь с нами"
 msgid "Need help? Contact us here."
 msgstr "Нужна помощь? Свяжитесь с нами тут."
 
+msgid "Leave us a message"
+msgstr "Отправьте нам сообщение"
+
+msgid "Your name"
+msgstr "Ваше имя"
+
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+msgid "How can we help you?"
+msgstr "Чем мы можем быть вам полезны?"
+
 msgid "Feature requests"
 msgstr "Запросы функций"
 
@@ -4875,18 +4880,6 @@ msgstr ""
 "Для нас важен ваш опыт использования Bookly!<br/>Оставьте отзыв и расскажите "
 "другим, что вы думаете."
 
-msgid "Leave us a message"
-msgstr "Отправьте нам сообщение"
-
-msgid "Your name"
-msgstr "Ваше имя"
-
-msgid "Email address"
-msgstr "Адрес электронной почты"
-
-msgid "How can we help you?"
-msgstr "Чем мы можем быть вам полезны?"
-
 msgid "Booking form"
 msgstr "Форма для бронирования"
 
@@ -4917,6 +4910,15 @@ msgstr "Количество"
 msgid "hide"
 msgstr "скрыть"
 
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Remember Me"
+msgstr "Запомнить меня"
+
+msgid "Lost your password?"
+msgstr "Забыли пароль?"
+
 msgid "Loading..."
 msgstr "Загрузка..."
 
@@ -4928,6 +4930,9 @@ msgstr "По выбранным критериям нет доступного �
 
 msgid "Data already in use"
 msgstr "Данные уже используется"
+
+msgid "Update"
+msgstr "Обновить"
 
 msgid "Page Redirection"
 msgstr "Перенаправление на другую страницу"
@@ -5246,11 +5251,11 @@ msgstr ""
 msgid "Select appointment date"
 msgstr "Выбрать дату записи"
 
-msgid "Delete package appointment"
-msgstr "Удалить запись в пакете услуг"
-
 msgid "Edit package appointment"
 msgstr "Редактировать запись в пакете услуг"
+
+msgid "Delete package appointment"
+msgstr "Удалить запись в пакете услуг"
 
 msgid "Packages list"
 msgstr "Список пакетов услуг"
@@ -5435,6 +5440,15 @@ msgstr "Номер Улицы"
 msgid "Street number is required"
 msgstr "Необходимо указать номер улицы"
 
+msgid "Card Security Code"
+msgstr "CVV/CVC"
+
+msgid "Expiration Date"
+msgstr "Срок действия"
+
+msgid "Credit Card Number"
+msgstr "Номер карты"
+
 msgid "Appointment"
 msgstr "Запись"
 
@@ -5577,16 +5591,19 @@ msgstr "Печатать"
 msgid "Google Calendar integration"
 msgstr "Интеграция с Google Календарём"
 
-msgid "Synchronize staff member appointments with Google Calendar."
-msgstr "Синхронизировать данные о записях сотрудника с его Google Календарём."
-
 #, php-format
 msgid "Please configure Google Calendar <a href=\"%s\">settings</a> first"
 msgstr ""
 "Пожалуйста, сначала укажите <a href=\"%s\">настройки</a> Google Календаря"
 
+msgid "Synchronize staff member appointments with Google Calendar."
+msgstr "Синхронизировать данные о записях сотрудника с его Google Календарём."
+
 msgid "Limit working hours per day"
 msgstr "Ограничить количество рабочих часов в день"
+
+msgid "Unlimited"
+msgstr "Без ограничений"
 
 msgid ""
 "This setting allows limiting the total time occupied by bookings per day for "
@@ -5594,9 +5611,6 @@ msgid ""
 msgstr ""
 "Настройка позволяет ограничить суммарное время, которое может быть занято "
 "бронированиями в сутки для сотрудника. Время паузы не учитывается."
-
-msgid "Unlimited"
-msgstr "Без ограничений"
 
 msgid "API Username"
 msgstr "API Username"
@@ -5702,6 +5716,9 @@ msgstr ""
 msgid "Final step URL"
 msgstr "URL страницы для последнего шага бронирования"
 
+msgid "Enter a URL"
+msgstr "Введите URL"
+
 msgid ""
 "Set the URL of a page that the user will be forwarded to after successful "
 "booking. If disabled then the default Done step is displayed."
@@ -5709,9 +5726,6 @@ msgstr ""
 "Введите адрес страницы, на которую будет перенаправлен клиент после "
 "успешного бронирования. Если выключено, тогда будет показан стандартный "
 "последний шаг."
-
-msgid "Enter a URL"
-msgstr "Введите URL"
 
 msgid "Make birthday mandatory"
 msgstr "Обязательный ввод даты рождения"
@@ -5813,8 +5827,8 @@ msgstr ""
 "API Google Календаря сможет отправлять уведомления на HTTPS-адрес только в "
 "том случае, если на вашем веб-сервере установлен действительный SSL "
 "сертификат. Выполните действия, описанные в этом <a href=\"%s\" "
-"target=\"_blank\"> документе </a>, чтобы <b> проверить и зарегистрировать "
-"свой домен </b>."
+"target=\"_blank\">документе</a>, чтобы <b>проверить и зарегистрировать свой "
+"домен</b>."
 
 msgid "The client ID obtained from the Developers Console"
 msgstr "Значение CLIENT ID, полученное из Google Developers Console"
@@ -5859,6 +5873,9 @@ msgstr ""
 "Укажите, какая информация должна отображаться в заголовке событий в Google "
 "Календаре. Доступные коды: {service_name}, {staff_name} и {client_names}."
 
+msgid "To set up Facebook integration, do the following:"
+msgstr "Для того, чтобы настроить интеграцию с Facebook, выполните следующее:"
+
 msgid ""
 "Follow the steps at <a href=\"https://developers.facebook."
 "com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
@@ -5892,6 +5909,9 @@ msgstr ""
 "Перейдите в Панель Приложения. В левой панели навигации выберите Настройки > "
 "Основное, чтобы увидеть информацию о вашем ID приложения. Используйте его в "
 "форме ниже."
+
+msgid "App ID"
+msgstr "ID приложения"
 
 msgid ""
 "Upon providing the purchase code you will have access to free updates of "
@@ -6011,17 +6031,6 @@ msgstr ""
 msgid "Limit appointments per customer"
 msgstr "Ограничить записи на одного клиента"
 
-msgid ""
-"This setting allows you to limit the number of appointments that can be "
-"booked by a customer in any given period. Restriction may end after a fixed "
-"period or with the beginning of the next calendar period  new day, week, "
-"month, etc."
-msgstr ""
-"Эта настройка позволяет вам ограничить количество записей, которые могут "
-"быть забронированы клиентом в течение любого заданного периода. Ограничение "
-"может заканчиваться через фиксированное количество дней или с началом "
-"следующего календарного периода: новый день, неделя, месяц и т.д."
-
 msgid "upcoming"
 msgstr "предстоящих"
 
@@ -6048,6 +6057,17 @@ msgstr "в течение 365 дней"
 
 msgid "per year"
 msgstr "в год"
+
+msgid ""
+"This setting allows you to limit the number of appointments that can be "
+"booked by a customer in any given period. Restriction may end after a fixed "
+"period or with the beginning of the next calendar period  new day, week, "
+"month, etc."
+msgstr ""
+"Эта настройка позволяет вам ограничить количество записей, которые могут "
+"быть забронированы клиентом в течение любого заданного периода. Ограничение "
+"может заканчиваться через фиксированное количество дней или с началом "
+"следующего календарного периода: новый день, неделя, месяц и т.д."
 
 msgid "Limit"
 msgstr "Ограничить"
@@ -6090,6 +6110,22 @@ msgstr "Вид формы при осуществлении нескольких
 msgid "Form in case of 100% discount"
 msgstr "Вид формы при 100% скидке"
 
+msgid "Show birthday field"
+msgstr "Показывать поле с датой рождения"
+
+msgid ""
+"Address information is needed for Invoices add-on. To disable, deactivate "
+"Invoices add-on first."
+msgstr ""
+"Информация об адресе клиента необходима для работы дополнения Инвойсы. Чтобы "
+"отключить, сначала деактивируйте дополнение Инвойсы."
+
+msgid "Show address fields"
+msgstr "Показывать поля для ввода адреса"
+
+msgid "Show Facebook login button"
+msgstr "Показывать кнопку входа через Facebook"
+
 #, php-format
 msgid ""
 "Please configure Facebook App integration in <a href=\"%s\">settings</a> "
@@ -6100,15 +6136,6 @@ msgstr ""
 
 msgid "Ok"
 msgstr "Готово"
-
-msgid "Show birthday field"
-msgstr "Показывать поле с датой рождения"
-
-msgid "Show address fields"
-msgstr "Показывать поля для ввода адреса"
-
-msgid "Show Facebook login button"
-msgstr "Показывать кнопку входа через Facebook"
 
 msgid "Show time zone switcher"
 msgstr "Показывать переключатель часового пояса"
@@ -6355,9 +6382,6 @@ msgstr ""
 "Не находите свой код покупки? Посмотрите эту <a href=\"%s\" "
 "target=\"_blank\">страницу</a>."
 
-msgid "Proceed without license verification"
-msgstr "Продолжить без подтверждения лицензии"
-
 msgid "I will provide license info later"
 msgstr "Я предоставлю информацию о лицензии позже"
 
@@ -6391,6 +6415,12 @@ msgstr "Пользовательский блок для отображения 
 
 msgid "Custom fields"
 msgstr "Пользовательские поля"
+
+msgid "Confirm cancellation"
+msgstr "Подтвердить отмену"
+
+msgid "Do not cancel"
+msgstr "Не отменять"
 
 msgid "Thank you for being with us"
 msgstr "Спасибо за то, что Вы с нами."
@@ -6426,6 +6456,12 @@ msgstr "Я оплачу полную стоимость"
 msgid "Deposit options"
 msgstr "Варианты оплаты аванса"
 
+msgid "Deposit only"
+msgstr "Только аванс"
+
+msgid "Deposit or full price"
+msgstr "Аванс или полная стоимость"
+
 msgid ""
 "If you enable \"Deposit only\", customers will be requested to pay only a "
 "deposit amount. If you enable \"Deposit or full price\", customers will be "
@@ -6434,12 +6470,6 @@ msgstr ""
 "Если вы выберите \"Только аванс\", клиентам будет предложено оплатить только "
 "сумму аванса. Если вы выберите \"Аванс или полная стоимость\", клиентам "
 "будет предложено оплатить сумму аванса или полную стоимость."
-
-msgid "Deposit only"
-msgstr "Только аванс"
-
-msgid "Deposit or full price"
-msgstr "Аванс или полная стоимость"
 
 msgid "amount due"
 msgstr "оставшаяся сумма"
@@ -6556,6 +6586,9 @@ msgstr "Задачи"
 msgid "Time step settings"
 msgstr "Настройки шага Время"
 
+msgid "Optional"
+msgstr "Опциональный"
+
 msgid ""
 "This setting allows to display the step of selecting an appointment time, "
 "hide it and create a task without due time, or display the time step, but "
@@ -6565,14 +6598,8 @@ msgstr ""
 "создать задачу без времени выполнения или отобразить шаг Время, но позволить "
 "клиенту пропустить его."
 
-msgid "Optional"
-msgstr "Опциональный"
-
 msgid "Skip time selection"
 msgstr "Пропустить назначение времени"
-
-msgid "Weekly Schedule"
-msgstr "Недельный график"
 
 msgid "Incorrect payment data"
 msgstr "Неверные данные платежа"
@@ -6647,15 +6674,15 @@ msgstr "Новый купон"
 msgid "Edit coupon"
 msgstr "Редактировать купон"
 
+msgid "Generate"
+msgstr "Сгенерировать"
+
 msgid ""
 "You can enter a mask containing asterisks \"*\" for variables here and click "
 "Generate."
 msgstr ""
 "Здесь вы можете ввести маску, содержащую звёздочки «*» для замены на символы,"
 " и нажать Сгенерировать."
-
-msgid "Generate"
-msgstr "Сгенерировать"
 
 msgid "Mask"
 msgstr "Маска"
@@ -6982,6 +7009,9 @@ msgstr "Поле Загрузки Файла"
 msgid "File"
 msgstr "Файл"
 
+msgid "Show custom fields required"
+msgstr "Необходимо показывать пользовательские поля"
+
 msgid "Show files"
 msgstr "Показывать файлы"
 
@@ -7114,6 +7144,9 @@ msgstr "Редактировать Статус"
 msgid "Free/busy"
 msgstr "Свободно/занято"
 
+msgid "Busy"
+msgstr "Занято"
+
 msgid ""
 "If you select busy, then a customer with this status will occupy a place in "
 "appointment. If you select free, then a place will be considered as free."
@@ -7121,9 +7154,6 @@ msgstr ""
 "Если вы выберете \"занято\", то клиент с указанным статусом будет занимать "
 "место в записи. Если вы выберете \"свободно\", то место будет считаться "
 "свободным."
-
-msgid "Busy"
-msgstr "Занято"
 
 msgid "No statuses found."
 msgstr "Статусы не найдены."
@@ -7159,6 +7189,9 @@ msgstr "Сотрудники"
 msgid "Locations"
 msgstr "Места"
 
+msgid "Default settings"
+msgstr "Настройки по умолчанию"
+
 msgid ""
 "Set Default values that will be used in all locations where Use default "
 "settings is selected. To use custom settings in a location, select Use "
@@ -7168,9 +7201,6 @@ msgstr ""
 "где выбрано \"Использовать настройки по умолчанию\". Для использования в "
 "месте пользовательских настроек, выберите \"Использовать пользовательские "
 "настройки\" и введите пользовательские значения."
-
-msgid "Default settings"
-msgstr "Настройки по умолчанию"
 
 msgid "Use default settings"
 msgstr "Использовать настройки по умолчанию"
@@ -7211,6 +7241,9 @@ msgstr "Места отсутствуют."
 
 msgid "W/o location"
 msgstr "Без места"
+
+msgid "Custom settings for location enabled"
+msgstr "Пользовательские настройки для места включены"
 
 msgid "Make selecting location required"
 msgstr "Сделать выбор места обязательным"
@@ -7305,35 +7338,35 @@ msgstr "Ваша оценка сохранена. Спасибо за ваш о�
 
 #, php-format
 msgid ""
-"1. Provide <b>Secret</b> and <b>Publishable</b> keys which are available in "
-"the <a href=\"%s\" target=\"_blank\">Dashboard</a>."
+"Provide <b>Secret</b> and <b>Publishable</b> keys which are available in the "
+"<a href=\"%s\" target=\"_blank\">Dashboard</a>."
 msgstr ""
-"1. Укажите <b>Secret</b> и <b>Publishable</b> keys, которые доступны в <a "
+"Укажите <b>Secret</b> и <b>Publishable</b> keys, которые доступны в <a "
 "href=\"%s\" target=\"_blank\">Dashboard</a>."
 
 #, php-format
 msgid ""
-"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
 "section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
 "for receiving events."
 msgstr ""
-"2. В разделе <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
-"Dashboard-а, нажмите <b>Add endpoint</b>, чтобы открыть форму для добавления "
-"новой точки входа для получения событий."
+"В разделе <a href=\"%s\" target=\"_blank\">Webhooks settings</a> Dashboard-а,"
+" нажмите <b>Add endpoint</b>, чтобы открыть форму для добавления новой точки "
+"входа для получения событий."
 
 #, php-format
 msgid ""
-"3. Enter the following URL as the destination for events <b>%s</b> and click "
-"<b>Add endpoint</b>."
+"Enter the following URL as the destination for events <b>%s</b> and click <b>"
+"Add endpoint</b>."
 msgstr ""
-"3. Введите следующий URL-адрес в качестве назначения для событий <b>%s</b> и "
+"Введите следующий URL-адрес в качестве назначения для событий <b>%s</b> и "
 "нажмите <b>Add endpoint</b>."
 
 msgid ""
-"4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
+"Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
 "payment_failed</b> and click <b>Add endpoint</b>."
 msgstr ""
-"4. Добавьте эти события: <b>payment_intent.succeeded</b>, <b>payment_intent."
+"Добавьте эти события: <b>payment_intent.succeeded</b>, <b>payment_intent."
 "payment_failed</b> и нажмите <b>Add endpoint</b>."
 
 msgid "Secret Key"
@@ -7362,11 +7395,13 @@ msgstr ""
 
 #, php-format
 msgid ""
-"Enter the following URL as the destination for events <b>%s</b> and click <b>"
-"Add endpoint</b>."
+"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
+"for receiving events."
 msgstr ""
-"Введите следующий URL-адрес в качестве назначения для событий <b>%s</b> и "
-"нажмите <b>Add endpoint</b>."
+"2. В разделе <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"Dashboard-а, нажмите <b>Add endpoint</b>, чтобы открыть форму для добавления "
+"новой точки входа для получения событий."
 
 msgid "Set maximum value for Quantity field."
 msgstr "Установите максимальное значение для поля Количество."

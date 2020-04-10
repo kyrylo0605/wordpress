@@ -23,21 +23,28 @@ class Nps extends Lib\Base\Component
                 if ( time() - Lib\Plugin::getInstallationTime() >= 30 * DAY_IN_SECONDS ) {
                     self::enqueueStyles( array(
                         'frontend' => array( 'css/ladda.min.css', ),
-                        'module'   => array( 'css/bootstrap-stars.css', ),
+                        'backend'  => array(
+                            'css/fontawesome-all.min.css',
+                            'bootstrap/css/bootstrap.min.css',
+                        ),
                     ) );
 
                     self::enqueueScripts( array(
-                        'backend' => array(
+                        'backend'  => array(
                             'js/alert.js' => array( 'jquery' ),
+                            'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
                         ),
                         'frontend' => array(
                             'js/spin.min.js'  => array( 'jquery' ),
                             'js/ladda.min.js' => array( 'jquery' ),
                         ),
-                        'module' => array(
-                            'js/jquery.barrating.min.js' => array( 'jquery' ),
-                            'js/nps.js' => array( 'bookly-jquery.barrating.min.js', 'bookly-alert.js', 'bookly-ladda.min.js', ),
+                        'module'   => array(
+                            'js/nps.js' => array( 'bookly-alert.js', 'bookly-ladda.min.js', ),
                         ),
+                    ) );
+
+                    wp_localize_script( 'bookly-nps.js', 'BooklyNpsL10n', array(
+                        'csrfToken' => Lib\Utils\Common::getCsrfToken(),
                     ) );
 
                     self::renderTemplate( 'nps', array( 'current_user' => wp_get_current_user() ) );

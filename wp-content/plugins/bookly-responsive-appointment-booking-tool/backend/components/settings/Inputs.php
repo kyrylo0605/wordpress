@@ -87,11 +87,12 @@ class Inputs
      */
     public static function buildControl( $option_name, $label, $help, $control_html )
     {
+
         return strtr(
-            '<div class="form-group">{label}{help}{control}</div>',
+            '<div class="form-group">{label}{control}{help}</div>',
             array(
                 '{label}'   => $label != '' ? sprintf( '<label for="%s">%s</label>', $option_name, $label ) : '',
-                '{help}'    => $help  != '' ? sprintf( '<p class="help-block">%s</p>', $help ) : '',
+                '{help}'    => $help  != '' ? sprintf( '<small class="form-text text-muted">%s</small>', $help ) : '',
                 '{control}' => $control_html,
             )
         );

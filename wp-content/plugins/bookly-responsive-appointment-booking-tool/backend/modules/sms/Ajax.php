@@ -64,6 +64,19 @@ class Ajax extends Lib\Base\Ajax
     }
 
     /**
+     * Resend email confirmation for sms user.
+     */
+    public static function resendConfirmation()
+    {
+        $sms  = new Lib\SMS();
+        $send = $sms->resendConfirmation();
+        $message = $send ? __( 'The email has been resent', 'bookly' ) : __( 'Service is temporarily unavailable. Please try again later.', 'bookly' );
+        $send
+            ? wp_send_json_success( compact( 'message' ) )
+            : wp_send_json_error( compact( 'message' ) );
+    }
+
+    /**
      * Initial for enabling Auto-Recharge balance
      */
     public static function initAutoRecharge()
@@ -114,9 +127,9 @@ class Ajax extends Lib\Base\Ajax
     public static function sendTestSms()
     {
         $sms = new Lib\SMS();
-
         $response = array( 'success' => $sms->sendSms(
             self::parameter( 'phone_number' ),
+            'Bookly test SMS.',
             'Bookly test SMS.',
             Lib\Entities\Notification::$type_ids['test_message']
         ) );
@@ -142,7 +155,8 @@ class Ajax extends Lib\Base\Ajax
         $password = self::parameter( 'password' );
         $result   = $sms->forgotPassword( $username, $step, $code, $password );
         if ( $result === false ) {
-            wp_send_json_error( array( 'message' => current( $sms->getErrors() ) ) );
+            $errors = $sms->getErrors();
+            wp_send_json_error( array( 'code' => key( $errors ), 'message' => current( $errors ) ) );
         } else {
             wp_send_json_success();
         }
@@ -200,17 +214,6 @@ class Ajax extends Lib\Base\Ajax
     }
 
     /**
-     * Enable or Disable administrators email reports.
-     */
-    public static function adminNotify()
-    {
-        if ( in_array( self::parameter( 'option_name' ), array( 'bookly_sms_notify_low_balance', 'bookly_sms_notify_weekly_summary' ) ) ) {
-            update_option( self::parameter( 'option_name' ), self::parameter( 'value' ) );
-        }
-        wp_send_json_success();
-    }
-
-    /**
      * Send client info for invoice.
      */
     public static function saveInvoiceData()
@@ -222,6 +225,35 @@ class Ajax extends Lib\Base\Ajax
         } else {
             wp_send_json_success( array( 'message' => __( 'Settings saved.', 'bookly' ) ) );
         }
+    }
+
+    /**
+     * Confirmation email.
+     */
+    public static function completeSmsRegistration()
+    {
+        $code = trim( self::parameter( 'code' ) );
+        $sms  = new Lib\SMS();
+        $response = $sms->completeRegistration( $code );
+        if ( $response ) {
+            update_option( 'bookly_sms_token', $response->token );
+            update_option( 'bookly_sms_unverified_token', '' );
+            update_option( 'bookly_sms_unverified_username', '' );
+            wp_send_json_success();
+        } else {
+            wp_send_json_error( array( 'message' => current( $sms->getErrors() ) ) );
+        }
+    }
+
+    /**
+     * Enable or Disable administrators email reports.
+     */
+    public static function adminNotify()
+    {
+        if ( in_array( self::parameter( 'option_name' ), array( 'bookly_sms_notify_low_balance', 'bookly_sms_notify_weekly_summary' ) ) ) {
+            update_option( self::parameter( 'option_name' ), self::parameter( 'value' ) );
+        }
+        wp_send_json_success();
     }
 
     /**

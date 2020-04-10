@@ -3,7 +3,7 @@ jQuery(function ($) {
     var $servicesList         = $('#services-list'),
         $serviceDialog        = $('#bookly-edit-service-modal'),
         $containers           = $('.bookly-js-service-containers .tab-pane > div'),
-        $serviceLoading       = $('.bookly-js-service-containers > .bookly-loading', $serviceDialog),
+        $serviceLoading       = $('.bookly-js-service-containers > .bookly-js-loading', $serviceDialog),
         $serviceTabs          = $('.bookly-js-service-tabs', $serviceDialog),
         $wrapContainer        = $('.bookly-js-service-containers', $serviceDialog),
         $generalContainer     = $('#bookly-services-general-container', $serviceDialog),
@@ -14,19 +14,24 @@ jQuery(function ($) {
         $scheduleContainer    = $('#bookly-services-schedule-container', $serviceDialog),
         $additionalContainer  = $('#bookly-service-additional-html', $serviceDialog),
         $saveButton           = $('#bookly-save', $serviceDialog),
-        updateStaffChoice     = null,
         $updateStaffModal     = $('#bookly-update-service-settings'),
         $serviceType          = $('[name="type"]', $serviceDialog),
         $serviceId            = $('[name="id"]', $serviceDialog),
-        $serviceError         = $('.bookly-js-service-error', $serviceDialog)
+        $serviceError         = $('.bookly-js-service-error', $serviceDialog),
+        updateStaffChoice     = null
     ;
 
+    $serviceDialog.on('keydown', ':input:not(textarea)', function (event) {
+        if (event.key == "Enter") {
+            event.preventDefault();
+        }
+    });
     $servicesList.on('click', '[data-action="edit"]', function () {
         let data = $servicesList.DataTable().row($(this).closest('td')).data();
         $containers.html('');
         $serviceTabs.hide();
         $serviceLoading.show();
-        $serviceDialog.modal('show');
+        $serviceDialog.booklyModal('show');
         $.ajax({
             url     : ajaxurl,
             type    : 'POST',
@@ -50,21 +55,20 @@ jQuery(function ($) {
                 /**
                  * Init general tab
                  */
-                var $panel           = $generalContainer,
-                    $colorPicker     = $panel.find('.bookly-js-color-picker'),
-                    $visibility      = $panel.find('input[name="visibility"]'),
-                    $providers       = $panel.find('.bookly-js-providers'),
-                    $staffPreference = $panel.find('[name=staff_preference]'),
-                    $prefStaffOrder  = $panel.find('.bookly-js-preferred-staff-order'),
-                    $prefStaffList   = $panel.find('.bookly-js-preferred-staff-list'),
-                    $prefPeriod      = $panel.find('.bookly-js-preferred-period'),
+                let $colorPicker     = $('.bookly-js-color-picker',$generalContainer),
+                    $visibility      = $('input[name="visibility"]',$generalContainer),
+                    $providers       = $('.bookly-js-providers',$generalContainer),
+                    $staffPreference = $('[name=staff_preference]',$generalContainer),
+                    $prefStaffOrder  = $('.bookly-js-preferred-staff-order',$generalContainer),
+                    $prefStaffList   = $('.bookly-js-preferred-staff-list',$generalContainer),
+                    $prefPeriod      = $('.bookly-js-preferred-period',$generalContainer),
                     staff_data       = {}
                 ;
                 // Color picker.
                 initColorPicker($colorPicker);
                 // Visibility.
                 $visibility.off().on('change', function () {
-                    $panel.find('.bookly-js-groups-list').toggle($panel.find('input[name="visibility"]:checked').val() === 'group');
+                    $generalContainer.find('.bookly-js-groups-list').toggle($generalContainer.find('input[name="visibility"]:checked').val() === 'group');
                 });
                 // Providers.
                 $providers.booklyDropdown();
@@ -77,7 +81,7 @@ jQuery(function ($) {
                 $staffPreference.on('change', function () {
                     if (this.value === 'order' && $prefStaffList.html() === '') {
                         var $staffIds  = $staffPreference.data('default'),
-                            $draggable = $('<div class="bookly-flex-cell"><i class="bookly-js-handle bookly-margin-right-sm bookly-icon bookly-icon-draghandle bookly-cursor-move"></i><input type="hidden" name="positions[]" /></div>');
+                            $draggable = $('<div class="col-12">').append('<i class="fas fa-fw fa-bars text-muted bookly-cursor-move bookly-js-draghandle"/>').append('<input type="hidden" name="positions[]"/>');
                         $draggable.find('i').attr('title', BooklyL10n.reorder);
                         $staffIds.forEach(function (staffId) {
                             $prefStaffList.append($draggable.clone().find('input').val(staffId).end().append(staff_data[staffId]));
@@ -85,7 +89,7 @@ jQuery(function ($) {
                         Object.keys(BooklyServiceEditDialogL10n.staff).forEach(function (staffId) {
                             staffId = parseInt(staffId);
                             if ($staffIds.indexOf(staffId) === -1) {
-                                $prefStaffList.append($draggable.clone().find('input').val(staffId).end().append(staff_data[staffId]));
+                                $prefStaffList.append($draggable.clone().find('input').val(staffId).end().append('&nbsp;' + staff_data[staffId]));
                             }
                         });
                     }
@@ -93,26 +97,27 @@ jQuery(function ($) {
                     $prefPeriod.toggle(this.value === 'least_occupied_for_period' || this.value === 'most_occupied_for_period');
                 }).trigger('change');
                 // Preferred providers order.
-                $prefStaffList.sortable({
-                    axis  : 'y',
-                    handle: '.bookly-js-handle',
-                    update: function () {
-                        var positions = [];
-                        $prefStaffList.find('input').each(function () {
-                            positions.push(this.value);
-                        });
-                        $.ajax({
-                            type: 'POST',
-                            url : ajaxurl,
-                            data: {
-                                action    : 'bookly_pro_update_service_staff_preference_orders',
-                                service_id: $panel.data('service-id'),
-                                positions : positions,
-                                csrf_token: BooklyServiceEditDialogL10n.csrfToken
-                            }
-                        });
-                    }
-                });
+                if ($prefStaffList.length) {
+                    Sortable.create($prefStaffList[0], {
+                        handle: '.bookly-js-draghandle',
+                        onEnd : function () {
+                            var positions = [];
+                            $prefStaffList.find('input').each(function () {
+                                positions.push(this.value);
+                            });
+                            $.ajax({
+                                type: 'POST',
+                                url : ajaxurl,
+                                data: {
+                                    action    : 'bookly_pro_update_service_staff_preference_orders',
+                                    service_id: $generalContainer.data('service-id'),
+                                    positions : positions,
+                                    csrf_token: BooklyServiceEditDialogL10n.csrfToken
+                                }
+                            });
+                        }
+                    });
+                }
 
                 /**
                  * Init advanced tab
@@ -133,9 +138,9 @@ jQuery(function ($) {
                 /**
                  * Init time tab
                  */
-                var $duration        = $('.bookly-js-duration', $timeContainer),
-                    $unitsBlock      = $('.bookly-js-units-block', $timeContainer),
-                    $unitDuration    = $('.bookly-js-unit-duration', $timeContainer)
+                var $duration     = $('.bookly-js-duration', $timeContainer),
+                    $unitsBlock   = $('.bookly-js-units-block', $timeContainer),
+                    $unitDuration = $('.bookly-js-unit-duration', $timeContainer)
                 ;
                 // Duration (and unit duration).
                 $duration.off().on('change', function () {
@@ -168,7 +173,7 @@ jQuery(function ($) {
                 $serviceDialog.find('.bookly-js-service-' + response.data.type).css('display', '');
 
                 // Switch to 'General' tab if active is not visible
-                if ($('.bookly-js-service-tabs li.active').css('display') == 'none') {
+                if ($('.bookly-js-service-tabs a.active').closest('li').css('display') == 'none') {
                     $('#bookly-services-general-tab').click();
                 }
 
@@ -191,7 +196,7 @@ jQuery(function ($) {
                         });
                     }
                     if (showModal) {
-                        $updateStaffModal.data('panel', $panel).modal('show');
+                        $updateStaffModal.data('panel', $generalContainer).booklyModal('show');
                     } else {
                         submitServiceFrom($serviceDialog, updateStaffChoice);
                     }
@@ -201,7 +206,7 @@ jQuery(function ($) {
                  * Update staff services modal
                  */
                 $updateStaffModal.off().on('click', '.bookly-yes', function () {
-                    $updateStaffModal.modal('hide');
+                    $updateStaffModal.booklyModal('hide');
                     if ($('#bookly-remember-my-choice').prop('checked')) {
                         updateStaffChoice = true;
                     }
@@ -211,8 +216,6 @@ jQuery(function ($) {
                         updateStaffChoice = false;
                     }
                     submitServiceFrom($serviceDialog, 0);
-                }).on('hidden.bs.modal', function () {
-                    $('body').addClass('modal-open');
                 });
 
                 /**
@@ -266,7 +269,7 @@ jQuery(function ($) {
                                 ExtrasL10n.list = response.data.new_extras_list
                             }
                             $servicesList.DataTable().ajax.reload();
-                            $serviceDialog.modal('hide');
+                            $serviceDialog.booklyModal('hide');
                         }
                     }, 'json').always(function() {
                         ladda.stop();

@@ -33,11 +33,6 @@ jQuery(function ($) {
         }
     });
 
-    $deleteModal
-        .on('hidden.bs.modal', function () {
-            jQuery('body').addClass('modal-open');
-        });
-
     /**
      * Init Columns.
      */
@@ -65,15 +60,18 @@ jQuery(function ($) {
         searchable        : false,
         width             : 90,
         render            : function (data, type, row, meta) {
-            return '<button type="button" class="btn btn-default" data-action="edit"><i class="fa fa-fw fa-edit"></i> ' + BooklyL10n.edit + '</a>';
+            return '<button type="button" class="btn btn-default" data-action="edit"><i class="far fa-fw fa-edit mr-1"></i>' + BooklyL10n.edit + '…</a>';
         }
     });
     columns.push({
         responsivePriority: 1,
         orderable         : false,
         searchable        : false,
-        render            : function (data, type, row, meta) {
-            return '<input type="checkbox" value="' + row.id + '">';
+        render: function (data, type, row, meta) {
+            return '<div class="custom-control custom-checkbox mt-1">' +
+                '<input value="' + row.id + '" id="bookly-dt-' + row.id + '" type="checkbox" class="custom-control-input">' +
+                '<label for="bookly-dt-' + row.id + '" class="custom-control-label"></label>' +
+                '</div>';
         }
     });
     let order = [];
@@ -124,9 +122,7 @@ jQuery(function ($) {
                 $(row).addClass('text-muted');
             }
         },
-        dom       : "<'row'<'col-sm-6'<'pull-left'>><'col-sm-6'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row pull-left'<'col-sm-12 bookly-margin-top-lg'p>>",
+        dom       : "<'row'<'col-sm-12'tr>><'row float-left mt-3'<'col-sm-12'p>>",
         language  : {
             zeroRecords: BooklyL10n.zeroRecords,
             processing : BooklyL10n.processing
@@ -172,10 +168,10 @@ jQuery(function ($) {
                         switch (response.data.action) {
                             case 'show_modal':
                                 $deleteModal
-                                    .modal('show');
+                                    .booklyModal('show');
                                 $('.bookly-js-delete', $deleteModal).off().on('click', function () {
                                     delete_staff(ajaxurl, $.extend(data, {force_delete: true}));
-                                    $deleteModal.modal('hide');
+                                    $deleteModal.booklyModal('hide');
                                 });
                                 $('.bookly-js-edit', $deleteModal).off().on('click', function () {
                                     rangeTools.ladda(this);
@@ -203,7 +199,8 @@ jQuery(function ($) {
     $('.bookly-js-select')
         .select2({
             width: '100%',
-            theme: 'bootstrap',
+            theme: 'bootstrap4',
+            dropdownParent: '#bookly-tbs',
             allowClear: true,
             placeholder: '',
             language  : {

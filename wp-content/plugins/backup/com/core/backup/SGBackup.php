@@ -21,6 +21,7 @@ class SGBackup implements SGIBackupDelegate
 	private $actionId = null;
 	private $filesBackupAvailable = false;
 	private $databaseBackupAvailable = false;
+	private $isManual = true;
 	private $actionStartTs = 0;
 	private $fileName = '';
 	private $filesBackupPath = '';
@@ -376,7 +377,7 @@ class SGBackup implements SGIBackupDelegate
 
 				$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/').'/';
 				$path = substr($this->databaseBackupPath, strlen($rootDirectory));
-                $this->backupFiles->addDontExclude($this->databaseBackupPath);
+				$this->backupFiles->addDontExclude($this->databaseBackupPath);
 				$backupItems = $options['SG_BACKUP_FILE_PATHS'];
 				$allItems = $backupItems?explode(',', $backupItems):array();
 				$allItems[] = $path;
@@ -568,6 +569,19 @@ class SGBackup implements SGIBackupDelegate
 		$this->prepareBackupLogFile($backupPath);
 	}
 
+	private function extendLogFileHeader($content)
+	{
+		$isManual = $this->getIsManual();
+		if ($isManual) {
+			$content .= 'Backup mode: Manual'.PHP_EOL;
+		}
+		else {
+			$content .= 'Backup mode: Schedule'.PHP_EOL;
+		}
+
+		return $content;
+	}
+
 	private function prepareBackupLogFile($backupPath, $exists = false)
 	{
 		$file = $backupPath.'/'.$this->fileName.'_backup.log';
@@ -576,6 +590,7 @@ class SGBackup implements SGIBackupDelegate
 		if (!$exists)
 		{
 			$content = self::getLogFileHeader(SG_ACTION_TYPE_BACKUP, $this->fileName);
+			$content = $this->extendLogFileHeader($content);
 
 			$types = array();
 			if ($this->filesBackupAvailable)
@@ -694,8 +709,10 @@ class SGBackup implements SGIBackupDelegate
 				'archiveName' => $this->fileName
 			));
 		}
-
+		
 		SGBackupLog::write('Total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
+		SGBackupLog::write('Memory pick usage: '.(memory_get_peak_usage(true)/1024/1024).'MB');
+		SGBackupLog::write('CPU usage: '.implode(' / ', sys_getloadavg()));
 
 		$archiveSizeInBytes = backupGuardRealFilesize($this->filesBackupPath);
 		$archiveSize = convertToReadableSize($archiveSizeInBytes);
@@ -856,6 +873,8 @@ class SGBackup implements SGIBackupDelegate
 			SGBackupMailNotification::sendRestoreNotification(true);
 		}
 
+		SGBackupLog::write('Memory pick usage: '.(memory_get_peak_usage(true)/1024/1024).'MB');
+		SGBackupLog::write('CPU usage: '.implode(' / ', sys_getloadavg()));
 		SGBackupLog::write('Total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 
 		$this->cleanUp();
@@ -917,7 +936,7 @@ class SGBackup implements SGIBackupDelegate
 		$confs['sapi'] = PHP_SAPI;
 		$confs['mysql_version'] = SG_MYSQL_VERSION;
 		$confs['int_size'] = PHP_INT_SIZE;
-		$confs['method'] = backupGuardIsReloadEnabled()?'reload':'standard';
+		$confs['method'] = backupGuardIsReloadEnabled()?'ON':'OFF';
 
 		$confs['dbprefix'] = SG_ENV_DB_PREFIX;
 		$confs['siteurl'] = SG_SITE_URL;
@@ -926,6 +945,10 @@ class SGBackup implements SGIBackupDelegate
 		$confs['installation'] = SG_SITE_TYPE;
 		$freeSpace = convertToReadableSize(@disk_free_space(SG_APP_ROOT_DIRECTORY));
 		$confs['free_space'] = $freeSpace==false?'unknown':$freeSpace;
+		$isCurlAvailable = function_exists('curl_version');
+		$confs['curl_available'] = $isCurlAvailable ? 'Yes': 'No';
+		$confs['email_notifications'] = SGConfig::get('SG_NOTIFICATIONS_ENABLED') ? 'ON': 'OFF';
+		$confs['ftp_passive_mode'] = SGConfig::get('SG_FTP_PASSIVE_MODE') ? 'ON': 'OFF';
 
 		if (extension_loaded('gmp')) $lib = 'gmp';
 		else if (extension_loaded('bcmath')) $lib = 'bcmath';
@@ -937,15 +960,15 @@ class SGBackup implements SGIBackupDelegate
 		$confs['env'] = SG_ENV_ADAPTER.' '.SG_ENV_VERSION;
 
 		$content = '';
-		$content .= 'Date: '.backupGuardConvertDateTimezone(@date('Y-m-d H:i')).PHP_EOL;
-		$content .= 'Backup Method: '.$confs['method'].PHP_EOL;
+		$content .= 'Date: '.backupGuardConvertDateTimezone(@date('Y-m-d H:i')).' '.date_default_timezone_get().PHP_EOL;
+		$content .= 'Reloads: '.$confs['method'].PHP_EOL;
 
 		if ($actionType == SG_ACTION_TYPE_RESTORE) {
 			$confs['restore_method'] = SGExternalRestore::isEnabled()?'external':'standard';
 			$content .= 'Restore Method: '.$confs['restore_method'].PHP_EOL;
 		}
 
-		$content .= 'User Mode: '.$confs['sg_user_mode'].PHP_EOL;
+		$content .= 'User mode: '.backupGuardGetProductName().PHP_EOL;
 		$content .= 'BackupGuard version: '.$confs['sg_backup_guard_version'].PHP_EOL;
 		$content .= 'Supported archive version: '.$confs['sg_archive_version'].PHP_EOL;
 
@@ -959,14 +982,26 @@ class SGBackup implements SGIBackupDelegate
 		$content .= 'Server: '.$confs['server'].PHP_EOL;
 		$content .= 'User agent: '.@$_SERVER['HTTP_USER_AGENT'].PHP_EOL;
 		$content .= 'PHP version: '.$confs['php_version'].PHP_EOL;
-		$content .= 'SAPI: '.$confs['sapi'].PHP_EOL;
 		$content .= 'MySQL version: '.$confs['mysql_version'].PHP_EOL;
 		$content .= 'Int size: '.$confs['int_size'].PHP_EOL;
 		$content .= 'Int lib: '.$confs['int_lib'].PHP_EOL;
 		$content .= 'Memory limit: '.$confs['memory_limit'].PHP_EOL;
 		$content .= 'Max execution time: '.$confs['max_execution_time'].PHP_EOL;
 		$content .= 'Disk free space: '.$confs['free_space'].PHP_EOL;
-
+		$content .= 'CURL available: '.$confs['curl_available'].PHP_EOL;
+		$content .= 'Openssl version: '.OPENSSL_VERSION_TEXT.PHP_EOL;
+		if ($isCurlAvailable) {
+			$cv = curl_version();
+			$curlVersionText = $cv['version'].' / SSL: '.$cv['ssl_version'].' / libz: '.$cv['libz_version'];
+			$content .= 'CURL version: '.$curlVersionText.PHP_EOL;
+		}
+		$content .= 'Email notifications: '.$confs['email_notifications'].PHP_EOL;
+		$content .= 'FTP passive mode: '.$confs['ftp_passive_mode'].PHP_EOL;
+		$content .= 'Exclude paths: '.SGConfig::get('SG_PATHS_TO_EXCLUDE').PHP_EOL;
+		$content .= 'Tables to exclude: '.SGConfig::get('SG_TABLES_TO_EXCLUDE').PHP_EOL;
+		$content .= 'Number of rows to backup: '.(int)SGConfig::get('SG_BACKUP_DATABASE_INSERT_LIMIT').PHP_EOL;
+		$content .= 'AJAX request frequency: '.SGConfig::get('SG_AJAX_REQUEST_FREQUENCY').PHP_EOL;
+		
 		if ($actionType == SG_ACTION_TYPE_RESTORE) {
 			$archivePath = SG_BACKUP_DIRECTORY.$fileName.'/'.$fileName.'.sgbp';
 			$archiveSizeInBytes = backupGuardRealFilesize($archivePath);
@@ -1423,5 +1458,15 @@ class SGBackup implements SGIBackupDelegate
 	public function isBackgroundMode()
 	{
 		return $this->backgroundMode;
+	}
+
+	public function setIsManual($isManual)
+	{
+		$this->isManual = $isManual;
+	}
+
+	public function getIsManual()
+	{
+		return $this->isManual;
 	}
 }

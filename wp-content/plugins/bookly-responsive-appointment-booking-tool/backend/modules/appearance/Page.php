@@ -31,9 +31,9 @@ class Page extends Lib\Base\Component
                     ? array( 'css/bookly-rtl.css', 'css/bookly-main.css', )
                     : array( 'css/bookly-main.css', )
             ),
-            'backend' => array( 'bootstrap/css/bootstrap-theme.min.css', ),
+            'backend' => array( 'bootstrap/css/bootstrap.min.css', ),
             'wp'      => array( 'wp-color-picker', ),
-            'module'  => array( 'css/bootstrap-editable.css', )
+            'module'  => array( 'css/appearance.css', )
         ) );
 
         self::enqueueScripts( array(
@@ -54,9 +54,8 @@ class Page extends Lib\Base\Component
             ),
             'wp'     => array( 'wp-color-picker' ),
             'module' => array(
-                'js/bootstrap-editable.min.js'    => array( 'bookly-bootstrap.min.js' ),
-                'js/bootstrap-editable.bookly.js' => array( 'bookly-bootstrap-editable.min.js' ),
-                'js/appearance.js'                => array( 'bookly-bootstrap-editable.bookly.js' )
+                'js/editable.js'   => array( 'bookly-bootstrap.min.js' ),
+                'js/appearance.js' => array( 'bookly-editable.js' )
             )
         ) );
 
@@ -72,6 +71,7 @@ class Page extends Lib\Base\Component
             'date_format'   => Lib\Utils\DateTime::convertFormat( 'date', Lib\Utils\DateTime::FORMAT_PICKADATE ),
             'firstDay'      => (int) get_option( 'start_of_week' ),
             'saved'         => __( 'Settings saved.', 'bookly' ),
+            'empty'         => __( 'Empty', 'bookly' ),
             'intlTelInput'  => array(
                 'enabled' => get_option( 'bookly_cst_phone_default_country' ) != 'disabled',
                 'utils'   => is_rtl() ? '' : plugins_url( 'intlTelInput.utils.js', Lib\Plugin::getDirectory() . '/frontend/resources/js/intlTelInput.utils.js' ),

@@ -125,7 +125,7 @@ abstract class Tables
                 break;
             case self::SMS_PURCHASES:
                 $columns = array(
-                    'name'   => esc_attr__( 'Date', 'bookly' ),
+                    'date'   => esc_attr__( 'Date', 'bookly' ),
                     'time'   => esc_attr__( 'Time', 'bookly' ),
                     'type'   => esc_attr__( 'Type', 'bookly' ),
                     'order'  => esc_attr__( 'Order', 'bookly' ),

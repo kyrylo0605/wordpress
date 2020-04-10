@@ -2,7 +2,7 @@
 namespace Bookly\Backend\Modules\Settings;
 
 use Bookly\Lib;
-
+use Bookly\Backend\Components\Schedule\Component as ScheduleComponent;
 /**
  * Class Page
  * @package Bookly\Backend\Modules\Settings
@@ -20,16 +20,18 @@ class Page extends Lib\Base\Ajax
         wp_enqueue_media();
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css' ),
-            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css', )
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css', )
         ) );
 
         self::enqueueScripts( array(
             'backend'  => array(
                 'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
+                'js/sortable.min.js' => array( 'jquery' ),
                 'js/jCal.js'  => array( 'jquery' ),
                 'js/alert.js' => array( 'jquery' ),
+                'js/range-tools.js' => array( 'jquery' ),
             ),
-            'module'   => array( 'js/settings.js' => array( 'jquery', 'bookly-intlTelInput.min.js', 'jquery-ui-sortable' ) ),
+            'module'   => array( 'js/settings.js' => array( 'jquery', 'bookly-intlTelInput.min.js', 'bookly-sortable.min.js', 'bookly-range-tools.js' ) ),
             'frontend' => array(
                 'js/intlTelInput.min.js' => array( 'jquery' ),
                 'js/spin.min.js'  => array( 'jquery' ),
@@ -57,9 +59,9 @@ class Page extends Lib\Base\Ajax
                         $alert['success'][] = __( 'Settings saved.', 'bookly' );
                         break;
                     case 'business_hours':  // Business hours form.
-                        $form = new Forms\BusinessHours();
-                        $form->bind( self::postParameters(), $_FILES );
-                        $form->save();
+                        foreach ( array( 'bookly_bh_monday_start', 'bookly_bh_monday_end', 'bookly_bh_tuesday_start', 'bookly_bh_tuesday_end', 'bookly_bh_wednesday_start', 'bookly_bh_wednesday_end', 'bookly_bh_thursday_start', 'bookly_bh_thursday_end', 'bookly_bh_friday_start', 'bookly_bh_friday_end', 'bookly_bh_saturday_start', 'bookly_bh_saturday_end', 'bookly_bh_sunday_start', 'bookly_bh_sunday_end', ) as $option_name ) {
+                            update_option( $option_name, self::parameter( $option_name ) );
+                        }
                         $alert['success'][] = __( 'Settings saved.', 'bookly' );
                         break;
                     case 'general':  // General form.
@@ -149,25 +151,10 @@ class Page extends Lib\Base\Ajax
             $values['bookly_gen_time_slot_length'][] = array( $duration, Lib\Utils\DateTime::secondsToInterval( $duration * MINUTE_IN_SECONDS ) );
         }
 
-        // Payments tab
-        $payments     = array();
-        $payment_data = array(
-            'local' => self::renderTemplate( '_payment_local', array(), false ),
-        );
-        $payment_data = Proxy\Shared::preparePaymentGatewaySettings( $payment_data );
-        $order        = explode( ',', get_option( 'bookly_pmt_order' ) );
-        foreach ( $order as $payment_system ) {
-            if ( array_key_exists( $payment_system, $payment_data ) ) {
-                $payments[] = $payment_data[ $payment_system ];
-            }
-        }
-        foreach ( $payment_data as $slug => $data ) {
-            if ( ! $order || ! in_array( $slug, $order ) ) {
-                $payments[] = $data;
-            }
-        }
+        $payments = self::_getPayments();
+        $business_hours = self::_getBusinessHours();
 
-        self::renderTemplate( 'index', compact( 'values', 'payments' ) );
+        self::renderTemplate( 'index', compact( 'values', 'payments', 'business_hours' ) );
     }
 
     /**
@@ -193,5 +180,55 @@ class Page extends Lib\Base\Ajax
         }
 
         return $holidays;
+    }
+
+    /**
+     * @return ScheduleComponent
+     */
+    protected static function _getBusinessHours()
+    {
+        $business_hours = new ScheduleComponent( 'bookly_bh_{index}_start', 'bookly_bh_{index}_end', false );
+        $week_days = array(
+            1 => 'sunday',
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+        );
+        $start_of_week = (int) get_option( 'start_of_week' );
+        for ( $i = 1; $i <= 7; $i ++ ) {
+            $index = ( $start_of_week + $i ) < 8 ? $start_of_week + $i : $start_of_week + $i - 7;
+            $day = $week_days[ $index ];
+            $business_hours->addHours( $day, $index, get_option( 'bookly_bh_' . $day . '_start' ), get_option( 'bookly_bh_' . $day . '_end' ) );
+        }
+
+        return $business_hours;
+    }
+
+    /**
+     * @return array
+     */
+    protected static function _getPayments()
+    {
+        $payments     = array();
+        $payment_data = array(
+            'local' => self::renderTemplate( '_payment_local', array(), false ),
+        );
+        $payment_data = Proxy\Shared::preparePaymentGatewaySettings( $payment_data );
+        $order        = explode( ',', get_option( 'bookly_pmt_order' ) );
+        foreach ( $order as $payment_system ) {
+            if ( array_key_exists( $payment_system, $payment_data ) ) {
+                $payments[] = $payment_data[ $payment_system ];
+            }
+        }
+        foreach ( $payment_data as $slug => $data ) {
+            if ( ! $order || ! in_array( $slug, $order ) ) {
+                $payments[] = $data;
+            }
+        }
+
+        return $payments;
     }
 }

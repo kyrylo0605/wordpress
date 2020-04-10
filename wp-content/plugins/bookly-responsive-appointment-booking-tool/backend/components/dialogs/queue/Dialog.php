@@ -16,7 +16,7 @@ class Dialog extends BooklyLib\Base\Component
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(

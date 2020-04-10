@@ -8,9 +8,9 @@ jQuery(function($) {
         $checkAllButton       = $('#bookly-check-all'),
         $customerDialog       = $('#bookly-customer-dialog'),
         $selectForMergeButton = $('#bookly-select-for-merge'),
-        $mergeWithButton      = $('#bookly-merge-dialog-activator'),
+        $mergeWithButton      = $('[data-target=#bookly-merge-dialog]'),
         $mergeDialog          = $('#bookly-merge-dialog'),
-        $mergeButton          = $('#bookly-merge'),
+        $mergeButton          = $('#bookly-merge',$mergeDialog),
         columns               = [],
         order                 = [],
         row
@@ -42,8 +42,10 @@ jQuery(function($) {
                     break;
                 default:
                     if (column.startsWith('info_fields_')) {
+                        const id = parseInt(column.split('_').pop());
+                        const field =  BooklyL10n.infoFields.find( i => i.id === id);
                         columns.push({
-                            data: column.replace(/_([^_]*)$/, '.$1.value'),
+                            data: 'info_fields.' + id + '.value' + (field.type === 'checkboxes' ? '[, ]' : ''),
                             render: $.fn.dataTable.render.text(),
                             orderable: false
                         });
@@ -89,24 +91,26 @@ jQuery(function($) {
         columns: columns.concat([
             {
                 responsivePriority: 1,
-                orderable         : false,
-                searchable        : false,
-                render            : function (data, type, row, meta) {
-                    return '<button type="button" class="btn btn-default" data-action="edit"><i class="glyphicon glyphicon-edit"></i> ' + BooklyL10n.edit + '</button>';
+                orderable  : false,
+                searchable : false,
+                width      : 120,
+                render     : function (data, type, row, meta) {
+                    return '<button type="button" class="btn btn-default" data-action="edit"><i class="far fa-fw fa-edit mr-1"></i>' + BooklyL10n.edit + '…</button>';
                 }
             },
             {
                 responsivePriority: 1,
-                orderable         : false,
-                searchable        : false,
-                render            : function (data, type, row, meta) {
-                    return '<input type="checkbox" value="' + row.id + '" />';
+                orderable  : false,
+                searchable : false,
+                render     : function (data, type, row, meta) {
+                    return '<div class="custom-control custom-checkbox">' +
+                        '<input value="' + row.id + '" id="bookly-dt-' + row.id + '" type="checkbox" class="custom-control-input">' +
+                        '<label for="bookly-dt-' + row.id + '" class="custom-control-label"></label>' +
+                        '</div>';
                 }
             }
         ]),
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row pull-left'<'col-sm-12 bookly-margin-top-lg'p>>",
+        dom : "<'row'<'col-sm-12'tr>><'row float-left mt-3'<'col-sm-12'p>>",
         language: {
             zeroRecords: BooklyL10n.zeroRecords,
             processing:  BooklyL10n.processing
@@ -129,7 +133,7 @@ jQuery(function($) {
         // Edit customer.
         .on('click', '[data-action=edit]', function () {
             row = dt.row($(this).closest('td'));
-            $customerDialog.modal('show');
+            $customerDialog.booklyModal('show');
         });
 
     /**
@@ -170,8 +174,9 @@ jQuery(function($) {
                 $title.text(BooklyL10n.new_customer);
                 $button.text(BooklyL10n.create_customer);
             }
+            customer.birthday = customer.birthday === null ? customer.birthday : moment(customer.birthday);
 
-            var $scope = angular.element(this).scope();
+            var $scope = booklyAngular.element(this).scope();
             $scope.$apply(function ($scope) {
                 $scope.customer = customer;
                 setTimeout(function () {
@@ -206,7 +211,7 @@ jQuery(function($) {
                 orderable         : false,
                 searchable        : false,
                 render            : function (data, type, row, meta) {
-                    return '<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>';
+                    return '<button type="button" class="btn btn-default"><i class="fas fa-fw fa-times"></i></button>';
                 }
             }
         ]),
@@ -238,8 +243,9 @@ jQuery(function($) {
     /**
      * Merge customers.
      */
-    $mergeButton.on('click', function () {
-        var ladda = Ladda.create(this),
+    $mergeButton.on('click', function (e) {
+        e.preventDefault();
+        let ladda = Ladda.create(this),
             ids = [];
         ladda.start();
         mdt.rows().every(function () {
@@ -257,7 +263,7 @@ jQuery(function($) {
             dataType : 'json',
             success  : function(response) {
                 ladda.stop();
-                $mergeDialog.modal('hide');
+                $mergeDialog.booklyModal('hide');
                 if (response.success) {
                     dt.ajax.reload(null, false);
                     mdt.clear();
@@ -289,7 +295,7 @@ jQuery(function($) {
 });
 
 (function() {
-    var module = angular.module('customer', ['customerDialog']);
+    var module = booklyAngular.module('customer', ['customerDialog']);
     module.controller('customerCtrl', function($scope) {
         $scope.customer = {
             id          : '',
@@ -311,7 +317,9 @@ jQuery(function($) {
             birthday    : ''
         };
         $scope.saveCustomer = function(customer) {
-            jQuery('#bookly-customers-list').DataTable().ajax.reload(null, false);
+            jQuery('#bookly-customers-list').DataTable().ajax.reload(function () {
+                jQuery('#bookly-customers-list').DataTable().responsive.recalc();
+            }, false);
         };
     });
 })();

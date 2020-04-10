@@ -36,7 +36,7 @@ if ( ! $can_edit ) {
         </table>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive overflow-hidden">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -58,7 +58,7 @@ if ( ! $can_edit ) {
                         <td>
                             <?php if ( $item['number_of_persons'] > 1 ) echo $item['number_of_persons'] . '&nbsp;&times;&nbsp;' ?><?php echo esc_html( $item['service_name'] ) ?><?php if ( isset( $item['units'], $item['duration'] ) && $item['units'] > 1 ) echo '&nbsp;(' . DateTime::secondsToInterval( $item['units'] * $item['duration'] ) . ')' ?>
                             <?php if ( ! empty ( $item['extras'] ) ) : ?>
-                                <ul class="bookly-list list-dots">
+                                <ul class="pl-3 m-0">
                                     <?php foreach ( $item['extras'] as $extra ) : ?>
                                         <li><?php if ( $payment['extras_multiply_nop'] && $item['number_of_persons'] > 1 ) echo $item['number_of_persons'] . '&nbsp;&times;&nbsp;' ?><?php if ( $extra['quantity'] > 1 ) echo $extra['quantity'] . '&nbsp;&times;&nbsp;' ?><?php echo esc_html( $extra['title'] ) ?></li>
                                     <?php endforeach ?>
@@ -77,7 +77,7 @@ if ( ! $can_edit ) {
                             <?php else : ?>
                                 <?php if ( $item['number_of_persons'] > 1 ) $service_price = $item['number_of_persons'] . '&nbsp;&times;&nbsp' . $service_price ?>
                                 <?php echo $service_price ?>
-                                <ul class="bookly-list">
+                                <ul class="pl-3 m-0 list-unstyled">
                                 <?php foreach ( $item['extras'] as $extra ) : ?>
                                     <li>
                                         <?php printf( '%s%s%s',
@@ -94,7 +94,7 @@ if ( ! $can_edit ) {
                             <td class="text-right"><?php echo $item['service_tax'] !== null
                                     ? sprintf( $payment['tax_in_price'] === 'included' ? '(%s)' : '%s', Price::format( $item['service_tax'] ) )
                                     : '-' ?>
-                                <ul class="bookly-list">
+                                <ul class="pl-3 m-0 list-unstyled">
                                     <?php foreach ( $item['extras'] as $extra ) : ?>
                                         <?php if ( isset( $extra['tax'] ) ) : ?>
                                             <li>
@@ -222,11 +222,11 @@ if ( ! $can_edit ) {
                             <div class="bookly-js-details-main-controls">
                                 <?php Proxy\Pro::renderManualAdjustmentButton() ?>
                                 <?php if ( $payment['total'] != $payment['paid'] ) : ?>
-                                <button type="button" class="btn btn-success ladda-button" id="bookly-complete-payment" data-spinner-size="40" data-style="zoom-in"><i><?php esc_html_e( 'Complete payment', 'bookly' ) ?></i></button>
+                                    <?php Buttons::render( 'bookly-complete-payment', 'btn btn-success', __( 'Complete payment', 'bookly' ) ) ?>
                                 <?php endif ?>
                             </div>
                             <div class="bookly-js-details-bind-controls collapse">
-                                <?php Buttons::renderCustom( 'bookly-js-attach-payment', 'btn-success', esc_html__( 'Bind payment', 'bookly' ) ) ?>
+                                <?php Buttons::render( 'bookly-js-attach-payment', 'btn-success', __( 'Bind payment', 'bookly' ) ) ?>
                             </div>
                         </th>
                     </tr>

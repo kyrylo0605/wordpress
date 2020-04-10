@@ -1,6 +1,6 @@
 ;(function() {
 
-    angular.module('customerDialog', ['ui.date']).directive('customerDialog', function() {
+    booklyAngular.module('customerDialog', ['daterangepicker']).directive('customerDialog', function() {
         return {
             restrict : 'A',
             replace  : true,
@@ -70,17 +70,12 @@
 
                 // Do customer on modal hide.
                 element
-                    .on('hidden.bs.modal', function () {
-                        // Fix scroll issues when another modal is shown.
-                        if (jQuery('.modal-backdrop').length) {
-                            jQuery('body').addClass('modal-open');
-                        }
-                    })
                     .one('shown.bs.modal', () => {
                         jQuery('#wp_user')
                             .select2({
                                 width: '100%',
-                                theme: 'bootstrap',
+                                theme: 'bootstrap4',
+                                dropdownParent: '#bookly-tbs',
                                 allowClear: true,
                                 placeholder: '',
                                 dropdownParent: jQuery('#bookly-customer-dialog'),
@@ -134,6 +129,9 @@
                     scope.form.phone = BooklyL10nCustDialog.intlTelInput.enabled
                         ? element.find('#phone').intlTelInput('getNumber')
                         : element.find('#phone').val();
+                    scope.form.birthday = moment.isMoment(scope.form.birthday)
+                        ? scope.form.birthday.format('YYYY-MM-DD')
+                        : scope.form.birthday;
                     jQuery.ajax({
                         url  : ajaxurl,
                         type : 'POST',
@@ -168,7 +166,7 @@
                                         birthday           : ''
                                     };
                                     // Close the dialog.
-                                    element.modal('hide');
+                                    element.booklyModal('hide');
 
                                     // Add new customer to select2 filter
                                     let $customersFilter = jQuery('#bookly-filter-customer');
@@ -206,15 +204,7 @@
                 /**
                  * Datepicker options.
                  */
-                scope.datePickerOptions = jQuery.extend({
-                        beforeShow: function (input, inst) {
-                            jQuery(document).off('focusin.bs.modal');
-                        },
-                        onClose: function () {
-                            jQuery(document).on('focusin.bs.modal');
-                        },
-                    },
-                    BooklyL10nCustDialog.datePicker);
+                scope.datePickerOptions = BooklyL10nCustDialog.datePicker;
 
                 /**
                  * Toggle checkbox info field.

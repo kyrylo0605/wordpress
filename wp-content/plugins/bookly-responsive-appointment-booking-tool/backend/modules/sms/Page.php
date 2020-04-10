@@ -21,10 +21,7 @@ class Page extends Lib\Base\Component
                     ? array()
                     : array( 'css/intlTelInput.css' )
             ),
-            'backend'  => array(
-                'bootstrap/css/bootstrap-theme.min.css',
-                'css/daterangepicker.css',
-            ),
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -54,11 +51,12 @@ class Page extends Lib\Base\Component
         $prices = array();
         $sms    = new Lib\SMS();
 
-        $email_confirm_required = false;
-        $show_registration_form = false;
+        $show_form  = get_option( 'bookly_sms_unverified_token' ) ? 'confirm' : 'registration';
+        $user_login = null;
         if ( self::hasParameter( 'form-login' ) ) {
             if ( $sms->login( self::parameter( 'username' ), self::parameter( 'password' ) ) === 'ERROR_EMAIL_CONFIRM_REQUIRED' ) {
-                $email_confirm_required = self::parameter( 'username' );
+                $user_login = self::parameter( 'username' );
+                $show_form  = 'confirm';
             }
         } elseif ( self::hasParameter( 'form-logout' ) ) {
             $sms->logout();
@@ -70,15 +68,18 @@ class Page extends Lib\Base\Component
                     self::parameter( 'password_repeat' )
                 );
                 if ( $success ) {
-                    $email_confirm_required = self::parameter( 'username' );
+                    $user_login = self::parameter( 'username' );
+                    $show_form  = 'confirm';
+                    update_option( 'bookly_sms_unverified_token', $success->token );
+                    update_option( 'bookly_sms_unverified_username', $user_login );
                 } else {
-                    $show_registration_form = true;
+                    $show_form  = 'registration';
                 }
             } else {
                 $alert['error'][] = __( 'Please accept terms and conditions.', 'bookly' );
             }
         }
-        if ( $email_confirm_required !== false || self::hasParameter( 'form-registration' ) ) {
+        if ( $user_login !== null || self::hasParameter( 'form-registration' ) ) {
             $is_logged_in = false;
         } else {
             $is_logged_in = $sms->loadProfile();
@@ -113,7 +114,7 @@ class Page extends Lib\Base\Component
             }
         }
         $current_tab    = self::hasParameter( 'tab' ) ? self::parameter( 'tab' ) : 'notifications';
-        $alert['error'] = array_merge( $alert['error'], $sms->getErrors() );
+        $alert['error'] = array_merge( $alert['error'], array_values( $sms->getErrors() ) );
         // Services in custom notifications where the recipient is client only.
         $only_client = Lib\Entities\Service::query()->whereIn( 'type', array( Lib\Entities\Service::TYPE_COMPOUND, Lib\Entities\Service::TYPE_COLLABORATIVE ) )->fetchCol( 'id' );
 
@@ -172,7 +173,7 @@ class Page extends Lib\Base\Component
         // Number of undelivered sms.
         $undelivered_count = Lib\SMS::getUndeliveredSmsCount();
 
-        self::renderTemplate( 'index', compact( 'sms', 'is_logged_in', 'prices', 'bookly_ntf_processing_interval_values', 'undelivered_count', 'email_confirm_required', 'show_registration_form', 'datatables' ) );
+        self::renderTemplate( 'index', compact( 'sms', 'is_logged_in', 'prices', 'bookly_ntf_processing_interval_values', 'undelivered_count', 'user_login', 'show_form', 'datatables' ) );
     }
 
     /**

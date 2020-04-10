@@ -18,7 +18,7 @@ jQuery(function ($) {
         $offsetBefore        = $('.bookly-js-offset-before', containers.settings),
         $btnSaveNotification = $('.bookly-js-save', $modalNotification),
         $helpType            = $('.bookly-js-help-block', containers.settings),
-        $codes               = $('table.bookly-codes', $modalNotification),
+        $codes               = $('table.bookly-js-codes', $modalNotification),
         $status              = $("select[name='notification[settings][status]']", containers.settings),
         $defaultStatuses,
         useTinyMCE           = !BooklyNotificationDialogL10n.sms && typeof(tinyMCE) !== 'undefined',
@@ -26,15 +26,14 @@ jQuery(function ($) {
     ;
 
     function setNotificationText(text) {
+        $textarea.val(text);
         if (useTinyMCE) {
             tinyMCE.activeEditor.setContent(text);
-        } else {
-            return $textarea.val(text);
         }
     }
 
     function format(option) {
-        return option.id && option.element.dataset.icon ? '<i class="fa fa-fw ' + option.element.dataset.icon + '"></i> ' + option.text : option.text;
+        return option.id && option.element.dataset.icon ? '<i class="fa-fw ' + option.element.dataset.icon + '"></i> ' + option.text : option.text;
     }
 
     $modalNotification
@@ -123,7 +122,7 @@ jQuery(function ($) {
 
             // Hide/un hide recipient
             $.each(['customer', 'staff', 'admin'], function (index, value) {
-                $("[name$='[to_" + value + "]']:checkbox", containers.recipient).closest('.checkbox').toggle(recipients.indexOf(value) != -1);
+                $("[name$='[to_" + value + "]']:checkbox", containers.recipient).closest('.custom-control').toggle(recipients.indexOf(value) != -1);
             });
 
             // Hide/un hide attach
@@ -136,12 +135,13 @@ jQuery(function ($) {
         })
         .select2({
             minimumResultsForSearch: -1,
-            width                  : '100%',
-            theme                  : 'bootstrap',
-            allowClear             : false,
-            templateResult         : format,
-            templateSelection      : format,
-            escapeMarkup           : function (m) {
+            width: '100%',
+            theme: 'bootstrap4',
+            dropdownParent: '#bookly-tbs',
+            allowClear: false,
+            templateResult: format,
+            templateSelection: format,
+            escapeMarkup: function (m) {
                 return m;
             }
         });
@@ -172,7 +172,7 @@ jQuery(function ($) {
                     ladda.stop();
                     if (response.success) {
                         $notificationList.DataTable().ajax.reload();
-                        $modalNotification.modal('hide');
+                        $modalNotification.booklyModal('hide');
                     }
                 }
             });
@@ -188,7 +188,7 @@ jQuery(function ($) {
     function showNotificationDialog(id) {
         $('.bookly-js-loading:first-child', $modalNotification).addClass('bookly-loading').removeClass('collapse');
         $('.bookly-js-loading:last-child', $modalNotification).addClass('collapse');
-        $modalNotification.modal('show');
+        $modalNotification.booklyModal('show');
         if (id === undefined) {
             setNotificationData(BooklyNotificationDialogL10n.defaultNotification);
         } else {
@@ -276,7 +276,5 @@ jQuery(function ($) {
             if ($(e.target).closest("#link-selector").length) {
                 e.stopImmediatePropagation();
             }
-        })
-        // Restore class 'modal-open' because wplink on closing remove this class
-        .on('wplink-close', () => $(document.body).addClass('modal-open'));
+        });
 });

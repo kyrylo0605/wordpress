@@ -1,4 +1,4 @@
-jQuery(function ($) {
+(function ($) {
 
     var Details = function ($container, options) {
         var obj = this;
@@ -68,7 +68,7 @@ jQuery(function ($) {
                     var url = $(this).attr('href');
                     if (has_changes) {
                         e.preventDefault();
-                        $unsaved_changes.modal('show');
+                        $unsaved_changes.booklyModal('show');
                         $unsaved_changes.data('url', url);
                     }
                 })
@@ -76,7 +76,7 @@ jQuery(function ($) {
                     var url = $(this).attr('href');
                     if (has_changes) {
                         e.preventDefault();
-                        $unsaved_changes.modal('show');
+                        $unsaved_changes.booklyModal('show');
                         $unsaved_changes.data('url', url);
                     }
                 })
@@ -87,7 +87,7 @@ jQuery(function ($) {
                     has_changes = true;
                     $('.bookly-js-outlook-calendars-list', $container).toggle(!this.checked);
                 })
-                .on('click', '.bookly-pretty-indicator', function (e) {
+                .on('click', '.bookly-thumb label', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     var frame = wp.media({
@@ -110,9 +110,6 @@ jQuery(function ($) {
                                 $(this).hide();
                                 has_changes = true;
                             }
-                        })
-                        .on('close', function(){
-                            $('body').addClass('modal-open');
                         });
 
                     frame.open();
@@ -123,6 +120,7 @@ jQuery(function ($) {
                     $thumb.attr('style', '');
                     $container.find('[name=attachment_id]').val('').trigger('change');
                     has_changes = true;
+                    $('.bookly-thumb-delete').hide();
                 })
                 // Save staff member details.
                 .on('click', '#bookly-details-save', function (e) {
@@ -168,11 +166,6 @@ jQuery(function ($) {
             $unsaved_changes_ignore.on('click', function () {
                 window.location.href = $unsaved_changes.data('url');
             });
-
-            $unsaved_changes
-                .on('hidden.bs.modal', function () {
-                    jQuery('body').addClass('modal-open');
-                });
 
             function save(callback) {
                 var data         = $form.serializeArray(),
@@ -223,4 +216,4 @@ jQuery(function ($) {
     };
 
     window.BooklyStaffDetails = Details;
-});
+})(jQuery);

@@ -170,7 +170,6 @@ class Compound extends Item
         return $this->tax;
     }
 
-
     /**
      * Get compound token.
      *

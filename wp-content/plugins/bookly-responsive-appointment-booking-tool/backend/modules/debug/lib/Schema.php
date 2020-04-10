@@ -74,15 +74,21 @@ class Schema
         global $wpdb;
 
         $tableStructure = array();
-        $results = $wpdb->get_results( 'DESCRIBE `' . $table . '`;', ARRAY_A );
+        $results = $wpdb->get_results( $wpdb->prepare( 'SELECT COLUMN_NAME, 
+            CASE 
+                WHEN DATA_TYPE IN( \'smallint\', \'int\', \'bigint\' ) THEN CONCAT( DATA_TYPE, IF(COLUMN_TYPE LIKE \'%unsigned\', \' unsigned\', \'\'))
+                ELSE COLUMN_TYPE
+            END AS DATA_TYPE, 
+            IS_NULLABLE, COLUMN_KEY, COLUMN_DEFAULT, EXTRA
+         FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = %s', $table ), ARRAY_A );
         if ( $results ) {
             foreach ( $results as $row ) {
-                $tableStructure[ $row['Field'] ] = array(
-                    'type'       => $row['Type'],
-                    'is_nullabe' => $row['Null'] === 'YES' ? 1 : 0,
-                    'extra'      => $row['Extra'],
-                    'default'    => $row['Default'],
-                    'key'        => $row['Key']
+                $tableStructure[ $row['COLUMN_NAME'] ] = array(
+                    'type'       => $row['DATA_TYPE'],
+                    'is_nullabe' => $row['IS_NULLABLE'] === 'YES' ? 1 : 0,
+                    'extra'      => $row['EXTRA'],
+                    'default'    => $row['COLUMN_DEFAULT'],
+                    'key'        => $row['COLUMN_KEY']
                 );
             }
         }

@@ -1,6 +1,7 @@
 <?php
 namespace Bookly\Backend\Components\Dialogs\Service\Edit;
 
+use Bookly\Backend\Components\Controls\Elements;
 use Bookly\Lib;
 use Bookly\Backend\Modules\Services\Page;
 
@@ -17,7 +18,7 @@ class Dialog extends Lib\Base\Component
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -26,9 +27,10 @@ class Dialog extends Lib\Base\Component
                 'js/ladda.min.js' => array( 'jquery', ),
             ),
             'backend'  => array(
-                'js/select2.full.min.js' => array( 'jquery' ),
+                'js/select2.min.js' => array( 'jquery' ),
+                'js/sortable.min.js' => array( 'jquery' ),
             ),
-            'module'   => array( 'js/service-edit-dialog.js' => array( 'jquery', ) ),
+            'module'   => array( 'js/service-edit-dialog.js' => array( 'jquery', 'bookly-sortable.min.js' ) ),
         ) );
 
         $staff = array();

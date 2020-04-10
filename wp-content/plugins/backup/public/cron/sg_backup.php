@@ -9,6 +9,7 @@ if ($id) {
 	}
 
 	$b = new SGBackup();
+	$b->setIsManual(false);
 	$options = $b->getScheduleParamsById($id);
 
 	if ($options) {

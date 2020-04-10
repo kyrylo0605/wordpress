@@ -15,21 +15,19 @@ class Page extends Lib\Base\Component
     public static function render()
     {
         self::enqueueStyles( array(
-            'backend' => array(
-                'bootstrap/css/bootstrap-theme.min.css',
-                'css/daterangepicker.css',
-            ),
+            'backend' => array( 'bootstrap/css/bootstrap.min.css', ),
         ) );
 
         self::enqueueScripts( array(
             'backend' => array(
                 'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
-                'js/alert.js' => array( 'jquery' ),
+                'js/alert.js'                   => array( 'jquery' ),
                 'js/moment.min.js',
-                'js/daterangepicker.js'  => array( 'jquery' ),
+                'js/daterangepicker.js'         => array( 'jquery' ),
+                'js/dropdown.js'                => array( 'jquery' ),
             ),
-            'module' => array(
-                'js/dashboard.js'        => array( 'jquery', 'bookly-appointments-dashboard.js' ),
+            'module'  => array(
+                'js/dashboard.js' => array( 'bookly-dropdown.js', 'bookly-appointments-dashboard.js' ),
             ),
         ) );
         wp_localize_script( 'bookly-dashboard.js', 'BooklyL10n', array(

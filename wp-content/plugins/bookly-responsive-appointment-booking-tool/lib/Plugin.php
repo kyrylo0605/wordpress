@@ -154,10 +154,13 @@ abstract class Plugin extends Base\Plugin
             }
         }, 10, 3 );
 
-        add_action( 'pre_current_active_plugins', function () {
-            $version   = Plugin::getVersion();
-            $resources = plugins_url( 'backend/resources', Plugin::getMainFile() );
-            wp_enqueue_script( 'bookly-plugins-page', $resources . '/js/plugins.js', array( 'jquery' ), $version );
+        $scripts   = wp_scripts();
+        $version   = self::getVersion();
+        $resources = plugins_url( 'backend/resources', self::getMainFile() );
+
+        add_action( 'pre_current_active_plugins', function () use ( $scripts, $version, $resources ) {
+            $scripts->add( 'bookly-plugins-page', $resources . '/js/plugins.js', array( 'jquery' ), $version );
+            $scripts->enqueue( 'bookly-plugins-page' );
         } );
 
         // Register and schedule routines.

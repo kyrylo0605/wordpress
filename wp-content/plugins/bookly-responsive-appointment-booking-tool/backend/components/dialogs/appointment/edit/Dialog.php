@@ -15,25 +15,25 @@ class Dialog extends Lib\Base\Component
     public static function render()
     {
         self::enqueueStyles( array(
-            'backend'  => array( 'css/jquery-ui-theme/jquery-ui.min.css', 'css/select2.min.css', 'css/fontawesome-all.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css' ),
             'frontend' => array( 'css/ladda.min.css', ),
         ) );
 
         self::enqueueScripts( array(
-            'backend' => array(
-                'js/angular.min.js'           => array( 'jquery-ui-datepicker' ),
-                'js/angular-ui-date-0.0.8.js' => array( 'bookly-angular.min.js' ),
-                'js/moment.min.js'            => array( 'jquery' ),
-                'js/select2.full.min.js'      => array( 'jquery' ),
-                'js/help.js'                  => array( 'jquery' ),
+            'backend'  => array(
+                'js/angular.min.js'                 => array( 'jquery' ),
+                'js/moment.min.js'                  => array( 'jquery' ),
+                'js/daterangepicker.js'             => array( 'bookly-moment.min.js' ),
+                'js/angular-daterangepicker.js' => array( 'bookly-angular.min.js', 'bookly-daterangepicker.js' ),
+                'js/select2.min.js'                 => array( 'jquery' ),
             ),
             'frontend' => array(
                 'js/spin.min.js'  => array( 'jquery' ),
                 'js/ladda.min.js' => array( 'jquery' ),
             ),
-            'module' => array(
-                'js/ng-appointment.js' => array( 'bookly-angular-ui-date-0.0.8.js' ),
-            )
+            'module'   => array(
+                'js/ng-appointment.js' => array( 'bookly-angular-daterangepicker.js' ),
+            ),
         ) );
 
         wp_localize_script( 'bookly-ng-appointment.js', 'BooklyL10nAppDialog', array(

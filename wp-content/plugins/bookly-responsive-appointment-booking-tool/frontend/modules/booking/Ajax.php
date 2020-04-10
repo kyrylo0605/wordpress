@@ -639,10 +639,7 @@ class Ajax extends Lib\Base\Ajax
 
                 $response = array(
                     'success'        => true,
-                    'html'           => self::renderTemplate( '8_complete', array(
-                        'progress_tracker' => $progress_tracker,
-                        'info_text'        => $info_text,
-                    ), false ),
+                    'html'           => self::renderTemplate( '8_complete', compact( 'progress_tracker', 'info_text' ), false ),
                     'final_step_url' => Lib\Proxy\Pro::getFinalStepUrl(),
                 );
             }
@@ -654,7 +651,6 @@ class Ajax extends Lib\Base\Ajax
         // Output JSON response.
         wp_send_json( $response );
     }
-
 
     /**
      * Save booking data in session.

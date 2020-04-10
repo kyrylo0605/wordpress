@@ -15,6 +15,11 @@ jQuery(function ($) {
         staff_id,
         holidays
     ;
+    $modal.on('keydown', ':input:not(textarea)', function (event) {
+        if (event.key == "Enter") {
+            event.preventDefault();
+        }
+    });
 
     $staffList
         .on('click', '[data-action="edit"]', function () {
@@ -23,7 +28,7 @@ jQuery(function ($) {
             editStaff(staff_id);
         });
 
-    $('#bookly-create-staff-modal-activator')
+    $('#bookly-js-new-staff')
         .on('click', function () {
             if (BooklyStaffEditDialogL10n.proRequired == '1' && $staffCount.html() > 0) {
                 booklyAlert({error: [BooklyStaffEditDialogL10n.limitation]});
@@ -50,7 +55,7 @@ jQuery(function ($) {
         $validateErrors.html('');
         $saveBtn.prop('disabled', false);
         $modalBody.html('<div class="bookly-loading"></div>');
-        $modal.modal();
+        $modal.booklyModal();
         $.get(ajaxurl, {action: 'bookly_get_staff_data', id: staff_id, csrf_token: BooklyStaffEditDialogL10n.csrfToken}, function (response) {
             $modalBody.html(response.data.html.edit);
             booklyAlert(response.data.alert);
@@ -68,7 +73,7 @@ jQuery(function ($) {
             $holidays_container.append(response.data.html.holidays);
             $special_days_container.append(response.data.html.special_days);
 
-            $('.panel-footer', $modalBody).hide();
+            $('.bookly-js-modal-footer', $modalBody).hide();
 
             new BooklyStaffDetails($details_container, {
                 get_details : {},
@@ -99,7 +104,7 @@ jQuery(function ($) {
             if (!response.success) {
                 switch (response.data.action) {
                     case 'show_modal':
-                        $deleteCascadeModal.modal('show');
+                        $deleteCascadeModal.booklyModal('show');
                         break;
                     case 'confirm':
                         if (confirm(BooklyStaffEditDialogL10n.areYouSure)) {
@@ -108,7 +113,7 @@ jQuery(function ($) {
                         break;
                 }
             } else {
-                $modal.modal('hide');
+                $modal.booklyModal('hide');
                 $staffList.DataTable().ajax.reload();
             }
         });
@@ -145,7 +150,7 @@ jQuery(function ($) {
                     csrf_token: BooklyStaffEditDialogL10n.csrfToken
                 },
                 onLoad: function () {
-                    $('.panel-footer', $container).hide();
+                    $('.bookly-js-modal-footer', $container).hide();
                     $('#bookly-services-save', $container).addClass('bookly-js-save');
                     $(document.body).trigger('staff.validation', ['staff-services', false, '']);
                 },
@@ -182,7 +187,7 @@ jQuery(function ($) {
                     csrf_token: BooklyStaffEditDialogL10n.csrfToken
                 },
                 onLoad: function () {
-                    $('.panel-footer', $container).hide();
+                    $('.bookly-js-modal-footer', $container).hide();
                     $('#bookly-schedule-save', $container).addClass('bookly-js-save');
                 },
                 l10n: BooklyL10n
@@ -205,7 +210,7 @@ jQuery(function ($) {
 
             $container.show();
         })
-        .on('click', '> .bookly-nav-justified [data-toggle=tab]', function () {
+        .on('click', '> .nav-tabs [data-toggle=tab]', function () {
             currentTab = $(this).attr('id');
         });
 
@@ -215,7 +220,7 @@ jQuery(function ($) {
             $modalBody.html('<div class="bookly-loading"></div>');
             ladda = Ladda.create(this);
             deleteStaff({force_delete: true}, ladda);
-            $deleteCascadeModal.modal('hide');
+            $deleteCascadeModal.booklyModal('hide');
             ladda.stop();
         })
         // Edit
@@ -235,7 +240,7 @@ jQuery(function ($) {
             ladda = Ladda.create(this);
             ladda.start();
 
-            let $buttons = $('.panel-footer', $modalBody);
+            let $buttons = $('.bookly-js-modal-footer', $modalBody);
             waitResposes = 0;
             success = true;
             $buttons
@@ -258,9 +263,11 @@ jQuery(function ($) {
                     waitResposes --;
                 }
                 if (waitResposes <= 0) {
-                    $staffList.DataTable().ajax.reload();
+                    $staffList.DataTable().ajax.reload(function () {
+                        $staffList.DataTable().responsive.recalc();
+                    });
                     ladda ? ladda.stop() : null;
-                    $modal.modal('hide');
+                    $modal.booklyModal('hide');
                     booklyAlert({success: [BooklyStaffEditDialogL10n.settingsSaved]})
                 }
             })

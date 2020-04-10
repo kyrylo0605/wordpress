@@ -1,20 +1,15 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components\Controls\Buttons;
+use Bookly\Backend\Components\Controls\Inputs;
 ?>
-<form class="panel panel-default bookly-js-invoice bookly-collapse">
-    <div class="panel-heading" role="tab">
-        <div class="checkbox bookly-margin-remove">
-            <label>
-                <input name="invoice[send]" value="0" class="hidden">
-                <input name="invoice[send]" value="1" type="checkbox" <?php checked( $invoice['send'] ) ?>>
-                <a href="#collapse_invoice" class="collapsed panel-title" role="button" data-toggle="collapse">
-                    <?php esc_html_e( 'Send invoice', 'bookly' ) ?>
-                </a>
-            </label>
-        </div>
+<form class="card bookly-collapse bookly-js-invoice mt-2 mb-3">
+    <div class="card-header d-flex align-items-center" role="tab">
+        <input name="invoice[send]" value="0" class="hidden" />
+        <?php Inputs::renderCheckBox( '', 1, $invoice['send'], array( 'name' => 'invoice[send]' ) ) ?>
+        <a href="#collapse_invoice" class="collapsed" role="button" data-toggle="collapse"><?php esc_html_e( 'Send invoice', 'bookly' ) ?></a>
     </div>
-    <div id="collapse_invoice" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="collapse_invoice" class="collapse">
+        <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -23,11 +18,8 @@ use Bookly\Backend\Components\Controls\Buttons;
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="alert alert-info bookly-flexbox" style="margin-top: 6px">
-                        <div class="bookly-flex-row">
-                            <div class="bookly-flex-cell" style="width:39px"><i class="alert-icon"></i></div>
-                            <div class="bookly-flex-cell"><?php esc_html_e( 'Note: invoice will be sent to your PayPal email address', 'bookly' ) ?></div>
-                        </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle text-info mr-2"></i> <?php esc_html_e( 'Note: invoice will be sent to your PayPal email address', 'bookly' ) ?></i>
                     </div>
                 </div>
             </div>
@@ -39,12 +31,10 @@ use Bookly\Backend\Components\Controls\Buttons;
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group" style="margin-top: -6px">
-                        <label class="checkbox" style="margin-left: 20px">
-                            <input name="invoice[send_copy]" value="1" type="checkbox" <?php checked( $invoice['send_copy'] ) ?>><?php esc_html_e( 'Copy invoice to another email(s)', 'bookly' ) ?>
-                        </label>
-                        <p class="help-block"><?php esc_html_e( 'Enter one or more email addresses separated by commas.', 'bookly' ) ?></p>
+                    <div class="form-group mt-n2">
+                        <?php Inputs::renderCheckBox( __( 'Copy invoice to another email(s)', 'bookly' ), 1, $invoice['send_copy'], array( 'name' => 'invoice[send_copy]' ) ) ?>
                         <input name="invoice[cc]" type="text" class="form-control" value="<?php echo esc_attr( $invoice['cc'] ) ?>">
+                        <small class="form-text text-muted"><?php esc_html_e( 'Enter one or more email addresses separated by commas.', 'bookly' ) ?></small>
                     </div>
                 </div>
             </div>
@@ -54,7 +44,7 @@ use Bookly\Backend\Components\Controls\Buttons;
                         <label for="bookly_sms_invoice_company_address_l2"><?php esc_html_e( 'Company address line 2', 'bookly' ) ?></label>
                         <input name="invoice[company_address_l2]" type="text" class="form-control" id="bookly_sms_invoice_company_address_l2" value="<?php echo esc_attr( $invoice['company_address_l2'] ) ?>">
                     </div>
-                    <div class="row">
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="bookly_sms_invoice_company_vat"><?php esc_html_e( 'VAT', 'bookly' ) ?></label>
                             <input name="invoice[company_vat]" type="text" class="form-control" id="bookly_sms_invoice_company_vat" value="<?php echo esc_attr( $invoice['company_vat'] ) ?>">
@@ -73,8 +63,8 @@ use Bookly\Backend\Components\Controls\Buttons;
                 </div>
             </div>
         </div>
-        <div class="panel-footer">
-            <?php Buttons::renderCustom( null, 'btn-lg btn-success' ) ?>
+        <div class="card-footer bg-transparent d-flex justify-content-end">
+            <?php Buttons::renderSubmit( null ) ?>
         </div>
     </div>
 </form>

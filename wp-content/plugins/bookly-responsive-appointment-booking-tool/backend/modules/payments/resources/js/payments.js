@@ -35,7 +35,7 @@ jQuery(function($) {
                 $creationDateFilter
                     .data('date', pickers.creationDate.startDate.format(pickers.dateFormat) + ' - ' + pickers.creationDate.endDate.format(pickers.dateFormat))
                     .find('span')
-                    .html(pickers.creationDate.startDate.format(BooklyL10n.dateRange.dateFormat) + ' - ' + pickers.creationDate.endDate.format(BooklyL10n.dateRange.dateFormat));
+                    .html(pickers.creationDate.startDate.format(BooklyL10n.dateRange.format) + ' - ' + pickers.creationDate.endDate.format(BooklyL10n.dateRange.format));
             } else {
                 $('#bookly-filter-' + params[0]).val(params[1]);
             }
@@ -60,35 +60,37 @@ jQuery(function($) {
     }
 
     $('.bookly-js-select').select2({
-            allowClear: true,
-            placeholder: '',
-            theme: 'bootstrap',
-            language: {
-                noResults: function() { return BooklyL10n.noResultFound; }
-            },
-            matcher: function (params, data) {
-                const term = $.trim(params.term).toLowerCase();
-                if (term === '' || data.text.toLowerCase().indexOf(term) !== -1) {
-                    return data;
-                }
-
-                let result = null;
-                const search = $(data.element).data('search');
-                search &&
-                search.find((text) => {
-                    if (result === null && text.toLowerCase().indexOf(term) !== -1) {
-                        result = data;
-                    }
-                });
-
-                return result;
+        allowClear: true,
+        placeholder: '',
+        theme: 'bootstrap4',
+        dropdownParent: '#bookly-tbs',
+        language: {
+            noResults: function() { return BooklyL10n.noResultFound; }
+        },
+        matcher: function (params, data) {
+            const term = $.trim(params.term).toLowerCase();
+            if (term === '' || data.text.toLowerCase().indexOf(term) !== -1) {
+                return data;
             }
-        });
+
+            let result = null;
+            const search = $(data.element).data('search');
+            search &&
+            search.find((text) => {
+                if (result === null && text.toLowerCase().indexOf(term) !== -1) {
+                    result = data;
+                }
+            });
+
+            return result;
+        }
+    });
 
     $('.bookly-js-select-ajax')
         .select2({
             width: '100%',
-            theme: 'bootstrap',
+            theme: 'bootstrap4',
+            dropdownParent: '#bookly-tbs',
             allowClear: true,
             placeholder: '',
             language  : {
@@ -146,11 +148,11 @@ jQuery(function($) {
         searchable: false,
         width: BooklyL10n.invoice.enabled ? 180 : 90,
         render: function (data, type, row, meta) {
-            var buttons = '<div style="white-space: nowrap;">';
+            var buttons = '<div class="d-inline-flex">';
             if (BooklyL10n.invoice.enabled) {
-                buttons += '<button type="button" class="btn btn-default bookly-margin-right-md" data-action="view-invoice" data-payment_id="' + row.id + '"><i class="dashicons dashicons-media-text"></i> ' + BooklyL10n.invoice.button + '</button>';
+                buttons += '<button type="button" class="btn btn-default mr-1" data-action="view-invoice" data-payment_id="' + row.id + '"><i class="far fa-fw fa-file-pdf mr-1"></i>' + BooklyL10n.invoice.button + '</button>';
             }
-            return buttons + '<button type="button" class="btn btn-default" data-action="show-payment" data-payment_id="' + row.id + '"><i class="glyphicon glyphicon-list-alt"></i> ' + BooklyL10n.details + '</button></div>';
+            return buttons + '<button type="button" class="btn btn-default" data-action="show-payment" data-payment_id="' + row.id + '"><i class="fas fa-fw fa-list-alt mr-1"></i>' + BooklyL10n.details + '…</button></div>';
         }
     });
     columns.push({
@@ -158,7 +160,10 @@ jQuery(function($) {
         orderable: false,
         searchable: false,
         render: function (data, type, row, meta) {
-            return '<input type="checkbox" value="' + row.id + '">';
+            return '<div class="custom-control custom-checkbox">' +
+                '<input value="' + row.id + '" id="bookly-dt-' + row.id + '" type="checkbox" class="custom-control-input">' +
+                '<label for="bookly-dt-' + row.id + '" class="custom-control-label"></label>' +
+                '</div>';
         }
     });
 
@@ -239,7 +244,7 @@ jQuery(function($) {
     });
 
     $payments_list
-        // On coupon select.
+    // On coupon select.
         .on('change', 'tbody input:checkbox', function () {
             $check_all_button.prop('checked', $payments_list.find('tbody input:not(:checked)').length == 0);
         })
@@ -249,19 +254,12 @@ jQuery(function($) {
         })
         // show payment details
         .on('click', '[data-action=show-payment]', function () {
-            $('#bookly-payment-details-modal').modal('show', this);
+            $('#bookly-payment-details-modal').booklyModal('show', this);
         });
 
     /**
      * Init date range picker.
      */
-    moment.locale('en', {
-        months       : BooklyL10n.datePicker.monthNames,
-        monthsShort  : BooklyL10n.datePicker.monthNamesShort,
-        weekdays     : BooklyL10n.datePicker.dayNames,
-        weekdaysShort: BooklyL10n.datePicker.dayNamesShort,
-        weekdaysMin  : BooklyL10n.datePicker.dayNamesMin
-    });
 
     var picker_ranges = {};
     picker_ranges[BooklyL10n.dateRange.yesterday] = [moment().subtract(1, 'days'), moment().subtract(1, 'days')];
@@ -276,24 +274,17 @@ jQuery(function($) {
             parentEl : $creationDateFilter.parent(),
             startDate: pickers.creationDate.startDate,
             endDate  : pickers.creationDate.endDate,
-            ranges: picker_ranges,
-            locale: {
-                applyLabel:  BooklyL10n.dateRange.apply,
-                cancelLabel: BooklyL10n.dateRange.cancel,
-                fromLabel:   BooklyL10n.dateRange.from,
-                toLabel:     BooklyL10n.dateRange.to,
-                customRangeLabel: BooklyL10n.dateRange.customRange,
-                daysOfWeek:  BooklyL10n.datePicker.dayNamesShort,
-                monthNames:  BooklyL10n.datePicker.monthNames,
-                firstDay:    parseInt(BooklyL10n.dateRange.firstDay),
-                format:      BooklyL10n.dateRange.dateFormat
-            }
+            ranges   : picker_ranges,
+            showDropdowns  : true,
+            linkedCalendars: false,
+            autoUpdateInput: false,
+            locale: $.extend({},BooklyL10n.dateRange, BooklyL10n.datePicker)
         },
         function(start, end) {
             $creationDateFilter
                 .data('date', start.format(pickers.dateFormat) + ' - ' + end.format(pickers.dateFormat))
                 .find('span')
-                .html(start.format(BooklyL10n.dateRange.dateFormat) + ' - ' + end.format(BooklyL10n.dateRange.dateFormat));
+                .html(start.format(BooklyL10n.dateRange.format) + ' - ' + end.format(BooklyL10n.dateRange.format));
         }
     );
 
@@ -352,6 +343,6 @@ jQuery(function($) {
 });
 
 (function() {
-    var module = angular.module('paymentDetails', ['paymentDetailsDialog']);
+    var module = booklyAngular.module('paymentDetails', ['paymentDetailsDialog']);
     module.controller('paymentDetailsCtrl', function($scope) {});
 })();

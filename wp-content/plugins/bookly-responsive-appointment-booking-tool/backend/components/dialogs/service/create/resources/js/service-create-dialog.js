@@ -9,18 +9,18 @@ jQuery(function ($) {
     ;
 
     function format(option) {
-        return option.id && option.element.dataset.icon ? '<i class="fa fa-fw ' + option.element.dataset.icon + '"></i> ' + option.text : option.text;
+        return option.id && option.element.dataset.icon ? '<i class="far fa-fw ' + option.element.dataset.icon + '"></i> ' + option.text : option.text;
     }
-
 
     $serviceType.select2({
         minimumResultsForSearch: -1,
-        width                  : '100%',
-        theme                  : 'bootstrap',
-        allowClear             : false,
-        templateResult         : format,
-        templateSelection      : format,
-        escapeMarkup           : function (m) {
+        width: '100%',
+        theme: 'bootstrap4',
+        dropdownParent: '#bookly-tbs',
+        allowClear: false,
+        templateResult: format,
+        templateSelection: format,
+        escapeMarkup: function (m) {
             return m;
         }
     });
@@ -37,7 +37,7 @@ jQuery(function ($) {
                 $servicesList.DataTable().ajax.reload();
                 $serviceTitle.val('');
                 $serviceType.val('simple').trigger('change');
-                $modal.modal('hide');
+                $modal.booklyModal('hide');
 
                 BooklyServiceOrderDialogL10n.services.push({id: response.data.id, title: response.data.title});
             } else {

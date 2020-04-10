@@ -9,7 +9,9 @@ class SMS
 {
     const API_URL = 'http://sms.booking-wp-plugin.com';
 
-    const REGISTER            = '/1.2/users';                            //POST
+    const REGISTER            = '/1.3/users';                            //POST
+    const RESEND_CONFIRMATION = '/1.3/users/%token%/resend-confirmation'; //GET
+    const COMPLETE_REGISTRATION = '/1.3/users/%token%/confirm/%code%';   //PATCH
 
     const AUTHENTICATE        = '/1.1/users';                            //GET
     const GET_INVOICE         = '/1.1/users/%token%/invoice';            //GET
@@ -30,6 +32,8 @@ class SMS
     const PREAPPROVAL_DELETE  = '/1.0/users/%token%/paypal/preapproval'; //DELETE
     const REQUEST_SENDER_ID   = '/1.0/users/%token%/sender-ids';         //POST
     const RESET_SENDER_ID     = '/1.0/users/%token%/sender-ids/reset';   //GET
+
+    const ERROR_EMAIL_CONFIRM_REQUIRED = 'ERROR_EMAIL_CONFIRM_REQUIRED';
 
     /** @var string */
     private $username;
@@ -74,7 +78,32 @@ class SMS
             return false;
         }
 
-        return $this->sendPostRequest( self::REGISTER, $data ) !== false;
+        return $this->sendPostRequest( self::REGISTER, $data );
+    }
+
+    /**
+     * Resend confirmation email for sms account.
+     *
+     * @return bool
+     */
+    public function resendConfirmation()
+    {
+        $url = str_replace( '%token%', get_option( 'bookly_sms_unverified_token' ), self::RESEND_CONFIRMATION );
+
+        return $this->sendGetRequest( $url ) !== false;
+    }
+
+    /**
+     * Confirm email
+     *
+     * @param $code
+     * @return false|\stdClass
+     */
+    public function completeRegistration( $code )
+    {
+        $url = str_replace( '%token%', get_option( 'bookly_sms_unverified_token' ), self::COMPLETE_REGISTRATION );
+
+        return $this->sendPatchRequest( $url, array( '%code%' => $code ) );
     }
 
     /**
@@ -91,11 +120,13 @@ class SMS
         $response = $this->sendGetRequest( self::AUTHENTICATE, $data );
         if ( $response ) {
             update_option( 'bookly_sms_token', $response->token );
+            update_option( 'bookly_sms_unverified_token', '' );
+            update_option( 'bookly_sms_unverified_username', '' );
             $this->token = $response->token;
 
             return true;
-        } elseif ( in_array( 'Email confirm required', $this->errors ) ) {
-            return 'ERROR_EMAIL_CONFIRM_REQUIRED';
+        } elseif ( array_key_exists( self::ERROR_EMAIL_CONFIRM_REQUIRED, $this->errors ) ) {
+            return self::ERROR_EMAIL_CONFIRM_REQUIRED;
         }
 
         return false;
@@ -455,7 +486,7 @@ class SMS
                             break;
                         case 14:
                             $item->status = __( 'Failed', 'bookly' );
-                            if ($item->charge != '') {
+                            if ( $item->charge != '' ) {
                                 $item->charge = '$' . $item->charge;
                             }
                             break;
@@ -814,7 +845,7 @@ class SMS
 
                 return $response;
             }
-            $this->errors[] = $this->_translateError( $response->message );
+            $this->errors[ $response->message ] = $this->_translateError( $response->message );
         } else {
             $this->errors[] = __( 'Error connecting to server.', 'bookly' );
         }
@@ -847,7 +878,9 @@ class SMS
     private function _translateError( $error_code )
     {
         $error_codes = array(
+            'ERROR_EMAIL_CONFIRM_REQUIRED'           => __( 'Email confirm required.', 'bookly' ),
             'ERROR_EMPTY_PASSWORD'                   => __( 'Empty password.', 'bookly' ),
+            'ERROR_INCORRECT_CONFIRMATION_CODE'      => __( 'Incorrect confirmation code.', 'bookly' ),
             'ERROR_INCORRECT_PASSWORD'               => __( 'Incorrect password.', 'bookly' ),
             'ERROR_INCORRECT_RECOVERY_CODE'          => __( 'Incorrect recovery code.', 'bookly' ),
             'ERROR_INCORRECT_USERNAME_OR_PASSWORD'   => __( 'Incorrect email or password.', 'bookly' ),

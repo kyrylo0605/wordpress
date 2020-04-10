@@ -1,6 +1,9 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Modules\Services\Proxy;
 use Bookly\Lib\Entities\Service;
+/**
+ * @var array $service
+ */
 ?>
 <div class="form-group bookly-js-service-advanced-container">
     <?php if ( $service['type'] == Service::TYPE_SIMPLE ) : ?>

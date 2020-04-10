@@ -26,7 +26,7 @@ class Page extends Lib\Base\Component
 
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css', ),
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css', 'css/fontawesome-all.min.css' ),
             'module'   => array( 'css/style.css' ),
         ) );
 
@@ -44,6 +44,7 @@ class Page extends Lib\Base\Component
 
         $debug  = array();
         $schema = new Schema();
+        $trouble = false;
         /** @var Lib\Base\Plugin $plugin */
         foreach ( apply_filters( 'bookly_plugins', array() ) as $plugin ) {
             foreach ( $plugin::getEntityClasses() as $entity_class ) {
@@ -72,10 +73,12 @@ class Page extends Lib\Base\Component
                             if ( $expect && $diff ) {
                                 $debug[ $table_name ]['status'] = self::TABLE_STATUS_INFO;
                                 $debug[ $table_name ]['info'][ $field ] = array_keys( $diff );
+                                $trouble = true;
                             }
                         } else {
                             $debug[ $table_name ]['fields'][ $field ] = 0;
                             $debug[ $table_name ]['status'] = self::TABLE_STATUS_WARNING;
+                            $trouble = true;
                         }
                     }
 
@@ -88,6 +91,7 @@ class Page extends Lib\Base\Component
                         } else {
                             $debug[ $table_name ]['constraints'][ $key ]['status'] = 0;
                             $debug[ $table_name ]['status'] = self::TABLE_STATUS_WARNING;
+                            $trouble = true;
                         }
                     }
                     $debug[ $table_name ]['constraints_3d'] = array();
@@ -101,6 +105,7 @@ class Page extends Lib\Base\Component
                     }
                 } else {
                     $debug[ $table_name ]['status'] = self::TABLE_STATUS_ERROR;
+                    $trouble = true;
                 }
             }
         }
@@ -135,6 +140,6 @@ class Page extends Lib\Base\Component
                 }
             }
         }
-        self::renderTemplate( 'index', compact( 'debug', 'import_status', 'tools' ) );
+        self::renderTemplate( 'index', compact( 'debug', 'import_status', 'tools', 'trouble' ) );
     }
 }

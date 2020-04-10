@@ -226,19 +226,19 @@ class Notification extends Lib\Base\Entity
     {
         if ( self::$icons === null ) {
             self::$icons = array(
-                self::TYPE_NEW_BOOKING                                   => 'fa-calendar-check',
-                self::TYPE_NEW_BOOKING_RECURRING                         => 'fa-calendar-alt',
-                self::TYPE_NEW_BOOKING_COMBINED                          => 'fa-cart-plus',
-                self::TYPE_CUSTOMER_APPOINTMENT_STATUS_CHANGED           => 'fa-arrows-alt-h',
-                self::TYPE_CUSTOMER_APPOINTMENT_STATUS_CHANGED_RECURRING => 'fa-exchange-alt',
-                self::TYPE_NEW_PACKAGE                                   => 'fa-calendar-plus',
-                self::TYPE_PACKAGE_DELETED                               => 'fa-calendar-minus',
-                self::TYPE_CUSTOMER_NEW_WP_USER                          => 'fa-user-plus',
-                self::TYPE_STAFF_WAITING_LIST                            => 'fa-list-ol',
-                self::TYPE_APPOINTMENT_REMINDER                          => 'fa-bell',
-                self::TYPE_LAST_CUSTOMER_APPOINTMENT                     => 'fa-award',
-                self::TYPE_CUSTOMER_BIRTHDAY                             => 'fa-gift',
-                self::TYPE_STAFF_DAY_AGENDA                              => 'fa-list-alt',
+                self::TYPE_NEW_BOOKING                                   => 'far fa-calendar-check',
+                self::TYPE_NEW_BOOKING_RECURRING                         => 'far fa-calendar-alt',
+                self::TYPE_NEW_BOOKING_COMBINED                          => 'fas fa-cart-plus',
+                self::TYPE_CUSTOMER_APPOINTMENT_STATUS_CHANGED           => 'fas fa-arrows-alt-h',
+                self::TYPE_CUSTOMER_APPOINTMENT_STATUS_CHANGED_RECURRING => 'fas fa-exchange-alt',
+                self::TYPE_NEW_PACKAGE                                   => 'far fa-calendar-plus',
+                self::TYPE_PACKAGE_DELETED                               => 'far fa-calendar-minus',
+                self::TYPE_CUSTOMER_NEW_WP_USER                          => 'fas fa-user-plus',
+                self::TYPE_STAFF_WAITING_LIST                            => 'fas fa-list-ol',
+                self::TYPE_APPOINTMENT_REMINDER                          => 'far fa-bell',
+                self::TYPE_LAST_CUSTOMER_APPOINTMENT                     => 'fas fa-award',
+                self::TYPE_CUSTOMER_BIRTHDAY                             => 'fas fa-gift',
+                self::TYPE_STAFF_DAY_AGENDA                              => 'far fa-list-alt',
             );
         }
     }

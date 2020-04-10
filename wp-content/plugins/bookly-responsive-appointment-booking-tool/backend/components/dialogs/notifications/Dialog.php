@@ -17,7 +17,7 @@ class Dialog extends SmsDialog
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -25,7 +25,7 @@ class Dialog extends SmsDialog
                 'js/spin.min.js'  => array( 'jquery', ),
                 'js/ladda.min.js' => array( 'jquery', ),
             ),
-            'backend'  => array( 'js/select2.full.min.js' => array( 'jquery' ), ),
+            'backend'  => array( 'js/select2.min.js' => array( 'jquery' ), ),
             'bookly'   => array( 'backend/components/dialogs/sms/resources/js/notification-dialog.js' => array( 'jquery' ), ),
         ) );
 

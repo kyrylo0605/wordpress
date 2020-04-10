@@ -16,8 +16,7 @@ class Page extends Lib\Base\Component
     {
         self::enqueueStyles( array(
             'backend' => array(
-                'css/select2.min.css',
-                'bootstrap/css/bootstrap-theme.min.css',
+                'bootstrap/css/bootstrap.min.css',
             ),
             'module'  => array( 'css/shop.css', ),
         ) );
@@ -25,7 +24,7 @@ class Page extends Lib\Base\Component
         self::enqueueScripts( array(
             'backend' => array(
                 'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
-                'js/select2.full.min.js'        => array( 'jquery' ),
+                'js/select2.min.js'             => array( 'jquery' ),
             ),
             'module'  => array( 'js/shop.js' => array( 'jquery' ) ),
         ) );

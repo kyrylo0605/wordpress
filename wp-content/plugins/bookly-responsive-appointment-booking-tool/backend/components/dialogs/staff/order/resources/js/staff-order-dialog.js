@@ -17,14 +17,12 @@ jQuery(function ($) {
             })
         .on('staff.deleted', {},
             function (event, staff) {
-                BooklyStaffOrderDialogL10n.staff.forEach((s, index) => {
-                    if (staff.includes(String(s.id))) {
-                        delete BooklyStaffOrderDialogL10n.staff[index];
-                    }
-                });
-                // Remove undefined values
-                BooklyStaffOrderDialogL10n.staff.filter(function (el) {
-                    return el != undefined;
+                staff.forEach(id => {
+                    BooklyStaffOrderDialogL10n.staff.forEach((s, index) => {
+                        if (s.id === parseInt(id)) {
+                            BooklyStaffOrderDialogL10n.staff.splice(index, 1);
+                        }
+                    });
                 });
             });
 
@@ -55,7 +53,7 @@ jQuery(function ($) {
             },
             function (response) {
                 if (response.success) {
-                    $dialog.modal('hide');
+                    $dialog.booklyModal('hide');
                     BooklyStaffOrderDialogL10n.staff = list;
                 }
                 ladda.stop();
@@ -73,8 +71,7 @@ jQuery(function ($) {
         });
     });
 
-    $list.sortable({
-        axis  : 'y',
+    Sortable.create($list[0], {
         handle: '.bookly-js-draghandle',
     });
 });

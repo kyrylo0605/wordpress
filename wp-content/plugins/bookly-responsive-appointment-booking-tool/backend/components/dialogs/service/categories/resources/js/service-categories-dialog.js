@@ -44,7 +44,7 @@ jQuery(function ($) {
                 if (response.success) {
                     BooklyL10n.categories = response.data;
                     $servicesList.DataTable().ajax.reload();
-                    $dialog.modal('hide');
+                    $dialog.booklyModal('hide');
                 }
                 ladda.stop();
             });
@@ -62,9 +62,7 @@ jQuery(function ($) {
             );
         });
     });
-
-    $categories.sortable({
-        axis  : 'y',
+    Sortable.create($categories[0], {
         handle: '.bookly-js-draghandle',
     });
 });

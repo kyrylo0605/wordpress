@@ -4,18 +4,18 @@
         <div class="bookly-modal-content">
             <form>
                 <div class="bookly-modal-header">
-                    <div><?php _e( 'Login', 'bookly' ) ?></div>
+                    <div><?php esc_html_e( 'Login', 'bookly' ) ?></div>
                     <button type="button" class="bookly-close bookly-js-close">×</button>
                 </div>
                 <div class="bookly-modal-body bookly-form">
                     <div class="bookly-form-group">
-                        <label><?php _e( 'Username' ) ?></label>
+                        <label><?php esc_html_e( 'Username' ) ?></label>
                         <div>
                             <input type="text" name="log" required />
                         </div>
                     </div>
                     <div class="bookly-form-group">
-                        <label><?php _e( 'Password' ) ?></label>
+                        <label><?php esc_html_e( 'Password' ) ?></label>
                         <div>
                             <input type="password" name="pwd" required />
                         </div>
@@ -25,17 +25,17 @@
                         <div>
                             <label>
                                 <input type="checkbox" name="rememberme" />
-                                <span><?php _e( 'Remember Me' ) ?></span>
+                                <span><?php esc_html_e( 'Remember Me' ) ?></span>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="bookly-modal-footer">
-                    <a class="bookly-left bookly-btn-cancel" href="<?php echo esc_url( wp_lostpassword_url() ) ?>" target="_blank"><?php _e( 'Lost your password?' ) ?></a>
+                    <a class="bookly-left bookly-btn-cancel" href="<?php echo esc_url( wp_lostpassword_url() ) ?>" target="_blank"><?php esc_html_e( 'Lost your password?' ) ?></a>
                     <button class="bookly-btn-submit ladda-button" type="submit" data-spinner-size="40" data-style="zoom-in">
-                        <span class="ladda-label"><?php _e( 'Log In' ) ?></span>
+                        <span class="ladda-label"><?php esc_html_e( 'Log In' ) ?></span>
                     </button>
-                    <a href="#" class="bookly-btn-cancel bookly-js-close"><?php _e( 'Cancel' ) ?></a>
+                    <a href="#" class="bookly-btn-cancel bookly-js-close"><?php esc_html_e( 'Cancel' ) ?></a>
                 </div>
             </form>
         </div>

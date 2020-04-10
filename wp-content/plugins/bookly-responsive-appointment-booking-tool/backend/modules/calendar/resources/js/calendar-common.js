@@ -1,4 +1,4 @@
-jQuery(function ($) {
+(function ($) {
 
     var Calendar = function($container, options) {
         var obj  = this;
@@ -23,7 +23,7 @@ jQuery(function ($) {
             dayNames:      obj.options.l10n.datePicker.dayNames,
             dayNamesShort: obj.options.l10n.datePicker.dayNamesShort,
             allDaySlot: false,
-            eventBackgroundColor: 'silver',
+            eventBackgroundColor: '#d7d7d7',
             // Agenda Options.
             displayEventEnd: true,
             // Event Dragging & Resizing.
@@ -51,11 +51,16 @@ jQuery(function ($) {
                 }
             }],
             eventAfterRender: function (calEvent, $calEventList, calendar) {
+                let getZIndex = function (e) {
+                    var z = document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
+                    if (isNaN(z)) return getZIndex(e.parentNode);
+                    else return z;
+                };
                 if (calEvent.rendering !== 'background') {
                     $calEventList.each(function () {
                         var $calEvent  = $(this),
                             origHeight = $calEvent.outerHeight(),
-                            z_index    = $calEvent.zIndex();
+                            z_index    = getZIndex($calEvent[0]);
                         // Mouse handlers.
                         $calEvent
                             .on('mouseenter', function () {
@@ -122,7 +127,7 @@ jQuery(function ($) {
                     }
                     if (obj.options.l10n.recurring_appointments.active == '1' && calEvent.series_id) {
                         $time.prepend(
-                            $('<a class="bookly-fc-icon dashicons dashicons-admin-links"></a>')
+                            $('<a class="bookly-fc-icon fas fa-fw fa-link"></a>')
                                 .attr('title', obj.options.l10n.recurring_appointments.title)
                                 .on('click', function (e) {
                                     e.stopPropagation();
@@ -135,13 +140,13 @@ jQuery(function ($) {
                     }
                     if (obj.options.l10n.waiting_list.active == '1' && calEvent.waitlisted > 0) {
                         $time.prepend(
-                            $('<span class="bookly-fc-icon dashicons dashicons-list-view"></span>')
+                            $('<span class="bookly-fc-icon far fa-fw fa-list-alt"></span>')
                                 .attr('title', obj.options.l10n.waiting_list.title)
                         );
                     }
                     if (obj.options.l10n.packages.active == '1' && calEvent.package_id > 0) {
                         $time.prepend(
-                            $('<span class="bookly-fc-icon dashicons dashicons-calendar" style="padding:0 2px;"></span>')
+                            $('<span class="bookly-fc-icon far fa-fw fa-calendar-alt" style="padding:0 2px;"></span>')
                                 .attr('title', obj.options.l10n.packages.title)
                                 .on('click', function (e) {
                                     e.stopPropagation();
@@ -154,7 +159,7 @@ jQuery(function ($) {
                         );
                     }
                     $time.prepend(
-                        $('<a class="bookly-fc-icon dashicons dashicons-trash"></a>')
+                        $('<a class="bookly-fc-icon far fa-fw fa-trash-alt"></a>')
                             .attr('title', obj.options.l10n.delete)
                             .on('click', function (e) {
                                 e.stopPropagation();
@@ -162,7 +167,7 @@ jQuery(function ($) {
                                 if (obj.options.l10n.recurring_appointments.active == '1' && calEvent.series_id) {
                                     $(document.body).trigger('recurring_appointments.delete_dialog', [$container, calEvent]);
                                 } else {
-                                    obj.$deleteDialog.data('calEvent', calEvent).modal('show');
+                                    $('#bookly-delete-dialog').data('calEvent', calEvent).booklyModal('show');
                                 }
                             })
                     );
@@ -205,86 +210,64 @@ jQuery(function ($) {
             },
             loading: function (isLoading) {
                 if (isLoading) {
-                    $('.fc-loading-inner').show();
+                    $('.bookly-fc-loading').show();
                 }
             },
             eventAfterAllRender: function () {
-                $('.fc-loading-inner').hide();
+                $('.bookly-fc-loading').hide();
             }
         };
 
         // Init fullcalendar
         $container.fullCalendar($.extend({}, settings, obj.options.fullcalendar));
 
-        var $fcDatePicker = $('<input type=hidden />');
-
-        $('.fc-toolbar .fc-center h2', $container).before($fcDatePicker).on('click', function () {
-            $fcDatePicker.datepicker('setDate', $container.fullCalendar('getDate').toDate()).datepicker('show');
-        });
-
         // Init date picker for fast navigation in FullCalendar.
-        $fcDatePicker.datepicker({
-            dayNamesMin:     settings.dayNamesShort,
-            monthNames:      settings.monthNames,
-            monthNamesShort: settings.monthNamesShort,
-            firstDay:        settings.firstDay,
-            beforeShow: function (input, inst) {
-                inst.dpDiv.queue(function () {
-                    inst.dpDiv.css({marginTop: '35px', 'font-size': '13.5px'});
-                    inst.dpDiv.dequeue();
-                });
-            },
-            onSelect: function (dateText, inst) {
-                var d = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
-                $container.fullCalendar('gotoDate', d);
-                if ($container.fullCalendar('getView').type != 'agendaDay' &&
-                    $container.fullCalendar('getView').type != 'multiStaffDay') {
-                    $container.find('.fc-day').removeClass('bookly-fc-day-active');
-                    $container.find('.fc-day[data-date="' + moment(d).format('YYYY-MM-DD') + '"]').addClass('bookly-fc-day-active');
-                }
-            },
-            onClose: function (dateText, inst) {
-                inst.dpDiv.queue(function () {
-                    inst.dpDiv.css({marginTop: '0'});
-                    inst.dpDiv.dequeue();
-                });
+        $('.fc-toolbar .fc-center h2').daterangepicker({
+            parentEl        : '.bookly-js-calendar',
+            singleDatePicker: true,
+            showDropdowns   : true,
+            autoUpdateInput : false,
+            locale          : obj.options.l10n.datePicker
+        }).on('apply.daterangepicker', function (ev, picker) {
+            $container.fullCalendar('gotoDate', picker.startDate.toDate());
+            if ($container.fullCalendar('getView').type != 'agendaDay' &&
+                $container.fullCalendar('getView').type != 'multiStaffDay') {
+                $container.find('.fc-day').removeClass('bookly-fc-day-active');
+                $container.find('.fc-day[data-date="' + picker.startDate.format('YYYY-MM-DD') + '"]').addClass('bookly-fc-day-active');
             }
         });
 
         /**
          * On delete appointment click.
          */
-        if (obj.$deleteDialog.data('events') == undefined
-            || obj.$deleteDialog.data('events').click == undefined)
-        {
-            obj.$deleteDialog.on('click', '#bookly-delete', function (e) {
-                var calEvent = obj.$deleteDialog.data('calEvent'),
-                    ladda = Ladda.create(this);
-                ladda.start();
-                $.ajax({
-                    type : 'POST',
-                    url  : ajaxurl,
-                    data : {
-                        'action': 'bookly_delete_appointment',
-                        'csrf_token': obj.options.l10n.csrf_token,
-                        'appointment_id': calEvent.id,
-                        'notify': $('#bookly-delete-notify').prop('checked') ? 1 : 0,
-                        'reason': $('#bookly-delete-reason').val()
-                    },
-                    dataType   : 'json',
-                    xhrFields  : {withCredentials: true},
-                    crossDomain: 'withCredentials' in new XMLHttpRequest(),
-                    success    : function (response) {
-                        ladda.stop();
-                        $container.fullCalendar('removeEvents', calEvent.id);
-                        obj.$deleteDialog.modal('hide');
-                        if (response.data && response.data.queue && response.data.queue.length) {
-                            $(document.body).trigger('bookly.queue_dialog', [response.data.queue]);
-                        }
+        $('#bookly-delete-dialog').off().on('click', '#bookly-delete', function (e) {
+            var $modal   = $(this).closest('.bookly-modal'),
+                calEvent = $modal.data('calEvent'),
+                ladda    = Ladda.create(this);
+            ladda.start();
+            $.ajax({
+                type       : 'POST',
+                url        : ajaxurl,
+                data       : {
+                    'action'        : 'bookly_delete_appointment',
+                    'csrf_token'    : obj.options.l10n.csrf_token,
+                    'appointment_id': calEvent.id,
+                    'notify'        : $('#bookly-delete-notify', $modal).prop('checked') ? 1 : 0,
+                    'reason'        : $('#bookly-delete-reason', $modal).val()
+                },
+                dataType   : 'json',
+                xhrFields  : {withCredentials: true},
+                crossDomain: 'withCredentials' in new XMLHttpRequest(),
+                success    : function (response) {
+                    ladda.stop();
+                    $container.fullCalendar('removeEvents', calEvent.id);
+                    $modal.booklyModal('hide');
+                    if (response.data && response.data.queue && response.data.queue.length) {
+                        $(document.body).trigger('bookly.queue_dialog', [response.data.queue]);
                     }
-                });
+                }
             });
-        }
+        });
     };
 
     var locationChanged = false;
@@ -292,7 +275,6 @@ jQuery(function ($) {
         locationChanged = true;
     });
 
-    Calendar.prototype.$deleteDialog = $('#bookly-delete-dialog');
     Calendar.prototype.options = {
         fullcalendar: {},
         getCurrentStaffId: function () { return -1; },
@@ -303,4 +285,4 @@ jQuery(function ($) {
     };
 
     window.BooklyCalendar = Calendar;
-});
+})(jQuery);

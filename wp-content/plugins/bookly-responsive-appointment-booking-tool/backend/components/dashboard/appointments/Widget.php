@@ -53,11 +53,8 @@ class Widget extends Lib\Base\Component
             'module' => array(
                 'js/Chart.min.js',
                 'js/Chart.bundle.min.js'       => array( 'bookly-Chart.min.js' ),
-                'js/appointments-dashboard.js' => array( 'bookly-Chart.bundle.min.js', 'bookly-help.js' ),
+                'js/appointments-dashboard.js' => array( 'bookly-Chart.bundle.min.js' ),
             ),
-            'backend' => array(
-                'js/help.js'  => array( 'jquery' ),
-            )
         ) );
 
         $currencies = Lib\Utils\Price::getCurrencies();

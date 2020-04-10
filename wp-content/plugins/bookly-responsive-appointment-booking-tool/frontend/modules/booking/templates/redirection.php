@@ -6,7 +6,7 @@
     <script type="text/javascript">
         window.location.href = <?php echo json_encode( $url ) ?>;
     </script>
-    <title><?php _e( 'Page Redirection', 'bookly' ) ?></title>
+    <title><?php esc_html_e( 'Page Redirection', 'bookly' ) ?></title>
 </head>
 <body>
 <?php printf( __( 'If you are not redirected automatically, follow the <a href="%s">link</a>.', 'bookly' ), esc_attr( $url ) ) ?>

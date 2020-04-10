@@ -8,8 +8,8 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 14:48+0000\n"
-"PO-Revision-Date: 2020-02-10 15:05+0000\n"
+"POT-Creation-Date: 2020-04-02 12:28+0000\n"
+"PO-Revision-Date: 2020-04-02 12:38+0000\n"
 "Last-Translator: support@bookly.info\n"
 "Language-Team: Dutch\n"
 "X-Loco-Version: 2.3.1; wp-5.3"
@@ -124,6 +124,9 @@ msgstr "Factuurnummer"
 msgid "Attach invoice"
 msgstr "Factuur bijvoegen"
 
+msgid "Empty"
+msgstr "Leeg"
+
 msgid ""
 "Invoice due days: Please enter value in the following range (in days) - 1 to "
 "365."
@@ -185,9 +188,6 @@ msgstr "Telefoon"
 msgid "Outlook Calendar integration"
 msgstr "Outlook Kalender integratie"
 
-msgid "Synchronize staff member appointments with Outlook Calendar."
-msgstr "Synchroniseer afspraken van personeelslid met Outlook Kalender."
-
 msgid "Connect"
 msgstr "Verbinden"
 
@@ -201,8 +201,14 @@ msgstr "Verbonden"
 msgid "disconnect"
 msgstr "niet verbonden"
 
+msgid "Synchronize staff member appointments with Outlook Calendar."
+msgstr "Synchroniseer afspraken van personeelslid met Outlook Kalender."
+
 msgid "Calendar"
 msgstr "Kalender"
+
+msgid "-- Select calendar --"
+msgstr "-- Selecteer kalender --"
 
 msgid ""
 "When you connect a calendar all future and past events will be synchronized "
@@ -212,9 +218,6 @@ msgstr ""
 "Wanneer u een kalender verbind worden alle toekomstige en afgelopen "
 "evenementen gesynchroniseerd volgens de geselecteerde synchronisatie modus. "
 "Dit kan een paar minuten duren. Even geduld a.u.b."
-
-msgid "-- Select calendar --"
-msgstr "-- Selecteer kalender --"
 
 msgid "Can't change calendar for archived staff"
 msgstr "Wijzig kalender niet voor gearchiveerd personeel"
@@ -263,11 +266,15 @@ msgstr ""
 msgid ""
 "When the <b>Register an application</b> page appears, enter your "
 "application's <b>Name</b> and <b>Redirect URI</b> found below on this page. "
-"When finished, select <b>Register</b>."
+"Make sure that the <b>Supported account types</b> is set to <b>Accounts in "
+"any organizational directory and personal Microsoft accounts</b>. When "
+"finished, select <b>Register</b>."
 msgstr ""
-"Wanneer de pagina <b>Een applicatie registreren</b> verschijnt, voert u de "
-"<b>Naam</b> en <b>Omleiding URI</b> in die u hieronder op deze pagina vindt. "
-"Selecteer <b>Registreren</b> wanneer u klaar bent."
+"Wanneer de pagina <b>Registreer een applicatie</b> wordt weergegeven, voert "
+"u de <b>Naam</b> en <b>Omleiding-URL </b> van uw app hieronder op deze "
+"pagina in. Zorg ervoor dat de <b>Ondersteunde account typen</b> zijn "
+"ingesteld in <b>Accounts in een organisatie directory en persoonlijke "
+"Microsoft-accounts</b>. Selecteer <b>Registreren</b> als u klaar bent."
 
 msgid ""
 "Azure AD assigns a unique application (client) ID to your app, and you're "
@@ -582,9 +589,6 @@ msgstr "Captcha"
 
 msgid "HTML allowed in all texts and labels."
 msgstr "HTML toegestaan in alle tekst en labels."
-
-msgid "Reorder"
-msgstr "Herschikken"
 
 msgid "Remove field"
 msgstr "Verwijder veld"
@@ -1250,11 +1254,11 @@ msgstr ""
 "Stel de URL van een pagina in die wordt getoond als de goedkeuring van een "
 "terugkerende afspraak niet kan worden uitgevoerd (gewijzigd status, enz.)."
 
-msgid "Allow this service to have recurring appointments."
-msgstr "Sta deze dienst toe om terugkerende afspraken te hebben."
-
 msgid "Enabled"
 msgstr "Ingeschakeld"
+
+msgid "Allow this service to have recurring appointments."
+msgstr "Sta deze dienst toe om terugkerende afspraken te hebben."
 
 msgid "Frequencies"
 msgstr "Frequenties"
@@ -1325,17 +1329,17 @@ msgstr "Verstuur meldingen"
 msgid "Cancellation reason (optional)"
 msgstr "Annuleringsreden (optioneel)"
 
-msgid "Cancel"
-msgstr "Annuleren"
+msgid "Recurring appointments"
+msgstr "Terugkerende afspraken"
 
 msgid "Close"
 msgstr "Sluiten"
 
-msgid "Recurring appointments"
-msgstr "Terugkerende afspraken"
-
 msgid "Save"
 msgstr "Opslaan"
+
+msgid "I will pay now with Credit Card"
+msgstr "Ik betaal nu met creditcard"
 
 msgid "Sandbox Mode"
 msgstr "Sandbox Modus"
@@ -1670,7 +1674,7 @@ msgstr "Inclusief belastingen"
 msgid "Exclude taxes"
 msgstr "Exclusief belastingen"
 
-msgid "Add Tax"
+msgid "Add tax"
 msgstr "Belasting toevoegen"
 
 msgid "New tax"
@@ -1716,12 +1720,6 @@ msgstr ""
 
 msgid "Customer Information"
 msgstr "Klant Informatie"
-
-msgid "Required field."
-msgstr "Vereist veld."
-
-msgid "Ask once."
-msgstr "Vraag eenmaal."
 
 msgid "Ask once"
 msgstr "Vraag eenmaal"
@@ -1888,6 +1886,9 @@ msgstr ""
 msgid "Google Maps"
 msgstr "Google Maps"
 
+msgid "Show address required"
+msgstr "Toon adres verplicht"
+
 msgid "Show google maps field"
 msgstr "Toon google maps informatie"
 
@@ -1923,6 +1924,9 @@ msgstr "Categorie"
 
 msgid "Staff"
 msgstr "Medewerker"
+
+msgid "Cancel"
+msgstr "Annuleren"
 
 msgid "Reschedule"
 msgstr "Opnieuw inplannen"
@@ -1996,6 +2000,9 @@ msgstr "Niet toegestaan"
 msgid "There are no time slots for selected date."
 msgstr "Er zijn geen tijdvakken voor de geselecteerde datum."
 
+msgid "Profile updated successfully."
+msgstr "Profiel met succes bijgewerkt."
+
 msgid ""
 "Unfortunately, you're not able to cancel the appointment because the "
 "required time limit prior to canceling has expired."
@@ -2003,8 +2010,11 @@ msgstr ""
 "Helaas bent u niet in staat de afspraak te annuleren omdat de vereist "
 "tijdslimiet voor het annuleren is verlopen."
 
-msgid "Profile updated successfully."
-msgstr "Profiel met succes bijgewerkt."
+msgid ""
+"The selected time is not available anymore. Please, choose another time slot."
+msgstr ""
+"De geselecteerde tijd is niet meer beschikbaar. Kies alstublieft een ander "
+"tijdsblok."
 
 msgid "Time"
 msgstr "Tijd"
@@ -2431,15 +2441,6 @@ msgstr ""
 "door {staff_name}. \n"
 "Klik op een tijdsblok om door te gaan met reserveren."
 
-msgid "Card Security Code"
-msgstr "Creditcard Beveiligingscode"
-
-msgid "Expiration Date"
-msgstr "Verloopdatum"
-
-msgid "Credit Card Number"
-msgstr "Creditcard Nummer"
-
 msgid "Confirm email"
 msgstr "Bevestig e-mail"
 
@@ -2454,9 +2455,6 @@ msgstr "Achternaam"
 
 msgid "Notes"
 msgstr "Notities"
-
-msgid "I will pay now with Credit Card"
-msgstr "Ik betaal nu met creditcard"
 
 msgid "I will pay locally"
 msgstr "Ik betaal ter plaatse"
@@ -2508,12 +2506,6 @@ msgstr "Vul uw telefoonnummer in"
 
 msgid "Please select a service"
 msgstr "Selecteer een dienst"
-
-msgid ""
-"The selected time is not available anymore. Please, choose another time slot."
-msgstr ""
-"De geselecteerde tijd is niet meer beschikbaar. Kies alstublieft een ander "
-"tijdsblok."
 
 msgid "Login"
 msgstr "Loginnaam"
@@ -2697,6 +2689,15 @@ msgstr "%d uur"
 msgid "%d min"
 msgstr "%d min"
 
+msgid "From"
+msgstr "Van"
+
+msgid "To"
+msgstr "Aan"
+
+msgid "Custom range"
+msgstr "Aangepast bereik"
+
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -2714,15 +2715,6 @@ msgstr "Deze maand"
 
 msgid "Next month"
 msgstr "Volgende maand"
-
-msgid "Custom range"
-msgstr "Aangepast bereik"
-
-msgid "To"
-msgstr "Aan"
-
-msgid "From"
-msgstr "Van"
 
 msgid "No."
 msgstr "Nr."
@@ -3028,8 +3020,14 @@ msgstr ""
 msgid "Bookly SMS - Low Balance"
 msgstr "Bookly SMS - Laag Balans"
 
+msgid "Email confirm required."
+msgstr "E-mail bevestiging verplicht."
+
 msgid "Empty password."
 msgstr "Leeg wachtwoord."
+
+msgid "Incorrect confirmation code."
+msgstr "Onjuiste bevestigingscode."
 
 msgid "Incorrect password."
 msgstr "Onjuist wachtwoord."
@@ -3212,22 +3210,40 @@ msgstr ""
 "Na registratie moet u de meldingen instellen en uw saldo aanvullen om SMS "
 "meldingen te kunnen versturen."
 
-msgid "Confirm your email"
-msgstr "Bevestig uw e-mail"
-
 msgid "Thank you for registration."
 msgstr "Bedankt voor het registreren."
 
-#, php-format
-msgid "Confirmation is sent to %s."
-msgstr "Bevestiging is verzonden naar %s."
+msgid "You're almost ready to get started with Bookly SMS Service."
+msgstr "U bent bijna klaar om aan de slag te gaan met de Bookly SMS Service."
 
 msgid ""
-"Once you confirm your e-mail address, you will get an access to Bookly SMS "
-"service."
-msgstr ""
-"Als u eenmaal uw e-mailadres bevestigd, krijgt u toegang tot de Bookly SMS "
-"service."
+"An email containing the confirmation code has been sent to your email "
+"address."
+msgstr "Er is een e-mail met de bevestigingscode naar uw e-mailadres gestuurd."
+
+msgid "To complete registration, please enter the confirmation code below."
+msgstr "Voer onderstaande bevestigingscode in om de registratie te voltooien."
+
+msgid "Confirmation code"
+msgstr "Bevestigingscode"
+
+msgid "Didn't receive the email?"
+msgstr "Geen e-mail ontvangen?"
+
+#, php-format
+msgid "Is %s the correct email?"
+msgstr "Is %s het juiste e-mailadres?"
+
+#, php-format
+msgid "If not, you can %s restart the registration process%s."
+msgstr "Zo niet, dan kunt u %s het registratieproces opnieuw starten%s."
+
+msgid "Check your spam folder."
+msgstr "Controleer uw spam folder."
+
+#, php-format
+msgid "Click %s here %s to resend the email."
+msgstr "Klik %s hier %s om de e-mail opnieuw te verzenden."
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -3289,18 +3305,18 @@ msgstr ""
 msgid "Administrator phone"
 msgstr "Beheerder telefoon"
 
+msgid "Send test SMS"
+msgstr "Stuur test SMS"
+
+msgid "Save administrator phone"
+msgstr "Bewaar telefoonnummer beheerder"
+
 msgid ""
 "Enter a phone number in international format. E.g. for the United States a "
 "valid phone number would be +17327572923."
 msgstr ""
 "Voer een telefoonnummer in internationaal formaat in. In Nederland is een "
 "geldig telefoonnummer bijvoorbeeld +31202225555."
-
-msgid "Send test SMS"
-msgstr "Stuur test SMS"
-
-msgid "Save administrator phone"
-msgstr "Bewaar telefoonnummer beheerder"
 
 msgid "Quick search notifications"
 msgstr "Snelle zoek meldingen"
@@ -3338,14 +3354,14 @@ msgstr "Verzoek de Afzender ID"
 msgid "Reset to default"
 msgstr "Reset naar standaard"
 
-msgid "Can only contain letters or digits (up to 11 characters)."
-msgstr "Kan alleen letters of cijfers bevatten (maximaal 11 tekens)."
-
 msgid "Request"
 msgstr "Verzoeken"
 
 msgid "Cancel request"
 msgstr "Annuleer verzoek"
+
+msgid "Can only contain letters or digits (up to 11 characters)."
+msgstr "Kan alleen letters of cijfers bevatten (maximaal 11 tekens)."
 
 msgid "Please accept terms and conditions."
 msgstr "Accepteer alstublieft onze algemene voorwaarden."
@@ -3390,6 +3406,12 @@ msgstr "inschakelen"
 msgid "disable"
 msgstr "uitschakelen"
 
+msgid "The email has been resent"
+msgstr "De e-mail is nogmaals verzonden"
+
+msgid "Service is temporarily unavailable. Please try again later."
+msgstr "Service is tijdelijk niet beschikbaar. Probeer het later nogmaals."
+
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr "Auto-Opladen is mislukt, vult uw saldo direct aan."
 
@@ -3420,6 +3442,9 @@ msgstr "Categorieën"
 
 msgid "Show archived"
 msgstr "Toon gearchiveerde"
+
+msgid "Reorder"
+msgstr "Herschikken"
 
 msgid "Image"
 msgstr "Afbeelding"
@@ -3621,45 +3646,14 @@ msgstr ""
 msgid "duration of service"
 msgstr "duur van de dienstverlening"
 
-msgid "To set up Facebook integration, do the following:"
-msgstr "Om Facebook integratie in te stellen, doe het volgende:"
-
-msgid ""
-"Follow the steps at <a href=\"https://developers.facebook."
-"com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
-"com/docs/apps/register</a> to create a Developer Account, register and "
-"configure your <b>Facebook App</b>. Below the App Details Panel click <b>Add "
-"Platform</b> button, select Website and enter your website URL."
-msgstr ""
-"Volg de stappen op <a href=\"https://developers.facebook."
-"com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
-"com/docs/apps/register</a> om een Ontwikkelaar Account aan te maken, "
-"registreer en configureer uw <b>Facebook App</b>. onder het App Details "
-"Panel klik <b>Platform Toevoegen</b> knop, selecteer Website en vul de URL "
-"van uw website in."
-
-msgid ""
-"Go to your <a href=\"https://developers.facebook.com/apps/\" "
-"target=\"_blank\">App Dashboard</a>. In the left side navigation panel of "
-"the App Dashboard, click <b>Settings > Basic</b> to view the App Details "
-"Panel with your <b>App ID</b>. Use it in the form below."
-msgstr ""
-"Ga naar uw <a href=\"https://developers.facebook.com/apps/\" "
-"target=\"_blank\">App Dashboard</a>. In het linker navigatie paneel van het "
-"App Dashboard, klik op <b>Instellingen > Basis</b> om het App Details Paneel "
-"te bekijken met uw <b>App ID</b>. Gebruik deze in onderstaand formulier."
-
-msgid "App ID"
-msgstr "App ID"
-
-msgid "Set order of the fields in calendar"
-msgstr "Stel de volgorde van de velden in de kalender in"
-
 msgid "Appointment with one participant"
 msgstr "Afspraak met één deelnemer"
 
 msgid "Appointment with many participants"
 msgstr "Afspraak met veel deelnemers"
+
+msgid "Set order of the fields in calendar"
+msgstr "Stel de volgorde van de velden in de kalender in"
 
 msgid "Currency"
 msgstr "Valuta"
@@ -3797,6 +3791,9 @@ msgstr ""
 "diensten met de lengte van 1 dag of langer. Deze tijd zal worden getoond in "
 "meldingen naar klanten, backend kalender en codes voor boekingsformulieren."
 
+msgid "Slot length as service duration"
+msgstr "Lengte vak als service tijdsduur"
+
 msgid ""
 "The time interval which is used as a step when building all time slots for "
 "the service at the Time step. The setting overrides global settings in "
@@ -3806,9 +3803,6 @@ msgstr ""
 "tijdvakken voor de service in de Tijd stap. De instelling gaat voor de "
 "algemene instellingen in de Instellingen Algemeen. Gebruik Standaard om "
 "algemene instellingen toe te passen."
-
-msgid "Slot length as service duration"
-msgstr "Lengte vak als service tijdsduur"
 
 msgid "You must select at least one repeat option for recurring services."
 msgstr ""
@@ -4006,9 +4000,6 @@ msgstr ""
 "Je aangepaste CSS is opgeslagen. Vernieuw de pagina om je wijzigingen te "
 "zien."
 
-msgid "Quick search customer"
-msgstr "Snel klant zoeken"
-
 msgid "New customer"
 msgstr "Nieuwe klant"
 
@@ -4044,6 +4035,9 @@ msgstr "Klant bewerken"
 
 msgid "Create customer"
 msgstr "Klant aanmaken"
+
+msgid "Quick search customer"
+msgstr "Snel klant zoeken"
 
 msgid "Addons"
 msgstr "Add-ons"
@@ -4204,12 +4198,6 @@ msgstr "Verzenden"
 msgid "Email notifications"
 msgstr "E-mail meldingen"
 
-msgid "General settings..."
-msgstr "Algemene instellingen..."
-
-msgid "Test email notifications..."
-msgstr "Test e-mail meldingen..."
-
 msgid "Sender name"
 msgstr "Naam afzender"
 
@@ -4281,6 +4269,12 @@ msgstr "Verzend belasting informatie"
 msgid "Price correction"
 msgstr "Prijs correctie"
 
+msgid "Increase/Discount (%)"
+msgstr "Verhogen/Korting (%)"
+
+msgid "Addition/Deduction"
+msgstr "Toevoeging/Aftrek"
+
 msgid ""
 "This setting affects the cost of the booking according to the payment "
 "gateway used. Specify a percentage or fixed amount. Use minus (\"-\") sign "
@@ -4290,17 +4284,11 @@ msgstr ""
 "gebruikte betalingsgateway. Specificeer een percentage of vast bedrag. "
 "Gebruik het min (\"-\") teken om te verminderen/korting."
 
-msgid "Increase/Discount (%)"
-msgstr "Verhogen/Korting (%)"
-
-msgid "Addition/Deduction"
-msgstr "Toevoeging/Aftrek"
-
 msgid "Enter a value"
 msgstr "Voer een waarde in"
 
-msgid "Add..."
-msgstr "Voeg toe..."
+msgid "Add"
+msgstr "Toevoegen"
 
 msgid "Reset"
 msgstr "Herstellen"
@@ -4322,23 +4310,23 @@ msgstr ""
 msgid "Recipients"
 msgstr "Ontvangers"
 
-msgid "Choose who will receive this notification."
-msgstr "Kies wie deze melding zal ontvangen."
-
 msgid "Client"
 msgstr "Klant"
 
 msgid "Administrators"
 msgstr "Beheerders"
 
-msgid "Select the type of event at which the notification is sent."
-msgstr "Selecteer het soort evenement bij welke de melding wordt verstuurd."
+msgid "Choose who will receive this notification."
+msgstr "Kies wie deze melding zal ontvangen."
 
 msgid "Instant notifications"
 msgstr "Directe meldingen"
 
 msgid "Scheduled notifications (require cron setup)"
 msgstr "Geplande meldingen (vereist cron setup)"
+
+msgid "Select the type of event at which the notification is sent."
+msgstr "Selecteer het soort evenement bij welke de melding wordt verstuurd."
 
 msgid ""
 "This notification is sent once for a booking made by a customer and includes "
@@ -4396,8 +4384,11 @@ msgstr "Bewerk sms melding"
 msgid "Create notification"
 msgstr "Melding aanmaken"
 
-msgid "New notification..."
-msgstr "Nieuwe melding..."
+msgid "New notification"
+msgstr "Nieuwe melding"
+
+msgid "Select from WP users"
+msgstr "Kies uit WP-gebruikers"
 
 msgid ""
 "If this staff member requires separate login to access personal calendar, a "
@@ -4422,8 +4413,8 @@ msgstr ""
 "Wanneer u dit veld leeg laat, kan de medewerker zijn/haar persoonlijke "
 "agenda niet benaderen via de WP backend."
 
-msgid "Select from WP users"
-msgstr "Kies uit WP-gebruikers"
+msgid "Archive"
+msgstr "Archiveer"
 
 msgid ""
 "To make staff member invisible to your customers set the visibility to "
@@ -4431,9 +4422,6 @@ msgid ""
 msgstr ""
 "Om medewerker onzichtbaar te maken voor uw klanten stel de zichtbaarheid in "
 "op \"Privé\"."
-
-msgid "Archive"
-msgstr "Archiveer"
 
 msgid "No services found. Please add services."
 msgstr "Geen diensten gevonden. Voeg een dienst toe."
@@ -4520,6 +4508,12 @@ msgstr "-- Zoek klanten --"
 msgid "Internal note"
 msgstr "Interne notitie"
 
+msgid "Send if new or status changed"
+msgstr "Verstuur indien nieuw of status gewijzigd"
+
+msgid "Send as for new"
+msgstr "Verstuur als voor nieuw"
+
 msgid ""
 "If you have added a new customer to this appointment or changed the "
 "appointment status for an existing customer, and for these records you want "
@@ -4534,12 +4528,6 @@ msgstr ""
 "selecteer de \"Verstuur indien nieuw of status gewijzigd\" optie voordat u "
 "op Bewaren klikt. U kunt ook meldingen versturen alsof alle klanten als "
 "nieuw werden toegevoegd door \"Verstuur als voor nieuw\" te selecteren."
-
-msgid "Send if new or status changed"
-msgstr "Verstuur indien nieuw of status gewijzigd"
-
-msgid "Send as for new"
-msgstr "Verstuur als voor nieuw"
 
 msgid "Edit appointment"
 msgstr "Wijzig afspraak"
@@ -4628,6 +4616,9 @@ msgstr "Pas de volgorde van diensten in uw boekingsformulier aan"
 
 msgid "Add category"
 msgstr "Voeg categorie toe"
+
+msgid "Adjust the order of categories in your booking form"
+msgstr "Pas de volgorde van categorieën aan in uw boekingsformulier"
 
 msgid "Table settings"
 msgstr "Tabel instellingen"
@@ -4781,8 +4772,8 @@ msgstr ""
 "alle functies en mogelijkheden van het systeem kunt proberen en kies dan de "
 "meest geschikte configuratie volgens uw bedrijfsbehoeften."
 
-msgid "don't show this notification again"
-msgstr "toon deze melding niet meer"
+msgid "don't show this notification again-"
+msgstr "laat deze melding niet nogmaals zien-"
 
 msgid "Proceed to demo"
 msgstr "Doorgaan naar demo"
@@ -4795,6 +4786,18 @@ msgstr "Neem contact met ons op"
 
 msgid "Need help? Contact us here."
 msgstr "Hulp nodig? Neem hier contact met ons op."
+
+msgid "Leave us a message"
+msgstr "Laat een bericht voor ons achter"
+
+msgid "Your name"
+msgstr "Uw naam"
+
+msgid "Email address"
+msgstr "E-mailadres"
+
+msgid "How can we help you?"
+msgstr "Hoe kunnen wij u helpen?"
 
 msgid "Feature requests"
 msgstr "Functieverzoeken"
@@ -4837,6 +4840,9 @@ msgid ""
 msgstr ""
 "Is dit iets wat invloed op alleen u heeft, of het hele team, of uw klanten?"
 
+msgid "don't show this notification again"
+msgstr "toon deze melding niet meer"
+
 msgid "Proceed to Feature requests"
 msgstr "Verdergaan nar Functieaanvragen"
 
@@ -4849,18 +4855,6 @@ msgid ""
 msgstr ""
 "Wij geven om uw ervaring bij het gebruik van Bookly!<br/>Laat een "
 "beoordeling achter en vertel anderen wat u denkt."
-
-msgid "Leave us a message"
-msgstr "Laat een bericht voor ons achter"
-
-msgid "Your name"
-msgstr "Uw naam"
-
-msgid "Email address"
-msgstr "E-mailadres"
-
-msgid "How can we help you?"
-msgstr "Hoe kunnen wij u helpen?"
 
 msgid "Booking form"
 msgstr "Boekingsformulier"
@@ -4892,6 +4886,15 @@ msgstr "Hoeveelheid"
 msgid "hide"
 msgstr "verbergen"
 
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgid "Remember Me"
+msgstr "Onthoud mij"
+
+msgid "Lost your password?"
+msgstr "Wachtwoord vergeten?"
+
 msgid "Loading..."
 msgstr "Laden..."
 
@@ -4903,6 +4906,9 @@ msgstr "Er is geen tijdsblok vrij voor de geselecteerde criteria."
 
 msgid "Data already in use"
 msgstr "Gegevens al in gebruik"
+
+msgid "Update"
+msgstr "Bijwerken"
 
 msgid "Page Redirection"
 msgstr "Pagina Omleiding"
@@ -5220,11 +5226,11 @@ msgstr ""
 msgid "Select appointment date"
 msgstr "Selecteer afspraakdatum"
 
-msgid "Delete package appointment"
-msgstr "Verwijder pakket afspraak"
-
 msgid "Edit package appointment"
 msgstr "Wijzig pakket afspraak"
+
+msgid "Delete package appointment"
+msgstr "Verwijder pakket afspraak"
 
 msgid "Packages list"
 msgstr "Pakketten lijst"
@@ -5406,6 +5412,15 @@ msgstr "Straatnummer"
 msgid "Street number is required"
 msgstr "Straatnummer is vereist"
 
+msgid "Card Security Code"
+msgstr "Creditcard Beveiligingscode"
+
+msgid "Expiration Date"
+msgstr "Verloopdatum"
+
+msgid "Credit Card Number"
+msgstr "Creditcard Nummer"
+
 msgid "Appointment"
 msgstr "Afspraak"
 
@@ -5548,17 +5563,20 @@ msgstr "Printen"
 msgid "Google Calendar integration"
 msgstr "Google Agenda integratie"
 
-msgid "Synchronize staff member appointments with Google Calendar."
-msgstr ""
-"Synchroniseer de afspraakgegevens van de medewerker met Google Kalender."
-
 #, php-format
 msgid "Please configure Google Calendar <a href=\"%s\">settings</a> first"
 msgstr ""
 "Configureer eerst de <a href=\"%s\">instellingen</a> van Google Kalender"
 
+msgid "Synchronize staff member appointments with Google Calendar."
+msgstr ""
+"Synchroniseer de afspraakgegevens van de medewerker met Google Kalender."
+
 msgid "Limit working hours per day"
 msgstr "Beperk werkuren per dag"
+
+msgid "Unlimited"
+msgstr "Onbeperkt"
 
 msgid ""
 "This setting allows limiting the total time occupied by bookings per day for "
@@ -5566,9 +5584,6 @@ msgid ""
 msgstr ""
 "Deze instelling staat het beperken van de totale tijd toe die bezet is per "
 "dag voor personeel door bookings. Opvultijd is niet inbegrepen."
-
-msgid "Unlimited"
-msgstr "Onbeperkt"
 
 msgid "API Username"
 msgstr "API Gebruikersnaam"
@@ -5675,6 +5690,9 @@ msgstr "Kies adres velden die u wilt vragen aan de klant."
 msgid "Final step URL"
 msgstr "Laatste stap URL"
 
+msgid "Enter a URL"
+msgstr "Voer een URL in"
+
 msgid ""
 "Set the URL of a page that the user will be forwarded to after successful "
 "booking. If disabled then the default Done step is displayed."
@@ -5682,9 +5700,6 @@ msgstr ""
 "Stel de URL van een pagina in waar de gebruiker naar doorgestuurd wordt na "
 "een succesvolle reservering. Indien uitgeschakeld dan wordt de standaard "
 "Afgeronde stap weergegeven."
-
-msgid "Enter a URL"
-msgstr "Voer een URL in"
 
 msgid "Make birthday mandatory"
 msgstr "Maak geboortedag verplicht"
@@ -5831,6 +5846,9 @@ msgstr ""
 "worden geplaatst. Beschikbare codes: {service_name}, {staff_name} en "
 "{client_names}."
 
+msgid "To set up Facebook integration, do the following:"
+msgstr "Om Facebook integratie in te stellen, doe het volgende:"
+
 msgid ""
 "Follow the steps at <a href=\"https://developers.facebook."
 "com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
@@ -5864,6 +5882,9 @@ msgstr ""
 "Ga naar uw App Dashboard. In het linker navigatie paneel van de App "
 "Dashboard, klik op Instellingen > Basis om het App Details Paneel met uw App "
 "ID te bekijken. Gebruik het in onderstaande formulier."
+
+msgid "App ID"
+msgstr "App ID"
 
 msgid ""
 "Upon providing the purchase code you will have access to free updates of "
@@ -5986,17 +6007,6 @@ msgstr ""
 msgid "Limit appointments per customer"
 msgstr "Limiet afspraken per klant"
 
-msgid ""
-"This setting allows you to limit the number of appointments that can be "
-"booked by a customer in any given period. Restriction may end after a fixed "
-"period or with the beginning of the next calendar period  new day, week, "
-"month, etc."
-msgstr ""
-"Met deze instelling kunt u het aantal afspraken beperken dat door een klant "
-"in een bepaalde periode kan worden geboekt. Beperking kan eindigen na een "
-"vaste periode of aan het begin van de volgende kalenderperiode, nieuwe dag, "
-"week, maand, etc."
-
 msgid "upcoming"
 msgstr "aankomende"
 
@@ -6023,6 +6033,17 @@ msgstr "per 365 dagen"
 
 msgid "per year"
 msgstr "per jaar"
+
+msgid ""
+"This setting allows you to limit the number of appointments that can be "
+"booked by a customer in any given period. Restriction may end after a fixed "
+"period or with the beginning of the next calendar period  new day, week, "
+"month, etc."
+msgstr ""
+"Met deze instelling kunt u het aantal afspraken beperken dat door een klant "
+"in een bepaalde periode kan worden geboekt. Beperking kan eindigen na een "
+"vaste periode of aan het begin van de volgende kalenderperiode, nieuwe dag, "
+"week, maand, etc."
 
 msgid "Limit"
 msgstr "Limiet"
@@ -6065,6 +6086,22 @@ msgstr "Vormweergave bij meerdere boekingen"
 msgid "Form in case of 100% discount"
 msgstr "Formulier bij 100% korting"
 
+msgid "Show birthday field"
+msgstr "Toon verjaardag veld"
+
+msgid ""
+"Address information is needed for Invoices add-on. To disable, deactivate "
+"Invoices add-on first."
+msgstr ""
+"Adresgegevens zijn nodig voor de add-on Facturen. Deactiveer eerst de add-on "
+"Facturen om deze uit te schakelen."
+
+msgid "Show address fields"
+msgstr "Toon adres velden"
+
+msgid "Show Facebook login button"
+msgstr "Toon Facebook inlog knop"
+
 #, php-format
 msgid ""
 "Please configure Facebook App integration in <a href=\"%s\">settings</a> "
@@ -6074,15 +6111,6 @@ msgstr ""
 
 msgid "Ok"
 msgstr "Ok"
-
-msgid "Show birthday field"
-msgstr "Toon verjaardag veld"
-
-msgid "Show address fields"
-msgstr "Toon adres velden"
-
-msgid "Show Facebook login button"
-msgstr "Toon Facebook inlog knop"
 
 msgid "Show time zone switcher"
 msgstr "Toon tijdszone switcher"
@@ -6319,9 +6347,6 @@ msgstr ""
 "Kunt uw aankoopcode niet vinden? Zie deze <a href=\"%s\" target=\"_blank\">"
 "pagina</a>."
 
-msgid "Proceed without license verification"
-msgstr "Verdergaan zonder licentie verificatie"
-
 msgid "I will provide license info later"
 msgstr "Ik zal de licentie info later leveren"
 
@@ -6355,6 +6380,12 @@ msgstr "Een aangepast blok voor het weergeven van afsprakenlijst"
 
 msgid "Custom fields"
 msgstr "Aangepaste velden"
+
+msgid "Confirm cancellation"
+msgstr "Bevestig annulering"
+
+msgid "Do not cancel"
+msgstr "Niet annuleren"
 
 msgid "Thank you for being with us"
 msgstr "Bedankt dat u voor ons kiest"
@@ -6390,6 +6421,12 @@ msgstr "Ik betaal de totale prijs"
 msgid "Deposit options"
 msgstr "Aanbetaling opties"
 
+msgid "Deposit only"
+msgstr "Alleen aanbetaling"
+
+msgid "Deposit or full price"
+msgstr "Aanbetaling of totale prijs"
+
 msgid ""
 "If you enable \"Deposit only\", customers will be requested to pay only a "
 "deposit amount. If you enable \"Deposit or full price\", customers will be "
@@ -6399,12 +6436,6 @@ msgstr ""
 "alleen een aanbetaling te betalen. Als u \"Aanbetaling of totale prijs\" "
 "inschakelt, zal klanten worden gevraagd om een aanbetaling te doen of het "
 "totale bedrag te betalen."
-
-msgid "Deposit only"
-msgstr "Alleen aanbetaling"
-
-msgid "Deposit or full price"
-msgstr "Aanbetaling of totale prijs"
 
 msgid "amount due"
 msgstr "verschuldigd bedrag"
@@ -6521,6 +6552,9 @@ msgstr "Taken"
 msgid "Time step settings"
 msgstr "Tijdstap instellingen"
 
+msgid "Optional"
+msgstr "Optioneel"
+
 msgid ""
 "This setting allows to display the step of selecting an appointment time, "
 "hide it and create a task without due time, or display the time step, but "
@@ -6530,14 +6564,8 @@ msgstr ""
 "afspraaktijd, deze verbergen en een taak zonder opgestelde tijd te maken, of "
 "de tijdstap weergeven, maar een klant toestaan deze over te slaan."
 
-msgid "Optional"
-msgstr "Optioneel"
-
 msgid "Skip time selection"
 msgstr "Sla tijd selectie over"
-
-msgid "Weekly Schedule"
-msgstr "Wekelijkse Planning"
 
 msgid "Incorrect payment data"
 msgstr "Onjuiste betalingsgegevens"
@@ -6612,15 +6640,15 @@ msgstr "Nieuwe kortingsbon"
 msgid "Edit coupon"
 msgstr "Kortingsbon bewerken"
 
+msgid "Generate"
+msgstr "Genereer"
+
 msgid ""
 "You can enter a mask containing asterisks \"*\" for variables here and click "
 "Generate."
 msgstr ""
 "U kunt hier een masker invullen die sterretjes \"*\" bevat voor variabelen "
 "en dan op Genereer klikken."
-
-msgid "Generate"
-msgstr "Genereer"
 
 msgid "Mask"
 msgstr "Masker"
@@ -6953,6 +6981,9 @@ msgstr "Bestand Upload Veld"
 msgid "File"
 msgstr "Bestand"
 
+msgid "Show custom fields required"
+msgstr "Toon aangepaste velden verplicht"
+
 msgid "Show files"
 msgstr "Toon bestanden"
 
@@ -7084,6 +7115,9 @@ msgstr "Bewerk Status"
 msgid "Free/busy"
 msgstr "Vrij/bezet"
 
+msgid "Busy"
+msgstr "Bezet"
+
 msgid ""
 "If you select busy, then a customer with this status will occupy a place in "
 "appointment. If you select free, then a place will be considered as free."
@@ -7091,9 +7125,6 @@ msgstr ""
 "Als u bezet selecteert, dan zal een klant met deze status een plek in de "
 "afspraak innemen. Indien u vrij selecteert, dan zal een plek als vrij worden "
 "beschouwd."
-
-msgid "Busy"
-msgstr "Bezet"
 
 msgid "No statuses found."
 msgstr "Geen statussen gevonden."
@@ -7129,6 +7160,9 @@ msgstr "Medewerkers"
 msgid "Locations"
 msgstr "Locaties"
 
+msgid "Default settings"
+msgstr "Standaard instellingen"
+
 msgid ""
 "Set Default values that will be used in all locations where Use default "
 "settings is selected. To use custom settings in a location, select Use "
@@ -7138,9 +7172,6 @@ msgstr ""
 "Gebruik standaard instellingen zijn geselecteerd. Om aangepaste instellingen "
 "in een locatie te gebruiken, selecteer Gebruik aangepaste instellingen en "
 "vul aangepaste waarden in."
-
-msgid "Default settings"
-msgstr "Standaard instellingen"
 
 msgid "Use default settings"
 msgstr "Gebruik standaard instellingen"
@@ -7181,6 +7212,9 @@ msgstr "Geen locaties gevonden."
 
 msgid "W/o location"
 msgstr "W/o locatie"
+
+msgid "Custom settings for location enabled"
+msgstr "Aangepaste instellingen voor locatie ingeschakeld"
 
 msgid "Make selecting location required"
 msgstr "Maak het selecteren van locatie vereist"
@@ -7277,36 +7311,36 @@ msgstr "Uw beoordeling is bewaard. We waarderen uw feedback."
 
 #, php-format
 msgid ""
-"1. Provide <b>Secret</b> and <b>Publishable</b> keys which are available in "
-"the <a href=\"%s\" target=\"_blank\">Dashboard</a>."
+"Provide <b>Secret</b> and <b>Publishable</b> keys which are available in the "
+"<a href=\"%s\" target=\"_blank\">Dashboard</a>."
 msgstr ""
-"1. Lever <b>Geheime</b> en <b>Publiceerbare</b> sleutels die beschikbaar "
-"zijn in het <a href=\"%s\" target=\"_blank\">Dashboard</a>."
+"Lever <b>Geheime</b> en <b>Publiceerbare</b> sleutels die beschikbaar zijn "
+"in het <a href=\"%s\" target=\"_blank\">Dashboard</a>."
 
 #, php-format
 msgid ""
-"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
 "section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
 "for receiving events."
 msgstr ""
-"2. Klik in het gedeelte <a href=\"%s\" target=\"_blank\">Webhooks "
+"Klik in het gedeelte <a href=\"%s\" target=\"_blank\">Webhooks "
 "instellingen</a> van het Dashboard op <b>Eindpunt toevoegen</b> om een "
 "formulier weer te geven voor het toevoegen van een nieuw eindpunt voor het "
 "ontvangen van gebeurtenissen."
 
 #, php-format
 msgid ""
-"3. Enter the following URL as the destination for events <b>%s</b> and click "
-"<b>Add endpoint</b>."
+"Enter the following URL as the destination for events <b>%s</b> and click <b>"
+"Add endpoint</b>."
 msgstr ""
-"3. Vul de volgende URL in als de bestemming voor evenementen <b>%s</b> en "
-"klik op <b>Eindpunt toevoegen</b>."
+"Vul de volgende URL in als de bestemming voor evenementen <b>%s</b> en klik "
+"op <b>Eindpunt toevoegen</b>."
 
 msgid ""
-"4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
+"Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
 "payment_failed</b> and click <b>Add endpoint</b>."
 msgstr ""
-"4. Voeg deze gebeurtenissen toe: <b>payment_intent.succeeded</b>, <b>"
+"Voeg deze gebeurtenissen toe: <b>payment_intent.succeeded</b>, <b>"
 "payment_intent.payment_failed</b> en klik op <b>Eindpunt toevoegen</b>."
 
 msgid "Secret Key"
@@ -7335,11 +7369,14 @@ msgstr ""
 
 #, php-format
 msgid ""
-"Enter the following URL as the destination for events <b>%s</b> and click <b>"
-"Add endpoint</b>."
+"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
+"for receiving events."
 msgstr ""
-"Voer de volgende URL in als de bestemming voor evenementen <b>%s</b> en klik "
-"op <b>Eindpunt toevoegen</b>."
+"2. Klik in het gedeelte <a href=\"%s\" target=\"_blank\"> Webhooks-"
+"instellingen </a> van het dashboard op <b>Eindpunt toevoegen</b> om een "
+"formulier weer te geven om een nieuw eindpunt toe te voegen voor het "
+"ontvangen van gebeurtenissen."
 
 msgid "Set maximum value for Quantity field."
 msgstr "Stel de maximale waarde in voor het veld Aantal."

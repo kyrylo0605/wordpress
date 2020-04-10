@@ -5,9 +5,10 @@ jQuery(function ($) {
         $template = $('#bookly-shop-template')
     ;
     $('.bookly-js-select').select2({
-        width                  : '100%',
-        theme                  : 'bootstrap',
-        allowClear             : true,
+        width: '100%',
+        theme: 'bootstrap4',
+        dropdownParent: '#bookly-tbs',
+        allowClear: true,
         minimumResultsForSearch: -1
     });
     $sort.on('change', function () {
@@ -29,11 +30,11 @@ jQuery(function ($) {
                         var rating = '';
                         for (var i = 0; i < 5; i++) {
                             if (plugin.rating - i > 0.5) {
-                                rating += '<i class="dashicons dashicons-star-filled"></i>';
+                                rating += '<i class="fas fa-fw fa-star"></i>';
                             } else if (plugin.rating - i > 0) {
-                                rating += '<i class="dashicons dashicons-star-half"></i>';
+                                rating += '<i class="fas fa-fw fa-star-half-alt"></i>';
                             } else {
-                                rating += '<i class="dashicons dashicons-star-empty"></i>';
+                                rating += '<i class="far fa-fw fa-star"></i>';
                             }
                         }
                         $shop.append(

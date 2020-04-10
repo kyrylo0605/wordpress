@@ -1,6 +1,6 @@
 ;(function() {
 
-    angular.module('paymentDetailsDialog', []).directive('paymentDetailsDialog', function() {
+    booklyAngular.module('paymentDetailsDialog', []).directive('paymentDetailsDialog', function() {
         return {
             restrict: 'A',
             replace: true,
@@ -94,7 +94,7 @@
                                                 }
                                             }
                                         });
-                                        jQuery(element).modal('hide');
+                                        jQuery(element).booklyModal('hide');
                                     });
                                     var $adjust_button  = jQuery('#bookly-js-adjustment-button', $body),
                                         $adjust_field   = jQuery('#bookly-js-adjustment-field', $body),
@@ -144,9 +144,6 @@
                     })
                     .on('hidden.bs.modal', function () {
                         $body.html(spinner);
-                        if ((jQuery("#bookly-appointment-dialog").data('bs.modal') || {isShown: false}).isShown) {
-                            jQuery('body').addClass('modal-open');
-                        }
                     });
             }
         }

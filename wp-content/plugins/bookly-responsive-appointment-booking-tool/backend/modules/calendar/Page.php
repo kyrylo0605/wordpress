@@ -16,7 +16,7 @@ class Page extends Lib\Base\Ajax
     {
         self::enqueueStyles( array(
             'module'  => array( 'css/fullcalendar.min.css', ),
-            'backend' => array( 'bootstrap/css/bootstrap-theme.min.css' ),
+            'backend' => array( 'bootstrap/css/bootstrap.min.css' ),
         ) );
 
         self::enqueueScripts( array(

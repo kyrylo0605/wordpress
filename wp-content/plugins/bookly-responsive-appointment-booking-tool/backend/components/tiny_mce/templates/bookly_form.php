@@ -8,7 +8,7 @@ use Bookly\Backend\Components\TinyMce\Proxy;
         <label for="bookly-select-category"><?php esc_html_e( 'Default value for category select', 'bookly' ) ?></label>
     </td>
     <td>
-        <select id="bookly-select-category" class="form-control">
+        <select id="bookly-select-category" class="form-control custom-select">
             <option value=""><?php esc_html_e( 'Select category', 'bookly' ) ?></option>
         </select>
         <div class="checkbox">
@@ -24,7 +24,7 @@ use Bookly\Backend\Components\TinyMce\Proxy;
         <label for="bookly-select-service"><?php esc_html_e( 'Default value for service select', 'bookly' ) ?></label>
     </td>
     <td>
-        <select id="bookly-select-service" class="form-control">
+        <select id="bookly-select-service" class="form-control custom-select">
             <option value=""><?php esc_html_e( 'Select service', 'bookly' ) ?></option>
         </select>
         <div class="checkbox">
@@ -41,7 +41,7 @@ use Bookly\Backend\Components\TinyMce\Proxy;
         <label for="bookly-select-employee"><?php esc_html_e( 'Default value for employee select', 'bookly' ) ?></label>
     </td>
     <td>
-        <select class="form-control" id="bookly-select-employee">
+        <select class="form-control custom-select" id="bookly-select-employee">
             <option value=""><?php esc_html_e( 'Any', 'bookly' ) ?></option>
         </select>
         <div class="checkbox">

@@ -1,37 +1,33 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components\Controls\Buttons;
-use Bookly\Backend\Components\Controls;
-use Bookly\Lib;
+use Bookly\Backend\Components\Controls\Elements;
 ?>
-<form id="bookly-service-categories-modal" class="modal fade" tabindex=-1 role="dialog">
+<form id="bookly-service-categories-modal" class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                <div class="modal-title h2"><?php esc_html_e( 'Categories', 'bookly' ) ?></div>
+                <h5 class="modal-title"><?php esc_html_e( 'Categories', 'bookly' ) ?></h5>
+                <button type="button" class="close" data-dismiss="bookly-modal" aria-label="Close"><span>&times;</span></button>
             </div>
             <div class="modal-body">
-                <div class="form-inline bookly-margin-bottom-lg text-right">
-                    <div class="form-group">
-                        <?php Controls\Buttons::renderAdd( 'bookly-js-new-category', 'btn-success', esc_html__( 'Add category', 'bookly' ) ) ?>
-                    </div>
-                </div>
-                <ul id="bookly-services-categories"></ul>
+                <ul id="bookly-services-categories" class="list-unstyled"></ul>
+                <?php Buttons::renderAdd( 'bookly-js-new-category', null, __( 'Add category', 'bookly' ), array(), false ) ?>
+                <small class="d-block text-muted mt-3"><?php esc_html_e( 'Adjust the order of categories in your booking form', 'bookly' ) ?></small>
             </div>
             <div class="modal-footer">
                 <?php Buttons::renderSubmit() ?>
-                <?php Buttons::renderCustom( null, 'btn-lg btn-default', esc_html__( 'Close', 'bookly' ), array( 'data-dismiss' => 'modal' ) ) ?>
+                <?php Buttons::renderCancel() ?>
             </div>
         </div>
     </div>
 </form>
 <div class="collapse" id="bookly-new-category-template">
     <li class="form-group">
-        <div class="row" style="line-height: 34px;">
+        <div class="row align-items-center">
             <input type="hidden" name="category_id" value="{{id}}"/>
-            <div class="col-xs-1"><i class="fa fa-fw fa-lg fa-bars text-muted bookly-cursor-move bookly-js-draghandle" title="<?php esc_attr_e( 'Reorder', 'bookly' ) ?>"></i></div>
-            <div class="col-xs-10"><input type="text" class="form-control" name="category_name" value="{{name}}"/></div>
-            <div class="col-xs-1"><a href="#"><i class="fa fa-fw fa-trash fa-lg text-danger bookly-js-delete-category" title="<?php esc_attr_e( 'Delete', 'bookly' ) ?>"></i></a></div>
+            <div class="col-auto pr-1"><?php Elements::renderReorder() ?></div>
+            <div class="col-auto px-1"><input type="text" class="form-control" name="category_name" value="{{name}}"/></div>
+            <div class="col-auto pl-1"><a href="#"><i class="far fa-fw fa-trash-alt text-danger bookly-js-delete-category" title="<?php esc_attr_e( 'Delete', 'bookly' ) ?>"></i></a></div>
         </div>
     </li>
 </div>

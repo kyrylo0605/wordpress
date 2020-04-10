@@ -2,7 +2,7 @@ jQuery(function ($) {
     'use strict';
     var $modal       = $('#bookly-table-settings-modal'),
         $save_button = $('.bookly-js-table-settings-save', $modal),
-        $columns     = $modal.find('.bookly-js-table-columns'),
+        $columns     = $('.bookly-js-table-columns', $modal),
         $template    = $('#bookly-table-settings-template');
 
     // Save settings.
@@ -23,21 +23,25 @@ jQuery(function ($) {
                 csrf_token: BooklyTableSettingsDialogL10n.csrfToken
             },
             function (response) {
-                location.reload();
+                if ($modal.data('location').length !== '') {
+                    location = $modal.data('location');
+                } else {
+                    location.reload();
+                }
             });
     });
 
-    $columns.sortable({
-        axis  : 'y',
-        handle: '.bookly-js-draghandle',
+    Sortable.create($columns[0], {
+        handle : '.bookly-js-draghandle'
     });
 
     // Open table settings modal.
     $('.bookly-js-table-settings').off().on('click', function () {
-        var table_settings = window[$(this).data('setting-name')].datatables[$(this).data('table-name')].settings,
-            table_titles   = window[$(this).data('setting-name')].datatables[$(this).data('table-name')].titles;
+        let table_settings = window[$(this).data('setting-name')].datatables[$(this).data('table-name')].settings,
+            table_titles   = window[$(this).data('setting-name')].datatables[$(this).data('table-name')].titles,
+            table_name     = $(this).data('table-name');
 
-        $modal.find('[name="bookly-table-name"]').val($(this).data('table-name'));
+        $('[name="bookly-table-name"]', $modal).val(table_name);
 
         // Generate columns.
         $columns.html('');
@@ -47,9 +51,10 @@ jQuery(function ($) {
                     .replace(/{{name}}/g, name)
                     .replace(/{{title}}/g, table_titles[name])
                     .replace(/{{checked}}/g, show ? 'checked' : '')
+                    .replace(/{{id}}/g, 'bookly-ts-' + table_name + '-' + name)
+
             );
         });
-
-        $('#bookly-table-settings-modal').modal('show');
+        $('#bookly-table-settings-modal').data('location', $(this).data('location')).booklyModal('show');
     });
 });

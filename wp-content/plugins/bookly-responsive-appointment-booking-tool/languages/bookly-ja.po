@@ -6760,25 +6760,25 @@ msgstr "あなたの評価は保存されました。 あなたのコメント�
 
 #, php-format
 msgid ""
-"1. Provide <b>Secret</b> and <b>Publishable</b> keys which are available in "
+"Provide <b>Secret</b> and <b>Publishable</b> keys which are available in "
 "the <a href=\"%s\" target=\"_blank\">Dashboard</a>."
 msgstr ""
 
 #, php-format
 msgid ""
-"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
 "section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
 "for receiving events."
 msgstr ""
 
 #, php-format
 msgid ""
-"3. Enter the following URL as the destination for events <b>%s</b> and click "
+"Enter the following URL as the destination for events <b>%s</b> and click "
 "<b>Add endpoint</b>."
 msgstr ""
 
 msgid ""
-"4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
+"Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
 "payment_failed</b> and click <b>Add endpoint</b>."
 msgstr ""
 

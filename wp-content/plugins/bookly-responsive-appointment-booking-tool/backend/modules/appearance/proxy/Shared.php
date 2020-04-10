@@ -11,7 +11,6 @@ use Bookly\Lib;
  * @method static void  renderPaymentGatewaySelector() Render gateway selector.
  * @method static int   renderServiceStepSettings() Render checkbox settings.
  * @method static int   renderTimeStepSettings() Render checkbox settings.
- * @method static bool  showCreditCard() In case there are payment systems that request credit card information in the Details step, it will return true.
  */
 abstract class Shared extends Lib\Base\Proxy
 {

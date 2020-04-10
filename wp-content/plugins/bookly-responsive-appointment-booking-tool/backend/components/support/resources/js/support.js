@@ -1,61 +1,81 @@
 jQuery(function ($) {
     let $modal        = $('#bookly-contact-us-modal'),
-        $btnContactUs = $('#bookly-contact-us-modal-activator'),
-        $btnFeedback  = $('#bookly-feedback-btn')
+        $btnContactUs = $('#bookly-contact-us-btn'),
+        $btnFeedback  = $('#bookly-feedback-btn'),
+        popoverConfig = {
+            html: true,
+            sanitize: false,
+            trigger: 'manual',
+            container: '#bookly-tbs',
+            template: '<div class="bookly-popover" role="tooltip"><div class="arrow"></div><div class="popover-body"></div></div>'
+        }
     ;
 
-    if ($btnContactUs.data('trigger')) {
+    if ($btnContactUs.data('content')) {
         $btnContactUs
-            .popover().popover('show')
-            .next('.popover')
-                .find('.arrow').removeClass().addClass('popover-arrow').end()
-                .find('.popover-content button').on('click', function () {
-                    $btnContactUs.popover('hide');
-                    $.ajax({
-                        url  : ajaxurl,
-                        type : 'POST',
-                        data : { action : 'bookly_dismiss_contact_us_notice', csrf_token : BooklySupportL10n.csrfToken },
-                        success : function(response) {
-                            $btnContactUs.attr('data-processed', true);
-                        }
-                    });
-                }).end()
-            .end()
             .on('click', function () {
-                $btnContactUs.popover('hide');
+                $btnContactUs.booklyPopover('hide');
                 $.ajax({
                     url  : ajaxurl,
                     type : 'POST',
                     data : { action : 'bookly_contact_us_btn_clicked', csrf_token : BooklySupportL10n.csrfToken }
                 });
-            });
+            })
+            .booklyPopover($.extend({
+                placement: function (tip) {
+                    $(tip)
+                        .css({maxWidth:'none'})
+                        .find('.popover-body button').on('click', function () {
+                            $btnContactUs.booklyPopover('hide');
+                            $.ajax({
+                                url: ajaxurl,
+                                type: 'POST',
+                                data: {
+                                    action: 'bookly_dismiss_contact_us_notice',
+                                    csrf_token: BooklySupportL10n.csrfToken
+                                },
+                                success: function (response) {
+                                    $btnContactUs.attr('data-processed', true);
+                                }
+                            });
+                        });
+
+                    return 'bottom';
+                }
+            }, popoverConfig))
+            .booklyPopover('show')
+        ;
     }
 
-    if ($btnFeedback.data('trigger')) {
+    if ($btnFeedback.data('content')) {
         $btnFeedback
-            .popover().popover('show')
-            .next('.popover')
-                .css({right:'10px',left:'auto'})
-                .find('.arrow').removeClass().addClass('popover-arrow').css({right:($btnFeedback.outerWidth()/2)+'px',left:'auto'}).end()
-                .find('.popover-content').css({overflow:'hidden'})
-                    .find('button').on('click', function () {
-                        $btnFeedback.popover('hide');
-                        $.ajax({
-                            url  : ajaxurl,
-                            type : 'POST',
-                            data : { action : 'bookly_dismiss_feedback_notice', csrf_token : BooklySupportL10n.csrfToken }
-                        });
-                    }).end()
-                .end()
-            .end()
             .on('click', function () {
-                $btnFeedback.popover('hide');
+                $btnFeedback.booklyPopover('hide');
                 $.ajax({
                     url  : ajaxurl,
                     type : 'POST',
                     data : { action : 'bookly_dismiss_feedback_notice', csrf_token : BooklySupportL10n.csrfToken }
                 });
-            });
+            })
+            .booklyPopover($.extend({
+                placement: function (tip) {
+                    $(tip)
+                        .css({maxWidth:'none'})
+                        .find('.popover-body').css({overflow:'hidden'})
+                        .find('button').on('click', function () {
+                        $btnFeedback.booklyPopover('hide');
+                        $.ajax({
+                            url  : ajaxurl,
+                            type : 'POST',
+                            data : { action : 'bookly_dismiss_feedback_notice', csrf_token : BooklySupportL10n.csrfToken }
+                        });
+                    });
+
+                    return 'bottom';
+                }
+            }, popoverConfig))
+            .booklyPopover('show')
+        ;
     }
 
     $('#bookly-support-send').on('click', function () {
@@ -86,7 +106,7 @@ jQuery(function ($) {
                 success  : function (response) {
                     if (response.success) {
                         $msg.val('');
-                        $modal.modal('hide');
+                        $modal.booklyModal('hide');
                         booklyAlert({success : [response.data.message]});
                     } else {
                         booklyAlert({error : [response.data.message]});
@@ -134,21 +154,12 @@ jQuery(function ($) {
             });
         });
 
-    $('[data-action=feature-request]')
-        .on('click', function () {
-            if ($(this).data('target')) {
-                window.open($(this).data('target'), '_blank');
-            } else {
-                $('#bookly-feature-requests-modal').modal('show');
-            }
-        });
-
     $('.bookly-js-proceed-to-demo')
         .on('click', function () {
             var $modal = $('#bookly-demo-site-info-modal'),
                 target = $(this).data('target');
 
-            if ($('#bookly-js-dont-show-again', $modal).prop('checked')) {
+            if ($('#bookly-js-dont-show-again-demo', $modal).prop('checked')) {
                 $.ajax({
                     url: ajaxurl,
                     type: 'POST',
@@ -164,23 +175,14 @@ jQuery(function ($) {
                     }
                 });
             }
-            $modal.modal('hide');
+            $modal.booklyModal('hide');
             window.open(target, '_blank');
-        });
-
-    $('[data-action=show-demo]')
-        .on('click', function () {
-            if ($(this).data('target')) {
-                window.open($(this).data('target'), '_blank');
-            } else {
-                $('#bookly-demo-site-info-modal').modal('show');
-            }
         });
 
     $('.bookly-js-proceed-requests')
         .on('click', function () {
             var $modal = $('#bookly-feature-requests-modal');
-            if ($('#bookly-js-dont-show-again', $modal).prop('checked')) {
+            if ($('#bookly-js-dont-show-again-feature', $modal).prop('checked')) {
                 $.ajax({
                     url: ajaxurl,
                     type: 'POST',
@@ -196,7 +198,7 @@ jQuery(function ($) {
                     }
                 });
             }
-            $modal.modal('hide');
+            $modal.booklyModal('hide');
             window.open(BooklySupportL10n.featuresRequestUrl, '_blank');
         });
 });

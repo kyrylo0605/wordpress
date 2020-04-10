@@ -81,11 +81,11 @@ echo $progress_tracker;
             <?php if ( ! empty ( $times ) ) : ?>
                 <div class="bookly-time-range bookly-js-time-range bookly-left bookly-mobile-float-none">
                     <?php if ( is_rtl() ) : ?>
-                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'to', 'times' => $times, 'selected' => $userData->getTimeTo() ) ); ?>
-                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'from', 'times' => $times, 'selected' => $userData->getTimeFrom() ) ); ?>
+                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'to', 'times' => $times, 'selected' => $userData->getTimeTo() ) ) ?>
+                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'from', 'times' => $times, 'selected' => $userData->getTimeFrom() ) ) ?>
                     <?php else: ?>
-                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'from', 'times' => $times, 'selected' => $userData->getTimeFrom() ) ); ?>
-                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'to', 'times' => $times, 'selected' => $userData->getTimeTo() ) ); ?>
+                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'from', 'times' => $times, 'selected' => $userData->getTimeFrom() ) ) ?>
+                        <?php self::renderTemplate( '1_service_time', array( 'type' => 'to', 'times' => $times, 'selected' => $userData->getTimeTo() ) ) ?>
                     <?php endif?>
                 </div>
             <?php endif ?>

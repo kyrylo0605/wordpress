@@ -41,19 +41,19 @@ class ShortCode extends Lib\Base\Component
             $resources = plugins_url( 'frontend\resources', Lib\Plugin::getMainFile() );
 
             if ( get_option( 'bookly_cst_phone_default_country' ) != 'disabled' ) {
-                wp_enqueue_style( 'bookly-intlTelInput', $resources . '/css/intlTelInput.css', array(), $version );
+                wp_enqueue_style( 'bookly-intlTelInput.css', $resources . '/css/intlTelInput.css', array(), $version );
             }
-            wp_enqueue_style( 'bookly-ladda-min', $resources . '/css/ladda.min.css', array(), $version );
-            wp_enqueue_style( 'bookly-picker', $resources . '/css/picker.classic.css', array(), $version );
-            wp_enqueue_style( 'bookly-picker-date', $resources . '/css/picker.classic.date.css', array(), $version );
+            wp_enqueue_style( 'bookly-ladda.min.css', $resources . '/css/ladda.min.css', array(), $version );
+            wp_enqueue_style( 'bookly-picker.classic.css', $resources . '/css/picker.classic.css', array(), $version );
+            wp_enqueue_style( 'bookly-picker.classic.date.css', $resources . '/css/picker.classic.date.css', array(), $version );
             if ( is_rtl() ) {
-                wp_enqueue_style( 'bookly-rtl', $resources . '/css/bookly-rtl.css', array(), $version );
+                wp_enqueue_style( 'bookly-rtl.css', $resources . '/css/bookly-rtl.css', array(), $version );
             }
 
-            wp_enqueue_style( 'bookly-main', $resources . '/css/bookly-main.css',
+            wp_enqueue_style( 'bookly-main.css', $resources . '/css/bookly-main.css',
                 Proxy\Shared::enqueueBookingStyles( get_option( 'bookly_cst_phone_default_country' ) != 'disabled'
-                    ? array( 'bookly-intlTelInput', 'bookly-picker-date' )
-                    : array( 'bookly-picker-date' ) ),
+                    ? array( 'bookly-intlTelInput.css', 'bookly-picker.classic.date.css' )
+                    : array( 'bookly-picker.classic.date.css' ) ),
                 $version
             );
         }
@@ -74,18 +74,18 @@ class ShortCode extends Lib\Base\Component
             $version   = Lib\Plugin::getVersion();
             $resources = plugins_url( 'frontend\resources', Lib\Plugin::getMainFile() );
 
-            wp_enqueue_script( 'bookly-spin', $resources . '/js/spin.min.js', array(), $version );
-            wp_enqueue_script( 'bookly-ladda', $resources . '/js/ladda.min.js', array( 'bookly-spin' ), $version );
-            wp_enqueue_script( 'bookly-hammer', $resources . '/js/hammer.min.js', array( 'jquery' ), $version );
-            wp_enqueue_script( 'bookly-jq-hammer', $resources . '/js/jquery.hammer.min.js', array( 'jquery' ), $version );
-            wp_enqueue_script( 'bookly-picker', $resources . '/js/picker.js', array( 'jquery' ), $version );
-            wp_enqueue_script( 'bookly-picker-date', $resources . '/js/picker.date.js', array( 'bookly-picker' ), $version );
+            wp_enqueue_script( 'bookly-spin.min.js', $resources . '/js/spin.min.js', array(), $version );
+            wp_enqueue_script( 'bookly-ladda.min.js', $resources . '/js/ladda.min.js', array( 'bookly-spin.min.js' ), $version );
+            wp_enqueue_script( 'bookly-hammer.min.js', $resources . '/js/hammer.min.js', array( 'jquery' ), $version );
+            wp_enqueue_script( 'bookly-jquery.hammer.min.js', $resources . '/js/jquery.hammer.min.js', array( 'jquery' ), $version );
+            wp_enqueue_script( 'bookly-picker.js', $resources . '/js/picker.js', array( 'jquery' ), $version );
+            wp_enqueue_script( 'bookly-picker.date.js', $resources . '/js/picker.date.js', array( 'bookly-picker.js' ), $version );
             if ( get_option( 'bookly_cst_phone_default_country' ) != 'disabled' ) {
-                wp_enqueue_script( 'bookly-intlTelInput', $resources . '/js/intlTelInput.min.js', array( 'jquery' ), $version );
+                wp_enqueue_script( 'bookly-intlTelInput.min.js', $resources . '/js/intlTelInput.min.js', array( 'jquery' ), $version );
             }
 
-            wp_enqueue_script( 'bookly', $resources . '/js/bookly.min.js',
-                Proxy\Shared::enqueueBookingScripts( array( 'bookly-ladda', 'bookly-hammer', 'bookly-picker-date' ) ),
+            wp_enqueue_script( 'bookly.min.js', $resources . '/js/bookly.min.js',
+                Proxy\Shared::enqueueBookingScripts( array( 'bookly-ladda.min.js', 'bookly-hammer.min.js', 'bookly-picker.date.js' ) ),
                 $version
             );
 
@@ -97,7 +97,7 @@ class ShortCode extends Lib\Base\Component
                 $ajaxurl = add_query_arg( array( 'lang' => $sitepress->get_current_language() ), $ajaxurl );
             }
 
-            wp_localize_script( 'bookly', 'BooklyL10n', array(
+            wp_localize_script( 'bookly.min.js', 'BooklyL10n', array(
                 'ajaxurl'    => $ajaxurl,
                 'csrf_token' => Lib\Utils\Common::getCsrfToken(),
                 'today'      => __( 'Today', 'bookly' ),

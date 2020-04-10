@@ -200,8 +200,8 @@ class Ajax extends Lib\Base\Ajax
                     case 'getStaffList':
                         return $staff->loadBy( array( 'wp_user_id' => get_current_user_id() ) );
                     case 'staffScheduleUpdate':
-                        if ( self::hasParameter( 'days' ) ) {
-                            foreach ( self::parameter( 'days' ) as $id => $day_index ) {
+                        if ( self::hasParameter( 'ssi' ) ) {
+                            foreach ( self::parameter( 'ssi' ) as $id => $day_index ) {
                                 $res_schedule = new Lib\Entities\StaffScheduleItem();
                                 $res_schedule->load( $id );
                                 $staff = new Lib\Entities\Staff();

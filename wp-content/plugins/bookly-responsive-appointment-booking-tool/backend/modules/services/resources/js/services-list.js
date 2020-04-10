@@ -42,7 +42,7 @@ jQuery(function ($) {
             responsivePriority: 1,
             orderable: false,
             render: function (data, type, row, meta) {
-                return '<i class="fa fa-fw ' + row.type_icon + '" title="' + row.type + '"></i>';
+                return '<i class="' + row.type_icon + ' fa-fw" title="' + row.type + '"></i>';
             },
         });
     }
@@ -50,7 +50,7 @@ jQuery(function ($) {
         responsivePriority: 1,
         orderable: false,
         render: function (data, type, row, meta) {
-            return '<i class="fa fa-fw fa-circle" style="color:' + row.colors[0] + ';">';
+            return '<i class="fas fa-fw fa-circle" style="color:' + row.colors[0] + ';">';
         }
     });
 
@@ -81,9 +81,8 @@ jQuery(function ($) {
         responsivePriority: 1,
         orderable: false,
         searchable: false,
-        width: 90,
         render: function (data, type, row, meta) {
-            return '<button type="button" class="btn btn-default" data-action="edit"><i class="fa fa-fw fa-edit"></i> ' + BooklyL10n.edit + '</a>';
+            return '<button type="button" class="btn btn-default" data-action="edit"><i class="far fa-fw fa-edit mr-1"></i>' + BooklyL10n.edit + '…</a>';
         }
     });
     columns.push({
@@ -91,7 +90,10 @@ jQuery(function ($) {
         orderable: false,
         searchable: false,
         render: function (data, type, row, meta) {
-            return '<input type="checkbox" value="' + row.id + '">';
+            return '<div class="custom-control custom-checkbox">' +
+                '<input value="' + row.id + '" id="bookly-dt-' + row.id + '" type="checkbox" class="custom-control-input">' +
+                '<label for="bookly-dt-' + row.id + '" class="custom-control-label"></label>' +
+                '</div>';
         }
     });
     $.each(BooklyL10n.datatables.services.settings.order, function (_, value) {
@@ -126,9 +128,7 @@ jQuery(function ($) {
             }
         },
         columns   : columns,
-        dom       : "<'row'<'col-sm-6'<'pull-left'>><'col-sm-6'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row pull-left'<'col-sm-12 bookly-margin-top-lg'p>>",
+        dom       : "<'row'<'col-sm-12'tr>><'row float-left mt-3'<'col-sm-12'p>>",
         language  : {
             zeroRecords: BooklyL10n.zeroRecords,
             processing : BooklyL10n.processing
@@ -192,10 +192,10 @@ jQuery(function ($) {
                     switch (response.data.action) {
                         case 'show_modal':
                             $deleteModal
-                                .modal('show');
+                                .booklyModal('show');
                             $('.bookly-js-delete', $deleteModal).off().on('click', function () {
                                 delete_services(ajaxurl, $.extend(data, {force_delete: true}));
-                                $deleteModal.modal('hide');
+                                $deleteModal.booklyModal('hide');
                             });
                             $('.bookly-js-edit', $deleteModal).off().on('click', function () {
                                 rangeTools.ladda(this);
@@ -222,7 +222,8 @@ jQuery(function ($) {
     $('.bookly-js-select')
         .select2({
             width: '100%',
-            theme: 'bootstrap',
+            theme: 'bootstrap4',
+            dropdownParent: '#bookly-tbs',
             allowClear: true,
             placeholder: '',
             language  : {

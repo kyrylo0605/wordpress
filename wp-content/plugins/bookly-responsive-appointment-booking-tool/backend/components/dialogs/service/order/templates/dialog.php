@@ -1,30 +1,31 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components\Controls\Buttons;
+use Bookly\Backend\Components\Controls\Elements;
 ?>
-<form id="bookly-service-order-modal" class="modal fade" tabindex=-1 role="dialog">
+<form id="bookly-service-order-modal" class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                <div class="modal-title h2"><?php esc_html_e( 'Services order', 'bookly' ) ?></div>
+                <h5 class="modal-title"><?php esc_html_e( 'Services order', 'bookly' ) ?></h5>
+                <button type="button" class="close" data-dismiss="bookly-modal" aria-label="Close"><span>&times;</span></button>
             </div>
             <div class="modal-body">
-                <ul id="bookly-list"></ul>
-                <p class="help-block bookly-js-without-icon"><?php esc_html_e( 'Adjust the order of services in your booking form', 'bookly' ) ?></p>
+                <ul id="bookly-list" class="list-unstyled"></ul>
+                <small class="text-muted form-text"><?php esc_html_e( 'Adjust the order of services in your booking form', 'bookly' ) ?></small>
             </div>
             <div class="modal-footer">
                 <?php Buttons::renderSubmit() ?>
-                <?php Buttons::renderCustom( null, 'btn-lg btn-default', esc_html__( 'Close', 'bookly' ), array( 'data-dismiss' => 'modal' ) ) ?>
+                <?php Buttons::renderCancel() ?>
             </div>
         </div>
     </div>
 </form>
 <div class="collapse" id="bookly-service-template">
-    <li class="form-group">
-        <div class="row"">
+    <li class="mb-1">
+        <div class="row align-items-center">
             <input type="hidden" name="id" value="{{id}}"/>
-            <div class="col-xs-1"><i class="fa fa-fw fa-lg fa-bars text-muted bookly-cursor-move bookly-js-draghandle" title="<?php esc_attr_e( 'Reorder', 'bookly' ) ?>"></i></div>
-            <div class="col-xs-11">{{title}}</div>
+            <div class="col-auto pr-1"><?php Elements::renderReorder() ?></div>
+            <div class="col-auto pl-1">{{title}}</div>
         </div>
     </li>
 </div>

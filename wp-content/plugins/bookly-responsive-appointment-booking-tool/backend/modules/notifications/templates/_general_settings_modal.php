@@ -8,12 +8,12 @@ foreach ( range( 1, 23 ) as $hours ) {
     $bookly_ntf_processing_interval_values[] = array( $hours, Utils\DateTime::secondsToInterval( $hours * HOUR_IN_SECONDS ) );
 }
 ?>
-<form id="bookly-js-general-settings-modal" class="modal fade" tabindex=-1 role="dialog">
+<form id="bookly-js-general-settings-modal" class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                <div class="modal-title h2"><?php esc_html_e( 'General settings', 'bookly' ) ?></div>
+                <h5 class="modal-title"><?php esc_html_e( 'General settings', 'bookly' ) ?></h5>
+                <button type="button" class="close" data-dismiss="bookly-modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <?php self::renderTemplate( '_common_settings', array( 'tail' => '_gen' ) ) ?>
@@ -25,8 +25,8 @@ foreach ( range( 1, 23 ) as $hours ) {
             </div>
             <div class="modal-footer">
                 <?php Inputs::renderCsrf() ?>
-                <?php Buttons::renderCustom( null, 'bookly-js-save btn-lg btn-success', __( 'Save settings', 'bookly' ) ) ?>
-                <?php Buttons::renderCustom( null, 'btn-lg btn-default', __( 'Close', 'bookly' ), array( 'data-dismiss' => 'modal' ) ) ?>
+                <?php Buttons::renderSubmit( null, 'bookly-js-save', __( 'Save settings', 'bookly' ) ) ?>
+                <?php Buttons::renderCancel( __( 'Close', 'bookly' ) ) ?>
             </div>
         </div>
     </div>

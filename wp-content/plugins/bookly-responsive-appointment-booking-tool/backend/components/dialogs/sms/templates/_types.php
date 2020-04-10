@@ -6,8 +6,7 @@ use Bookly\Lib\Config;
     <div class="col-md-12">
         <div class="form-group">
             <label for="notification_type"><?php esc_attr_e( 'Type', 'bookly' ) ?></label>
-            <p class="help-block"><?php esc_html_e( 'Select the type of event at which the notification is sent.', 'bookly' ) ?></p>
-            <select class="form-control" name="notification[type]" id="notification_type">
+            <select class="form-control custom-select" name="notification[type]" id="notification_type">
                 <optgroup label="<?php esc_attr_e( 'Instant notifications', 'bookly' ) ?>">
                     <option value="<?php echo Notification::TYPE_NEW_BOOKING ?>"
                             data-set="instantly"
@@ -94,7 +93,8 @@ use Bookly\Lib\Config;
                             data-attach='[]'><?php echo esc_attr( Notification::getTitle( Notification::TYPE_STAFF_DAY_AGENDA ) ) ?></option>
                 </optgroup>
             </select>
-            <p class="help-block bookly-js-help-block bookly-margin-top-xs <?php echo Notification::TYPE_NEW_BOOKING_COMBINED ?>"><?php esc_html_e( 'This notification is sent once for a booking made by a customer and includes all cart items.', 'bookly' ) ?></p>
+            <small class="form-text text-muted"><?php esc_html_e( 'Select the type of event at which the notification is sent.', 'bookly' ) ?></small>
+            <small class="form-text text-muted bookly-js-help-block mt-2 <?php echo Notification::TYPE_NEW_BOOKING_COMBINED ?>"><?php esc_html_e( 'This notification is sent once for a booking made by a customer and includes all cart items.', 'bookly' ) ?></small>
         </div>
     </div>
 </div>

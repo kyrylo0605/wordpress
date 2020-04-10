@@ -156,7 +156,7 @@ class Simple extends Item
                 $this->getStaff()->getId(),
                 $this->getService()->getId(),
                 Lib\Proxy\Locations::prepareStaffLocationId( $this->appointment->getLocationId(), $this->getStaff()->getId() ) ?: null,
-                $this->getAppointment()->getStartDate(),
+                substr( $this->getAppointment()->getStartDate(), 11 ),  // start time
                 $this->getCA()->getUnits()
             );
         } else {

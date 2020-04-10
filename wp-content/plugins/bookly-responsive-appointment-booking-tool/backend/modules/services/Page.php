@@ -19,20 +19,21 @@ class Page extends Lib\Base\Ajax
         self::enqueueStyles( array(
             'wp'       => array( 'wp-color-picker' ),
             'frontend' => array( 'css/ladda.min.css' ),
-            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css', 'css/select2.min.css', ),
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css' ),
         ) );
 
         self::enqueueScripts( array(
             'wp'       => array( 'wp-color-picker' ),
             'backend'  => array(
                 'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
+                'js/dropdown.js'                => array( 'jquery' ),
                 'js/datatables.min.js'          => array( 'jquery' ),
                 'js/alert.js'                   => array( 'jquery' ),
-                'js/dropdown.js'                => array( 'jquery' ),
-                'js/range_tools.js'             => array( 'jquery' ),
-                'js/select2.full.min.js'        => array( 'jquery' ),
+                'js/range-tools.js'             => array( 'jquery' ),
+                'js/select2.min.js'             => array( 'jquery' ),
+                'js/sortable.min.js',
             ),
-            'module'   => array( 'js/services-list.js' => array( 'jquery-ui-sortable', 'bookly-dropdown.js' ) ),
+            'module'   => array( 'js/services-list.js' => array( 'bookly-sortable.min.js', 'bookly-dropdown.js' ) ),
             'frontend' => array(
                 'js/spin.min.js'  => array( 'jquery' ),
                 'js/ladda.min.js' => array( 'bookly-spin.min.js', 'jquery' ),
@@ -67,7 +68,7 @@ class Page extends Lib\Base\Ajax
             'recurrence_error' => esc_attr__( 'You must select at least one repeat option for recurring services.', 'bookly' ),
             'noResultFound'    => esc_attr__( 'No result found', 'bookly' ),
             'show_type'        => count( Proxy\Shared::prepareServiceTypes( array() ) ) > 0,
-            'datatables'      => $datatables,
+            'datatables'       => $datatables,
         ) );
 
         // Allow add-ons to enqueue their assets.

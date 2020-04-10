@@ -68,7 +68,7 @@ class Ajax extends Page
             $query->limit( $limits['length'] )->offset( $limits['start'] );
         }
 
-        $type_icons = Proxy\Shared::prepareServiceIcons( array( Lib\Entities\Service::TYPE_SIMPLE => 'fa-calendar-day' ) );
+        $type_icons = Proxy\Shared::prepareServiceIcons( array( Lib\Entities\Service::TYPE_SIMPLE => 'far fa-calendar-check' ) );
 
         $data = array();
         /** @var Lib\Entities\Service $service */

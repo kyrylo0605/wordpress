@@ -248,7 +248,7 @@ class Ajax extends Lib\Base\Ajax
                 $extras = (array) Lib\Proxy\ServiceExtras::getInfo( json_decode( $row['extras'], true ), false );
                 if ( $row['extras_multiply_nop'] && $row['number_of_persons'] > 1 ) {
                     foreach ( $extras as $index => $extra ) {
-                        $extras[ $index ]['title'] = '<i class="fa fa-user"></i>&nbsp;' . $row['number_of_persons'] . '&nbsp;&times;&nbsp;' . $extra['title'];
+                        $extras[ $index ]['title'] = '<i class="far fa-user"></i>&nbsp;' . $row['number_of_persons'] . '&nbsp;&times;&nbsp;' . $extra['title'];
                     }
                 }
             } else {
@@ -289,11 +289,6 @@ class Ajax extends Lib\Base\Ajax
             $custom_fields = array_map( function () { return ''; }, $custom_fields );
         }
 
-        return array(
-            'data'     => $data,
-            'total'    => $total,
-            'filtered' => $filtered,
-        );
-
+        return compact( 'data', 'total', 'filtered' );
     }
 }

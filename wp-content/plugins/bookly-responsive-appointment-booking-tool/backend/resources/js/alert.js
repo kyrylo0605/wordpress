@@ -1,42 +1,41 @@
 function booklyAlert(alert) {
-    var types = {
-        success : 'alert-success',
-        error   : 'alert-danger'
-    };
-
     // Check if there are messages in alert.
-    var not_empty = false;
-    for (var type in alert) {
-        if (types.hasOwnProperty(type) && alert[type].length) {
+    let not_empty = false;
+    for (let type in alert) {
+        if (['success', 'error'].includes(type) && alert[type].length) {
             not_empty = true;
             break;
         }
     }
 
     if (not_empty) {
-        var $container = jQuery('#bookly-alert');
-        if ($container.length == 0) {
+        let $container = jQuery('#bookly-alert');
+        if ($container.length === 0) {
             $container = jQuery('<div id="bookly-alert" class="bookly-alert"></div>').appendTo('#bookly-tbs');
         }
-        for (var type in alert) {
-            var class_name;
-            if (types.hasOwnProperty(type)) {
-                class_name = types[type];
-            } else {
-                continue;
-            }
+        for (let type in alert) {
             alert[type].forEach(function (message) {
-                var $alert = jQuery('<div class="alert"><i class="alert-icon"></i><button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                $alert
-                    .addClass(class_name)
-                    .append('<b class="bookly-margin-left-sm bookly-vertical-middle">' + message + '</b>')
-                    .appendTo($container);
+                const $alert = jQuery('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-                if (type == 'success') {
-                    setTimeout(function() {
-                        $alert.remove();
-                    }, 10000);
+                switch (type) {
+                    case 'success':
+                        $alert
+                            .addClass('alert-success')
+                            .prepend('<i class="fas fa-check-circle fa-fw fa-lg text-success align-middle mr-1"></i>');
+                        setTimeout(function() {
+                            $alert.remove();
+                        }, 10000);
+                        break;
+                    case 'error':
+                        $alert
+                            .addClass('alert-danger')
+                            .prepend('<i class="fas fa-times-circle fa-fw fa-lg text-danger align-middle mr-1"></i>');
+                        break;
                 }
+
+                $alert
+                    .append('<b>' + message + '</b>')
+                    .appendTo($container);
             });
         }
     }

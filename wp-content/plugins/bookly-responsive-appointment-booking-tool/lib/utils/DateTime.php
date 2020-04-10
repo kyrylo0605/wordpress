@@ -13,16 +13,6 @@ class DateTime
     const FORMAT_JQUERY_DATEPICKER = 2;
     const FORMAT_PICKADATE         = 3;
 
-    private static $week_days = array(
-        0 => 'Sunday',
-        1 => 'Monday',
-        2 => 'Tuesday',
-        3 => 'Wednesday',
-        4 => 'Thursday',
-        5 => 'Friday',
-        6 => 'Saturday',
-    );
-
     private static $format_characters_day   = array( 'd', 'D', 'j', 'l', 'N', 'S', 'w', 'z' );
     private static $format_characters_month = array( 'F', 'm', 'M', 'n' );
     private static $format_characters_year  = array( 'o', 'Y', 'y' );
@@ -105,17 +95,6 @@ class DateTime
             '\\' => '',
         )
     );
-
-    /**
-     * Get week day by day number (0 = Sunday, 1 = Monday...)
-     *
-     * @param $number
-     * @return string
-     */
-    public static function getWeekDayByNumber( $number )
-    {
-        return isset( self::$week_days[ $number ] ) ? self::$week_days[ $number ] : '';
-    }
 
     /**
      * Format ISO date (or seconds) according to WP date format setting.
@@ -406,20 +385,20 @@ class DateTime
     {
         return array_merge(
             array(
-                'tomorrow'    => __( 'Tomorrow', 'bookly' ),
-                'today'       => __( 'Today', 'bookly' ),
-                'yesterday'   => __( 'Yesterday', 'bookly' ),
-                'last_7'      => __( 'Last 7 days', 'bookly' ),
-                'last_30'     => __( 'Last 30 days', 'bookly' ),
-                'thisMonth'   => __( 'This month', 'bookly' ),
-                'nextMonth'   => __( 'Next month', 'bookly' ),
-                'customRange' => __( 'Custom range', 'bookly' ),
-                'apply'       => __( 'Apply', 'bookly' ),
-                'cancel'      => __( 'Cancel', 'bookly' ),
-                'to'          => __( 'To', 'bookly' ),
-                'from'        => __( 'From', 'bookly' ),
-                'dateFormat'  => self::convertFormat( 'date', self::FORMAT_MOMENT_JS ),
-                'firstDay'    => (int) get_option( 'start_of_week' ),
+                'format'           => self::convertFormat( 'date', self::FORMAT_MOMENT_JS ),
+                'applyLabel'       => __( 'Apply', 'bookly' ),
+                'cancelLabel'      => __( 'Cancel', 'bookly' ),
+                'fromLabel'        => __( 'From', 'bookly' ),
+                'toLabel'          => __( 'To', 'bookly' ),
+                'customRangeLabel' => __( 'Custom range', 'bookly' ),
+                'tomorrow'         => __( 'Tomorrow', 'bookly' ),
+                'today'            => __( 'Today', 'bookly' ),
+                'yesterday'        => __( 'Yesterday', 'bookly' ),
+                'last_7'           => __( 'Last 7 days', 'bookly' ),
+                'last_30'          => __( 'Last 30 days', 'bookly' ),
+                'thisMonth'        => __( 'This month', 'bookly' ),
+                'nextMonth'        => __( 'Next month', 'bookly' ),
+                'firstDay'         => (int) get_option( 'start_of_week' ),
             ),
             $array
         );
@@ -434,15 +413,19 @@ class DateTime
         /** @var \WP_Locale $wp_locale */
         global $wp_locale;
 
+        if ( is_rtl() ) {
+            $array['direction'] = 'rtl';
+        }
+
         return array_merge(
             array(
-                'dateFormat'      => self::convertFormat( 'date', self::FORMAT_JQUERY_DATEPICKER ),
-                'monthNamesShort' => array_values( $wp_locale->month_abbrev ),
+                'format'          => self::convertFormat( 'date', self::FORMAT_MOMENT_JS ),
                 'monthNames'      => array_values( $wp_locale->month ),
-                'dayNamesMin'     => array_values( $wp_locale->weekday_abbrev ),
-                'dayNamesShort'   => array_values( $wp_locale->weekday_abbrev ),
-                'dayNames'        => array_values( $wp_locale->weekday ),
+                'daysOfWeek'      => array_values( $wp_locale->weekday_abbrev ),
                 'firstDay'        => (int) get_option( 'start_of_week' ),
+                'monthNamesShort' => array_values( $wp_locale->month_abbrev ),
+                'dayNames'        => array_values( $wp_locale->weekday ),
+                'dayNamesShort'   => array_values( $wp_locale->weekday_abbrev ),
             ),
             $array
         );

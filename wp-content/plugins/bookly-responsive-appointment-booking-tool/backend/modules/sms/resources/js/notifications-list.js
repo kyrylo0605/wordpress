@@ -1,6 +1,8 @@
 jQuery(function($) {
-    var $notificationList       = $('#bookly-js-notification-list'),
-        $btnCheckAll            = $('.bookly-js-check-all', $notificationList),
+    'use strict';
+
+    let $notificationList       = $('#bookly-js-notification-list'),
+        $btnCheckAll            = $('#bookly-check-all', $notificationList),
         $modalGeneralSettings   = $('#bookly-js-general-settings-modal'),
         $btnGeneralSettings     = $('#bookly-js-settings'),
         $btnSaveGeneralSettings = $('.bookly-js-save', $modalGeneralSettings),
@@ -23,7 +25,7 @@ jQuery(function($) {
                     columns.push({
                         data: 'order',
                         render: function (data, type, row, meta) {
-                            return '<span class="hidden">' + data + '</span><i class="fa fa-fw ' + row.icon + '" title="' + row.title + '"></i>';
+                            return '<span class="hidden">' + data + '</span><i class="fa-fw ' + row.icon + '" title="' + row.title + '"></i>';
                         }
                     });
                     break;
@@ -31,7 +33,7 @@ jQuery(function($) {
                     columns.push({
                         data: column,
                         render: function (data, type, row, meta) {
-                            return '<span class="label ' + (row.active == 1 ? 'label-success' : 'label-danger') + '">' + BooklyL10n.state[data] + '</span>' + ' (<a href="#" data-action="toggle-active">' + BooklyL10n.action[data] + '</a>)';
+                            return '<span class="badge ' + (row.active == 1 ? 'badge-success' : 'badge-info') + '">' + BooklyL10n.state[data] + '</span>' + ' (<a href="#" data-action="toggle-active">' + BooklyL10n.action[data] + '</a>)';
                         }
                     });
                     break;
@@ -46,14 +48,17 @@ jQuery(function($) {
         orderable: false,
         responsivePriority: 1,
         render: function (data, type, row, meta) {
-            return ' <button type="button" class="btn btn-default ladda-button" data-action="edit" data-spinner-size="40" data-style="zoom-in" data-spinner-color="#666666"><i class="glyphicon glyphicon-edit"></i> <span class="ladda-label">' + BooklyL10n.edit + '</span></a>';
+            return ' <button type="button" class="btn btn-default ladda-button" data-action="edit" data-spinner-size="40" data-style="zoom-in" data-spinner-color="#666666"><i class="far fa-fw fa-edit mr-1"></i><span class="ladda-label">' + BooklyL10n.edit + '…</span></a>';
         }
     });
     columns.push({
         orderable: false,
         responsivePriority: 1,
         render: function (data, type, row, meta) {
-            return '<input type="checkbox" class="bookly-js-delete" value="' + row.id + '" />';
+            return '<div class="custom-control custom-checkbox">' +
+                '<input value="' + row.id + '" id="bookly-dt-' + row.id + '" type="checkbox" class="custom-control-input">' +
+                '<label for="bookly-dt-' + row.id + '" class="custom-control-label"></label>' +
+                '</div>';
         }
     });
 
@@ -79,9 +84,7 @@ jQuery(function($) {
         },
         order     : order,
         columns   : columns,
-        dom       : "<'row'<'col-sm-6'<'pull-left'>><'col-sm-6'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row pull-left'<'col-sm-12 bookly-margin-top-lg'p>>",
+        dom       : "<'row'<'col-sm-12'tr>><'row float-left mt-3'<'col-sm-12'p>>",
         language  : {
             zeroRecords: BooklyL10n.zeroRecords,
             processing : BooklyL10n.processing
@@ -145,25 +148,32 @@ jQuery(function($) {
         })
     ;
 
-
     /**
      * Select all notifications.
      */
-    $btnCheckAll.on('change', function () {
-        $('tbody input:checkbox', $notificationList).prop('checked', this.checked);
-    });
+    $btnCheckAll
+        .on('change', function () {
+            $('tbody input:checkbox', $notificationList).prop('checked', this.checked);
+        });
+
+    $notificationList
+        .on('change', 'tbody input:checkbox', function () {
+            $btnCheckAll.prop('checked', $notificationList.find('tbody input:not(:checked)').length === 0);
+        });
 
     /**
      * General settings
      */
     $btnGeneralSettings
         .on('click', function () {
-            $modalGeneralSettings.modal('show');
+            $modalGeneralSettings.booklyModal('show');
         });
 
     $btnSaveGeneralSettings
-        .on('click',function () {
-            var ladda = Ladda.create(this),
+        .on('click',function (e) {
+            e.preventDefault();
+
+            let ladda = Ladda.create(this),
                 data  = $(this).closest('form').serializeArray()
             ;
             data.push({name: 'action', value: 'bookly_save_general_settings_for_notifications'});
@@ -177,7 +187,7 @@ jQuery(function($) {
                 success: function (response) {
                     if (response.success) {
                         booklyAlert({success: [BooklyL10n.settingsSaved]});
-                        $modalGeneralSettings.modal('hide');
+                        $modalGeneralSettings.booklyModal('hide');
                     }
                     ladda.stop();
                 }
@@ -189,9 +199,9 @@ jQuery(function($) {
      */
     $btnDeleteNotifications.on('click', function () {
         if (confirm(BooklyL10n.areYouSure)) {
-            var ladda = Ladda.create(this),
+            let ladda = Ladda.create(this),
                 data = [],
-                $checkboxes = $('input.bookly-js-delete:checked', $notificationList);
+                $checkboxes = $('input:checked', $notificationList);
             ladda.start();
 
             $checkboxes.each(function () {
@@ -219,14 +229,20 @@ jQuery(function($) {
 
     $btnTestEmail
         .on('click', function () {
-            $modalTestEmail.modal()
+            $modalTestEmail.booklyModal()
         });
 
+    let $check = $('<div/>', {class: 'dropdown-item my-0 pl-3'}).append(
+        $('<div>', {class: 'custom-control custom-checkbox'}).append(
+            $('<input>', {class: 'custom-control-input', type: 'checkbox'}),
+            $('<label>', {class: 'custom-control-label text-wrap w-100'})
+        ));
     $modalTestEmail
         .on('change', '#bookly-check-all-entities', function () {
             $(':checkbox', $testNotificationsList).prop('checked', this.checked);
             $(':checkbox:first-child', $testNotificationsList).trigger('change');
         })
+        .on('click', '[for=bookly-check-all-entities]', e => e.stopPropagation())
         .on('click', '.btn-success', function () {
             var ladda = Ladda.create(this),
                 data  = $(this).closest('form').serializeArray();
@@ -244,20 +260,30 @@ jQuery(function($) {
                     ladda.stop();
                     if (response.success) {
                         booklyAlert({success: [BooklyL10n.sentSuccessfully]});
-                        $modalTestEmail.modal('hide');
+                        $modalTestEmail.booklyModal('hide');
                     }
                 }
             });
         })
         .on('shown.bs.modal', function () {
-            var $send = $(this).find('.btn-success');
+            let $send = $(this).find('.btn-success'),
+                active = 0;
             $send.prop('disabled', true);
             $testNotificationsList.html('');
-            var active = 0;
             (dt.rows().data()).each(function (notification) {
-                var $checkbox = $('<input/>', {type: 'checkbox', checked: notification.active == '1', 'data-notification-id': notification.id}),
-                    $div = $('<div/>', {class: 'checkbox'}).append($('<label/>').append($checkbox).append(notification.name));
-                $testNotificationsList.append($('<li/>', {class: 'bookly-padding-horizontal-md'}).append($div));
+                let $cloneCheck = $check.clone();
+
+                $('label', $cloneCheck).html(notification.name).attr('for', 'bookly-n-' + notification.id)
+                    .on('click', e => e.stopPropagation())
+                ;
+                $(':checkbox', $cloneCheck)
+                    .prop('checked', notification.active == '1')
+                    .attr('id', 'bookly-n-' + notification.id)
+                    .data('notification-id', notification.id)
+                ;
+
+                $testNotificationsList.append($cloneCheck);
+
                 if (notification.active == '1') {
                     active++;
                 }

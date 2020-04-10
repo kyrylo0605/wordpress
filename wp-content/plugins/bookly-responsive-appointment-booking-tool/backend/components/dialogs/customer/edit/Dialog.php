@@ -15,25 +15,26 @@ class Dialog extends Lib\Base\Component
     public static function render()
     {
         self::enqueueStyles( array(
-            'backend'  => array( 'css/jquery-ui-theme/jquery-ui.min.css', 'css/select2.min.css', ),
             'frontend' => get_option( 'bookly_cst_phone_default_country' ) == 'disabled'
                 ? array()
                 : array( 'css/intlTelInput.css' ),
         ) );
 
         self::enqueueScripts( array(
-            'backend' => array(
-                'js/angular.min.js' => array( 'jquery' ),
-                'js/select2.full.min.js'      => array( 'jquery' ),
-                'js/angular-ui-date-0.0.8.js' => array( 'bookly-angular.min.js', 'jquery-ui-datepicker' ),
-             ),
+            'backend'  => array(
+                'js/angular.min.js'             => array( 'jquery' ),
+                'js/moment.min.js'              => array( 'jquery' ),
+                'js/select2.min.js'             => array( 'jquery' ),
+                'js/daterangepicker.js'         => array( 'jquery' ),
+                'js/angular-daterangepicker.js' => array( 'bookly-angular.min.js', 'bookly-daterangepicker.js' ),
+            ),
             'frontend' => get_option( 'bookly_cst_phone_default_country' ) == 'disabled'
                 ? array()
                 : array( 'js/intlTelInput.min.js' => array( 'jquery' ) ),
-            'module' => array( 'js/ng-customer.js' => array( 'bookly-angular.min.js' ), )
+            'module'   => array( 'js/ng-customer.js' => array( 'bookly-angular.min.js' ), ),
         ) );
 
-        wp_add_inline_script( 'bookly-select2.full.min.js', 'delete jQuery.fn.select2;', 'before' );
+        wp_add_inline_script( 'bookly-select2.min.js', 'delete jQuery.fn.select2;', 'before' );
 
         wp_localize_script( 'bookly-ng-customer.js', 'BooklyL10nCustDialog', array(
             'csrf_token'      => Lib\Utils\Common::getCsrfToken(),

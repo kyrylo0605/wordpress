@@ -28,7 +28,7 @@ class Dialog extends Lib\Base\Component
                     ? array()
                     : array( 'css/intlTelInput.css' )
             ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -42,18 +42,19 @@ class Dialog extends Lib\Base\Component
                     : array( 'js/intlTelInput.min.js' => array( 'jquery' ) )
             ),
             'backend'  => array(
-                'js/jCal.js'             => array( 'jquery' ),
-                'js/dropdown.js'         => array( 'jquery' ),
-                'js/range_tools.js'      => array( 'jquery' ),
+                'js/jCal.js'            => array( 'jquery' ),
+                'js/dropdown.js'        => array( 'jquery' ),
+                'js/range-tools.js'     => array( 'jquery' ),
                 'js/moment.min.js',
-                'js/select2.full.min.js' => array( 'jquery' ),
+                'js/daterangepicker.js' => array( 'jquery' ),
+                'js/select2.min.js'     => array( 'jquery' ),
             ),
             'module'   => array(
-                'js/staff-details.js'  => array( 'jquery' ),
-                'js/staff-services.js' => array( 'bookly-staff-details.js' ),
-                'js/staff-schedule.js' => array( 'bookly-staff-services.js' ),
-                'js/staff-days-off.js' => array( 'bookly-staff-schedule.js' ),
-                'js/staff-edit-dialog.js' => array( 'jquery-ui-sortable', 'jquery-ui-datepicker', 'bookly-range_tools.js', 'bookly-staff-days-off.js' )
+                'js/staff-details.js'     => array( 'bookly-range-tools.js' ),
+                'js/staff-services.js'    => array( 'bookly-staff-details.js' ),
+                'js/staff-schedule.js'    => array( 'bookly-staff-services.js' ),
+                'js/staff-days-off.js'    => array( 'bookly-staff-schedule.js' ),
+                'js/staff-edit-dialog.js' => array( 'bookly-daterangepicker.js', 'bookly-staff-days-off.js' ),
             ),
         ) );
 

@@ -412,7 +412,6 @@ class ChainItem
         return $this;
     }
 
-
     /**
      * Gets first_in_series
      *

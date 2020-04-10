@@ -5,26 +5,32 @@ use Bookly\Lib\Utils\Common;
 
 /** @var Bookly\Lib\Entities\Staff $staff */
 ?>
-<form id="bookly-staff-edit-modal" class="modal fade" tabindex=-1 role="dialog">
+<form id="bookly-staff-edit-modal" class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                <div class="modal-title h2"></div>
+                <div class="modal-title h5"></div>
+                <button type="button" class="close" data-dismiss="bookly-modal"><span>×</span></button>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <?php if ( Common::isCurrentUserAdmin() ) : ?>
-                    <?php Buttons::renderDelete( 'bookly-staff-delete', 'btn-lg pull-left bookly-js-hide-on-loading' ) ?>
-                    <?php if ( Config::proActive() ) : ?>
-                        <?php Buttons::renderCustom( null, 'btn-lg btn-danger ladda-button bookly-js-staff-archive pull-left bookly-js-hide-on-loading', esc_html__( 'Archive', 'bookly' ) . '...', array(), '<i class="fa fa-archive"></i> {caption}' ) ?>
+                <div class="mr-auto">
+                    <?php if ( Common::isCurrentUserAdmin() ) : ?>
+                        <?php Buttons::renderDelete( 'bookly-staff-delete', 'bookly-js-hide-on-loading' ) ?>
+                        <?php if ( Config::proActive() ) : ?>
+                            <?php Buttons::render( null, 'btn-danger ladda-button bookly-js-staff-archive bookly-js-hide-on-loading', __( 'Archive', 'bookly' ) . '…', array(), '<i class="fas fa-fw fa-archive mr-1"></i>{caption}' ) ?>
+                        <?php endif ?>
                     <?php endif ?>
-                <?php endif ?>
-                <span class="bookly-js-errors text-danger" style="max-width: 353px;display: inline-grid;"></span>
-                <?php Buttons::renderCustom( null, 'btn-lg btn-success bookly-js-save bookly-js-hide-on-loading', esc_html__( 'Save', 'bookly' ) ) ?>
-                <?php Buttons::renderCustom( null, 'btn-lg btn-default', esc_html__( 'Close', 'bookly' ), array( 'data-dismiss' => 'modal' ) ) ?>
+                </div>
+                <div class="flex-fill">
+                    <span class="bookly-js-errors text-danger" style="max-width: 353px;display: inline-grid;"></span>
+                </div>
+                <div class="ml-auto">
+                    <?php Buttons::renderSubmit( null, 'bookly-js-save bookly-js-hide-on-loading' ) ?>
+                    <?php Buttons::renderCancel( __( 'Close', 'bookly' ) ) ?>
+                </div>
             </div>
         </div>
     </div>

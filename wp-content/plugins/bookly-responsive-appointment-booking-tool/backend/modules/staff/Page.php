@@ -15,16 +15,15 @@ class Page extends Lib\Base\Component
     public static function render()
     {
         self::enqueueStyles( array(
-            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css', 'css/jquery-ui-theme/jquery-ui.min.css', 'css/fontawesome-all.min.css', 'css/select2.min.css', ),
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css', 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
             'backend'  => array(
                 'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
-                'js/help.js'                    => array( 'jquery' ),
                 'js/alert.js'                   => array( 'jquery' ),
                 'js/datatables.min.js'          => array( 'jquery' ),
-                'js/select2.full.min.js'        => array( 'jquery' ),
+                'js/select2.min.js'             => array( 'jquery' ),
             ),
             'module'   => array(
                 'js/staff-list.js' => array( 'jquery' ),

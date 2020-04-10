@@ -6740,11 +6740,11 @@ msgid "You must select at least one repeat option for recurring services."
 msgstr ""
 
 #: 
-msgid "1. Provide <b>Secret</b> and <b>Publishable</b> keys which are available in the <a href=\"%s\" target=\"_blank\">Dashboard</a>."
+msgid "Provide <b>Secret</b> and <b>Publishable</b> keys which are available in the <a href=\"%s\" target=\"_blank\">Dashboard</a>."
 msgstr ""
 
 #: 
-msgid "2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> section, click <b>Add endpoint</b> to reveal a form to add a new endpoint for receiving events."
+msgid "In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> section, click <b>Add endpoint</b> to reveal a form to add a new endpoint for receiving events."
 msgstr ""
 
 #: 
@@ -6768,11 +6768,11 @@ msgid "This service is no longer provided."
 msgstr ""
 
 #: 
-msgid "3. Enter the following URL as the destination for events <b>%s</b> and click <b>Add endpoint</b>."
+msgid "Enter the following URL as the destination for events <b>%s</b> and click <b>Add endpoint</b>."
 msgstr ""
 
 #: 
-msgid "4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent.payment_failed</b> and click <b>Add endpoint</b>."
+msgid "Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent.payment_failed</b> and click <b>Add endpoint</b>."
 msgstr ""
 
 #: 

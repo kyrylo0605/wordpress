@@ -10,16 +10,14 @@ jQuery(function ($) {
             queue.forEach(function (notification, index) {
                 $queue.append(
                     $template.clone().show().html()
-                        .replace(/{{icon}}/g, notification.gateway == 'sms' ? 'fa-sms' : 'fa-envelope')
+                        .replace(/{{icon}}/g, notification.gateway == 'sms' ? 'fas fa-sms' : 'far fa-envelope')
                         .replace(/{{recipient}}/g, notification.data.name)
                         .replace(/{{address}}/g, notification.address)
                         .replace(/{{description}}/g, notification.name)
                         .replace(/{{index}}/g, index)
                 );
             });
-            $dialog.off().on('shown.bs.modal', function () {
-                $('body').addClass('modal-open');
-            }).on('click', '.bookly-js-send', function (e) {
+            $dialog.off().on('click', '.bookly-js-send', function (e) {
                 e.preventDefault();
                 var ladda      = Ladda.create(this),
                     send_queue = [];
@@ -40,7 +38,7 @@ jQuery(function ($) {
                         ladda.stop();
                         if (response.success) {
                             // Close the dialog.
-                            $dialog.modal('hide');
+                            $dialog.booklyModal('hide');
                         }
                         if (callback) {
                             // Call callback.
@@ -64,7 +62,7 @@ jQuery(function ($) {
                     // Call callback.
                     callback();
                 }
-            }).modal('show');
+            }).booklyModal('show');
         }
     );
 });

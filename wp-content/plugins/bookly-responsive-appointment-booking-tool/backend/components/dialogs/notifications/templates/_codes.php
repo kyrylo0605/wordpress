@@ -4,7 +4,7 @@ $codes = new \Bookly\Backend\Modules\Notifications\Lib\Codes( 'email' )
 ?>
 <div class="form-group bookly-js-codes-container">
     <label><?php esc_attr_e( 'Codes', 'bookly' ) ?></label>
-    <div class="bookly-max-height-md">
+    <div>
         <?php foreach ( Notification::getTypes() as $notification_type ) :
             if ( in_array( $notification_type, array(
                 Notification::TYPE_NEW_BOOKING_RECURRING,

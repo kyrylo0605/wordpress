@@ -448,8 +448,10 @@ class Cart
                                 array( $bound_end->format( 'Y-m-d H:i:s' ), $bound_start->format( 'Y-m-d H:i:s' ), $cart_item->getNumberOfPersons() ) )
                             ->limit( 1 );
                         if ( Config::locationsActive() && get_option( 'bookly_locations_allow_services_per_location' ) ) {
+                            $location_id = isset( $slot[3] ) ? $slot[3] : 0;
                             $query
                                 ->leftJoin( 'StaffLocation', 'sl', 'sl.staff_id = ss.staff_id', '\BooklyLocations\Lib\Entities' )
+                                ->where( 'sl.location_id', $location_id )
                                 ->whereRaw( '( ss.location_id IS NULL AND sl.custom_services = 0 ) OR ( ss.location_id IS NOT NULL AND sl.custom_services = 1 AND sl.location_id = ss.location_id )', array() );
                         } else {
                             $query->where( 'ss.location_id', null );

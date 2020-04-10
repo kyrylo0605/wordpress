@@ -4,12 +4,12 @@ use Bookly\Backend\Components\Dialogs\Customer\Edit\Proxy;
 use Bookly\Lib\Config;
 ?>
 <script type="text/ng-template" id="bookly-customer-dialog.tpl">
-<div id="bookly-customer-dialog" class="modal fade" tabindex=-1 role="dialog">
+<div id="bookly-customer-dialog" class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="modal-title h2"><?php esc_html_e( 'New Customer', 'bookly' ) ?></div>
+                <h5 class="modal-title"><?php esc_html_e( 'New Customer', 'bookly' ) ?></h5>
+                <button type="button" class="close" data-dismiss="bookly-modal" aria-hidden="true" aria-label="Close">&times;</button>
             </div>
             <div ng-show=loading class="modal-body">
                 <div class="bookly-loading"></div>
@@ -17,7 +17,7 @@ use Bookly\Lib\Config;
             <div class="modal-body" ng-hide="loading">
                 <div class="form-group">
                     <label for="wp_user"><?php esc_html_e( 'User', 'bookly' ) ?></label>
-                    <select ng-model="form.wp_user_id" class="form-control" id="wp_user" ng-change="changeWpUser()">
+                    <select ng-model="form.wp_user_id" class="form-control custom-select" id="wp_user" ng-change="changeWpUser()">
                         <?php foreach ( get_users( array( 'fields' => array( 'ID', 'display_name', 'user_email' ), 'orderby' => 'display_name' ) ) as $wp_user ) : ?>
                             <?php $user_data = get_userdata( $wp_user->ID ) ?>
                             <option value="<?php echo $wp_user->ID ?>" data-email="<?php echo esc_html( $wp_user->user_email ) ?>" data-first-name="<?php echo esc_html( $user_data->first_name ) ?>" data-last-name="<?php echo esc_html( $user_data->last_name ) ?>" data-phone="<?php echo esc_html( get_user_meta( $wp_user->ID, 'billing_phone', true ) ) ?>">
@@ -73,8 +73,8 @@ use Bookly\Lib\Config;
             </div>
             <div class="modal-footer">
                 <div ng-hide=loading>
-                    <?php Buttons::renderCustom( null, 'btn-success btn-lg', null, array( 'ng-click' => 'processForm()' ) ) ?>
-                    <?php Buttons::renderCustom( null, 'btn-default btn-lg', esc_html__( 'Cancel', 'bookly' ), array( 'data-dismiss' => 'modal' ) ) ?>
+                    <?php Buttons::renderSubmit( null, null, null, array( 'ng-click' => 'processForm()' ) ) ?>
+                    <?php Buttons::renderCancel() ?>
                 </div>
             </div>
         </div>

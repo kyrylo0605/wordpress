@@ -17,7 +17,7 @@ class Dialog extends BooklyLib\Base\Component
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -25,10 +25,11 @@ class Dialog extends BooklyLib\Base\Component
                 'js/spin.min.js'  => array( 'jquery', ),
                 'js/ladda.min.js' => array( 'jquery', ),
             ),
-            'backend' => array(
-                'js/select2.full.min.js' => array( 'jquery' ),
-                'js/dropdown.js'         => array( 'jquery' ),),
-            'module'  => array( 'js/notification-dialog.js' => array( 'bookly-dropdown.js', 'bookly-select2.full.min.js' ), ),
+            'backend'  => array(
+                'js/select2.min.js' => array( 'jquery' ),
+                'js/dropdown.js'    => array( 'jquery' ),
+            ),
+            'module'   => array( 'js/notification-dialog.js' => array( 'bookly-dropdown.js', 'bookly-select2.min.js' ), ),
         ) );
 
         wp_localize_script( 'bookly-notification-dialog.js', 'BooklyNotificationDialogL10n', array(
@@ -50,8 +51,8 @@ class Dialog extends BooklyLib\Base\Component
 
     public static function renderNewNotificationButton()
     {
-        print '<div class="form-group">';
-        Buttons::renderCustom( 'bookly-js-new-notification', 'btn-success', esc_html__( 'New notification...', 'bookly' ) );
+        print '<div class="col-12 col-sm-auto">';
+        Buttons::renderAdd( 'bookly-js-new-notification', 'btn-success', __( 'New notification', 'bookly' ) );
         print '</div>';
     }
 
@@ -60,7 +61,7 @@ class Dialog extends BooklyLib\Base\Component
      */
     protected static function getDefaultNotification()
     {
-        $default = array(
+        return array(
             'type'           => BooklyLib\Entities\Notification::TYPE_NEW_BOOKING,
             'active'         => 1,
             'attach_ics'     => 0,
@@ -73,7 +74,5 @@ class Dialog extends BooklyLib\Base\Component
             'to_staff'       => 0,
             'settings'       => BooklyLib\DataHolders\Notification\Settings::getDefault(),
         );
-
-        return $default;
     }
 }

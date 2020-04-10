@@ -47,7 +47,7 @@ class Plugins extends Base
                 }
             }
 
-            $menu .= sprintf( '<li><a href="#" data-tool="%s" data-plugin="%s" data-action="%s">%s (%s)</li>', $this->tool, $slug, $action, $data['name'], $action );
+            $menu .= sprintf( '<a href="#" data-tool="%s" data-plugin="%s" data-action="%s" class="dropdown-item">%s (%s)</a>', $this->tool, $slug, $action, $data['name'], $action );
         }
 
         return $menu;

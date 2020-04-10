@@ -6,6 +6,11 @@ use Bookly\Backend\Components\Appearance\Editable;
 /** @var WP_Locale $wp_locale */
 global $wp_locale;
 ?>
+<style>
+    .picker__holder * {
+        box-sizing: unset !important;
+    }
+</style>
 <div class="bookly-form">
     <?php include '_progress_tracker.php' ?>
 

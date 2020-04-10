@@ -8,9 +8,9 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-12 09:03+0000\n"
-"PO-Revision-Date: 2020-02-12 09:16+0000\n"
-"Last-Translator: support@bookly.info\n"
+"POT-Creation-Date: 2020-04-01 17:35+0000\n"
+"PO-Revision-Date: 2020-04-04 07:10+0000\n"
+"Last-Translator: Erika <erikayiu12@gmail.com>\n"
 "Language-Team: Chinese (Taiwan)\n"
 "X-Loco-Version: 2.3.1; wp-5.3"
 
@@ -119,6 +119,9 @@ msgstr "發票號碼"
 msgid "Attach invoice"
 msgstr "附加發票"
 
+msgid "Empty"
+msgstr "空白"
+
 msgid ""
 "Invoice due days: Please enter value in the following range (in days) - 1 to "
 "365."
@@ -178,9 +181,6 @@ msgstr "電話號碼"
 msgid "Outlook Calendar integration"
 msgstr "Outlook日曆載入"
 
-msgid "Synchronize staff member appointments with Outlook Calendar."
-msgstr "將員工預約與Outlook日曆同步。"
-
 msgid "Connect"
 msgstr "連接"
 
@@ -194,17 +194,20 @@ msgstr "已連接"
 msgid "disconnect"
 msgstr "中斷"
 
+msgid "Synchronize staff member appointments with Outlook Calendar."
+msgstr "將員工預約與Outlook日曆同步。"
+
 msgid "Calendar"
 msgstr "日曆"
+
+msgid "-- Select calendar --"
+msgstr "-- 選擇日曆 -- "
 
 msgid ""
 "When you connect a calendar all future and past events will be synchronized "
 "according to the selected synchronization mode. This may take a few minutes. "
 "Please wait."
 msgstr "當您連接日曆時，所有將來和過​​去的事件將根據所選的同步模式進行同步。這可能需要幾分鐘的時間。請耐心等待。"
-
-msgid "-- Select calendar --"
-msgstr "-- 選擇日曆 -- "
 
 msgid "Can't change calendar for archived staff"
 msgstr "無法更改已存檔員工的日曆"
@@ -244,9 +247,12 @@ msgstr ""
 msgid ""
 "When the <b>Register an application</b> page appears, enter your "
 "application's <b>Name</b> and <b>Redirect URI</b> found below on this page. "
-"When finished, select <b>Register</b>."
+"Make sure that the <b>Supported account types</b> is set to <b>Accounts in "
+"any organizational directory and personal Microsoft accounts</b>. When "
+"finished, select <b>Register</b>."
 msgstr ""
-"當<b>註冊應用程式</b>頁面出現時，輸入在此頁面下方找到的應用程式的<b>名稱</b>和<b>重定向URI </b>。完成後，選擇<b>註冊</b>。"
+"當<b>註冊應用程式</b>頁面出現時，輸入你在頁面下找到的應用程式<b>名稱</b> 及 <b> 重新導向URI</b>。請記得<b>支援帳戶</b> "
+"設為 <b>在組織的任何帳戶和個人微軟帳戶</b>。完成後，選擇<b>註冊</b>。"
 
 msgid ""
 "Azure AD assigns a unique application (client) ID to your app, and you're "
@@ -520,9 +526,6 @@ msgstr "Captcha 驗證"
 
 msgid "HTML allowed in all texts and labels."
 msgstr "所有文字和標籤皆允許HTML語法"
-
-msgid "Reorder"
-msgstr "重新排序"
 
 msgid "Remove field"
 msgstr "刪除文字欄"
@@ -1167,11 +1170,11 @@ msgid ""
 "appointment cannot be done (changed status, etc.)."
 msgstr "設置無法批准重複預約（狀態更改等原因）時顯示給員工的頁面的URL。"
 
-msgid "Allow this service to have recurring appointments."
-msgstr "允許此服務具有定期預約。"
-
 msgid "Enabled"
 msgstr "啟用"
+
+msgid "Allow this service to have recurring appointments."
+msgstr "允許此服務具有定期預約。"
 
 msgid "Frequencies"
 msgstr "頻率"
@@ -1242,17 +1245,17 @@ msgstr "發送通知"
 msgid "Cancellation reason (optional)"
 msgstr "取消原因（可選）"
 
-msgid "Cancel"
-msgstr "取消"
+msgid "Recurring appointments"
+msgstr "經常性約會"
 
 msgid "Close"
 msgstr "關閉"
 
-msgid "Recurring appointments"
-msgstr "經常性約會"
-
 msgid "Save"
 msgstr "保存"
+
+msgid "I will pay now with Credit Card"
+msgstr "我會現在使用信用卡支付"
 
 msgid "Sandbox Mode"
 msgstr "沙箱模式"
@@ -1570,8 +1573,8 @@ msgstr "包括稅項"
 msgid "Exclude taxes"
 msgstr "不含稅"
 
-msgid "Add Tax"
-msgstr "添加稅收"
+msgid "Add tax"
+msgstr "增加稅項"
 
 msgid "New tax"
 msgstr "新稅收"
@@ -1614,12 +1617,6 @@ msgstr ""
 
 msgid "Customer Information"
 msgstr "客戶資料"
-
-msgid "Required field."
-msgstr "必填項目。"
-
-msgid "Ask once."
-msgstr "詢問一次。"
 
 msgid "Ask once"
 msgstr "詢問一次"
@@ -1764,6 +1761,9 @@ msgstr "註冊應用程式項目在Google API控制台後，輸入獲得的Googl
 msgid "Google Maps"
 msgstr "Google地圖"
 
+msgid "Show address required"
+msgstr "需要顯示地址"
+
 msgid "Show google maps field"
 msgstr "顯示谷歌地圖字段"
 
@@ -1799,6 +1799,9 @@ msgstr "分類"
 
 msgid "Staff"
 msgstr "員工"
+
+msgid "Cancel"
+msgstr "取消"
 
 msgid "Reschedule"
 msgstr "時間表"
@@ -1874,13 +1877,17 @@ msgstr "不允許"
 msgid "There are no time slots for selected date."
 msgstr "所選日期沒有可供選擇的時段。"
 
+msgid "Profile updated successfully."
+msgstr "個人資料更新成功"
+
 msgid ""
 "Unfortunately, you're not able to cancel the appointment because the "
 "required time limit prior to canceling has expired."
 msgstr "很遺憾，您無法取消預約，因為取消之前所需的時間限制已過期。"
 
-msgid "Profile updated successfully."
-msgstr "個人資料更新成功"
+msgid ""
+"The selected time is not available anymore. Please, choose another time slot."
+msgstr "所選時段已滿，請選擇其他的時段。"
 
 msgid "Time"
 msgstr "時間"
@@ -2295,15 +2302,6 @@ msgstr ""
 "您可以在下方查詢 {service_name} 的 {staff_name} 可預約時間.\n"
 "選擇您的預約時間以進行預約。"
 
-msgid "Card Security Code"
-msgstr "信用卡驗證碼"
-
-msgid "Expiration Date"
-msgstr "到期日"
-
-msgid "Credit Card Number"
-msgstr "信用卡號碼"
-
 msgid "Confirm email"
 msgstr "確認電郵"
 
@@ -2318,9 +2316,6 @@ msgstr "姓"
 
 msgid "Notes"
 msgstr "記錄"
-
-msgid "I will pay now with Credit Card"
-msgstr "我會現在使用信用卡支付"
 
 msgid "I will pay locally"
 msgstr "我會即場支付"
@@ -2372,10 +2367,6 @@ msgstr "請提供您的電話"
 
 msgid "Please select a service"
 msgstr "請選擇服務"
-
-msgid ""
-"The selected time is not available anymore. Please, choose another time slot."
-msgstr "所選時段已滿，請選擇其他的時段。"
 
 msgid "Login"
 msgstr "登入"
@@ -2557,6 +2548,15 @@ msgstr "%d 小時"
 msgid "%d min"
 msgstr "%d 分"
 
+msgid "From"
+msgstr "由"
+
+msgid "To"
+msgstr "至"
+
+msgid "Custom range"
+msgstr "自定範圍"
+
 msgid "Tomorrow"
 msgstr "明天"
 
@@ -2574,15 +2574,6 @@ msgstr "這個月"
 
 msgid "Next month"
 msgstr "下月"
-
-msgid "Custom range"
-msgstr "自定範圍"
-
-msgid "To"
-msgstr "至"
-
-msgid "From"
-msgstr "由"
 
 msgid "No."
 msgstr "號"
@@ -2866,8 +2857,14 @@ msgstr ""
 msgid "Bookly SMS - Low Balance"
 msgstr "Bookly SMS - 餘額過低"
 
+msgid "Email confirm required."
+msgstr "需要確認電郵"
+
 msgid "Empty password."
 msgstr "空密碼。"
+
+msgid "Incorrect confirmation code."
+msgstr "確認碼不正確。"
 
 msgid "Incorrect password."
 msgstr "錯誤密碼。"
@@ -3044,20 +3041,40 @@ msgid ""
 "up your balance in order to start sending SMS."
 msgstr "註冊後，您將需要設置通知消息，並充值您的餘額以開始發送短信。"
 
-msgid "Confirm your email"
-msgstr "確認您的電子郵件"
-
 msgid "Thank you for registration."
 msgstr "感謝您的註冊。"
 
-#, php-format
-msgid "Confirmation is sent to %s."
-msgstr "確認已發送到％s。"
+msgid "You're almost ready to get started with Bookly SMS Service."
+msgstr "你快將完成，準備使用Bookly 短訊服務。"
 
 msgid ""
-"Once you confirm your e-mail address, you will get an access to Bookly SMS "
-"service."
-msgstr "確認電子郵件地址後，您將可以使用Bookly SMS服務。"
+"An email containing the confirmation code has been sent to your email "
+"address."
+msgstr "確認碼已發到你的電郵地址。"
+
+msgid "To complete registration, please enter the confirmation code below."
+msgstr "要完成註冊，請在以下輸入確認碼。"
+
+msgid "Confirmation code"
+msgstr "確認碼"
+
+msgid "Didn't receive the email?"
+msgstr "沒收到電郵？"
+
+#, php-format
+msgid "Is %s the correct email?"
+msgstr "%s 是正確的電郵嗎？"
+
+#, php-format
+msgid "If not, you can %s restart the registration process%s."
+msgstr "如果不是，你可以 %s 重新啟動註冊過程%s"
+
+msgid "Check your spam folder."
+msgstr "檢查你的垃圾郵件箱。"
+
+#, php-format
+msgid "Click %s here %s to resend the email."
+msgstr "點擊 %s 這裡 %s 重新發送電郵。"
 
 msgid "Password"
 msgstr "密碼"
@@ -3117,16 +3134,16 @@ msgstr ""
 msgid "Administrator phone"
 msgstr "管理員的電話"
 
-msgid ""
-"Enter a phone number in international format. E.g. for the United States a "
-"valid phone number would be +17327572923."
-msgstr "輸入一個國際格式的電話號碼。例如，在美國的一個有效的電話號碼是+17327572923。"
-
 msgid "Send test SMS"
 msgstr "傳送測試SMS短訊"
 
 msgid "Save administrator phone"
 msgstr "保存管理員電話"
+
+msgid ""
+"Enter a phone number in international format. E.g. for the United States a "
+"valid phone number would be +17327572923."
+msgstr "輸入一個國際格式的電話號碼。例如，在美國的一個有效的電話號碼是+17327572923。"
 
 msgid "Quick search notifications"
 msgstr "快速搜索通知"
@@ -3158,14 +3175,14 @@ msgstr "請求發件人ID"
 msgid "Reset to default"
 msgstr "重置為默認"
 
-msgid "Can only contain letters or digits (up to 11 characters)."
-msgstr "只能包含字母或數字（最多11個字符）。"
-
 msgid "Request"
 msgstr "請求"
 
 msgid "Cancel request"
 msgstr "取消請求"
+
+msgid "Can only contain letters or digits (up to 11 characters)."
+msgstr "只能包含字母或數字（最多11個字符）。"
 
 msgid "Please accept terms and conditions."
 msgstr "請接受服務條款。"
@@ -3208,6 +3225,12 @@ msgstr "啟用"
 msgid "disable"
 msgstr "禁止"
 
+msgid "The email has been resent"
+msgstr "電郵已重新發送"
+
+msgid "Service is temporarily unavailable. Please try again later."
+msgstr "服務暫時停止，請稍後再試。"
+
 msgid "Auto-Recharge has failed, please replenish your balance directly."
 msgstr "自動充值失敗，請直接補充你的餘額。"
 
@@ -3236,6 +3259,9 @@ msgstr "分類"
 
 msgid "Show archived"
 msgstr "顯示已存檔"
+
+msgid "Reorder"
+msgstr "重新排序"
 
 msgid "Image"
 msgstr "圖片"
@@ -3401,42 +3427,14 @@ msgstr ""
 msgid "duration of service"
 msgstr "服務期限"
 
-msgid "To set up Facebook integration, do the following:"
-msgstr "要連結Facebook，請執行以下操作："
-
-msgid ""
-"Follow the steps at <a href=\"https://developers.facebook."
-"com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
-"com/docs/apps/register</a> to create a Developer Account, register and "
-"configure your <b>Facebook App</b>. Below the App Details Panel click <b>Add "
-"Platform</b> button, select Website and enter your website URL."
-msgstr ""
-"請按照<a href=\"https://developers.facebook.com/docs/apps/register\" "
-"target=\"_blank\"> https://developers.facebook.com/docs/apps/register</a>"
-"中的步驟進行操作並建立一個開發者帳戶，註冊並配置您的<b>Facebook應用程式</b>。在\"應用程式詳細信息\"面板下，點擊<b>添加平台</b>"
-"按鈕，選擇網站，然後輸入您的網站URL。"
-
-msgid ""
-"Go to your <a href=\"https://developers.facebook.com/apps/\" "
-"target=\"_blank\">App Dashboard</a>. In the left side navigation panel of "
-"the App Dashboard, click <b>Settings > Basic</b> to view the App Details "
-"Panel with your <b>App ID</b>. Use it in the form below."
-msgstr ""
-"轉到您的<a href=\"https://developers.facebook.com/apps/\" target=\"_blank\">"
-"應用程式儀表板</a>。在應用程式儀表板的左側導航面板中，點擊<b>設置>基本</b>以查看具有<b>App ID</b>"
-"的應用程式詳細信息面板。使用下面的表格。"
-
-msgid "App ID"
-msgstr "應用程式號"
-
-msgid "Set order of the fields in calendar"
-msgstr "設置日曆中字段的順序"
-
 msgid "Appointment with one participant"
 msgstr "一名參與者的預約"
 
 msgid "Appointment with many participants"
 msgstr "許多參與者的預約"
+
+msgid "Set order of the fields in calendar"
+msgstr "設置日曆中字段的順序"
 
 msgid "Currency"
 msgstr "貨幣"
@@ -3550,14 +3548,14 @@ msgid ""
 "notifications to customers, backend calendar and codes for booking form."
 msgstr "允許設置服務預約的開始和結束時間為期1天或更長時間。這段時間將顯示在通知客戶、後端日曆和預約表格代碼中。"
 
+msgid "Slot length as service duration"
+msgstr "時段長度作為服務持續時間"
+
 msgid ""
 "The time interval which is used as a step when building all time slots for "
 "the service at the Time step. The setting overrides global settings in "
 "Settings  General. Use Default to apply global settings."
 msgstr "在時間步中，為服務建立的時段將成為一步。該設置將覆蓋\"一般設置\"中的全球​設置。使用默預設模式則應用全球​設置。"
-
-msgid "Slot length as service duration"
-msgstr "時段長度作為服務持續時間"
 
 msgid "You must select at least one repeat option for recurring services."
 msgstr "您必須為定期服務選擇至少一個重複選項。"
@@ -3731,9 +3729,6 @@ msgstr "上月"
 msgid "Your custom CSS was saved. Please refresh the page to see your changes."
 msgstr "您的自定義CSS已保存。 請刷新頁面以查看您的更改。"
 
-msgid "Quick search customer"
-msgstr "快速搜索客戶"
-
 msgid "New customer"
 msgstr "新客戶"
 
@@ -3767,6 +3762,9 @@ msgstr "編輯客戶"
 
 msgid "Create customer"
 msgstr "新增客戶"
+
+msgid "Quick search customer"
+msgstr "快速搜索客戶"
 
 msgid "Addons"
 msgstr "插件"
@@ -3917,12 +3915,6 @@ msgstr "發送"
 msgid "Email notifications"
 msgstr "電子郵件通知"
 
-msgid "General settings..."
-msgstr "一般設定..."
-
-msgid "Test email notifications..."
-msgstr "測試電郵通知..."
-
 msgid "Sender name"
 msgstr "發件人名稱"
 
@@ -3987,23 +3979,23 @@ msgstr "發送稅務信息"
 msgid "Price correction"
 msgstr "價格修正"
 
-msgid ""
-"This setting affects the cost of the booking according to the payment "
-"gateway used. Specify a percentage or fixed amount. Use minus (\"-\") sign "
-"for decrease/discount."
-msgstr "根據所使用的付款方，此設置會影響預約的費用。指定百分比或固定金額。使用減號（\"-\"）進行減價/折扣。"
-
 msgid "Increase/Discount (%)"
 msgstr "增加／減少(%)"
 
 msgid "Addition/Deduction"
 msgstr "添加／減少"
 
+msgid ""
+"This setting affects the cost of the booking according to the payment "
+"gateway used. Specify a percentage or fixed amount. Use minus (\"-\") sign "
+"for decrease/discount."
+msgstr "根據所使用的付款方，此設置會影響預約的費用。指定百分比或固定金額。使用減號（\"-\"）進行減價/折扣。"
+
 msgid "Enter a value"
 msgstr "輸入值"
 
-msgid "Add..."
-msgstr "添加..."
+msgid "Add"
+msgstr "增加"
 
 msgid "Reset"
 msgstr "重置"
@@ -4022,23 +4014,23 @@ msgstr "選擇啟用通知並發送消息與否，還是禁用通知，並且在
 msgid "Recipients"
 msgstr "收件人"
 
-msgid "Choose who will receive this notification."
-msgstr "選擇誰將收到此通知。"
-
 msgid "Client"
 msgstr "客戶"
 
 msgid "Administrators"
 msgstr "管理員"
 
-msgid "Select the type of event at which the notification is sent."
-msgstr "選擇發送通知的事件類型。"
+msgid "Choose who will receive this notification."
+msgstr "選擇誰將收到此通知。"
 
 msgid "Instant notifications"
 msgstr "即時通知"
 
 msgid "Scheduled notifications (require cron setup)"
 msgstr "預定的通知（需要cron設置）"
+
+msgid "Select the type of event at which the notification is sent."
+msgstr "選擇發送通知的事件類型。"
 
 msgid ""
 "This notification is sent once for a booking made by a customer and includes "
@@ -4090,8 +4082,11 @@ msgstr "編輯SMS通知"
 msgid "Create notification"
 msgstr "建立通知"
 
-msgid "New notification..."
-msgstr "新通知..."
+msgid "New notification"
+msgstr "新通知"
+
+msgid "Select from WP users"
+msgstr "從WordPress用戶中選擇"
 
 msgid ""
 "If this staff member requires separate login to access personal calendar, a "
@@ -4109,16 +4104,13 @@ msgid ""
 "personal calendar using WP backend."
 msgstr "如果你將這欄留空，這名員工將無法使用WordPress後端查看個人日曆。"
 
-msgid "Select from WP users"
-msgstr "從WordPress用戶中選擇"
+msgid "Archive"
+msgstr "存檔"
 
 msgid ""
 "To make staff member invisible to your customers set the visibility to "
 "\"Private\"."
 msgstr "為了讓客戶查詢不到員工資料，請把可見度設成\"私人\"。"
-
-msgid "Archive"
-msgstr "存檔"
 
 msgid "No services found. Please add services."
 msgstr "找不到服務。請添加新服務。"
@@ -4204,6 +4196,12 @@ msgstr "—搜索客戶—"
 msgid "Internal note"
 msgstr "內部說明"
 
+msgid "Send if new or status changed"
+msgstr "如果有新狀態或狀態更改則發送"
+
+msgid "Send as for new"
+msgstr "如新發送"
+
 msgid ""
 "If you have added a new customer to this appointment or changed the "
 "appointment status for an existing customer, and for these records you want "
@@ -4213,12 +4211,6 @@ msgid ""
 "selecting \"Send as for new\"."
 msgstr ""
 "如果您已為此預約添加了新客戶或更改了現有客戶的約會狀態，並且希望將相關的電子郵件或SMS通知發送給收件人，在點擊保存之前，請選擇\"如果有新的狀態或狀態更改，則發送\"。您還可以通過選擇\"如新客戶發送\"來發送通知，就好像所有客戶都被添加成為新客戶一樣。"
-
-msgid "Send if new or status changed"
-msgstr "如果有新狀態或狀態更改則發送"
-
-msgid "Send as for new"
-msgstr "如新發送"
 
 msgid "Edit appointment"
 msgstr "編輯預約"
@@ -4300,6 +4292,9 @@ msgstr "在您的預訂表格中調整服務次序"
 
 msgid "Add category"
 msgstr "添加分類"
+
+msgid "Adjust the order of categories in your booking form"
+msgstr "更改你的預約名單上的次序"
 
 msgid "Table settings"
 msgstr "桌面設定"
@@ -4432,8 +4427,8 @@ msgid ""
 "most suitable configuration according to your business needs."
 msgstr "這是Bookly Pro的示範版本，其中包含所有已安裝的加載項，您可以嘗試系統的所有功能，然後根據您的業務需求選擇最合適的配置。"
 
-msgid "don't show this notification again"
-msgstr "不再顯示此通知"
+msgid "don't show this notification again-"
+msgstr "不要再顯示這通知"
 
 msgid "Proceed to demo"
 msgstr "使用示範版本"
@@ -4446,6 +4441,18 @@ msgstr "聯絡我們"
 
 msgid "Need help? Contact us here."
 msgstr "需要幫忙？這裡與我們聯繫。"
+
+msgid "Leave us a message"
+msgstr "給我們留言"
+
+msgid "Your name"
+msgstr "您的名字"
+
+msgid "Email address"
+msgstr "電子郵件地址"
+
+msgid "How can we help you?"
+msgstr "我們該怎樣幫助你？"
 
 msgid "Feature requests"
 msgstr "功能要求"
@@ -4478,6 +4485,9 @@ msgid ""
 "Is this something that impacts just you, your whole team, or your customers?"
 msgstr "這是否會影響到您自己、整個團隊或您的客戶？"
 
+msgid "don't show this notification again"
+msgstr "不再顯示此通知"
+
 msgid "Proceed to Feature requests"
 msgstr "使用功能要求"
 
@@ -4488,18 +4498,6 @@ msgid ""
 "We care about your experience of using Bookly!<br/>Leave a review and tell "
 "others what you think."
 msgstr "我們關心您使用Bookly的體驗！<br/>留下評論並告訴其他人您的想法。"
-
-msgid "Leave us a message"
-msgstr "給我們留言"
-
-msgid "Your name"
-msgstr "您的名字"
-
-msgid "Email address"
-msgstr "電子郵件地址"
-
-msgid "How can we help you?"
-msgstr "我們該怎樣幫助你？"
 
 msgid "Booking form"
 msgstr "預約表格"
@@ -4531,6 +4529,15 @@ msgstr "數量"
 msgid "hide"
 msgstr "隱藏"
 
+msgid "Username"
+msgstr "使用者名稱"
+
+msgid "Remember Me"
+msgstr "記住我"
+
+msgid "Lost your password?"
+msgstr "忘記密碼？"
+
 msgid "Loading..."
 msgstr "載入中…"
 
@@ -4542,6 +4549,9 @@ msgstr "所選條件下沒有時段可供使用。"
 
 msgid "Data already in use"
 msgstr "數據已在使用"
+
+msgid "Update"
+msgstr "更新"
 
 msgid "Page Redirection"
 msgstr "網頁重定向"
@@ -4849,11 +4859,11 @@ msgstr "您正在嘗試安排一個過去的時間。請選擇另一個時間。
 msgid "Select appointment date"
 msgstr "選擇預約日期"
 
-msgid "Delete package appointment"
-msgstr "刪除包裹預約"
-
 msgid "Edit package appointment"
 msgstr "編輯包裹預約"
+
+msgid "Delete package appointment"
+msgstr "刪除包裹預約"
 
 msgid "Packages list"
 msgstr "包裹列表"
@@ -5034,6 +5044,15 @@ msgstr "街號"
 msgid "Street number is required"
 msgstr "街號為必填項"
 
+msgid "Card Security Code"
+msgstr "信用卡驗證碼"
+
+msgid "Expiration Date"
+msgstr "到期日"
+
+msgid "Credit Card Number"
+msgstr "信用卡號碼"
+
 msgid "Appointment"
 msgstr "預約"
 
@@ -5149,23 +5168,23 @@ msgstr "打印"
 msgid "Google Calendar integration"
 msgstr "Google日曆整合"
 
-msgid "Synchronize staff member appointments with Google Calendar."
-msgstr "將員工預約與Google日曆同步。"
-
 #, php-format
 msgid "Please configure Google Calendar <a href=\"%s\">settings</a> first"
 msgstr "請先調整Google日曆<a href=“%s”>設定</a>"
 
+msgid "Synchronize staff member appointments with Google Calendar."
+msgstr "將員工預約與Google日曆同步。"
+
 msgid "Limit working hours per day"
 msgstr "限制每天工作時間"
+
+msgid "Unlimited"
+msgstr "無限"
 
 msgid ""
 "This setting allows limiting the total time occupied by bookings per day for "
 "staff member. Padding time is not included."
 msgstr "此設置允許限制員工每天預訂所佔用的總時間。不包括填充時間。"
-
-msgid "Unlimited"
-msgstr "無限"
 
 msgid "API Username"
 msgstr "API用戶名"
@@ -5252,13 +5271,13 @@ msgstr "選擇您要向客戶獲得的地址字段。"
 msgid "Final step URL"
 msgstr "最後一步URL"
 
+msgid "Enter a URL"
+msgstr "輸入一個URL"
+
 msgid ""
 "Set the URL of a page that the user will be forwarded to after successful "
 "booking. If disabled then the default Done step is displayed."
 msgstr "設定用戶將成功預訂後跳到頁面的URL。如果不使用，則會顯示預設的\"完成\"頁面。"
-
-msgid "Enter a URL"
-msgstr "輸入一個URL"
 
 msgid "Make birthday mandatory"
 msgstr "將生日日期設為必填項"
@@ -5374,6 +5393,9 @@ msgid ""
 msgstr ""
 "設定那些資料放置在Google日曆預約的標題。可用的代碼是{service_name}，{staff_name}和{client_names}。"
 
+msgid "To set up Facebook integration, do the following:"
+msgstr "要連結Facebook，請執行以下操作："
+
 msgid ""
 "Follow the steps at <a href=\"https://developers.facebook."
 "com/docs/apps/register\" target=\"_blank\">https://developers.facebook."
@@ -5399,6 +5421,9 @@ msgid ""
 "Dashboard, click Settings > Basic to view the App Details Panel with your "
 "App ID. Use it in the form below."
 msgstr "轉到您的應用程式儀表板。在應用程式儀表板的左側導航面板中，單擊設置>基本以查看具有App ID的應用程式詳細信息面板。使用下面的表格。"
+
+msgid "App ID"
+msgstr "應用程式號"
 
 msgid ""
 "Upon providing the purchase code you will have access to free updates of "
@@ -5498,13 +5523,6 @@ msgstr "設置在計算提供服務者的入住率時將考慮預約前後的天
 msgid "Limit appointments per customer"
 msgstr "限制每個客戶的預約"
 
-msgid ""
-"This setting allows you to limit the number of appointments that can be "
-"booked by a customer in any given period. Restriction may end after a fixed "
-"period or with the beginning of the next calendar period  new day, week, "
-"month, etc."
-msgstr "此設置使您可以限制在任何給定期間內客戶可以進行預約的數量。限制可以在固定時間段之後或在指定新日期、星期、月份等開始時結束。"
-
 msgid "upcoming"
 msgstr "即將"
 
@@ -5531,6 +5549,13 @@ msgstr "每365天"
 
 msgid "per year"
 msgstr "每年"
+
+msgid ""
+"This setting allows you to limit the number of appointments that can be "
+"booked by a customer in any given period. Restriction may end after a fixed "
+"period or with the beginning of the next calendar period  new day, week, "
+"month, etc."
+msgstr "此設置使您可以限制在任何給定期間內客戶可以進行預約的數量。限制可以在固定時間段之後或在指定新日期、星期、月份等開始時結束。"
 
 msgid "Limit"
 msgstr "限制"
@@ -5573,6 +5598,20 @@ msgstr "多次預訂時的表格查看"
 msgid "Form in case of 100% discount"
 msgstr "100％折扣時的表格"
 
+msgid "Show birthday field"
+msgstr "顯示生日字段"
+
+msgid ""
+"Address information is needed for Invoices add-on. To disable, deactivate "
+"Invoices add-on first."
+msgstr "如要發票功能，地址為必要資訊。如要取消，請取消發票功能。"
+
+msgid "Show address fields"
+msgstr "顯示地址欄"
+
+msgid "Show Facebook login button"
+msgstr "顯示Facebook登錄按鈕"
+
 #, php-format
 msgid ""
 "Please configure Facebook App integration in <a href=\"%s\">settings</a> "
@@ -5581,15 +5620,6 @@ msgstr "請首先在<a href=\"%s\">設置</a>中結合Facebook應用程式。"
 
 msgid "Ok"
 msgstr "可以"
-
-msgid "Show birthday field"
-msgstr "顯示生日字段"
-
-msgid "Show address fields"
-msgstr "顯示地址欄"
-
-msgid "Show Facebook login button"
-msgstr "顯示Facebook登錄按鈕"
 
 msgid "Show time zone switcher"
 msgstr "顯示時區轉換"
@@ -5796,9 +5826,6 @@ msgid ""
 "page</a>."
 msgstr "找不到您的申購代碼？看這<a href=\"%s\" target=\"_blank\">頁</a>。"
 
-msgid "Proceed without license verification"
-msgstr "無需許可證驗證即可繼續"
-
 msgid "I will provide license info later"
 msgstr "我將在稍後提供許可證信息"
 
@@ -5826,6 +5853,12 @@ msgstr "用於顯示預約列表的自定義塊"
 
 msgid "Custom fields"
 msgstr "自定欄位"
+
+msgid "Confirm cancellation"
+msgstr "確認取消"
+
+msgid "Do not cancel"
+msgstr "不要取消"
 
 msgid "Thank you for being with us"
 msgstr "感謝您與我們在一起"
@@ -5862,17 +5895,17 @@ msgid "Deposit options"
 msgstr ""
 "按金選項\n"
 
-msgid ""
-"If you enable \"Deposit only\", customers will be requested to pay only a "
-"deposit amount. If you enable \"Deposit or full price\", customers will be "
-"requested to pay a deposit amount or a full amount."
-msgstr "如果啟用\"只收取定金\"，則將要求客戶僅支付定金。如果啟用\"定金或全價\"，將要求客戶支付定金或全額。"
-
 msgid "Deposit only"
 msgstr "只需按金"
 
 msgid "Deposit or full price"
 msgstr "按金或全價"
+
+msgid ""
+"If you enable \"Deposit only\", customers will be requested to pay only a "
+"deposit amount. If you enable \"Deposit or full price\", customers will be "
+"requested to pay a deposit amount or a full amount."
+msgstr "如果啟用\"只收取定金\"，則將要求客戶僅支付定金。如果啟用\"定金或全價\"，將要求客戶支付定金或全額。"
 
 msgid "amount due"
 msgstr "應付金額"
@@ -5989,20 +6022,17 @@ msgstr "任務"
 msgid "Time step settings"
 msgstr "時間步長設置"
 
+msgid "Optional"
+msgstr "自選"
+
 msgid ""
 "This setting allows to display the step of selecting an appointment time, "
 "hide it and create a task without due time, or display the time step, but "
 "allow a customer to skip it."
 msgstr "此設置允許顯示選擇預約時間的步驟，隱藏它並創建沒有到期時間的任務，或者顯示时间步长，但允許客戶跳過。"
 
-msgid "Optional"
-msgstr "自選"
-
 msgid "Skip time selection"
 msgstr "跳過時間選項"
-
-msgid "Weekly Schedule"
-msgstr "每週日程"
 
 msgid "Incorrect payment data"
 msgstr "錯誤付款資料"
@@ -6075,13 +6105,13 @@ msgstr "新的優惠券"
 msgid "Edit coupon"
 msgstr "編輯優惠券"
 
+msgid "Generate"
+msgstr "生成"
+
 msgid ""
 "You can enter a mask containing asterisks \"*\" for variables here and click "
 "Generate."
 msgstr "您可以在此處輸入包含星號 \"*\"作為數值的掩碼，然後按進行。"
-
-msgid "Generate"
-msgstr "生成"
 
 msgid "Mask"
 msgstr "掩蓋"
@@ -6396,6 +6426,9 @@ msgstr "文件上載欄"
 msgid "File"
 msgstr "文件"
 
+msgid "Show custom fields required"
+msgstr "需要顯示自定義項目。"
+
 msgid "Show files"
 msgstr "顯示文件"
 
@@ -6524,13 +6557,13 @@ msgstr "編輯狀態"
 msgid "Free/busy"
 msgstr "空閒/忙碌"
 
+msgid "Busy"
+msgstr "忙碌"
+
 msgid ""
 "If you select busy, then a customer with this status will occupy a place in "
 "appointment. If you select free, then a place will be considered as free."
 msgstr "如果選擇忙碌，則具有此狀態的客戶將佔據預約位置。如果您選擇有空，那麼這個地方將被視為有空。"
-
-msgid "Busy"
-msgstr "忙碌"
 
 msgid "No statuses found."
 msgstr "找不到狀態。"
@@ -6564,14 +6597,14 @@ msgstr "員工"
 msgid "Locations"
 msgstr "地點"
 
+msgid "Default settings"
+msgstr "預設設定"
+
 msgid ""
 "Set Default values that will be used in all locations where Use default "
 "settings is selected. To use custom settings in a location, select Use "
 "custom settings and enter custom values."
 msgstr "當選擇預設設定時，預設值將用於所有位置。要在某個位置使用自定義設置，請選擇\"使用自定義設置\"並輸入自定義值。"
-
-msgid "Default settings"
-msgstr "預設設定"
 
 msgid "Use default settings"
 msgstr "使用預設設置"
@@ -6610,6 +6643,9 @@ msgstr "找不到地點。"
 
 msgid "W/o location"
 msgstr "無位置"
+
+msgid "Custom settings for location enabled"
+msgstr "啟動位置的自定義設定"
 
 msgid "Make selecting location required"
 msgstr "要求選擇位置"
@@ -6700,33 +6736,33 @@ msgstr "您的評分已被儲存，我們感謝您的意見。"
 
 #, php-format
 msgid ""
-"1. Provide <b>Secret</b> and <b>Publishable</b> keys which are available in "
-"the <a href=\"%s\" target=\"_blank\">Dashboard</a>."
+"Provide <b>Secret</b> and <b>Publishable</b> keys which are available in the "
+"<a href=\"%s\" target=\"_blank\">Dashboard</a>."
 msgstr ""
-"1.提供<b>Secret</b>和<b>Publishable</b>keys，這些可在<a href=\"%s\" "
-"target=\"_blank\">儀表板</a>中可用。"
+"提供<b>Secret</b>和<b>Publishable</b>keys，這些可在<a href=\"%s\" target=\"_blank\">"
+"儀表板</a>中可用。"
 
 #, php-format
 msgid ""
-"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
 "section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
 "for receiving events."
 msgstr ""
-"2. 在控制板的<a href=\"%s\" target=\"_blank\">Webhooks 設置</a>中，點擊<b>添加端點</b>"
+"在控制板的<a href=\"%s\" target=\"_blank\">Webhooks 設置</a>中，點擊<b>添加端點</b>"
 "以顯示一個表格，以添加一個新的端點來接收事件。"
 
 #, php-format
 msgid ""
-"3. Enter the following URL as the destination for events <b>%s</b> and click "
-"<b>Add endpoint</b>."
-msgstr "3. 輸入以下URL作為事件<b>％s</b>的終點，然後點擊<b>添加端點</b>。"
+"Enter the following URL as the destination for events <b>%s</b> and click <b>"
+"Add endpoint</b>."
+msgstr "輸入以下URL作為事件<b>％s</b>的終點，然後點擊<b>添加端點</b>。"
 
 msgid ""
-"4. Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
+"Add these events: <b>payment_intent.succeeded</b>, <b>payment_intent."
 "payment_failed</b> and click <b>Add endpoint</b>."
 msgstr ""
-"4. 添加以下事件：<b>payment_intent.succeeded</b>，<b>payment_intent."
-"payment_failed</b>，然後點擊<b>添加端點</b>。"
+"添加以下事件：<b>payment_intent.succeeded</b>，<b>payment_intent.payment_failed</b>"
+"，然後點擊<b>添加端點</b>。"
 
 msgid "Secret Key"
 msgstr "Secret Key"
@@ -6751,9 +6787,12 @@ msgstr "1. 確保在<a href=\"%s\">付款設置</a>中提供<b>Publishable Key</
 
 #, php-format
 msgid ""
-"Enter the following URL as the destination for events <b>%s</b> and click <b>"
-"Add endpoint</b>."
-msgstr "輸入以下URL作為事件<b>％s </b>的終點，然後點擊<b>添加端點</b>。"
+"2. In the Dashboard's <a href=\"%s\" target=\"_blank\">Webhooks settings</a> "
+"section, click <b>Add endpoint</b> to reveal a form to add a new endpoint "
+"for receiving events."
+msgstr ""
+"2.在控制板的<a href=\"%s\" target=\"_blank\"> Webhooks設置</a>部分中，點擊<b>添加端點</b>"
+"以顯示一個表單，以添加一個新的端點來接收事件。"
 
 msgid "Set maximum value for Quantity field."
 msgstr "設置數量字段的最大值。"

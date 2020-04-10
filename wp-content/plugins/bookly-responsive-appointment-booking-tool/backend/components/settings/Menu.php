@@ -15,9 +15,9 @@ class Menu
      */
     public static function renderItem( $title, $tab )
     {
-        printf( '<li class="bookly-nav-item" data-target="#bookly_settings_%s" data-toggle="tab">%s</li>',
+        printf( '<a class="nav-link mb-2" href="#bookly_settings_%s" data-toggle="bookly-pill">%s</a>',
             $tab,
-            $title
+            esc_html( $title )
         );
     }
 }

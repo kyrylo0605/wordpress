@@ -1,13 +1,14 @@
 jQuery(function ($) {
+    'use strict';
 
-    var
+    let
         $customersList        = $('#bookly-customers-list'),
         $initDeletingButton   = $('#bookly-delete'),
         $deleteDialog         = $('#bookly-delete-dialog'),
         $deleteButton         = $('.bookly-js-delete', $deleteDialog),
-        $rememberCheckbox     = $('.bookly-js-remember-choice-checkbox', $deleteDialog),
-        $deleteEventsCheckbox = $('.bookly-js-delete-with-events-checkbox', $deleteDialog),
-        $deleteWPUserCheckbox = $('.bookly-js-delete-with-wp-user-checkbox', $deleteDialog)
+        $rememberCheckbox     = $('#bookly-js-remember-choice-checkbox', $deleteDialog),
+        $deleteEventsCheckbox = $('#bookly-js-delete-with-events-checkbox', $deleteDialog),
+        $deleteWPUserCheckbox = $('#bookly-js-delete-with-wp-user-checkbox', $deleteDialog)
     ;
 
     /**
@@ -43,7 +44,7 @@ jQuery(function ($) {
                     $deleteEventsCheckbox.prop('checked', response.data.with_events);
                     $deleteWPUserCheckbox.prop('checked', response.data.with_wp_users);
                     $rememberCheckbox.prop('checked', response.data.remember);
-                    $deleteDialog.modal('show');
+                    $deleteDialog.booklyModal('show');
                 }
             });
         } else {
@@ -82,7 +83,7 @@ jQuery(function ($) {
             dataType: 'json',
             success : function (response) {
                 ladda.stop();
-                $deleteDialog.modal('hide');
+                $deleteDialog.booklyModal('hide');
                 if (response.success) {
                     $customersList.DataTable().ajax.reload(null, false);
                 } else {

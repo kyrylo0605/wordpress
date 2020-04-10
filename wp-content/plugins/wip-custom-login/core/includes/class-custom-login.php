@@ -157,6 +157,7 @@ if( !class_exists( 'wip_custom_login_class' ) ) {
                 }
                     
                 body.login div#login form {
+                    border: none;
                     background: none;
                     -webkit-box-shadow: none;
                     box-shadow: none;

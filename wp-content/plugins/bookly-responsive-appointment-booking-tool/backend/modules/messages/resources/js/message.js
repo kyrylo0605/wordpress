@@ -6,7 +6,9 @@ jQuery(function($) {
      * Init DataTables.
      */
     var dt = $message_list.DataTable({
-        paging: true,
+        pageLength  : 25,
+        pagingType  : 'numbers',
+        lengthChange: false,
         ordering: false,
         info: false,
         searching: false,
@@ -55,16 +57,10 @@ jQuery(function($) {
             },
             { data: 'body' }
         ],
+        dom       : "<'row'<'col-sm-12'tr>><'row float-left mt-3'<'col-sm-12'p>>",
         language: {
             zeroRecords: BooklyL10n.datatable.zeroRecords,
             processing:  BooklyL10n.datatable.processing,
-            sLengthMenu: '_MENU_ ' + BooklyL10n.datatable.per_page,
-            paginate: {
-                first:    BooklyL10n.datatable.paginate.first,
-                previous: BooklyL10n.datatable.paginate.previous,
-                next:     BooklyL10n.datatable.paginate.next,
-                last:     BooklyL10n.datatable.paginate.last
-            }
         }
     });
 

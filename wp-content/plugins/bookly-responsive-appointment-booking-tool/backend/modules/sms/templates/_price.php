@@ -2,13 +2,11 @@
 use Bookly\Backend\Components\Dialogs;
 /** @var array $datatables */
 ?>
-<div class="row">
-    <div class="col-xs-12 text-right">
-        <?php Dialogs\TableSettings\Dialog::renderButton( 'sms_prices', 'BooklyL10n', 'prices' ) ?>
-    </div>
+<div class="form-row justify-content-end">
+    <?php Dialogs\TableSettings\Dialog::renderButton( 'sms_prices', 'BooklyL10n', esc_attr( add_query_arg( 'tab', 'price_list' ) ) ) ?>
 </div>
 <div class="intl-tel-input">
-    <table id="bookly-prices" class="table table-striped" width="100%">
+    <table id="bookly-prices" class="table table-striped w-100">
         <thead>
         <tr>
             <?php foreach ( $datatables['sms_prices']['settings']['columns'] as $column => $show ) : ?>
@@ -20,4 +18,4 @@ use Bookly\Backend\Components\Dialogs;
         </thead>
     </table>
 </div>
-<p><?php _e( 'If you do not see your country in the list please contact us at <a href="mailto:support@bookly.info">support@bookly.info</a>.', 'bookly' ) ?></p>
+<small class="text-muted form-text"><?php _e( 'If you do not see your country in the list please contact us at <a href="mailto:support@bookly.info">support@bookly.info</a>.', 'bookly' ) ?></small>

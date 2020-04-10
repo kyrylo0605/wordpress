@@ -66,6 +66,11 @@ class TimeChoice
         $options = '';
         $attributes_str = '';
         $value_added = false;
+        if ( array_key_exists( 'class', $attributes ) ) {
+            $attributes['class'] .= ' custom-select';
+        } else {
+            $attributes['class'] = 'custom-select';
+        }
         foreach ( $this->values as $option_value => $option_text ) {
             if ( $value_added === false ) {
                 if ( $value == $option_value ) {
@@ -88,11 +93,12 @@ class TimeChoice
                 $option_text
             );
         }
+
         foreach ( $attributes as $attr_name => $attr_value ) {
             $attributes_str .= sprintf( ' %s="%s"', $attr_name, $attr_value );
         }
 
-        return sprintf( '<select name="%s" data-default_value="%s"%s>%s</select>', $name, $value, $attributes_str, $options );
+        return sprintf( '<select  name="%s" data-default_value="%s"%s>%s</select>', $name, $value, $attributes_str, $options );
     }
 
 }

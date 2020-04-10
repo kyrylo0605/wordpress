@@ -2,42 +2,43 @@
  * jQuery booklyDropdown.
  */
 (function ($) {
-    var methods = {
+    let id = 0;
+    let methods = {
         init: function (options) {
-            var opts = $.extend({}, $.fn.booklyDropdown.defaults, options);
+            let opts = $.extend({}, $.fn.booklyDropdown.defaults, options);
 
             return this.filter('ul').each(function () {
                 if ($(this).data('booklyDropdown')) {
                     return;
                 }
-                var obj = {
-                    $container:  $('<div class="btn-group"/>'),
-                    $button:     $('<button class="btn btn-default dropdown-toggle bookly-flexbox" data-toggle="dropdown"/>'),
-                    $counter:    $('<span/>'),
+                let obj = {
+                    $container:  $('<div class="dropdown"/>'),
+                    $button:     $('<button type="button" class="btn btn-default dropdown-toggle d-flex align-items-center w-100" data-toggle="dropdown"/>'),
+                    $counter:    $('<span class="flex-grow-1 text-left mr-1"/>'),
                     $ul:         $(this),
-                    $selectAll:  $('<input type="checkbox"/>'),
+                    $selectAll:  $('<input type="checkbox" class="custom-control-input"/>').attr('id', 'bookly-js-dropdown-' + (++id)),
                     $groups:     $(),
                     $options:    $(),
                     preselected: [],  // initially selected options
                     refresh:     function () {
-                        var $selected = obj.$options.filter(':checked');
+                        let $selected = obj.$options.filter(':checked');
                         obj.$selectAll.prop('checked', false);
                         obj.$groups.prop('checked', false);
-                        if ($selected.size() === 0) {
+                        if ($selected.length === 0) {
                             obj.$counter.text(obj.txtNothingSelected);
-                        } else if ($selected.size() === obj.$options.size()) {
+                        } else if ($selected.length === obj.$options.length) {
                             obj.$counter.text(obj.txtAllSelected);
                             obj.$selectAll.prop('checked', true);
                             obj.$groups.prop('checked', true);
                         } else {
-                            if ($selected.size() === 1) {
+                            if ($selected.length === 1) {
                                 obj.$counter.text($selected.next().text());
                             } else {
-                                obj.$counter.text($selected.size() + '/' + obj.$options.size());
+                                obj.$counter.text($selected.length + '/' + obj.$options.length);
                             }
                             obj.$groups.each(function () {
-                                var $this = $(this);
-                                $this.prop('checked', $this.data('group-checkboxes').filter(':not(:checked)').size() === 0);
+                                let $this = $(this);
+                                $this.prop('checked', $this.data('group-checkboxes').filter(':not(:checked)').length === 0);
                             });
                         }
                     }
@@ -47,30 +48,18 @@
                 obj.txtAllSelected     = obj.$ul.data('txt-all-selected') || opts.txtAllSelected;
                 obj.txtNothingSelected = obj.$ul.data('txt-nothing-selected') || opts.txtNothingSelected;
 
-                var $cell = $('<div class="bookly-flex-cell"/>');
                 obj.$container
                     .addClass(obj.$ul.data('container-class') || opts.containerClass)
                     .append(
                         obj.$button
                             // Icon.
-                            .append(
-                                $('<i class="bookly-margin-right-md"/>')
-                                    .addClass(obj.$ul.data('icon-class') || opts.iconClass)
-                                    .wrap($cell)
-                                    .parent()
-                            )
+                            .append($('<i class="mr-1 fa-fw"/>').addClass(obj.$ul.data('icon-class') || opts.iconClass))
                             // Counter.
-                            .append(obj.$counter.wrap($cell).parent().addClass('text-left'))
-                            // Caret.
-                            .append(
-                                $('<div class="bookly-margin-left-md"><span class="caret"></span></div>')
-                                    .wrap($cell)
-                                    .parent()
-                            )
+                            .append(obj.$counter)
                     )
                     .append(
                         obj.$ul
-                            .addClass('dropdown-menu bookly-dropdown-menu')
+                            .addClass('dropdown-menu dropdown-menu-' + (obj.$ul.data('align') || opts.align))
                             // Options (checkboxes).
                             .append($.map(opts.options, function (option) {
                                 return $('<li/>')
@@ -83,18 +72,20 @@
                                 ;
                             }))
                             .find('li')
-                                .wrapInner('<a class="checkbox"><label><span></span></label></a>')
+                                .addClass('dropdown-item')
+                                .wrapInner('<div class="custom-control custom-checkbox ml-4"><label class="custom-control-label"></label></div>')
                                 .each(function () {
-                                    var $li       = $(this),
-                                        $checkbox = $('<input type="checkbox"/>'),
+                                    let $li       = $(this),
+                                        $checkbox = $('<input type="checkbox" class="custom-control-input"/>').attr('id', 'bookly-js-dropdown-' + (++id)),
                                         $ul       = $li.find('ul:first')
                                     ;
-                                    if ($li.is('[data-flatten-if-single]') && obj.$ul.children().size() === 1) {
+                                    if ($li.is('[data-flatten-if-single]') && obj.$ul.children().length === 1) {
                                         $li.replaceWith($ul.children());
                                         return true;
                                     }
-                                    if ($ul.size() > 0) {
+                                    if ($ul.length > 0) {
                                         $ul.appendTo($li);
+                                        $ul.addClass('p-0');
                                         obj.$groups = obj.$groups.add($checkbox);
                                     } else {
                                         $checkbox
@@ -107,18 +98,21 @@
                                             obj.preselected.push($checkbox.val());
                                         }
                                     }
-                                    $li.find('label:first').prepend($checkbox);
+                                    $li.find('label:first').attr('for', $checkbox.attr('id')).before($checkbox);
                                 })
                             .end()
                             // Select all.
                             .prepend(
-                                $('<label/>')
-                                    .append(obj.$selectAll)
-                                    .append(obj.txtSelectAll)
-                                    .wrap('<a class="checkbox"/>')
-                                    .parent()
-                                        .wrap('<li/>')
-                                        .parent()
+                                $('<li class="dropdown-item"/>')
+                                    .append(
+                                        $('<div class="custom-control custom-checkbox"/>')
+                                            .append(obj.$selectAll)
+                                            .append(
+                                                $('<label class="custom-control-label"/>')
+                                                    .attr('for', obj.$selectAll.attr('id'))
+                                                    .append(obj.txtSelectAll)
+                                            )
+                                    )
                             )
                             // Replace with container.
                             .replaceWith(obj.$container)
@@ -150,7 +144,7 @@
 
                 // Link group checkboxes with sub-items.
                 obj.$groups.each(function () {
-                    var $this       = $(this),
+                    let $this       = $(this),
                         $checkboxes = $this.closest('li').find('ul input:checkbox')
                     ;
                     $this.data('group-checkboxes', $checkboxes);
@@ -209,7 +203,7 @@
             ;
             if (obj) {
                 obj.$options.filter(':checked').each(function () {
-                    res.push({value: this.value, name: $(this).next('span').text()});
+                    res.push({value: this.value, name: $(this).next('label').text()});
                 });
             }
 
@@ -318,8 +312,9 @@
     };
 
     $.fn.booklyDropdown.defaults = {
+        align: 'left',
         containerClass: '',
-        iconClass: 'dashicons dashicons-admin-users',
+        iconClass: 'far fa-user',
         txtSelectAll: 'All',
         txtAllSelected: 'All selected',
         txtNothingSelected: 'Nothing selected',

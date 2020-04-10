@@ -53,7 +53,7 @@ jQuery(function($) {
             e.preventDefault();
             $status = $(this).closest('td');
             let $tr = $(this).closest('tr'),
-                table = $tr.closest('.panel-collapse').attr('id'),
+                table = $tr.closest('.card').find('.bookly-js-table').attr('id'),
                 column = $tr.find('td:eq(0)').html(),
                 ref_table = $tr.find('td:eq(1)').html(),
                 ref_column = $tr.find('td:eq(2)').html()
@@ -61,7 +61,7 @@ jQuery(function($) {
             $('.bookly-js-loading:first-child', $addConstraintModal).addClass('bookly-loading').removeClass('collapse');
             $('.bookly-js-loading:last-child', $addConstraintModal).addClass('collapse');
             $('.bookly-js-fix-consistency', $addConstraintModal).hide();
-            $addConstraintModal.modal();
+            $addConstraintModal.booklyModal();
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
@@ -97,10 +97,10 @@ jQuery(function($) {
             $buttonAction = $(this);
             $status = $(this).closest('td');
             let $tr = $(this).closest('tr'),
-                table     = $tr.closest('.panel-collapse').attr('id'),
+                table     = $tr.closest('.card').find('.bookly-js-table').attr('id'),
                 constrain = $tr.find('td:eq(2)').html()
             ;
-            $dropConstraintModal.modal();
+            $dropConstraintModal.booklyModal();
             $('#bookly-js-table', $dropConstraintModal).html(table);
             $('#bookly-js-constraint', $dropConstraintModal).html(constrain);
         });
@@ -126,7 +126,7 @@ jQuery(function($) {
                 success  : function (response) {
                     if (response.success) {
                         booklyAlert({success: [response.data.message]});
-                        $addConstraintModal.modal('hide');
+                        $addConstraintModal.booklyModal('hide');
                         $status.html('OK');
                     } else {
                         booklyAlert({error : [response.data.message]});
@@ -209,13 +209,13 @@ jQuery(function($) {
             e.preventDefault();
             $status = $(this).closest('td');
             let $tr = $(this).closest('tr'),
-                table = $tr.closest('.panel-collapse').attr('id'),
-                column = $tr.find('td:eq(0)').html()
+                table = $tr.closest('.card').find('.bookly-js-table').attr('id'),
+                column = $tr.find('td:eq(0)').html().trim()
             ;
             $('.bookly-js-loading:first-child', $columnModal).addClass('bookly-loading').removeClass('collapse');
             $('.bookly-js-loading:last-child', $columnModal).addClass('collapse');
             $('.bookly-js-fix-consistency', $columnModal).hide();
-            $columnModal.modal();
+            $columnModal.booklyModal();
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
@@ -255,8 +255,9 @@ jQuery(function($) {
                 success  : function (response) {
                     if (response.success) {
                         booklyAlert({success: [response.data.message]});
-                        $columnModal.modal('hide');
+                        $columnModal.booklyModal('hide');
                         $status.html('OK');
+                        $status.closest('tr').removeClass('bg-danger');
                     } else {
                         booklyAlert({error : [response.data.message]});
                     }
@@ -273,10 +274,10 @@ jQuery(function($) {
         .on('click', function (e) {
             e.preventDefault();
             $buttonAction = $(this);
-            let table = $buttonAction.closest('.panel').find('.panel-collapse').attr('id');
+            let table = $buttonAction.parent().attr('id');
             $('.bookly-js-loading:first-child', $tableModal).addClass('bookly-loading').removeClass('collapse');
             $('.bookly-js-loading:last-child', $tableModal).addClass('collapse');
-            $tableModal.modal();
+            $tableModal.booklyModal();
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
@@ -320,7 +321,7 @@ jQuery(function($) {
                 success  : function (response) {
                     if (response.success) {
                         booklyAlert({success: [response.data.message]});
-                        $tableModal.modal('hide');
+                        $tableModal.booklyModal('hide');
                         $buttonAction.closest('.panel').find('.panel-body').html('Refresh the current page');
                         $buttonAction.remove();
                     } else {
@@ -353,7 +354,7 @@ jQuery(function($) {
                 success  : function (response) {
                     if (response.success) {
                         booklyAlert({success: [response.data.message]});
-                        $dropConstraintModal.modal('hide');
+                        $dropConstraintModal.booklyModal('hide');
                         $buttonAction.closest('tr').remove();
                     } else {
                         booklyAlert({error : [response.data.message]});

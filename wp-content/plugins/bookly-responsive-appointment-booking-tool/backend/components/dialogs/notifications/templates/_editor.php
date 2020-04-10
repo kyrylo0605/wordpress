@@ -8,6 +8,7 @@
                 'media_buttons'  => false,
                 'editor_height'  => 250,
                 'default_editor' => 'tinymce',
+                'editor_css'     => '<style>.wp-editor-tools{margin-top:-27px;}.wp-editor-tools [type="button"]{box-sizing:content-box!important;}</style>',
                 'tinymce' => array(
                     'resize' => true,
                     'wp_autoresize_on' => true,

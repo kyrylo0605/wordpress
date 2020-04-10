@@ -25,7 +25,7 @@ $bookly_email_sender      = get_option( 'bookly_email_sender' ) == '' ?
 <div class="row">
     <div class="col-md-12">
         <?php Selects::renderRadios( 'bookly_email_send_as', __( 'Send emails as', 'bookly' ), __( 'HTML allows formatting, colors, fonts, positioning, etc. With Text you must use Text mode of rich-text editors below. On some servers only text emails are sent successfully.', 'bookly' ),
-            array( array( 'html', __( 'HTML', 'bookly' ) ), array( 'text', __( 'Text', 'bookly' ) ) )
+            array( 'html' => array( 'title' => __( 'HTML', 'bookly' ) ), 'text' => array( 'title' => __( 'Text', 'bookly' ) ) )
         ) ?>
     </div>
 </div>

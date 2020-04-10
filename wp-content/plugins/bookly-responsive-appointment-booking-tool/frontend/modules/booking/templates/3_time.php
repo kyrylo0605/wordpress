@@ -29,7 +29,7 @@ use Bookly\Lib\Utils;
     </div>
 <?php else : ?>
     <div class="bookly-not-time-screen<?php if ( ! Config::showCalendar() ) : ?> bookly-not-calendar<?php endif ?>">
-        <?php _e( 'No time is available for selected criteria.', 'bookly' ) ?>
+        <?php esc_html_e( 'No time is available for selected criteria.', 'bookly' ) ?>
     </div>
 <?php endif ?>
 <div class="bookly-box bookly-nav-steps bookly-clear">

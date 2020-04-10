@@ -4,30 +4,31 @@ use Bookly\Backend\Components\Controls\Buttons;
 ?>
 
 <div class="form-group">
-    <?php Buttons::renderModalActivator( 'bookly-custom-css-dialog', null, esc_html__( 'Edit custom CSS', 'bookly' ) ) ?>
+    <?php Buttons::renderDefault( null, null, __( 'Edit custom CSS', 'bookly' ), array( 'data-toggle' => 'bookly-modal', 'data-target' => '#bookly-custom-css-dialog' ), true ) ?>
 </div>
 
-<div id="bookly-custom-css-dialog" class="modal fade" tabindex=-1 role="dialog">
+<div id="bookly-custom-css-dialog" class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <?php _e( 'Edit custom CSS', 'bookly' ) ?>
+                <h5 class="modal-title"><?php esc_html_e( 'Edit custom CSS', 'bookly' ) ?></h5>
+                <button type="button" class="close" data-dismiss="bookly-modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="bookly-custom-css" class="control-label"><?php _e( 'Set up your custom CSS styles', 'bookly' ) ?></label>
+                    <label for="bookly-custom-css" class="control-label"><?php esc_html_e( 'Set up your custom CSS styles', 'bookly' ) ?></label>
                     <textarea id="bookly-custom-css" class="form-control" rows="10"><?php echo $custom_css ?></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <div id="bookly-custom-css-error"></div>
-                <?php Buttons::renderCustom( 'bookly-custom-css-save', 'btn-success btn-lg', __( 'Save', 'bookly' ) ) ?>
-                <?php Buttons::renderCustom( 'bookly-custom-css-cancel', 'btn-default btn-lg', __( 'Cancel', 'bookly' ) ) ?>
+                <?php Buttons::renderSubmit( 'bookly-custom-css-save' ) ?>
+                <?php Buttons::renderCancel() ?>
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    var saved_css = <?php echo json_encode( $custom_css ); ?>;
+    var saved_css = <?php echo json_encode( $custom_css ) ?>;
 </script>

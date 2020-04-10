@@ -37,11 +37,11 @@ abstract class Codes
         // Impersonal codes.
         $impersonal_codes = array();
         foreach ( $codes as $name => $code ) {
-            $count = Utils\SMSCounter::count( strval( $code ) );
+            $count = Utils\SMSCounter::count( (string) $code );
             if ( $count->encoding == Utils\SMSCounter::UTF16 ) {
-                $impersonal_symbol = "ϔ";
+                $impersonal_symbol = 'Х';   // unicode 1061
             } else {
-                $impersonal_symbol = "X";
+                $impersonal_symbol = 'X';   // ascii 88
             }
             $impersonal_codes[ $name ] = preg_replace( '/[^\s]/', $impersonal_symbol, $code );
         }

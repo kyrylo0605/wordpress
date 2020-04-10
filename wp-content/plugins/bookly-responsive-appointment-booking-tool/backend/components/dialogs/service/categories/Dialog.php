@@ -17,7 +17,7 @@ class Dialog extends Lib\Base\Component
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -26,9 +26,10 @@ class Dialog extends Lib\Base\Component
                 'js/ladda.min.js' => array( 'jquery', ),
             ),
             'backend'  => array(
-                'js/select2.full.min.js' => array( 'jquery' ),
+                'js/sortable.min.js' => array( 'jquery' ),
+                'js/select2.min.js' => array( 'jquery' ),
             ),
-            'module'   => array( 'js/service-categories-dialog.js' => array( 'jquery', ) ),
+            'module'   => array( 'js/service-categories-dialog.js' => array( 'jquery', 'bookly-sortable.min.js') ),
         ) );
 
         wp_localize_script( 'bookly-service-categories-dialog.js', 'BooklyServiceCreateDialogL10n', array(

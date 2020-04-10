@@ -21,14 +21,25 @@ class Subscribe extends Lib\Base\Component
             if ( time() - Lib\Plugin::getInstallationTime() >= DAY_IN_SECONDS ) {
                 self::enqueueStyles( array(
                     'frontend' => array( 'css/ladda.min.css', ),
+                    'backend'  => array(
+                        'css/fontawesome-all.min.css',
+                        'bootstrap/css/bootstrap.min.css',
+                    ),
                 ) );
                 self::enqueueScripts( array(
-                    'backend' => array( 'js/alert.js' => array( 'jquery' ), ),
+                    'backend' => array(
+                        'js/alert.js'     => array( 'jquery' ),
+                        'bootstrap/js/bootstrap.min.js' => array( 'jquery' ),
+                    ),
                     'frontend' => array(
                         'js/spin.min.js'  => array( 'jquery' ),
                         'js/ladda.min.js' => array( 'jquery' ),
                     ),
                     'module' => array( 'js/subscribe.js' => array( 'bookly-alert.js', 'bookly-ladda.min.js', ), ),
+                ) );
+
+                wp_localize_script( 'bookly-subscribe.js', 'BooklySubscribeL10n', array(
+                    'csrfToken' => Lib\Utils\Common::getCsrfToken(),
                 ) );
 
                 self::renderTemplate( 'subscribe' );

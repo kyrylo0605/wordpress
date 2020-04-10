@@ -334,14 +334,14 @@ abstract class Common
             }
             if ( $valid ) {
                 $tbody .= sprintf(
-                    '<tr><td><input value="{%s}" readonly="readonly" onclick="this.select()" /> - %s</td></tr>',
+                    '<tr><td class="p-0"><input value="{%s}" class="border-0" readonly="readonly" onclick="this.select()" /> &ndash; %s</td></tr>',
                     $code['code'],
                     $code['description']
                 );
             }
         }
 
-        return '<table class="bookly-codes"><tbody>' . $tbody . '</tbody></table>';
+        return '<table><tbody>' . $tbody . '</tbody></table>';
     }
 
     /**

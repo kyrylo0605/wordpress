@@ -16,11 +16,7 @@ class Page extends Lib\Base\Component
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array(
-                'css/select2.min.css',
-                'bootstrap/css/bootstrap-theme.min.css',
-                'css/daterangepicker.css',
-            ),
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css', ),
         ) );
 
         self::enqueueScripts( array(
@@ -29,7 +25,7 @@ class Page extends Lib\Base\Component
                 'js/datatables.min.js'          => array( 'jquery' ),
                 'js/moment.min.js',
                 'js/daterangepicker.js'         => array( 'jquery' ),
-                'js/select2.full.min.js'        => array( 'jquery' ),
+                'js/select2.min.js'             => array( 'jquery' ),
             ),
             'frontend' => array(
                 'js/spin.min.js'  => array( 'jquery' ),

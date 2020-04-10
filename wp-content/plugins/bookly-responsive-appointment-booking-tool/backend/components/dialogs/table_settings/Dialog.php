@@ -20,11 +20,14 @@ class Dialog extends Lib\Base\Component
         ) );
 
         self::enqueueScripts( array(
-            'frontend' => array(
-                'js/spin.min.js'  => array( 'jquery', ),
-                'js/ladda.min.js' => array( 'jquery', ),
+            'backend'  => array(
+                'js/sortable.min.js' => array( 'jquery' ),
             ),
-            'module'   => array( 'js/table-settings-dialog.js' => array( 'jquery-ui-sortable' ), ),
+            'frontend' => array(
+                'js/spin.min.js'  => array( 'jquery' ),
+                'js/ladda.min.js' => array( 'jquery' ),
+            ),
+            'module'   => array( 'js/table-settings-dialog.js' => array( 'jquery', 'bookly-sortable.min.js' ) ),
         ) );
 
         wp_localize_script( 'bookly-table-settings-dialog.js', 'BooklyTableSettingsDialogL10n', array(
@@ -39,9 +42,10 @@ class Dialog extends Lib\Base\Component
      *
      * @param string $table_name
      * @param string $setting_name
+     * @param string $location
      */
-    public static function renderButton( $table_name, $setting_name = 'BooklyL10n' )
+    public static function renderButton( $table_name, $setting_name = 'BooklyL10n', $location = '' )
     {
-        self::renderTemplate( 'button', compact( 'table_name', 'setting_name' ) );
+        self::renderTemplate( 'button', compact( 'table_name', 'setting_name', 'location' ) );
     }
 }

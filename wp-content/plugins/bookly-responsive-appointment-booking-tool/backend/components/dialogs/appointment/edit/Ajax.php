@@ -4,6 +4,7 @@ namespace Bookly\Backend\Components\Dialogs\Appointment\Edit;
 use Bookly\Lib;
 use Bookly\Lib\DataHolders\Booking as DataHolders;
 use Bookly\Backend\Modules\Calendar;
+use Bookly\Lib\Utils\Common;
 
 /**
  * Class Ajax
@@ -61,7 +62,7 @@ class Ajax extends Lib\Base\Ajax
         // Staff list.
         $staff         = Lib\Entities\Staff::query()->findOne();
         /** @var Lib\Entities\Staff[] $staff_members */
-        $staff_members = $staff ? Lib\Config::proActive() ? Lib\Utils\Common::isCurrentUserSupervisor() ? Lib\Entities\Staff::query()->sortBy( 'position' )->find() : Lib\Entities\Staff::query()->where( 'wp_user_id', get_current_user_id() )->find() : array( $staff ) : array();
+        $staff_members = $staff ? Lib\Config::proActive() ? Common::isCurrentUserSupervisor() ? Lib\Entities\Staff::query()->sortBy( 'position' )->find() : Lib\Entities\Staff::query()->where( 'wp_user_id', get_current_user_id() )->find() : array( $staff ) : array();
         $postfix_archived = sprintf( ' (%s)', __( 'Archived', 'bookly' ) );
 
         $max_duration  = 0;
@@ -456,7 +457,7 @@ class Ajax extends Lib\Base\Ajax
                         $series = new Lib\Entities\Series();
                         $series
                             ->setRepeat( self::parameter( 'repeat' ) )
-                            ->setToken( Lib\Utils\Common::generateToken( get_class( $series ), 'token' ) )
+                            ->setToken( Common::generateToken( get_class( $series ), 'token' ) )
                             ->save();
 
                         // Create order

@@ -10,6 +10,7 @@ use Bookly\Lib;
  * @method static void renderBookingStatesSelector() Render single/multiple/100% off booking selector on Payment step.
  * @method static void renderBookingStatesText() Render multiple or 100% off booking text option on Payment step.
  * @method static void renderFacebookButton() Render facebook login button on Time step.
+ * @method static void renderPaymentGatewaySelector( string $l10n_option, string $title, bool $with_card ) Render radio button for payment gateway
  * @method static void renderPayPalPaymentOption() Render Cart step.
  * @method static void renderShowAddress() render 'Show Address Fields' on Details Step.
  * @method static void renderShowBirthday() render 'Show Birthday Fields' on Details Step.

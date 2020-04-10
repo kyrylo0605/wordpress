@@ -13,6 +13,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 	private $delegate = null;
 	private $cancelled = false;
 	private $nextProgressUpdate = 0;
+	private $actionStartTs = 0;
 	private $totalRowCount = 0;
 	private $currentRowCount = 0;
 	private $warningsFound = false;
@@ -168,6 +169,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 		$this->state = $this->delegate->getState();
 
 		if ($this->state && $this->state->getAction() == SG_STATE_ACTION_PREPARING_STATE_FILE) {
+			$this->actionStartTs = time();
 			SGBackupLog::writeAction('backup database', SG_BACKUP_LOG_POS_START);
 			$this->resetBackupProgress();
 		}
@@ -181,6 +183,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 		$this->export();
 
 		SGBackupLog::writeAction('backup database', SG_BACKUP_LOG_POS_END);
+		SGBackupLog::write('backup database total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 	}
 
 	public function restore($filePath)
@@ -192,6 +195,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 		if ($sgDBState && $sgDBState->getType() == SG_STATE_TYPE_DB) {
 			if ($sgDBState->getAction() != SG_STATE_ACTION_RESTORING_DATABASE) {
 				SGBackupLog::writeAction('restore database', SG_BACKUP_LOG_POS_START);
+				$this->actionStartTs = time();
 				//prepare for restore (reset variables)
 				$this->resetRestoreProgress();
 			}
@@ -216,6 +220,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 		}
 
 		SGBackupLog::writeAction('restore database', SG_BACKUP_LOG_POS_END);
+		SGBackupLog::write('restore database total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 	}
 
 	private function processMigration()

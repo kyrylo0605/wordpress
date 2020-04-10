@@ -1,5 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components\Controls\Buttons;
+use Bookly\Backend\Components\Controls\Inputs;
 use Bookly\Backend\Components\Dialogs;
 use Bookly\Backend\Components\Dialogs\Appointment\Edit\Proxy;
 use Bookly\Backend\Components\Dialogs\Appointment\AttachPayment\Proxy as AttachPaymentProxy;
@@ -7,14 +8,14 @@ use Bookly\Lib;
 use Bookly\Lib\Config;
 use Bookly\Lib\Entities\CustomerAppointment;
 ?>
-<div ng-app="appointmentDialog" ng-controller="appointmentDialogCtrl">
-    <div id=bookly-appointment-dialog class="modal fade" tabindex=-1 role="dialog">
-        <div class="modal-dialog">
+<div ng-bookly-app="appointmentDialog" ng-controller="appointmentDialogCtrl">
+    <div id=bookly-appointment-dialog class="bookly-modal bookly-fade" tabindex=-1 role="dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form ng-submit=processForm()>
+                <form>
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div class="modal-title h2">{{ form.screen == 'queue' ? form.titles.queue : form.title }}</div>
+                        <h5 class="modal-title">{{ form.screen == 'queue' ? form.titles.queue : form.title }}</h5>
+                        <button type="button" class="close" data-dismiss="bookly-modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div ng-show=loading class="modal-body">
                         <div class="bookly-loading"></div>
@@ -22,12 +23,12 @@ use Bookly\Lib\Entities\CustomerAppointment;
                     <div ng-hide="loading || form.screen != 'main'" class="modal-body">
                         <div class=form-group>
                             <label for="bookly-provider"><?php esc_html_e( 'Provider', 'bookly' ) ?></label>
-                            <select id="bookly-provider" class="form-control" ng-model="form.staff" ng-options="s.full_name + (form.staff_any == s ? ' (' + dataSource.l10n.staff_any + ')' : '') group by s.category for s in dataSource.data.staff | filter:filterStaff" ng-change="onStaffChange()"></select>
+                            <select id="bookly-provider" class="form-control custom-select" ng-model="form.staff" ng-options="s.full_name + (form.staff_any == s ? ' (' + dataSource.l10n.staff_any + ')' : '') group by s.category for s in dataSource.data.staff | filter:filterStaff" ng-change="onStaffChange()"></select>
                         </div>
 
                         <div class=form-group>
                             <label for="bookly-service"><?php esc_html_e( 'Service', 'bookly' ) ?></label>
-                            <select id="bookly-service" class="form-control" ng-model="form.service"
+                            <select id="bookly-service" class="form-control custom-select" ng-model="form.service"
                                     ng-options="s.title group by s.category for s in form.staff.services" ng-change="onServiceChange()">
                                 <option value=""><?php esc_html_e( '-- Select a service --', 'bookly' ) ?></option>
                             </select>
@@ -41,38 +42,35 @@ use Bookly\Lib\Entities\CustomerAppointment;
                         <?php if ( Config::locationsActive() ): ?>
                             <div class="form-group">
                                 <label for="bookly-appointment-location"><?php esc_html_e( 'Location', 'bookly' ) ?></label>
-                                <select id="bookly-appointment-location" class="form-control" ng-model="form.location"
+                                <select id="bookly-appointment-location" class="form-control custom-select" ng-model="form.location"
                                         ng-options="l.name for l in form.staff.locations" ng-change="onLocationChange()">
                                     <option value=""></option>
                                 </select>
                             </div>
                         <?php endif ?>
 
-                        <?php Proxy\Tasks::renderSkipDate() ?>
-
-                        <div ng-hide="form.skip_date">
-                            <div class=form-group>
-                                <div class="row">
+                        <div class=form-group>
+                            <?php Proxy\Tasks::renderSkipDate() ?>
+                            <div ng-hide="form.skip_date">
+                                <div class="form-row">
                                     <div class="col-sm-4">
                                         <label for="bookly-date"><?php esc_html_e( 'Date', 'bookly' ) ?></label>
-                                        <input id="bookly-date" class="form-control" type=text
-                                               ng-model=form.date ui-date="datePickerOptions" autocomplete="off"
-                                               ng-change=onDateChange()>
+                                        <input date-range-picker id="bookly-date" class="form-control" type="text" ng-model="form.date" options="{parentEl:'#bookly-appointment-dialog',singleDatePicker:true,showDropdowns:true, locale:datePickerOptions}" autocomplete="off">
                                     </div>
                                     <div class="col-sm-8">
                                         <div ng-hide="form.service.duration >= 86400 && form.service.units_max == 1">
                                             <label for="bookly-period"><?php esc_html_e( 'Period', 'bookly' ) ?></label>
-                                            <div class="bookly-flexbox">
-                                                <div class="bookly-flex-cell">
-                                                    <select id="bookly-period" class="form-control" ng-model=form.start_time
+                                            <div class="row">
+                                                <div class="col">
+                                                    <select id="bookly-period" class="form-control custom-select" ng-model=form.start_time
                                                             ng-options="t.title for t in dataSource.getDataForStartTime()"
                                                             ng-change=onStartTimeChange()></select>
                                                 </div>
-                                                <div class="bookly-flex-cell" style="width: 4%">
-                                                    <div class="bookly-margin-horizontal-md"><?php esc_html_e( 'to', 'bookly' ) ?></div>
+                                                <div class="mt-2">
+                                                    <?php esc_html_e( 'to', 'bookly' ) ?>
                                                 </div>
-                                                <div class="bookly-flex-cell" style="width: 48%">
-                                                    <select class="form-control" ng-model=form.end_time
+                                                <div class="col">
+                                                    <select class="form-control custom-select" ng-model=form.end_time
                                                             ng-options="t.title for t in form.end_time_data"
                                                             ng-change=onEndTimeChange()></select>
                                                 </div>
@@ -94,107 +92,86 @@ use Bookly\Lib\Entities\CustomerAppointment;
                                     <?php esc_html_e( 'Selected period doesn\'t match service schedule', 'bookly' ) ?>
                                 </p>
                                 <p class="text-success" my-slide-up=errors.staff_reaches_working_time_limit id=staff_reaches_working_time_limit_msg>
-                                    <?php is_admin() ?
-                                        esc_html_e( 'Booking exceeds the working hours limit for staff member', 'bookly' ) :
-                                        esc_html_e( 'Booking exceeds your working hours limit', 'bookly' ) ?>
+                                    <?php is_admin()
+                                        ? esc_html_e( 'Booking exceeds the working hours limit for staff member', 'bookly' )
+                                        : esc_html_e( 'Booking exceeds your working hours limit', 'bookly' ) ?>
                                 </p>
+
+                                <?php Proxy\RecurringAppointments::renderSubForm() ?>
                             </div>
-
-                            <?php Proxy\RecurringAppointments::renderSubForm() ?>
                         </div>
-
                         <div class=form-group>
-                            <label for="bookly-select2"><?php esc_html_e( 'Customers', 'bookly' ) ?></label>
-                            <span ng-show="form.service && form.service.id" title="<?php esc_attr_e( 'Selected / maximum', 'bookly' ) ?>">
+                            <label for="bookly-select2"><?php esc_html_e( 'Customers', 'bookly' ) ?>
+                                <span ng-show="form.service && form.service.id" title="<?php esc_attr_e( 'Selected / maximum', 'bookly' ) ?>">
                                 ({{dataSource.getTotalNumberOfPersons()}}/{{form.service.capacity_max}})
-                            </span>
+                                </span>
+                            </label>
+
                             <span ng-show="form.customers.length > 5" ng-click="form.expand_customers_list = !form.expand_customers_list" role="button">
-                                <i class="fa fa-fw" ng-class="{'fa-angle-down':!form.expand_customers_list, 'fa-angle-up':form.expand_customers_list}"></i>
+                                <i class="far fa-fw" ng-class="{'fa-angle-down':!form.expand_customers_list, 'fa-angle-up':form.expand_customers_list}"></i>
                             </span>
                             <p class="text-success" ng-show=form.service my-slide-up="form.service.capacity_min > 1 && form.service.capacity_min > dataSource.getTotalNumberOfPersons()">
                                 <?php esc_html_e( 'Minimum capacity', 'bookly' ) ?>: {{form.service.capacity_min}}
                             </p>
-                            <ul class="bookly-flexbox">
-                                <li ng-repeat="customer in form.customers" class="bookly-flex-row" ng-hide="$index > 4 && !form.expand_customers_list">
-                                    <div class="bookly-flex-cell-sm">
-                                        <a ng-click="editCustomerDetails(customer)" title="<?php esc_attr_e( 'Edit booking details', 'bookly' ) ?>" class="bookly-flex-cell bookly-padding-bottom-sm" href>{{customer.name}}</a>
+                            <ul class="list-unstyled pl-0 bookly-hide-empty mr-3" ng-class="{'my-0':form.customers.length == 0}">
+                                <li class="row mb-1" ng-repeat="customer in form.customers" ng-hide="$index > 4 && !form.expand_customers_list">
+                                    <div class="col mt-1">
+                                        <a ng-click="editCustomerDetails(customer)" title="<?php esc_attr_e( 'Edit booking details', 'bookly' ) ?>" href>{{customer.name}}</a>
                                     </div>
-                                    <div class="bookly-flex-cell-sm text-right text-nowrap bookly-padding-bottom-sm">
+                                    <div class="ml-auto">
                                         <?php Proxy\Shared::renderAppointmentDialogCustomersList() ?>
                                         <span class="dropdown">
-                                            <button type="button" class="btn btn-sm btn-default bookly-margin-left-xs" data-toggle="dropdown" popover="<?php esc_attr_e( 'Status', 'bookly' ) ?>: {{statusToString(customer.status)}}">
-                                                <span ng-class="{'fa fa-fw': true, 'fa-clock': customer.status == 'pending', 'fa-check': customer.status == 'approved', 'fa-times': customer.status == 'cancelled', 'fa-times-circle': customer.status == 'rejected', 'fa-list-ol': customer.status == 'waitlisted', 'fa-check-circle': customer.status == 'done', 'fa-lock': 0<?php foreach ( Lib\Proxy\CustomStatuses::prepareBusyStatuses( array() ) as $status ): ?> || customer.status == '<?php echo $status ?>'<?php endforeach ?>, 'fa-lock-open': 0<?php foreach ( Lib\Proxy\CustomStatuses::prepareFreeStatuses( array() ) as $status ): ?> || customer.status == '<?php echo $status ?>'<?php endforeach ?>}"></span>
-                                                <span class="caret"></span>
+                                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" popover="<?php esc_attr_e( 'Status', 'bookly' ) ?>: {{statusToString(customer.status)}}" >
+                                                <span ng-class="{'fa-fw fa-lg': true, 'far fa-clock': customer.status == 'pending', 'fas fa-check': customer.status == 'approved', 'fas fa-times': customer.status == 'cancelled', 'fas fa-ban': customer.status == 'rejected', 'fas fa-list-ol': customer.status == 'waitlisted', 'far fa-check-circle': customer.status == 'done', 'fas fa-lock': 0<?php foreach ( Lib\Proxy\CustomStatuses::prepareBusyStatuses( array() ) as $status ): ?> || customer.status == '<?php echo $status ?>'<?php endforeach ?>, 'fas fa-lock-open': 0<?php foreach ( Lib\Proxy\CustomStatuses::prepareFreeStatuses( array() ) as $status ): ?> || customer.status == '<?php echo $status ?>'<?php endforeach ?>}"></span>
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href ng-click="customer.status = 'pending'">
-                                                        <span class="fa fa-fw fa-clock"></span>
-                                                        <?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_PENDING ) ) ?>
+                                            <div class="dropdown-menu">
+                                                <a href class="dropdown-item pl-3" ng-click="customer.status = 'pending'">
+                                                    <span class="far fa-fw fa-clock mr-2"></span><?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_PENDING ) ) ?>
+                                                </a>
+                                                <a href class="dropdown-item pl-3" ng-click="customer.status = 'approved'">
+                                                    <span class="fas fa-fw fa-check mr-2"></span><?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_APPROVED ) ) ?>
+                                                </a>
+                                                <a href class="dropdown-item pl-3" ng-click="customer.status = 'cancelled'">
+                                                    <span class="fas fa-fw fa-times mr-2"></span><?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_CANCELLED ) ) ?>
+                                                </a>
+                                                <a href class="dropdown-item pl-3" ng-click="customer.status = 'rejected'">
+                                                    <span class="fas fa-fw fa-ban mr-2"></span><?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_REJECTED ) ) ?>
+                                                </a>
+                                                <?php if ( Config::waitingListActive() ) : ?>
+                                                    <a href class="dropdown-item pl-3" ng-click="customer.status = 'waitlisted'">
+                                                        <span class="fas fa-fw fa-list-ol mr-2"></span><?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_WAITLISTED ) ) ?>
                                                     </a>
-                                                </li>
-                                                <li>
-                                                    <a href ng-click="customer.status = 'approved'">
-                                                        <span class="fa fa-fw fa-check"></span>
-                                                        <?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_APPROVED ) ) ?>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href ng-click="customer.status = 'cancelled'">
-                                                        <span class="fa fa-fw fa-times"></span>
-                                                        <?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_CANCELLED ) ) ?>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href ng-click="customer.status = 'rejected'">
-                                                        <span class="fa fa-fw fa-times-circle"></span>
-                                                        <?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_REJECTED ) ) ?>
-                                                    </a>
-                                                </li>
-                                                <?php if ( Config::waitingListActive() ): ?>
-                                                    <li>
-                                                        <a href ng-click="customer.status = 'waitlisted'">
-                                                            <span class="fa fa-fw fa-list-ol"></span>
-                                                            <?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_WAITLISTED ) ) ?>
-                                                        </a>
-                                                    </li>
                                                 <?php endif ?>
-                                                <?php if ( Config::tasksActive() ): ?>
-                                                    <li>
-                                                        <a href ng-click="customer.status = 'done'">
-                                                            <span class="fa fa-fw fa-check-circle"></span>
-                                                            <?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_DONE ) ) ?>
-                                                        </a>
-                                                    </li>
+                                                <?php if ( Config::tasksActive() ) : ?>
+                                                    <a href class="dropdown-item pl-3" ng-click="customer.status = 'done'">
+                                                        <span class="far fa-fw fa-check-circle mr-2"></span><?php echo esc_html( CustomerAppointment::statusToString( CustomerAppointment::STATUS_DONE ) ) ?>
+                                                    </a>
                                                 <?php endif ?>
-                                                <?php foreach ( (array) Lib\Proxy\CustomStatuses::getAll() as $status ): ?>
-                                                    <li>
-                                                        <a href ng-click="customer.status = '<?php echo $status->getSlug() ?>'">
-                                                            <span class="fa fa-fw fa-lock<?php if ( ! $status->getBusy() ): ?>-open<?php endif ?>"></span>
-                                                            <?php echo esc_html( $status->getName() ) ?>
-                                                        </a>
-                                                    </li>
+                                                <?php foreach ( (array) Lib\Proxy\CustomStatuses::getAll() as $status ) : ?>
+                                                    <a href class="dropdown-item pl-3" ng-click="customer.status = '<?php echo $status->getSlug() ?>'">
+                                                        <span class="fas fa-fw fa-lock<?php if ( ! $status->getBusy() ): ?>-open<?php endif ?> mr-2"></span><?php echo esc_html( $status->getName() ) ?>
+                                                    </a>
                                                 <?php endforeach ?>
-                                            </ul>
+                                            </div>
                                         </span>
-                                        <button type="button" class="btn btn-sm btn-default bookly-margin-left-xs" data-action="show-payment" data-payment_id="{{customer.payment_id}}" ng-show="customer.payment_id || customer.payment_create" popover="<?php esc_attr_e( 'Payment', 'bookly' ) ?>: {{customer.payment_title}}" ng-disabled="customer.payment_create">
-                                            <span ng-class="{'bookly-js-toggle-popover fa fa-fw': true, 'fa-clipboard-check': customer.payment_type == 'full', 'fa-hourglass': customer.payment_type == 'partial'}"></span>
+                                        <button type="button" class="btn btn-sm btn-default" data-action="show-payment" data-payment_id="{{customer.payment_id}}" ng-show="customer.payment_id || customer.payment_create" popover="<?php esc_attr_e( 'Payment', 'bookly' ) ?>: {{customer.payment_title}}" ng-disabled="customer.payment_create">
+                                            <span ng-class="{'bookly-js-toggle-popover fas fa-fw fa-lg': true, 'fa-file-invoice-dollar': customer.payment_type == 'full', 'fa-hourglass': customer.payment_type == 'partial'}"></span>
                                         </button>
 
                                         <?php Proxy\Pro::renderAttachPaymentButton() ?>
 
-                                        <span class="btn btn-sm btn-default disabled bookly-margin-left-xs" style="opacity:1;cursor:default;"><i class="fa fa-fw fa-user"></i>&times;{{customer.number_of_persons}}</span>
+                                        <span class="btn btn-sm btn-default disabled" style="opacity:1;cursor:default;"><i class="far fa-lg fa-fw fa-user"></i>&times;{{customer.number_of_persons}}</span>
                                         <?php if ( Config::packagesActive() ) : ?>
-                                        <button type="button" class="btn btn-sm btn-default bookly-margin-left-xs" ng-click="editPackageSchedule(customer)" ng-show="customer.package_id" popover="<?php esc_attr_e( 'Package schedule', 'bookly' ) ?>">
-                                            <span class="fa fa-fw fa-calendar-alt"></span>
+                                        <button type="button" class="btn btn-sm btn-default" ng-click="editPackageSchedule(customer)" ng-show="customer.package_id" popover="<?php esc_attr_e( 'Package schedule', 'bookly' ) ?>">
+                                            <span class="far fa-lg fa-fw fa-calendar-alt"></span>
                                         </button>
                                         <?php endif ?>
                                         <?php if ( Config::recurringAppointmentsActive() ) : ?>
-                                        <button type="button" class="btn btn-sm btn-default bookly-margin-left-xs" ng-click="schViewSeries(customer)" ng-show="customer.series_id" popover="<?php esc_attr_e( 'View series', 'bookly' ) ?>">
-                                            <span class="fa fa-fw fa-link"></span>
+                                        <button type="button" class="btn btn-sm btn-default" ng-click="schViewSeries(customer)" ng-show="customer.series_id" popover="<?php esc_attr_e( 'View series', 'bookly' ) ?>">
+                                            <span class="fas fa-fw fa-link"></span>
                                         </button>
                                         <?php endif ?>
-                                        <a ng-click="removeCustomer(customer)" class="fa fa-fw fa-trash-alt text-danger bookly-vertical-middle" href="#"
+                                        <a ng-click="removeCustomer(customer)" class="far fa-fw fa-trash-alt text-danger" href="#"
                                            popover="<?php esc_attr_e( 'Remove customer', 'bookly' ) ?>"></a>
                                     </div>
                                 </li>
@@ -205,15 +182,15 @@ use Bookly\Lib\Entities\CustomerAppointment;
                                     <div class="input-group">
                                         <select id="bookly-appointment-dialog-select2" multiple data-placeholder="<?php esc_attr_e( '-- Search customers --', 'bookly' ) ?>"
                                                 class="form-control"
-                                                >
+                                        >
                                             <option ng-repeat="customer in dataSource.data.customers" value="{{customer.id}}">{{customer.name}}</option>
                                         </select>
-                                        <span class="input-group-btn">
-                                            <a class="btn btn-success" ng-click="openNewCustomerDialog()">
-                                                <i class="fa fa-fw fa-plus"></i>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success" type="button" ng-click="openNewCustomerDialog()">
+                                                <i class="fas fa-fw fa-plus"></i>
                                                 <?php esc_html_e( 'New customer', 'bookly' ) ?>
-                                            </a>
-                                        </span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -231,46 +208,50 @@ use Bookly\Lib\Entities\CustomerAppointment;
                     <div ng-hide="loading || form.screen != 'queue'" class="modal-body">
                         <div class="form-group" ng-hide="!form.queue.all.length || !form.queue.changed_status.length">
                             <label for="bookly-notification"><?php esc_html_e( 'Send notifications', 'bookly' ) ?></label>
-                            <p class="help-block"><?php esc_html_e( 'If you have added a new customer to this appointment or changed the appointment status for an existing customer, and for these records you want the corresponding email or SMS notifications to be sent to their recipients, select the "Send if new or status changed" option before clicking Save. You can also send notifications as if all customers were added as new by selecting "Send as for new".', 'bookly' ) ?></p>
-                            <div class="radio"><label><input type="radio" name="queue_type" value="changed_status" ng-model=form.queue_type><?php esc_html_e( 'Send if new or status changed', 'bookly' ) ?></label></div>
-                            <div class="radio"><label><input type="radio" name="queue_type" value="all"  ng-model=form.queue_type><?php esc_html_e( 'Send as for new', 'bookly' ) ?></label></div>
+                            <?php Inputs::renderRadio( __( 'Send if new or status changed', 'bookly' ), 'changed_status', null, array( 'name' => 'queue_type', 'ng-model' => 'form.queue_type' ) ) ?>
+                            <?php Inputs::renderRadio( __( 'Send as for new', 'bookly' ), 'all', null, array( 'name' => 'queue_type', 'ng-model' => 'form.queue_type' ) ) ?>
+                            <small class="help-block"><?php esc_html_e( 'If you have added a new customer to this appointment or changed the appointment status for an existing customer, and for these records you want the corresponding email or SMS notifications to be sent to their recipients, select the "Send if new or status changed" option before clicking Save. You can also send notifications as if all customers were added as new by selecting "Send as for new".', 'bookly' ) ?></small>
                         </div>
                         <div ng-repeat="(key, value) in form.queue.all">
-                            <div class="checkbox bookly-margin-bottom-lg bookly-margin-top-remove" ng-hide="form.queue_type == 'changed_status'">
-                                <label>
-                                    <input type=checkbox ng-model=value.checked ng-true-value="1" ng-false-value="0" ng-init="value.checked=1"/> <i class="fa fa-fw" ng-class="{'fa-sms':value.gateway == 'sms', 'fa-envelope':value.gateway != 'sms'}"></i> <b>{{value.data.name}}</b> ({{value.address}})<br/>
-                                    {{ value.name }}
-                                </label>
+                            <div ng-hide="form.queue_type == 'changed_status'">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" id="bookly-ch-all-{{key}}" type="checkbox" ng-model=value.checked ng-true-value="1" ng-false-value="0" ng-init="value.checked=1">
+                                    <label class="custom-control-label" for="bookly-ch-all-{{key}}"><i class="fa-fw" ng-class="{'fas fa-sms':value.gateway == 'sms', 'far fa-envelope':value.gateway != 'sms'}"></i> <b>{{value.data.name}}</b> ({{value.address}})<br/>
+                                        {{ value.name }}</label>
+                                </div>
                             </div>
                         </div>
                         <div ng-repeat="(key, value) in form.queue.changed_status">
-                            <div class="checkbox bookly-margin-bottom-lg bookly-margin-top-remove" ng-hide="form.queue_type != 'changed_status'">
-                                <label>
-                                    <input type=checkbox ng-model=value.checked ng-true-value="1" ng-false-value="0" ng-init="value.checked=1"/> <i class="fa fa-fw" ng-class="{'fa-sms':value.gateway == 'sms', 'fa-envelope':value.gateway != 'sms'}"></i> <b>{{value.data.name}}</b> ({{value.address}})<br/>
-                                    {{ value.name }}
-                                </label>
+                            <div ng-hide="form.queue_type != 'changed_status'">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" id="bookly-ch-sc-{{key}}" type="checkbox" ng-model=value.checked ng-true-value="1" ng-false-value="0" ng-init="value.checked=1"/>
+                                    <label class="custom-control-label" for="bookly-ch-sc-{{key}}"><i class="fa-fw" ng-class="{'fas fa-sms':value.gateway == 'sms', 'far fa-envelope':value.gateway != 'sms'}"></i> <b>{{value.data.name}}</b> ({{value.address}})<br/>
+                                        {{ value.name }}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <?php Proxy\RecurringAppointments::renderSchedule() ?>
-                    <div ng-hide="loading || form.screen != 'main'" class="modal-body bookly-padding-top-remove" style="margin-top: -15px;">
-                        <div class="checkbox bookly-margin-bottom-lg bookly-margin-top-remove">
-                            <label>
-                                <input type=checkbox ng-model=form.notification ng-true-value="1" ng-false-value="0" ng-init="form.notification=<?php echo get_user_meta( get_current_user_id(), 'bookly_appointment_form_send_notifications', true ) ?: 0 ?>"/><b><?php esc_html_e( 'Send notifications', 'bookly' ) ?></b>
-                            </label>
-                        </div>
+                    <div ng-hide="loading || form.screen != 'main'" class="modal-body" style="margin-top: -30px;">
+                        <?php Inputs::renderCheckBox( __( 'Send notifications', 'bookly' ), null, null, array(
+                             'ng-model' => 'form.notification',
+                             'ng-true-value'  => '1',
+                             'ng-false-value' => '0',
+                             'ng-init'        => 'form.notification=' . ( get_user_meta( get_current_user_id(), 'bookly_appointment_form_send_notifications', true ) ?: 0 ) )
+                        ) ?>
                     </div>
                     <div class="modal-footer">
                         <div ng-hide=loading>
                             <?php Proxy\Shared::renderAppointmentDialogFooter() ?>
-                            <?php Buttons::renderSubmit( null, null, null,
+                            <?php Buttons::render( null, 'btn-success', __( 'Save', 'bookly' ),
                                 array(
                                     'ng-hide'        => 'form.screen == \'queue\' || (form.repeat.enabled && !form.skip_date && form.screen == \'main\')',
                                     'ng-disabled'    => '!form.skip_date && form.repeat.enabled && schIsScheduleEmpty() || (!form.date && !form.skip_date)',
                                     'formnovalidate' => '',
+                                    'ng-click'       => 'processForm()',
                                 ) ) ?>
-                            <?php Buttons::renderSubmit( null, 'bookly-js-queue-send', esc_html__( 'Send', 'bookly' ), array( 'ng-show' => 'form.screen == \'queue\'' ) ) ?>
-                            <?php Buttons::renderCustom( null, 'btn-lg btn-default', esc_html__( 'Cancel', 'bookly' ), array( 'ng-click' => 'closeDialog()', 'data-dismiss' => 'modal' ) ) ?>
+                            <?php Buttons::render( null, 'bookly-js-queue-send btn-success', __( 'Send', 'bookly' ), array( 'ng-show' => 'form.screen == \'queue\'', 'ng-click' => 'processForm()' ) ) ?>
+                            <?php Buttons::renderCancel( null, array( 'ng-click' => 'closeDialog()' ) ) ?>
                         </div>
                     </div>
                 </form>

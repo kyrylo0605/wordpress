@@ -13,20 +13,20 @@ class StaffSchedule extends Lib\Base\Form
 
     public function configure()
     {
-        $this->setFields( array( 'days', 'staff_id', 'start_time', 'end_time', 'location_id' ) );
+        $this->setFields( array( 'ssi', 'staff_id', 'start_time', 'end_time', 'location_id' ) );
     }
 
     public function save()
     {
-        if ( isset( $this->data['days'] ) ) {
-            foreach ( $this->data['days'] as $id => $day_index ) {
+        if ( isset( $this->data['ssi'] ) ) {
+            foreach ( $this->data['ssi'] as $id => $day_index ) {
                 $res_schedule = new Lib\Entities\StaffScheduleItem();
                 $res_schedule->load( $id );
                 $res_schedule->setDayIndex( $day_index );
-                if ( $this->data['start_time'][ $day_index ] ) {
+                if ( $this->data['start_time'][ $id ] ) {
                     $res_schedule
-                        ->setStartTime( $this->data['start_time'][ $day_index ] )
-                        ->setEndTime( $this->data['end_time'][ $day_index ] );
+                        ->setStartTime( $this->data['start_time'][ $id ] )
+                        ->setEndTime( $this->data['end_time'][ $id ] );
                 } else {
                     $res_schedule
                         ->setStartTime( null )

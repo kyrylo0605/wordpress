@@ -1,7 +1,7 @@
 jQuery(function ($) {
 
-    var $fullCalendar    = $('#bookly-fc-wrapper .bookly-js-calendar-element'),
-        $tabs            = $('.bookly-js-calendar-tab'),
+    let $fullCalendar    = $('.bookly-js-calendar'),
+        $tabs            = $('ul.bookly-js-calendar-tabs > li > a'),
         $staffFilter     = $('#bookly-js-staff-filter'),
         $locationsFilter = $('#bookly-js-locations-filter'),
         firstHour        = new Date().getHours(),
@@ -25,7 +25,7 @@ jQuery(function ($) {
         e.preventDefault();
         $tabs.removeClass('active');
         $(this).addClass('active');
-        var staff_id = $(this).data('staff_id');
+        let staff_id = $(this).data('staff_id');
         setCookie('bookly_cal_tab_id', staff_id);
         if (staff_id == 0) {
             $('.fc-agendaDay-button').hide();
@@ -35,7 +35,7 @@ jQuery(function ($) {
         } else {
             $('.fc-multiStaffDay-button').hide();
             $('.fc-agendaDay-button').show();
-            var view = $fullCalendar.fullCalendar('getView');
+            let view = $fullCalendar.fullCalendar('getView');
             if (view.type == 'multiStaffDay') {
                 $fullCalendar.fullCalendar('changeView', 'agendaDay');
             }
@@ -43,8 +43,8 @@ jQuery(function ($) {
         }
     });
     $tabs.filter('[data-staff_id=' + tabId + ']').addClass('active');
-    if ($tabs.filter('li.active').length === 0) {
-        $tabs.eq(0).addClass('active').show();
+    if ($tabs.filter('.active').length === 0) {
+        $tabs.eq(0).addClass('active').parent().show();
     }
 
     /**
@@ -52,7 +52,7 @@ jQuery(function ($) {
      */
     $staffFilter.booklyDropdown({
         onChange: function (values, selected, all) {
-            var ids = [];
+            let ids = [];
             staffMembers.length = 0;
             this.booklyDropdown('getSelectedExt').forEach(function (item) {
                 ids.push(item.value);
@@ -60,16 +60,16 @@ jQuery(function ($) {
             });
             setCookie('bookly_cal_st_ids', ids);
             if (all) {
-                $tabs.filter('[data-staff_id!=0]').toggle(selected);
+                $tabs.filter('[data-staff_id!=0]').parent().toggle(selected);
             } else {
                 values.forEach(function (value) {
-                    $tabs.filter('[data-staff_id=' + value + ']').toggle(selected);
+                    $tabs.filter('[data-staff_id=' + value + ']').parent().toggle(selected);
                 });
             }
             if ($tabs.filter(':visible.active').length === 0) {
                 $tabs.filter(':visible:first').triggerHandler('click');
             } else if ($tabs.filter('.active').data('staff_id') === 0) {
-                var view = $fullCalendar.fullCalendar('getView');
+                let view = $fullCalendar.fullCalendar('getView');
                 if (view.type === 'multiStaffDay') {
                     view.displayView($fullCalendar.fullCalendar('getDate'));
                 }
@@ -87,7 +87,7 @@ jQuery(function ($) {
     // Populate staffMembers.
     $staffFilter.booklyDropdown('getSelectedExt').forEach(function (item) {
         staffMembers.push({id: item.value, name: item.name});
-        $tabs.filter('[data-staff_id=' + item.value + ']').show();
+        $tabs.filter('[data-staff_id=' + item.value + ']').parent().show();
     });
 
     /**
@@ -159,7 +159,7 @@ jQuery(function ($) {
     });
 
     function heightFC() {
-        var height = $(window).height() - $('#bookly-fc-wrapper').offset().top - 20;
+        let height = $(window).height() - $fullCalendar.offset().top - 20;
 
         return height > 620 ? height : 620;
     }

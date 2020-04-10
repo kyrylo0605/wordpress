@@ -1,44 +1,41 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 use Bookly\Backend\Components\Controls\Buttons;
-/** @var string $table */
+use Bookly\Backend\Components\Controls\Elements;
 ?>
-<form id="bookly-table-settings-modal" class="bookly-js-table-settings-modal modal fade" tabindex=-1 role="dialog">
+<form id="bookly-table-settings-modal" class="bookly-js-table-settings-modal bookly-modal bookly-fade" tabindex=-1 role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                <div class="modal-title h2"><?php esc_html_e( 'Table settings', 'bookly' ) ?></div>
+                <h5 class="modal-title"><?php esc_html_e( 'Table settings', 'bookly' ) ?></h5>
+                <button type="button" class="close" data-dismiss="bookly-modal"><span>&times;</span></button>
             </div>
             <div class="modal-body">
-                <div class="panel panel-default bookly-panel-unborder">
-                    <div class="panel-heading bookly-padding-horizontal-remove">
-                        <div class="row">
-                            <div class="col-xs-1"></div>
-                            <div class="col-xs-9">
-                                <div class="bookly-font-smaller bookly-color-gray"><?php esc_html_e( 'Column', 'bookly' ) ?></div>
-                            </div>
-                            <div class="col-xs-2">
-                                <div class="bookly-font-smaller bookly-color-gray"><?php esc_html_e( 'Show', 'bookly' ) ?></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="bookly-margin-top-md bookly-js-table-columns"></ul>
+                <div class="row font-weight-bold mb-2">
+                    <div class="col-auto pr-1"><i class="fas fa-fw fa-bars invisible"></i></div>
+                    <div class="col px-1"><?php esc_html_e( 'Column', 'bookly' ) ?></div>
+                    <div class="col-2 pl-1"><?php esc_html_e( 'Show', 'bookly' ) ?></div>
                 </div>
+                <ul class="list-unstyled bookly-js-table-columns"></ul>
             </div>
             <div class="modal-footer">
                 <input type="hidden" name="bookly-table-name" value="">
-                <?php Buttons::renderCustom( null, 'bookly-js-table-settings-save btn-lg btn-success', esc_html__( 'Save', 'bookly' ) ) ?>
-                <?php Buttons::renderCustom( null, 'bookly-js-cancel btn-lg btn-default', esc_html__( 'Close', 'bookly' ), array( 'data-dismiss' => 'modal' ) ) ?>
+                <?php Buttons::renderSubmit( null, 'bookly-js-table-settings-save' ) ?>
+                <?php Buttons::renderCancel( __( 'Close', 'bookly' ) ) ?>
             </div>
         </div>
     </div>
 </form>
 <div id="bookly-table-settings-template" class="hidden">
-    <li class="bookly-margin-bottom-md">
+    <li class="mb-1">
         <div class="row">
-            <div class="col-xs-1"><i class="fa fa-fw fa-lg fa-bars text-muted bookly-cursor-move bookly-js-draghandle" title="<?php esc_attr_e( 'Reorder', 'bookly' ) ?>"></i></div>
-            <div class="col-xs-9">{{title}}</div>
-            <div class="col-xs-2"><input name="{{name}}" type="checkbox" {{checked}}/></div>
+            <div class="col-1 pr-1"><?php Elements::renderReorder() ?></i></div>
+            <div class="col-9 pl-1">{{title}}</div>
+            <div class="col-2">
+            <div class="custom-control custom-checkbox">
+                <input id="{{id}}" name="{{name}}" type="checkbox" {{checked}} class="custom-control-input" />
+                <label for="{{id}}" class="custom-control-label"></label>
+            </div>
+            </div>
         </div>
     </li>
 </div>

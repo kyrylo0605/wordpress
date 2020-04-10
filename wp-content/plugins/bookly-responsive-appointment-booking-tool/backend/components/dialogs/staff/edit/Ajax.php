@@ -1,7 +1,8 @@
 <?php
 namespace Bookly\Backend\Components\Dialogs\Staff\Edit;
 
-use Bookly\Backend\Modules\Staff\Forms\Widgets\TimeChoice;
+use Bookly\Backend\Components\Schedule\BreakItem;
+use Bookly\Backend\Components\Schedule\Component as ScheduleComponent;
 use Bookly\Backend\Modules\Staff\Proxy as StaffProxy;
 use Bookly\Lib;
 
@@ -218,53 +219,39 @@ class Ajax extends Lib\Base\Ajax
         $end_time      = self::parameter( 'end_time' );
         $working_start = self::parameter( 'working_start' );
         $working_end   = self::parameter( 'working_end' );
+        $break_id      = self::parameter( 'id', 0 );
 
         if ( Lib\Utils\DateTime::timeToSeconds( $start_time ) >= Lib\Utils\DateTime::timeToSeconds( $end_time ) ) {
             wp_send_json_error( array( 'message' => __( 'The start time must be less than the end one', 'bookly' ), ) );
         }
 
-        $res_schedule = new Lib\Entities\StaffScheduleItem();
-        $res_schedule->load( self::parameter( 'staff_schedule_item_id' ) );
-
-        $break_id = self::parameter( 'break_id', 0 );
+        $schedule_item = new Lib\Entities\StaffScheduleItem();
+        $schedule_item->load( self::parameter( 'ss_id' ) );
 
         $in_working_time = $working_start <= $start_time && $start_time <= $working_end
             && $working_start <= $end_time && $end_time <= $working_end;
-        if ( ! $in_working_time || ! $res_schedule->isBreakIntervalAvailable( $start_time, $end_time, $break_id ) ) {
+        if ( ! $in_working_time || ! $schedule_item->isBreakIntervalAvailable( $start_time, $end_time, $break_id ) ) {
             wp_send_json_error( array( 'message' => __( 'The requested interval is not available', 'bookly' ), ) );
         }
 
-        $formatted_start    = Lib\Utils\DateTime::formatTime( Lib\Utils\DateTime::timeToSeconds( $start_time ) );
-        $formatted_end      = Lib\Utils\DateTime::formatTime( Lib\Utils\DateTime::timeToSeconds( $end_time ) );
-        $formatted_interval = $formatted_start . ' - ' . $formatted_end;
-
+        $schedule_item_break = new Lib\Entities\ScheduleItemBreak();
         if ( $break_id ) {
-            $break = new Lib\Entities\ScheduleItemBreak();
-            $break->load( $break_id );
-            $break->setStartTime( $start_time )
-                  ->setEndTime( $end_time )
-                  ->save();
-
-            wp_send_json_success( array( 'interval' => $formatted_interval, ) );
+            $schedule_item_break->load( $break_id );
         } else {
-            $res_schedule_break = new Lib\Entities\ScheduleItemBreak();
-            $res_schedule_break->setFields( self::postParameters() );
-            $res_schedule_break->save();
-            if ( $res_schedule_break ) {
-                $breakStart = new TimeChoice( array( 'use_empty' => false, 'type' => 'break_from' ) );
-                $breakEnd   = new TimeChoice( array( 'use_empty' => false, 'type' => 'to' ) );
-                wp_send_json( array(
-                    'success'      => true,
-                    'item_content' => self::renderTemplate( '_break', array(
-                        'staff_schedule_item_break_id' => $res_schedule_break->getId(),
-                        'formatted_interval'           => $formatted_interval,
-                        'break_start_choices'          => $breakStart->render( '', $start_time, array( 'class' => 'break-start form-control' ) ),
-                        'break_end_choices'            => $breakEnd->render( '', $end_time, array( 'class' => 'break-end form-control' ) ),
-                    ), false ),
-                ) );
-            } else {
-                wp_send_json_error( array( 'message' => __( 'Error adding the break interval', 'bookly' ), ) );
-            }
+            $schedule_item_break->setStaffScheduleItemId( $schedule_item->getId() );
+        }
+        $schedule_item_break
+            ->setStartTime( $start_time )
+            ->setEndTime( $end_time )
+            ->save();
+        if ( $schedule_item_break ) {
+            $break = new BreakItem( $schedule_item_break->getId(), $schedule_item_break->getStartTime(), $schedule_item_break->getEndTime() );
+            wp_send_json_success( array(
+                'html'     => $break->render( false ),
+                'interval' => $break->getFormatedInterval(),
+            ) );
+        } else {
+            wp_send_json_error( array( 'message' => __( 'Error adding the break interval', 'bookly' ), ) );
         }
     }
 
@@ -351,8 +338,26 @@ class Ajax extends Lib\Base\Ajax
     {
         $staff = new Lib\Entities\Staff();
         $staff->load( $staff_id );
-        $schedule_items = $staff->getScheduleItems( $location_id );
-        return  self::renderTemplate( 'schedule', compact( 'schedule_items', 'staff_id', 'location_id' ), false );
+
+        $schedule = new ScheduleComponent( 'start_time[{index}]', 'end_time[{index}]' );
+
+        $ss_ids = array();
+        foreach ( $staff->getScheduleItems( $location_id ) as $item ) {
+            $id = $item->getId();
+            $schedule->addHours( $id, $item->getDayIndex(), $item->getStartTime(), $item->getEndTime() );
+            $ss_ids[ $id ] = $item->getDayIndex();
+        }
+
+        foreach (
+            Lib\Entities\ScheduleItemBreak::query()
+                ->whereIn( 'staff_schedule_item_id', array_keys( $ss_ids) )
+                ->sortBy( 'start_time, end_time' )
+                ->fetchArray() as $break
+        ) {
+            $schedule->addBreak( $break['staff_schedule_item_id'], $break['id'], $break['start_time'], $break['end_time'] );
+        }
+
+        return self::renderTemplate( 'schedule', compact( 'schedule', 'staff_id', 'location_id', 'ss_ids' ), false );
     }
 
     /**
@@ -379,7 +384,7 @@ class Ajax extends Lib\Base\Ajax
                             && ( self::$staff->getId() == self::parameter( 'staff_id' ) );
                     case 'staffScheduleHandleBreak':
                         $res_schedule = new Lib\Entities\StaffScheduleItem();
-                        $res_schedule->load( self::parameter( 'staff_schedule_item_id' ) );
+                        $res_schedule->load( self::parameter( 'ss_id' ) );
                         return self::$staff->isLoaded()
                             && ( self::$staff->getId() == $res_schedule->getStaffId() );
                         break;
@@ -392,8 +397,8 @@ class Ajax extends Lib\Base\Ajax
                             && ( self::$staff->getId() == $res_schedule->getStaffId() );
                         break;
                     case 'staffScheduleUpdate':
-                        if ( self::hasParameter( 'days' ) ) {
-                            foreach ( self::parameter( 'days' ) as $id => $day_index ) {
+                        if ( self::hasParameter( 'ssi' ) ) {
+                            foreach ( self::parameter( 'ssi' ) as $id => $day_index ) {
                                 $res_schedule = new Lib\Entities\StaffScheduleItem();
                                 $res_schedule->load( $id );
                                 $staff = new Lib\Entities\Staff();

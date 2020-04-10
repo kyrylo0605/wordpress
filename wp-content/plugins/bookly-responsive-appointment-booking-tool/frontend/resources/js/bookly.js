@@ -2931,7 +2931,7 @@
                             }
                         }
                         setSelects($chain_item, location_id, category_id, service_id, staff_id);
-                        if (service_id) {
+                        if (service_id && !opt[params.form_id].form_attributes.hide_categories) {
                             $chain_item.find('.bookly-js-select-category').val(services[service_id].category_id);
                         }
                         updateServiceDurationSelect($chain_item, service_id, staff_id, location_id);

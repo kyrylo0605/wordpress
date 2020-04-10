@@ -66,7 +66,7 @@ class Ajax extends Lib\Base\Ajax
         foreach ( $shop as $plugin ) {
             $installed          = in_array( $plugin['slug'], $plugins_installed );
             $response['shop'][] = array(
-                'plugin_class'   => $plugin['highlighted'] ? 'bookly-shop-highlighted' : ( $plugin['type'] == 'bundle' ? 'bookly-shop-bundle' : '' ),
+                'plugin_class'   => $plugin['highlighted'] ? 'bookly-card-highlighted border-danger' : ( $plugin['type'] == 'bundle' ? 'bg-warning' : 'bg-light' ),
                 'title'          => $plugin['title'],
                 'demo_url_class' => $plugin['demo_url'] === null ? 'collapse' : '',
                 'demo_url'       => $plugin['demo_url'],

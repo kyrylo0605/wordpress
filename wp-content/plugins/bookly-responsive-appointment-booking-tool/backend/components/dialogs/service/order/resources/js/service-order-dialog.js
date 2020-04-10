@@ -27,7 +27,6 @@ jQuery(function ($) {
     var $dialog   = $('#bookly-service-order-modal'),
         $list     = $('#bookly-list', $dialog),
         $template = $('#bookly-service-template'),
-        $table    = $('#services-list'),
         $save     = $('#bookly-save', $dialog)
     ;
 
@@ -48,7 +47,7 @@ jQuery(function ($) {
             function (response) {
                 if (response.success) {
                     BooklyServiceOrderDialogL10n.services = response.data;
-                    $dialog.modal('hide');
+                    $dialog.booklyModal('hide');
                 }
                 ladda.stop();
             });
@@ -65,8 +64,7 @@ jQuery(function ($) {
         });
     });
 
-    $list.sortable({
-        axis  : 'y',
+    Sortable.create($list[0], {
         handle: '.bookly-js-draghandle',
     });
 });

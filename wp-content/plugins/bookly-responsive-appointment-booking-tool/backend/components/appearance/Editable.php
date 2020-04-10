@@ -14,9 +14,9 @@ class Editable
      * @param bool $echo
      * @return string
      */
-    public static function renderString( array $options, $echo = true )
+    public static function renderString( array $options, $title = '', $echo = true )
     {
-        return self::_renderEditable( $options, 'span', $echo );
+        return self::_renderEditable( $options, 'span', $title, $echo );
     }
 
     /**
@@ -26,9 +26,9 @@ class Editable
      * @param bool $echo
      * @return string
      */
-    public static function renderLabel( array $options, $echo = true )
+    public static function renderLabel( array $options, $title = '', $echo = true )
     {
-        return self::_renderEditable( $options, 'label', $echo );
+        return self::_renderEditable( $options, 'label', $title, $echo );
     }
 
     /**
@@ -43,7 +43,7 @@ class Editable
     {
         $option_value = get_option( $option_name );
 
-        printf( '<span class="bookly-js-editable bookly-js-option %s editable-pre-wrapped" data-type="bookly" data-fieldType="textarea" data-values="%s" data-codes="%s" data-title="%s" data-placement="%s" data-option="%s">%s</span>',
+        printf( '<span class="bookly-editable bookly-js-editable bookly-js-option %s text-pre-wrap" data-type="bookly" data-fieldType="textarea" data-values="%s" data-codes="%s" data-title="%s" data-placement="%s" data-option="%s">%s</span>',
             $option_name,
             esc_attr( json_encode( array( $option_name => $option_value ) ) ),
             esc_attr( $codes ),
@@ -65,7 +65,7 @@ class Editable
     {
         $option_value = get_option( $option_name );
 
-        printf( '<span class="bookly-js-editable bookly-js-option %s editable-pre-wrapped" data-type="bookly" data-fieldType="number" data-values="%s" data-min="%s" data-step="%s" data-option="%s">%s</span>',
+        printf( '<span class="bookly-editable bookly-js-editable bookly-js-option %s text-pre-wrap" data-type="bookly" data-fieldType="number" data-values="%s" data-min="%s" data-step="%s" data-option="%s">%s</span>',
             $option_name,
             esc_attr( json_encode( array( $option_name => $option_value ) ) ),
             esc_attr( $min ),
@@ -83,7 +83,7 @@ class Editable
      * @param bool $echo
      * @return string|void
      */
-    private static function _renderEditable( array $options, $tag, $echo = true )
+    private static function _renderEditable( array $options, $tag, $title = '', $echo = true )
     {
         $data = array();
         foreach ( $options as $option_name ) {
@@ -94,13 +94,17 @@ class Editable
         $class       = implode( ' ', $options );
         $data_values = esc_attr( json_encode( $data ) );
         $content     = esc_html( $data[ $options[0] ] );
+        $data_title = $title
+            ? ' data-title="' .esc_attr__( $title ) . '"'
+            : '';
 
-        $template = '<{tag} class="bookly-js-editable bookly-js-option {class}" data-type="bookly" data-values="{data-values}" data-option="{data-option}">{content}</{tag}>';
+        $template = '<{tag} class="bookly-editable bookly-js-editable bookly-js-option {class}" data-type="bookly" data-values="{data-values}" data-option="{data-option}"{data-title}>{content}</{tag}>';
         $html = strtr( $template, array(
             '{tag}'         => $tag,
             '{class}'       => $class,
             '{data-values}' => $data_values,
             '{data-option}' => $main_option,
+            '{data-title}'  => $data_title,
             '{content}'     => $content,
         ) );
 

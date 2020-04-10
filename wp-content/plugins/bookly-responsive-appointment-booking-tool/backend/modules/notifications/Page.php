@@ -16,7 +16,7 @@ class Page extends Lib\Base\Component
     {
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css' ),
-            'backend'  => array( 'bootstrap/css/bootstrap-theme.min.css', ),
+            'backend'  => array( 'bootstrap/css/bootstrap.min.css', ),
         ) );
 
         self::enqueueScripts( array(

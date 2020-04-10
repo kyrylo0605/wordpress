@@ -18,7 +18,7 @@ $page_slug =  Bookly\Backend\Modules\Sms\Ajax::pageSlug();
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="handling" value="0.77">
             <input type="hidden" name="landing_page" value="billing">
-            <input type="image" class="img-responsive"
+            <input type="image" class="embed-responsive"
                    src="<?php echo plugins_url( 'bookly-responsive-appointment-booking-tool/backend/resources/images/buy10.png' ) ?>"
                    border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
             <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
@@ -38,7 +38,7 @@ $page_slug =  Bookly\Backend\Modules\Sms\Ajax::pageSlug();
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="handling" value="1.46">
             <input type="hidden" name="landing_page" value="billing">
-            <input type="image" class="img-responsive"
+            <input type="image" class="embed-responsive"
                    src="<?php echo plugins_url( 'bookly-responsive-appointment-booking-tool/backend/resources/images/buy25.png' ) ?>"
                    border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
             <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
@@ -58,7 +58,7 @@ $page_slug =  Bookly\Backend\Modules\Sms\Ajax::pageSlug();
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="handling" value="2.61">
             <input type="hidden" name="landing_page" value="billing">
-            <input type="image" class="img-responsive"
+            <input type="image" class="embed-responsive"
                    src="<?php echo plugins_url( 'bookly-responsive-appointment-booking-tool/backend/resources/images/buy50.png' ) ?>"
                    border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
             <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
@@ -78,7 +78,7 @@ $page_slug =  Bookly\Backend\Modules\Sms\Ajax::pageSlug();
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="handling" value="4.92">
             <input type="hidden" name="landing_page" value="billing">
-            <input type="image" class="img-responsive"
+            <input type="image" class="embed-responsive"
                    src="<?php echo plugins_url( 'bookly-responsive-appointment-booking-tool/backend/resources/images/buy100.png' ) ?>"
                    border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
             <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"

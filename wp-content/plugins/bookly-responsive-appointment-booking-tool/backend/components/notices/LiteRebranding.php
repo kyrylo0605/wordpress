@@ -17,8 +17,17 @@ class LiteRebranding extends Lib\Base\Component
         if ( Lib\Utils\Common::isCurrentUserAdmin() &&
             get_user_meta( get_current_user_id(), 'bookly_show_lite_rebranding_notice', true ) ) {
 
+            self::enqueueStyles( array(
+                'backend'  => array( 'bootstrap/css/bootstrap.min.css', ),
+            ) );
+
             self::enqueueScripts( array(
-                'module' => array( 'js/lite-rebranding.js' => array( 'jquery' ), ),
+                'backend' => array( 'bootstrap/js/bootstrap.min.js' => array( 'jquery' ), ),
+                'module'  => array( 'js/lite-rebranding.js' => array( 'jquery' ), ),
+            ) );
+
+            wp_localize_script( 'bookly-lite-rebranding.js', 'BooklyLiteL10n', array(
+                'csrfToken' => Lib\Utils\Common::getCsrfToken(),
             ) );
 
             self::renderTemplate( 'lite_rebranding' );

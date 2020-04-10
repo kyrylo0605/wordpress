@@ -139,7 +139,7 @@ jQuery(function($) {
     });
 
     // Init editable elements.
-    $editableElements.editable();
+    $editableElements.booklyEditable({empty: BooklyL10n.empty});
 
     // Show progress tracker.
     $show_progress_tracker.on('change', function() {
@@ -160,18 +160,18 @@ jQuery(function($) {
     }).trigger('change');
 
     // Show steps.
-    $('.bookly-js-show-step').on('change', function () {
+    $('[data-type="bookly-show-step-checkbox"]').on('change', function () {
         var target = $(this).data('target'),
-            $button = $('li.bookly-nav-item[data-target="#' + target + '"]'),
+            $button = $('.bookly-js-appearance-steps li a[href="#' + target + '"]'),
             $step = $('div[data-step="' + target + '"]');
         if ($(this).prop('checked')) {
-            $button.show();
+            $button.parent().show();
             $step.show();
         } else {
             if ($button.hasClass('active')) {
-                $('li.bookly-nav-item[data-target="#bookly-step-1"]').trigger('click');
+                $('.bookly-js-appearance-steps li a[href="#bookly-step-1"]').trigger('click');
             }
-            $button.hide();
+            $button.parent().hide();
             $step.hide();
         }
         // Hide/show cart buttons
@@ -188,9 +188,9 @@ jQuery(function($) {
     }).trigger('change');
 
     // Show step specific settings.
-    $('li.bookly-nav-item').on('shown.bs.tab', function (e) {
+    $('.bookly-js-appearance-steps li.nav-item').on('shown.bs.tab', function (e) {
         $step_settings.children().hide();
-        switch (e.target.getAttribute('data-target')) {
+        switch ($(e.target).attr('href')) {
             case '#bookly-step-1': $step_settings.find('.bookly-js-service-settings').show(); break;
             case '#bookly-step-2': $step_settings.find('.bookly-js-extras-settings').show(); break;
             case '#bookly-step-3': $step_settings.find('.bookly-js-time-settings').show(); break;
@@ -488,7 +488,6 @@ jQuery(function($) {
         }
     });
 
-
     /**
      * Step Repeat.
      */
@@ -529,9 +528,9 @@ jQuery(function($) {
 
     // Show Facebook login button.
     $show_facebook_login_button.change(function () {
-        if ($(this).data('appid') == '') {
+        if ($(this).data('appid') == undefined || $(this).data('appid') == '') {
             if (this.checked) {
-                $('#bookly-facebook-warning').modal('show');
+                $('#bookly-facebook-warning').booklyModal('show');
                 this.checked = false;
             }
         } else {
@@ -541,7 +540,7 @@ jQuery(function($) {
 
     // Show first and last name.
     $first_last_name.on('change', function () {
-        $first_last_name.popover('toggle');
+        $first_last_name.closest('[data-toggle="bookly-popover"]').booklyPopover('toggle');
         if (this.checked) {
             $('.bookly-js-details-full-name').addClass('collapse');
             $('.bookly-js-details-first-last-name').removeClass('collapse');
@@ -608,10 +607,10 @@ jQuery(function($) {
     $show_address_fields.change(function () {
         $('#bookly-js-address').toggle(this.checked);
         if (this.checked) {
-            $show_google_maps.closest('[data-toggle="popover"]').popover('destroy');
+            $show_google_maps.closest('[data-toggle="bookly-popover"]').booklyPopover('disable');
             $show_google_maps.prop('disabled', false);
         } else {
-            $show_google_maps.closest('[data-toggle="popover"]').popover();
+            $show_google_maps.closest('[data-toggle="bookly-popover"]').booklyPopover('enable');
             $show_google_maps.prop('checked', false).prop('disabled', true).trigger('change');
         }
     }).trigger('change');
@@ -624,10 +623,10 @@ jQuery(function($) {
     $show_custom_fields.change(function () {
         $('.bookly-js-custom-fields').toggle(this.checked);
         if (this.checked) {
-            $show_files.closest('[data-toggle="popover"]').popover('destroy');
+            $show_files.closest('[data-toggle="bookly-popover"]').booklyPopover('disable');
             $show_files.prop('disabled', false);
         } else {
-            $show_files.closest('[data-toggle="popover"]').popover();
+            $show_files.closest('[data-toggle="bookly-popover"]').booklyPopover('enable');
             $show_files.prop('checked', false).prop('disabled', true).trigger('change');
         }
     }).trigger('change');
@@ -654,7 +653,10 @@ jQuery(function($) {
 
     // Show credit card form.
     $('.bookly-payment-nav :radio').on('change', function () {
-        $('form.bookly-card-form').toggle(this.id == 'bookly-card-payment');
+        $('form.bookly-card-form').hide();
+        if (this.id == 'bookly-card-payment') {
+            $('form.bookly-card-form', $(this).closest('.bookly-box')).show();
+        }
     });
 
     $show_coupons.on('change', function () {
@@ -672,16 +674,18 @@ jQuery(function($) {
         $('.bookly-js-done-processing').toggle(this.value == 'booking-processing');
     });
 
-
     /**
      * Misc.
      */
-    $('.bookly-js-simple-popover').popover();
+
+    $('.bookly-js-simple-popover').booklyPopover({
+        container: $('#bookly-appearance'),
+    });
 
     // Custom CSS.
     $('#bookly-custom-css-save').on('click', function (e) {
-        var $custom_css         = $('#bookly-custom-css'),
-            $modal              = $('#bookly-custom-css-dialog');
+        let $custom_css = $('#bookly-custom-css'),
+            $modal      = $('#bookly-custom-css-dialog');
 
         saved_css = $custom_css.val();
 
@@ -699,7 +703,7 @@ jQuery(function($) {
             dataType : 'json',
             success  : function (response) {
                 if (response.success) {
-                    $modal.modal('hide');
+                    $modal.booklyModal('hide');
                     booklyAlert({success : [response.data.message]});
                 }
             },
@@ -709,11 +713,11 @@ jQuery(function($) {
         });
     });
 
-    $('#bookly-custom-css-cancel').on('click', function (e) {
+    $('#bookly-custom-css-dialog button[data-dismiss="bookly-modal"]').on('click', function (e) {
         var $custom_css = $('#bookly-custom-css'),
             $modal      = $('#bookly-custom-css-dialog');
 
-        $modal.modal('hide');
+        $modal.booklyModal('hide');
 
         $custom_css.val(saved_css);
     });
@@ -788,7 +792,7 @@ jQuery(function($) {
         };
         // Add data from editable elements.
         $editableElements.each(function () {
-            $.extend(data.options, $(this).editable('getValue', true));
+            $.extend(data.options, $(this).booklyEditable('getValue'));
         });
 
         // Update data and show spinner while updating.
@@ -807,7 +811,7 @@ jQuery(function($) {
 
         // Reset editable texts.
         $editableElements.each(function () {
-            $(this).editable('setValue', $.extend({}, $(this).data('values')));
+            $(this).booklyEditable('setValue', $.extend({}, $(this).data('values')));
         });
 
         $checkboxes.each(function () {
@@ -820,7 +824,7 @@ jQuery(function($) {
                 $(this).val($(this).data('default')).trigger('change');
             }
         });
-        $first_last_name.popover('hide');
+        $first_last_name.booklyPopover('hide');
     });
 
     function bookly_highlight($element) {

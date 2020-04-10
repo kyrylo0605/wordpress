@@ -18,15 +18,16 @@ class Dialog extends Lib\Base\Component
 
         self::enqueueStyles( array(
             'frontend' => array( 'css/ladda.min.css', ),
-            'backend'  => array( 'css/fontawesome-all.min.css', 'css/select2.min.css' ),
+            'backend'  => array( 'css/fontawesome-all.min.css', ),
         ) );
 
         self::enqueueScripts( array(
+            'backend'  => array( 'js/sortable.min.js' ),
             'frontend' => array(
                 'js/spin.min.js'  => array( 'jquery', ),
                 'js/ladda.min.js' => array( 'jquery', ),
             ),
-            'module'   => array( 'js/staff-order-dialog.js' => array( 'jquery', ) ),
+            'module'   => array( 'js/staff-order-dialog.js' => array( 'jquery', 'bookly-sortable.min.js' ) ),
         ) );
 
         $query = Lib\Entities\Staff::query( 's' )

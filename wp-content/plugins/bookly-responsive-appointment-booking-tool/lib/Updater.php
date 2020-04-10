@@ -7,6 +7,33 @@ namespace Bookly\Lib;
  */
 class Updater extends Base\Updater
 {
+    function update_17_9()
+    {
+        $plugins = apply_filters( 'bookly_plugins', array() );
+
+        if ( ! array_key_exists( 'bookly-addon-pro', $plugins ) ) {
+            delete_option( 'bookly_l10n_label_ccard_code' );
+            delete_option( 'bookly_l10n_label_ccard_expire' );
+            delete_option( 'bookly_l10n_label_ccard_number' );
+        }
+        if ( ! array_key_exists( 'bookly-addon-mollie', $plugins ) ) {
+            delete_option( 'bookly_l10n_label_pay_mollie' );
+        }
+        delete_option( 'bookly_l10n_label_pay_ccard' );
+
+        foreach ( array( 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' ) as $day ) {
+            foreach ( array( 'start', 'end' ) as $tail ) {
+                $option = sprintf( 'bookly_bh_%s_%s', $day, $tail );
+                $value  = get_option( $option );
+                if ( $value != '' ) {
+                    list( $hours, $minutes ) = explode( ':', $value );
+
+                    update_option( $option, sprintf( '%02d:%02d:00', $hours, $minutes ) );
+                }
+            }
+        }
+    }
+
     function update_17_8()
     {
         global $wpdb;

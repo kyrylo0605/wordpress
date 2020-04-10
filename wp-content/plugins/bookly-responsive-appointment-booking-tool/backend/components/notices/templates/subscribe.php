@@ -1,19 +1,21 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
-<div id="bookly-tbs" class="wrap bookly-js-subscribe-notice">
-    <div id="bookly-subscribe-notice" class="alert alert-info bookly-tbs-body bookly-flexbox">
-        <div class="bookly-flex-row">
-            <div class="bookly-flex-cell" style="width:39px"><i class="alert-icon"></i></div>
-            <div class="bookly-flex-cell">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <label for="bookly-subscribe-email"><?php _e( 'Subscribe to monthly emails about Bookly improvements and new releases.', 'bookly' ) ?></label>
-                <div class="input-group input-group-sm" style="max-width: 400px">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input type="text" id="bookly-subscribe-email" class="form-control" />
-                    <span class="input-group-btn">
-                        <button type="button" id="bookly-subscribe-btn" class="btn btn-info ladda-button" data-spinner-size="30" data-style="zoom-in">
-                            <span class="ladda-label"><?php _e( 'Send', 'bookly' ) ?></span>
-                        </button>
-                    </span>
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+use Bookly\Backend\Components\Controls\Buttons;
+?>
+<div id="bookly-tbs" class="wrap">
+    <div id="bookly-subscribe-notice" class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div class="form-row">
+            <div class="mr-3"><i class="fas fa-info-circle fa-2x"></i></div>
+            <div class="col">
+                <label for="bookly-subscribe-email"><?php esc_html_e( 'Subscribe to monthly emails about Bookly improvements and new releases.', 'bookly' ) ?></label>
+                <div class="input-group" style="max-width: 400px;">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-fw fa-envelope"></i></div>
+                    </div>
+                    <input type="text" id="bookly-subscribe-email" class="form-control"/>
+                    <div class="input-group-append">
+                        <?php Buttons::render( 'bookly-subscribe-btn', 'btn-info', __( 'Send', 'bookly' ) ) ?>
+                    </div>
                 </div>
             </div>
         </div>

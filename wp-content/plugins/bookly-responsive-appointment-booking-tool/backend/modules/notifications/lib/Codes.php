@@ -127,14 +127,14 @@ class Codes
         $tbody = '';
         foreach ( $codes as $code => $description ) {
             $tbody .= sprintf(
-                '<tr><td><input value="{%s}" readonly="readonly" onclick="this.select()" /> - %s</td></tr>',
+                '<tr><td class="p-0"><input value="{%s}" class="border-0" readonly="readonly" onclick="this.select()" /> &ndash; %s</td></tr>',
                 $code,
                 esc_html( $description )
             );
         }
 
         printf(
-            '<table class="bookly-codes bookly-js-codes-%s"><tbody>%s</tbody></table>',
+            '<table class="bookly-js-codes bookly-js-codes-%s"><tbody>%s</tbody></table>',
             $notification_type,
             $tbody
         );
@@ -237,14 +237,14 @@ class Codes
         $tbody = '';
         foreach ( $codes as $code => $description ) {
             $tbody .= sprintf(
-                '<tr><td><input value="{%s}" readonly="readonly" onclick="this.select()" /> - %s</td></tr>',
+                '<tr><td class="p-0"><input value="{%s}" readonly="readonly" class="border-0" onclick="this.select()" /> - %s</td></tr>',
                 $code,
                 esc_html( $description )
             );
         }
 
         $result = sprintf(
-            '<table class="bookly-codes"><tbody>%s</tbody></table>',
+            '<table class="overflow-auto" style="max-height: 300px"><tbody>%s</tbody></table>',
             $tbody
         );
 

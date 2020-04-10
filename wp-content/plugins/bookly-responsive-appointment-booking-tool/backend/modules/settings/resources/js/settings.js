@@ -1,6 +1,7 @@
 jQuery(function ($) {
-    var $helpBtn            = $('#bookly-help-btn'),
-        $form               = $('#business-hours'),
+    let $helpBtn            = $('#bookly-help-btn'),
+        $businessHours      = $('#business-hours'),
+        $companyLogo        = $('#bookly-js-company-logo'),
         $finalStepUrl       = $('input[name=bookly_url_final_step_url]'),
         $finalStepUrlMode   = $('#bookly_settings_final_step_url_mode'),
         $participants       = $('#bookly_appointment_participants'),
@@ -30,10 +31,12 @@ jQuery(function ($) {
     $defaultCountry.on('change', function () {
         $defaultCountryCode.val($defaultCountry.find('option:selected').data('code'));
     });
-    $('#bookly_cst_address_show_fields').sortable({
-        axis : 'y',
-        handle : '.bookly-js-handle'
-    });
+    let $sortableAddress = $('#bookly_cst_address_show_fields');
+    if ($sortableAddress.length) {
+        Sortable.create($sortableAddress[0], {
+            handle: '.bookly-js-draghandle'
+        });
+    }
     $('#bookly-customer-reset').on('click', function (event) {
         $defaultCountry.val($defaultCountry.data('country'));
     });
@@ -56,7 +59,7 @@ jQuery(function ($) {
     $participants.on('change', function () {
         $('#bookly_cal_one_participant').hide();
         $('#bookly_cal_many_participants').hide();
-        $('#' + $(this).val() ).show();
+        $('#' + this.value).show();
     }).trigger('change');
     $("#bookly_settings_calendar button[type=reset]").on( 'click', function () {
         setTimeout(function () {
@@ -65,18 +68,19 @@ jQuery(function ($) {
     });
 
     // Company tab.
-    $('#bookly-js-logo .bookly-thumb-delete').on('click', function () {
-        var $thumb = $(this).parents('.bookly-js-image');
+    $companyLogo.find('.bookly-js-delete').on('click', function () {
+        let $thumb = $companyLogo.find('.bookly-js-image');
         $thumb.attr('style', '');
-        $('[name=bookly_co_logo_attachment_id]').val('');
+        $companyLogo.find('[name=bookly_co_logo_attachment_id]').val('');
+        $(this).hide();
     });
-    $('#bookly-js-logo .bookly-pretty-indicator').on('click', function(){
-        var frame = wp.media({
+    $companyLogo.find('.bookly-js-edit').on('click', function() {
+        let frame = wp.media({
             library: {type: 'image'},
             multiple: false
         });
         frame.on('select', function () {
-            var selection = frame.state().get('selection').toJSON(),
+            let selection = frame.state().get('selection').toJSON(),
                 img_src
             ;
             if (selection.length) {
@@ -85,9 +89,9 @@ jQuery(function ($) {
                 } else {
                     img_src = selection[0].url;
                 }
-                $('[name=bookly_co_logo_attachment_id]').val(selection[0].id);
-                $('#bookly-js-logo .bookly-js-image').css({'background-image': 'url(' + img_src + ')', 'background-size': 'cover'});
-                $('#bookly-js-logo .bookly-thumb-delete').show();
+                $companyLogo.find('[name=bookly_co_logo_attachment_id]').val(selection[0].id);
+                $companyLogo.find('.bookly-js-image').css({'background-image': 'url(' + img_src + ')', 'background-size': 'cover'});
+                $companyLogo.find('.bookly-js-delete').show();
                 $(this).hide();
             }
         });
@@ -95,29 +99,29 @@ jQuery(function ($) {
         frame.open();
     });
     $('#bookly-company-reset').on('click', function () {
-        var $div = $('#bookly-js-logo .bookly-js-image'),
+        var $div = $('#bookly-js-company-logo .bookly-js-image'),
             $input = $('[name=bookly_co_logo_attachment_id]');
         $div.attr('style', $div.data('style'));
         $input.val($input.data('default'));
     });
 
     // Cart tab.
-    $('#bookly_cart_show_columns').sortable({
-        axis : 'y',
-        handle : '.bookly-js-handle'
-    });
-
+    let $sortableCart = $('#bookly_cart_show_columns');
+    if ($sortableCart.length) {
+        Sortable.create($sortableCart[0], {
+            handle: '.bookly-js-draghandle'
+        });
+    }
     // Payments tab.
-    $('#bookly-payment-systems').sortable({
-        axis  : 'y',
-        handle: '.bookly-js-handle',
-        update: function () {
-            var order = [];
-            $('#bookly_settings_payments .panel[data-slug]').each(function () {
+    Sortable.create($('#bookly-payment-systems')[0], {
+        handle: '.bookly-js-draghandle',
+        onChange: function () {
+            let order = [];
+            $('#bookly_settings_payments .card[data-slug]').each(function () {
                 order.push($(this).data('slug'));
             });
             $('#bookly_settings_payments [name="bookly_pmt_order"]').val(order.join(','));
-        }
+        },
     });
     $currency.on('change', function () {
         $formats.find('option').each(function () {
@@ -231,51 +235,30 @@ jQuery(function ($) {
     });
 
     // Business Hours tab.
-    $('.select_start', $form).on('change', function () {
-        var $flexbox = $(this).closest('.bookly-flexbox'),
-            $end_select = $('.select_end', $flexbox),
-            start_time = this.value;
-
-        if (start_time) {
-            $flexbox.find('.bookly-hide-on-off').show();
-
-            // Hides end time options with value less than in the start time.
-            var frag      = document.createDocumentFragment();
-            var old_value = $end_select.val();
-            var new_value = null;
-            $('option', $end_select).each(function () {
-                if (this.value <= start_time) {
-                    var span = document.createElement('span');
-                    span.style.display = 'none';
-                    span.appendChild(this.cloneNode(true));
-                    frag.appendChild(span);
-                } else {
-                    frag.appendChild(this.cloneNode(true));
-                    if (new_value === null || old_value == this.value) {
-                        new_value = this.value;
-                    }
-                }
-            });
-            $end_select.empty().append(frag).val(new_value);
-        } else { // OFF
-            $flexbox.find('.bookly-hide-on-off').hide();
-        }
-    }).each(function () {
-        $(this).data('default_value', this.value);
-    }).trigger('change');
+    $('.bookly-js-parent-range-start', $businessHours)
+        .on('change', function () {
+            var $parentRangeStart = $(this),
+                $rangeRow = $parentRangeStart.parents('.bookly-js-range-row');
+            if ($parentRangeStart.val() == '') {
+                $('.bookly-js-invisible-on-off', $rangeRow).addClass('invisible');
+            } else {
+                $('.bookly-js-invisible-on-off', $rangeRow).removeClass('invisible');;
+                rangeTools.hideInaccessibleEndTime($parentRangeStart, $('.bookly-js-parent-range-end', $rangeRow));
+            }
+        }).trigger('change');
     // Reset.
-    $('#bookly-hours-reset', $form).on('click', function () {
-        $('.select_start', $form).each(function () {
+    $('#bookly-hours-reset', $businessHours).on('click', function () {
+        $('.bookly-js-parent-range-start', $businessHours).each(function () {
             $(this).val($(this).data('default_value')).trigger('change');
         });
     });
 
     // Change link to Help page according to activated tab.
-    var help_link = $helpBtn.attr('href');
-    $('.bookly-nav li[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        $helpBtn.attr('href', help_link + e.target.getAttribute('data-target').substring(1).replace(/_/g, '-'));
+    let help_link = $helpBtn.attr('href');
+    $('#bookly-sidebar a[data-toggle="bookly-pill"]').on('shown.bs.tab', function(e) {
+        $helpBtn.attr('href', help_link + e.target.getAttribute('href').substring(1).replace(/_/g, '-'));
     });
 
     // Activate tab.
-    $('li[data-target="#bookly_settings_' + BooklyL10n.current_tab + '"]').tab('show');
+    $('a[href="#bookly_settings_' + BooklyL10n.current_tab + '"]').booklyTab('show');
 });

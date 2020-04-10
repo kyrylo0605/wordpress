@@ -1,4 +1,4 @@
-jQuery(function ($) {
+(function ($) {
 
     var DaysOff = function($container, options) {
         var obj  = this;
@@ -59,4 +59,4 @@ jQuery(function ($) {
     };
 
     window.BooklyStaffDaysOff = DaysOff;
-});
+})(jQuery);

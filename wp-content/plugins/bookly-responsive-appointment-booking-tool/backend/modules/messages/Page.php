@@ -15,7 +15,7 @@ class Page extends Lib\Base\Component
     public static function render()
     {
         self::enqueueStyles( array(
-            'backend' => array( 'bootstrap/css/bootstrap-theme.min.css', ),
+            'backend' => array( 'bootstrap/css/bootstrap.min.css', ),
         ) );
 
         self::enqueueScripts( array(
