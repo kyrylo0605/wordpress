@@ -452,27 +452,27 @@ class Hestia_Public {
 			apply_filters(
 				'hestia_editor_color_palette',
 				array(
-					0 => array(
+					array(
 						'name'  => 'White',
 						'slug'  => 'white',
 						'color' => '#ffffff',
 					),
-					1 => array(
+					array(
 						'name'  => 'Black',
 						'slug'  => 'black',
 						'color' => '#000000',
 					),
-					2 => array(
+					array(
 						'name'  => esc_html__( 'Accent Color', 'hestia' ),
 						'slug'  => 'accent',
 						'color' => get_theme_mod( 'accent_color', '#e91e63' ),
 					),
-					4 => array(
+					array(
 						'name'  => esc_html__( 'Body', 'hestia' ),
 						'slug'  => 'background_color',
 						'color' => '#' . get_theme_mod( 'background_color', 'E5E5E5' ),
 					),
-					5 => array(
+					array(
 						'name'  => esc_html__( 'Header Background', 'hestia' ),
 						'slug'  => 'header-gradient',
 						'color' => get_theme_mod( 'hestia_header_gradient_color', '#a81d84' ),

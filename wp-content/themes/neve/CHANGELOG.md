@@ -1,5 +1,32 @@
+##### [Version 2.6.6](https://github.com/Codeinwp/neve/compare/v2.6.5...v2.6.6) (2020-04-07)
 
- ### v2.6.2 - 2020-02-26 
+- [Fix] Background color for mobile menu
+- [Fix] Last Menu Search icon in AMP
+
+##### [Version 2.6.5](https://github.com/Codeinwp/neve/compare/v2.6.4...v2.6.5) (2020-04-06)
+
+- [Fix] Infinite scroll with masonry scrolling to the top of page
+- [Fix] Variations product select height on iPhone
+- [Fix] JS error regarding customizer typography line-height suffix
+- [Fix] Max Mega Menu alignment
+- [Fix] Firefox Customizer visual bugs
+- [Fix] Compatibility with latest Gutenberg version
+- [Fix] Add missing role=button and tabindex=0 for search icon button for AMP
+- [Fix] Small performance tweaks and optimizations
+- New Gutenberg Starter Sites
+
+##### [Version 2.6.4](https://github.com/Codeinwp/neve/compare/v2.6.3...v2.6.4) (2020-03-23)
+
+- [Fix] Disable admin notice
+- New Gutenberg Starter Sites
+
+##### [Version 2.6.3](https://github.com/Codeinwp/neve/compare/v2.6.2...v2.6.3) (2020-03-19)
+
+ * [Feat] Refactor customizer UI
+* [Fix] Compatibility issues with WP 5.4
+* [Fix] Compatibility with WooCommerce Product Addon plugin
+
+### v2.6.2 - 2020-02-26 
  **Changes:** 
  * [Feat] New text color option for the HTML and Copyright components
 * [Feat] New option to Disable Homepage Link in the Logo & Site Identity component
@@ -518,4 +545,3 @@
  ### v1.0.0 - 2018-09-06 
  **Changes:** 
  * Lowercase file names.
- 

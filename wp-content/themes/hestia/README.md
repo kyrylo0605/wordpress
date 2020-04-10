@@ -17,6 +17,11 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 ## Changelog ##
+### 2.5.7 - 2020-04-01  ###
+
+* Add new post causes errors in WP 5.4
+
+
 ### 2.5.6 - 2019-12-17  ###
 
 * [Fix] Logo positioning for the third navigation layout option and no widgets

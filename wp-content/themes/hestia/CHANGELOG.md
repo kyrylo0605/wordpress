@@ -1,4 +1,8 @@
 
+ ### v2.5.7 - 2020-04-01 
+ **Changes:** 
+ * Add new post causes errors in WP 5.4
+ 
  ### v2.5.6 - 2019-12-17 
  **Changes:** 
  * [Fix] Logo positioning for the third navigation layout option and no widgets

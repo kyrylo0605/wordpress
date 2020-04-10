@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9578f472acc6c4bd163de10072fd74a9
+class ComposerStaticInit334b90b9388e37209d04129edb1740c8
 {
     public static $files = array (
         '3c811c5eee2f69449ba771bff79ea54a' => __DIR__ . '/..' . '/codeinwp/ti-about-page/load.php',
@@ -50,7 +50,6 @@ class ComposerStaticInit9578f472acc6c4bd163de10072fd74a9
         'HFG\\Core\\Components\\SecondNav' => __DIR__ . '/../..' . '/header-footer-grid/Core/Components/SecondNav.php',
         'HFG\\Core\\Customizer' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer.php',
         'HFG\\Core\\Customizer\\Instructions_Section' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer/Instructions_Section.php',
-        'HFG\\Core\\Customizer\\SpacingControl' => __DIR__ . '/../..' . '/header-footer-grid/Core/Customizer/SpacingControl.php',
         'HFG\\Core\\Interfaces\\Builder' => __DIR__ . '/../..' . '/header-footer-grid/Core/Interfaces/Builder.php',
         'HFG\\Core\\Interfaces\\Component' => __DIR__ . '/../..' . '/header-footer-grid/Core/Interfaces/Component.php',
         'HFG\\Core\\Magic_Tags' => __DIR__ . '/../..' . '/header-footer-grid/Core/Magic_Tags.php',
@@ -64,9 +63,9 @@ class ComposerStaticInit9578f472acc6c4bd163de10072fd74a9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9578f472acc6c4bd163de10072fd74a9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9578f472acc6c4bd163de10072fd74a9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9578f472acc6c4bd163de10072fd74a9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit334b90b9388e37209d04129edb1740c8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit334b90b9388e37209d04129edb1740c8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit334b90b9388e37209d04129edb1740c8::$classMap;
 
         }, null, ClassLoader::class);
     }
