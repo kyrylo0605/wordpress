@@ -117,7 +117,7 @@ class SGReviewManager
 				font-weight: bold;
 				color: #FFFFFF;
 				margin: 10px 0;
-				margin-top: 30px;
+				margin-top: 27px;
 			}
 			:root {
 				--main-bg-color: #1ac6ff;
@@ -159,6 +159,10 @@ class SGReviewManager
 			}
 			.sg-backup-img-wrapper,
 			.sg-backup-review-description-wrapper {
+			    padding-top: 1px;
+	    	}
+			#sgpb-popup-dialog-main-div .sg-backup-img-wrapper,
+			#sgpb-popup-dialog-main-div .sg-backup-review-description-wrapper {
 				display: inline-block;
 			}
 			.sg-backup-img-wrapper {
@@ -196,7 +200,37 @@ class SGReviewManager
 					padding: 0 5px;
 				}
 			}
-
+            @media (max-width: 1173px) {
+            	.sg-backup-img-wrapper {width: 202px;}
+                .sg-backup-review-h2 {
+                    margin-top: 24px;
+                }
+                #sgpb-popup-dialog-main-div .sg-backup-review-mt20 {margin-bottom: 20px;}
+			}
+			@media (max-width: 1027px) {
+				#sgpb-popup-dialog-main-div .sg-backup-img-wrapper,
+				#sgpb-popup-dialog-main-div .sg-backup-review-description-wrapper {
+					display: inherit;
+				}
+				#sgpb-popup-dialog-main-div .sg-backup-review-h2 {margin-top: 18px;}
+			}
+            @media (max-width: 815px) {
+            	.sg-backup-review-mt20 {margin-bottom: 10px;}
+                .sg-backup-review-h2 {
+                    margin-top: 23px;
+                }
+			}
+			@media (max-width: 735px) {#sgpb-popup-dialog-main-div .sg-backup-review-h2 {margin-top: 10px;}}
+			@media (max-width: 715px) {
+            	.sg-backup-review-mt20 {margin-bottom: 10px;}
+                .sg-backup-review-h2 {
+                    margin-top: 15px;
+                }
+			}
+			@media (max-width: 640px) {
+				.sg-backup-img-wrapper {display: none;}
+				.sg-backup-review-h2 {margin-top: 22px}
+			}
 		</style>
 		<div id="sg-backup-review-wrapper" class="sg-backup-review-wrapper">
 			<span class="banner-x sg-backup-review-button sg-backup-backup-button-2 sg-backup-show-popup-period" data-message-type="<?php echo $type; ?>">x</span>

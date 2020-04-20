@@ -6,10 +6,10 @@ Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce,Web
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 1.4.1
-Tested up to: 5.3.2
+Tested up to: 5.4
 Requires PHP: 5.6 or Higher
-Stable tag: 2.3.3
-Version: 2.3.3
+Stable tag: 2.3.4
+Version: 2.3.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,7 +19,7 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 
 <strong>Google Analytics Plugin for WooCommerce</strong>
 
-We believe it is very essential to listen to what your data is saying. With this belief, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. This plugin helps you in integrating Google Analytics with your WooCommerce stores effortlessly. More than 30000 ecommerce businesses are using this plugin for data driven decision making.
+We believe it is very essential to listen to what your data is saying. With this belief, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. This plugin helps you in integrating Google Analytics with your WooCommerce stores effortlessly. More than 40000 ecommerce businesses are using this plugin for data driven decision making.
 
 The best part is NO CODING REQUIRED or no need to hire a developer for the set up. You can configure the plugin under 5 minutes and with a single click from your Wordpress backend. <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf">Here is how you can configure the plugin without any hassle.</a>
 
@@ -242,6 +242,10 @@ It generally depends upon the traffic of the store. But in general it may take m
 To avoid sending your own transaction data or sessions data in Google Analytics, our plugin doesn't sent the data to GA when you are logged in. Having said, if you are logged in as Shop Manager, plugin will send the data to GA.
 
 == Changelog ==
+
+= 2.3.4 - 13/04/2020 =
+ * Compatibility with WooCommerce 4.0.1
+ * Compatibility with Wordpress 5.4
 
 = 2.3.3 - 03/03/2020 =
  * Compatibility with WooCommerce 3.9.2
