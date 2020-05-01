@@ -2,6 +2,7 @@
 
 require_once(dirname(__FILE__).'/../boot.php');
 require_once(SG_BACKUP_PATH.'SGBackup.php');
+$runningActions = array();
 
 if (backupGuardIsAjax()) {
 	$timeout = 10; //in sec
@@ -12,7 +13,8 @@ if (backupGuardIsAjax()) {
 
 		if ($created) {
 			$runningActions = SGBackup::getRunningActions();
-			if ($runningActions) {
+			// when there are multiple uncompleted actions
+			if ($runningActions && count($runningActions) == 1 && $runningActions[0]['progress'] == 0) {
 				$actionId = $runningActions[0]['id'];
 				die(json_encode(array(
 					'status' => 0,
@@ -21,6 +23,18 @@ if (backupGuardIsAjax()) {
 				)));
 			}
 		}
+		
+		$runningActions = SGBackup::getRunningActions();
+		
+		if (empty($runningActions)) {
+			break;
+		}
+	}
+	if (!empty($runningActions)) {
+		SGBackup::cleanRunningActions($runningActions);
+		die(json_encode(array(
+			'status' => 'cleaned'
+		)));
 	}
 
 	die('{"status":1}');

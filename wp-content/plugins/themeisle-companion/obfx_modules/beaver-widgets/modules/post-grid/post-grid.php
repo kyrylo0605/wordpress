@@ -1,4 +1,9 @@
 <?php
+/**
+ * Post grid widget.
+ *
+ * @package themeisle-companion
+ */
 
 // Get the module directory.
 $module_directory = $this->get_dir();

@@ -509,20 +509,31 @@ sgBackup.fileUploadProgress = function(e){
 }
 
 sgBackup.checkBackupCreation = function(){
+	jQuery('#manualBackup .btn-success').attr('disabled', true);
 	var sgBackupCreationHandler = new sgRequestHandler('checkBackupCreation', {token: BG_BACKUP_STRINGS.nonce});
 	sgBackupCreationHandler.dataType = 'html';
-	sgBackupCreationHandler.callback = function(response){
-		jQuery('#sg-modal').modal('hide');
-		location.reload();
+	sgBackupCreationHandler.callback = function(response) {
+		var result = jQuery.parseJSON(response);
+		if (result && result.status == 'cleaned') {
+			sgBackup.manualBackup();
+		}
+		else {
+			jQuery('#sg-modal').modal('hide');
+			location.reload();
+		}
 	};
 	sgBackupCreationHandler.run();
 };
 
 sgBackup.checkRestoreCreation = function(){
+	jQuery('#manualBackup .btn-success').attr('disabled', true);
 	var sgRestoreCreationHandler = new sgRequestHandler('checkRestoreCreation', {token: BG_BACKUP_STRINGS.nonce});
 	sgRestoreCreationHandler.callback = function(response){
 		if (response.status==0 && response.external_enabled==1) {
 			location.href = response.external_url;
+		}
+		else if (response.status == 'cleaned') {
+			jQuery('#manualBackup .btn-success').click();
 		}
 		else {
 			location.reload();

@@ -2,6 +2,7 @@ sgBackup = {};
 sgBackup.isModalOpen = false;
 SG_CURRENT_ACTIVE_AJAX = '';
 SG_NOTICE_EXECUTION_TIMEOUT = 'timeout_error';
+SG_NOTICE_EXECUTION_FREE_TIMEOUT = 'timeout_free_error';
 SG_NOTICE_MIGRATION_ERROR = 'migration_error';
 SG_NOTICE_NOT_WRITABLE_ERROR = 'restore_notwritable_error';
 
@@ -41,6 +42,9 @@ jQuery(document).ready( function() {
 	var notice = "";
 	jQuery('.notice-dismiss').on('click', function() {
 		if (jQuery(this).parent().attr('data-notice-id') == SG_NOTICE_EXECUTION_TIMEOUT) {
+			notice = SG_NOTICE_EXECUTION_TIMEOUT;
+		}
+		else if (jQuery(this).parent().attr('data-notice-id') == SG_NOTICE_EXECUTION_FREE_TIMEOUT) {
 			notice = SG_NOTICE_EXECUTION_TIMEOUT;
 		}
 		else if (jQuery(this).parent().attr('data-notice-id') == SG_NOTICE_MIGRATION_ERROR) {

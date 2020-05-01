@@ -60,15 +60,15 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/elementor-extra-widgets.git",
-            "reference": "f908127bd044b81a7aa74fb92d61a63ad19f5b7a"
+            "reference": "88bcf00006a5d655b0d74359bbc5ed49bcb54754"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/elementor-extra-widgets/zipball/f908127bd044b81a7aa74fb92d61a63ad19f5b7a",
-            "reference": "f908127bd044b81a7aa74fb92d61a63ad19f5b7a",
+            "url": "https://api.github.com/repos/Codeinwp/elementor-extra-widgets/zipball/88bcf00006a5d655b0d74359bbc5ed49bcb54754",
+            "reference": "88bcf00006a5d655b0d74359bbc5ed49bcb54754",
             "shasum": ""
         },
-        "time": "2019-12-02T09:28:52+00:00",
+        "time": "2020-04-15T09:34:10+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -128,17 +128,17 @@
     },
     {
         "name": "codeinwp/gutenberg-blocks",
-        "version": "1.5.0",
-        "version_normalized": "1.5.0.0",
+        "version": "1.5.1",
+        "version_normalized": "1.5.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/gutenberg-blocks.git",
-            "reference": "e26d624bbe6946d070bdfa95383fa8e55dee5d0d"
+            "reference": "0d85a6a780dcafcc8895d003d7b3249cc4109489"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/e26d624bbe6946d070bdfa95383fa8e55dee5d0d",
-            "reference": "e26d624bbe6946d070bdfa95383fa8e55dee5d0d",
+            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/0d85a6a780dcafcc8895d003d7b3249cc4109489",
+            "reference": "0d85a6a780dcafcc8895d003d7b3249cc4109489",
             "shasum": ""
         },
         "require": {
@@ -151,7 +151,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "wp-coding-standards/wpcs": "^1"
         },
-        "time": "2020-03-30T21:49:53+00:00",
+        "time": "2020-04-10T22:03:57+00:00",
         "type": "library",
         "extra": {
             "installer-disable": "true"
@@ -218,12 +218,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-content-forms.git",
-            "reference": "cdb970b402799248b372054685e3cea8e6cae992"
+            "reference": "94cdac98f97d78b2ec48458fb4112aae2b54b9be"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/cdb970b402799248b372054685e3cea8e6cae992",
-            "reference": "cdb970b402799248b372054685e3cea8e6cae992",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/94cdac98f97d78b2ec48458fb4112aae2b54b9be",
+            "reference": "94cdac98f97d78b2ec48458fb4112aae2b54b9be",
             "shasum": ""
         },
         "require": {
@@ -233,7 +233,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
             "wptrt/wpthemereview": "*"
         },
-        "time": "2019-12-02T09:28:39+00:00",
+        "time": "2020-04-22T07:45:52+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

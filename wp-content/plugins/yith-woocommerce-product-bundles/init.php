@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Product Bundles
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-product-bundles
  * Description: <code><strong>YITH WooCommerce Product Bundles</strong></code> allows you to bundle WooCommerce products and sell them at a unique price. You can also set the quantity for each bundled item! <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.1.22
+ * Version: 1.1.23
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-product-bundles
  * Domain Path: /languages/
  * WC requires at least: 3.0.0
- * WC tested up to: 4.0.x
+ * WC tested up to: 4.1.x
  *
  * @author yithemes
  * @package YITH WooCommerce Product Bundles
- * @version 1.1.22
+ * @version 1.1.23
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -65,7 +65,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( !defined( 'YITH_WCPB_VERSION' ) ) {
-    define( 'YITH_WCPB_VERSION', '1.1.22' );
+    define( 'YITH_WCPB_VERSION', '1.1.23' );
 }
 
 if ( !defined( 'YITH_WCPB_FREE_INIT' ) ) {
@@ -114,13 +114,13 @@ function yith_wcpb_init() {
     load_plugin_textdomain( 'yith-woocommerce-product-bundles', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
     // Load required classes and functions
-    require_once( 'includes/class.yith-wc-product-bundle.php' );
-    require_once( 'includes/class.yith-wc-bundled-item.php' );
+    require_once( 'includes/objects/class.yith-wc-product-bundle.php' );
+    require_once( 'includes/objects/class.yith-wc-bundled-item.php' );
     require_once( 'includes/compatibility/class.yith-wcpb-compatibility.php' );
-    require_once( 'class.yith-wcpb-admin.php' );
-    require_once( 'class.yith-wcpb-frontend.php' );
-    require_once( 'class.yith-wcpb.php' );
-    require_once( 'functions.yith-wcpb.php' );
+    require_once( 'includes/class.yith-wcpb-admin.php' );
+    require_once( 'includes/class.yith-wcpb-frontend.php' );
+    require_once( 'includes/class.yith-wcpb.php' );
+    require_once( 'includes/functions.yith-wcpb.php' );
 
     // Let's start the game!
     YITH_WCPB();

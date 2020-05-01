@@ -71,7 +71,7 @@
             },
             _getAjaxContent           = function () {
                 self.popup = $( '<div />' ).addClass( self.opts.popup_class );
-                let closeBtn       = $( '<span />' ).addClass( self.opts.close_btn_class + ' dashicons dashicons-no-alt' ),
+                var closeBtn       = $( '<span />' ).addClass( self.opts.close_btn_class + ' dashicons dashicons-no-alt' ),
                     popupContainer = $( '<div />' ).addClass( self.opts.ajax_container );
                 popupContainer.html( self.opts.loader );
                 self.popup.append( popupContainer );

@@ -1,9 +1,9 @@
 === SiteOrigin Widgets Bundle ===
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
-Tested up to: 5.3
-Stable tag: 1.16.0
-Build time: 2020-02-13T20:00:45+02:00
+Tested up to: 5.4
+Stable tag: 1.16.1
+Build time: 2020-04-20T15:41:44+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/premium/
@@ -64,6 +64,25 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+== 1.16.1 - 20 April 2020 ==
+* Accordion: When hiding panels, only search the current accordion and not nested accordions.
+* Slider Widgets: Removed slide navigation numbers from excerpt output.
+* Added support for custom icon styles.
+* Tabs: Fixed top/bottom tab alignment when tab position is set to right/left.
+* Post Carousel: Prevent themes from adjusting the thumbnail top margin.
+* Improved the reliability of widget description translations. Updated various widget descriptions.
+* Editor: Resolved the notice appearing when post meta wasn't available.
+* Simple Masonry: Item labels - If the item title field isn't populated use the image title field.
+* Hero: Added a setting to vertically align the slide contents.
+* Updated jQuery TouchSwipe.
+* Sliders: Fixed pagination spacing when HTML optimization is in use.
+* Layout Slider: Set frame labels based on the content inserted.
+* Slider: Set frame labels based on the content inserted.
+* Contact Form: Added placeholder support to the dropdown select field. Used if the field label position is set to Inside.
+* Contact Form: Added Required support for the dropdown select field.
+* FontAwesome: Moved Brands to the last position in dropdown list.
+* Layout Slider: Added a setting to vertically align the slide contents.
 
 = 1.16.0 - 11 February 2020 =
 * Block Editor: Fixed widget select field width and alignment.

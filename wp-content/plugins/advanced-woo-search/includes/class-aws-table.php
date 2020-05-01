@@ -52,6 +52,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             add_action( 'aws_reindex_table', array( $this, 'reindex_table_job' ) );
 
+            add_action( 'aws_reindex_product', array( $this, 'reindex_product_action' ) );
+
         }
 
         /*
@@ -771,6 +773,13 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             }
 
+        }
+
+        /*
+         * Re-index single product action
+         */
+        public function reindex_product_action( $product_id ) {
+            $this->update_table( $product_id );
         }
 
         /*

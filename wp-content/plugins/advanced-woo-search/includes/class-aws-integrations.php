@@ -718,6 +718,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $selectors[] = '#searchform-header-replace form';
                 $selectors[] = '#searchform-overlay form';
                 $selectors[] = '#sidr .sidr-class-mobile-searchform';
+                $selectors[] = '#mobile-menu-search form';
             }
 
             return $selectors;

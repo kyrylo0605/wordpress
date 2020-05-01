@@ -1,11 +1,3 @@
-/**
- * Required
- * - install grunt
- *      sudo npm install -g grunt-cli
- * - install node-wp-i18n
- *      sudo npm install -g node-wp-i18n
- */
-
 const potInfo = {
     potFilename: 'yith-woocommerce-product-bundles.pot',
     potHeaders : {
@@ -20,6 +12,35 @@ module.exports = function ( grunt ) {
     'use strict';
 
     grunt.initConfig( {
+                          dirs: {
+                              css: 'assets/css',
+                              js : 'assets/js'
+                          },
+
+                          uglify: {
+                              options: {
+                                  ie8   : true,
+                                  parse : {
+                                      strict: false
+                                  },
+                                  output: {
+                                      comments: /@license|@preserve|^!/
+                                  }
+                              },
+                              common : {
+                                  files: [{
+                                      expand: true,
+                                      cwd   : '<%= dirs.js %>/',
+                                      src   : [
+                                          '*.js',
+                                          '!*.min.js'
+                                      ],
+                                      dest  : '<%= dirs.js %>/',
+                                      ext   : '.min.js'
+                                  }]
+                              }
+                          },
+
                           makepot: {
                               options: {
                                   type         : 'wp-plugin',
@@ -53,7 +74,7 @@ module.exports = function ( grunt ) {
                                       potFilename: potInfo.potFilename,
                                       exclude    : [
                                           'plugin-fw/.*',
-                                          'mode_modules/.*',
+                                          'node_modules/.*',
                                           'tmp/.*',
                                       ]
                                   }
@@ -64,11 +85,8 @@ module.exports = function ( grunt ) {
 
     // Load NPM tasks to be used here.
     grunt.loadNpmTasks( 'grunt-wp-i18n' );
+    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 
     // Register tasks.
-    grunt.registerTask( 'default', [
-        'i18n'
-    ] );
-
-    grunt.registerTask( 'i18n', [ 'makepot' ] );
+    grunt.registerTask( 'js', ['uglify'] );
 };

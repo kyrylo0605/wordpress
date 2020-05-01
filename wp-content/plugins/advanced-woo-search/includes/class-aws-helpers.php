@@ -745,6 +745,28 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
 
         }
 
+        /**
+         * Get product quantity
+         * @param  object $product Product
+         * @return integer
+         */
+        static public function get_quantity( $product ) {
+
+            $stock_levels = array();
+
+            if ( $product->is_type( 'variable' ) ) {
+                foreach ( $product->get_children() as $variation ) {
+                    $var = wc_get_product( $variation );
+                    $stock_levels[] = $var->get_stock_quantity();
+                }
+            } else {
+                $stock_levels[] = $product->get_stock_quantity();
+            }
+
+            return max( $stock_levels );
+
+        }
+
     }
 
 endif;

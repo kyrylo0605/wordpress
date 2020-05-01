@@ -175,7 +175,7 @@
                         }
 
                         if ( result.sku ) {
-                            html += '<span class="aws_result_sku">' + translate.sku + ': ' + result.sku + '</span>';
+                            html += '<span class="aws_result_sku">' + translate.sku +  result.sku + '</span>';
                         }
 
                         if ( result.excerpt ) {

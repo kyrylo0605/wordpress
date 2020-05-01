@@ -1,7 +1,7 @@
 jQuery( function ( $ ) {
     "use strict";
 
-    let product_type = $( 'select#product-type' ),
+    var product_type = $( 'select#product-type' ),
         post_id      = woocommerce_admin_meta_boxes.post_id,
         block_params = {
             message   : null,
@@ -21,7 +21,7 @@ jQuery( function ( $ ) {
         };
 
 
-    let yith_wcbp_metabox = {
+    var yith_wcbp_metabox = {
         el      : {
             add_item_btn        : $( '#yith-wcpb-add-bundled-product' ),
             bundled_items       : $( '#yith_bundled_product_data .yith-wcpb-bundled-items' ),
@@ -44,7 +44,7 @@ jQuery( function ( $ ) {
             this.sorting();
         },
         add_item: function () {
-            let row        = $( this ).closest( 'tr' ),
+            var row        = $( this ).closest( 'tr' ),
                 added      = row.find( '.yith-wcpb-product-added' ),
                 product_id = $( this ).data( 'id' ),
                 products   = $( this ).closest( '.yith-wcpb-select-product-box__products' );
@@ -52,7 +52,7 @@ jQuery( function ( $ ) {
             if ( product_id ) {
                 products.block( block_params );
 
-                let data = {
+                var data = {
                     action     : 'yith_wcpb_add_product_in_bundle',
                     open_closed: 'open',
                     post_id    : post_id,
@@ -94,7 +94,7 @@ jQuery( function ( $ ) {
 
             data = $.extend( data, { action: 'yith_wcpb_select_product_box_filtered' } );
 
-            let products = $( '.yith-wcpb-select-product-box__products' );
+            var products = $( '.yith-wcpb-select-product-box__products' );
             products.block( block_params );
 
             if ( yith_wcbp_metabox.el.ajax_filter_products ) {
@@ -118,15 +118,15 @@ jQuery( function ( $ ) {
         },
 
         paginate: function () {
-            let page = $( this ).data( 'page' );
+            var page = $( this ).data( 'page' );
             if ( page !== undefined ) {
-                let search_filter_value = $( 'input.yith-wcpb-select-product-box__filter__search' ).val();
+                var search_filter_value = $( 'input.yith-wcpb-select-product-box__filter__search' ).val();
                 yith_wcbp_metabox.filter_products( { s: search_filter_value, page: page } );
             }
         },
 
         search_filter: function () {
-            let value = $( this ).val();
+            var value = $( this ).val();
             if ( !value || value.length >= 3 ) {
                 yith_wcbp_metabox.filter_products( { s: value } );
             }
@@ -145,11 +145,11 @@ jQuery( function ( $ ) {
                                   } );
         },
         sorting               : function () {
-            let bundled_items = this.el.bundled_items.find( '.yith-wcpb-bundled-item' ).get();
+            var bundled_items = this.el.bundled_items.find( '.yith-wcpb-bundled-item' ).get();
 
             bundled_items.sort( function ( a, b ) {
-                let compA = parseInt( $( a ).attr( 'rel' ) );
-                let compB = parseInt( $( b ).attr( 'rel' ) );
+                var compA = parseInt( $( a ).attr( 'rel' ) );
+                var compB = parseInt( $( b ).attr( 'rel' ) );
                 return ( compA < compB ) ? -1 : ( compA > compB ) ? 1 : 0;
             } );
 

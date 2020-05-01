@@ -712,7 +712,9 @@ class SGBackup implements SGIBackupDelegate
 		
 		SGBackupLog::write('Total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 		SGBackupLog::write('Memory pick usage: '.(memory_get_peak_usage(true)/1024/1024).'MB');
-		SGBackupLog::write('CPU usage: '.implode(' / ', sys_getloadavg()));
+		if (function_exists('sys_getloadavg')) {
+			SGBackupLog::write('CPU usage: '.implode(' / ', sys_getloadavg()));
+		}
 
 		$archiveSizeInBytes = backupGuardRealFilesize($this->filesBackupPath);
 		$archiveSize = convertToReadableSize($archiveSizeInBytes);
@@ -874,7 +876,9 @@ class SGBackup implements SGIBackupDelegate
 		}
 
 		SGBackupLog::write('Memory pick usage: '.(memory_get_peak_usage(true)/1024/1024).'MB');
-		SGBackupLog::write('CPU usage: '.implode(' / ', sys_getloadavg()));
+		if (function_exists('sys_getloadavg')) {
+			SGBackupLog::write('CPU usage: '.implode(' / ', sys_getloadavg()));
+		}
 		SGBackupLog::write('Total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 
 		$this->cleanUp();
@@ -1119,6 +1123,32 @@ class SGBackup implements SGIBackupDelegate
 			return false;
 		}
 		return (int)$res[0]['status'];
+	}
+	
+	public static function deleteActionById($actionId)
+	{
+		$sgdb = SGDatabase::getInstance();
+		$res = $sgdb->query('DELETE FROM '.SG_ACTION_TABLE_NAME.' WHERE id=%d', array($actionId));
+		
+		return $res;
+	}
+	
+	public static function cleanRunningActions($runningActions)
+	{
+		if (empty($runningActions)) {
+			return false;
+		}
+		foreach ($runningActions as $action) {
+			if (empty($action)) {
+				continue;
+			}
+			if ($action['status'] == SG_ACTION_STATUS_IN_PROGRESS_FILES) {
+				$id = $action['id'];
+				SGBackup::deleteActionById($id);
+			}
+		}
+		
+		return true;
 	}
 
 	public static function getRunningActions()
