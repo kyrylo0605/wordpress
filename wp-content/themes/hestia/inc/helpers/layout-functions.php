@@ -34,20 +34,20 @@ if ( ! function_exists( 'hestia_wp_link_pages' ) ) {
 
 		$output = '';
 		if ( $multipage ) {
-			if ( 'number' == $r['next_or_number'] ) {
+			if ( 'number' === $r['next_or_number'] ) {
 				$output .= $r['before'];
 				for ( $i = 1; $i < ( $numpages + 1 ); $i = $i + 1 ) {
 					$j = str_replace( '%', $i, $r['pagelink'] );
 
 					$output .= ' ';
 					$output .= $r['link_before'];
-					if ( $i != $page || ( ( ! $more ) && ( $page == 1 ) ) ) {
+					if ( $i !== (int) $page || ( ( ! $more ) && ( (int) $page === 1 ) ) ) {
 						$output .= _wp_link_page( $i );
 					} else {
 						$output .= '<span class="page-numbers current">';
 					}
 					$output .= $j;
-					if ( $i != $page || ( ( ! $more ) && ( $page == 1 ) ) ) {
+					if ( $i !== (int) $page || ( ( ! $more ) && ( (int) $page === 1 ) ) ) {
 						$output .= '</a>';
 					} else {
 						$output .= '</span>';
@@ -152,11 +152,11 @@ if ( ! function_exists( 'hestia_comments_list' ) ) {
 		?>
 		<div <?php comment_class( empty( $args['has_children'] ) ? 'media' : 'parent media' ); ?>
 				id="comment-<?php comment_ID(); ?>">
-			<?php if ( $args['type'] != 'pings' ) : ?>
+			<?php if ( $args['type'] !== 'pings' ) : ?>
 				<a class="pull-left" href="<?php echo esc_url( get_comment_author_url( $comment ) ); ?> ">
 					<div class="comment-author avatar vcard">
 						<?php
-						if ( $args['avatar_size'] != 0 ) {
+						if ( $args['avatar_size'] !== false && $args['avatar_size'] !== 0 ) {
 							echo get_avatar( $comment, 64 );
 						}
 						?>
@@ -185,7 +185,11 @@ if ( ! function_exists( 'hestia_comments_list' ) ) {
 						array(
 							'depth'      => $depth,
 							'max_depth'  => $args['max_depth'],
-							'reply_text' => sprintf( '<i class="fas fa-reply"></i> %s', esc_html__( 'Reply', 'hestia' ) ),
+							'reply_text' => sprintf(
+								'<svg class="svg-text-color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12px" height="12px"><path d="M8.309 189.836L184.313 37.851C199.719 24.546 224 35.347 224 56.015v80.053c160.629 1.839 288 34.032 288 186.258 0 61.441-39.581 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 45.344-145.012-21.507-183.51-176.59-185.742V360c0 20.7-24.3 31.453-39.687 18.164l-176.004-152c-11.071-9.562-11.086-26.753 0-36.328z"></path></svg>
+ %s',
+								esc_html__( 'Reply', 'hestia' )
+							),
 						),
 						$comment->comment_ID,
 						$comment->comment_post_ID
@@ -412,14 +416,14 @@ if ( ! function_exists( 'hestia_hex_rgb' ) ) {
 		}
 
 		// Sanitize $color if "#" is provided
-		if ( $input[0] == '#' ) {
+		if ( $input[0] === '#' ) {
 			$input = substr( $input, 1 );
 		}
 
 		// Check if color has 6 or 3 characters and get values
-		if ( strlen( $input ) == 6 ) {
+		if ( strlen( $input ) === 6 ) {
 			$hex = array( $input[0] . $input[1], $input[2] . $input[3], $input[4] . $input[5] );
-		} elseif ( strlen( $input ) == 3 ) {
+		} elseif ( strlen( $input ) === 3 ) {
 			$hex = array( $input[0] . $input[0], $input[1] . $input[1], $input[2] . $input[2] );
 		} else {
 			return $default;
@@ -524,7 +528,7 @@ if ( ! function_exists( 'hestia_adjust_brightness' ) ) {
 		$steps = max( - 255, min( 255, $steps ) );
 		// Normalize into a six character long hex string
 		$hex = str_replace( '#', '', $hex );
-		if ( strlen( $hex ) == 3 ) {
+		if ( strlen( $hex ) === 3 ) {
 			$hex = str_repeat( substr( $hex, 0, 1 ), 2 ) . str_repeat( substr( $hex, 1, 1 ), 2 ) . str_repeat( substr( $hex, 2, 1 ), 2 );
 		}
 		// Split into three parts: R, G and B
@@ -589,7 +593,7 @@ if ( ! function_exists( 'hestia_layout' ) ) {
 		/**
 		 * Add main-raised class when the Boxed Layout option is enabled
 		 */
-		if ( isset( $hestia_general_layout ) && $hestia_general_layout == 1 ) {
+		if ( isset( $hestia_general_layout ) && (bool) $hestia_general_layout === true ) {
 			$layout_class .= apply_filters( 'hestia_boxed_layout', ' main-raised ' );
 		}
 
@@ -767,7 +771,7 @@ if ( ! function_exists( 'hestia_contact_form_placeholder' ) ) {
 						<h4 class="placeholder-text"> ' .
 			sprintf(
 				/* translators: %1$s is Plugin name */
-				   esc_html__( 'In order to add a contact form to this section, you need to install the %s plugin.', 'hestia' ),
+				esc_html__( 'In order to add a contact form to this section, you need to install the %s plugin.', 'hestia' ),
 				esc_html( 'WPForms Lite' )
 			) . ' </h4>	
 					</div>	
@@ -905,10 +909,10 @@ if ( ! function_exists( 'hestia_display_fa_icon' ) ) {
 	 * @return string
 	 */
 	function hestia_display_fa_icon( $value ) {
+		hestia_load_fa();
 		if ( strpos( $value, 'fa-' ) !== 0 ) {
 			return $value;
 		}
-
 		return 'fa ' . $value;
 	}
 }
@@ -1848,4 +1852,47 @@ function hestia_get_google_fonts() {
 			'Zilla Slab Highlight',
 		)
 	);
+}
+
+/**
+ * Font Awesome loading trigger.
+ *
+ * @return bool
+ */
+function hestia_load_fa() {
+	global $hestia_load_fa;
+	$hestia_load_fa = true;
+	return $hestia_load_fa;
+}
+
+/**
+ * Trigger fa loading if strings in that array contains font awesome code.
+ *
+ * @param array | string $strings Array of strings.
+ *
+ * @return bool
+ */
+function maybe_trigger_fa_loading( $strings ) {
+	global $hestia_load_fa;
+	if ( $hestia_load_fa ) {
+		return $hestia_load_fa;
+	}
+
+	if ( empty( $strings ) ) {
+		return false;
+	}
+
+	if ( is_array( $strings ) ) {
+		foreach ( $strings as $string ) {
+			if ( strpos( $string, 'fa-' ) !== false ) {
+				return hestia_load_fa();
+			}
+		}
+	} else {
+		if ( strpos( $strings, 'fa-' ) !== false ) {
+			return hestia_load_fa();
+		}
+	}
+
+	return false;
 }

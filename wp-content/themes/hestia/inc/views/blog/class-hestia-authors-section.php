@@ -137,6 +137,6 @@ class Hestia_Authors_Section extends Hestia_Abstract_Main {
 		if ( empty( $hestia_authors_on_blog ) ) {
 			return false;
 		}
-		return in_array( $arr['id'], $hestia_authors_on_blog );
+		return in_array( $arr['id'], $hestia_authors_on_blog, true );
 	}
 }

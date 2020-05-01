@@ -58,7 +58,7 @@ class Hestia_Beaver_Builder_Compatibility extends Hestia_Page_Builder_Helper {
 	 */
 	protected function is_edited_with_builder( $pid ) {
 		if ( class_exists( 'FLBuilderModel', false ) ) {
-			if ( FLBuilderModel::is_builder_enabled() == true ) {
+			if ( FLBuilderModel::is_builder_enabled() === true ) {
 				return true;
 			}
 		}
@@ -135,7 +135,7 @@ class Hestia_Beaver_Builder_Compatibility extends Hestia_Page_Builder_Helper {
 	 */
 	private function is_plugin_preview() {
 		if ( class_exists( 'FLBuilderModel', false ) ) {
-			if ( FLBuilderModel::is_builder_active() == true ) {
+			if ( FLBuilderModel::is_builder_active() === true ) {
 				return true;
 			}
 		}

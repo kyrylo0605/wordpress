@@ -9,12 +9,52 @@
  * Class Hestia_Header_Manager
  */
 class Hestia_Header extends Hestia_Abstract_Main {
+
 	/**
 	 * Add hooks for the front end.
 	 */
 	public function init() {
 		add_action( 'hestia_do_header', array( $this, 'navigation' ) );
 		add_filter( 'wp_nav_menu_args', array( $this, 'modify_primary_menu' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'maybe_enqueue_mega_menu' ) );
+	}
+
+	/**
+	 * Add mega menu styling only if users are using the mega menu classes.
+	 *
+	 * @return bool
+	 */
+	public function maybe_enqueue_mega_menu() {
+		$theme_locations = get_nav_menu_locations();
+		if ( ! array_key_exists( 'primary', $theme_locations ) ) {
+			return false;
+		}
+
+		$menu = wp_get_nav_menu_items( $theme_locations['primary'] );
+		if ( empty( $menu ) ) {
+			return false;
+		}
+
+		$should_load = false;
+		foreach ( $menu as $menu_item ) {
+			$classes = $menu_item->classes;
+			if ( ! is_array( $classes ) ) {
+				continue;
+			}
+			if ( in_array( 'hestia-mega-menu', $classes, true ) || in_array( 'hestia-mm-col', $classes, true ) || in_array( 'hestia-mm-heading', $classes, true ) ) {
+				$should_load = true;
+				break;
+			}
+		}
+
+		if ( $should_load ) {
+			if ( is_rtl() ) {
+				wp_enqueue_style( 'hestia-mega-menu-rtl', get_template_directory_uri() . '/assets/css/mega-menu-rtl' . ( ( HESTIA_DEBUG ) ? '' : '.min' ) . '.css', array(), HESTIA_VERSION );
+			} else {
+				wp_enqueue_style( 'hestia-mega-menu', get_template_directory_uri() . '/assets/css/mega-menu' . ( ( HESTIA_DEBUG ) ? '' : '.min' ) . '.css', array(), HESTIA_VERSION );
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -54,7 +94,10 @@ class Hestia_Header extends Hestia_Abstract_Main {
 		$class .= $this->get_nav_alignment_class();
 		$class .= $this->get_full_screen_menu_class();
 		$class .= $this->get_top_bar_enabled_class();
-		if ( ! is_front_page() ) {
+
+		$disabled_frontpage = get_theme_mod( 'disable_frontpage_sections', false );
+		$disabled_big_title = get_theme_mod( 'hestia_big_title_hide', false );
+		if ( ! is_front_page() || $disabled_frontpage || $disabled_big_title ) {
 			$class .= ' navbar-not-transparent';
 		}
 

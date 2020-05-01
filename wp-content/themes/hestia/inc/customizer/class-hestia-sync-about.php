@@ -28,22 +28,22 @@ class Hestia_Sync_About extends Hestia_Abstract_Main {
 		/**
 		 * Synchronize post when you save customizer
 		 */
-		 add_action( 'customize_save', array( $this, 'trigger_sync_from_customizer' ), 10 );
+		add_action( 'customize_save', array( $this, 'trigger_sync_from_customizer' ), 10 );
 
 		/**
 		 * Synchronize customizer when you save the frontpage
 		 */
-		 add_action( 'save_post', array( $this, 'trigger_sync_from_page' ), 10 );
+		add_action( 'save_post', array( $this, 'trigger_sync_from_page' ), 10 );
 
 		/**
 		 * Trigger update customizer when page is set from Reading.
 		 */
-		 add_filter( 'pre_update_option_page_on_front', array( $this, 'trigger_sync_from_page_option' ), 10, 2 );
+		add_filter( 'pre_update_option_page_on_front', array( $this, 'trigger_sync_from_page_option' ), 10, 2 );
 
 		/**
 		 * The main function where the sync is happening
 		 */
-		 add_action( 'after_setup_theme', array( $this, 'sync_controls' ) );
+		add_action( 'after_setup_theme', array( $this, 'sync_controls' ) );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Hestia_Sync_About extends Hestia_Abstract_Main {
 	 * value until the user click "Publish".
 	 */
 	public function update_image_buffer() {
-		 $params = $_REQUEST;
+		$params = $_REQUEST;
 
 		if ( ! isset( $params['nonce'] ) || ! wp_verify_nonce( $params['nonce'], 'image_nonce' ) ) {
 			wp_send_json_error( 'Wrong nonce' );

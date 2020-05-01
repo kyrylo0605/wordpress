@@ -18,6 +18,7 @@ if ( function_exists( 'method_exists' ) && method_exists( $product, 'get_id' ) )
 	$prod_id = $product->id;
 }
 
+hestia_load_fa();
 echo apply_filters(
 	'woocommerce_loop_add_to_cart_link',
 	sprintf(

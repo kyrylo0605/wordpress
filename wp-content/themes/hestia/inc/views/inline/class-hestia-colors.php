@@ -35,7 +35,7 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		$custom_css = '';
 
 		$color_accent    = get_theme_mod( 'accent_color', apply_filters( 'hestia_accent_color_default', '#e91e63' ) );
-		$header_gradient = get_theme_mod( 'hestia_header_gradient_color' );
+		$header_gradient = get_theme_mod( 'hestia_header_gradient_color', apply_filters( 'hestia_header_gradient_default', '#a81d84' ) );
 
 		$custom_css .= ! empty( $color_accent ) ? '	
 		a, 
@@ -53,6 +53,10 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		.has-text-color.has-accent-color,
 		p.has-text-color a {
 		    color:' . esc_html( $color_accent ) . ';
+		}
+		
+		.svg-text-color{
+			fill:' . esc_html( $color_accent ) . ';
 		}
 		
 		.pagination span.current, .pagination span.current:focus, .pagination span.current:hover {
@@ -169,13 +173,17 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		' : '';
 
 		// Header Gradient Color + support for Gutenberg color.
-		$custom_css .= ! empty( $header_gradient ) ? '
-		.header-filter-gradient { 
-			background: linear-gradient(45deg, ' . hestia_hex_rgba( $header_gradient ) . ' 0%, ' . hestia_generate_gradient_color( $header_gradient ) . ' 100%); 
+		if ( ! empty( $header_gradient ) ) {
+			$gradient_angle = is_rtl() ? '-45deg' : '45deg';
+
+			$custom_css .= '
+			.header-filter-gradient { 
+				background: linear-gradient(' . $gradient_angle . ', ' . hestia_hex_rgba( $header_gradient ) . ' 0%, ' . hestia_generate_gradient_color( $header_gradient ) . ' 100%); 
+			}
+			.has-text-color.has-header-gradient-color { color: ' . $header_gradient . '; }
+			.has-header-gradient-background-color[class*="has-background"] { background-color: ' . $header_gradient . '; }
+			';
 		}
-		.has-text-color.has-header-gradient-color { color: ' . $header_gradient . '; }
-		.has-header-gradient-background-color[class*="has-background"] { background-color: ' . $header_gradient . '; }
-		' : '';
 
 		// Gutenberg support for the background color
 		$background_color = '#' . get_theme_mod( 'background_color', 'E5E5E5' );

@@ -49,7 +49,7 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		}';
 			if ( class_exists( 'WooCommerce', false ) ) {
 				$custom_css .=
-					'.woocommerce.single-product h1.product_title, .woocommerce section.related.products h2, .woocommerce span.comment-reply-title, .woocommerce ul.products[class*="columns-"] li.product-category h2 {
+				'.woocommerce.single-product h1.product_title, .woocommerce section.related.products h2, .woocommerce section.exclusive-products h2, .woocommerce span.comment-reply-title, .woocommerce ul.products[class*="columns-"] li.product-category h2 {
 				font-family: ' . esc_html( $hestia_headings_font ) . ';
 			}';
 			}

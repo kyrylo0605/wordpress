@@ -165,11 +165,19 @@ jQuery( document ).ready(
 			wp.customize.control( 'hestia_placeholder_sidebar_woocommerce' ).section( 'sidebar-widgets-sidebar-woocommerce' );
 		}
 
-		jQuery( '#customize-theme-controls' ).on(
-			'click', '.hestia-link-to-top-menu', function () {
-				wp.customize.section( 'menu_locations' ).focus();
+		jQuery(document).on( 'click', '.quick-links a', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var control = jQuery( this ).data( 'control-focus' );
+			if ( control ){
+				wp.customize.control( control ).focus();
+				jQuery( 'label.' + control ).click();
 			}
-		);
+			var section = jQuery( this ).data( 'section-focus' );
+			if( section ){
+				wp.customize.section( section ).focus();
+			}
+		} );
 
 		jQuery( '.focus-customizer-header-image' ).on( 'click', function ( e ) {
 			e.preventDefault();

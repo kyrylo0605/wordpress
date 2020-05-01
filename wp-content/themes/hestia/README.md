@@ -17,6 +17,32 @@ Hestia WordPress theme, Copyright 2018 Themeisle
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 ## Changelog ##
+
+#### [Version 3.0.0](https://github.com/Codeinwp/hestia-pro/compare/v2.5.7...v3.0.0) (2020-04-28)
+
+- [Feat] [PRO] New Custom Layouts module
+- [Feat] [PRO] New options for Single Products ( Exclusive Products, Seamless Add to Cart )
+- [Feat] [PRO] New Payment Icons on the Cart page
+- [Feat] [PRO] New option for custom image style effects on the Shop page
+- [Feat] New layout control for the Shop Sidebar
+- [Feat] [PRO] New Off-Canvas Sidebar option for the Shop Page
+- [Feat] Option to enable/disable cross-sells products on the Cart page
+- [Feat] Moved Starter Sites remotely
+- [Fix] Code refactoring and improvements
+- [Fix] Load Font Awesome based on usage
+- [Fix] Upgrade default Font Awesome icons to FA 5
+- [Fix] Related products layout when using Elementor Pro Single Product template
+- [Fix] [PRO] Compatibility with Elementor Pro Header and Footer templates
+- [Fix] [PRO] Duplicated related product image in Elementor Pro templates
+- [Fix] Small tweaks to the White Label module
+- [Fix] Header Background color in the WP editor blocks
+- [Fix] Transparent logo on mobile
+- [Fix] Allow skipping cropping the transparent logo
+- [Fix] Slider icons position in RTL mode
+- [Fix] Display tags on product pages
+
+
+
 ### 2.5.7 - 2020-04-01  ###
 
 * Add new post causes errors in WP 5.4

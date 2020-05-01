@@ -101,7 +101,7 @@ class Hestia_Infinite_Scroll extends Hestia_Abstract_Main {
 				$counter ++;
 				if ( $alternative_blog_layout === 'blog_alternative_layout2' ) {
 					get_template_part( 'template-parts/content', 'alternative-2' );
-				} elseif ( ( $alternative_blog_layout === 'blog_alternative_layout' ) && ( $counter % 2 == 0 ) ) {
+				} elseif ( ( $alternative_blog_layout === 'blog_alternative_layout' ) && ( $counter % 2 === 0 ) ) {
 					get_template_part( 'template-parts/content', 'alternative' );
 				} else {
 					get_template_part( 'template-parts/content' );

@@ -75,7 +75,7 @@ class Hestia_Import_Utilities {
 					$meta                = wp_get_attachment_metadata( $post_id );
 					$original_file       = basename( $meta['file'] );
 					$cropped_image_files = wp_list_pluck( $meta['sizes'], 'file' );
-					if ( $original_file === $file || in_array( $file, $cropped_image_files ) ) {
+					if ( $original_file === $file || in_array( $file, $cropped_image_files, true ) ) {
 						$attachment_id = $post_id;
 						break;
 					}
@@ -353,7 +353,7 @@ class Hestia_Import_Utilities {
 				}
 
 				$ribbon_html .= '</div></div>';
-				if ( $i % 3 == 0 ) {
+				if ( $i % 3 === 0 ) {
 					$ribbon_html .= '</div>';
 					$ribbon_html .= '<div class="row">';
 				}

@@ -264,10 +264,11 @@ class Hestia_Sidebar_Layout_Manager extends Hestia_Abstract_Main {
 	 * @return bool
 	 */
 	private function should_have_sidebar() {
-		if ( is_customize_preview() && $this->get_page_sidebar_layout() !== 'full-width' ) {
+		$page_sidebar = $this->get_page_sidebar_layout();
+		if ( is_customize_preview() && $page_sidebar !== 'full-width' && $page_sidebar !== 'off-canvas' ) {
 			return true;
 		}
-		if ( is_active_sidebar( 'sidebar-woocommerce' ) && $this->get_page_sidebar_layout() !== 'full-width' ) {
+		if ( is_active_sidebar( 'sidebar-woocommerce' ) && $page_sidebar !== 'full-width' && $page_sidebar !== 'off-canvas' ) {
 			return true;
 		}
 
@@ -280,7 +281,7 @@ class Hestia_Sidebar_Layout_Manager extends Hestia_Abstract_Main {
 	 * @return mixed|string
 	 */
 	public function get_page_sidebar_layout() {
-		if ( is_shop() ) {
+		if ( is_shop() || is_product_category() || is_product_tag() ) {
 			return hestia_get_shop_sidebar_layout();
 		}
 

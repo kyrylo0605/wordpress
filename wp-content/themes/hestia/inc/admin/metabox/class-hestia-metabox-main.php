@@ -79,7 +79,11 @@ class Hestia_Metabox_Main extends Hestia_Metabox_Controls_Base {
 		$default           = hestia_get_blog_layout_default();
 		$post_type         = get_post_type( $_GET['post'] );
 		$page_for_posts_id = get_option( 'page_for_posts' );
+		$shop_page         = get_option( 'woocommerce_shop_page_id' );
 
+		if ( (int) $_GET['post'] === (int) $shop_page ) {
+			return get_theme_mod( 'hestia_shop_sidebar_layout', Hestia_General_Controls::get_shop_sidebar_layout_default() );
+		}
 		if ( (int) $_GET['post'] === (int) $page_for_posts_id ) {
 			return get_theme_mod( 'hestia_blog_sidebar_layout', $default );
 		}

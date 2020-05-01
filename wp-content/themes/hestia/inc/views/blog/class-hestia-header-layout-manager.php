@@ -40,6 +40,29 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 		add_action( 'hestia_before_archive_content', array( $this, 'generic_header' ) );
 
 		add_filter( 'body_class', array( $this, 'header_layout_body_class' ) );
+
+		add_action( 'hestia_before_single_post_wrapper', array( $this, 'do_page_header' ), 1 );
+		add_action( 'hestia_before_single_page_wrapper', array( $this, 'do_page_header' ), 1 );
+		add_action( 'hestia_before_index_wrapper', array( $this, 'do_page_header' ), 1 );
+		add_action( 'hestia_before_search_wrapper', array( $this, 'do_page_header' ), 1 );
+		add_action( 'hestia_before_attachment_wrapper', array( $this, 'do_page_header' ), 1 );
+		add_action( 'hestia_before_archive_content', array( $this, 'do_page_header' ), 1 );
+		add_action( 'hestia_before_woocommerce_wrapper', array( $this, 'do_page_header' ), 1 );
+	}
+
+	/**
+	 * Do page header hook.
+	 */
+	public function do_page_header() {
+		$hook_name = current_filter();
+		ob_start();
+		do_action( 'hestia_do_page_header' );
+		$markup = ob_get_clean();
+
+		if ( ! empty( $markup ) ) {
+			remove_all_actions( $hook_name );
+			echo $markup;
+		}
 	}
 
 	/**
@@ -140,7 +163,7 @@ class Hestia_Header_Layout_Manager extends Hestia_Abstract_Main {
 			return true;
 		}
 
-		$page_id        = hestia_get_current_page_id();
+		$page_id = hestia_get_current_page_id();
 
 		$page_for_posts = get_option( 'page_for_posts' );
 		if ( $page_for_posts === $page_id ) {

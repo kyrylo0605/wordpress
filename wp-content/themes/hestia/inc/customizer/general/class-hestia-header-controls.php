@@ -66,13 +66,11 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
-					'priority'     => 25,
-					'section'      => 'hestia_top_bar',
-					'button_text'  => esc_html__( 'Very Top Bar', 'hestia' ) . ' ' . esc_html__( 'Menu', 'hestia' ),
-					'button_class' => 'hestia-link-to-top-menu',
-					'icon_class'   => 'fa-bars',
-				),
-				'Hestia_Button'
+					'priority'    => 25,
+					'section'     => 'hestia_top_bar',
+					'type'        => 'hidden',
+					'description' => '<span class="quick-links"><a class= "button" href="#" data-section-focus="menu_locations" style="text-decoration: none"><span style="vertical-align: middle" class="dashicons dashicons-menu"></span>' . esc_html__( 'Very Top Bar', 'hestia' ) . ' ' . esc_html__( 'Menu', 'hestia' ) . '</a>',
+				)
 			)
 		);
 
@@ -231,13 +229,13 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 					'transport'         => $this->selective_refresh,
 				),
 				array(
-					'label'    => esc_html__( 'Transparent Header Logo', 'hestia' ),
-					'section'  => 'title_tagline',
-					'priority' => 9,
+					'label'           => esc_html__( 'Transparent Header Logo', 'hestia' ),
+					'section'         => 'title_tagline',
+					'priority'        => 9,
 					'active_callback' => array( $this, 'hestia_transparent_header_logo_callback' ),
-					'flex-width'  => true,
-					'flex-height' => true,
-					'height'      => 100,
+					'flex_width'      => true,
+					'flex_height'     => true,
+					'height'          => 100,
 				),
 				'WP_Customize_Cropped_Image_Control'
 			)
@@ -430,7 +428,7 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 	 */
 	public function sanitize_product_layout( $layout ) {
 		$allowed_values = array( 'no-content', 'classic-blog' );
-		if ( ! in_array( $layout, $allowed_values ) ) {
+		if ( ! in_array( $layout, $allowed_values, true ) ) {
 			return 'no-content';
 		}
 

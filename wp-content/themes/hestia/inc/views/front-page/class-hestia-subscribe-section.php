@@ -79,6 +79,12 @@ class Hestia_Subscribe_Section extends Hestia_Abstract_Main {
 		$class_to_add  = $is_shortcode === true ? 'is-shortcode ' : '';
 		$class_to_add .= ! empty( $hestia_subscribe_background ) ? 'subscribe-line-image' : '';
 
+		$html_allowed_strings = array(
+			$hestia_subscribe_title,
+			$hestia_subscribe_subtitle,
+		);
+		maybe_trigger_fa_loading( $html_allowed_strings );
+
 		hestia_before_subscribe_section_trigger(); ?>
 		<section class="hestia-subscribe subscribe-line <?php echo esc_attr( $class_to_add ); ?>" id="subscribe"
 				data-sorder="hestia_subscribe" <?php echo wp_kses_post( $section_style ); ?>>

@@ -79,7 +79,7 @@ class Hestia_Subscribe_Info extends WP_Customize_Control {
 		if ( ! class_exists( 'SIB_Manager', false ) ) {
 			return 'install';
 		}
-		if ( SIB_Manager::is_done_validation() == true ) {
+		if ( SIB_Manager::is_done_validation() === true ) {
 			return 'configure';
 		}
 		return 'create_account';
@@ -117,7 +117,7 @@ class Hestia_Subscribe_Info extends WP_Customize_Control {
 				esc_html__( 'After installing the plugin, you need to navigate to %s and configure the plugin.', 'hestia' ),
 				sprintf(
 					/* translators: %s Path in plugin*/
-						'<a target="_blank" href="' . admin_url( 'admin.php?page=sib_page_home' ) . '"><b>%s</b></a>',
+					'<a target="_blank" href="' . admin_url( 'admin.php?page=sib_page_home' ) . '"><b>%s</b></a>',
 					esc_html__( 'SendinBlue > Home', 'hestia' )
 				)
 			);

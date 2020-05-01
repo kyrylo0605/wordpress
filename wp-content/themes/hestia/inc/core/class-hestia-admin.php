@@ -324,12 +324,12 @@ class Hestia_Admin {
 									$output .= $this->get_feature_title_and_description( $feature );
 									$output .= '</td>';
 								}
-								if ( ! empty( $feature['is_in_lite'] ) && ( $feature['is_in_lite'] == 'true' ) ) {
+								if ( ! empty( $feature['is_in_lite'] ) && ( (bool) $feature['is_in_lite'] === true ) ) {
 									$output .= '<td class="only-lite"><span class="dashicons-before dashicons-yes"></span></td>';
 								} else {
 									$output .= '<td class="only-pro"><span class="dashicons-before dashicons-no-alt"></span></td>';
 								}
-								if ( ! empty( $feature['is_in_pro'] ) && ( $feature['is_in_pro'] == 'true' ) ) {
+								if ( ! empty( $feature['is_in_pro'] ) && ( (bool) $feature['is_in_pro'] === true ) ) {
 									$output .= '<td class="only-lite"><span class="dashicons-before dashicons-yes"></span></td>';
 								} else {
 									$output .= '<td class="only-pro"><span class="dashicons-before dashicons-no-alt"></span></td>';
@@ -492,10 +492,10 @@ class Hestia_Admin {
 			return;
 		}
 
-		if ( $content_imported === 'not-zerif' && in_array( $old_theme, array( 'zerif-pro', 'zerif-lite' ) ) ) {
+		if ( $content_imported === 'not-zerif' && in_array( $old_theme, array( 'zerif-pro', 'zerif-lite' ), true ) ) {
 			set_theme_mod( 'zerif_frontpage_was_imported', 'no' );
 		}
-		if ( ! in_array( $old_theme, array( 'zerif-pro', 'zerif-lite' ) ) ) {
+		if ( ! in_array( $old_theme, array( 'zerif-pro', 'zerif-lite' ), true ) ) {
 			set_theme_mod( 'zerif_frontpage_was_imported', 'not-zerif' );
 		}
 	}
