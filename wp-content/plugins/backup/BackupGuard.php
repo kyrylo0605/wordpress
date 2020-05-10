@@ -66,7 +66,8 @@ function before_deactivate_backup_guard()
 	wp_enqueue_script('before-deactivate-backup-guard-js', plugin_dir_url(__FILE__).'public/js/deactivationSurvey.js', array('jquery'));
 
 	wp_localize_script('before-deactivate-backup-guard-js', 'BG_BACKUP_STRINGS', array(
-		'nonce' => wp_create_nonce('backupGuardAjaxNonce')
+		'nonce' => wp_create_nonce('backupGuardAjaxNonce'),
+		'areYouSure' => _backupGuardT('Are you sure?', true)
 	));
 	
 	require_once(plugin_dir_path(__FILE__).'public/include/uninstallSurveyPopup.php');

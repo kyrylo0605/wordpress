@@ -30,6 +30,9 @@ jQuery(document).ready( function() {
 	});
 
 	jQuery('#sg-delete-multi-backups').on('click', function(){
+		if (!confirm(BG_BACKUP_STRINGS.areYouSure)) {
+			return false;
+		}
 		var backups = jQuery('tbody input[type="checkbox"]:checked');
 		var backupNames = [];
 		backups.each(function(i){
