@@ -151,6 +151,7 @@ class Hestia_Customizer_Notices extends Hestia_Register_Customizer_Controls {
 			new Hestia_Customizer_Section(
 				'hestia_info_obfx',
 				array(
+					'plugin_name' => 'Orbit Fox Companion',
 					'slug'        => 'themeisle-companion',
 					'priority'    => 0,
 					'capability'  => 'install_plugins',

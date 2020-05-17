@@ -753,6 +753,9 @@
                     style += '.navbar .navbar-nav > li .dropdown-menu li:hover > a ' +
                         '{ color : ' + newval + '; }';
 
+                    style += '.woocommerce div.product form.cart .reset_variations:after' +
+	                    '{ background-color: ' + newval + '; }';
+
                     style += '.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a:hover ' +
                         '{ border-color: ' + newval + '; }';
 
@@ -861,6 +864,13 @@
             value.bind(
                 function( newval ) {
                     $( '.hestia-top-bar' ).css( 'color', newval );
+
+                    var headStyle = $('head style.top-bar-icons-color');
+                    if ( headStyle.length > 0 ) {
+                    	headStyle.html( '.hestia-top-bar div.widget.widget_shopping_cart:before, .hestia-top-bar .widget.widget_product_search form.form-group:before, .hestia-top-bar .widget.widget_search form.form-group:before{ background-color:' + newval + '}' );
+                    } else {
+	                    $('head').append('<style class="top-bar-icons-color">.hestia-top-bar div.widget.widget_shopping_cart:before, .hestia-top-bar .widget.widget_product_search form.form-group:before, .hestia-top-bar .widget.widget_search form.form-group:before{ background-color:' + newval + ';}</style>');
+                    }
                 }
             );
         }
@@ -872,6 +882,13 @@
             value.bind(
                 function( newval ) {
                     $( '.hestia-top-bar a' ).css( 'color', newval );
+
+	                var headStyle = $('head style.top-bar-link-icons-color');
+	                if ( headStyle.length > 0 ) {
+		                headStyle.html( '.hestia-top-bar ul li a[href*="mailto:"]:before, .hestia-top-bar ul li a[href*="tel:"]:before{ background-color:' + newval + '}' );
+	                } else {
+		                $('head').append('<style class="top-bar-link-icons-color">.hestia-top-bar ul li a[href*="mailto:"]:before, .hestia-top-bar ul li a[href*="tel:"]:before{ background-color:' + newval + ';}</style>');
+	                }
                 }
             );
         }
@@ -890,6 +907,13 @@
                             $( this ).css( 'color', initial );
                         }
                     );
+
+	                var headStyle = $('head style.top-bar-link-icons-color-hover');
+	                if ( headStyle.length > 0 ) {
+		                headStyle.html( '.hestia-top-bar ul li:hover a[href*="mailto:"]:before, .hestia-top-bar ul li:hover a[href*="tel:"]:before{ background-color:' + newval + '}' );
+	                } else {
+		                $('head').append('<style class="top-bar-link-icons-color-hover">.hestia-top-bar ul li:hover a[href*="mailto:"]:before, .hestia-top-bar ul li:hover a[href*="tel:"]:before{ background-color:' + newval + ';}</style>');
+	                }
                 }
             );
         }

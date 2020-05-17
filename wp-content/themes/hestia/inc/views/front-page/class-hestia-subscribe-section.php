@@ -115,7 +115,10 @@ class Hestia_Subscribe_Section extends Hestia_Abstract_Main {
 							<div class="card card-raised card-form-horizontal" <?php echo hestia_add_animationation( 'fade-down' ); ?>>
 								<div class="content">
 									<div class="row">
-										<?php dynamic_sidebar( 'subscribe-widgets' ); ?>
+										<?php
+										hestia_load_fa();
+										dynamic_sidebar( 'subscribe-widgets' );
+										?>
 									</div>
 								</div>
 							</div>

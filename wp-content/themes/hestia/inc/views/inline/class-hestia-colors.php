@@ -169,7 +169,8 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		.navbar.full-screen-menu .navbar-toggle:hover,
 		.navbar:not(.navbar-transparent) .nav-cart:hover, 
 		.navbar:not(.navbar-transparent) .hestia-toggle-search:hover {
-				color:' . esc_html( $color_accent ) . '}
+				color:' . esc_html( $color_accent ) . '
+		}
 		' : '';
 
 		// Header Gradient Color + support for Gutenberg color.
@@ -230,6 +231,10 @@ class Hestia_Colors extends Hestia_Abstract_Main {
 		.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a,
 		.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a:hover {
 			border-color:' . esc_html( $color_accent ) . '
+		}
+		
+		.woocommerce div.product form.cart .reset_variations:after{
+			background-color:' . esc_html( $color_accent ) . '
 		}
 		
 		.added_to_cart.wc-forward:hover,

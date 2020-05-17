@@ -18,6 +18,18 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 
 == Changelog ==
 
+##### [Version 3.0.1](https://github.com/Codeinwp/hestia-pro/compare/v3.0.0...v3.0.1) (2020-05-11)
+
+[Fix] Missing Font Awesome icons
+[Fix] Fatal error when using Yoast
+[Fix] Secondary color missing in the blocks color palette
+[Fix][Pro] Second button link in the Big title section
+[Fix][Pro] Check if attachment exists when swap images are used on the Shop page
+[Fix][Pro] Seamless add to cart mechanism
+
+
+
+
 #### [Version 3.0.0](https://github.com/Codeinwp/hestia-pro/compare/v2.5.7...v3.0.0) (2020-04-28)
 
 - [Feat] [PRO] New Custom Layouts module

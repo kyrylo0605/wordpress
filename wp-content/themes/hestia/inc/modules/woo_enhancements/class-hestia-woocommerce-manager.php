@@ -56,6 +56,23 @@ class Hestia_Woocommerce_Manager extends Hestia_Abstract_Module {
 		$this->manage_sale_tag();
 		$this->manage_product_listing_layout();
 		$this->manage_related_products();
+		$this->load_fa_on_account();
+	}
+
+	/**
+	 * Load font awesome on account page.
+	 *
+	 * @return bool
+	 */
+	private function load_fa_on_account() {
+		if ( ! $this->should_load() ) {
+			return false;
+		}
+		if ( ! is_account_page() ) {
+			return false;
+		}
+		hestia_load_fa();
+		return true;
 	}
 
 	/**
