@@ -471,10 +471,6 @@ if ( ! class_exists( 'AWS_Order' ) ) :
             $a_val = AWS_Helpers::get_quantity( $product_a );
             $b_val = AWS_Helpers::get_quantity( $product_b );
 
-            if ( ! is_numeric( $a_val['f_price'] ) || ! is_numeric( $b_val['f_price'] ) ) {
-                return 0;
-            }
-
             if ($a_val == $b_val) {
                 return 0;
             }
@@ -497,10 +493,6 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
             $a_val = AWS_Helpers::get_quantity( $product_a );
             $b_val = AWS_Helpers::get_quantity( $product_b );
-
-            if ( ! is_numeric( $a_val['f_price'] ) || ! is_numeric( $b_val['f_price'] ) ) {
-                return 0;
-            }
 
             if ($a_val == $b_val) {
                 return 0;

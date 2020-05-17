@@ -583,8 +583,17 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
          * Strip shortcodes
          */
         static public function strip_shortcodes( $str ) {
+
+            /**
+             * Filter content string before striping shortcodes
+             * @since 2.01
+             * @param string $str
+             */
+            $str = apply_filters( 'aws_before_strip_shortcodes', $str );
+
             $str = preg_replace( '#\[[^\]]+\]#', '', $str );
             return $str;
+
         }
 
         /*
@@ -764,6 +773,53 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
             }
 
             return max( $stock_levels );
+
+        }
+
+        /**
+         * Get array of allowed tags for wp_kses function
+         * @param array $allowed_tags Tags that is allowed to display
+         * @return array $tags
+         */
+        static public function get_kses( $allowed_tags = array() ) {
+
+            $tags = array(
+                'a' => array(
+                    'href' => array(),
+                    'title' => array()
+                ),
+                'br' => array(),
+                'em' => array(),
+                'strong' => array(),
+                'b' => array(),
+                'code' => array(),
+                'blockquote' => array(
+                    'cite' => array(),
+                ),
+                'p' => array(),
+                'i' => array(),
+                'h1' => array(),
+                'h2' => array(),
+                'h3' => array(),
+                'h4' => array(),
+                'h5' => array(),
+                'h6' => array(),
+                'img' => array(
+                    'alt' => array(),
+                    'src' => array()
+                )
+            );
+
+            if ( is_array( $allowed_tags ) && ! empty( $allowed_tags ) ) {
+                foreach ( $tags as $tag => $tag_arr ) {
+                    if ( array_search( $tag, $allowed_tags ) === false ) {
+                        unset( $tags[$tag] );
+                    }
+                }
+
+            }
+
+            return $tags;
 
         }
 

@@ -3,7 +3,7 @@
 /*
 Plugin Name: Advanced Woo Search
 Description: Advance ajax WooCommerce product search.
-Version: 2.00
+Version: 2.01
 Author: ILLID
 Author URI: https://advanced-woo-search.com/
 Text Domain: advanced-woo-search
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AWS_VERSION', '2.00' );
+define( 'AWS_VERSION', '2.01' );
 
 
 define( 'AWS_DIR', dirname( __FILE__ ) );

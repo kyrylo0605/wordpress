@@ -428,9 +428,13 @@
 
 
         $searchField.on( 'focus', function (e) {
+            $searchForm.addClass('aws-focus');
             methods.onFocus(e);
         });
 
+        $searchField.on( 'focusout', function (e) {
+            $searchForm.removeClass('aws-focus');
+        });
 
         $searchForm.on( 'keypress', function(e) {
             if ( e.keyCode == 13 && ( ! d.showPage || $searchField.val() === '' ) ) {
