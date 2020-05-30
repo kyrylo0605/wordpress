@@ -16,7 +16,7 @@ require_once(SG_PUBLIC_INCLUDE_PATH.'header.php');
 				<div class="action-links">
 					<ul class="plugin-action-buttons">
 						<li>
-							<p id="sg-migration-service-price"><b>$49.95</b></p>
+							<p id="sg-migration-service-price"><b>$59.95</b></p>
 						</li>
 						<li>
 							<a class="oreder-now button btn-primary" target="_blank" data-slug="" href="<?php echo SG_MIGRATION_SERVICE_URL?>" aria-label="" data-name=""><?php _backupGuardT('Order now')?></a>

@@ -43,11 +43,11 @@ if ( ! class_exists( 'AWS_Versions' ) ) :
             $current_version = get_option( 'aws_plugin_ver' );
             $reindex_version = get_option( 'aws_reindex_version' );
 
-            if ( ! ( $reindex_version ) ) {
+            if ( ! ( $reindex_version ) && current_user_can( 'manage_options' ) ) {
                 add_action( 'admin_notices', array( $this, 'admin_notice_no_index' ) );
             }
 
-            if ( $reindex_version && version_compare( $reindex_version, '1.23', '<' ) ) {
+            if ( $reindex_version && version_compare( $reindex_version, '1.23', '<' ) && current_user_can( 'manage_options' ) ) {
                 add_action( 'admin_notices', array( $this, 'admin_notice_reindex' ) );
             }
 

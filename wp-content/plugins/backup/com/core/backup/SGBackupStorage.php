@@ -1,10 +1,10 @@
 <?php
 require_once(SG_BACKUP_PATH.'SGBackup.php');
-@include_once(SG_STORAGE_PATH.'SGGoogleDriveStorage.php');
-@include_once(SG_STORAGE_PATH.'SGDropboxStorage.php');
-@include_once(SG_STORAGE_PATH.'SGOneDriveStorage.php');
-@include_once(SG_STORAGE_PATH.'SGFTPManager.php');
-@include_once(SG_STORAGE_PATH.'SGAmazonStorage.php');
+backupGuardIncludeFile(SG_STORAGE_PATH.'SGGoogleDriveStorage.php');
+backupGuardIncludeFile(SG_STORAGE_PATH.'SGDropboxStorage.php');
+backupGuardIncludeFile(SG_STORAGE_PATH.'SGOneDriveStorage.php');
+backupGuardIncludeFile(SG_STORAGE_PATH.'SGFTPManager.php');
+backupGuardIncludeFile(SG_STORAGE_PATH.'SGAmazonStorage.php');
 
 class SGBackupStorage implements SGIStorageDelegate
 {

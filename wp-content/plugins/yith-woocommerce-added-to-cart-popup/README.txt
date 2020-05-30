@@ -3,7 +3,7 @@ Contributors: yithemes
 Tags: added to cart, add to cart popup, cart, shop, shopping cart
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,11 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 2. The plugin popup
 
 == Changelog ==
+
+= 1.4.2 = Released on 21 May, 2020
+
+* New: Support to WooCommerce 4.2
+* Update: Plugin framework
 
 = 1.4.1 = Released on 27 April, 2020
 
@@ -210,7 +215,7 @@ Or, if you have created your own language pack, or have an update for an existin
 
 == Upgrade notice ==
 
-= 1.4.1 = Released on 27 April, 2020
+= 1.4.2 = Released on 21 May, 2020
 
-* New: Support to WooCommerce 4.1
+* New: Support to WooCommerce 4.2
 * Update: Plugin framework

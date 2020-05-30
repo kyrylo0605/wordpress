@@ -95,7 +95,9 @@ sgBackup.initModals = function(){
 			body.append(modal);
 		}
 		sgBackup.showAjaxSpinner('#sg-content-wrapper');
-		sgBackup.disableUi();
+		if (typeof sgBackup.disableUi == 'function') {
+			sgBackup.disableUi();
+		}
 
 		var ajaxHandler = new sgRequestHandler(url, {
 			param: param,
@@ -107,7 +109,9 @@ sgBackup.initModals = function(){
 		ajaxHandler.dataType = 'html';
 		ajaxHandler.callback = function(data, error) {
 			sgBackup.hideAjaxSpinner();
-			sgBackup.enableUi();
+			if (typeof sgBackup.enableUi == 'function') {
+				sgBackup.enableUi();
+			}
 			if (error===false) {
 				jQuery('#sg-modal').append(data);
 			}

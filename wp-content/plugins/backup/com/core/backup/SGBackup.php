@@ -2,11 +2,11 @@
 require_once(SG_BACKUP_PATH.'SGBackupLog.php');
 require_once(SG_RESTORE_PATH.'SGExternalRestore.php');
 require_once(SG_LIB_PATH.'SGState.php');
-@include_once(SG_LIB_PATH.'SGBackgroundMode.php');
+backupGuardIncludeFile(SG_LIB_PATH.'SGBackgroundMode.php');
 require_once(SG_BACKUP_PATH.'SGBackupFiles.php');
 require_once(SG_BACKUP_PATH.'SGBackupDatabase.php');
-@include_once(SG_BACKUP_PATH.'SGBackupStorage.php');
-@include_once(SG_BACKUP_PATH.'SGBackupMailNotification.php');
+backupGuardIncludeFile(SG_BACKUP_PATH.'SGBackupStorage.php');
+backupGuardIncludeFile(SG_BACKUP_PATH.'SGBackupMailNotification.php');
 require_once(SG_LOG_PATH.'SGFileLogHandler.php');
 require_once(SG_LIB_PATH.'SGReloader.php');
 require_once(SG_LIB_PATH.'SGCallback.php');
@@ -1173,7 +1173,7 @@ class SGBackup implements SGIBackupDelegate
 		foreach ($files as $file) {
 			$fileInfo = self::getBackupFileInfo($file);
 
-			if (@$fileInfo['extension'] == SGBP_EXT) {
+			if (!empty($fileInfo['extension']) && $fileInfo['extension'] == SGBP_EXT) {
 				@mkdir($path.$fileInfo['filename'], 0777);
 
 				if(file_exists($path.$fileInfo['filename'])) {

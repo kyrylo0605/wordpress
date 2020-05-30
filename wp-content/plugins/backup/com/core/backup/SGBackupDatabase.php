@@ -4,7 +4,7 @@ require_once(SG_BACKUP_PATH.'SGIBackupDelegate.php');
 require_once(SG_LIB_PATH.'SGDBState.php');
 require_once(SG_LIB_PATH.'SGMysqldump.php');
 require_once(SG_LIB_PATH.'SGCharsetHandler.php');
-@include_once(SG_LIB_PATH.'SGMigrate.php');
+backupGuardIncludeFile(SG_LIB_PATH.'SGMigrate.php');
 
 class SGBackupDatabase implements SGIMysqldumpDelegate
 {

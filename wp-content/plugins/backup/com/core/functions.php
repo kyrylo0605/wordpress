@@ -722,3 +722,10 @@ function backupGuardGetFileSelectiveRestore()
 	</div>
 	<?php
 }
+
+function backupGuardIncludeFile($filePath)
+{
+    if (file_exists($filePath)) {
+	    include_once($filePath);
+    }
+}

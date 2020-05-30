@@ -460,25 +460,26 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
             delete_option( 'yit_plugin_fw_panel_wc_default_options_set' );
         }
 
-        /**
-         * Add the WooCommerce body class in plugin panel page
-         *
-         * @param array $admin_body_classes The body classes
-         * @return array Filtered body classes
-         * @author Andrea Grillo <andrea.grillo@yithemes.com>
-         * @since  2.0
-         */
-        public static function admin_body_class( $admin_body_classes ) {
-            global $pagenow;
+		/**
+		 * Add the WooCommerce body class in plugin panel page
+		 *
+		 * @param string $admin_body_classes The body classes.
+		 * @return string Filtered body classes
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 * @since  2.0
+		 */
+		public static function admin_body_class( $admin_body_classes ) {
+			global $pagenow;
 
-	        $assets_screen_ids = (array) apply_filters( 'yith_plugin_fw_wc_panel_screen_ids_for_assets', array() );
+			$assets_screen_ids = (array) apply_filters( 'yith_plugin_fw_wc_panel_screen_ids_for_assets', array() );
 
+			if ( ( 'admin.php' == $pagenow && ( strpos( get_current_screen()->id, 'yith-plugins_page' ) !== false || in_array( get_current_screen()->id, $assets_screen_ids ) ) ) ) {
+				$admin_body_classes = substr_count( $admin_body_classes, self::$body_class ) == 0 ? $admin_body_classes . self::$body_class : $admin_body_classes;
+				$admin_body_classes = substr_count( $admin_body_classes, 'woocommerce' ) == 0 ? $admin_body_classes . ' woocommerce ' : $admin_body_classes;
+			}
 
-	        if ( ( 'admin.php' == $pagenow && ( strpos( get_current_screen()->id, 'yith-plugins_page' ) !== false || in_array( get_current_screen()->id, $assets_screen_ids ) ) ) )
-                $admin_body_classes = substr_count( $admin_body_classes, self::$body_class ) == 0 ? $admin_body_classes . self::$body_class : $admin_body_classes;
-
-            return 'admin.php' == $pagenow && substr_count( $admin_body_classes, 'woocommerce' ) == 0 ? $admin_body_classes .= ' woocommerce ' : $admin_body_classes;
-        }
+			return $admin_body_classes;
+		}
 
         /**
          * Maybe unserialize panel data

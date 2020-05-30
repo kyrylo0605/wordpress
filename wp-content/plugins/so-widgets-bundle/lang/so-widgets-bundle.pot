@@ -284,7 +284,7 @@ msgstr ""
 msgid "SiteOrigin Accordion"
 msgstr ""
 
-#: widgets/accordion/accordion.php:47, widgets/accordion/accordion.php:60, widgets/contact/contact.php:48, widgets/cta/cta.php:64, widgets/editor/editor.php:33, widgets/features/features.php:136, widgets/post-carousel/post-carousel.php:98, widgets/price-table/price-table.php:42, widgets/price-table/price-table.php:61, widgets/simple-masonry/simple-masonry.php:44, widgets/simple-masonry/simple-masonry.php:84, widgets/social-media-buttons/social-media-buttons.php:54, widgets/tabs/tabs.php:47, widgets/tabs/tabs.php:60, widgets/taxonomy/taxonomy.php:34, widgets/testimonial/testimonial.php:41, widgets/video/video.php:33, base/inc/fields/posts.class.php:97
+#: widgets/accordion/accordion.php:47, widgets/accordion/accordion.php:60, widgets/contact/contact.php:48, widgets/cta/cta.php:64, widgets/editor/editor.php:33, widgets/features/features.php:136, widgets/icon/icon.php:68, widgets/post-carousel/post-carousel.php:120, widgets/price-table/price-table.php:42, widgets/price-table/price-table.php:61, widgets/simple-masonry/simple-masonry.php:44, widgets/simple-masonry/simple-masonry.php:84, widgets/social-media-buttons/social-media-buttons.php:54, widgets/tabs/tabs.php:47, widgets/tabs/tabs.php:60, widgets/taxonomy/taxonomy.php:34, widgets/testimonial/testimonial.php:41, widgets/video/video.php:33, base/inc/fields/posts.class.php:97
 msgid "Title"
 msgstr ""
 
@@ -1113,7 +1113,7 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: widgets/cta/cta.php:157, widgets/testimonial/testimonial.php:369
+#: widgets/cta/cta.php:157, widgets/testimonial/testimonial.php:375
 msgid "Get more font customization options with %sSiteOrigin Premium%s"
 msgstr ""
 
@@ -1897,6 +1897,10 @@ msgstr ""
 msgid "SiteOrigin Icon"
 msgstr ""
 
+#: widgets/icon/icon.php:69
+msgid " Tooltip text to be shown when hovering over the icon."
+msgstr ""
+
 #: widgets/image/image.php:4, widgets/image/image.php:16
 msgid "A simple image widget with massive power."
 msgstr ""
@@ -2025,31 +2029,31 @@ msgstr ""
 msgid "SiteOrigin Post Carousel"
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:104
+#: widgets/post-carousel/post-carousel.php:126
 msgid "Default Thumbnail"
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:105
+#: widgets/post-carousel/post-carousel.php:127
 msgid "Choose Thumbnail"
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:106
+#: widgets/post-carousel/post-carousel.php:128
 msgid "Set Thumbnail"
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:112
+#: widgets/post-carousel/post-carousel.php:134
 msgid "Featured Image size"
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:118
+#: widgets/post-carousel/post-carousel.php:140
 msgid "Loop posts"
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:119
+#: widgets/post-carousel/post-carousel.php:141
 msgid "Automatically return to the first post after the last post."
 msgstr ""
 
-#: widgets/post-carousel/post-carousel.php:125
+#: widgets/post-carousel/post-carousel.php:147
 msgid "Posts query"
 msgstr ""
 
@@ -2185,7 +2189,27 @@ msgstr ""
 msgid "Device width, in pixels, at which to collapse into a mobile view."
 msgstr ""
 
-#: widgets/simple-masonry/simple-masonry.php:236
+#: widgets/simple-masonry/simple-masonry.php:188
+msgid "Preloader"
+msgstr ""
+
+#: widgets/simple-masonry/simple-masonry.php:193
+msgid "Enable preloader"
+msgstr ""
+
+#: widgets/simple-masonry/simple-masonry.php:197
+msgid "Preloader icon color"
+msgstr ""
+
+#: widgets/simple-masonry/simple-masonry.php:202
+msgid "Preloader height"
+msgstr ""
+
+#: widgets/simple-masonry/simple-masonry.php:204
+msgid "The size of the preloader prior to the Masonry images showing."
+msgstr ""
+
+#: widgets/simple-masonry/simple-masonry.php:272
 msgid "Add a Lightbox to your masonry images with %sSiteOrigin Premium%s"
 msgstr ""
 
@@ -2415,6 +2439,10 @@ msgstr ""
 
 #: widgets/testimonial/testimonial.php:268
 msgid "Text below user"
+msgstr ""
+
+#: widgets/testimonial/testimonial.php:275
+msgid "Equalize testimonial height"
 msgstr ""
 
 #: widgets/video/video.php:4, widgets/video/video.php:20
@@ -2894,19 +2922,19 @@ msgstr ""
 msgid "Go to Google Maps Widget settings"
 msgstr ""
 
-#: widgets/post-carousel/tpl/base.php:17, widgets/post-carousel/tpl/base.php:26
+#: widgets/post-carousel/tpl/base.php:18, widgets/post-carousel/tpl/base.php:28
 msgid "Next"
 msgstr ""
 
-#: widgets/post-carousel/tpl/base.php:17, widgets/post-carousel/tpl/base.php:26
+#: widgets/post-carousel/tpl/base.php:18, widgets/post-carousel/tpl/base.php:28
 msgid "Next Posts"
 msgstr ""
 
-#: widgets/post-carousel/tpl/base.php:18, widgets/post-carousel/tpl/base.php:24
+#: widgets/post-carousel/tpl/base.php:19, widgets/post-carousel/tpl/base.php:26
 msgid "Previous"
 msgstr ""
 
-#: widgets/post-carousel/tpl/base.php:18, widgets/post-carousel/tpl/base.php:24
+#: widgets/post-carousel/tpl/base.php:19, widgets/post-carousel/tpl/base.php:26
 msgid "Previous Posts"
 msgstr ""
 

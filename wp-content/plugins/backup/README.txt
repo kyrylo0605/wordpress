@@ -6,7 +6,7 @@ Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
 Tested up to: 5.4.1
-Stable tag: 1.3.2
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,12 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+= 1.3.4 =
+* Admin side improvement
+
+= 1.3.3 =
+* Fixed php warnings
+
 = 1.3.2 =
 * Multiple modal opening issue.
 When pressing on backup button multiple times, many modals where opening.

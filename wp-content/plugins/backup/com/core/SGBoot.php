@@ -6,16 +6,16 @@ if (version_compare(PHP_VERSION, '5.3.3', '<')) {
 
 require_once(SG_EXCEPTION_PATH.'SGException.php');
 require_once(SG_CORE_PATH.'functions.php');
-@include_once(SG_CORE_PATH.'functions.silver.php');
-@include_once(SG_CORE_PATH.'functions.gold.php');
-@include_once(SG_CORE_PATH.'functions.platinum.php');
+backupGuardIncludeFile(SG_CORE_PATH.'functions.silver.php');
+backupGuardIncludeFile(SG_CORE_PATH.'functions.gold.php');
+backupGuardIncludeFile(SG_CORE_PATH.'functions.platinum.php');
 require_once(SG_CORE_PATH.'SGPing.php');
 require_once(SG_DATABASE_PATH.'SGDatabase.php');
 require_once(SG_CORE_PATH.'SGConfig.php');
 require_once(SG_NOTICE_PATH.'SGNotice.php');
 require_once(SG_NOTICE_PATH.'SGNoticeHandler.php');
-@include_once(SG_BACKUP_PATH.'SGBackupSchedule.php');
-@include_once(SG_EXTENSION_PATH.'SGExtension.php');
+backupGuardIncludeFile(SG_BACKUP_PATH.'SGBackupSchedule.php');
+backupGuardIncludeFile(SG_EXTENSION_PATH.'SGExtension.php');
 
 class SGBoot
 {
