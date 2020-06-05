@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc31cefc01633492a0642e610989f86d3
+class ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -24,12 +24,17 @@ class ComposerStaticInitc31cefc01633492a0642e610989f86d3
         array (
             'tubalmartin\\CssMin\\' => 19,
         ),
+        'T' => 
+        array (
+            'TIOB\\' => 5,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
         ),
         'M' => 
         array (
+            'Masterminds\\' => 12,
             'MailerLiteApi\\' => 14,
         ),
         'H' => 
@@ -55,9 +60,17 @@ class ComposerStaticInitc31cefc01633492a0642e610989f86d3
         array (
             0 => __DIR__ . '/..' . '/tubalmartin/cssmin/src',
         ),
+        'TIOB\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
         'MailerLiteApi\\' => 
         array (
@@ -222,6 +235,26 @@ class ComposerStaticInitc31cefc01633492a0642e610989f86d3
         'MailerLiteApi\\Common\\RestClient' => __DIR__ . '/..' . '/mailerlite/mailerlite-api-v2-php-sdk/src/Common/RestClient.php',
         'MailerLiteApi\\Exceptions\\MailerLiteSdkException' => __DIR__ . '/..' . '/mailerlite/mailerlite-api-v2-php-sdk/src/Exceptions/MailerLiteSdkException.php',
         'MailerLiteApi\\MailerLite' => __DIR__ . '/..' . '/mailerlite/mailerlite-api-v2-php-sdk/src/MailerLite.php',
+        'Masterminds\\HTML5' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5.php',
+        'Masterminds\\HTML5\\Elements' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Elements.php',
+        'Masterminds\\HTML5\\Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Entities.php',
+        'Masterminds\\HTML5\\Exception' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Exception.php',
+        'Masterminds\\HTML5\\InstructionProcessor' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/InstructionProcessor.php',
+        'Masterminds\\HTML5\\Parser\\CharacterReference' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/CharacterReference.php',
+        'Masterminds\\HTML5\\Parser\\DOMTreeBuilder' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/DOMTreeBuilder.php',
+        'Masterminds\\HTML5\\Parser\\EventHandler' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/EventHandler.php',
+        'Masterminds\\HTML5\\Parser\\FileInputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/FileInputStream.php',
+        'Masterminds\\HTML5\\Parser\\InputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/InputStream.php',
+        'Masterminds\\HTML5\\Parser\\ParseError' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/ParseError.php',
+        'Masterminds\\HTML5\\Parser\\Scanner' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/Scanner.php',
+        'Masterminds\\HTML5\\Parser\\StringInputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/StringInputStream.php',
+        'Masterminds\\HTML5\\Parser\\Tokenizer' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/Tokenizer.php',
+        'Masterminds\\HTML5\\Parser\\TreeBuildingRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/TreeBuildingRules.php',
+        'Masterminds\\HTML5\\Parser\\UTF8Utils' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/UTF8Utils.php',
+        'Masterminds\\HTML5\\Serializer\\HTML5Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/HTML5Entities.php',
+        'Masterminds\\HTML5\\Serializer\\OutputRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/OutputRules.php',
+        'Masterminds\\HTML5\\Serializer\\RulesInterface' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/RulesInterface.php',
+        'Masterminds\\HTML5\\Serializer\\Traverser' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/Traverser.php',
         'Psr\\Http\\Message\\MessageInterface' => __DIR__ . '/..' . '/psr/http-message/src/MessageInterface.php',
         'Psr\\Http\\Message\\RequestInterface' => __DIR__ . '/..' . '/psr/http-message/src/RequestInterface.php',
         'Psr\\Http\\Message\\ResponseInterface' => __DIR__ . '/..' . '/psr/http-message/src/ResponseInterface.php',
@@ -229,6 +262,27 @@ class ComposerStaticInitc31cefc01633492a0642e610989f86d3
         'Psr\\Http\\Message\\StreamInterface' => __DIR__ . '/..' . '/psr/http-message/src/StreamInterface.php',
         'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
         'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
+        'TIOB\\Admin' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Admin.php',
+        'TIOB\\Importers\\Content_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Content_Importer.php',
+        'TIOB\\Importers\\Helpers\\Helper' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Helper.php',
+        'TIOB\\Importers\\Helpers\\Importer_Alterator' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Importer_Alterator.php',
+        'TIOB\\Importers\\Helpers\\Quiet_Skin' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Quiet_Skin.php',
+        'TIOB\\Importers\\Helpers\\Quiet_Skin_Legacy' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Quiet_Skin_Legacy.php',
+        'TIOB\\Importers\\Plugin_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Plugin_Importer.php',
+        'TIOB\\Importers\\Theme_Mods_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Theme_Mods_Importer.php',
+        'TIOB\\Importers\\WP\\Beaver_Data_Fix' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/Beaver_Data_Fix.php',
+        'TIOB\\Importers\\WP\\Beaver_ParserXML' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/Beaver_ParserXML.php',
+        'TIOB\\Importers\\WP\\Elementor_Meta_Handler' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/Elementor_Meta_Handler.php',
+        'TIOB\\Importers\\WP\\WP_Import' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WP_Import.php',
+        'TIOB\\Importers\\WP\\WXR_Parser' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WXR_Parser.php',
+        'TIOB\\Importers\\WP\\WXR_Parser_SimpleXML' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WXR_Parser_SimpleXML.php',
+        'TIOB\\Importers\\WP\\WXR_Parser_XML' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WXR_Parser_XML.php',
+        'TIOB\\Importers\\Widgets_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Widgets_Importer.php',
+        'TIOB\\Importers\\Zelle_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Zelle_Importer.php',
+        'TIOB\\Logger' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Logger.php',
+        'TIOB\\Main' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Main.php',
+        'TIOB\\Rest_Server' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Rest_Server.php',
+        'TIOB\\WP_Cli' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/WP_Cli.php',
         'tubalmartin\\CssMin\\Colors' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Colors.php',
         'tubalmartin\\CssMin\\Command' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Command.php',
         'tubalmartin\\CssMin\\Minifier' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Minifier.php',
@@ -238,9 +292,9 @@ class ComposerStaticInitc31cefc01633492a0642e610989f86d3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc31cefc01633492a0642e610989f86d3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc31cefc01633492a0642e610989f86d3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc31cefc01633492a0642e610989f86d3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a::$classMap;
 
         }, null, ClassLoader::class);
     }

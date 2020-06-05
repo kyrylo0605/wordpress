@@ -4,8 +4,8 @@ Donate link: http://wpml.org/documentation/related-projects/woocommerce-multilin
 Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multilingual, e-shop, shop
 License: GPLv2
 Requires at least: 4.7
-Tested up to: 5.3
-Stable tag: 4.8.0
+Tested up to: 5.4.1
+Stable tag: 4.9.0
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -137,6 +137,23 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
+= 4.9.0 =
+* Manual shipping prices in secondary currencies.
+* Fixed product attribute slug language not changed after changing value.
+* Fixed missing numeric attribute values after translation using ATE.
+* Fixed mini-cart total calculation when switching a currency.
+* Fixed out of stock variable products if "Show only products with custom prices in secondary currencies" option is enabled.
+* Fixed WC Tab Manager custom tab translation from ATE was not saved if the description is empty.
+* Fixed an error which some additional plugins may cause with WC_Email object.
+* Add a filter for WCML_WC_Gateways::get_current_gateway_language().
+* Fixed not synchronized WooCommerce Tab Manager global tabs while saving product translation via ATE.
+* Fixed not updated tax label after a change on settings page.
+* Fixed the value of a custom attribute translation is overwritten on saving the original product.
+* Fixed overwritten composite data title and description in translation after original product update.
+* Fixed js console error in languages_notice.js file.
+* Add language filtering for WooCommerce dashboard stock widgets.
+* Fixed creating of several memberships in WooCommerce Membership plugin.
+
 = 4.8.0 =
 * Fixed JS SyntaxError on Products listing page.
 * Fixed not registered 'Additional Content' emails setting text after first saving.
@@ -224,46 +241,3 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 * WooCommerce Variation Swatches and Photos compatibility to translate attributes
 * Fix related product displays in all languages
 * Added compatibility with Yikes Custom Product Tabs
-
-= 4.4.0 =
-* Added the ability to associate BACS accounts with currencies
-* Hide reviews in other languages link, if there are no reviews in product
-* Update WCML Logo
-* Removed Product Type Column from WCML backend and added compatibility with the WC Product Type Column plugin
-* Fix low_stock_amount not synchronized to translations
-* Fix custom attribute with number in name not appears to translation in Translation editor
-* Fix not applied price rule for WooCommerce Table Rate Shipping in second currency
-* Fix translated custom field wrongly saved to translation if contains array of strings
-* Endless loop when using troubleshooting action to duplicate terms
-* Fixed an issue with Elementor PRO products block showing all categories in the translated page.
-* Fixed Xliff doesn't contains variation descriptions for WooCommerce Subscriptions
-* Fixed compatibility issue with Flatsome theme
-* Fix issue with custom product attribute title when trying to upload translation with XLIFF file
-* Fixed cart validate for specific situations
-* Added filter for translated package rates
-* Added WPML switcher buttons library for Multi Currency in backend
-* Fix loading Jquery to any place in code and in header
-* Added fix for variation product "become" out-of-stock when translating using native screen
-* Removed backward compatibility filters for terms synchronization
-* Fixed attribute slug language always set to English
-* Wrong path in Bookings compatibility class
-* Fixed a fatal error occuring with older versions of WooCommerce (3.3.5)
-* Fixed confirming order as complete from the order edit screen, does not decrement the second language stock qty
-* Product category data always synchronizes on save of the translation and does not respect WPML option to sync taxonomies
-* Fixed call to undefined method WPML_URL_Filters::remove_global_hooks with WPML < 3.6.0
-* Fixed compatibility class name for wc product addons
-* Fixed manual order creation does not respect manual prices
-* Fix email language for the order as complete emails
-* Fixed Composite Products compatibility - Price not rounding to the nearest integer
-* Fixed missing custom attribute in XLIFF file / Pro Translation
-* Fix Endpoint error to prevent 404 in some cases
-* Fixed accepted arguments for terms_clause
-* Resolved an exception causing an error message in the cart in some setups
-* Fixed missed synchronization of 'outofstock' visibility term between product translations
-* Fix broken logic with Table Rate Shipping when product uses class with "break and abort" rule
-* Custom attributes terms not copied to diplicated translation after update values in original
-* Added support for wpml endpoints
-* WP Fastest Cache compatibility - fixed currency switcher problem
-* Added ability to set custom prices for secondary currencies in WC Product Add-Ons
-* Update minimum requirements
-* Added ability to add custom payment methods for each currency

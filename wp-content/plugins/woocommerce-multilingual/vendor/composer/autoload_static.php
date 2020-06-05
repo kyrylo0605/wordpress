@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2b24f5ddc335620015ade0eba62103e1
+class ComposerStaticInit4be6ab1b4378bf1f9c11125f815eddfc
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -25,6 +25,8 @@ class ComposerStaticInit2b24f5ddc335620015ade0eba62103e1
     );
 
     public static $classMap = array (
+        'WCML\\AdminDashboard\\Hooks' => __DIR__ . '/../..' . '/classes/AdminDashboard/Hooks.php',
+        'WCML\\AdminNotices\\Review' => __DIR__ . '/../..' . '/classes/AdminNotices/Review.php',
         'WCML\\Block\\Convert\\ConverterProvider' => __DIR__ . '/../..' . '/classes/Block/Convert/ConverterProvider.php',
         'WCML\\Block\\Convert\\Converter\\ProductsByAttributes' => __DIR__ . '/../..' . '/classes/Block/Convert/Converter/ProductsByAttributes.php',
         'WCML\\Block\\Convert\\Hooks' => __DIR__ . '/../..' . '/classes/Block/Convert/Hooks.php',
@@ -35,8 +37,23 @@ class ComposerStaticInit2b24f5ddc335620015ade0eba62103e1
         'WCML\\Media\\Wrapper\\IMedia' => __DIR__ . '/../..' . '/classes/media/Wrapper/IMedia.php',
         'WCML\\Media\\Wrapper\\NonTranslatable' => __DIR__ . '/../..' . '/classes/media/Wrapper/NonTranslatable.php',
         'WCML\\Media\\Wrapper\\Translatable' => __DIR__ . '/../..' . '/classes/media/Wrapper/Translatable.php',
+        'WCML\\Multicurrency\\Shipping\\AdminHooks' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/AdminHooks.php',
+        'WCML\\Multicurrency\\Shipping\\DefaultConversion' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/DefaultConversion.php',
+        'WCML\\Multicurrency\\Shipping\\FlatRateShipping' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/FlatRateShipping.php',
+        'WCML\\Multicurrency\\Shipping\\FreeShipping' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/FreeShipping.php',
+        'WCML\\Multicurrency\\Shipping\\FrontEndHooks' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/FrontEndHooks.php',
+        'WCML\\Multicurrency\\Shipping\\LocalPickup' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/LocalPickup.php',
+        'WCML\\Multicurrency\\Shipping\\ShippingClasses' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingClasses.php',
+        'WCML\\Multicurrency\\Shipping\\ShippingClassesMode' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingClassesMode.php',
+        'WCML\\Multicurrency\\Shipping\\ShippingHooksFactory' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingHooksFactory.php',
+        'WCML\\Multicurrency\\Shipping\\ShippingMode' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingMode.php',
+        'WCML\\Multicurrency\\Shipping\\ShippingModeBase' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingModeBase.php',
+        'WCML\\Multicurrency\\Shipping\\ShippingModeProvider' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingModeProvider.php',
+        'WCML\\Multicurrency\\Shipping\\UnsupportedShipping' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/UnsupportedShipping.php',
+        'WCML\\Multicurrency\\Shipping\\VariableCost' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/VariableCost.php',
         'WCML\\Rest\\Frontend\\Language' => __DIR__ . '/../..' . '/classes/Rest/Frontend/Language.php',
         'WCML\\RewriteRules\\Hooks' => __DIR__ . '/../..' . '/classes/RewriteRules/Hooks.php',
+        'WCML\\Tax\\Strings\\Hooks' => __DIR__ . '/../..' . '/classes/Tax/Strings/Hooks.php',
         'WCML_ATE_Activate_Synchronization' => __DIR__ . '/../..' . '/classes/ate/class-wcml-ate-activate-synchronization.php',
         'WCML_Accommodation_Bookings' => __DIR__ . '/../..' . '/compatibility/class-wcml-accommodation-bookings.php',
         'WCML_Admin_Cookie' => __DIR__ . '/../..' . '/classes/class-wcml-admin-cookie.php',
@@ -238,9 +255,9 @@ class ComposerStaticInit2b24f5ddc335620015ade0eba62103e1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2b24f5ddc335620015ade0eba62103e1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2b24f5ddc335620015ade0eba62103e1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2b24f5ddc335620015ade0eba62103e1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4be6ab1b4378bf1f9c11125f815eddfc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4be6ab1b4378bf1f9c11125f815eddfc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4be6ab1b4378bf1f9c11125f815eddfc::$classMap;
 
         }, null, ClassLoader::class);
     }

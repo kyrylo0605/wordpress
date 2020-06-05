@@ -206,6 +206,11 @@ Update now to get all the latest features, bug fixes and improvements!
 
 == Changelog ==
 
+= 1.9.25 =
+Date Updated : 2020-06-04
+* Fix : Fixed bug to prevent infinite loop with ResizeObserver in some themes
+* Update : FooGallery client side 1.4.13
+
 = 1.9.24 =
 Date Updated : 2020-05-04
 * Fix : Fixed bug where thumbs were not loading on mobile in Justified and Portfolio galleries
