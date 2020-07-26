@@ -121,13 +121,22 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 }
             }
 
-            $show_cats     = AWS()->get_settings( 'show_cats' );
-            $show_tags     = AWS()->get_settings( 'show_tags' );
-            $results_num   = $keyword ? apply_filters( 'aws_page_results', 100 ) : AWS()->get_settings( 'results_num' );
-            $search_in     = AWS()->get_settings( 'search_in' );
-            $outofstock    = AWS()->get_settings( 'outofstock' );
+            $search_archives = AWS()->get_settings( 'search_archives' );
+            $show_cats       = ( isset( $search_archives['archive_category'] ) && $search_archives['archive_category'] ) ? 'true' : 'false';
+            $show_tags       = ( isset( $search_archives['archive_tag'] ) && $search_archives['archive_tag'] ) ? 'true' : 'false';
+            $results_num     = $keyword ? apply_filters( 'aws_page_results', 100 ) : AWS()->get_settings( 'results_num' );
+            $search_in       = AWS()->get_settings( 'search_in' );
+            $outofstock      = AWS()->get_settings( 'outofstock' );
 
-            $search_in_arr = explode( ',',  AWS()->get_settings( 'search_in' ) );
+            if ( is_array( $search_in ) ) {
+                foreach( $search_in as $search_in_source => $search_in_active ) {
+                    if ( $search_in_active ) {
+                        $search_in_arr[] = $search_in_source;
+                    }
+                }
+            } else {
+                $search_in_arr = explode( ',',  $search_in );
+            }
 
             // Search in title if all options is disabled
             if ( ! $search_in ) {
@@ -430,6 +439,13 @@ if ( ! class_exists( 'AWS_Search' ) ) :
 				LIMIT 0, {$results_num}
 		    ";
 
+            /**
+             * Filter search query string
+             * @since 2.06
+             * @param array $query Query string
+             */
+            $sql = apply_filters( 'aws_search_query_string', $sql );
+
             $this->data['sql'] = $sql;
 
             $posts_ids = $this->get_posts_ids( $sql );
@@ -561,9 +577,20 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                     }
 
                     if ( $show_image === 'true' ) {
+
                         $image_id = $product->get_image_id();
-                        $image_attributes = wp_get_attachment_image_src( $image_id );
+                        $image_size = 'thumbnail';
+
+                        /**
+                         * Filter products images size
+                         * @since 2.06
+                         * @param string $image_size Image size
+                         */
+                        $image_size = apply_filters( 'aws_image_size', $image_size );
+
+                        $image_attributes = wp_get_attachment_image_src( $image_id, $image_size );
                         $image = $image_attributes[0];
+
                     }
 
                     if ( $show_sku === 'true' ) {
@@ -600,6 +627,9 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         $f_reviews = $product->get_review_count();
                     }
 
+                    $f_stock = $product->is_in_stock();
+                    $f_sale  = $product->is_on_sale();
+
 //                    $categories = $product->get_categories( ',' );
 //                    $tags = $product->get_tags( ',' );
 
@@ -626,6 +656,8 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                         'f_price'      => $f_price,
                         'f_rating'     => $f_rating,
                         'f_reviews'    => $f_reviews,
+                        'f_stock'      => $f_stock,
+                        'f_sale'       => $f_sale,
                         'post_data'    => $post_data
                     );
 

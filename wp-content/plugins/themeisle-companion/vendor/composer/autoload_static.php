@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a
+class ComposerStaticInit1e269f633082fed79b894754c7016454
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -282,6 +282,7 @@ class ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a
         'TIOB\\Logger' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Logger.php',
         'TIOB\\Main' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Main.php',
         'TIOB\\Rest_Server' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Rest_Server.php',
+        'TIOB\\Sites_Listing' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Sites_Listing.php',
         'TIOB\\WP_Cli' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/WP_Cli.php',
         'tubalmartin\\CssMin\\Colors' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Colors.php',
         'tubalmartin\\CssMin\\Command' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Command.php',
@@ -292,9 +293,9 @@ class ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2f961a96c5d8ad7d435af2159e7b439a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1e269f633082fed79b894754c7016454::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1e269f633082fed79b894754c7016454::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1e269f633082fed79b894754c7016454::$classMap;
 
         }, null, ClassLoader::class);
     }

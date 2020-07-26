@@ -281,7 +281,7 @@ function enqueue_backup_guard_scripts($hook)
 	}
 	echo 'SG_AJAX_REQUEST_FREQUENCY = "'.$sgAjaxRequestFrequency.'";';
 	echo 'function getAjaxUrl(url) {'.
-		'if (url==="cloudDropbox" || url==="cloudGdrive" || url==="cloudOneDrive") return "'.admin_url('admin-post.php?action=backup_guard_').'"+url;'.
+		'if (url==="cloudDropbox" || url==="cloudGdrive" || url==="cloudOneDrive") return "'.admin_url('admin-post.php?action=backup_guard_').'"+url+"&token='.wp_create_nonce('backupGuardAjaxNonce').'";'.
 		'return "'.admin_url('admin-ajax.php').'";}</script>';
 
 	wp_enqueue_media();
@@ -337,7 +337,9 @@ function backup_guard_create_schedule()
 function backup_guard_get_manual_modal()
 {
 	check_ajax_referer('backupGuardAjaxNonce', 'token');
-	require_once(SG_PUBLIC_AJAX_PATH.'modalManualBackup.php');
+	if (is_admin()) {
+		require_once(SG_PUBLIC_AJAX_PATH.'modalManualBackup.php');
+    }
 	exit();
 }
 
@@ -437,7 +439,15 @@ function backup_guard_register_ajax_callbacks()
 		add_action('wp_ajax_backup_guard_storeSurveyResult', 'backup_guard_store_survey_result');
 		add_action('wp_ajax_backup_guard_reviewDontShow', 'backup_guard_review_dont_show');
 		add_action('wp_ajax_backup_guard_review_later', 'backup_guard_review_later');
+		add_action('wp_ajax_backup_guard_closeFreeBanner', 'closeFreeBanner');
 	}
+}
+
+function closeFreeBanner()
+{
+    check_ajax_referer('backupGuardAjaxNonce', 'token');
+	SGConfig::set('SG_CLOSE_FREE_BANNER', 1);
+	wp_die();
 }
 
 function backup_guard_review_dont_show()
@@ -502,6 +512,7 @@ function backup_guard_cloud_oneDrive()
 
 function backup_guard_import_key_file()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'importKeyFile.php');
 }
 
@@ -565,6 +576,7 @@ function backup_guard_check_restore_creation()
 
 function backup_guard_cloud_dropbox()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'cloudDropbox.php');
 }
 
@@ -575,11 +587,13 @@ function backup_guard_cloud_ftp()
 
 function backup_guard_cloud_amazon()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'cloudAmazon.php');
 }
 
 function backup_guard_cloud_gdrive()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'cloudGdrive.php');
 }
 
@@ -613,6 +627,7 @@ function backup_guard_get_running_actions()
 
 function backup_guard_get_import_backup()
 {
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'importBackup.php');
 }
 
@@ -731,26 +746,32 @@ function backup_guard_schedule_action($id)
 	require_once(SG_PUBLIC_PATH.'cron/sg_backup.php');
 }
 
-//load pro plugin updater
-$pluginCapabilities = backupGuardGetCapabilities();
-if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE) {
-	require_once(dirname(__FILE__).'/plugin-update-checker/plugin-update-checker.php');
-	require_once(dirname(__FILE__).'/plugin-update-checker/Puc/v4/Utils.php');
-	require_once(SG_LIB_PATH.'SGAuthClient.php');
+function sgBackupAdminInit() {
+    //load pro plugin updater
+    $pluginCapabilities = backupGuardGetCapabilities();
+    $isLoggedIn = is_user_logged_in();
 
-	$licenseKey = SGConfig::get('SG_LICENSE_KEY');
+    if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE && $isLoggedIn) {
+        require_once(dirname(__FILE__).'/plugin-update-checker/plugin-update-checker.php');
+        require_once(dirname(__FILE__).'/plugin-update-checker/Puc/v4/Utils.php');
+        require_once(SG_LIB_PATH.'SGAuthClient.php');
 
-	$updateChecker = Puc_v4_Factory::buildUpdateChecker(
-		BackupGuard\Config::URL.'/products/details/'.$licenseKey,
-		SG_BACKUP_GUARD_MAIN_FILE,
-		SG_PRODUCT_IDENTIFIER
-	);
+        $licenseKey = SGConfig::get('SG_LICENSE_KEY');
 
-	$updateChecker->addHttpRequestArgFilter(array(
-		SGAuthClient::getInstance(),
-		'filterUpdateChecks'
-	));
+        $updateChecker = Puc_v4_Factory::buildUpdateChecker(
+            BackupGuard\Config::URL.'/products/details/'.$licenseKey,
+            SG_BACKUP_GUARD_MAIN_FILE,
+            SG_PRODUCT_IDENTIFIER
+        );
+
+        $updateChecker->addHttpRequestArgFilter(array(
+            SGAuthClient::getInstance(),
+            'filterUpdateChecks'
+        ));
+    }
 }
+
+add_action('admin_init', 'sgBackupAdminInit');
 
 if (SGBoot::isFeatureAvailable('ALERT_BEFORE_UPDATE')) {
 	add_filter('upgrader_pre_download', 'backupGuardOnBeforeUpdateDownload', 10, 3);

@@ -56,6 +56,8 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 }
             }
 
+            $this->includes();
+
             //add_action('woocommerce_product_query', array( $this, 'woocommerce_product_query' ) );
 
             if ( class_exists( 'BM' ) ) {
@@ -126,6 +128,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 // Elementor pro
                 if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
                     add_action( 'wp_footer', array( $this, 'elementor_pro_popup' ) );
+                    add_filter( 'elementor/widget/render_content', array( $this, 'elementor_render_content' ), 10, 2 );
                 }
 
             }
@@ -165,6 +168,28 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             // WP all import finish
             add_action( 'pmxi_after_xml_import', array( $this, 'pmxi_after_xml_import' ) );
+
+            // BeRocket WooCommerce AJAX Products Filter
+            if ( defined( 'BeRocket_AJAX_filters_version' ) ) {
+                add_filter( 'aws_search_page_filters', array( $this, 'berocket_search_page_filters' ) );
+            }
+
+        }
+
+        /**
+         * Include files
+         */
+        public function includes() {
+
+            // Elementor plugin widget
+            if ( defined( 'ELEMENTOR_VERSION' ) ) {
+                include_once( AWS_DIR . '/includes/modules/elementor-widget/class-elementor-aws-init.php' );
+            }
+
+            // Divi module
+            if ( defined( 'ET_BUILDER_PLUGIN_DIR' ) ) {
+                include_once( AWS_DIR . '/includes/modules/divi/class-divi-aws-module.php' );
+            }
 
         }
 
@@ -665,6 +690,48 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         <?php }
 
         /*
+         * Elementor replace search form widget
+         */
+        public function elementor_render_content( $content, $widget ) {
+            if ( method_exists( $widget, 'get_name' ) && $widget->get_name() === 'search-form' ) {
+                if ( method_exists( $widget, 'get_settings' )  ) {
+                    $settings = $widget->get_settings();
+                    if ( is_array( $settings ) && isset( $settings['skin'] ) && $settings['skin'] === 'full_screen' ) {
+                        $content = '<style>
+                            .elementor-search-form--skin-full_screen .elementor-search-form__container {
+                                overflow: hidden;
+                            }
+                            .elementor-search-form--full-screen .aws-container {
+                                width: 100%;
+                            }
+                            .elementor-search-form--full-screen .aws-container .aws-search-form {
+                                height: auto !important;
+                            }
+                            .elementor-search-form--full-screen .aws-container .aws-search-form .aws-search-btn.aws-form-btn {
+                                display: none;
+                            }
+                            .elementor-search-form--full-screen .aws-container .aws-search-field {
+                                border-bottom: 1px solid #fff !important;
+                                font-size: 50px !important;
+                                text-align: center !important;
+                                line-height: 1.5 !important;
+                                color: #7a7a7a !important;
+                            }
+                            .elementor-search-form--full-screen .aws-container .aws-search-field:focus {
+                                background-color: transparent !important;
+                            }
+                        </style>' . $content;
+                        $content = str_replace( array( '<form', '</form>' ), array( '<div', '</div>' ), $content );
+                        $content = preg_replace( '/(<input[\S\s]*?elementor-search-form__input[\S\s]*?\>)/i', aws_get_search_form( false ), $content );
+                        return $content;
+                    }
+                }
+                return aws_get_search_form( false );
+            }
+            return $content;
+        }
+
+        /*
          * Porto theme seamless integration
          */
         public function porto_search_form_content_filter( $markup ) {
@@ -892,6 +959,17 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $all_registered_wholesale_roles = array();
             }
 
+            $product_cat_wholesale_role_filter = get_option( 'wwpp_option_product_cat_wholesale_role_filter' );
+            $categories_exclude_list = array();
+
+            if ( is_array( $product_cat_wholesale_role_filter ) && ! empty( $product_cat_wholesale_role_filter ) && $user_role !== 'administrator' ) {
+                foreach( $product_cat_wholesale_role_filter as $term_id => $term_roles ) {
+                    if ( array_search( $user_role, $term_roles ) === false ) {
+                        $categories_exclude_list[] = $term_id;
+                    }
+                }
+            }
+
             $new_products_array = array();
 
             foreach( $products as $product ) {
@@ -906,6 +984,17 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 if ( is_user_logged_in() && !empty( $all_registered_wholesale_roles ) && isset( $all_registered_wholesale_roles[$user_role] )
                     && get_option( 'wwpp_settings_only_show_wholesale_products_to_wholesale_users', false ) === 'yes' && ! $custom_price ) {
                     continue;
+                }
+
+                if ( ! empty( $categories_exclude_list ) ) {
+                    $terms = wp_get_object_terms( $product['id'], 'product_cat' );
+                    if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+                        foreach ( $terms as $term ) {
+                            if ( array_search( $term->term_id, $categories_exclude_list ) !== false ) {
+                                continue 2;
+                            }
+                        }
+                    }
                 }
 
                 $new_products_array[] = $product;
@@ -1021,6 +1110,43 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             if ( $sunc === 'true' ) {
                 wp_schedule_single_event( time() + 1, 'aws_reindex_table' );
             }
+        }
+
+        /*
+         * BeRocket WooCommerce AJAX Products Filter
+         */
+        public function berocket_search_page_filters( $filters ) {
+
+            if ( isset( $_GET['filters'] ) ) {
+
+                $get_filters = explode( '|', $_GET['filters'] );
+
+                foreach( $get_filters as $get_filter ) {
+
+                    if ( $get_filter === '_stock_status[1]' ) {
+                        $filters['in_status'] = true;
+                    } elseif ( $get_filter === '_stock_status[2]' ) {
+                        $filters['in_status'] = false;
+                    } elseif ( $get_filter === '_sale[1]' ) {
+                        $filters['on_sale'] = true;
+                    } elseif ( $get_filter === '_sale[2]' ) {
+                        $filters['on_sale'] = false;
+                    } elseif( preg_match( '/([\w]+)\[(.+?)\]/', $get_filter, $matches ) ) {
+                        $taxonomy = $matches[1];
+                        $operator = strpos( $matches[2], '-' ) !== false ? 'OR' : 'AND';
+                        $explode_char = strpos( $matches[2], '-' ) !== false ? '-' : '+';
+                        $filters['tax'][$taxonomy] = array(
+                            'terms' => explode( $explode_char, $matches[2] ),
+                            'operator' => $operator
+                        );
+                    }
+
+                }
+
+            }
+
+            return $filters;
+
         }
 
     }

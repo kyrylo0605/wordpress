@@ -128,17 +128,17 @@
     },
     {
         "name": "codeinwp/gutenberg-blocks",
-        "version": "1.5.2",
-        "version_normalized": "1.5.2.0",
+        "version": "1.5.3",
+        "version_normalized": "1.5.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/gutenberg-blocks.git",
-            "reference": "39af85f894e67fca1a8ac3a172bebe6688b83480"
+            "reference": "ad512c53be4f7ebe79ac2ed40f39cf9a9d4a4885"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/39af85f894e67fca1a8ac3a172bebe6688b83480",
-            "reference": "39af85f894e67fca1a8ac3a172bebe6688b83480",
+            "url": "https://api.github.com/repos/Codeinwp/gutenberg-blocks/zipball/ad512c53be4f7ebe79ac2ed40f39cf9a9d4a4885",
+            "reference": "ad512c53be4f7ebe79ac2ed40f39cf9a9d4a4885",
             "shasum": ""
         },
         "require": {
@@ -152,7 +152,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "wp-coding-standards/wpcs": "^1"
         },
-        "time": "2020-05-26T15:53:06+00:00",
+        "time": "2020-06-22T21:35:29+00:00",
         "type": "library",
         "extra": {
             "installer-disable": "true"
@@ -219,12 +219,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-content-forms.git",
-            "reference": "94cdac98f97d78b2ec48458fb4112aae2b54b9be"
+            "reference": "d639a0bbb24a32ae554805f4acc01eafe6b7a327"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/94cdac98f97d78b2ec48458fb4112aae2b54b9be",
-            "reference": "94cdac98f97d78b2ec48458fb4112aae2b54b9be",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/d639a0bbb24a32ae554805f4acc01eafe6b7a327",
+            "reference": "d639a0bbb24a32ae554805f4acc01eafe6b7a327",
             "shasum": ""
         },
         "require": {
@@ -234,7 +234,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
             "wptrt/wpthemereview": "*"
         },
-        "time": "2020-04-22T07:45:52+00:00",
+        "time": "2020-07-17T08:28:46+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -263,12 +263,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-onboarding.git",
-            "reference": "0a2b1cbad14b4c23a77f1de92ee98addb5b8fd92"
+            "reference": "3404cc9f5880101c23f178e07bbac2bc973294f1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-onboarding/zipball/0a2b1cbad14b4c23a77f1de92ee98addb5b8fd92",
-            "reference": "0a2b1cbad14b4c23a77f1de92ee98addb5b8fd92",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-onboarding/zipball/3404cc9f5880101c23f178e07bbac2bc973294f1",
+            "reference": "3404cc9f5880101c23f178e07bbac2bc973294f1",
             "shasum": ""
         },
         "require-dev": {
@@ -276,7 +276,7 @@
             "squizlabs/php_codesniffer": "^3.1",
             "wp-coding-standards/wpcs": "^1.0.0 || ^2.0.0"
         },
-        "time": "2020-06-04T16:02:15+00:00",
+        "time": "2020-07-16T11:06:16+00:00",
         "type": "library",
         "extra": {
             "installer-disable": "true"
@@ -303,17 +303,17 @@
     },
     {
         "name": "codeinwp/themeisle-sdk",
-        "version": "3.2.11",
-        "version_normalized": "3.2.11.0",
+        "version": "3.2.14",
+        "version_normalized": "3.2.14.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-            "reference": "18a519764465be0f7aeb8ea33e6cb41b5956020c"
+            "reference": "992f5e8347836e325ffc50760da1d550b79831c4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/18a519764465be0f7aeb8ea33e6cb41b5956020c",
-            "reference": "18a519764465be0f7aeb8ea33e6cb41b5956020c",
+            "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/992f5e8347836e325ffc50760da1d550b79831c4",
+            "reference": "992f5e8347836e325ffc50760da1d550b79831c4",
             "shasum": ""
         },
         "require-dev": {
@@ -321,7 +321,7 @@
             "squizlabs/php_codesniffer": "^3.1",
             "wp-coding-standards/wpcs": "^1.0.0"
         },
-        "time": "2020-06-04T16:15:18+00:00",
+        "time": "2020-06-10T16:25:09+00:00",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -464,17 +464,17 @@
     },
     {
         "name": "masterminds/html5",
-        "version": "2.7.0",
-        "version_normalized": "2.7.0.0",
+        "version": "2.7.3",
+        "version_normalized": "2.7.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Masterminds/html5-php.git",
-            "reference": "104443ad663d15981225f99532ba73c2f1d6b6f2"
+            "reference": "aad73dbfefd71d46072138109ce1288d96c329cc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/104443ad663d15981225f99532ba73c2f1d6b6f2",
-            "reference": "104443ad663d15981225f99532ba73c2f1d6b6f2",
+            "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/aad73dbfefd71d46072138109ce1288d96c329cc",
+            "reference": "aad73dbfefd71d46072138109ce1288d96c329cc",
             "shasum": ""
         },
         "require": {
@@ -488,7 +488,7 @@
             "sami/sami": "~2.0",
             "satooshi/php-coveralls": "1.0.*"
         },
-        "time": "2019-07-25T07:03:26+00:00",
+        "time": "2020-07-05T07:53:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -591,41 +591,41 @@
     },
     {
         "name": "php-http/discovery",
-        "version": "1.7.4",
-        "version_normalized": "1.7.4.0",
+        "version": "1.9.1",
+        "version_normalized": "1.9.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/discovery.git",
-            "reference": "82dbef649ccffd8e4f22e1953c3a5265992b83c0"
+            "reference": "64a18cc891957e05d91910b3c717d6bd11fbede9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/discovery/zipball/82dbef649ccffd8e4f22e1953c3a5265992b83c0",
-            "reference": "82dbef649ccffd8e4f22e1953c3a5265992b83c0",
+            "url": "https://api.github.com/repos/php-http/discovery/zipball/64a18cc891957e05d91910b3c717d6bd11fbede9",
+            "reference": "64a18cc891957e05d91910b3c717d6bd11fbede9",
             "shasum": ""
         },
         "require": {
-            "php": "^7.1"
+            "php": "^7.1 || ^8.0"
         },
         "conflict": {
             "nyholm/psr7": "<1.0"
         },
         "require-dev": {
-            "akeneo/phpspec-skip-example-extension": "^4.0",
+            "graham-campbell/phpspec-skip-example-extension": "^5.0",
             "php-http/httplug": "^1.0 || ^2.0",
             "php-http/message-factory": "^1.0",
-            "phpspec/phpspec": "^5.1",
+            "phpspec/phpspec": "^5.1 || ^6.1",
             "puli/composer-plugin": "1.0.0-beta10"
         },
         "suggest": {
             "php-http/message": "Allow to use Guzzle, Diactoros or Slim Framework factories",
             "puli/composer-plugin": "Sets up Puli which is recommended for Discovery to work. Check http://docs.php-http.org/en/latest/discovery.html for more details."
         },
-        "time": "2020-01-03T11:25:47+00:00",
+        "time": "2020-07-13T15:44:45+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.7-dev"
+                "dev-master": "1.9-dev"
             }
         },
         "installation-source": "dist",
@@ -842,24 +842,27 @@
     },
     {
         "name": "php-http/promise",
-        "version": "v1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/promise.git",
-            "reference": "dc494cdc9d7160b9a09bd5573272195242ce7980"
+            "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/promise/zipball/dc494cdc9d7160b9a09bd5573272195242ce7980",
-            "reference": "dc494cdc9d7160b9a09bd5573272195242ce7980",
+            "url": "https://api.github.com/repos/php-http/promise/zipball/4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
+            "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
             "shasum": ""
         },
-        "require-dev": {
-            "henrikbjorn/phpspec-code-coverage": "^1.0",
-            "phpspec/phpspec": "^2.4"
+        "require": {
+            "php": "^7.1 || ^8.0"
         },
-        "time": "2016-01-26T13:27:02+00:00",
+        "require-dev": {
+            "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
+            "phpspec/phpspec": "^5.1.2 || ^6.2"
+        },
+        "time": "2020-07-07T09:29:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -878,12 +881,12 @@
         ],
         "authors": [
             {
-                "name": "Márk Sági-Kazár",
-                "email": "mark.sagikazar@gmail.com"
-            },
-            {
                 "name": "Joel Wurtz",
                 "email": "joel.wurtz@gmail.com"
+            },
+            {
+                "name": "Márk Sági-Kazár",
+                "email": "mark.sagikazar@gmail.com"
             }
         ],
         "description": "Promise used for asynchronous HTTP requests",

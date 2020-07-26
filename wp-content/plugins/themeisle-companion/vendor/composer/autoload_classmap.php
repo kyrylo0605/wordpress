@@ -180,6 +180,7 @@ return array(
     'TIOB\\Logger' => $vendorDir . '/codeinwp/themeisle-onboarding/includes/Logger.php',
     'TIOB\\Main' => $vendorDir . '/codeinwp/themeisle-onboarding/includes/Main.php',
     'TIOB\\Rest_Server' => $vendorDir . '/codeinwp/themeisle-onboarding/includes/Rest_Server.php',
+    'TIOB\\Sites_Listing' => $vendorDir . '/codeinwp/themeisle-onboarding/includes/Sites_Listing.php',
     'TIOB\\WP_Cli' => $vendorDir . '/codeinwp/themeisle-onboarding/includes/WP_Cli.php',
     'tubalmartin\\CssMin\\Colors' => $vendorDir . '/tubalmartin/cssmin/src/Colors.php',
     'tubalmartin\\CssMin\\Command' => $vendorDir . '/tubalmartin/cssmin/src/Command.php',

@@ -64,7 +64,7 @@
 					<div class="col-lg-3">
 						<span class="input-group-btn">
 							<span class="btn btn-primary btn-file backup-browse-btn">
-								<?php _backupGuardT('Browse')?>&hellip; <input class="sg-backup-upload-input" type="file" name="files[]" data-url="<?php echo admin_url('admin-ajax.php')."?action=backup_guard_importBackup" ?>" data-max-file-size="<?php echo backupGuardConvertToBytes($maxUploadSize.'B'); ?>">
+								<?php _backupGuardT('Browse')?>&hellip; <input class="sg-backup-upload-input" type="file" name="files[]" data-url="<?php echo admin_url('admin-ajax.php')."?action=backup_guard_importBackup&token=".wp_create_nonce('backupGuardAjaxNonce') ?>" data-max-file-size="<?php echo backupGuardConvertToBytes($maxUploadSize.'B'); ?>">
 							</span>
 						</span>
 					</div>

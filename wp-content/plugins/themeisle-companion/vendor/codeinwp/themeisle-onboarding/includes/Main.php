@@ -49,6 +49,13 @@ class Main {
 	public $admin = null;
 
 	/**
+	 * Sites listing
+	 *
+	 * @var Sites_Listing
+	 */
+	private $sites_listing = null;
+
+	/**
 	 * Method to return path to child class in a Reflective Way.
 	 *
 	 * @return string
@@ -82,6 +89,8 @@ class Main {
 	 * @var null
 	 */
 	private function init() {
+		$this->setup_sites_listing();
+
 		if ( ! $this->should_load() ) {
 			return;
 		}
@@ -99,12 +108,20 @@ class Main {
 			return false;
 		}
 
-		$theme_support = get_theme_support( 'themeisle-demo-import' );
-		if ( empty( $theme_support ) ) {
-			return false;
-		}
-
 		return true;
+	}
+
+	/**
+	 * Setup sites listing.
+	 *
+	 * @return void
+	 */
+	private function setup_sites_listing() {
+		if ( ! defined( 'NEVE_VERSION' ) ) {
+			return;
+		}
+		$this->sites_listing = new Sites_Listing();
+		$this->sites_listing->init();
 	}
 
 	/**

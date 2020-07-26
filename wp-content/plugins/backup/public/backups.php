@@ -152,7 +152,7 @@ $pluginCapabilities = backupGuardGetCapabilities();
 							<?php else: ?>
 								<a href="javascript:void(0)" data-sgbackup-name="<?php echo htmlspecialchars($backup['name']);?>" data-remote="deleteBackup" class="btn btn-danger btn-xs sg-remove-backup" title="<?php _backupGuardT('Delete')?>">&nbsp;<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>&nbsp;</a>
 								<div class="btn-group">
-									<a href="javascript:void(0)" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false" title="<?php _backupGuardT('Download')?>">
+									<a href="javascript:void(0)" class="btn btn-primary sg-bg-download-button btn-xs" data-toggle="dropdown1" aria-expanded="false" title="<?php _backupGuardT('Download')?>">
 										&nbsp;<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>&nbsp;
 										<span class="caret"></span>
 									</a>

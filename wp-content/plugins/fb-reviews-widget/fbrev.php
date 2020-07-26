@@ -4,7 +4,7 @@ Plugin Name: Social Reviews & Recommendations
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Allows you to instantly display Facebook reviews and recommendations on your site to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.6.9
+Version: 1.7
 Author URI: https://richplugins.com
 */
 
@@ -13,8 +13,8 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.6.9');
-define('FBREV_GRAPH_API',          'https://graph.facebook.com/v3.1/');
+define('FBREV_VERSION',            '1.7');
+define('FBREV_GRAPH_API',          'https://graph.facebook.com/v7.0/');
 define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
 define('FBREV_AVATAR',             FBREV_PLUGIN_URL . '/static/img/avatar.png');
@@ -171,7 +171,7 @@ function fbrev_shortcode($atts) {
     if (empty($page_id)) {
         ?>
         <div class="fbrev-error" style="padding:10px;color:#b94a48;background-color:#f2dede;border-color:#eed3d7;max-width:200px;">
-            <?php echo fbrev_i('<b>Google Reviews Business</b>: required attribute page_id is not defined'); ?>
+            <?php echo fbrev_i('<b>Facebook Reviews Widget</b>: required attribute page_id is not defined'); ?>
         </div>
         <?php
     } else {

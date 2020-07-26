@@ -99,6 +99,21 @@
   width: 22%;
   float: right;
   display: inline-block;
+  position: relative;
+}
+
+.sg-close-free-banner {
+  position: absolute;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 15px;
+  right: 7px;
+  top: 7px;
+  background-image: url(../img/close-button.png);
+  width: 9px;
+  height: 9px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .sg-banner-social-button {

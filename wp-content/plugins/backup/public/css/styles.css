@@ -337,3 +337,7 @@ select#product {
 .bg-license-content.sg-wrapper-less {
 	margin-top: 0 !important;
 }
+
+.sg-bg-show {
+	display: block !important;
+}

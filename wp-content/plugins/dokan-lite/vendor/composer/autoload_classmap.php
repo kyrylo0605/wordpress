@@ -117,6 +117,7 @@ return array(
     'WeDevs\\Dokan\\Vendor\\Manager' => $baseDir . '/includes/Vendor/Manager.php',
     'WeDevs\\Dokan\\Vendor\\SetupWizard' => $baseDir . '/includes/Vendor/SetupWizard.php',
     'WeDevs\\Dokan\\Vendor\\StoreListsFilter' => $baseDir . '/includes/Vendor/StoreListsFilter.php',
+    'WeDevs\\Dokan\\Vendor\\UserSwitch' => $baseDir . '/includes/Vendor/UserSwitch.php',
     'WeDevs\\Dokan\\Vendor\\Vendor' => $baseDir . '/includes/Vendor/Vendor.php',
     'WeDevs\\Dokan\\Walkers\\Category' => $baseDir . '/includes/Walkers/Category.php',
     'WeDevs\\Dokan\\Walkers\\CategoryDropdownSingle' => $baseDir . '/includes/Walkers/CategoryDropdownSingle.php',

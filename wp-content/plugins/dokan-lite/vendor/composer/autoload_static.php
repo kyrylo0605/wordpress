@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7c5d12db56d4a4a6d60281b579f34d67
+class ComposerStaticInit81025a775b3ffe59fabb3a75969d3844
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -140,6 +140,7 @@ class ComposerStaticInit7c5d12db56d4a4a6d60281b579f34d67
         'WeDevs\\Dokan\\Vendor\\Manager' => __DIR__ . '/../..' . '/includes/Vendor/Manager.php',
         'WeDevs\\Dokan\\Vendor\\SetupWizard' => __DIR__ . '/../..' . '/includes/Vendor/SetupWizard.php',
         'WeDevs\\Dokan\\Vendor\\StoreListsFilter' => __DIR__ . '/../..' . '/includes/Vendor/StoreListsFilter.php',
+        'WeDevs\\Dokan\\Vendor\\UserSwitch' => __DIR__ . '/../..' . '/includes/Vendor/UserSwitch.php',
         'WeDevs\\Dokan\\Vendor\\Vendor' => __DIR__ . '/../..' . '/includes/Vendor/Vendor.php',
         'WeDevs\\Dokan\\Walkers\\Category' => __DIR__ . '/../..' . '/includes/Walkers/Category.php',
         'WeDevs\\Dokan\\Walkers\\CategoryDropdownSingle' => __DIR__ . '/../..' . '/includes/Walkers/CategoryDropdownSingle.php',
@@ -164,9 +165,9 @@ class ComposerStaticInit7c5d12db56d4a4a6d60281b579f34d67
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7c5d12db56d4a4a6d60281b579f34d67::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7c5d12db56d4a4a6d60281b579f34d67::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7c5d12db56d4a4a6d60281b579f34d67::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit81025a775b3ffe59fabb3a75969d3844::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit81025a775b3ffe59fabb3a75969d3844::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit81025a775b3ffe59fabb3a75969d3844::$classMap;
 
         }, null, ClassLoader::class);
     }

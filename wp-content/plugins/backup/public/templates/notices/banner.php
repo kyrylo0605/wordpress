@@ -56,6 +56,7 @@
 	</div>
 
 	<div id="sg-right-column">
+        <div class="sg-close-free-banner"></div>
 		<ul>
 			<li class="sg-logo-li">
 				<a id="sg-logo" target="_blank" href="<?php echo SG_BACKUP_SITE_URL; ?>"></a>

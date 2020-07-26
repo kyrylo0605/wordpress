@@ -1,3 +1,16 @@
+##### [Version 2.9.12](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.11...v2.9.12) (2020-07-20)
+
+- New checkbox field in the Contact widget for both Elementor and Beaver Builder
+- [Fix] Newsletter widget not taking into account the double opt-in option from Mailchimp
+
+##### [Version 2.9.11](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.10...v2.9.11) (2020-07-10)
+
+- Starter Sites library and import process from the Neve theme
+
+##### [Version 2.9.10](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.9...v2.9.10) (2020-06-24)
+
+- [Fix] JS error for some modules when the module names are translated
+
 ##### [Version 2.9.9](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.8...v2.9.9) (2020-06-05)
 
 New Header/Footer Scripts module

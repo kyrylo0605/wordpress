@@ -71,6 +71,35 @@ sgBackup.awake = function(){
 //SG init
 sgBackup.init = function(){
 	sgBackup.initModals();
+	sgBackup.downloadButton();
+};
+
+sgBackup.downloadButton = function()
+{
+	var downloadButtons = jQuery('.sg-bg-download-button');
+	
+	if (!downloadButtons.length) {
+		return false;
+	}
+	var isOPen = false;
+	jQuery(window).bind('click', function () {
+		if (isOPen) {
+			jQuery('.sg-backup-table .dropdown-menu').removeClass('sg-bg-show');
+			isOPen = false;
+		}
+	});
+
+	downloadButtons.bind('click', function () {
+		var currentButton = jQuery(this);
+
+		if (!currentButton.length) {
+			return false;
+		}
+		setTimeout(function () {
+			currentButton.next().addClass('sg-bg-show');
+			isOPen = true;
+		}, 0);
+	});
 };
 
 //SG Modal popup logic

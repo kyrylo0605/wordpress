@@ -199,7 +199,7 @@ $ftpPassiveMode = SGConfig::get('SG_FTP_PASSIVE_MODE');
                             <?php endif; ?>
 
                             <div class="form-group">
-                                <label class="col-md-7 sg-control-label" for="sg-email"><?php _backupGuardT('AJAX request frequency')?></label>
+                                <label class="col-md-7 sg-control-label" for="sg-email"><?php _backupGuardT('Request frequency')?></label>
                                 <div class="col-md-5">
                                     <?php echo selectElement($intervalSelectElement, array('id'=>'sg-ajax-interval', 'name'=>'ajaxInterval', 'class'=>'form-control'), '', $selectedInterval);?>
                                 </div>

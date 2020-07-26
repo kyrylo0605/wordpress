@@ -25,3 +25,6 @@ msgstr "Altre recensioni"
 
 msgid "powered by %s"
 msgstr "realizzato da %s"
+
+msgid "Based on %s reviews"
+msgstr "Basato su %s recensioni"

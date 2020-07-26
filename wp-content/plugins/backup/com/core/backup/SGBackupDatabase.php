@@ -181,7 +181,7 @@ class SGBackupDatabase implements SGIMysqldumpDelegate
 		$this->backupFilePath = $filePath;
 
 		$this->export();
-
+		
 		SGBackupLog::writeAction('backup database', SG_BACKUP_LOG_POS_END);
 		SGBackupLog::write('backup database total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
 	}

@@ -36,6 +36,17 @@ if (is_numeric($max_height)) {
     $max_height = $max_height . 'px';
 }
 
+$style = '';
+if (isset($max_width) && strlen($max_width) > 0) {
+    $style .= 'width:' . $max_width . '!important;';
+}
+if (isset($max_height) && strlen($max_height) > 0) {
+    $style .= 'height:' . $max_height . '!important;overflow-y:auto!important;';
+}
+if ($centered) {
+    $style .= 'margin:0 auto!important;';
+}
+
 if ($refresh_reviews) {
     $schedule_step = 60 * 60 * 55;
     $args = array($place_id);
@@ -51,7 +62,7 @@ if ($refresh_reviews) {
 
 if ($view_mode == 'list' || $view_mode == '') { ?>
 
-<div class="wp-gr wpac" style="<?php if (isset($max_width) && strlen($max_width) > 0) { ?>width:<?php echo $max_width;?>!important;<?php } ?><?php if (isset($max_height) && strlen($max_height) > 0) { ?>height:<?php echo $max_height;?>!important;overflow-y:auto!important;<?php } ?><?php if ($centered) { ?>margin:0 auto!important;<?php } ?>">
+<div class="wp-gr wpac"<?php if ($style) { ?> style="<?php echo $style;?>"<?php } ?>>
     <div class="wp-google-list<?php if ($dark_theme) { ?> wp-dark<?php } ?>">
         <div class="wp-google-place">
             <?php grw_place($rating, $place, $place_img, $reviews, $dark_theme, $hide_based_on); ?>

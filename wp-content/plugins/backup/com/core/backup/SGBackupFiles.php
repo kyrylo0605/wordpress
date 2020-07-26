@@ -16,7 +16,7 @@ class SGBackupFiles implements SGArchiveDelegate
 	private $filePath = '';
 	private $sgbp = null;
 	private $delegate = null;
-	private $actionStartTs = 0;
+	private $filesActionStartTs = 0;
 	private $nextProgressUpdate = 0;
 	private $progressUpdateInterval = 0;
 	private $warningsFound = false;
@@ -115,7 +115,8 @@ class SGBackupFiles implements SGArchiveDelegate
 	{
 		$this->reloadStartTs = time();
 		if ($state->getAction() == SG_STATE_ACTION_PREPARING_STATE_FILE) {
-			$this->actionStartTs = time();
+			$this->filesActionStartTs = time();
+			$state->setFilesActionStartTs($this->filesActionStartTs);
 			SGBackupLog::writeAction('backup files', SG_BACKUP_LOG_POS_START);
 		}
 
@@ -160,6 +161,7 @@ class SGBackupFiles implements SGArchiveDelegate
 
 			$this->numberOfEntries = $state->getNumberOfEntries();
 			$this->progressCursor = $state->getProgressCursor();
+			$this->filesActionStartTs = $state->getFilesActionStartTs();
 		}
 
 		$this->cdrSize = $state->getCdrSize();
@@ -194,7 +196,7 @@ class SGBackupFiles implements SGArchiveDelegate
 		$this->clear();
 
 		SGBackupLog::writeAction('backup files', SG_BACKUP_LOG_POS_END);
-		SGBackupLog::write('backup files total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
+		SGBackupLog::write('backup files total duration: '.backupGuardFormattedDuration($this->filesActionStartTs, time()));
 	}
 
 	private function clear()
@@ -245,7 +247,7 @@ class SGBackupFiles implements SGArchiveDelegate
 		//start logging
 		SGBackupLog::writeAction('restore', SG_BACKUP_LOG_POS_START);
 		SGBackupLog::writeAction('restore files', SG_BACKUP_LOG_POS_START);
-		$this->actionStartTs = time();
+		$this->filesActionStartTs = time();
 	}
 
 	public function restore($filePath)
@@ -261,11 +263,12 @@ class SGBackupFiles implements SGArchiveDelegate
 			$this->warningsFound = $state->getWarningsFound();
 			$this->progressCursor = $state->getCursor();
 			$this->numberOfEntries = $state->getCdrSize();
+			$this->filesActionStartTs = $state->getFilesActionStartTs();
 		}
 
 		$this->extractArchive($filePath);
 		SGBackupLog::writeAction('restore files', SG_BACKUP_LOG_POS_END);
-		SGBackupLog::write('restore files total duration: '.backupGuardFormattedDuration($this->actionStartTs, time()));
+		SGBackupLog::write('restore files total duration: '.backupGuardFormattedDuration($this->filesActionStartTs, time()));
 	}
 
 	private function extractArchive($filePath)
@@ -315,6 +318,9 @@ class SGBackupFiles implements SGArchiveDelegate
 	{
 		$this->numberOfEntries = $count;
 		SGBackupLog::write('Number of files to restore: '.$count);
+		$state = $this->getState();
+		$this->filesActionStartTs = time();
+		$state->setFilesActionStartTs($this->filesActionStartTs);
 	}
 
 	private function prepareFileTree($allItems)

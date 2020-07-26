@@ -4,8 +4,10 @@ Plugin Name: Google Reviews Widget
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.8.6
+Version: 1.8.7
 Author URI: https://richplugins.com
+Text Domain: widget-google-reviews
+Domain Path: /languages
 */
 
 require(ABSPATH . 'wp-includes/version.php');
@@ -13,7 +15,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',            '1.8.6');
+define('GRW_VERSION',            '1.8.7');
 define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s50-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -149,8 +151,11 @@ function grw_exist_install($current_version, $last_active_version) {
                 grw_refresh_reviews(array($place_id));
             }
         break;
-        case version_compare($last_active_version, '1.8.5', '<'):
-            $wpdb->query("ALTER TABLE " . $wpdb->prefix . "grp_google_review ADD hide VARCHAR(1) DEFAULT '' NOT NULL");
+        case version_compare($last_active_version, '1.8.7', '<'):
+            $row = $wpdb->get_results("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $wpdb->prefix . "grp_google_review' AND column_name = 'hide'");
+            if(empty($row)){
+                $wpdb->query("ALTER TABLE " . $wpdb->prefix . "grp_google_review ADD hide VARCHAR(1) DEFAULT '' NOT NULL");
+            }
         break;
     }
 }
@@ -248,7 +253,7 @@ function grw_shortcode($atts) {
     if (empty($place_id)) {
         ?>
         <div class="grw-error" style="padding:10px;color:#b94a48;background-color:#f2dede;border-color:#eed3d7;max-width:200px;">
-            <?php echo grw_i('<b>Google Reviews Business</b>: required attribute place_id is not defined'); ?>
+            <?php echo grw_i('<b>Google Reviews Widget</b>: required attribute place_id is not defined'); ?>
         </div>
         <?php
     } else {

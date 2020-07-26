@@ -1,6 +1,7 @@
 <?php
 
 	$isAdsEnabled = SGConfig::get('SG_DISABLE_ADS');
+	$closeFreeBanner = SGConfig::get('SG_CLOSE_FREE_BANNER');
 
 	$isPlatinumPackage = false;
 	$pluginCapabilities = backupGuardGetCapabilities();
@@ -8,7 +9,7 @@
 		$isPlatinumPackage = true;
 	}
 
-	if (!$isPlatinumPackage && !$isAdsEnabled) {
+	if (!$isPlatinumPackage && !$isAdsEnabled && !$closeFreeBanner) {
 		include_once(SG_NOTICE_TEMPLATES_PATH.'banner.php');
 	}
 

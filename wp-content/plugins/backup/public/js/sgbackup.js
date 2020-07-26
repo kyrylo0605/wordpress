@@ -20,6 +20,7 @@ jQuery(document).ready( function() {
 	sgBackup.initActiveAction();
 	sgBackup.initBackupDeletion();
 	sgBackup.toggleMultiDeleteButton();
+	sgBackup.closeFreeBaner();
 
 	jQuery('span[data-toggle=tooltip]').tooltip();
 
@@ -139,11 +140,11 @@ jQuery(document).ready( function() {
 sgBackup.isValidEmailAddress = function(emailAddress) {
     var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,10}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
     return pattern.test(emailAddress);
-}
+};
 
 sgBackup.getSelectedBackupsNumber = function() {
 	return jQuery('tbody input[type="checkbox"]:checked').length
-}
+};
 
 sgBackup.toggleMultiDeleteButton = function() {
 	var numberOfChoosenBackups = sgBackup.getSelectedBackupsNumber();
@@ -155,7 +156,19 @@ sgBackup.toggleMultiDeleteButton = function() {
 	else {
 		target.hide();
 	}
-}
+};
+
+sgBackup.closeFreeBaner = function() {
+	jQuery('.sg-close-free-banner').bind('click', function () {
+        var ajaxHandler = new sgRequestHandler('closeFreeBanner', {
+            token: BG_BACKUP_STRINGS.nonce
+        });
+        ajaxHandler.callback = function(response, error) {
+        	jQuery('#sg-banner').remove();
+		};
+        ajaxHandler.run();
+    });
+};
 
 sgBackup.deleteMultiBackups = function(backupNames){
 	var ajaxHandler = new sgRequestHandler('deleteBackup', {backupName: backupNames, token: BG_BACKUP_STRINGS.nonce});
@@ -163,7 +176,7 @@ sgBackup.deleteMultiBackups = function(backupNames){
 		location.reload();
 	};
 	ajaxHandler.run();
-}
+};
 
 //SGManual Backup AJAX callback
 sgBackup.manualBackup = function(){
@@ -226,16 +239,16 @@ sgBackup.manualBackup = function(){
 sgBackup.restManualBackupModal = function() {
 	jQuery('.modal-footer .btn-primary').removeAttr('disabled');
 	jQuery('.modal-footer .btn-primary').html('Backup');
-}
+};
 
 sgBackup.cancelDonwload = function(name) {
 	var cancelDonwloadHandler = new sgRequestHandler('cancelDownload', {name: name, token: BG_BACKUP_STRINGS.nonce});
 	cancelDonwloadHandler.callback = function(response){
 		sgBackup.hideAjaxSpinner();
 		location.reload();
-	}
+	};
 	cancelDonwloadHandler.run();
-}
+};
 
 sgBackup.listStorage = function(importFrom) {
 	var listStorage = new sgRequestHandler('listStorage', {storage: importFrom, token: BG_BACKUP_STRINGS.nonce});
@@ -300,15 +313,15 @@ sgBackup.listStorage = function(importFrom) {
 
 		jQuery('#sg-archive-list-table tbody').append(content);
 		sgBackup.toggleDownloadFromCloudPage();
-	}
+	};
 
 	listStorage.run();
-}
+};
 
 
 sgBackup.convertBytesToMegabytes = function ($bytes) {
 	return ($bytes/(1024*1024)).toFixed(2);
-}
+};
 
 //Init file upload
 sgBackup.initFileUpload = function(){
@@ -348,12 +361,12 @@ sgBackup.nextPage = function(){
 					var alert = sgBackup.alertGenerator(response.error, 'alert-danger');
 					jQuery('#sg-modal .modal-header').prepend(alert);
 				}
-			}
+			};
 
 			isFeatureAvailable.run();
 		}
 	}
-}
+};
 
 sgBackup.previousPage = function(){
 	if(jQuery('#modal-import-2').is(":visible")){
@@ -369,26 +382,26 @@ sgBackup.previousPage = function(){
 	jQuery('#uploadSgbpFile').hide();
 
 	jQuery('.modal-title').html('Import from');
-}
+};
 
 sgBackup.toggleNavigationButtons = function(){
 	jQuery('#switch-modal-import-pages-next').toggle();
 	jQuery('#switch-modal-import-pages-back').toggle();
-}
+};
 
 sgBackup.toggleDownloadFromPCPage = function(){
 	sgBackup.toggleNavigationButtons();
 	jQuery('#modal-import-1').toggle();
 	jQuery('#modal-import-2').toggle();
 	jQuery('#uploadSgbpFile').toggle();
-}
+};
 
 sgBackup.toggleDownloadFromCloudPage = function(){
 	sgBackup.toggleNavigationButtons();
 	jQuery('#modal-import-1').toggle();
 	jQuery('#modal-import-3').toggle();
 	jQuery('#uploadSgbpFile').toggle();
-}
+};
 
 sgBackup.downloadFromCloud = function (path, name, storage, size) {
     sgBackup.showAjaxSpinner('.modal-dialog');
@@ -437,12 +450,12 @@ sgBackup.downloadFromCloud = function (path, name, storage, size) {
 
             return false;
         }
-    }
+    };
 
     SG_ACTIVE_DOWNLOAD_AJAX = true;
     downloadFromCloudHandler.run();
     sgBackup.fileDownloadProgress(name, size);
-}
+};
 
 sgBackup.downloadFromPC =  function(){
 	var sgData = null;
@@ -488,7 +501,7 @@ sgBackup.downloadFromPC =  function(){
 		var alert = sgBackup.alertGenerator(BG_BACKUP_STRINGS.fileUploadFailed, 'alert-danger');
 		jQuery('#sg-modal .modal-header').prepend(alert);
 	});
-}
+};
 
 sgBackup.fileDownloadProgress = function(file, size){
     var getFileDownloadProgress = new sgRequestHandler('getFileDownloadProgress', {file: file, size: size, token: BG_BACKUP_STRINGS.nonce});
@@ -500,16 +513,16 @@ sgBackup.fileDownloadProgress = function(file, size){
                 getFileDownloadProgress.run();
             }, SG_AJAX_REQUEST_FREQUENCY);
         }
-    }
+    };
 
     getFileDownloadProgress.run();
-}
+};
 
 sgBackup.fileUploadProgress = function(e){
 	if(e.lengthComputable){
 		jQuery('#uploadSgbpFile').html('Importing ('+ Math.round((e.loaded*100.0)/ e.total)+'%)');
 	}
-}
+};
 
 sgBackup.checkBackupCreation = function(){
 	jQuery('#manualBackup .btn-success').attr('disabled', true);
@@ -641,7 +654,7 @@ sgBackup.startRestore = function(bname) {
 				jQuery('#sg-modal .modal-header').prepend(alert);
 				return false;
 			}
-		}
+		};
 
 		isFeatureAvailable.run();
 	}

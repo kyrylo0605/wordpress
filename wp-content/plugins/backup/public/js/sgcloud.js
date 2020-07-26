@@ -47,6 +47,7 @@ sgBackup.importKeyFile =  function(isFileSelected){
 
     var ajaxHandler = new sgRequestHandler(url, sguploadFile, {
         contentType: false,
+	    token: BG_BACKUP_STRINGS.nonce,
         cache: false,
         xhr: function() {  // Custom XMLHttpRequest
             var myXhr = jQuery.ajaxSettings.xhr();
@@ -117,7 +118,7 @@ sgBackup.initCloudSwitchButtons = function(){
             }
         }
         else {
-            var ajaxHandler = new sgRequestHandler(url, {cancel: true});
+            var ajaxHandler = new sgRequestHandler(url, {cancel: true,token: BG_BACKUP_STRINGS.nonce });
             ajaxHandler.callback = function(response){
                 jQuery('.sg-'+storage+'-user').remove();
             };
