@@ -6,7 +6,7 @@ Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
 Tested up to: 5.4.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ See <strong>BackupGuard Free</strong> in action here: <a href="https://www.youtu
 
 See <strong>BackupGuard Pro</strong> in action here: <a href="https://www.youtube.com/watch?v=TSPgmrSu-ls">https://www.youtube.com/watch?v=TSPgmrSu-ls</a>
 
-<h4>A special note on WordPress migration</h4>
+<h4>A SPECIAL NOTE ON WORDPRESS MIGRATION/h4>
 
 A WordPress site migration is an easy task if performed properly. There are three different migration scenarios:
 <ul>
@@ -69,11 +69,14 @@ A WordPress site migration is an easy task if performed properly. There are thre
 <li>Migrate site between domains or hosts</li>
 </ul>
 
-Backup Guard Pro helps you to migrate in all of these cases in the smoothest possible way. You just have to Backup your site and Restore it in the new location. No additional work will be required, since we handle all changes for you.
+Backup Guard free version will help you migrate your website in case there is no change in the domain or the Database prefix.
+If there is any change in the domain or the DB prefix, Backup Guard Pro will be of use.
 
-The issues that users always deal with are: wrong site url, images don't load, dashboard not accessible, permalinks don't work and more.
+Backup Guard Pro helps you to migrate in all of the above mentioned three cases in the smoothest possible way. You just have to Backup your site and Restore it in the new location. No additional work will be required, since we handle all changes for you.
 
-Backup Guard Pro will help you to skip all these problems, because of its advanced refactoring and migrating engine.
+The issues that users always deal with are: wrong site URL, images not loading, dashboard not being accessible, permalinks not working and more.
+
+Backup Guard Pro will help you to skip all these problems because of its advanced refactoring and migrating engine.
 
 <h4>Documentation</h4>
 The documentation can be found here: <a  href="https://backup-guard.com/products/backup-wordpress/doc">https://backup-guard.com/products/backup-wordpress/doc</a>
@@ -107,6 +110,13 @@ The documentation can be found here: <a  href="https://backup-guard.com/products
 <li>Install <strong>Free</strong> version: <a href="https://backup-guard.com/products/backup-wordpress/doc/install-backupguard-free">here</a></li>
 <li>Install <strong>Pro</strong> version: <a  href="https://backup-guard.com/products/backup-wordpress/doc/install-backupguard-pro">here</a></li>
 </ul>
+
+= Does Backup Guard provide migration with the free version? =
+
+It is possible to use migration with the free version if:
+1. There is no change in the domain.
+2. There is no change in the Database prefix.
+Please note that even a single symbol change counts as a migration that should be done with the Pro version
 
 = Can I use BackupGuard to migrate a website? =
 
@@ -157,6 +167,10 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+= 1.4.1 =
+* Security improvement
+* Some environment checks were carried out which ensure that the plugin works seamlessly. The mentioned checks are necessary for the plugin to work as intended.
+
 = 1.4.0 =
 * Plugin security improvements
 

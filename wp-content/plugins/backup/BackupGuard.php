@@ -337,7 +337,7 @@ function backup_guard_create_schedule()
 function backup_guard_get_manual_modal()
 {
 	check_ajax_referer('backupGuardAjaxNonce', 'token');
-	if (is_admin()) {
+	if (current_user_can( 'activate_plugins' )) {
 		require_once(SG_PUBLIC_AJAX_PATH.'modalManualBackup.php');
     }
 	exit();
@@ -403,11 +403,12 @@ function backup_guard_register_ajax_callbacks()
 		add_action('wp_ajax_backup_guard_cancelBackup', 'backup_guard_cancel_backup');
 		add_action('wp_ajax_backup_guard_checkBackupCreation', 'backup_guard_check_backup_creation');
 		add_action('wp_ajax_backup_guard_checkRestoreCreation', 'backup_guard_check_restore_creation');
-		add_action('wp_ajax_backup_guard_cloudDropbox', 'backup_guard_cloud_dropbox');
-		add_action('wp_ajax_backup_guard_cloudGdrive', 'backup_guard_cloud_gdrive');
-		add_action('wp_ajax_backup_guard_cloudOneDrive', 'backup_guard_cloud_oneDrive');
-		add_action('wp_ajax_backup_guard_cloudFtp', 'backup_guard_cloud_ftp');
-		add_action('wp_ajax_backup_guard_cloudAmazon', 'backup_guard_cloud_amazon');
+        add_action('wp_ajax_backup_guard_cloudDropbox', 'backup_guard_cloud_dropbox');
+	
+        $pluginCapabilities = backupGuardGetCapabilities();
+        if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE) {
+            require_once dirname(__FILE__).'/BackupGuardPro.php';
+        }
 		add_action('wp_ajax_backup_guard_curlChecker', 'backup_guard_curl_checker');
 		add_action('wp_ajax_backup_guard_deleteBackup', 'backup_guard_delete_backup');
 		add_action('wp_ajax_backup_guard_getAction', 'backup_guard_get_action');
@@ -502,13 +503,6 @@ function backup_guard_check_php_version_compatibility()
 add_action('init', 'backup_guard_init');
 add_action('wp_ajax_nopriv_backup_guard_awake', 'backup_guard_awake_nopriv');
 add_action('admin_post_backup_guard_cloudDropbox', 'backup_guard_cloud_dropbox');
-add_action('admin_post_backup_guard_cloudGdrive', 'backup_guard_cloud_gdrive');
-add_action('admin_post_backup_guard_cloudOneDrive', 'backup_guard_cloud_oneDrive');
-
-function backup_guard_cloud_oneDrive()
-{
-	require_once(SG_PUBLIC_AJAX_PATH.'cloudOneDrive.php');
-}
 
 function backup_guard_import_key_file()
 {
@@ -576,25 +570,10 @@ function backup_guard_check_restore_creation()
 
 function backup_guard_cloud_dropbox()
 {
-	check_ajax_referer('backupGuardAjaxNonce', 'token');
-	require_once(SG_PUBLIC_AJAX_PATH.'cloudDropbox.php');
-}
-
-function backup_guard_cloud_ftp()
-{
-	require_once(SG_PUBLIC_AJAX_PATH.'cloudFtp.php');
-}
-
-function backup_guard_cloud_amazon()
-{
-	check_ajax_referer('backupGuardAjaxNonce', 'token');
-	require_once(SG_PUBLIC_AJAX_PATH.'cloudAmazon.php');
-}
-
-function backup_guard_cloud_gdrive()
-{
-	check_ajax_referer('backupGuardAjaxNonce', 'token');
-	require_once(SG_PUBLIC_AJAX_PATH.'cloudGdrive.php');
+	if (current_user_can('activate_plugins')) {
+		check_ajax_referer('backupGuardAjaxNonce', 'token');
+		require_once(SG_PUBLIC_AJAX_PATH . 'cloudDropbox.php');
+	}
 }
 
 function backup_guard_curl_checker()
@@ -730,7 +709,7 @@ function backup_guard_init()
 {
 	backup_guard_register_ajax_callbacks();
 	// backupGuardPluginRedirect();
-
+  
 	//check if database should be updated
 	if (backupGuardShouldUpdate()) {
 		SGBoot::install();
@@ -747,28 +726,28 @@ function backup_guard_schedule_action($id)
 }
 
 function sgBackupAdminInit() {
-    //load pro plugin updater
-    $pluginCapabilities = backupGuardGetCapabilities();
-    $isLoggedIn = is_user_logged_in();
+	//load pro plugin updater
+	$pluginCapabilities = backupGuardGetCapabilities();
+	$isLoggedIn = is_user_logged_in();
 
-    if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE && $isLoggedIn) {
-        require_once(dirname(__FILE__).'/plugin-update-checker/plugin-update-checker.php');
-        require_once(dirname(__FILE__).'/plugin-update-checker/Puc/v4/Utils.php');
-        require_once(SG_LIB_PATH.'SGAuthClient.php');
+	if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE && $isLoggedIn) {
+		require_once(dirname(__FILE__).'/plugin-update-checker/plugin-update-checker.php');
+		require_once(dirname(__FILE__).'/plugin-update-checker/Puc/v4/Utils.php');
+		require_once(SG_LIB_PATH.'SGAuthClient.php');
 
-        $licenseKey = SGConfig::get('SG_LICENSE_KEY');
+		$licenseKey = SGConfig::get('SG_LICENSE_KEY');
 
-        $updateChecker = Puc_v4_Factory::buildUpdateChecker(
-            BackupGuard\Config::URL.'/products/details/'.$licenseKey,
-            SG_BACKUP_GUARD_MAIN_FILE,
-            SG_PRODUCT_IDENTIFIER
-        );
+		$updateChecker = Puc_v4_Factory::buildUpdateChecker(
+			BackupGuard\Config::URL.'/products/details/'.$licenseKey,
+			SG_BACKUP_GUARD_MAIN_FILE,
+			SG_PRODUCT_IDENTIFIER
+		);
 
-        $updateChecker->addHttpRequestArgFilter(array(
-            SGAuthClient::getInstance(),
-            'filterUpdateChecks'
-        ));
-    }
+		$updateChecker->addHttpRequestArgFilter(array(
+			SGAuthClient::getInstance(),
+			'filterUpdateChecks'
+		));
+	}
 }
 
 add_action('admin_init', 'sgBackupAdminInit');

@@ -723,6 +723,27 @@ function backupGuardGetFileSelectiveRestore()
 	<?php
 }
 
+function checkAllMissedTables()
+{
+	$sgdb = SGDatabase::getInstance();
+	$allTables = array(SG_CONFIG_TABLE_NAME, SG_SCHEDULE_TABLE_NAME, SG_ACTION_TABLE_NAME);
+	$missedTables = array();
+	$status = true;
+	
+	foreach ($allTables as $table) {
+		$query = $sgdb->query("SELECT count(*) as isExists
+			FROM information_schema.TABLES
+			WHERE (TABLE_SCHEMA = '".DB_NAME."') AND (TABLE_NAME = '$table')"
+		);
+		
+		if (empty($query[0]['isExists'])) {
+			$status = false;
+		}
+	}
+	
+	return $status;
+}
+
 function backupGuardIncludeFile($filePath)
 {
     if (file_exists($filePath)) {

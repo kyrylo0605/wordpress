@@ -5,7 +5,7 @@ Tags: RSS import, RSS aggregator, feed import, content curation, feed to post, n
 Requires at least: 4.0 or higher
 Tested up to: 5.4
 Requires PHP: 5.4
-Stable tag: 4.17.5
+Stable tag: 4.17.6
 License: GPLv3
 
 The most popular RSS aggregator for WordPress. Build a news aggregator with content from unlimited sources within minutes. Simple, robust & powerful.
@@ -252,6 +252,22 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 
 == Changelog ==
+
+= 4.17.6 (2020-07-29) =
+**Added**
+- A link in the New/Edit Feed Source page on how to find an RSS feed.
+
+**Changed**
+- The "Force feed" option turns off SSL verification.
+- Improved wording on the Help page.
+- Dates in templates can now be translated.
+- The link to the article on how to find an RSS feed now links to an article from the plugin's knowledge base.
+- The "Unique Titles" feed option can now be set to default to the global setting.
+
+**Fixed**
+- Rewrite rules would always get flushed when plugins tamper with them, such as Polylang Pro.
+- The "Delete All Imported Items" reset option was deleting all posts on the site.
+- Image options would not show up when using Feed to Post to import Feed Items.
 
 = 4.17.5 (2020-04-22) =
 **Changed**

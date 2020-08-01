@@ -223,8 +223,30 @@ function backupGuardShouldUpdate()
 		SGBoot::didUpdatePluginVersion();
 		return SG_FORCE_DB_TABLES_RESET;
 	}
+	
+	if (!checkAllMissedTables()) {
+		return true;
+	}
 
 	return false;
+}
+
+function backupGuardGetDatabaseEngine()
+{
+    global $wpdb;
+    $dbName = $wpdb->dbname;
+    $engine = 'InnoDB';
+    $engineCheckSql = "SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbName'";
+    $result = $wpdb->get_results($engineCheckSql, ARRAY_A);
+    if (!empty($result)) {
+        $engineCheckSql = "SHOW TABLE STATUS WHERE Name = '".$wpdb->prefix."users' AND Engine = 'MyISAM'";
+        $result = $wpdb->get_results($engineCheckSql, ARRAY_A);
+        if (isset($result[0]['Engine']) && $result[0]['Engine'] == 'MyISAM') {
+            $engine = 'MyISAM';
+        }
+    }
+
+    return $engine;
 }
 
 function backupGuardShouldActivateExtension($extension)

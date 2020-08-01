@@ -71,16 +71,14 @@ class SGBoot
 
 	private static function installConfigTable($sgdb)
 	{
-		//drop config table
-		$sgdb->query('DROP TABLE IF EXISTS `'.SG_CONFIG_TABLE_NAME.'`;');
-
+        $dbEngine = backupGuardGetDatabaseEngine();
 		//create config table
 		$res = $sgdb->query(
 			'CREATE TABLE IF NOT EXISTS `'.SG_CONFIG_TABLE_NAME.'` (
 			  `ckey` varchar(100) NOT NULL,
 			  `cvalue` text NOT NULL,
 			  PRIMARY KEY (`ckey`)
-			) DEFAULT CHARSET=utf8;'
+			) ENGINE='.$dbEngine.' DEFAULT CHARSET=utf8;'
 		);
 		if ($res===false) {
 			return false;
@@ -109,8 +107,7 @@ class SGBoot
 
 	private static function installScheduleTable($sgdb)
 	{
-		//drop schedule table
-		$sgdb->query('DROP TABLE IF EXISTS `'.SG_SCHEDULE_TABLE_NAME.'`;');
+        $dbEngine = backupGuardGetDatabaseEngine();
 
 		//create schedule table
 		$res = $sgdb->query(
@@ -121,7 +118,7 @@ class SGBoot
 			  `schedule_options` varchar(255) NOT NULL,
 			  `backup_options` text NOT NULL,
 			  PRIMARY KEY (`id`)
-			) DEFAULT CHARSET=utf8;'
+			) ENGINE='.$dbEngine.' DEFAULT CHARSET=utf8;'
 		);
 		if ($res===false) {
 			return false;
@@ -132,8 +129,7 @@ class SGBoot
 
 	private static function installActionTable($sgdb)
 	{
-		//drop action table
-		$sgdb->query('DROP TABLE IF EXISTS `'.SG_ACTION_TABLE_NAME.'`;');
+        $dbEngine = backupGuardGetDatabaseEngine();
 
 		//create action table
 		$res = $sgdb->query(
@@ -148,7 +144,7 @@ class SGBoot
 			  `update_date` datetime DEFAULT NULL,
 			  `options` text NOT NULL,
 			  PRIMARY KEY (`id`)
-			) DEFAULT CHARSET=utf8;"
+			) ENGINE=".$dbEngine." DEFAULT CHARSET=utf8;"
 		);
 		if ($res===false) {
 			return false;

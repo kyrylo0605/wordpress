@@ -8,6 +8,8 @@ class SGNoticeHandler
 		$this->checkMigrationError();
 		$this->checkRestoreNotWritableError();
 		$this->checkLiteSpeedWarning();
+		$this->checkTables();
+		$this->checkPingFilePermission();
 	}
 
 	private function checkTimeoutError()
@@ -20,6 +22,13 @@ class SGNoticeHandler
 			else {
 				SGNotice::getInstance()->addNoticeFromTemplate('timeout_free_error', SG_NOTICE_ERROR, true);
 			}
+		}
+	}
+	
+	public function checkTables()
+	{
+		if (!checkAllMissedTables()) {
+			SGNotice::getInstance()->addNoticeFromTemplate('missed_table', SG_NOTICE_ERROR, true);
 		}
 	}
 
@@ -57,6 +66,13 @@ class SGNoticeHandler
 			if (!$htaccessContent || !preg_match('/noabort/i', $htaccessContent)) {
 				SGNotice::getInstance()->addNoticeFromTemplate('litespeed_warning', SG_NOTICE_WARNING);
 			}
+		}
+	}
+	
+	private function checkPingFilePermission()
+	{
+		if (file_exists(SG_PING_FILE_PATH) && !is_readable(SG_PING_FILE_PATH)) {
+			SGNotice::getInstance()->addNoticeFromTemplate('ping_permission', SG_NOTICE_ERROR, true);
 		}
 	}
 }
