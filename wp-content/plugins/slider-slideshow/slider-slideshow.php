@@ -3,7 +3,7 @@
 Plugin Name: Layer Slider
 Plugin URI: http://web-settler.com/layer-slider-plugin/
 Description: Create beautiful, responsive and modern sliders with Layers support.
-Version: 1.1.4
+Version: 1.1.5
 Author: Web-Settler
 Author URI: http://web-settler.com/layer-slider-plugin/
 License: GPL v2

@@ -1,20 +1,20 @@
 <?php
-/**
- * Module Name: WPML Dependency Check Module
- * Description: This is not a plugin! This module must be included in other plugins (WPML and add-ons) to handle compatibility checks
- * Author: OnTheGoSystems
- * Author URI: http://www.onthegosystems.com/
- * Version: 2.1
- */
+/*
+Module Name: WPML Dependency Check Module
+Description: This is not a plugin! This module must be included in other plugins (WPML and add-ons) to handle compatibility checks
+Author: OnTheGoSystems
+Author URI: http://www.onthegosystems.com/
+Version: 2.1
+*/
 
 /** @noinspection PhpUndefinedClassInspection */
 class WPML_Dependencies {
 	protected static $instance;
-	protected $admin_notice;
+	private $admin_notice;
 	private $current_product;
 	private $current_version = array();
 	private $expected_versions = array();
-	protected $installed_plugins = array();
+	private $installed_plugins = array();
 	private $invalid_plugins = array();
 	private $valid_plugins = array();
 	private $validation_results = array();
@@ -22,14 +22,14 @@ class WPML_Dependencies {
 	public $data_key             = 'wpml_dependencies:';
 	public $needs_validation_key = 'wpml_dependencies:needs_validation';
 
-	protected function __construct() {
+	private function __construct() {
 		if ( null === self::$instance ) {
 			$this->remove_old_admin_notices();
 			$this->init_hooks();
 		}
 	}
 
-	protected function collect_data() {
+	private function collect_data() {
 		$active_plugins = wp_get_active_and_valid_plugins();
 		$this->init_bundle( $active_plugins );
 		foreach ( $active_plugins as $plugin ) {
@@ -45,7 +45,7 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function init_hooks() {
+	private function init_hooks() {
 		add_action( 'init', array( $this, 'init_plugins_action' ) );
 		add_action( 'extra_plugin_headers', array( $this, 'extra_plugin_headers_action' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices_action' ) );
@@ -73,16 +73,16 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function reset_validation() {
+	private function reset_validation() {
 		update_option( $this->needs_validation_key, true );
 		$this->validate_plugins();
 	}
 
-	protected function flag_as_validated() {
+	private function flag_as_validated() {
 		update_option( $this->needs_validation_key, false );
 	}
 
-	protected function needs_validation() {
+	private function needs_validation() {
 		return get_option( $this->needs_validation_key );
 	}
 
@@ -93,19 +93,19 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function is_doing_ajax_cron_or_xmlrpc() {
+	private function is_doing_ajax_cron_or_xmlrpc() {
 		return ( $this->is_doing_ajax() || $this->is_doing_cron() || $this->is_doing_xmlrpc() );
 	}
 
-	protected function is_doing_ajax() {
+	private function is_doing_ajax() {
 		return ( defined( 'DOING_AJAX' ) && DOING_AJAX );
 	}
 
-	protected function is_doing_cron() {
+	private function is_doing_cron() {
 		return ( defined( 'DOING_CRON' ) && DOING_CRON );
 	}
 
-	protected function is_doing_xmlrpc() {
+	private function is_doing_xmlrpc() {
 		return ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST );
 	}
 
@@ -140,7 +140,7 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function init_plugins() {
+	private function init_plugins() {
 		if ( ! $this->installed_plugins ) {
 			if ( ! function_exists( 'get_plugin_data' ) ) {
 				/** @noinspection PhpIncludeInspection */
@@ -153,7 +153,8 @@ class WPML_Dependencies {
 		update_option( $this->data_key . 'installed_plugins', $this->installed_plugins );
 	}
 
-	protected function init_bundle( array $active_plugins ) {
+	private function init_bundle( array $active_plugins ) {
+
 		foreach ( $active_plugins as $plugin_file ) {
 			$filename = dirname( $plugin_file ) . '/wpml-dependencies.json';
 			if ( file_exists( $filename ) ) {
@@ -164,7 +165,7 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function add_installed_plugin( $plugin ) {
+	private function add_installed_plugin( $plugin ) {
 		$data       = get_plugin_data( $plugin );
 		$plugin_dir = realpath( dirname( $plugin ) );
 
@@ -179,7 +180,7 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function set_expected_versions( array $bundle ) {
+	private function set_expected_versions( array $bundle ) {
 		foreach ( $bundle as $plugin => $version ) {
 			if ( ! array_key_exists( $plugin, $this->expected_versions ) ) {
 				$this->expected_versions[ $plugin ] = $version;
@@ -191,7 +192,7 @@ class WPML_Dependencies {
 		}
 	}
 
-	protected function guess_plugin_slug( $plugin_data, $plugin_folder ) {
+	private function guess_plugin_slug( $plugin_data, $plugin_folder ) {
 		$plugin_slug = null;
 		$plugin_slug = $plugin_folder;
 		if ( array_key_exists( 'Plugin Slug', $plugin_data ) && $plugin_data['Plugin Slug'] ) {
@@ -201,7 +202,7 @@ class WPML_Dependencies {
 		return $plugin_slug;
 	}
 
-	protected function validate_plugins() {
+	private function validate_plugins() {
 		$validation_results = $this->get_plugins_validation();
 
 		$this->valid_plugins   = array();
@@ -216,7 +217,6 @@ class WPML_Dependencies {
 
 		update_option( $this->data_key . 'valid_plugins', $this->valid_plugins );
 		update_option( $this->data_key . 'invalid_plugins', $this->invalid_plugins );
-		update_option( $this->data_key . 'expected_versions', $this->expected_versions );
 	}
 
 	public function get_plugins_validation() {
@@ -232,7 +232,7 @@ class WPML_Dependencies {
 		return $this->validation_results;
 	}
 
-	protected function is_valid_plugin( $product = false ) {
+	private function is_valid_plugin( $product = false ) {
 		$result = false;
 
 		if ( ! $product ) {
@@ -275,12 +275,11 @@ class WPML_Dependencies {
 		return $result;
 	}
 
-	protected function maybe_init_admin_notice() {
+	private function maybe_init_admin_notice() {
 		$this->admin_notice      = null;
-		$this->installed_plugins = get_option( $this->data_key . 'installed_plugins', [] );
-		$this->invalid_plugins   = get_option( $this->data_key . 'invalid_plugins', [] );
-		$this->expected_versions = get_option( $this->data_key . 'expected_versions', [] );
-		$this->valid_plugins     = get_option( $this->data_key . 'valid_plugins', [] );
+		$this->installed_plugins = get_option( $this->data_key . 'installed_plugins', array() );
+		$this->invalid_plugins   = get_option( $this->data_key . 'invalid_plugins', array() );
+		$this->valid_plugins     = get_option( $this->data_key . 'valid_plugins', array() );
 
 		if ( $this->has_invalid_plugins() ) {
 			$notice_paragraphs = array();

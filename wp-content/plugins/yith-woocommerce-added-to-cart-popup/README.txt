@@ -2,8 +2,8 @@
 Contributors: yithemes
 Tags: added to cart, add to cart popup, cart, shop, shopping cart
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 1.4.2
+Tested up to: 5.5
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,26 +35,32 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 == Changelog ==
 
+= 1.4.3 = Released on 19 August, 2020
+
+* New: Support for WooCommerce 4.4
+* New: Support for WordPress 5.5
+* Update: Plugin framework
+
 = 1.4.2 = Released on 21 May, 2020
 
-* New: Support to WooCommerce 4.2
+* New: Support for WooCommerce 4.2
 * Update: Plugin framework
 
 = 1.4.1 = Released on 27 April, 2020
 
-* New: Support to WooCommerce 4.1
+* New: Support for WooCommerce 4.1
 * Update: Plugin framework
 
 = 1.4.0 = Released on 07 March, 2020
 
-* New: Support to WooCommerce 4.0
-* New: Support to WordPress 5.4
+* New: Support for WooCommerce 4.0
+* New: Support for WordPress 5.4
 * Update: Plugin framework
 
 = 1.3.16 = Released on 20 December, 2019
 
-* New: Support to WooCommerce 3.9
-* New: Support to WordPress 5.3.2
+* New: Support for WooCommerce 3.9
+* New: Support for WordPress 5.3.2
 * Update: Plugin framework
 
 = 1.3.15 = Released on 29 November, 2019
@@ -71,13 +77,13 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.3.12 = Released on 25 October, 2019
 
-* New: Support to WooCommerce 3.8
-* New: Support to WordPress 5.3
+* New: Support for WooCommerce 3.8
+* New: Support for WordPress 5.3
 * Update: Plugin framework
 
 = 1.3.11 = Released on Aug 08, 2019
 
-* New: Support to WooCommerce 3.7.0
+* New: Support for WooCommerce 3.7.0
 * Update: Plugin Core
 
 = 1.3.10 = Released on Jun 12, 2019
@@ -86,8 +92,8 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.3.9 = Released on Jun 11, 2019
 
-* New: Support to WooCommerce 3.6.4
-* New: Support to WordPress 5.2.1
+* New: Support for WooCommerce 3.6.4
+* New: Support for WordPress 5.2.1
 * Update: Plugin Core
 * Dev: New filter "yith_wacp_go_cart_url"
 * Dev: New filter "yith_wacp_continue_shopping_url"
@@ -98,25 +104,25 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.3.7 = Released on Apr 03, 2019
 
-* New: Support to WooCommerce 3.6.0 RC1
-* New: Support to WordPress 5.1
+* New: Support for WooCommerce 3.6.0 RC1
+* New: Support for WordPress 5.1
 * New: Option to show/hide product price in popup
 * Update: Plugin Core
 
 = 1.3.6 = Released on Feb 02, 2019
 
-* New: Support to WooCommerce 3.5.4
+* New: Support for WooCommerce 3.5.4
 * Update: Plugin Core
 
 = 1.3.5 = Released on Dec 05, 2018
 
-* New: Support to WooCommerce 3.5.2
-* New: Support to WordPress 5.0.0
+* New: Support for WooCommerce 3.5.2
+* New: Support for WordPress 5.0.0
 * Update: Plugin Core
 
 = 1.3.4 = Released on Oct 24, 2018
 
-* New: Support to WooCommerce 3.5.0
+* New: Support for WooCommerce 3.5.0
 * Update: Plugin Core
 
 = 1.3.3 = Released on Sep 28, 2018
@@ -125,28 +131,28 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.3.2 = Released on Sep 07, 2018
 
-* New: Support to WooCommerce 3.4.5
-* New: Support to WordPress 4.9.8
+* New: Support for WooCommerce 3.4.5
+* New: Support for WordPress 4.9.8
 * Update: Plugin Core
 
 = 1.3.1 = Released on May 30, 2018
 
-* New: Support to WooCommerce 3.4.1
-* New: Support to WordPress 4.9.6
+* New: Support for WooCommerce 3.4.1
+* New: Support for WordPress 4.9.6
 * Update: Plugin Core
 
 = 1.3.0 = Released on Feb 01, 2018
 
-* New: Support to WooCommerce 3.3.0
-* New: Support to WordPress 4.9.2
+* New: Support for WooCommerce 3.3.0
+* New: Support for WordPress 4.9.2
 * New: Popup style
 * New: Option to show/hide product image in popup
 * Update: Plugin Core
 
 = 1.2.0 = Released on Oct 17, 2017
 
-* New: Support to WooCommerce 3.2.1
-* New: Support to WordPress 4.8.2
+* New: Support for WooCommerce 3.2.1
+* New: Support for WordPress 4.8.2
 * Update: Plugin Core
 
 = 1.1.0 = Released on Mar 22, 2017
@@ -157,13 +163,13 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.0.7 = Released on Nov 28, 2016
 
-* New: Support to WooCommerce 2.6.8
+* New: Support for WooCommerce 2.6.8
 * Update: Plugin Core
 * Fix: Load frontend class on plugin ajax call
 
 = 1.0.6 = Released on Oct 24, 2016
 
-* New: Support to WooCommerce 2.6.6
+* New: Support for WooCommerce 2.6.6
 * Update: Change text domain from yith-wacp to yith-woocommerce-added-to-cart-popup
 * Update: Language Files
 * Update: Plugin Core
@@ -171,7 +177,7 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.0.5 = Released on Jun 10, 2016
 
-* New: Support to WooCommerce 2.6 RC1
+* New: Support for WooCommerce 2.6 RC1
 * Update: Plugin Core
 
 = 1.0.4 = Released on Apr 14, 2016
@@ -182,8 +188,8 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 
 = 1.0.3 = Released on Dec 28, 2015
 
-* New: Compatibility with WordPress 4.4
-* New: Compatibility with WooCommerce 2.5 BETA 3
+* New: Support for WordPress 4.4
+* New: Support for WooCommerce 2.5 BETA 3
 * Update: Plugin Core
 * Update: Language file
 
@@ -215,7 +221,8 @@ Or, if you have created your own language pack, or have an update for an existin
 
 == Upgrade notice ==
 
-= 1.4.2 = Released on 21 May, 2020
+= 1.4.3 = Released on 19 August, 2020
 
-* New: Support to WooCommerce 4.2
+* New: Support for WooCommerce 4.4
+* New: Support for WordPress 5.5
 * Update: Plugin framework

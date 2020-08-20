@@ -1,24 +1,26 @@
-=== WordPress Gallery Plugin - FooGallery ===
+=== FooGallery Image Gallery – Responsive Photo Gallery ===
 Contributors: bradvin, steveush, fooplugins
 Donate link: http://fooplugins.com
-Tags: gallery, image gallery, wordpress gallery plugin, responsive gallery, best gallery plugin
+Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 3.9
-Tested up to: 5.4.1
+Tested up to: 5.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-FooGallery is an easy-to-use WordPress gallery plugin, with stunning gallery layouts. It is also responsive, retina-ready and supports lazy loading for lightning fast photo galleries.
+FooGallery is a powerful, responsive photo gallery plugin. Stunning gallery layouts with advanced settings for complete customization and control.
 
 == Description ==
 
-FooGallery is an easy-to-use WordPress gallery plugin, with stunning gallery layouts. It is also responsive, retina-ready and supports lazy loading for lightning fast photo galleries.
+Make gallery management in WordPress great again! With FooGallery you can easily add a stunning photo gallery to your website in minutes.
 
-Live previews are available while creating a gallery, and also within the Gutenberg block editor with our FooGallery Block. FooGallery was built to be highly configurable and extendable for developers or freelancers.
+FooGallery is an easy-to-use image gallery plugin, with stunning gallery layouts. It is also responsive, retina-ready and supports lazy loading for lightning fast photo galleries.
 
-We have done the research and compared the best free gallery plugins out there, and we know that the free version of FooGallery is the best gallery plugin available!
+Live previews are available while creating an image gallery, and also within the Gutenberg block editor with our FooGallery Block.
 
-[View the FooGallery Homepage](http://fooplugins.com/foogallery)
+FooGallery was built to be highly configurable and extendable for developers or freelancers.
+
+[Visit the FooGallery Homepage](http://fooplugins.com/foogallery)
 
 **Features**
 
@@ -60,10 +62,10 @@ We have done the research and compared the best free gallery plugins out there, 
     *   Grid gallery template - [demo](https://fooplugins.com/foogallery/wordpress-grid-gallery/)
     *	Slider gallery template - [demo](https://fooplugins.com/foogallery/wordpress-slider-gallery/)
 *   Video Support - [demo](https://fooplugins.com/foogallery/wordpress-video-gallery/)
-*	Filtered Galleries using Media Tags or Categories - [demo](https://fooplugins.com/foogallery/wordpress-filtered-gallery/)
+*	Filtered Image Gallery using Media Tags or Categories - [demo](https://fooplugins.com/foogallery/wordpress-filtered-gallery/)
 *	Media tags and media category management for attachments
 *   PRO image and media lightbox built in! [demo](https://fooplugins.com/foogallery/foogallery-pro-lightbox/)
-*	Dynamic Galleries (load galleries from other sources):
+*	Dynamic Galleries (load images from other sources):
 	*	Load from a folder on the server
 	*	Load from a collection from Adobe Lightroom (using WP/LR Sync)
 	*	Load all attachments with Media Tags
@@ -75,7 +77,7 @@ We have done the research and compared the best free gallery plugins out there, 
 *   12 CSS thumbnail filters (Instagram) - [demo](https://fooplugins.com/foogallery/thumbnail-filters/)
 *   Numbered pagination - [demo](https://fooplugins.com/foogallery/gallery-pagination/#numbered)
 *   "Load More" pagination - [demo](https://fooplugins.com/foogallery/gallery-pagination/#load-more)
-*   Infinite scroll galleries - [demo](https://fooplugins.com/foogallery/gallery-pagination/#infinite-scroll)
+*   Infinite scroll image gallery - [demo](https://fooplugins.com/foogallery/gallery-pagination/#infinite-scroll)
 *   Animated Loaded Effects - [demo](https://fooplugins.com/foogallery/animated-loaded-effects/)
 *   Bulk Copy Gallery Settings - [more info](https://fooplugins.com/bulk-copy-foogallery-pro/)
 *   More on the way!
@@ -100,7 +102,7 @@ From your website point of view, FooGallery never collects or stores any visitor
 
 **PHP 7 Compatible**
 
-FooGallery has been tried and tested on servers running up to PHP 7.3
+FooGallery has been tried and tested on servers running up to PHP 7.4
 
 **Retina Support**
 
@@ -116,11 +118,11 @@ Albums are built in as an extension. Simply head over to the extensions page and
 
 **Built For Developers**
 
-FooGallery was designed to be the most developer-friendly gallery plugin available for WordPress. It was also built on top of a solid extension framework, which means different functionality is separated out into different areas in the codebase. It also means the core plugin is lightweight, but still allowing for the most flexibility.
+FooGallery was designed to be the most developer-friendly image gallery plugin available for WordPress. It was also built on top of a solid extension framework, which means different functionality is separated out into different areas in the codebase. It also means the core plugin is lightweight, but still allowing for the most flexibility.
 
-**Contribute**
+**Special Thanks**
 
-FooGallery is hosted on [GitHub](https://github.com/fooplugins/foogallery).
+Thanks to Fortinet FortiGuard Labs for the security testing conducted on the plugin. FooGallery is a safer plugin thanks to them.
 
 == Installation ==
 
@@ -129,10 +131,6 @@ FooGallery is hosted on [GitHub](https://github.com/fooplugins/foogallery).
 3. You will be redirected to the FooGallery Help page to get your started
 
 == Frequently Asked Questions ==
-
-= How do I turn off all the PRO Promotions in the admin? =
-
-Goto FooGallery Settings -> Advanced Tab and check "Disable PRO Promotions" and then save your settings.
 
 = My galleries are not working. Thumbnails are greyed out and not loading when I scroll down the page. =
 
@@ -143,7 +141,7 @@ We can help you get it working, by contacting our support.
 = I have created a gallery in the backend, but when I look at it on the frontend, it does not show correctly. =
 
 Sometimes, there are issues when the theme does not follow WordPress best practices.
-In order for FooGallery to function properly, the theme needs to:
+In order for FooGallery to function properly, the theme needs to have:
     * A call to wp_head(); in the header.php file.
     * A call to wp_footer(); in the footer.php file.
 
@@ -192,6 +190,10 @@ For the PRO version of FooGallery - No, we have built in a uniquely beautiful li
 
 Simply go to the FooGallery extensions page and activate the Albums extension. If you do not see a button to activate the albums extension, reload the extensions list by clicking the reload button.
 
+= How do I turn off all the PRO Promotions in the admin? =
+
+Goto FooGallery Settings -> Advanced Tab and check "Disable PRO Promotions" and then save your settings.
+
 == Screenshots ==
 
 1. Gallery Edit Page
@@ -202,14 +204,43 @@ Simply go to the FooGallery extensions page and activate the Albums extension. I
 
 == Upgrade Notice ==
 
-Update now to get all the latest features, bug fixes and improvements!
+Please update in order to for FooGallery to work in WP 5.5+!
 
 == Changelog ==
+
+= 1.9.31 =
+Date Updated : 2020-08-07
+*	Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery preview button was not showing)
+
+
+= 1.9.30 =
+Date Updated : 2020-08-03
+*	Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery template selector was not showing)
+*	New : Support for All in One SEO Pack sitemaps
+*	Update : improved lightbox messages when no lightboxes are installed
+*	Update : Freemius SDK 2.4.0.1
+
+
+= 1.9.28 =
+Date Updated : 2020-07-18
+*	Fix : Fix for some installs showing thumbnail generation error
+*	Update : better mobile support for admin settings tabs
+*	Update : FooGallery client side 1.4.16
+
+
+= 1.9.26 =
+Date Updated : 2020-06-29
+*	Fix : Fix for All-In-One album hidden items still clickable
+*	Fix : Fix for fatal error on some versions of PHP
+*	Update : FooGallery client side 1.4.15
+
 
 = 1.9.25 =
 Date Updated : 2020-06-04
 * Fix : Fixed bug to prevent infinite loop with ResizeObserver in some themes
+* Fix : Fixed possible text-domain issue
 * Update : FooGallery client side 1.4.13
+
 
 = 1.9.24 =
 Date Updated : 2020-05-04

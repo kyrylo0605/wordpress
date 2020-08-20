@@ -176,7 +176,7 @@ if ($action == 'finalize') {
 					<p class="restore-progress-p">Restoring <span id="progressItem">files</span>: <span id="progressTxt">0%</span></p>
 					<p class="restore-warning"><small>NOTE: Please don't close your browser until finished.</small></p>
 					<div class="sg-progress progress">
-						<div id="progressBar" class="progress-bar progress-bar-danger" style="width: 0%;"></div>
+						<div id="progressBar" class="progress-bar" style="width: 0%;"></div>
 					</div>
 				</div>
 			</div>

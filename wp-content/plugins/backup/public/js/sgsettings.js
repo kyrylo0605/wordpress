@@ -43,6 +43,7 @@ sgBackup.saveInitialState = function() {
 };
 
 sgBackup.initGeneralSettingsSwitchButtons = function() {
+	jQuery.fn.bootstrapSwitch.defaults.size = 'small';
     jQuery('.sg-switch').bootstrapSwitch();
 
     jQuery('.sg-email-switch').on('switchChange.bootstrapSwitch', function (event, state) {

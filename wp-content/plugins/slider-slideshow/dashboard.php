@@ -53,24 +53,21 @@ $lss = 'mailchimp-subscribe-sm';
         <div style="float: left; width: 100%;">
           <hr>
           <br>
-            <div class="video-card">
-	          <iframe width="350" height="300" src="https://www.youtube.com/embed/e2hnpm9RN74" frameborder="0" allowfullscreen></iframe>
+
+          <div class="video-card">
+            <iframe width="350" height="300" src="https://www.youtube.com/embed/CLzTCIKn85M" frameborder="0" allowfullscreen></iframe>
+            <h3>Form Builder Plugin</h3>
+            <a href="<?php  echo $cfb_install_link;?>" target='_blank'><button class="install-btn" id="cfb_link">Install Free</button></a>
+            <br>
+          </div>
+
+          <div class="video-card">
+	          <iframe width="350" height="300" src="https://www.youtube.com/embed/gUreU3ZDbVc" frameborder="0" allowfullscreen></iframe>
 	          <h3>Page Builder Plugin</h3>
 	          <a href="<?php  echo $pba_install_link;?>" target='_blank'> <button class="install-btn" id="pba_link">Install Free</button>
 	          <br>
 	        </div>
-	        <div class="video-card">
-	          <iframe width="350" height="300" src="https://www.youtube.com/embed/CLzTCIKn85M" frameborder="0" allowfullscreen></iframe>
-	          <h3>Form Builder Plugin</h3>
-	          <a href="<?php  echo $cfb_install_link;?>" target='_blank'><button class="install-btn" id="cfb_link">Install Free</button></a>
-	          <br>
-	        </div>
-	        <div class="video-card">
-	          <img src="https://ps.w.org/testimonial-add/assets/icon-250x250.png" width="350" height="300">
-	          <h3>Testimonials Plugin</h3>
-	          <a href="<?php  echo $tss_install_link;?>" target='_blank'> <button class="install-btn" id="tss_link">Install Free</button> </a>
-	          <br>
-	        </div>
+	        
 	        <div class="video-card">
 	          <img src="https://ps.w.org/mailchimp-subscribe-sm/assets/icon-128x128.png" width="350" height="300">
 	          <h3>Subscribe Form Plugin</h3>

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1e269f633082fed79b894754c7016454
+class ComposerStaticInit9313e49ba9f88cb404cce7aae632f5f0
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -23,10 +23,6 @@ class ComposerStaticInit1e269f633082fed79b894754c7016454
         't' => 
         array (
             'tubalmartin\\CssMin\\' => 19,
-        ),
-        'T' => 
-        array (
-            'TIOB\\' => 5,
         ),
         'P' => 
         array (
@@ -59,10 +55,6 @@ class ComposerStaticInit1e269f633082fed79b894754c7016454
         'tubalmartin\\CssMin\\' => 
         array (
             0 => __DIR__ . '/..' . '/tubalmartin/cssmin/src',
-        ),
-        'TIOB\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -262,28 +254,6 @@ class ComposerStaticInit1e269f633082fed79b894754c7016454
         'Psr\\Http\\Message\\StreamInterface' => __DIR__ . '/..' . '/psr/http-message/src/StreamInterface.php',
         'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
         'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
-        'TIOB\\Admin' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Admin.php',
-        'TIOB\\Importers\\Content_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Content_Importer.php',
-        'TIOB\\Importers\\Helpers\\Helper' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Helper.php',
-        'TIOB\\Importers\\Helpers\\Importer_Alterator' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Importer_Alterator.php',
-        'TIOB\\Importers\\Helpers\\Quiet_Skin' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Quiet_Skin.php',
-        'TIOB\\Importers\\Helpers\\Quiet_Skin_Legacy' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Helpers/Quiet_Skin_Legacy.php',
-        'TIOB\\Importers\\Plugin_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Plugin_Importer.php',
-        'TIOB\\Importers\\Theme_Mods_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Theme_Mods_Importer.php',
-        'TIOB\\Importers\\WP\\Beaver_Data_Fix' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/Beaver_Data_Fix.php',
-        'TIOB\\Importers\\WP\\Beaver_ParserXML' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/Beaver_ParserXML.php',
-        'TIOB\\Importers\\WP\\Elementor_Meta_Handler' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/Elementor_Meta_Handler.php',
-        'TIOB\\Importers\\WP\\WP_Import' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WP_Import.php',
-        'TIOB\\Importers\\WP\\WXR_Parser' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WXR_Parser.php',
-        'TIOB\\Importers\\WP\\WXR_Parser_SimpleXML' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WXR_Parser_SimpleXML.php',
-        'TIOB\\Importers\\WP\\WXR_Parser_XML' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/WP/WXR_Parser_XML.php',
-        'TIOB\\Importers\\Widgets_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Widgets_Importer.php',
-        'TIOB\\Importers\\Zelle_Importer' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Importers/Zelle_Importer.php',
-        'TIOB\\Logger' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Logger.php',
-        'TIOB\\Main' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Main.php',
-        'TIOB\\Rest_Server' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Rest_Server.php',
-        'TIOB\\Sites_Listing' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/Sites_Listing.php',
-        'TIOB\\WP_Cli' => __DIR__ . '/..' . '/codeinwp/themeisle-onboarding/includes/WP_Cli.php',
         'tubalmartin\\CssMin\\Colors' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Colors.php',
         'tubalmartin\\CssMin\\Command' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Command.php',
         'tubalmartin\\CssMin\\Minifier' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Minifier.php',
@@ -293,9 +263,9 @@ class ComposerStaticInit1e269f633082fed79b894754c7016454
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1e269f633082fed79b894754c7016454::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1e269f633082fed79b894754c7016454::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1e269f633082fed79b894754c7016454::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9313e49ba9f88cb404cce7aae632f5f0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9313e49ba9f88cb404cce7aae632f5f0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9313e49ba9f88cb404cce7aae632f5f0::$classMap;
 
         }, null, ClassLoader::class);
     }

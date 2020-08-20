@@ -76,28 +76,38 @@ $pluginCapabilities = backupGuardGetCapabilities();
 </div>
 
 <?php endif; ?>
+<div class="sg-top-info"><?php echo backupGuardLoggedMessage(); ?></div>
 <div id="sg-content-wrapper">
 	<div class="container-fluid">
 		<fieldset>
-			<legend><?php _backupGuardT('Backups')?><?php echo backupGuardLoggedMessage(); ?></legend>
+			<div><h1 class="sg-backup-page-title"><?php _backupGuardT('Backups')?></h1></div>
 
-			<a href="javascript:void(0)" id="sg-manual-backup" class="pull-left btn btn-success" data-toggle="modal" data-modal-name="manual-backup" data-remote="modalManualBackup" sg-data-backup-type="<?php echo SG_BACKUP_METHOD_STANDARD ?>"><i class="glyphicon glyphicon-play"></i> <?php _backupGuardT('Backup')?></a>
+			<a href="javascript:void(0)" id="sg-manual-backup" class="pull-left btn btn-success sg-backup-action-buttons" data-toggle="modal" data-modal-name="manual-backup" data-remote="modalManualBackup" sg-data-backup-type="<?php echo SG_BACKUP_METHOD_STANDARD ?>">
+                <span class="sg-backup-start sg-backup-buttons-content"></span>
+                <span class="sg-backup-buttons-content sg-backup-buttons-text"><?php _backupGuardT('Backup')?></span>
+            </a>
 
-			<a href="javascript:void(0)" id="sg-backup-with-migration" class="pull-left btn btn-primary" data-toggle="modal" data-modal-name="manual-backup" data-remote="modalManualBackup" sg-data-backup-type="<?php echo SG_BACKUP_METHOD_MIGRATE ?>"<?php echo SGBoot::isFeatureAvailable('BACKUP_WITH_MIGRATION')?'':'disabled' ?>>
-				<i class="glyphicon glyphicon-duplicate"></i>
-				<?php _backupGuardT('Migrate')?>
+			<a href="javascript:void(0)" id="sg-backup-with-migration" class="pull-left btn btn-primary sg-backup-action-buttons" data-toggle="modal" data-modal-name="manual-backup" data-remote="modalManualBackup" sg-data-backup-type="<?php echo SG_BACKUP_METHOD_MIGRATE ?>"<?php echo SGBoot::isFeatureAvailable('BACKUP_WITH_MIGRATION')?'':'disabled' ?>>
+				<span class="sg-backup-migrate sg-backup-buttons-content"></span>
+				<span class="sg-backup-buttons-text sg-backup-buttons-content"><?php _backupGuardT('Migrate')?></span>
 			</a>
-
-			<a href="javascript:void(0)" id="sg-import" class="btn btn-primary sg-margin-left-12" data-toggle="modal" data-modal-name="import"  data-remote="modalImport"><i class="glyphicon glyphicon-open"></i> <?php _backupGuardT('Import')?></a>
+			<a href="javascript:void(0)" id="sg-import" class="btn btn-primary sg-margin-left-12 pull-left  sg-backup-action-buttons" data-toggle="modal" data-modal-name="import"  data-remote="modalImport">
+                <span class="sg-backup-import sg-backup-buttons-content"></span>
+                <span class="sg-backup-buttons-text sg-backup-buttons-content"><?php _backupGuardT('Import')?><span>
+            </a>
 			<?php if ($pluginCapabilities == BACKUP_GUARD_CAPABILITIES_FREE): ?>
 			<a href="<?php echo BACKUP_GUARD_WORDPRESS_SUPPORT_URL; ?>" target="_blank">
-				<button type="button" id="sg-report-problem-button" class="sg-button-red pull-right">
-					<i class="glyphicon glyphicon-alert"></i>
+				<button type="button" id="sg-report-problem-button" class="btn btn btn-primary sg-margin-left-12 pull-right sg-backup-action-buttons sg-button-red pull-right">
+					<span class="sg-backup-report"></span>
 
-					<?php _backupGuardT('Report issue')?>
+                    <span class="sg-backup-buttons-text sg-backup-buttons-content"><?php _backupGuardT('Report issue')?></span>
 				</button>
 			</a>
 			<?php endif; ?>
+            <a id="sg-delete-multi-backups" class="pull-right btn btn-danger sg-margin-left-12 sg-backup-action-buttons">
+                <span class="sg-backup-delete sg-backup-buttons-content"></span>
+                <span class="sg-backup-buttons-text sg-backup-buttons-content"><?php _backupGuardT('Delete')?></span>
+            </a>
 			<div class="clearfix"></div><br/>
 			<table class="table table-striped paginated sg-backup-table">
 				<thead>
@@ -118,7 +128,7 @@ $pluginCapabilities = backupGuardGetCapabilities();
 				<?php endif;?>
 				<?php foreach($backups as $backup): ?>
 					<tr>
-						<td> <input type="checkbox" autocomplete="off" value="<?php echo $backup['name']?>" <?php echo $backup['active']?'disabled':''?>> </td>
+						<td><input type="checkbox" autocomplete="off" value="<?php echo $backup['name']?>" <?php echo $backup['active']?'disabled':''?>></td>
 						<td><?php echo $backup['name'] ?></td>
 						<td><?php echo !$backup['active']?$backup['size']:'' ?></td>
 						<td><?php echo backupGuardConvertDateTimezone($backup['date']) ?></td>
@@ -131,30 +141,29 @@ $pluginCapabilities = backupGuardGetCapabilities();
 										<span class="btn-xs sg-status-icon sg-status-<?php echo $statusCode; ?>">&nbsp;</span>
 									<?php endforeach; ?>
 									<div class="sg-progress progress">
-										<div class="progress-bar progress-bar-danger"></div>
+										<div class="progress-bar"></div>
 									</div>
 							<?php else: ?>
 									<?php if ($backup['status'] == SG_ACTION_STATUS_FINISHED_WARNINGS): ?>
-										<span class="glyphicon glyphicon-warning-sign btn-xs text-warning" data-toggle="tooltip" data-placement="top" data-original-title="<?php if($backup['type']==SG_ACTION_TYPE_BACKUP): echo _backupGuardT('Warnings found during backup',true); elseif($backup['type']==SG_ACTION_TYPE_RESTORE): echo _backupGuardT('Warnings found during restore',true); else: echo _backupGuardT('Warnings found during upload',true); endif; ?>" data-container="#sg-wrapper"></span>
+										<span class="btn-xs text-warning" data-toggle="tooltip" data-placement="top" data-original-title="<?php if($backup['type']==SG_ACTION_TYPE_BACKUP): echo _backupGuardT('Warnings found during backup',true); elseif($backup['type']==SG_ACTION_TYPE_RESTORE): echo _backupGuardT('Warnings found during restore',true); else: echo _backupGuardT('Warnings found during upload',true); endif; ?>" data-container="#sg-wrapper"><?php _backupGuardT('Warning')?></span>
 									<?php elseif ($backup['status'] == SG_ACTION_STATUS_ERROR): ?>
-										<span class="glyphicon glyphicon-warning-sign btn-xs text-danger" data-toggle="tooltip" data-placement="top" data-original-title="<?php if($backup['type']==SG_ACTION_TYPE_BACKUP): echo _backupGuardT('Errors found during backup',true); elseif($backup['type']==SG_ACTION_TYPE_RESTORE): echo _backupGuardT('Errors found during restore',true); else: echo _backupGuardT('Errors found during upload',true);
-										endif; ?>" data-container="#sg-wrapper"></span>
+										<span class="btn-xs text-danger" data-toggle="tooltip" data-placement="top" data-original-title="<?php if($backup['type']==SG_ACTION_TYPE_BACKUP): echo _backupGuardT('Errors found during backup',true); elseif($backup['type']==SG_ACTION_TYPE_RESTORE): echo _backupGuardT('Errors found during restore',true); else: echo _backupGuardT('Errors found during upload',true);
+										endif; ?>" data-container="#sg-wrapper"><?php _backupGuardT('Faild')?></span>
 									<?php else: ?>
-										<span class="glyphicon glyphicon-ok btn-xs text-success"></span>
+										<span class="btn-xs sg-text-success"><?php _backupGuardT('Success')?></span>
 									<?php endif;?>
 							<?php endif; ?>
 						</td>
-						<td>
+						<td class="sg-backup-actions-td">
 							<?php if($backup['active']): ?>
 								<?php if($backup['type'] != SG_ACTION_TYPE_RESTORE): ?>
-								<a class="btn btn-danger btn-xs sg-cancel-backup" sg-data-backup-id="<?php echo $backup['id']?>" href="javascript:void(0)" title="<?php _backupGuardT('Stop')?>">&nbsp;<i class="glyphicon glyphicon-stop" aria-hidden="true"></i>&nbsp;</a>
+								<a class="btn-xs sg-cancel-backup" sg-data-backup-id="<?php echo $backup['id']?>" href="javascript:void(0)" title="<?php _backupGuardT('Stop')?>">&nbsp;&nbsp;</a>
 								<?php endif; ?>
 							<?php else: ?>
-								<a href="javascript:void(0)" data-sgbackup-name="<?php echo htmlspecialchars($backup['name']);?>" data-remote="deleteBackup" class="btn btn-danger btn-xs sg-remove-backup" title="<?php _backupGuardT('Delete')?>">&nbsp;<i class="glyphicon glyphicon-remove" aria-hidden="true"></i>&nbsp;</a>
+								<a href="javascript:void(0)" data-sgbackup-name="<?php echo htmlspecialchars($backup['name']);?>" data-remote="deleteBackup" class="sg-remove-backup btn-xs" title="<?php _backupGuardT('Delete')?>">&nbsp;&nbsp;</a>
 								<div class="btn-group">
-									<a href="javascript:void(0)" class="btn btn-primary sg-bg-download-button btn-xs" data-toggle="dropdown1" aria-expanded="false" title="<?php _backupGuardT('Download')?>">
-										&nbsp;<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>&nbsp;
-										<span class="caret"></span>
+									<a href="javascript:void(0)" class="sg-bg-download-button btn-xs" data-toggle="dropdown1" aria-expanded="false" title="<?php _backupGuardT('Download')?>">
+										
 									</a>
 									<ul class="dropdown-menu">
 										<?php if($backup['files']):?>
@@ -181,8 +190,8 @@ $pluginCapabilities = backupGuardGetCapabilities();
 									</ul>
 								</div>
 								<?php if(file_exists(SG_BACKUP_DIRECTORY.$backup['name'].'/'.$backup['name'].'.sgbp')):?>
-									<a href="javascript:void(0)" title="<?php _backupGuardT('Restore')?>" class="btn btn-success btn-xs sg-restore-button" data-toggle="modal" data-modal-name="manual-restore" data-remote="modalManualRestore" data-sgbp-params="<?php echo htmlspecialchars($backup['name']) ?>">
-										&nbsp;<i class="glyphicon glyphicon-repeat" aria-hidden="true"></i>&nbsp;
+									<a href="javascript:void(0)" title="<?php _backupGuardT('Restore')?>" class="sg-restore-button btn-xs" data-toggle="modal" data-modal-name="manual-restore" data-remote="modalManualRestore" data-sgbp-params="<?php echo htmlspecialchars($backup['name']) ?>">
+										
 									</a>
 								<?php endif;?>
 							<?php endif; ?>
@@ -191,8 +200,6 @@ $pluginCapabilities = backupGuardGetCapabilities();
 				<?php endforeach; ?>
 				</tbody>
 			</table>
-
-			<button id="sg-delete-multi-backups" class="pull-left btn btn-danger"><?php _backupGuardT('Delete')?></button>
 
 			<div class="text-right">
 				<ul class="pagination"></ul>

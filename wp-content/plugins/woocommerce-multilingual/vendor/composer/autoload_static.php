@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b
+class ComposerStaticInit858ccbc2e3d947509b614aaa64dcf20f
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -37,6 +37,7 @@ class ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b
         'WCML\\Media\\Wrapper\\IMedia' => __DIR__ . '/../..' . '/classes/media/Wrapper/IMedia.php',
         'WCML\\Media\\Wrapper\\NonTranslatable' => __DIR__ . '/../..' . '/classes/media/Wrapper/NonTranslatable.php',
         'WCML\\Media\\Wrapper\\Translatable' => __DIR__ . '/../..' . '/classes/media/Wrapper/Translatable.php',
+        'WCML\\MultiCurrency\\Geolocation' => __DIR__ . '/../..' . '/classes/multi-currency/geolocation/Geolocation.php',
         'WCML\\Multicurrency\\Shipping\\AdminHooks' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/AdminHooks.php',
         'WCML\\Multicurrency\\Shipping\\DefaultConversion' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/DefaultConversion.php',
         'WCML\\Multicurrency\\Shipping\\FlatRateShipping' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/FlatRateShipping.php',
@@ -51,9 +52,13 @@ class ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b
         'WCML\\Multicurrency\\Shipping\\ShippingModeProvider' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/ShippingModeProvider.php',
         'WCML\\Multicurrency\\Shipping\\UnsupportedShipping' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/UnsupportedShipping.php',
         'WCML\\Multicurrency\\Shipping\\VariableCost' => __DIR__ . '/../..' . '/classes/Multicurrency/Shipping/VariableCost.php',
+        'WCML\\Multicurrency\\UI\\Factory' => __DIR__ . '/../..' . '/classes/Multicurrency/UI/Factory.php',
+        'WCML\\Multicurrency\\UI\\Hooks' => __DIR__ . '/../..' . '/classes/Multicurrency/UI/Hooks.php',
+        'WCML\\PaymentGateways\\Hooks' => __DIR__ . '/../..' . '/classes/PaymentGateways/Hooks.php',
         'WCML\\Rest\\Frontend\\Language' => __DIR__ . '/../..' . '/classes/Rest/Frontend/Language.php',
         'WCML\\RewriteRules\\Hooks' => __DIR__ . '/../..' . '/classes/RewriteRules/Hooks.php',
         'WCML\\Tax\\Strings\\Hooks' => __DIR__ . '/../..' . '/classes/Tax/Strings/Hooks.php',
+        'WCML\\Utilities\\Resources' => __DIR__ . '/../..' . '/classes/Utilities/Resources.php',
         'WCML_ATE_Activate_Synchronization' => __DIR__ . '/../..' . '/classes/ate/class-wcml-ate-activate-synchronization.php',
         'WCML_Accommodation_Bookings' => __DIR__ . '/../..' . '/compatibility/class-wcml-accommodation-bookings.php',
         'WCML_Admin_Cookie' => __DIR__ . '/../..' . '/classes/class-wcml-admin-cookie.php',
@@ -255,9 +260,9 @@ class ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc4b9921626dc5f64a8ef121031bc4a7b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit858ccbc2e3d947509b614aaa64dcf20f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit858ccbc2e3d947509b614aaa64dcf20f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit858ccbc2e3d947509b614aaa64dcf20f::$classMap;
 
         }, null, ClassLoader::class);
     }

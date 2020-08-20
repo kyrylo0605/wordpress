@@ -172,6 +172,8 @@ jQuery( function($){
 						'speed' : settings.speed,
 						'timeout' : settings.timeout,
 						'swipe' : settings.swipe,
+						'paused' : settings.paused,
+						'pauseOnHover' : settings.pause_on_hover,
 						'swipe-fx' : 'scrollHorz',
 						'log' : false,
 					} )	;
@@ -239,11 +241,11 @@ jQuery( function($){
 				);
 			};
 
-			var images = $$.find('img');
+			var images = $$.find( 'img.sow-slider-background-image, img.sow-slider-foreground-image' );
 			var imagesLoaded = 0;
 			var sliderLoaded = false;
 
-			// Preload all the images, when they're loaded, then display the slider
+			// Preload all of the slide images, when they're loaded, then display the slider.
 			images.each( function(){
 				var $i = $(this);
 				if( this.complete ) {

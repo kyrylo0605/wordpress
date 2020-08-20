@@ -2,8 +2,9 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
 Tested up to: 5.5
-Stable tag: 1.17.3
-Build time: 2020-07-23T18:39:48+02:00
+Requires PHP: 5.6.20
+Stable tag: 1.17.6
+Build time: 2020-08-17T20:42:09+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 Donate link: https://siteorigin.com/downloads/premium/
@@ -65,6 +66,20 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 
 == Changelog ==
 
+== 1.17.6 - 17 August 2020 ==
+* Hero and Layout Sliders: Disabled lazy loading for images added to the slide content area.
+* Slider: Disabled lazy loading in the Block Editor.
+
+== 1.17.5 - 12 August 2020 ==
+* Slider: Disable WordPress 5.5 Lazy Loading.
+
+== 1.17.4 - 06 August 2020 ==
+* Post Carousel: Improved support for multiple carousel widgets on the same page.
+* Post Carousel: Improved mobile support.
+* Sliders: Added `Autoplay` and `Autoplay Pause on Hover` settings to the Slider, Layout Slider and Hero widgets.
+* Features: Allowed shortcodes to be used in the Text field.
+* Contact Form: Fix to ensure the correct fields are passed to Akismet.
+
 == 1.17.3 - 23 July 2020 ==
 * Reverted: Features: Prevented icon overlapping text in edge cases.
 * Social Media Buttons: Added TikTok.
@@ -93,7 +108,7 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * Tabs: Added smooth scroll to tab when linked to.
 * Added `font-display: block` to all font icons.
 * Widget Block: Added `Additional CSS Classes` output.
-* Button: Added Button hover style settings. 
+* Button: Added Button hover style settings.
 * Features: Prevented icon overlapping text in edge cases.
 * Post Carousel: Resolved IE 11 JavaScript error.
 * Post Carousel: Vertically align navigation icons and title when title present.

@@ -71,6 +71,7 @@ sgBackup.importKeyFile =  function(isFileSelected){
 }
 
 sgBackup.initCloudSwitchButtons = function(){
+	jQuery.fn.bootstrapSwitch.defaults.size = 'small';
     jQuery('.sg-switch').bootstrapSwitch();
     jQuery('.sg-switch').on('switchChange.bootstrapSwitch', function(event, state) {
         var storage = jQuery(this).attr('data-storage'),

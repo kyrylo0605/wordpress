@@ -7,11 +7,11 @@
  * Author URI: http://www.onthegosystems.com/
  * Text Domain: woocommerce-multilingual
  * Requires at least: 4.7
- * Tested up to: 5.4.2
- * Version: 4.9.1
+ * Tested up to: 5.5
+ * Version: 4.10.2
  * Plugin Slug: woocommerce-multilingual
  * WC requires at least: 3.3.0
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.4
  *
  * @package WCML
  * @author  OnTheGoSystems
@@ -33,7 +33,7 @@ if ( ! $wpml_php_version_check->is_ok() ) {
 	return;
 }
 
-define( 'WCML_VERSION', '4.9.1' );
+define( 'WCML_VERSION', '4.10.2' );
 define( 'WCML_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'WCML_PLUGIN_FOLDER', basename( WCML_PLUGIN_PATH ) );
 define( 'WCML_LOCALE_PATH', WCML_PLUGIN_PATH . '/locale' );
@@ -76,6 +76,7 @@ function wcml_loader() {
 	}
 
 	\WPML\Container\share( \WCML\Container\Config::getSharedInstances() );
+	\WPML\Container\share( \WCML\Container\Config::getSharedClasses() );
 
 	$xdomain_data = new WCML_xDomain_Data( new WPML_Cookie() );
 	$xdomain_data->add_hooks();
@@ -91,6 +92,8 @@ function wcml_loader() {
 		\WCML\Tax\Strings\Hooks::class,
 		\WCML\AdminDashboard\Hooks::class,
 		\WCML\AdminNotices\Review::class,
+		\WCML\Multicurrency\UI\Factory::class,
+		\WCML\PaymentGateways\Hooks::class,
 	];
 
 	if (

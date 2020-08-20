@@ -15,37 +15,41 @@ $amazonInfo = SGConfig::get('SG_AMAZON_BUCKET');
 $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 ?>
 <?php require_once(SG_PUBLIC_INCLUDE_PATH.'sidebar.php'); ?>
+<div class="sg-top-info"><?php echo backupGuardLoggedMessage(); ?></div>
 <div id="sg-content-wrapper">
 	<div class="container-fluid">
 		<div class="row sg-cloud-container">
 			<div class="col-md-12">
 				<form class="form-horizontal">
 					<fieldset>
-						<legend><?php _backupGuardT('Cloud settings')?><?php echo backupGuardLoggedMessage(); ?></legend>
+                        <div><h1 class="sg-backup-page-title"><?php _backupGuardT('Cloud settings')?></h1></div>
 						<?php if (SGBoot::isFeatureAvailable('SUBDIRECTORIES')): ?>
 							<div class="form-group form-inline">
-								<label class="col-md-5 sg-control-label">
+								<label class="col-md-3 sg-control-label">
 									<?php _backupGuardT('Destination folder')?>
 								</label>
-
-								<div class="col-md-7 pull-right text-right">
-									<input id="cloudFolder" name="cloudFolder" type="text" class="form-control input-md sg-backup-input" value="<?php echo esc_html(SGConfig::get('SG_STORAGE_BACKUPS_FOLDER_NAME'))?>">
-									<button type="button" id="sg-save-cloud-folder" class="btn btn-success pull-right"><?php _backupGuardT('Save');?></button>
-								</div>
+                                <div class="col-md-3">
+                                    <input id="cloudFolder" name="cloudFolder" type="text" class="form-control input-md sg-backup-input" value="<?php echo esc_html(SGConfig::get('SG_STORAGE_BACKUPS_FOLDER_NAME'))?>">
+                                    <button type="button" id="sg-save-cloud-folder" class="btn btn-success pull-right"><?php _backupGuardT('Save');?></button>
+                                </div>
 							</div>
-							<hr/>
 						<?php endif; ?>
 						<!-- Dropbox -->
 						<?php if (SGBoot::isFeatureAvailable('DROPBOX')): ?>
 							<div class="form-group">
-								<label class="col-md-8 sg-control-label">
-									<?php echo 'Dropbox' ?>
-									<?php if(!empty($dropboxUsername)): ?>
-										<br/>
-										<span class="text-muted sg-dropbox-user sg-helper-block"><?php echo $dropboxUsername;?></span>
-									<?php endif;?>
+								<label class="col-md-3 sg-control-label">
+                                    <div class="sg-cloud-icon-wrapper">
+                                        <span class="sg-cloud-icon sg-cloud-dropbox"></span>
+                                    </div>
+                                    <div class="sg-cloud-label-wrapper">
+                                        <span><?php echo 'Dropbox' ?></span>
+                                        <?php if(!empty($dropboxUsername)): ?>
+                                            <br/>
+                                            <span class="text-muted sg-dropbox-user sg-helper-block"><?php echo $dropboxUsername;?></span>
+                                        <?php endif;?>
+                                    </div>
 								</label>
-								<div class="col-md-3 pull-right text-right">
+								<div class="col-md-3">
 									<label class="sg-switch-container">
 										<input data-on-text="<?php _backupGuardT('ON')?>" data-off-text="<?php _backupGuardT('OFF')?>" data-storage="DROPBOX" data-remote="cloudDropbox" type="checkbox" class="sg-switch" <?php echo !empty($dropbox)?'checked="checked"':''?>>
 									</label>
@@ -55,14 +59,19 @@ $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 						<!-- Google Drive -->
 						<?php if (SGBoot::isFeatureAvailable('GOOGLE_DRIVE')): ?>
 							<div class="form-group">
-								<label class="col-md-8 sg-control-label">
+								<label class="col-md-3 sg-control-label">
+                                    <div class="sg-cloud-icon-wrapper">
+                                        <span class="sg-cloud-icon sg-cloud-google-drive"></span>
+                                    </div>
+                                    <div class="sg-cloud-label-wrapper">
 									<?php echo 'Google Drive' ?>
-									<?php if(!empty($gdriveUsername)): ?>
-										<br/>
-										<span class="text-muted sg-gdrive-user sg-helper-block"><?php echo $gdriveUsername;?></span>
-									<?php endif;?>
+                                        <?php if(!empty($gdriveUsername)): ?>
+                                            <br/>
+                                            <span class="text-muted sg-gdrive-user sg-helper-block"><?php echo $gdriveUsername;?></span>
+                                        <?php endif;?>
+                                    </div>
 								</label>
-								<div class="col-md-3 pull-right text-right">
+								<div class="col-md-3">
 									<label class="sg-switch-container">
 										<input data-on-text="<?php _backupGuardT('ON')?>" data-off-text="<?php _backupGuardT('OFF')?>" data-storage="GOOGLE_DRIVE" data-remote="cloudGdrive" type="checkbox" class="sg-switch" <?php echo !empty($gdrive)?'checked="checked"':''?>>
 									</label>
@@ -72,14 +81,19 @@ $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 						<!-- FTP -->
 						<?php if (SGBoot::isFeatureAvailable('FTP')): ?>
 							<div class="form-group">
-								<label class="col-md-8 sg-control-label sg-user-info">
-									<?php echo 'FTP / SFTP' ?>
-									<?php if(!empty($ftpUsername)): ?>
-										<br/>
-										<span class="text-muted sg-ftp-user sg-helper-block"><?php echo $ftpUsername;?></span>
-									<?php endif;?>
+								<label class="col-md-3 sg-control-label sg-user-info">
+                                    <div class="sg-cloud-icon-wrapper">
+                                        <span class="sg-cloud-icon sg-cloud-ftp"></span>
+                                    </div>
+                                    <div class="sg-cloud-label-wrapper">
+                                        <?php echo 'FTP / SFTP' ?>
+                                        <?php if(!empty($ftpUsername)): ?>
+                                            <br/>
+                                            <span class="text-muted sg-ftp-user sg-helper-block"><?php echo $ftpUsername;?></span>
+                                        <?php endif;?>
+                                    </div>
 								</label>
-								<div class="col-md-3 pull-right text-right">
+								<div class="col-md-3">
 									<label class="sg-switch-container">
 										<input type="checkbox" data-on-text="<?php _backupGuardT('ON')?>" data-off-text="<?php _backupGuardT('OFF')?>" data-storage="FTP" data-remote="cloudFtp" class="sg-switch" <?php echo !empty($ftp)?'checked="checked"':''?>>
 										<a id="ftp-settings" href="javascript:void(0)" class="hide" data-toggle="modal" data-modal-name="ftp-settings" data-remote="modalFtpSettings"><?php echo 'FTP '._backupGuardT('Settings', true) ?></a>
@@ -90,14 +104,19 @@ $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 						<!-- Amazon S3 -->
 						<?php if (SGBoot::isFeatureAvailable('AMAZON')): ?>
 							<div class="form-group">
-								<label class="col-md-8 sg-control-label">
+								<label class="col-md-3 sg-control-label">
+                                    <div class="sg-cloud-icon-wrapper">
+                                        <span class="sg-cloud-icon sg-cloud-amazon"></span>
+                                    </div>
+                                    <div class="sg-cloud-label-wrapper">
 									<?php echo (backupGuardIsAccountGold()? 'Amazon ':'').'S3'?>
-									<?php if (!empty($amazonInfo)):?>
-										<br/>
-										<span class="text-muted sg-amazonr-user sg-helper-block"><?php echo $amazonInfo;?></span>
-									<?php endif;?>
+                                        <?php if (!empty($amazonInfo)):?>
+                                            <br/>
+                                            <span class="text-muted sg-amazonr-user sg-helper-block"><?php echo $amazonInfo;?></span>
+                                        <?php endif;?>
+                                    </div>
 								</label>
-								<div class="col-md-3 pull-right text-right">
+								<div class="col-md-3">
 									<label class="sg-switch-container">
 										<input type="checkbox" data-on-text="<?php _backupGuardT('ON')?>" data-off-text="<?php _backupGuardT('OFF')?>" data-storage="AMAZON" data-remote="cloudAmazon" class="sg-switch" <?php echo !empty($amazon)?'checked="checked"':''?>>
 										<a id="amazon-settings" href="javascript:void(0)" class="hide" data-toggle="modal" data-modal-name="amazon-settings" data-remote="modalAmazonSettings"><?php echo 'Amazon'._backupGuardT('Settings', true)?></a>
@@ -108,14 +127,19 @@ $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
 						<!-- One Drive -->
 						<?php if (SGBoot::isFeatureAvailable('ONE_DRIVE')): ?>
 							<div class="form-group">
-								<label class="col-md-8 sg-control-label">
-									<?php echo 'One Drive' ?>
-									<?php if(!empty($oneDriveInfo)): ?>
-										<br/>
-										<span class="text-muted sg-gdrive-user sg-helper-block"><?php echo $oneDriveInfo;?></span>
-									<?php endif;?>
+								<label class="col-md-3 sg-control-label">
+                                    <div class="sg-cloud-icon-wrapper">
+                                        <span class="sg-cloud-icon sg-cloud-one-drive"></span>
+                                    </div>
+                                    <div class="sg-cloud-label-wrapper">
+                                        <?php echo 'One Drive' ?>
+                                        <?php if(!empty($oneDriveInfo)): ?>
+                                            <br/>
+                                            <span class="text-muted sg-gdrive-user sg-helper-block"><?php echo $oneDriveInfo;?></span>
+                                        <?php endif;?>
+                                    </div>
 								</label>
-								<div class="col-md-3 pull-right text-right">
+								<div class="col-md-3">
 									<label class="sg-switch-container">
 										<input data-on-text="<?php _backupGuardT('ON')?>" data-off-text="<?php _backupGuardT('OFF')?>" data-storage="ONE_DRIVE" data-remote="cloudOneDrive" type="checkbox" class="sg-switch" <?php echo !empty($oneDrive)?'checked="checked"':''?>>
 									</label>

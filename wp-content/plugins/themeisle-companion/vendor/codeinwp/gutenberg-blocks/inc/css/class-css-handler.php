@@ -46,9 +46,9 @@ class CSS_Handler extends Base_CSS {
 			'/save_post_meta/(?P<id>\d+)',
 			array(
 				array(
-					'methods'  => \WP_REST_Server::EDITABLE,
-					'callback' => array( $this, 'save_post_meta' ),
-					'args'     => array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'save_post_meta' ),
+					'args'                => array(
 						'id' => array(
 							'type'              => 'intval',
 							'required'          => true,
@@ -58,6 +58,9 @@ class CSS_Handler extends Base_CSS {
 							},
 						),
 					),
+					'permission_callback' => function () {
+						return current_user_can( 'publish_posts' );
+					},
 				),
 			)
 		);
@@ -67,9 +70,9 @@ class CSS_Handler extends Base_CSS {
 			'/save_block_meta/(?P<id>\d+)',
 			array(
 				array(
-					'methods'  => \WP_REST_Server::EDITABLE,
-					'callback' => array( $this, 'save_block_meta' ),
-					'args'     => array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'save_block_meta' ),
+					'args'                => array(
 						'id' => array(
 							'type'              => 'intval',
 							'required'          => true,
@@ -79,6 +82,9 @@ class CSS_Handler extends Base_CSS {
 							},
 						),
 					),
+					'permission_callback' => function () {
+						return current_user_can( 'publish_posts' );
+					},
 				),
 			)
 		);
@@ -199,7 +205,9 @@ class CSS_Handler extends Base_CSS {
 		$css = wp_filter_nohtml_kses( $css );
 
 		$css = self::compress( $css );
+
 		update_post_meta( $post_id, '_themeisle_gutenberg_block_styles', $css );
+
 		if ( is_file( $file_path ) ) {
 			self::delete_css_file( $post_id );
 		}
@@ -211,7 +219,6 @@ class CSS_Handler extends Base_CSS {
 				delete_post_meta( $post_id, '_themeisle_gutenberg_block_fonts' );
 			}
 		}
-
 
 		$target_dir = $wp_filesystem->is_dir( $upload_dir );
 

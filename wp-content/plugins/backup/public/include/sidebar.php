@@ -31,53 +31,62 @@
 	}
 ?>
 <div id="sg-sidebar-wrapper" class="metro">
+    <div class="title">
+        <a class="sg-site-url" target="_blank" href="<?php echo SG_BACKUP_SITE_URL;?>"></a>
+        <span class="sg-action-menu-arrow"></span>
+    </div>
 	<nav class="sidebar dark">
 		<ul>
-			<li class="title">
-				<a class="sg-site-url" target="_blank" href="<?php echo SG_BACKUP_SITE_URL;?>"></a>
-			</li>
 			<li class="<?php echo strpos($page,'backups')?'active':''?>">
 				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_backups'); ?>">
 					<span class="glyphicon glyphicon-hdd"></span><?php _backupGuardT('Backups')?>
 				</a>
+                <span class="sg-action-menu-arrow"></span>
 			</li>
 			<li class="<?php echo strpos($page,'cloud')?'active':''?>">
 				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_cloud'); ?>">
 					<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><?php _backupGuardT('Cloud')?>
 				</a>
+                <span class="sg-action-menu-arrow"></span>
 			</li>
 			<?php if (SGBoot::isFeatureAvailable('SCHEDULE')):?>
 				<li class="<?php echo strpos($page,'schedule')?'active':''?>">
 					<a href="<?php echo network_admin_url('admin.php?page=backup_guard_schedule'); ?>">
 						<span class="glyphicon glyphicon-time" aria-hidden="true"></span><?php _backupGuardT('Schedule')?>
 					</a>
+                    <span class="sg-action-menu-arrow"></span>
 				</li>
 			<?php endif;?>
 			<li class="<?php echo strpos($page,'settings')?'active':''?>">
 				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_settings'); ?>">
 					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span><?php _backupGuardT('Settings')?>
 				</a>
+                <span class="sg-action-menu-arrow"></span>
 			</li>
 			<li class="<?php echo strpos($page,'system_info')?'active':''?>">
 				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_system_info'); ?>">
 					<span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span><?php _backupGuardT('System Info.')?>
 				</a>
+                <span class="sg-action-menu-arrow"></span>
 			</li>
 			<li class="<?php echo strpos($page,'services')?'active':''?>">
 				<a href="<?php echo network_admin_url('admin.php?page=backup_guard_services'); ?>">
 					<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span><?php _backupGuardT('Services')?>
 				</a>
+                <span class="sg-action-menu-arrow"></span>
 			</li>
 			<li class="<?php echo strpos($page,'support')?'active':''?>">
 				<a href="<?php echo $supportUrl; ?>">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><?php _backupGuardT('Support')?>
 				</a>
+                <span class="sg-action-menu-arrow"></span>
 			</li>
 			<?php if (SGBoot::isFeatureAvailable('SHOW_UPGRADE_PAGE')):?>
 				<li class="<?php echo strpos($page,'pro_features')?'active':''?>">
 					<a href="<?php echo network_admin_url('admin.php?page=backup_guard_pro_features'); ?>">
 						<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><?php _backupGuardT('Why upgrade?')?>
 					</a>
+                    <span class="sg-action-menu-arrow"></span>
 				</li>
 			<?php endif; ?>
 			<!-- Will be added in the future release -->
@@ -93,11 +102,11 @@
 	</nav>
 	<?php if ($showUpgradeButton && !$isDisabelAdsEnabled):?>
 		<div class="sg-alert-pro">
-			<p>
+			<p class="sg-upgrade-text">
 				<?php _backupGuardT($upgradeText); ?>
 			</p>
 			<p>
-				<a class="btn btn-primary" target="_blank" href="<?php echo $buttonUrl; ?>">
+				<a class="btn btn-success" target="_blank" href="<?php echo $buttonUrl; ?>">
 					<?php _backupGuardT($buttonText); ?>
 				</a>
 			</p>

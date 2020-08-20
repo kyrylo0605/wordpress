@@ -5,8 +5,8 @@ Author: Backup Guard
 Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
-Tested up to: 5.4.2
-Stable tag: 1.4.1
+Tested up to: 5.5
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -167,6 +167,17 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+= 1.4.3 =
+* Admin Panel "Manual Backup" JS error fix on WordPress 5.5 version.
+
+= 1.4.2 =
+* Design changes in the Admin Panel of the plugin
+* Download via PHP fix
+* Bug fix during the Database restore process
+* Fix of some PHP Warnings
+* Code improvement
+* Compatibility test with WordPress 5.5 version
+
 = 1.4.1 =
 * Security improvement
 * Some environment checks were carried out which ensure that the plugin works seamlessly. The mentioned checks are necessary for the plugin to work as intended.

@@ -353,7 +353,7 @@ class SGBackup implements SGIBackupDelegate
 		}
 
 		SGPing::update();
-
+		
 		try
 		{
 			if ($this->databaseBackupAvailable) {
@@ -1430,33 +1430,23 @@ class SGBackup implements SGIBackupDelegate
 
 		switch ($type)
 		{
-			case SG_BACKUP_DOWNLOAD_TYPE_SGBP:
-				$filename .= '.sgbp';
-				if ($downloadViaPhp) {
-					backupGuardDownloadViaPhp($backupName, $filename);
-				}
-				else {
-					backupGuardDownloadFileSymlink($backupDirectory, $filename);
-				}
-				break;
-			case SG_BACKUP_DOWNLOAD_TYPE_BACKUP_LOG:
-				$filename .= '_backup.log';
-				if ($downloadViaPhp) {
-					backupGuardDownloadViaPhp($backupName, $filename);
-				}
-				else {
-					backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
-				}
-				break;
-			case SG_BACKUP_DOWNLOAD_TYPE_RESTORE_LOG:
-				$filename .= '_restore.log';
-				if ($downloadViaPhp) {
-					backupGuardDownloadViaPhp($backupName, $filename);
-				}
-				else {
-					backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
-				}
-				break;
+            case SG_BACKUP_DOWNLOAD_TYPE_SGBP:
+                $filename .= '.sgbp';
+                if ($downloadViaPhp) {
+                    backupGuardDownloadFile($backupDirectory.$filename);
+                }
+                else {
+                    backupGuardDownloadFileSymlink($backupDirectory, $filename);
+                }
+                break;
+            case SG_BACKUP_DOWNLOAD_TYPE_BACKUP_LOG:
+                $filename .= '_backup.log';
+                backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
+                break;
+            case SG_BACKUP_DOWNLOAD_TYPE_RESTORE_LOG:
+                $filename .= '_restore.log';
+                backupGuardDownloadFile($backupDirectory.$filename, 'text/plain');
+                break;
 		}
 
 		exit;

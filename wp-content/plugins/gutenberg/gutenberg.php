@@ -5,7 +5,7 @@
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
  * Requires at least: 5.3
  * Requires PHP: 5.6
- * Version: 8.6.1
+ * Version: 8.8.0
  * Author: Gutenberg Team
  * Text Domain: gutenberg
  *
@@ -13,8 +13,8 @@
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '8.6.1' );
-define( 'GUTENBERG_GIT_COMMIT', 'a0ba0a4f024a134fac03d814e12598fc3536936b' );
+define( 'GUTENBERG_VERSION', '8.8.0' );
+define( 'GUTENBERG_GIT_COMMIT', '442a6036c383a8daa5a3f0afd771d9776cb51dac' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -182,3 +182,14 @@ function register_site_icon_url( $response ) {
 }
 
 add_filter( 'rest_index', 'register_site_icon_url' );
+
+/**
+ * Registers the WP_Widget_Block widget
+ */
+function gutenberg_register_widgets() {
+	if ( gutenberg_is_experiment_enabled( 'gutenberg-widget-experiments' ) ) {
+		register_widget( 'WP_Widget_Block' );
+	}
+}
+
+add_action( 'widgets_init', 'gutenberg_register_widgets' );

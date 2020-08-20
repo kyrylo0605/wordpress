@@ -4,8 +4,8 @@ Donate link: http://wpml.org/documentation/related-projects/woocommerce-multilin
 Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multilingual, e-shop, shop
 License: GPLv2
 Requires at least: 4.7
-Tested up to: 5.4.2
-Stable tag: 4.9.1
+Tested up to: 5.5
+Stable tag: 4.10.2
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -21,7 +21,8 @@ This 'glue' plugin makes it possible to run fully multilingual e-commerce sites 
 * Keeps the same language through the checkout process
 * Sends emails to clients and admins in their language
 * Allows inventory tracking without breaking products into languages
-* Enables running a single WooCommerce store with multiple currencies
+* Enables running a single WooCommerce store with multiple currencies based either on a customer’s language or location
+* Allows enabling different payment gateways based on a customer’s location
 
 = Compatibility with WooCommerce Extensions =
 
@@ -104,7 +105,7 @@ Make sure that your theme is not hard-coding any URL. Always use API calls to re
 
 In order for the checkout and store pages to appear translated, you need to create several WordPress pages and insert the WooCommerce shortcodes into them. You'll have to go over the [documentation](http://wpml.org/documentation/related-projects/woocommerce-multilingual/) and see that you performed all steps on the way.
 
-= Can I have different urls for the store in the different languages? =
+= Can I have different URLs for the store in different languages? =
 
 Yes. You can translate the product permalink base, product category base, product tag base and the product attribute base on the Store URLs section.
 
@@ -118,11 +119,11 @@ By default, the prices in the secondary currencies are determined using the exch
 
 = Can I have separate currencies for each language? =
 
-Yes. By default, each currency will be available for all languages, but you can customize this and disable certain currencies on certain languages.
+Yes. By default, each currency will be available for all languages, but you can customize this and disable certain currencies on certain languages. You also have the option to display different currencies based on your customers’ locations instead.
 
 = Is this plugin compatible with other WooCommerce extensions? =
 
-WooCommerce Multilingual is compatible with all major WooCommerce extensions. We're continuously work on checking and maintaining compatibility and collaborate closely with the authors of these extensions.
+WooCommerce Multilingual is compatible with all major WooCommerce extensions. We’re continuously working on checking and maintaining compatibility and collaborate closely with the authors of these extensions.
 
 
 
@@ -137,11 +138,34 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
-= 4.9.1 =
-* Updated the translations.
-* Fix fatal error when WooCommerce not activated.
+= 4.10.2 =
+* Replace usage of `jQuery.attr` with `jQuery.prop` for `disabled`, `selected`, `readonly`.
+* Fixed missed variations for German and Danish languages.
+
+= 4.10.0 =
+* Currencies and payment options based on location.
+* Fixed notice after WooCommerce Currency was changed.
+* Fixed not translated partial refunded email heading and subject.
+* Fixed the WC Bookings email string not updated in the settings screen.
+* Fixed a PHP notice when one language is not set inside the currency languages settings.
+* Fixed a fatal error with MercadoPago addon on WC Settings page.
+* Fixed the usage of `wp_safe_redirect` and `wp_redirect` and take into account the returned value before to exit.
+* Fixed empty attribute label for translations.
+* Fix Redis cache when using Display as Translated mode and creating a variable product.
+* Fixed a PHP Notice for some custom fields showing in the classic translation editor.
+* Fixed the filter on wc_get_product_terms returning term names instead of slugs.
+* Fixed multiple "Low stock" emails are not received by the admin.
+* Fixed attribute label translation in German as a secondary language.
+* Fixed not ended sale price in secondary currency if same sale dates uses from default.
+* Fixed our gateways initialization on `wp_loaded` action.
+* Fixed the WC Bookings reminder email that was sent in the wrong language.
+* Fixed the WC Bookings email reminders sent multiple times.
+* Fixed an issue creating empty "_gravity_form_data" post meta on product translation.
+* Fixed no products on secondary language shop page if default language shop page contains special symbols.
+* Fixed a performance issue due to comments filtering.
 
 = 4.9.0 =
+* Added new hook to Gravity Forms compatibility class.
 * Manual shipping prices in secondary currencies.
 * Fixed product attribute slug language not changed after changing value.
 * Fixed missing numeric attribute values after translation using ATE.
@@ -221,27 +245,3 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 * Fix coupon discount when editing order from admin
 * Fix wrong product price after adding another product to existing order from admin
 * Fix my-account page endpoints in secondary language with pages set to "Display as translated"
-
-= 4.5.0 =
-* Add "get_post_metadata" hook to filter Woocommerce product data
-* Added function in troubleshooting page to fix broken variations
-* Fixed DB error when saving a variation with specific steps
-* Fix refreshing of status icon when ATE Job of updated content is synced
-* Fix few notices when removing a Elementor widget and refresh page
-* Fetch ATE translations from WCML Product Translation Tab
-* Fix warning when adding comment to product
-* Fixed wrong price calculation when adding product to new order on backend
-* Fixed bookings counter on admin bookings listing page
-* Fixed stock quantity not synchronized to translation when creating it
-* Fixed notice when saving translation
-* Fixed translated attributes via ATE/Translation service not connected to translated product
-* Fix not translated "On Hold" email subject after returning order from "Processing"
-* Remove unneded $_SESSION variables on checkout page
-* Fix PHP notice `Notice: Only variables should be passed by reference`
-* Implemented dependency check for minimum compatible versions of required WPML plugins
-* Fixed default variation not pre-selected on front-end for translated product with non latin attribute in default language
-* Fix cannot change currency with "wcml_client_currency" filter
-* Fixed not valid API key when trying manually update exchange rates
-* WooCommerce Variation Swatches and Photos compatibility to translate attributes
-* Fix related product displays in all languages
-* Added compatibility with Yikes Custom Product Tabs

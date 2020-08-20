@@ -288,7 +288,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: widgets/accordion/accordion.php:51, widgets/accordion/accordion.php:123, widgets/tabs/tabs.php:145
+#: widgets/accordion/accordion.php:51, widgets/accordion/accordion.php:129, widgets/tabs/tabs.php:145
 msgid "Panels"
 msgstr ""
 
@@ -296,67 +296,71 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: widgets/accordion/accordion.php:68
+#: widgets/accordion/accordion.php:70, widgets/editor/editor.php:45
+msgid "Automatically add paragraphs"
+msgstr ""
+
+#: widgets/accordion/accordion.php:74
 msgid "Initial state"
 msgstr ""
 
-#: widgets/accordion/accordion.php:69
+#: widgets/accordion/accordion.php:75
 msgid "Whether this panel should be open or closed when the page first loads."
 msgstr ""
 
-#: widgets/accordion/accordion.php:71
+#: widgets/accordion/accordion.php:77
 msgid "Open"
 msgstr ""
 
-#: widgets/accordion/accordion.php:72
+#: widgets/accordion/accordion.php:78
 msgid "Closed"
 msgstr ""
 
-#: widgets/accordion/accordion.php:80, widgets/contact/contact.php:326, widgets/cta/cta.php:74, widgets/tabs/tabs.php:76, widgets/testimonial/testimonial.php:184
+#: widgets/accordion/accordion.php:86, widgets/contact/contact.php:326, widgets/cta/cta.php:74, widgets/tabs/tabs.php:76, widgets/testimonial/testimonial.php:184
 msgid "Design"
 msgstr ""
 
-#: widgets/accordion/accordion.php:85
+#: widgets/accordion/accordion.php:91
 msgid "Headings"
 msgstr ""
 
-#: widgets/accordion/accordion.php:90, widgets/accordion/accordion.php:128, widgets/contact/contact.php:336, widgets/contact/contact.php:569, widgets/cta/cta.php:78, widgets/hero/hero.php:122, widgets/layout-slider/layout-slider.php:90, widgets/social-media-buttons/social-media-buttons.php:86, widgets/tabs/tabs.php:86, widgets/tabs/tabs.php:106, widgets/tabs/tabs.php:150
+#: widgets/accordion/accordion.php:96, widgets/accordion/accordion.php:134, widgets/contact/contact.php:336, widgets/contact/contact.php:569, widgets/cta/cta.php:78, widgets/hero/hero.php:122, widgets/layout-slider/layout-slider.php:90, widgets/social-media-buttons/social-media-buttons.php:86, widgets/tabs/tabs.php:86, widgets/tabs/tabs.php:106, widgets/tabs/tabs.php:150
 msgid "Background color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:95, widgets/tabs/tabs.php:110
+#: widgets/accordion/accordion.php:101, widgets/tabs/tabs.php:110
 msgid "Background hover color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:100, widgets/cta/cta.php:91, widgets/tabs/tabs.php:115
+#: widgets/accordion/accordion.php:106, widgets/cta/cta.php:91, widgets/tabs/tabs.php:115
 msgid "Title color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:105, widgets/tabs/tabs.php:120
+#: widgets/accordion/accordion.php:111, widgets/tabs/tabs.php:120
 msgid "Title hover color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:109, widgets/accordion/accordion.php:137, widgets/contact/contact.php:346, widgets/contact/contact.php:463, widgets/contact/contact.php:579, widgets/cta/cta.php:82, widgets/tabs/tabs.php:91, widgets/tabs/tabs.php:125, widgets/tabs/tabs.php:159
+#: widgets/accordion/accordion.php:115, widgets/accordion/accordion.php:143, widgets/contact/contact.php:346, widgets/contact/contact.php:463, widgets/contact/contact.php:579, widgets/cta/cta.php:82, widgets/tabs/tabs.php:91, widgets/tabs/tabs.php:125, widgets/tabs/tabs.php:159
 msgid "Border color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:113, widgets/tabs/tabs.php:130
+#: widgets/accordion/accordion.php:119, widgets/tabs/tabs.php:130
 msgid "Border hover color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:117, widgets/accordion/accordion.php:141, widgets/contact/contact.php:351, widgets/contact/contact.php:468, widgets/contact/contact.php:595, widgets/tabs/tabs.php:95, widgets/tabs/tabs.php:135, widgets/tabs/tabs.php:163
+#: widgets/accordion/accordion.php:123, widgets/accordion/accordion.php:147, widgets/contact/contact.php:351, widgets/contact/contact.php:468, widgets/contact/contact.php:595, widgets/tabs/tabs.php:95, widgets/tabs/tabs.php:135, widgets/tabs/tabs.php:163
 msgid "Border width"
 msgstr ""
 
-#: widgets/accordion/accordion.php:133, widgets/tabs/tabs.php:155
+#: widgets/accordion/accordion.php:139, widgets/tabs/tabs.php:155
 msgid "Font color"
 msgstr ""
 
-#: widgets/accordion/accordion.php:145
+#: widgets/accordion/accordion.php:151
 msgid "Bottom margin"
 msgstr ""
 
-#: widgets/accordion/accordion.php:237
+#: widgets/accordion/accordion.php:243
 msgid "Get more customization options and the ability to use widgets and layouts as your accordion content with %sSiteOrigin Premium%s"
 msgstr ""
 
@@ -488,7 +492,7 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: widgets/button/button.php:183, widgets/button/button.php:207, widgets/social-media-buttons/social-media-buttons.php:120, widgets/social-media-buttons/social-media-buttons.php:142, widgets/social-media-buttons/social-media-buttons.php:175, base/inc/widgets/base-slider.class.php:79
+#: widgets/button/button.php:183, widgets/button/button.php:207, widgets/social-media-buttons/social-media-buttons.php:120, widgets/social-media-buttons/social-media-buttons.php:142, widgets/social-media-buttons/social-media-buttons.php:175, base/inc/widgets/base-slider.class.php:106
 msgid "Medium"
 msgstr ""
 
@@ -1133,10 +1137,6 @@ msgstr ""
 msgid "SiteOrigin Editor"
 msgstr ""
 
-#: widgets/editor/editor.php:45
-msgid "Automatically add paragraphs"
-msgstr ""
-
 #: widgets/editor/editor.php:55
 msgid "Enable the \"Automatically add paragraphs\" setting by default."
 msgstr ""
@@ -1269,7 +1269,7 @@ msgstr ""
 msgid "Open more URL in a new window"
 msgstr ""
 
-#: widgets/features/features.php:320, widgets/social-media-buttons/social-media-buttons.php:33, base/inc/widgets/base-slider.class.php:153
+#: widgets/features/features.php:320, widgets/social-media-buttons/social-media-buttons.php:33, base/inc/widgets/base-slider.class.php:180
 msgid "Responsive Breakpoint"
 msgstr ""
 
@@ -2265,7 +2265,7 @@ msgstr ""
 msgid "Controls"
 msgstr ""
 
-#: widgets/slider/slider.php:281
+#: widgets/slider/slider.php:287
 msgid "Add a Lightbox to your image slides with %sSiteOrigin Premium%s"
 msgstr ""
 
@@ -2513,7 +2513,7 @@ msgstr ""
 msgid "Select cover image"
 msgstr ""
 
-#: widgets/video/video.php:85, base/inc/widgets/base-slider.class.php:125
+#: widgets/video/video.php:85, base/inc/widgets/base-slider.class.php:152
 msgid "Video URL"
 msgstr ""
 
@@ -2521,7 +2521,7 @@ msgstr ""
 msgid "Video Playback"
 msgstr ""
 
-#: widgets/video/video.php:101, base/inc/widgets/base-slider.class.php:132
+#: widgets/video/video.php:101, base/inc/widgets/base-slider.class.php:54, base/inc/widgets/base-slider.class.php:159
 msgid "Autoplay"
 msgstr ""
 
@@ -2830,111 +2830,119 @@ msgstr ""
 msgid "%s is not a SiteOrigin Widget"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:54
-msgid "Animation speed"
-msgstr ""
-
 #: base/inc/widgets/base-slider.class.php:55
-msgid "Animation speed in milliseconds."
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:61
-msgid "Timeout"
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:62
-msgid "How long each frame is displayed for in milliseconds."
+msgid "Change slides automatically without user interaction."
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:68
-msgid "Navigation color"
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:74
-msgid "Navigation style"
+msgid "Autoplay pause on hover"
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:77
-msgid "Ultra thin"
+msgid "Animation speed"
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:78
-msgid "Thin"
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:80
-msgid "Thick"
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:81
-msgid "Rounded ultra thin"
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:82
-msgid "Rounded thin"
-msgstr ""
-
-#: base/inc/widgets/base-slider.class.php:83
-msgid "Rounded medium"
+msgid "Animation speed in milliseconds."
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:84
-msgid "Rounded thick"
+msgid "Timeout"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:90
-msgid "Navigation size"
+#: base/inc/widgets/base-slider.class.php:85
+msgid "How long each frame is displayed for in milliseconds."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:96
-msgid "Always show navigation on mobile"
+#: base/inc/widgets/base-slider.class.php:95
+msgid "Navigation color"
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:101
-msgid "Swipe control"
+msgid "Navigation style"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:102
-msgid "Allow users to swipe through frames on mobile devices."
+#: base/inc/widgets/base-slider.class.php:104
+msgid "Ultra thin"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:105
+msgid "Thin"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:107
+msgid "Thick"
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:108
-msgid "Show slide background videos on mobile"
+msgid "Rounded ultra thin"
 msgstr ""
 
 #: base/inc/widgets/base-slider.class.php:109
+msgid "Rounded thin"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:110
+msgid "Rounded medium"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:111
+msgid "Rounded thick"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:117
+msgid "Navigation size"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:123
+msgid "Always show navigation on mobile"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:128
+msgid "Swipe control"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:129
+msgid "Allow users to swipe through frames on mobile devices."
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:135
+msgid "Show slide background videos on mobile"
+msgstr ""
+
+#: base/inc/widgets/base-slider.class.php:136
 msgid "Allow slide background videos to appear on mobile devices that support autoplay."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:119
+#: base/inc/widgets/base-slider.class.php:146
 msgid "Video file"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:127
+#: base/inc/widgets/base-slider.class.php:154
 msgid "An external URL of the video. Overrides video file."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:134
+#: base/inc/widgets/base-slider.class.php:161
 msgid "Currently only for YouTube videos."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:139
+#: base/inc/widgets/base-slider.class.php:166
 msgid "Video format"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:155
+#: base/inc/widgets/base-slider.class.php:182
 msgid "This setting controls when the Slider will switch to the responsive mode. This breakpoint will only be used if always show navigation on mobile is enabled. The default value is 780px."
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:200
+#: base/inc/widgets/base-slider.class.php:229
 msgid "display slide %s"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:205
+#: base/inc/widgets/base-slider.class.php:234
 msgid "next slide"
 msgstr ""
 
-#: base/inc/widgets/base-slider.class.php:211
+#: base/inc/widgets/base-slider.class.php:240
 msgid "previous slide"
 msgstr ""
 

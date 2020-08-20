@@ -151,10 +151,10 @@ sgBackup.toggleMultiDeleteButton = function() {
 	var target = jQuery('#sg-delete-multi-backups');
 
 	if (numberOfChoosenBackups > 0) {
-		target.show();
+        target.removeAttr('disabled');
 	}
 	else {
-		target.hide();
+        target.attr('disabled','disabled');
 	}
 };
 
@@ -529,13 +529,21 @@ sgBackup.checkBackupCreation = function(){
 	var sgBackupCreationHandler = new sgRequestHandler('checkBackupCreation', {token: BG_BACKUP_STRINGS.nonce});
 	sgBackupCreationHandler.dataType = 'html';
 	sgBackupCreationHandler.callback = function(response) {
-		var result = jQuery.parseJSON(response);
-		if (result && result.status == 'cleaned') {
-			sgBackup.manualBackup();
-		}
-		else {
+		var hideAndReload = function () {
 			jQuery('#sg-modal').modal('hide');
 			location.reload();
+		};
+		if (response.length) {
+			var result = jQuery.parseJSON(response);
+			if (result && result.status == 'cleaned') {
+				sgBackup.manualBackup();
+			}
+			else {
+				hideAndReload();
+			}
+		}
+		else {
+			hideAndReload();
 		}
 	};
 	sgBackupCreationHandler.run();

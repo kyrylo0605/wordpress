@@ -58,6 +58,9 @@
 			.addClass('foogallery-settings-container-active')
 			.find(':input').removeAttr('disabled');
 
+		//ensure the first tab is clicked
+		$settingsToShow.find('.foogallery-vertical-tab:first').click();
+
 		//include a preview CSS if possible
 		FOOGALLERY.includePreviewCss();
 
@@ -217,13 +220,29 @@
 
 	FOOGALLERY.initSettings = function() {
 		//move the template selector into the metabox heading
-        $('.foogallery-template-selector').appendTo( '#foogallery_settings .hndle span' ).removeClass('hidden');
+		var $metabox_heading = $('#foogallery_settings .hndle span');
+		//This check is done to accommodate a markup change in WP 5.5
+		if ( $metabox_heading.length === 0 ) {
+			$metabox_heading = $('#foogallery_settings .hndle');
+			$metabox_heading.addClass( 'foogallery-custom-metabox-header' );
+		}
+
+        $('.foogallery-template-selector').appendTo( $metabox_heading ).removeClass('hidden');
 
 		//remove the loading spinner
 		$('.foogallery-gallery-items-metabox-title').remove();
 
 		//move the items switch selector into the metabox heading
-		$('.foogallery-items-view-switch-container').appendTo( '#foogallery_items .hndle span' ).removeClass('hidden');
+		//$('.foogallery-items-view-switch-container').appendTo( '#foogallery_items .hndle span' ).removeClass('hidden');
+
+		var $items_metabox_heading = $('#foogallery_items .hndle span');
+		//This check is done to accommodate a markup change in WP 5.5
+		if ( $items_metabox_heading.length === 0 ) {
+			$items_metabox_heading = $('#foogallery_items .hndle');
+			$items_metabox_heading.addClass( 'foogallery-custom-metabox-header' );
+		}
+
+		$('.foogallery-items-view-switch-container').appendTo( $items_metabox_heading ).removeClass('hidden');
 
 		$('.foogallery-items-view-switch-container a').click(function(e) {
 			e.preventDefault();

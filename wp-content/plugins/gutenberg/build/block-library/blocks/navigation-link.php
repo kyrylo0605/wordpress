@@ -115,7 +115,6 @@ function gutenberg_render_block_core_navigation_link( $attributes, $content, $bl
 		$colors['css_classes'],
 		$font_sizes['css_classes']
 	);
-	$classes[]       = 'wp-block-navigation-link';
 	$style_attribute = ( $colors['inline_styles'] || $font_sizes['inline_styles'] );
 
 	$css_classes = trim( implode( ' ', $classes ) );
