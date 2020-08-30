@@ -12,12 +12,14 @@ jQuery("tr[data-slug='backup'] .deactivate a").click(function() {
 	jQuery("#bg-deactivation-survey-popup-container").show();
 });
 
+/*
 jQuery('.bg-deactivation-survey-popup-cancel').click(function(e) {
 	jQuery('.bg-deactivation-survey-popup-container').slideUp();
 	jQuery('.bg-deactivation-survey-popup-overlay').hide();
 });
+*/
 
-jQuery("#bg-skip-and-deactivate").on("click", function () {
+jQuery("#bg-close-and-deactivate").on("click", function () {
 	event.preventDefault();
 	
 	var data = {

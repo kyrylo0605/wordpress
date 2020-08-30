@@ -76,7 +76,7 @@ sgBackup.initCloudSwitchButtons = function(){
     jQuery('.sg-switch').on('switchChange.bootstrapSwitch', function(event, state) {
         var storage = jQuery(this).attr('data-storage'),
             url = jQuery(this).attr('data-remote');
-        that = jQuery(this);
+        var that = jQuery(this);
         //If switch is on
         if(state) {
             jQuery('.alert').remove();
@@ -92,7 +92,7 @@ sgBackup.initCloudSwitchButtons = function(){
                             }
                             else {
                                 var alert = sgBackup.alertGenerator(response.error, 'alert-warning');
-                                jQuery('.sg-cloud-container legend').after(alert);
+                                jQuery('.sg-cloud-container').before(alert);
                                 that.bootstrapSwitch('state', false);
                             }
                         }
@@ -101,7 +101,7 @@ sgBackup.initCloudSwitchButtons = function(){
                     }
                     else{
                         var alert = sgBackup.alertGenerator(response.error, 'alert-danger');
-                        jQuery('.sg-cloud-container legend').after(alert);
+                        jQuery('.sg-cloud-container').before(alert);
                         that.bootstrapSwitch('state',false);
                     }
                 };
@@ -267,7 +267,7 @@ sgBackup.initCloudFolderSettings = function(){
         var alert = sgBackup.alertGenerator(BG_CLOUD_STRINGS.invalidDestinationFolder,'alert-danger');
         if(cloudFolderName.length<=0)
         {
-            jQuery('.sg-cloud-container legend').after(alert);
+            jQuery('.sg-cloud-container').before(alert);
             return;
         }
         saveBtn.attr('disabled','disabled');
@@ -275,11 +275,11 @@ sgBackup.initCloudFolderSettings = function(){
         cloundFolderRequest.callback = function(response){
             if(typeof response.success !== 'undefined'){
                 var successAlert = sgBackup.alertGenerator(BG_CLOUD_STRINGS.successMessage,'alert-success');
-                jQuery('.sg-cloud-container legend').after(successAlert);
+                jQuery('.sg-cloud-container').before(successAlert);
                 saveBtn.fadeOut();
             }
             else{
-                jQuery('.sg-cloud-container legend').after(alert);
+                jQuery('.sg-cloud-container').before(alert);
             }
             saveBtn.removeAttr('disabled');
             saveBtn.html('Save');
@@ -292,7 +292,7 @@ sgBackup.initCloudFolderSettings = function(){
             }
             else {
                 var alert = sgBackup.alertGenerator(response.error, 'alert-warning');
-                jQuery('.sg-cloud-container legend').after(alert);
+                jQuery('.sg-cloud-container').before(alert);
                 saveBtn.fadeOut();
             }
         }

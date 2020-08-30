@@ -16,20 +16,20 @@
 	<div id="sg-left-column">
 		<ul>
 			<li class="hvr-bounce-in">
-				<a target="_blank" href="https://backup-guard.com/products/backup-wordpress/doc">
+				<a target="_blank" href="<?php echo SG_BACKUP_KNOWLEDGE_BASE_URL; ?>">
 					<img class="sg-img-class" src="<?php echo SG_PUBLIC_URL; ?>img/user-manual.png"> User manual
 				</a>
 			</li>
 			<li class="hvr-bounce-in">
-				<a target="_blank" href="https://backup-guard.com/wordpress/wp-login.php">
+				<a target="_blank" href="<?php echo SG_BACKUP_DEMO_URL; ?>">
 					<img class="sg-img-class" src="<?php echo SG_PUBLIC_URL; ?>img/full-demo.png"> Full demo</a>
 				</li>
 			<li class="hvr-bounce-in">
-				<a target="_blank" href="https://backup-guard.com/products/backup-wordpress/faq">
+				<a target="_blank" href="<?php echo SG_BACKUP_FAQ_URL; ?>">
 					<img class="sg-img-class" src="<?php echo SG_PUBLIC_URL;?>img/FAQ.png"> F.A.Q.</a>
 				</li>
 			<li class="hvr-bounce-in">
-				<a target="_blank" href="https://backup-guard.com/products/backup-wordpress/support">
+				<a target="_blank" href="<?php echo SG_BACKUP_CONTACT_US_URL; ?>">
 					<img class="sg-img-class" src="<?php echo SG_PUBLIC_URL; ?>img/contact-us.png"> Contact us
 				</a>
 			</li>

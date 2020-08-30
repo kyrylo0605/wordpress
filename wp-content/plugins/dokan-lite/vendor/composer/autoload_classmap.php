@@ -66,6 +66,7 @@ return array(
     'WeDevs\\Dokan\\REST\\ProductAttributeTermsController' => $baseDir . '/includes/REST/ProductAttributeTermsController.php',
     'WeDevs\\Dokan\\REST\\ProductController' => $baseDir . '/includes/REST/ProductController.php',
     'WeDevs\\Dokan\\REST\\StoreController' => $baseDir . '/includes/REST/StoreController.php',
+    'WeDevs\\Dokan\\REST\\StoreSettingController' => $baseDir . '/includes/REST/StoreSettingController.php',
     'WeDevs\\Dokan\\REST\\WithdrawController' => $baseDir . '/includes/REST/WithdrawController.php',
     'WeDevs\\Dokan\\Registration' => $baseDir . '/includes/Registration.php',
     'WeDevs\\Dokan\\Rewrites' => $baseDir . '/includes/Rewrites.php',

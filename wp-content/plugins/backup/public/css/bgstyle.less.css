@@ -8155,8 +8155,107 @@ input.sg-backup-input[readonly] {
   box-shadow: none;
 }
 
-.sg-checkbox-label-text {
-  display: inline-block;
-  margin-left: 5px;
-  margin-top: 3px;
+a#sg-logo:focus {
+  box-shadow: none !important;
 }
+
+.sg-visibility-hidden {
+    display: none;
+}
+
+.sg-checkbox-label-text {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 3px;
+}
+
+/*Pricing table page CSS*/
+.sg-backup-table-row div {
+  border-bottom: 1px solid #C9C9C9;
+  border-right: 1px solid #C9C9C9;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px !important;
+}
+.sg-backup-table-row div:last-child {
+  border-right: 0px !important;
+}
+.sg-pricing-table-header-label {
+  font-size: 25px;
+  color: #000000;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20px;
+}
+.sg-pricing-table-blue-label {
+  color: #0021C8;
+  font-size: 39px;
+  line-height: 1;
+}
+.sg-pricing-table-header-first-column {
+  height: 145px;
+}
+@font-face {
+  font-family: 'pricingTableFonts';
+  src: url('../fonts/pricingTableFonts.eot');
+  src: url('../fonts/pricingTableFonts.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/pricingTableFonts.woff') format('woff'),
+  url('../fonts/pricingTableFonts.ttf') format('truetype'),
+  url('../fonts/pricingTableFonts.svg#Glyphter') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class*='backup-plan-']:before{
+  display: inline-block;
+  font-family: 'pricingTableFonts' !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+.sg-backup-plan-included:before{content:'\0057';}
+.sg-backup-plan-excluded:before{content:'\0058';}
+
+.sg-backup-plan-excluded, .sg-backup-plan-included {
+  color: #0021C8;
+}
+.sg-backup-table-options-wrapper {
+  text-align: center;
+}
+
+.sg-backup-table-options-wrapper .sg-backup-table-row:last-child div {
+  border-bottom: 0;
+  margin-bottom: 30px;
+}
+
+.sg-pricing-table-wrapper {
+  box-shadow: 0px 0px 20px #0000000D;
+  margin-top: 10px;
+  padding: 10px 10px 30px 10px;
+}
+.sg-backup-guard-plans-title {
+  text-align: center;
+  color: #0021C8 !important;
+  font-size: 24px !important;
+  margin-top: 37px !important;
+  font-weight: bold !important;
+  margin-bottom: 60px !important;
+}
+.sg-pricing-table-option-wrapper {
+  text-align: left;
+}
+.sg-backup-pricing-currency {
+  font-size: 28px;
+  vertical-align: top;
+}
+@media (max-width: 1284px) {
+  .sg-pricing-table-blue-label {
+    font-size: 31px;
+    vertical-align: top;
+  }
+  .sg-pricing-table-header-first-column {
+    height: 137px;
+  }
+}
+/*Pricing table page CSS*/

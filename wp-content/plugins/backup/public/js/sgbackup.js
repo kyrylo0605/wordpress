@@ -149,7 +149,6 @@ sgBackup.getSelectedBackupsNumber = function() {
 sgBackup.toggleMultiDeleteButton = function() {
 	var numberOfChoosenBackups = sgBackup.getSelectedBackupsNumber();
 	var target = jQuery('#sg-delete-multi-backups');
-
 	if (numberOfChoosenBackups > 0) {
         target.removeAttr('disabled');
 	}

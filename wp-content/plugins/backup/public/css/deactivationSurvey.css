@@ -68,7 +68,7 @@
 
 	border: 2px solid grey;
 	border-radius: 50%;
-	width: 28px;
+	width: 16px;
 }
 .bg-deactivation-survey-popup-container .bg-deactivation-survey-popup-tbl .bg-deactivation-survey-popup-cel .bg-deactivation-survey-popup-content a.bg-deactivation-survey-popup-cancel:hover{
 	/*color:#fff;
@@ -138,7 +138,7 @@
 	border: none;
 	font-size: 16px;
 	text-transform: uppercase;
-	margin-right: 15px;
+	margin-right: 0px;
 	font-weight: 700;
 }
 .bg-deactivation-survey-popup-container .bg-deactivation-survey-popup-control-buttons-container .bg-deactivation-survey-result-submit .btn-text {

@@ -72,6 +72,32 @@ sgBackup.awake = function(){
 sgBackup.init = function(){
 	sgBackup.initModals();
 	sgBackup.downloadButton();
+	sgBackup.navMenu();
+};
+
+sgBackup.navMenu = function ()
+{
+	var navMenu = jQuery('.sg-backup-sidebar-nav a');
+
+	if (!navMenu.length) {
+		return false;
+	}
+
+    navMenu.bind('click', function (event) {
+        event.preventDefault();
+        sgBackup.init();
+        jQuery('.sg-backup-page-content').addClass('sg-visibility-hidden');
+        jQuery('.sg-backup-sidebar-nav li').removeClass('active');
+
+		var currentKey = jQuery(this).data('page-key');
+		var currentPageContent = jQuery('#sg-backup-page-content-'+currentKey);
+
+		if (!currentPageContent.length) {
+			return false;
+		}
+		jQuery(this).parent().addClass('active');
+        currentPageContent.removeClass('sg-visibility-hidden');
+    });
 };
 
 sgBackup.downloadButton = function()

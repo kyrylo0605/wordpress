@@ -5,7 +5,7 @@ BG_SCHEDULE_INTERVAL_MONTHLY = 3;
 BG_SCHEDULE_INTERVAL_YEARLY = 4;
 
 jQuery(document).ready( function() {
-    sgBackup.initTablePagination();
+ //   sgBackup.initTablePagination();
     sgBackup.initScheduleCreation();
 });
 
@@ -147,9 +147,9 @@ sgBackup.schedule = function(){
 
 sgBackup.initScheduleSwitchButtons = function() {
     jQuery('.sg-switch').bootstrapSwitch();
-    if(jQuery('.sg-switch').is(':checked'))
+    if(jQuery('#sg-backup-page-content-schedule .sg-switch').is(':checked'))
     {
-        jQuery('.sg-schedule-settings').show();
+        jQuery('sg-backup-page-content-schedule .sg-schedule-settings').show();
     }
     jQuery('.sg-switch').on('switchChange.bootstrapSwitch', function (event, state) {
         var url = jQuery(this).attr('data-remote');

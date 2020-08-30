@@ -83,43 +83,69 @@ else {
 
 function backup_guard_admin_menu()
 {
-	add_menu_page('Backups', 'BackupGuard', 'manage_options', 'backup_guard_backups', 'backup_guard_backups_page', 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MzAuMzQgNjYzLjAzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDI8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUzMC4xMSwxODUuNzljLTcxLjktOC44Mi0xMzcuNzMtNDAtMTkwLTg2LjU3djkyLjY1YTI4MC41OSwyODAuNTksMCwwLDAsMTE2LjUyLDUyYy05LjE0LDg5LjQzLTUyLDE2OS41NS0xMTYuNTIsMjI4Ljg3djkwLjRDNDU5Ljg0LDQ3Ny4xMyw1MzAuNiwzMzMuNDIsNTMwLjExLDE4NS43OVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xNzQuMjksMjQ0YTI4MC40NiwyODAuNDYsMCwwLDAsMTE1Ljc3LTUxLjExVjEwMGMtNTIuNDQsNDYuMjgtMTE3LjYyLDc3LTE4OS44Myw4NS4xNUM5OS41NCwzMzMsMTcwLjIyLDQ3Ni44MiwyOTAuMDYsNTYzVjQ3Mi4wOUMyMjYsNDEyLjg2LDE4My40MiwzMzMuMDYsMTc0LjI5LDI0NFoiLz48L3N2Zz4=', 74);
+	add_menu_page('Backups', 'BackupGuard', 'manage_options', 'backup_guard_backups', 'includeAllPages', 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MzAuMzQgNjYzLjAzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDI8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUzMC4xMSwxODUuNzljLTcxLjktOC44Mi0xMzcuNzMtNDAtMTkwLTg2LjU3djkyLjY1YTI4MC41OSwyODAuNTksMCwwLDAsMTE2LjUyLDUyYy05LjE0LDg5LjQzLTUyLDE2OS41NS0xMTYuNTIsMjI4Ljg3djkwLjRDNDU5Ljg0LDQ3Ny4xMyw1MzAuNiwzMzMuNDIsNTMwLjExLDE4NS43OVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xNzQuMjksMjQ0YTI4MC40NiwyODAuNDYsMCwwLDAsMTE1Ljc3LTUxLjExVjEwMGMtNTIuNDQsNDYuMjgtMTE3LjYyLDc3LTE4OS44Myw4NS4xNUM5OS41NCwzMzMsMTcwLjIyLDQ3Ni44MiwyOTAuMDYsNTYzVjQ3Mi4wOUMyMjYsNDEyLjg2LDE4My40MiwzMzMuMDYsMTc0LjI5LDI0NFoiLz48L3N2Zz4=', 74);
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('Backups', true), _backupGuardT('Backups', true), 'manage_options', 'backup_guard_backups', 'backup_guard_backups_page');
-	add_submenu_page('backup_guard_backups', _backupGuardT('Cloud', true), _backupGuardT('Cloud', true), 'manage_options', 'backup_guard_cloud', 'backup_guard_cloud_page');
-	add_submenu_page('backup_guard_backups', _backupGuardT('Schedule', true), _backupGuardT('Schedule', true), 'manage_options', 'backup_guard_schedule', 'backup_guard_schedule_page');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Backups', true), _backupGuardT('Backups', true), 'manage_options', 'backup_guard_backups', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Cloud', true), _backupGuardT('Cloud', true), 'manage_options', 'backup_guard_cloud', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Schedule', true), _backupGuardT('Schedule', true), 'manage_options', 'backup_guard_schedule', 'includeAllPages');
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('Settings', true), _backupGuardT('Settings', true), 'manage_options', 'backup_guard_settings', 'backup_guard_settings_page');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Settings', true), _backupGuardT('Settings', true), 'manage_options', 'backup_guard_settings', 'includeAllPages');
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('System Info.', true), _backupGuardT('System Info.', true), 'manage_options', 'backup_guard_system_info', 'backup_guard_system_info_page');
+	add_submenu_page('backup_guard_backups', _backupGuardT('System Info.', true), _backupGuardT('System Info.', true), 'manage_options', 'backup_guard_system_info', 'includeAllPages');
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('Services', true), _backupGuardT('Services', true), 'manage_options', 'backup_guard_services', 'backup_guard_services_page');
-	add_submenu_page('backup_guard_backups', _backupGuardT('Support', true), _backupGuardT('Support', true), 'manage_options', 'backup_guard_support', 'backup_guard_support_page');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Services', true), _backupGuardT('Services', true), 'manage_options', 'backup_guard_services', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Support', true), _backupGuardT('Support', true), 'manage_options', 'backup_guard_support', 'includeAllPages');
 
 	//Check if should show upgrade page
 	if (SGBoot::isFeatureAvailable('SHOW_UPGRADE_PAGE')) {
-		add_submenu_page('backup_guard_backups', _backupGuardT('Why upgrade?', true), _backupGuardT('Why upgrade?', true), 'manage_options', 'backup_guard_pro_features', 'backup_guard_pro_features_page');
+		add_submenu_page('backup_guard_backups', _backupGuardT('Why upgrade?', true), _backupGuardT('Why upgrade?', true), 'manage_options', 'backup_guard_pro_features', 'includeAllPages');
 	}
+}
+
+function getBackupPageContentClassName($pageName = '')
+{
+    $hiddenClassName = 'sg-visibility-hidden';
+    $page = $_GET['page'];
+
+    if (strpos($page, $pageName)) {
+        $hiddenClassName = '';
+    }
+
+    return $hiddenClassName;
+}
+
+function includeAllPages()
+{
+    backup_guard_backups_page();
+    backup_guard_cloud_page();
+    backup_guard_system_info_page();
+    backup_guard_services_page();
+    backup_guard_pro_features_page();
+    backup_guard_support_page();
+    backup_guard_schedule_page();
+    backup_guard_settings_page();
+
+    require_once(plugin_dir_path(__FILE__).'public/pagesContent.php');
 }
 
 function backup_guard_system_info_page()
 {
 	if (backupGuardValidateLicense()) {
-		require_once(plugin_dir_path(__FILE__).'public/systemInfo.php');
+		//require_once(plugin_dir_path(__FILE__).'public/systemInfo.php');
 	}
 }
 
 function backup_guard_services_page()
 {
 	if (backupGuardValidateLicense()) {
-		require_once(plugin_dir_path(__FILE__).'public/services.php');
+		//require_once(plugin_dir_path(__FILE__).'public/services.php');
 	}
 }
 
 //Pro features page
 function backup_guard_pro_features_page()
 {
-	require_once(plugin_dir_path(__FILE__).'public/proFeatures.php');
+//	require_once(plugin_dir_path(__FILE__).'public/proFeatures.php');
 }
 
 function backup_guard_security_page()
@@ -131,7 +157,7 @@ function backup_guard_security_page()
 function backup_guard_support_page()
 {
 	if (backupGuardValidateLicense()) {
-		require_once(plugin_dir_path(__FILE__).'public/support.php');
+	//	require_once(plugin_dir_path(__FILE__).'public/support.php');
 	}
 }
 
@@ -165,7 +191,7 @@ function backup_guard_backups_page()
 			'fileUploadFailed'         => _backupGuardT('File upload failed.', true)
 		));
 
-		require_once(plugin_dir_path( __FILE__ ).'public/backups.php');
+	//	require_once(plugin_dir_path( __FILE__ ).'public/backups.php');
 	}
 }
 
@@ -175,7 +201,7 @@ function backup_guard_cloud_page()
 	if (backupGuardValidateLicense()) {
 		wp_enqueue_style('backup-guard-switch-css', plugin_dir_url(__FILE__).'public/css/bootstrap-switch.min.css');
 		wp_enqueue_script('backup-guard-switch-js', plugin_dir_url(__FILE__).'public/js/bootstrap-switch.min.js', array('jquery'), '1.0.0', true);
-		wp_enqueue_script('backup-guard-cloud-js', plugin_dir_url(__FILE__).'public/js/sgcloud.js', array('jquery'), '1.0.0', true);
+		wp_enqueue_script('backup-guard-cloud-js', plugin_dir_url(__FILE__).'public/js/sgcloud.js', array('jquery', 'backup-guard-switch-js'), '1.0.0', true);
 
 		// Localize the script with new data
 		wp_localize_script('backup-guard-cloud-js', 'BG_CLOUD_STRINGS', array(
@@ -186,7 +212,7 @@ function backup_guard_cloud_page()
 			'successMessage'                => _backupGuardT('Successfully saved.', true)
 		));
 
-		require_once(plugin_dir_path(__FILE__).'public/cloud.php');
+		//require_once(plugin_dir_path(__FILE__).'public/cloud.php');
 	}
 }
 
@@ -210,7 +236,7 @@ function backup_guard_schedule_page()
 			'saveButtonText'           => _backupGuardT('Save', true)
 		));
 
-		require_once(plugin_dir_path( __FILE__ ).'public/schedule.php');
+	//	require_once(plugin_dir_path( __FILE__ ).'public/schedule.php');
 	}
 }
 
@@ -234,7 +260,7 @@ function backup_guard_settings_page()
 			'saveButtonText'                  => _backupGuardT('Save', true)
 		));
 
-		require_once(plugin_dir_path(__FILE__).'public/settings.php');
+		//require_once(plugin_dir_path(__FILE__).'public/settings.php');
 	}
 }
 

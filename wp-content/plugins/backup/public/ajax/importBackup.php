@@ -14,4 +14,5 @@ catch (SGException $exception) {
 	die(json_encode($error));
 }
 
+echo json_encode($success);
 die();

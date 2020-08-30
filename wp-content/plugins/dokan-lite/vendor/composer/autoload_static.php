@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3983dedfaf74118befcda2043735123d
+class ComposerStaticInit506b93f25a35800cd6b17a9296c4bf49
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -89,6 +89,7 @@ class ComposerStaticInit3983dedfaf74118befcda2043735123d
         'WeDevs\\Dokan\\REST\\ProductAttributeTermsController' => __DIR__ . '/../..' . '/includes/REST/ProductAttributeTermsController.php',
         'WeDevs\\Dokan\\REST\\ProductController' => __DIR__ . '/../..' . '/includes/REST/ProductController.php',
         'WeDevs\\Dokan\\REST\\StoreController' => __DIR__ . '/../..' . '/includes/REST/StoreController.php',
+        'WeDevs\\Dokan\\REST\\StoreSettingController' => __DIR__ . '/../..' . '/includes/REST/StoreSettingController.php',
         'WeDevs\\Dokan\\REST\\WithdrawController' => __DIR__ . '/../..' . '/includes/REST/WithdrawController.php',
         'WeDevs\\Dokan\\Registration' => __DIR__ . '/../..' . '/includes/Registration.php',
         'WeDevs\\Dokan\\Rewrites' => __DIR__ . '/../..' . '/includes/Rewrites.php',
@@ -165,9 +166,9 @@ class ComposerStaticInit3983dedfaf74118befcda2043735123d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3983dedfaf74118befcda2043735123d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3983dedfaf74118befcda2043735123d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3983dedfaf74118befcda2043735123d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit506b93f25a35800cd6b17a9296c4bf49::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit506b93f25a35800cd6b17a9296c4bf49::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit506b93f25a35800cd6b17a9296c4bf49::$classMap;
 
         }, null, ClassLoader::class);
     }

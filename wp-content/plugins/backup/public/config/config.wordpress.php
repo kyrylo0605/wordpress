@@ -20,3 +20,9 @@ define('SG_BACKUP_UPGRADE_URL', 'https://backup-guard.com/products/backup-wordpr
 define('SG_BACKUP_SITE_PRICING_URL', 'https://backup-guard.com/products/backup-wordpress#pricing');
 
 define('SG_BACKUP_ADMIN_LOGIN_URL', 'https://backup-guard.com/admin');
+
+// banner URLS
+define('SG_BACKUP_KNOWLEDGE_BASE_URL', 'https://help.backup-guard.com/en/');
+define('SG_BACKUP_DEMO_URL', 'https://backup-guard.com/wordpress/wp-login.php');
+define('SG_BACKUP_FAQ_URL', 'https://backup-guard.com/products/backup-wordpress/faq');
+define('SG_BACKUP_CONTACT_US_URL', 'https://wordpress.org/support/plugin/backup/');

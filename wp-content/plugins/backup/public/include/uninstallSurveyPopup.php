@@ -4,7 +4,7 @@
  	<div class="bg-deactivation-survey-popup-tbl">
 		<div class="bg-deactivation-survey-popup-cel">
 			<div class="bg-deactivation-survey-popup-content">
-				<a href="javascript:void(0)" class="bg-deactivation-survey-popup-cancel"><img src="<?php echo SG_IMAGE_URL."close.png" ?>" class="wp_fm_loader"></a>
+				<a href="javascript:void(0)" class="bg-deactivation-survey-popup-cancel" id="bg-close-and-deactivate"><img src="<?php echo SG_IMAGE_URL."close.png" ?>" class="wp_fm_loader"></a>
 				<div class="bg-deactivation-survey-popup-inner-content">
 					<h3>We are sorry to see that you intend to</h3>
 					<h3>deactivate BackupGuard plugin.</h3>
@@ -51,7 +51,7 @@
 						</div>
 						<div class="bg-deactivation-survey-popup-control-buttons-container">
 							<button class="bg-deactivation-survey-result-submit button button-primary">Submit</button>
-							<button id="bg-skip-and-deactivate" class="bg-deactivation-survey-popup-cancel button button-secondary">Skip and deactivate</button>
+							<!-- <button id="bg-skip-and-deactivate" class="bg-deactivation-survey-popup-cancel button button-secondary">Skip and deactivate</button> -->
 						</div>
 					</form>
 				</div>
