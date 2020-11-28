@@ -1,25 +1,30 @@
 ﻿===  Enhanced Ecommerce Google Analytics Plugin for WooCommerce ===
 Contributors: Tatvic
 Plugin Name: Enhanced Ecommerce for WooCommerce Store
-Plugin URI: http://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
+Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
 Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce,Web Analytics, Web Analytics For WooCommerce, e-commerce, woo-commerce,Ecommerce,WooCommerce, commerce, Wordpress Enhanced Ecommerce, WooCommerce Enhanced Ecommerce, WooCommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 1.4.1
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6 or Higher
-Stable tag: 2.3.4
-Version: 2.3.4
+Stable tag: 2.3.6.1
+Version: 2.3.6.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Provides integration between Enhanced Ecommerce feature of Google Analytics and WooCommerce.
+Automates Enhanced Ecommerce tracking in Google Analytics using gtag.js for WooCommerce Store. It also enables Google analytics 4 (dual set up) so that you can start collecting ecommerce data in your newly created google analytics 4 property along with the existing universal analytics property and be ready for the next generation analytics.   
 
 == Description ==
 
 <strong>Google Analytics Plugin for WooCommerce</strong>
 
-We believe it is very essential to listen to what your data is saying. With this belief, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. This plugin helps you in integrating Google Analytics with your WooCommerce stores effortlessly. More than 40000 ecommerce businesses are using this plugin for data driven decision making.
+We believe it is very essential to listen to what your data is saying. With this belief, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. This plugin helps you in integrating Google Analytics with your WooCommerce stores effortlessly. More than 40000+ ecommerce businesses are using this plugin for data driven decision making.
+
+<strong>Also, compatible for newly launched Google Analytics 4 dual setup.</strong> 
+
+<a href="https://www.tatvic.com/contact/?utm_source=TatvicEE&utm_medium=GA4&utm_campaign=WPlisting">Need help in setting up Google Analytics 4 (Dual set up), you can reach out to us.</a> 
+
 
 The best part is NO CODING REQUIRED or no need to hire a developer for the set up. You can configure the plugin under 5 minutes and with a single click from your Wordpress backend. <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf">Here is how you can configure the plugin without any hassle.</a>
 
@@ -54,18 +59,20 @@ Basically, you can track each and every impression and click of product, from wh
       * Checkout Behaviour Report
       * Product Performance Report
       * Sales Performance Report
-3.   Supports Guest checkout functionality
-4.   Enables Audience, Acquisition & Behavior reports in Google Analytics
-5.   Captures Product Impressions, Add to Cart & Product Clicks events on category page
-6.   Captures Product Impressions, Add to Cart & Product Clicks events on product page
-7.   Captures Product Impressions, Add to Cart & Product Clicks events on featured Product Section on Homepage
-8.   Captures Product Impressions, Add to Cart & Product Clicks events on Recent Product Section on Homepage
-9.   Captures Product Impressions, Add to Cart & Product Clicks events on Related Product Section on Productpage
-10.  Captures checkout behaviour of users in Google Analytics under Conversion > Ecommerce > Checkout behaviour report
-11.  Capture transaction/conversion information in Google analytics under Conversion > Ecommerce > Sales performance report
-12.  Set your local currency
-13.  Google Analytics Opt Out
-14.  IP Anonymization
+3.   Data collection in Google Analytics 4 property in order to get ready for next generation analytics
+4.   Google Ads account linking with Google Analytics property in order to have better insights on your ad spends in Google analytics reports
+5.   Supports Guest checkout functionality
+6.   Enables Audience, Acquisition & Behavior reports in Google Analytics
+7.   Captures Product Impressions, Add to Cart & Product Clicks events on category page
+8.   Captures Product Impressions, Add to Cart & Product Clicks events on product page
+9.   Captures Product Impressions, Add to Cart & Product Clicks events on featured Product Section on Homepage
+10.  Captures Product Impressions, Add to Cart & Product Clicks events on Recent Product Section on Homepage
+11.  Captures Product Impressions, Add to Cart & Product Clicks events on Related Product Section on Productpage
+12.  Captures checkout behaviour of users in Google Analytics under Conversion > Ecommerce > Checkout behaviour report
+13.  Capture transaction/conversion information in Google analytics under Conversion > Ecommerce > Sales performance report
+14.  Set your local currency
+15.  Google Analytics Opt Out
+16.  IP Anonymization
 
 
 <strong>Want to unlock more advanced tracking for your WooCommerce store? <a href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">Give a try to our pro version.</a></strong>
@@ -94,6 +101,18 @@ Basically, you can track each and every impression and click of product, from wh
 
 
 == Note For Beginners : ==
+
+<strong> How to dual setup (Universal Analytics + Google Analytics 4) property? </strong>
+
+1. Open your existing universal analytics property.
+2. Go to Admin and create a new property. The newly created property will be Google Analytics 4 property.
+3. At the time of creating a new Google analytics 4 property, you will be asked to create a data stream. Create a new data stream and copy the Measurement id from it.
+4. Go to your existing Universal analytics property >> Admin >> Tracking info >> Tracking code.
+5. Scroll down and you will see "connected site tags" option. Click on connected site tags.
+6. Create a new site tag by pasting the measurement id that you have created in step 3.
+7. Your dual set up is now complete and data will start flowing in both the universal analytics property and google analytics 4 property.
+
+<strong>* Google analytics 4 data collection by this plugin is still in beta and it is advisable that you keep using your Universal Analytics set up for all the insight generation. At the same time, set up new Google Analytics 4 property and connect with your existing universal analytics property. Observe data in Google Analytics 4 propoerty for sometime and when confident you can choose to completely migrate to Google Analytics 4. </strong>
 
 == Our plugin does not support the below features out of the box ==
 
@@ -241,7 +260,26 @@ It generally depends upon the traffic of the store. But in general it may take m
 
 To avoid sending your own transaction data or sessions data in Google Analytics, our plugin doesn't sent the data to GA when you are logged in. Having said, if you are logged in as Shop Manager, plugin will send the data to GA.
 
+
+
+
 == Changelog ==
+
+= 2.3.6.1 - 26/10/2020 =
+ * Compatibility with WooCommerce 4.6.1
+ * Compatibility with Wordpress 5.5.1
+ * PHP warnings issue was raised in 2.3.6 by some users that is now resolved in 2.3.6.1.
+
+= 2.3.6 - 22/10/2020 =
+ * No need to manually paste Google Analytics property to start tracking. We have given google sign in functionality in order to auto fetch google analytics property.
+ * Fine tuning for Google Analytics 4 dual set up/ data collection in google analytics 4 in order to be future ready for the next generation analytics.
+ * New feature - Now you can link your google ads account with google analytics property and start passing important data points to google analytics from your google ads account. 
+ * Compatibility with WooCommerce 4.6.1
+ * Compatibility with Wordpress 5.5.1
+
+= 2.3.5 - 31/08/2020 =
+ * Compatibility with WooCommerce 4.4.1
+ * Compatibility with Wordpress 5.5
 
 = 2.3.4 - 13/04/2020 =
  * Compatibility with WooCommerce 4.0.1

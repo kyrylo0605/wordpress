@@ -98,7 +98,9 @@ $plugin_slug = $plugin_info['slug'];
 			</form>
 		</div>
 		<div id="<?php echo $plugin_slug; ?>-settings-sidebar" class="postbox-container">
-			<?php do_action($plugin_slug . '-settings-sidebar'); ?>
+			<?php
+            do_action($plugin_slug . '-settings-sidebar' );
+            ?>
 		</div>
 	</div>
 </div>

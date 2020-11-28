@@ -1,9 +1,9 @@
-=== FooBox Image Lightbox WordPress Plugin ===
+=== Lightbox & Modal Popup WordPress Plugin - FooBox ===
 Contributors: bradvin, fooplugins
 Donate link: http://fooplugins.com
-Tags: lightbox,media,images,gallery,modal,gutenberg
+Tags: lightbox,modal,popup,images,gallery,media
 Requires at least: 3.5.1
-Tested up to: 5.4.1
+Tested up to: 5.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,35 +14,33 @@ A responsive image lightbox for WordPress galleries, WordPress attachments & Foo
 
 FooBox was the first lightbox to take responsive layout seriously. Not only does it scale images to look better on phones, but it rearranges it's button controls to look great in both portrait or landscape orientation.
 
+Add a modal popup to your website images with no setup. FooBox will automatically add modals to WordPress galleries, WordPress images with captions, and attachment images.
+
 Works with most image gallery plugins, but works best with our [FooGallery Gallery WordPress Plugin](http://foo.gallery).
 
-**New Feature : Gutenberg Ready!**
+**FULL GUTENBERG SUPPORT**
 
-FooBox works out of the box with the image block and gallery block in the new Gutenberg Editor. Image captions set in the editor are also automatically picked up by FooBox. All you need to do is make sure your images and galleries link to the media file.
-
-**Complete FooBox Asset Control**
-
-By default, FooBox includes javascript and stylesheet assets into all your pages. We do this, because we do not know if the page content contains media or not.
-If you want more control over when FooBox assets are included, you can now exclude the assets by default, by enabling a setting. Then on each page, you can choose to include them when required.
-Alternatively, you can leave the setting disabled, and then choose to exclude the FooBox assets from particular pages. A new metabox is now available when editing your pages or posts.
-This new feature was only available in the PRO version beforehand, but we feel control over your website performance is something you should not have to pay for. Enjoy!
-
-**Now includes a 7-day free trial of FooBox Pro!**
+Within Gutenberg, FooBox lightbox will automatically add a modal popup to images and galleries that have the "Link To" setting set to "Media File".
+Image captions set in the editor are also automatically picked up in the FooBox modal popup.
 
 **FooBox Image Lightbox Features:**
 
-*	Responsive design
-*	Sexy lightbox design
+*	Responsive lightbox design
+*	Modern lightbox design
 *	Zero configuration!
 *	Works with WordPress galleries
 *	Works with WordPress captioned images
 *	Control when to exclude / include FooBox JS &amp; CSS assets
 
-**[FooBox PRO](http://fooplugins.com/plugins/foobox/?utm_source=fooboxfreeplugin&utm_medium=fooboxfreeprolink&utm_campaign=foobox_free_wprepo) Features:**
+**Includes a 7-day free trial of FooBox Pro Lightbox!**
+
+You can try the PRO version for free for 7 days.
+
+**[FooBox PRO](http://fooplugins.com/foobox/?utm_source=fooboxfreeplugin&utm_medium=fooboxfreeprolink&utm_campaign=foobox_free_wprepo) Features:**
 
 *	Social sharing (10+ networks)
-*	Video support
-*	HTML support
+*	Video lightbox support
+*	HTML lightbox support
 *	iFrame support
 *	Deeplinking
 *	Fullscreen and slideshow modes
@@ -51,7 +49,7 @@ This new feature was only available in the PRO version beforehand, but we feel c
 *	5 color schemes, 12 buttons icons and 11 loader icons
 *	85+ settings to customize
 
-**[FooBox PRO](http://fooplugins.com/plugins/foobox/?utm_source=fooboxfreeplugin&utm_medium=fooboxfreeprolink&utm_campaign=foobox_free_wprepo) Works With:**
+**[FooBox PRO](http://fooplugins.com/foobox/?utm_source=fooboxfreeplugin&utm_medium=fooboxfreeprolink&utm_campaign=foobox_free_wprepo) Works With:**
 
 *	[The Best Image Gallery Plugin for WordPress](http://foo.gallery)
 *	NextGen
@@ -63,6 +61,13 @@ This new feature was only available in the PRO version beforehand, but we feel c
 
 Check out the [full feature comparison](http://fooplugins.com/foobox-feature-comparison/?utm_source=fooboxfreeplugin&utm_medium=fooboxcomparelink&utm_campaign=foobox_free_wprepo).
 
+**Complete FooBox Asset Control**
+
+By default, FooBox lightbox includes javascript and stylesheet assets into all your pages. We do this, because we do not know if the page content contains media or not.
+If you want more control over when FooBox assets are included, you can now exclude the assets by default, by enabling a setting. Then on each page, you can choose to include them when required.
+Alternatively, you can leave the setting disabled, and then choose to exclude the FooBox assets from particular pages. A new metabox is now available when editing your pages or posts.
+This new feature was only available in the PRO version beforehand, but we feel control over your website performance is something you should not have to pay for. Enjoy!
+
 **Translations**
 
 * [Serbo-Croatian by Borisa Djuraskovic](http://www.webhostinghub.com/)
@@ -71,8 +76,16 @@ Check out the [full feature comparison](http://fooplugins.com/foobox-feature-com
 
 1. Upload `foobox-free` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
+3. A modal lightbox will automatically be added to your linked images and galleries
 
 == Frequently Asked Questions ==
+
+= FooBox is not working. I do not see a lightbox =
+
+Make sure your images/galleries are set to Link To the Media File (within Gutenberg).
+In the class editor, make sure your images/galleries are linking to the media file.
+FooBox scans for images or thumbs that are pointing to the full-size version of the image. If the image is not linking to the full size image, then FooBox cannot work on that image.
+You can tell if an image links to a full-size version when you can click on the image and the full size version opens in the browser.
 
 = FooBox is not working. There is an error in the console "Uncaught ReferenceError: FooBox is not defined" =
 
@@ -88,6 +101,25 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 2. Phone example
 
 == Changelog ==
+
+= 2.7.15 =
+* Updated 20/10/2020
+* Update getting started page to include a CTA to open FooBox demo
+* Added new setting to force the FooBox trial notice admin banner to never show
+* Updated settings page with ratings CTA and included details of other plugins
+
+
+= 2.7.14 =
+* Updated 20/08/2020
+* Fix : fixed bug where FooBox was ignoring FooGallery filters
+* Update : Updated to latest FooBox client JS & CSS 2.4.2
+
+= 2.7.13 =
+* Updated 06/08/2020
+* New : Speed improvements (replaced font with SVG images)
+* New : Dropped support for IE7
+* Update : Freemius SDK 2.4.0.1
+* Update : Updated to latest FooBox client JS & CSS 2.4.0
 
 = 2.7.11 =
 

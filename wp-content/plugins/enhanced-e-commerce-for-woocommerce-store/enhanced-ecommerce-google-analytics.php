@@ -15,8 +15,8 @@
  * @wordpress-plugin
  * Plugin Name:       Enhanced E-commerce for Woocommerce store
  * Plugin URI:        https://www.tatvic.com/tatvic-labs/woocommerce-extension/
- * Description:       Allows Enhanced E-commerce Google Analytics tracking code to be inserted into WooCommerce store pages.
- * Version:           2.3.4
+ * Description:       Automates Enhanced Ecommerce tracking in Google Analytics using gtag.js.
+ * Version:           2.3.6.1
  * Author:            Tatvic
  * Author URI:        www.tatvic.com
  * License:           GPL-2.0+
@@ -24,7 +24,7 @@
  * Text Domain:       www.tatvic.com
  * Domain Path:       /languages
  * WC requires at least: 1.4.1
- * WC tested up to: 4.0.1
+ * WC tested up to: 4.6.1
  */
 
 /**
@@ -33,13 +33,17 @@
 if ( ! defined( 'WPINC' ) ) {
     die;
 }
+// Store the directory of the plugin
+if ( ! defined( 'ENHANCAD_PLUGIN_DIR' ) ) {
+    define( 'ENHANCAD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '2.3.3' );
+define( 'PLUGIN_NAME_VERSION', '2.3.6.1' );
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-enhanced-ecommerce-google-analytics-activator.php

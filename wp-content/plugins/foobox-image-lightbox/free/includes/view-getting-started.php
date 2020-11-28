@@ -26,6 +26,11 @@ $button_text = $show_trial_message ? __( 'Already convinced? Upgrade to PRO!', '
 		</a>
 	</h2>
 	<div id="getting-started_tab" class="feature-section nav-container">
+        <div>
+            <h2><?php _e( 'See FooBox In Action', 'foobox-image-lightbox' );?></h2>
+            <h4><?php printf( '<a rel="foobox" class="foobox" href="%s">%s</a>', esc_url ( foobox_asset_url( 'img/foobot_red.png' ) ), __( 'Click to open FooBox!', 'foobox-image-lightbox' ) ); ?></h4>
+            <p style="text-align: center; font-size:0.9em;"><?php _e( 'You know you want to...😉', 'foobox-image-lightbox' );?></p>
+        </div>
 		<div>
 			<h2><?php _e( 'Zero Configuration', 'foobox-image-lightbox' );?></h2>
 			<p><?php _e( 'FooBox FREE works out-of-the-box with the following standard features:', 'foobox-image-lightbox' );?></p>
@@ -36,9 +41,9 @@ $button_text = $show_trial_message ? __( 'Already convinced? Upgrade to PRO!', '
 			<p>
 				<?php _e( 'No configuration for the above is needed! But you can still customize the plugin from the settings page if you want to.', 'foobox-image-lightbox' ); ?>
 			</p>
-			<p style="text-align: center">
-				<strong><?php printf( '<a href="%s">%s</a>', esc_url ( foobox_settings_url() ), __( 'visit the FooBox settings page', 'foobox-image-lightbox' ) ); ?></strong>
-			</p>
+            <h4>
+				<?php printf( '<a href="%s">%s</a>', esc_url ( foobox_settings_url() ), __( 'Visit the FooBox settings page', 'foobox-image-lightbox' ) ); ?>
+            </h4>
 		</div>
 		<div>
 			<h2><?php _e( 'class="foobox"', 'foobox-image-lightbox' );?></h2>
@@ -104,6 +109,9 @@ $button_text = $show_trial_message ? __( 'Already convinced? Upgrade to PRO!', '
 		</div>
 	</div>
 	<div id="demo_tab" class="feature-section nav-container" style="display: none">
+        <p>
+	        <?php _e( 'Click on an image:', 'foobox-image-lightbox' );?>
+        </p>
 		<?php
 		$size     = 70;
 		$location = 'https://s3.amazonaws.com/foocdn/';

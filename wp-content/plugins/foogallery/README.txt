@@ -1,4 +1,4 @@
-=== FooGallery Image Gallery – Responsive Photo Gallery ===
+=== Best Image Gallery & Responsive Photo Gallery - FooGallery ===
 Contributors: bradvin, steveush, fooplugins
 Donate link: http://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
@@ -12,6 +12,8 @@ FooGallery is a powerful, responsive photo gallery plugin. Stunning gallery layo
 
 == Description ==
 
+= Best Gallery Plugin =
+
 Make gallery management in WordPress great again! With FooGallery you can easily add a stunning photo gallery to your website in minutes.
 
 FooGallery is an easy-to-use image gallery plugin, with stunning gallery layouts. It is also responsive, retina-ready and supports lazy loading for lightning fast photo galleries.
@@ -20,9 +22,13 @@ Live previews are available while creating an image gallery, and also within the
 
 FooGallery was built to be highly configurable and extendable for developers or freelancers.
 
-[Visit the FooGallery Homepage](http://fooplugins.com/foogallery)
+That is why we think FooGallery is the best gallery plugin. After using it, we hope you will agree.
 
-**Features**
+[Visit the FooGallery Wordpress Gallery Plugin Homepage](http://fooplugins.com/foogallery)
+
+= WordPress Gallery Plugin Features =
+
+The following free features make FooGallery the **best gallery plugin** on the market!
 
 *	6 Beautiful Image Gallery templates
 	*	Responsive Image Gallery - [demo](https://fooplugins.com/foogallery/wordpress-responsive-image-gallery/)
@@ -55,14 +61,17 @@ FooGallery was built to be highly configurable and extendable for developers or 
 *	NextGen importer tool (albums and galleries and shortcodes)
 *	Multisite Support
 
-**PRO Features**
+= PRO Gallery Features =
 
-*   3 more beautiful PRO gallery templates:
+*   3 more beautiful PRO responsive gallery templates:
     *   Polaroid gallery template - [demo](https://fooplugins.com/foogallery/wordpress-polaroid-gallery/)
     *   Grid gallery template - [demo](https://fooplugins.com/foogallery/wordpress-grid-gallery/)
     *	Slider gallery template - [demo](https://fooplugins.com/foogallery/wordpress-slider-gallery/)
 *   Video Support - [demo](https://fooplugins.com/foogallery/wordpress-video-gallery/)
-*	Filtered Image Gallery using Media Tags or Categories - [demo](https://fooplugins.com/foogallery/wordpress-filtered-gallery/)
+	*	Import video from Youtube, Vimeo and others
+	*	Self-hosted videos
+*	Filtered image gallery using Media Tags or Categories - [demo](https://fooplugins.com/foogallery/wordpress-filtered-gallery/)
+*	Multi-level filtering for galleries
 *	Media tags and media category management for attachments
 *   PRO image and media lightbox built in! [demo](https://fooplugins.com/foogallery/foogallery-pro-lightbox/)
 *	Dynamic Galleries (load images from other sources):
@@ -80,11 +89,10 @@ FooGallery was built to be highly configurable and extendable for developers or 
 *   Infinite scroll image gallery - [demo](https://fooplugins.com/foogallery/gallery-pagination/#infinite-scroll)
 *   Animated Loaded Effects - [demo](https://fooplugins.com/foogallery/animated-loaded-effects/)
 *   Bulk Copy Gallery Settings - [more info](https://fooplugins.com/bulk-copy-foogallery-pro/)
+*	Deeplinking support for pages and filters
 *   More on the way!
 
 [See More Demos](https://fooplugins.com/foogallery/demos/)
-
-https://youtu.be/zY8eSTEIwpU
 
 **Documentation**
 
@@ -92,7 +100,7 @@ https://youtu.be/zY8eSTEIwpU
 
 **Gutenberg**
 
-We love the new Gutenberg editor. We have built a really simple-to-use Gutenberg block to add your existing FooGallery image galleries in seconds. And it includes live previews of the image gallery too!
+FooGallery includes a really simple-to-use Gutenberg block to add your existing FooGallery image galleries in seconds. And it includes live previews of the image gallery too!
 
 **GDPR**
 
@@ -106,11 +114,12 @@ FooGallery has been tried and tested on servers running up to PHP 7.4
 
 **Retina Support**
 
-FooGallery now comes with built-in support for higher quality thumbnails on retina-enabled displays. No more blurry thumbnails, just crisp thumbnails so that your image galleries look amazing on all devices.
+FooGallery is a responsive gallery with built-in support for higher quality thumbnails on retina-enabled displays. No more blurry thumbnails, just crisp thumbnails so that your image galleries look amazing on all devices.
 
-**Video Support**
+**Video Gallery**
 
-FooGallery PRO now supports the creation of video galleries! Import from YouTube, Vimeo, Facebook, TED and Dailymotion, or use a self-hosted video from any online source. You can also easily create mixed galleries with both images and videos!
+FooGallery PRO allows you to create a video gallery in seconds! Import from YouTube, Vimeo, Facebook, TED and Dailymotion, or import a self-hosted video from any online source (eg. S3 bucket).
+You can also easily create mixed galleries with both images and videos!
 
 **Albums Built In**
 
@@ -124,11 +133,17 @@ FooGallery was designed to be the most developer-friendly image gallery plugin a
 
 Thanks to Fortinet FortiGuard Labs for the security testing conducted on the plugin. FooGallery is a safer plugin thanks to them.
 
+== Best Wordpress Gallery Plugin ==
+
+We did the research. FooGallery has the best performance and has the most features out of any free WordPress gallery plugin. Read our blog post about it:
+
+[What is the Best WordPress Gallery Plugin?](https://fooplugins.com/best-wordpress-gallery-plugin/)
+
 == Installation ==
 
 1. Upload `foogallery` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. You will be redirected to the FooGallery Help page to get your started
+3. You will be redirected to the FooGallery Help page to get started with the best gallery plugin
 
 == Frequently Asked Questions ==
 
@@ -194,6 +209,10 @@ Simply go to the FooGallery extensions page and activate the Albums extension. I
 
 Goto FooGallery Settings -> Advanced Tab and check "Disable PRO Promotions" and then save your settings.
 
+= How can you claim that FooGallery is the best WordPress gallery plugin? =
+
+We did the research and comparison. See our findings : [What is the Best WordPress Gallery Plugin?](https://fooplugins.com/best-wordpress-gallery-plugin/)
+
 == Screenshots ==
 
 1. Gallery Edit Page
@@ -208,47 +227,66 @@ Please update in order to for FooGallery to work in WP 5.5+!
 
 == Changelog ==
 
+= 1.9.37 =
+* Date Updated : 2020-10-29
+* Update : Ensure Gallery Items and Settings metaboxes are always visible when editing a gallery
+
+= 1.9.36 =
+* Date Updated : 2020-10-27
+* Update : Freemius SDK 2.4.1
+
+= 1.9.35 =
+* Date Updated : 2020-10-12
+* Fix : Fix for thumbnail generation not working when upload folder is not HTTPS
+
+
+= 1.9.34 =
+* Date Updated : 2020-08-30
+* Fix : Fix for incorrect captions in some scenarios
+* Fix : Compatibility with Owl Carousel Extension and others
+* Update : FooGallery client side 1.4.18
+
 = 1.9.31 =
-Date Updated : 2020-08-07
-*	Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery preview button was not showing)
+* Date Updated : 2020-08-07
+* Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery preview button was not showing)
 
 
 = 1.9.30 =
-Date Updated : 2020-08-03
-*	Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery template selector was not showing)
-*	New : Support for All in One SEO Pack sitemaps
-*	Update : improved lightbox messages when no lightboxes are installed
-*	Update : Freemius SDK 2.4.0.1
+* Date Updated : 2020-08-03
+* Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery template selector was not showing)
+* New : Support for All in One SEO Pack sitemaps
+* Update : improved lightbox messages when no lightboxes are installed
+* Update : Freemius SDK 2.4.0.1
 
 
 = 1.9.28 =
-Date Updated : 2020-07-18
-*	Fix : Fix for some installs showing thumbnail generation error
-*	Update : better mobile support for admin settings tabs
-*	Update : FooGallery client side 1.4.16
+* Date Updated : 2020-07-18
+* Fix : Fix for some installs showing thumbnail generation error
+* Update : better mobile support for admin settings tabs
+* Update : FooGallery client side 1.4.16
 
 
 = 1.9.26 =
-Date Updated : 2020-06-29
-*	Fix : Fix for All-In-One album hidden items still clickable
-*	Fix : Fix for fatal error on some versions of PHP
-*	Update : FooGallery client side 1.4.15
+* Date Updated : 2020-06-29
+* Fix : Fix for All-In-One album hidden items still clickable
+* Fix : Fix for fatal error on some versions of PHP
+* Update : FooGallery client side 1.4.15
 
 
 = 1.9.25 =
-Date Updated : 2020-06-04
+* Date Updated : 2020-06-04
 * Fix : Fixed bug to prevent infinite loop with ResizeObserver in some themes
 * Fix : Fixed possible text-domain issue
 * Update : FooGallery client side 1.4.13
 
 
 = 1.9.24 =
-Date Updated : 2020-05-04
+* Date Updated : 2020-05-04
 * Fix : Fixed bug where thumbs were not loading on mobile in Justified and Portfolio galleries
 * Update : FooGallery client side 1.4.12
 
 = 1.9.23 =
-Date Updated : 2020-05-02
+* Date Updated : 2020-05-02
 * New : Reworked hover effect settings to allow none
 * New : Added new zoomed hover effect
 * New : Added new transparent theme hover effect
@@ -265,7 +303,7 @@ Date Updated : 2020-05-02
 
 
 = 1.9.11 =
-Date Updated : 2020-03-29
+* Date Updated : 2020-03-29
 * Fix : Fix for Simple Portfolio template not saving "None" for captions.
 * Fix : Fixed albums when adding incorrect markup target="default"
 * Fix : Updated thumbnail generation test logic to be more resilient, and improved admin message.
@@ -276,7 +314,7 @@ Date Updated : 2020-03-29
 * Update : FooGallery client side 1.4.6 (including multiple bug fixes)
 
 = 1.9.8 =
-Date Updated : 2020-03-08
+* Date Updated : 2020-03-08
 * New : Added RankMath compatibility - sitemap image indexing.
 * New : Added new setting under Hover Effects : Invert Color. Invert the caption icon colors from dark to light.
 * New : All hover and loading icons converted to SVG format.
@@ -286,13 +324,13 @@ Date Updated : 2020-03-08
 * Update : FooGallery client side 1.4.0 (MAJOR UPDATE).
 
 = 1.8.20 =
-Date Updated : 2019-11-22
+* Date Updated : 2019-11-22
 * Fix : Fix for Masonry template layout issue in Firefox
 
 * Update : FooGallery client side 1.3.6
 
 = 1.8.18 =
-Date Updated : 2019-10-23
+* Date Updated : 2019-10-23
 * New : Elementor compatibility - gallery previews in Elementor editor work, and added a FooGallery widget to the Elementor editor
 
 * Fix : Images in Yoast SEO sitemaps pull correctly for all types of gallery embedding

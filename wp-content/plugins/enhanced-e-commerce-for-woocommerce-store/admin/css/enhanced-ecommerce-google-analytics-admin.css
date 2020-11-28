@@ -65,6 +65,20 @@ h5{
 	.banner{
 		width:100%;
 	}
+	.banner-new {
+	    background: #253574;
+	    margin-left: 10px;
+	    padding: 10px;
+	}
+	.banner-new p {
+		color: #fff;
+	    text-align: center;
+	    font-size: 20px;
+	    margin-bottom: 0;
+	}
+	.banner-new a {color: #fff;}
+	.clickhere-txt {vertical-align: middle;display: grid;}
+	.clickhere-txt a{font-size: 12px;text-decoration: underline;}
 }
 @media only screen and (min-width: 1920px){
 	.container{
@@ -98,9 +112,10 @@ h5{
 }
 .new-img-blink-side{
 	width: 40px;
-	height: 20px;
+	height: 25px;
 }
-
+.banner-blink{width: 60px;
+    height: 35px;}
 .rating {
 	unicode-bidi: bidi-override;
 	direction: rtl;
@@ -116,3 +131,26 @@ h5{
 	 content: "\2605";
 	 position: absolute;
   }
+.oauth-container{
+	display: inline-block;
+	width: 100%;
+	max-width: 100%;
+	padding: 5px;
+	border: 1px solid #bfbfbf;
+	height: 45px;
+	border-radius: 5px;
+	background-color: #fff;
+}
+.ee-oauth-container{
+	display: inline-block;
+	width: 50%;
+	max-width: 100%;
+	padding: 5px;
+	border: 1px solid #bfbfbf;
+	height: 45px;
+	border-radius: 5px;
+	background-color: #fff;
+}
+.left {
+	float: left;
+}

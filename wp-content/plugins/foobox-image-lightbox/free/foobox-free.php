@@ -21,7 +21,6 @@ if (!class_exists('Foobox_Free')) {
 
 		const JS                   = 'foobox.free.min.js';
 		const CSS                  = 'foobox.free.min.css';
-		const CSS_NOIE7            = 'foobox.noie7.min.css';
 		const FOOBOX_URL           = 'http://fooplugins.com/plugins/foobox/?utm_source=fooboxfreeplugin&utm_medium=fooboxfreeprolink&utm_campaign=foobox_free_pro_tab';
 		const BECOME_AFFILIATE_URL = 'http://fooplugins.com/affiliate-program/';
 
@@ -55,6 +54,9 @@ if (!class_exists('Foobox_Free')) {
 
 				add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 
+				add_filter( 'fs_show_trial_foobox-image-lightbox', array( $this, 'force_trial_hide' ) );
+				add_action( 'admin_init', array( $this, 'force_hide_trial_notice' ), 99 );
+
 			} else {
 
 				// Render JS to the front-end pages
@@ -70,6 +72,23 @@ if (!class_exists('Foobox_Free')) {
 
 			new FooBox_Free_Exclude();
 		}
+
+		function force_trial_hide( $show_trial ) {
+			if ( $this->options()->is_checked( 'force_hide_trial', false ) ) {
+				$show_trial = false;
+			}
+
+		    return $show_trial;
+        }
+
+        function force_hide_trial_notice() {
+	        if ( $this->options()->is_checked( 'force_hide_trial', false ) ) {
+		        $freemius_sdk = foobox_fs();
+		        $plugin_id    = $freemius_sdk->get_slug();
+		        $admin_notice_manager = FS_Admin_Notice_Manager::instance( $plugin_id );
+		        $admin_notice_manager->remove_sticky( 'trial_promotion' );
+	        }
+        }
 
 		function enqueue_block_editor_assets() {
 			$this->frontend_print_scripts();
@@ -131,11 +150,7 @@ if (!class_exists('Foobox_Free')) {
 			if ( !apply_filters('foobox_enqueue_styles', true) ) return;
 
 			//enqueue foobox CSS
-			if ( $this->is_option_checked( 'dropie7support' ) ) {
-				$this->register_and_enqueue_css(self::CSS_NOIE7);
-			} else {
-				$this->register_and_enqueue_css(self::CSS);
-			}
+            $this->register_and_enqueue_css(self::CSS);
 		}
 
 		function frontend_print_scripts() {

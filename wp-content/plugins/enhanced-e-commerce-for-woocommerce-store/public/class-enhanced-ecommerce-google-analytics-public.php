@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.3.2';
+    public $tvc_eeVer = '2.3.6.1';
 
     protected $tvc_aga;
 
@@ -278,7 +278,14 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
             foreach ($order->get_items() as $item) {
                 $_product = $item->get_product();
                 if (isset($_product->variation_data)) {
-                    $categories=esc_js(wc_get_formatted_variation($_product->get_variation_attributes(), true));
+                    $categories=get_the_terms($_product->get_parent_id(), "product_cat");
+                    $attributes=esc_js(wc_get_formatted_variation($_product->get_variation_attributes(), true));
+                    if ($categories) {
+                        foreach ($categories as $category) {
+                            $out[] = $category->name;
+                        }
+                    }
+                    $categories=esc_js(join(",", $out));
                 } else {
                     $out = array();
                     if(version_compare($woocommerce->version, "2.7", "<")){
@@ -295,25 +302,38 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                     $categories=esc_js(join(",", $out));
                 }
                 //orderpage Prod json
-                if(version_compare($woocommerce->version, "2.7", "<")){
+                if (isset($_product->variation_data)) {
                     $orderpage_prod_Array[get_permalink($_product->ID)]=array(
                         "tvc_id" => esc_html($_product->ID),
                         "tvc_i" => esc_js($_product->get_sku() ? $_product->get_sku() : $_product->ID),
                         "tvc_n" => html_entity_decode($item["name"]),
                         "tvc_p" => esc_js($order->get_item_total($item)),
                         "tvc_c" => $categories,
+                        "tvc_attr" => $attributes,
                         "tvc_q"=>esc_js($item["qty"])
                     );
-                }else{
-                    $orderpage_prod_Array[get_permalink($_product->get_id())]=array(
+                } else {
+                    if(version_compare($woocommerce->version, "2.7", "<")){
+                        $orderpage_prod_Array[get_permalink($_product->ID)]=array(
+                        "tvc_id" => esc_html($_product->ID),
+                        "tvc_i" => esc_js($_product->get_sku() ? $_product->get_sku() : $_product->ID),
+                        "tvc_n" => html_entity_decode($item["name"]),
+                        "tvc_p" => esc_js($order->get_item_total($item)),
+                        "tvc_c" => $categories,
+                        "tvc_q"=>esc_js($item["qty"])
+                        );
+                    }else{
+                        $orderpage_prod_Array[get_permalink($_product->get_id())]=array(
                         "tvc_id" => esc_html($_product->get_id()),
                         "tvc_i" => esc_js($_product->get_sku() ? $_product->get_sku() : $_product->get_id()),
                         "tvc_n" => html_entity_decode($_product->get_title()),
                         "tvc_p" => esc_js($order->get_item_total($item)),
                         "tvc_c" => $categories,
                         "tvc_q"=>esc_js($item["qty"])
-                    );
+                        );
+                    }
                 }
+  
             }
             //make json for prod meta data on order page
             $this->wc_version_compare("tvc_oc=" . json_encode($orderpage_prod_Array) . ";");
@@ -346,6 +366,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                     "id": tvc_oc[t_item].tvc_i,
                     "name": tvc_oc[t_item].tvc_n, 
                     "category": tvc_oc[t_item].tvc_c,
+                    "attributes": tvc_oc[t_item].tvc_attr,
                     "price": tvc_oc[t_item].tvc_p,
                     "quantity": tvc_oc[t_item].tvc_q,
                 });
@@ -1027,6 +1048,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "id": tvc_ch[t_item].tvc_i,
                         "name": tvc_ch[t_item].tvc_n,
                         "category": tvc_ch[t_item].tvc_c,
+                        "attributes": tvc_ch[t_item].tvc_attr,
                         "price": tvc_ch[t_item].tvc_p,
                         "quantity": tvc_ch[t_item].tvc_q
                     });
@@ -1057,6 +1079,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "id": tvc_ch[t_item].tvc_i,
                         "name": tvc_ch[t_item].tvc_n,
                         "category": tvc_ch[t_item].tvc_c,
+                        "attributes": tvc_ch[t_item].tvc_attr,
                         "price": tvc_ch[t_item].tvc_p,
                         "quantity": tvc_ch[t_item].tvc_q
                     });
@@ -1093,6 +1116,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                         "id": tvc_ch[t_item].tvc_i,
                         "name": tvc_ch[t_item].tvc_n,
                         "category": tvc_ch[t_item].tvc_c,
+                        "attributes": tvc_ch[t_item].tvc_attr,
                         "price": tvc_ch[t_item].tvc_p,
                         "quantity": tvc_ch[t_item].tvc_q
                     });

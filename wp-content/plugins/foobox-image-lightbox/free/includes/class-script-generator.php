@@ -162,7 +162,6 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 			$js_options = self::generate_js_options( $fbx_options );
 			$disable_others = self::is_option_checked( $fbx_options, 'disable_others', false );
 			$foobox_ready_event = apply_filters( 'foobox_generate_javascript_ready_event', true );
-			$preload_foobox_font = apply_filters( 'foobox_generate_javascript_preload_font', false );
 			if ( $debug ) {
 				$pre_js      = apply_filters( 'foobox_generate_javascript_pre', 'console.log("FooBox - Custom JavaScript (Pre)");' );
 				$post_js     = apply_filters( 'foobox_generate_javascript_post', 'console.log("FooBox - Custom JavaScript (Post)");' );
@@ -177,7 +176,6 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 			$js = sprintf( '/* Run FooBox FREE (v%s) */
 var FOOBOX = window.FOOBOX = {
 	ready: %s,
-	preloadFont: %s,
 	disableOthers: %s,
 	o: %s,
 	selectors: [
@@ -200,7 +198,6 @@ var FOOBOX = window.FOOBOX = {
 };',
 				$info['version'],
 				$foobox_ready_event ? 'true' : 'false',
-				$preload_foobox_font ? 'true' : 'false',
 				$disable_others ? 'true' : 'false',
 				$js_options,
 				'"' . implode($seperator, $foobox_selectors) . '"',

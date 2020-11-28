@@ -1,7 +1,6 @@
 <?php
 $title = apply_filters( 'foobox_getting_started_title', __( 'Welcome to FooBox!', 'foobox-image-lightbox' ) );
 $tagline = apply_filters( 'foobox_getting_started_tagline', __( 'Thank you for choosing FooBox as your lightbox! A great looking and responsive lightbox for your WordPress website!', 'foobox-image-lightbox' ) );
-$test_link = apply_filters( 'foobox_getting_started_testlink', '<a rel="foobox" href="' . foobox_asset_url( 'img/foobot_red.png' ) . '" class="foobox">' . __( 'See it in action now!', 'foobox-image-lightbox' ) . '</a>' );
 ?>
 <style>
 
@@ -46,7 +45,7 @@ $test_link = apply_filters( 'foobox_getting_started_testlink', '<a rel="foobox" 
 <div class="wrap about-wrap foobox-getting-started">
 	<h1><?php echo $title; ?></h1>
 	<div class="about-text">
-		<?php echo $tagline . ' ' . $test_link; ?>
+		<?php echo $tagline; ?>
 	</div>
 	<div class="foobox-badge-foobot"></div>
 	<?php foobox_action_admin_menu_render_getting_started(); ?>

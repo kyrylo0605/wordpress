@@ -1,5 +1,11 @@
 <?php
 $message = new Enhanced_Ecommerce_Google_Settings();
+$obj = new Enhanced_Ecommerce_Google_Analytics_Admin($plugin_name = 'enhanced-e-commerce-for-woocommerce-store', $version = PLUGIN_NAME_VERSION);
+$today = $obj->today();
+$start = $obj->start_date();
+$end = $obj->end_date();
+$currentime = $obj->current_time();
+$endtime = $obj->end_time();
 ?>
 
 <style>
@@ -121,7 +127,12 @@ $message = new Enhanced_Ecommerce_Google_Settings();
                                                 <td><i class="fa fa-check"></i></td>
                                             </tr>
                                             <tr>
-                                                <td class="option">15+ Ready to Use Custom Dimensions/ Metrics</td>
+                                                <td class="option">20 Ready to Use Custom Dimensions/ Metrics</td>
+                                                <td><i class="fa fa-times"></i></td>
+                                                <td><i class="fa fa-check"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option">Premium Support</td>
                                                 <td><i class="fa fa-times"></i></td>
                                                 <td><i class="fa fa-check"></i></td>
                                             </tr>
@@ -150,11 +161,15 @@ $message = new Enhanced_Ecommerce_Google_Settings();
                                             <tr>
                                                 <th class="w-25"></th>
                                                 <th class="w-25"></th>
-                                                <th class=""><a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=TatvicEE&utm_medium=DashboardBuyBottom&utm_campaign=WPlisting" target="_blank"><button class="btn btn-primary"><strong>Premium Plugin</strong></button></a></th>
+                                                <th class=""><a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=TatvicEE&utm_medium=DashboardBuyBottom&utm_campaign=WPlisting" target="_blank"><button class="btn btn-primary"><strong>Get premium plugin</strong>
+                                                <?php if($today >= $start && $today <= $end  && $currentime <= $endtime) {?>
+                                                <img class="new-img-blink-side" src='<?php echo plugins_url('../images/discount.gif', __FILE__ )  ?>' />
+                                                <?php }?>
+                                                </button></a></th>
                                             </tr>
                                             </tfoot>
                                         </table>
-                                        <p class="description" style="font-size: 15px;"><strong>Feel free to contact us regarding premium version inquiry at <span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong>.<br/>Get your 10 Days Free Trial of Actionable Google Analytics by writing us at <strong><span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong><br/>Agencies & Marketers can also contact us for the bulk licenses for their clients.</p>
+                                        <p class="description" style="font-size: 15px;"><strong>Feel free to contact us regarding premium version inquiry at <span style="color:blue;font-size:15px;">analytics2@tatvic.com<span></strong>.<br/>Agencies & Marketers can also contact us for the bulk licenses for their clients.</p>
                                     </div>
                                 </div>
                             </div>

@@ -6,6 +6,8 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
 
 		function __construct() {
 			add_filter('foobox-free-admin_settings', array($this, 'create_settings'));
+
+			add_action( 'foobox-free-settings-sidebar', array( $this, 'settings_sidebar' ) );
 		}
 
 		function create_settings() {
@@ -136,14 +138,6 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
 			);
 
 			$settings[] = array(
-				'id'      => 'dropie7support',
-				'title'   => __( 'Drop IE7 Support', 'foobox' ),
-				'desc'    => __( 'Drop support for IE7, which removes some CSS hacks to get things working in IE7. This also allows the FooBox CSS to pass CSS validation.', 'foobox-image-lightbox' ),
-				'type'    => 'checkbox',
-				'tab'     => 'advanced'
-			);
-
-			$settings[] = array(
 				'id'      => 'disable_others',
 				'title'   => __( 'Disable Other Lightboxes', 'foobox-image-lightbox' ),
 				'desc'    => __( 'Certain themes and plugins use a hard-coded lightbox, which make it very difficult to override.<br>By enabling this setting, we inject a small amount of javascript onto the page which attempts to get around this issue.<br>But please note this is not guaranteed, as we cannot account for every lightbox solution out there :)', 'foobox-image-lightbox' ),
@@ -155,6 +149,14 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
 				'id'      => 'enable_debug',
 				'title'   => __( 'Enable Debug Mode', 'foobox-image-lightbox' ),
 				'desc'    => __( 'Show an extra debug information tab to help debug any issues.', 'foobox-image-lightbox' ),
+				'type'    => 'checkbox',
+				'tab'     => 'advanced'
+			);
+
+			$settings[] = array(
+				'id'      => 'force_hide_trial',
+				'title'   => __( 'Force Hide Trial Notice', 'foobox-image-lightbox' ),
+				'desc'    => __( 'Force the FooBox trial notice admin banner to never show', 'foobox-image-lightbox' ),
 				'type'    => 'checkbox',
 				'tab'     => 'advanced'
 			);
@@ -210,6 +212,89 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
 				'sections' => $sections,
 				'settings' => $settings
 			);
+		}
+
+		function build_install_url( $slug ) {
+			$action      = 'install-plugin';
+			return wp_nonce_url(
+				add_query_arg(
+					array(
+						'action' => $action,
+						'plugin' => $slug
+					),
+					admin_url( 'update.php' )
+				),
+				$action . '_' . $slug
+			);
+        }
+
+		function settings_sidebar() {
+			$install_foobox = $this->build_install_url( 'foobox-image-lightbox' );
+			$install_foogallery = $this->build_install_url( 'foogallery' );
+			$install_foobar = $this->build_install_url( 'foobar-notifications-lite' );
+
+		    ?>
+<style>
+    .settings-sidebar-promo {
+        width: 280px;
+        border: 1px solid #ccd0d4;
+        border-left-width: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+        background: #fff;
+        border-left-color: #007cba;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .settings-sidebar-promo.please-rate {
+        border-left-color: #ff69b4;
+    }
+
+    .settings-sidebar-promo h2 {
+        margin-top: 0;
+    }
+
+    .settings-sidebar-promo h2 .dashicons {
+        color: #ff69b4;
+        margin-right: 5px;
+    }
+
+    .settings-sidebar-promo img {
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<div class="settings-sidebar-promo please-rate">
+    <h2><i class="dashicons dashicons-heart"></i>Thanks for using FooBox!</h2>
+	<p>
+        If you love FooBox, please consider giving it a 5 star rating on WordPress.org. Your positive ratings help spread the word and help us grow.
+    </p>
+
+    <a class="button button-primary button-large" target="_blank" href="https://wordpress.org/support/plugin/foobox-image-lightbox/reviews/#new-post">Rate FooBox on WordPress.org</a>
+</div>
+
+<div class="settings-sidebar-promo">
+    <h2>Grow Your Business</h2>
+    <img src="https://foocdn.s3.amazonaws.com/logos/foobar-128x128.png" />
+    <p>
+        FooBar allows you to create unlimited eye-catching notification bars, announcements and cookie notices that catch your visitor's attention.
+    </p>
+    <a class="button button-primary button-large" target="_blank" href="<?php echo $install_foobar; ?>">Install FooBar</a>
+    <a class="button button-large" target="_blank" href="https://wordpress.org/plugins/foobar-notifications-lite/">View Details</a>
+</div>
+
+<div class="settings-sidebar-promo">
+    <h2>Create Beautiful Galleries</h2>
+    <img src="https://foocdn.s3.amazonaws.com/logos/foogallery-128x128.png" />
+    <p>
+        Make gallery management in WordPress great again! With FooGallery you can easily add a stunning photo gallery to your website in minutes.
+    </p>
+    <a class="button button-primary button-large" target="_blank" href="<?php echo $install_foogallery; ?>">Install FooGallery</a>
+    <a class="button button-large" target="_blank" href="https://wordpress.org/plugins/foogallery">View Details</a>
+</div>
+<?php
 		}
 	}
 }

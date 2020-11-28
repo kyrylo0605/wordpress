@@ -515,16 +515,16 @@ class Editor {
 		// Tweak for WP Admin menu icons
 		wp_print_styles( 'editor-buttons' );
 
-		$page_title_selector = Plugin::$instance->kits_manager->get_current_settings( 'page_title_selector' );
-
-		$page_title_selector .= ', .elementor-page-title';
-
 		$settings = SettingsManager::get_settings_managers_config();
 		// Moved to document since 2.9.0.
 		unset( $settings['page'] );
 
 		$document = Plugin::$instance->documents->get_doc_or_auto_save( $this->post_id );
 		$kits_manager = Plugin::$instance->kits_manager;
+
+		$page_title_selector = $kits_manager->get_current_settings( 'page_title_selector' );
+
+		$page_title_selector .= ', .elementor-page-title';
 
 		$config = [
 			'initial_document' => $document->get_config(),
@@ -581,11 +581,12 @@ class Editor {
 			'locale' => get_locale(),
 			'rich_editing_enabled' => filter_var( get_user_meta( get_current_user_id(), 'rich_editing', true ), FILTER_VALIDATE_BOOLEAN ),
 			'page_title_selector' => $page_title_selector,
-			'tinymceHasCustomConfig' => class_exists( 'Tinymce_Advanced' ),
+			'tinymceHasCustomConfig' => class_exists( 'Tinymce_Advanced' ) || class_exists( 'Advanced_Editor_Tools' ),
 			'inlineEditing' => Plugin::$instance->widgets_manager->get_inline_editing_config(),
 			'dynamicTags' => Plugin::$instance->dynamic_tags->get_config(),
 			'ui' => [
 				'darkModeStylesheetURL' => ELEMENTOR_ASSETS_URL . 'css/editor-dark-mode' . $suffix . '.css',
+				'defaultGenericFonts' => $kits_manager->get_current_settings( 'default_generic_fonts' ),
 			],
 			// Legacy Mode - for backwards compatibility of older HTML markup.
 			'legacyMode' => [
@@ -609,12 +610,9 @@ class Editor {
 				'delete_element' => __( 'Delete %s', 'elementor' ),
 				'flexbox_attention_header' => __( 'Note: Flexbox Changes', 'elementor' ),
 				'flexbox_attention_message' => __( 'Elementor 2.5 introduces key changes to the layout using CSS Flexbox. Your existing pages might have been affected, please review your page before publishing.', 'elementor' ),
-				'saved_colors' => __( 'Saved Colors', 'elementor' ),
-				'drag_to_delete' => __( 'Drag To Delete', 'elementor' ),
 				'color_picker' => __( 'Color Picker', 'elementor' ),
 
 				// Global Styles
-				'add_picked_color' => __( 'Add Picked Color', 'elementor' ),
 				'new_global_color' => __( 'New Global Color', 'elementor' ),
 				'global_colors_title' => __( 'Global Colors', 'elementor' ),
 				'manage_global_colors' => __( 'Manage Global Colors', 'elementor' ),
@@ -639,8 +637,6 @@ class Editor {
 				'custom' => __( 'Custom', 'elementor' ),
 
 				// Menu.
-				'about_elementor' => __( 'About Elementor', 'elementor' ),
-				'elementor_settings' => __( 'Dashboard Settings', 'elementor' ),
 				'site_settings' => __( 'Site Settings', 'elementor' ),
 				'theme_builder' => __( 'Theme Builder', 'elementor' ),
 				'user_preferences' => __( 'User Preferences', 'elementor' ),
