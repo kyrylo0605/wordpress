@@ -4,8 +4,6 @@ get_header();
 
 $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() );
 
-$show_navigation = get_post_meta( get_the_ID(), '_et_pb_project_nav', true );
-
 ?>
 
 <div id="main-content">
@@ -25,7 +23,7 @@ $show_navigation = get_post_meta( get_the_ID(), '_et_pb_project_nav', true );
 				<?php if ( ! $is_page_builder_used ) : ?>
 
 					<div class="et_main_title">
-						<h1 class="entry-title"><?php the_title(); ?></h1>
+						<h1><?php the_title(); ?></h1>
 						<span class="et_project_categories"><?php echo get_the_term_list( get_the_ID(), 'project_category', '', ', ' ); ?></span>
 					</div>
 
@@ -52,25 +50,17 @@ $show_navigation = get_post_meta( get_the_ID(), '_et_pb_project_nav', true );
 						the_content();
 
 						if ( ! $is_page_builder_used )
-							wp_link_pages( array( 'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'Divi' ), 'after' => '</div>' ) );
+							wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'Divi' ), 'after' => '</div>' ) );
 					?>
 					</div> <!-- .entry-content -->
 
 				<?php if ( ! $is_page_builder_used ) : ?>
 
-					<?php 
-						if ( in_array( $page_layout, array( 'et_full_width_page', 'et_no_sidebar' ) ) ) {
-							et_pb_portfolio_meta_box(); 
-						} 
-					?>
-
-				<?php endif; ?>
-
-				<?php if ( ! $is_page_builder_used || ( $is_page_builder_used && 'on' === $show_navigation ) ) : ?>
+					<?php if ( 'et_full_width_page' !== $page_layout ) et_pb_portfolio_meta_box(); ?>
 
 					<div class="nav-single clearfix">
-						<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . et_get_safe_localization( _x( '&larr;', 'Previous post link', 'Divi' ) ) . '</span> %title' ); ?></span>
-						<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . et_get_safe_localization( _x( '&rarr;', 'Next post link', 'Divi' ) ) . '</span>' ); ?></span>
+						<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'Divi' ) . '</span> %title' ); ?></span>
+						<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'Divi' ) . '</span>' ); ?></span>
 					</div><!-- .nav-single -->
 
 				<?php endif; ?>
@@ -86,12 +76,8 @@ $show_navigation = get_post_meta( get_the_ID(), '_et_pb_project_nav', true );
 <?php if ( ! $is_page_builder_used ) : ?>
 
 			</div> <!-- #left-area -->
-			
-			<?php 
-				if ( in_array( $page_layout, array( 'et_full_width_page', 'et_no_sidebar' ) ) ) {
-					et_pb_portfolio_meta_box();
-				} 
-			?>
+
+			<?php if ( 'et_full_width_page' === $page_layout ) et_pb_portfolio_meta_box(); ?>
 
 			<?php get_sidebar(); ?>
 		</div> <!-- #content-area -->
@@ -101,6 +87,4 @@ $show_navigation = get_post_meta( get_the_ID(), '_et_pb_project_nav', true );
 
 </div> <!-- #main-content -->
 
-<?php
-
-get_footer();
+<?php get_footer(); ?>

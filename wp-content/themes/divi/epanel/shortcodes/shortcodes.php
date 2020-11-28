@@ -2,25 +2,17 @@
 
 /********* Shortcodes v.3.0 ************/
 
-if ( ! defined( 'ET_SHORTCODES_VERSION' ) ) define( 'ET_SHORTCODES_VERSION', '3.0' );
+define( 'ET_SHORTCODES_VERSION', '3.0' );
 if ( ! defined( 'ET_SHORTCODES_DIR' ) ) define( 'ET_SHORTCODES_DIR', get_template_directory_uri() . '/epanel/shortcodes' );
 
 add_action('wp_enqueue_scripts', 'et_shortcodes_css_and_js');
 function et_shortcodes_css_and_js(){
 	global $themename;
-	$shortcode_strings_handle = apply_filters( 'et_shortcodes_strings_handle', 'et-shortcodes-js' );
+	$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
-	wp_register_script( 'et-shortcodes-js', ET_SHORTCODES_DIR . '/js/et_shortcodes_frontend.js', array('jquery'), ET_SHORTCODES_VERSION, false );
-
-	if ( ! defined( 'ET_BUILDER_THEME' ) ) {
-		// This is a legacy theme so we need to enqueue the shortcode styles.
-		wp_enqueue_style( 'et-shortcodes-css', ET_SHORTCODES_DIR . '/css/shortcodes-legacy.css', array(), ET_SHORTCODES_VERSION, 'all' );
-	}
-
-	wp_localize_script( $shortcode_strings_handle, 'et_shortcodes_strings', array(
-		'previous' => esc_html__( 'Previous', $themename ),
-		'next'     => esc_html__( 'Next', $themename )
-	) );
+	wp_enqueue_style( 'et-shortcodes-css', ET_SHORTCODES_DIR . '/css/shortcodes.css', false, ET_SHORTCODES_VERSION, 'all' );
+	wp_register_script( 'et-shortcodes-js', ET_SHORTCODES_DIR . "/js/et_shortcodes_frontend{$suffix}.js", array('jquery'), ET_SHORTCODES_VERSION, false );
+	wp_localize_script( 'et-shortcodes-js', 'et_shortcodes_strings', array( 'previous' => __( 'Previous', $themename ), 'next' => __( 'Next', $themename ) ) );
 }
 
 function et_add_simple_buttons(){
@@ -357,7 +349,7 @@ function et_learnmore($atts, $content = null) {
 	global $themename;
 
 	extract(shortcode_atts(array(
-				"caption" => esc_html__( 'Click here to learn more', $themename ),
+				"caption" => __( 'Click here to learn more', $themename ),
 				"state" => 'close',
 				"id" => '',
 				"class" => ''
@@ -737,7 +729,7 @@ function et_pricing($atts, $content = null) {
 		"desc" => "",
 		"url" => "#",
 		"window" => "",
-		"moretext" => esc_html__( 'Join Now', $themename ),
+		"moretext" => __( 'Join Now', $themename ),
 		"type" => "small",
 		"currency" => "$"
 	), $atts, 'pricing'));
@@ -858,17 +850,7 @@ function et_testimonial($atts, $content = null) {
 }
 
 add_shortcode('quote','et_quote');
-function et_quote( $atts, $content = null ) {
-	if ( function_exists( 'bbpress' ) && function_exists( 'gdbbx_render_the_bbcode' ) ) {
-		// compat for gdbbpress tools plugin.
-		if ( isset( $atts['quote'] ) && ! empty( $atts['quote'] ) ) {
-			$output = gdbbx_render_the_bbcode( 'quote', $atts, $content );
-			if ( $output !== false ) {
-				return $output;
-			}
-		}
-	}
-
+function et_quote($atts, $content = null) {
 	extract(shortcode_atts(array(
 		'style' => '',
 		'id' => '',
@@ -918,7 +900,7 @@ function et_columns($atts, $content = null, $name='') {
 	$pos = strpos($name,'_last');
 
 	if($pos !== false)
-		$name = str_replace('_last',' et_column_last',$name);
+		$name = str_replace('_last',' last',$name);
 
 	$output = "<div{$id} class='" . esc_attr( $name . $class ) . "'>
 					{$content}
@@ -967,7 +949,7 @@ function et_filter_mce_button($buttons) {
 }
 
 function et_filter_mce_plugin($plugins) {
-	$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+	$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
 	$plugins['et_quicktags'] = get_template_directory_uri(). "/epanel/shortcodes/js/editor_plugin{$suffix}.js";
 
@@ -1315,7 +1297,7 @@ function et_advanced_buttons(){
 		jQuery(document).ready(function(){
 			var buttonTypeField = jQuery('table.et-button select#et-type');
 
-			buttonTypeField.on('change',function() {
+			buttonTypeField.live('change',function() {
 				var optionsSmallButton = ['blue','lightblue','teal','silver','black','pink','purple','orange','green','red'],
 					optionsBigButton = ['blue','purple','orange','green','red','teal'],
 					options = '';
@@ -1347,7 +1329,7 @@ function et_advanced_buttons(){
 			});
 
 			var tabTypeField = jQuery('table.et-tabs select#et-slidertype');
-			tabTypeField.on('change',function() {
+			tabTypeField.live('change',function() {
 				if (jQuery(this).val() === 'images') {
 					if (!jQuery('.et-tabs #et-imagewidth').length) {
 						$heightImage = jQuery('<tr><th><label for="et-imageheight"><?php esc_html_e( 'Image Height', $themename ); ?></label></th><td><input type="text" value="" id="et-imageheight" name="et-imageheight"><br><small></small></td></tr>').prependTo('form#et_shortcodes tbody');
@@ -1368,5 +1350,4 @@ function et_advanced_buttons(){
 			});
 		});
 	</script>
-<?php
-}
+<?php } ?>

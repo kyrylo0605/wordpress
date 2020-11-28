@@ -1,38 +1,32 @@
-Divi Theme by Elegant Themes
-============================
+#README
 
-> Copyright (C) 2016, Elegant Themes, Inc.
+**Synopsis**
 
-Divi is a powerful multipurpose WordPress theme built atop the Divi Builder
-framework, a revolutionary drag and drop page builder for WordPress. This theme
-is available as part of the ElegantThemes.com membership. The membership provides
-access to important theme updates and tech support, as well as the rest of 
-our awesome WordPress themes and plugins.
-
-https://www.elegantthemes.com/join.php
+Elegant Themes Legacy Divi theme (version 2.3.4 updated 02-17-2016 ) patched to work with WordPress 4.5
 
 
-Getting Started
----------------
+**Motivation**
 
-To get started using Divi, we recommend browsing our extensive theme documentation
-at http://www.elegantthemes.com/gallery/divi/documentation/. Below are listed 
-some of the best tutorials for beginners. 
+Websites using a legacy version of Divi break when updated to WordPress 4.5+ apparently due to an updated version of jQuery.
 
-**1. Installing Divi**
-http://www.elegantthemes.com/gallery/divi/documentation/install/
+**Installation**
 
-**2. Updating Divi**
-http://www.elegantthemes.com/gallery/divi/documentation/update/
+Install like any other WordPress theme using the WordPress admin panel or by unzipping and placing it in the wp-content/themes directory and activate it.
 
-**3. Using the Divi Builder**
-http://www.elegantthemes.com/gallery/divi/documentation/builder-overview-new/
+**Security Fix**
 
-**4. Using The Divi Theme Options**
-http://www.elegantthemes.com/gallery/divi/documentation/theme-options/
+This version contains a security fix that corrected a critical privilege escalation security vulnerability that, if properly exploited, could allow unprivileged registered WordPress users to perform a subset of actions within the Divi Builder, including the potential to manipulate posts.
 
-**5. Using The Divi Library**
-http://www.elegantthemes.com/gallery/divi/documentation/divi-library/
+**Updates Disabled**
 
-**6. Using The Divi Theme Customizer**
-http://www.elegantthemes.com/gallery/divi/documentation/customizer/
+Update notifications have been disabled by changing the Version: property in style.css to an artificially high version number.
+
+**Contributors**
+
+
+Core Code: Elegant Themes https://www.elegantthemes.com/
+WordPress 4.5 bugfix: Andrew Druffner <andrew@bluedogsupport.com>
+
+**License**
+
+GNU General Public License, version 2
