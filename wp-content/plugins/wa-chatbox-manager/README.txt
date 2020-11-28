@@ -4,7 +4,7 @@ Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
 Tags: whatsapp, whatsapp button, whatsapp help, whatsapp icon, whatsapp support, chat, contact, contact button, chatbox, help desk
 Requires at least: 4.5.0
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,12 @@ Chatbox Manager will add a new admin page, where you can manage all chatboxes.
 2. Example of WhatsApp button
 
 == Changelog ==
+
+= 1.0.4 =
+Release date - October, 02 - 2020
+
+* Fixed - Issue between javascript files and the latest jQuery version included with WordPress 5.5
+* Tested with WordPress 5.5
 
 = 1.0.3 =
 Release date - April, 01 - 2020

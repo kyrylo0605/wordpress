@@ -129,6 +129,15 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                     add_action( 'wp_head', array( $this, 'woodmart_head_action' ) );
                 }
 
+                if ( 'Astra' === $this->current_theme ) {
+                    add_filter( 'astra_get_search_form', array( $this, 'astra_markup' ), 999999 );
+                    add_action( 'wp_head', array( $this, 'astra_head_action' ) );
+                }
+
+                if ( 'Storefront' === $this->current_theme ) {
+                    add_action( 'wp_footer', array( $this, 'storefront_footer_action' ) );
+                }
+
                 // Elementor pro
                 if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
                     add_action( 'wp_footer', array( $this, 'elementor_pro_popup' ) );
@@ -178,6 +187,28 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 add_filter( 'aws_search_page_filters', array( $this, 'berocket_search_page_filters' ) );
             }
 
+            // Product Sort and Display for WooCommerce plugin
+            if ( defined( 'WC_PSAD_NAME' ) ) {
+                add_filter( "option_psad_shop_page_enable", array( $this, 'psad_filter' ) );
+            }
+
+            if ( 'Avada' === $this->current_theme ) {
+                add_filter( 'aws_posts_per_page', array( $this, 'avada_posts_per_page' ), 1 );
+                add_filter( 'aws_products_order_by', array( $this, 'avada_aws_products_order_by' ), 1 );
+                add_filter( 'post_class', array( $this, 'avada_post_class' ) );
+            }
+
+            // FacetWP plugin
+            if ( class_exists( 'FacetWP' ) ) {
+                add_filter( 'facetwp_filtered_post_ids', array( $this, 'facetwp_filtered_post_ids' ), 1 );
+                add_filter( 'aws_searchpage_enabled', array( $this, 'facetwp_aws_searchpage_enabled' ), 1 );
+            }
+
+            // Product Visibility by User Role for WooCommerce plugin
+            if ( class_exists( 'Alg_WC_PVBUR' ) ) {
+                add_filter( 'aws_search_results_products', array( $this, 'pvbur_aws_search_results_products' ), 1 );
+            }
+
         }
 
         /**
@@ -191,8 +222,14 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
 
             // Divi module
-            if ( defined( 'ET_BUILDER_PLUGIN_DIR' ) ) {
+            if ( defined( 'ET_BUILDER_PLUGIN_DIR' ) || function_exists( 'et_setup_theme' ) ) {
                 include_once( AWS_DIR . '/includes/modules/divi/class-divi-aws-module.php' );
+            }
+
+            // WCFM - WooCommerce Multivendor Marketplace
+            if ( class_exists( 'WCFMmp' ) ) {
+                include_once( AWS_DIR . '/includes/modules/class-aws-wcfm.php' );
+                AWS_WCFM::instance();
             }
 
         }
@@ -479,15 +516,24 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 .oceanwp-theme #searchform-overlay .aws-container form {
                     position: static;
                 }
-
                 .oceanwp-theme #searchform-overlay a.search-overlay-close {
                     top: -100px;
                 }
-
                 #sidr .aws-container {
                     margin: 30px 20px 0;
                 }
-
+                #medium-searchform .aws-container,
+                #vertical-searchform .aws-container {
+                    background: #f5f5f5;
+                }
+                #medium-searchform .aws-container .aws-search-form .aws-search-field {
+                    max-width: 100%;
+                }
+                #medium-searchform .aws-container .aws-search-form .aws-form-btn,
+                #vertical-searchform .aws-container .aws-search-form .aws-form-btn{
+                    background: #f5f5f5;
+                    border: none;
+                }
             </style>
 
             <script>
@@ -707,6 +753,130 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         <?php }
 
         /*
+         * Astra theme form markup
+         */
+        public function astra_markup( $output ) {
+            if ( function_exists( 'aws_get_search_form' ) && is_string( $output ) ) {
+
+                $pattern = '/(<form[\s\S]*?<\/form>)/i';
+                $form = aws_get_search_form(false);
+
+                if ( strpos( $output, 'aws-container' ) !== false ) {
+                    $pattern = '/(<div class="aws-container"[\s\S]*?<form.*?<\/form><\/div>)/i';
+                }
+
+                $output = trim(preg_replace('/\s\s+/', ' ', $output));
+                $output = preg_replace( $pattern, $form, $output );
+                $output = str_replace( 'aws-container', 'aws-container search-form', $output );
+                $output = str_replace( 'aws-search-field', 'aws-search-field search-field', $output );
+
+            }
+            return $output;
+        }
+
+        /*
+         * Astra theme
+         */
+        public function astra_head_action() { ?>
+
+            <style>
+                .ast-search-menu-icon.slide-search .search-form {
+                    width: auto;
+                }
+                .ast-search-menu-icon .search-form {
+                    padding: 0 !important;
+                }
+                .ast-search-menu-icon.ast-dropdown-active.slide-search .ast-search-icon {
+                    opacity: 0;
+                }
+                .ast-search-menu-icon.slide-search .aws-container .aws-search-field {
+                    width: 0;
+                    background: #fff;
+                    border: none;
+                }
+                .ast-search-menu-icon.ast-dropdown-active.slide-search .aws-search-field {
+                    width: 235px;
+                }
+                .ast-search-menu-icon.slide-search .aws-container .aws-search-form .aws-form-btn {
+                    background: #fff;
+                    border: none;
+                }
+            </style>
+
+        <?php }
+
+        /*
+         * Storefront theme search form layout
+         */
+        public function storefront_footer_action() {
+
+            $mobile_screen = AWS()->get_settings( 'mobile_overlay' );
+
+            ?>
+
+            <?php if ( $mobile_screen && $mobile_screen === 'true' ): ?>
+
+                <script>
+                    window.addEventListener('load', function() {
+                        if ( typeof jQuery !== 'undefined' ) {
+                            var search = jQuery('.storefront-handheld-footer-bar .search a');
+                            search.on( 'click', function() {
+                                var searchForm = jQuery('.storefront-handheld-footer-bar .aws-container');
+                                searchForm.after('<div class="aws-placement-container"></div>');
+                                searchForm.addClass('aws-mobile-fixed').prepend('<div class="aws-mobile-fixed-close"><svg width="17" height="17" viewBox="1.5 1.5 21 21"><path d="M22.182 3.856c.522-.554.306-1.394-.234-1.938-.54-.543-1.433-.523-1.826-.135C19.73 2.17 11.955 10 11.955 10S4.225 2.154 3.79 1.783c-.438-.371-1.277-.4-1.81.135-.533.537-.628 1.513-.25 1.938.377.424 8.166 8.218 8.166 8.218s-7.85 7.864-8.166 8.219c-.317.354-.34 1.335.25 1.805.59.47 1.24.455 1.81 0 .568-.456 8.166-7.951 8.166-7.951l8.167 7.86c.747.72 1.504.563 1.96.09.456-.471.609-1.268.1-1.804-.508-.537-8.167-8.219-8.167-8.219s7.645-7.665 8.167-8.218z"></path></svg></div>');
+                                jQuery('body').addClass('aws-overlay').append('<div class="aws-overlay-mask"></div>').append( searchForm );
+                                searchForm.find('.aws-search-field').focus();
+                            } );
+                        }
+                    }, false);
+                </script>
+
+                <style>
+                    .storefront-handheld-footer-bar ul li.search.active .site-search {
+                        display: none !important;
+                    }
+                </style>
+
+            <?php else: ?>
+
+                <script>
+                    window.addEventListener('load', function() {
+                        function aws_results_layout( styles, options  ) {
+                            if ( typeof jQuery !== 'undefined' ) {
+                                var $storefrontHandheld = options.form.closest('.storefront-handheld-footer-bar');
+                                if ( $storefrontHandheld.length ) {
+                                    if ( ! $storefrontHandheld.find('.aws-search-result').length ) {
+                                        $storefrontHandheld.append( options.resultsBlock );
+                                    }
+                                    styles.top = 'auto';
+                                    styles.bottom = 130;
+                                }
+                            }
+                            return styles;
+                        }
+                        if ( typeof AwsHooks === 'object' && typeof AwsHooks.add_filter === 'function' ) {
+                            AwsHooks.add_filter( 'aws_results_layout', aws_results_layout );
+                        }
+                    }, false);
+                </script>
+
+                <style>
+                    .storefront-handheld-footer-bar .aws-search-result ul li {
+                        float: none !important;
+                        display: block !important;
+                        text-align: left !important;
+                    }
+                    .storefront-handheld-footer-bar .aws-search-result ul li a {
+                        text-indent: 0 !important;
+                        text-decoration: none;
+                    }
+                </style>
+
+            <?php endif; ?>
+
+        <?php }
+
+        /*
          * Elementor popup search form init
          */
         public function elementor_pro_popup() { ?>
@@ -922,6 +1092,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $selectors[] = '#searchform-overlay form';
                 $selectors[] = '#sidr .sidr-class-mobile-searchform';
                 $selectors[] = '#mobile-menu-search form';
+                $selectors[] = '#site-header form';
             }
 
             if ( 'Jupiter' === $this->current_theme ) {
@@ -931,6 +1102,15 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             if ( 'Woodmart' === $this->current_theme ) {
                 $selectors[] = '.woodmart-search-form form, form.woodmart-ajax-search';
+            }
+
+            if ( 'Venedor' === $this->current_theme ) {
+                $selectors[] = '#search-form form';
+            }
+
+            // WCFM - WooCommerce Multivendor Marketplace
+            if ( class_exists( 'WCFMmp' ) ) {
+                $selectors[] = '#wcfmmp-store .woocommerce-product-search';
             }
 
             return $selectors;
@@ -1173,7 +1353,12 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                         $filters['on_sale'] = true;
                     } elseif ( $get_filter === '_sale[2]' ) {
                         $filters['on_sale'] = false;
-                    } elseif( preg_match( '/([\w]+)\[(.+?)\]/', $get_filter, $matches ) ) {
+                    } elseif ( strpos( $get_filter, 'price[' ) === 0 ) {
+                        if ( preg_match( '/([\w]+)\[(\d+)_(\d+)\]/', $get_filter, $matches ) ) {
+                            $filters['price_min'] = intval( $matches[2] );
+                            $filters['price_max'] = intval( $matches[3] );
+                        }
+                    } elseif ( preg_match( '/(.+)\[(.+?)\]/', $get_filter, $matches ) ) {
                         $taxonomy = $matches[1];
                         $operator = strpos( $matches[2], '-' ) !== false ? 'OR' : 'AND';
                         $explode_char = strpos( $matches[2], '-' ) !== false ? '-' : '+';
@@ -1188,6 +1373,148 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
 
             return $filters;
+
+        }
+
+        /*
+         * Product Sort and Display for WooCommerce plugin disable on search page
+         */
+        function psad_filter( $value ) {
+            if ( isset( $_GET['type_aws'] ) ) {
+                return 'no';
+            }
+            return $value;
+        }
+
+        /*
+         * Avada theme posts per page option
+         */
+        public function avada_posts_per_page( $posts_per_page ) {
+            $posts_per_page = isset( $_GET['product_count'] ) && intval( sanitize_text_field( $_GET['product_count'] ) ) ? intval( sanitize_text_field( $_GET['product_count'] ) ) : 12;
+            return $posts_per_page;
+        }
+
+        /*
+         * Avada theme order by options
+         */
+        public function avada_aws_products_order_by( $order_by ) {
+
+            $order_by_new = '';
+
+            if ( isset( $_GET['product_orderby'] ) ) {
+                switch( sanitize_text_field( $_GET['product_orderby'] ) ) {
+                    case 'name':
+                        $order_by_new = 'title';
+                        break;
+                    case 'price':
+                        $order_by_new = 'price';
+                        break;
+                    case 'date':
+                        $order_by_new = 'date';
+                        break;
+                    case 'popularity':
+                        $order_by_new = 'popularity';
+                        break;
+                    case 'rating':
+                        $order_by_new = 'rating';
+                        break;
+                }
+            }
+
+            if ( isset( $_GET['product_order'] ) && $order_by_new ) {
+                $product_order = sanitize_text_field( $_GET['product_order'] );
+                if ( in_array( $product_order, array( 'asc', 'desc' ) ) ) {
+                    $order_by_new = $order_by_new . '-' . $product_order;
+                }
+
+            }
+
+            if ( $order_by_new ) {
+                $order_by = $order_by_new;
+            }
+
+            return $order_by;
+
+        }
+
+        /*
+         * Avada theme fix for product variations inside list products view
+         */
+        public function avada_post_class( $classes ) {
+            if ( 'product_variation' === get_post_type()  ) {
+                if ( isset( $_SERVER['QUERY_STRING'] ) ) {
+                    parse_str( sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) ), $params );
+                    if ( isset( $params['product_view'] ) && $params['product_view'] ) {
+                        $classes[] = 'product-' . $params['product_view'] . '-view';
+                    }
+                }
+            }
+            return $classes;
+        }
+
+        /*
+         * FacetWP check for active filters
+         */
+        public function facetwp_filtered_post_ids( $post_ids ) {
+            if ( isset( $_GET['type_aws'] ) && isset( $_GET['s'] ) && ! empty( $post_ids ) ) {
+                $this->data['facetwp'] = true;
+            }
+            return $post_ids;
+        }
+
+        /*
+         * Disable AWS search if FacetWP is active
+         */
+        public function facetwp_aws_searchpage_enabled( $enabled ) {
+            if ( isset( $this->data['facetwp'] ) && $this->data['facetwp'] ) {
+                $enabled = false;
+            }
+            return $enabled;
+        }
+
+        /*
+         * Product Visibility by User Role for WooCommerce plugin hide products for certain users
+         */
+        public function pvbur_aws_search_results_products( $products ) {
+
+            $user_role = 'guest';
+            if ( is_user_logged_in() ) {
+                $user = wp_get_current_user();
+                $roles = ( array ) $user->roles;
+                $user_role = $roles[0];
+            }
+
+            foreach( $products as $key => $product ) {
+
+                $visible_roles = get_post_meta( $product['parent_id'], '_alg_wc_pvbur_visible', true );
+                $invisible_roles = get_post_meta( $product['parent_id'], '_alg_wc_pvbur_invisible', true );
+
+                if ( is_array( $invisible_roles ) && ! empty( $invisible_roles ) ) {
+                    foreach( $invisible_roles as $invisible_role ) {
+                        if ( $user_role == $invisible_role ) {
+                            unset( $products[$key] );
+                            continue 2;
+                        }
+                    }
+                }
+
+                if ( is_array( $visible_roles ) && ! empty( $visible_roles ) ) {
+                    $show = false;
+                    foreach( $visible_roles as $visible_role ) {
+                        if ( $user_role == $visible_role ) {
+                            $show = true;
+                            break;
+                        }
+                    }
+                    if ( ! $show ) {
+                        unset( $products[$key] );
+                        continue;
+                    }
+                }
+
+            }
+
+            return $products;
 
         }
 

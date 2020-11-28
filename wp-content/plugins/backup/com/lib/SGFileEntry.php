@@ -10,6 +10,7 @@ class SGFileEntry implements SGEntry
 	private $name;
 	private $type;
 	private $path;
+	private $dateModified;
 
 	public function __construct()
 	{
@@ -41,12 +42,23 @@ class SGFileEntry implements SGEntry
 		$this->path = $path;
 	}
 
+	public function setDateModified($date)
+	{
+		$this->dateModified = $date;
+	}
+
+	public function getDateModified()
+	{
+		return $this->dateModified;
+	}
+
 	public function toArray()
 	{
 		$fileEntry = array(
 			'name' => $this->getName(),
 			'path' => $this->getPath(),
-			'type' => $this->getType()
+			'type' => $this->getType(),
+			'date_modified' => $this->getDateModified()
 		);
 
 		return $fileEntry;

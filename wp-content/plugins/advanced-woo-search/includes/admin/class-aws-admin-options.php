@@ -376,7 +376,7 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
 
             $options['form'][] = array(
                 "name"  => __( "Mobile full screen", "advanced-woo-search" ),
-                "desc"  => __( "Full screen search on focus. Will not works if search form is inside block with position: fixed.", "advanced-woo-search" ),
+                "desc"  => __( "Full screen search on focus. Will not work if the search form is inside the block with position: fixed.", "advanced-woo-search" ),
                 "id"    => "mobile_overlay",
                 "value" => 'false',
                 "type"  => "radio",
@@ -565,6 +565,13 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                     'false' => __( 'Off', 'advanced-woo-search' ),
                 )
             );
+
+            /**
+             * Filter admin page options
+             * @since 2.15
+             * @param array $options Array of options
+             */
+            $options = apply_filters( 'aws_admin_page_options', $options );
 
             return $options;
 

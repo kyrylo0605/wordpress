@@ -3,8 +3,8 @@ Contributors: Mihail Barinov
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GSE37FC4Y7CEY
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: 2.09
+Tested up to: 5.6
+Stable tag: 2.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,7 @@ Additional features available only in PRO plugin version.
 * **Add to cart** button in search results
 * Support for [WooCommerce Brands plugin](https://woocommerce.com/products/brands/)
 * Support for Advanced Custom Fields plugin
+* Support for WCFM - WooCommerce Multivendor Marketplace plugin
 
 [Features list](https://advanced-woo-search.com/features/?utm_source=wp-repo&utm_medium=listing&utm_campaign=aws-repo)
 
@@ -110,6 +111,47 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 2.15 ( 2020-11-16 ) =
+* Update - Support for WCFM - WooCommerce Multivendor Marketplace plugin: add seamless integration for the vendors shop page, limit search results to vendor products only
+* Update - Settings page styles
+* Dev - Add aws_admin_page_options filter
+
+= 2.14 ( 2020-11-02 ) =
+* Update - Elementor search page support
+* Update - Divi Builder search page support
+* Update - Astra theme integration
+* Update - Storefront theme integration for footer search form
+
+= 2.13 ( 2020-10-19 ) =
+* Add - FacetWP plugin integration. [Read more](https://advanced-woo-search.com/guide/facetwp/)
+* Add - Support for 'Product Visibility by User Role for WooCommerce' plugin. [Read more](https://advanced-woo-search.com/guide/product-visibility-by-user-role-for-woocommerce/)
+* Add - Support for Avada theme default shop filters
+* Update - Search results page query
+* Update - Divi builder search form styles
+* Dev - Add aws_products_order_by filter
+* Dev - Add aws_index_complete
+* Dev - Add aws_create_index_table
+
+= 2.12 ( 2020-10-05 ) =
+* Fix - Results display for Divi builder search page template
+* Fix - Plugin search module for Divi builder
+* Fix - 'BeRocket Advanced AJAX Product Filters for WooCommerce' plugin integration
+* Fix - Bug with 'Product Sort and Display for WooCommerce' plugin
+
+= 2.11 ( 2020-09-21 ) =
+* Add - Venedor theme support
+* Update - Option to add description for archive pages inside search results
+* Update - Support for OceanWP theme
+* Update - Diacritic chars list
+* Fix - Overwrite WooCommerce global products count if it is set to zero
+* Fix - Bug with get_image_id function
+* Fix - Settings page typos
+
+= 2.10 ( 2020-09-07 ) =
+* Update - Storefront theme integration
+* Fix - Search results page output
+* Dev - Add aws_results_layout js filter
 
 = 2.09 ( 2020-08-23 ) =
 * Update - Support for latest WooCommerce version

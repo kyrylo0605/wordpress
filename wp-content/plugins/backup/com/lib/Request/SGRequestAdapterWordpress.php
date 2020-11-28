@@ -54,7 +54,8 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 		$args = array(
 			'headers'     => $this->headers,
 			'sslverify'   => false,
-			'stream'      => $this->stream
+			'stream'      => $this->stream,
+			'timeout'     => 30
 		);
 
 		if (!function_exists("curl_init")) {
@@ -72,7 +73,7 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 			// $body = http_build_query($this->params, '', '&');
 			$body = $this->params;
 		}
-
+		
 		$args = $this->getRequestArgs();
 		$args['body'] = $body;
 
@@ -143,11 +144,11 @@ class SGRequestAdapterWordpress implements SGIRequestAdapter
 	{
 		$body = null;
 
-		if (count($this->params)) {
+		if ($this->params) {
 			// $body = http_build_query($this->params, '', '&');
 			$body = $this->params;
 		}
-
+		
 		$args = $this->getRequestArgs();
 		$args['body'] = $body;
 		$args['method'] = $type;

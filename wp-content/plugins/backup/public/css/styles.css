@@ -440,6 +440,9 @@ label.sg-user-info {
 	margin-right: 18px;
 }
 
+.sg-cloud-backup-guard {
+	background-image: url("../img/backup-cloud-icon.png");
+}
 .sg-cloud-dropbox {
 	background-image: url("../img/cloud-dropbox.png");
 }
@@ -473,6 +476,10 @@ label.sg-user-info {
 	height: 39px;
 	line-height: 1;
 	font-weight: normal;
+}
+
+.sg-cloud-label-with-info {
+	display: inline-block;
 }
 
 .sg-schedule-icon {
@@ -528,6 +535,29 @@ label.sg-user-info {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale
 }
+/*Video tutorials font*/
+@font-face {
+	font-family: 'MenuGlyphter';
+	src: url('../fonts/MenuGlyphter.eot');
+	src: url('../fonts/MenuGlyphter.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/MenuGlyphter.woff') format('woff'),
+	url('../fonts/MenuGlyphter.ttf') format('truetype'),
+	url('../fonts/MenuGlyphter.svg#MenuGlyphter') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+[class*='sg-backup-menu-']:before{
+	display: inline-block;
+	font-family: 'MenuGlyphter';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	margin-right: 15px;
+}
+
+.sg-backup-menu-video:before{content:'\0041';}
 
 .sg-backup-cross:before{content:'\0041';}
 .sg-backup-report:before{content:'\0042';}

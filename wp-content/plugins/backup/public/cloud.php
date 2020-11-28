@@ -11,7 +11,35 @@ $dropboxUsername = SGConfig::get('SG_DROPBOX_CONNECTION_STRING');
 $amazonInfo = SGConfig::get('SG_AMAZON_BUCKET');
 
 $oneDriveInfo = SGConfig::get('SG_ONE_DRIVE_CONNECTION_STRING');
+
 $contentClassName = getBackupPageContentClassName('cloud');
+
+
+$backupGuardCloudAccount = SGConfig::get('SG_BACKUPGUARD_CLOUD_ACCOUNT')?unserialize(SGConfig::get('SG_BACKUPGUARD_CLOUD_ACCOUNT')):'';
+$backupGuardCloudAccountEmail = SGConfig::get('SG_BACKUPGUARD_CLOUD_ACCOUNT_EMAIL');
+
+$backupGuardConnectionString = "<span>". _backupGuardT('Connect now and get 1 GB storage space for FREE', true)."</span>";
+
+if (!empty($backupGuardCloudAccount)) {
+	$usedSpace = $backupGuardCloudAccount['usedStorage'];
+	$storage = $backupGuardCloudAccount['package']['storage'];
+	$availableSpaceInpercents = $usedSpace*100/$storage;
+
+	if ($availableSpaceInpercents < 25) {
+		$usedSpaceTextColor = "green";
+	}
+	else if ((25 <= $availableSpaceInpercents) && ($availableSpaceInpercents < 50)) {
+		$usedSpaceTextColor = "black";
+	}
+	else if ((50 <= $availableSpaceInpercents) && ($availableSpaceInpercents <= 75)) {
+		$usedSpaceTextColor = "orange";
+	}
+	else if ($availableSpaceInpercents >= 75) {
+		$usedSpaceTextColor = "red";
+	}
+
+	$backupGuardConnectionString = $backupGuardCloudAccountEmail.' | <span style="color: '.$usedSpaceTextColor.';">'.convertToReadableSize($usedSpace*BACKUP_GUARD_ONE_MB).' / '.convertToReadableSize($storage*BACKUP_GUARD_ONE_MB).'</span> | <a target="_blank" href="'.BACKUP_GUARD_CLOUD_UPGRADE_URL.'">Upgrade for more space</a>';
+}
 ?>
 <div id="sg-backup-page-content-cloud" class="sg-backup-page-content <?php echo $contentClassName; ?>">
 <div class="row sg-cloud-container">
@@ -21,7 +49,7 @@ $contentClassName = getBackupPageContentClassName('cloud');
                 <div><h1 class="sg-backup-page-title"><?php _backupGuardT('Cloud settings')?></h1></div>
                 <?php if (SGBoot::isFeatureAvailable('SUBDIRECTORIES')): ?>
                     <div class="form-group form-inline">
-                        <label class="col-md-3 sg-control-label">
+                        <label class="col-md-5 sg-control-label">
                             <?php _backupGuardT('Destination folder')?>
                         </label>
                         <div class="col-md-3">
@@ -30,10 +58,32 @@ $contentClassName = getBackupPageContentClassName('cloud');
                         </div>
                     </div>
                 <?php endif; ?>
+                <!-- BackupGuard -->
+				<?php if (SGBoot::isFeatureAvailable('BACKUP_GUARD') && SG_SHOW_BACKUPGUARD_CLOUD): ?>
+					<div class="form-group">
+						<label class="col-md-5 sg-control-label sg-user-info">
+                            <div class="sg-cloud-icon-wrapper">
+                                <span class="sg-cloud-icon sg-cloud-backup-guard"></span>
+                            </div>
+                            <div class="sg-cloud-label-with-info">
+                                <span><?php echo 'BackupGuard' ?></span>
+                                <span class="sg-backupguard-user sg-helper-block">
+								<?php echo $backupGuardConnectionString ?>
+							</span>
+                            </div>
+						</label>
+						<div class="col-md-3">
+							<label class="sg-switch-container">
+								<input type="checkbox" data-on-text="<?php _backupGuardT('ON')?>" data-off-text="<?php _backupGuardT('OFF')?>" data-storage="BACKUP_GUARD" data-remote="bgLogin" class="sg-switch" <?php echo !empty($backupGuardCloudAccount)?'checked="checked"':''?>>
+								<a id="backup-guard-details" href="javascript:void(0)" class="hide" data-toggle="modal" data-modal-name="backup-guard-details" data-remote="modalBackupGuardDetails"></a>
+							</label>
+						</div>
+					</div>
+				<?php endif; ?>
                 <!-- Dropbox -->
                 <?php if (SGBoot::isFeatureAvailable('DROPBOX')): ?>
                     <div class="form-group">
-                        <label class="col-md-3 sg-control-label">
+                        <label class="col-md-5 sg-control-label">
                             <div class="sg-cloud-icon-wrapper">
                                 <span class="sg-cloud-icon sg-cloud-dropbox"></span>
                             </div>
@@ -55,7 +105,7 @@ $contentClassName = getBackupPageContentClassName('cloud');
                 <!-- Google Drive -->
                 <?php if (SGBoot::isFeatureAvailable('GOOGLE_DRIVE')): ?>
                     <div class="form-group">
-                        <label class="col-md-3 sg-control-label">
+                        <label class="col-md-5 sg-control-label">
                             <div class="sg-cloud-icon-wrapper">
                                 <span class="sg-cloud-icon sg-cloud-google-drive"></span>
                             </div>
@@ -77,7 +127,7 @@ $contentClassName = getBackupPageContentClassName('cloud');
                 <!-- FTP -->
                 <?php if (SGBoot::isFeatureAvailable('FTP')): ?>
                     <div class="form-group">
-                        <label class="col-md-3 sg-control-label sg-user-info">
+                        <label class="col-md-5 sg-control-label sg-user-info">
                             <div class="sg-cloud-icon-wrapper">
                                 <span class="sg-cloud-icon sg-cloud-ftp"></span>
                             </div>
@@ -100,7 +150,7 @@ $contentClassName = getBackupPageContentClassName('cloud');
                 <!-- Amazon S3 -->
                 <?php if (SGBoot::isFeatureAvailable('AMAZON')): ?>
                     <div class="form-group">
-                        <label class="col-md-3 sg-control-label">
+                        <label class="col-md-5 sg-control-label">
                             <div class="sg-cloud-icon-wrapper">
                                 <span class="sg-cloud-icon sg-cloud-amazon"></span>
                             </div>
@@ -123,7 +173,7 @@ $contentClassName = getBackupPageContentClassName('cloud');
                 <!-- One Drive -->
                 <?php if (SGBoot::isFeatureAvailable('ONE_DRIVE')): ?>
                     <div class="form-group">
-                        <label class="col-md-3 sg-control-label">
+                        <label class="col-md-5 sg-control-label">
                             <div class="sg-cloud-icon-wrapper">
                                 <span class="sg-cloud-icon sg-cloud-one-drive"></span>
                             </div>

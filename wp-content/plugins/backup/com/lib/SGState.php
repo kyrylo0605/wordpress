@@ -7,20 +7,20 @@ require_once(SG_LIB_PATH.'SGMigrateState.php');
 
 class SGState
 {
-	public $inprogress = false;
-	public $type = '';
-	public $token = '';
-	public $action = '';
-	public $actionId = null;
-	public $actionStartTs = 0;
-	public $backupFileName = '';
-	public $backupFilePath = '';
-	public $progress = 0;
-	public $warningsFound = false;
-	public $pendingStorageUploads = array();
-	public $restoreMode = '';
-	public $restoreFiles = array();
-	public $offset = 0;
+	protected $inprogress = false;
+	protected $type = '';
+	protected $token = '';
+	protected $action = '';
+	protected $actionId = null;
+	protected $actionStartTs = 0;
+	protected $backupFileName = '';
+	protected $backupFilePath = '';
+	protected $progress = 0;
+	protected $warningsFound = false;
+	protected $pendingStorageUploads = array();
+	protected $restoreMode = '';
+	protected $restoreFiles = array();
+	protected $offset = 0;
 
 	function __construct()
 	{

@@ -140,11 +140,11 @@ class SGBackup implements SGIBackupDelegate
 		return array();
 	}
 
-	public function downloadBackupArchiveFromCloud($archive, $storage, $size)
+	public function downloadBackupArchiveFromCloud($archive, $storage, $size, $backupId = null)
 	{
 		$result = false;
 		if (SGBoot::isFeatureAvailable('DOWNLOAD_FROM_CLOUD')) {
-			$result = SGBackupStorage::getInstance()->downloadBackupArchiveFromCloud($storage, $archive, $size);
+			$result = SGBackupStorage::getInstance()->downloadBackupArchiveFromCloud($storage, $archive, $size, $backupId);
 		}
 
 		return $result;
@@ -343,19 +343,13 @@ class SGBackup implements SGIBackupDelegate
 			$this->prepareBackupLogFile(SG_BACKUP_DIRECTORY.$this->fileName, true);
 			$this->setBackupPaths();
 			$this->prepareAdditionalConfigurations();
-
-			$method = SGConfig::get('SG_RELOAD_METHOD');
-			if ($method != $reloadMethod) {
-				SGConfig::set('SG_RELOAD_METHOD', $reloadMethod);
-				$reloadMethod = $this->reloadMethodNameByMethodId($reloadMethod);
-				SGBackupLog::write("Reload method changed to ".$reloadMethod);
-			}
 		}
 
 		SGPing::update();
-		
-		try
-		{
+
+		try {
+			$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/').'/';
+
 			if ($this->databaseBackupAvailable) {
 				$this->backupDatabase->setFilePath($this->databaseBackupPath);
 				$this->backupDatabase->setPendingStorageUploads($this->pendingStorageUploads);
@@ -375,7 +369,6 @@ class SGBackup implements SGIBackupDelegate
 					}
 				}
 
-				$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/').'/';
 				$path = substr($this->databaseBackupPath, strlen($rootDirectory));
 				$this->backupFiles->addDontExclude($this->databaseBackupPath);
 				$backupItems = $options['SG_BACKUP_FILE_PATHS'];
@@ -394,6 +387,20 @@ class SGBackup implements SGIBackupDelegate
 			}
 
 			if ($this->state->getType() == SG_STATE_TYPE_FILE) {
+				
+				/*
+				 * ToDo check this logic
+				 * */
+				/*
+				$treeFilePath = SG_BACKUP_DIRECTORY.$this->fileName.'/'.SG_TREE_FILE_NAME;
+				$treeFilePathWithoutRootDir = substr($treeFilePath, strlen($rootDirectory));
+				$this->backupFiles->addDontExclude($treeFilePath);
+				$backupItems = $options['SG_BACKUP_FILE_PATHS'];
+				$allItems = $backupItems?explode(',', $backupItems):array();
+				$allItems[] = $treeFilePathWithoutRootDir;
+				$options['SG_BACKUP_FILE_PATHS'] = implode(',', $allItems);
+				*/
+
 				$this->backupFiles->setPendingStorageUploads($this->pendingStorageUploads);
 				$this->backupFiles->backup($this->filesBackupPath, $options, $this->state);
 				$this->didFinishBackup();
@@ -410,19 +417,15 @@ class SGBackup implements SGIBackupDelegate
 			// Clear temporary files
 			$this->clear();
 		}
-		catch (SGException $exception)
-		{
-			if ($exception instanceof SGExceptionSkip)
-			{
+		catch (SGException $exception) {
+			if ($exception instanceof SGExceptionSkip) {
 				$this->setCurrentActionStatusCancelled();
 			}
-			else
-			{
+			else {
 				SGBackupLog::writeExceptionObject($exception);
 
 				if ($this->state->getType() != SG_STATE_TYPE_UPLOAD) {
-					if ($this->databaseBackupAvailable)
-					{
+					if ($this->databaseBackupAvailable) {
 						$this->backupDatabase->cancel();
 					}
 
@@ -515,7 +518,8 @@ class SGBackup implements SGIBackupDelegate
 	private function clear()
 	{
 		@unlink(dirname($this->filesBackupPath).'/'.SG_REPORT_FILE_NAME);
-
+		/// ToDo check this logic
+		//@unlink(SG_BACKUP_DIRECTORY.$this->fileName.'/'.SG_TREE_FILE_NAME);
 		@unlink(SG_BACKUP_DIRECTORY.SG_STATE_FILE_NAME);
 		@unlink(SG_BACKUP_DIRECTORY.SG_RELOADER_STATE_FILE_NAME);
 		@unlink(SG_PING_FILE_PATH);
@@ -1328,45 +1332,10 @@ class SGBackup implements SGIBackupDelegate
 	private static function deleteBackupFromCloud($storages, $backupName)
 	{
 		foreach ($storages as $storage) {
-			$storageId = 0;
 			$storage = (int)$storage;
-			switch ($storage) {
-				case SG_STORAGE_FTP:
-					$ftp = SGConfig::get('SG_STORAGE_FTP_CONNECTED');
-					if ($ftp) {
-						$storageId = SG_STORAGE_FTP;
-					}
-					break;
-				case SG_STORAGE_DROPBOX:
-					$dropbox = SGConfig::get('SG_DROPBOX_ACCESS_TOKEN');
-					if ($dropbox) {
-						$storageId = SG_STORAGE_DROPBOX;
-					}
-					break;
-				case SG_STORAGE_GOOGLE_DRIVE:
-					$gdrive = SGConfig::get('SG_GOOGLE_DRIVE_REFRESH_TOKEN');
-					if ($gdrive) {
-						$storageId = SG_STORAGE_GOOGLE_DRIVE;
-					}
-					break;
-				case SG_STORAGE_AMAZON:
-					$amazon = SGConfig::get('SG_STORAGE_AMAZON_CONNECTED');
-					if ($amazon) {
-						$storageId = SG_STORAGE_AMAZON;
-					}
-					break;
-				case SG_STORAGE_ONE_DRIVE:
-					$oneDrive = SGConfig::get('SG_ONE_DRIVE_REFRESH_TOKEN');
-					if ($oneDrive) {
-						$storageId = SG_STORAGE_ONE_DRIVE;
-					}
-					break;
-				default:
-					return;
-			}
 
 			$sgBackupStorage = SGBackupStorage::getInstance();
-			$sgBackupStorage->deleteBackupFromStorage($storageId, $backupName);
+			$sgBackupStorage->deleteBackupFromStorage($storage, $backupName);
 		}
 	}
 

@@ -178,6 +178,8 @@ define('SG_SCHEDULE_TABLE_NAME', SG_ENV_DB_PREFIX.'sg_schedule');
 
 define('SG_SSH_KEY_FILE_FOLDER_NAME', 'sshKeyFolder/');
 
+define('SG_SHOW_BACKUPGUARD_CLOUD', 0);
+define('SG_FORGOT_PASSWORD_URL', 'https://backup-guard.com/admin/users/forgotPassword');
 define('SG_MIGRATION_SERVICE_URL', 'https://backup-guard.com/services/migrate-wordpress');
 define('BACKUP_GUARD_PRIVACY_POLICY_URL', "https://backup-guard.com/privacy");
 define('BACKUP_GUARD_TERMS_OF_SERVICE_URL', 'https://backup-guard.com/terms');
@@ -207,4 +209,8 @@ define('BG_SCHEDULE_INTERVAL_WEEKLY', 2);
 define('BG_SCHEDULE_INTERVAL_MONTHLY', 3);
 define('BG_SCHEDULE_INTERVAL_YEARLY', 4);
 
-define("BACKUP_GUARD_TEXTDOMAIN", "backup-guard-pro");
+define('BACKUP_GUARD_TEXTDOMAIN', 'backup-guard-pro');
+
+define('BACKUP_GUARD_ONE_MB', 1000000);
+
+define('BACKUP_GUARD_CLOUD_UPGRADE_URL', 'http://backup-guard.com/admin/billing/process/2');

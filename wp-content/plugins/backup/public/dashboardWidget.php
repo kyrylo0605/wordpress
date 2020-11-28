@@ -14,7 +14,10 @@ function backup_guard_dashboard_widget_function( $post, $callback_args ) {
 	$canceledBackups = 0;
 
 	for($i = 0; $i < $allBackupsCount; $i++){
-		switch ($allBackupsCount[$i]['status']){
+		if (empty($backups[$i])) {
+			continue;
+		}
+		switch ($backups[$i]['status']){
 			case SG_ACTION_STATUS_IN_PROGRESS_DB:
 			case SG_ACTION_STATUS_IN_PROGRESS_FILES:
 				$inprogress++;

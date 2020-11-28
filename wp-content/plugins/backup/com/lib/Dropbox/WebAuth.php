@@ -146,6 +146,7 @@ class WebAuth extends WebAuthBase
         Checker::argStringOrNull("urlState", $urlState);
 
         $csrfToken = self::encodeCsrfToken(Security::getRandomBytes(16));
+		\SGConfig::set('SG_DROPBOX_CONNECTION_CSRF_TOKEN', $csrfToken);
         $state = $csrfToken;
         if ($urlState !== null) {
             $state .= "|";

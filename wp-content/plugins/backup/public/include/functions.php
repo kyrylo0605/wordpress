@@ -2,7 +2,7 @@
 
 function backupGuardShouldShowDiscountNotice()
 {
-	if (SGConfig::get("SG_HIDE_DISCOUNT_NOTICE")) {
+	if (SGConfig::get("SG_HIDE_BLACK_FRIDAY_NOTICE")) {
 		return false;
 	}
 
@@ -12,7 +12,7 @@ function backupGuardShouldShowDiscountNotice()
 function checkDueDateDiscount()
 {
 	$startDate = '2019-11-27';
-	$endDate = '2019-12-02';
+	$endDate = '2020-11-30';
 
 	$timezone = 'Asia/Yerevan';
 	$timeDate = new DateTime('now', new DateTimeZone($timezone));
@@ -141,6 +141,7 @@ function backupGuardFilterStatusesByActionType($currentBackup, $currentOptions)
 		if ($currentOptions['gdrive']) $filteredStatuses[] = $currentOptions['gdrive'];
 		if ($currentOptions['amazon']) $filteredStatuses[] = $currentOptions['amazon'];
 		if ($currentOptions['oneDrive']) $filteredStatuses[] = $currentOptions['oneDrive'];
+		if ($currentOptions['backupGuard']) $filteredStatuses[] = $currentOptions['backupGuard'];
 	}
 	return $filteredStatuses;
 }
@@ -157,6 +158,7 @@ function backupGuardActiveOptionToType($activeOption)
 	$activeOptions['gdrive'] = 0;
 	$activeOptions['amazon'] = 0;
 	$activeOptions['oneDrive'] = 0;
+	$activeOptions['backupGuard'] = 0;
 	foreach ($storages as $key => $storage) {
 		switch ($storage) {
 			case SG_STORAGE_FTP:
@@ -173,6 +175,9 @@ function backupGuardActiveOptionToType($activeOption)
 				break;
 			case SG_STORAGE_ONE_DRIVE:
 				$activeOptions['oneDrive'] = SG_ACTION_TYPE_UPLOAD.SG_STORAGE_ONE_DRIVE;
+				break;
+			case SG_STORAGE_BACKUP_GUARD:
+				$activeOptions['backupGuard'] = SG_ACTION_TYPE_UPLOAD.SG_STORAGE_BACKUP_GUARD;
 				break;
 		}
 	}
@@ -219,7 +224,7 @@ function backupGuardShouldUpdate()
 
 	if ($currentVersion !== $oldVersion) {
 		SGConfig::set('SG_BACKUP_GUARD_VERSION', $currentVersion, true);
-		SGConfig::set('SG_HIDE_DISCOUNT_NOTICE', '0', true);
+		SGConfig::set('SG_HIDE_BLACK_FRIDAY_NOTICE', '0', true);
 		SGBoot::didUpdatePluginVersion();
 		return SG_FORCE_DB_TABLES_RESET;
 	}

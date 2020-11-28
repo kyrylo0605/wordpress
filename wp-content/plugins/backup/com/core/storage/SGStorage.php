@@ -37,7 +37,7 @@ abstract class SGStorage
 	abstract public function createFolder($folderName);
 
 	/* Download file from Storage*/
-	abstract public function downloadFile($filePath, $size);
+	abstract public function downloadFile($filePath, $size, $backupId = null);
 
 	/* Upload local file to Storage */
 	abstract public function uploadFile($filePath);

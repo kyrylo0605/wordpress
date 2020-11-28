@@ -130,7 +130,7 @@ class SGDropboxStorage extends SGStorage
 	private $fd = null;
 	private $filePath = '';
 
-	public function downloadFile($file, $size)
+	public function downloadFile($file, $size, $backupId = null)
 	{
 		if (!$file) {
 			return false;
@@ -148,7 +148,7 @@ class SGDropboxStorage extends SGStorage
 
 		$curl = $client->mkCurl($url);
 		$curl->set(CURLOPT_CUSTOMREQUEST, "POST");
-        $curl->addHeader("Dropbox-API-Arg: ".json_encode($params));
+		$curl->addHeader("Dropbox-API-Arg: ".json_encode($params));
 		$curl->set(CURLOPT_WRITEFUNCTION, array($this, 'callback'));
 
 		$response = $curl->exec();
@@ -176,7 +176,9 @@ class SGDropboxStorage extends SGStorage
 		$actionId = $this->delegate->getActionId();
 		$pendingStorageUploads = $this->delegate->getPendingStorageUploads();
 		$currentUploadChunksCount = $this->delegate->getCurrentUploadChunksCount();
-
+		$progress = $this->delegate->getProgress();
+		
+		$this->state->setProgress($progress);
 		$this->state->setCurrentUploadChunksCount($currentUploadChunksCount);
 		$this->state->setStorageType(SG_STORAGE_DROPBOX);
 		$this->state->setPendingStorageUploads($pendingStorageUploads);
@@ -324,6 +326,12 @@ class SGDropboxStorage extends SGStorage
 	{
 		$appInfo = $this->getAppInfo();
 		$redirectUri = SG_STORAGE_DROPBOX_REDIRECT_URI;
+		$savedCSRFToken = SGConfig::get('SG_DROPBOX_CONNECTION_CSRF_TOKEN');
+		if (!empty($savedCSRFToken)) {
+			$_SESSION['dropbox-auth-csrf-token'] = $savedCSRFToken;
+			SGConfig::set('SG_DROPBOX_CONNECTION_CSRF_TOKEN', false);
+		}
+
 		$csrfTokenStore = new dbx\ArrayEntryStore($_SESSION, 'dropbox-auth-csrf-token');
 		return new dbx\WebAuth($appInfo, SG_STORAGE_DROPBOX_CLIENT_ID, $redirectUri, $csrfTokenStore, null);
 	}

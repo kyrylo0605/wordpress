@@ -28,6 +28,11 @@ define('SG_NOTICE_TEMPLATES_PATH', realpath(SG_APP_PATH.'../public/templates/not
 define('SG_BACKUPGUARD_CLIENT_ID', 'wordpress');
 define('SG_BACKUPGUARD_CLIENT_SECRET', 'AAPQEgsyQrt6wqDBk7fpa24NP6W43evtayxXmUqS');
 
+define('SG_BACKUPGUARD_UPLOAD_CLIENT_ID', 'backupguard');
+define('SG_BACKUPGUARD_UPLOAD_CLIENT_SECRET', 'e9503d56b06b95241abf68eaa0d13194aae9503e');
+
+define('SG_BACKUPGUARD_UPLOAD_SCOPE', 'create_backups');
+
 //Backup
 $wpContent = basename(WP_CONTENT_DIR);
 $wpPlugins = basename(WP_PLUGIN_DIR);

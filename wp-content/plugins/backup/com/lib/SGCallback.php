@@ -1,8 +1,5 @@
 <?php
 
-/**
-*
-*/
 class SGCallback
 {
 	private $className;
@@ -42,7 +39,7 @@ class SGCallback
 		$obj->$methodName($this->params);
 	}
 
-	public function toString()
+	public function __toString()
 	{
 		return json_encode(array(
 			'class' => $this->className,

@@ -326,6 +326,11 @@ class SGBackupFiles implements SGArchiveDelegate
 	private function prepareFileTree($allItems)
 	{
 		$entries = array();
+		
+		/**
+		  * ToDo check this logic
+		 */
+		//file_put_contents(dirname($this->filePath).'/'.SG_TREE_FILE_NAME, "");
 
 		foreach ($allItems as $item) {
 			$path = $this->rootDirectory.$item;
@@ -397,9 +402,12 @@ class SGBackupFiles implements SGArchiveDelegate
 		}
 		else {
 			if (is_readable($path)) {
+				$dateModified = filemtime($path);
+
 				$fileEntry = new SGFileEntry();
 				$fileEntry->setName(basename($path));
 				$fileEntry->setPath($path);
+				$fileEntry->setDateModified($dateModified);
 
 				$this->numberOfEntries++;
 				array_push($entries, $fileEntry->toArray());

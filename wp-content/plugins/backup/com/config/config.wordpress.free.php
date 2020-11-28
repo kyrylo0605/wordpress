@@ -29,14 +29,16 @@ define('SG_STORAGE_DROPBOX', 2);
 define('SG_STORAGE_GOOGLE_DRIVE', 3);
 define('SG_STORAGE_AMAZON', 4);
 define('SG_STORAGE_ONE_DRIVE', 5);
+define('SG_STORAGE_BACKUP_GUARD', 6);
 
 define('SG_STORAGE_DROPBOX_KEY', 'n3yhajm64h88m9t');
 define('SG_STORAGE_DROPBOX_SECRET', 's8crjkls7f9wqtd');
 define('SG_STORAGE_DROPBOX_CLIENT_ID', 'backup-guard');
 define('SG_STORAGE_DROPBOX_REDIRECT_URI', 'https://backup-guard.com/dropbox/');
+define('SG_FEATURE_BACKUP_GUARD', 1);
 
 define('SG_PRODUCT_IDENTIFIER', 'backup-guard-wp-free');
 
 //BackupGuard Support URL
-define('SG_BACKUP_SUPPORT_URL', 'https://backup-guard.com/products/backup-wordpress/support-free');
+define('SG_BACKUP_SUPPORT_URL', 'https://help.backup-guard.com/en/');
 define('BG_UPGRADE_URL', 'https://backup-guard.com/products/backup-wordpress#pricing');

@@ -19,7 +19,7 @@ class Helper
 {
 	public static function requiredParam($name, $var)
 	{
-		if (empty($var)) {
+		if (is_null($var)) {
 			throw new BadRequestException("Missing required argument: ".$name, 400);
 		}
 	}
@@ -70,6 +70,18 @@ class Helper
 		$request->setParams($params);
 		$request->setGetWithQueryParams(false);
 		return $request->sendGetRequest();
+	}
+
+	public static function sendRequest($path, $type, $params = array(), $headers = array())
+	{
+		$url = Config::URL.$path;
+
+		$request = \SGRequest::getInstance();
+		$request->setUrl($url);
+		$request->setHeaders($headers);
+		$request->setParams($params);
+		$request->setGetWithQueryParams(false);
+		return $request->sendRequest($type);
 	}
 
 	public static function validateResponse($response)

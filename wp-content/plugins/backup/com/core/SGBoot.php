@@ -95,6 +95,7 @@ class SGBoot
 			('SG_BACKUP_SYNCHRONOUS_STORAGE_UPLOAD','1'),
 			('SG_NOTIFICATIONS_ENABLED','0'),
 			('SG_SHOW_STATISTICS_WIDGET','1'),
+			('SG_BACKUP_SEND_USAGE_STATUS','0'),
 			('SG_NOTIFICATIONS_EMAIL_ADDRESS',''),
 			('SG_STORAGE_BACKUPS_FOLDER_NAME','sg_backups');"
 		);
@@ -265,7 +266,7 @@ class SGBoot
 
 	public static function isFeatureAvailable($feature)
 	{
-		return (SGConfig::get('SG_FEATURE_'.strtoupper($feature))===1?true:false);
+		return ((int)SGConfig::get('SG_FEATURE_'.strtoupper($feature))===1?true:false);
 	}
 
 	private static function prepare()

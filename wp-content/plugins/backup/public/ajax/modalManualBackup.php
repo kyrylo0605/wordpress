@@ -8,8 +8,10 @@
 	$ftp = SGConfig::get('SG_STORAGE_FTP_CONNECTED');
 	$amazon = SGConfig::get('SG_AMAZON_KEY');
 	$oneDrive = SGConfig::get('SG_ONE_DRIVE_REFRESH_TOKEN');
+	$backupGuard = SGConfig::get('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN');
 
 	$backupType = (int)@$_GET['backupType'];
+	$infoIconHtml = '<span class="dashicons dashicons-editor-help sgbg-info-icon"></span>';
 ?>
 <div class="modal-dialog">
 	<div class="modal-content">
@@ -28,30 +30,30 @@
 					</div>
 					<div class="col-md-12">
 						<div class="radio">
-							<label for="fullbackup-radio">
-								<input type="radio" name="backupType" id="fullbackup-radio" value="1" checked="checked">
+							<label for="full-backup-radio">
+								<input type="radio" name="backupType" id="full-backup-radio" value="1" checked="checked">
 								<?php _backupGuardT('Full backup'); ?>
 							</label>
 						</div>
 						<div class="radio">
-							<label for="custombackup-radio">
-								<input type="radio" name="backupType" id="custombackup-radio" value="2">
+							<label for="custom-backup-radio">
+								<input type="radio" name="backupType" id="custom-backup-radio" value="2">
 								<?php _backupGuardT('Custom backup'); ?>
 							</label>
 						</div>
 						<div class="col-md-12 sg-custom-backup">
 							<?php backupGuardGetBackupTablesHTML(); ?>
 							<div class="checkbox sg-no-padding-top">
-								<label for="custombackupfiles-chbx">
-									<input type="checkbox" class="sg-custom-option" name="backupFiles" id="custombackupfiles-chbx">
+								<label for="custom-backupfiles-chbx">
+									<input type="checkbox" class="sg-custom-option" name="backupFiles" id="custom-backupfiles-chbx">
 									<span class="sg-checkbox-label-text"><?php _backupGuardT('Backup files'); ?></span>
 								</label>
 								<!--Files-->
 								<div class="col-md-12 sg-checkbox sg-custom-backup-files">
 									<?php foreach ($directories as $directory): ?>
 										<div class="checkbox">
-											<label for="<?php echo 'sg'.$directory?>">
-												<input type="checkbox" name="directory[]" id="<?php echo 'sg'.$directory;?>" value="<?php echo $directory;?>">
+											<label for="<?php echo 'sgbg'.$directory?>">
+												<input type="checkbox" name="directory[]" id="<?php echo 'sgbg'.$directory;?>" value="<?php echo $directory;?>">
 												<span class="sg-checkbox-label-text"><?php echo basename($directory);?></span>
 											</label>
 										</div>
@@ -63,12 +65,20 @@
 						<?php if(SGBoot::isFeatureAvailable('STORAGE')): ?>
 							<!--Cloud-->
 							<div class="checkbox sg-no-padding-top">
-								<label for="custombackupcloud-chbx">
-									<input type="checkbox" name="backupCloud" id="custombackupcloud-chbx">
+								<label for="custom-backupcloud-chbx">
+									<input type="checkbox" name="backupCloud" id="custom-backupcloud-chbx">
 									<span class="sg-checkbox-label-text"><?php _backupGuardT('Upload to cloud'); ?></span>
 								</label>
 								<!--Storages-->
 								<div class="col-md-12 sg-checkbox sg-custom-backup-cloud">
+									<?php if(SGBoot::isFeatureAvailable('BACKUP_GUARD') && SG_SHOW_BACKUPGUARD_CLOUD): ?>
+										<div class="checkbox">
+											<label for="cloud-backup-guard" <?php echo empty($backupGuard)?'data-toggle="tooltip" data-placement="right" title="'._backupGuardT('BackupGuard is not active.',true).'"':''?>>
+												<input type="checkbox" name="backupStorages[]" id="cloud-backup-guard" value="<?php echo SG_STORAGE_BACKUP_GUARD ?>" <?php echo empty($backupGuard)?'disabled="disabled"':''?>>
+												<span class="sg-checkbox-label-text"><?php echo 'BackupGuard' ?></span>
+											</label>
+										</div>
+									<?php endif; ?>
 									<?php if(SGBoot::isFeatureAvailable('FTP')): ?>
 										<div class="checkbox">
 											<label for="cloud-ftp" <?php echo empty($ftp)?'data-toggle="tooltip" data-placement="right" title="'._backupGuardT('FTP is not active.',true).'"':''?>>
@@ -119,9 +129,10 @@
 						<!-- Background mode -->
 						<?php if(SGBoot::isFeatureAvailable('BACKGROUND_MODE')): ?>
 							<div class="checkbox">
-								<label for="background-chbx">
-									<input type="checkbox" name="backgroundMode" id="background-chbx">
-									<span class="sg-checkbox-label-text"><?php _backupGuardT('Background mode'); ?></span>
+								<label for="sg-background-chbx">
+									<input type="checkbox" name="backgroundMode" id="sg-background-chbx">
+									<span class="sg-checkbox-label-text"><?php _backupGuardT('Background mode'); ?></span><?php echo $infoIconHtml; ?>
+									<span class="infoSelectRepeat samefontStyle sgbg-info-text"><?php _backupGuardT('Enable background mode to avoid CPU overload')?></span>
 								</label>
 							</div>
 						<?php endif; ?>

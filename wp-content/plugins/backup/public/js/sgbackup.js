@@ -7,6 +7,7 @@ SG_STORAGE_DROPBOX      = 2;
 SG_STORAGE_GOOGLE_DRIVE = 3;
 SG_STORAGE_AMAZON       = 4;
 SG_STORAGE_ONE_DRIVE    = 5;
+SG_STORAGE_BACKUP_GUARD = 6;
 
 jQuery(document).on('change', '.btn-file :file', function() {
 	var input = jQuery(this),
@@ -16,7 +17,7 @@ jQuery(document).on('change', '.btn-file :file', function() {
 });
 
 jQuery(document).ready( function() {
-	sgBackup.initTablePagination();
+	sgBackup.initTablePagination('sg-backups');
 	sgBackup.initActiveAction();
 	sgBackup.initBackupDeletion();
 	sgBackup.toggleMultiDeleteButton();
@@ -61,8 +62,7 @@ jQuery(document).ready( function() {
 		}
 	});
 
-
-	jQuery('.bg-verify-user-info-cancel').click(function(e) {
+	var surveyClose = function(e) {
 		e.preventDefault();
 
 		jQuery('.bg-verify-user-info-container').slideUp();
@@ -70,7 +70,12 @@ jQuery(document).ready( function() {
 
 		var ajaxHandler = new sgRequestHandler('setUserInfoVerificationPopupState', {token: BG_BACKUP_STRINGS.nonce});
 		ajaxHandler.run();
-	});
+	};
+
+	jQuery('.bg-verify-user-info-overlay').bind('click', surveyClose);
+
+
+	jQuery('.bg-verify-user-info-cancel').click(surveyClose);
 
 	jQuery('#bg-verify-user-prioraty').on('change', function () {
 		if (jQuery(this).val() == "other") {
@@ -123,12 +128,14 @@ jQuery(document).ready( function() {
 		if(sendData) {
 			jQuery('.bg-verify-user-info-container').slideUp();
 			jQuery('.bg-verify-user-info-overlay').hide();
+			var currentStatus = jQuery('.backup-send-usage-data-status').is(':checked');
 
 			var ajaxHandler = new sgRequestHandler('storeSubscriberInfo', {
 				email: email,
 				fname: fname,
 				lname: lname,
 				priority: priority,
+				currentStatus: currentStatus,
 				token: BG_BACKUP_STRINGS.nonce
 			});
 
@@ -138,8 +145,8 @@ jQuery(document).ready( function() {
 });
 
 sgBackup.isValidEmailAddress = function(emailAddress) {
-    var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,10}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
-    return pattern.test(emailAddress);
+	var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,10}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
+	return pattern.test(emailAddress);
 };
 
 sgBackup.getSelectedBackupsNumber = function() {
@@ -150,23 +157,23 @@ sgBackup.toggleMultiDeleteButton = function() {
 	var numberOfChoosenBackups = sgBackup.getSelectedBackupsNumber();
 	var target = jQuery('#sg-delete-multi-backups');
 	if (numberOfChoosenBackups > 0) {
-        target.removeAttr('disabled');
+		target.removeAttr('disabled');
 	}
 	else {
-        target.attr('disabled','disabled');
+		target.attr('disabled','disabled');
 	}
 };
 
 sgBackup.closeFreeBaner = function() {
 	jQuery('.sg-close-free-banner').bind('click', function () {
-        var ajaxHandler = new sgRequestHandler('closeFreeBanner', {
-            token: BG_BACKUP_STRINGS.nonce
-        });
-        ajaxHandler.callback = function(response, error) {
-        	jQuery('#sg-banner').remove();
+		var ajaxHandler = new sgRequestHandler('closeFreeBanner', {
+			token: BG_BACKUP_STRINGS.nonce
+		});
+		ajaxHandler.callback = function(response, error) {
+			jQuery('#sg-banner').remove();
 		};
-        ajaxHandler.run();
-    });
+		ajaxHandler.run();
+	});
 };
 
 sgBackup.deleteMultiBackups = function(backupNames){
@@ -288,6 +295,9 @@ sgBackup.listStorage = function(importFrom) {
 			case SG_STORAGE_ONE_DRIVE:
 				cloudName = "OneDrive";
 				break;
+			case SG_STORAGE_BACKUP_GUARD:
+				cloudName = "BackupGuard";
+				break;
 			default:
 				cloudName = '';
 		}
@@ -301,8 +311,16 @@ sgBackup.listStorage = function(importFrom) {
 		}
 		else {
 			jQuery.each(response, function( key, value ) {
+
+				var backupId = 0;
+
+				if (typeof value.id != 'undefined') {
+					backupId = value.id;
+					value.path = value.name;
+				}
+
 				content += '<tr>';
-					content += '<td class="file-select-radio"><input type="radio" file-name="'+value.name+'" name="select-archive-to-download" size="'+value.size+'" storage="'+importFrom+'" value="'+value.path+'"></td>';
+					content += '<td class="file-select-radio"><input type="radio" file-name="'+value.name+'" name="select-archive-to-download" size="'+value.size+'" backup-id="'+value.id+'" storage="'+importFrom+'" value="'+value.path+'"></td>';
 					content += '<td>'+value.name+'</td>';
 					content += '<td>'+sgBackup.convertBytesToMegabytes(value.size)+'</td>';
 					content += '<td>'+value.date+'</td>';
@@ -333,7 +351,8 @@ sgBackup.initFileUpload = function(){
 			var name = target.attr('file-name');
 			var storage = target.attr('storage');
 			var size = target.attr('size');
-			sgBackup.downloadFromCloud(path, name, storage, size);
+			var backupId = target.attr('backup-id');
+			sgBackup.downloadFromCloud(path, name, storage, size, backupId);
 		}
 	});
 };
@@ -403,57 +422,57 @@ sgBackup.toggleDownloadFromCloudPage = function(){
 };
 
 sgBackup.downloadFromCloud = function (path, name, storage, size) {
-    sgBackup.showAjaxSpinner('.modal-dialog');
-    var error = [];
-    if (!path) {
-        error.push(BG_BACKUP_STRINGS.invalidDownloadFile);
-    }
+	sgBackup.showAjaxSpinner('.modal-dialog');
+	var error = [];
+	if (!path) {
+		error.push(BG_BACKUP_STRINGS.invalidDownloadFile);
+	}
 
-    jQuery('.alert').remove();
+	jQuery('.alert').remove();
 
-    if (error.length) {
-        sgBackup.hideAjaxSpinner();
-        var sgAlert = sgBackup.alertGenerator(error, 'alert-danger');
-        jQuery('#sg-modal .modal-header').prepend(sgAlert);
-        return false;
-    }
+	if (error.length) {
+		sgBackup.hideAjaxSpinner();
+		var sgAlert = sgBackup.alertGenerator(error, 'alert-danger');
+		jQuery('#sg-modal .modal-header').prepend(sgAlert);
+		return false;
+	}
+	
+	var downloadFromCloudHandler = new sgRequestHandler('downloadFromCloud', {
+		path: path,
+		storage: storage,
+		size: size,
+		token: BG_BACKUP_STRINGS.nonce
+	});
 
-    var downloadFromCloudHandler = new sgRequestHandler('downloadFromCloud', {
-        path: path,
-        storage: storage,
-        size: size,
-	    token: BG_BACKUP_STRINGS.nonce
-    });
+	jQuery('#switch-modal-import-pages-back').hide();
+	jQuery('#uploadSgbpFile').attr('disabled', 'disabled');
 
-    jQuery('#switch-modal-import-pages-back').hide();
-    jQuery('#uploadSgbpFile').attr('disabled', 'disabled');
+	downloadFromCloudHandler.callback = function (response, error){
+		sgBackup.hideAjaxSpinner();
+		jQuery('.alert').remove();
 
-    downloadFromCloudHandler.callback = function (response, error){
-        sgBackup.hideAjaxSpinner();
-        jQuery('.alert').remove();
+		clearTimeout(SG_DOWNLOAD_PROGRESS);
 
-        clearTimeout(SG_DOWNLOAD_PROGRESS);
+		if (typeof response.success !== 'undefined') {
+			location.reload();
+		}
+		else {
+			jQuery('#uploadSgbpFile').html(BG_BACKUP_STRINGS.import);
 
-        if (typeof response.success !== 'undefined') {
-            location.reload();
-        }
-        else {
-            jQuery('#uploadSgbpFile').html(BG_BACKUP_STRINGS.import);
+			var sgAlert = sgBackup.alertGenerator(response.error, 'alert-danger');
 
-            var sgAlert = sgBackup.alertGenerator(response.error, 'alert-danger');
+			jQuery('#uploadSgbpFile').attr('disabled', false);
+			jQuery('#switch-modal-import-pages-back').toggle();
+			jQuery('#sg-modal .modal-header').prepend(sgAlert);
+			SG_ACTIVE_DOWNLOAD_AJAX = false;
 
-            jQuery('#uploadSgbpFile').attr('disabled', false);
-            jQuery('#switch-modal-import-pages-back').toggle();
-            jQuery('#sg-modal .modal-header').prepend(sgAlert);
-            SG_ACTIVE_DOWNLOAD_AJAX = false;
+			return false;
+		}
+	};
 
-            return false;
-        }
-    };
-
-    SG_ACTIVE_DOWNLOAD_AJAX = true;
-    downloadFromCloudHandler.run();
-    sgBackup.fileDownloadProgress(name, size);
+	SG_ACTIVE_DOWNLOAD_AJAX = true;
+	downloadFromCloudHandler.run();
+	sgBackup.fileDownloadProgress(name, size);
 };
 
 sgBackup.downloadFromPC =  function(){
@@ -503,18 +522,18 @@ sgBackup.downloadFromPC =  function(){
 };
 
 sgBackup.fileDownloadProgress = function(file, size){
-    var getFileDownloadProgress = new sgRequestHandler('getFileDownloadProgress', {file: file, size: size, token: BG_BACKUP_STRINGS.nonce});
+	var getFileDownloadProgress = new sgRequestHandler('getFileDownloadProgress', {file: file, size: size, token: BG_BACKUP_STRINGS.nonce});
 
-    getFileDownloadProgress.callback = function(response){
-        if (typeof response.progress !== 'undefined') {
-            jQuery('#uploadSgbpFile').html('Importing ('+ Math.round(response.progress)+'%)');
-            SG_DOWNLOAD_PROGRESS = setTimeout(function () {
-                getFileDownloadProgress.run();
-            }, SG_AJAX_REQUEST_FREQUENCY);
-        }
-    };
+	getFileDownloadProgress.callback = function(response){
+		if (typeof response.progress !== 'undefined') {
+			jQuery('#uploadSgbpFile').html('Importing ('+ Math.round(response.progress)+'%)');
+			SG_DOWNLOAD_PROGRESS = setTimeout(function () {
+				getFileDownloadProgress.run();
+			}, SG_AJAX_REQUEST_FREQUENCY);
+		}
+	};
 
-    getFileDownloadProgress.run();
+	getFileDownloadProgress.run();
 };
 
 sgBackup.fileUploadProgress = function(e){
@@ -611,6 +630,7 @@ sgBackup.initManualBackupTooltips = function(){
 	jQuery('[for=cloud-gdrive]').tooltip();
 	jQuery('[for=cloud-one-drive]').tooltip();
 	jQuery('[for=cloud-amazon]').tooltip();
+	jQuery('[for=cloud-backup-guard]').tooltip();
 
 	jQuery('a[data-toggle=tooltip]').tooltip();
 };
@@ -746,17 +766,23 @@ sgBackup.statusUpdate = function(tooltip, response, progressInPercents){
 	}
 	else if(response.type == '3'){
 		var cloudIcon = jQuery('.sg-status-'+response.type+response.subtype);
-		if(response.subtype == '1'){
+		if(response.subtype == SG_STORAGE_FTP){
 			tooltipText = 'Uploading to FTP - '+progressInPercents;
 		}
-		else if(response.subtype == '2'){
+		else if(response.subtype == SG_STORAGE_DROPBOX){
 			tooltipText = 'Uploading to Dropbox - '+progressInPercents;
 		}
-		else if(response.subtype == '3'){
+		else if(response.subtype == SG_STORAGE_GOOGLE_DRIVE){
 			tooltipText = 'Uploading to Google Drive - '+progressInPercents;
 		}
-		else if(response.subtype == '4') {
+		else if(response.subtype == SG_STORAGE_AMAZON) {
 			tooltipText = 'Uploading to Amazon S3 - '+progressInPercents;
+		}
+		else if(response.subtype == SG_STORAGE_ONE_DRIVE) {
+			tooltipText = 'Uploading to OneDrive - '+progressInPercents;
+		}
+		else if(response.subtype == SG_STORAGE_BACKUP_GUARD) {
+			tooltipText = 'Uploading to BackupGuard - '+progressInPercents;
 		}
 		cloudIcon.prevAll('[class*=sg-status]').addClass('active');
 	}

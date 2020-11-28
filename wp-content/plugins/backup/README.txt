@@ -5,8 +5,8 @@ Author: Backup Guard
 Donate link: https://backup-guard.com/products/backup-wordpress
 Tags: backup, wordpress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 3.8
-Tested up to: 5.5
-Stable tag: 1.4.4
+Tested up to: 5.6
+Stable tag: 1.5.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ See <strong>BackupGuard Free</strong> in action here: <a href="https://www.youtu
 
 See <strong>BackupGuard Pro</strong> in action here: <a href="https://www.youtube.com/watch?v=TSPgmrSu-ls">https://www.youtube.com/watch?v=TSPgmrSu-ls</a>
 
-<h4>A SPECIAL NOTE ON WORDPRESS MIGRATION/h4>
+<h4>A SPECIAL NOTE ON WORDPRESS MIGRATION</h4>
 
 A WordPress site migration is an easy task if performed properly. There are three different migration scenarios:
 <ul>
@@ -167,6 +167,37 @@ When you are facing an issue of any kind with any of our products, the first thi
 6.  Site backup customization
 
 == Changelog ==
+= 1.5.1.1 =
+* Improvement of Admin Panel
+
+= 1.5.1 =
+* Improvement of menu section, video tutorials are added in the admin panel
+* Improvement of “Settings” section, info signs are added to make everything more understandable
+* Bug fixed related to dashboard statistics
+* Fixed PHP notices
+
+= 1.5.0 =
+* Fixed the database restore process failure which was caused by the backup tree file
+  
+= 1.4.9 =
+* Fixed messages
+
+= 1.4.8 =
+* Bug fixed related to Dropbox connection issue
+* Improvement for Import section
+
+= 1.4.7 =
+* Bug fixed related to the jQuery depreciation functionality
+* Improvement of BackupGuard sidebar menu
+
+= 1.4.6 =
+* "Send usage data" setting addition 
+* Support section improvement
+
+= 1.4.5 =
+* Fixed alert issue after clicking backup
+* Minor fixes
+
 = 1.4.4 =
 * WordPress 5.5 Backup "Import" Issue Fix
 * Improvement in Backup Guard Admin Panel Architecture

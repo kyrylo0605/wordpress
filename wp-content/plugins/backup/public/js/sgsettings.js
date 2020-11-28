@@ -1,5 +1,3 @@
-isDirty = false;
-
 jQuery(document).ready( function() {
     sgBackup.initGeneralSettingsSwitchButtons();
     AMOUNT_OF_BACKUPS_TO_KEEP = jQuery("#amount-of-backups-to-keep").val();
@@ -8,9 +6,10 @@ jQuery(document).ready( function() {
 
 window.onbeforeunload = function(){
     var msg = 'You haven\'t saved your changes.';
-    isDirty = false;
-
-    jQuery(':input').each(function () {
+    var isDirty = false;
+    var value;
+    
+    jQuery('.sg-settings-container :input').each(function () {
 
         if (jQuery(this).attr('type') == 'checkbox') {
             value = jQuery(this).prop('checked');

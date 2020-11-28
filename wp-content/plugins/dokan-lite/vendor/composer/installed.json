@@ -5,19 +5,19 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/AppSero/client.git",
-            "reference": "0b40040a22c46a7e101dec09a886f551a02b8737"
+            "url": "https://github.com/Appsero/client.git",
+            "reference": "c0d3dcc937ab68d690d8fb8f6511db37d7d7d7e9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/AppSero/client/zipball/0b40040a22c46a7e101dec09a886f551a02b8737",
-            "reference": "0b40040a22c46a7e101dec09a886f551a02b8737",
+            "url": "https://api.github.com/repos/Appsero/client/zipball/c0d3dcc937ab68d690d8fb8f6511db37d7d7d7e9",
+            "reference": "c0d3dcc937ab68d690d8fb8f6511db37d7d7d7e9",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3"
         },
-        "time": "2019-12-19T09:55:46+00:00",
+        "time": "2020-09-01T07:57:56+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

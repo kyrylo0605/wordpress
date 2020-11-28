@@ -10,10 +10,32 @@ class SGUploadState extends SGState
 	private $uploadId = 0;
 	private $parts = array();
 	private $storageType = null;
+	private $backupId = null;
+	private $profileId = null;
 
 	function __construct()
 	{
 		$this->type = SG_STATE_TYPE_UPLOAD;
+	}
+
+	public function setBackupId($backupId)
+	{
+		$this->backupId = $backupId;
+	}
+
+	public function getBackupId()
+	{
+		return $this->backupId;
+	}
+
+	public function setProfileId($profileId)
+	{
+		$this->profileId = $profileId;
+	}
+
+	public function getProfileId()
+	{
+		return $this->profileId;
 	}
 
 	public function setActiveDirectory($activeDirectory)
@@ -85,6 +107,9 @@ class SGUploadState extends SGState
 		$this->uploadId = $stateJson['uploadId'];
 		$this->actionId = $stateJson['actionId'];
 		$this->progress = $stateJson['progress'];
+		$this->backupId = $stateJson['backupId'];
+		$this->profileId = $stateJson['profileId'];
+		$this->inprogress = $stateJson['inprogress'];
 		$this->storageType = $stateJson['storageType'];
 		$this->actionStartTs = $stateJson['actionStartTs'];
 		$this->warningsFound = $stateJson['warningsFound'];
@@ -109,6 +134,8 @@ class SGUploadState extends SGState
 			'uploadId' => $this->uploadId,
 			'actionId' => $this->actionId,
 			'progress' => $this->progress,
+			'backupId' => $this->backupId,
+			'profileId' => $this->profileId,
 			'inprogress' => $this->inprogress,
 			'storageType' => $this->storageType,
 			'actionStartTs' => $this->actionStartTs,

@@ -83,22 +83,28 @@ else {
 
 function backup_guard_admin_menu()
 {
-	add_menu_page('Backups', 'BackupGuard', 'manage_options', 'backup_guard_backups', 'includeAllPages', 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MzAuMzQgNjYzLjAzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDI8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUzMC4xMSwxODUuNzljLTcxLjktOC44Mi0xMzcuNzMtNDAtMTkwLTg2LjU3djkyLjY1YTI4MC41OSwyODAuNTksMCwwLDAsMTE2LjUyLDUyYy05LjE0LDg5LjQzLTUyLDE2OS41NS0xMTYuNTIsMjI4Ljg3djkwLjRDNDU5Ljg0LDQ3Ny4xMyw1MzAuNiwzMzMuNDIsNTMwLjExLDE4NS43OVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xNzQuMjksMjQ0YTI4MC40NiwyODAuNDYsMCwwLDAsMTE1Ljc3LTUxLjExVjEwMGMtNTIuNDQsNDYuMjgtMTE3LjYyLDc3LTE4OS44Myw4NS4xNUM5OS41NCwzMzMsMTcwLjIyLDQ3Ni44MiwyOTAuMDYsNTYzVjQ3Mi4wOUMyMjYsNDEyLjg2LDE4My40MiwzMzMuMDYsMTc0LjI5LDI0NFoiLz48L3N2Zz4=', 74);
+    $capability = 'manage_options';
+    if (defined('SG_USER_MODE') && SG_USER_MODE) {
+        $capability = 'read';
+    }
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('Backups', true), _backupGuardT('Backups', true), 'manage_options', 'backup_guard_backups', 'includeAllPages');
-	add_submenu_page('backup_guard_backups', _backupGuardT('Cloud', true), _backupGuardT('Cloud', true), 'manage_options', 'backup_guard_cloud', 'includeAllPages');
-	add_submenu_page('backup_guard_backups', _backupGuardT('Schedule', true), _backupGuardT('Schedule', true), 'manage_options', 'backup_guard_schedule', 'includeAllPages');
+	add_menu_page('Backups', 'BackupGuard', $capability, 'backup_guard_backups', 'includeAllPages', 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MzAuMzQgNjYzLjAzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFydGJvYXJkIDI8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUzMC4xMSwxODUuNzljLTcxLjktOC44Mi0xMzcuNzMtNDAtMTkwLTg2LjU3djkyLjY1YTI4MC41OSwyODAuNTksMCwwLDAsMTE2LjUyLDUyYy05LjE0LDg5LjQzLTUyLDE2OS41NS0xMTYuNTIsMjI4Ljg3djkwLjRDNDU5Ljg0LDQ3Ny4xMyw1MzAuNiwzMzMuNDIsNTMwLjExLDE4NS43OVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xNzQuMjksMjQ0YTI4MC40NiwyODAuNDYsMCwwLDAsMTE1Ljc3LTUxLjExVjEwMGMtNTIuNDQsNDYuMjgtMTE3LjYyLDc3LTE4OS44Myw4NS4xNUM5OS41NCwzMzMsMTcwLjIyLDQ3Ni44MiwyOTAuMDYsNTYzVjQ3Mi4wOUMyMjYsNDEyLjg2LDE4My40MiwzMzMuMDYsMTc0LjI5LDI0NFoiLz48L3N2Zz4=', 74);
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('Settings', true), _backupGuardT('Settings', true), 'manage_options', 'backup_guard_settings', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Backups', true), _backupGuardT('Backups', true), $capability, 'backup_guard_backups', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Cloud', true), _backupGuardT('Cloud', true), $capability, 'backup_guard_cloud', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Schedule', true), _backupGuardT('Schedule', true), $capability, 'backup_guard_schedule', 'includeAllPages');
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('System Info.', true), _backupGuardT('System Info.', true), 'manage_options', 'backup_guard_system_info', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Settings', true), _backupGuardT('Settings', true), $capability, 'backup_guard_settings', 'includeAllPages');
 
-	add_submenu_page('backup_guard_backups', _backupGuardT('Services', true), _backupGuardT('Services', true), 'manage_options', 'backup_guard_services', 'includeAllPages');
-	add_submenu_page('backup_guard_backups', _backupGuardT('Support', true), _backupGuardT('Support', true), 'manage_options', 'backup_guard_support', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('System Info.', true), _backupGuardT('System Info.', true), $capability, 'backup_guard_system_info', 'includeAllPages');
+
+	add_submenu_page('backup_guard_backups', _backupGuardT('Services', true), _backupGuardT('Services', true), $capability, 'backup_guard_services', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Video Tutorials', true), _backupGuardT('Video Tutorials', true), $capability, 'backup_guard_videoTutorials', 'includeAllPages');
+	add_submenu_page('backup_guard_backups', _backupGuardT('Support', true), _backupGuardT('Support', true), $capability, 'backup_guard_support', 'includeAllPages');
 
 	//Check if should show upgrade page
 	if (SGBoot::isFeatureAvailable('SHOW_UPGRADE_PAGE')) {
-		add_submenu_page('backup_guard_backups', _backupGuardT('Why upgrade?', true), _backupGuardT('Why upgrade?', true), 'manage_options', 'backup_guard_pro_features', 'includeAllPages');
+		add_submenu_page('backup_guard_backups', _backupGuardT('Why upgrade?', true), _backupGuardT('Why upgrade?', true), $capability, 'backup_guard_pro_features', 'includeAllPages');
 	}
 }
 
@@ -116,6 +122,9 @@ function getBackupPageContentClassName($pageName = '')
 
 function includeAllPages()
 {
+    if (!backupGuardValidateLicense()) {
+        return false;
+    }
     backup_guard_backups_page();
     backup_guard_cloud_page();
     backup_guard_system_info_page();
@@ -126,6 +135,8 @@ function includeAllPages()
     backup_guard_settings_page();
 
     require_once(plugin_dir_path(__FILE__).'public/pagesContent.php');
+
+    return true;
 }
 
 function backup_guard_system_info_page()
@@ -200,8 +211,9 @@ function backup_guard_cloud_page()
 {
 	if (backupGuardValidateLicense()) {
 		wp_enqueue_style('backup-guard-switch-css', plugin_dir_url(__FILE__).'public/css/bootstrap-switch.min.css');
-		wp_enqueue_script('backup-guard-switch-js', plugin_dir_url(__FILE__).'public/js/bootstrap-switch.min.js', array('jquery'), '1.0.0', true);
-		wp_enqueue_script('backup-guard-cloud-js', plugin_dir_url(__FILE__).'public/js/sgcloud.js', array('jquery', 'backup-guard-switch-js'), '1.0.0', true);
+		wp_enqueue_script('backup-guard-switch-js', plugin_dir_url(__FILE__).'public/js/bootstrap-switch.min.js', array('jquery'), SG_BACKUP_GUARD_VERSION, true);
+		wp_enqueue_script('backup-guard-jquery-validate-js', plugin_dir_url(__FILE__).'public/js/jquery.validate.min.js', array('jquery', 'backup-guard-switch-js'), SG_BACKUP_GUARD_VERSION, true);
+		wp_enqueue_script('backup-guard-cloud-js', plugin_dir_url(__FILE__).'public/js/sgcloud.js', array('jquery', 'backup-guard-switch-js'), SG_BACKUP_GUARD_VERSION, true);
 
 		// Localize the script with new data
 		wp_localize_script('backup-guard-cloud-js', 'BG_CLOUD_STRINGS', array(
@@ -346,6 +358,15 @@ add_action( 'wp_ajax_backup_guard_getFileDownloadProgress', 'backup_guard_get_fi
 add_action( 'wp_ajax_backup_guard_modalCreateSchedule', 'backup_guard_create_schedule');
 add_action( 'wp_ajax_backup_guard_getBackupContent', 'backup_guard_get_backup_content');
 
+add_action( 'wp_ajax_backup_guard_modalBackupGuardDetails', 'backup_guard_get_backup_guard_modal');
+
+function backup_guard_get_backup_guard_modal()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'modalBackupGuardDetails.php');
+	exit();
+}
+
 function backup_guard_get_file_download_progress()
 {
 	check_ajax_referer('backupGuardAjaxNonce', 'token');
@@ -363,7 +384,7 @@ function backup_guard_create_schedule()
 function backup_guard_get_manual_modal()
 {
 	check_ajax_referer('backupGuardAjaxNonce', 'token');
-	if (current_user_can( 'activate_plugins' )) {
+	if (current_user_can( 'activate_plugins' ) || (defined('SG_USER_MODE') && SG_USER_MODE)) {
 		require_once(SG_PUBLIC_AJAX_PATH.'modalManualBackup.php');
     }
 	exit();
@@ -424,13 +445,14 @@ function backup_guard_get_review_modal()
 
 function backup_guard_register_ajax_callbacks()
 {
-	if (is_super_admin()) {
+	if (is_super_admin() || (defined('SG_USER_MODE') && SG_USER_MODE)) {
 		// adding actions to handle ajax and post requests
 		add_action('wp_ajax_backup_guard_cancelBackup', 'backup_guard_cancel_backup');
 		add_action('wp_ajax_backup_guard_checkBackupCreation', 'backup_guard_check_backup_creation');
 		add_action('wp_ajax_backup_guard_checkRestoreCreation', 'backup_guard_check_restore_creation');
         add_action('wp_ajax_backup_guard_cloudDropbox', 'backup_guard_cloud_dropbox');
-	
+        add_action('wp_ajax_backup_guard_send_usage_status', 'backup_guard_send_usage_status');
+
         $pluginCapabilities = backupGuardGetCapabilities();
         if ($pluginCapabilities != BACKUP_GUARD_CAPABILITIES_FREE) {
             require_once dirname(__FILE__).'/BackupGuardPro.php';
@@ -466,11 +488,17 @@ function backup_guard_register_ajax_callbacks()
 		add_action('wp_ajax_backup_guard_storeSurveyResult', 'backup_guard_store_survey_result');
 		add_action('wp_ajax_backup_guard_reviewDontShow', 'backup_guard_review_dont_show');
 		add_action('wp_ajax_backup_guard_review_later', 'backup_guard_review_later');
-		add_action('wp_ajax_backup_guard_closeFreeBanner', 'closeFreeBanner');
+		add_action('wp_ajax_backup_guard_closeFreeBanner', 'wp_ajax_backup_guard_close_free_banner');
+		// related to cloud
+		add_action('wp_ajax_backup_guard_isBgUserExists', 'backup_guard_is_bg_user_exists');
+		add_action('wp_ajax_backup_guard_createCloudUser', 'backup_guard_create_cloud_user');
+		add_action('wp_ajax_backup_guard_bgAutoLogin', 'backup_guard_bg_auto_login');
+		add_action('wp_ajax_backup_guard_bgLogin', 'backup_guard_bg_login');
+		add_action('wp_ajax_backup_guard_chooseProfile', 'backup_guard_choose_profile');
 	}
 }
 
-function closeFreeBanner()
+function wp_ajax_backup_guard_close_free_banner()
 {
     check_ajax_referer('backupGuardAjaxNonce', 'token');
 	SGConfig::set('SG_CLOSE_FREE_BANNER', 1);
@@ -489,6 +517,36 @@ function backup_guard_review_later()
 	check_ajax_referer('backupGuardAjaxNonce', 'token');
 	require_once(SG_PUBLIC_AJAX_PATH.'reviewBannerActions.php');
 	wp_die();
+}
+
+function backup_guard_choose_profile()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'chooseProfile.php');
+}
+
+function backup_guard_bg_login()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'bgLogin.php');
+}
+
+function backup_guard_bg_auto_login()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'bgAutoLogin.php');
+}
+
+function backup_guard_create_cloud_user()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'createCloudUser.php');
+}
+
+function backup_guard_is_bg_user_exists()
+{
+	check_ajax_referer('backupGuardAjaxNonce', 'token');
+	require_once(SG_PUBLIC_AJAX_PATH.'isBgUserExists.php');
 }
 
 function backup_guard_store_survey_result()
@@ -596,9 +654,18 @@ function backup_guard_check_restore_creation()
 
 function backup_guard_cloud_dropbox()
 {
-	if (current_user_can('activate_plugins')) {
+	if (current_user_can('activate_plugins') || (defined('SG_USER_MODE') && SG_USER_MODE)) {
 		check_ajax_referer('backupGuardAjaxNonce', 'token');
 		require_once(SG_PUBLIC_AJAX_PATH . 'cloudDropbox.php');
+	}
+}
+
+function backup_guard_send_usage_status()
+{
+
+	if (current_user_can('activate_plugins') || (defined('SG_USER_MODE') && SG_USER_MODE)) {
+		check_ajax_referer('backupGuardAjaxNonce', 'token');
+		require_once(SG_PUBLIC_AJAX_PATH . 'sendUsageStatus.php');
 	}
 }
 
@@ -774,6 +841,9 @@ function sgBackupAdminInit() {
 			'filterUpdateChecks'
 		));
 	}
+
+	require_once(SG_LIB_PATH.'SGStatsRequests.php');
+	SGStatsRequests::initialSync();
 }
 
 add_action('admin_init', 'sgBackupAdminInit');
@@ -839,6 +909,12 @@ function backupGuardloadTextDomain()
 
 if (backupGuardShouldShowDiscountNotice() && checkDueDateDiscount()) {
 	add_action('admin_notices', 'backup_guard_discount_notice');
+	add_action('admin_enqueue_scripts', 'sgBlackFridayCSS');
+}
+
+function sgBlackFridayCSS($hook)
+{
+	wp_enqueue_style('backup-guard-less', plugin_dir_url(__FILE__).'public/css/bgstyle.less.css');
 }
 
 function backup_guard_discount_notice()
@@ -846,148 +922,275 @@ function backup_guard_discount_notice()
 	$capabilities = backupGuardGetCapabilities();
 	$upgradeUrl = BG_UPGRADE_URL;
 	?>
-	<div class="backup-guard-discount-notice updated notice is-dismissible">
-		<div class="sgbg-col sgbg-col1"></div>
-		<div class="sgbg-col sgbg-col2"></div>
-		<div class="sgbg-col sgbg-col3">
-			<div class="sgbg-text-col-1">
-				-50%
-			</div>
-			<div class="sgbg-text-col-2">
-				<div class="sgbg-discount-text-1">Discount</div>
-				<div class="sgbg-discount-text-2">All Backup Guard Solutions</div>
-			</div>
-		</div>
-		<div class="sgbg-col sgbg-col4">
-			<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>
-		</div>
-	</div>
-	<style>
-		.backup-guard-discount-notice.updated.notice.is-dismissible {
-			padding: 0;
-			border-left-color: #FFFFFF !important;
-			background-color: #000000;
-			height: 160px;
-		}
-		.backup-guard-discount-notice button:before {
-			color: #ffffff !important;
-		}
-		.sgbg-col {
-			display: inline-block;
-			width: 25%;
-			height: 100%;
-			padding: 0 25px;
-			box-sizing: border-box;
-		}
-		.sgbg-col1 {
-			width: 10%;
-			background-color: #FFFFFF;
-			background-image: url("<?php echo SG_IMAGE_URL ?>BgBFLogo.jpg");
-			background-size: 80%;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-		.sgbg-col2 {
-			width: 20%;
-			background-image: url("<?php echo SG_IMAGE_URL ?>BF.png");
-			background-size: contain;
-			margin-left: 70px;
-			background-position: center;
-			background-repeat: no-repeat;
-		}
-		.sgbg-col3 {
-			vertical-align: top;
-			width: 45%;
-			margin-top: 55px;
-		}
-		.sgbg-col4 {
-			width: 10%;
-		}
-		.sgbg-text-col-1,
-		.sgbg-text-col-2 {
-			width: 49%;
-			display: inline-block;
-			color: #FFFFFF;
-		}
-		.sgbg-text-col-1 {
-			font-size: 100px;
-			line-height: 0;
-			font-weight: bold;
-			text-align: right;
-			padding-right: 26px;
-			box-sizing: border-box;
-		}
-		.sgbg-discount-text-2 {
-			font-size: 19px;
-		}
-		.sgbg-discount-text-1 {
-			font-size: 60px;
-			padding-bottom: 27px;
-			font-weight: bold;
-		}
-		.sgbg-col4 {
-			vertical-align: top;
-		}
-		.sgbg-button {
-			width: 183px;
-			height: 67px;
-			font-size: 20px;
-			border: #ffffff;
-			border-radius: 10px;
-			margin-top: 48px;
-			background-color: #FFFFFF;
-			color: #000000;
-			cursor: pointer !important;
-		}
-		.sgbg-button:hover {
-			background-color: #000000;
-			border: 1px solid #FFFFFF;
-			color: #FFFFFF;
-		}
-		.backup-guard-discount-notice .notice-dismiss::before {
-			content: "x";
-			font-weight: 300;
-			font-family: Arial, sans-serif;
-		}
+    <div style="visibility: hidden;height: 0;">
+        <div id="sg-black-friday-popup-content-wrapper">
+            <div class="sgbg-black-friday-close-popup"></div>
+            <div class="sg-black-friday-text-image"></div>
+            <p class="sg-black-friday-p">Don’t miss your chance, get <b>50%</b>off!</p>
+            <div class="sg-black-friday-btn-wrapper">
+                <a href="<?php echo BG_UPGRADE_URL; ?>" target="_blank">
+                    <button class="sg-black-friday-button">Click Here</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="sg-wrapper-less">
+        <div class="backup-guard-discount-notice updated notice is-dismissible sg-wrapper-less">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+	            <a href="<?php echo BG_UPGRADE_URL; ?>" target="_blank">
+                <div class="sg-black-friday-logo"></div>
+	            </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-4">
+                <div class="sg-black-friday-text-image"></div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-4">
+                <div class="sg-black-friday-txt">
+                    <p>Don’t miss your chance, get</p>
+                    <div class="sg-black-friday-percent"><p>50% OFF!</p></div>
+                    <a href="<?php echo BG_UPGRADE_URL; ?>" target="_blank">
+                        <button class="sg-black-friday-button">Click Here</button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-0"></div>
+    <!--        <a href="--><?php //echo SG_BACKUP_SITE_PRICING_URL; ?><!--" target="_blank">-->
+    <!--            <div class="sgbg-banner-content">-->
+    <!--            </div>-->
+    <!--        </a>-->
+            <!--		<div class="sgbg-col sgbg-col1"></div>-->
+            <!--		<div class="sgbg-col sgbg-col2"></div>-->
+            <!--		<div class="sgbg-col sgbg-col3">-->
+            <!--			<div class="sgbg-text-col-1">-->
+            <!--				-50%-->
+            <!--			</div>-->
+            <!--			<div class="sgbg-text-col-2">-->
+            <!--				<div class="sgbg-discount-text-1">Discount</div>-->
+            <!--				<div class="sgbg-discount-text-2">All Backup Guard Solutions</div>-->
+            <!--			</div>-->
+            <!--		</div>-->
+            <!--		<div class="sgbg-col sgbg-col4">-->
+            <!--			<a href="https://backup-guard.com/products/backup-wordpress" target="_blank"><button class="sgbg-button">Click Here</button></a>-->
+            <!--		</div>-->
+        </div>
+    </div>
+    <style>
+        .sg-black-friday-txt {
+            color: #0095FE;
+            font-size: 25px;
+            margin-top: 10px;
+        }
+        .sg-black-friday-button {
+            width: 167px;
+            height: 37px;
+            background-color: #0095FE;
+            border-radius: 12px;
+            border: 2px solid #0095FE;
+            color: #070D2D !important;
+            font-size: 17px !important;
+            cursor: pointer;
+        }
+        .sg-black-friday-button:focus {
+            border: 2px solid #0095FE !important;
+            outline: none;
+        }
+        .sg-black-friday-button:hover {
+            color: rgba(0, 149, 254, 1) !important;
+            background-color: rgba(7, 13, 45, 1);
+        }
+        .sg-black-friday-logo {
+            height: 125px;
+            background-image: url("<?php echo SG_IMAGE_URL ?>blackFridayLogo.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-top: 11px;
+        }
+        .sg-black-friday-text-image {
+            height: 145px;
+            background-image: url("<?php echo SG_IMAGE_URL ?>blackFridayText.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .sg-black-friday-percent {
+            margin: 15px 0;
+        }
+        .sg-black-friday-percent p {
+            font-size: 38px;
+        }
+        .sg-black-friday-txt p {
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1 !important;
+        }
+        #sg-black-friday-popup-content-wrapper {
+            position: relative;
+            width: 640px;
+            height: 538px;
+            max-width: 100%;
+            max-height: 100%;
+            background-image: url("<?php echo SG_IMAGE_URL ?>blackFridayPopup.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: top center;
+            box-sizing: border-box;
+            padding-top: 183px;
+        }
+        .sg-black-friday-p {
+            text-align: center;
+            color: #0095FE;
+            font-size: 25px;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+        .sg-black-friday-btn-wrapper {
+            text-align: center;
+        }
+        .sgbg-banner-content {
+            height: 160px;
+            background-image: url("<?php echo SG_IMAGE_URL ?>halloween.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .sgbg-black-friday-close-popup {
+            position: absolute;
+            top: 87px;
+            right: 16px;
+            background-size: contain;
+            width: 20px;
+            height: 21px;
+            background-repeat: no-repeat;
+            background-image: url("<?php echo SG_IMAGE_URL ?>blackFridayClose.png");
+            cursor: pointer;
+        }
+        .backup-guard-discount-notice.updated.notice.is-dismissible {
+            border-left-color: #FFFFFF !important;
+            background-color: #000000;
+            height: 160px;
+            padding: 5px 0;
+            background-image: url("<?php echo SG_IMAGE_URL ?>blackFridayBG.jpg");
+            background-size: contain;
+        }
+        .backup-guard-discount-notice button:before {
+            color: #ffffff !important;
+        }
+        .sgbg-col {
+            display: inline-block;
+            width: 25%;
+            height: 100%;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+        .sgbg-col1 {
+            width: 10%;
+            background-color: #FFFFFF;
+            background-image: url("<?php echo SG_IMAGE_URL ?>BgBFLogo.jpg");
+            background-size: 80%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .sgbg-col2 {
+            width: 20%;
+            background-image: url("<?php echo SG_IMAGE_URL ?>BF.png");
+            background-size: contain;
+            margin-left: 70px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .sgbg-col3 {
+            vertical-align: top;
+            width: 45%;
+            margin-top: 55px;
+        }
+        .sgbg-col4 {
+            width: 10%;
+        }
+        .sgbg-text-col-1,
+        .sgbg-text-col-2 {
+            width: 49%;
+            display: inline-block;
+            color: #FFFFFF;
+        }
+        .sgbg-text-col-1 {
+            font-size: 100px;
+            line-height: 0;
+            font-weight: bold;
+            text-align: right;
+            padding-right: 26px;
+            box-sizing: border-box;
+        }
+        .sgbg-discount-text-2 {
+            font-size: 19px;
+        }
+        .sgbg-discount-text-1 {
+            font-size: 60px;
+            padding-bottom: 27px;
+            font-weight: bold;
+        }
+        .sgbg-col4 {
+            vertical-align: top;
+        }
+        .sgbg-button {
+            width: 183px;
+            height: 67px;
+            font-size: 20px;
+            border: #ffffff;
+            border-radius: 10px;
+            margin-top: 48px;
+            background-color: #FFFFFF;
+            color: #000000;
+            cursor: pointer !important;
+        }
+        .sgbg-button:hover {
+            background-color: #000000;
+            border: 1px solid #FFFFFF;
+            color: #FFFFFF;
+        }
+        .backup-guard-discount-notice .notice-dismiss::before {
+            content: "x";
+            font-weight: 300;
+            font-family: Arial, sans-serif;
+        }
 
-		@media (max-width: 1810px) {
-			.sgbg-text-col-1 {
-				font-size: 80px;
-			}
-			.sgbg-discount-text-1 {
-				font-size: 43px;
-			}
-			.sgbg-discount-text-2 {
-				font-size: 15px;
-			}
-			.sgbg-discount-text-1 {
-				padding-bottom: 18px;
-			}
-			.sgbg-col3 {
-				margin-top: 60px;
-			}
-		}
-		@media (max-width: 1477px) {
-			.sgbg-discount-text-2 {
-				font-size: 12px;
-			}
-			.sgbg-discount-text-1 {
-				font-size: 35px;
-			}
-			.sgbg-discount-text-1 {
-				padding-bottom: 13px;
-			}
-			.sgbg-col {
-				padding: 0;
-			}
-			.sgbg-col2 {
-				margin-left: 40px;
-			}
-			.sgbg-col2 {
-				margin-left: 0;
-			}
-		}
-	</style>
+        @media (max-width: 1810px) {
+            .sgbg-text-col-1 {
+                font-size: 80px;
+            }
+            .sgbg-discount-text-1 {
+                font-size: 43px;
+            }
+            .sgbg-discount-text-2 {
+                font-size: 15px;
+            }
+            .sgbg-discount-text-1 {
+                padding-bottom: 18px;
+            }
+            .sgbg-col3 {
+                margin-top: 60px;
+            }
+        }
+        @media (max-width: 1477px) {
+            .sgbg-discount-text-2 {
+                font-size: 12px;
+            }
+            .sgbg-discount-text-1 {
+                font-size: 35px;
+            }
+            .sgbg-discount-text-1 {
+                padding-bottom: 13px;
+            }
+            .sgbg-col {
+                padding: 0;
+            }
+            .sgbg-col2 {
+                margin-left: 40px;
+            }
+            .sgbg-col2 {
+                margin-left: 0;
+            }
+        }
+    </style>
 	<?php
 }
 

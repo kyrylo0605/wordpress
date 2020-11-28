@@ -1492,27 +1492,41 @@ SGPopup.openSGPopup = function() {
 	}
 };
 
-var hiddenDivId = 'sg-backup-review-wrapper';
-var popupConfigObj = new PopupConfig();
-popupConfigObj.magicCall('setContentPadding', 0);
-popupConfigObj.magicCall('setContentBorderRadius', 4);
-popupConfigObj.magicCall('setContentBorderRadiusType', 'px');
-popupConfigObj.magicCall('setContentBorderWidth', 5);
-popupConfigObj.magicCall('setContentBorderColor', '#506274');
-popupConfigObj.magicCall('setShadowSpread', 1);
-popupConfigObj.magicCall('setContentShadowBlur', 4);
-popupConfigObj.magicCall('setContentShadowColor', '#cccccc');
-popupConfigObj.magicCall('setMinWidth', 400);
-popupConfigObj.magicCall('setSrcElement', hiddenDivId);
-popupConfigObj.magicCall('setOverlayColor', 'black');
-popupConfigObj.magicCall('setOverlayOpacity', 40);
-var config = popupConfigObj.combineConfigObj();
-
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
+	var hiddenDivId = 'sg-black-friday-popup-content-wrapper';
 	if (!jQuery('#'+hiddenDivId).length) {
 		return false;
 	}
+
+	var popupConfigObj = new PopupConfig();
+	popupConfigObj.magicCall('setContentPadding', 0);
+	popupConfigObj.magicCall('setContentBorderRadius', 4);
+	popupConfigObj.magicCall('setContentBorderRadiusType', 'px');
+	popupConfigObj.magicCall('setContentBorderWidth', 0);
+	popupConfigObj.magicCall('setOverlayColor', 'white');
+	popupConfigObj.magicCall('setContentBorderColor', '#506274');
+	popupConfigObj.magicCall('setShadowSpread', 1);
+	popupConfigObj.magicCall('setContentShadowBlur', 4);
+	popupConfigObj.magicCall('setContentBackgroundColor', 'rgba(1,1,1,0)');
+	popupConfigObj.magicCall('setContentShadowColor', '');
+	popupConfigObj.magicCall('setMinWidth', 400);
+	popupConfigObj.magicCall('setSrcElement', hiddenDivId);
+	popupConfigObj.magicCall('setOverlayColor', 'black');
+	popupConfigObj.magicCall('setOverlayOpacity', 40);
+	var config = popupConfigObj.combineConfigObj();
+
 	var popup = new SGPopup(config);
-	window.backupGuardReviewPopup = popup;
+	window.backupGuardHalloweenPopup = popup;
 	popup.open();
+
+	jQuery('.sgbg-black-friday-close-popup').bind('click', function () {
+		window.backupGuardHalloweenPopup.close();
+		jQuery('.backup-guard-discount-notice').remove();
+		var sgNoticeClosedHandler = new sgRequestHandler('dismiss_discount_notice', {token: BG_BACKUP_STRINGS.nonce});
+		sgNoticeClosedHandler.run();
+	});
+
+	jQuery('#sg-halloween-popup-content-wrapper').bind('click', function () {
+		window.open('https://backup-guard.com/products/backup-wordpress#pricing')
+	});
 });

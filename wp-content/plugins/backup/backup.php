@@ -4,19 +4,20 @@
  * Plugin Name:       Backup
  * Plugin URI:        https://backup-guard.com/products/backup-wordpress
  * Description:       Backup Guard is the most complete site backup and restore plugin. We offer the easiest way to backup, restore or migrate your site. You can backup your files, database or both.
- * Version:           1.4.4
+ * Version:           1.5.1.1
  * Author:            BackupGuard
  * Author URI:        https://backup-guard.com/products/backup-wordpress
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+
 if (function_exists('activate_backup_guard')) {
 	die('Please deactivate any other BackupGuard version before activating this one.');
 }
 
 if (!defined('SG_BACKUP_GUARD_VERSION')) {
-	define('SG_BACKUP_GUARD_VERSION', '1.4.4');
+	define('SG_BACKUP_GUARD_VERSION', '1.5.1.1');
 }
 
 if (!defined('SG_BACKUP_GUARD_MAIN_FILE')) {

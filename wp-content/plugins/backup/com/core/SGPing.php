@@ -2,9 +2,9 @@
 
 class SGPing
 {
-	public static $lastUpdateTs;
+	private static $lastUpdateTs;
 
-	public static function shouldUpdate()
+	private static function shouldUpdate()
 	{
 		if ((int)time()-self::$lastUpdateTs < SG_PING_DATE_UPDATE_FREQUENCY) {
 			return false;

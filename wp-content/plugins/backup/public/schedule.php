@@ -4,6 +4,7 @@ $id = '';
 $directories = SG_BACKUP_FILE_PATHS;
 $directories = explode(',', $directories);
 $dropbox = SGConfig::get('SG_DROPBOX_ACCESS_TOKEN');
+$backupGuard = SGConfig::get('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN');
 
 $intervalSelectElement = array(
 	BG_SCHEDULE_INTERVAL_HOURLY => 'Hour',
@@ -16,6 +17,7 @@ $sgb = new SGBackup();
 $scheduleParams = $sgb->getScheduleParamsById(SG_SCHEDULER_DEFAULT_ID);
 $scheduleParams = backupGuardParseBackupOptions($scheduleParams);
 ?>
+
 <div id="sg-backup-page-content-schedule" class="sg-backup-page-content <?php echo $contentClassName; ?>">
 <div class="row sg-schedule-container">
     <div class="col-md-12">
@@ -103,6 +105,14 @@ $scheduleParams = backupGuardParseBackupOptions($scheduleParams);
                                     </label>
                                     <!--Storages-->
                                     <div class="col-md-12 sg-checkbox sg-custom-backup-cloud <?php echo count($scheduleParams['selectedClouds'])?'sg-open':'';?>">
+	                                    <?php if(SGBoot::isFeatureAvailable('BACKUP_GUARD') && SG_SHOW_BACKUPGUARD_CLOUD): ?>
+                                            <div class="checkbox">
+                                                <label for="cloud-backup-guard" <?php echo empty($backupGuard)?'data-toggle="tooltip" data-placement="right" title="'._backupGuardT('BackupGuard is not active.',true).'"':''?>>
+                                                    <input type="checkbox" name="backupStorages[]" id="cloud-backup-guard" value="<?php echo SG_STORAGE_BACKUP_GUARD ?>" <?php echo in_array(SG_STORAGE_BACKUP_GUARD, $scheduleParams['selectedClouds'])?'checked="checked"':''?> <?php echo empty($backupGuard)?'disabled="disabled"':''?>>
+				                                    <?php echo 'BackupGuard' ?>
+                                                </label>
+                                            </div>
+	                                    <?php endif; ?>
                                         <?php if(SGBoot::isFeatureAvailable('FTP')): ?>
                                             <div class="checkbox">
                                                 <label for="cloud-ftp" <?php echo empty($ftp)?'data-toggle="tooltip" data-placement="right" title="'._backupGuardT('FTP is not active.',true).'"':''?>>

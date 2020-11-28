@@ -10,6 +10,11 @@ namespace WeDevs\Dokan;
  */
 class Tracker {
 
+    /**
+     * Insights class
+     *
+     * @var \Appsero\Insights
+     */
     public $insights = null;
 
     /**
@@ -35,11 +40,15 @@ class Tracker {
 
         $this->insights = $client->insights();
 
-        $this->insights->add_extra( [
-            'products' => $this->insights->get_post_count( 'product' ),
-            'orders'   => $this->get_order_count(),
-            'is_pro'   => class_exists( 'Dokan_Pro' ) ? 'Yes' : 'No',
-        ] );
+        $this->insights->add_extra(
+            [
+                'products'      => $this->insights->get_post_count( 'product' ),
+                'orders'        => $this->get_order_count(),
+                'is_pro'        => class_exists( 'Dokan_Pro' ) ? 'Yes' : 'No',
+                'wc_version'    => function_exists( 'WC' ) ? WC()->version : null,
+                'dokan_version' => DOKAN_PLUGIN_VERSION,
+            ]
+          );
 
         $this->insights->init_plugin();
     }
@@ -47,12 +56,11 @@ class Tracker {
     /**
      * Get number of orders
      *
-     * @return integer
+     * @return int
      */
     protected function get_order_count() {
         global $wpdb;
 
-        return (int) $wpdb->get_var( "SELECT count(ID) FROM $wpdb->posts WHERE post_type = 'shop_order' and post_status IN ('wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded');");
+        return (int) $wpdb->get_var( "SELECT count(ID) FROM $wpdb->posts WHERE post_type = 'shop_order' and post_status IN ('wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded');" );
     }
-
 }

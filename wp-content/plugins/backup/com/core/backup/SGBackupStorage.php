@@ -5,6 +5,7 @@ backupGuardIncludeFile(SG_STORAGE_PATH.'SGDropboxStorage.php');
 backupGuardIncludeFile(SG_STORAGE_PATH.'SGOneDriveStorage.php');
 backupGuardIncludeFile(SG_STORAGE_PATH.'SGFTPManager.php');
 backupGuardIncludeFile(SG_STORAGE_PATH.'SGAmazonStorage.php');
+backupGuardIncludeFile(SG_STORAGE_PATH.'BackupGuardStorage.php');
 
 class SGBackupStorage implements SGIStorageDelegate
 {
@@ -82,6 +83,11 @@ class SGBackupStorage implements SGIStorageDelegate
 		return $this->token;
 	}
 
+	public function getProgress()
+	{
+		return $this->nextProgressUpdate;
+	}
+
 	public static function getInstance()
 	{
 		if (!self::$instance)
@@ -116,10 +122,10 @@ class SGBackupStorage implements SGIStorageDelegate
 		return $listOfFiles;
 	}
 
-	public function downloadBackupArchiveFromCloud($storageId, $archive, $size)
+	public function downloadBackupArchiveFromCloud($storageId, $archive, $size, $backupId = null)
 	{
 		$storage = $this->storageObjectById($storageId, $storageName);
-		$result = $storage->downloadFile($archive, $size);
+		$result = $storage->downloadFile($archive, $size, $backupId);
 
 		return $result?true:false;
 	}
@@ -152,7 +158,8 @@ class SGBackupStorage implements SGIStorageDelegate
 			$type = $row['subtype'];
 			$backupName = $row['name'];
 		}
-		else{
+		else {
+			$this->nextProgressUpdate = $this->state->getProgress()?$this->state->getProgress():$this->progressUpdateInterval;
 			$this->actionId = $this->state->getActionId();
 			$this->currentUploadChunksCount = $this->state->getCurrentUploadChunksCount();
 			$type = $this->state->getStorageType();
@@ -233,6 +240,12 @@ class SGBackupStorage implements SGIStorageDelegate
 					$storageClassName = "SGOneDriveStorage";
 				}
 				break;
+			case SG_STORAGE_BACKUP_GUARD:
+				if (SGBoot::isFeatureAvailable('BACKUP_GUARD') && SG_SHOW_BACKUPGUARD_CLOUD) {
+					$storageName = 'BackupGuard';
+					$storageClassName = "BackupGuard\Storage";
+				}
+				break;
 		}
 
 		if (!$storageClassName) {
@@ -281,13 +294,11 @@ class SGBackupStorage implements SGIStorageDelegate
 
 	private function updateProgress($progress = null)
 	{
-		if (!$progress)
-		{
-			$progress = $this->currentUploadChunksCount*100.0/$this->totalUploadChunksCount;
+		if (!$progress) {
+			$progress = (int)ceil($this->currentUploadChunksCount*100.0/$this->totalUploadChunksCount);
 		}
 
-		if ($progress>=$this->nextProgressUpdate)
-		{
+		if ($progress >= $this->nextProgressUpdate) {
 			$this->nextProgressUpdate += $this->progressUpdateInterval;
 
 			$progress = max($progress, 0);

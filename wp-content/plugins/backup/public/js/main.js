@@ -6,7 +6,7 @@ SG_NOTICE_EXECUTION_FREE_TIMEOUT = 'timeout_free_error';
 SG_NOTICE_MIGRATION_ERROR = 'migration_error';
 SG_NOTICE_NOT_WRITABLE_ERROR = 'restore_notwritable_error';
 
-jQuery(window).load(function() {
+jQuery(window).on('load', function() {
 	if (jQuery('.sg-active-action-id').length == 0) {
 		sgBackup.showReviewModal();
 	}
@@ -73,6 +73,28 @@ sgBackup.init = function(){
 	sgBackup.initModals();
 	sgBackup.downloadButton();
 	sgBackup.navMenu();
+	sgBackup.sendUsageDataStatus();
+};
+
+sgBackup.sendUsageDataStatus = function ()
+{
+    var checkbox = jQuery('.backup-send-usage-data-status');
+
+    if (!checkbox.length) {
+        return false;
+    }
+
+    checkbox.bind('switchChange.bootstrapSwitch', function () {
+		var currentStatus = jQuery(this).is(':checked');
+		var action = 'send_usage_status';
+		jQuery(this).prop('disabled', true);
+        var ajaxHandler = new sgRequestHandler(action, {currentStatus: currentStatus, token: BG_BACKUP_STRINGS.nonce});
+        ajaxHandler.callback = function(data, error) {
+            jQuery(this).prop('disabled', false);
+		}
+
+        ajaxHandler.run();
+    });
 };
 
 sgBackup.navMenu = function ()
@@ -83,19 +105,27 @@ sgBackup.navMenu = function ()
 		return false;
 	}
 
-    navMenu.bind('click', function (event) {
+    navMenu.unbind('click').bind('click', function (event) {
         event.preventDefault();
         sgBackup.init();
+
+        var currentUrl = jQuery(this).attr('href');
+        var openContent = jQuery(this).data('open-content');
+
+        if (typeof openContent != 'undefined' && openContent == 0) {
+            window.open(currentUrl);
+            return true;
+        }
         jQuery('.sg-backup-page-content').addClass('sg-visibility-hidden');
         jQuery('.sg-backup-sidebar-nav li').removeClass('active');
 
-		var currentKey = jQuery(this).data('page-key');
-		var currentPageContent = jQuery('#sg-backup-page-content-'+currentKey);
+        var currentKey = jQuery(this).data('page-key');
+        var currentPageContent = jQuery('#sg-backup-page-content-'+currentKey);
 
-		if (!currentPageContent.length) {
-			return false;
-		}
-		jQuery(this).parent().addClass('active');
+        if (!currentPageContent.length) {
+            return false;
+        }
+        jQuery(this).parent().addClass('active');
         currentPageContent.removeClass('sg-visibility-hidden');
     });
 };
@@ -160,6 +190,13 @@ sgBackup.initModals = function(){
 			token: BG_BACKUP_STRINGS.nonce
 		});
 
+		if (modalName == 'backup-guard-details') {
+			modal.modal({
+				backdrop: 'static',
+				keyboard: false
+			});
+		}
+		
 		ajaxHandler.type = 'GET';
 		ajaxHandler.dataType = 'html';
 		ajaxHandler.callback = function(data, error) {
@@ -404,21 +441,22 @@ sgBackup.showReviewModal = function(){
 	}
 };
 
-sgBackup.initTablePagination = function(){
+sgBackup.initTablePagination = function(pageName){
+	var callBack = pageName+'';
 	jQuery.fn.sgTablePagination = function(opts){
 		var jQuerythis = this,
 			defaults = {
 				perPage: 7,
 				showPrevNext: false,
 				hidePageNumbers: false,
-				pagerSelector: 'pagination'
+				pagerSelector: '.'+pageName+' .pagination'
 			},
 			settings = jQuery.extend(defaults, opts);
 
 		var listElement = jQuerythis.children('tbody');
 		var perPage = settings.perPage;
 		var children = listElement.children();
-		var pager = jQuery('.pager');
+		var pager = jQuery('.'+pageName+'.pager');
 
 		if (typeof settings.childSelector!="undefined") {
 			children = listElement.find(settings.childSelector);
@@ -428,7 +466,7 @@ sgBackup.initTablePagination = function(){
 			pager = jQuery(settings.pagerSelector);
 		}
 
-		var numItems = children.size();
+		var numItems = children.length;
 		var numPages = Math.ceil(numItems/perPage);
 
 		pager.data("curr",0);
@@ -445,7 +483,7 @@ sgBackup.initTablePagination = function(){
 
 		if(curr<=1){
 			jQuery(settings.pagerSelector).parent('div').hide();
-			jQuery('.page_link').hide();
+			jQuery('.'+pageName+'.page_link').hide();
 		}
 
 		if (settings.showPrevNext){
@@ -512,7 +550,7 @@ sgBackup.initTablePagination = function(){
 
 		}
 	};
-	jQuery('table.paginated').sgTablePagination({pagerSelector:'.pagination',showPrevNext:true,hidePageNumbers:false,perPage:7});
+	jQuery('table.paginated.'+pageName).sgTablePagination({pagerSelector:'.'+pageName+' .pagination',showPrevNext:true,hidePageNumbers:false,perPage:7});
 };
 
 sgBackup.logout = function()
@@ -522,4 +560,4 @@ sgBackup.logout = function()
 		location.reload();
 	};
 	ajaxHandler.run();
-}
+};

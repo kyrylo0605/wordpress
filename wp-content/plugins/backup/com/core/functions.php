@@ -1,5 +1,20 @@
 <?php
 
+function backupGuardGetSiteUrl()
+{
+	if (SG_ENV_ADAPTER == SG_ENV_WORDPRESS) {	
+		return get_site_url();
+	}
+	else {
+		return sprintf(
+			"%s://%s%s",
+			isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+			$_SERVER['SERVER_NAME'],
+			$_SERVER['REQUEST_URI']
+		);
+	}
+}
+
 function backupGuardGetCapabilities()
 {
 	switch (SG_PRODUCT_IDENTIFIER) {
@@ -20,7 +35,7 @@ function backupGuardGetCapabilities()
 function convertToReadableSize($size)
 {
 	if (!$size) {
-		return '';
+		return '0';
 	}
 
 	$base = log($size) / log(1000);
@@ -626,8 +641,8 @@ function backupGuardGetBackupTablesHTML($defaultChecked = false){
 	?>
 
 	<div class="checkbox">
-		<label for="custombackupdb-chbx">
-			<input type="checkbox" class="sg-custom-option" name="backupDatabase" id="custombackupdb-chbx"  <?php echo $defaultChecked?'checked':'' ?>>
+		<label for="custom-backupdb-chbx">
+			<input type="checkbox" class="sg-custom-option" name="backupDatabase" id="custom-backupdb-chbx"  <?php echo $defaultChecked?'checked':'' ?>>
             <span class="sg-checkbox-label-text"><?php _backupGuardT('Backup database'); ?></span>
 		</label>
 		<div class="col-md-12 sg-checkbox sg-backup-db-options">

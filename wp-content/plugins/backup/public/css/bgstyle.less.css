@@ -6416,6 +6416,7 @@
 .sg-wrapper-less .modal-header {
   padding: 20px;
   min-height: 16.42857143px;
+  background: #f8f8f8;
 }
 .sg-wrapper-less .modal-header .close {
   margin-top: -2px;
@@ -7899,26 +7900,32 @@
   height: 20px;
   background-image: url('../img/backup-icons.png');
   background-repeat: no-repeat;
-  background-size: 180px 40px;
+  background-size: 205px 40px;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
   .sg-wrapper-less .sg-status-icon {
-    background-image: url('../img/backup-icons@2x.png');
+    background-image: url('../img/backup-icons.png');
   }
+}
+.sg-wrapper-less .sg-status-36 {
+  background-position: -184px 0px;
+}
+.sg-wrapper-less .sg-status-36.active {
+  background-position: -184px -21px;
 }
 .sg-wrapper-less .sg-status-35 {
   background-position: -123px 1px;
   width: 28px;
 }
 .sg-wrapper-less .sg-status-35.active {
-  background-position: -123px -20px;
+  background-position: -123px -21px;
   width: 28px;
 }
 .sg-wrapper-less .sg-status-34 {
   background-position: -96px 1px;
 }
 .sg-wrapper-less .sg-status-34.active {
-  background-position: -96px -20px;
+  background-position: -96px -21px;
 }
 .sg-wrapper-less .sg-status-1 {
   background-position: 0px 1px;
@@ -7926,32 +7933,31 @@
   width: 16px;
 }
 .sg-wrapper-less .sg-status-1.active {
-  background-position: 0px -20px;
+  background-position: 0px -21px;
 }
 .sg-wrapper-less .sg-status-2 {
   background-position: -23px 0px;
-  background-size: 180px 42px;
 }
 .sg-wrapper-less .sg-status-2.active {
-  background-position: -23px -22px;
+  background-position: -23px -21px;
 }
 .sg-wrapper-less .sg-status-31 {
   background-position: -72px 1px
 }
 .sg-wrapper-less .sg-status-31.active {
-  background-position: -72px -20px;
+  background-position: -72px -21px;
 }
 .sg-wrapper-less .sg-status-32 {
   background-position: -47px 1px;
 }
 .sg-wrapper-less .sg-status-32.active {
-  background-position: -47px -20px;
+  background-position: -47px -21px;
 }
 .sg-wrapper-less .sg-status-33 {
   background-position: -158px 1px;
 }
 .sg-wrapper-less .sg-status-33.active {
-  background-position: -159px -20px;
+  background-position: -159px -21px;
 }
 .sg-wrapper-less .sg-status-22 {
   background-position: -180px -20px;
@@ -8122,7 +8128,7 @@ input.sg-backup-input[readonly] {
 }
 
 .sg-error-notice-wrapper {
-  text-align: center;
+  text-align: left;
 }
 
 .sg-notice-contact-wrapper {
@@ -8259,3 +8265,106 @@ a#sg-logo:focus {
   }
 }
 /*Pricing table page CSS*/
+
+.sgbg-welcome-title {
+  margin-top: 0 !important;
+  margin-bottom: 6px !important;
+}
+
+.sg-data-collection-label {
+  text-align: left;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: text-bottom;
+}
+
+.sg-data-collection-label label {
+  font-weight: normal;
+}
+
+.backup-send-usage-data-status-wrapper {
+  text-align: left;
+  display: inline-block;
+}
+
+.bg-initial-privacy-links-container {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  margin-top: 20px;;
+}
+
+.bg-initial-privacy-links-container  a {
+  font-size: 16px;
+  text-decoration: none;
+  margin: 0 15px;
+  color: #016cb0;
+}
+
+.sgbg-send-usage-data-wrapper {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.sgbg-send-usage-data-wrapper span.bootstrap-switch-handle-on.bootstrap-switch-primary {
+  background: #007cba;
+}
+
+.bg-invalid-login {
+  color: red;
+}
+
+#backupGuardDetailsModal .control-label {
+  text-align: left !important;
+}
+
+#backupGuardDetailsModal label.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: normal;
+}
+
+#backupGuardDetailsModal button {
+  outline: none;
+}
+
+.bg-email-confirmation {
+  color: #000;
+}
+
+.sgbg-info-icon {
+  margin-left: 5px;
+  margin-top: 1px;
+}
+
+.sgbg-info-text {
+  color: #3879D9;
+  font: 14px Arial;
+  width: 200px;
+  border: 1px solid #ccc;
+  position: absolute;
+  min-width: 20px;
+  min-height: 13px;
+  display: none;
+  margin-top: 3px;
+  margin-left: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+  padding: 5px;
+  z-index: 9999;
+  background-color: white;
+  border-radius: 5px;
+  display: none;
+}
+
+.sgbg-info-icon:hover + .sgbg-info-text {
+  display: inline-block !important;
+}
+
+.modal-content .sgbg-info-icon {
+  margin-top: 4px;
+}
+
+.modal-content .sgbg-info-text {
+  margin-top: 3px;
+  margin-left: 5px;
+}

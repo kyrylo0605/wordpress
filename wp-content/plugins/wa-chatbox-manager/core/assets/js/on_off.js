@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
-   
-    jQuery('.chatbox_manager_panel_slider .inset .control').live('click',function() {
+
+    jQuery('.chatbox_manager_panel_slider .inset .control').on('click',function() {
         if (!jQuery(this).parent().parent().hasClass('disabled')) {
             if (jQuery(this).parent().parent().hasClass('on')) {
                 jQuery(this).parent().parent().addClass('off').removeClass('on');
@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
             }
         }
     });
-	
+
     jQuery('.chatbox_manager_panel_slider .inset .control').each(function() {
         if (!jQuery(this).parent().parent().hasClass('disabled')) {
             if (jQuery(this).parent().parent().hasClass('on')) {

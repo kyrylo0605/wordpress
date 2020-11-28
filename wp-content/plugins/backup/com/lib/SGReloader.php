@@ -40,7 +40,7 @@ class SGReloader
 
 	public static function registerCallback(SGCallback $callback)
 	{
-		self::saveState($callback->toString());
+		self::saveState((string)$callback);
 	}
 
 	public static function reset()

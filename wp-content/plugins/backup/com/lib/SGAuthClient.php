@@ -8,11 +8,17 @@ class SGAuthClient
 	private $client = null;
 	private $accessToken = '';
 	private $accessTokenExpires = 0;
+	
+	private $uploadAccessToken = '';
+	private $uploadAccessTokenExpires = 0;
 
 	private function __construct()
 	{
 		$this->accessToken = SGConfig::get('SG_BACKUPGUARD_ACCESS_TOKEN', true);
 		$this->accessTokenExpires = SGConfig::get('SG_BACKUPGUARD_ACCESS_TOKEN_EXPIRES', true);
+
+		$this->uploadAccessToken = SGConfig::get('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN', true);
+		$this->uploadAccessTokenExpires = SGConfig::get('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN_EXPIRES', true);
 
 		$this->client = new BackupGuard\Client($this->accessToken);
 	}
@@ -34,6 +40,11 @@ class SGAuthClient
 	public function getAccessToken()
 	{
 		return $this->accessToken;
+	}
+
+	public function getUploadAccessToken()
+	{
+		return $this->uploadAccessToken;
 	}
 
 	public function login($email, $password)
@@ -267,5 +278,28 @@ class SGAuthClient
 		}
 
 		return $result;
+	}
+
+	public function createUploadAccessToken($email, $password)
+	{
+		$tokens = $this->client->createUploadAccessToken(
+			SG_BACKUPGUARD_UPLOAD_CLIENT_ID,
+			SG_BACKUPGUARD_UPLOAD_CLIENT_SECRET,
+			$email,
+			$password,
+			SG_BACKUPGUARD_UPLOAD_SCOPE
+		);
+
+		$refreshToken = $tokens['refresh_token'];
+		$this->uploadAccessToken = $tokens['access_token'];
+		$this->uploadAccessTokenExpires = time()+BackupGuard\Config::TOKEN_EXPIRES;
+		$this->client->setUploadAccessToken($this->uploadAccessToken);
+
+		SGConfig::set('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN', $this->uploadAccessToken, true);
+		SGConfig::set('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN_EXPIRES', $this->uploadAccessTokenExpires, true);
+
+		SGConfig::set('SG_BACKUPGUARD_UPLOAD_REFRESH_TOKEN', $refreshToken, true);
+
+		return $tokens['access_token'];
 	}
 }

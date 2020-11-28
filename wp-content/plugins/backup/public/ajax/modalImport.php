@@ -7,6 +7,7 @@
 	$ftp = SGConfig::get('SG_STORAGE_FTP_CONNECTED');
 	$amazon = SGConfig::get('SG_AMAZON_KEY');
 	$oneDrive = SGConfig::get('SG_ONE_DRIVE_REFRESH_TOKEN');
+	$backupGuard = SGConfig::get('SG_BACKUPGUARD_UPLOAD_ACCESS_TOKEN');
 ?>
 <div class="modal-dialog">
 	<div class="modal-content">
@@ -20,17 +21,23 @@
 					<table class="table table-striped paginated sg-backup-table">
 						<tbody>
 							<tr>
-								<td class="file-select-radio"><input name="storage-radio" type="radio" value="local-pc"></td>
+								<td class="file-select-radio"><input name="storage-radio" type="radio" value="local-pc" checked></td>
 								<td></td>
 								<td><?php _backupGuardT('Local PC')?></td>
 							</tr>
 							<?php if (SGBoot::isFeatureAvailable('DOWNLOAD_FROM_CLOUD')): ?>
+								<?php if (SGBoot::isFeatureAvailable('BACKUP_GUARD') && SG_SHOW_BACKUPGUARD_CLOUD): ?>
+                                    <tr>
+                                        <td class="file-select-radio"><input name="storage-radio" type="radio" value="<?php echo SG_STORAGE_BACKUP_GUARD?>" <?php echo empty($backupGuard)?'disabled="disabled"':''?>></td>
+                                        <td><span class="btn-xs sg-status-icon sg-status-36 active">&nbsp;</span></td>
+                                        <td><?php echo 'BackupGuard' ?></td>
+                                    </tr>
+                                <?php endif; ?>
 								<tr>
 									<td class="file-select-radio"><input name="storage-radio" type="radio" value="<?php echo SG_STORAGE_FTP?>" <?php echo empty($ftp)?'disabled="disabled"':''?>></td>
 									<td><span class="btn-xs sg-status-icon sg-status-31 active">&nbsp;</span></td>
 									<td><?php echo 'FTP' ?></td>
 								</tr>
-
 								<tr>
 									<td class="file-select-radio"><input name="storage-radio" type="radio" value="<?php echo SG_STORAGE_DROPBOX?>" <?php echo empty($dropbox)?'disabled="disabled"':''?>></td>
 									<td><span class="btn-xs sg-status-icon sg-status-32 active">&nbsp;</span></td>
