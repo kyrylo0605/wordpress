@@ -12,7 +12,7 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 		 */
 
 		public function elementStart($attribute, $id, $class ) {
-			
+
 			$html = '<';
 			$html .= $attribute !== FALSE ? $attribute : '' ;
 			$html .= $id !== FALSE ? ' id="' . $id . '" ' : '' ;
@@ -22,13 +22,13 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 			return $html;
 
 		}
-	
+
 		/**
 		 * ELEMENT END
 		 */
 
 		public function elementEnd($attribute) {
-			
+
 			$html = '</';
 			$html .= $attribute !== FALSE ? $attribute : '' ;
 			$html .= '>';
@@ -42,7 +42,7 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 		 */
 
 		public function element($attribute, $id, $class, $content) {
-			
+
 			$html = '<';
 			$html .= $attribute !== FALSE ? $attribute : '' ;
 			$html .= $id !== FALSE ? ' id="' . $id . '" ' : '' ;
@@ -62,23 +62,23 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 		 */
 
 		public function img($src, $id = FALSE, $class = FALSE) {
-			
+
 			$html = '<img ';
 			$html .= $src !== FALSE ? ' src="' . $src . '" ' : '' ;
 			$html .= $id !== FALSE ? ' id="' . $id . '" ' : '' ;
 			$html .= $class !== FALSE ? ' class="' . $class . '" ' : '' ;
 			$html .= '>';
-			
+
 			return $html;
 
 		}
-		
+
 		/**
 		 * LINK
-		 */ 
-		 
+		 */
+
 		public function link($url, $id, $class, $target, $rel, $content) {
-			
+
 			$html = '<a ';
 			$html .= $url !== FALSE ? ' href="' . esc_url($url) . '" ' : '' ;
 			$html .= $id !== FALSE ? ' id="' . $id . '" ' : '' ;
@@ -88,45 +88,51 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 			$html .= '>';
 			$html .= $content !== FALSE ? $content : '' ;
 			$html .= '</a>';
-			
+
 			return $html;
 
 		}
-		
+
 		/**
 		 * LIST
 		 */
 
-		public function htmlList( $type, $id, $class, $values, $current ) {
+		 public function htmlList( $type, $id, $class, $values, $current ) {
 
-			$html  = '<' . $type;
-			$html .= $id !== FALSE ? ' id="' . $id . '"' : '' ;
-			$html .= $class !== FALSE ? ' class="' . $class . '"' : '' ;
-			$html .= '>';
+ 			$html  = '<' . $type;
+ 			$html .= $id !== FALSE ? ' id="' . $id . '"' : '' ;
+ 			$html .= $class !== FALSE ? ' class="' . $class . '"' : '' ;
+ 			$html .= '>';
 
-			foreach ($values as $k => $v ) {
-			
-				$html .= '<li';
-				$html .= (str_replace(' ', '', $k) === $current) ? ' class="ui-state-active"' : '' ;
-				$html .= ' value="' . $k . '"';
-				$html .= '>';
-				$html .= $this->link(esc_url('admin.php?page=chatbox_manager_panel&tab=' . str_replace(' ', '', $k)), FALSE, FALSE, '_SELF', FALSE, $v);
-				$html .= '</li>';
-			}
-			
-			$html .= '<li class="clear"></li>';
-			$html .= '</' . $type . '>';
+ 			foreach ($values as $k => $v ) {
 
-			return $html;
+ 				$html .= '<li';
+ 				$html .= (str_replace(' ', '', $k) === $current) ? ' class="ui-state-active"' : '' ;
+ 				$html .= ' value="' . $k . '"';
+ 				$html .= '>';
 
-		}
+ 				if (0 === strpos($k, 'http')) {
+ 					$html .= $this->link($k, FALSE, FALSE, '_BLANK', FALSE, $v);
+ 				} else {
+ 					$html .= $this->link(esc_url('admin.php?page=chatbox_manager_panel&tab=' . str_replace(' ', '', $k)), FALSE, FALSE, '_SELF', FALSE, $v);
+ 				}
+
+ 				$html .= '</li>';
+ 			}
+
+ 			$html .= '<li class="clear"></li>';
+ 			$html .= '</' . $type . '>';
+
+ 			return $html;
+
+ 		}
 		
 		/**
 		 * FORM START
 		 */
 
 		public function formStart($method, $action ) {
-			
+
 			$html = '<form enctype="multipart/form-data"';
 			$html .= $method !== FALSE ? ' method="' . $method . '" ' : '' ;
 			$html .= $action !== FALSE ? ' action="' . $action . '" ' : '' ;
@@ -141,7 +147,7 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 		 */
 
 		public function formEnd() {
-			
+
 			return '</form>';
 
 		}
@@ -161,7 +167,7 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 			return $html;
 
 		}
-	
+
 		/**
 		 * INPUT
 		 */
@@ -181,18 +187,18 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 			return $html;
 
 		}
-	
+
 		/**
 		 * COLOR
 		 */
 
 		public function color($name, $id, $class, $type, $value ) {
 
-			$html = str_replace ('<input ', '<input data-default-color="' . $value .'" ' , $this->input($name, $id, $class, $type, $value));  
+			$html = str_replace ('<input ', '<input data-default-color="' . $value .'" ' , $this->input($name, $id, $class, $type, $value));
 			return $html;
 
 		}
-	
+
 		/**
 		 * TEXTAREA
 		 */
@@ -226,7 +232,7 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 			$html .= '>';
 
 			foreach ($values as $k => $v ) {
-			
+
 				$html .= '<option';
 				$html .= $k === $current ? ' selected="selected"' : '' ;
 				$html .= ' value="' . $k . '"';
@@ -234,7 +240,7 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 				$html .= $v;
 				$html .= '</option>';
 			}
-				
+
 			$html .= '</select>';
 
 			return $html;
@@ -256,53 +262,53 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 			$html .= '>';
 
 			switch ( $class ) {
-						
+
 				case 'cmAjaxSelect2':
-				
+
 					if ( is_array($values) ) :
-		
+
 						foreach ($values as $k => $v ) {
-			
+
 							if ( get_the_title($v) ) {
-								
+
 								$html .= '<option selected="selected" value="' . $v . '">' . get_the_title($v) . '</option>';
-							
+
 							} elseif ( $v == '-1' ) {
-							
+
 								$html .= '<option selected="selected" value="-1">[All]</option>';
-							
+
 							}
-			
+
 						}
-						
+
 					endif;
-				
+
 				break;
-				
+
 				case 'cmAjaxSelect2Tax':
-				
+
 					if ( is_array($values) ) :
-					
+
 						foreach ($values as $k => $v ) {
-							
+
 							$term = get_term( $v, $dataType );
-			
+
 							if (isset($term->name)) {
-								
+
 								$html .= '<option selected="selected" value="' . $v . '">' . $term->name . '</option>';
-							
+
 							} elseif ( $v == '-1' ) {
-							
+
 								$html .= '<option selected="selected" value="-1">[All]</option>';
-							
+
 							}
-			
+
 						}
-						
+
 					endif;
-				
+
 				break;
-				
+
 			}
 
 			$html .= '</select>';
@@ -316,32 +322,32 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 		 */
 
 		public function checkbox($name, $values, $default ) {
-			
+
 			$html = '';
 
 			foreach ($values as $k => $v ) {
-				
+
 				$check = '';
 
 				if ( $default != false ) {
-					
+
 					foreach ( $default as $current ) {
-						
-						if ( $current == $k ) 
+
+						if ( $current == $k )
 							$check = ' checked="checked"';
-					
+
 					}
-				
+
 				}
 
 				$html .= '<p><input name="' . $name . '[]" type="checkbox" value="' . $k . '" ' . $check . '/>' . $v . '</p>';
-			
+
 			}
-				
+
 			return $html;
 
 		}
-	
+
 	}
 
 }

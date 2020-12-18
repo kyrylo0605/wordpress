@@ -2,7 +2,7 @@
 
 /**
  * Wp in Progress
- * 
+ *
  * @package Wordpress
  * @author WPinProgress
  *
@@ -12,21 +12,22 @@
 
 $optpanel = array (
 
-	array (	"name" => "Navigation",  
-			"type" => "navigation",  
-			"item" => array( 
-			
-				"Chatbox_Generator"	=> esc_html__( "Chatbox Generator","chatbox-manager")
-			
-			),   
-			
-			"start" => "<ul>", 
+	array (	"name" => "Navigation",
+			"type" => "navigation",
+			"item" => array(
+
+				"Chatbox_Generator"	=> esc_html__( "Chatbox Generator","chatbox-manager"),
+				CM_SALE_PAGE . "cm-panel"	=> esc_html__( "Upgrade to Premium","chatbox-manager"),
+
+			),
+
+			"start" => "<ul>",
 			"end" => "</ul>"
-	),  
+	),
 
 	array(	"tab" => "Chatbox_Generator",
 			"element" =>
-		   
+
 		array(	"type" => "start-form",
 				"name" => "Chatbox_Generator"),
 
@@ -39,7 +40,7 @@ $optpanel = array (
 						"data" => "array",
 						"type" => "chatboxGenerator",
 						"std" => ""),
-			
+
 			array(	"type" => "end-container"),
 
 		array(	"type" => "end-form"),

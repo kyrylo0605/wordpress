@@ -91,6 +91,11 @@
     margin-right: -40px;
 }
 
+#aws_form select {
+    min-width: 170px;
+    display: block;
+}
+
 /* Image select option */
 #aws_form .img-select {
     position: relative;
@@ -313,4 +318,13 @@ h1.aws-instance-name {
 
 .aws-table.aws-table-sources td.aws-name {
     font-weight: 400;
+}
+
+/* Welcome message */
+
+.welcome-panel .welcome-panel-column:first-child {
+   width: 60%;
+}
+.welcome-panel .welcome-panel-column {
+    width: 20%;
 }

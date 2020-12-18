@@ -57,7 +57,10 @@ AwsHooks.filters = AwsHooks.filters || {};
 
             init: function() {
 
-                $('body').append('<div id="aws-search-result-' + instance + '" class="aws-search-result" style="display: none;"></div>');
+                // @since 2.16
+                var appendResultsTo = AwsHooks.apply_filters( 'aws_results_append_to', 'body', { instance: instance, form: self, data: d } );
+
+                $(appendResultsTo).append('<div id="aws-search-result-' + instance + '" class="aws-search-result" style="display: none;"></div>');
 
                 methods.addClasses();
 
@@ -384,12 +387,16 @@ AwsHooks.filters = AwsHooks.filters || {};
             },
 
             showMobileLayout: function() {
-                if ( ! methods.isFixed() ) {
+
+                var show = AwsHooks.apply_filters( 'aws_show_mobile_layout', false, { instance: instance, form: self, data: d } );
+
+                if ( ! methods.isFixed() || show ) {
                     self.after('<div class="aws-placement-container"></div>');
                     self.addClass('aws-mobile-fixed').prepend('<div class="aws-mobile-fixed-close"><svg width="17" height="17" viewBox="1.5 1.5 21 21"><path d="M22.182 3.856c.522-.554.306-1.394-.234-1.938-.54-.543-1.433-.523-1.826-.135C19.73 2.17 11.955 10 11.955 10S4.225 2.154 3.79 1.783c-.438-.371-1.277-.4-1.81.135-.533.537-.628 1.513-.25 1.938.377.424 8.166 8.218 8.166 8.218s-7.85 7.864-8.166 8.219c-.317.354-.34 1.335.25 1.805.59.47 1.24.455 1.81 0 .568-.456 8.166-7.951 8.166-7.951l8.167 7.86c.747.72 1.504.563 1.96.09.456-.471.609-1.268.1-1.804-.508-.537-8.167-8.219-8.167-8.219s7.645-7.665 8.167-8.218z"></path></svg></div>');
                     $('body').addClass('aws-overlay').append('<div class="aws-overlay-mask"></div>').append( self );
                     $searchField.focus();
                 }
+
             },
 
             hideMobileLayout: function() {
@@ -572,6 +579,15 @@ AwsHooks.filters = AwsHooks.filters || {};
             $searchForm.submit();
         });
 
+        $( d.resultBlock ).on( 'click', 'span[href], [data-link]', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var link = $(this).data('link') ? $(this).data('link') : $(this).attr('href');
+            if ( link ) {
+                window.location = link;
+            }
+        });
+
         $( self ).on( 'click', '.aws-mobile-fixed-close', function(e) {
             methods.hideMobileLayout();
         });
@@ -611,13 +627,12 @@ AwsHooks.filters = AwsHooks.filters || {};
 
                     }
 
-                    var scrolledTop = $itemsList.scrollTop();
-                    var position = $( d.resultBlock ).find('.aws_result_item.hovered').position();
-
-                    if ( position ) {
-                        $itemsList.scrollTop( position.top + scrolledTop )
+                    var activeItemOffset = $(".aws_result_item.hovered").position();
+                    if ( activeItemOffset ) {
+                        $itemsList.animate({
+                            scrollTop: activeItemOffset.top + $itemsList.scrollTop()
+                        }, 400);
                     }
-
 
                 }
             }
