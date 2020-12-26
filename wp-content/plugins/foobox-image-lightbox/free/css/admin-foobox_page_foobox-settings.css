@@ -62,11 +62,13 @@ a.nav-tab:focus {
 #foobox-free-settings-main {
 	padding: 0;
 	margin: 0;
+	float: left;
 }
 
 #foobox-free-settings-sidebar {
 	position: absolute;
 	right: 10px;
+	float: left;
 }
 
 #foobox-free-settings-header {

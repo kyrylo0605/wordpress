@@ -229,9 +229,19 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
         }
 
 		function settings_sidebar() {
-			$install_foobox = $this->build_install_url( 'foobox-image-lightbox' );
 			$install_foogallery = $this->build_install_url( 'foogallery' );
 			$install_foobar = $this->build_install_url( 'foobar-notifications-lite' );
+
+            $show_foobar_ad = true;
+            $show_foogallery_ad = true;
+
+            if ( class_exists( 'FooGallery_Plugin') ) {
+	            $show_foogallery_ad = false;
+            }
+
+			if ( class_exists( 'FooPlugins\FooBar\Init' ) ) {
+				$show_foobar_ad = false;
+			}
 
 		    ?>
 <style>
@@ -274,7 +284,7 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
 
     <a class="button button-primary button-large" target="_blank" href="https://wordpress.org/support/plugin/foobox-image-lightbox/reviews/#new-post">Rate FooBox on WordPress.org</a>
 </div>
-
+<?php if ( $show_foobar_ad ) { ?>
 <div class="settings-sidebar-promo">
     <h2>Grow Your Business</h2>
     <img src="https://foocdn.s3.amazonaws.com/logos/foobar-128x128.png" />
@@ -284,7 +294,8 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
     <a class="button button-primary button-large" target="_blank" href="<?php echo $install_foobar; ?>">Install FooBar</a>
     <a class="button button-large" target="_blank" href="https://wordpress.org/plugins/foobar-notifications-lite/">View Details</a>
 </div>
-
+<?php } ?>
+<?php if ( $show_foogallery_ad ) { ?>
 <div class="settings-sidebar-promo">
     <h2>Create Beautiful Galleries</h2>
     <img src="https://foocdn.s3.amazonaws.com/logos/foogallery-128x128.png" />
@@ -294,6 +305,7 @@ if ( !class_exists( 'FooBox_Free_Settings' ) ) {
     <a class="button button-primary button-large" target="_blank" href="<?php echo $install_foogallery; ?>">Install FooGallery</a>
     <a class="button button-large" target="_blank" href="https://wordpress.org/plugins/foogallery">View Details</a>
 </div>
+<?php } ?>
 <?php
 		}
 	}

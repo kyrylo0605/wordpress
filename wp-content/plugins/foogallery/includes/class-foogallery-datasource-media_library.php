@@ -95,18 +95,23 @@ if ( ! class_exists( 'FooGallery_Datasource_MediaLibrary' ) ) {
 
 			//always output the ability to add via media library
 			$has_attachments = $foogallery->has_attachments();
+            $show_attachments = isset( $foogallery->datasource_name ) && 'media_library' === $foogallery->datasource_name;
 
 			$media_button_start = foogallery_get_setting('add_media_button_start', '' ) === 'on';
+			$attachment_ids = '';
+            if ( $has_attachments && $show_attachments ) {
+                $attachment_ids = $foogallery->attachment_id_csv();
+            }
 			?>
-			<input type="hidden" data-foogallery-preview="include" name='foogallery_attachments' id="foogallery_attachments" value="<?php echo $foogallery->attachment_id_csv(); ?>"/>
-            <div class="foogallery-attachments-list-container <?php echo $has_attachments ? '' : 'hidden'; ?>">
+			<input type="hidden" data-foogallery-preview="include" name='foogallery_attachments' id="foogallery_attachments" value="<?php echo $attachment_ids; ?>"/>
+            <div class="foogallery-attachments-list-container <?php echo $show_attachments && $has_attachments ? '' : 'hidden'; ?>">
                 <ul class="foogallery-attachments-list <?php echo $media_button_start ? 'foogallery-add-media-button-start' : ''; ?>">
                     <?php if ( $media_button_start ) {
                         $this->render_add_media_button( $foogallery->ID );
                     } ?>
                     <?php
                     //render all attachments that have been added to the gallery from the media library
-                    if ( $has_attachments ) {
+                    if ( $has_attachments && $show_attachments ) {
                         foreach ( $foogallery->attachments() as $attachment ) {
                             $this->render_attachment_item( $attachment );
                         }
@@ -249,6 +254,12 @@ if ( ! class_exists( 'FooGallery_Datasource_MediaLibrary_Query_Helper' ) ) {
 				}
 			}
 
+			//set some sorting globals
+			global $foogallery_force_sort_orderby;
+			global $foogallery_force_sort_order;
+			$foogallery_force_sort_orderby = $attachment_query_args['orderby'];
+			$foogallery_force_sort_order = $attachment_query_args['order'];
+
 			//setup intercepting actions
 			add_action( 'pre_get_posts', array( $this, 'force_gallery_ordering' ), 99 );
 			add_action( 'pre_get_posts', array( $this, 'force_suppress_filters' ), PHP_INT_MAX );
@@ -259,7 +270,7 @@ if ( ! class_exists( 'FooGallery_Datasource_MediaLibrary_Query_Helper' ) ) {
 			remove_action( 'pre_get_posts', array( $this, 'force_gallery_ordering' ), 99 );
 			remove_action( 'pre_get_posts', array( $this, 'force_suppress_filters' ), PHP_INT_MAX );
 
-			$foogallery_force_sort = null;
+			$foogallery_force_sort = $foogallery_force_sort_orderby = $foogallery_force_sort_order = null;
 
 			foreach ( $attachment_posts as $attachment_post ) {
 				$attachments[] = apply_filters( 'foogallery_attachment_load', FooGalleryAttachment::get( $attachment_post ), $foogallery );
@@ -275,12 +286,18 @@ if ( ! class_exists( 'FooGallery_Datasource_MediaLibrary_Query_Helper' ) ) {
 		 */
 		public function force_gallery_ordering( $query ) {
 			global $foogallery_force_sort;
+			global $foogallery_force_sort_orderby;
+			global $foogallery_force_sort_order;
 
 			//only care about attachments
 			if ( isset( $foogallery_force_sort ) && array_key_exists( 'post_type', $query->query ) &&
 				'attachment' === $query->query['post_type'] ) {
-				$query->set( 'orderby', foogallery_sorting_get_posts_orderby_arg( $foogallery_force_sort ) );
-				$query->set( 'order', foogallery_sorting_get_posts_order_arg( $foogallery_force_sort ) );
+			    if ( isset( $foogallery_force_sort_orderby ) ) {
+				    $query->set( 'orderby', $foogallery_force_sort_orderby );
+			    }
+				if ( isset( $foogallery_force_sort_order ) ) {
+					$query->set( 'order', $foogallery_force_sort_order );
+				}
 			}
 		}
 

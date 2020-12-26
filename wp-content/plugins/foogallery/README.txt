@@ -3,7 +3,7 @@ Contributors: bradvin, steveush, fooplugins
 Donate link: http://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 3.9
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -226,6 +226,32 @@ We did the research and comparison. See our findings : [What is the Best WordPre
 Please update in order to for FooGallery to work in WP 5.5+!
 
 == Changelog ==
+
+= 1.9.44 =
+* Date Updated : 2020-12-06
+* New : Allow thumb width and height to be overridden with shortcode arguments override_width and override_height
+* Fix : fixed caption bugs where FooBox was not picking up custom/override captions
+* Fix : removed use of deprecated functions in jQuery for WP 5.6
+* Fix : removed localStorage checks, so that browser does not say that cookies are in use
+* Update : FooGallery client side 1.4.24
+* Update : Frontend gallery initialization now uses custom ready event by default, to avoid jQuery errors
+
+
+= 1.9.40 =
+* Date Updated : 2020-11-29
+* Fix : rewrite of All-in-one Stack album fixing many bugs
+* Fix : fixed some styling issues with album edit page and gallery select modal
+* New : Added setting 'Force Hide Trial Notice' to never show the trail upsell message again
+* Update : FooGallery client side 1.4.22
+
+= 1.9.39 =
+* Date Updated : 2020-11-24
+* Fix : Allow gallery thumb order to be overridden when using foogallery_attachment_get_posts_args filter
+
+= 1.9.38 =
+* Date Updated : 2020-11-02
+* Fix : Fixed PHP warning within thumbnail generation code when deleting attachments
+* New : Added function to render an album : foogallery_render_album
 
 = 1.9.37 =
 * Date Updated : 2020-10-29

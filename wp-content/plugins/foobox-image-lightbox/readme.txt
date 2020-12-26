@@ -3,7 +3,7 @@ Contributors: bradvin, fooplugins
 Donate link: http://fooplugins.com
 Tags: lightbox,modal,popup,images,gallery,media
 Requires at least: 3.5.1
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,7 @@ If you want more control over when FooBox assets are included, you can now exclu
 Alternatively, you can leave the setting disabled, and then choose to exclude the FooBox assets from particular pages. A new metabox is now available when editing your pages or posts.
 This new feature was only available in the PRO version beforehand, but we feel control over your website performance is something you should not have to pay for. Enjoy!
 
+
 **Translations**
 
 * [Serbo-Croatian by Borisa Djuraskovic](http://www.webhostinghub.com/)
@@ -102,6 +103,13 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 
 == Changelog ==
 
+= 2.7.16 =
+* Updated 01/12/2020
+* Fix : fixed settings page CSS due to conflict with some themes
+* Fix : Updated deprecated jQuery warnings in prep for WP 5.6
+* Update : Updated to latest FooBox client JS & CSS 2.4.4
+* Update : Freemius SDK 2.4.1
+
 = 2.7.15 =
 * Updated 20/10/2020
 * Update getting started page to include a CTA to open FooBox demo
@@ -123,14 +131,14 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 
 = 2.7.11 =
 
-* Update : Freemius SDK 2.3.2
-* Update : Updated to latest FooBox client JS & CSS
+*	Update : Freemius SDK 2.3.2
+*	Update : Updated to latest FooBox client JS & CSS
 
 = 2.7.8 =
 
-* Fix : turned off font preload by default
-* Fix : scrollbar bug in iOS13
-* Update : Updated to latest FooBox client JS & CSS
+*	Fix : turned off font preload by default
+*	Fix : scrollbar bug in iOS13
+*	Update : Updated to latest FooBox client JS & CSS
 
 = 2.7.7 =
 

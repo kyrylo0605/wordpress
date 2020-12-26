@@ -32,7 +32,7 @@ $plugin_slug = $plugin_info['slug'];
 	}
 	?>
 	<div id="<?php echo $plugin_slug; ?>-settings-wrapper">
-		<div id="<?php echo $plugin_slug; ?>-settings-main" class="postbox-container">
+		<div id="<?php echo $plugin_slug; ?>-settings-main">
 			<form action="options.php" method="post">
 				<?php settings_fields( $plugin_slug ); ?>
 				<?php
@@ -97,7 +97,7 @@ $plugin_slug = $plugin_info['slug'];
 				</p>
 			</form>
 		</div>
-		<div id="<?php echo $plugin_slug; ?>-settings-sidebar" class="postbox-container">
+		<div id="<?php echo $plugin_slug; ?>-settings-sidebar">
 			<?php
             do_action($plugin_slug . '-settings-sidebar' );
             ?>

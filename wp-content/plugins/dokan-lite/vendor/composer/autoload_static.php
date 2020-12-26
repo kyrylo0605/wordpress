@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf480012703b6705ec0d3639c313c0edc
+class ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -55,6 +55,9 @@ class ComposerStaticInitf480012703b6705ec0d3639c313c0edc
         'WeDevs\\Dokan\\Assets' => __DIR__ . '/../..' . '/includes/Assets.php',
         'WeDevs\\Dokan\\Commission' => __DIR__ . '/../..' . '/includes/Commission.php',
         'WeDevs\\Dokan\\Core' => __DIR__ . '/../..' . '/includes/Core.php',
+        'WeDevs\\Dokan\\Customizer' => __DIR__ . '/../..' . '/includes/Customizer.php',
+        'WeDevs\\Dokan\\Customizer\\HeadingControl' => __DIR__ . '/../..' . '/includes/Customizer/HeadingControl.php',
+        'WeDevs\\Dokan\\Customizer\\RadioImageControl' => __DIR__ . '/../..' . '/includes/Customizer/RadioImageControl.php',
         'WeDevs\\Dokan\\Dashboard\\Manager' => __DIR__ . '/../..' . '/includes/Dashboard/Manager.php',
         'WeDevs\\Dokan\\Dashboard\\Templates\\Dashboard' => __DIR__ . '/../..' . '/includes/Dashboard/Templates/Dashboard.php',
         'WeDevs\\Dokan\\Dashboard\\Templates\\Main' => __DIR__ . '/../..' . '/includes/Dashboard/Templates/Main.php',
@@ -101,6 +104,7 @@ class ComposerStaticInitf480012703b6705ec0d3639c313c0edc
         'WeDevs\\Dokan\\Shortcodes\\Stores' => __DIR__ . '/../..' . '/includes/Shortcodes/Stores.php',
         'WeDevs\\Dokan\\Shortcodes\\TopRatedProduct' => __DIR__ . '/../..' . '/includes/Shortcodes/TopRatedProduct.php',
         'WeDevs\\Dokan\\Shortcodes\\VendorRegistration' => __DIR__ . '/../..' . '/includes/Shortcodes/VendorRegistration.php',
+        'WeDevs\\Dokan\\ThemeSupport\\Astra' => __DIR__ . '/../..' . '/includes/ThemeSupport/Astra.php',
         'WeDevs\\Dokan\\ThemeSupport\\Divi' => __DIR__ . '/../..' . '/includes/ThemeSupport/Divi.php',
         'WeDevs\\Dokan\\ThemeSupport\\Electro' => __DIR__ . '/../..' . '/includes/ThemeSupport/Electro.php',
         'WeDevs\\Dokan\\ThemeSupport\\Enfold' => __DIR__ . '/../..' . '/includes/ThemeSupport/Enfold.php',
@@ -108,6 +112,7 @@ class ComposerStaticInitf480012703b6705ec0d3639c313c0edc
         'WeDevs\\Dokan\\ThemeSupport\\Manager' => __DIR__ . '/../..' . '/includes/ThemeSupport/Manager.php',
         'WeDevs\\Dokan\\ThemeSupport\\Rehub' => __DIR__ . '/../..' . '/includes/ThemeSupport/Rehub.php',
         'WeDevs\\Dokan\\ThemeSupport\\Storefront' => __DIR__ . '/../..' . '/includes/ThemeSupport/Storefront.php',
+        'WeDevs\\Dokan\\ThemeSupport\\TwentyTwenty' => __DIR__ . '/../..' . '/includes/ThemeSupport/TwentyTwenty.php',
         'WeDevs\\Dokan\\Tracker' => __DIR__ . '/../..' . '/includes/Tracker.php',
         'WeDevs\\Dokan\\Traits\\AjaxResponseError' => __DIR__ . '/../..' . '/includes/Traits/AjaxResponseError.php',
         'WeDevs\\Dokan\\Traits\\ChainableContainer' => __DIR__ . '/../..' . '/includes/Traits/ChainableContainer.php',
@@ -141,6 +146,7 @@ class ComposerStaticInitf480012703b6705ec0d3639c313c0edc
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_2_9_4' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_2_9_4.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_0_10' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_0_10.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_0_4' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_0_4.php',
+        'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_1_0' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_1_0.php',
         'WeDevs\\Dokan\\Vendor\\Manager' => __DIR__ . '/../..' . '/includes/Vendor/Manager.php',
         'WeDevs\\Dokan\\Vendor\\SetupWizard' => __DIR__ . '/../..' . '/includes/Vendor/SetupWizard.php',
         'WeDevs\\Dokan\\Vendor\\StoreListsFilter' => __DIR__ . '/../..' . '/includes/Vendor/StoreListsFilter.php',
@@ -169,9 +175,9 @@ class ComposerStaticInitf480012703b6705ec0d3639c313c0edc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf480012703b6705ec0d3639c313c0edc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf480012703b6705ec0d3639c313c0edc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf480012703b6705ec0d3639c313c0edc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d::$classMap;
 
         }, null, ClassLoader::class);
     }
