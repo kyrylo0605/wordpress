@@ -2,11 +2,11 @@
 Contributors: alexvtn
 Tags: custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, flexible-header, footer-widgets, post-formats, right-sidebar, sticky-post, theme-options, threaded-comments, translation-ready, one-column, two-columns, three-columns, grid-layout, blog, e-commerce, news
 Requires at least: 4.0
-Tested up to: 5.3
-Stable tag: 1.6.6
+Tested up to: 5.6
+Stable tag: 1.7.0
 Requires PHP: 5.3
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Bazaar Lite is our new creative and minimal ecommerce WordPress theme.
 
@@ -15,10 +15,32 @@ Bazaar Lite is our new creative and minimal ecommerce WordPress theme.
 Bazaar Lite is our new creative and minimal ecommerce WordPress theme. Perfect to manage a shop and blog, it offers a fully responsive layout to be displayed on every kind of device.
 
 Created by ThemeinProgress, http://www.themeinprogress.com
-Bazaar Lite WordPress Theme, Copyright 2019 ThemeinProgress.
+Bazaar Lite WordPress Theme, Copyright 2020 ThemeinProgress.
 Bazaar Lite is distributed under the terms of the GPLv2 or later
 
 == Changelog ==
+
+= 1.7.0 =
+Release date - December, 09 - 2020
+
+* Fixed - Swipebox issue with WordPress 5.6
+* Tested with WordPress 5.6
+
+= 1.6.9 =
+Release date - December, 07 - 2020
+
+* Updated - WooCommerce templates
+
+= 1.6.8 =
+Release date - September, 28 - 2020
+
+* Edit - Code optimized
+
+= 1.6.7 =
+Release date - September, 16 - 2020
+
+* Tested with WordPress 5.5
+* Updated - WooCommerce templates
 
 = 1.6.6 =
 Release date - January, 31 - 2020

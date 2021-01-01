@@ -4,12 +4,23 @@
 	Author: Stephane Caron (http://www.no-margin-for-errors.com)
 	Version: 3.1.4
 ------------------------------------------------------------------------- */
+
+jQuery.browser = {};
+(function () {
+jQuery.browser.msie = false;
+jQuery.browser.version = 0;
+if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+jQuery.browser.msie = true;
+jQuery.browser.version = RegExp.$1;
+}
+})();
+
 (function($) {
 	$.prettyPhoto = {version: '3.1.4'};
 	
 	$.fn.prettyPhoto = function(pp_settings) {
 		pp_settings = jQuery.extend({
-			hook: 'rel', /* the attribute tag to use for prettyPhoto hooks. default: 'rel'. For HTML5, use "data-rel" or similar. */
+			hook: 'data-rel', /* the attribute tag to use for prettyPhoto hooks. default: 'rel'. For HTML5, use "data-rel" or similar. */
 			animation_speed: 'fast', /* fast/slow/normal */
 			ajaxcallback: function() {},
 			slideshow: 5000, /* false OR interval time in ms */

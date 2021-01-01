@@ -12,12 +12,10 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 3.6.0
+ * @version 4.3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
 
 global $product;
 
@@ -28,14 +26,18 @@ if ( ! comments_open() ) {
 ?>
 <div id="reviews" class="woocommerce-Reviews">
 	<div id="comments">
-		<h2 class="woocommerce-Reviews-title comments"><?php
-			if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' && ( $count = $product->get_review_count() ) ) {
-				/* translators: 1: reviews count 2: product name */
-				printf( esc_html( _n( '%1$s review for %2$s', '%1$s reviews for %2$s', $count, 'bazaar-lite' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
-			} else {
-				esc_html_e( 'Reviews', 'bazaar-lite' );
-			}
-		?></h2>
+		<h2 class="woocommerce-Reviews-title comments">
+			<?php
+                $count = $product->get_review_count();
+                if ( $count && wc_review_ratings_enabled() ) {
+                    /* translators: 1: reviews count 2: product name */
+                    $reviews_title = sprintf( esc_html( _n( '%1$s review for %2$s', '%1$s reviews for %2$s', $count, 'bazaar-lite' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
+                    echo apply_filters( 'woocommerce_reviews_title', $reviews_title, $count, $product ); // WPCS: XSS ok.
+                } else {
+                    esc_html_e( 'Reviews', 'bazaar-lite' );
+                }
+            ?>
+        </h2>
 
 		<?php if ( have_comments() ) : ?>
 
@@ -43,21 +45,26 @@ if ( ! comments_open() ) {
 				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
 			</ol>
 
-			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+			<?php
+			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 				echo '<nav class="woocommerce-pagination">';
-				paginate_comments_links( apply_filters( 'woocommerce_comment_pagination_args', array(
-					'prev_text' => '&larr;',
-					'next_text' => '&rarr;',
-					'type'      => 'list',
-				) ) );
+				paginate_comments_links(
+					apply_filters(
+						'woocommerce_comment_pagination_args',
+						array(
+							'prev_text' => '&larr;',
+							'next_text' => '&rarr;',
+							'type'      => 'list',
+						)
+					)
+				);
 				echo '</nav>';
-			endif; ?>
-
+			endif;
+			?>
 		<?php else : ?>
-
 			<p class="woocommerce-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'bazaar-lite' ); ?></p>
-
 		<?php endif; ?>
+
 	</div>
 
 	<?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->get_id() ) ) : ?>
@@ -65,42 +72,69 @@ if ( ! comments_open() ) {
 		<div id="review_form_wrapper">
 			<div id="review_form">
 				<?php
-					$commenter = wp_get_current_commenter();
+				$commenter    = wp_get_current_commenter();
+				$comment_form = array(
+					/* translators: %s is product title */
+					'title_reply'         => have_comments() ? '<span>' . esc_html__( 'Add a review', 'bazaar-lite' ) . '</span>' : '<span>' . sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'bazaar-lite' ), get_the_title() ) . '</span>',
+					/* translators: %s is product title */
+					'title_reply_to'      => '<span>' . esc_html__( 'Leave a Reply to %s', 'bazaar-lite' ). '</span>',
+					'comment_notes_after' => '',
+					'label_submit'        => esc_html__( 'Submit', 'bazaar-lite' ),
+					'logged_in_as'        => '',
+					'comment_field'       => '',
+				);
 
-					$comment_form = array(
-					
-						'title_reply' =>  '<span>' . __( 'Add a review', 'bazaar-lite' ) . '</span>' ,
-						'title_reply_to' =>  '<span>' . __( 'Leave a Reply to %s', 'bazaar-lite' ). '</span>',
-						'comment_notes_after'  => '',
-						'fields'               => array(
-							'author' => '<p class="comment-form-author">' . '<label for="author">' . esc_html__( 'Name', 'bazaar-lite' ) . ' <span class="required">*</span></label> ' .
-										'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" aria-required="true" required /></p>',
-							'email'  => '<p class="comment-form-email"><label for="email">' . esc_html__( 'Email', 'bazaar-lite' ) . ' <span class="required">*</span></label> ' .
-										'<input id="email" name="email" type="email" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30" aria-required="true" required /></p>',
-						),
-						'label_submit'  => __( 'Submit', 'bazaar-lite' ),
-						'logged_in_as'  => '',
-						'comment_field' => '',
-					);
+				$name_email_required = (bool) get_option( 'require_name_email', 1 );
+				$fields              = array(
+					'author' => array(
+						'label'    => __( 'Name', 'bazaar-lite' ),
+						'type'     => 'text',
+						'value'    => $commenter['comment_author'],
+						'required' => $name_email_required,
+					),
+					'email'  => array(
+						'label'    => __( 'Email', 'bazaar-lite' ),
+						'type'     => 'email',
+						'value'    => $commenter['comment_author_email'],
+						'required' => $name_email_required,
+					),
+				);
 
-					if ( $account_page_url = wc_get_page_permalink( 'myaccount' ) ) {
-						$comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a review.', 'bazaar-lite' ), esc_url( $account_page_url ) ) . '</p>';
+				$comment_form['fields'] = array();
+
+				foreach ( $fields as $key => $field ) {
+					$field_html  = '<p class="comment-form-' . esc_attr( $key ) . '">';
+					$field_html .= '<label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] );
+
+					if ( $field['required'] ) {
+						$field_html .= '&nbsp;<span class="required">*</span>';
 					}
 
-					if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
-						$comment_form['comment_field'] = '<p class="comment-form-rating"><label for="rating">' . esc_html__( 'Your Rating', 'bazaar-lite' ) .'</label><select name="rating" id="rating">
-							<option value="">' . esc_html__( 'Rate&hellip;', 'bazaar-lite' ) . '</option>
-							<option value="5">' . esc_html__( 'Perfect', 'bazaar-lite' ) . '</option>
-							<option value="4">' . esc_html__( 'Good', 'bazaar-lite' ) . '</option>
-							<option value="3">' . esc_html__( 'Average', 'bazaar-lite' ) . '</option>
-							<option value="2">' . esc_html__( 'Not that bad', 'bazaar-lite' ) . '</option>
-							<option value="1">' . esc_html__( 'Very Poor', 'bazaar-lite' ) . '</option>
-						</select></p>';
-					}
+					$field_html .= '</label><input id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" type="' . esc_attr( $field['type'] ) . '" value="' . esc_attr( $field['value'] ) . '" size="30" ' . ( $field['required'] ? 'required' : '' ) . ' /></p>';
 
-					$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'bazaar-lite' ) . ' <span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" required></textarea></p>';
+					$comment_form['fields'][ $key ] = $field_html;
+				}
 
-					comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
+				$account_page_url = wc_get_page_permalink( 'myaccount' );
+				if ( $account_page_url ) {
+					/* translators: %s opening and closing link tags respectively */
+					$comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( esc_html__( 'You must be %1$slogged in%2$s to post a review.', 'bazaar-lite' ), '<a href="' . esc_url( $account_page_url ) . '">', '</a>' ) . '</p>';
+				}
+
+				if ( wc_review_ratings_enabled() ) {
+					$comment_form['comment_field'] = '<p class="comment-form-rating"><label for="rating">' . esc_html__( 'Your rating', 'bazaar-lite' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating" required>
+						<option value="">' . esc_html__( 'Rate&hellip;', 'bazaar-lite' ) . '</option>
+						<option value="5">' . esc_html__( 'Perfect', 'bazaar-lite' ) . '</option>
+						<option value="4">' . esc_html__( 'Good', 'bazaar-lite' ) . '</option>
+						<option value="3">' . esc_html__( 'Average', 'bazaar-lite' ) . '</option>
+						<option value="2">' . esc_html__( 'Not that bad', 'bazaar-lite' ) . '</option>
+						<option value="1">' . esc_html__( 'Very poor', 'bazaar-lite' ) . '</option>
+					</select></p>';
+				}
+
+				$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'bazaar-lite' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></p>';
+
+				comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
 				?>
 			</div>
 		</div>
