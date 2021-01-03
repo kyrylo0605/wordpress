@@ -20,7 +20,7 @@ function educationbooster_scripts(){
 	$scripts = array(
 		array(
 			'handler'  => 'education-booster-google-fonts',
-			'style'    => esc_url( '//fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i' ),
+			'style'    => esc_url( 'https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i' ),
 			'absolute' => true
 		),
 		array(
@@ -219,8 +219,16 @@ function educationbooster_section_heading( $args ){
 
 	# No need to query if already inside the query.
 	if( !$args[ 'query'] ){
+		
+	/**
+	 * Check WordPress 5.5 or later.
+	 */
+	if ( version_compare( $GLOBALS['wp_version'], '5.5', '<' ) ) {
 		set_query_var( 'args', $args );
 		get_template_part( 'template-parts/page/home', 'heading' );
+	}else {
+		get_template_part( 'template-parts/page/home', 'heading', $args );
+	}
 		return;
 	}
 
@@ -235,8 +243,15 @@ function educationbooster_section_heading( $args ){
 
 		while( $query->have_posts() ){
 			$query->the_post();
-			set_query_var( 'args', $args );
-			get_template_part( 'template-parts/page/home', 'heading' );
+			/**
+			 * Check WordPress 5.5 or later.
+			 */
+			if ( version_compare( $GLOBALS['wp_version'], '5.5', '<' ) ) {
+				set_query_var( 'args', $args );
+				get_template_part( 'template-parts/page/home', 'heading' );
+			}else {
+				get_template_part( 'template-parts/page/home', 'heading', $args );
+			}
 		}
 		wp_reset_postdata();
 	}
@@ -281,9 +296,16 @@ function educationbooster_inner_banner(){
 		'title'       => educationbooster_remove_pipe( $title ),
 		'description' => $description
 	);
-
-	set_query_var( 'args', $args );
-	get_template_part( 'template-parts/inner', 'banner' );
+	
+	/**
+	 * Check WordPress 5.5 or later.
+	 */
+	if ( version_compare( $GLOBALS['wp_version'], '5.5', '<' ) ) {
+		set_query_var( 'args', $args );
+		get_template_part( 'template-parts/inner', 'banner' );
+	}else {
+		get_template_part( 'template-parts/inner', 'banner', $args );
+	}
 }
 endif;
 
@@ -466,3 +488,29 @@ function educationbooster_get_homepage_sections(){
 	return apply_filters( 'educationbooster_homepage_sections', $arr );
 }
 endif;
+
+/**
+* Change menu, front page display as in demo after completing demo import
+* @link https://wordpress.org/plugins/one-click-demo-import/
+* @since Education-booster 1.2.2
+* @return null
+*/
+function education_booster_ocdi_after_import_setup() {
+    // Assign menus to their locations.
+	$primary_menu = get_term_by('name', 'Primary Menu', 'nav_menu');
+	$social_menu = get_term_by('name', 'Social Menu', 'nav_menu');
+	set_theme_mod( 'nav_menu_locations' , array( 
+	      'primary'    	  => $primary_menu->term_id,
+	      'social'     	  => $social_menu->term_id
+	     ) 
+	);
+    // Assign front page and posts page (blog page).
+    $front_page_id = get_page_by_title( 'Front' );
+    $blog_page_id  = get_page_by_title( 'Blog' );
+
+    update_option( 'show_on_front', 'page' );
+    update_option( 'page_on_front', $front_page_id->ID );
+    update_option( 'page_for_posts', $blog_page_id->ID );
+
+}
+add_action( 'pt-ocdi/after_import', 'education_booster_ocdi_after_import_setup' );

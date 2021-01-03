@@ -48,29 +48,6 @@ class Hestia_Customizer_Range_Value_Control extends WP_Customize_Control {
 	public $sum_type = false;
 
 	/**
-	 * Hestia_Customizer_Range_Value_Control constructor.
-	 *
-	 * @param WP_Customize_Manager $manager Customize manager.
-	 * @param string               $id Control id.
-	 * @param array                $args Control arguments.
-	 */
-	public function __construct( $manager, $id, $args = array() ) {
-		parent::__construct( $manager, $id, $args );
-
-		if ( ! empty( $args['media_query'] ) ) {
-			$this->media_query = (bool) $args['media_query'];
-		}
-
-		if ( ! empty( $args['input_attr'] ) ) {
-			$this->input_attr = $args['input_attr'];
-		}
-
-		if ( ! empty( $args['sum_type'] ) ) {
-			$this->sum_type = $args['sum_type'];
-		}
-	}
-
-	/**
 	 * Enqueue scripts/styles.
 	 *
 	 * @since 1.1.31
@@ -89,11 +66,9 @@ class Hestia_Customizer_Range_Value_Control extends WP_Customize_Control {
 	protected function render() {
 		$id    = 'customize-control-' . str_replace( array( '[', ']' ), array( '-', '' ), $this->id );
 		$class = 'customize-control has-switchers customize-control-' . $this->type;
-
-		?><li id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $class ); ?>">
-		<?php $this->render_content(); ?>
-		</li>
-		<?php
+		echo '<li id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '">';
+		$this->render_content();
+		echo '</li>';
 	}
 
 	/**

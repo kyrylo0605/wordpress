@@ -110,7 +110,7 @@ class Hestia_Contact_Section extends Hestia_Abstract_Main {
 		/**
 		 * In case this function is called as shortcode, we remove the container and we add 'is-shortcode' class.
 		 */
-		$class_to_add  = $is_shortcode === true ? 'is-shortcode' : '';
+		$class_to_add  = $is_shortcode === true ? 'is-shortcode ' : '';
 		$class_to_add .= ! empty( $hestia_contact_background ) ? 'section-image' : '';
 
 		$html_allowed_strings = array(

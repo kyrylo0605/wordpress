@@ -1100,7 +1100,6 @@ $config = array(
 
     'tabs' => array(
         'getting_started'      => __( 'Getting Started', 'education-booster' ),
-        'recommended_actions'  => __( 'Recommended Actions', 'education-booster' ),
         'recommended_plugins'  => __( 'Useful Plugins','education-booster' ),
         'support'              => __( 'Support', 'education-booster' ),
         'changelog'            => __( 'Changelog', 'education-booster' ),
@@ -1132,21 +1131,9 @@ $config = array(
         
     ),
 
-    // recommended actions array.
-    'recommended_actions'        => array(
-        'creative-blocks' => array(
-            'title' => esc_html__( 'Install Creative Blocks','education-booster' ),
-            'desc' => sprintf( esc_html__( 'The Creative Blocks, an elegant professional page building blocks for the WordPress Gutenberg block editor', 'education-booster' ) ),
-            'id' => 'creative-blocks',
-            'plugin_slug'   => 'creative-blocks',
-        ),
-    ),
 
     // Plugins array.
     'recommended_plugins' => array(
-        'creative-blocks' => array(
-            'slug' => 'creative-blocks'
-        ),
         'WooCommerce' => array(
             'slug' => 'woocommerce'
         ),
@@ -1165,7 +1152,7 @@ $config = array(
     'faq'      => array(
         'first' => array (
             'title' => esc_html__( 'Does this theme support any plugins?','education-booster' ),
-            'desc' => esc_html__( 'Education Booster supports Creative Blocks, WooCommerce, Contact From 7 and Jetpack.','education-booster' ),
+            'desc' => esc_html__( 'Education Booster supports WooCommerce, Contact From 7 and Jetpack.','education-booster' ),
             'is_new_tab' => true
         ),
     ),

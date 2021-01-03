@@ -56,7 +56,7 @@ jQuery( document ).ready(
             }
         };
 
-        jQuery(window).load(function(){$.hestiaParallax.parallaxMove();});
+        jQuery(window).on( 'load', function(){ $.hestiaParallax.parallaxMove(); } );
         jQuery(window).resize(function(){$.hestiaParallax.parallaxMove();});
 
     }

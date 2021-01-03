@@ -58,11 +58,34 @@ class Admin {
 		);
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_gutenberg_scripts' ] );
 		add_filter( 'themeisle_sdk_hide_dashboard_widget', '__return_true' );
-		add_action( 'admin_notices', [ $this, 'incompatibility_notice' ] );
 
 		if ( get_option( $this->dismiss_notice_key ) !== 'yes' ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice' ] );
+			add_action( 'admin_notices', [ $this, 'admin_notice' ], 0 );
 			add_action( 'wp_ajax_neve_dismiss_welcome_notice', [ $this, 'remove_notice' ] );
+		}
+
+		add_action( 'admin_menu', [ $this, 'remove_background_submenu' ], 110 );
+		add_action( 'after_switch_theme', [ $this, 'get_previous_theme' ] );
+
+		add_filter( 'all_plugins', array( $this, 'change_plugin_names' ) );
+	}
+
+	/**
+	 * Drop `Background` submenu item.
+	 */
+	public function remove_background_submenu() {
+		global $submenu;
+
+		if ( ! isset( $submenu['themes.php'] ) ) {
+			return false;
+		}
+
+		foreach ( $submenu['themes.php'] as $index => $submenu_args ) {
+			foreach ( $submenu_args as $arg_index => $arg ) {
+				if ( preg_match( '/customize\.php.+autofocus%5Bcontrol%5D=background_image/', $arg ) === 1 ) {
+					unset( $submenu['themes.php'][ $index ] );
+				}
+			}
 		}
 	}
 
@@ -71,120 +94,6 @@ class Admin {
 	 */
 	public function set_props() {
 		$this->theme_args = wp_get_theme();
-		$this->theme_name = apply_filters( 'ti_wl_theme_name', $this->theme_args->__get( 'Name' ) );
-	}
-
-	/**
-	 * Renders incompatibility notice.
-	 */
-	public function incompatibility_notice() {
-		if ( ! defined( 'NEVE_PRO_VERSION' ) ) {
-			return;
-		}
-
-		$current_screen = get_current_screen();
-		if ( $current_screen->id === 'appearance_page_neve-welcome' ) {
-			return;
-		}
-
-		$plugin_name = apply_filters( 'ti_wl_plugin_name', 'Neve Pro' );
-
-		$notifications = [];
-		$theme_slug    = 'neve';
-		$themes_update = get_site_transient( 'update_themes' );
-		if ( isset( $themes_update->response[ $theme_slug ] ) ) {
-			$update                       = $themes_update->response[ $theme_slug ];
-			$notifications[ $theme_slug ] = [
-				'type' => 'theme',
-				'path' => '',
-				/* translators: %s - theme name */
-				'cta'  => sprintf( __( 'Update %1$s to v%2$s', 'neve' ), $this->theme_name, $update['new_version'] ),
-			];
-		}
-
-		$plugins_update = get_site_transient( 'update_plugins' );
-		$plugin_path    = 'neve-pro-addon/neve-pro-addon.php';
-		if ( isset( $plugins_update->response[ $plugin_path ] ) ) {
-			$update                          = $plugins_update->response[ $plugin_path ];
-			$notifications['neve-pro-addon'] = [
-				'type' => 'plugin',
-				'path' => $plugin_path,
-				/* translators: %s - pro plugin name (Neve Pro) */
-				'cta'  => sprintf( __( 'Update %1$s to v%2$s', 'neve' ), $plugin_name, $update->new_version ),
-			];
-		}
-
-		// Only show the notice when one version is mismatched.
-		if ( ! is_array( $notifications ) || empty( $notifications ) || sizeof( $notifications ) !== 1 ) {
-			return;
-		}
-
-		/* translators: 1 - Theme Name (Neve), 2 - Plugin Name (Neve Pro) */
-		$text = sprintf( __( 'It is recommended that both %1$s and %2$s are updated to the latest version to ensure optimal intercompatibility.', 'neve' ), $this->theme_name, $plugin_name );
-
-		$notice = '';
-		echo '<style type="text/css">.neve-update-notice .actions {margin: 15px 0;}</style>';
-		?>
-		<script type="text/javascript">
-			function handleNeveUpdates($) {
-				$('.neve-update-entity').each(function (index, button) {
-					$(button).on('click', function (e) {
-						e.preventDefault();
-						var self = $(this);
-						var type = self.data('type');
-						var updatingMessage = self.data('updating-string');
-						var slug = self.data('slug');
-
-						self.addClass('updating-message');
-						self.attr('disabled', 'true');
-
-						if (type === 'theme') {
-							wp.updates.ajax('update-theme', {slug}).then(() => {
-								dismissNeveIncompatibility(self);
-							});
-						} else {
-							var path = self.data('path');
-							wp.updates.ajax('update-plugin', {slug, plugin: path}).then(() => {
-								dismissNeveIncompatibility(self);
-							});
-						}
-					});
-				});
-
-				function dismissNeveIncompatibility(button) {
-					var notice = $('.neve-incompatibility-notice');
-					notice.removeClass('notice-warning').addClass('notice-success');
-					button.removeClass('updating-message').addClass('updated-message');
-					button.children('span').text('<?php echo esc_html__( 'Updated', 'neve' ); ?>');
-					setTimeout(function () {
-						$('.neve-incompatibility-notice').fadeOut();
-					}, 2000);
-				}
-			}
-
-			jQuery(document).ready(function () {
-				handleNeveUpdates(jQuery);
-			});
-		</script>
-		<?php
-
-		$notice .= '<div class="neve-incompatibility-notice notice notice-warning">';
-		$notice .= '<h3>' . __( 'Pending updates', 'neve' ) . ':' . '</h3>';
-		$notice .= '<p>' . esc_html( $text ) . '</p>';
-		$notice .= '<p class="actions">';
-		foreach ( $notifications as $slug => $args ) {
-			$notice .= '<button
-			class="neve-update-entity button button-secondary"
-			data-type="' . esc_attr( $args['type'] ) . '"
-			data-path="' . esc_attr( $args['path'] ) . '"
-			data-slug="' . esc_attr( $slug ) . '">';
-			$notice .= '<span>' . esc_html( $args['cta'] ) . '</span>';
-			$notice .= '</button>';
-		}
-		$notice .= '</p>';
-		$notice .= '</div>';
-
-		echo wp_kses_post( $notice );
 	}
 
 	/**
@@ -200,6 +109,9 @@ class Admin {
 	 * Add notice.
 	 */
 	public function admin_notice() {
+		if ( apply_filters( 'neve_disable_starter_sites_admin_notice', false ) === true ) {
+			return;
+		}
 		if ( defined( 'TI_ONBOARDING_DISABLED' ) && TI_ONBOARDING_DISABLED === true ) {
 			return;
 		}
@@ -317,10 +229,11 @@ class Admin {
 				$name
 			)
 		);
-		$ob_btn = sprintf(
+		$ob_btn_link = admin_url( defined( 'TIOB_PATH' ) ? 'themes.php?page=tiob-starter-sites&onboarding=yes' : 'themes.php?page=' . $theme_page . '&onboarding=yes#starter-sites' );
+		$ob_btn      = sprintf(
 		/* translators: 1 - onboarding url, 2 - button text */
 			'<a href="%1$s" class="button button-primary button-hero install-now" >%2$s</a>',
-			esc_url( admin_url( 'themes.php?page=' . $theme_page . '&onboarding=yes#starter-sites' ) ),
+			esc_url( $ob_btn_link ),
 			sprintf( apply_filters( 'ti_onboarding_neve_start_site_cta', esc_html__( 'Try one of our ready to use Starter Sites', 'neve' ) ) )
 		);
 		$ob_return_dashboard = sprintf(
@@ -484,11 +397,11 @@ class Admin {
 		?>
 		<script type="text/javascript">
 			function handleNoticeActions($) {
-				var actions = $('.nv-welcome-notice').find('.notice-dismiss,  .ti-return-dashboard, .install-now, .options-page-btn');
+				var actions = $('.nv-welcome-notice').find('.notice-dismiss,  .ti-return-dashboard, .install-now, .options-page-btn')
 				$.each(actions, function (index, actionButton) {
 					$(actionButton).on('click', function (e) {
-						e.preventDefault();
-						var redirect = $(this).attr('href');
+						e.preventDefault()
+						var redirect = $(this).attr('href')
 						$.post(
 								'<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
 								{
@@ -496,22 +409,30 @@ class Admin {
 									action: 'neve_dismiss_welcome_notice',
 									success: function () {
 										if (typeof redirect !== 'undefined' && window.location.href !== redirect) {
-											window.location = redirect;
-											return false;
+											window.location = redirect
+											return false
 										}
-										$('.nv-welcome-notice').fadeOut();
+										$('.nv-welcome-notice').fadeOut()
 									}
 								}
-						);
-					});
-				});
+						)
+					})
+				})
 			}
 
 			jQuery(document).ready(function () {
-				handleNoticeActions(jQuery);
-			});
+				handleNoticeActions(jQuery)
+			})
 		</script>
 		<?php
+	}
+
+	/**
+	 * Memorize the previous theme to later display the import template for it.
+	 */
+	public function get_previous_theme() {
+		$previous_theme = strtolower( get_option( 'theme_switched' ) );
+		set_theme_mod( 'ti_prev_theme', $previous_theme );
 	}
 
 	/**
@@ -526,5 +447,18 @@ class Admin {
 		}
 		update_option( $this->dismiss_notice_key, 'yes' );
 		wp_die();
+	}
+
+	/**
+	 * Change Orbit Fox and Otter plugin names to make clear where they are from.
+	 */
+	public function change_plugin_names( $plugins ) {
+		if ( array_key_exists( 'themeisle-companion/themeisle-companion.php', $plugins ) ) {
+			$plugins['themeisle-companion/themeisle-companion.php']['Name'] = 'Orbit Fox Companion by Neve theme';
+		}
+		if ( array_key_exists( 'otter-blocks/otter-blocks.php', $plugins ) ) {
+			$plugins['otter-blocks/otter-blocks.php']['Name'] = 'Gutenberg Blocks and Template Library by Neve theme';
+		}
+		return $plugins;
 	}
 }

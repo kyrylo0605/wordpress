@@ -68,6 +68,11 @@ class Page_Header extends Base_View {
 			$title_args['wrap-class'] = 'nv-big-title';
 		}
 
+		if ( $context === 'single-page' ) {
+			$alignment           = apply_filters( 'neve_post_title_alignment', '' );
+			$title_args['class'] = $alignment;
+		}
+
 		if ( $context === 'search' ) {
 			/* translators: search result */
 			$title_args['string']     = sprintf( esc_html__( 'Search Results for: %s', 'neve' ), get_search_query() );
@@ -109,6 +114,14 @@ class Page_Header extends Base_View {
 		if ( is_archive() ) {
 			return array(
 				'string' => get_the_archive_title(),
+			);
+		}
+
+		if ( class_exists( 'WooCommerce' ) && function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url() ) {
+			$endpoint       = WC()->query->get_current_endpoint();
+			$endpoint_title = WC()->query->get_endpoint_title( $endpoint );
+			return array(
+				'string' => $endpoint_title,
 			);
 		}
 

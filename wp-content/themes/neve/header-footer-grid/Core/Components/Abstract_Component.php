@@ -31,11 +31,12 @@ use WP_Customize_Manager;
 abstract class Abstract_Component implements Component {
 	use Core;
 
-	const ALIGNMENT_ID   = 'component_align';
-	const PADDING_ID     = 'component_padding';
-	const MARGIN_ID      = 'component_margin';
-	const FONT_FAMILY_ID = 'component_font_family';
-	const TYPEFACE_ID    = 'component_typeface';
+	const ALIGNMENT_ID      = 'component_align';
+	const VERTICAL_ALIGN_ID = 'component_vertical_align';
+	const PADDING_ID        = 'component_padding';
+	const MARGIN_ID         = 'component_margin';
+	const FONT_FAMILY_ID    = 'component_font_family';
+	const TYPEFACE_ID       = 'component_typeface';
 	/**
 	 * Current id of the component.
 	 *
@@ -473,8 +474,7 @@ abstract class Abstract_Component implements Component {
 				'icon'    => 'editor-alignright',
 			],
 		];
-
-		if ( $this->get_id() === Button::COMPONENT_ID ) {
+		if ( strpos( $this->get_id(), Button::COMPONENT_ID ) > -1 ) {
 			$align_choices['justify'] = [
 				'tooltip' => __( 'Justify', 'neve' ),
 				'icon'    => 'editor-justify',
@@ -488,11 +488,29 @@ abstract class Abstract_Component implements Component {
 					'group'                 => $this->get_id(),
 					'tab'                   => SettingsManager::TAB_LAYOUT,
 					'transport'             => $this->is_auto_width ? 'post' . $this->get_builder_id() : 'postMessage',
-					'sanitize_callback'     => 'wp_filter_nohtml_kses',
-					'default'               => $this->default_align,
+					'sanitize_callback'     => [ $this, 'sanitize_alignment' ],
+					'default'               => [
+						'desktop' => $this->default_align,
+						'tablet'  => $this->default_align,
+						'mobile'  => $this->default_align,
+					],
 					'label'                 => __( 'Alignment', 'neve' ),
-					'type'                  => '\Neve\Customizer\Controls\React\Radio_Buttons',
+					'type'                  => '\Neve\Customizer\Controls\React\Responsive_Radio_Buttons',
 					'live_refresh_selector' => $this->is_auto_width ? null : $margin_selector,
+					'live_refresh_css_prop' => [
+						'remove_classes' => [
+							'mobile-left',
+							'mobile-right',
+							'mobile-center',
+							'tablet-left',
+							'tablet-right',
+							'tablet-center',
+							'desktop-left',
+							'desktop-right',
+							'desktop-center',
+						],
+						'is_for'         => 'horizontal',
+					],
 					'options'               => [
 						'choices' => $align_choices,
 					],
@@ -501,6 +519,8 @@ abstract class Abstract_Component implements Component {
 				]
 			);
 		}
+
+		$this->add_vertical_alignment_control();
 
 		SettingsManager::get_instance()->add(
 			[
@@ -514,8 +534,7 @@ abstract class Abstract_Component implements Component {
 				'type'                  => '\Neve\Customizer\Controls\React\Spacing',
 				'options'               => [
 					'input_attrs' => array(
-						'min'                   => 0,
-						'hideResponsiveButtons' => true,
+						'min' => 0,
 					),
 					'default'     => $this->default_padding_value,
 				],
@@ -538,11 +557,6 @@ abstract class Abstract_Component implements Component {
 				'default'               => $this->default_margin_value,
 				'label'                 => __( 'Margin', 'neve' ),
 				'type'                  => '\Neve\Customizer\Controls\React\Spacing',
-				'options'               => [
-					'input_attrs' => array(
-						'hideResponsiveButtons' => true,
-					),
-				],
 				'live_refresh_selector' => $margin_selector,
 				'live_refresh_css_prop' => array(
 					'prop' => 'margin',
@@ -594,6 +608,7 @@ abstract class Abstract_Component implements Component {
 		);
 
 		$wp_customize->register_section_type( '\HFG\Core\Customizer\Instructions_Section' );
+		$wp_customize->register_control_type( '\HFG\Core\Customizer\Instructions_Control' );
 
 		Settings\Manager::get_instance()->load( $this->get_id(), $wp_customize );
 
@@ -839,5 +854,98 @@ abstract class Abstract_Component implements Component {
 		$typography = SettingsManager::get_instance()->get( $this->get_id() . '_' . self::TYPEFACE_ID );
 		$weight     = ! isset( $typography['fontWeight'] ) ? [ '300' ] : $typography['fontWeight'];
 		Font_Manager::add_google_font( $font, $weight );
+	}
+
+	/**
+	 * Add verical alignment control.
+	 */
+	private function add_vertical_alignment_control() {
+		if ( $this->builder_id !== 'footer' ) {
+			return;
+		}
+		$align_choices = [
+			'top'    => [
+				'tooltip' => __( 'Top', 'neve' ),
+				'icon'    => 'arrow-up',
+			],
+			'middle' => [
+				'tooltip' => __( 'Middle', 'neve' ),
+				'icon'    => 'sort',
+			],
+			'bottom' => [
+				'tooltip' => __( 'Bottom', 'neve' ),
+				'icon'    => 'arrow-down',
+			],
+		];
+
+		SettingsManager::get_instance()->add(
+			[
+				'id'                    => self::VERTICAL_ALIGN_ID,
+				'group'                 => $this->get_id(),
+				'tab'                   => SettingsManager::TAB_LAYOUT,
+				'transport'             => 'postMessage',
+				'sanitize_callback'     => 'wp_filter_nohtml_kses',
+				'default'               => 'middle',
+				'label'                 => __( 'Vertical Alignment', 'neve' ),
+				'type'                  => '\Neve\Customizer\Controls\React\Radio_Buttons',
+				'live_refresh_selector' => '.builder-item--' . $this->get_id(),
+				'live_refresh_css_prop' => [
+					'is_for' => 'vertical',
+				],
+				'options'               => [
+					'choices' => $align_choices,
+				],
+				'section'               => $this->section,
+			]
+		);
+	}
+
+	/**
+	 * Get the item height default.
+	 *
+	 * @return array
+	 */
+	protected function get_default_for_responsive_from_intval( $old_val_const, $default_int_val ) {
+		$old = get_theme_mod( $this->get_id() . '_' . $old_val_const );
+		if ( $old === false ) {
+			return [
+				'mobile'  => $default_int_val,
+				'tablet'  => $default_int_val,
+				'desktop' => $default_int_val,
+			];
+		}
+		return [
+			'mobile'  => $old,
+			'tablet'  => $old,
+			'desktop' => $old,
+		];
+	}
+
+	/**
+	 * Sanitize alignment.
+	 *
+	 * @param array $input alignment responsive array.
+	 *
+	 * @return array
+	 */
+	public function sanitize_alignment( $input ) {
+		$default = [
+			'mobile'  => 'left',
+			'tablet'  => 'left',
+			'desktop' => 'left',
+		];
+		$allowed = [ 'left', 'center', 'right', 'justify' ];
+
+		if ( ! is_array( $input ) ) {
+			return $default;
+		}
+
+		foreach ( $input as $device => $alignment ) {
+			if ( ! in_array( $alignment, $allowed ) ) {
+				$input[ $device ] = 'left';
+			}
+		}
+
+		return $input;
 	}
 }

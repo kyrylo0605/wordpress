@@ -18,7 +18,9 @@
 	box-shadow: none;
 	cursor: pointer;
     box-sizing: border-box;
+    border: 1px solid #ddd;
     border-right: 0;
+    border-radius: 0;
     height: 35px;
 }
 .customize-control input.hestia-fs-main-input:focus {

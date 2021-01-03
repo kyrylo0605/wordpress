@@ -177,7 +177,9 @@ body.widgets_access .widget-position table tr:nth-child(3) {display: none;}
 	box-shadow: none;
 	cursor: pointer;
     box-sizing: border-box;
+    border: 1px solid #ddd;
     border-right: 0;
+    border-radius: 0;
     height: 35px;
 }
 .customize-control input.hestia-fs-main-input:focus {
@@ -246,7 +248,8 @@ body.widgets_access .widget-position table tr:nth-child(3) {display: none;}
 	border-top: 0;
 	display: none;
 	position: absolute;
-}.range-slider {
+}
+.range-slider {
 	width: 100%;
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -978,7 +981,9 @@ body.widgets_access .widget-position table tr:nth-child(3) {display: none;}
 	box-shadow: none;
 	cursor: pointer;
     box-sizing: border-box;
+    border: 1px solid #ddd;
     border-right: 0;
+    border-radius: 0;
     height: 35px;
 }
 .customize-control input.hestia-fs-main-input:focus {
@@ -1047,7 +1052,8 @@ body.widgets_access .widget-position table tr:nth-child(3) {display: none;}
 	border-top: 0;
 	display: none;
 	position: absolute;
-}.range-slider {
+}
+.range-slider {
 	width: 100%;
 	display: -webkit-box;
 	display: -ms-flexbox;

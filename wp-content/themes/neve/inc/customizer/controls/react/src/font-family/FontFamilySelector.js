@@ -1,201 +1,213 @@
-/* global wp, NeveReactCustomize */
-import FontPreviewLink from './FontPreviewLink.js'
-import VisibilitySensor from 'react-visibility-sensor'
-import PropTypes from 'prop-types'
+/* global NeveReactCustomize */
+import FontPreviewLink from './FontPreviewLink.js';
+import VisibilitySensor from 'react-visibility-sensor';
+import PropTypes from 'prop-types';
 
-const { __ } = wp.i18n
+import { __ } from '@wordpress/i18n';
+import { Popover, Button, TextControl, Icon } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 
-const {
-  Popover,
-  Button,
-  TextControl,
-  Dashicon
-} = wp.components
+const FontFamilySelector = ( {
+	selected,
+	onFontChoice,
+	inheritDefault,
+	maybeGetTypekit,
+	systemFonts,
+} ) => {
+	const { fonts } = NeveReactCustomize;
+	const [ visible, setVisible ] = useState( false );
+	const [ search, setSearch ] = useState( '' );
+	const [ loadUntil, setLoadUntil ] = useState( 20 );
+	const [ delay, setDelay ] = useState( true );
 
-const {
-  Component,
-  Fragment
-} = wp.element
+	const getFonts = () => {
+		const result = {};
 
-class FontFamilySelector extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fonts: NeveReactCustomize.fonts,
-      isVisible: false,
-      search: '',
-      loadUntil: 20,
-      delayFontInclusion: true
-    }
-  }
+		if ( ! search ) {
+			return fonts;
+		}
 
-  getFonts() {
-    const fontGroups = this.state.fonts
-    const self = this
-    const result = {}
+		Object.keys( fonts ).map( ( key ) => {
+			result[ key ] = fonts[ key ].filter( ( value ) => {
+				return value.toLowerCase().includes( search.toLowerCase() );
+			} );
+		} );
 
-    Object.keys(fontGroups).map((key) => {
-      result[key] = fontGroups[key].filter(value => value.toLowerCase()
-        .includes(self.state.search.toLowerCase()))
-    })
-    return result
-  }
+		return result;
+	};
 
-  getFontList() {
-    const fontGroups = this.getFonts()
-    const options = []
-    const self = this
+	const getFontList = () => {
+		const groups = getFonts();
+		const options = [];
 
-    options.push(
-      <li className={'default-value ' + !this.props.selected
-        ? 'selected'
-        : ''}
-      >
-        <FontPreviewLink
-          fontFace='default'
-          delayLoad={false}
-          label={this.props.inheritDefault
-            ? __('Inherit', 'neve')
-            : __('Default', 'neve')}
-          onClick={() => {
-            this.setState({ isVisible: false })
-            this.props.onFontChoice('system', false)
-          }}
-        />
-      </li>
-    )
-    Object.keys(fontGroups).map((key) => {
-      fontGroups[key].length > 0 && options.push(
-        <li className='font-group-header'>
-          {key}
-        </li>
-      )
-      fontGroups[key].map((font, index) => {
-        if (index < self.state.loadUntil) {
-          options.push(
-            <li className={
-              (
-                font === this.props.selected
-              ) ? 'selected' : ''
-            }
-            >
-              <FontPreviewLink
-                delayLoad={this.state.delayFontInclusion}
-                label={font}
-                fontFace={this.props.maybeGetTypekit(font)} onClick={() => {
-                  this.setState({ isVisible: false })
-                  this.props.onFontChoice(key, font)
-                }}
-              />
-            </li>
-          )
-        }
-      })
-    })
-    if (this.state.loadUntil < options.length && this.state.search === '') {
-      options.push(
-        <li className='load-more'>
-          <VisibilitySensor
-            onChange={(isVisible) => {
-              if (isVisible) {
-                this.setState({
-                  loadUntil: (self.state.loadUntil + 5),
-                  delayFontInclusion: false
-                })
-              }
-            }}
-          >
-            <Dashicon icon='image-filter' />
-          </VisibilitySensor>
-        </li>
-      )
-    }
+		if ( ! systemFonts ) {
+			options.push(
+				<li
+					key="default"
+					className={
+						'default-value ' + ! selected ? 'selected' : ''
+					}
+				>
+					<FontPreviewLink
+						fontFace="default"
+						delayLoad={ false }
+						onClick={ () => {
+							setVisible( false );
+							setSearch( '' );
+							onFontChoice( 'system', false );
+						} }
+						label={
+							inheritDefault
+								? __( 'Inherit', 'neve' )
+								: __( 'Default', 'neve' )
+						}
+					/>
+				</li>
+			);
+		}
 
-    return (
-      <Fragment>
-        <div className='popover-content'>
-          <div className='popover-header'>
-            <div className='search'>
-              <TextControl
-                placeholder={__('Search', 'neve') + '...'}
-                value={this.state.search}
-                onChange={e => {
-                  this.setState({
-                    search: e,
-                    loadUntil: 20
-                  })
-                }}
-              />
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  this.setState({ isVisible: false })
-                }}
-                isLink
-                isDestructive
-              ><Dashicon icon='no' />
-              </Button>
-            </div>
-          </div>
-          <ul className='neve-fonts-list'>
-            {options.length ? options
-              : <li className='no-result'>{__('No results.', 'neve')}</li>}
-          </ul>
-        </div>
-      </Fragment>
-    )
-  }
+		Object.keys( groups ).map( ( key ) => {
+			if ( systemFonts && key !== 'System' ) {
+				return null;
+			}
 
-  render() {
-    // eslint-disable-next-line max-len
-    const defaultFontface = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
-    const font = this.props.maybeGetTypekit( this.props.selected )
-    return (
-      <div className='neve-font-family-control'>
-        <span className='customize-control-title'>
-          {__('Font Family', 'neve')}
-        </span>
-        <Button
-          className='font-family-selector-toggle'
-          isDefault
-          onClick={() => {
-            this.setState({ isVisible: true })
-          }}
-        >
-          <span className='ff-name'>{
-            this.props.selected ||
-            (this.props.inheritDefault
-              ? __('Inherit', 'neve')
-              : __('Default', 'neve'))
-          }
-          </span>
-          <span
-            className='ff-preview'
-            style={{
-              fontFamily: font || defaultFontface
-            }}
-          >Abc
-          </span>
-          {this.state.isVisible && (
-            <Popover
-              position='bottom left'
-              onClickOutside={() => this.setState({ isVisible: false })}
-            >
-              {this.state.fonts ? this.getFontList()
-                : __('Loading...', 'neve')}
-            </Popover>
-          )}
-        </Button>
-      </div>
-    )
-  }
-}
+			groups[ key ].length > 0 &&
+				options.push(
+					<li className="font-group-header" key={ key }>
+						{ key }
+					</li>
+				);
+			groups[ key ].map( ( font, index ) => {
+				if ( index < loadUntil ) {
+					options.push(
+						<li
+							key={ font }
+							className={ font === selected ? 'selected' : '' }
+						>
+							<FontPreviewLink
+								delayLoad={ delay }
+								label={ font }
+								fontFace={ maybeGetTypekit( font ) }
+								onClick={ () => {
+									onFontChoice( key, font );
+									setVisible( false );
+									setSearch( '' );
+								} }
+							/>
+						</li>
+					);
+				}
+			} );
+		} );
+
+		if ( loadUntil < options.length ) {
+			options.push(
+				<li className="load-more" key="load-more">
+					<VisibilitySensor
+						onChange={ ( isVisible ) => {
+							if ( isVisible ) {
+								setLoadUntil( loadUntil + 20 );
+								setDelay( false );
+							}
+						} }
+					>
+						<Icon icon="image-filter" />
+					</VisibilitySensor>
+				</li>
+			);
+		}
+
+		return (
+			<>
+				<div className="popover-content">
+					<div className="popover-header">
+						<div className="search">
+							<TextControl
+								placeholder={ __( 'Search', 'neve' ) + '...' }
+								value={ search }
+								onChange={ ( e ) => {
+									setSearch( e );
+									setLoadUntil( 20 );
+								} }
+							/>
+							<a
+								className="close-font-selector"
+								onClick={ ( e ) => {
+									e.preventDefault();
+									e.stopPropagation();
+									setVisible( false );
+									setSearch( '' );
+								} }
+							>
+								<Icon icon="no" />
+							</a>
+						</div>
+					</div>
+					<ul className="neve-fonts-list">
+						{ options.length ? (
+							options
+						) : (
+							<li className="no-result" key="no-results">
+								{ __( 'No results.', 'neve' ) }
+							</li>
+						) }
+					</ul>
+				</div>
+			</>
+		);
+	};
+	// eslint-disable-next-line max-len
+	const defaultFontface =
+		'-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+	const font = maybeGetTypekit( selected );
+
+	return (
+		<div className="neve-font-family-control">
+			<span className="customize-control-title">
+				{ __( 'Font Family', 'neve' ) }
+			</span>
+			<Button
+				className="font-family-selector-toggle"
+				isSecondary
+				onClick={ () => {
+					setVisible( true );
+				} }
+			>
+				<span className="ff-name">
+					{ selected ||
+						( inheritDefault
+							? __( 'Inherit', 'neve' )
+							: __( 'Default', 'neve' ) ) }
+				</span>
+				<span
+					className="ff-preview"
+					style={ {
+						fontFamily: font || defaultFontface,
+					} }
+				>
+					Abc
+				</span>
+				{ visible && (
+					<Popover
+						position="bottom left"
+						onFocusOutside={ () => {
+							setVisible( false );
+							setSearch( '' );
+						} }
+					>
+						{ fonts ? getFontList() : __( 'Loading…', 'neve' ) }
+					</Popover>
+				) }
+			</Button>
+		</div>
+	);
+};
 
 FontFamilySelector.propTypes = {
-  onFontChoice: PropTypes.func.isRequired,
-  maybeGetTypekit: PropTypes.func.isRequired,
-  inheritDefault: PropTypes.bool.isRequired,
-  selected: PropTypes.string
-}
+	onFontChoice: PropTypes.func.isRequired,
+	maybeGetTypekit: PropTypes.func.isRequired,
+	inheritDefault: PropTypes.bool.isRequired,
+	selected: PropTypes.oneOfType( [ PropTypes.string, PropTypes.bool ] ),
+};
 
-export default FontFamilySelector
+export default FontFamilySelector;

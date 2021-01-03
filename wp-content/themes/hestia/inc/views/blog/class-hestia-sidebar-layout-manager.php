@@ -86,9 +86,9 @@ class Hestia_Sidebar_Layout_Manager extends Hestia_Abstract_Main {
 
 		return is_customize_preview() ?
 			$classes :
-			is_active_sidebar( 'sidebar-1' ) ?
+			( is_active_sidebar( 'sidebar-1' ) ?
 				$classes :
-				$classes . ' col-md-offset-2';
+				$classes . ' col-md-offset-2' );
 	}
 
 	/**
@@ -114,17 +114,17 @@ class Hestia_Sidebar_Layout_Manager extends Hestia_Abstract_Main {
 		if ( $sidebar_layout === 'sidebar-left' ) {
 			return is_customize_preview() ?
 				$classes . ' ' . esc_attr( $offset ) :
-				is_active_sidebar( 'sidebar-1' ) ?
+				( is_active_sidebar( 'sidebar-1' ) ?
 					$classes . ' ' . esc_attr( $offset ) :
-					$classes . ' col-md-offset-2';
+					$classes . ' col-md-offset-2' );
 		}
 
 		if ( $sidebar_layout === 'sidebar-right' ) {
 			return is_customize_preview() ?
 				$classes :
-				is_active_sidebar( 'sidebar-1' ) ?
+				( is_active_sidebar( 'sidebar-1' ) ?
 					$classes :
-					$classes . ' col-md-offset-2';
+					$classes . ' col-md-offset-2' );
 		}
 
 		return $classes;
@@ -154,17 +154,17 @@ class Hestia_Sidebar_Layout_Manager extends Hestia_Abstract_Main {
 		if ( $sidebar_layout === 'sidebar-left' ) {
 			return is_customize_preview() ?
 				$classes . ' ' . esc_attr( $offset ) :
-				is_active_sidebar( 'sidebar-1' ) ?
+				( is_active_sidebar( 'sidebar-1' ) ?
 					$classes . ' ' . esc_attr( $offset ) :
-					'col-md-10 col-md-offset-1 blog-posts-wrap';
+					'col-md-10 col-md-offset-1 blog-posts-wrap' );
 		}
 
 		if ( $sidebar_layout === 'sidebar-right' ) {
 			return is_customize_preview() ?
 				$classes :
-				is_active_sidebar( 'sidebar-1' ) ?
+				( is_active_sidebar( 'sidebar-1' ) ?
 					$classes :
-					'col-md-10 col-md-offset-1 blog-posts-wrap';
+					'col-md-10 col-md-offset-1 blog-posts-wrap' );
 		}
 
 		return $classes;
@@ -281,7 +281,7 @@ class Hestia_Sidebar_Layout_Manager extends Hestia_Abstract_Main {
 	 * @return mixed|string
 	 */
 	public function get_page_sidebar_layout() {
-		if ( is_shop() || is_product_category() || is_product_tag() ) {
+		if ( is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy() ) {
 			return hestia_get_shop_sidebar_layout();
 		}
 

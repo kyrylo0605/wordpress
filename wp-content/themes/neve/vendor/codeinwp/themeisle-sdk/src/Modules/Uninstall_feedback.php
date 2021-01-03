@@ -40,7 +40,7 @@ class Uninstall_Feedback extends Abstract_Module {
 	 *
 	 * @var string Endpoint url.
 	 */
-	const FEEDBACK_ENDPOINT = 'http://feedback.themeisle.com/wordpress/wp-json/__pirate_feedback_/v1/feedback';
+	const FEEDBACK_ENDPOINT = 'https://api.themeisle.com/tracking/uninstall';
 
 	/**
 	 * Default options for plugins.
@@ -109,7 +109,7 @@ class Uninstall_Feedback extends Abstract_Module {
 	 *
 	 * @var string $heading_plugin The heading of the modal
 	 */
-	private $heading_plugin = 'What’s wrong?';
+	private $heading_plugin = 'What\'s wrong?';
 	/**
 	 * Default heading for theme.
 	 *
@@ -236,7 +236,7 @@ class Uninstall_Feedback extends Abstract_Module {
 			}
 
 			.ti-feedback .popup--form input[type="radio"] {
-				margin: 0 10px 0 0;
+				<?php echo is_rtl() ? 'margin: 0 0 0 10px;' : 'margin: 0 10px 0 0;'; ?>
 			}
 
 			.ti-feedback .popup--form input[type="radio"]:checked ~ textarea {
@@ -314,7 +314,7 @@ class Uninstall_Feedback extends Abstract_Module {
 			}
 
 			.ti-feedback .buttons input:last-child {
-				margin-left: auto;
+				<?php echo is_rtl() ? 'margin-right: auto;' : 'margin-left: auto;'; ?>
 			}
 
 			.ti-theme-uninstall-feedback-drawer {
@@ -366,13 +366,19 @@ class Uninstall_Feedback extends Abstract_Module {
 				content: "";
 				display: block;
 				position: absolute;
-				border: 20px solid #23A1CE;
-				left: -10px;
 				top: 50%;
-				border-top: 20px solid transparent;
-				border-bottom: 20px solid transparent;
-				border-left: 0;
 				transform: translateY(-50%);
+				<?php
+				echo is_rtl() ?
+				'right: -10px;
+				border-top: 20px solid transparent;
+				border-left: 20px solid #23A1CE;
+				border-bottom: 20px solid transparent;' :
+				'left: -10px;
+				border-top: 20px solid transparent;
+				border-right: 20px solid #23A1CE;
+				border-bottom: 20px solid transparent;';
+				?>
 			}
 
 			.ti-plugin-uninstall-feedback-popup {
@@ -380,7 +386,7 @@ class Uninstall_Feedback extends Abstract_Module {
 				position: absolute;
 				white-space: normal;
 				width: 400px;
-				left: 100%;
+				<?php echo is_rtl() ? 'right: calc( 100% + 15px );' : 'left: calc( 100% + 15px );'; ?>
 				top: -15px;
 			}
 
@@ -698,6 +704,7 @@ class Uninstall_Feedback extends Abstract_Module {
 				'title' => 'Below is a detailed view of all data that ThemeIsle will receive if you fill in this survey. No domain name, email address or IP addresses are transmited after you submit the survey.',
 				'items' => [
 					sprintf( '%s %s version %s %s %s %s', '<strong>', ucwords( $this->product->get_type() ), '</strong>', '<code>', $this->product->get_version(), '</code>' ),
+					sprintf( '%sCurrent website:%s %s %s %s', '<strong>', '</strong>', '<code>', get_site_url(), '</code>' ),
 					sprintf( '%s Uninstall reason %s %s Selected reason from the above survey %s ', '<strong>', '</strong>', '<i>', '</i>' ),
 				],
 			],
@@ -782,6 +789,7 @@ class Uninstall_Feedback extends Abstract_Module {
 		$version               = $this->product->get_version();
 		$attributes['slug']    = $slug;
 		$attributes['version'] = $version;
+		$attributes['url']     = get_site_url();
 
 		$response = wp_remote_post(
 			self::FEEDBACK_ENDPOINT,

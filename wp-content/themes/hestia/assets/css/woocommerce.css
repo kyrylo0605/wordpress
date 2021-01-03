@@ -2239,6 +2239,11 @@ div[id^=woocommerce_layered_nav_filters].widget li a:before {
   width: 100%;
 }
 
+.woocommerce-account form .show-password-input {
+  top: initial;
+  line-height: 36px;
+}
+
 /* Orders tab */
 .woocommerce-account.woocommerce-orders .woocommerce-message.woocommerce-info a.woocommerce-Button.button {
   color: #3C4858;

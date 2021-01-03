@@ -2,7 +2,7 @@
 **Contributors:** [themeisle](https://profiles.wordpress.org/themeisle)  
 **Tags:** blog, custom-logo, portfolio, e-commerce, rtl-language-support, post-formats, grid-layout, one-column, two-columns, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, flexible-header, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, editor-style, footer-widgets, left-sidebar, right-sidebar, wide-blocks  
 **Requires at least:** 4.0  
-**Tested up to:** 5.0  
+**Tested up to:** 5.6  
 **Stable tag:** 2.0.7  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -13,10 +13,74 @@ Hestia Pro fits all business, startups, corporate businesses, online companies, 
 Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
 
 ## Copyright ##
-Hestia WordPress theme, Copyright 2018 Themeisle
+Hestia WordPress theme, Copyright 2018 Themeisle.
 Hestia is distributed under the terms of the GNU GPLv2 or later
 
 ## Changelog ##
+
+##### [Version 3.0.8](https://github.com/Codeinwp/hestia-pro/compare/v3.0.7...v3.0.8) (2020-12-10)
+
+[Fix] Compatibility with WP 5.6
+[Fix] jQuery .load() function is deprecated
+
+
+
+
+##### [Version 3.0.7](https://github.com/Codeinwp/hestia-pro/compare/v3.0.6...v3.0.7) (2020-12-10)
+
+- [Fix] Compatibility with WP 5.6
+- [Fix] jQuery .load() function is deprecated
+
+
+
+
+##### [Version 3.0.6](https://github.com/Codeinwp/hestia-pro/compare/v3.0.5...v3.0.6) (2020-11-03)
+
+- [Fix] Customizer not accessible when Sendinblue plugin was installed
+- [Fix] Make logo option translatable with Polylang
+- [Fix] Elementor font-size inheritance from Customizer
+
+
+
+
+##### [Version 3.0.5](https://github.com/Codeinwp/hestia-pro/compare/v3.0.4...v3.0.5) (2020-09-29)
+
+- [Fix] Responsive slider controls in Customizer
+- [Fix][Pro] Seamless add to cart mechanism
+- [Fix][Pro] Compatibility between Custom Layouts and the latest version of Brizy
+- [Fix][Pro] Better handling of the features list available in each package
+- [Fix][Pro] Correct CSS classes used with the [hestia_contact] shortcode
+
+
+
+
+##### [Version 3.0.4](https://github.com/Codeinwp/hestia-pro/compare/v3.0.3...v3.0.4) (2020-08-03)
+
+- [Fix] Compatibility with WP 5.5
+
+
+
+
+##### [Version 3.0.3](https://github.com/Codeinwp/hestia-pro/compare/v3.0.2...v3.0.3) (2020-07-09)
+
+- Removed onboarding from the free version
+
+
+
+
+##### [Version 3.0.2](https://github.com/Codeinwp/hestia-pro/compare/v3.0.1...v3.0.2) (2020-06-25)
+
+- [Fix] Compatibility issues with PHP 7.4
+- [Fix] Layout of the attribute archive page
+- [Fix] Position of show/hide password icon on the My Account page
+- [Fix][Pro] Allow iframe code in the Custom Layouts
+- [Fix][Pro] Translatable Custom Layouts
+- [Fix][Pro] Remove unused sidebar control meta box on single portfolio pages
+- [Fix][Pro] Empty team member widget appearing on mobile
+- [Fix][Pro] Seamless add to cart mechanism for variable products
+
+
+
 
 ##### [Version 3.0.1](https://github.com/Codeinwp/hestia-pro/compare/v3.0.0...v3.0.1) (2020-05-11)
 
@@ -333,7 +397,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 *Release Date - 2018-09-11*
 
 * Fixed issue with the dropdown menu active items
- 
+
 ### v2.0.3 ###
 *Release Date - 2018-09-11*
 
@@ -342,20 +406,20 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed issue with the category description not visible on the category archive page
 * [Hestia PRO] Fixed compatibility issues with Elementor Pro
 * New filter for the Related Posts title that can be changed using this doc https://docs.themeisle.com/article/937-change-related-post-title-on-post-page-in-hestia-theme
- 
+
 ### v2.0.2 ###
 *Release Date - 2018-08-29*
 
 * Fix issue with Import Zerif to Elementor notice
 * Fix issue with the navigation menu on the tablet
- 
+
 ### v2.0.1 ###
 *Release Date - 2018-08-24*
 
 * Fixed issue with woocommerce buttons
 * Fixed issue on third layout on blog
 * Make elementor import notice dismissible
- 
+
  = v2.0.0 =
  *Release Date - 2018-08-24*
 
@@ -373,12 +437,12 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed issues with TinyMCE
 * Improved compatibility with the WPForms Lite plugin
 * Fixed issue on shop with older browsers
- 
+
  = v1.1.86 =
 *Release Date - 2018-08-13*
 
 * Updated screenshot
- 
+
  = v1.1.85 =
 *Release Date - 2018-07-26*
 
@@ -387,7 +451,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Improved compatibility with the Max Mega Menu plugin
 * Fixed title problem on the archive pages for locals different than English
 * Fixed small layout compatibility problem with Elementor
- 
+
 ### v1.1.84 ###
 *Release Date - 2018-07-19*
 
@@ -396,7 +460,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed layout issues for the Shop page on Internet Explorer 11
 * Redone the way sections can be overridden in child themes using this documentation:
 * https://docs.themeisle.com/article/918-how-to-override-sections-in-hestia-pro
- 
+
 ### v1.1.83 ###
 *Release Date - 2018-07-06*
 
@@ -415,18 +479,18 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed compatibility with Orfeo child theme
 * Improved Clients Bar section layout
 * Small code improvements
- 
+
 ### v1.1.81 ###
 *Release Date - 2018-06-26*
 
 * Fixed products alignment issue on the shop page when a left sidebar is used
 * Fixed problem with the Big Title alignment option callback function
- 
+
 ### v1.1.80 ###
 *Release Date - 2018-06-25*
 
 * Fixed issue with style enqueued for the About page
- 
+
 ### v1.1.79 ###
 *Release Date - 2018-06-25*
 
@@ -434,33 +498,33 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed responsive alignment issues in the Big Title section
 * Fixed issue with product/articles categories colors
 * Improved frontpage Products section layout
- 
+
 ### v1.1.78 ###
 *Release Date -  2018-06-21*
 
 * Refactored the entire code
 * Redone the Big Title section for a better UX
 * Fixed Big Title buttons alignment and notice on the checkout page in the Orfeo child theme
- 
+
 ### v1.1.77 ###
 *Release Date - 2018-05-24*
 
 * Fixed compatibility with WP GDPR Compliance plugin
 * Fixed problem with the Big Title Background not being able to be removed
 * Fixed problem with default content added in the Very Top Bar section
- 
+
 ### v1.1.76 ###
 *Release Date - 2018-05-18*
 
 * Fixed problem with some redundant strings in the lite version
- 
+
 ### v1.1.75 ###
 *Release Date - 2018-05-18*
 
 * NEW Feature to allow a widget area in the Big Title/Slider section
 * [Hestia PRO] Fixed alignment for the Authors Section on the Blog page
 * Fix fatal error on lower PHP versions
- 
+
  = v1.1.74 =
  *Release Date - 2018-05-10*
 
@@ -469,7 +533,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed problem with duplicated titles when using the second header layout option
 * Fixed problem with the Big Title Second Button control not working in the Orfeo child theme
 * Fixed some layout issues with the WooCommerce filtering widgets in the Footer area
- 
+
 ### v1.1.73 ###
 *Release Date - 2018-04-24*
 
@@ -477,12 +541,12 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed problem with the About and Contact sections editor not saving the input
 * Fixed problem with footer section on internal pages in IE11
 * Removed meta on the Archive pages - Doc to add them back https://docs.themeisle.com/article/793-how-to-add-back-category-tag-author-in-the-archive-title-in-hestia
- 
+
 ### v1.1.72 ###
 *Release Date - 2018-04-17*
 
 * Compatibility with Elementor Pro 2.0 theme location API header and footer
-* NEW extra options for the Big title/Slider area - Parallax effect 
+* NEW extra options for the Big title/Slider area - Parallax effect
 * UX Customize layout improvements
 * Fixed layout compatibility issues with the sidebar on bbpress and BuddyPress pages
 * Fixed layout of the Search products widget
@@ -491,28 +555,28 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed issue with sidebar position when the option for logged in users to be able to post comments is enabled
 * Fixed problem with footer sticking to the bottom of the page when to little content
 * Made reCaptcha button smaller on mobile devices to better accommodate the layout
- 
+
 ### v1.1.71 ###
 *Release Date - 2018-03-14*
 
 * Fixed problem with the preview images not showing anymore on the blog page
 * Fixed problem with the parallax effect on inner pages
- 
+
 ### v1.1.70 ###
 *Release Date - 2018-03-08*
 
 * Fixed alignment issues with the Featured posts area
- 
+
 ### v1.1.69 ###
 *Release Date - 2018-03-08*
 
 * Fixed alignment issue in the featured posts area
- 
+
 ### v1.1.68 ###
 *Release Date - 2018-03-07*
 
 * Fixed compatibility issues with WooCommerce 3.3 thumbnail cropping options
- 
+
 ### v1.1.67 ###
 *Release Date - 2018-03-06*
 
@@ -525,12 +589,12 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Made Social Sharing strings translatable
 * Fixed fatal error with PHP 5.2
 * Fixed issue with random images appearing on the blog page in child themes
- 
+
 ### v1.1.66 ###
 *Release Date - 2018-02-19*
 
 * Fixed responsive alignment on the shop page
- 
+
 ### v1.1.65 ###
 *Release Date - 2018-02-16*
 
@@ -538,7 +602,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed warning appearing in the Blog section
 * [Hestia PRO] Fixed empty cart layout in navigation area
 * Fixed issues with the Header layout control
- 
+
 ### v1.1.63 ###
 *Release Date - 2018-02-14*
 
@@ -556,7 +620,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed problem with dropdown menu items on Firefox
 * Added styling for more widgets in the Subscribe section
 * Removed characters limitation for WooCommerce product's titles
- 
+
 ### v1.1.62
 *Release Date - 2018-01-31*
 
@@ -564,12 +628,12 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed problem with container width control not working properly
 * Added missing about-contact.png image
 * Fixed warning: Implode function invalid arguments passed
- ###
+###
 ### v1.1.61 ###
 *Release Date - 2018-01-30*
 
 * Fixed problem with dismissable notification
- 
+
 ### v1.1.60 ###
 *Release Date - 2018-01-29*
 
@@ -594,7 +658,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * New hook added to allow a title and subtitle in the Clients Bar section using this doc http://docs.themeisle.com/article/816-how-to-add-a-title-and-a-subtitle-in-the-clients-bar-section-in-hestia
 * Fixed mobile issue with the logo on iOS devices
 * Other small code improvements
- 
+
 ### v1.1.59 ###
 *Release Date - 2018-01-11*
 
@@ -610,13 +674,13 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed issue with About section background causing slow scrolling on iOS devices
 * Limit the number of categories, title and description's words for each WooCommerce Product box for a better layout across the site, using filters that can be further used in child themes
 * Two new filters to allow users changing the post meta data on single post pages and on the blog using this documentation http://docs.themeisle.com/article/807-how-to-change-post-meta-data-in-hestia
- 
+
 ### v1.1.58 ###
 *Release Date - 2017-12-29*
 
 * Improved migration from old Font Size options to the new options
 * Imported theme mods when switching from a Themeisle child theme to Hestia
- 
+
 ### v1.1.57 ###
 *Release Date - 2017-12-25*
 
@@ -627,12 +691,12 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed H2 tags not displaying on the Frontpage Shop Section
 * Fixed conflict with Event Espresso Calendar addon
 * Minified images
- 
+
 ### v1.1.56 ###
 *Release Date - 2017-11-28*
 
 * Added back titles on pages when WooCoomerce is not installed
- 
+
 ### v1.1.55 ###
 *Release Date - 2017-11-27*
 
@@ -645,7 +709,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * [Hestia PRO] Fixed issue with navigation menu ( with the Full menu option activated ) closing button color
 * Improved layout for the WooCommerce Cart and Checkout pages
 * Fixed alignment issues with the front page sections
- 
+
 ### v1.1.54 ###
 *Release Date - 2017-11-13*
 
@@ -654,7 +718,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Added missing IDs for Ribbon and Clients Bar sections
 * Fixed issue with hidden label for the custom color controls in customizer in WordPress 4.9
 * Allow Skip logo cropping
- 
+
 ### v1.1.53 ###
 *Release Date - 2017-11-06*
 
@@ -663,7 +727,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * [Hestia PRO] New option for changing the Header Gradient color
 * Fixed compatibility issues with SiteOrigin Page Builder overriding the About section
 * Fixed WooCommerce layout for single product pages when no tabs were displayed
- 
+
 ### v1.1.52 ###
 *Release Date - 2017-10-24*
 
@@ -675,7 +739,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed issue with items descriptions appearing in the primary menu
 * Fixed active buttons color issue in the primary menu
 * Fixed small JavaScript console error in Customizer
- 
+
 ### v1.1.51 ###
 *Release Date - 2017-10-18*
 
@@ -696,7 +760,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Added some new filters to control the number of items per row appear in the Features, Testimonials and Blog Frontpage section - http://docs.themeisle.com/article/669-how-to-add-4-feature-items-on-a-line-in-hestia
 * Fixed issue in RTL mode with Sidebar layout control icons
 * Fixed selective refresh for the Tagline option
- 
+
 ### v1.1.50 ###
 *Release Date - 2017-10-02*
 
@@ -712,7 +776,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Improved Customize layout with scrolling to the currently selected section
 * Fixed issue with About section image taking one of the posts images when the sections are subsequent
 * Fixed JS console error sometimes appearing when using cache plugins
- 
+
 ### v1.1.48 ###
 *Release Date - 2017-09-19*
 
@@ -723,7 +787,7 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Fixed problems with WooCommerce elements on RTL sites
 * Fixed small alignment issue with the Slider buttons on responsive mode
 * Fixed small visual bug on the search icon
- 
+
 ### v1.1.47 ###
 *Release Date - 2017-09-12*
 
@@ -737,20 +801,20 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Default WooCommerce image for products with no featured image
 * Made the Very Top Bar fixed at the top of the screen
 * Removed unused jQuery MatchHeight script
- 
+
 ### v1.1.46 ###
 *Release Date - 2017-08-24*
 
 * Fixed issue with colors options not appearing in the Features section
 * Fixed issue with the About section not working
 * Recommend Elementor plugin
- 
+
 ### v1.1.45 ###
 *Release Date - 2017-08-22*
 
 * Fixed Frontpage sections image options not working properly since the last update
 * Added page title in header for the blog page, instead of the Site tagline
- 
+
 ### v1.1.44 ###
 *Release Date - 2017-08-21*
 
@@ -773,19 +837,19 @@ Hestia is distributed under the terms of the GNU GPLv2 or later
 * Changes to enqueue fonts conditionally
 * Changed Font subsets control to a multiple select
 * Removed Menu icon on mobile devices, when no menu is selected
- 
+
 ### v1.1.43 ###
 *Release Date - 2017-08-08*
 
 * Fixed issue with colors not working in the Features section
 * Fixed issue with menu opening automatically on mobile devices
 * Fixed issue with footer icons color when the Alternative Footer option is selected
- 
+
 ### v1.1.42 ###
 *Release Date - 2017-08-04*
 
 * Fix feature section controls.
-* Fix testimonial section controls. 
+* Fix testimonial section controls.
 * Fix JetPack compatibility issues in customizer.
 * Fix subscribe section.
 * Improved UX of customizer.

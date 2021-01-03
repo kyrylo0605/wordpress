@@ -79,7 +79,7 @@ class Hestia_Subscribe_Info extends WP_Customize_Control {
 		if ( ! class_exists( 'SIB_Manager', false ) ) {
 			return 'install';
 		}
-		if ( SIB_Manager::is_done_validation() === true ) {
+		if ( SIB_Manager::is_done_validation( false ) === true ) {
 			return 'configure';
 		}
 		return 'create_account';

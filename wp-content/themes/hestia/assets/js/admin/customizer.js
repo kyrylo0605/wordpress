@@ -391,7 +391,7 @@
             );
         },
         'focusTab': function () {
-            $( '.customize-partial-edit-shortcut' ).live(
+            $( '.customize-partial-edit-shortcut' ).bind(
                 'DOMNodeInserted', function () {
                     $( this ).on(
                         'click', function() {
@@ -636,7 +636,8 @@
                             $( '.blog-sidebar-wrapper:not(.no-variable-width), .shop-sidebar-wrapper' ).css( 'width', newval + '%' );
                         }
 
-	                    layout = wp.customize._value.hestia_shop_sidebar_layout();
+
+                      layout = typeof wp.customize._value.hestia_shop_sidebar_layout !== 'undefined' ? wp.customize._value.hestia_shop_sidebar_layout() : '';
 	                    if (layout !== 'full-width' && layout !== '') {
 		                    hestia_content_width = 100 - newval;
 

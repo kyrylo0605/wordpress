@@ -35,7 +35,9 @@ function neve_hooks() {
 	$hooks = array(
 		'header'     => array(
 			'neve_before_header_hook',
+			'neve_before_header_wrapper_hook',
 			'neve_after_header_hook',
+			'neve_after_header_wrapper_hook',
 		),
 		'footer'     => array(
 			'neve_before_footer_hook',
@@ -149,22 +151,24 @@ function neve_cart_icon( $echo = false, $size = 15, $cart_icon = '' ) {
 /**
  * Search Icon
  *
+ * @param bool $is_link should be wrapped in A tag.
  * @param bool $echo should be echoed.
  * @param int  $size icon size.
  * @param bool $amp_ready Should we add the AMP binding.
  *
  * @return string
  */
-function neve_search_icon( $echo = false, $size = 15, $amp_ready = false ) {
+function neve_search_icon( $is_link = false, $echo = false, $size = 15, $amp_ready = false ) {
 
 	$amp_state = '';
 	if ( $amp_ready ) {
-		$amp_state = ' on="tap:nv-search-icon-responsive.toggleClass(class=\'active\')" role="button" tabindex="0" ';
+		$amp_state = 'on="tap:AMP.setState({visible: !visible})" role="button" tabindex="0" ';
 	}
-
-	$svg = '<span class="nv-icon nv-search" ' . $amp_state . '>
+	$start_tag = $is_link ? 'a href="#"' : 'div';
+	$end_tag   = $is_link ? 'a' : 'div';
+	$svg       = '<' . $start_tag . ' class="nv-icon nv-search" ' . $amp_state . '>
 				<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg>
-			</span>';
+			</' . $end_tag . '>';
 	if ( $echo === false ) {
 		return $svg;
 	}
@@ -271,7 +275,7 @@ function neve_get_standard_fonts() {
 function neve_get_google_fonts() {
 	return apply_filters(
 		'neve_google_fonts_array',
-		// Updated on 02/12/19
+		// Updated on 15/09/20
 		array(
 			'ABeeZee',
 			'Abel',
@@ -365,16 +369,26 @@ function neve_get_google_fonts() {
 			'Bahiana',
 			'Bahianita',
 			'Bai Jamjuree',
+			'Balsamiq Sans',
 			'Baloo',
+			'Baloo 2',
 			'Baloo Bhai',
+			'Baloo Bhai 2',
 			'Baloo Bhaijaan',
 			'Baloo Bhaina',
+			'Baloo Bhaina 2',
 			'Baloo Chettan',
+			'Baloo Chettan 2',
 			'Baloo Da',
+			'Baloo Da 2',
 			'Baloo Paaji',
+			'Baloo Paaji 2',
 			'Baloo Tamma',
+			'Baloo Tamma 2',
 			'Baloo Tammudu',
+			'Baloo Tammudu 2',
 			'Baloo Thambi',
+			'Baloo Thambi 2',
 			'Balthazar',
 			'Bangers',
 			'Barlow',
@@ -392,6 +406,8 @@ function neve_get_google_fonts() {
 			'Belgrano',
 			'Bellefair',
 			'Belleza',
+			'Bellota',
+			'Bellota Text',
 			'BenchNine',
 			'Bentham',
 			'Berkshire Swash',
@@ -435,6 +451,7 @@ function neve_get_google_fonts() {
 			'Caesar Dressing',
 			'Cagliostro',
 			'Cairo',
+			'Caladea',
 			'Calistoga',
 			'Calligraffitti',
 			'Cambay',
@@ -482,6 +499,7 @@ function neve_get_google_fonts() {
 			'Coiny',
 			'Combo',
 			'Comfortaa',
+			'Comic Neue',
 			'Coming Soon',
 			'Concert One',
 			'Condiment',
@@ -498,6 +516,7 @@ function neve_get_google_fonts() {
 			'Cormorant Unicase',
 			'Cormorant Upright',
 			'Courgette',
+			'Courier Prime',
 			'Cousine',
 			'Coustard',
 			'Covered By Your Grace',
@@ -512,6 +531,7 @@ function neve_get_google_fonts() {
 			'Cute Font',
 			'Cutive',
 			'Cutive Mono',
+			'DM Mono',
 			'DM Sans',
 			'DM Serif Display',
 			'DM Serif Text',
@@ -566,6 +586,7 @@ function neve_get_google_fonts() {
 			'Engagement',
 			'Englebert',
 			'Enriqueta',
+			'Epilogue',
 			'Erica One',
 			'Esteban',
 			'Euphoria Script',
@@ -620,6 +641,7 @@ function neve_get_google_fonts() {
 			'Galindo',
 			'Gamja Flower',
 			'Gayathri',
+			'Gelasio',
 			'Gentium Basic',
 			'Gentium Book Basic',
 			'Geo',
@@ -628,6 +650,7 @@ function neve_get_google_fonts() {
 			'Germania One',
 			'Gidugu',
 			'Gilda Display',
+			'Girassol',
 			'Give You Glory',
 			'Glass Antiqua',
 			'Glegoo',
@@ -636,12 +659,15 @@ function neve_get_google_fonts() {
 			'Gochi Hand',
 			'Gorditas',
 			'Gothic A1',
+			'Gotu',
 			'Goudy Bookletter 1911',
 			'Graduate',
 			'Grand Hotel',
+			'Grandstander',
 			'Gravitas One',
 			'Great Vibes',
 			'Grenze',
+			'Grenze Gotisch',
 			'Griffy',
 			'Gruppo',
 			'Gudea',
@@ -694,6 +720,9 @@ function neve_get_google_fonts() {
 			'Indie Flower',
 			'Inika',
 			'Inknut Antiqua',
+			'Inria Sans',
+			'Inria Serif',
+			'Inter',
 			'Irish Grover',
 			'Istok Web',
 			'Italiana',
@@ -709,6 +738,7 @@ function neve_get_google_fonts() {
 			'Jomolhari',
 			'Josefin Sans',
 			'Josefin Slab',
+			'Jost',
 			'Joti One',
 			'Jua',
 			'Judson',
@@ -751,9 +781,11 @@ function neve_get_google_fonts() {
 			'Kristi',
 			'Krona One',
 			'Krub',
+			'Kufam',
 			'Kulim Park',
 			'Kumar One',
 			'Kumar One Outline',
+			'Kumbh Sans',
 			'Kurale',
 			'La Belle Aurore',
 			'Lacquer',
@@ -823,6 +855,7 @@ function neve_get_google_fonts() {
 			'Mallanna',
 			'Mandali',
 			'Manjari',
+			'Manrope',
 			'Mansalva',
 			'Manuale',
 			'Marcellus',
@@ -891,6 +924,8 @@ function neve_get_google_fonts() {
 			'Mukta Malar',
 			'Mukta Vaani',
 			'Muli',
+			'Mulish',
+			'MuseoModerno',
 			'Mystery Quest',
 			'NTR',
 			'Nanum Brush Script',
@@ -955,6 +990,7 @@ function neve_get_google_fonts() {
 			'Overpass',
 			'Overpass Mono',
 			'Ovo',
+			'Oxanium',
 			'Oxygen',
 			'Oxygen Mono',
 			'PT Mono',
@@ -1040,8 +1076,10 @@ function neve_get_google_fonts() {
 			'Rasa',
 			'Rationale',
 			'Ravi Prakash',
+			'Recursive',
 			'Red Hat Display',
 			'Red Hat Text',
+			'Red Rose',
 			'Redressed',
 			'Reem Kufi',
 			'Reenie Beanie',
@@ -1063,6 +1101,7 @@ function neve_get_google_fonts() {
 			'Rosario',
 			'Rosarivo',
 			'Rouge Script',
+			'Rowdies',
 			'Rozha One',
 			'Rubik',
 			'Rubik Mono One',
@@ -1102,6 +1141,7 @@ function neve_get_google_fonts() {
 			'Secular One',
 			'Sedgwick Ave',
 			'Sedgwick Ave Display',
+			'Sen',
 			'Sevillana',
 			'Seymour One',
 			'Shadows Into Light',
@@ -1136,11 +1176,13 @@ function neve_get_google_fonts() {
 			'Solway',
 			'Song Myung',
 			'Sonsie One',
+			'Sora',
 			'Sorts Mill Goudy',
 			'Source Code Pro',
 			'Source Sans Pro',
 			'Source Serif Pro',
 			'Space Mono',
+			'Spartan',
 			'Special Elite',
 			'Spectral',
 			'Spectral SC',
@@ -1173,6 +1215,7 @@ function neve_get_google_fonts() {
 			'Suwannaphum',
 			'Swanky and Moo Moo',
 			'Syncopate',
+			'Syne',
 			'Tajawal',
 			'Tangerine',
 			'Taprom',
@@ -1215,8 +1258,10 @@ function neve_get_google_fonts() {
 			'Vampiro One',
 			'Varela',
 			'Varela Round',
+			'Varta',
 			'Vast Shadow',
 			'Vesper Libre',
+			'Viaoda Libre',
 			'Vibes',
 			'Vibur',
 			'Vidaloka',
@@ -1270,4 +1315,56 @@ function neve_get_headings_selectors() {
 			'h6' => \Neve\Core\Settings\Config::$css_selectors_map[ \Neve\Core\Settings\Config::CSS_SELECTOR_TYPEFACE_H6 ],
 		)
 	);
+}
+
+/**
+ * Get Global Colors Default
+ *
+ * @param bool $migrated get with migrated colors.
+ * @return array
+ */
+function neve_get_global_colors_default( $migrated = false ) {
+
+	$old_link_color       = get_theme_mod( 'neve_link_color', '#0366d6' );
+	$old_link_hover_color = get_theme_mod( 'neve_link_hover_color', '#0e509a' );
+	$old_text_color       = get_theme_mod( 'neve_text_color', '#393939' );
+	$old_bg_color         = '#' . get_theme_mod( 'background_color', 'ffffff' );
+
+	add_filter( 'theme_mod_background_color', '__return_empty_string' );
+
+	return [
+		'activePalette' => 'base',
+		'palettes'      => [
+			'base'     => [
+				'name'          => __( 'Base', 'neve' ),
+				'allowDeletion' => false,
+				'colors'        => [
+					'nv-primary-accent'   => $migrated ? $old_link_color : '#0366d6',
+					'nv-secondary-accent' => $migrated ? $old_link_hover_color : '#0e509a',
+					'nv-site-bg'          => $migrated ? $old_bg_color : '#ffffff',
+					'nv-light-bg'         => '#ededed',
+					'nv-dark-bg'          => '#14171c',
+					'nv-text-color'       => $migrated ? $old_text_color : '#393939',
+					'nv-text-dark-bg'     => '#ffffff',
+					'nv-c-1'              => '#77b978',
+					'nv-c-2'              => '#f37262',
+				],
+			],
+			'darkMode' => [
+				'name'          => __( 'Dark Mode', 'neve' ),
+				'allowDeletion' => false,
+				'colors'        => [
+					'nv-primary-accent'   => '#26bcdb',
+					'nv-secondary-accent' => '#1f90a6',
+					'nv-site-bg'          => '#121212',
+					'nv-light-bg'         => '#1a1a1a',
+					'nv-dark-bg'          => '#1a1a1a',
+					'nv-text-color'       => '#ffffff',
+					'nv-text-dark-bg'     => 'rgba(255, 255, 255, 0.81)',
+					'nv-c-1'              => '#77b978',
+					'nv-c-2'              => '#f37262',
+				],
+			],
+		],
+	];
 }

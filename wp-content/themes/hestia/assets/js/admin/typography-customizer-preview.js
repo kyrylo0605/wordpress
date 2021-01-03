@@ -87,7 +87,7 @@ wp.customize(
 				};
 
 				var arraySizes = {
-					size1: { selectors: '.single-post-wrap p:not(.meta-in-content), .page-content-wrap p, .single-post-wrap ul, .page-content-wrap ul, .single-post-wrap ol, .page-content-wrap ol, .single-post-wrap dl, .page-content-wrap dl, .single-post-wrap table, .page-content-wrap table, .page-template-template-fullwidth article p, .page-template-template-fullwidth article ol, .page-template-template-fullwidth article ul, .page-template-template-fullwidth article dl, .page-template-template-fullwidth article table', values: [18,18,18] },
+					size1: { selectors: '.single-post-wrap, .page-content-wrap, .single-post-wrap ul, .page-content-wrap ul, .single-post-wrap ol, .page-content-wrap ol, .single-post-wrap dl, .page-content-wrap dl, .single-post-wrap table, .page-content-wrap table, .page-template-template-fullwidth article, .page-template-template-fullwidth article ol, .page-template-template-fullwidth article ul, .page-template-template-fullwidth article dl, .page-template-template-fullwidth article table', values: [18,18,18] },
 				};
 
                 hestiaGetCss( arraySizes, settings, to );

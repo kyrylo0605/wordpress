@@ -22,9 +22,15 @@ class Hestia_Metabox_Main extends Hestia_Metabox_Controls_Base {
 		if ( empty( $post_type ) && array_key_exists( 'post', $_GET ) ) {
 			$post_type = get_post_type( $_GET['post'] );
 		}
-		if ( $post_type !== 'product' ) {
-			$this->sidebar_control();
-			$this->content_toggles();
+		switch ( $post_type ) {
+			case 'jetpack-portfolio':
+				$this->content_toggles();
+				break;
+			case 'product':
+				break;
+			default:
+				$this->sidebar_control();
+				$this->content_toggles();
 		}
 	}
 

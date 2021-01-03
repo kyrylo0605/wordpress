@@ -143,7 +143,7 @@ jQuery.fn.fixedNav = function( options ){
 
 jQuery.fn.scrollTo = function( offset ){
 
-	jQuery( document ).on( 'click', this.selector, function( e ){
+	jQuery( document ).on( 'click', '.scroll-to', function( e ){
 		e.preventDefault();
 		var target = jQuery( this ).attr( 'href' );
 		if( 'undefined' != typeof target ){

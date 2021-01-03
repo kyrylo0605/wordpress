@@ -26,8 +26,8 @@ class Woocommerce {
 	 */
 	private $primary_buttons_selectors = array(
 		'default' => '
-			,.woocommerce a.button,
-			.woocommerce .button:not(.nv-sidebar-toggle):not(.nv-close-cart-sidebar):not([name="apply_coupon"]),
+			,.woocommerce *:not(.woocommerce-mini-cart__buttons) > a.button,
+			.woocommerce *:not(.woocommerce-mini-cart__buttons) > .button:not(.nv-sidebar-toggle):not(.nv-close-cart-sidebar):not([name="apply_coupon"]):not(.more-details),
 			.woocommerce a.button.alt,
 			.woocommerce a.button.button-primary,
 			.woocommerce a.button.checkout-button,
@@ -41,14 +41,12 @@ class Woocommerce {
 			.woocommerce button.button.alt.single_add_to_cart_button.disabled,
 			.woocommerce button.button.alt.single_add_to_cart_button,
 			.woocommerce .actions > button[type=submit],
-			.woocommerce .checkout.wc-forward,
 			.woocommerce button#place_order,
 			.woocommerce .return-to-shop > .button,
-			ul[id^="nv-primary-navigation"] .nv-nav-cart a.button.checkout.wc-forward,
 			.button.woocommerce-form-login__submit',
 		'hover'   => '
-			,.woocommerce a.button:hover,
-			.woocommerce .button:not(.nv-sidebar-toggle):not(.nv-close-cart-sidebar):not([name="apply_coupon"]):hover,
+			,.woocommerce *:not(.woocommerce-mini-cart__buttons) > a.button:hover,
+			.woocommerce *:not(.woocommerce-mini-cart__buttons) > .button:not(.nv-sidebar-toggle):not(.nv-close-cart-sidebar):not([name="apply_coupon"]):not(.more-details):hover,
 			.woocommerce a.button.alt:hover,
 			.woocommerce a.button.button-primary:hover,
 			.woocommerce a.button.checkout-button:hover,
@@ -61,10 +59,8 @@ class Woocommerce {
 			.woocommerce button.button.alt.single_add_to_cart_button.disabled:hover,
 			.woocommerce button.button.alt.single_add_to_cart_button:hover,
 			.woocommerce .actions > button[type=submit]:hover,
-			.woocommerce .checkout.wc-forward:hover,
 			.woocommerce button#place_order:hover,
 			.woocommerce .return-to-shop > .button:hover,
-			ul[id^="nv-primary-navigation"] .nv-nav-cart a.button.checkout.wc-forward:hover,
 			.button.woocommerce-form-login__submit:hover',
 	);
 
@@ -74,33 +70,27 @@ class Woocommerce {
 	 * @var array
 	 */
 	private $secondary_buttons_selectors = array(
-		'default'          => '
+		'default' => '
 			,.woocommerce-cart table.cart td.actions .coupon > .input-text + .button,
 			.woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .form-row-last button,
-			.woocommerce button.button,
+			.woocommerce button.button:not(.single_add_to_cart_button),
 			.woocommerce a.added_to_cart,
 			.woocommerce .checkout_coupon button.button,
 			.woocommerce #review_form #respond input#submit,
-			.woocommerce .price_slider_amount button.button:not(.nv-sidebar-toggle):not(.nv-close-cart-sidebar),
-			.woocommerce .woocommerce-mini-cart__buttons.buttons a.button.wc-forward:not(.checkout),
+			.woocommerce .price_slider_amount button.button,
 			.woocommerce .button.button-secondary.more-details,
 			.woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .form-row-last button.button',
-		'hover'            => '
+		'hover'   => '
 			,#comments input[type=submit]:hover,
 			.woocommerce-cart table.cart td.actions .coupon > .input-text + .button:hover,
 			.woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .form-row-last button:hover,
-			.woocommerce button.button:hover,
+			.woocommerce button.button:not(.single_add_to_cart_button):hover,
 			.woocommerce a.added_to_cart:hover,
 			.woocommerce .checkout_coupon button.button:hover,
 			.woocommerce #review_form #respond input#submit:hover,
 			.woocommerce .price_slider_amount button.button:hover,
-			.woocommerce .woocommerce-mini-cart__buttons.buttons a.button.wc-forward:not(.checkout):hover,
 			.woocommerce .button.button-secondary.more-details:hover,
 			.woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .form-row-last button.button:hover',
-		'no-padding'       => '
-			,.woocommerce ul[id^="nv-primary-navigation"] .woocommerce-mini-cart__buttons.buttons a.button.wc-forward:not(.checkout)',
-		'no-padding-hover' => '
-			,.woocommerce ul[id^="nv-primary-navigation"] .woocommerce-mini-cart__buttons.buttons a.button.wc-forward:not(.checkout):hover',
 	);
 	/**
 	 * Sidebar manager.
@@ -157,6 +147,10 @@ class Woocommerce {
 
 		add_filter( 'woocommerce_product_description_heading', '__return_false' );
 		add_filter( 'woocommerce_product_additional_information_heading', '__return_false' );
+
+		// Add breadcrumbs and results count
+		add_action( 'neve_bc_count', 'woocommerce_breadcrumb' );
+		add_action( 'neve_bc_count', 'woocommerce_result_count' );
 
 		$this->edit_woocommerce_header();
 		$this->move_checkout_coupon();
@@ -250,24 +244,6 @@ class Woocommerce {
 	}
 
 	/**
-	 * Remove last breadcrumb on single product.
-	 *
-	 * @param array $crumbs breadcrumbs.
-	 * @param array $args breadcrumbs args.
-	 *
-	 * @return array
-	 */
-	public function remove_last_breadcrumb( $crumbs, $args ) {
-		if ( ! is_product() ) {
-			return $crumbs;
-		}
-		$length               = sizeof( $crumbs ) - 1;
-		$crumbs[ $length ][0] = '';
-
-		return $crumbs;
-	}
-
-	/**
 	 * Change functions hooked into woocommerce header.
 	 */
 	private function edit_woocommerce_header() {
@@ -281,7 +257,6 @@ class Woocommerce {
 		add_action( 'neve_before_shop_loop_content', array( $this, 'add_header_bits' ), 0 );
 
 		// Change breadcrumbs.
-		add_filter( 'woocommerce_get_breadcrumb', array( $this, 'remove_last_breadcrumb' ), 10, 2 );
 		add_filter( 'woocommerce_breadcrumb_defaults', array( $this, 'change_breadcrumbs_delimiter' ) );
 	}
 
@@ -294,8 +269,7 @@ class Woocommerce {
 		}
 
 		echo '<div class="nv-bc-count-wrap">';
-		woocommerce_breadcrumb();
-		woocommerce_result_count();
+		do_action( 'neve_bc_count' );
 		echo '</div>';
 
 		if ( is_product() ) {
@@ -485,7 +459,6 @@ class Woocommerce {
 			.woocommerce button.button.alt.single_add_to_cart_button.disabled,
 			.woocommerce button.button.alt.single_add_to_cart_button,
 			.woocommerce .actions > button[type=submit],
-			.woocommerce .checkout.wc-forward,
 			.woocommerce button#place_order,
 			.woocommerce .return-to-shop > .button,
 			.woocommerce .button.woocommerce-form-login__submit,
@@ -501,7 +474,7 @@ class Woocommerce {
 	 */
 	public function add_secondary_btns_normal( $selectors ) {
 
-		return ( $selectors . $this->secondary_buttons_selectors['default'] . $this->secondary_buttons_selectors['no-padding'] );
+		return ( $selectors . $this->secondary_buttons_selectors['default'] );
 
 	}
 
@@ -514,7 +487,7 @@ class Woocommerce {
 	 */
 	public function add_secondary_btns_hover( $selectors ) {
 
-		return ( $selectors . $this->secondary_buttons_selectors['hover'] . $this->secondary_buttons_selectors['no-padding-hover'] );
+		return ( $selectors . $this->secondary_buttons_selectors['hover'] );
 
 	}
 
@@ -538,6 +511,7 @@ class Woocommerce {
 	 */
 	public function add_typeface_selectors( $array ) {
 		$array['h1'] = $array['h1'] . ', .woocommerce.single .product_title';
+		$array['h3'] = $array['h3'] . ', .woocommerce-billing-fields > h3, .woocommerce-shipping-fields > h3';
 
 		return $array;
 	}
@@ -550,7 +524,7 @@ class Woocommerce {
 	 * @return string
 	 */
 	public function add_font_families( $selectors ) {
-		$selectors .= ',.cart_totals > h2, .cross-sells > h2, .woocommerce-billing-fields > h3, #order_review_heading, .woocommerce-shipping-fields > h3';
+		$selectors .= ',.cart_totals > h2, .cross-sells > h2, #order_review_heading';
 
 		return $selectors;
 	}

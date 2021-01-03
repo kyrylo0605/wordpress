@@ -19,6 +19,9 @@ jQuery(document).ready( function ( $ ) {
          */
         'handleClick': function () {
             container.find('.ui-button').on( 'click', function () {
+                $(this).parent().find('.ui-button').removeClass('ui-state-active');
+                $(this).addClass('ui-state-active');
+
                 var forLabel = $(this).attr('for');
                 var options = forLabel.split( '-' );
                 var controlName = options[0];
@@ -50,16 +53,11 @@ jQuery(document).ready( function ( $ ) {
                var control = $(this);
                var defaultValue = control.find( '.reset-data' ).data('default');
                var controlId = control.find( '.reset-data' ).data('id');
-               var shouldCheckDefault = true;
                control.find('input[name="'+controlId+'"]').each( function () {
-                   if( $(this).attr('checked') === 'checked' ){
-                       shouldCheckDefault =  false;
+                   if( $(this).attr('checked') === 'checked' && $(this).val() === defaultValue ){
+                     $(this).siblings( '.reset-data-wrapper').children('.reset-data').addClass('disabled');
                    }
                 });
-
-               if( shouldCheckDefault === true ){
-                   control.find('label[for="' + controlId + '-' + defaultValue + '"]').addClass('ui-state-active');
-               }
             });
         },
 

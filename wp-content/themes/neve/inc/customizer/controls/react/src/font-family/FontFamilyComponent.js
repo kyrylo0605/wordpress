@@ -1,82 +1,80 @@
 /* jshint esversion: 6 */
-/* global wp, NeveReactCustomize */
-import PropTypes from 'prop-types'
-import FontFamilySelector from './FontFamilySelector.js'
+/* global NeveReactCustomize */
+import PropTypes from 'prop-types';
+import FontFamilySelector from './FontFamilySelector.js';
 
-const {
-  Component,
-  Fragment
-} = wp.element
+import { useState } from '@wordpress/element';
 
-export class TypefaceComponent extends Component {
-  constructor(props) {
-    super( props )
-    const value = props.control.setting.get()
-    this.state = {
-      fontFamily: value,
-      fontFamilySource: null
-    }
+const TypefaceComponent = ( { control } ) => {
+	const [ fontFamily, setFontFamily ] = useState( control.setting.get() );
 
-    const defaultParams = {
-      default_is_inherit: false
-    }
+	const defaultParams = {
+		default_is_inherit: false,
+	};
 
-    this.controlParams = props.control.params.input_attrs ? {
-      ...defaultParams,
-      ...JSON.parse( props.control.params.input_attrs )
-    } : defaultParams
-  }
+	const controlParams = control.params.input_attrs
+		? {
+				...defaultParams,
+				...JSON.parse( control.params.input_attrs ),
+		  }
+		: defaultParams;
 
-  maybe_get_typekit_font(font) {
-    if ( Object.prototype.hasOwnProperty.call( NeveReactCustomize, 'typekitSlugs' ) === false ) {
-      return font
-    }
-    const typekitSlugs = NeveReactCustomize.typekitSlugs
-    if ( Object.prototype.hasOwnProperty.call( typekitSlugs, font ) ) {
-      return typekitSlugs[font]
-    }
-    return font
-  }
+	const maybeGetTypekitFont = ( font ) => {
+		const { typekitSlugs } = NeveReactCustomize;
 
-  render() {
-    const self = this
-    return (
-      <Fragment>
-        {this.props.control.params.label &&
-          <span className='customize-control-title'>
-            {this.props.control.params.label}
-          </span>}
-        <div className='neve-typeface-control neve-white-background-control'>
-          <FontFamilySelector
-            selected={this.state.fontFamily}
-            onFontChoice={(fontFamilySource, fontFamily) => {
-              self.setState( { fontFamily, fontFamilySource } )
-              self.updateControl()
-            }}
-            inheritDefault={this.controlParams.default_is_inherit}
-            maybeGetTypekit={this.maybe_get_typekit_font}
-          />
-        </div>
-      </Fragment>
-    )
-  }
+		if ( ! typekitSlugs ) {
+			return font;
+		}
 
-  updateControl() {
-    setTimeout( () => {
-      this.props.control.setting.set( this.maybe_get_typekit_font(this.state.fontFamily) )
-      wp.customize.previewer.send( 'font-selection', {
-        value: this.maybe_get_typekit_font(this.state.fontFamily),
-        source: this.state.fontFamilySource,
-        controlId: this.props.control.id,
-        type: '\\Neve\\Customizer\\Controls\\React\\Font_Family',
-        inherit: this.controlParams.default_is_inherit
-      } )
-    }, 100 )
-  }
-}
+		if ( ! typekitSlugs[ font ] ) {
+			return font;
+		}
+
+		return typekitSlugs[ font ];
+	};
+
+	const onChoseFont = ( fontSource, font ) => {
+		setFontFamily( font );
+		updateControl( font, fontSource );
+	};
+
+	const updateControl = ( font, fontSource ) => {
+		control.setting.set( maybeGetTypekitFont( font ) );
+		if ( control.id !== 'neve_fallback_font_family' ) {
+			wp.customize.previewer.send( 'font-selection', {
+				value: maybeGetTypekitFont( font ),
+				source: fontSource,
+				controlId: control.id,
+				type: '\\Neve\\Customizer\\Controls\\React\\Font_Family',
+				inherit: controlParams.default_is_inherit,
+			} );
+		}
+	};
+
+	return (
+		<>
+			{ control.params.label && (
+				<span className="customize-control-title">
+					{ control.params.label }
+				</span>
+			) }
+			<div className="neve-typeface-control neve-white-background-control">
+				<FontFamilySelector
+					selected={ fontFamily }
+					onFontChoice={ ( fontSource, font ) => {
+						onChoseFont( fontSource, font );
+					} }
+					inheritDefault={ controlParams.default_is_inherit }
+					systemFonts={ controlParams.system }
+					maybeGetTypekit={ maybeGetTypekitFont }
+				/>
+			</div>
+		</>
+	);
+};
 
 TypefaceComponent.propTypes = {
-  control: PropTypes.object.isRequired
-}
+	control: PropTypes.object.isRequired,
+};
 
-export default TypefaceComponent
+export default TypefaceComponent;

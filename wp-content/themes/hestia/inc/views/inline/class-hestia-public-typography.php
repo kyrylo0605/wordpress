@@ -41,9 +41,9 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		if ( ! empty( $hestia_headings_font ) ) {
 			$custom_css .=
 				'h1, h2, h3, h4, h5, h6, .hestia-title, .hestia-title.title-in-content, p.meta-in-content , .info-title, .card-title,
-		.page-header.header-small .hestia-title, .page-header.header-small .title, .widget h5, .hestia-title, 
-		.title, .footer-brand, .footer-big h4, .footer-big h5, .media .media-heading, 
-		.carousel h1.hestia-title, .carousel h2.title, 
+		.page-header.header-small .hestia-title, .page-header.header-small .title, .widget h5, .hestia-title,
+		.title, .footer-brand, .footer-big h4, .footer-big h5, .media .media-heading,
+		.carousel h1.hestia-title, .carousel h2.title,
 		.carousel span.sub-title, .hestia-about h1, .hestia-about h2, .hestia-about h3, .hestia-about h4, .hestia-about h5 {
 			font-family: ' . esc_html( $hestia_headings_font ) . ';
 		}';
@@ -312,7 +312,7 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 				break;
 		}
 
-		$custom_css .= ! empty( $v1 ) ? '.single-post-wrap p:not(.meta-in-content), .page-content-wrap p, .single-post-wrap ul, .page-content-wrap ul, .single-post-wrap ol, .page-content-wrap ol, .single-post-wrap dl, .page-content-wrap dl, .single-post-wrap table, .page-content-wrap table, .page-template-template-fullwidth article p, .main article.section .has-body-font-size {
+		$custom_css .= ! empty( $v1 ) ? '.single-post-wrap, .page-content-wrap, .single-post-wrap ul, .page-content-wrap ul, .single-post-wrap ol, .page-content-wrap ol, .single-post-wrap dl, .page-content-wrap dl, .single-post-wrap table, .page-content-wrap table, .page-template-template-fullwidth article, .main article.section .has-body-font-size {
 		font-size: ' . absint( $v1 ) . 'px;
 		}' : '';
 
@@ -413,14 +413,14 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		$h4 = ( 27 + (int) ( $value / 3 ) ) > 0 ? ( 27 + (int) ( $value / 3 ) ) : 0;
 
 		$custom_css .= ! empty( $v1 ) ? '
-		section.hestia-features .hestia-title, 
-		section.hestia-shop .hestia-title, 
-		section.hestia-work .hestia-title, 
-		section.hestia-team .hestia-title, 
-		section.hestia-pricing .hestia-title, 
-		section.hestia-ribbon .hestia-title, 
-		section.hestia-testimonials .hestia-title, 
-		section.hestia-subscribe h2.title, 
+		section.hestia-features .hestia-title,
+		section.hestia-shop .hestia-title,
+		section.hestia-work .hestia-title,
+		section.hestia-team .hestia-title,
+		section.hestia-pricing .hestia-title,
+		section.hestia-ribbon .hestia-title,
+		section.hestia-testimonials .hestia-title,
+		section.hestia-subscribe h2.title,
 		section.hestia-blogs .hestia-title,
 		.section.related-posts .hestia-title,
 		section.hestia-contact .hestia-title{
@@ -428,19 +428,19 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 		}' : '';
 
 		$custom_css .= ! empty( $v2 ) ? '
-		section.hestia-features .hestia-info h4.info-title, 
-		section.hestia-shop h4.card-title, 
-		section.hestia-team h4.card-title, 
-		section.hestia-testimonials h4.card-title, 
+		section.hestia-features .hestia-info h4.info-title,
+		section.hestia-shop h4.card-title,
+		section.hestia-team h4.card-title,
+		section.hestia-testimonials h4.card-title,
 		section.hestia-blogs h4.card-title,
 		.section.related-posts h4.card-title,
-		section.hestia-contact h4.card-title, 
+		section.hestia-contact h4.card-title,
 		section.hestia-contact .hestia-description h6{
 			font-size: ' . absint( $v2 ) . 'px;
 		}' : '';
 
-		$custom_css .= ! empty( $v3 ) ? '	
-		section.hestia-work h4.card-title, 
+		$custom_css .= ! empty( $v3 ) ? '
+		section.hestia-work h4.card-title,
 		section.hestia-contact .hestia-description h5{
 			font-size: ' . absint( $v3 ) . 'px;
 		}' : '';
@@ -498,7 +498,7 @@ class Hestia_Public_Typography extends Hestia_Inline_Style_Manager {
 				break;
 		}
 
-		$custom_css .= ! empty( $v1 ) ? ' 
+		$custom_css .= ! empty( $v1 ) ? '
 			section.hestia-features h5.description,
 			section.hestia-shop h5.description,
 			section.hestia-work h5.description,

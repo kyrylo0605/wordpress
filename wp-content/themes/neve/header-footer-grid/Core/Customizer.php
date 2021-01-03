@@ -72,8 +72,8 @@ class Customizer {
 		}
 
 		if ( is_admin() || is_customize_preview() ) {
-			add_action( 'customize_register', array( $this, 'register' ), PHP_INT_MAX );
-			add_action( 'customize_preview_init', array( $this, 'preview_js' ), PHP_INT_MAX );
+			add_action( 'customize_register', array( $this, 'register' ) );
+			add_action( 'customize_preview_init', array( $this, 'preview_js' ) );
 		}
 
 		add_filter( 'body_class', array( $this, 'hfg_body_classes' ) );
@@ -147,7 +147,7 @@ class Customizer {
 			array(
 				'footer_moved_widgets_text' => '',
 				'builders'                  => $this->get_builders_data(),
-				'is_rtl'                    => is_rtl(),
+				'isRTL'                     => is_rtl(),
 			)
 		);
 		wp_enqueue_script( 'hfg-layout-builder' );
@@ -258,13 +258,27 @@ class Customizer {
 					<div class="hfg--cb-header">
 						<div class="hfg--cb-devices-switcher">
 						</div>
-						<div class="hfg--cb-conditional-header hidden">
-							<i class="dashicons dashicons-info"/><p>
+						<# if(data.id === 'hfg_header_layout') { #>
+						<div class="hfg--cb-notice conditional-header hidden">
+							<i class="dashicons dashicons-info"></i>
+							<p>
 							<?php
 								/* translators: %s is the header name */
 								echo wp_kses_post( sprintf( __( 'You are customizing the %s Header', 'neve' ), ' <a>' . __( 'Default', 'neve' ) . '</a> ' ) );
 							?>
 								</p>
+						</div>
+						<# } #>
+						<div class="hfg--cb-notice welcome-notice {{data.id}} hidden">
+							<p>
+								<?php /* translators: %s is the type of builder */ ?>
+								<span><?php echo sprintf( esc_html__( '%s Builder:', 'neve' ), '{{data.title}}' ); ?></span>
+							<?php
+								/* translators: %s is the header name */
+								echo esc_html__( 'Click on any empty space to add components, or existing components to adjust settings.', 'neve' );
+							?>
+								<a href="#" data-open-nv-modal="hfg-instructional"><i class="dashicons dashicons-info"></i></a>
+							</p>
 						</div>
 						<div class="hfg--cb-actions">
 							<?php do_action( 'hfg_builder_panel_actions_buttons' ); ?>
@@ -312,7 +326,7 @@ class Customizer {
 					<div class="hfg-component-search">
 						<i class="dashicons dashicons-search"></i>
 						<input class="component-search" type="search"
-							placeholder="<?php esc_html_e( 'Search Components', 'neve' ); ?>..."/>
+							placeholder="<?php esc_attr_e( 'Search Components', 'neve' ); ?>..."/>
 					</div>
 					<button class="close button button-link">
 						<i class="dashicons dashicons-no"></i>

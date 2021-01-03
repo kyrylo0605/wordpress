@@ -1,11 +1,54 @@
+##### [Version 3.0.8](https://github.com/Codeinwp/hestia-pro/compare/v3.0.7...v3.0.8) (2020-12-10)
+
+[Fix] Compatibility with WP 5.6
+[Fix] jQuery .load() function is deprecated
+
+##### [Version 3.0.7](https://github.com/Codeinwp/hestia-pro/compare/v3.0.6...v3.0.7) (2020-12-10)
+
+- [Fix] Compatibility with WP 5.6
+- [Fix] jQuery .load() function is deprecated
+
+##### [Version 3.0.6](https://github.com/Codeinwp/hestia-pro/compare/v3.0.5...v3.0.6) (2020-11-03)
+
+- [Fix] Customizer not accessible when Sendinblue plugin was installed
+- [Fix] Make logo option translatable with Polylang
+- [Fix] Elementor font-size inheritance from Customizer
+
+##### [Version 3.0.5](https://github.com/Codeinwp/hestia-pro/compare/v3.0.4...v3.0.5) (2020-09-29)
+
+- [Fix] Responsive slider controls in Customizer
+- [Fix][Pro] Seamless add to cart mechanism
+- [Fix][Pro] Compatibility between Custom Layouts and the latest version of Brizy
+- [Fix][Pro] Better handling of the features list available in each package
+- [Fix][Pro] Correct CSS classes used with the [hestia_contact] shortcode
+
+##### [Version 3.0.4](https://github.com/Codeinwp/hestia-pro/compare/v3.0.3...v3.0.4) (2020-08-03)
+
+- [Fix] Compatibility with WP 5.5
+
+##### [Version 3.0.3](https://github.com/Codeinwp/hestia-pro/compare/v3.0.2...v3.0.3) (2020-07-09)
+
+- Removed onboarding from the free version
+
+##### [Version 3.0.2](https://github.com/Codeinwp/hestia-pro/compare/v3.0.1...v3.0.2) (2020-06-25)
+
+- [Fix] Compatibility issues with PHP 7.4
+- [Fix] Layout of the attribute archive page
+- [Fix] Position of show/hide password icon on the My Account page
+- [Fix][Pro] Allow iframe code in the Custom Layouts
+- [Fix][Pro] Translatable Custom Layouts
+- [Fix][Pro] Remove unused sidebar control meta box on single portfolio pages
+- [Fix][Pro] Empty team member widget appearing on mobile
+- [Fix][Pro] Seamless add to cart mechanism for variable products
+
 ##### [Version 3.0.1](https://github.com/Codeinwp/hestia-pro/compare/v3.0.0...v3.0.1) (2020-05-11)
 
-[Fix] Missing Font Awesome icons
-[Fix] Fatal error when using Yoast
-[Fix] Secondary color missing in the blocks color palette
-[Fix][Pro] Second button link in the Big title section
-[Fix][Pro] Check if attachment exists when swap images are used on the Shop page
-[Fix][Pro] Seamless add to cart mechanism
+- [Fix] Missing Font Awesome icons
+- [Fix] Fatal error when using Yoast
+- [Fix] Secondary color missing in the blocks color palette
+- [Fix][Pro] Second button link in the Big title section
+- [Fix][Pro] Check if attachment exists when swap images are used on the Shop page
+- [Fix][Pro] Seamless add to cart mechanism
 
 #### [Version 3.0.0](https://github.com/Codeinwp/hestia-pro/compare/v2.5.7...v3.0.0) (2020-04-28)
 

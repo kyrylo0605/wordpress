@@ -98,7 +98,7 @@ function hestia_woocommerce_before_main_content() {
 	echo '<div class="blog-post">';
 	echo '<div class="container">';
 
-	if ( is_shop() || is_product_category() || is_product_tag() ) {
+	if ( is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy() ) {
 		echo '<div class="before-shop-main">';
 			echo '<div class="row">';
 				do_action( 'hestia_before_woocommerce_content' );

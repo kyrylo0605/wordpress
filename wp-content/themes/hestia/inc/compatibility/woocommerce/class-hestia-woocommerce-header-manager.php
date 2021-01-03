@@ -140,7 +140,7 @@ class Hestia_Woocommerce_Header_Manager extends Hestia_Abstract_Main {
 		if ( is_product() || is_cart() || is_checkout() ) {
 			$header_content_output .= the_title( '', '', false );
 		}
-		if ( is_product_category() || is_product_tag() ) {
+		if ( is_product_category() || is_product_tag() || is_product_taxonomy() ) {
 			$header_content_output .= get_the_archive_title();
 		}
 		$header_content_output .= '</h1>';

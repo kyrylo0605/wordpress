@@ -53,14 +53,15 @@ jQuery( document ).ready(
                         event.preventDefault();
                         var device  = jQuery( this ).data( 'device' );
                         var queries = jQuery( '.responsive-switchers' );
+
+		                queries.removeClass( 'responsive-switchers-open' );
                         if( device !== 'desktop'){
                             queries.addClass( 'responsive-switchers-open' );
-                        } else {
-                            queries.removeClass( 'responsive-switchers-open' );
                         }
 
                         queries.find( 'button' ).removeClass( 'active' );
                         queries.find( 'button.preview-' + device ).addClass( 'active' );
+		                queries.find( 'button.preview-' + device ).trigger( 'click' );
 
                         var control = jQuery( '.range-slider.has-media-queries' );
                         control.find( '.desktop-range' ).removeClass( 'active' );
