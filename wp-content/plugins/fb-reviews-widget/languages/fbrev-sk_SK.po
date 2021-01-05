@@ -23,5 +23,8 @@ msgstr "celá recenzia"
 msgid "Next Reviews"
 msgstr "Ďalšia recenzia"
 
+msgid "Based on %s reviews"
+msgstr "Na základe %s recenzií"
+
 msgid "powered by %s"
 msgstr "powered by %s"

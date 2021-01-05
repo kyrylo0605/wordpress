@@ -4,7 +4,7 @@ Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
 Tags: custom login, wordpress login, customization, themes, plugins, wp-login, login, login logo, custom login page, login page style
 Requires at least: 3.5.0
-Tested up to: 5.4
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,9 +66,26 @@ WIP Custom Login will add a new admin page, where you can customize the login pa
 
 == Changelog ==
 
+= 1.2.2 =
+
+* Edit  : Code optimized.
+
+= 1.2.0 =
+
+* Tested with WordPress 5.6
+
+= 1.1.9 =
+
+* Added - Direct link to display a preview of Login page
+
+= 1.1.8 =
+
+* Fixed - Issue between javascript files and the latest jQuery version included with WordPress 5.5
+* Tested with WordPress 5.5
+
 = 1.1.7 =
 
-* Removed: Unnecessary grey border on login form 
+* Removed: Unnecessary grey border on login form
 * Tested with WordPress 5.4
 
 = 1.1.6 =
@@ -82,7 +99,7 @@ WIP Custom Login will add a new admin page, where you can customize the login pa
 
 = 1.1.4 =
 
-* Fixed: "login_headertitle" deprecated function 
+* Fixed: "login_headertitle" deprecated function
 * Tested with WordPress 5.2.4
 
 = 1.1.3 =

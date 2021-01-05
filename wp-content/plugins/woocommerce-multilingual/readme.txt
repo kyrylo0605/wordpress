@@ -4,8 +4,8 @@ Donate link: http://wpml.org/documentation/related-projects/woocommerce-multilin
 Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multilingual, e-shop, shop
 License: GPLv2
 Requires at least: 4.7
-Tested up to: 5.5
-Stable tag: 4.10.2
+Tested up to: 5.6
+Stable tag: 4.10.4
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -138,9 +138,8 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
-= 4.10.2 =
-* Replace usage of `jQuery.attr` with `jQuery.prop` for `disabled`, `selected`, `readonly`.
-* Fixed missed variations for German and Danish languages.
+= 4.10.4 =
+* Fixed currency switcher modal has lost its padding.
 
 = 4.10.0 =
 * Currencies and payment options based on location.

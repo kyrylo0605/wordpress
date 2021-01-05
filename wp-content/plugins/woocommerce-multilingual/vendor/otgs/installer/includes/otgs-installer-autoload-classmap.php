@@ -1,5 +1,6 @@
 <?php
-$baseDir = dirname( dirname( __FILE__ ) );
+
+$baseDir = dirname( __DIR__ );
 
 return [
 	'Installer_Dependencies'                                 => $baseDir . '/includes/class-installer-dependencies.php',
@@ -88,6 +89,9 @@ return [
 	'OTGS\Installer\AdminNotices\Notices\Texts'              => $baseDir . '/includes/admin-notices/notices/Texts.php',
 	'OTGS\Installer\AdminNotices\Notices\WPMLTexts'          => $baseDir . '/includes/admin-notices/notices/WPMLTexts.php',
 	'OTGS\Installer\AdminNotices\Notices\ToolsetTexts'       => $baseDir . '/includes/admin-notices/notices/ToolsetTexts.php',
+	'OTGS\Installer\AdminNotices\Notices\ApiConnection'      => $baseDir . '/includes/admin-notices/notices/ApiConnection.php',
+	'OTGS\Installer\AdminNotices\Notices\Notice'             => $baseDir . '/includes/admin-notices/notices/Notice.php',
+	'OTGS\Installer\AdminNotices\Notices\Hooks'              => $baseDir . '/includes/admin-notices/notices/Hooks.php',
 	'OTGS\Installer\Templates\Repository\Register'           => $baseDir . '/templates/repository-register.php',
 	'OTGS\Installer\Templates\Repository\Expired'            => $baseDir . '/templates/repository-expired.php',
 	'OTGS\Installer\Templates\Repository\Refunded'           => $baseDir . '/templates/repository-refunded.php',

@@ -6,6 +6,9 @@ class Texts {
 
 	protected static $repo;
 	protected static $product;
+	protected static $apiHost;
+	protected static $communicationDetailsLink;
+	protected static $supportLink;
 
 	public static function notRegistered() {
 		// translators: %s Product name
@@ -39,6 +42,24 @@ class Texts {
 		return self::insideDiv( 'refund', $headingHTML . $body );
 	}
 
+	public static function connectionIssues() {
+		// translators: %1$s Product name %2$s host name (ex. wpml.org)
+		$headingHTML = self::getConnectionIssueHeadingHTML( __( '%1$s plugin cannot connect to %2$s', 'installer' ) );
+
+		// translators: %1$s Product name %2$s host name (ex. wpml.org)
+		$body = self::getConnectionIssueBodyHTML( __( '%1$s needs to connect to its server to check for new releases and security updates. Something in the network or security settings is preventing this. Please allow outgoing communication to %2$s to remove this notice.', 'installer' ) ) .
+		        self::inLinksAreaHTML(
+			        __( 'Need help?', 'installer' ),
+			        // translators: %1$s is `communication error details` %2$s is ex. wpml.org technical support
+			        __( 'See the %1$s and let us know in %2$s.', 'installer' ),
+			        self::getCommunicationDetailsLinkHTML( __( 'communication error details', 'installer' )),
+			        // translators: %s is host name (ex. wpml.org)
+			        self::getSupportLinkHTML(  __( '%s technical support', 'installer' ))
+		        );
+
+		return self::insideDiv( 'connection-issues', $headingHTML . $body );
+	}
+
 	/**
 	 * @param string $type The type is used as a suffix of the `otgs-installer-notice-` CSS class.
 	 * @param string $html An unescaped HTML string but with escaped data (e.g. attributes, URLs, or strings in the HTML produced from any input).
@@ -53,7 +74,7 @@ class Texts {
 			'otgs-installer-notice-' . esc_attr( $type ),
 		];
 
-		if ( $type !== 'refund' ) {
+		if ( $type !== 'refund' && $type !== 'connection-issues') {
 			$classes[] = 'is-dismissible';
 		}
 
@@ -160,6 +181,18 @@ class Texts {
 	}
 
 	/**
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	private static function inLinksAreaHTML( $title, $text, $communicationDetails, $supportLink ) {
+		return '<div class="otgs-installer-notice-status">
+					<p class="otgs-installer-notice-status-item">' . esc_html( $title ) . '</p>
+					<p class="otgs-installer-notice-status-item">' . sprintf( esc_html( $text ), $communicationDetails, $supportLink ) . '</p>
+				</div>';
+	}
+
+	/**
 	 * @param string $text  The method takes care of escaping the string.
 	 *                      If the string contains a placeholder, it will be replaced with the value of `static::$product`.
 	 *
@@ -167,6 +200,15 @@ class Texts {
 	 */
 	protected static function getHeadingHTML( $text ) {
 		return '<h2>' . esc_html( sprintf( $text, static::$product ) ) . '</h2>';
+	}
+
+	/**
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	protected static function getConnectionIssueHeadingHTML( $text ) {
+		return '<h2>' . esc_html( sprintf( $text, static::$product, static::$apiHost ) ) . '</h2>';
 	}
 
 	/**
@@ -180,11 +222,29 @@ class Texts {
 	}
 
 	/**
+	 * @param string $text  The method takes care of escaping the string.
+	 *                      If the string contains a placeholder, it will be replaced with the value of `static::$product`.
+	 *
+	 * @return string
+	 */
+	protected static function getConnectionIssueBodyHTML( $text ) {
+		return '<p>' . esc_html( sprintf( $text, static::$product, static::$apiHost ) ) . '</p>';
+	}
+
+	/**
 	 * @param string $text The method takes care of escaping the string.
 	 *
 	 * @return string
 	 */
 	private static function getStagingButtonHTML( $text ) {
 		return '<a class="otgs-installer-notice-status-item otgs-installer-notice-status-item-link installer-dismiss-nag" ' . self::getDismissedAttributes( Account::NOT_REGISTERED ) . '>' . esc_html( $text ) . '</a>';
+	}
+
+	private static function getCommunicationDetailsLinkHTML( $text ) {
+		return '<a href="' . esc_url( static::$communicationDetailsLink ) . '">' . esc_html( $text ) . '</a>';
+	}
+
+	private static function getSupportLinkHTML( $text ) {
+		return '<a href="' . esc_url( static::$supportLink ) . '">' . esc_html( sprintf( $text, static::$product ) ) . '</a>';
 	}
 }

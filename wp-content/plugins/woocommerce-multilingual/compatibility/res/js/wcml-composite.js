@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ){
+jQuery( function( $ ){
     //lock fields
     if( typeof lock_settings != 'undefined'  && typeof lock_settings.lock_fields != 'undefined' && lock_settings.lock_fields == 1 ) {
 
@@ -7,11 +7,7 @@ jQuery( document ).ready( function( $ ){
             $(this).after($('.wcml_lock_img').clone().removeClass('wcml_lock_img').show());
         });
 
-        $('#bto_product_data li,#bto_config_group_inner .subsubsub li a').bind({
-            click: function(e) {
-                return false;
-            }
-        });
+        $('#bto_product_data li,#bto_config_group_inner .subsubsub li a').on('click', function(){ return false; });
 
 
         //components fields

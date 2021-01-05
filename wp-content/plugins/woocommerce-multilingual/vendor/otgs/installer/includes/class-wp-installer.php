@@ -833,6 +833,23 @@ class WP_Installer {
 		return isset( $this->config['site_key_nags'] ) ? $this->config['site_key_nags'] : [];
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getRegisteredRepositories() {
+		$repositories = [];
+		foreach ( $this->repositories as $repositoryId => $repository ) {
+			$siteKey = $this->get_site_key( $repositoryId );
+			if ( $siteKey ) {
+				$repositories[] = [
+					'repository_id' => $repositoryId
+				];
+			}
+		}
+
+		return $repositories;
+	}
+
 	public function add_install_plugins_tab( $tabs ) {
 
 		$tabs['commercial'] = __( 'Commercial', 'installer' );
@@ -928,52 +945,75 @@ class WP_Installer {
 	}
 
 	public function refresh_subscriptions_data() {
-	    $require_saving_settings = false;
-        foreach ( $this->repositories as $repository_id => $data ) {
-            $site_key = $this->get_site_key( $repository_id );
+		$require_saving_settings = false;
+		foreach ( $this->repositories as $repository_id => $data ) {
+			$site_key = $this->get_site_key( $repository_id );
 
-            if ( ! $site_key ) {
-                continue;
-            }
+			if ( ! $site_key ) {
+				continue;
+			}
 
-            try {
-                $subscription_data = $this->fetch_subscription_data(
-                        $repository_id,
-                        $site_key,
-                        self::SITE_KEY_VALIDATION_SOURCE_REVALIDATION
-                );
+			try {
+				$subscription_data = $this->fetch_subscription_data(
+					$repository_id,
+					$site_key,
+					self::SITE_KEY_VALIDATION_SOURCE_REVALIDATION
+				);
 
-                if ( ! $subscription_data ) {
-                    $message = sprintf(
-                        "Installer could not fetch subscription data for %s. Error message: Invalid site key for the current site.",
-                        $repository_id
-                    );
+				if ( ! $subscription_data ) {
+					$message = sprintf(
+						"Installer could not fetch subscription data for %s. Error message: Invalid site key for the current site.",
+						$repository_id
+					);
 
-                    $this->log_subscription_update( $message );
+					$this->log_subscription_update( $message );
 
-                    unset( $this->settings['repositories'][ $repository_id ]['subscription'] );
-                    delete_site_transient( 'update_plugins' );
-                    $require_saving_settings = true;
+					continue;
+				}
 
-                    continue;
-                }
+				$this->settings['repositories'][ $repository_id ]['subscription']['data'] = $subscription_data;
+				$this->setLastSuccessSubscriptionFetch($repository_id);
+				$require_saving_settings = true;
 
-                $this->settings['repositories'][ $repository_id ]['subscription']['data'] = $subscription_data;
-                $require_saving_settings = true;
+			} catch ( Exception $e ) {
+				$this->log_subscription_update( $e->getMessage() );
+			}
+		}
 
-            } catch ( Exception $e ) {
-                $this->log_subscription_update( $e->getMessage() );
-            }
-        }
+		if ($require_saving_settings) {
+			$this->log_subscription_update(
+				"Subscriptions updated successfully."
+			);
+			$this->settings['last_subscriptions_update'] = time();
+			$this->save_settings();
+		}
+	}
 
-        if ($require_saving_settings) {
-            $this->log_subscription_update(
-                    "Subscriptions updated successfully."
-            );
-	        $this->settings['last_subscriptions_update'] = time();
-	        $this->save_settings();
-        }
-    }
+	public function shouldDisplayConnectionIssueMessage( $repositoryId ) {
+		return time() - $this->getLastSuccessSubscriptionFetch( $repositoryId ) > WEEK_IN_SECONDS;
+	}
+
+	/**
+	 * @param string $repositoryId
+	 *
+	 * @return int
+	 */
+	private function getLastSuccessSubscriptionFetch( $repositoryId ) {
+		if ( isset( $this->settings['repositories'][ $repositoryId ]['subscription_fetch_time'] ) ) {
+			return (int)$this->settings['repositories'][ $repositoryId ]['subscription_fetch_time'];
+		} else {
+			return time();
+		}
+	}
+
+	/**
+	 * @param $repositoryId
+	 *
+	 * @return array
+	 */
+	private function setLastSuccessSubscriptionFetch( $repositoryId ) {
+		$this->settings['repositories'][ $repositoryId ]['subscription_fetch_time'] = time();
+	}
 
     private function log_subscription_update( $message ) {
         $log = new OTGS_Installer_Log();

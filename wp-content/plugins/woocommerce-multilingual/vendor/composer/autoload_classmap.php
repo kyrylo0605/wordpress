@@ -11,6 +11,7 @@ return array(
     'WCML\\Block\\Convert\\ConverterProvider' => $baseDir . '/classes/Block/Convert/ConverterProvider.php',
     'WCML\\Block\\Convert\\Converter\\ProductsByAttributes' => $baseDir . '/classes/Block/Convert/Converter/ProductsByAttributes.php',
     'WCML\\Block\\Convert\\Hooks' => $baseDir . '/classes/Block/Convert/Hooks.php',
+    'WCML\\CLI\\Hooks' => $baseDir . '/classes/CLI/Hooks.php',
     'WCML\\Container\\Config' => $baseDir . '/classes/Container/Config.php',
     'WCML\\Email\\Settings\\Hooks' => $baseDir . '/classes/Email/Settings/Hooks.php',
     'WCML\\MO\\Hooks' => $baseDir . '/classes/MO/Hooks.php',
