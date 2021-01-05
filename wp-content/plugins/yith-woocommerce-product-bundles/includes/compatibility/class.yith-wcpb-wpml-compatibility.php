@@ -37,7 +37,7 @@ class YITH_WCPB_Wpml_Compatibility {
     public function bundles_sync( $original_product_id, $trnsl_product_id ) {
         foreach ( $this->bundle_meta_to_copy as $bundle_meta ) {
             $data = get_post_meta( $trnsl_product_id, $bundle_meta, true );
-            if ( is_array( $data ) ) {
+            if ( is_array( $data ) && '_yith_wcpb_bundle_data' === $bundle_meta ) {
                 $language = apply_filters( 'wpml_post_language_details', null, $trnsl_product_id );
                 foreach ( $data as &$product ) {
                     $product[ 'product_id' ] = apply_filters(

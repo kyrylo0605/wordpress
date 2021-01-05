@@ -60,6 +60,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 
 		public $templates = array();
 
+
 		/**
 		 * Returns single instance of the class
 		 *
@@ -69,7 +70,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		public static function get_instance() {
 			$self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-			return ! is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
+			return ! is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self();
 		}
 
 		/**
@@ -82,11 +83,11 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 
 			add_action( 'admin_menu', array( $this, 'register_panel' ), 5 );
 
-			//Add action links
+			// Add action links
 			add_filter( 'plugin_action_links_' . plugin_basename( YITH_WCPB_DIR . '/' . basename( YITH_WCPB_FILE ) ), array( $this, 'action_links' ) );
 			add_filter( 'yith_show_plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 3 );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 20 );
 
 			add_filter( 'woocommerce_product_data_tabs', array( $this, 'woocommerce_product_data_tabs' ) );
 			add_action( 'woocommerce_product_data_panels', array( $this, 'woocommerce_product_data_panels' ) );
@@ -95,10 +96,9 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 			add_action( 'wp_ajax_yith_wcpb_select_product_box_filtered', array( $this, 'select_product_box_filtered' ) );
 			add_action( 'wp_ajax_yith_wcpb_add_product_in_bundle', array( $this, 'add_product_in_bundle' ) );
 
-			$save_product_meta_hook = version_compare( WC()->version, '3.0.0', '>=' ) ? 'woocommerce_admin_process_product_object' : 'woocommerce_process_product_meta';
-			add_action( $save_product_meta_hook, array( $this, 'woocommerce_process_product_meta' ) );
+			add_action( 'woocommerce_admin_process_product_object', array( $this, 'woocommerce_process_product_meta' ) );
 
-			add_action( 'yith_wcpb_admin_product_bundle_data', array( $this, 'yith_wcpb_admin_product_bundle_data' ), 10, 4 );
+			add_action( 'yith_wcpb_admin_bundled_item_options', array( $this, 'print_bundled_item_options' ), 10, 2 );
 			add_filter( 'product_type_selector', array( $this, 'product_type_selector' ) );
 
 			// Admin ORDER
@@ -169,6 +169,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 			if ( $counter > 0 ) {
 				$non_bundled_count = $count - $counter;
 
+				// translators: 1: number of items; 2: number of elements included in the bundle
 				return sprintf( _n( '%1$s item [%2$s bundled elements]', '%1$s items [%2$s bundled elements]', $non_bundled_count, 'yith-woocommerce-product-bundles' ), $non_bundled_count, $counter );
 			}
 
@@ -189,33 +190,31 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		}
 
 		/**
-		 * bundle items data form
 		 *
-		 * @access public
-		 * @since  1.0.0
-		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
-		public function yith_wcpb_admin_product_bundle_data( $metabox_id, $product_id, $item_data, $post_id ) {
-			$bp_quantity = isset( $item_data['bp_quantity'] ) ? $item_data['bp_quantity'] : 1;
-			?>
-			<table>
-				<tr>
-					<td><?php echo _ex( 'Quantity', 'Admin: quantity of the bundled product.', 'yith-woocommerce-product-bundles' ); ?></td>
-					<td>
-						<input type="number" size="4" value="<?php echo $bp_quantity ?>" name="_yith_wcpb_bundle_data[<?php echo $metabox_id; ?>][bp_quantity]"
-								class="yith-wcpb-bp-quantity short"></td>
-				</tr>
-			</table>
-			<?php
+		/**
+		 * Print the Bundled Item Options
+		 *
+		 * @param WC_Product|bool                   $bundled_product The Bundled Product.
+		 * @param array                             $item_data       The item data.
+		 * @param int                               $metabox_id      The metabox ID.
+		 * @param int                               $bundle_id       The Bundle ID.
+		 * @param WC_Product_YITH_Bundle|WC_Product $bundle_product  The Bundle Product or the Product object.
+		 *
+		 * @return void
+		 * @since 1.4.0
+		 */
+		public function print_bundled_item_options( $bundled_item, $metabox_id ) {
+			yith_wcpb_get_view( '/admin/bundled-item-options.php', compact( 'bundled_item', 'metabox_id' ) );
 		}
 
 		public function select_product_box() {
-			include YITH_WCPB_TEMPLATE_PATH . '/admin/select-product-box.php';
+			yith_wcpb_get_view( '/admin/select-product-box.php' );
 			die();
 		}
 
 		public function select_product_box_filtered() {
-			include YITH_WCPB_TEMPLATE_PATH . '/admin/select-product-box-products.php';
+			yith_wcpb_get_view( '/admin/select-product-box-products.php' );
 			die();
 		}
 
@@ -229,18 +228,18 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 */
 		public function add_product_in_bundle() {
 			$metabox_id = intval( $_POST['id'] );
-			$post_id    = intval( $_POST['post_id'] );
-			$product_id = intval( $_POST['product_id'] );
-			$title      = get_the_title( $product_id );
+			$bundle_id  = absint( $_POST['bundle_id'] );
+			$product_id = absint( $_POST['product_id'] );
 			$product    = wc_get_product( $product_id );
-
-			$response = array();
+			$response   = array();
 
 			if ( $product instanceof WC_Product && ! $product->is_type( 'simple' ) ) {
 				$response['error'] = __( 'You can add only simple products with the FREE version of YITH WooCommerce Product Bundles', 'yith-woocommerce-product-bundles' );
 			} else {
+				$bundle_product = wc_get_product( $bundle_id );
+				$bundled_item   = new YITH_WC_Bundled_Item( $bundle_product, $metabox_id, compact( 'product_id' ) );
 				ob_start();
-				include YITH_WCPB_TEMPLATE_PATH . '/admin/admin-bundled-product-item.php';
+				yith_wcpb_get_view( '/admin/bundled-item.php', compact( 'metabox_id', 'bundled_item' ) );
 				$response['html'] = ob_get_clean();
 			}
 			wp_send_json( $response );
@@ -254,11 +253,13 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public function woocommerce_product_data_tabs( $product_data_tabs ) {
-			$product_data_tabs['yith_bundled_items'] = array(
-				'label'  => __( 'Bundled Items', 'yith-woocommerce-product-bundles' ),
-				'target' => 'yith_bundled_product_data',
-				'class'  => array( 'show_if_bundle' ),
+			$product_data_tabs['yith_bundle_options'] = array(
+				'label'  => __( 'Bundle Options', 'yith-woocommerce-product-bundles' ),
+				'target' => 'yith_bundle_product_data',
+				'class'  => array( 'show_if_yith_bundle' ),
 			);
+
+			$product_data_tabs['inventory']['class'] = array_merge( $product_data_tabs['inventory']['class'], array( 'show_if_yith_bundle' ) );
 
 			return $product_data_tabs;
 		}
@@ -271,44 +272,47 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public function woocommerce_product_data_panels() {
-			include YITH_WCPB_TEMPLATE_PATH . '/admin/admin-bundle-options-tab.php';
+			/** @var WC_Product $product_object */
+			global $product_object;
+
+			$bundle_product = $product_object->is_type( 'yith_bundle' ) ? $product_object : false;
+
+			yith_wcpb_get_view( '/admin/bundle-options-tab.php', compact( 'bundle_product', 'product_object' ) );
 		}
 
 		/**
-		 * Save Product Bandle Data
+		 * Set the product meta before saving the product
+		 *
+		 * @param WC_Product_YITH_Bundle $product
 		 *
 		 * @access public
 		 * @since  1.0.0
 		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
-		public function woocommerce_process_product_meta( $post_id ) {
-			$product = wc_get_product( $post_id );
-			if ( ! $product ) {
-				return;
-			}
+		public function woocommerce_process_product_meta( $product ) {
+			if ( $product->is_type( 'yith_bundle' ) ) {
 
-			$bundle_data = isset( $_POST['_yith_wcpb_bundle_data'] ) ? $_POST['_yith_wcpb_bundle_data'] : false;
-			if ( $bundle_data && is_array( $bundle_data ) ) {
-				$indexed_bundle_data = array();
-				$loop                = 1;
-				foreach ( $bundle_data as $single_bundle_data ) {
-					if ( isset( $single_bundle_data['bp_title'] ) ) {
-						$single_bundle_data['bp_title'] = stripslashes( $single_bundle_data['bp_title'] );
+				$bundle_data = ! empty( $_POST['_yith_wcpb_bundle_data'] ) && is_array( $_POST['_yith_wcpb_bundle_data'] ) ? wp_unslash( $_POST['_yith_wcpb_bundle_data'] ) : array();
+				if ( $bundle_data ) {
+					$indexed_bundle_data = array();
+					$loop                = 1;
+					foreach ( $bundle_data as $single_bundle_data ) {
+						if ( isset( $single_bundle_data['bp_title'] ) ) {
+							$single_bundle_data['bp_title'] = wp_kses_post( $single_bundle_data['bp_title'] );
+						}
+
+						if ( isset( $single_bundle_data['bp_description'] ) ) {
+							$single_bundle_data['bp_description'] = wp_kses_post( $single_bundle_data['bp_description'] );
+						}
+
+						$indexed_bundle_data[ $loop ] = $single_bundle_data;
+						$loop ++;
 					}
-
-					if ( isset( $single_bundle_data['bp_description'] ) ) {
-						$single_bundle_data['bp_description'] = stripslashes( $single_bundle_data['bp_description'] );
-					}
-
-					$indexed_bundle_data[ $loop ] = $single_bundle_data;
-					$loop ++;
 				}
-				yit_save_prop( $product, '_yith_wcpb_bundle_data', $indexed_bundle_data, true );
-			} else {
-				yit_delete_prop( $product, '_yith_wcpb_bundle_data' );
-			}
 
-			$product instanceof WC_Data && $product->save();
+				$product->update_meta_data( '_yith_wcpb_bundle_data', $bundle_data );
+				$product->update_meta_data( '_yith_bundle_product_version', YITH_WCPB()->get_bundle_product_version() );
+			}
 		}
 
 		/**
@@ -324,7 +328,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 * @since    1.0
 		 */
 		public function action_links( $links ) {
-			return yith_add_action_links( $links, $this->_panel_page, defined( 'YITH_WCPB_PREMIUM' ) );
+			return yith_add_action_links( $links, $this->_panel_page, defined( 'YITH_WCPB_PREMIUM' ), YITH_WCPB_SLUG );
 		}
 
 		/**
@@ -388,7 +392,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 
 			/* === Fixed: not updated theme  === */
 			if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
-				require_once( 'plugin-fw/lib/yit-plugin-panel-wc.php' );
+				require_once 'plugin-fw/lib/yit-plugin-panel-wc.php';
 			}
 
 			$this->_panel = new YIT_Plugin_Panel_WooCommerce( $args );
@@ -416,33 +420,53 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 				}
 
 				if ( $bundle_titles ) {
+					// translators: %s is a comma-separated list of bundle products.
 					wp_send_json_error( array( 'error' => sprintf( __( 'You are trying to add the following Bundle products to the order: %s. You cannot add Bundle products to orders through this box since this type of products needs to follow the normal WooCommerce "Add-to-cart > Cart > Checkout > Order" process.', 'yith-woocommerce-product-bundles' ), implode( ', ', $bundle_titles ) ) ) );
 				}
 			}
 		}
 
 		public function admin_enqueue_scripts() {
-			wp_enqueue_style( 'yith-wcpb-admin-styles', YITH_WCPB_ASSETS_URL . '/css/admin.css' );
-			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( 'wp-color-picker' );
-			wp_enqueue_script( 'jquery-ui-tabs' );
-			wp_enqueue_style( 'jquery-ui-style-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css' );
-			wp_enqueue_style( 'googleFontsOpenSans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
-
-			wp_register_script( 'yith-wcpb-popup', yit_load_js_file( YITH_WCPB_ASSETS_URL . '/js/yith-wcpb-popup.js' ), array( 'jquery' ), YITH_WCPB_VERSION, true );
-			wp_register_style( 'yith-wcpb-popup', YITH_WCPB_ASSETS_URL . '/css/yith-wcpb-popup.css', array(), YITH_WCPB_VERSION );
-
 			$screen     = get_current_screen();
 			$metabox_js = defined( 'YITH_WCPB_PREMIUM' ) ? 'bundle_options_metabox_premium.js' : 'bundle_options_metabox.js';
 
+			wp_enqueue_style( 'yith-wcpb-admin-styles', YITH_WCPB_ASSETS_URL . '/css/admin.css', array(), YITH_WCPB_VERSION );
+			wp_register_style( 'yith-wcpb-popup', YITH_WCPB_ASSETS_URL . '/css/yith-wcpb-popup.css', array(), YITH_WCPB_VERSION );
+
+			wp_register_script( 'yith-wcpb-popup', yit_load_js_file( YITH_WCPB_ASSETS_URL . '/js/yith-wcpb-popup.js' ), array( 'jquery' ), YITH_WCPB_VERSION, true );
+			wp_register_script( 'yith_wcpb_bundle_options_metabox', yit_load_js_file( YITH_WCPB_ASSETS_URL . '/js/' . $metabox_js ), array( 'jquery', 'jquery-ui-sortable', 'yith-wcpb-popup' ), YITH_WCPB_VERSION, true );
+
 			if ( 'product' == $screen->id ) {
 				wp_enqueue_style( 'yith-wcpb-popup' );
-				wp_enqueue_script( 'yith_wcpb_bundle_options_metabox', yit_load_js_file( YITH_WCPB_ASSETS_URL . '/js/' . $metabox_js ), array( 'jquery', 'jquery-ui-sortable', 'yith-wcpb-popup' ), YITH_WCPB_VERSION, true );
-				wp_localize_script( 'yith_wcpb_bundle_options_metabox', 'ajax_object', array(
-					'free_not_simple'     => __( 'You can add only simple products with the FREE version of YITH WooCommerce Product Bundles', 'yith-woocommerce-product-bundles' ),
-					'yith_bundle_product' => __( 'You cannot add a bundle product', 'yith-woocommerce-product-bundles' ),
-					'minimum_characters'  => apply_filters( 'yith_wcpb_minimum_characters_ajax_search', 3 ),
-				) );
+				wp_enqueue_style( 'yith-plugin-fw-fields' );
+
+				wp_enqueue_script( 'yith-plugin-fw-fields' );
+				wp_enqueue_script( 'yith_wcpb_bundle_options_metabox' );
+
+
+				// TODO: to remove. It was kept for backward compatibility
+				wp_localize_script(
+					'yith_wcpb_bundle_options_metabox',
+					'ajax_object',
+					array(
+						'free_not_simple'     => __( 'You can add only simple products with the FREE version of YITH WooCommerce Product Bundles', 'yith-woocommerce-product-bundles' ),
+						'yith_bundle_product' => __( 'You cannot add a bundle product', 'yith-woocommerce-product-bundles' ),
+						'minimum_characters'  => apply_filters( 'yith_wcpb_minimum_characters_ajax_search', 3 ),
+					)
+				);
+
+
+				wp_localize_script(
+					'yith_wcpb_bundle_options_metabox',
+					'yith_bundle_opts',
+					array(
+						'i18n'               => array(
+							'addedLabelSingular' => _n( '1 item added', '%s items added', 1, 'yith-woocommerce-product-bundles' ),
+							'addedLabelPlural'   => _n( '1 item added', '%s items added', 2, 'yith-woocommerce-product-bundles' ),
+						),
+						'minimum_characters' => apply_filters( 'yith_wcpb_minimum_characters_ajax_search', 3 ),
+					)
+				);
 			}
 		}
 
@@ -455,7 +479,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 */
 		public function show_premium_tab() {
 			$landing = YITH_WCPB_TEMPLATE_PATH . '/premium.php';
-			file_exists( $landing ) && require( $landing );
+			file_exists( $landing ) && require $landing;
 		}
 
 		/**
@@ -467,7 +491,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 */
 		public function show_how_to_tab() {
 			$landing = YITH_WCPB_TEMPLATE_PATH . '/how-to.php';
-			file_exists( $landing ) && require( $landing );
+			file_exists( $landing ) && require $landing;
 		}
 
 		/**

@@ -19,7 +19,7 @@ class YITH_WCPB_Compatibility {
 
     protected $_plugins = array();
 
-    /** @var YITH_WCPB_Wpml_Compatibility */
+    /** @var YITH_WCPB_Wpml_Compatibility_Premium|YITH_WCPB_Wpml_Compatibility */
     public $wpml;
 
     /** @return YITH_WCPB_Compatibility */

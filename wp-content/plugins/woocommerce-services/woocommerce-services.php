@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: WooCommerce Services
+ * Plugin Name: WooCommerce Shipping & Tax
  * Plugin URI: https://woocommerce.com/
  * Description: Hosted services for WooCommerce: automated tax calculation, shipping label printing, and smoother payment setup.
  * Author: Automattic
  * Author URI: https://woocommerce.com/
  * Text Domain: woocommerce-services
  * Domain Path: /i18n/languages/
- * Version: 1.24.1
+ * Version: 1.25.4
  * WC requires at least: 3.0.0
  * WC tested up to: 4.2
  *
@@ -26,7 +26,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * WooCommerce Services incorporates code from WooCommerce Sales Tax Plugin by TaxJar, Copyright 2014-2017 TaxJar.
+ * WooCommerce Shipping & Tax incorporates code from WooCommerce Sales Tax Plugin by TaxJar, Copyright 2014-2017 TaxJar.
  * WooCommerce Sales Tax Plugin by TaxJar is distributed under the terms of the GNU GPL, Version 2 (or later).
  */
 
@@ -48,11 +48,11 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 	define( 'WOOCOMMERCE_CONNECT_MAX_JSON_DECODE_DEPTH', 32 );
 
 	if ( ! defined( 'WOOCOMMERCE_CONNECT_SERVER_API_VERSION ' ) ) {
-		define( 'WOOCOMMERCE_CONNECT_SERVER_API_VERSION', '3');
+		define( 'WOOCOMMERCE_CONNECT_SERVER_API_VERSION', '5');
 	}
 
 	// Check for CI environment variable to trigger test mode.
-	if ( false !== getenv( 'WOOCOMMERCE_SERVICES_CI_TEST_MODE', true ) ) {
+	if ( false !== getenv( 'WOOCOMMERCE_SERVICES_CI_TEST_MODE' ) ) {
 		if ( ! defined( 'WOOCOMMERCE_SERVICES_LOCAL_TEST_MODE' ) ) {
 			define( 'WOOCOMMERCE_SERVICES_LOCAL_TEST_MODE', true );
 		}
@@ -149,6 +149,14 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 		protected $rest_address_normalization_controller;
 
 		/**
+		 *
+		 * WC_REST_Connect_Shipping_Carrier_Types_Controller
+		 *
+		 * @var WC_REST_Connect_Shipping_Carrier_Types_Controller
+		 */
+		protected $rest_carrier_types_controller;
+
+		/**
 		 * @var WC_Connect_Service_Schemas_Validator
 		 */
 		protected $service_schemas_validator;
@@ -177,11 +185,6 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 		 * @var WC_Connect_TaxJar_Integration
 		 */
 		protected $taxjar;
-
-		/**
-		 * @var WC_Connect_Stripe
-		 */
-		protected $stripe;
 
 		/**
 		 * @var WC_Connect_PayPal_EC
@@ -246,7 +249,11 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 		 * @return string
 		 */
 		static function get_wcs_admin_style_url() {
-			return self::get_wc_connect_base_url() . 'woocommerce-services-' . self::get_wcs_version() . '.css';
+			if ( ! defined( 'WOOCOMMERCE_CONNECT_DEV_SERVER_URL' ) ) {
+				return self::get_wc_connect_base_url() . 'woocommerce-services-' . self::get_wcs_version() . '.css';
+			} else {
+				return '';
+			}
 		}
 
 		function wpcom_static_url($file) {
@@ -412,6 +419,14 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			$this->rest_address_normalization_controller = $rest_address_normalization_controller;
 		}
 
+		public function set_carrier_types_controller( WC_REST_Connect_Shipping_Carrier_Types_Controller $rest_carrier_types_controller ) {
+			$this->rest_carrier_types_controller = $rest_carrier_types_controller;
+		}
+
+		public function get_carrier_types_controller() {
+			return $this->rest_carrier_types_controller;
+		}
+
 		public function get_service_schemas_validator() {
 			return $this->service_schemas_validator;
 		}
@@ -448,10 +463,6 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			$this->taxjar = $taxjar;
 		}
 
-		public function set_stripe( WC_Connect_Stripe $stripe ) {
-			$this->stripe = $stripe;
-		}
-
 		public function set_paypal_ec( WC_Connect_PayPal_EC $paypal_ec ) {
 			$this->paypal_ec = $paypal_ec;
 		}
@@ -475,7 +486,7 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			if ( ! class_exists( 'WooCommerce' ) ) {
 				add_action( 'admin_notices', function() {
 					/* translators: %s WC download URL link. */
-					echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'WooCommerce Services requires the WooCommerce plugin to be installed and active. You can download %s here.', 'woocommerce-services' ), '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+					echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'WooCommerce Shipping & Tax requires the WooCommerce plugin to be installed and active. You can download %s here.', 'woocommerce-services' ), '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
 				} );
 				return;
 			}
@@ -630,7 +641,6 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			require_once( plugin_basename( 'classes/class-wc-connect-help-view.php' ) );
 			require_once( plugin_basename( 'classes/class-wc-connect-shipping-label.php' ) );
 			require_once( plugin_basename( 'classes/class-wc-connect-nux.php' ) );
-			require_once( plugin_basename( 'classes/class-wc-connect-stripe.php' ) );
 			require_once( plugin_basename( 'classes/class-wc-connect-paypal-ec.php' ) );
 			require_once( plugin_basename( 'classes/class-wc-connect-label-reports.php' ) );
 			require_once( plugin_basename( 'classes/class-wc-connect-privacy.php' ) );
@@ -660,7 +670,6 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			$nux                   = new WC_Connect_Nux( $tracks, $shipping_label );
 			$taxjar                = new WC_Connect_TaxJar_Integration( $api_client, $taxes_logger, $this->wc_connect_base_url );
 			$options               = new WC_Connect_Options();
-			$stripe                = new WC_Connect_Stripe( $api_client, $options, $logger, $nux );
 			$paypal_ec             = new WC_Connect_PayPal_EC( $api_client, $nux );
 			$label_reports         = new WC_Connect_Label_Reports( $settings_store );
 
@@ -677,7 +686,6 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			$this->set_shipping_label( $shipping_label );
 			$this->set_nux( $nux );
 			$this->set_taxjar( $taxjar );
-			$this->set_stripe( $stripe );
 			$this->set_paypal_ec( $paypal_ec );
 			$this->set_label_reports( $label_reports );
 		}
@@ -750,8 +758,6 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			add_filter( 'wc_connect_shipping_service_settings', array( $this, 'shipping_service_settings' ), 10, 3 );
 			add_action( 'woocommerce_email_after_order_table', array( $this, 'add_tracking_info_to_emails' ), 10, 3 );
 			add_filter( 'woocommerce_admin_reports', array( $this, 'reports_tabs' ) );
-			add_action( 'admin_enqueue_scripts', array( $this->stripe, 'maybe_show_notice' ) );
-			add_filter( 'wc_stripe_settings', array( $this->stripe, 'show_connected_account' ) );
 
 			$tracks = $this->get_tracks();
 			$tracks->init();
@@ -877,19 +883,10 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			$this->set_rest_carrier_delete_controller( $rest_carrier_delete_controller );
 			$rest_carrier_delete_controller->register_routes();
 
-			if ( $this->stripe->is_stripe_plugin_enabled() ) {
-				require_once( plugin_basename( 'classes/class-wc-rest-connect-stripe-oauth-init-controller.php' ) );
-				$rest_stripe_settings_controller = new WC_REST_Connect_Stripe_Oauth_Init_Controller( $this->stripe, $this->api_client, $settings_store, $logger );
-				$rest_stripe_settings_controller->register_routes();
-
-				require_once( plugin_basename( 'classes/class-wc-rest-connect-stripe-oauth-connect-controller.php' ) );
-				$rest_stripe_oauth_controller = new WC_REST_Connect_Stripe_Oauth_Connect_Controller( $this->stripe, $this->api_client, $settings_store, $logger );
-				$rest_stripe_oauth_controller->register_routes();
-
-				require_once( plugin_basename( 'classes/class-wc-rest-connect-stripe-deauthorize-controller.php' ) );
-				$rest_stripe_account_controller = new WC_REST_Connect_Stripe_Deauthorize_Controller( $this->stripe, $this->api_client, $settings_store, $logger );
-				$rest_stripe_account_controller->register_routes();
-			}
+			require_once( plugin_basename( 'classes/class-wc-rest-connect-shipping-carrier-types-controller.php' ) );
+			$rest_carrier_types_controller = new WC_REST_Connect_Shipping_Carrier_Types_Controller( $this->api_client, $settings_store, $logger );
+			$this->set_carrier_types_controller( $rest_carrier_types_controller );
+			$rest_carrier_types_controller->register_routes();
 
 			add_filter( 'rest_request_before_callbacks', array( $this, 'log_rest_api_errors' ), 10, 3 );
 		}
@@ -1036,7 +1033,8 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			// Generate a table row for each label
 			foreach ( $labels as $label ) {
 				$carrier = $label['carrier_id'];
-				$carrier_label = strtoupper( $carrier );
+				$carrier_service = $this->get_service_schemas_store()->get_service_schema_by_id( $carrier );
+				$carrier_label = ( ! $carrier_service || empty( $carrier_service->carrier_name ) ) ? strtoupper( $carrier ) : $carrier_service->carrier_name;
 				$tracking = $label['tracking'];
 				$error = array_key_exists( 'error', $label );
 				$refunded = array_key_exists( 'refund', $label );
@@ -1064,6 +1062,9 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 						break;
 					case 'ups':
 						$tracking_url = 'https://www.ups.com/track?tracknum=' . $tracking;
+						break;
+					case 'dhlexpress':
+						$tracking_url = 'https://www.dhl.com/en/express/tracking.html?AWB=' . $tracking . '&brand=DHL';
 						break;
 
 				}
@@ -1215,16 +1216,17 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 
 			wp_register_script( 'wc_connect_admin', self::get_wcs_admin_script_url(), array('lodash', 'moment', 'react', 'react-dom'), null, true );
 			// Dev mode will handle loading the css itself to support HMR.
-			if ( ! defined( 'WOOCOMMERCE_CONNECT_DEV_SERVER_URL' ) ) {
+			$stylesheet_url = self::get_wcs_admin_style_url();
+			if ( ! empty( $stylesheet_url ) ) {
 				// Load CSS async to prevent blocking rendering since this css is non-essential.
 				wp_add_inline_script(
 					'wc_connect_admin',
-					"var link = document.createElement('link');link.rel = 'stylesheet';link.type = 'text/css';link.href = '" . esc_js( self::get_wcs_admin_style_url() ) . "';document.getElementsByTagName('HEAD')[0].appendChild(link);"
+					"var link = document.createElement('link');link.rel = 'stylesheet';link.type = 'text/css';link.href = '" . esc_js( $stylesheet_url ) . "';document.getElementsByTagName('HEAD')[0].appendChild(link);"
 				);
 			}
 			wp_register_script( 'wc_services_admin_pointers', $this->wc_connect_base_url . 'woocommerce-services-admin-pointers-' . $plugin_version . '.js', array( 'wp-pointer', 'jquery' ), null );
 			wp_register_style( 'wc_connect_banner', $this->wc_connect_base_url . 'woocommerce-services-banner-' . $plugin_version . '.css', array(), null );
-			wp_register_script( 'wc_connect_banner', $this->wc_connect_base_url . 'woocommerce-services-banner-' . $plugin_version . '.js',  array( 'updates' ), null );
+			wp_register_script( 'wc_connect_banner', $this->wc_connect_base_url . 'woocommerce-services-banner-' . $plugin_version . '.js',  array(), null );
 
 			$i18n_json = $this->get_i18n_json();
 			/** @var array $i18nStrings defined in i18n/strings.php */

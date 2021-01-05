@@ -5,7 +5,7 @@ Tags: RSS import, RSS aggregator, feed import, content curation, feed to post, n
 Requires at least: 4.0 or higher
 Tested up to: 5.5
 Requires PHP: 5.4
-Stable tag: 4.17.6
+Stable tag: 4.17.10
 License: GPLv3
 
 The most popular RSS aggregator for WordPress. Build a news aggregator with content from unlimited sources within minutes. Simple, robust & powerful.
@@ -252,6 +252,48 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 
 == Changelog ==
+
+= 4.17.10 (2020-12-01) =
+**Fixed**
+- After updating the Templates add-on from v0.2, the add-on would be deactivated.
+
+= 4.17.9 (2020-11-25) =
+**Changed**
+- Auto image detection is now able to find the feed channel image.
+- SimplePie auto-discovery is turned off when the "Force feed" option is enabled.
+- The Feed Source post type is no longer public.
+- Meta box styling has been updated to match WordPress 5.3's updated styles.
+
+**Fixed**
+- Removed referer header from feed requests, fixed importing for some feeds.
+- Feeds that contain items without titles no longer only import just the first item.
+- Cron jobs are properly added/removed when the plugin is activated/deactivated, respectively.
+- Problems with the default template no longer trigger a fatal error.
+
+= 4.17.8 (2020-10-06) =
+**Changed**
+- Disabled SimplePie's HTML sanitization.
+- Updated jQuery code to be compatible with the upcoming update in WordPress.
+- Images without an extension can now be imported.
+- The image importing function now allows the image URL and local path to be changed via filters.
+- Changed how item importing is logged in the debugging log. The log now shows what hooks can reject an item.
+
+**Fixed**
+- WooCommerce Product type dropdown and accompanying options disappear while WP RSS Aggregator is active.
+- Addressed notices about `register_rest_route` being called incorrectly.
+- The "Validate feed" link did not work.
+- Sites on a multi-site network would see an error about a function not existing.
+- Errors would not be properly rendered for non-fatal notices and warnings.
+
+= 4.17.7 (2020-08-12)
+**Added**
+- New HTML classes for pagination buttons.
+
+**Fixed**
+- The featured image when using the Feed to Post add-on was not being saved.
+
+**Changed**
+- FeedBurner feeds no longer need to have "format=xml" at the end of the URL.
 
 = 4.17.6 (2020-07-29) =
 **Added**

@@ -47,9 +47,17 @@ if ( !class_exists( 'YITH_WCPB' ) ) {
         public $frontend;
 
         /**
-         * @var YITH_WCPB_Compatibility|YITH_WCPB_Compatibility_Premium
+         * @var YITH_WCPB_Compatibility_Premium|YITH_WCPB_Compatibility
          */
         public $compatibility;
+
+        /**
+		 * The bundle product version
+		 *
+		 * @var string
+		 * @since 1.4.0
+		 */
+		protected $bundle_product_version = '1.4.0';
 
         /**
          * Returns single instance of the class
@@ -100,6 +108,16 @@ if ( !class_exists( 'YITH_WCPB' ) ) {
                     require_once( $plugin_fw_file );
                 }
             }
+        }
+
+        /**
+         * Retrieve the bundle product version
+         *
+         * @return string
+         * @since 1.4.0
+         */
+        public function get_bundle_product_version(){
+		    return $this->bundle_product_version;
         }
     }
 }

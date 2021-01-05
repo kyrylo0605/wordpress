@@ -31,7 +31,7 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		}
 
 		/**
-		 * Requests the available services for this site from the WooCommerce Services Server
+		 * Requests the available services for this site from the WooCommerce Shipping & Tax Server
 		 *
 		 * @return array|WP_Error
 		 */
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		}
 
 		/**
-		 * Validates the settings for a given service with the WooCommerce Services Server
+		 * Validates the settings for a given service with the WooCommerce Shipping & Tax Server
 		 *
 		 * @param $service_slug
 		 * @param $service_settings
@@ -59,9 +59,9 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		 * @return bool|WP_Error
 		 */
 		public function validate_service_settings( $service_slug, $service_settings ) {
-			// Make sure the service slug only contains underscores or letters
-			if ( 1 === preg_match( '/[^a-z_]/i', $service_slug ) ) {
-				return new WP_Error( 'invalid_service_slug', __( 'Invalid WooCommerce Services service slug provided', 'woocommerce-services' ) );
+			// Make sure the service slug only contains dashes, underscores or letters
+			if ( 1 === preg_match( '/[^a-z_\-]/i', $service_slug ) ) {
+				return new WP_Error( 'invalid_service_slug', __( 'Invalid WooCommerce Shipping & Tax service slug provided', 'woocommerce-services' ) );
 			}
 
 			return $this->request( 'POST', "/services/{$service_slug}/settings", array( 'service_settings' => $service_settings ) );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		}
 
 		/**
-		 * Gets shipping rates (for checkout) from the WooCommerce Services Server
+		 * Gets shipping rates (for checkout) from the WooCommerce Shipping & Tax Server
 		 *
 		 * @param $services All settings for all services we want rates for
 		 * @param $package Package provided to WC_Shipping_Method::calculate_shipping()
@@ -182,7 +182,7 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		}
 
 		/**
-		 * Asks the WooCommerce Services server for an array of payment methods
+		 * Asks the WooCommerce Shipping & Tax server for an array of payment methods
 		 *
 		 * @return mixed|WP_Error
 		 */
@@ -191,7 +191,7 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		}
 
 		/**
-		 * Gets shipping rates (for labels) from the WooCommerce Services Server
+		 * Gets shipping rates (for labels) from the WooCommerce Shipping & Tax Server
 		 *
 		 * @param array $request - array(
 		 *	'packages' => array(
@@ -312,7 +312,27 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 		}
 
 		/**
-		 * Tests the connection to the WooCommerce Services Server
+		 * Get a list of the subscriptions for WooCommerce.com linked account.
+		 * @param $body
+		 * @param object|WP_Error
+		 */
+		public function get_wccom_subscriptions( $body ) {
+			return $this->request( 'POST', '/subscriptions', $body );
+		}
+
+		/**
+		 * Get all carriers we support for registration. This end point
+		 * returns a list of "fields" that we use to register the carrier
+		 * account.
+		 *
+		 * @return object|WP_Error
+		 */
+		public function get_carrier_types( ) {
+			return $this->request( 'GET', '/shipping/carrier-types' );
+		}
+
+		/**
+		 * Tests the connection to the WooCommerce Shipping & Tax Server
 		 *
 		 * @return true|WP_Error
 		 */
@@ -346,46 +366,8 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 			return $new_is_alive;
 		}
 
-		public function get_stripe_account_details() {
-			return $this->request( 'GET', '/stripe/account' );
-		}
-
-		public function get_stripe_oauth_init( $return_url ) {
-			$address = $this->wc_connect_loader->get_service_settings_store()->get_origin_address();
-			$current_user = wp_get_current_user();
-
-			$request = array(
-				'returnUrl' => $return_url,
-				'businessData' => array(
-					'url' => get_site_url(),
-					'country' => $address['country'],
-					'phone' => $address['phone'],
-					'business_name' => $address['company'],
-					'first_name' => $current_user->user_firstname,
-					'last_name' => $current_user->user_lastname,
-					'street_address' => $address['address'],
-					'city' => $address['city'],
-					'state' => $address['state'],
-					'zip' => $address['postcode'],
-					'currency' => get_woocommerce_currency(),
-				),
-			);
-			return $this->request( 'POST', '/stripe/oauth-init', $request );
-		}
-
-		public function get_stripe_oauth_keys( $code ) {
-			$request = array(
-				'code' => $code,
-			);
-			return $this->request( 'POST', '/stripe/oauth-keys', $request );
-		}
-
-		public function deauthorize_stripe_account() {
-			return $this->request( 'POST', '/stripe/account/deauthorize' );
-		}
-
 		/**
-		 * Sends a request to the WooCommerce Services Server
+		 * Sends a request to the WooCommerce Shipping & Tax Server
 		 *
 		 * @param $method
 		 * @param $path
@@ -436,36 +418,48 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 			$default_body = array(
 				'settings' => array(),
 			);
-			$body = array_merge( $default_body, $initial_body );
+			$body         = array_merge( $default_body, $initial_body );
 
 			// Add interesting fields to the body of each request
 			$body[ 'settings' ] = wp_parse_args( $body[ 'settings' ], array(
-				'store_guid' => $this->get_guid(),
-				'base_city' => WC()->countries->get_base_city(),
-				'base_country' => WC()->countries->get_base_country(),
-				'base_state' => WC()->countries->get_base_state(),
-				'base_postcode' => WC()->countries->get_base_postcode(),
-				'currency' => get_woocommerce_currency(),
-				'dimension_unit' => strtolower( get_option( 'woocommerce_dimension_unit' ) ),
-				'weight_unit' => strtolower( get_option( 'woocommerce_weight_unit' ) ),
-				'wcs_version' => WC_Connect_Loader::get_wcs_version(),
-				'jetpack_version' => JETPACK__VERSION,
-				'is_atomic' => WC_Connect_Jetpack::is_atomic_site(),
-				'wc_version' => WC()->version,
-				'wp_version' => get_bloginfo( 'version' ),
+				'store_guid'           => $this->get_guid(),
+				'base_city'            => WC()->countries->get_base_city(),
+				'base_country'         => WC()->countries->get_base_country(),
+				'base_state'           => WC()->countries->get_base_state(),
+				'base_postcode'        => WC()->countries->get_base_postcode(),
+				'currency'             => get_woocommerce_currency(),
+				'dimension_unit'       => strtolower( get_option( 'woocommerce_dimension_unit' ) ),
+				'weight_unit'          => strtolower( get_option( 'woocommerce_weight_unit' ) ),
+				'wcs_version'          => WC_Connect_Loader::get_wcs_version(),
+				'jetpack_version'      => JETPACK__VERSION,
+				'is_atomic'            => WC_Connect_Jetpack::is_atomic_site(),
+				'wc_version'           => WC()->version,
+				'wp_version'           => get_bloginfo( 'version' ),
 				'last_services_update' => WC_Connect_Options::get_option( 'services_last_update', 0 ),
-				'last_heartbeat' => WC_Connect_Options::get_option( 'last_heartbeat', 0 ),
-				'last_rate_request' => WC_Connect_Options::get_option( 'last_rate_request', 0 ),
-				'active_services' => $this->wc_connect_loader->get_active_services(),
-				'disable_stats' => WC_Connect_Jetpack::is_staging_site(),
-				'taxes_enabled' => wc_tax_enabled() && 'yes' === get_option( 'wc_connect_taxes_enabled' ),
-			) );
+				'last_heartbeat'       => WC_Connect_Options::get_option( 'last_heartbeat', 0 ),
+				'last_rate_request'    => WC_Connect_Options::get_option( 'last_rate_request', 0 ),
+				'active_services'      => $this->wc_connect_loader->get_active_services(),
+				'disable_stats'        => WC_Connect_Jetpack::is_staging_site(),
+				'taxes_enabled'        => wc_tax_enabled() && 'yes' === get_option( 'wc_connect_taxes_enabled' ),
+				)
+			);
+
+			// Add WC Helper auth info if connected to WC.com.
+			$helper_auth_data = WC_Connect_Functions::get_wc_helper_auth_info();
+
+			if ( ! is_wp_error( $helper_auth_data ) ) {
+				$body[ 'settings' ] = wp_parse_args( $body[ 'settings' ], array(
+					'access_token' => $helper_auth_data['access_token'],
+					'site_id'      => $helper_auth_data['site_id'],
+					)
+				);
+			}
 
 			return $body;
 		}
 
 		/**
-		 * Generates headers for our request to the WooCommerce Services Server
+		 * Generates headers for our request to the WooCommerce Shipping & Tax Server
 		 *
 		 * @return array|WP_Error
 		 */
@@ -483,6 +477,11 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 			$headers[ 'Content-Type' ] = 'application/json; charset=utf-8';
 			$headers[ 'Accept' ] = 'application/vnd.woocommerce-connect.v' . static::API_VERSION;
 			$headers[ 'Authorization' ] = $authorization;
+
+			$wc_helper_auth_info = WC_Connect_Functions::get_wc_helper_auth_info();
+			if ( ! is_wp_error( $wc_helper_auth_info ) ) {
+				$headers[ 'X-Woo-Signature' ] = $this->request_signature_wccom( $wc_helper_auth_info['access_token_secret'], 'subscriptions', 'GET', array() );
+			}
 			return $headers;
 		}
 
@@ -492,14 +491,14 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 			if ( ! $token || empty( $token->secret ) ) {
 				return new WP_Error(
 					'missing_token',
-					__( 'Unable to send request to WooCommerce Services server. Jetpack Token is missing', 'woocommerce-services' )
+					__( 'Unable to send request to WooCommerce Shipping & Tax server. Jetpack Token is missing', 'woocommerce-services' )
 				);
 			}
 
 			if ( false === strpos( $token->secret, '.' ) ) {
 				return new WP_Error(
 					'invalid_token',
-					__( 'Unable to send request to WooCommerce Services server. Jetpack Token is malformed.', 'woocommerce-services' )
+					__( 'Unable to send request to WooCommerce Shipping & Tax server. Jetpack Token is malformed.', 'woocommerce-services' )
 				);
 			}
 
@@ -530,12 +529,37 @@ if ( ! class_exists( 'WC_Connect_API_Client' ) ) {
 			return $authorization;
 		}
 
+		/**
+		 * Generate a signature for WCCOM API request validation.
+		 *
+		 * @param string $token_secret
+		 * @param string $endpoint
+		 * @param string $method
+		 * @param array $body
+		 * @return string
+		 */
+		protected function request_signature_wccom( $token_secret, $endpoint, $method, $body = array() ) {
+			$request_url = WC_Helper_API::url( $endpoint );
+
+			$data = array(
+				'host'        => parse_url( $request_url, PHP_URL_HOST ), // host URL.
+				'request_uri' => parse_url( $request_url, PHP_URL_PATH ), // endpoint URL.
+				'method'      => $method,
+			);
+
+			if ( ! empty( $body ) ) {
+				$data['body'] = $body;
+			}
+
+			return hash_hmac( 'sha256', wp_json_encode( $data ), $token_secret );
+		}
+
 		protected function request_signature( $token_key, $token_secret, $timestamp, $nonce, $time_diff ) {
 			$local_time = $timestamp - $time_diff;
 			if ( $local_time < time() - 600 || $local_time > time() + 300 ) {
 				return new WP_Error(
 					'invalid_signature',
-					__( 'Unable to send request to WooCommerce Services server. The timestamp generated for the signature is too old.', 'woocommerce-services' )
+					__( 'Unable to send request to WooCommerce Shipping & Tax server. The timestamp generated for the signature is too old.', 'woocommerce-services' )
 				);
 			}
 

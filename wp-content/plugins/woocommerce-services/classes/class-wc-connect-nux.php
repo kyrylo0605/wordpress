@@ -71,6 +71,7 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 
 		private function init_pointers() {
 			add_filter( 'wc_services_pointer_post.php', array( $this, 'register_order_page_labels_pointer' ) );
+			add_filter( 'wc_services_pointer_post.php', array( $this, 'register_new_carrier_dhl_pointer' ) );
 		}
 
 		public function show_pointers( $hook ) {
@@ -146,23 +147,60 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 			// If the user is not new to labels, we should just dismiss this pointer
 			if ( ! $this->is_new_labels_user() ) {
 				$this->dismiss_pointer( 'wc_services_labels_metabox' );
+
 				return $pointers;
 			}
 
-			if ( $this->shipping_label->should_show_meta_box() ) {
-				$pointers[] = array(
-					'id' => 'wc_services_labels_metabox',
-					'target' => '#woocommerce-order-label .button',
-					'options' => array(
-						'content' => sprintf( '<h3>%s</h3><p>%s</p>',
-							__( 'Discounted Shipping Labels' ,'woocommerce-services' ),
-							__( "When you're ready, purchase and print discounted labels from USPS right here.", 'woocommerce-services' )
-						),
-						'position' => array( 'edge' => 'top', 'align' => 'left' ),
-					),
-					'dim' => true,
-				);
+			if ( ! $this->shipping_label->should_show_meta_box() ) {
+				return $pointers;
 			}
+
+			$supported_carriers = array( 'USPS' );
+			if ( $this->shipping_label->is_dhl_express_available() ) {
+				$supported_carriers[] = 'DHL';
+			}
+
+			$pointers[] = array(
+				'id' => 'wc_services_labels_metabox',
+				'target' => '#woocommerce-order-label .button',
+				'options' => array(
+					'content' => sprintf( '<h3>%s</h3><p>%s</p>',
+						__( 'Discounted Shipping Labels' ,'woocommerce-services' ),
+						sprintf( __( "When you're ready, purchase and print discounted labels from %s right here.", 'woocommerce-services' ), implode(' or ', $supported_carriers) )
+					),
+					'position' => array( 'edge' => 'top', 'align' => 'left' ),
+				),
+				'dim' => true,
+			);
+
+			return $pointers;
+		}
+
+		public function register_new_carrier_dhl_pointer( $pointers ) {
+			// new user? no need to show this alert, `wc_services_labels_metabox` will take care of communicating about DHL
+			if ( $this->is_new_labels_user() ) {
+				$this->dismiss_pointer( 'wc_services_new_carrier_dhl_express' );
+
+				return $pointers;
+			}
+
+			// existing user? figure out if the order supports DHL, then let them know DHL is a new carrier!
+			if ( ! $this->shipping_label->is_order_dhl_express_eligible() ) {
+				return $pointers;
+			}
+
+			$pointers[] = array(
+				'id' => 'wc_services_new_carrier_dhl_express',
+				'target' => '#woocommerce-order-label .button',
+				'options' => array(
+					'content' => sprintf( '<h3>%s</h3><p>%s</p>',
+						__( 'Discounted DHL Shipping Labels' ,'woocommerce-services' ),
+						__( "WooCommerce Shipping now supports DHL labels for international shipments. Purchase and print discounted labels from DHL and USPS right here.", 'woocommerce-services' )
+					),
+					'position' => array( 'edge' => 'top', 'align' => 'left' ),
+				),
+				'dim' => true,
+			);
 
 			return $pointers;
 		}
@@ -305,37 +343,6 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 		}
 
 		/**
-		 * https://stripe.com/global
-		 */
-		public function is_stripe_supported_country( $country_code ) {
-			$stripe_supported_countries = array(
-				'AU',
-				'AT',
-				'BE',
-				'CA',
-				'DK',
-				'FI',
-				'FR',
-				'DE',
-				'HK',
-				'IE',
-				'JP',
-				'LU',
-				'NL',
-				'NZ',
-				'NO',
-				'SG',
-				'ES',
-				'SE',
-				'CH',
-				'GB',
-				'US',
-			);
-
-			return in_array( $country_code, $stripe_supported_countries );
-		}
-
-		/**
 		 * https://developers.taxjar.com/api/reference/#countries
 		 */
 		public function is_taxjar_supported_country( $country_code ) {
@@ -354,28 +361,20 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 		public function should_display_nux_notice_for_current_store_locale() {
 			$store_country = WC()->countries->get_base_country();
 
-			$supports_stripe   = $this->is_stripe_supported_country( $store_country );
 			$supports_taxes    = $this->is_taxjar_supported_country( $store_country );
 			$supports_shipping = in_array( $store_country, array( 'US', 'CA' ) );
 
-			return $supports_shipping || $supports_stripe || $supports_taxes;
+			return $supports_shipping || $supports_taxes;
 		}
 
 		public function get_feature_list_for_country( $country ) {
 			$feature_list    = false;
-			$supports_stripe = $this->is_stripe_supported_country( $country );
 			$supports_taxes  = $this->is_taxjar_supported_country( $country );
 			$supports_labels = ( 'US' === $country );
 
-			$is_stripe_active = is_plugin_active( 'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php' );
-			$stripe_settings  = get_option( 'woocommerce_stripe_settings', array() );
-			$is_stripe_ready  = $is_stripe_active && isset( $stripe_settings['enabled'] ) && 'yes' === $stripe_settings['enabled'];
-
 			$is_ppec_active = is_plugin_active( 'woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php' );
 			$ppec_settings  = get_option( 'woocommerce_ppec_paypal_settings', array() );
-			$is_ppec_ready  = $is_ppec_active && ( ! isset( $ppec_settings['enabled'] ) || 'yes' === $ppec_settings['enabled'] );
-
-			$supports_payments = ( $supports_stripe && $is_stripe_ready ) || $is_ppec_ready;
+			$supports_payments  = $is_ppec_active && ( ! isset( $ppec_settings['enabled'] ) || 'yes' === $ppec_settings['enabled'] );
 
 			if ( $supports_payments && $supports_taxes && $supports_labels ) {
 				$feature_list = __( 'automated tax calculation, shipping label printing, and smoother payment setup', 'woocommerce-services' );
@@ -486,7 +485,7 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 
 			$jetpack_status = $this->get_jetpack_install_status();
 			$button_text    = __( 'Connect', 'woocommerce-services' );
-			$banner_title   = __( 'Connect Jetpack to activate WooCommerce Services', 'woocommerce-services' );
+			$banner_title   = __( 'Connect Jetpack to activate WooCommerce Shipping & Tax', 'woocommerce-services' );
 			$image_url      = plugins_url( 'images/wcs-notice.png', dirname( __FILE__ ) );
 
 			switch ( $jetpack_status ) {
@@ -500,7 +499,7 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 
 			$country = WC()->countries->get_base_country();
 			/* translators: %s: list of features, potentially comma separated */
-			$description_base = __( "WooCommerce Services is almost ready to go! Once you connect Jetpack you'll have access to %s.", 'woocommerce-services' );
+			$description_base = __( "WooCommerce Shipping & Tax is almost ready to go! Once you connect Jetpack you'll have access to %s.", 'woocommerce-services' );
 			$feature_list     = $this->get_feature_list_for_country( $country );
 			$banner_content   = array(
 				'title'             => $banner_title,
@@ -576,11 +575,11 @@ if ( ! class_exists( 'WC_Connect_Nux' ) ) {
 
 			$country = WC()->countries->get_base_country();
 			/* translators: %s: list of features, potentially comma separated */
-			$description_base = __( "WooCommerce Services is almost ready to go! Once you connect your store you'll have access to %s.", 'woocommerce-services' );
+			$description_base = __( "WooCommerce Shipping & Tax is almost ready to go! Once you connect your store you'll have access to %s.", 'woocommerce-services' );
 			$feature_list     = $this->get_feature_list_for_country( $country );
 
 			$this->show_nux_banner( array(
-				'title'          => __( 'Connect your store to activate WooCommerce Services', 'woocommerce-services' ),
+				'title'          => __( 'Connect your store to activate WooCommerce Shipping & Tax', 'woocommerce-services' ),
 				'description'    => esc_html( sprintf( $description_base, $feature_list ) ),
 				'button_text'    => __( 'Connect', 'woocommerce-services' ),
 				'button_link'    => add_query_arg( array(

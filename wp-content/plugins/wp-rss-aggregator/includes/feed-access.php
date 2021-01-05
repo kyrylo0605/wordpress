@@ -10,6 +10,7 @@ class WPRSS_Feed_Access
 {
 
     const RESOURCE_CLASS = 'WPRSS_SimplePie_File';
+    const ITEM_CLASS = 'WPRSS_SimplePie_Item';
     const D_REDIRECTS = 5;
 
     const SETTING_KEY_CERTIFICATE_PATH = 'certificate-path';
@@ -171,6 +172,7 @@ class WPRSS_Feed_Access
 	 */
 	public function set_feed_options($feed, $feedSourceId = null)
         {
+            $feed->set_item_class(static::ITEM_CLASS);
             $feed->set_file_class( static::RESOURCE_CLASS );
             $feed->set_useragent($this->get_useragent($feedSourceId));
             WPRSS_SimplePie_File::set_default_certificate_file_path($this->get_certificate_file_path());
@@ -367,6 +369,18 @@ add_action('wprss_init', function() {
     WPRSS_Feed_Access::instance();
 });
 
+class WPRSS_SimplePie_Item extends SimplePie_Item {
+
+    public function sanitize($data, $type, $base = '')
+    {
+        if ($type & (SIMPLEPIE_CONSTRUCT_HTML | SIMPLEPIE_CONSTRUCT_XHTML | SIMPLEPIE_CONSTRUCT_MAYBE_HTML)) {
+            return $data;
+        }
+
+        return parent::sanitize($data, $type, $base);
+    }
+}
+
 
 /**
  * A padding layer used to give WPRSS more control over fetching of feed resources.
@@ -416,7 +430,6 @@ class WPRSS_SimplePie_File extends SimplePie_File {
 				curl_setopt( $fp, CURLOPT_RETURNTRANSFER, 1 );
 				curl_setopt( $fp, CURLOPT_TIMEOUT, $timeout );
 				curl_setopt( $fp, CURLOPT_CONNECTTIMEOUT, $timeout );
-				curl_setopt( $fp, CURLOPT_REFERER, $url );
 				curl_setopt( $fp, CURLOPT_USERAGENT, $useragent );
 				curl_setopt( $fp, CURLOPT_HTTPHEADER, $headers2 );
 				if ( !ini_get( 'open_basedir' ) && !ini_get( 'safe_mode' ) && version_compare( SimplePie_Misc::get_curl_version(), '7.15.2', '>=' ) ) {

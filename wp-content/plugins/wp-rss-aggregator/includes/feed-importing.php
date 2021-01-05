@@ -344,6 +344,7 @@ function wprss_get_feed_cache_dir()
             // If turned on, force the feed
             if ($force_feed == 'true' || $param_force_feed) {
                 $feed->force_feed(true);
+                $feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 
                 global $wpraNoSslVerification;
                 $wpraNoSslVerification = true;
@@ -563,7 +564,7 @@ function wprss_get_feed_cache_dir()
             $permalink = $item->get_permalink(); // Link or enclosure URL
             $permalink = htmlspecialchars_decode( $permalink ); // SimplePie encodes HTML special chars
 
-            $logger->debug('Saving item "{0}"', [$item->get_title()]);
+            $logger->debug('Beginning import for item "{0}"', [$item->get_title()]);
 
 			$permalink = wprss_normalize_permalink( $permalink, $item, $feed_ID );
 
@@ -582,6 +583,23 @@ function wprss_get_feed_cache_dir()
 				$time_limit = wprss_get_item_import_time_limit();
 				set_time_limit( $time_limit );
 
+				global $wp_filter;
+				if (isset($wp_filter['wprss_insert_post_item_conditionals'])) {
+				    $hook = $wp_filter['wprss_insert_post_item_conditionals'];
+
+				    if (count($hook->callbacks) > 0) {
+                        $logger->debug('Hooks for `wprss_insert_post_item_conditionals`:');
+                    }
+
+				    foreach ($hook->callbacks as $list) {
+				        foreach ($list as $callback) {
+                            $logger->debug('-> {0}', [wprss_format_hook_callback($callback)]);
+                        }
+                    }
+                }
+
+                $logger->debug('Checking conditionals ...');
+
 				// Apply filters that determine if the feed item should be inserted into the DB or not.
                 $ogItem = $item;
 				$item = apply_filters( 'wprss_insert_post_item_conditionals', $item, $feed_ID, $permalink );
@@ -592,41 +610,62 @@ function wprss_get_feed_cache_dir()
 
 				// If the item is not NULL, continue to inserting the feed item post into the DB
 				if ( $item !== NULL && !is_bool($item) ) {
+                    $logger->debug('Resuming insertion into DB');
+
 				    $post_status = 'publish';
 
-					// Get the date and GTM date and normalize if not valid dor not present
+					// Get the date and GMT date and normalize if not valid or not given by the feed
 					$format    = 'Y-m-d H:i:s';
-					$has_date  = $item->get_date( 'U' ) ? TRUE : FALSE;
-					$timestamp = $has_date ? $item->get_date( 'U' ) : date( 'U' );
+					$timestamp = $item->get_date( 'U' );
+					$has_date  = $timestamp ? true : false;
 
-					// Item has a future timestamp
-					if ($timestamp > time()) {
-					    $schedule_items_filter = apply_filters('wpra/importer/allow_scheduled_items', false);
-					    $schedule_items_option = wprss_get_general_setting('schedule_future_items');
+					if ($has_date) {
+                        $logger->debug('Feed item "{0}" date: {1}', [$item->get_title(), $item->get_date($format)]);
 
-                        if ($schedule_items_filter || $schedule_items_option) {
-					        // If can schedule future items, set the post status to "future" (aka scheduled)
-                            $post_status = 'future';
-                        } else {
-                            // If cannot schedule future items, clamp the timestamp to the currrent time minus
-                            // 1 second for each iteration done so far
-                            $timestamp = min(time() - $i, $timestamp);
+                        if ($timestamp > time()) {
+                            // Item has a future timestamp ...
+                            $logger->debug('Item "{0}" has a future date', [$item->get_title()]);
+
+                            $schedule_items_filter = apply_filters('wpra/importer/allow_scheduled_items', false);
+                            $schedule_items_option = wprss_get_general_setting('schedule_future_items');
+
+                            if ($schedule_items_filter || $schedule_items_option) {
+                                // If can schedule future items, set the post status to "future" (aka scheduled)
+                                $post_status = 'future';
+
+                                $logger->debug('Setting future status');
+                            } else {
+                                // If cannot schedule future items, clamp the timestamp to the current time minus
+                                // 1 second for each iteration done so far
+                                $timestamp = min(time() - $i, $timestamp);
+
+                                $logger->debug('Date was clamped to present time');
+                            }
                         }
+                    } else {
+                        // Item has no date ...
+                        $logger->debug('Item "{0}" has no date. Using current time', [$item->get_title()]);
+                        $timestamp = time();
                     }
 
 					$date     = date( $format, $timestamp );
-					$date_gmt = gmdate( $format, $timestamp );
+					$date_gmt = gmdate( $format, $item->get_gmdate( 'U' ) );
+
+                    $logger->debug('Date for "{0}" will be {1}', [$item->get_title(), $date]);
 
                     // Do not let WordPress sanitize the excerpt
                     // WordPress sanitizes the excerpt because it's expected to be typed by a user and sent in a POST
                     // request. However, our excerpt is being inserted as a raw string with custom sanitization.
                     remove_all_filters( 'excerpt_save_pre' );
 
+                    $title = trim(html_entity_decode($item->get_title()));
+                    $title = empty($title) ? $item->get_id() : $title;
+
 					// Prepare the item data
 					$feed_item = apply_filters(
 						'wprss_populate_post_data',
 						array(
-							'post_title'     => html_entity_decode( $item->get_title() ),
+							'post_title'     => $title,
 							'post_content'   => $item->get_content(),
 							'post_excerpt'   => wprss_sanitize_excerpt($item->get_description()),
 							'post_status'    => $post_status,
@@ -657,14 +696,28 @@ function wprss_get_feed_cache_dir()
 							}
 						}
 
-						// Increment the inserted items counter
-						$items_inserted++;
+                        $logger->debug('Item "{0}" was inserted into DB, ID: {1}', [
+                            $ogItem->get_title(),
+                            $inserted_ID,
+                        ]);
 
 						// Create and insert post meta into the DB
 						wprss_items_insert_post_meta( $inserted_ID, $item, $feed_ID, $permalink, $enclosure_url );
 
+                        $logger->debug('Inserted meta data for item #{0}', [
+                            $inserted_ID,
+                        ]);
+
 						// Remember newly added permalink
 						$existing_permalinks[$permalink] = 1;
+
+						// Increment the inserted items counter
+						$items_inserted++;
+
+                        $logger->notice('Finished import for item {0}, ID {1}', [
+                            $ogItem->get_title(),
+                            $inserted_ID,
+                        ]);
 					}
 					else {
 						update_post_meta( $feed_ID, 'wprss_error_last_import', 'An error occurred while inserting a feed item into the database.' );
@@ -675,13 +728,16 @@ function wprss_get_feed_cache_dir()
 				// If the item is TRUE, then a hook function in the filter inserted the item.
 				// increment the inserted counter
 				elseif ( ( is_bool($item) && $item === TRUE ) || ( $still_update_count === TRUE && $item !== FALSE ) ) {
+                    $logger->debug('Item "{0}" was imported by an add-on or filter', [
+                        $ogItem->get_title(),
+                    ]);
 					$items_inserted++;
 				} elseif (has_filter('wprss_insert_post_item_conditionals', 'wprss_kf_check_post_item_keywords')) {
                     $logger->info('Item "{0}" was rejected by your keyword or tag filtering.', [
                         $ogItem->get_title()
                     ]);
                 } else {
-                    $logger->notice('Item "{0}" was rejected by an add-on.', [
+                    $logger->notice('Item "{0}" was rejected by an add-on or filter.', [
                         $ogItem->get_title()
                     ]);
                 }

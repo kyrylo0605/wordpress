@@ -270,6 +270,7 @@ function wpra_get_item_images($item)
     $images['enclosure'] = wpra_get_item_enclosure_images($item);
     $images['content'] = wpra_get_item_content_images($item);
     $images['itunes'] = wpra_get_item_itunes_images($item);
+    $images['feed'] = [$item->get_feed()->get_image_url()];
 
     return $images;
 }
@@ -721,6 +722,8 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
 
         try {
             /* @var $img WPRSS_Image_Cache_Image */
+            $url = apply_filters('wpra/images/url_to_download', $url);
+
             $img = $images->get($url);
         } catch (Exception $e) {
             return new WP_Error('could_not_load_image', $e->getMessage(), $url);
@@ -769,6 +772,8 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
         $file_array['tmp_name'] = $tmp;
         $parts = parse_url(trim($img->get_url()));
         $baseName = uniqid($parts['host']);
+
+        $parts['path'] = apply_filters('wpra/images/cache_path', $parts['path']);
 
         if (!empty($filename)) {
             // user given filename for title, add original URL extension
@@ -822,6 +827,18 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
                 add_filter('wp_check_filetype_and_ext', function ($image) use ($file_ext, $mime_type) {
                     $image['ext'] = empty($image['ext']) ? $file_ext : $image['ext'];
                     $image['type'] = empty($image['type']) ? $mime_type : $image['type'];
+
+                    // If the image has a `proper_filename` and an `ext`
+                    if (!empty($image['proper_filename']) && !empty($image['ext'])) {
+                        $filename = strtolower($image['proper_filename']);
+                        $extension = strtolower($image['ext']);
+
+                        // Do a case insensitive check for the extension in the proper_filename. If not found, we
+                        // add the extension
+                        if (!preg_match('/'.$extension.'$/i', $filename)) {
+                            $image['proper_filename'] .= '.' . $extension;
+                        }
+                    }
 
                     return $image;
                 }, 10);
