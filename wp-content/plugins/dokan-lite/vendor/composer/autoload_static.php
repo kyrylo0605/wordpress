@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d
+class ComposerStaticInitef920bb6f2ebb0436c54ef5312c46fdd
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -127,6 +127,7 @@ class ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\BackgroundProcesses\\V_2_9_23_StoreName' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/BackgroundProcesses/V_2_9_23_StoreName.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\BackgroundProcesses\\V_2_9_4_OrderPostAuthor' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/BackgroundProcesses/V_2_9_4_OrderPostAuthor.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\BackgroundProcesses\\V_3_0_10_ProductAttributesAuthorId' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/BackgroundProcesses/V_3_0_10_ProductAttributesAuthorId.php',
+        'WeDevs\\Dokan\\Upgrade\\Upgrades\\BackgroundProcesses\\V_3_1_1_RefundTableUpdate' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/BackgroundProcesses/V_3_1_1_RefundTableUpdate.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_1_2' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_1_2.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_2_1' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_2_1.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_2_3' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_2_3.php',
@@ -147,6 +148,7 @@ class ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_0_10' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_0_10.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_0_4' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_0_4.php',
         'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_1_0' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_1_0.php',
+        'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_1_1' => __DIR__ . '/../..' . '/includes/Upgrade/Upgrades/V_3_1_1.php',
         'WeDevs\\Dokan\\Vendor\\Manager' => __DIR__ . '/../..' . '/includes/Vendor/Manager.php',
         'WeDevs\\Dokan\\Vendor\\SetupWizard' => __DIR__ . '/../..' . '/includes/Vendor/SetupWizard.php',
         'WeDevs\\Dokan\\Vendor\\StoreListsFilter' => __DIR__ . '/../..' . '/includes/Vendor/StoreListsFilter.php',
@@ -175,9 +177,9 @@ class ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf6ef8d2c83d0af4adb786193f620e10d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitef920bb6f2ebb0436c54ef5312c46fdd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitef920bb6f2ebb0436c54ef5312c46fdd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitef920bb6f2ebb0436c54ef5312c46fdd::$classMap;
 
         }, null, ClassLoader::class);
     }

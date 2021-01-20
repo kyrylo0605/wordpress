@@ -40,15 +40,17 @@ function grw_place_reviews($place, $reviews, $place_id, $text_size, $pagination,
         <div class="wp-google-review<?php if ($hr) { echo ' wp-google-hide'; } if ($is_admin && $review->hide != '') { echo ' wp-review-hidden'; } ?>">
             <div class="wp-google-left">
                 <?php
+                $default_avatar = GRW_GOOGLE_AVATAR;
                 if (strlen($review->profile_photo_url) > 0) {
                     $profile_photo_url = $review->profile_photo_url;
                 } else {
-                    $profile_photo_url = GRW_GOOGLE_AVATAR;
+                    $profile_photo_url = $default_avatar;
                 }
                 if ($reduce_avatars_size) {
                     $profile_photo_url = str_replace('s128', 's50', $profile_photo_url);
+                    $default_avatar = str_replace('s128', 's50', $default_avatar);
                 }
-                grw_image($profile_photo_url, $review->author_name, $lazy_load_img, GRW_GOOGLE_AVATAR);
+                grw_image($profile_photo_url, $review->author_name, $lazy_load_img, $default_avatar);
                 ?>
             </div>
             <div class="wp-google-right">

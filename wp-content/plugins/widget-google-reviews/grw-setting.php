@@ -110,18 +110,6 @@ if (isset($_POST['grw_active']) && isset($_GET['grw_active'])) {
 
 if (isset($_POST['grw_setting'])) {
     update_option('grw_google_api_key', trim($_POST['grw_google_api_key']));
-
-    /*$grw_google_api_key = $_POST['grw_google_api_key'];
-    if (strlen($grw_google_api_key) > 0) {
-        $test_url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJ3TH9CwFZwokRIvNO1SP0WLg&key=" . $grw_google_api_key;
-        $test_response = rplg_urlopen($test_url);
-        $test_response_data = $test_response['data'];
-        $test_response_json = rplg_json_decode($test_response_data);
-        if (isset($test_response_json->error_message) && strlen($test_response_json->error_message) > 0) {
-            $grw_google_api_key_error = $test_response_json->error_message;
-        }
-        update_option('grw_google_api_key', $grw_google_api_key);
-    }*/
 }
 
 if (isset($_POST['create_db'])) {
@@ -162,6 +150,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
                 <a href="#setting"   class="nav-tab<?php if ($tab == 'setting')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Settings'); ?></a>
                 <a href="#shortcode" class="nav-tab<?php if ($tab == 'shortcode') { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Shortcode'); ?></a>
                 <a href="#reviews"   class="nav-tab<?php if ($tab == 'reviews')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Reviews'); ?></a>
+                <a href="#fig"   class="nav-tab<?php if ($tab == 'fig')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Full Installation Guide'); ?></a>
                 <a href="#support"   class="nav-tab<?php if ($tab == 'support')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Support'); ?></a>
                 <a href="#advance"   class="nav-tab<?php if ($tab == 'advance')   { ?> nav-tab-active<?php } ?>"><?php echo grw_i('Advance'); ?></a>
             </div>
@@ -239,6 +228,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
                             <label>Instruction: how to create Google Places API key</label>
                         </div>
                         <div class="wp-review-field-option">
+                            <p>Below are small steps that describe how you can create your Google API key.<br>If you have any troubles with this, please see <a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=fig'); ?>">Full Installation Guide</a> where you can find the most detailed information about it.</p>
                             <p>1. Go to your <a href="https://console.developers.google.com/apis/dashboard?pli=1" target="_blank">Google Console</a></p>
                             <p>2. Click '<b>Create Project</b>' or '<b>Select Project</b>' button</p>
                             <p>3. Create new project or select existing</p>
@@ -296,61 +286,14 @@ $grw_google_api_key = get_option('grw_google_api_key');
                 </div>
             </div>
 
+            <div id="fig" class="tab-content" style="display:<?php echo $tab == 'fig' ? 'block' : 'none'?>;">
+                <h3>Full Installation Guide</h3>
+                <?php include_once(dirname(__FILE__) . '/grw-setting-fig.php'); ?>
+            </div>
+
             <div id="support" class="tab-content" style="display:<?php echo $tab == 'support' ? 'block' : 'none'?>;">
                 <h3>Most Common Questions</h3>
-                <div class="rplg-flex-row">
-                    <div class="rplg-flex-col">
-                        <div class="rplg-support-question">
-                            <h3>I can't connect my Google Place.</h3>
-                            <p>Please check that you correctly found the Place ID of your Google business. It should look like <b>ChIJ</b>3TH9CwFZwokRI... This instruction helps to find any Place ID regardless of whether it has a physical address or it is an area: <a href="https://www.launch2success.com/guide/find-any-google-id/" target="_blank">how to find Place ID of any Google business</a></p>
-                        </div>
-                    </div>
-                    <div class="rplg-flex-col">
-                        <div class="rplg-support-question">
-                            <h3>I have some error messages about the Google API key.</h3>
-                            <p>Please make sure that your correctly created the Google Places API key with <b>Places API library and without any restrictions (IP or Referrer)</b>. It should look like <b>AIzaS</b>yB3k4oWDJPF... On the <b>Settings</b> tab there is a detailed instruction and video tutorial how to create the free and correct Google Places API key.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="rplg-flex-row">
-                    <div class="rplg-flex-col">
-                        <div class="rplg-support-question">
-                            <h3>Why I see only 5 Google reviews?</h3>
-                            <p>The plugin uses the Google Places API to get your reviews. The API only returns the 5 most helpful reviews. When Google changes the 5 most helpful the plugin will automatically add the new one to your database. Thus slowly building up a database of reviews. It's a limitation of Google, not specifically the plugin.</p>
-                            <p>The plugin can only download what Google returns in their Places API. It is usually the 5 Most Helpful (not newest) reviews. You can check what the API returns by entering your Place ID and Goolge API key in this url:</p>
-                            <code>https://maps.googleapis.com/maps/api/place/details/json?placeid=YOUR_PLACE_ID&key=YOUR_GOOGLE_API_KEY</code>
-                            <p>However, if you got new reviews for your Google place, but the plugin does not show these, it means that Google didn't include it to 5 most helpful and the plugin just can't get this. It's a limitation of Google, not the plugin.</p>
-                            <p>Also, please check that the 'Refresh' option is enable in the widget. It will call the Google API once in three days (to avoid a Google Billing and keeps the API key is free) to check the new most helpful reviews.</p>
-                        </div>
-                    </div>
-                    <div class="rplg-flex-col">
-                        <div class="rplg-support-question">
-                            <h3>Is the plugin compatible with the latest version of PHP? I saw warnings about the compatibility with PHP 7 in the checker plugin.</h3>
-                            <p>Yes, the plugin is absolutely compatible with PHP 7 and by the way, we are using PHP 7 on the demo site.</p>
-                            <p>The warnings come from the code which is needed for compatible with old versions of PHP (&lt; 5.0) which is sometimes found in some users and without this code, the plugin will not work.</p>
-                            <p>The problem is that the plugin which you’re using to test compatibility with PHP 7 cannot understand that this code is not used under PHP 7 or greater. The compatibility plugin just search some keywords which deprecated in the latest version PHP and show warnings about it (without understanding that this is not used).</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="rplg-flex-row">
-                    <div class="rplg-flex-col">
-                        <div class="rplg-support-question">
-                            <h3>If you need support</h3>
-                            <p>You can contact us directly by email <a href="mailto:support@richplugins.com">support@richplugins.com</a> and would be great and save us a lot of time if each request to the support will contain the following data:</p>
-                            <ul>
-                                <li><b>1.</b> Clear and understandable description of the issue;</li>
-                                <li><b>2.</b> Direct links to your reviews on: Google map;</li>
-                                <li><b>3.</b> Link to the page of your site where the plugin installed;</li>
-                                <li><b>4.</b> Better if you attach a screenshot(s) (or screencast) how you determine the issue;</li>
-                                <li><b>5. The most important:</b> please always copy & paste the DEBUG INFORMATION from the <b>Advance</b> tab.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="rplg-flex-col">
-                        <div class="rplg-support-question">
-                        </div>
-                    </div>
-                </div>
+                <?php include_once(dirname(__FILE__) . '/grw-setting-support.php'); ?>
             </div>
 
             <div id="advance" class="tab-content" style="display:<?php echo $tab == 'advance' ? 'block' : 'none'?>;">

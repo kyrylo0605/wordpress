@@ -99,7 +99,8 @@
 }
 
 .rplg-flex-col:first-child,
-.rplg-flex-col3:first-child {
+.rplg-flex-col3:first-child,
+.rplg-flex-col3+.rplg-flex-col3 {
     padding-right: 10px;
 }
 
@@ -201,4 +202,30 @@
     line-height: 26px;
     text-decoration: none;
     text-transform: uppercase;
+}
+
+#support h3 {
+    line-height: 24px;
+}
+
+#fig p {
+    font-size: 14px;
+}
+
+#fig hr {
+    border-top: 1px solid #bbb;
+    border-bottom: 2px solid #eee;
+}
+
+#fig img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    margin: 10px auto 20px;
+}
+
+@media (min-width: 700px) {
+    #fig img {
+        max-width: 60%;
+    }
 }

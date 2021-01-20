@@ -1,5 +1,5 @@
 <div class="form-group">
-    <h4><?php echo grw_i('Enter Place ID of your Google location. If you don\'t know this, you can simply find it by <a href="https://www.launch2success.com/guide/find-any-google-id/" target="_blank">this instruction</a>.'); ?></h4>
+    <h4><?php echo grw_i('Enter Place ID of your Google location. If you don\'t know this, you can simply find it by <a href="' . admin_url('options-general.php?page=grw&grw_tab=fig') . '" target="_blank">this instruction</a>.'); ?></h4>
     <input type="text" class="grw-place-id" value="" placeholder="Place ID" />
     <small class="grw-error"></small>
 </div>

@@ -48,7 +48,7 @@ if ($centered) {
 }
 
 if ($refresh_reviews) {
-    $schedule_step = 60 * 60 * 55;
+    $schedule_step = 60 * 60 * 24;
     $args = array($place_id);
     if (strlen($reviews_lang) > 0) {
         array_push($args, $reviews_lang);
