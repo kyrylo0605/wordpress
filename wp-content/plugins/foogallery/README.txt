@@ -1,18 +1,18 @@
 === Best Image Gallery & Responsive Photo Gallery - FooGallery ===
 Contributors: bradvin, steveush, fooplugins
-Donate link: http://fooplugins.com
+Donate link: https://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 3.9
 Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 FooGallery is a powerful, responsive photo gallery plugin. Stunning gallery layouts with advanced settings for complete customization and control.
 
 == Description ==
 
-= Best Gallery Plugin =
+= WordPress Gallery Plugin =
 
 Make gallery management in WordPress great again! With FooGallery you can easily add a stunning photo gallery to your website in minutes.
 
@@ -24,7 +24,7 @@ FooGallery was built to be highly configurable and extendable for developers or 
 
 That is why we think FooGallery is the best gallery plugin. After using it, we hope you will agree.
 
-[Visit the FooGallery Wordpress Gallery Plugin Homepage](http://fooplugins.com/foogallery)
+[Visit the FooGallery Wordpress Gallery Plugin Homepage](https://fooplugins.com/foogallery/)
 
 = WordPress Gallery Plugin Features =
 
@@ -108,9 +108,9 @@ When you install FooGallery for the first time, the plugin asks you (the website
 
 From your website point of view, FooGallery never collects or stores any visitor information at all, when someone visits your website.
 
-**PHP 7 Compatible**
+**PHP 8 Compatible**
 
-FooGallery has been tried and tested on servers running up to PHP 7.4
+FooGallery has been tried and tested on servers running up to PHP 8
 
 **Retina Support**
 
@@ -226,6 +226,49 @@ We did the research and comparison. See our findings : [What is the Best WordPre
 Please update in order to for FooGallery to work in WP 5.5+!
 
 == Changelog ==
+
+= 1.9.53 =
+* Date Updated : 2021-23-01
+* Update : FooGallery client side 1.4.26
+
+= 1.9.52 =
+* Date Updated : 2021-22-01
+
+
+= 1.9.50 =
+* Date Updated : 2021-21-01
+
+* Fix : fixed incorrect settings showing for certain gallery templates
+
+= 1.9.49 =
+* Date Updated : 2021-13-01
+* Fix : Advanced settings for a gallery to properly override settings rather than merge
+
+
+= 1.9.48 =
+* Date Updated : 2021-11-01
+* New : Added global Custom JS & CSS settings which are included for all galleries
+* New : Added global language settings which apply to all galleries
+* Update : Updated All-in-one SEO support to work with AIOSEO v4
+* Update : FooGallery client side 1.4.25
+* Update : updated WPML compatibility to account for new language settings
+* Fix : image URL's with spaces - always ensure image URL's are escaped
+* Fix : fixed PHP warning on activation
+* Test : tested PHP8 support!
+
+
+= 1.9.47 =
+* Date Updated : 2020-16-10
+
+
+= 1.9.46 =
+* Date Updated : 2020-15-10
+
+
+= 1.9.45 =
+* Date Updated : 2020-15-10
+* Fix : Updated albums to use FooGallery stylesheet enqueue function
+
 
 = 1.9.44 =
 * Date Updated : 2020-12-06
