@@ -71,7 +71,7 @@ class Posts_Grid extends Widget_Base {
 	 * @return array Widget scripts dependencies.
 	 */
 	public function get_style_depends() {
-		return [ 'eaw-elementor', 'font-awesome-5-all' ];
+		return [ 'eaw-elementor', 'font-awesome-5' ];
 	}
 
 	/**
@@ -279,6 +279,20 @@ class Posts_Grid extends Widget_Base {
 					'modified'      => __( 'Modified date', 'textdomain' ),
 					'comment_count' => __( 'Comment count', 'textdomain' ),
 					'rand'          => __( 'Random', 'textdomain' ),
+				],
+			]
+		);
+		
+		//Order type
+		$this->add_control(
+			'grid_order_type',
+			[
+				'type'    => Controls_Manager::SELECT,
+				'label'   => '<i class="fa fa-sort"></i> ' . __( 'Order', 'textdomain' ),
+				'default' => 'DESC',
+				'options' => [
+					'ASC'          => __( 'Ascending', 'textdomain' ),
+					'DESC'         => __( 'Descending', 'textdomain' ),
 				],
 			]
 		);
@@ -590,7 +604,7 @@ class Posts_Grid extends Widget_Base {
 			[
 				'label'     => '<i class="fa fa-check-square"></i> ' . __( 'Button', 'textdomain' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'default'   => 'no',
 				'condition' => [
 					'section_grid.grid_post_type!' => 'product',
 				],
@@ -606,7 +620,7 @@ class Posts_Grid extends Widget_Base {
 				'placeholder' => __( 'Read more', 'textdomain' ),
 				'default'     => __( 'Read more', 'textdomain' ),
 				'condition'   => [
-					'grid_content_default_btn!'    => '',
+					'grid_content_default_btn!'    => ['','no'],
 					'section_grid.grid_post_type!' => 'product',
 				],
 			]
@@ -1248,10 +1262,7 @@ class Posts_Grid extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				],
+				'default'   => '#ffffff',
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-footer a' => 'color: {{VALUE}};',
@@ -1489,6 +1500,11 @@ class Posts_Grid extends Widget_Base {
 		// Order by.
 		if ( ! empty( $settings['grid_order_by'] ) ) {
 			$args['orderby'] = $settings['grid_order_by'];
+		}
+		
+		// Order type
+		if ( ! empty( $settings['grid_order_type'] ) ) {
+			$args['order'] = $settings['grid_order_type'];
 		}
 
 		// Pagination.
@@ -1777,18 +1793,19 @@ class Posts_Grid extends Widget_Base {
 	 */
 	protected function renderButton() {
 		$settings = $this->get_settings();
-		if (  $settings['grid_content_product_btn'] !== 'yes' ){
-			return false;
-		}
-
+		
 		if ( $settings['grid_post_type'] === 'product' ) {
+			if (  $settings['grid_content_product_btn'] !== 'yes' ){
+				return false;
+			}
 			echo '<div class="obfx-grid-footer">';
 			$this->renderAddToCart();
 			echo '</div>';
 			return true;
-		}
-
-		if ( ! empty( $settings['grid_content_default_btn_text'] ) ){
+		} else {
+			if (  $settings['grid_content_default_btn'] !== 'yes' ){
+				return false;
+			}
 			echo '<div class="obfx-grid-footer">';
 			echo '<a href="' . get_the_permalink(). '" title="'. esc_attr( $settings['grid_content_default_btn_text'] ) .'">';
 			echo $settings['grid_content_default_btn_text'];

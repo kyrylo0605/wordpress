@@ -37,7 +37,7 @@ if (isset($pd_options['new_tab'])) {
             $notify_url = site_url() . '/?ppd_paypal_ipn=process';
             $paypal_btn .=  $indent.'<input type="hidden" name="notify_url" value="' .esc_url($notify_url). '" />'.PHP_EOL; // Notify URL
         }
-        
+
         // More Settings
         if (isset($pd_options['return_method']))
             $paypal_btn .= $indent.'<input type="hidden" name="rm" value="' .esc_attr($pd_options['return_method']). '" />'.PHP_EOL;
@@ -55,12 +55,12 @@ if (isset($pd_options['new_tab'])) {
         if ( $pd_options['button'] != "custom" && !$button_url){
             $button_localized = apply_filters('pd_button_localized_value', $button_localized);
             $button_url = str_replace('en_US', $button_localized, $donate_buttons[$pd_options['button']]);
-        }        
+        }
         $paypal_btn .=  $indent.'<input type="image" style="cursor: pointer;" src="' .esc_url($button_url). '" name="submit" alt="PayPal - The safer, easier way to pay online." />'.PHP_EOL;
 
         // PayPal stats tracking
         if (!isset($pd_options['disable_stats']) or $pd_options['disable_stats'] != true)
-            $paypal_btn .=  $indent.'<img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />'.PHP_EOL;
+            $paypal_btn .=  $indent.'<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />'.PHP_EOL;
         echo $paypal_btn;
 ?>
     </div>

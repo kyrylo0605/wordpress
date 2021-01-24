@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, artstorm
 Donate link: https://www.tipsandtricks-hq.com/paypal-donations-widgets-plugin
 Tags: paypal, donation, donations, shortcode, widget, donate, button, sidebar, paypal donation, payment
 Requires at least: 3.0
-Tested up to: 4.9
-Stable tag: 1.9.5
+Tested up to: 5.6
+Stable tag: 1.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ Easy, simple setup to add a PayPal Donation button as a Widget or with a shortco
 == Description ==
 
 Adds a PayPal donation shortcode and sidebar Widget to WordPress. The options menu lets you setup you PayPal ID and a few other optional settings. You can choose which donation button you want to use or if you want to use your own button. You can also set an optional default purpose and reference which can be overridden on each inserted instance with the shortcode options or in the Widget settings. There is also options available for currency, localization of the button, custom payment page style and the return page.
+
+https://www.youtube.com/watch?v=oNRrN9qvUxI
 
 = Widget =
 
@@ -87,6 +89,9 @@ for questions, answers, support and feature requests.
 
 
 == Changelog ==
+
+= version 1.9.6 =
+* Updated the PayPal button image URLs to the new URLs to remove the auto-redirect on them.
 
 = version 1.9.5 =
 * Removed a deprecated function for PHP 7.2.1

@@ -24,7 +24,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 * The version of this library
 		 * @var string
 		 */
-		public static $version = '1.0.4';
+		public static $version = '1.0.5';
 
 		/**
 		 * Defines the library behaviour
@@ -81,14 +81,14 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 */
 		public function register_styles() {
 			wp_register_style( 'eaw-elementor', plugins_url( '/css/public.css', __FILE__ ), array(), $this::$version );
-			wp_register_style( 'font-awesome-5-all', ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css', false, $this::$version );
+			wp_register_style( 'font-awesome-5', ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css', false, $this::$version );
 		}
 
 		/**
 		 * Register js scripts.
 		 */
 		public function register_scripts() {
-			wp_register_script( 'obfx-grid-js', plugins_url( '/js/obfx-grid.js', __FILE__ ), array(), $this::$version, true );
+			wp_register_script( 'obfx-grid-js', plugins_url( '/js/obfx-grid.js', __FILE__ ), array( 'jquery' ), $this::$version, true );
 		}
 
 		public function enqueue_sidebar_css() {

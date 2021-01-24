@@ -37,34 +37,28 @@ function pp_donations_validate_paypl_ipn() {
             $value = urlencode($value);
         }
         $req .= "&$key=$value";
-    }
-
+    }    
 
     // Step 2: POST IPN data back to PayPal to validate
-    $ch = curl_init('https://www.paypal.com/cgi-bin/webscr');
-    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
+    $params = array(
+        'body'		 => $req,
+        'timeout'	 => 60,
+        'httpversion'	 => '1.1',
+        'compress'	 => false,
+        'decompress'	 => false,
+        'user-agent'	 => 'PayPal Donations Plugin/TTHQ'
+    );
 
-    if (!($res = curl_exec($ch))) {
-        // error_log("Got " . curl_error($ch) . " when processing IPN data");
-        curl_close($ch);
-        exit;
-    }
-    curl_close($ch);
-
-    // Inspect IPN validation result and act accordingly
-    if (strcmp ($res, "VERIFIED") == 0) {
+    $connection_url = 'https://www.paypal.com/cgi-bin/webscr';
+    $response = wp_safe_remote_post( $connection_url, $params );
+        
+    if ( ! is_wp_error( $response ) && strstr( $response[ 'body' ], 'VERIFIED' ) ) {
         // The IPN is verified, process it
         $ipn_validated = true;
-    } else if (strcmp ($res, "INVALID") == 0) {
+    } else {
         // IPN invalid, log for manual investigation
-        $ipn_validated = false;
+        $ipn_validated = false;        
     }
-
 
     if (!$ipn_validated) {
         // IPN validation failed. Email the admin to notify this event.

@@ -8,10 +8,10 @@ Tags: donation, donate, donations, charity, paypal, paypal donation, ecommerce, 
 Author: Scott Paterson
 Author URI: https://wpplugin.org
 License: GPL2
-Version: 1.2.9
+Version: 1.3
 */
 
-/*  Copyright 2014-2018 Scott Paterson
+/*  Copyright 2014-2020 Scott Paterson
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

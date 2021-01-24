@@ -56,7 +56,7 @@ function wpplugin_wpedon_button_ipn() {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 	curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
 
-	if(DEBUG == true) {
+	if(WP_DEBUG === true) {
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
 	}
@@ -67,16 +67,16 @@ function wpplugin_wpedon_button_ipn() {
 	$res = curl_exec($ch);
 	if (curl_errno($ch) != 0)
 		{
-		if(DEBUG == true) {	
-			error_log(date('[Y-m-d H:i e] '). "Can't connect to PayPal to validate IPN message: " . curl_error($ch) . PHP_EOL, 3, LOG_FILE);
+		if(WP_DEBUG === true) {
+			error_log(date('[Y-m-d H:i e] '). "Can't connect to PayPal to validate IPN message: " . curl_error($ch) . PHP_EOL, 3, WP_DEBUG_LOG);
 		}
 		curl_close($ch);
 		exit;
 
 	} else {
-			if(DEBUG == true) {
-				error_log(date('[Y-m-d H:i e] '). "HTTP request of validation request:". curl_getinfo($ch, CURLINFO_HEADER_OUT) ." for IPN payload: $req" . PHP_EOL, 3, LOG_FILE);
-				error_log(date('[Y-m-d H:i e] '). "HTTP response of validation request: $res" . PHP_EOL, 3, LOG_FILE);
+			if(WP_DEBUG === true) {
+				error_log(date('[Y-m-d H:i e] '). "HTTP request of validation request:". curl_getinfo($ch, CURLINFO_HEADER_OUT) ." for IPN payload: $req" . PHP_EOL, 3, WP_DEBUG_LOG);
+				error_log(date('[Y-m-d H:i e] '). "HTTP response of validation request: $res" . PHP_EOL, 3, WP_DEBUG_LOG);
 			}
 			curl_close($ch);
 	}
@@ -132,13 +132,13 @@ function wpplugin_wpedon_button_ipn() {
 			
 		}
 		
-		if(DEBUG == true) {
-			error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, LOG_FILE);
+		if(WP_DEBUG === true) {
+			error_log(date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL, 3, WP_DEBUG_LOG);
 		}
 	} else if (strcmp ($res, "INVALID") == 0) {
 		// log for manual investigation
-		if(DEBUG == true) {
-			error_log(date('[Y-m-d H:i e] '). "Invalid IPN: $req" . PHP_EOL, 3, LOG_FILE);
+		if(WP_DEBUG === true) {
+			error_log(date('[Y-m-d H:i e] '). "Invalid IPN: $req" . PHP_EOL, 3, WP_DEBUG_LOG);
 		}
 		
 	}

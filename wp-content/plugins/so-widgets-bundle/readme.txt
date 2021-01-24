@@ -1,12 +1,12 @@
 === SiteOrigin Widgets Bundle ===
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.6.20
-Stable tag: 1.17.6
-Build time: 2020-08-17T20:42:09+02:00
+Stable tag: 1.17.11
+Build time: 2020-12-09T15:39:14+02:00
 License: GPLv3 or later
-Contributors: gpriday, braam-genis
+Contributors: gpriday, braam-genis, alexgso
 Donate link: https://siteorigin.com/downloads/premium/
 
 The SiteOrigin Widgets Bundle gives you a collection of widgets that you can use and customize. All the widgets are built on our powerful framework, giving you advanced forms, unlimited colours and 1500+ icons.
@@ -65,6 +65,49 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+== 1.17.11 - 09 December 2020 ==
+* Google Maps: Added Map Style button styling.
+* Accordion: Submitted contact forms added to Accordion will now open the panel on load.
+* Tabs: Prevented the Scroll To setting from affecting the currently selected tab.
+* Image Grid: Use image title as item label if set.
+* Developer: jQuery updates for WordPress 5.6.
+* Developer: Set Slider background image loading to Eager.
+* Developer: Exposed Google Maps instances. Once set up, maps can be accessed via `sowb.SiteOriginGoogleMapInstances`.
+* Developer: Add a Google Maps `maps_loaded` event that triggers after all of the Google Maps have finished being set up.
+
+== 1.17.10 - 13 November 2020 ==
+* TinyMCE: Resolved issue with the Add Media button.
+
+== 1.17.9 - 12 November 2020 ==
+* Block Editor: Resolved widget preview issue.
+* Elementor: Minor admin styling improvements.
+* Google Maps: Added a new global consent setting `Require consent before loading Maps API` at `Plugins > SiteOrigin Widgets > Google Maps`.
+* Posts Carousel: Added a `Link target` setting.
+* Video Player: Mute self hosted videos set to autoplay.
+* Tabs: Added a new global setting `Scroll top` at `Plugins > SiteOrigin Widgets > Tabs` to disable scrolling when changing tabs.
+* Accordion: Added a new global setting `Scroll top` at `Plugins > SiteOrigin Widgets > Accordion` to disable scrolling when changing accordions.
+* Posts Carousel: Added a new `Slides to scroll` setting for desktop, tablet, and mobile.
+* Safari: Ensured the Hero can save when used at `Appearance > Widgets`.
+* Updated the widget title field to allow HTML in all SiteOrigin widgets.
+* Changed to `enqueue` Google Fonts rather than `@import`.
+
+== 1.17.8 - 28 September 2020 ==
+* Image: Prevent image stretching while using Safari
+
+== 1.17.7 - 10 September 2020 ==
+* Hero and Layout Sliders: Disable image preload for images added to frames.
+* Resolved a preview issue with widgets that attempt to render sub widgets but don't output them.
+* Contact Form: Added a field max-width setting.
+* Resolved a jQuery Migrate notice on the global widget settings page at `Plugins > SiteOrigin Widgets`.
+* Media field: Enhancements to improve usability.
+* Disabled Settings buttons while saving global widget settings at `Plugins > SiteOrigin Widgets`.
+* State Emitters: Added an animation to conditional settings.
+* Posts Carousel: Prevented blank slides loading after all posts are loaded.
+* Posts Carousel: Added a new Design settings section and settings.
+* Posts Carousel: Ensured the correct navigation buttons are hidden when multiple carousels are in use.
+* IE 11: Prevented images from exceeding the widget container.
+* Removed wpColorPickerL10n if WP >= 5.5.
 
 == 1.17.6 - 17 August 2020 ==
 * Hero and Layout Sliders: Disabled lazy loading for images added to the slide content area.

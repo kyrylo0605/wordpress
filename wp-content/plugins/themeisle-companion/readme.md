@@ -109,6 +109,60 @@ Activating the Orbit Fox plugin is just like any other plugin. If you've uploade
 
 ## Changelog ##
 
+##### [Version 2.10.3](https://github.com/Codeinwp/themeisle-companion/compare/v2.10.2...v2.10.3) (2020-12-17)
+
+[Fix] removes role selector from registration content form
+[Fix] ThemeIsle icons not appearing on WebKit browsers in Gutenberg blocks
+
+
+
+
+##### [Version 2.10.2](https://github.com/Codeinwp/themeisle-companion/compare/v2.10.1...v2.10.2) (2020-12-09)
+
+- [Fix] Fatal error on older versions of PHP
+
+
+
+
+##### [Version 2.10.1](https://github.com/Codeinwp/themeisle-companion/compare/v2.10.0...v2.10.1) (2020-12-07)
+
+- [Feat] New ascending/descending order option for Post Type Grid Elementor widget
+- [Fix] Compatibility with WP 5.6
+- [Fix] Header and Footer scripts not working on the Shop page
+- [Fix] Remove Google Plus from the social-sharing module
+
+
+
+
+#### [Version 2.10.0](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.19...v2.10.0) (2020-10-09)
+
+- New Custom Fonts module
+
+
+
+
+##### [Version 2.9.19](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.18...v2.9.19) (2020-09-25)
+
+* Fix elementor post grid jQuery dependencies
+
+
+
+
+##### [Version 2.9.18](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.17...v2.9.18) (2020-09-21)
+
+- [Fix] Missing FontAwesome icons when Otter Blocks plugin was active
+
+
+
+
+##### [Version 2.9.17](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.16...v2.9.17) (2020-09-02)
+
+- [Fix] Compatibility with WP 5.5
+- [Fix] Installing recommended plugins not working
+
+
+
+
 ##### [Version 2.9.16](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.15...v2.9.16) (2020-08-12)
 
 fix: add permission_callback for analytics module

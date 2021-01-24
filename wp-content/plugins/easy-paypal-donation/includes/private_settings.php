@@ -306,8 +306,9 @@ WPPlugin is an offical PayPal Partner. Various trademarks held by their respecti
 	
 <br />	
 <div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Offer recurring donations.<br />
-<div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Setup donations that recur forever.<br />
-<div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Recurring donations dropdown menu.<br />
+<div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Offer daily, weekly, monthly, and yearly billing.<br />
+<div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Set how long should billing should continue.<br />
+<div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Offers customers a recurring donations dropdown menu.<br />
 <div class="dashicons dashicons-yes" style="margin-bottom: 6px;"></div>Offer up to 20 amount dropdown menu options instead of 10.<br />
 
 <br />

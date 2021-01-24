@@ -432,11 +432,11 @@ class SiteOrigin_Widgets_ContactForm_Widget extends SiteOrigin_Widget {
 							),
 							'font_size'     => array(
 								'type'  => 'measurement',
-								'label' => __( 'Font Size', 'so-widgets-bundle' )
+								'label' => __( 'Font size', 'so-widgets-bundle' )
 							),
 							'color'         => array(
 								'type'  => 'color',
-								'label' => __( 'Text Color', 'so-widgets-bundle' ),
+								'label' => __( 'Text color', 'so-widgets-bundle' ),
 							),
 							'margin'        => array(
 								'type'  => 'measurement',
@@ -446,13 +446,18 @@ class SiteOrigin_Widgets_ContactForm_Widget extends SiteOrigin_Widget {
 								'type'  => 'measurement',
 								'label' => __( 'Padding', 'so-widgets-bundle' )
 							),
+							'max_width'    => array(
+								'type'    => 'measurement',
+								'label'   => __( 'Max width', 'so-widgets-bundle' ),
+								'default' => '',
+							),
 							'height'        => array(
 								'type'  => 'measurement',
 								'label' => __( 'Height', 'so-widgets-bundle' )
 							),
 							'height_textarea' => array(
 								'type'  => 'measurement',
-								'label' => __( 'Text Area Height', 'so-widgets-bundle' )
+								'label' => __( 'Text area height', 'so-widgets-bundle' )
 							),
 							'background'    => array(
 								'type'  => 'color',
@@ -787,6 +792,17 @@ class SiteOrigin_Widgets_ContactForm_Widget extends SiteOrigin_Widget {
 		);
 	}
 
+	function get_settings_form() {
+		return array(
+			'responsive_breakpoint' => array(
+				'type'        => 'measurement',
+				'label'       => __( 'Responsive Breakpoint', 'so-widgets-bundle' ),
+				'default'     => '780px',
+				'description' => __( 'This setting controls when the field max width will be disabled. The default value is 780px', 'so-widgets-bundle' ),
+			)
+		);
+	}
+
 	function get_less_variables( $instance ) {
 		if ( empty( $instance['design'] ) ) {
 			return;
@@ -826,6 +842,7 @@ class SiteOrigin_Widgets_ContactForm_Widget extends SiteOrigin_Widget {
 			'field_font_color'           => $instance['design']['fields']['color'],
 			'field_margin'               => $instance['design']['fields']['margin'],
 			'field_padding'              => $instance['design']['fields']['padding'],
+			'field_max_width'            => ! empty( $instance['design']['fields']['max_width'] ) ? $instance['design']['fields']['max_width'] : '',
 			'field_height'               => $instance['design']['fields']['height'],
 			'field_height_textarea'      => ! empty( $instance['design']['fields']['height_textarea'] ) ? $instance['design']['fields']['height_textarea'] : '',
 			'field_background'           => $instance['design']['fields']['background'],
@@ -867,14 +884,12 @@ class SiteOrigin_Widgets_ContactForm_Widget extends SiteOrigin_Widget {
 			'outline_width'              => $instance['design']['focus']['width'],
 		);
 
-		return $vars;
-	}
+		$global_settings = $this->get_global_settings();
+		if ( ! empty( $global_settings['responsive_breakpoint'] ) ) {
+			$less_vars['responsive_breakpoint'] = $global_settings['responsive_breakpoint'];
+		}
 
-	function get_google_font_fields( $instance ) {
-		return array(
-			$instance['design']['labels']['font'],
-			$instance['design']['fields']['font'],
-		);
+		return $vars;
 	}
 
 	static function name_from_label( $label, & $ids ) {
