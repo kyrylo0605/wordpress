@@ -7,7 +7,7 @@
  * Author URI: https://woocommerce.com/
  * Text Domain: woocommerce-services
  * Domain Path: /i18n/languages/
- * Version: 1.25.4
+ * Version: 1.25.5
  * WC requires at least: 3.0.0
  * WC tested up to: 4.2
  *
@@ -337,6 +337,14 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 
 		public function set_rest_carriers_controller( WC_REST_Connect_Shipping_Carriers_Controller $rest_carriers_controller ) {
 			$this->rest_carriers_controller = $rest_carriers_controller;
+		}
+
+		public function set_rest_subscriptions_controller( WC_REST_Connect_Subscriptions_Controller $rest_subscriptions_controller ) {
+			$this->rest_subscriptions_controller = $rest_subscriptions_controller;
+		}
+
+		public function set_rest_subscription_activate_controller( WC_REST_Connect_Subscription_Activate_Controller $rest_subscription_activate_controller ) {
+			$this->rest_subscription_activate_controller = $rest_subscription_activate_controller;
 		}
 
 		public function set_rest_carrier_controller( WC_REST_Connect_Shipping_Carrier_Controller $rest_carrier_controller ) {
@@ -877,6 +885,16 @@ if ( ! class_exists( 'WC_Connect_Loader' ) ) {
 			$rest_carriers_controller = new WC_REST_Connect_Shipping_Carriers_Controller( $this->api_client, $settings_store, $logger );
 			$this->set_rest_carriers_controller( $rest_carriers_controller );
 			$rest_carriers_controller->register_routes();
+
+			require_once( plugin_basename( 'classes/class-wc-rest-connect-subscriptions-controller.php' ) );
+			$rest_subscriptions_controller = new WC_REST_Connect_Subscriptions_Controller( $this->api_client, $settings_store, $logger );
+			$this->set_rest_subscriptions_controller( $rest_subscriptions_controller );
+			$rest_subscriptions_controller->register_routes();
+
+			require_once( plugin_basename( 'classes/class-wc-rest-connect-subscription-activate-controller.php' ) );
+			$rest_subscription_activate_controller = new WC_REST_Connect_Subscription_activate_Controller( $this->api_client, $settings_store, $logger );
+			$this->set_rest_subscription_activate_controller( $rest_subscription_activate_controller );
+			$rest_subscription_activate_controller->register_routes();
 
 			require_once( plugin_basename( 'classes/class-wc-rest-connect-shipping-carrier-delete-controller.php' ) );
 			$rest_carrier_delete_controller = new WC_REST_Connect_Shipping_Carrier_Delete_Controller( $this->api_client, $settings_store, $logger );
