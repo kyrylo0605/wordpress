@@ -7,7 +7,7 @@
  * @return void
  */
 function dokan_admin_menu_position() {
-    return apply_filters( 'dokan_menu_position', 17 );
+    return apply_filters( 'dokan_menu_position', '55.4' );
 }
 
 /**
@@ -983,17 +983,15 @@ function dokan_edit_product_url( $product ) {
         return false;
     }
 
-    if ( 'publish' === $product->get_status() ) {
-        $url = trailingslashit( get_permalink( $product->get_id() ) ) . 'edit/';
-    } else {
-        $url = add_query_arg(
-            [
-                'product_id' => $product->get_id(),
-                'action'     => 'edit',
-            ],
-            dokan_get_navigation_url( 'products' )
-        );
-    }
+
+    $url = add_query_arg(
+        [
+            'product_id' => $product->get_id(),
+            'action'     => 'edit',
+        ],
+        dokan_get_navigation_url( 'products' )
+    );
+
 
     return apply_filters( 'dokan_get_edit_product_url', $url, $product );
 }
@@ -2274,7 +2272,7 @@ function dokan_product_search_by_sku( $where ) {
 
     $getdata = wp_unslash( $_GET );
 
-    if ( ! isset( $getdata['product_search_name'] ) || empty( $getdata['product_search_name'] ) || ! isset( $getdata['dokan_product_search_nonce'] ) || ! wp_verify_nonce( wc_clean( $getdata['dokan_product_search_nonce'] ), 'dokan_product_search' ) ) {
+    if ( empty( $getdata['product_search_name'] ) || ! isset( $getdata['dokan_product_search_nonce'] ) || ! wp_verify_nonce( sanitize_key( $getdata['dokan_product_search_nonce'] ), 'dokan_product_search' ) ) {
         return $where;
     }
 
@@ -2321,10 +2319,6 @@ function dokan_get_social_profile_fields() {
         'fb' => [
             'icon'  => 'facebook-square',
             'title' => __( 'Facebook', 'dokan-lite' ),
-        ],
-        'gplus' => [
-            'icon'  => 'google',
-            'title' => __( 'Google', 'dokan-lite' ),
         ],
         'twitter' => [
             'icon'  => 'twitter-square',
@@ -3171,6 +3165,7 @@ function dokan_get_translated_days( $day ) {
  * @param  int user_id
  *
  * @since  2.8.2
+ * @since  3.2.1 replaced time related functions with dokan_current_datetime()
  *
  * @return bool
  */
@@ -3178,7 +3173,9 @@ function dokan_is_store_open( $user_id ) {
     $store_user = dokan()->vendor->get( $user_id );
     $store_info = $store_user->get_shop_info();
     $open_days  = isset( $store_info['dokan_store_time'] ) ? $store_info['dokan_store_time'] : '';
-    $today      = strtolower( date( 'l' ) );
+
+    $current_time = dokan_current_datetime();
+    $today        = strtolower( $current_time->format( 'l' ) );
 
     if ( ! isset( $open_days[ $today ] ) ) {
         return false;
@@ -3192,9 +3189,8 @@ function dokan_is_store_open( $user_id ) {
             return true;
         }
 
-        $current_time = current_time( 'timestamp' );
-        $open         = strtotime( $schedule['opening_time'] );
-        $close        = strtotime( $schedule['closing_time'] );
+        $open  = $current_time->modify( $schedule['opening_time'] );
+        $close = $current_time->modify( $schedule['closing_time'] );
 
         if ( $open <= $current_time && $close >= $current_time ) {
             return true;
@@ -3692,7 +3688,7 @@ if ( ! function_exists( 'dokan_get_seller_status_count' ) ) {
     function dokan_get_seller_status_count() {
         $active_users = new WP_User_Query(
             [
-                'role'       => 'seller',
+                'role__in'       => [ 'seller', 'administrator' ],
                 'meta_key'   => 'dokan_enable_selling',
                 'meta_value' => 'yes',
                 'fields'     => 'ID',
@@ -3982,7 +3978,7 @@ function dokan_format_date( $date = '', $format = false ) {
     }
 
     // if date is not timestamp, convert it to timestamp
-    if ( ! is_numeric( $date ) ) {
+    if ( ! is_numeric( $date ) && strtotime( $date ) ) {
         $date = dokan_current_datetime()->modify( $date )->getTimestamp();
     }
 
@@ -3991,4 +3987,23 @@ function dokan_format_date( $date = '', $format = false ) {
     }
 
     return date_i18n( $format, $date );
+}
+
+/**
+ * Get threshold day for a user
+ *
+ * @param $user_id
+ *
+ * @since DOKAN_LITE_SINCE
+ *
+ * @return integer threshold day
+ */
+function dokan_get_withdraw_threshold( $user_id ) {
+    if ( get_user_meta( $user_id, 'withdraw_date_limit', true ) !== '' ) {
+        $threshold_day = get_user_meta( $user_id, 'withdraw_date_limit', true );
+    } else {
+        $threshold_day = dokan_get_option( 'withdraw_date_limit', 'dokan_withdraw', 0 );
+    }
+
+    return ( $threshold_day ) ? absint( $threshold_day ) : 0;
 }

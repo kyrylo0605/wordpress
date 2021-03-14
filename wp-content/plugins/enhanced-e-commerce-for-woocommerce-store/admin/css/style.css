@@ -1,0 +1,11 @@
+*{
+	box-sizing: border-box;
+	margin:0px;
+	padding:0px;
+}
+body{
+	background-image: url('../images/plugin_bk.png') !important;
+}
+.swal{
+	background-color:#2c3e50;
+}

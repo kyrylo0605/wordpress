@@ -5,14 +5,14 @@
 Plugin Name: Chatbox Manager
 Plugin URI: https://www.themeinprogress.com/chatbox-manager-pro
 Description: Chatbox Manager allow you to display multiple WhatsApp buttons on your website
-Version: 1.0.6
+Version: 1.0.8
 Text Domain: chatbox-manager
 Author: ThemeinProgress
 Author URI: https://www.themeinprogress.com
 License: GPL2
 Domain Path: /languages/
 
-Copyright 2020  ThemeinProgress  (email : support@wpinprogress.com)
+Copyright 2021  ThemeinProgress  (email : support@wpinprogress.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 
-define( 'CM_VERSION', '1.0.6' );
+define( 'CM_VERSION', '1.0.8' );
 define( 'CM_DEMO_PAGE', 'https://demo.themeinprogress.com/chatbox-manager-pro');
 define( 'CM_SALE_PAGE', 'https://www.themeinprogress.com/chatbox-manager-pro/?ref=2&campaign=');
 define( 'CM_ITEM_SLUG', 'chatbox_manager');

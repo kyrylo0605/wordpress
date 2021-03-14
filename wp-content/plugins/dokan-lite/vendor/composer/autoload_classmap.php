@@ -49,6 +49,7 @@ return array(
     'WeDevs\\Dokan\\Emails\\NewProductPending' => $baseDir . '/includes/Emails/NewProductPending.php',
     'WeDevs\\Dokan\\Emails\\NewSeller' => $baseDir . '/includes/Emails/NewSeller.php',
     'WeDevs\\Dokan\\Emails\\ProductPublished' => $baseDir . '/includes/Emails/ProductPublished.php',
+    'WeDevs\\Dokan\\Emails\\VendorCompletedOrder' => $baseDir . '/includes/Emails/VendorCompletedOrder.php',
     'WeDevs\\Dokan\\Emails\\VendorNewOrder' => $baseDir . '/includes/Emails/VendorNewOrder.php',
     'WeDevs\\Dokan\\Emails\\VendorWithdrawRequest' => $baseDir . '/includes/Emails/VendorWithdrawRequest.php',
     'WeDevs\\Dokan\\Emails\\WithdrawApproved' => $baseDir . '/includes/Emails/WithdrawApproved.php',

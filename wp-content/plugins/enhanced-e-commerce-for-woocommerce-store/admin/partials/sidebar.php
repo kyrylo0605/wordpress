@@ -8,13 +8,15 @@ $endtime = $obj->end_time();
 
 ?>
 <div class="col col-xs-3">
+    <div class="tvc_plugin_sidebar">
     <div class="card" style="padding: 0px;">
         <div class="card-header">
             <h5> Important Links</h5>
         </div>
         <div class="card-body">
             <ul>
-                <li style="padding-bottom:5px;"><a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank">Installation Instructions</a></li>
+                <li style="padding-bottom:5px;"><a href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf" target="_blank">Installation Manual</a></li>
+                <li style="padding-bottom:5px;"><a href="http://plugins.tatvic.com/help-center/Google-shopping-Guide.pdf" target="_blank">Google shopping guide</a></li>
                 <li style="padding-bottom:5px;"><a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" target="_blank">FAQ</a></li>
                 <li style="padding-bottom:5px;"><a href="https://www.tatvic.com/contact/?utm_source=TatvicEE&utm_medium=Dashboard&utm_campaign=WPlisting" target="_blank">Support</a></li>
                 <li style="padding-bottom:5px;"><a href="https://www.tatvic.com/privacy-policy/?ref=plugin_policy&utm_source=plugin_backend&utm_medium=woo_free_plugin&utm_campaign=GDPR_complaince_ecomm_plugins" target="_blank">Privacy Policy</a></li>
@@ -24,10 +26,10 @@ $endtime = $obj->end_time();
     </div>
     <div class="card" style="padding: 0px;">
         <div class="card-header">
-            <h4>Rate Us!</h4>
+            <h5>Rate Us!</h5>
         </div>
         <div class="card-body">
-            <ul style="font-weight: 600">
+            <ul>
                 <li style="padding-bottom:5px;">Do you Like our Plugin? Please Spare few minutes to give <h3><a href = "https://wordpress.org/support/plugin/enhanced-e-commerce-for-woocommerce-store/reviews/" target="_blank" style="float: right">
                             <div class="rating">
                                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
@@ -54,4 +56,5 @@ $endtime = $obj->end_time();
             </ul>
         </div>
     </div>
+  </div>
 </div>

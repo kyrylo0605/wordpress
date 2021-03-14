@@ -28,29 +28,87 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.3.6.1';
-
+     public $tvc_eeVer = '2.3.6';
+    /**
+     * @var mixed $tvc_aga
+     */
     protected $tvc_aga;
-
+    /**
+     * @var mixed $ga_id
+     */
     protected $ga_id;
-
+    /**
+     * @var $ga_LC
+     */
     protected $ga_LC;
-
+    /**
+     * @var mixed $ga_ST
+     */
     protected $ga_ST;
-
+    /**
+     * @var bool $ga_gCkout
+     */
     protected $ga_gCkout;
-
+    /**
+     * @var mixed $ga_eeT
+     */
     protected $ga_eeT;
-
+    /**
+     * @var bool $ga_DF
+     */
     protected $ga_DF;
-
+    /**
+     * @var int|mixed $ga_imTh
+     */
     protected $ga_imTh;
-
+    /**
+     * @var bool $ga_OPTOUT
+     */
     protected $ga_OPTOUT;
-
+    /**
+     * @var bool $ga_PrivacyPolicy
+     */
     protected $ga_PrivacyPolicy;
-
+    /**
+     * @var bool $ga_IPA
+     */
     protected $ga_IPA;
+    /**
+     * @var mixed $enhanced_e_commerce_tracking
+     */
+    protected $enhanced_e_commerce_tracking;
+    /**
+     * @var mixed $add_gtag_snippet
+     */
+    protected $add_gtag_snippet;
+    /**
+     * @var mixed $gm_id
+     */
+    protected $gm_id;
+    /**
+     * @var mixed $google_ads_id
+     */
+    protected $google_ads_id;
+    /**
+     * @var mixed $ga_excT
+     */
+    protected $ga_excT;
+    protected $exception_tracking;
+    protected $ga_elaT;
+    protected $google_merchant_id;
+    protected $tracking_option;
+    protected $ga_gUser;
+    protected $plugin_name;
+    protected $version;
+    protected $ads_ert;
+    protected $ads_edrt;
+    protected $ads_tracking_id;
+
+    /**
+     * Enhanced_Ecommerce_Google_Analytics_Public constructor.
+     * @param $plugin_name
+     * @param $version
+     */
 
     public function __construct($plugin_name, $version) {
 
@@ -58,16 +116,31 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         $this->version  = $version;
         $this->tvc_aga = $this->get_option("tvc_aga");
         $this->ga_id = $this->get_option("ga_id");
-        $this->ga_ST = $this->get_option("ga_ST");
+        $this->ga_eeT = $this->get_option("ga_eeT");
+        $this->enhanced_e_commerce_tracking = $this->get_option("enhanced_e_commerce_tracking");
+        $this->ga_ST = $this->get_option("ga_ST"); //add_gtag_snippet
+        $this->add_gtag_snippet = $this->get_option("add_gtag_snippet"); //add_gtag_snippet
+        $this->gm_id = $this->get_option("gm_id"); //measurement_id
+        $this->google_ads_id = $this->get_option("google_ads_id");
+        $this->ga_excT = $this->get_option("ga_excT"); //exception_tracking
+        $this->exception_tracking = $this->get_option("exception_tracking"); //exception_tracking
+        $this->ga_elaT = $this->get_option("ga_elaT"); //enhanced_link_attribution_tracking
+        $this->google_merchant_id = $this->get_option("google_merchant_id");
+        $this->tracking_option = $this->get_option("tracking_option");
         $this->ga_gCkout = $this->get_option("ga_gCkout") == "on" ? true : false; //guest checkout
         $this->ga_gUser = $this->get_option("ga_gUser") == "on" ? true : false; //guest checkout
-        $this->ga_eeT = $this->get_option("ga_eeT");
         $this->ga_DF = $this->get_option("ga_DF") == "on" ? true : false;
         $this->ga_imTh = $this->get_option("ga_Impr") == "" ? 6 : $this->get_option("ga_Impr");
         $this->ga_OPTOUT = $this->get_option("ga_OPTOUT") == "on" ? true : false; //Google Analytics Opt Out
         $this->ga_PrivacyPolicy = $this->get_option("ga_PrivacyPolicy") == "on" ? true : false;
         $this->ga_IPA = $this->get_option("ga_IPA") == "on" ? true : false; //IP Anony.
-
+        $this->ads_ert = get_option('ads_ert'); //Enable remarketing tags
+        $this->ads_edrt = get_option('ads_edrt'); //Enable dynamic remarketing tags
+        $this->ads_tracking_id = get_option('ads_tracking_id'); 
+        $this->ads_ert = get_option('ads_ert');
+        $this->ads_edrt = get_option('ads_edrt');
+        //$this->subscription_id = $this->get_option("subscription_id");        
+        //setcookie('subscription_id', $this->subscription_id);
         if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
             // Put your plugin code here
             add_action('woocommerce_init' , function (){
@@ -79,6 +152,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     public function get_option($key){
         $ee_options = array();
         $my_option = get_option( 'ee_options' );
+        
         if(!empty($my_option)){
             $ee_options = unserialize($my_option);
         }
@@ -94,7 +168,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     function tvc_store_meta_data() {
         //only on home page
         global $woocommerce;
-        $tvc_sMetaData = array();
 
         $tvc_sMetaData = array(
             'tvc_wcv' => $woocommerce->version,
@@ -142,7 +215,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return bool
      */
     private function disable_tracking($type) {
-        if (is_admin() || (!$this->ga_id ) || "" == $type || current_user_can("manage_options")) {
+        if (is_admin() || "" == $type || current_user_can("manage_options")) {
             return true;
         }
     }
@@ -175,11 +248,16 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         if (is_admin() || $this->ga_ST == "" || current_user_can("manage_options")) {
             return;
         }
+        
         $tracking_id = $this->ga_id;
+        $measurment_id = $this->gm_id;
+        $tracking_opt = $this->tracking_option;
 
-        if (!$tracking_id || !$this->ga_PrivacyPolicy) {
+
+        if(!$this->ga_PrivacyPolicy) {
             return;
         }
+
         //common validation----end
         $set_domain_name = "auto";
         // IP Anonymization
@@ -188,6 +266,17 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         } else {
             $ga_ip_anonymization ="";
         }
+
+
+        echo '<script>';
+            echo 'var track_option = '.json_encode($tracking_opt).';';
+            echo 'var ua_track_id = '.json_encode($tracking_id).';';
+            echo 'var ga4_measure_id = '.json_encode($measurment_id).';';
+            echo 'var adsTringId = '.json_encode($this->ads_tracking_id).';';
+            echo 'var ads_ert = '.json_encode($this->ads_ert).';';
+            echo 'var ads_edrt = '.json_encode($this->ads_edrt).';';
+        echo '</script>';
+
         if($this->ga_OPTOUT) {
             echo '<script>
                 // Set to the same value as the web property used on the site
@@ -208,15 +297,51 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                 }
                 </script>';
         }
-        $code = '<script async src="https://www.googletagmanager.com/gtag/js?id='.esc_js($tracking_id).'"></script>
+
+        if(($tracking_opt == "UA" || $tracking_id || $tracking_opt == "") && $tracking_opt != "BOTH"){
+            //$id = esc_js($tracking_id);
+            echo  '<script async src="https://www.googletagmanager.com/gtag/js?id='.esc_js($tracking_id).'"></script>
                 <script>
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag("js", new Date());
                   gtag("config", "'.esc_js($tracking_id).'",{'.$ga_ip_anonymization.' "cookie_domain":"'.$set_domain_name.'"});
+                  if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                     gtag("config", "AW-' . esc_js($this->ads_tracking_id) . '");
+                  }
                 </script>
                 ';
-        echo $code;
+            //echo $code;
+        }
+       
+        if($tracking_opt == "GA4"){
+            echo '<script async src="https://www.googletagmanager.com/gtag/js?id='.esc_js($measurment_id).'"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag("js", new Date());
+                  gtag("config", "'.esc_js($measurment_id).'",{'.$ga_ip_anonymization.' "cookie_domain":"'.$set_domain_name.'"});
+                  if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                     gtag("config", "AW-' . esc_js($this->ads_tracking_id) . '");
+                  }
+                </script>
+                ';
+            
+        }
+        if($tracking_opt == "BOTH"){
+            echo  '<script async src="https://www.googletagmanager.com/gtag/js?id='.esc_js($measurment_id).'"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag("js", new Date());
+                  gtag("config", "'.esc_js($measurment_id).'",{'.$ga_ip_anonymization.' "cookie_domain":"'.$set_domain_name.'"});
+                  gtag("config", "'.esc_js($tracking_id).'");
+                  if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                     gtag("config", "AW-' . esc_js($this->ads_tracking_id) . '");
+                  }
+                </script>
+                ';
+        }
     }
 
     /**
@@ -229,12 +354,10 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     function ecommerce_tracking_code($order_id) {
 
         global $woocommerce;
-        if ($this->disable_tracking($this->ga_eeT) || current_user_can("manage_options") || get_post_meta($order_id, "_tracked", true) == 1)
+        if ($this->disable_tracking($this->ga_eeT) || current_user_can("manage_options") || get_post_meta($order_id, "_tracked", true) == 1){
             return;
+        }
 
-        $tracking_id = $this->ga_id;
-        if (!$tracking_id)
-            return;
         // Doing eCommerce tracking so unhook standard tracking from the footer
         remove_action("wp_footer", array($this, "ee_settings"));
 
@@ -357,38 +480,108 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         //make json for trans data on order page
         $this->wc_version_compare("tvc_td=" . json_encode($orderpage_trans_Array) . ";");
 
-        $code ='
-                 var items = [];
-                //set local currencies
-            gtag("set", {"currency": tvc_lc});
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH") {
+            $code ='
+                     var items = [];
+                    //set local currencies
+                gtag("set", {"currency": tvc_lc});
+                for(var t_item in tvc_oc){
+                    items.push({
+                        "id": tvc_oc[t_item].tvc_i,
+                        "name": tvc_oc[t_item].tvc_n, 
+                        "category": tvc_oc[t_item].tvc_c,
+                        "attributes": tvc_oc[t_item].tvc_attr,
+                        "price": tvc_oc[t_item].tvc_p,
+                        "quantity": tvc_oc[t_item].tvc_q,
+                    });
+                   
+                }
+                gtag("event", "purchase", {
+                    "transaction_id":tvc_td.id,
+                    "affiliation": tvc_td.affiliation,
+                    "value":tvc_td.revenue,
+                    "tax": tvc_td.tax,
+                    "shipping": tvc_td.shipping,
+                    "coupon": tvc_td.coupon,
+                    "event_category": "Enhanced-Ecommerce",
+                    "event_label":"order_confirmation",
+                    "non_interaction": true,
+                    "items":items
+                });
+                if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                    var ads_items = [];
+                    var ads_value=0;
+                    for(var t_item in tvc_oc){
+                    ads_value=ads_value + parseFloat(tvc_oc[t_item].tvc_p);
+                        ads_items.push({
+                            item_id: tvc_oc[t_item].tvc_i,
+                            google_business_vertical: "retail"
+                        });
+                    }
+                    gtag("event","purchase", {
+                        "value": ads_value,
+                        "items": ads_items
+                      });
+                }
+        ';
+
+            //check woocommerce version
+            $this->wc_version_compare($code);
+            update_post_meta($order_id, "_tracked", 1);
+        }
+        // start GA4 or Both
+        if( $this->gm_id && $this->tracking_option == "GA4") {
+            $code = '            
+            var items = [];
             for(var t_item in tvc_oc){
                 items.push({
-                    "id": tvc_oc[t_item].tvc_i,
-                    "name": tvc_oc[t_item].tvc_n, 
-                    "category": tvc_oc[t_item].tvc_c,
-                    "attributes": tvc_oc[t_item].tvc_attr,
+                    "item_id": tvc_oc[t_item].tvc_i,
+                    "item_name": tvc_oc[t_item].tvc_n, 
+                    "coupon": tvc_td.coupon,
+                    "affiliation": tvc_td.affiliation,
+                    "item_category": tvc_oc[t_item].tvc_c,
+                    "item_variant": tvc_oc[t_item].tvc_attr,
                     "price": tvc_oc[t_item].tvc_p,
+                    "currency": tvc_lc,
                     "quantity": tvc_oc[t_item].tvc_q,
                 });
                
             }
             gtag("event", "purchase", {
                 "transaction_id":tvc_td.id,
+                "shipping": tvc_td.shipping,
                 "affiliation": tvc_td.affiliation,
                 "value":tvc_td.revenue,
-                "tax": tvc_td.tax,
-                "shipping": tvc_td.shipping,
+                "currency": tvc_lc,
                 "coupon": tvc_td.coupon,
+                "tax": tvc_td.tax,
                 "event_category": "Enhanced-Ecommerce",
                 "event_label":"order_confirmation",
                 "non_interaction": true,
                 "items":items
             });
-    ';
+            
+            if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                    var ads_items = [];
+                    var ads_value=0;
+                    for(var t_item in tvc_oc){
+                    ads_value=ads_value + parseFloat(tvc_oc[t_item].tvc_p);
+                        ads_items.push({
+                            item_id: tvc_oc[t_item].tvc_i,
+                            google_business_vertical: "retail"
+                        });
+                    }
+                    gtag("event","purchase", {
+                        "value": ads_value,
+                        "items": ads_items
+                      });
+                }
+        ';
 
-        //check woocommerce version
-        $this->wc_version_compare($code);
-        update_post_meta($order_id, "_tracked", 1);
+            //check woocommerce version
+            $this->wc_version_compare($code);
+            update_post_meta($order_id, "_tracked", 1);
+        }
     }
 
     /**
@@ -418,31 +611,77 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         }
         //remove last comma(,) if multiple categories are there
         $categories = rtrim($categories, ",");
-
-        $code = '
-               var items = [];
-            //set local currencies
-            gtag("set", {"currency": tvc_lc});
+        if($this->ga_id || ($this->tracking_option == "UA" || $this->tracking_option == "BOTH")) {
+            $code = '
+                   var items = [];
+                //set local currencies
+                gtag("set", {"currency": tvc_lc});
+                jQuery("[class*=single_add_to_cart_button]").click(function() {
+                // Enhanced E-commerce Add to cart clicks
+                    gtag("event", "add_to_cart", {
+                        "event_category":"Enhanced-Ecommerce",
+                        "event_label":"add_to_cart_click",
+                        "non_interaction": true,
+                        "items": [{
+                            "id" : tvc_po.tvc_i,
+                            "name": tvc_po.tvc_n,
+                            "category" :tvc_po.tvc_c,
+                            "price": tvc_po.tvc_p,
+                            "quantity" :jQuery(this).parent().find("input[name=quantity]").val()
+                        }]
+                    });
+                    //add remarketing and dynamicremarketing tags
+                    if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                        gtag("event","add_to_cart", {
+                            "value": tvc_po.tvc_p,
+                            "items": [
+                            {
+                              "id": tvc_po.tvc_i, 
+                              "google_business_vertical": "retail"
+                            }
+                          ]
+                        });
+                    }                                 
+                });
+                
+            ';
+            //check woocommerce version
+            $this->wc_version_compare($code);
+        }
+        if($this->gm_id && $this->tracking_option == "GA4") {
+            $code = '
+            var items = [];
             jQuery("[class*=single_add_to_cart_button]").click(function() {
-                            
-            // Enhanced E-commerce Add to cart clicks
                 gtag("event", "add_to_cart", {
                     "event_category":"Enhanced-Ecommerce",
                     "event_label":"add_to_cart_click",
+                    "currency": tvc_lc,
                     "non_interaction": true,
                     "items": [{
-                        "id" : tvc_po.tvc_i,
-                        "name": tvc_po.tvc_n,
-                        "category" :tvc_po.tvc_c,
+                        "item_id" : tvc_po.tvc_i,
+                        "item_name": tvc_po.tvc_n,
+                        "item_category" :tvc_po.tvc_c,
                         "price": tvc_po.tvc_p,
                         "quantity" :jQuery(this).parent().find("input[name=quantity]").val()
                     }]
-                });
-                             
+                });   
+                
+                //add remarketing and dynamicremarketing tags
+                if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                    gtag("event","add_to_cart", {
+                        "value": tvc_po.tvc_p,
+                        "items": [
+                        {
+                          "id": tvc_po.tvc_i, 
+                          "google_business_vertical": "retail"
+                        }
+                      ]
+                    });
+                }            
             });
         ';
-        //check woocommerce version
         $this->wc_version_compare($code);
+        }
     }
 
     /**
@@ -496,23 +735,71 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         }
         //prod page detail view json
         $this->wc_version_compare("tvc_po=" . json_encode($prodpage_detail_json) . ";");
-        $code = '
-        gtag("event", "view_item", {
-					"event_category":"Enhanced-Ecommerce",
-					"event_label":"product_impression_pp",
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH") {
+            $code = '
+            gtag("event", "view_item", {
+                        "event_category":"Enhanced-Ecommerce",
+                        "event_label":"product_impression_pp",
+                        "items": [
+                          {
+                            "id": tvc_po.tvc_i,// Product details are provided in an impressionFieldObject.
+                            "name":  tvc_po.tvc_n,
+                            "category":tvc_po.tvc_c,
+                          }
+                        ],
+                        "non_interaction": true
+            })
+            //add remarketing and dynamicremarketing tags
+            if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                gtag("event","view_item", {
+                    "value": tvc_po.tvc_p,
                     "items": [
                       {
-                        "id": tvc_po.tvc_i,// Product details are provided in an impressionFieldObject.
-                        "name":  tvc_po.tvc_n,
-                        "category":tvc_po.tvc_c,
+                        "id": tvc_po.tvc_i, 
+                        "google_business_vertical": "retail"
+                      }
+                    ]
+                  });
+            }
+            ';
+            //check woocommerce version
+            if(is_product()){
+                $this->wc_version_compare($code);
+            }
+        }
+
+        if( $this->gm_id && $this->tracking_option == "GA4") {
+            $code = '
+                gtag("event", "view_item", {
+                    "event_category":"Enhanced-Ecommerce",
+                    "event_label":"product_impression_pp",
+                    "currency": tvc_lc,
+                    "items": [
+                      {
+                        "item_id": tvc_po.tvc_i,
+                        "item_name":  tvc_po.tvc_n,
+                        "item_category":tvc_po.tvc_c,
                       }
                     ],
                     "non_interaction": true
-        })
-        ';
-        //check woocommerce version
-        if(is_product()){
-            $this->wc_version_compare($code);
+                })
+                //add remarketing and dynamicremarketing tags
+            if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                gtag("event","view_item", {
+                    "value": tvc_po.tvc_p,
+                    "items": [
+                      {
+                        "id": tvc_po.tvc_i, 
+                        "google_business_vertical": "retail"
+                      }
+                    ]
+                  });
+            }
+                ';
+            //check woocommerce version
+            if (is_product()) {
+                $this->wc_version_compare($code);
+            }
         }
     }
 
@@ -524,7 +811,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     public function bind_product_metadata() {
-
         if ($this->disable_tracking($this->ga_eeT)) {
             return;
         }
@@ -739,72 +1025,221 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         //category page json
         $this->wc_version_compare("tvc_pgc=" . json_encode($catpage_json) . ";");
         $this->wc_version_compare("catpage_json_ATC_link=" . json_encode($catpage_json_ATC_link) . ";");
-
-        $hmpg_impressions_jQ = '
-            var items = [];
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH") {
+            $hmpg_impressions_jQ = '
+                var items = [];
                 //set local currencies
-            gtag("set", {"currency": tvc_lc});
-        function t_products_impre_clicks(t_json_name,t_action){
-                   t_send_threshold=0;
-                   t_prod_pos=0;
-                    t_json_length=Object.keys(t_json_name).length;
+                gtag("set", {"currency": tvc_lc});
+                function t_products_impre_clicks(t_json_name,t_action){
+                       t_send_threshold=0;
+                       t_prod_pos=0;
+                        t_json_length=Object.keys(t_json_name).length;
+                            
+                        for(var t_item in t_json_name) {
+                    t_send_threshold++;
+                    t_prod_pos++;
+                    items.push({
+                        "id": t_json_name[t_item].tvc_i,
+                        "name": t_json_name[t_item].tvc_n,
+                        "category": t_json_name[t_item].tvc_c,
+                        "price": t_json_name[t_item].tvc_p,
+                    });    
+                            
+                        if(t_json_length > ' . esc_js($impression_threshold) .' ){
+
+                            if((t_send_threshold%' . esc_js($impression_threshold) . ')==0){
+                                t_json_length=t_json_length-' . esc_js($impression_threshold) . ';
+                                    gtag("event", "view_item_list", { "event_category":"Enhanced-Ecommerce",
+                                         "event_label":"product_impression_"+t_action, "items":items,"non_interaction": true});
+                                         items = [];
+                                        }
+                                        if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                                            gtag("event","view_item_list", {
+                                                "value": t_json_name[t_item].tvc_p,
+                                                "items": [
+                                                  {
+                                                    "id": t_json_name[t_item].tvc_i, 
+                                                    "google_business_vertical": "retail"
+                                                  }
+                                               ]
+                                            });
+                                        }
+                            }else{
+                
+                               t_json_length--;
+                               if(t_json_length==0){
+                                       gtag("event", "view_item_list", { "event_category":"Enhanced-Ecommerce",
+                                            "event_label":"product_impression_"+t_action, "items":items,"non_interaction": true});
+                                            items = [];
+                                        }
+                                       if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                                            gtag("event","view_item_list", {
+                                                "value": t_json_name[t_item].tvc_p,
+                                                "items": [
+                                                  {
+                                                    "id": t_json_name[t_item].tvc_i, 
+                                                    "google_business_vertical": "retail"
+                                                  }
+                                               ]
+                                            });
+                                        }
+                                }   
+                            }
+            }
+                    
+            //function for comparing urls in json object
+            function prod_exists_in_JSON(t_url,t_json_name,t_action){
+                                        if(t_json_name.hasOwnProperty(t_url)){
+                                            t_call_fired=true;
+                                            gtag("event", "select_content", {
+                                                "event_category":"Enhanced-Ecommerce",
+                                                "event_label":"product_click_"+t_action,
+                                                "content_type": "product",
+                                                "items": [
+                                                {
+                                                    "id":t_json_name[t_url].tvc_i,
+                                                    "name": t_json_name[t_url].tvc_n,
+                                                     "category":t_json_name[t_url].tvc_c,
+                                                     "price": t_json_name[t_url].tvc_p,
+                                                }
+                                                ],
+                                                "non_interaction": true
+                                            });                    
+                                       }else{
+                                            t_call_fired=false;
+                                        }
+                                        return t_call_fired;
+                                }
+                    function prod_ATC_link_exists(t_url,t_ATC_json_name,t_prod_data_json,t_qty){
+                        t_prod_url_key=t_ATC_json_name[t_url]["ATC-link"];
                         
+                            if(t_prod_data_json.hasOwnProperty(t_prod_url_key)){
+                                    t_call_fired=true;
+                                // Enhanced E-commerce Add to cart clicks
+                                    gtag("event", "add_to_cart", {
+                                        "event_category":"Enhanced-Ecommerce",
+                                        "event_label":"add_to_cart_click",
+                                        "non_interaction": true,
+                                        "items": [{
+                                            "id" : t_prod_data_json[t_prod_url_key].tvc_i,
+                                            "name":t_prod_data_json[t_prod_url_key].tvc_n,
+                                            "category" : t_prod_data_json[t_prod_url_key].tvc_c,
+                                            "price": t_prod_data_json[t_prod_url_key].tvc_p,
+                                            "quantity" :t_qty
+                                        }]
+                                    });
+                                    if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                                        gtag("event","add_to_cart", {
+                                            "value": t_prod_data_json[t_prod_url_key].tvc_p,
+                                            "items": [
+                                              {
+                                                "id": t_prod_data_json[t_prod_url_key].tvc_i, 
+                                                "google_business_vertical": "retail"
+                                              }
+                                            ]
+                                        });
+                                    }
+                                 
+                            }else{
+                                       t_call_fired=false;
+                            }    
+                             return t_call_fired;
+                     
+                    }
+                    
+                    ';
+                }
+        if($this->gm_id && $this->tracking_option == "GA4") {
+                    $hmpg_impressions_jQ = '
+            var items = [];
+            function t_products_impre_clicks(t_json_name,t_action){
+               t_send_threshold=0;
+               t_prod_pos=0;
+               t_json_length=Object.keys(t_json_name).length;
             for(var t_item in t_json_name) {
                 t_send_threshold++;
                 t_prod_pos++;
                 items.push({
-                    "id": t_json_name[t_item].tvc_i,
-                    "name": t_json_name[t_item].tvc_n,
-                    "category": t_json_name[t_item].tvc_c,
+                    "item_id": t_json_name[t_item].tvc_i,
+                    "item_name": t_json_name[t_item].tvc_n,
+                    "item_category": t_json_name[t_item].tvc_c,
                     "price": t_json_name[t_item].tvc_p,
+                    "currency": tvc_lc
                 });    
-                        
-        if(t_json_length > ' . esc_js($impression_threshold) .' ){
-
+            if(t_json_length > ' . esc_js($impression_threshold) . ' ){
                         if((t_send_threshold%' . esc_js($impression_threshold) . ')==0){
                             t_json_length=t_json_length-' . esc_js($impression_threshold) . ';
-                            	gtag("event", "view_item_list", { "event_category":"Enhanced-Ecommerce",
-                                     "event_label":"product_impression_"+t_action, "items":items,"non_interaction": true});
-                                     items = [];
-                                    }
-                     }else{
-            
-                       t_json_length--;
+                                gtag("event", "view_item_list", { 
+                                    "event_category":"Enhanced-Ecommerce",
+                                    "event_label":"product_impression_"+t_action, 
+                                    "items":items,
+                                    "non_interaction": true
+                                });
+                                items = [];
+                            }
+                        if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                            gtag("event","view_item_list", {
+                                "value": t_json_name[t_item].tvc_p,
+                                "items": [
+                                  {
+                                    "id": t_json_name[t_item].tvc_i, 
+                                    "google_business_vertical": "retail"
+                                  }
+                               ]
+                            });
+                        }
+                        }else{
+                            t_json_length--;
                        if(t_json_length==0){
-                               gtag("event", "view_item_list", { "event_category":"Enhanced-Ecommerce",
-                                    "event_label":"product_impression_"+t_action, "items":items,"non_interaction": true});
-                                    items = [];
-                                }
-        }   
-                }
-        }
+                               gtag("event", "view_item_list", { 
+                                   "event_category":"Enhanced-Ecommerce",
+                                   "event_label":"product_impression_"+t_action, 
+                                   "items":items,
+                                   "non_interaction": true
+                               });
+                               items = [];
+                           }
+                           if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                            gtag("event","view_item_list", {
+                                "value": t_json_name[t_item].tvc_p,
+                                "items": [
+                                  {
+                                    "id": t_json_name[t_item].tvc_i, 
+                                    "google_business_vertical": "retail"
+                                  }
+                               ]
+                            });
+                        }
+                       }   
+                    }
+            }
                 
         //function for comparing urls in json object
         function prod_exists_in_JSON(t_url,t_json_name,t_action){
-                                    if(t_json_name.hasOwnProperty(t_url)){
-                                        t_call_fired=true;
-                                        gtag("event", "select_content", {
-                                            "event_category":"Enhanced-Ecommerce",
-                                            "event_label":"product_click_"+t_action,
-                                            "content_type": "product",
-                                            "items": [
-                                            {
-                                                "id":t_json_name[t_url].tvc_i,
-                                                "name": t_json_name[t_url].tvc_n,
-                                                 "category":t_json_name[t_url].tvc_c,
-                                                 "price": t_json_name[t_url].tvc_p,
-                                            }
-                                            ],
-                                            "non_interaction": true
-                                        });                    
-                                   }else{
-                                   t_call_fired=false;
-                }
-                                return t_call_fired;
+                if(t_json_name.hasOwnProperty(t_url)){
+                    t_call_fired=true;
+                    gtag("event", "select_item", {
+                        "event_category":"Enhanced-Ecommerce",
+                        "event_label":"product_click_"+t_action,
+                        "items": [
+                            {
+                                "item_id":t_json_name[t_url].tvc_i,
+                                "item_name": t_json_name[t_url].tvc_n,
+                                "item_category":t_json_name[t_url].tvc_c,
+                                "price": t_json_name[t_url].tvc_p,
+                                "currency": tvc_lc
+                            }
+                        ],
+                        "non_interaction": true
+                    });      
+                                  
+               }else{
+                    t_call_fired=false;
+               }
+               return t_call_fired;
             }
                 function prod_ATC_link_exists(t_url,t_ATC_json_name,t_prod_data_json,t_qty){
                     t_prod_url_key=t_ATC_json_name[t_url]["ATC-link"];
-                    
                         if(t_prod_data_json.hasOwnProperty(t_prod_url_key)){
                                 t_call_fired=true;
                             // Enhanced E-commerce Add to cart clicks
@@ -813,22 +1248,33 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                     "event_label":"add_to_cart_click",
                                     "non_interaction": true,
                                     "items": [{
-                                        "id" : t_prod_data_json[t_prod_url_key].tvc_i,
-                                        "name":t_prod_data_json[t_prod_url_key].tvc_n,
-                                        "category" : t_prod_data_json[t_prod_url_key].tvc_c,
+                                        "item_id" : t_prod_data_json[t_prod_url_key].tvc_i,
+                                        "item_name":t_prod_data_json[t_prod_url_key].tvc_n,
+                                        "item_category" : t_prod_data_json[t_prod_url_key].tvc_c,
                                         "price": t_prod_data_json[t_prod_url_key].tvc_p,
+                                        "currency": tvc_lc,
                                         "quantity" :t_qty
                                     }]
                                 });
-                             
+                                
+                            if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
+                                gtag("event","add_to_cart", {
+                                    "value": t_prod_data_json[t_prod_url_key].tvc_p,
+                                    "items": [
+                                      {
+                                        "id": t_prod_data_json[t_prod_url_key].tvc_i, 
+                                        "google_business_vertical": "retail"
+                                      }
+                                   ]
+                                });
+                            }
                         }else{
-                                   t_call_fired=false;
+                            t_call_fired=false;
                         }    
                          return t_call_fired;
-                 
                 }
-                
                 ';
+                }
         if(is_home() || is_front_page()){
             $hmpg_impressions_jQ .='
                 if(tvc_fp.length !== 0){
@@ -1004,28 +1450,55 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
 
         //Cart Page item Array to Json
         $this->wc_version_compare("tvc_cc=" . json_encode($cartpage_prod_array_main) . ";");
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH") {
+            $code = '
+                //set local currencies
+                gtag("set", {"currency": tvc_lc});
+            $("a[href*=\"?remove_item\"]").click(function(){
+                t_url=jQuery(this).attr("href");
+                        gtag("event", "remove_from_cart", {
+                            "event_category":"Enhanced-Ecommerce",
+                            "event_label":"remove_from_cart_click",
+                            "items": [{
+                                "id":tvc_cc[t_url].tvc_i,
+                                "name": tvc_cc[t_url].tvc_n,
+                                "category":tvc_cc[t_url].tvc_c,
+                                "price": tvc_cc[t_url].tvc_p,
+                                "quantity": tvc_cc[t_url].tvc_q
+                            }],
+                            "non_interaction": true
+                        });
+                  });
+                  
+                ';
+            //check woocommerce version
+            $this->wc_version_compare($code);
+        }
 
-        $code = '
-            //set local currencies
-            gtag("set", {"currency": tvc_lc});
-        $("a[href*=\"?remove_item\"]").click(function(){
-            t_url=jQuery(this).attr("href");
-                    gtag("event", "remove_from_cart", {
-						"event_category":"Enhanced-Ecommerce",
-						"event_label":"remove_from_cart_click",
-						"items": [{
-							"id":tvc_cc[t_url].tvc_i,
-                            "name": tvc_cc[t_url].tvc_n,
-                            "category":tvc_cc[t_url].tvc_c,
-                            "price": tvc_cc[t_url].tvc_p,
-                            "quantity": tvc_cc[t_url].tvc_q
-						}],
-						"non_interaction": true
-					});
-              });
-            ';
-        //check woocommerce version
-        $this->wc_version_compare($code);
+        if($this->gm_id && $this->tracking_option == "GA4") {
+             $code = '
+            $("a[href*=\"?remove_item\"]").click(function(){
+                t_url=jQuery(this).attr("href");
+                        gtag("event", "remove_from_cart", {
+                            "event_category":"Enhanced-Ecommerce",
+                            "event_label":"remove_from_cart_click",
+                            "currency": tvc_lc,
+                            "items": [{
+                                "item_id":tvc_cc[t_url].tvc_i,
+                                "item_name": tvc_cc[t_url].tvc_n,
+                                "item_category":tvc_cc[t_url].tvc_c,
+                                "price": tvc_cc[t_url].tvc_p,
+                                "currency": tvc_lc,
+                                "quantity": tvc_cc[t_url].tvc_q
+                            }],
+                            "non_interaction": true
+                        });
+                  });
+                  
+                ';
+                //check woocommerce version
+                $this->wc_version_compare($code);
+        }
     }
 
     /**
@@ -1040,25 +1513,52 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         }
         //call fn to make json
         $this->get_ordered_items();
-        $code= '
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH") {
+            $code= '
+                    var items = [];
+                    gtag("set", {"currency": tvc_lc});
+                    for(var t_item in tvc_ch){
+                        items.push({
+                            "id": tvc_ch[t_item].tvc_i,
+                            "name": tvc_ch[t_item].tvc_n,
+                            "category": tvc_ch[t_item].tvc_c,
+                            "attributes": tvc_ch[t_item].tvc_attr,
+                            "price": tvc_ch[t_item].tvc_p,
+                            "quantity": tvc_ch[t_item].tvc_q
+                        });
+                        }';
+
+            $code_step_1 = $code . 'gtag("event", "begin_checkout", {"event_category":"Enhanced-Ecommerce",
+                            "event_label":"checkout_step_1","items":items,"non_interaction": true });';
+
+            //check woocommerce version and add code
+            $this->wc_version_compare($code_step_1);
+        }
+
+        if( $this->gm_id && $this->tracking_option == "GA4") {
+            $code = '
                 var items = [];
-                gtag("set", {"currency": tvc_lc});
                 for(var t_item in tvc_ch){
                     items.push({
-                        "id": tvc_ch[t_item].tvc_i,
-                        "name": tvc_ch[t_item].tvc_n,
-                        "category": tvc_ch[t_item].tvc_c,
-                        "attributes": tvc_ch[t_item].tvc_attr,
+                        "item_id": tvc_ch[t_item].tvc_i,
+                        "item_name": tvc_ch[t_item].tvc_n,
+                        "item_category": tvc_ch[t_item].tvc_c,
+                        "item_variant": tvc_ch[t_item].tvc_attr,
                         "price": tvc_ch[t_item].tvc_p,
                         "quantity": tvc_ch[t_item].tvc_q
                     });
                     }';
 
-        $code_step_1 = $code . 'gtag("event", "begin_checkout", {"event_category":"Enhanced-Ecommerce",
-						"event_label":"checkout_step_1","items":items,"non_interaction": true });';
+            $code_step_1 = $code . 'gtag("event", "begin_checkout", {
+                "event_category":"Enhanced-Ecommerce",
+                "event_label":"checkout_step_1",
+                "items":items,
+                "non_interaction": true
+            });';
 
-        //check woocommerce version and add code
-        $this->wc_version_compare($code_step_1);
+            //check woocommerce version and add code
+            $this->wc_version_compare($code_step_1);
+        }
     }
 
     /**
@@ -1071,32 +1571,34 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         if ($this->disable_tracking($this->ga_eeT)) {
             return;
         }
-        $code= '
-               var items = [];
-                gtag("set", {"currency": tvc_lc});
-                for(var t_item in tvc_ch){
-                    items.push({
-                        "id": tvc_ch[t_item].tvc_i,
-                        "name": tvc_ch[t_item].tvc_n,
-                        "category": tvc_ch[t_item].tvc_c,
-                        "attributes": tvc_ch[t_item].tvc_attr,
-                        "price": tvc_ch[t_item].tvc_p,
-                        "quantity": tvc_ch[t_item].tvc_q
-                    });
-                    }';
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH" || $this->gm_id) {
+            $code= '
+                   var items = [];
+                    gtag("set", {"currency": tvc_lc});
+                    for(var t_item in tvc_ch){
+                        items.push({
+                            "id": tvc_ch[t_item].tvc_i,
+                            "name": tvc_ch[t_item].tvc_n,
+                            "category": tvc_ch[t_item].tvc_c,
+                            "attributes": tvc_ch[t_item].tvc_attr,
+                            "price": tvc_ch[t_item].tvc_p,
+                            "quantity": tvc_ch[t_item].tvc_q
+                        });
+                        }';
 
-        $code_step_2 = $code . 'gtag("event", "checkout_progress", {"checkout_step": 2,"event_category":"Enhanced-Ecommerce",
-						"event_label":"checkout_step_2","items":items,"non_interaction": true });';
+            $code_step_2 = $code . 'gtag("event", "checkout_progress", {"checkout_step": 2,"event_category":"Enhanced-Ecommerce",
+                            "event_label":"checkout_step_2","items":items,"non_interaction": true });';
 
-        //if logged in and first name is filled - Guest Check out
-        if (is_user_logged_in()) {
-            $step2_onFocus = 't_tracked_focus=0;  if(t_tracked_focus===0){' . $code_step_2 . ' t_tracked_focus++;}';
-        } else {
-            //first name on focus call fire
-            $step2_onFocus = 't_tracked_focus=0; jQuery("input[name=billing_first_name]").on("focus",function(){ if(t_tracked_focus===0){' . $code_step_2 . ' t_tracked_focus++;}});';
+            //if logged in and first name is filled - Guest Check out
+            if (is_user_logged_in()) {
+                $step2_onFocus = 't_tracked_focus=0;  if(t_tracked_focus===0){' . $code_step_2 . ' t_tracked_focus++;}';
+            } else {
+                //first name on focus call fire
+                $step2_onFocus = 't_tracked_focus=0; jQuery("input[name=billing_first_name]").on("focus",function(){ if(t_tracked_focus===0){' . $code_step_2 . ' t_tracked_focus++;}});';
+            }
+            //check woocommerce version and add code
+            $this->wc_version_compare($step2_onFocus);
         }
-        //check woocommerce version and add code
-        $this->wc_version_compare($step2_onFocus);
     }
 
     /**
@@ -1106,38 +1608,41 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     public function checkout_step_3_tracking() {
+
         if ($this->disable_tracking($this->ga_eeT)) {
             return;
         }
-        $code= '
-         var items = [];
-            for(var t_item in tvc_ch){
-                    items.push({
-                        "id": tvc_ch[t_item].tvc_i,
-                        "name": tvc_ch[t_item].tvc_n,
-                        "category": tvc_ch[t_item].tvc_c,
-                        "attributes": tvc_ch[t_item].tvc_attr,
-                        "price": tvc_ch[t_item].tvc_p,
-                        "quantity": tvc_ch[t_item].tvc_q
-                    });
-                    }';
+        if($this->ga_id || $this->tracking_option == "UA" || $this->tracking_option == "BOTH" || $this->gm_id) {
+            $code= '
+             var items = [];
+                for(var t_item in tvc_ch){
+                        items.push({
+                            "id": tvc_ch[t_item].tvc_i,
+                            "name": tvc_ch[t_item].tvc_n,
+                            "category": tvc_ch[t_item].tvc_c,
+                            "attributes": tvc_ch[t_item].tvc_attr,
+                            "price": tvc_ch[t_item].tvc_p,
+                            "quantity": tvc_ch[t_item].tvc_q
+                        });
+                        }';
 
-        //check if guest check out is enabled or not
-        $step_2_on_proceed_to_pay = (!is_user_logged_in() && !$this->ga_gCkout ) || (!is_user_logged_in() && $this->ga_gCkout && $this->ga_gUser);
+            //check if guest check out is enabled or not
+            $step_2_on_proceed_to_pay = (!is_user_logged_in() && !$this->ga_gCkout ) || (!is_user_logged_in() && $this->ga_gCkout && $this->ga_gUser);
 
-        $code_step_3 = $code . 'gtag("event", "checkout_progress", {"checkout_step": 3,"event_category":"Enhanced-Ecommerce",
-						"event_label":"checkout_step_3","items":items,"non_interaction": true });';
+            $code_step_3 = $code . 'gtag("event", "checkout_progress", {"checkout_step": 3,"event_category":"Enhanced-Ecommerce",
+                            "event_label":"checkout_step_3","items":items,"non_interaction": true });';
 
-        $inline_js = 't_track_clk=0; jQuery(document).on("click","#place_order",function(e){ if(t_track_clk===0){';
-        if ($step_2_on_proceed_to_pay) {
-            if (isset($code_step_2))
-                $inline_js .= $code_step_2;
+            $inline_js = 't_track_clk=0; jQuery(document).on("click","#place_order",function(e){ if(t_track_clk===0){';
+            if ($step_2_on_proceed_to_pay) {
+                if (isset($code_step_2))
+                    $inline_js .= $code_step_2;
+            }
+            $inline_js .= $code_step_3;
+            $inline_js .= "t_track_clk++; }});";
+
+            //check woocommerce version and add code
+            $this->wc_version_compare($inline_js);
         }
-        $inline_js .= $code_step_3;
-        $inline_js .= "t_track_clk++; }});";
-
-        //check woocommerce version and add code
-        $this->wc_version_compare($inline_js);
     }
 
     /**

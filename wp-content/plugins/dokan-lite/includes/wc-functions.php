@@ -31,6 +31,8 @@ function dokan_process_product_meta( $post_id, $data = [] ) {
 
     // Gallery Images
     if ( isset( $data['product_image_gallery'] ) ) {
+        $data = apply_filters( 'dokan_restrict_product_image_gallery_on_edit', $data );
+
         $attachment_ids = array_filter( explode( ',', wc_clean( $data['product_image_gallery'] ) ) );
         update_post_meta( $post_id, '_product_image_gallery', implode( ',', $attachment_ids ) );
     }
@@ -72,6 +74,11 @@ function dokan_process_product_meta( $post_id, $data = [] ) {
     }
 
     if ( isset( $data['_sale_price'] ) ) {
+        //if regular price is lower than sale price then we are setting it to empty
+        if ( $data['_regular_price'] <= $data['_sale_price'] ) {
+            $data['_sale_price'] = '';
+        }
+
         update_post_meta( $post_id, '_sale_price', ( $data['_sale_price'] === '' ? '' : wc_format_decimal( $data['_sale_price'] ) ) );
     }
 
@@ -86,26 +93,6 @@ function dokan_process_product_meta( $post_id, $data = [] ) {
 
     if ( isset( $data['_purchase_note'] ) ) {
         update_post_meta( $post_id, '_purchase_note', wp_kses_post( $data['_purchase_note'] ) );
-    }
-
-    // Unique SKU
-    $sku     = get_post_meta( $post_id, '_sku', true );
-    $new_sku = (string) wc_clean( $data['_sku'] );
-
-    if ( '' === $new_sku ) {
-        update_post_meta( $post_id, '_sku', '' );
-    } elseif ( $new_sku !== $sku ) {
-        if ( ! empty( $new_sku ) ) {
-            $unique_sku = wc_product_has_unique_sku( $post_id, $new_sku );
-
-            if ( ! $unique_sku ) {
-                $woocommerce_errors[] = __( 'Product SKU must be unique', 'dokan-lite' );
-            } else {
-                update_post_meta( $post_id, '_sku', $new_sku );
-            }
-        } else {
-            update_post_meta( $post_id, '_sku', '' );
-        }
     }
 
     // Save Attributes
@@ -242,12 +229,10 @@ function dokan_process_product_meta( $post_id, $data = [] ) {
 
         // Dates
         update_post_meta( $post_id, '_sale_price_dates_from', $date_from ? strtotime( $date_from ) : '' );
-
-        // error_log( var_export( date('y-m-d H:i:s'), true ) );
         update_post_meta( $post_id, '_sale_price_dates_to', $date_to ? strtotime( '+ 23 hours', strtotime( $date_to ) ) : '' );
 
         if ( $date_to && ! $date_from ) {
-            $date_from = date( 'Y-m-d' );
+            $date_from = date( 'Y-m-d' ); // phpcs:ignore
             update_post_meta( $post_id, '_sale_price_dates_from', strtotime( $date_from ) );
         }
 
@@ -394,6 +379,22 @@ function dokan_process_product_meta( $post_id, $data = [] ) {
         }
     }
 
+    // Update SKU
+    $old_sku = get_post_meta( $post_id, '_sku', true );
+    delete_post_meta( $post_id, '_sku' );
+
+    $product = wc_get_product( $post_id );
+
+    $sku = trim( wp_unslash( $data['_sku'] ) ) !== '' ? sanitize_text_field( wp_unslash( $data['_sku'] ) ) : '';
+    try {
+        $product->set_sku( $sku );
+    } catch ( \WC_Data_Exception $e ) {
+        $product->set_sku( $old_sku );
+        $woocommerce_errors[] = __( 'Product SKU must be unique', 'dokan-lite' );
+    }
+
+    $product->save();
+
     // Do action for product type
     do_action( 'woocommerce_process_product_meta_' . $product_type, $post_id );
     do_action( 'dokan_process_product_meta', $post_id );
@@ -500,7 +501,7 @@ function dokan_seller_displayname( $display_name ) {
     return $display_name;
 }
 
-add_filter( 'pre_user_display_name', 'dokan_seller_displayname' );
+//add_filter( 'pre_user_display_name', 'dokan_seller_displayname' );
 
 /**
  * Get featured products
@@ -842,7 +843,7 @@ function dokan_save_account_details() {
 
     $postdata = wp_unslash( $_POST );
 
-    if ( empty( $postdata['_wpnonce'] ) || ! wp_verify_nonce( $postdata['_wpnonce'], 'dokan_save_account_details' ) ) {
+    if ( empty( $postdata['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $postdata['_wpnonce'] ), 'dokan_save_account_details' ) ) {
         return;
     }
 
@@ -1034,18 +1035,20 @@ add_action( 'woocommerce_product_tabs', 'dokan_set_more_from_seller_tab', 10 );
  * @param int $posts_per_page
  *
  * @since 2.5
+ * @since DOKAN_LITE_SINCE added filter 'dokan_get_more_products_per_page'
+ *
  * @global object $product
  * @global object $post
  */
 function dokan_get_more_products_from_seller( $seller_id = 0, $posts_per_page = 6 ) {
     global $product, $post;
 
-    if ( $seller_id === 0 ) {
+    if ( $seller_id === 0 || 'more_seller_product' === $seller_id ) {
         $seller_id = $post->post_author;
     }
 
-    if ( ! abs( $posts_per_page ) ) {
-        $posts_per_page = 4;
+    if ( ! is_int( $posts_per_page ) ) {
+        $posts_per_page = apply_filters( 'dokan_get_more_products_per_page', 6 );
     }
 
     $args = [
@@ -1092,7 +1095,7 @@ function dokan_bulk_order_status_change() {
 
     $postdata = wp_unslash( $_POST );
 
-    if ( ! isset( $postdata['security'] ) || ! wp_verify_nonce( $postdata['security'], 'bulk_order_status_change' ) ) {
+    if ( ! isset( $postdata['security'] ) || ! wp_verify_nonce( sanitize_key( $postdata['security'] ), 'bulk_order_status_change' ) ) {
         return;
     }
 
@@ -1154,7 +1157,11 @@ add_action( 'save_post', 'dokan_store_category_delete_transient' );
  *
  * @return string $headers
  */
-function dokan_add_reply_to_vendor_email_on_wc_customer_note_mail( $headers = '', $id = '', $order ) {
+function dokan_add_reply_to_vendor_email_on_wc_customer_note_mail( $headers, $id, $order ) {
+    if ( ! ( $order instanceof WC_Order ) ) {
+        return $headers;
+    }
+
     if ( 'customer_note' === $id ) {
         foreach ( $order->get_items( 'line_item' ) as $item ) {
             $product_id  = $item['product_id'];
@@ -1170,3 +1177,24 @@ function dokan_add_reply_to_vendor_email_on_wc_customer_note_mail( $headers = ''
 }
 
 add_filter( 'woocommerce_email_headers', 'dokan_add_reply_to_vendor_email_on_wc_customer_note_mail', 10, 3 );
+
+/**
+ * Keep old vendor after duplicate any product
+ *
+ * @param object $duplicate
+ * @param object $product
+ *
+ * @return void
+ */
+function dokan_keep_old_vendor_woocommerce_duplicate_product( $duplicate, $product ) {
+    $old_author = get_post_field( 'post_author', $product->get_id() );
+    $new_author = get_post_field( 'post_author', $duplicate->get_id() );
+
+    if ( absint( $old_author ) === absint( $new_author ) ) {
+        return;
+    }
+
+    dokan_override_product_author( $duplicate, absint( $old_author ) );
+}
+
+add_action( 'woocommerce_product_duplicate', 'dokan_keep_old_vendor_woocommerce_duplicate_product', 35, 2 );

@@ -27,10 +27,6 @@
  * @subpackage Enhanced_Ecommerce_Google_Analytics/includes
  * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
  */
-
-
-
-
 class Enhanced_Ecommerce_Google_Analytics {
 
     /**
@@ -113,8 +109,63 @@ class Enhanced_Ecommerce_Google_Analytics {
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-enhanced-ecommerce-google-analytics-i18n.php';
-
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-enhanced-ecommerce-google-analytics-i18n.php';        
+        // Feed Manager Files
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-admin-page.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/tvc-admin-menu-functions.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/tvc-admin-functions.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/setup/class-tvc-database-management.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/setup/class-tvc-folders.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/setup/class-tvc-prepare-taxonomy.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-admin-page.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-add-options-page.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-main-admin-page.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-list-table.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-queries.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/elements/class-tvc-form-element.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-options-page.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-tab.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/abstract-tvc-main-input-wrapper.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-product-feed-main-input-wrapper.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/abstract-tvc-attribute-mapping-wrapper.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-product-feed-attribute-mapping-wrapper.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/elements/class-tvc-main-input-selector-element.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-feed-form-control.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-file.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-data.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/elements/class-tvc-attribute-selector-element.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/elements/class-tvc-category-selector-element.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/abstract-tvc-category-wrapper.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-product-feed-category-wrapper.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/tvc-url-functions.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-i18n-scripts.php';
+       // require_once plugin_dir_path(dirname(__FILE__)) . 'includes/user-interface/class-tvc-product-feed-page.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-ajax-calls.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-ajax-data.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-ajax-file.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-backup.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-channel.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-channel-ftp.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-feed-crud-handler.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-taxonomies.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-variations.php';
+        //Application folder include
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-feed-queries.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-email.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-feed-value-editors.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/tvc-cron-functions.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/tvc-support-fields.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/libraries/tvc-async-request.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/libraries/tvc-background-process.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/tvc-feed-processing-support.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/tvc-feed-processor-functions.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-feed-processor.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-feed-support.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-feed-controller.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-feed-master.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/class-tvc-schedules.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'includes/application/google/class-feed.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-tvc-register-scripts.php';
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
@@ -173,7 +224,6 @@ class Enhanced_Ecommerce_Google_Analytics {
      * @access   private
      */
     private function define_public_hooks() {
-
         $plugin_public = new Enhanced_Ecommerce_Google_Analytics_Public( $this->get_plugin_name(), $this->get_version() );
         $this->loader->add_action("wp_head", $plugin_public, "ee_settings");
         $this->loader->add_action("wp_footer", $plugin_public, "t_products_impre_clicks");
@@ -252,7 +302,7 @@ class Enhanced_Ecommerce_Google_Analytics {
         $setting_url = 'admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=general_settings';
         $links[] = '<a href="' . get_admin_url(null, $setting_url) . '">Settings</a>';
         $links[] = '<a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/#faq" target="_blank">FAQ</a>';
-        $links[] = '<a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank">Documentation</a>';
+        $links[] = '<a href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf" target="_blank">Documentation</a>';
         $links[] = '<a href="https://1.envato.market/Yvn3R" target="_blank"><b>Upgrade to Premium</b></a>';
         return $links;
     }

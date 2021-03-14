@@ -1,0 +1,496 @@
+.wp-core-ui select {
+    margin-bottom: 10px;
+}
+
+#tvc-attribute-map {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.bg-wrap {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .125);
+    overflow: auto;
+}
+
+.container {
+    margin-left: 8% !important;
+    width: auto;
+}
+
+#feed-spinner {
+    /*height: 50px;*/
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    overflow: auto;
+    position: fixed;
+    text-align: center;
+    top: 35%;
+    /*width: 50px;*/
+    z-index: 1234
+}
+
+div.field-table-row-wrapper:nth-child(2n) {
+    background-color: #f5f5f5
+}
+
+div.field-table-row-wrapper {
+    display: block;
+    padding-bottom: 5px
+}
+
+div.filter-wrapper {
+    margin-top: 5px
+}
+
+aside.action-btn {
+    margin-left: 8px
+}
+
+.small-text {
+    width: 15px
+}
+
+.field-level {
+    clear: both;
+    font-size: 15px;
+    line-height: 30px;
+    padding-left: 5px
+}
+
+.value-options-condition-selector {
+    margin-left: 400px
+}
+
+.value-options-query-selector {
+    margin-bottom: 15px;
+    margin-left: 37%;
+    width: 65%
+}
+
+select.tvc-main-input-selector {
+    height: 33px;
+    max-width: 35rem
+}
+
+select.select-value-options {
+    height: 27px;
+    vertical-align: initial
+}
+
+select.align-left {
+    float: left
+}
+
+.condition-and-value-selector {
+    margin-left: 5px
+}
+
+div.condition-wrapper {
+    float: left;
+    line-height: 26px;
+    margin-bottom: 15px;
+    width: 100%
+}
+
+div.change-source-value-wrapper {
+    background-color: #e2e2e2;
+    float: left;
+    margin-left: 16%;
+    padding: 15px;
+    width: 81%
+}
+
+th#tvc-main-feed-input-label {
+    text-align: left;
+    width: 25%
+}
+
+th#tvc-main-feed-input-label label {
+    display: inline-block
+}
+
+div.edit-value-control {
+    float: right;
+    margin: -50px 10px
+}
+
+div.add-to-feed-column {
+    margin-top: 4px
+}
+
+div.tvc-header-wrapper {
+    padding-bottom: 10px
+}
+
+div.tvc-field-header-wrapper {
+    background-color: #e5e5e5;
+    height: 30px;
+}
+
+div#required-field-table {
+    border: 1px solid #e5e5e5;
+    border-top: none;
+}
+
+div#optional-field-table {
+    border: 1px solid #e5e5e5;
+    border-top: none;
+}
+
+div#new-optional-row {
+    border: 1px solid #e5e5e5;
+    border-top: none;
+}
+
+div.field-header {
+    float: left;
+    margin-bottom: 8px;
+    padding: 5px;
+    font-weight: 700;
+}
+
+.col10w {
+    width: 10%
+}
+
+.col30w {
+    width: 30%
+}
+
+.col20w {
+    width: 16%
+}
+
+.col40w {
+    width: 40%
+}
+
+.col55w {
+    width: 55%
+}
+
+.col80w {
+    width: 82%
+}
+
+.condition-selector {
+    width: 55%
+}
+
+div#category-mapping-header {
+    left: 15px;
+    position: relative
+}
+
+div.source-selector {
+    margin-right: 6%
+}
+
+div.tvc-feedback {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    float: right;
+    padding: 6px 10px
+}
+
+div.tvc-feedback a:link {
+    color: #4d8c0f;
+    text-decoration: none
+}
+
+div.tvc-feedback a:visited {
+    color: #555;
+    text-decoration: none
+}
+
+div.tvc-feedback a:hover {
+    color: #3C3;
+    text-decoration: none
+}
+
+table.fm-category-mapping-table th {
+    font-weight: 700;
+    padding: 9px
+}
+
+table.fm-category-mapping-table {
+    clear: none;
+    display: table;
+    float: right;
+    height: 280px;
+    overflow-y: scroll;
+    width: 50%
+}
+
+table.tvc-feed-main-input-table {
+    width: 100%
+}
+
+table.fm-category-mapping-table td#shop-category {
+    color: #0073aa;
+    cursor: auto;
+    font-size: 14px !important;
+    font-weight: 600;
+    padding-left: 2px
+}
+
+table.fm-category-mapping-table th#shop-category-selector {
+    vertical-align: top;
+    width: 2.2em
+}
+
+td.channel-tile {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    max-width: 340px;
+    min-width: 250px;
+    vertical-align: top
+}
+
+img.channel-thumbnail {
+    border: 0;
+    max-width: 300px;
+    width: 100%
+}
+
+div.channel-inner {
+    margin: 20px
+}
+
+div.channel-version {
+    background-color: #eee;
+    border: 1px solid #dadada;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    color: #424242;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding: 6px
+}
+
+div#outdated {
+    color: red
+}
+
+div.product-filter-condition-wrapper {
+    float: right;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 59%
+}
+
+section.tvc-main-input-wrapper {
+    float: left;
+    margin-top: 20px;
+    width: 50%
+}
+
+tr.tvc-main-feed-input-row {
+    height: 47px
+}
+
+table.fm-category-mapping-table thead {
+    background: #e5e5e5;
+}
+
+table.fm-category-mapping-table thead, table.fm-category-mapping-table tbody {
+    float: left;
+    width: 100%
+}
+
+table.fm-category-mapping-table tbody {
+    height: 280px;
+    overflow-y: scroll
+}
+
+table.fm-category-mapping-table tr:nth-child(2n) td, table.fm-category-mapping-table tr:nth-child(2n) th {
+    background-color: #fcfcfc
+}
+
+thead.fm-category-mapping-titles th {
+    font-weight: 400
+}
+
+thead.fm-category-mapping-titles tr {
+    width: 98% !important
+}
+
+table.fm-category-mapping-table td:first-child {
+    width: 16%
+}
+
+table.fm-category-mapping-table tr {
+    display: table;
+    text-align: left;
+    width: 100%
+}
+
+table.tvc-feed-main-input-table th {
+    padding-right: 0;
+    width: 40%
+}
+
+table.tvc-feed-main-input-table input {
+    width: 90%
+}
+
+table.tvc-feed-main-input-table input#aggregator, table.tvc-feed-main-input-table input#variations {
+    width: 10px
+}
+
+table.tvc-feed-main-input-table select {
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.message-field {
+    font-size: 16px;
+    margin: 20px 0 3px 0
+}
+
+#disposable-warning-message {
+    margin: 20px 0 3px 0
+}
+
+button#disposable-notice-button {
+    position: relative
+}
+
+.full-screen-message-field p {
+    color: red;
+    font-size: 17px;
+    margin: 20px 0 3px 0
+}
+
+span.output-field-label {
+    border-radius: 3px;
+    color: #000;
+    margin-top: 4px;
+    padding: 4px 10px
+}
+
+div.colw {
+    float: left;
+    padding: 5px
+}
+
+div.edit-values-row {
+    float: left;
+    margin: 20px 10px 10px 30px;
+    width: 80%
+}
+
+div.end-row {
+    clear: both
+}
+
+div.field-table-row {
+    height: 20px
+}
+
+div.field-table-row-edit-source {
+    clear: both;
+    float: left
+}
+
+div.field-table-row-combined-selection {
+    left: -181px;
+    line-height: 26px;
+    margin: 5px;
+    position: relative;
+    width: 680px
+}
+
+div.combined-wrapper {
+    line-height: 26px;
+    width: 100%
+}
+
+div.or-selector {
+    line-height: 26px;
+    margin-top: 30px;
+    width: 120%
+}
+
+div.dotted-top-line {
+    border-top-style: dashed;
+    border-top-color: #ccc;
+    border-top-width: 1px;
+    margin-top: 20px
+}
+
+span.combined-field-row {
+    clear: left;
+    float: left
+}
+
+input.free-category-text-input {
+    width: 90%
+}
+
+div.button-wrapper {
+    clear: both
+}
+
+.button-primary {
+    margin-top: 25px !important;
+    margin-right: 5px !important
+}
+
+a.channel-button {
+    margin-right: 5px !important
+}
+
+a.tvc-btn-small {
+    font-size: 13px
+}
+
+a.tvc-rating-request {
+    color: #ffb900
+}
+
+input.feed-list-lower-button {
+    position: relative;
+    margin-bottom: 10px !important
+}
+
+div.select-control {
+    float: left;
+    margin: 0;
+    vertical-align: top
+}
+
+div.static-value-control {
+    float: left
+}
+
+#wpcontent{
+    height: 100%;
+    /*padding-left: 0 !important;*/
+}
+
+@media only screen and (min-width: 1200px){
+    .container{
+        margin-left: 8% !important;
+        width:auto;
+    }
+    .banner{
+        width:100%;
+    }
+}
+@media only screen and (min-width: 1920px){
+    .container{
+        margin-left: 6% !important;
+        width:auto;
+    }
+
+}

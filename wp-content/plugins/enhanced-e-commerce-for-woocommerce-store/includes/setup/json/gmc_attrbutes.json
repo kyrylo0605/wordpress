@@ -1,0 +1,71 @@
+[
+    {
+        "field": "id"
+    },
+    {
+        "field": "offer_id"
+    },
+    {
+        "field": "title"
+    },
+    {
+        "field": "description"
+    },
+    {
+        "field": "item_group_id"
+    },
+    {
+        "field": "link"
+    },
+    {
+        "field": "image_link"
+    },
+    {
+        "field": "content_language"
+    },
+    {
+        "field": "target_country"
+    },
+    {
+        "field": "channel"
+    },
+    {
+        "field": "age_group"
+    },
+    {
+        "field": "availability"
+    },
+    {
+        "field": "availability_date"
+    },
+    {
+        "field": "brand"
+    },
+    {
+        "field": "color"
+    },
+    {
+        "field": "condition"
+    },
+    {
+        "field": "gender"
+    },
+    {
+        "field": "google_product_category"
+    },
+    {
+        "field": "gtin"
+    },
+    {
+        "field": "item_group_id"
+    },
+    {
+        "field": "mpn"
+    },
+    {
+        "field": "price"
+    },
+    {
+        "field": "sizes"
+    }
+]

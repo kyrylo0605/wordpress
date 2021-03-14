@@ -1688,6 +1688,10 @@ jQuery(function($) {
       $('a.dokan-gravatar-drag').on('click', this.simpleImageUpload);
       $('a.dokan-remove-gravatar-image').on('click', this.removeGravatar);
 
+      $('.dokan-update-setting-top-button').click(function(){
+          $("input[name='dokan_update_store_settings']").click();
+      });
+
       this.validateForm(self);
 
       return false;
@@ -1781,6 +1785,7 @@ jQuery(function($) {
     },
 
     setImageFromURL: function(url, attachmentId, width, height) {
+      var banner_profile_upload_status = false;
       if ($(this.uploadBtn).hasClass('dokan-banner-drag')) {
         var wrap = $(this.uploadBtn).closest('.dokan-banner');
 
@@ -1795,11 +1800,16 @@ jQuery(function($) {
         $(this.uploadBtn)
           .parent('.button-area')
           .addClass('dokan-hide');
+
+        banner_profile_upload_status = true;
+
       } else if ($(this.uploadBtn).hasClass('dokan-pro-gravatar-drag')) {
         var wrap = $(this.uploadBtn).closest('.dokan-gravatar');
 
         wrap.find('input.dokan-file-field').val(attachmentId);
         wrap.find('img.dokan-gravatar-img').attr('src', url);
+
+        banner_profile_upload_status = true;
 
         $(this.uploadBtn)
           .parent()
@@ -1809,6 +1819,19 @@ jQuery(function($) {
         $(this.uploadBtn)
           .parent('.gravatar-button-area')
           .addClass('dokan-hide');
+      }
+
+      if ( banner_profile_upload_status === true ) {
+        $(window).on("beforeunload", function() {
+          return dokan.dokan_banner_added_alert_msg;
+        });
+
+        $(document).ready(function() {
+          $("#store-form").on("submit", function(e) {
+            $(window).off("beforeunload");
+            return true;
+          });
+        });
       }
     },
 
@@ -2012,8 +2035,11 @@ jQuery(function($) {
           self.serialize() + '&action=dokan_settings&form_id=' + form_id;
 
       self.find('.ajax_prev').append('<span class="dokan-loading"> </span>');
+      $('.dokan-update-setting-top-button span.dokan-loading').remove();
+      $('.dokan-update-setting-top-button').append('<span class="dokan-loading"> </span>');
       $.post(dokan.ajaxurl, form_data, function(resp) {
         self.find('span.dokan-loading').remove();
+        $('.dokan-update-setting-top-button span.dokan-loading').remove();
         $('html,body').animate({ scrollTop: 100 });
 
         if (resp.success) {
@@ -2578,15 +2604,18 @@ jQuery(function($) {
 
     .on(
       'change',
-      '#_sale_price.wc_input_price[type=text], .wc_input_price[name^=variable_sale_price]',
+      '#_sale_price.wc_input_price[type=text], .wc_input_price[name^=variable_sale_price], #_subscription_sale_price.wc_input_price[type=text]',
       function() {
         var sale_price_field = $(this),
+          product_type_selector = $('#product_type'),
           regular_price_field;
 
         if (sale_price_field.attr('name').indexOf('variable') !== -1) {
           regular_price_field = sale_price_field
             .parents('.variable_pricing')
             .find('.wc_input_price[name^=variable_regular_price]');
+        } else if ( product_type_selector.length && 'subscription' === product_type_selector.find(':selected').val() ) {
+          regular_price_field = $('#_subscription_price');
         } else {
           regular_price_field = $('#_regular_price');
         }
@@ -2612,15 +2641,18 @@ jQuery(function($) {
 
     .on(
       'keyup',
-      '#_sale_price.wc_input_price[type=text], .wc_input_price[name^=variable_sale_price]',
+      '#_sale_price.wc_input_price[type=text], .wc_input_price[name^=variable_sale_price], #_subscription_sale_price.wc_input_price[type=text]',
       function() {
         var sale_price_field = $(this),
+          product_type_selector = $('#product_type'),
           regular_price_field;
 
         if (sale_price_field.attr('name').indexOf('variable') !== -1) {
           regular_price_field = sale_price_field
             .parents('.variable_pricing')
             .find('.wc_input_price[name^=variable_regular_price]');
+        } else if ( product_type_selector.length && 'subscription' === product_type_selector.find(':selected').val() ) {
+          regular_price_field = $('#_subscription_price');
         } else {
           regular_price_field = $('#_regular_price');
         }
@@ -2851,8 +2883,11 @@ jQuery(function($) {
             event.preventDefault();
 
             const queryString = decodeURIComponent( $.param( storeLists.query ) );
+            const target      = '/page';
+            const pathName    = window.location.pathname;
+            const path        = pathName.includes( target ) ? pathName.substr( 0, pathName.indexOf( target ) ) : '';
 
-            window.history.pushState( null, null, `?${queryString}` );
+            window.history.pushState( null, null, `${path}?${queryString}` );
             window.location.reload();
         },
 

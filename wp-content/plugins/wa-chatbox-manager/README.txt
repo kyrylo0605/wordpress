@@ -2,10 +2,10 @@
 
 Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
-Tags: whatsapp, whatsapp button, whatsapp help, whatsapp icon, whatsapp support, chat, contact, contact button, chatbox, help desk
+Tags: whatsapp, whatsapp button, whatsapp help, whatsapp icon, whatsapp support, whatsapp chat, chat, contact, contact button, chatbox, help desk
 Requires at least: 4.5.0
-Tested up to: 5.6
-Stable tag: trunk
+Tested up to: 5.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,12 +54,6 @@ You can get the premium version from the link below:
 You can see an example of all layout from the link below:
 [https://demo.themeinprogress.com/chatbox-manager-pro/layouts/](https://demo.themeinprogress.com/chatbox-manager-pro/layouts/)
 
-**Coming soon on premium version**
-
-> <strong>New layouts</strong><br>
-> <strong>New chatbox types</strong><br>
-> <strong>New animations for the WhatsApp button</strong><br>
-
 = Installation =
 
 Once you have installed the plugin, you just need to activate the plugin in order to enable it.
@@ -80,6 +74,16 @@ Chatbox Manager will add a new admin page, where you can manage all chatboxes.
 2. Example of WhatsApp button
 
 == Changelog ==
+
+= 1.0.8 =
+Release date - March, 10 - 2021
+
+* Tested with WordPress 5.7
+
+= 1.0.7 =
+Release date - February, 28 - 2021
+
+* Edit - Code optimized
 
 = 1.0.6 =
 Release date - December, 10 - 2020

@@ -14,48 +14,93 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
-$site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";
-
-if(isset($_GET['tab']) && $_GET['tab'] == 'general_settings'){
-    $general_class_active = "active";
-}
-else{
-    $general_class_active = "";
-}
-if(isset($_GET['tab']) && $_GET['tab'] == 'about_plugin'){
-    $advanced_class_active = "active";
-}
-else{
-    $advanced_class_active = "";
-}
-if(empty($_GET['tab'])){
-    $general_class_active = "active";
-}
-// date function to hide 30% off sale after certain date
-$obj = new Enhanced_Ecommerce_Google_Analytics_Admin($plugin_name = 'enhanced-e-commerce-for-woocommerce-store', $version = PLUGIN_NAME_VERSION);
-$today = $obj->today();
-$start = $obj->start_date();
-$end = $obj->end_date();
-$currentime = $obj->current_time();
-$endtime = $obj->end_time();
-?>
-<header class='background-color:#E8E8E8;height:500px;width:auto;margin-top:100px;margin-left:20px;'>
-    <img class ="banner" src='<?php echo plugins_url('../images/banner.png', __FILE__ )  ?>' style="margin-left:10px;">
-    <?php if($today >= $start && $today <= $end  && $currentime <= $endtime) { ?>
-        <div class="banner-new">
-            <p><img class="banner-blink" src='<?php echo plugins_url('../images/discount.gif', __FILE__ )  ?>' /> On the Premium Version Till 8th Sept 2020</p>
-            <p class="clickhere-txt"><a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=TatvicEE&utm_medium=DashboardBanner&utm_campaign=SeptCamp" target="_blank">Click here</a></p>
+class TVC_Tabs {
+    protected $TVC_Admin_Helper;
+    protected $site_url;
+    public function __construct() {
+        $this->TVC_Admin_Helper = new TVC_Admin_Helper();
+        $this->site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";
+        $this->create_tabs();
+    }    
+    protected function info_htnml($validation){
+        if($validation == true){
+            return '<img src="'.ENHANCAD_PLUGIN_URL.'/admin/images/config-success.svg" alt="configuration  success" class="config-success">';
+        }else{
+            return '<img src="'.ENHANCAD_PLUGIN_URL.'/admin/images/exclaimation.png" alt="configuration  success" class="config-fail">';
+        }
+    }
+    /* add active tab class */
+    protected function is_active_tabs($tab_name=""){
+        if($tab_name!="" && isset($_GET['tab']) && $_GET['tab'] == $tab_name){
+            return "active";
+        }
+        return ;
+    }
+    protected function create_tabs(){
+        $setting_status = $this->TVC_Admin_Helper->check_setting_status();
+        //print_r($setting_status); exit;
+        /*$today = $obj->today();
+        $start = $obj->start_date();
+        $end = $obj->end_date();
+        $currentime = $obj->current_time();
+        $endtime = $obj->end_time();*/
+        ?>
+        <div class="container-fluid">
+        <ul class="nav nav-tabs nav-pills">
+            <li class="nav-item">       
+                <div class="tvc-tooltip <?php echo (empty($_GET['tab']))?'active':$this->is_active_tabs('general_settings'); ?>">
+                    <?php if(isset($setting_status['google_analytic']) && $setting_status['google_analytic'] == false ){?>
+                    <?php echo (isset($setting_status['google_analytic_msg'])?'<span class="tvc-tooltiptext tvc-tooltip-right">'.$setting_status['google_analytic_msg'].'</span>':"") ?>
+                    <?php }?>
+                    <div class="border-left aga-tab nav-item nav-link <?php echo (empty($_GET['tab']))?'active':$this->is_active_tabs('general_settings'); ?>">
+                        <?php if(isset($setting_status['google_analytic']) ){
+                            echo $this->info_htnml($setting_status['google_analytic']);
+                        }?>
+                        <a  href="<?php echo $this->site_url.'general_settings'; ?>"  class=""> Google Analytics</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="tvc-tooltip <?php echo $this->is_active_tabs('google_ads'); ?>">
+                    <?php if(isset($setting_status['google_ads']) && $setting_status['google_ads'] == false ){?>
+                    <?php echo (isset($setting_status['google_ads'])?'<span class="tvc-tooltiptext tvc-tooltip-right">'.$setting_status['google_ads_msg'].'</span>':"") ?>
+                    <?php } ?>
+                    <div class="border-left aga-tab nav-link <?php echo $this->is_active_tabs('google_ads'); ?>">
+                    <?php if(isset($setting_status['google_ads']) ){
+                        echo $this->info_htnml($setting_status['google_ads']);
+                    }?>
+                <a href="<?php echo $this->site_url.'google_ads'; ?>" class="">Google Ads</a>
+               </div>
+            </li>
+            <?php
+            $sub_tab_active="";
+            if(isset($_GET['tab']) && ($_GET['tab'] == 'google_shopping_feed' || $_GET['tab'] == 'gaa_config_page' || $_GET['tab'] == 'sync_product_page' || $_GET['tab'] == 'shopping_campaigns_page' || $_GET['tab'] == 'add_campaign_page')){
+                $sub_tab_active="active";
+            }
+            ?>
+            <li class="nav-item">
+                <div class="tvc-tooltip <?php echo (($sub_tab_active)?$sub_tab_active:$this->is_active_tabs('google_shopping_feed')); ?>">
+                     <?php if(isset($setting_status['google_shopping']) && $setting_status['google_shopping'] == false ){?>
+                    <?php echo (isset($setting_status['google_shopping_msg'])?'<span class="tvc-tooltiptext tvc-tooltip-right">'.$setting_status['google_shopping_msg'].'</span>':"") ?>
+                    <?php } ?>
+                    <div class="border-left aga-tab nav-link <?php echo (($sub_tab_active)?$sub_tab_active:$this->is_active_tabs('google_shopping_feed')); ?>">
+                    <?php if(isset($setting_status['google_shopping']) ){
+                        echo $this->info_htnml($setting_status['google_shopping']);                
+                    }?>
+                    <a href="<?php echo $this->site_url.'google_shopping_feed'; ?>" class="">Google Shopping</a>
+                </div>
+            </li>
+            <?php /*if($today >= $start && $today <= $end  && $currentime <= $endtime) {?>
+                <li class="nav-item">
+                    <div class="border-left aga-tab nav-link <?php echo $this->is_active_tabs('about_plugin'); ?>"><a href="<?php echo $this->site_url.'about_plugin'; ?>">Premium <img class="new-img-blink" src='<?php echo plugins_url('../images/discount.gif', __FILE__ )  ?>' /></a></div></li>
+            <?php } else { ?>
+                <li class="nav-item"><div class="border-left aga-tab nav-link <?php echo $this->is_active_tabs('about_plugin'); ?>"><a href="<?php echo $this->site_url.'about_plugin'; ?>">Premium <img class="new-img-blink" src='<?php echo plugins_url('../images/new-2.gif', __FILE__ )  ?>' /></a></div></li>
+            <?php }*/ ?>
+            <li class="tvc-menu-free-plan">
+                <span>Free Plan: 500 Product sync limit</span>
+            </li>
+        </ul>
         </div>
-    <?php } ?>
-</header>
-<ul class="nav nav-tabs nav-pills" style="margin-left: 10px;margin-top:20px;">
-    <li class="nav-item">
-        <a  href="<?php echo $site_url.'general_settings'; ?>"  class="border-left aga-tab nav-link <?php echo $general_class_active; ?>">General Settings</a>
-    </li>
-    <?php if($today >= $start && $today <= $end  && $currentime <= $endtime) {?>
-        <li class="nav-item"><a href="<?php echo $site_url.'about_plugin'; ?>" class="border-left aga-tab nav-link <?php echo $advanced_class_active; ?>">Premium <img class="new-img-blink" src='<?php echo plugins_url('../images/discount.gif', __FILE__ )  ?>' /></a></li>
-    <?php } else { ?>
-        <li class="nav-item"><a href="<?php echo $site_url.'about_plugin'; ?>" class="border-left aga-tab nav-link <?php echo $advanced_class_active; ?>">Premium <img class="new-img-blink" src='<?php echo plugins_url('../images/new-2.gif', __FILE__ )  ?>' /></a></li>
-    <?php } ?>
-</ul>
+        <?php
+    }
+} ?>

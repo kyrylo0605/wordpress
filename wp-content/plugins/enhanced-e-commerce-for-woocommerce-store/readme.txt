@@ -1,89 +1,124 @@
-﻿===  Enhanced Ecommerce Google Analytics Plugin for WooCommerce ===
+===  Enhanced Ecommerce Google Analytics Plugin for WooCommerce ===
 Contributors: Tatvic
 Plugin Name: Enhanced Ecommerce for WooCommerce Store
 Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
-Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce,Web Analytics, Web Analytics For WooCommerce, e-commerce, woo-commerce,Ecommerce,WooCommerce, commerce, Wordpress Enhanced Ecommerce, WooCommerce Enhanced Ecommerce, WooCommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
+Tags: Google Analytics tracking, Dynamic Remarketing,Google Shopping,Universal Analytics tracking,Ecommerce tracking, google analytics 4 tracking, google shopping feed, E-commerce,Web Analytics, Web Analytics For WooCommerce, e-commerce, woo-commerce,Ecommerce,WooCommerce, commerce, Wordpress Enhanced Ecommerce, WooCommerce Enhanced Ecommerce, WooCommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 1.4.1
 Tested up to: 5.5
 Requires PHP: 5.6 or Higher
-Stable tag: 2.3.6.1
-Version: 2.3.6.1
+Stable tag: 3.0.1
+Version: 3.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Automates Enhanced Ecommerce tracking in Google Analytics using gtag.js for WooCommerce Store. It also enables Google analytics 4 (dual set up) so that you can start collecting ecommerce data in your newly created google analytics 4 property along with the existing universal analytics property and be ready for the next generation analytics.   
+Automates eCommerce tracking in Google Analytics and the complete Google Shopping solution with dynamic remarketing tags.
 
 == Description ==
 
-<strong>Google Analytics Plugin for WooCommerce</strong>
+###GOOGLE ANALYTICS PLUGIN FOR WOOCOMMERCE
 
-We believe it is very essential to listen to what your data is saying. With this belief, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce stores which allows businesses to make the most of the Google Analytics – Enhanced Ecommerce feature. This plugin helps you in integrating Google Analytics with your WooCommerce stores effortlessly. More than 40000+ ecommerce businesses are using this plugin for data driven decision making.
+With the mission to help global eCommerce businesses in scaling faster, we have devised Enhanced Ecommerce Google Analytics Plugin for WooCommerce. This plugin helps you in automating eCommerce tracking in Google Analytics for both the Universal Analytics (Google Analytics v3) and the Google Analytics 4 properties. 
 
-<strong>Also, compatible for newly launched Google Analytics 4 dual setup.</strong> 
+###GOOGLE SHOPPING PLUGIN FOR WOOCOMMERCE WITH DYNAMIC REMARKETING TAGS FOR ECOMMERCE EVENTS
 
-<a href="https://www.tatvic.com/contact/?utm_source=TatvicEE&utm_medium=GA4&utm_campaign=WPlisting">Need help in setting up Google Analytics 4 (Dual set up), you can reach out to us.</a> 
+With the recent release of Enhanced Ecommerce Google Analytics plugin for WooCommerce, we have introduced new features like Dynamic Remarketing tags for eCommerce events and complete Google Shopping solution features that include management of Google Merchant Center account, seamless product sync from your WooCommerce stores, linking of Google Ads and Google Merchant Center account, Smart Shopping Campaign management and Shopping Campaign reports.
+
+By connecting Google Analytics, Google Ads and Google Merchant Center account, eCommerce businesses can start making data driven decisions, re-targeting the customers based on their past site behavior and get eligible for free listing across Google to reach millions of interested shoppers across Google.
+
+The best part is NO CODING REQUIRED or NO NEED TO HIRE A DEVELOPER for the set up. You can configure the plugin under 5 minutes and with a few clicks from your Wordpress backend. <a target="_blank" href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf">Here is how you can configure the plugin without any hassle and start scaling your eCommerce business faster.</a>
+
+Create a new Google Ads account using the plugin and get a Google ads coupon upto USD 150 (amount differs based on the country you are in) on the spends you make in the first 31 days. <a target="_blank" href ="http://plugins.tatvic.com/help-center/Google-Spend-Match.pdf">See terms and condition.</a>
+
+###GOOGLE ANALYTICS + ENHANCED ECOMMERCE REPORTS
+
+Enhanced eCommerce Google analytics plugin tracks the entire user journey on your ecommerce store from home page to product views and from cart page to checkout page to thank you page.
+
+* For any eCommerce business, the most important is to know the accurate conversion %. If you know the accurate conversion % for your eCommerce store and you have the visibility on the entire eCommerce funnel, then only you can better channelize your marketing as well as UI/UX efforts to reach an optimum conversion %.
+
+* Using this plugin, you can track the performance of your merchandising efforts by monitoring how certain products are performing on home page or on product listing page and accordingly take informed merchandising decisions.
+
+* You can track which products have a greater view to cart ratio or a greater view to conversion ratio and based on the data, you can take informed pricing or product decisions and beyond.
+
+* Track users who are abandoning the cart, which products are abandoned more in the cart etc. and reach out to the users or update your product listing.
+
+* You can track how your checkout form is performing and accordingly work on the UI/UX to increase the conversion rate for your ecommerce business.
+
+* Basically, you can track each and every impression and click of product, from which page they are added to cart, how users interact with your checkout page before making the final purchase by our Enhanced ecommerce Google analytics plugin.
 
 
-The best part is NO CODING REQUIRED or no need to hire a developer for the set up. You can configure the plugin under 5 minutes and with a single click from your Wordpress backend. <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf">Here is how you can configure the plugin without any hassle.</a>
+####GOOGLE ANALYTICS + AUDIENCE REPORTS + BEHAVIOUR REPORTS + ACQUISITION REPORTS
 
-<strong>Google Analytics + Enhanced Ecommerce Reports</strong>
+* Audience reports help you in knowing your customers in a whole new way. It gives you detailed insights like from which countries your users are coming from, their age, gender, interests, devices and much more. This helps you in setting up your content and design based on the audience.
 
-Enhanced ecommerce Google analytics plugin tracks the entire user journey on your ecommerce store from home page to product views and from cart page to checkout page to thank you page.
+* Behaviour reports help you get to know how users are interacting with your website, how much time they are spending, how much they browse before making a final purchase and a whole lot more.
 
-You can track the performance of your merchandizing efforts by monitoring how certain products are performing on home page or product listing page and accordingly take informed merchandizing decisions.
+* Acquisition reports tell you which are the sources that are attributing traffic to your website, how are they performing in terms of conversion and much more so that you can channelize your efforts in better marketing ROI.
 
-You can track which products have greater view to cart ratio or greater view to conversion ratio and based on the data, you can take informed pricing or product decisions and beyond.
+###GOOGLE SHOPPING FOR WOOCOMMERCE
 
-Track users who are abandoning the cart, which products are abandoned more in the cart etc. and reach out to the users or update your product listing.
+* Get your WooCommerce products in front of the millions of shoppers across Google. 
 
-You can track how your checkout form is performing and accordingly work on the UI/UX to increase the conversion rate for your ecommerce business.
+* Opt your product data into programmes, like surfaces across Google, Shopping ads, local inventory ads and Shopping Actions, to highlight your products to shoppers across Google.
 
-Basically, you can track each and every impression and click of product, from which page they are added to cart, how user interact with your checkout page before making the final purchase by our Enhanced ecommerce Google analytics plugin.
+* Reach out to customers leaving your WooCommerce store by running smart shopping campaigns based on their past site behavior. <a target="_blank" href = "https://support.google.com/faqs/answer/2987537?hl=en">Learn more about Google Shopping</a>
 
-<strong>Google Analytics + Audience reports + Behaviour Reports + Acquisition Reports</strong>
+###HOW IT WORKS
 
-<strong>Audience reports</strong> help you in knowing your customers in a whole new way. It gives you detailed insights like from which countries your users are coming from, their age, gender, interests, devices and much more. This helps you in setting up your content and design based on the audience.
+* Step 1: Create or connect Google Merchant Center account using the plugin
 
-<strong>Behaviour reports</strong> helps you get to know how users are interacting with your website, how much time they are spending, how much they browse before making a final purchase and a whole lot more.
+* Step 2: Sync your WooCommerce products seamlessly from your wordpress backend to Merchant Center account from plugin's interface
 
-<strong>Acquisition reports</strong> tells you which are the sources that are attributing traffic to your website, how are they performing in terms of conversion and much more so that you can channelize your efforts in better marketing ROI.
+* Step 3: Link your Google Ads account with Merchant Center account for dynamic remarketing and smart shopping campaigns
 
 
 = Features of Plugin =
 
-1.   Quick & Easy 5 minutes installation from the wordpress interface
-2.   Enables 4 Enhanced Ecommerce reports in Google Analytics
-      * Shopping Behaviour Report
-      * Checkout Behaviour Report
-      * Product Performance Report
-      * Sales Performance Report
-3.   Data collection in Google Analytics 4 property in order to get ready for next generation analytics
-4.   Google Ads account linking with Google Analytics property in order to have better insights on your ad spends in Google analytics reports
-5.   Supports Guest checkout functionality
-6.   Enables Audience, Acquisition & Behavior reports in Google Analytics
-7.   Captures Product Impressions, Add to Cart & Product Clicks events on category page
-8.   Captures Product Impressions, Add to Cart & Product Clicks events on product page
-9.   Captures Product Impressions, Add to Cart & Product Clicks events on featured Product Section on Homepage
-10.  Captures Product Impressions, Add to Cart & Product Clicks events on Recent Product Section on Homepage
-11.  Captures Product Impressions, Add to Cart & Product Clicks events on Related Product Section on Productpage
-12.  Captures checkout behaviour of users in Google Analytics under Conversion > Ecommerce > Checkout behaviour report
-13.  Capture transaction/conversion information in Google analytics under Conversion > Ecommerce > Sales performance report
-14.  Set your local currency
-15.  Google Analytics Opt Out
-16.  IP Anonymization
+1. Quick & Easy 5 minutes installation from the WordPress interface
+2. Enables 4 Enhanced Ecommerce reports in Google Analytics (Google Analytics v3)
+       * Shopping Behaviour Report
+       * Checkout Behaviour Report
+       * Product Performance Report
+       * Sales Performance Report   
+       * Enables Audience, Acquisition & Behaviour reports in Google Analytics in Universal Analytics
+       * Supports Guest checkout functionality
+       * Captures Product Impressions, Add to Cart & Product Clicks events on category page
+       * Captures Product Impressions, Add to Cart & Product Clicks events on product page
+       * Captures Product Impressions, Add to Cart & Product Clicks events on featured Product Section on Homepage
+       * Captures Product Impressions, Add to Cart & Product Clicks events on Recent Product Section on Homepage
+       * Captures Product Impressions, Add to Cart & Product Clicks events on Related Product Section on Product page
+       * Captures checkout behaviour of users in Google Analytics under Conversion > Ecommerce > Checkout behaviour report
+3. Data collection in Google Analytics 4 property in order to get ready for next generation analytics
+       * eCommerce events tracking like product impressions, product clicks, product detail page view, add to cart, remove from cart, checkout steps tracking and purchase on home page, category page, product listing page, product detail page, cart page, checkout page, and order confirmation page
+4. User can select and opt for eCommerce tracking in both Universal Analytics and Google   Analytics 4 properties  
+5. Google Ads account linking with Google Analytics property in order to have better insights on your ad spends in Google analytics reports
+6. Capture transaction/conversion information in Google analytics under Conversion > Ecommerce > Sales performance report
+7. Set your local currency
+8. Google Analytics Opt Out
+9. IP Anonymization
+10. Dynamic remarketing tags automation for eCommerce events like view_item_list, view_item, add_to_cart and purchase
+11. Remarketing tags automation for all pages
+12. Create and manage Google Merchant Center Account and auto linking of Google Ads and Google Merchant Center account for smart shopping and shopping campaigns
+13. Automatic site verification and domain claim for Google Merchant Center account
+14. Seamless product sync from wordpress backend to Google Merchant Center account in order to opt for Surfaces across Google and Google Shopping.
+15. Automatic price and inventory update for your WooCommerce products to Merchant Center account
+15. Smart Shopping Campaign creation and management from Wordpress backend
+16. Shopping campaign performance dashboard
+17. Product Sync dashboard 
 
 
-<strong>Want to unlock more advanced tracking for your WooCommerce store? <a href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">Give a try to our pro version.</a></strong>
+<strong>Scale your eCommerce businesses faster by unlocking more advanced tracking and enabling complete google shopping solutions for your WooCommerce store. <a target="_blank" href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">Give a try to our pro version.</a></strong>
 
-== Features of our <a href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">pro version</a>: ==
+== Features of our <a target="_blank" href=" https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?utm_source=Wordpress&utm_medium=Listingcontent&utm_campaign=WPlisting">pro version</a>: ==
 
 * All the features included in Enhanced ecommerce Google analytics plugin
 * Additional 5 enhanced ecommerce reports in Google Analytics: Overview, product list performance report, order coupon report, Internal promotion report, product coupon report, Affiliate code report
+* Complete eCommerce tracking for google analytics 4 tracking
+* You can track both google analytics 4 and universal analytics properties for your WooCommerce store
 * Facebook pixel tracking for remarketing on FB
 * Google ads conversion tracking
-* 20 custom dimensions and metrics
+* 20 custom dimensions and metrics tracking in your google analytics properties
 * User id and client id tracking for cross device user tracking
 * Use your own GTM capability
 * Product refund tracking
@@ -91,30 +126,28 @@ Basically, you can track each and every impression and click of product, from wh
 * Content grouping
 * 404 tracking
 * Opt in/ consent compatibility with WP GDPR compliance, borlabs cookies etc.
+* Complete google shopping solution
+* Sync your WooCommerce products seamlessly in your merchant center account from your wp admin
+* Schedule automatic product feed updates
+* Google merchant center account management and creation from the wp admin
+* Link your google ads and google merchant center account
+* Create and manage smart shopping campaigns from the wp admin 
+* Smart shopping campaign reports
 * Compatibility with other widely used plugins
 * Child theme compatibility
 * Premium support
+* Free GA audit
+* Personalised data studio reports for your eCommerce business (Paid)
+* CRO consulatation (Boost your eCommerce conversation with proven hypothesis) (Paid)
 * 1 hour custom development
 * Customization as per your requirements(Paid)
 
-<strong><a href="https://www.tatvic.com/contact/?utm_source=TatvicEE&utm_medium=InstallationDoc&utm_campaign=WPlisting">Reach out to us with your query here for a faster solution.</a></strong>
+<strong><a target="_blank" href="https://www.tatvic.com/contact/?utm_source=TatvicEE&utm_medium=InstallationDoc&utm_campaign=WPlisting">Reach out to us with your query here for a faster solution.</a></strong>
 
 
 == Note For Beginners : ==
 
-<strong> How to dual setup (Universal Analytics + Google Analytics 4) property? </strong>
-
-1. Open your existing universal analytics property.
-2. Go to Admin and create a new property. The newly created property will be Google Analytics 4 property.
-3. At the time of creating a new Google analytics 4 property, you will be asked to create a data stream. Create a new data stream and copy the Measurement id from it.
-4. Go to your existing Universal analytics property >> Admin >> Tracking info >> Tracking code.
-5. Scroll down and you will see "connected site tags" option. Click on connected site tags.
-6. Create a new site tag by pasting the measurement id that you have created in step 3.
-7. Your dual set up is now complete and data will start flowing in both the universal analytics property and google analytics 4 property.
-
-<strong>* Google analytics 4 data collection by this plugin is still in beta and it is advisable that you keep using your Universal Analytics set up for all the insight generation. At the same time, set up new Google Analytics 4 property and connect with your existing universal analytics property. Observe data in Google Analytics 4 propoerty for sometime and when confident you can choose to completely migrate to Google Analytics 4. </strong>
-
-== Our plugin does not support the below features out of the box ==
+== Our plugin does not support Google Analytics tracking for the below features out of the box ==
 
 * Highly Customized store
 * Product types other than Simple Product
@@ -125,29 +158,63 @@ Basically, you can track each and every impression and click of product, from wh
 
 == Screenshots ==
 
-1. Enable Enhanced E-commerce for your profile/view. This is a profile / view level setting and can be accessed under Admin > View > E-commerce Settings. Also, add meaningful labels for your checkout steps. We recommend you to label as, Step 1 : Checkout View; Step 2 : Login; Step 3 : Proceed to payment;
-
-2. Next, you need to activate your plugin from the Settings page by clicking the checkbox – “Add Enhanced Ecommerce Tracking Code". You can access the same from: Tatvic EE Plugin > Enhanced Ecommerce for WooCommerce.
-
-3. To Track Guest Users, Check the box – Add Code to Track the Login Steps of Guest Users. If you have a Guest Check out & if it’s Unchecked, then it might cause an uneven funnel reporting in Google Analytics.
+1. This is the main settings page of the plugin from where you can sign in to connect your Google Analytics, Google Ads and Google Merchant Center account.
+2. You can select the type of Google Analytics account you want to tag your website with. You can choose Universal analytics property, Google Analytics 4 property or both and eCommerce tracking in your website will be enabled.
+3. Select existing Google Ads or create a new Google Ads account from here. Once you select Google Ads account from here, your website will start collecting dynamic remarketing tags for all the important eCommerce events in your Google Ads account. Also, your Google Analytics and Google Merchant Center accounts will be linked with selected Google Ads accounts so that you have better insights in your Google Analytics and you can start running Smart shopping campaigns.
+4. Select existing Google Merchant Center or create a new Google Merchant Center account to verify the site and to claim the domain for your Merchant center account approval and Opt your product data into programmes, like surfaces across Google, Shopping ads, local inventory ads and Shopping Actions, to highlight your products to shoppers across Google.
+5. Product sync dashboard when no products are synced to your Google Merchant center account.
+6. Map your WooCommerce product categories with Google Merchant center categories
+7. Map your WooCommerce product attributes with Google Merchant center product attributes to sync/add/update products in your Merchant Center account from Wordpress backend.
+8. Product sync dashboard when the products are synced in your merchant center account.
+9. Create a smart shopping campaign by filling two details once you connect your Google Ads and Google Merchant center accounts A Campaign name B Daily budget.
+10. Google Analytics 4 dashboard 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to eCommerce events.
+11. Google Analytics 4 dashboard 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to eCommerce events.  
+12. Google Analytics 4--> Monetization 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to eCommerce events.  
+13. Google Analytics 4--> Monetization 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to eCommerce events.   
+14. Google Analytics 4 Monetization --> Ecommerce purchases Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Ecommerce purchases. The plugin captures all the data points related to eCommerce events.  
+15. Universal Analytics dashboard 1 Once you connect Google Analytics (Universal Analytics) property from the plugin, your WooCommerce store's data will look like this in your Google Analytics dashboard. The plugin captures all the data points related to eCommerce events.
+16. Universal Analytics-->Conversion-->Ecommerce-->Overview Your Google Analytics account will start reflecting data as shown in the screenshot.
+17. Universal Analytics-->Conversion-->Ecommerce-->Shopping Behavior Your Google Analytics account will start reflecting data as shown in the screenshot.
+18. Universal Analytics-->Conversion-->Ecommerce-->Sales Performance Your Google Analytics account will start reflecting data as shown in the screenshot. This report shows you data related to purchase events that are triggered on your WooCommerce shop.
+19. Universal Analytics-->Conversion-->Ecommerce-->Product Performance Your Google Analytics account will start reflecting data as shown in the screenshot. This report shows you data related to products that are triggered on your WooCommerce shop.
+20. Universal Analytics-->Conversion-->Ecommerce-->Checkout Behavior Your Google Analytics account will start reflecting data as shown in the screenshot. This report shows you how users are navigating to your checkout.
 
 == Frequently Asked Questions ==
 
+=  What is google shopping and how does it work? =
+
+Google Shopping helps sellers make their shops and products available for millions of users across Google.Google Shopping is a new product discovery experience. The goal is to make it easy for users to research purchases, find information about different products, their features and prices, and then connect with sellers to make their purchase. Google Shopping enables users to view product information from the sellers that is updated on a regular basis by sellers. Online retailers submit feeds containing product information to Google Shopping. Since this product information comes directly from the seller, this means we’re able to show the current prices, latest offers and current product availability. Hence, Google Shopping helps eCommerce businesses find more customers to their websites.
+
+= How do sellers enroll for Google Shopping? =
+
+Create Merchant Center Account: Once you have an account open, verify important details like your business and contact information.
+Upload your products: Prepare your product info to submit through a feed, or automatically sync your product data from e-commerce shop
+Show your products across Google: Opt your product data into programmes, like surfaces across Google, Shopping ads, local inventory ads and Shopping Actions, to highlight your products to shoppers across Google. 
+Our plugin helps WooCommerce shop owners in automating everything that is required to get eligible for Google Shopping.  You do not need to get into any technicalities, the plugin will take care of all in most of the cases. 
+
+= What is google merchant center? =
+
+Google Merchant Center helps millions of people discover, explore, and buy your products. With its family of features and deep reporting tools, it brings you different ways to get the right products to the right customers. In simpler words, in order to start using Google Shopping benefits you need to create a Google Merchant center account and fill your basic business information before you start uploading your product data for Google Shopping. 
+ 
+= What is Google Analytics4? =
+
+Google Analytics4 is a completely new avatar of Google Analytics that uses event driven data model designed to capture data from your webstore and mobile applications. The reports generated in Google Analytics4 are based on new data model introduced.
+
+= Can I use the plugin only for Google Analytics4 tracking? =
+
+"Yes, you can use the plugin for Google Analytics4 tracking. However, we suggest to enable the tracking for UA and GA4, both as Google recommends to use the Universal Analytics inorder to be sure about the tracked data in GA4. Further, you can monitor the data in Universal Analytics & Google Analytics4 and when you are sure about the correct data collection in GA4 then you can completely migrate."
+
+= How can I create Universal Analytics(Google Analytics3) property id in new Google Analytics account? =
+
+Navigate to <a href="https://prnt.sc/vy4j1i">Admin -> Create Property -> click 'Show advanced options</a> in your Google Analytics account and create a new UA- property id under the Advanced Options.
+
 = Where can I find the setting for this plugin? =
 
-This plugin will add the settings to the Integration tab, to be found in the WooCommerce > Settings menu.
-
-= Does this conflict with the WooCommerce? =
-
-Starting the WooCommerce 2.1 release there are no conflicts. However for earlier the plugin might conflict with the default Google Analytics integration for WooCommerce.
-
-= Getting Error After Updating with the Latest version of the Plugin 2.1.0 =
-
-We have done the Major updates with the latest version so first you need to deactivate & delete the older version & add the latest version of the plugin again.
+Once the plugin is activated, the <a href="https://prnt.sc/10jpyh6">Settings option</a> can be found under the plugin - "Enhanced E-commerce for Woocommerce store" listed in the installed plugins.
 
 = Do I Need to add any custom code for it? =
 
-As our plugin automatically tracks all the Enhanced Ecommerce data ( including product name, price, etc dynamically) for your store, you don't need to add any custom/manual code to trackEcommerce events on your store from your end.
+No, as our plugin automatically inserts the GA tracking code and tracks all the Enhanced Ecommerce data on your store. So, you don’t need to add any custom/manual code to track Ecommerce events.
 
 = Does this plugin match with GDPR compliance? =
 
@@ -157,43 +224,42 @@ Yes, our plugin is under GDPR compliance. For more information, read the <a href
 
 If you are facing this issue, please check if you have configured auto return in PayPal settings.  Configuring auto return will resolve your issue. Here’s a PayPal <a href="https://www.paypal.com/in/cgi-bin/webscr?cmd=p/mer/express_return_summary-outside" target="_blank">documentation</a> & WooCommerce <a href="http://docs.woothemes.com/document/paypal-standard/#section-5" target="_blank">documentation</a> on understanding & setting up Auto Return.
 
-In case you have already configured auto return for your store, we request you to create a new support thread <a href="https://wordpress.org/support/plugin/enhanced-e-commerce-for-woocommerce-store" target="_blank">here</a> & reach out to us.
+In case you have already configured auto return for your store and facing the issue then you could <a href="https://www.tatvic.com/contact/">reach out to us</a>
 
 = I’ve install the plugin but I do not see any data in my GA =
 
-Following are one or more reasons:
+"Following are one or more reasons: 
 
-* Please make sure that you have Enabled Enhanced Ecommerce setting in your GA Account. Check out the Step 1 of this <a href="http://www.tatvic.com/blog/enhanced-ecommerce/#steps" target="_blank">blogpost</a>.
+(1) You need to make sure that you have enabled Enhanced Ecommerce setting in your GA Account. If you have not enabled then follow the below steps:
 
-* If you have just installed our plugin, then please wait for at-least 24 hours before you 	start seeing any data in your GA. If you still face this issue after 24 hours, please reach out to us via <a href="https://wordpress.org/support/plugin/enhanced-e-commerce-for-woocommerce-store" target="_blank">support thread</a>.
+-> Go to Admin section of your Google Analytics Account
+-> In the view section, click on Ecommerce Settings
+-> Switch on the Enhanced Ecommerce Settings button
 
-= Since I have Implemented GA Script (UA tag) Via GTM, I didn't enable Add Global site Tracking Code option, but seems that it is not working. =
 
-When you have the UA script/tag implemented via your GTM, it may happen sometimes that the script might take/make any delay in loading on your store, due to which our plugin may not work well on your store.
+Note: If you do not see the above setting, it means that you are still on the waiting list and you may have to wait till Google rolls out this for your web property
 
-Reason :
-
-* Our Plugin's script works/fetches the data based on the GTAG's default tracker ('gtag' in the case of Universal Analytics script used in our plugin). While you implement the UA tracking script from your GTM, the script in your store may not be able to initialize the tracker, which in turn will hinder the plugin from populating insights in your Analytics account.
+(2) If the Enhanced Ecommerce setting is enabled in your GA and you have just installed our plugin, then please wait for at-least 24 hours before you start seeing any data in your GA. If you still face this issue after 24 hours, please <a href="https://www.tatvic.com/contact/">reach out to us</a>."
 
 = Does your plugin supports new Global Site Tag (gtag.js)? =
 
-Yes our plugin supports new Global Site Tag (gtag.js).
+Yes our plugin supports the new Global Site Tag (gtag.js).
 
 = Since I have Implemented Old GA Script (UA Script) Manually in my store, I didn't enable Add Global site Tracking Code option gtag.js, but seems that it is not working. =
 
-When you have the Old UA script implemented Manually in your store, it is not working with our plugin.
+"When you have the UA script/tag implemented via your GTM, it may happen sometimes that the script might take/make any delay in loading on your store and due to which our plugin may not work well on your store.
 
 Reason :
 
-* Our Plugin's script works/fetches the data based on the GTAG's default tracker ('gtag' in the case of Universal Analytics script used in our plugin). While you implement the Old UA tracking script manually, the script in your store may not be able to initialize the tracker, which in turn will hinder the plugin from populating insights in your Analytics account.
+Our Plugin’s script works/fetches the data based on the GTAG’s default tracker (‘gtag’ in the case of Universal Analytics script used in our plugin). While you implement the UA tracking script from your GTM, the script in your store may not be able to initialize the tracker, which in turn will hinder the plugin from populating insights in your Analytics account."
 
 = Where I can see my all Enhanced Ecommerce Reports (Eg. Sales Report,Product Performance Report)? =
 
-You can Find all The Enhanced Ecommerce Reports in your Analytics Account under Conversions --> Ecommerce.
+You can find all the Enhanced Ecommerce Reports in your Analytics Account under the Reports -> Conversions –> Ecommerce section.
 
 = Products with variant not getting recorded in GA =
 
-Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
+Currently our plugin does not support products with variants & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Google Ads Conversion Tracking? =
 
@@ -207,26 +273,26 @@ The free version of our plugin does not provide Facebook Pixel Tracking feature.
 
 The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
 
-= I have noticed that some transactions are missing in my GA account, compared to my WooCommerce backend (Orders) =
+= Why some transactions are missing in my GA account, compared to my WooCommerce backend (Orders) =
 
-Possible reasons for not getting the accurate Transactions (in sales performance report) are as below :
+Possible reasons for not getting the accurate Transactions (in sales performance report of GA) are as below :
 
-* If a user completes the transaction via a 3rd party payment gateway and is not redirected back to your store’s thank you page.
+- If a user completes the transaction via a 3rd party payment gateway and is not redirected back to your store’s thank you page.
 
-* If any javascript error is detected on the "thank you" page of your store which may restrict plugin's code to get executed further.
+- If the thankyou page URL structure is not as per the standard WooCommerce implementation. The standard thankyou page URL structure should be like: www.domain.name/checkout/order-received/99999/?key=wc_order_XXXXXXXXXXXXX
 
-* Some browsers and common ad blocking programs block certain JavaScripts
-(including GA's script), which means Google Analytics is unable to record transactions.
+- If any javascript error is detected on the “thank you” page of your store which may restrict plugin’s code to get executed further.
 
-* The user has left the page before the transaction has had a chance to send to Google Analytics.
+- Some browsers and common ad blocking programs block certain JavaScripts
+(including GA’s script), which means Google Analytics is unable to record transactions.
 
-Additionally, GA is a trend analysis tool, and as such cannot be expected to be 100% accurate. However, if the variance is greater than 10-12%, there might be an issue with the coding!
+- The user has left the page before the transaction has had a chance to send to Google Analytics.
 
-= My Ecommerce transaction data are not getting recorded in GA =
+Additionally, GA is a trend analysis tool, and as such cannot be expected to be 100% accurate. However, if the variance is greater than 10-12%, there might be an issue with the coding!"
 
-Please check if you have auto return configured in your payment gateway settings. If a user completes the transaction via a 3rd party payment gateway and is not redirected back to your store’s thank you page, our plugin will not be able to send the transaction data.
+= Why my Ecommerce transaction data are not getting recorded in GA? =
 
-Hence, this may result into missing transaction data in your GA. You can resolve this issue by configuring auto return in your payment gateway settings.
+User needs to check if you have auto return configured in your payment gateway settings. If a user completes the transaction via a 3rd party payment gateway and is not redirected back to your store’s thank you page, our plugin will not be able to send the order transaction data. Hence, this may result into missing order transaction data in your GA. You can resolve this issue by configuring auto return in your payment gateway settings.
 
 = Does this plugin help me create/configure goals/funnels in my GA account? =
 
@@ -236,34 +302,78 @@ Configuring goals are out of the scope of our plugin. Our plugin is designed to 
 
 Our existing plugin does not track product refund data, however you can buy our <a href="https://1.envato.market/Yvn3R" target="_blank">premium plugin</a> to get access to product Refund data 
 
-= Does your plugin supports Multilingual Wordpress site? =
+= Does your plugin support a Multilingual Wordpress site? =
 
-Our plugin does not support Multilingual Wordpress site.
+Our plugin does not support a Multilingual Wordpress site.
 
 = Does your plugin supports Child/Custom Theme? =
 
 The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at analytics2(at)tatvic(dot)com.
 
-= Have you Provided Full support for the free version plugin? =
+= Does Tatvic provide full support for the free version plugin? =
 
 We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at analytics2(at)tatvic(dot)com.
 
-= How to verify if you have implemented the Plugin well? =
+= How to verify if I have implemented the plugin well? =
 
-To verify if you have implemented the plugin well, just log in to your Google Analytics account & check if the data is coming well in your Enhanced Ecommerce Reports.
+User can install and activate the dataslayer extension available for Chrome(<a href="https://chrome.google.com/webstore/detail/dataslayer/ikbablmmjldhamhcldjjigniffkkjgpo">link</a>) and Firefox(<a href="https://addons.mozilla.org/en-US/firefox/addon/dataslayer-firefox/">link</a>) browsers and can see the tracked data under a new 'dataslayer' tab that appears in the Developer tools. Here is the <a href="https://prnt.sc/10jqc64">screenshot link</a> for reference.
 
 = How much time will it take to see the data in Google Analytics? =
 
-It generally depends upon the traffic of the store. But in general it may take max up to 24 hours & min 4 hours to see the data in Google Analytics.
+It generally depends upon the store traffic. But in general it may take max up to 24 hours & min 4 hours to see the data in Google Analytics.
 
-= Why the plugin does not sent data when I am logged in as Admin? =
+= Why does the plugin not send data when I am logged in as an Admin? =
 
-To avoid sending your own transaction data or sessions data in Google Analytics, our plugin doesn't sent the data to GA when you are logged in. Having said, if you are logged in as Shop Manager, plugin will send the data to GA.
+To avoid sending your own transaction data or session data in Google Analytics, our plugin doesn't send the data to GA when you are logged in. Having said that, if you are logged in as a Shop Manager, plugin will send the data to GA.
 
+= The tracking via the plugin doesn't work as I am getting 'gtag.js not defined' error in the console? =
+
+The error occurs because the gtag snippet for GA tracking snippet is missing on the store.
+
+And the most probable cause it is the option “Add Global Site Tracking Code ‘gtag.js' under the configuration settings of the plugin is unchecked.You need to check this option to resolve the error and the tracking via the plugin would start working.
+
+= Can I use my own GTM with this plugin? =
+
+User can use his own GTM, provided the data which the plugin tracks should not be tracked by the custom tags and triggers and if such tags and triggers are their then please remove them to prevent the data duplication issue.
+
+= Why some eCommerce steps(like Add_To_Cart, Product_View etc.) on my store are not getting tracked? =
+
+The following are general reason due to which the tracking may not be working at some eCommerce steps: 
+
+* If the eCommerce steps do not follow the standard WooCommerce implmentation and were implemented via a custom child theme. Our plugin works completely when all the eCommerce steps in a store follow the standard WooCommerce implementation.
+
+* If there is/are of jQuery error(s) in the console. Occurance of jQuery error blocks the loading of GA tracking snippet via the plugin.
+
+* If there is js minification implemented using a cache plugin. The js minification blocks the loading of GA tracking snippet via the plugin.
+
+= Why some or all data are getting duplicated on my store? =
+
+There could be duplicate tracking via manually implemented GA tracking snippet and/or other GA tracking plugin and/or GTM implementation. 
+
+You can resolve the duplication of data by removing the manually implemented GA tracking snippet and/or other GA tracking plugin. The duplication of tracking via GTM can be resolved by removing the custom tags and triggers which track the duplicate data
 
 
 
 == Changelog ==
+
+= 3.0.1 - 12/03/2021 =
+ * Bug fixes
+ * Performance improvement
+ * Site speed issue got resolved.
+
+= 3.0 - 08/03/2021 =
+ * We have been working on this release for the last few months and we are happy to announce the release of highly demanded features by you. The major features include stand alone GA 4 tracking, automation of dynamic remarketing tags for eCommerce events and complete google shopping solution.
+ * With this release users will be able to do stand alone Google Analytics 4 tracking for eCommerce events
+ * eCommerce businesses can now select both universal analytics and google analytics 4 properties for eCommerce tracking
+ * Users can now enable google ads remarketing tags on all pages
+ * User can opt for dynamic remarketing tags automation for all major eCommerce events like view_item_list, view_item, add_to_cart, purchase
+ * We are introducing complete google shopping solution that includes google merchant center account management, google ads account linking with google merchant center, seamless product sync from WooCommerce store to google merchant center account, smart shopping campaign creation and management, smart shopping campaign reports so that eCommerce businesses can reach millions of shoppers across Google.
+ * The google shopping solution is complemented with dynamic remarketing tags for eCommerce businesses, so you can instantly start running smart shopping campaigns to re target the users based on the past site behavior
+ * Automatically verifies site and claims domain for Merchant center approval
+ * Seamless product sync from WooCommerce store to Google Merchant Center and Opt your product data into programmes, like surfaces across Google (Free listing for Shopping tab under Google Search), Shopping ads, local inventory ads and Shopping Actions, to highlight your products to shoppers across Google.
+ * Create a new google ads account using this plugin and get free coupon on the spends you do for first 31 days (Coupon amount depends on the country from which you are creating the google ads account)
+ * Compatibility with WooCommerce 5.0.0
+
 
 = 2.3.6.1 - 26/10/2020 =
  * Compatibility with WooCommerce 4.6.1
@@ -460,3 +570,4 @@ To avoid sending your own transaction data or sessions data in Google Analytics,
 
 = 1.0 - 25/06/2014 =
  * Initial release
+

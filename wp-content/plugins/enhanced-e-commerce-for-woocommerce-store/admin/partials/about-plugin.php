@@ -22,8 +22,8 @@ $endtime = $obj->end_time();
         color:green;
     }
 </style>
-<div class="container">
-    <div class="row" style="margin-left:-11%; !important;">
+<div class="container-fluid">
+    <div class="row">
         <div class= "col col-9">
             <div class="card mw-100" style="padding:0;">
                 <?php $message->show_message();?>

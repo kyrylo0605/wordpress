@@ -1,0 +1,118 @@
+[
+    {
+        "field": "id",
+        "required": 1,
+        "desc": "Your product’s unique identifier",
+        "wAttribute": "ID"
+    },
+    {
+        "field": "title",
+        "required": 1,
+        "desc": "Your product’s name",
+        "wAttribute": "post_title"
+    },
+    {
+        "field": "description",
+        "required": 1,
+        "desc": "Your product’s description",
+        "wAttribute": "post_excerpt"
+    },
+    {
+        "field": "link",
+        "desc": "Your product’s landing page",
+        "required": 1
+    },
+        {
+        "field": "image_link",
+        "required": 1,
+        "desc": "The URL of your product’s main image",
+        "wAttribute": "_wp_attached_file"
+    },
+    {
+        "field": "price",
+        "required": 1,
+        "desc": "Your product’s price",
+        "wAttribute": "_sale_price"
+
+    },
+    {
+        "field": "gtin",
+        "desc": "Your product’s Global Trade Item Number (GTIN). Required for all new products with an assigned GTIN.",
+        "wAttribute": "tvc_product_gtin"
+    },
+    {
+        "field": "mpn",
+        "desc": "Your product’s Global Trade Item Number (GTIN). Required for all new products with an assigned GTIN.",
+        "wAttribute": "tvc_product_mpn"
+    },
+    {
+        "field": "offer_id",
+        "required": 1,
+        "desc": "offer id",
+        "wAttribute": "ID"
+    },
+    {
+        "field": "brand",
+        "desc": "Your product’s brand name",
+        "wAttribute": "tvc_product_brand"
+    },
+    {
+        "field": "availability",
+        "desc": "Your product's availability",
+        "wAttribute": "_stock_status"
+    },
+    {
+        "field": "item_group_id",
+        "desc": "ID for a group of products that come in different versions (variants)"
+    },
+    {
+        "field": "sizes",
+        "desc": "Your product’s size"
+    },
+    {
+        "field": "color",
+        "desc": "Your product’s color(s)"
+    },
+    {
+        "field": "age_group",
+        "desc": "The demographic for which your product is intended"
+    },
+    {
+        "field": "gender",
+        "desc": "The gender for which your product is intended"
+    },
+    {
+        "field": "condition",
+        "desc": "The condition of your product at time of sale"
+    },
+    {
+        
+        "field": "shipping",
+        "desc": "Your product's shipping cost and the locations your product ships to"
+    },
+    {
+        
+        "field": "tax",
+        "desc": "Your product’s sales tax rate in percent"
+    },
+    {
+        "field": "product_type",
+        "desc": "Product category that you define for your product"
+    },
+    {
+        "field": "google_product_category",
+        "desc": "product category"
+    },
+    {
+        "field": "content_language",
+        "desc": "content language"
+    },
+    {
+        "field": "target_country",
+        "desc": "Country for Google Shopping Listing"
+    },
+    {
+        "field": "channel",
+        "desc": "channel"
+    }
+]
