@@ -33,6 +33,31 @@ class GoogleShoppingFeed {
       </div>
     </li>';
   }
+  public function configuration_error_list_html($title, $val){
+    if($this->subscriptionId != ""){
+      return '<li>
+        <div class="row">
+          <div class="col-7 col-md-7 col-lg-7 align-self-center pr-0">
+              <span class="text">'.$title.'</span>
+          </div>
+          <div class="col-5 col-md-5 col-lg-5 align-self-center text-right">
+              <div class="list-image"><img id="refresh_domain_claim" onclick="call_domain_claim();" src="'. ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png"><img src="' . ENHANCAD_PLUGIN_URL.'/admin/images/exclaimation.png" alt="no-config-success"/></div>
+          </div>
+        </div>
+      </li>';
+    }else{
+      return '<li>
+        <div class="row">
+          <div class="col-7 col-md-7 col-lg-7 align-self-center pr-0">
+              <span class="text">'.$title.'</span>
+          </div>
+          <div class="col-5 col-md-5 col-lg-5 align-self-center text-right">
+              <div class="list-image"><img src="' . ENHANCAD_PLUGIN_URL.'/admin/images/exclaimation.png" alt="no-config-success"/></div>
+          </div>
+        </div>
+      </li>';
+    }
+  }
   public function create_form() {
     $googleDetail = [];
     $google_detail = $this->TVC_Admin_Helper->get_ee_options_data();
@@ -117,10 +142,15 @@ class GoogleShoppingFeed {
                         </div>
                         <div class="card-body">
                           <ul class="list-unstyled"><?php 
-                            echo $this->configuration_list_html("Google merchant center",(isset($googleDetail->google_merchant_center_id))?$googleDetail->google_merchant_center_id:"")
-                            .$this->configuration_list_html("Site Verified",((isset($googleDetail->is_site_verified)))?$googleDetail->is_site_verified:"")
-                            .$this->configuration_list_html("Domain claim",((isset($googleDetail->is_domain_claim)))?$googleDetail->is_domain_claim:"")
-                            .$this->configuration_list_html("Google Ads linking",((isset($googleDetail->google_ads_id)))?$googleDetail->google_ads_id:"");
+                          $is_domain_claim = (isset($googleDetail->is_domain_claim))?$googleDetail->is_domain_claim:"";
+                            echo $this->configuration_list_html("Google merchant center",(isset($googleDetail->google_merchant_center_id))?$googleDetail->google_merchant_center_id:"");
+                            echo $this->configuration_list_html("Site Verified",(isset($googleDetail->is_site_verified))?$googleDetail->is_site_verified:"");
+                            if($is_domain_claim ==1){
+                              echo $this->configuration_list_html("Domain claim",$is_domain_claim);
+                            }else{
+                              echo $this->configuration_error_list_html("Domain claim",$is_domain_claim);
+                            }
+                            echo $this->configuration_list_html("Google Ads linking",((isset($googleDetail->google_ads_id)))?$googleDetail->google_ads_id:"");
                             ?>
                             </ul>
                         </div>
@@ -190,6 +220,26 @@ class GoogleShoppingFeed {
 	</div>
 </div>
 <script type="text/javascript">
+  function call_domain_claim(){
+    var tvs_this = event.target;
+    $("#refresh_domain_claim").css("visibility","hidden");
+    $(tvs_this).after('<div class="domain-claim-spinner tvc-nb-spinner" id="domain-claim-spinner"></div>');
+    jQuery.post(myAjaxNonces.ajaxurl,{
+      action: "tvc_call_domain_claim",
+      apiDomainClaimNonce: myAjaxNonces.apiDomainClaimNonce
+    },function( response ){
+      var rsp = JSON.parse(response);    
+      if(rsp.status == "success"){        
+        alert(rsp.message);
+        location.reload();
+        //$(tvs_this).after('<span id="tvc_msg">'+rsp.message+"</span>");
+        //setTimeout(function(){ $("#tvc_msg").remove(); location.reload();}, 4000);
+      }else{
+        alert(rsp.message);
+      }
+      $("#domain-claim-spinner").remove();
+    });
+  }
   function call_tvc_api_sync_up(){
     var tvs_this = event.target;
     $("#tvc_msg").remove();

@@ -3,7 +3,7 @@
 /*
 Plugin Name: FooGallery
 Description: FooGallery is the most intuitive and extensible gallery management tool ever created for WordPress
-Version:     1.9.53
+Version:     1.10.3
 Author:      FooPlugins
 Plugin URI:  http://fooplugins.com/foogallery/
 Author URI:  http://fooplugins.com
@@ -25,7 +25,7 @@ if ( function_exists( 'foogallery_fs' ) ) {
         define( 'FOOGALLERY_PATH', plugin_dir_path( __FILE__ ) );
         define( 'FOOGALLERY_URL', plugin_dir_url( __FILE__ ) );
         define( 'FOOGALLERY_FILE', __FILE__ );
-        define( 'FOOGALLERY_VERSION', '1.9.53' );
+        define( 'FOOGALLERY_VERSION', '1.10.3' );
         define( 'FOOGALLERY_SETTINGS_VERSION', '2' );
         require_once FOOGALLERY_PATH . 'includes/constants.php';
         // Create a helper function for easy SDK access.
@@ -135,11 +135,12 @@ if ( function_exists( 'foogallery_fs' ) ) {
                     new FooGallery_Public();
                 }
                 
+                //initialize the thumbnail manager
+                new FooGallery_Thumb_Manager();
                 new FooGallery_Shortcodes();
                 new FooGallery_Thumbnails();
                 new FooGallery_Attachment_Filters();
                 new FooGallery_Retina();
-                new FooGallery_WPThumb_Enhancements();
                 new FooGallery_Animated_Gif_Support();
                 new FooGallery_Cache();
                 new FooGallery_Common_Fields();
@@ -150,7 +151,7 @@ if ( function_exists( 'foogallery_fs' ) ) {
                 new FooGallery_Upgrade();
                 new FooGallery_Compatibility();
                 new FooGallery_Extensions_Compatibility();
-                new FooGallery_Default_Crop_Position();
+                new FooGallery_Crop_Position();
                 new FooGallery_ForceHttps();
                 $checker = new FooGallery_Version_Check();
                 $checker->wire_up_checker();

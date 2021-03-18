@@ -97,7 +97,7 @@ class TVC_Tabs {
                 <li class="nav-item"><div class="border-left aga-tab nav-link <?php echo $this->is_active_tabs('about_plugin'); ?>"><a href="<?php echo $this->site_url.'about_plugin'; ?>">Premium <img class="new-img-blink" src='<?php echo plugins_url('../images/new-2.gif', __FILE__ )  ?>' /></a></div></li>
             <?php }*/ ?>
             <li class="tvc-menu-free-plan">
-                <span>Free Plan: 500 Product sync limit</span>
+                <span>Free Plan: 500 Product's sync limit</span>
             </li>
         </ul>
         </div>

@@ -316,7 +316,7 @@ Get richer data in the Analytics Multi-Channel Funnels reports."></i></label>
                                 <td>
                                     <label  class = "align-middle">
                                         <?php $ga_PrivacyPolicy = !empty($data['ga_PrivacyPolicy']) ? 'checked' : ''; ?>
-                                        <input type="checkbox" onchange="enableSubmit();" name="ga_PrivacyPolicy" id="ga_PrivacyPolicy" required="required" <?php echo $ga_PrivacyPolicy; ?>>
+                                        <input type="checkbox" name="ga_PrivacyPolicy" id="ga_PrivacyPolicy" required="required" <?php echo $ga_PrivacyPolicy; ?>>
                                         <label for="ga_PrivacyPolicy">Accept Privacy Policy of Plugin</label>
                                         
                                         <p class="description">By using Tatvic Plugin, you agree to Tatvic plugin's <a href= "https://www.tatvic.com/privacy-policy/?ref=plugin_policy&utm_source=plugin_backend&utm_medium=woo_premium_plugin&utm_campaign=GDPR_complaince_ecomm_plugins" target="_blank">Privacy Policy</a></p>
@@ -355,11 +355,8 @@ Get richer data in the Analytics Multi-Channel Funnels reports."></i></label>
                         </div>
                         <div class="modal-footer">
                             <a target="_blank" class="ee-oauth-container btn darken-4 white black-text" href="<?=esc_url($this->url)?>" style="text-transform:none; margin: 0 auto;">
-                                <div class="left">
-                                    <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in"
-                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                </div>
-                                <p style="font-size: inherit; margin-top:5px; margin-right:8px; ">Sign In With Google</p>
+                                <p style="font-size: inherit; margin-top:5px;"><img width="20px" style="margin-right:8px" alt="Google sign-in"
+                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Sign In With Google</p>
                             </a>
                             <!--sigin with google end-->
                         </div>

@@ -6,10 +6,10 @@ Tags: Google Analytics tracking, Dynamic Remarketing,Google Shopping,Universal A
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 1.4.1
-Tested up to: 5.5
+Tested up to: 5.7
 Requires PHP: 5.6 or Higher
-Stable tag: 3.0.1
-Version: 3.0.1
+Stable tag: 3.0.2
+Version: 3.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,14 @@ You can resolve the duplication of data by removing the manually implemented GA 
 
 
 == Changelog ==
+
+= 3.0.2 - 17/03/2021 =
+ * Product sync feature enhancement - Users can now map upto 25 product attributes which will help them opt for enhanced listing in Google search/Shopping
+ * Auto check on the attributes like id, product title, product description, product link, image link, offer id, price, target country, content language, google merchant center category, sale price, availability, color, size, item_group_id. User does not need to worry about these attributes, the plugin will manage it in the back end when you opt for product syncing
+ * Variable products are fully supported for 4 attributes - color, size, gender, age group.
+ * Auto fetch of variable products data while syncing products into merchant center account
+ * In case the domain claim fails, user can now manually claim website from plugin's interface by visiting Google Shopping tab
+ * Some users raised a undefined index notice in version 3.0.1 that is resolved in this version.
 
 = 3.0.1 - 12/03/2021 =
  * Bug fixes

@@ -78,7 +78,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
             wp_register_style('aga_confirm', '//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css');
             wp_enqueue_style('aga_confirm');
            
-            wp_enqueue_style('custom-css', ENHANCAD_PLUGIN_URL . '/includes/setup/css/custom-style.css', array(), $this->version, 'all' );
+            wp_enqueue_style('custom-css', ENHANCAD_PLUGIN_URL . '/admin/css/custom-style.css', array(), $this->version, 'all' );
             if($this->is_current_tab_in(array('sync_product_page','gaa_config_page'))){
                 wp_register_style('plugin-select2',ENHANCAD_PLUGIN_URL . '/includes/setup/plugins/select2/select2.min.css');
                 wp_enqueue_style('plugin-select2');
@@ -104,7 +104,6 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
         $screen = get_current_screen();
         if ($screen->id == 'toplevel_page_enhanced-ecommerce-google-analytics-admin-display' || (isset($_GET['page']) && $_GET['page'] == 'enhanced-ecommerce-google-analytics-admin-display')) {
 
-            wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sweetalert.min.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( 'custom-jquery', ENHANCAD_PLUGIN_URL . '/admin/js/jquery-3.5.1.min.js', array( 'jquery' ), $this->version, false );
             wp_register_script('popper_bootstrap', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js');
             wp_enqueue_script('popper_bootstrap');
@@ -114,7 +113,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
             wp_enqueue_script('aga_bootstrap_mod');
             wp_register_script('aga_confirm_js', '//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js');
             wp_enqueue_script('aga_confirm_js');
-            wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/enhanced-ecommerce-google-analytics-admin.js', array('jquery'), $this->version, false);
+           // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/enhanced-ecommerce-google-analytics-admin.js', array('jquery'), $this->version, false);
             if($this->is_current_tab_in(array('sync_product_page','gaa_config_page'))){
                 wp_register_script('plugin-select2',ENHANCAD_PLUGIN_URL . '/includes/setup/plugins/select2/select2.min.js');
                 wp_enqueue_script('plugin-select2');

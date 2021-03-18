@@ -962,7 +962,9 @@ if ( ! class_exists( 'TVC_Queries' ) ) :
         }
 
         public function getTablePostMeta($post_id) {
-            return $this->_wpdb->get_results("SELECT  meta_key,meta_value FROM wp_postmeta where post_id=" . $post_id);
+        	global $wpdb;
+    		$tve_table_prefix = $wpdb->prefix;
+            return $this->_wpdb->get_results("SELECT  meta_key,meta_value FROM ".$tve_table_prefix."postmeta where post_id=" . $post_id);
         }
 	}
 	// End of TVC_Queries class

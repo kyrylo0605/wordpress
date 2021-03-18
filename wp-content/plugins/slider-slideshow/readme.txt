@@ -1,10 +1,11 @@
 === Layer Slider  ===
 Contributors: umarbajwa
-Donate link: http://web-settler.com/layer-slider/
+Donate link: https://web-settler.com/layer-slider/
 Tags: slider, wordpress slider, image slider, Photo Slider, slider plugin, responsive slider, easy slider, post slider, video slider, youtube slider, gallery slider, images slider
 Requires at least: 3.0
-Tested up to: 5.5
-Stable tag: 1.1.6
+Requires PHP: 5.6
+Tested up to: 5.7
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +20,7 @@ Slider plugin for WordPress is responsive image and HTML content slider plugin. 
 Slider plugin allows you to create Image Slideshows and slider in a super easy way. 
 Slider Slideshow is focused on performance, accessibility, stability and providing best experience for user with any device. Slider Slideshow doesn't have a dozen of fancy transition effects, but types that it has work as fast and as smooth as current day technology allows.
 
-> [Pro Version](http://web-settler.com/layer-slider-plugin/) | [Demo sliders](http://web-settler.com/layer-slider-demo-wedding) |  [Documentation](http://web-settler.com/wp-content/uploads/2016/04/LayerSliderDocumentation.pdf)  |  [Support](http://web-settler.com/free-support/)
+> [Pro Version](https://web-settler.com/layer-slider-plugin/) | [Demo sliders](https://web-settler.com/layer-slider-demo-wedding) |  [Documentation](https://web-settler.com/wp-content/uploads/2016/04/LayerSliderDocumentation.pdf)  |  [Support](https://web-settler.com/free-support/)
 
 Slider slideshow plugin offers tons of options and customizablity for you to design beautiful and compelling sliders and web presentations.
 Slider plugin is designed to maximize your efficiency and speed. Super easy to use admin panel allows you to create Image slider easily in mere minutes. Customize the look of your slider or use default.

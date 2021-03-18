@@ -152,17 +152,18 @@ class GAAConfiguration {
 		</div>
 	</div>
 </div>
-<div class="modal fade popup-modal create-campaign" id="syncProduct" data-backdrop="false">
+<div class="modal fade popup-modal create-campa overlay" id="syncProduct" data-backdrop="false">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body mt-3">
-        <h5>Map your product attributes <span style="float:right"><button type="button" class="close" data-dismiss="modal"> &times; </button> </span></h5>
-        <p>Google Merchant Center uses attributes to format your product information for Shopping Ads. Map your product attributes to the Merchant Center product attributes below. You can also edit each product’s individual attributes after you sync your products. Not all fields below are marked required, however based on your shop\'s categories and your country you might map a few optional attributes as well. See the full guide <a target="_blank" href="https://support.google.com/merchants/answer/7052112">here</a>.
+    <div class="modal-content">      
+      <div class="modal-body">
+        <button type="button" class="close tvc-popup-close" data-dismiss="modal"> &times; </button>
+        <h5>Map your product attributes</h5>
+        <p>Google Merchant Center uses attributes to format your product information for Shopping Ads. Map your product attributes to the Merchant Center product attributes below. You can also edit each product’s individual attributes after you sync your products. Not all fields below are marked required, however based on your shop's categories and your country you might map a few optional attributes as well. See the full guide <a target="_blank" href="https://support.google.com/merchants/answer/7052112">here</a>.
         </p>
         <div class="wizard-section campaign-wizard">
           <div class="wizard-content">
-          	<input type="hidden" name="merchant_id" id="merchant_id" value="<?php echo $this->merchantId; ?>">
-            <form class="tab-wizard wizard-	 wizard" id="productSync" method="POST">
+            <input type="hidden" name="merchant_id" id="merchant_id" value="<?php echo $this->merchantId; ?>">
+            <form class="tab-wizard wizard-  wizard" id="productSync" method="POST">
               <h5><span class="wiz-title">Category Mapping</span></h5>
               <section>
                 <div class="card-wrapper">                                        
@@ -189,7 +190,10 @@ class GAAConfiguration {
                   </div>
                 </div>
                 <?php
+                $ee_mapped_attrs = unserialize(get_option('ee_prod_mapped_attrs'));
+                $wooCommerceAttributes = $this->wooCommerceAttributes();
                 foreach ($this->TVC_Admin_Helper->get_gmcAttributes() as $key => $attribute) {
+                  $sel_val="";
                   echo '<div class="row">
                     <div class="col-6 align-self-center">
                       <div class="form-group">
@@ -199,19 +203,38 @@ class GAAConfiguration {
                     </div>
                     <div class="col-6 align-self-center">
                       <div class="form-group">';
+                        $tvc_select_option = $wooCommerceAttributes;
+                        $require = (isset($attribute['required']) && $attribute['required'])?true:false;
+                        $sel_val = (isset($attribute['wAttribute']))?$attribute['wAttribute']:"";
                         if($attribute["field"]=='link'){
                             echo "product link";
-                        }else if($attribute["field"]=='channel'){
-                            echo "online";
+                        }else if($attribute["field"]=='shipping'){
+                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          //$name, $class_id, string $label=null, $sel_val = null, bool $require = false
+                          echo $this->TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add shipping flat rate', $sel_val, $require);
+                        }else if($attribute["field"]=='tax'){
+                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          //$name, $class_id, string $label=null, $sel_val = null, bool $require = false
+                          echo $this->TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add TAX flat (%)', $sel_val, $require);
+                        }else if($attribute["field"]=='content_language'){
+                          echo $this->TVC_Admin_Helper->tvc_language_select($attribute["field"], '', 'Please Select Attribute', 'en',$require);
+                        }else if($attribute["field"]=='target_country'){
+                          //$name, $class_id, bool $require = false
+                          echo $this->TVC_Admin_Helper->tvc_countries_select($attribute["field"], '', 'Please Select Attribute', $require);
                         }else{
-                          echo '<select class="form-control select2 ' . (isset($attribute["required"]) && $attribute["required"] == 1 ? "field-required" : "") . '" name="' . $attribute["field"] . '" >
-                          	<option value="0">Please Select Attribute</option>';
-                            foreach ($this->wooCommerceAttributes() as $wKey => $wAttribute) {
-                              echo '<option value="' . $wAttribute["field"] . '"';
-                              echo (isset($attribute['required']) && $attribute['required'] == 1 && $attribute['wAttribute'] == $wAttribute["field"]) ? "selected" : "";
-                              echo '>' . $wAttribute["field"] . '</option>';
-                            }
-                          echo '</select>';
+                          if(isset($attribute['fixed_options']) && $attribute['fixed_options'] !=""){
+                            $tvc_select_option_t = explode(",", $attribute['fixed_options']);
+                            $tvc_select_option=[];
+                            foreach( $tvc_select_option_t as $o_val ){
+                              $tvc_select_option[]['field'] = $o_val;
+                            } 
+                            $this->TVC_Admin_Helper->tvc_select($attribute["field"],'','Please Select Attribute', $sel_val, $require, $tvc_select_option);
+                          }else{                            
+                            //print_r($ee_mapped_attrs);
+                            $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          //$name, $class_id, $label="Please Select", $sel_val, $require, $option_list
+                          $this->TVC_Admin_Helper->tvc_select($attribute["field"],'','Please Select Attribute', $sel_val, $require, $tvc_select_option);
+                          }
                         }
                       echo '</div>
                     </div>
@@ -225,7 +248,9 @@ class GAAConfiguration {
       </div>
     </div>
   </div>
-</div><?php echo get_connect_google_popup_html()?>
+</div>
+<?php echo get_connect_google_popup_html()?>
+<?php $shop_categories_list = $this->TVC_Admin_Helper->get_tvc_product_cat_list(); ?>
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".select2").select2();
@@ -239,6 +264,22 @@ $(".tab-wizard").steps({
     finish: "Sync Products",
     next: "Next",
     previous: "Previous",
+  },
+  onStepChanging: function(e, currentIndex, newIndex) {
+    var shop_categories = JSON.parse("<?php echo $shop_categories_list; ?>");
+    var is_tvc_cat_selecte = false;
+    shop_categories.forEach(function(v,i){
+      if(is_tvc_cat_selecte == false && $("#category-"+v).val() != "" && $("#category-"+v).val() != 0){
+        is_tvc_cat_selecte =true;
+        return false;
+      }
+    });    
+    if(is_tvc_cat_selecte == 1 || is_tvc_cat_selecte == true){
+      return true;
+    }else{
+      alert("Select at least one Google Merchant Center Category.");
+      return false;
+    }
   },
   onStepChanged: function(event, currentIndex, priorIndex) {
     $('.steps .current').prevAll().addClass('disabled');

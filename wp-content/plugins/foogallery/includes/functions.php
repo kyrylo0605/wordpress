@@ -138,7 +138,6 @@ function foogallery_get_default( $key, $default = false )
         'gallery_permalink'          => 'gallery',
         'lightbox'                   => 'none',
         'thumb_jpeg_quality'         => '80',
-        'thumb_resize_animations'    => true,
         'gallery_sorting'            => '',
         'datasource'                 => 'media_library',
     );
@@ -1536,6 +1535,23 @@ function foogallery_get_language_array_value( $setting_key, $default )
 }
 
 /**
+ * Safely returns the WP Filesystem instance for use in FooGallery
+ *
+ * @return WP_Filesystem_Base
+ */
+function foogallery_wp_filesystem()
+{
+    global  $wp_filesystem ;
+    if ( !function_exists( 'WP_Filesystem' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+    }
+    if ( !WP_Filesystem( true ) ) {
+        return false;
+    }
+    return $wp_filesystem;
+}
+
+/**
  * Returns a formatted date
  *
  * @param        $timestamp
@@ -1558,4 +1574,70 @@ function foogallery_format_date( $timestamp, $format = null )
         return $datetime->format( $format );
     }
 
+}
+
+/**
+ * functions related to thumbnail generation within FooGallery
+ */
+/**
+ * Returns the array of available engines
+ *
+ * @return array
+ */
+function foogallery_thumb_available_engines()
+{
+    $engines = array(
+        'default' => array(
+        'label'       => __( 'Default', 'foogallery' ),
+        'description' => __( 'The default engine used to generate locally cached thumbnails.', 'foogallery' ),
+        'class'       => 'FooGallery_Thumb_Engine_Default',
+    ),
+    );
+    if ( foogallery_is_debug() ) {
+        $engines['dummy'] = array(
+            'label'       => __( 'Dummy', 'foogallery' ),
+            'description' => __( 'A dummy thumbnail engine that can be used for testing. (uses dummyimage.com)', 'foogallery' ),
+            'class'       => 'FooGallery_Thumb_Engine_Dummy',
+        );
+    }
+    return apply_filters( 'foogallery_thumb_available_engines', $engines );
+}
+
+/**
+ * Returns the active thumb engine, based on settings
+ *
+ * @return FooGallery_Thumb_Engine
+ */
+function foogallery_thumb_active_engine()
+{
+    global  $foogallery_thumb_engine ;
+    //if we already have an engine, return it early
+    if ( isset( $foogallery_thumb_engine ) && is_a( $foogallery_thumb_engine, 'FooGallery_Thumb_Engine' ) ) {
+        return $foogallery_thumb_engine;
+    }
+    $engine = foogallery_get_setting( 'thumb_engine', 'default' );
+    $engines = foogallery_thumb_available_engines();
+    
+    if ( array_key_exists( $engine, $engines ) ) {
+        $active_engine = $engines[$engine];
+        $foogallery_thumb_engine = new $active_engine['class']();
+    } else {
+        $foogallery_thumb_engine = new FooGallery_Thumb_Engine_Default();
+    }
+    
+    return $foogallery_thumb_engine;
+}
+
+/**
+ * Resizes a given image using the active thumb engine.
+ *
+ * @param       $url
+ * @param array $args
+ *
+ * @return string|void (string) url to the image
+ */
+function foogallery_thumb( $url, $args = array() )
+{
+    $engine = foogallery_thumb_active_engine();
+    return $engine->generate( $url, $args );
 }

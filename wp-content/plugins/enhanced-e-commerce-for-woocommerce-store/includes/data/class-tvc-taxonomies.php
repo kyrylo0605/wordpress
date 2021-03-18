@@ -118,7 +118,7 @@ if ( ! class_exists( 'TVC_Taxonomies' ) ) :
 
         public static function get_shop_categories_list() {
             $args = array(
-                'hide_empty'   => 0,
+                'hide_empty'   => 1,
                 'taxonomy'     => 'product_cat',
                 'hierarchical' => 1,
                 'orderby'      => 'name',

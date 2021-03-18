@@ -546,7 +546,7 @@ jQuery(document).ready(function($) {
 
 var $template = $($.parseHTML('<div class="panel panel-default"><div class="panel-heading"> <span class="glyphicon glyphicon-remove-circle pull-right "></span><h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">Layer 1</a></h4></div><div id="collapseOne1" class="panel-collapse collapse in"><div class="panel-body"><textarea style="display: none" class="wprls_textcontent">Empty Text</textarea><textarea style="display: none" class="wprls_htmlcontent">Empty HTML</textarea><input style="display: none" class="wprls_linkurl" value=""><input style="display: none" class="wprls_textalign" value="left"><input style="display: none" class="wprls_textgooglefont" value=""><input style="display: none" class="wprls_linktext" value=""><input style="display: none" class="wprls_linkbeforetext" value=""><input style="display: none" class="wprls_linkaftertext" value=""><input style="display: none" class="wprls_linkcolor" value="#337ab7"><input style="display: none" class="wprls_imageurl" value=""><input style="display: none" class="wprls_videourl" value=""><input style="display: none" class="wprls_videoposterurl" value=""><select style="display: none" class="wprls_videotype"><option selected="selected" value="youtube">Youtube</option><option value="vimeo">Vimeo</option><option value="html5">HTML5</option><option value="videojs">Video.js</option><option value="sublimevideo">SublimeVideo</option><option value="jw">JW Player</option></select><input type="button" id="wp_rls_layer_text" class="button triggertextmodal" value="Text" data-toggle="modal" data-target="#wp_rls_text_box" /><input type="button" id="wp_rls_layer_image" class="button triggerimagemodal" value="Image" data-toggle="modal" data-target="#wp_rls_image_box"/><input type="button" data-toggle="modal" data-target="#wp_rls_video_box" id="wp_rls_layer_video" class="button triggervideomodal" value="Video" /><input type="button" id="wp_rls_layer_link" class="button triggerlinkmodal" value="Links" data-toggle="modal" data-target="#wp_rls_link_box" /><input type="button" id="wp_rls_layer_html" class="button triggerhtmlmodal" value="HTML" data-toggle="modal" data-target="#wp_rls_html_box" /><table id="wp_rls_layers_table"><tr><td>Type</td><td><select class="input input--dropdown wp_rls_layer_box_type inputlayertype"> <option value="text">Text</option> <option value="image">Image</option> <option value="video">Video</option> <option value="link">Link</option><option value="html">HTML</option></select></td><td></td><td></td><td></td></tr><tr><td>Layer Animation</td><td> <select class="input input--dropdown js--animations wp_rls_layer_box_animation inputlayeranimation"> <optgroup label="Attention Seekers"> <option value="bounce">bounce</option> <option value="flash">flash</option> <option value="pulse">pulse</option> <option value="rubberBand">rubberBand</option> <option value="shake">shake</option> <option value="swing">swing</option> <option value="tada">tada</option> <option value="wobble">wobble</option> <option value="jello">jello</option> </optgroup> <optgroup label="Bouncing Entrances"> <option value="bounceIn">bounceIn</option> <option value="bounceInDown">bounceInDown</option> <option value="bounceInLeft">bounceInLeft</option> <option value="bounceInRight">bounceInRight</option> <option value="bounceInUp">bounceInUp</option> </optgroup> <optgroup label="Fading Entrances"> <option value="fadeIn">fadeIn</option> <option value="fadeInDown">fadeInDown</option> <option value="fadeInDownBig">fadeInDownBig</option> <option value="fadeInLeft">fadeInLeft</option> <option value="fadeInLeftBig">fadeInLeftBig</option> <option value="fadeInRight">fadeInRight</option> <option value="fadeInRightBig">fadeInRightBig</option> <option value="fadeInUp">fadeInUp</option> <option value="fadeInUpBig">fadeInUpBig</option> </optgroup> <optgroup label="Flippers"> <option value="flip">flip</option> <option value="flipInX">flipInX</option> <option value="flipInY">flipInY</option> <option value="flipOutX">flipOutX</option> <option value="flipOutY">flipOutY</option> </optgroup> <optgroup label="Lightspeed"> <option value="lightSpeedIn">lightSpeedIn</option> </optgroup> <optgroup label="Rotating Entrances"> <option value="rotateIn">rotateIn</option> <option value="rotateInDownLeft">rotateInDownLeft</option> <option value="rotateInDownRight">rotateInDownRight</option> <option value="rotateInUpLeft">rotateInUpLeft</option> <option value="rotateInUpRight">rotateInUpRight</option> </optgroup> <optgroup label="Sliding Entrances"> <option value="slideInUp">slideInUp</option> <option value="slideInDown">slideInDown</option> <option value="slideInLeft">slideInLeft</option> <option value="slideInRight">slideInRight</option> </optgroup> <optgroup label="Zoom Entrances"> <option value="zoomIn">zoomIn</option> <option value="zoomInDown">zoomInDown</option> <option value="zoomInLeft">zoomInLeft</option> <option value="zoomInRight">zoomInRight</option> <option value="zoomInUp">zoomInUp</option> </optgroup> <optgroup label="Specials"> <option value="hinge">hinge</option> <option value="rollIn">rollIn</option> </optgroup> </select></td><td></td><td></td><td></td></tr><tr><td>Layer Animation Delay</td><td> <input value="1000" id="wp_rls_layer_animation_delay" type="number" placeholder="ms" class="wp_rls_layer_box_animation_delay inputlayerdelay"> (ms)</td><td></td><td></td><td></td></tr><tr><td>Hide Layer</td><td> <div class="onoffswitch"> <input type="checkbox" name="hideme" class="onoffswitch-checkbox wprls_hide_me" id="" /> <label class="wprls_hide_me_label onoffswitch-label" for=""> <span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </label> </div> <td> With <select class="input input--dropdown js--animations wp_rls_hide_layer_box_animation inputhidelayeranimation"> <optgroup label="Bouncing Exits"> <option value="bounceOut">bounceOut</option> <option value="bounceOutDown">bounceOutDown</option> <option value="bounceOutLeft">bounceOutLeft</option> <option value="bounceOutRight">bounceOutRight</option> <option value="bounceOutUp">bounceOutUp</option> </optgroup> <optgroup label="Fading Exits"> <option selected value="fadeOut">fadeOut</option> <option value="fadeOutDown">fadeOutDown</option> <option value="fadeOutLeft">fadeOutLeft</option> <option value="fadeOutRight">fadeOutRight</option> <option value="fadeOutUp">fadeOutUp</option> </optgroup> <optgroup label="Rotating Exits"> <option value="rotateOut">rotateOut</option> <option value="rotateOutDownLeft">rotateOutDownLeft</option> <option value="rotateOutDownRight">rotateOutDownRight</option> <option value="rotateOutUpLeft">rotateOutUpLeft</option> <option value="rotateOutUpRight">rotateOutUpRight</option> </optgroup> <optgroup label="Zoom Exits"> <option value="zoomOut">zoomOut</option> <option value="zoomOutDown">zoomOutDown</option> <option value="zoomOutLeft">zoomOutLeft</option> <option value="zoomOutRight">zoomOutRight</option> <option value="zoomOutUp">zoomOutUp</option> </optgroup> <optgroup label="Sliding Exits"> <option value="slideOutUp">slideOutUp</option> <option value="slideOutDown">slideOutDown</option> <option value="slideOutLeft">slideOutLeft</option> <option value="slideOutRight">slideOutRight</option> </optgroup> </select> </td> <td> After <input value="2000" id="wp_rls_hide_layer_animation_delay" type="number" placeholder="ms" class="wp_rls_hide_layer_box_animation_delay inputhidelayerdelay" data-layerid="" />(ms) </td> <td></td> </tr><td>Size & Position:</td><td>Width <input id="wp_rls_layer_image_size_width" type="number" min="0" placeholder="%" class="wp_rls_layer_box_width inputlayerwidth" value="30" /> (%)</td><td>Height <input id="wp_rls_layer_image_size_height" type="text" value="auto" placeholder="px" class="wp_rls_layer_box_width wp_rls_layer_box_height inputlayerheight"/> (px)</td><td>Top <input id="wp_rls_layer_top_position" class="wp_rls_layer_box_width wp_rls_layer_box_top inputlayertop" type="number" min="0" value="0" placeholder="px"/></td><td>Left <input id="wp_rls_layer_left_position" value="0" type="number" min="0" placeholder="px" class="wp_rls_layer_box_left wp_rls_layer_box_width inputlayerleft"/></td></tr><tr><td>Text size</td><td><input id="wp_rls_layer_text_size" type="number" min="0" class="wp_rls_layer_box_width wp_rls_layer_box_text_size inputlayertextsize" placeholder="px" value="15" /></td><td></td><td></td><td></td></tr><tr><td>Image size: </td><td>Width <input id="wp_rls_layer_image_size_width" type="number" min="0" class="wp_rls_layer_box_width wp_rls_layer_box_image_width inputlayerimgwidth" placeholder="%" /> (%) </td><td>Height <input id="wp_rls_layer_image_size_height" type="text" class="wp_rls_layer_box_width wp_rls_layer_box_image_height inputlayerimgheight" placeholder="px" value="auto" /> (px) </td><td></td><td></td></tr><tr><td>Text color:</td><td><input id="wp_rls_layer_text_color" value="#000000" type="text" class="wp_rls_layer_box_width text-color-picker wp_rls_layer_box_text_color inputlayertextcolor"/></td><td></td><td></td><td></td></tr><tr><td>Background color:</td><td><input value="#ffffff" id="wp_rls_layer_bg_color" type="text" class="wp_rls_layer_box_width wp_rls_layer_box_bg_color alpha-color-picker inputlayerbgcolor"></td><td></td><td></td><td></td></tr></table></div></div></div>'));
 
-$('.layercontentcont').live('dblclick', function() {
+$(document).on('dblclick','.layercontentcont', function() {
 
 	var layerid = $(this).data('layerid');
 	
@@ -571,7 +571,7 @@ $('.layercontentcont').live('dblclick', function() {
 
 });
 
-$(".btn-add-panel").live("click", function () {
+$(document).on("click", ".btn-add-panel",function () {
 	
 	var slideid = $(this).data('slide');
 	
@@ -708,7 +708,7 @@ jQuery(document).ready(function($) {
   
   //HTML Modal
 
-  $( '.triggerhtmlmodal' ).live('click', function() {
+  $( document ).on('click','.triggerhtmlmodal', function() {
 
     var layerid = $(this).data('layerid');
 
@@ -767,7 +767,7 @@ jQuery(document).ready(function($) {
 
   //Text Modal
 
-	$( '.triggertextmodal' ).live('click', function() {
+	$( document ).on('click', '.triggertextmodal', function() {
 
 		var layerid = $(this).data('layerid');
 
@@ -858,7 +858,7 @@ jQuery(document).ready(function($) {
 	});
 
 	//Link Module Manager
-	$( '.triggerlinkmodal' ).live('click', function() {
+	$( document ).on('click','.triggerlinkmodal', function() {
 
 		var layerid = $(this).data('layerid');
 
@@ -952,7 +952,7 @@ jQuery(document).ready(function($) {
 
 	//Image Modal
 
-	$( '.triggerimagemodal' ).live('click', function() {
+	$( document).on('click', '.triggerimagemodal' ,function() {
 
 		var layerid = $(this).data('layerid');
 
@@ -1009,7 +1009,7 @@ jQuery(document).ready(function($) {
 
 	//Video Modal
 
-	$( '.triggervideomodal' ).live('click', function() {
+	$( document ).on('click','.triggervideomodal', function() {
 
 		var layerid = $(this).data('layerid');
 
@@ -1267,7 +1267,7 @@ jQuery(document).ready(function($) {
  // Uploading files
   var file_frame;
 
-   jQuery('.upload_image_button').live('click', function( event ){
+   jQuery(document).on('click', '.upload_image_button', function( event ){
 
     event.preventDefault();
 
@@ -1299,7 +1299,7 @@ jQuery(document).ready(function($) {
     file_frame.open();
   });
 
-   jQuery('.upload_image_modal').live('click', function( event ){
+   jQuery(document).on('click','.upload_image_modal', function( event ){
 
     event.preventDefault();
 
@@ -1335,7 +1335,7 @@ jQuery(document).ready(function($) {
 	$('#wp_rls_text_box').on('hidden.bs.modal', function (e) {
 	});
 
-	$('.inputlayerwidth').live('change', function() {
+	$(document).on('change', '.inputlayerwidth', function() {
 
 		layerid = $(this).data('layerid');
 
@@ -1347,7 +1347,7 @@ jQuery(document).ready(function($) {
 
 	});
 
-	$('.inputlayerheight').live('change', function() {
+	$(document).on('change','.inputlayerheight', function() {
 
 		layerid = $(this).data('layerid');
 
@@ -1374,7 +1374,7 @@ jQuery(document).ready(function($) {
 
 	});
 
-	$('.inputlayertop').live('change', function() {
+	$().on('change', '.inputlayertop',function() {
 
 		layerid = $(this).data('layerid');
 
@@ -1385,7 +1385,7 @@ jQuery(document).ready(function($) {
 
 	});
 
-	$('.inputlayerleft').live('change', function() {
+	$(document).on('change', '.inputlayerleft', function() {
 
 		layerid = $(this).data('layerid');
 
@@ -1396,7 +1396,7 @@ jQuery(document).ready(function($) {
 
 	});
 
-	$('.inputlayertextsize').live('change', function() {
+	$(document).on('change','.inputlayertextsize', function() {
 
 		layerid = $(this).data('layerid');
 
@@ -1408,7 +1408,7 @@ jQuery(document).ready(function($) {
 	});
 
 
-	$('.inputlayertextcolor').live('change', function() {
+	$(document).on('change','.inputlayertextcolor', function() {
 		
 		layerid = $(this).data('layerid');
 
@@ -1419,7 +1419,7 @@ jQuery(document).ready(function($) {
 
 	});
 
-	$('.inputlayerbgcolor').live('change', function() {
+	$(document).on('change', '.inputlayerbgcolor',function() {
 		
 		layerid = $(this).data('layerid');
 

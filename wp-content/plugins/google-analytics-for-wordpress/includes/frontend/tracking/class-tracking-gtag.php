@@ -118,7 +118,15 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 
 		// Add cross-domain tracking.
 		if ( is_array( $cross_domains ) && ! empty( $cross_domains ) ) {
-			$options['linker'] = array( $cross_domains );
+			$linker_domains = array();
+			foreach ( $cross_domains as $cross_domain ) {
+				if ( ! empty( $cross_domain['domain'] ) ) {
+					$linker_domains[] = $cross_domain['domain'];
+				}
+			}
+			$options['linker'] = json_encode( array(
+				'domains' => $linker_domains,
+			) );
 		}
 
 		$options = apply_filters( 'monsterinsights_frontend_tracking_options_gtag_before_pageview', $options );
@@ -224,9 +232,7 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 				<?php } ?>
 				window.dataLayer = window.dataLayer || [];
 				if ( mi_track_user ) {
-					function __gtagTracker() {
-						dataLayer.push( arguments );
-					}
+					function __gtagTracker() {dataLayer.push( arguments );}
 					__gtagTracker( 'js', new Date() );
 					__gtagTracker( 'set', {
 						'developer_id.dZGIzZG' : true,
@@ -245,6 +251,15 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 						}
 						?>
 					} );
+					<?php
+					/**
+					 * Extend or enhance the functionality by adding custom code to frontend
+					 * tracking via this hook.
+					 *
+					 * @since 7.15.0
+					 */
+					do_action( 'monsterinsights_frontend_tracking_gtag_after_pageview' );
+					?>
 					<?php echo esc_js( $compat ); ?>
 					<?php if ( apply_filters( 'monsterinsights_tracking_gtag_frontend_gatracker_compatibility', true ) ) { ?>
 					(
@@ -254,8 +269,8 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 							var noopfn = function () {
 								return null;
 							};
-							var noopnullfn = function () {
-								return null;
+							var newtracker = function () {
+								return new Tracker();
 							};
 							var Tracker = function () {
 								return null;
@@ -263,7 +278,11 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 							var p = Tracker.prototype;
 							p.get = noopfn;
 							p.set = noopfn;
-							p.send = noopfn;
+							p.send = function (){
+								var args = Array.prototype.slice.call(arguments);
+								args.unshift( 'send' );
+								__gaTracker.apply(null, args);
+							};
 							var __gaTracker = function () {
 								var len = arguments.length;
 								if ( len === 0 ) {
@@ -272,48 +291,62 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 								var f = arguments[len - 1];
 								if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
 									if ( 'send' === arguments[0] ) {
+										var hitConverted, hitObject = false, action;
 										if ( 'event' === arguments[1] ) {
-											__gtagTracker( 'event', arguments[3], {
-												'event_category': arguments[2],
-												'event_label': arguments[4],
-												'value': 1
-											} );
-											return;
-										}
-										if ( 'undefined' !== typeof ( arguments[1].hitType ) ) {
-											var hitDetails = {};
-											var gagtag_map = {
-												'eventCategory': 'event_category',
-												'eventAction': 'event_action',
-												'eventLabel': 'event_label',
-												'eventValue': 'event_value',
-												'nonInteraction': 'non_interaction',
-												'timingCategory': 'event_category',
-												'timingVar': 'name',
-												'timingValue': 'value',
-												'timingLabel': 'event_label',
-											};
-											var gaKey;
-											for ( gaKey in gagtag_map ) {
-												if ( 'undefined' !== typeof arguments[1][gaKey] ) {
-													hitDetails[gagtag_map[gaKey]] = arguments[1][gaKey];
+											if ( 'undefined' !== typeof arguments[3] ) {
+												hitObject = {
+													'eventAction': arguments[3],
+													'eventCategory': arguments[2],
+													'eventLabel': arguments[4],
+													'value': arguments[5] ? arguments[5] : 1,
 												}
 											}
-											var action = 'timing' === arguments[1].hitType ? 'timing_complete' : arguments[1].eventAction;
-											__gtagTracker( 'event', action, hitDetails );
+										}
+										if ( typeof arguments[2] === 'object' ) {
+											hitObject = arguments[2];
+										}
+										if ( 'undefined' !== typeof (
+											arguments[1].hitType
+										) ) {
+											hitObject = arguments[1];
+										}
+										if ( hitObject ) {
+											action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+											hitConverted = mapArgs( hitObject );
+											__gtagTracker( 'event', action, hitConverted );
 										}
 									}
 									return;
 								}
+
+								function mapArgs( args ) {
+									var gaKey, hit = {};
+									var gaMap = {
+										'eventCategory': 'event_category',
+										'eventAction': 'event_action',
+										'eventLabel': 'event_label',
+										'eventValue': 'event_value',
+										'nonInteraction': 'non_interaction',
+										'timingCategory': 'event_category',
+										'timingVar': 'name',
+										'timingValue': 'value',
+										'timingLabel': 'event_label',
+									};
+									for ( gaKey in gaMap ) {
+										if ( 'undefined' !== typeof args[gaKey] ) {
+											hit[gaMap[gaKey]] = args[gaKey];
+										}
+									}
+									return hit;
+								}
+
 								try {
 									f.hitCallback();
 								} catch ( ex ) {
 								}
 							};
-							__gaTracker.create = function () {
-								return new Tracker();
-							};
-							__gaTracker.getByName = noopnullfn;
+							__gaTracker.create = newtracker;
+							__gaTracker.getByName = newtracker;
 							__gaTracker.getAll = function () {
 								return [];
 							};
@@ -327,11 +360,11 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 					<?php if ( $this->should_do_optout() ) { ?>
 					console.log( "<?php echo esc_js( $reason );?>" );
 					( function () {
-						function __gtagTracker() {
-							return null;
-						}
-						window['__gtagTracker'] = __gtagTracker;
-						window['gtag'] = __gtagTracker;
+							function __gtagTracker() {
+								return null;
+							}
+							window['__gtagTracker'] = __gtagTracker;
+							window['gtag'] = __gtagTracker;
 					} )();
 					<?php } ?>
 				}

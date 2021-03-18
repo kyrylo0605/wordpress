@@ -466,6 +466,13 @@ ul.nav-tabs{
   -webkit-animation: 1s spin linear infinite;
   animation: 1s tvc-spin linear infinite;
 }
+.domain-claim-spinner.tvc-nb-spinner{
+  top: 5px;
+  right: 38px;
+  margin-left: 0px;
+  width: 15px;
+  height: 15px;
+}
 #refresh_api{height: 25px;}
 .btn.tvc_api_sync_btn{
   min-width: 114px;
@@ -517,3 +524,42 @@ ul.nav-tabs{
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
 }
+
+/* popup */
+.popup-modal.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+}
+.popup-modal.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+.popup-modal .modal-dialog .modal-content{
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+    transition: all 5s ease-in-out;
+    border: none;}
+.popup-modal .modal-dialog .modal-content .close{
+  position: absolute;
+    top: 0px;
+    right: 10px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.popup-modal .tvc-text{
+    min-height: 30px;
+    max-width: 25rem;
+    width: 100%;
+    font-size: 14px;
+}
+#feed-spinner img{width: 60px;}

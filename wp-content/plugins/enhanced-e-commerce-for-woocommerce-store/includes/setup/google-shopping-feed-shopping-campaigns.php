@@ -52,7 +52,7 @@ class CampaignsConfiguration
 
     public function spinner()
     {
-        $spinner_gif = ENHANCAD_PLUGIN_URL . '/images/ajax-loader.gif';
+        $spinner_gif = ENHANCAD_PLUGIN_URL . '/admin/images/ajax-loader.gif';
         echo '<div class="feed-spinner" id="feed-spinner" style="display:none;">
 				<img id="img-spinner" src="' . $spinner_gif . '" alt="Loading" />
 			</div>';

@@ -24,8 +24,7 @@ Class TVC_Admin_Helper{
     }
     if (!class_exists('ShoppingApi')) {
       require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/ShoppingApi.php');
-    }
-    
+    }    
   }
 
   public function is_ee_options_data_empty(){
@@ -40,9 +39,6 @@ Class TVC_Admin_Helper{
 			return $this->ee_options_data;
 		}else{
 			$this->ee_options_data = unserialize(get_option('ee_api_data'));
-			//echo "<pre>";
-			//print_r($this->ee_options_data);
-			//exit;
 			return $this->ee_options_data;
 		}
 	}
@@ -54,8 +50,8 @@ Class TVC_Admin_Helper{
 
 			$tvc_setting_db = [];
 			$tvc_setting_db['subscription_id'] = $this->get_subscriptionId();
-			$tvc_setting_db['enhanced_e_commerce_tracking'] = (($ee_options_settings['ga_eeT'] == "on" || $ee_options_settings['ga_eeT'])?1:0);
-			$tvc_setting_db['add_gtag_snippet'] = (($ee_options_settings['ga_ST'] == "on" || $ee_options_settings['ga_ST'])?1:0);
+			$tvc_setting_db['enhanced_e_commerce_tracking'] = ((isset($ee_options_settings['ga_eeT']) && ($ee_options_settings['ga_eeT'] == "on" || $ee_options_settings['ga_eeT']))?1:0);
+			$tvc_setting_db['add_gtag_snippet'] = ((isset($ee_options_settings['ga_ST']) && ($ee_options_settings['ga_ST'] == "on" || $ee_options_settings['ga_ST']))?1:0);
 
 			
 			$tvc_setting_db['google-add'] ="";
@@ -136,10 +132,9 @@ Class TVC_Admin_Helper{
 			if(!isset($GLOBALS['tatvicData']['tvc_subscription'])){
 				$ee_options_settings = $this->get_ee_options_settings();
 			}
-			$this->subscriptionId = (isset($GLOBALS['tatvicData']['tvc_subscription'])) ? $GLOBALS['tatvicData']['tvc_subscription'] : $ee_options_settings['subscription_id'];
+			$this->subscriptionId = (isset($GLOBALS['tatvicData']['tvc_subscription'])) ? $GLOBALS['tatvicData']['tvc_subscription'] : ((isset($ee_options_settings['subscription_id']))?$ee_options_settings['subscription_id']:"");
 			return $this->subscriptionId;
-		}
-		
+		}		
 	}
 	public function get_merchantId(){
 		if(!empty($this->merchantId)){
@@ -227,7 +222,7 @@ Class TVC_Admin_Helper{
 			if(!isset($GLOBALS['tatvicData']['tvc_customer'])){
 				$ee_options_settings = $this->get_ee_options_settings();
 			}
-			$this->currentCustomerId = (isset($GLOBALS['tatvicData']['tvc_customer'])) ? $GLOBALS['tatvicData']['tvc_customer'] : $ee_options_settings['google_ads_id'];
+			$this->currentCustomerId = (isset($GLOBALS['tatvicData']['tvc_customer'])) ? $GLOBALS['tatvicData']['tvc_customer'] : ((isset($ee_options_settings['google_ads_id']))?$ee_options_settings['google_ads_id']:"");
 			return $this->currentCustomerId;
 		}
 	}
@@ -254,19 +249,80 @@ Class TVC_Admin_Helper{
 	}
 	
 	public function add_spinner_html(){
-		$spinner_gif = ENHANCAD_PLUGIN_URL . '/images/ajax-loader.gif';		
+		$spinner_gif = ENHANCAD_PLUGIN_URL . '/admin/images/ajax-loader.gif';		
     echo '<div class="feed-spinner" id="feed-spinner" style="display:none;">
 				<img id="img-spinner" src="' . $spinner_gif . '" alt="Loading" />
 			</div>';		
 	}
 
 	public function get_gmcAttributes() {
-    $path = TVC_CHANNEL_DATA_DIR . '/google/gmc_attrbutes.json';
+    $path = ENHANCAD_PLUGIN_URL . '/includes/setup/json/gmc_attrbutes.json';
     $str = file_get_contents($path);
     $attributes = $str ? json_decode($str, true) : [];
     return $attributes;
   }
-
+  public function get_gmc_countries_list() {
+    $path = ENHANCAD_PLUGIN_URL . '/includes/setup/json/countries.json';
+    $str = file_get_contents($path);
+    $attributes = $str ? json_decode($str, true) : [];
+    return $attributes;
+  }
+  public function get_gmc_language_list() {
+    $path = ENHANCAD_PLUGIN_URL . '/includes/setup/json/iso_lang.json';
+    $str = file_get_contents($path);
+    $attributes = $str ? json_decode($str, true) : [];
+    return $attributes;
+  }
+  /* start display form input*/
+  public function tvc_language_select($name, $class_id, string $label="Please Select", string $sel_val = "en", bool $require = false){
+  	if($name){
+  		$countries_list = $this->get_gmc_language_list();
+	  	?>
+	  	<select class="form-control select2 <?php echo $class_id; ?> <?php echo ($require == true)?"field-required":""; ?>" name="<?php echo $name; ?>" id="<?php echo $class_id; ?>" >
+	  		<option value="0"><?php echo $label; ?></option>
+	  		<?php foreach ($countries_list as $Key => $val) {?>
+	  			<option value="<?php echo $val["code"];?>" <?php echo($val["code"] == $sel_val)?"selected":""; ?>><?php echo $val["name"]." (".$val["native_name"].")";?></option>
+	  		<?php
+	  		}?>
+	  	</select>
+	  	<?php
+  	}
+  }
+  public function tvc_countries_select($name, $class_id, string $label="Please Select", bool $require = false){
+  	if($name){
+  		$countries_list = $this->get_gmc_countries_list();
+  		$sel_val = $this->get_woo_country();
+	  	?>
+	  	<select class="form-control select2 <?php echo $class_id; ?> <?php echo ($require == true)?"field-required":""; ?>" name="<?php echo $name; ?>" id="<?php echo $class_id; ?>" >
+	  		<option value="0"><?php echo $label; ?></option>
+	  		<?php foreach ($countries_list as $Key => $val) {?>
+	  			<option value="<?php echo $val["code"];?>" <?php echo($val["code"] == $sel_val)?"selected":""; ?>><?php echo $val["name"];?></option>
+	  		<?php
+	  		}?>
+	  	</select>
+	  	<?php
+  	}
+  }
+  public function tvc_select($name, $class_id, string $label="Please Select", string $sel_val = null, bool $require = false, $option_list = array()){
+  	if(!empty($option_list) && $name){
+	  	?>
+	  	<select class="form-control select2 <?php echo $class_id; ?> <?php echo ($require == true)?"field-required":""; ?>" name="<?php echo $name; ?>" id="<?php echo $class_id; ?>" >
+	  		<option value="0"><?php echo $label; ?></option>
+	  		<?php foreach ($option_list as $Key => $val) {?>
+	  			<option value="<?php echo $val["field"];?>" <?php echo($val["field"] == $sel_val)?"selected":""; ?>><?php echo $val["field"];?></option>
+	  		<?php
+	  		}?>
+	  	</select>
+	  	<?php
+  	}
+  }
+  public function tvc_text($name, string $type="text", string $class_id="", string $label=null, $sel_val = null, bool $require = false){
+  	?>
+  	<input type="<?php echo $type; ?>" name="<?php echo $name; ?>" class="tvc-text <?php echo $class_id; ?>" id="<?php echo $class_id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $sel_val; ?>">
+  	<?php
+  }
+ 
+  /* end from input*/
   public function check_setting_status(){        
    if(!empty($this->setting_status)){
       return $this->setting_status;
@@ -431,5 +487,59 @@ Class TVC_Admin_Helper{
 		}
 		return false;
 	}
-}
-?>
+
+	public function get_tvc_product_cat_list(){
+		$args = array(
+	    'hide_empty'   => 1,
+	    'taxonomy' => 'product_cat',
+	    'orderby'  => 'term_id'
+    );
+    $shop_categories_list = get_categories( $args );
+    $tvc_cat_id_list = [];
+    foreach ($shop_categories_list as $key => $value) {
+		  $tvc_cat_id_list[]=$value->term_id;
+		}
+		return json_encode($tvc_cat_id_list);		
+	}
+	public function get_tvc_product_cat_list_with_name(){
+		$args = array(
+	    'hide_empty'   => 1,
+	    'taxonomy' => 'product_cat',
+	    'orderby'  => 'term_id'
+    );
+    $shop_categories_list = get_categories( $args );
+    $tvc_cat_id_list = [];
+    foreach ($shop_categories_list as $key => $value) {
+		  $tvc_cat_id_list[$value->term_id]=$value->name;
+		}
+		return $tvc_cat_id_list;		
+	}
+
+	public function call_domain_claim(){
+		$googleDetail = [];
+    $google_detail = $this->get_ee_options_data();
+    //print_r($google_detail);
+    if(isset($google_detail['setting']) && $google_detail['setting']){      
+      $googleDetail = $google_detail['setting'];
+      if($googleDetail->is_domain_claim == '0'){
+        $postData = [
+		      'merchant_id' => $googleDetail->merchant_id,  
+		      'website_url' => $googleDetail->site_url, 
+		      'subscription_id' => $googleDetail->id,
+		      'account_id' => $googleDetail->google_merchant_center_id
+		    ];		    
+				$claimWebsite = $this->customApiObj->claimWebsite($postData);
+				//print_r($claimWebsite);
+		    if(isset($claimWebsite->error) && !empty($claimWebsite->errors)){ 
+		    	return array('error'=>true, 'msg'=>$claimWebsite->errors[0]);
+		    }else{
+		      $this->set_update_api_to_db();
+		      return array('error'=>false, 'msg'=>"Domain claimed successfully.");
+		    }
+		  }else{
+		  	 return array('error'=>true, 'msg'=>"already domain claimed successfully");
+		  }      
+    }		
+	}
+
+}?>

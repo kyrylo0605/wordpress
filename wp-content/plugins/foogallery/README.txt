@@ -3,7 +3,7 @@ Contributors: bradvin, steveush, fooplugins
 Donate link: https://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 3.9
-Tested up to: 5.6
+Tested up to: 5.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -226,6 +226,21 @@ We did the research and comparison. See our findings : [What is the Best WordPre
 Please update in order to for FooGallery to work in WP 5.5+!
 
 == Changelog ==
+
+= 1.10.3 =
+* Date Updated : 2021-20-02
+* Fix : fixed a fatal error on some installs (only update if you have issues with 1.10.1!)
+
+= 1.10.1 =
+* Date Updated : 2021-18-02
+* Fix : fixed a fatal error with PHP 5.6
+
+= 1.10.0 =
+* Date Updated : 2021-18-02
+* Update : Removed WPThumb library completely
+* Update : Updated to Freemius SDK 2.4.2
+* Fix : updated FooGallery block category to 'media'
+
 
 = 1.9.53 =
 * Date Updated : 2021-23-01

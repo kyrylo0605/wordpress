@@ -18,11 +18,9 @@ function get_connect_google_popup_html(){
                 </div>
                 <div class="modal-footer">
                     <a target="_blank" class="ee-oauth-container btn darken-4 white black-text" href="'. $TVC_Admin_Helper->get_connect_url().'" style="text-transform:none; margin: 0 auto;">
-                        <div class="left">
-                            <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in"
-                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                        </div>
-                        <p style="font-size: inherit; margin-top:5px; margin-right:8px; ">Sign In With Google</p>
+                        
+                        <p style="font-size: inherit; margin-top:5px;"><img width="20px" style="margin-right:8px" alt="Google sign-in"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Sign In With Google</p>
                     </a>
                     <!--sigin with google end-->
                 </div>
@@ -46,14 +44,13 @@ function get_google_shopping_tabs_html($site_url, $google_merchant_center_id){
     $tab = (isset($_GET['tab']) && $_GET['tab'])?$_GET['tab']:"";
     $TVC_Admin_Helper = new TVC_Admin_Helper();
     $setting_status = $TVC_Admin_Helper->check_setting_status_sub_tabs();
-    //echo "<pre>";
     //print_r($setting_status);
     $google_shopping_conf_msg ="";
     if(isset($setting_status['google_shopping_conf'] ) && $setting_status['google_shopping_conf'] == false && isset($setting_status["google_shopping_conf_msg"]) && $setting_status["google_shopping_conf_msg"]){
         $google_shopping_conf_msg = '<span class="tvc-tooltiptext tvc-tooltip-right">'.((isset($setting_status["google_shopping_conf_msg"]))?$setting_status["google_shopping_conf_msg"]:"").'</span>';
     }
     $google_shopping_p_sync_msg="";
-    if(isset($setting_status['google_shopping_conf'] ) && $setting_status['google_shopping_conf'] == false && isset($setting_status["google_shopping_p_sync_msg"]) && $setting_status["google_shopping_p_sync_msg"] !=""){
+    if(isset($setting_status['google_shopping_p_sync'] ) && $setting_status['google_shopping_p_sync'] == false && isset($setting_status["google_shopping_p_sync_msg"]) && $setting_status["google_shopping_p_sync_msg"] !=""){
         $google_shopping_p_sync_msg = '<span class="tvc-tooltiptext tvc-tooltip-right">'.((isset($setting_status["google_shopping_p_sync_msg"]))?$setting_status["google_shopping_p_sync_msg"]:"").'</span>';
     }
 

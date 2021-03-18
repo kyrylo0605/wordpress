@@ -28,7 +28,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-     public $tvc_eeVer = '2.3.6';
+     public $tvc_eeVer = PLUGIN_NAME_VERSION;
     /**
      * @var mixed $tvc_aga
      */
@@ -268,7 +268,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         }
 
 
-        echo '<script>';
+        echo '<script  type="text/javascript" defer="defer">';
             echo 'var track_option = '.json_encode($tracking_opt).';';
             echo 'var ua_track_id = '.json_encode($tracking_id).';';
             echo 'var ga4_measure_id = '.json_encode($measurment_id).';';
