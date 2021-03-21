@@ -300,14 +300,9 @@ if( !class_exists( 'wip_woocarousel_lite_panel' ) ) {
 						case 'navigation': ?>
                         
 							<div id="WIP_WooCarousel_lite_banner">
-					
-								<h1><?php esc_html_e( 'WIP WooCarousel Lite.', 'wip-woocarousel-lite'); ?> </h1>
-								<p><?php esc_html_e( 'Upgrade to the premium version of WooCarousel, to enable 5 different layouts, 600+ Google Fonts, unlimited colors and much more.', 'wip-woocarousel-lite'); ?></p>
-								
-								<div class="big-button"> 
-									<a href="<?php echo esc_url( 'https://www.themeinprogress.com/wip-woocarousel-woocommerce-slider-carousel/?ref=2&campaign=wip-woocarousel-panel'); ?>" target="_blank"><?php _e( 'Upgrade to WooCarousel premium.', 'wip-woocarousel-lite'); ?></a>
-								</div>
-										
+                            
+                            	<?php wip_woocarousel_lite_random_banner();?>
+															
 							</div>
 
 							<div id="WIP_plugin_panel_tabs">

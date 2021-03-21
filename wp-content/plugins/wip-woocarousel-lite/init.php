@@ -5,14 +5,14 @@
 	Plugin Name: WIP WooCarousel Lite
 	Plugin URI: https://www.themeinprogress.com
 	Description: WIP WooCarousel Lite allows you to create a product carousel for your WooCommerce website.
-	Version: 1.0.9.8
+	Version: 1.0.9.9
 	Text Domain: wip-woocarousel-lite
 	Author: ThemeinProgress
 	Author URI: https://www.themeinprogress.com
 	License: GPL2
 	Domain Path: /languages/
 
-	Copyright 2019 ThemeinProgress  (email : info@wpinprogress.com)
+	Copyright 2021 ThemeinProgress  (email : info@wpinprogress.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as

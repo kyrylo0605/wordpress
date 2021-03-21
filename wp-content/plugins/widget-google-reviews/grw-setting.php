@@ -160,7 +160,8 @@ $grw_google_api_key = get_option('grw_google_api_key');
                 <div class="rplg-flex-row">
                     <div class="rplg-flex-col">
                         <span>Google Reviews plugin is an easy and fast way to integrate Google business reviews right into your WordPress website. This plugin works instantly and keep all Google places and reviews in WordPress database thus it has no depend on external services.</span>
-                        <p>Please see Introduction Video to understand how it works. Also you can find most common answers and solutions for most common questions and issues in next tabs.</p>
+                        <p><b><u>Please read '<a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=fig'); ?>">Full Installation Guide</a>' to completely understand how it works and set it up</u></b>.</p>
+                        <p>Also you can find most common answers and solutions for most common questions and issues in next tabs.</p>
                         <div class="rplg-alert rplg-alert-success">
                             <strong>Try more features in the Business version</strong>: Merge Google, Facebook and Yelp reviews, Beautiful themes (Slider, Grid, Trust Badges), Shortcode support, Rich Snippets, Rating filter, Any sorting, Include/Exclude words filter, Hide/Show any elements, Priority support and many others.
                             <a class="button-primary button" href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank" style="margin-left:10px">Upgrade to Business</a>

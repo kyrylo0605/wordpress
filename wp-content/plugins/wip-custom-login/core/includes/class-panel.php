@@ -271,13 +271,8 @@ if( !class_exists( 'wip_custom_login_panel' ) ) {
 						case 'navigation': ?>
 
 							<div id="WIP_custom_login_banner">
-
-								<h1> <?php _e( 'WIP Custom Login.', 'wip-custom-login'); ?> </h1>
-								<p>  <?php _e( 'To enable all features, like the slideshow as background, please upgrade to the premium version.', 'wip-custom-login'); ?></p>
-
-								<div class="big-button">
-									<a href="<?php echo esc_url( 'https://www.themeinprogress.com/c-login-free-custom-login-wordpress-plugin/?aff=panel'); ?>" target="_blank"><?php _e( 'Upgrade to the premium version.', 'wip-custom-login'); ?></a>
-								</div>
+                            
+                            	<?php wip_custom_login_random_banner();?>
 
 							</div>
 
@@ -315,6 +310,8 @@ if( !class_exists( 'wip_custom_login_panel' ) ) {
 										}
                     
                     echo "<li ".$class."><a target='_blank' href='".esc_url( get_site_url() . '/wp-login.php')."'>".esc_html__( 'Login page preview','wip-custom-login')."</a></li>";
+					
+                    echo "<li ".$class."><a target='_blank' href='".esc_url( 'https://www.themeinprogress.com/c-login-free-custom-login-wordpress-plugin/?aff=panel')."'>".esc_html__( 'Upgrade to PRO','wip-custom-login')."</a></li>";
 
 									?>
 

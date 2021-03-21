@@ -192,4 +192,43 @@ if (!function_exists('wip_custom_login_fontlist')) {
 
 }
 
+/*-----------------------------------------------------------------------------------*/
+/* RANDOM BANNER */
+/*-----------------------------------------------------------------------------------*/ 
+
+if (!function_exists('wip_custom_login_random_banner')) {
+
+	function wip_custom_login_random_banner() {
+		
+		$plugin1  = '<h1>'. __( 'WIP Custom Login.', 'wip-custom-login') . '</h1>';
+		$plugin1 .= '<p>'. __( 'To enable all features, like the slideshow as background, please upgrade to the premium version.', 'wip-custom-login') . '</p>';
+		$plugin1 .= '<div class="big-button">';		
+		$plugin1 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/c-login-free-custom-login-wordpress-plugin/?aff=panel').'" target="_blank">'.__( 'Upgrade to the premium version', 'wip-custom-login').'</a>';	
+		$plugin1 .= '</div>';
+		
+		$plugin2  = '<h1>'. __( 'Internal Linking of Related Contents', 'wip-custom-login') . '</h1>';
+		$plugin2 .= '<p>'. __( '<strong>Internal Linking of Related Contents</strong> WordPress plugin allow you to automatically insert related articles inside your WordPress posts.', 'wip-custom-login') . '</p>';
+		$plugin2 .= '<div class="big-button">';		
+		$plugin2 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/internal-linking-of-related-contents-pro/?aff=wcl-panel').'" target="_blank">'.__( 'Download the free version, no email required', 'wip-custom-login').'</a>';	
+		$plugin2 .= '</div>';
+
+		$plugin3  = '<h1>'. __( 'Chatbox Manager', 'wip-custom-login') . '</h1>';
+		$plugin3 .= '<p>'. __( '<strong>Chatbox Manager</strong> WordPress plugin allow you to display multiple WhatsApp buttons on your website.', 'wip-custom-login') . '</p>';
+		$plugin3 .= '<div class="big-button">';		
+		$plugin3 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/chatbox-manager-pro/?aff=wcl-panel').'" target="_blank">'.__( 'Download the free version, no email required', 'wip-custom-login').'</a>';	
+		$plugin3 .= '</div>';
+
+		$plugin4  = '<h1>'. __( 'Content Snippet Manager', 'wip-custom-login') . '</h1>';
+		$plugin4 .= '<p>'. __( '<strong>Content Snippet Manager</strong> WordPress plugin allow you to include every kind of code inside your Wordpress website.', 'wip-custom-login') . '</p>';
+		$plugin4 .= '<div class="big-button">';		
+		$plugin4 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/content-snippet-manager/?aff=wcl-panel').'" target="_blank">'.__( 'Download the free version, no email required', 'wip-custom-login').'</a>';	
+		$plugin4 .= '</div>';
+
+		$banner = array($plugin1,$plugin2,$plugin3,$plugin4);
+		echo $banner[array_rand($banner)];
+	
+	}
+
+}
+
 ?>

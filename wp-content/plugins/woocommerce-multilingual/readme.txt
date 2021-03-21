@@ -4,8 +4,8 @@ Donate link: http://wpml.org/documentation/related-projects/woocommerce-multilin
 Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multilingual, e-shop, shop
 License: GPLv2
 Requires at least: 4.7
-Tested up to: 5.6
-Stable tag: 4.10.4
+Tested up to: 5.6.1
+Stable tag: 4.11.3.1
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -48,7 +48,7 @@ When you need help, go to [WooCommerce Multilingual support forum](http://wpml.o
 
 = Downloads =
 
-This version of WooCommerce Multilingual works with WooCommerce > 3.3.0
+This version of WooCommerce Multilingual works with WooCommerce > 3.9.0
 
 You will also need [WPML](http://wpml.org), together with the String Translation and the Translation Management modules, which are part of the [Multilingual CMS](http://wpml.org/purchase/) package.
 
@@ -66,7 +66,7 @@ If the checks fail, WooCommerce Multilingual will not be able to run.
 * PHP version 5.6 or later
 * MySQL version 5.6 or later
 
-* WooCommerce 3.3.0 or later
+* WooCommerce 3.9.0 or later
 * WPML Multilingual CMS 4.3.7 or later
 * WPML String Translation 3.0.7 or later
 * WPML Translation Management 2.9.5 or later
@@ -138,8 +138,39 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
-= 4.10.4 =
-* Fixed currency switcher modal has lost its padding.
+= 4.11.3 =
+* Fixed a regression when a non-logged user switches language and each language has a default currency.
+* Fixed a bug in PHP 8 showing a 404 page for endpoints.
+* Fixed the "new order" email not sent to all the recipients.
+
+= 4.11.0 =
+* Fixed missing product tabs comming from WooCommerce Tab Manager plugin.
+* Better compatibility with plugins that manipulate the cart.
+* Fixed not working product category order synchronization between languages.
+* Fixed shipping country used instead of billing one when checkout.
+* Increase minimum Woocommerce version to 3.9.0.
+* Fixed error for "Fix translated variations relationships" troubleshooting option.
+* Woocommerce Analytics Dashboard now will not display translated products separately.
+* Added noindex/nofollow to all reviews page and link redirecting to it (filterable with wcml_noindex_all_reviews_page filter).
+* Fixed not translated payment gateway title in new order admin email.
+* Fix bought product in different languages.
+* Fix when _product_image_gallery meta key contains an extra blank value.
+* Set default language for orders while installation.
+* Handling warning for rating for newly translated products.
+* [WooCommerce Dynamic Pricing] Fix advanced category rules.
+* Add Rest API support for more compatibility, like taxonomies, product variations, reports etc.
+* Fixed not translated heading paid for Customer Invoice e-mail.
+* Fixed all products block in secondary language.
+* Override template only if it was not overriden before that.
+* Added compatibility class for WOOF - WooCommerce Products Filter plugin.
+* Fixed comment synchronization on duplicate content does not copy metadata of WooCommerce.
+* Translate Composite Products scenario IDs data .
+* Added a notice when multi-currency feature is enabled and an active cache plugin is detected.
+* Fixed huge loading time for "Pay for order" Woocommerce page.
+* Fixed an undue warning popup when leaving the multi-currency settings page.
+* Make the currency switcher to appear on 'my account' page.
+* Fixed interface glitches with Stripe payment and multicurrency.
+* Fixing the link to edit translation in WooCommerce Translation Editor.
 
 = 4.10.0 =
 * Currencies and payment options based on location.
@@ -231,16 +262,4 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 * Fixed an issue with the price filter widget not showing results in a secondary language.
 * Fixed an issue where the shipping classes in secondary languages were not calculated during checkout.
 * Display larger images when hovering thumbnails in the WooCommerce Multilingual Products admin page.
-* Added the "wcml_new_order_admin_email_language" filter to allow setting the language of emails sent to admins for new or updated orders.
-
-= 4.6.0 =
-* Fix wrong currency code after removing item from manually created order
-* Replace *_woocommerce_term_meta functions on *_term_meta
-* Fix gallery images not showing up on translated product page
-* Fix double calculating order item price while manually adding it from admin to order with WooCommerce 3.6.0
-* Fix performance issues on checkout with manage stock products
-* Fix performance issue on shop page with WooCommerce 3.6
-* Fix loading scripts on admin pages
-* Fix coupon discount when editing order from admin
-* Fix wrong product price after adding another product to existing order from admin
-* Fix my-account page endpoints in secondary language with pages set to "Display as translated"
+* Added the "wcml_new_order_admin_email_language" filter to allow setting the language of emails sent to admins for new or updated  orders.

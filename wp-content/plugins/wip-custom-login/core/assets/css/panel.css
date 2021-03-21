@@ -97,44 +97,42 @@ WIP_custom_login_header h2.features {
    =============================================== */
 
 #WIP_custom_login_banner {
-	background:#333;
-	width:94%;
+	border:dotted 4px #ec7063;
+	width:calc(94% - 8px);
 	padding:3% 2%;
 	text-align:center; 
 	margin-top:15px;
 	color:#fff;
 	display:block;
 	vertical-align:top;
-	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner h1 {
-	font-size:21px;
-	color:#fff;
+	font-size:24px;
+	color:#616161;
 	margin:0 auto 15px auto;
 	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner h2 {
-	color:#fff;
-	font-size:18px;
+	color:#616161;
+	font-size:22px;
 	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner p {
-	color:#fff;
-	font-size:16px;
+	color:#616161;
+	font-size:18px;
 	margin:30px auto;
 	font-family: 'Source Sans Pro', Geneva, sans-serif;
 }
 
 #WIP_custom_login_banner .big-button a {
-	
 	background: #ec7063;
-	border:solid 2px #ec7063;
 	color:#fff;
 	text-decoration:none;
 	padding: 14px 24px;
@@ -142,23 +140,20 @@ WIP_custom_login_header h2.features {
 	-moz-transition: all .3s ease;
 	-o-transition: all .3s ease;
 	font-family: 'Source Sans Pro', Geneva, sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	text-align: center;
 	position: relative;
 	margin:0 auto;
-	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 	display:inline-block;
 	text-transform:uppercase;
-	width:250px;
-
+	font-weight:600
 }
 
 #WIP_custom_login_banner .big-button a:hover {
-	border-color: #fff;
-	background:none;
-	color:#fff;
+	background:#e74c3c;
 }
 
 /* ===============================================

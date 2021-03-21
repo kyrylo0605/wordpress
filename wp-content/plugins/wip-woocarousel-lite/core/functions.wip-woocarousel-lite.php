@@ -92,4 +92,43 @@ if (!function_exists('wip_woocarousel_lite_postmeta')) {
 
 }
 
+/*-----------------------------------------------------------------------------------*/
+/* RANDOM BANNER */
+/*-----------------------------------------------------------------------------------*/ 
+
+if (!function_exists('wip_woocarousel_lite_random_banner')) {
+
+	function wip_woocarousel_lite_random_banner() {
+		
+		$plugin1  = '<h1>'. __( 'WIP WooCarousel Lite.', 'wip-woocarousel-lite') . '</h1>';
+		$plugin1 .= '<p>'. __( 'Upgrade to the premium version of WooCarousel, to enable 5 different layouts, 600+ Google Fonts, unlimited colors and much more.', 'wip-woocarousel-lite') . '</p>';
+		$plugin1 .= '<div class="big-button">';		
+		$plugin1 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/wip-woocarousel-woocommerce-slider-carousel/?ref=2&campaign=wip-woocarousel-panel/?aff=panel').'" target="_blank">'.__( 'Upgrade to the premium version', 'wip-woocarousel-lite').'</a>';	
+		$plugin1 .= '</div>';
+		
+		$plugin2  = '<h1>'. __( 'Internal Linking of Related Contents', 'wip-woocarousel-lite') . '</h1>';
+		$plugin2 .= '<p>'. __( '<strong>Internal Linking of Related Contents</strong> WordPress plugin allow you to automatically insert related articles inside your WordPress posts.', 'wip-woocarousel-lite') . '</p>';
+		$plugin2 .= '<div class="big-button">';		
+		$plugin2 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/internal-linking-of-related-contents-pro/?aff=wcl-panel').'" target="_blank">'.__( 'Download the free version, no email required', 'wip-woocarousel-lite').'</a>';	
+		$plugin2 .= '</div>';
+
+		$plugin3  = '<h1>'. __( 'Chatbox Manager', 'wip-woocarousel-lite') . '</h1>';
+		$plugin3 .= '<p>'. __( '<strong>Chatbox Manager</strong> WordPress plugin allow you to display multiple WhatsApp buttons on your website.', 'wip-woocarousel-lite') . '</p>';
+		$plugin3 .= '<div class="big-button">';		
+		$plugin3 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/chatbox-manager-pro/?aff=wcl-panel').'" target="_blank">'.__( 'Download the free version, no email required', 'wip-woocarousel-lite').'</a>';	
+		$plugin3 .= '</div>';
+
+		$plugin4  = '<h1>'. __( 'Content Snippet Manager', 'wip-woocarousel-lite') . '</h1>';
+		$plugin4 .= '<p>'. __( '<strong>Content Snippet Manager</strong> WordPress plugin allow you to include every kind of code inside your Wordpress website.', 'wip-woocarousel-lite') . '</p>';
+		$plugin4 .= '<div class="big-button">';		
+		$plugin4 .= '<a href="'.esc_url( 'https://www.themeinprogress.com/content-snippet-manager/?aff=wcl-panel').'" target="_blank">'.__( 'Download the free version, no email required', 'wip-woocarousel-lite').'</a>';	
+		$plugin4 .= '</div>';
+
+		$banner = array($plugin1,$plugin2,$plugin3,$plugin4);
+		echo $banner[array_rand($banner)];
+	
+	}
+
+}
+
 ?>
