@@ -7,9 +7,7 @@
  * @version 1.0.0
  */
 
-if ( ! defined( 'YITH_WACP' ) ) {
-	exit;
-} // Exit if accessed directly.
+defined( 'YITH_WACP' ) || exit; // Exit if accessed directly.
 
 if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 	/**
@@ -141,7 +139,7 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 			$view_cart  = get_option( 'yith-wacp-show-go-cart', 'yes' ) === 'yes';
 			$continue   = get_option( 'yith-wacp-show-continue-shopping', 'yes' ) === 'yes';
 			$cart_url   = wc_get_cart_url();
-			$product    = isset( $_REQUEST['product_id'] ) ? wc_get_product( intval( $_REQUEST['product_id'] ) ) : false;
+			$product    = isset( $_REQUEST['product_id'] ) ? wc_get_product( absint( $_REQUEST['product_id'] ) ) : false;  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			// Let's filter button urls.
 			$cart_url              = apply_filters( 'yith_wacp_go_cart_url', $cart_url );
 			$continue_shopping_url = apply_filters( 'yith_wacp_continue_shopping_url', '#' );

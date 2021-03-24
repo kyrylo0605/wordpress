@@ -135,7 +135,7 @@ ReportError.defaultProps = {
 
 /***/ }),
 
-/***/ 519:
+/***/ 521:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -200,7 +200,7 @@ var advancedFilters = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__["appl
 
 /***/ }),
 
-/***/ 520:
+/***/ 522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -339,7 +339,7 @@ var advancedFilters = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__["appl
 
 /***/ }),
 
-/***/ 522:
+/***/ 524:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -425,7 +425,7 @@ var advancedFilters = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__["appl
 
 /***/ }),
 
-/***/ 523:
+/***/ 525:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -517,7 +517,7 @@ var advancedFilters = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__["appl
 
 /***/ }),
 
-/***/ 524:
+/***/ 526:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -990,19 +990,19 @@ var external_this_wp_hooks_ = __webpack_require__(43);
 var config = __webpack_require__(532);
 
 // EXTERNAL MODULE: ./client/analytics/report/products/config.js
-var products_config = __webpack_require__(520);
+var products_config = __webpack_require__(522);
 
 // EXTERNAL MODULE: ./client/analytics/report/revenue/config.js
-var revenue_config = __webpack_require__(519);
+var revenue_config = __webpack_require__(521);
 
 // EXTERNAL MODULE: ./client/analytics/report/coupons/config.js
-var coupons_config = __webpack_require__(522);
+var coupons_config = __webpack_require__(524);
 
 // EXTERNAL MODULE: ./client/analytics/report/taxes/config.js
-var taxes_config = __webpack_require__(523);
+var taxes_config = __webpack_require__(525);
 
 // EXTERNAL MODULE: ./client/analytics/report/downloads/config.js
-var downloads_config = __webpack_require__(524);
+var downloads_config = __webpack_require__(526);
 
 // CONCATENATED MODULE: ./client/dashboard/dashboard-charts/config.js
 

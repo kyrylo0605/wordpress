@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'DI\\Annotation\\Inject' => $vendorDir . '/php-di/php-di/src/DI/Annotation/Inject.php',
     'DI\\Annotation\\Injectable' => $vendorDir . '/php-di/php-di/src/DI/Annotation/Injectable.php',
     'DI\\Cache\\ArrayCache' => $vendorDir . '/php-di/php-di/src/DI/Cache/ArrayCache.php',
@@ -275,7 +276,6 @@ return array(
     'Psr\\Log\\LoggerInterface' => $vendorDir . '/psr/log/Psr/Log/LoggerInterface.php',
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
-    'Psr\\Log\\Test\\DummyTest' => $vendorDir . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
     'Psr\\Log\\Test\\LoggerInterfaceTest' => $vendorDir . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
     'Psr\\Log\\Test\\TestLogger' => $vendorDir . '/psr/log/Psr/Log/Test/TestLogger.php',
     'RebelCode\\Composer\\CleanupPlugin' => $vendorDir . '/rebelcode/composer-cleanup-plugin/src/CleanupPlugin.php',
@@ -429,6 +429,7 @@ return array(
     'RebelCode\\Wpra\\Core\\Modules\\WpModule' => $baseDir . '/src/Modules/WpModule.php',
     'RebelCode\\Wpra\\Core\\Plugin' => $baseDir . '/src/Plugin.php',
     'RebelCode\\Wpra\\Core\\Query\\AbstractWpQueryIterator' => $baseDir . '/src/Query/AbstractWpQueryIterator.php',
+    'RebelCode\\Wpra\\Core\\Query\\DbQuery' => $baseDir . '/src/Query/DbQuery.php',
     'RebelCode\\Wpra\\Core\\Query\\WpQueryIterator' => $baseDir . '/src/Query/WpQueryIterator.php',
     'RebelCode\\Wpra\\Core\\RestApi\\Auth\\AbstractAuthValidator' => $baseDir . '/src/RestApi/Auth/AbstractAuthValidator.php',
     'RebelCode\\Wpra\\Core\\RestApi\\Auth\\AuthUserIsAdmin' => $baseDir . '/src/RestApi/Auth/AuthUserIsAdmin.php',

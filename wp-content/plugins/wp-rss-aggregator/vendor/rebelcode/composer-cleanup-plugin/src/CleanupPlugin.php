@@ -3,25 +3,31 @@
 namespace RebelCode\Composer;
 
 use Composer\Composer;
+use Composer\Config;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
-use Composer\Script\ScriptEvents;
 use Composer\Installer\PackageEvent;
-use Composer\Script\CommandEvent;
-use Composer\Util\Filesystem;
+use Composer\Installer\PackageEvents;
+use Composer\IO\IOInterface;
 use Composer\Package\BasePackage;
+use Composer\Package\CompletePackage;
+use Composer\Plugin\PluginInterface;
+use Composer\Repository\WritableRepositoryInterface;
+use Composer\Util\Filesystem;
 
 class CleanupPlugin implements PluginInterface, EventSubscriberInterface
 {
-    /** @var  \Composer\Composer $composer */
+    /** @var  Composer $composer */
     protected $composer;
-    /** @var  \Composer\IO\IOInterface $io */
+
+    /** @var  IOInterface $io */
     protected $io;
-    /** @var  \Composer\Config $config */
+
+    /** @var  Config $config */
     protected $config;
-    /** @var  \Composer\Util\Filesystem $filesystem */
+
+    /** @var  Filesystem $filesystem */
     protected $filesystem;
+
     /** @var  array $rules */
     protected $rules;
 
@@ -37,25 +43,23 @@ class CleanupPlugin implements PluginInterface, EventSubscriberInterface
         $this->rules = CleanupRules::getRules();
     }
 
+    public function deactivate(Composer $composer, IOInterface $io)
+    {
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io)
+    {
+    }
+
     /**
      * {@inheritDoc}
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            ScriptEvents::POST_PACKAGE_INSTALL  => array(
-                array('onPostPackageInstall', 0)
-            ),
-            ScriptEvents::POST_PACKAGE_UPDATE  => array(
-                array('onPostPackageUpdate', 0)
-            ),
-            /*ScriptEvents::POST_INSTALL_CMD  => array(
-                array('onPostInstallUpdateCmd', 0)
-            ),
-            ScriptEvents::POST_UPDATE_CMD  => array(
-                array('onPostInstallUpdateCmd', 0)
-            ),*/
-        );
+        return [
+            PackageEvents::POST_PACKAGE_INSTALL => 'onPostPackageInstall',
+            PackageEvents::POST_PACKAGE_UPDATE => 'onPostPackageUpdate',
+        ];
     }
 
     /**
@@ -63,7 +67,7 @@ class CleanupPlugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPostPackageInstall(PackageEvent $event)
     {
-        /** @var \Composer\Package\CompletePackage $package */
+        /** @var CompletePackage $package */
         $package = $event->getOperation()->getPackage();
 
         $this->cleanPackage($package);
@@ -74,7 +78,7 @@ class CleanupPlugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPostPackageUpdate(PackageEvent $event)
     {
-        /** @var \Composer\Package\CompletePackage $package */
+        /** @var CompletePackage $package */
         $package = $event->getOperation()->getTargetPackage();
 
         $this->cleanPackage($package);
@@ -83,15 +87,15 @@ class CleanupPlugin implements PluginInterface, EventSubscriberInterface
     /**
      * Function to run after a package has been updated
      *
-     * @param CommandEvent $event
+     * @param PackageEvent $event
      */
-    public function onPostInstallUpdateCmd(CommandEvent $event)
+    public function onPostInstallUpdateCmd(PackageEvent $event)
     {
-        /** @var \Composer\Repository\WritableRepositoryInterface $repository */
+        /** @var WritableRepositoryInterface $repository */
         $repository = $this->composer->getRepositoryManager()->getLocalRepository();
 
-        /** @var \Composer\Package\CompletePackage $package */
-        foreach($repository->getPackages() as $package){
+        /** @var CompletePackage $package */
+        foreach ($repository->getPackages() as $package) {
             if ($package instanceof BasePackage) {
                 $this->cleanPackage($package);
             }
@@ -118,7 +122,7 @@ class CleanupPlugin implements PluginInterface, EventSubscriberInterface
 
         $rules = isset($this->rules[$packageName]) ? $this->rules[$packageName] : null;
         if(!$rules){
-            return;
+            return false;
         }
 
         $dir = $this->filesystem->normalizePath(realpath($vendorDir . '/' . $packageDir));

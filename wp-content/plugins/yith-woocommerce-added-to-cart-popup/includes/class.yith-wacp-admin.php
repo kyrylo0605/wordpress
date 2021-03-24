@@ -7,9 +7,7 @@
  * @version 1.0.0
  */
 
-if ( ! defined( 'YITH_WACP' ) ) {
-	exit;
-} // Exit if accessed directly
+defined( 'YITH_WACP' ) || exit; // Exit if accessed directly.
 
 if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 	/**
@@ -24,7 +22,7 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		 * Single instance of the class
 		 *
 		 * @since 1.0.0
-		 * @var \YITH_WACP_Admin
+		 * @var YITH_WACP_Admin
 		 */
 		protected static $instance;
 
@@ -68,6 +66,7 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 
 		/**
 		 * Premium version landing link
+		 *
 		 * @var string
 		 */
 		protected $premium_landing = 'https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup';
@@ -183,11 +182,16 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		 *
 		 * @since    1.0
 		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-		 * @param array  $new_row_meta_args
-		 * @param mixed  $plugin_meta
-		 * @param string $plugin_file
-		 * @param mixed  $plugin_data
-		 * @param mixed  $status
+		 * @param array    $new_row_meta_args An array of plugin row meta.
+		 * @param string[] $plugin_meta       An array of the plugin's metadata,
+		 *                                    including the version, author,
+		 *                                    author URI, and plugin URI.
+		 * @param string   $plugin_file       Path to the plugin file relative to the plugins directory.
+		 * @param array    $plugin_data       An array of plugin data.
+		 * @param string   $status            Status of the plugin. Defaults are 'All', 'Active',
+		 *                                    'Inactive', 'Recently Activated', 'Upgrade', 'Must-Use',
+		 *                                    'Drop-ins', 'Search', 'Paused'.
+		 *
 		 * @return array
 		 */
 		public function plugin_row_meta( $new_row_meta_args, $plugin_meta, $plugin_file, $plugin_data, $status ) {

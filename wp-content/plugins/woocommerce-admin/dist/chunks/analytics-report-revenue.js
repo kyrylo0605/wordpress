@@ -38,7 +38,7 @@ var prop_types = __webpack_require__(1);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 
 // EXTERNAL MODULE: ./client/analytics/report/revenue/config.js
-var config = __webpack_require__(519);
+var config = __webpack_require__(521);
 
 // EXTERNAL MODULE: ./client/lib/get-selected-chart/index.js
 var get_selected_chart = __webpack_require__(503);
@@ -1376,7 +1376,7 @@ ReportSummary.contextType = _lib_currency_context__WEBPACK_IMPORTED_MODULE_17__[
 
 /***/ }),
 
-/***/ 519:
+/***/ 521:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -3,7 +3,7 @@
 Plugin Name: Ninja Forms
 Plugin URI: http://ninjaforms.com/?utm_source=Ninja+Forms+Plugin&utm_medium=readme
 Description: Ninja Forms is a webform builder with unparalleled ease of use and features.
-Version: 3.4.34
+Version: 3.5.1
 Author: Saturday Drive
 Author URI: http://ninjaforms.com/?utm_source=Ninja+Forms+Plugin&utm_medium=Plugins+WP+Dashboard
 Text Domain: ninja-forms
@@ -59,7 +59,7 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
          * @since 3.0
          */
 
-        const VERSION = '3.4.34';
+        const VERSION = '3.5.1';
         
         /**
          * @since 3.4.0
@@ -179,6 +179,11 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
          */
         public $tracking;
 
+        /**
+         *
+         * @var NF_Handlers_FieldsetRepeater
+         */
+        public $fieldsetRepeater;
         /**
          * Plugin Settings
          *
@@ -410,7 +415,11 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
                  */
                 self::$instance->tracking = new NF_Tracking();
 
-
+                /*
+                 * Fieldset Repeater Handler
+                 */
+                self::$instance->fieldsetRepeater =  new NF_Handlers_FieldsetRepeater();
+                
                 self::$instance->submission_expiration_cron = new NF_Database_SubmissionExpirationCron();
 
                 /*
@@ -950,7 +959,7 @@ if( get_option( 'ninja_forms_load_deprecated', FALSE ) && ! ( isset( $_POST[ 'nf
             $a_order = ( isset( $custom_order[ $a ] ) ) ? $custom_order[ $a ] : 9001;
             $b_order = ( isset( $custom_order[ $b ] ) ) ? $custom_order[ $b ] : 9001;
 
-            return $a_order >= $b_order;
+            return intval( $a_order >= $b_order );
         }
 
         /**

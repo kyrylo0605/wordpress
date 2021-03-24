@@ -27,7 +27,7 @@ final class NF_Display_Render
         'field-null'
     );
 
-    protected static $use_test_values = FALSE;
+    public static $use_test_values = FALSE;
 
     protected static $form_uses_recaptcha      = array();
     protected static $form_uses_datepicker     = array();
@@ -629,6 +629,9 @@ final class NF_Display_Render
         }
 
         wp_localize_script( 'nf-front-end', 'nfFrontEnd', $data );
+        wp_localize_script( 'nf-front-end', 'nfRepeater', array(
+            'add_repeater_child_field_text' => __( 'Add ', 'ninja-forms' )
+        ));
 
         do_action( 'ninja_forms_enqueue_scripts', array( 'form_id' => $form_id ) );
 
@@ -655,7 +658,7 @@ final class NF_Display_Render
         }
     }
 
-    protected static function load_template( $file_name = '' )
+    public static function load_template( $file_name = '' )
     {
         if( ! $file_name ) return;
 

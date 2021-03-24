@@ -451,7 +451,7 @@ function wpra_get_item_content_images($item)
     $i = 0;
     $images = [];
     while (!empty($matches[1][$i])) {
-        $imageUrl = urldecode(trim($matches[1][$i]));
+        $imageUrl = urldecode(trim(html_entity_decode($matches[1][$i])));
         // Increment early to allow the iteration body to use "continue" statements
         $i++;
 
@@ -703,6 +703,9 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
         return new WP_Error('missing', "Need a valid URL and post ID...");
     }
 
+    // Allow 30 seconds prior to beginning the actual download
+    set_time_limit(apply_filters('wpra/images/time_limit/prepare', 30));
+
     // Check if the image already exists in the media library
     $existing = get_posts([
         'post_type' => 'attachment',
@@ -723,6 +726,9 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
         try {
             /* @var $img WPRSS_Image_Cache_Image */
             $url = apply_filters('wpra/images/url_to_download', $url);
+
+            // Allow 1 minute for the download process
+            set_time_limit(apply_filters('wpra/images/time_limit/download', 60));
 
             $img = $images->get($url);
         } catch (Exception $e) {
@@ -786,6 +792,9 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
             }
         }
 
+        // Fix for Facebook images that come from a PHP endpoint
+        $baseName = str_replace($baseName, 'safe_image.php', 'fb_image.jpeg');
+
         $file_array['name'] = $baseName;
 
         // set additional wp_posts columns
@@ -848,6 +857,9 @@ function wpra_media_sideload_image($url = null, $post_id = null, $attach = null,
         // do the validation and storage stuff
         // For some reason, deep down filesize() returned 0 for the temporary file without this
         clearstatcache(false, $file_array['tmp_name']);
+
+        // Allocate 30 for WordPress to copy and process the image
+        set_time_limit(apply_filters('wpra/images/time_limit/copy', 30));
 
         // $post_data can override the items saved to wp_posts table,
         // like post_mime_type, guid, post_parent, post_title, post_content, post_status

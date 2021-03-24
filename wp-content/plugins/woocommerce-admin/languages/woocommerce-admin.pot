@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Admin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Admin 2.1.2\n"
+"Project-Id-Version: WooCommerce Admin 2.1.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-admin\n"
-"POT-Creation-Date: 2021-03-10 09:19:22+00:00\n"
+"POT-Creation-Date: 2021-03-15 04:40:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgstr ""
 #: client/layout/controller.js:192
 #: client/marketing/overview/installed-extensions/row.js:45
 #: client/store-management-links/index.js:72
-#: client/task-list/tasks/payments/methods.js:478
+#: client/task-list/tasks/payments/methods.js:446
 msgid "Settings"
 msgstr ""
 
@@ -607,58 +607,54 @@ msgid "Whether or not the profile was skipped."
 msgstr ""
 
 #: src/API/OnboardingProfile.php:231
-msgid "How the Jetpack/WooCommerce Shipping & Tax step was handled."
-msgstr ""
-
-#: src/API/OnboardingProfile.php:245
 msgid "Account type used for Jetpack."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:257
+#: src/API/OnboardingProfile.php:243
 msgid "Industry."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:267
+#: src/API/OnboardingProfile.php:253
 msgid "Types of products sold."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:279
+#: src/API/OnboardingProfile.php:265
 msgid "Number of products to be added."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:293
+#: src/API/OnboardingProfile.php:279
 msgid "Other places the store is selling products."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:307
+#: src/API/OnboardingProfile.php:293
 msgid "Current annual revenue of the store."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:322
+#: src/API/OnboardingProfile.php:308
 msgid "Name of other platform used to sell."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:340
+#: src/API/OnboardingProfile.php:326
 msgid "Name of other platform used to sell (not listed)."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:347
+#: src/API/OnboardingProfile.php:333
 msgid "Extra business extensions to install."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:367
+#: src/API/OnboardingProfile.php:353
 msgid "Selected store theme."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:375
+#: src/API/OnboardingProfile.php:361
 msgid "Whether or not the user opted to purchase items now or later."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:382
+#: src/API/OnboardingProfile.php:368
 msgid "Whether or not this store was setup for a client."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:389
+#: src/API/OnboardingProfile.php:375
 msgid ""
 "Whether or not the store was connected to WooCommerce.com during the "
 "extension flow."
@@ -3416,7 +3412,7 @@ msgid "Sign up for tips, product updates, and inspiration"
 msgstr ""
 
 #: src/Notes/OnboardingEmailMarketing.php:41
-#: client/profile-wizard/steps/benefits/index.js:246
+#: client/profile-wizard/steps/benefits/index.js:238
 msgid "Yes please!"
 msgstr ""
 
@@ -4947,7 +4943,7 @@ msgid "Buy now"
 msgstr ""
 
 #: client/dashboard/components/connect/index.js:77
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:747
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:494
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:351
 #: packages/components/build-module/plugins/index.js:138
 msgid "Retry"
@@ -4955,9 +4951,9 @@ msgstr ""
 
 #: client/dashboard/components/connect/index.js:91
 #: client/homescreen/stats-overview/install-jetpack-cta.js:76
-#: client/profile-wizard/steps/benefits/index.js:255
+#: client/profile-wizard/steps/benefits/index.js:247
 #: client/profile-wizard/steps/usage-modal.js:122
-#: client/task-list/tasks/payments/wcpay-usage-modal.js:55
+#: client/task-list/tasks/payments/wcpay/wcpay-usage-modal.js:55
 #: client/wp-admin-scripts/navigation-opt-out/container.js:46
 #: packages/components/build-module/plugins/index.js:162
 msgid "No thanks"
@@ -5791,27 +5787,27 @@ msgstr ""
 msgid "They'll appear in the top level of the navigation for quick access"
 msgstr ""
 
-#: client/profile-wizard/index.js:123
+#: client/profile-wizard/index.js:107
 msgid "Store Details"
 msgstr ""
 
-#: client/profile-wizard/index.js:131
+#: client/profile-wizard/index.js:115
 msgid "Industry"
 msgstr ""
 
-#: client/profile-wizard/index.js:139
+#: client/profile-wizard/index.js:123
 msgid "Product Types"
 msgstr ""
 
-#: client/profile-wizard/index.js:149
+#: client/profile-wizard/index.js:133
 msgid "Business Details"
 msgstr ""
 
-#: client/profile-wizard/index.js:157
+#: client/profile-wizard/index.js:141
 msgid "Theme"
 msgstr ""
 
-#: client/profile-wizard/index.js:273
+#: client/profile-wizard/index.js:253
 msgid "There was a problem skipping the setup wizard"
 msgstr ""
 
@@ -5819,74 +5815,73 @@ msgstr ""
 msgid "There was a problem finishing the setup wizard"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:114
+#: client/profile-wizard/steps/benefits/index.js:106
 #: client/profile-wizard/steps/usage-modal.js:53
 msgid "There was a problem updating your preferences"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:146
+#: client/profile-wizard/steps/benefits/index.js:138
 msgid "Store management on the go"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:148
+#: client/profile-wizard/steps/benefits/index.js:140
 msgid ""
 "Your store in your pocket. Manage orders, receive sales notifications, and "
 "more. Only with a Jetpack connection."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:155
+#: client/profile-wizard/steps/benefits/index.js:147
 msgid "Automated sales taxes"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:157
+#: client/profile-wizard/steps/benefits/index.js:149
 msgid ""
 "Ensure that the correct rate of tax is charged on all of your orders "
 "automatically, and print shipping labels at home."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:164
+#: client/profile-wizard/steps/benefits/index.js:156
 msgid "Improved speed & security"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:166
+#: client/profile-wizard/steps/benefits/index.js:158
 msgid ""
 "Automatically block brute force attacks and speed up your store using our "
 "powerful, global server network to cache images."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:173
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:589
+#: client/profile-wizard/steps/benefits/index.js:165
 msgid "Print shipping labels at home"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:178
+#: client/profile-wizard/steps/benefits/index.js:170
 msgid ""
 "Save time at the post office by printing shipping labels for your orders at "
 "home."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:207
+#: client/profile-wizard/steps/benefits/index.js:199
 #: client/task-list/tasks/payments/index.js:155
 msgid "and"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:214
+#: client/profile-wizard/steps/benefits/index.js:206
 msgid "plugin"
 msgid_plural "plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/profile-wizard/steps/benefits/index.js:228
+#: client/profile-wizard/steps/benefits/index.js:220
 msgid "Enhance your store with %s"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:264
+#: client/profile-wizard/steps/benefits/index.js:256
 msgid ""
 "%s %s will be installed & activated for free, and you agree to our "
 "{{link}}Terms of Service{{/link}}."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:282
+#: client/profile-wizard/steps/benefits/index.js:274
 msgid "%s %s will be installed & activated for free."
 msgstr ""
 
@@ -5901,7 +5896,6 @@ msgid ""
 msgstr ""
 
 #: client/profile-wizard/steps/business-details/data/extension-benefits.js:18
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:575
 msgid "Contact customers with Mailchimp"
 msgstr ""
 
@@ -5932,7 +5926,6 @@ msgid ""
 msgstr ""
 
 #: client/profile-wizard/steps/business-details/data/extension-benefits.js:9
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:568
 msgid "Market on Facebook"
 msgstr ""
 
@@ -6003,113 +5996,68 @@ msgstr ""
 msgid "Yes, on another platform and in person at physical stores and/or events"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:224
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:197
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:148
 msgid "There was a problem updating your business details"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:279
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:252
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:203
 msgid "This field is required"
 msgstr ""
 
 # %s: a comma separated list of plugins, e.g. Jetpack, Woocommerce Shipping
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:388
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:167
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:289
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:163
 msgid "Installing the following plugin: %s"
 msgid_plural "Installing the following plugins: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:400
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:184
-msgid "User accounts are required to use these features."
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:409
-msgid "The following plugin will be installed for free: %s. %s"
-msgid_plural "The following plugins will be installed for free: %s. %s"
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:304
+msgid "The following plugin will be installed for free: %s."
+msgid_plural "The following plugins will be installed for free: %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:422
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:206
-msgid ""
-"By installing Jetpack and WooCommerce Shipping plugins for free you agree "
-"to our {{link}}Terms of Service{{/link}}."
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:498
-msgid "Install recommended {{strong}}free{{/strong}} business features"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:507
-msgid "Requires an account"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:515
-#: client/profile-wizard/steps/product-types/label.js:39
-msgid "Learn more about recommended free business features"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:540
-msgid "Manage your store on the go with the WooCommerce mobile app"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:547
-msgid "Accept credit cards with WooCommerce Payments"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:554
-msgid "Speed & security enhancements"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:561
-msgid "Automatic sales taxes"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:582
-msgid "Drive sales with Google Ads"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:641
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:388
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:250
 msgid "Tell us about your business"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:647
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:394
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:256
 msgid ""
 "We'd love to know if you are just getting started or you already have a "
 "business in place."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:656
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:403
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:265
 msgid "How many products do you plan to display?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:666
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:413
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:275
 msgid "Currently selling elsewhere?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:682
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:429
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:291
 msgid "What's your current annual revenue?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:699
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:446
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:312
 msgid "Which platform is the store using?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:712
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:459
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:325
 msgid "What is the platform name?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:743
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:490
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:347
 #: client/profile-wizard/steps/industry.js:255
 #: client/profile-wizard/steps/product-types/index.js:169
@@ -6122,78 +6070,88 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:756
+#: client/profile-wizard/steps/business-details/flows/bundle/index.js:503
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:360
 #: packages/components/build-module/plugins/index.js:140
 msgid "Continue without installing"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:382
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:385
 msgid "Included business features"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:388
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:391
 msgid "We recommend enhancing your store with these free extensions"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:394
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:397
 msgid "No commitment required - you can remove them at any time."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:435
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:440
 msgid "Business details"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:443
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/index.js:448
 msgid "Free features"
 msgstr ""
 
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:103
-msgid "Contact customers with {{link}}Mailchimp{{/link}}"
+msgid "Drive sales with {{link}}Google Ads{{/link}}"
 msgstr ""
 
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:113
+msgid "Contact customers with {{link}}Mailchimp{{/link}}"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:123
 msgid "Reach new customers with {{link}}Creative Mail{{/link}}"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:141
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:137
 #: client/profile-wizard/steps/theme/index.js:278
 msgid "Free"
 msgstr ""
 
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:180
+msgid "User accounts are required to use these features."
+msgstr ""
+
 # %1$s: a comma separated list of plugins, e.g. Jetpack, Woocommerce Shipping, %2$s: text: 'User accounts are required to use these features.'
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:193
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:189
 msgid "The following plugin will be installed for free: %1$s. %2$s"
 msgid_plural "The following plugins will be installed for free: %1$s. %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:293
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:202
+msgid ""
+"By installing Jetpack and WooCommerce Shipping plugins for free you agree "
+"to our {{link}}Terms of Service{{/link}}."
+msgstr ""
+
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:329
 msgid "Add recommended business features to my site"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:43
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:45
 msgid "Get the basics"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:48
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:50
 msgid "Accept credit cards with {{link}}WooCommerce Payments{{/link}}"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:58
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:68
 msgid "Print shipping labels with {{link}}WooCommerce Shipping{{/link}}"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:68
+#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:78
 msgid "Enhance speed and security with {{link}}Jetpack{{/link}}"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:83
-msgid "Market on {{link}}Facebook{{/link}}"
-msgstr ""
-
 #: client/profile-wizard/steps/business-details/flows/selective-bundle/selective-extensions-bundle/index.js:93
-msgid "Drive sales with {{link}}Google Ads{{/link}}"
+msgid "Market on {{link}}Facebook{{/link}}"
 msgstr ""
 
 #: client/profile-wizard/steps/industry.js:104
@@ -6241,6 +6199,10 @@ msgid ""
 "This product type requires a paid extension.\n"
 "We'll add this to a cart so that\n"
 "you can purchase and install it later."
+msgstr ""
+
+#: client/profile-wizard/steps/product-types/label.js:39
+msgid "Learn more about recommended free business features"
 msgstr ""
 
 # Dollar amount (example: $4.08 )
@@ -6406,7 +6368,7 @@ msgid "Marketing & Merchandising"
 msgstr ""
 
 #: client/store-management-links/index.js:43
-#: client/task-list/tasks.js:132
+#: client/task-list/tasks.js:140
 msgid "Add products"
 msgstr ""
 
@@ -6419,7 +6381,7 @@ msgid "View my store"
 msgstr ""
 
 #: client/store-management-links/index.js:75
-#: client/task-list/tasks.js:105
+#: client/task-list/tasks.js:113
 msgid "Store details"
 msgstr ""
 
@@ -6451,54 +6413,54 @@ msgstr ""
 msgid "Hide this"
 msgstr ""
 
-#: client/task-list/tasks.js:113
+#: client/task-list/tasks.js:103
+msgid "Add %s to your store"
+msgstr ""
+
+#: client/task-list/tasks.js:121
 msgid "4 minutes"
 msgstr ""
 
-#: client/task-list/tasks.js:140
+#: client/task-list/tasks.js:148
 msgid "1 minute per product"
 msgstr ""
 
-#: client/task-list/tasks.js:145
+#: client/task-list/tasks.js:153
 msgid "Set up WooCommerce Payments"
 msgstr ""
 
-#: client/task-list/tasks.js:177
+#: client/task-list/tasks.js:185
 msgid ""
 "By setting up, you are agreeing to the <a "
 "href=\"https://wordpress.com/tos/\" target=\"_blank\">Terms of Service</a>"
 msgstr ""
 
-#: client/task-list/tasks.js:186
+#: client/task-list/tasks.js:194
 msgid "Choose payment methods"
 msgstr ""
 
-#: client/task-list/tasks.js:199
+#: client/task-list/tasks.js:210
 msgid "Add tax rates"
 msgstr ""
 
-#: client/task-list/tasks.js:212
+#: client/task-list/tasks.js:223
 msgid "Set up shipping costs"
 msgstr ""
 
-#: client/task-list/tasks.js:222
+#: client/task-list/tasks.js:233
 msgid "1 minute"
 msgstr ""
 
-#: client/task-list/tasks.js:227
+#: client/task-list/tasks.js:238
 msgid "Personalize your store"
 msgstr ""
 
-#: client/task-list/tasks.js:235
+#: client/task-list/tasks.js:246
 msgid "2 minutes"
 msgstr ""
 
-#: client/task-list/tasks.js:88
+#: client/task-list/tasks.js:96
 msgid "Add paid extensions to your store"
-msgstr ""
-
-#: client/task-list/tasks.js:95
-msgid "Add %s to your store"
 msgstr ""
 
 #: client/task-list/tasks/appearance.js:118
@@ -6685,156 +6647,150 @@ msgstr ""
 msgid "Connect your Klarna account"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:105
-msgid "Credit cards - powered by Stripe"
-msgstr ""
-
-#: client/task-list/tasks/payments/methods.js:111
-msgid ""
-"Accept debit and credit cards in 135+ currencies, methods such as Alipay, "
-"and one-touch checkout with Apple Pay."
-msgstr ""
-
-#: client/task-list/tasks/payments/methods.js:132
+#: client/task-list/tasks/payments/methods.js:100
 msgid "PayPal Payments"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:135
+#: client/task-list/tasks/payments/methods.js:103
 msgid ""
 "Safe and secure payments using credit cards or your customer's PayPal "
 "account."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:157
+#: client/task-list/tasks/payments/methods.js:125
 msgid "Klarna Checkout"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:181
+#: client/task-list/tasks/payments/methods.js:149
 msgid "Klarna Payments"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:182
+#: client/task-list/tasks/payments/methods.js:150
 msgid ""
 "Choose the payment that you want, pay now, pay later or slice it. No credit "
 "card numbers, no passwords, no worries."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:216
+#: client/task-list/tasks/payments/methods.js:184
 msgid "Mollie Payments for WooCommerce"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:224
+#: client/task-list/tasks/payments/methods.js:192
 msgid ""
 "Effortless payments by Mollie: Offer global and local payment methods, get "
 "onboarded in minutes, and supported in your language."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:251
+#: client/task-list/tasks/payments/methods.js:219
 msgid "Square"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:254
+#: client/task-list/tasks/payments/methods.js:222
 msgid ""
 "Securely accept credit and debit cards with one low rate, no surprise fees "
 "(custom rates available). Sell online and in store and track sales and "
 "inventory in one place."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:261
+#: client/task-list/tasks/payments/methods.js:229
 msgid " Selling CBD products is only supported by Square."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:292
+#: client/task-list/tasks/payments/methods.js:260
 msgid "PayFast"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:295
+#: client/task-list/tasks/payments/methods.js:263
 msgid ""
 "The PayFast extension for WooCommerce enables you to accept payments by "
 "Credit Card and EFT via one of South Africa’s most popular payment "
 "gateways. No setup fees or monthly subscription costs."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:300
+#: client/task-list/tasks/payments/methods.js:268
 msgid ""
 "Selecting this extension will configure your store to use South African "
 "rands as the selected currency."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:328
+#: client/task-list/tasks/payments/methods.js:296
 msgid "eWAY"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:331
+#: client/task-list/tasks/payments/methods.js:299
 msgid ""
 "The eWAY extension for WooCommerce allows you to take credit card payments "
 "directly on your store without redirecting your customers to a third party "
 "site to make payment."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:357
+#: client/task-list/tasks/payments/methods.js:325
 #: packages/data/build-module/plugins/constants.js:25
 #: packages/data/src/plugins/constants.js:56
 msgid "Razorpay"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:360
+#: client/task-list/tasks/payments/methods.js:328
 msgid ""
 "The official Razorpay extension for WooCommerce allows you to accept credit "
 "cards, debit cards, netbanking, wallet, and UPI payments."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:381
+#: client/task-list/tasks/payments/methods.js:349
 msgid "PayU for WooCommerce"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:384
+#: client/task-list/tasks/payments/methods.js:352
 msgid ""
 "Enable PayU’s exclusive plugin for WooCommerce to start accepting payments "
 "in 100+ payment methods available in India including credit cards, debit "
 "cards, UPI, & more!"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:400
+#: client/task-list/tasks/payments/methods.js:368
 msgid "Cash on delivery"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:401
+#: client/task-list/tasks/payments/methods.js:369
 msgid "Take payments in cash upon delivery."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:414
+#: client/task-list/tasks/payments/methods.js:382
 msgid "Direct bank transfer"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:415
+#: client/task-list/tasks/payments/methods.js:383
 msgid "Take payments via bank transfer."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:43
-msgid ""
-"There was an error connecting to WooCommerce Payments. Please try again or "
-"connect later in store settings."
-msgstr ""
-
-#: client/task-list/tasks/payments/methods.js:442
+#: client/task-list/tasks/payments/methods.js:410
 msgid "By clicking \"Set up,\" you agree to the {{link}}Terms of Service{{/link}}"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:462
+#: client/task-list/tasks/payments/methods.js:430
 msgid "Setting up a store for a client? {{link}}Start here{{/link}}"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:484
+#: client/task-list/tasks/payments/methods.js:460
+msgid ""
+"Accept credit card payments the easy way! {{feesLink}}No setup fees. No "
+"monthly fees.{{/feesLink}}"
+msgstr ""
+
+#: client/task-list/tasks/payments/methods.js:471
 #: packages/data/build-module/plugins/constants.js:21
 #: packages/data/src/plugins/constants.js:46
 msgid "WooCommerce Payments"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:487
+#: client/task-list/tasks/payments/methods.js:73
+msgid "Credit cards - powered by Stripe"
+msgstr ""
+
+#: client/task-list/tasks/payments/methods.js:79
 msgid ""
-"Accept credit card payments the easy way! No setup fees. No monthly fees. "
-"Just 2.9% + $0.30 per transaction on U.S. issued cards. "
+"Accept debit and credit cards in 135+ currencies, methods such as Alipay, "
+"and one-touch checkout with Apple Pay."
 msgstr ""
 
 #: client/task-list/tasks/payments/mollie.js:20
@@ -7067,22 +7023,28 @@ msgstr ""
 msgid "Stripe connected successfully."
 msgstr ""
 
-#: client/task-list/tasks/payments/wcpay-usage-modal.js:29
+#: client/task-list/tasks/payments/wcpay/install-activate-and-connect.js:19
+msgid ""
+"There was an error connecting to WooCommerce Payments. Please try again or "
+"connect later in store settings."
+msgstr ""
+
+#: client/task-list/tasks/payments/wcpay/wcpay-usage-modal.js:29
 msgid "Help us build a better WooCommerce Payments experience"
 msgstr ""
 
-#: client/task-list/tasks/payments/wcpay-usage-modal.js:34
+#: client/task-list/tasks/payments/wcpay/wcpay-usage-modal.js:34
 msgid ""
 "By agreeing to share non-sensitive {{link}}usage data{{/link}}, you’ll help "
 "us improve features and optimize the WooCommerce Payments experience. You "
 "can opt out at any time."
 msgstr ""
 
-#: client/task-list/tasks/payments/wcpay-usage-modal.js:54
+#: client/task-list/tasks/payments/wcpay/wcpay-usage-modal.js:54
 msgid "I agree"
 msgstr ""
 
-#: client/task-list/tasks/payments/wcpay.js:17
+#: client/task-list/tasks/payments/wcpay/wcpay.js:17
 msgid "WooCommerce Payments connected successfully."
 msgstr ""
 
@@ -8153,13 +8115,11 @@ msgid "Variations Match {{select /}} Filters"
 msgstr ""
 
 #: client/profile-wizard/steps/business-details/data/product-options.js:19
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:350
 msgctxt "store product count or revenue"
 msgid "%s+"
 msgstr ""
 
 #: client/profile-wizard/steps/business-details/data/product-options.js:25
-#: client/profile-wizard/steps/business-details/flows/bundle/index.js:360
 msgctxt "store product count or revenue range"
 msgid "%1$s - %2$s"
 msgstr ""

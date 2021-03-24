@@ -29,13 +29,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _woocommerce_data__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_data__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(11);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(520);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(522);
 /* harmony import */ var _lib_get_selected_chart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(503);
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(530);
 /* harmony import */ var _components_report_chart__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(502);
 /* harmony import */ var _components_report_error__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(499);
 /* harmony import */ var _components_report_summary__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(504);
-/* harmony import */ var _variations_table__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(521);
+/* harmony import */ var _variations_table__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(523);
 /* harmony import */ var _components_report_filters__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(505);
 /* harmony import */ var _customer_effort_score_tracks_data_constants__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(76);
 
@@ -240,7 +240,7 @@ ProductsReport.propTypes = {
 
 /***/ }),
 
-/***/ 520:
+/***/ 522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -379,7 +379,7 @@ var advancedFilters = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__["appl
 
 /***/ }),
 
-/***/ 521:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -409,7 +409,7 @@ var advancedFilters = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__["appl
 /* harmony import */ var _woocommerce_number__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_number__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _woocommerce_wc_admin_settings__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(25);
 /* harmony import */ var _components_report_table__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(506);
-/* harmony import */ var _products_utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(512);
+/* harmony import */ var _products_utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(513);
 /* harmony import */ var _lib_currency_context__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(498);
 /* harmony import */ var _lib_async_requests__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(500);
 

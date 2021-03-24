@@ -1600,3 +1600,37 @@ if ( ! function_exists( 'yith_plugin_fw_extract' ) ) {
 		);
 	}
 }
+
+
+if ( ! function_exists( 'yith_plugin_fw_register_elementor_widget' ) ) {
+	/**
+	 * Register Elementor widget
+	 *
+	 * @param string $widget_name    The widget name.
+	 * @param array  $widget_options The widget options.
+	 *
+	 * @since 3.6.0
+	 */
+	function yith_plugin_fw_register_elementor_widget( $widget_name, $widget_options ) {
+		YITH_Elementor::instance()->register_widget( $widget_name, $widget_options );
+	}
+}
+
+if ( ! function_exists( 'yith_plugin_fw_register_elementor_widgets' ) ) {
+	/**
+	 * Register Elementor widgets
+	 *
+	 * @param array $widgets            The widgets.
+	 * @param bool  $map_from_gutenberg Set to true if you need to map options from Gutenberg blocks array.
+	 *
+	 * @since 3.6.0
+	 */
+	function yith_plugin_fw_register_elementor_widgets( $widgets, $map_from_gutenberg = false ) {
+		foreach ( $widgets as $widget_name => $widget_options ) {
+			if ( $map_from_gutenberg ) {
+				$widget_options = array_merge( array( 'map_from_gutenberg' => true ), $widget_options );
+			}
+			yith_plugin_fw_register_elementor_widget( $widget_name, $widget_options );
+		}
+	}
+}

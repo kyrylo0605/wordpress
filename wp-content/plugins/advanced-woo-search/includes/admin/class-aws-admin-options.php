@@ -162,6 +162,14 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
 
             }
 
+            /**
+             * Filter admin page options for current page
+             * @since 2.23
+             * @param array $options_arr Array of options
+             * @param bool|string $tab Current settings page tab
+             */
+            $options_arr = apply_filters( 'aws_admin_page_options_current', $options_arr, $tab );
+
             return $options_arr;
 
         }
@@ -285,6 +293,85 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                     '<br>' . __( "Also will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term.", "advanced-woo-search" ),
                 "id"    => "use_analytics",
                 "value" => 'false',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false'  => __( 'Off', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['performance'][] = array(
+                "name"    => __( "Search options", "advanced-woo-search" ),
+                "type"    => "heading"
+            );
+
+            $options['performance'][] = array(
+                "name"  => __( "Search rule", "advanced-woo-search" ),
+                "desc"  => __( "Search rule that will be used for terms search.", "advanced-woo-search" ),
+                "id"    => "search_rule",
+                "value" => 'contains',
+                "type"  => "radio",
+                'choices' => array(
+                    'contains' => '%s% ' . __( "( contains ). Search query can be inside any part of the product words ( beginning, end, middle ). Slow.", "advanced-woo-search" ),
+                    'begins'   => 's% ' . __( "( begins ). Search query can be only at the beginning of the product words. Fast.", "advanced-woo-search" ),
+                )
+            );
+
+            $options['performance'][] = array(
+                "name"  => __( "AJAX timeout", "advanced-woo-search" ),
+                "desc"  => __( "Time after user input that script is waiting before sending a search event to the server, ms.", "advanced-woo-search" ),
+                "id"    => "search_timeout",
+                "value" => 300,
+                'min'   => 100,
+                "type"  => "number"
+            );
+
+            $options['performance'][] = array(
+                "name"    => __( "Index table options", "advanced-woo-search" ),
+                "type"    => "heading"
+            );
+
+            $options['performance'][] = array(
+                "name"         => __( "Overview", "advanced-woo-search" ),
+                'heading_type' => 'text',
+                'desc'         => __( 'To perform the search plugin use a special index table. This table contains normalized words of all your products from all available sources.', "advanced-woo-search" ) . '<br>' .
+                    __( 'Sometimes when there are too many products in your store index table can be very large and that can reflect on search speed.', "advanced-woo-search" ) . '<br>' .
+                    __( 'In this section you can use several options to change the table size by disabling some unused product data.', "advanced-woo-search" ) . '<br>' .
+                    '<b>' . __( "Note:", "advanced-woo-search" ) . '</b> ' . __( "Reindex is required after options changes.", "advanced-woo-search" ),
+                "type"         => "heading"
+            );
+
+            $options['performance'][] = array(
+                "name"       => __( "Data to index", "advanced-woo-search" ),
+                "desc"       => __( "Choose what products data to add inside the plugin index table.", "advanced-woo-search" ),
+                "table_head" => __( 'What to index', 'advanced-woo-search' ),
+                "id"         => "index_sources",
+                "value" => array(
+                    'title'    => 1,
+                    'content'  => 1,
+                    'sku'      => 1,
+                    'excerpt'  => 1,
+                    'category' => 1,
+                    'tag'      => 1,
+                    'id'       => 1,
+                ),
+                "choices" => array(
+                    "title"    => __( "Title", "advanced-woo-search" ),
+                    "content"  => __( "Content", "advanced-woo-search" ),
+                    "sku"      => __( "SKU", "advanced-woo-search" ),
+                    "excerpt"  => __( "Short description", "advanced-woo-search" ),
+                    "category" => __( "Category", "advanced-woo-search" ),
+                    "tag"      => __( "Tag", "advanced-woo-search" ),
+                    "id"       => __( "ID", "advanced-woo-search" ),
+                ),
+                "type"    => "table"
+            );
+
+            $options['performance'][] = array(
+                "name"  => __( "Index variations", "advanced-woo-search" ),
+                "desc"  => __( "Index or not content of product variations.", "advanced-woo-search" ),
+                "id"    => "index_variations",
+                "value" => 'true',
                 "type"  => "radio",
                 'choices' => array(
                     'true'  => __( 'On', 'advanced-woo-search' ),
@@ -572,6 +659,51 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
              * @param array $options Array of options
              */
             $options = apply_filters( 'aws_admin_page_options', $options );
+
+            return $options;
+
+        }
+
+        /**
+         * Get array of index table options
+         * @return array $options
+         */
+        static public function get_index_options() {
+
+            /**
+             * Apply or not WP filters to indexed content
+             * @since 1.82
+             * @param bool false
+             */
+            $apply_filters = apply_filters( 'aws_index_apply_filters', false );
+
+            $index_variations_option = AWS()->get_settings( 'index_variations' );
+            $index_sources_option = AWS()->get_settings( 'index_sources' );
+
+            $index_variations = $index_variations_option && $index_variations_option === 'false' ? false : true;
+            $index_title = is_array( $index_sources_option ) && isset( $index_sources_option['title'] ) && ! $index_sources_option['title']  ? false : true;
+            $index_content = is_array( $index_sources_option ) && isset( $index_sources_option['content'] ) && ! $index_sources_option['content']  ? false : true;
+            $index_sku = is_array( $index_sources_option ) && isset( $index_sources_option['sku'] ) && ! $index_sources_option['sku']  ? false : true;
+            $index_excerpt = is_array( $index_sources_option ) && isset( $index_sources_option['excerpt'] ) && ! $index_sources_option['excerpt']  ? false : true;
+            $index_category = is_array( $index_sources_option ) && isset( $index_sources_option['category'] ) && ! $index_sources_option['category']  ? false : true;
+            $index_tag = is_array( $index_sources_option ) && isset( $index_sources_option['tag'] ) && ! $index_sources_option['tag']  ? false : true;
+            $index_id = is_array( $index_sources_option ) && isset( $index_sources_option['id'] ) && ! $index_sources_option['id']  ? false : true;
+
+            $index_vars = array(
+                'variations' => $index_variations,
+                'title' => $index_title,
+                'content' => $index_content,
+                'sku' => $index_sku,
+                'excerpt' => $index_excerpt,
+                'category' => $index_category,
+                'tag' => $index_tag,
+                'id' => $index_id,
+            );
+
+            $options = array(
+                'apply_filters' => $apply_filters,
+                'index'         => $index_vars,
+            );
 
             return $options;
 

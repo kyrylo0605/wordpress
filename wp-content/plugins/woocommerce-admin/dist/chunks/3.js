@@ -1032,7 +1032,7 @@ ReportSummary.contextType = _lib_currency_context__WEBPACK_IMPORTED_MODULE_17__[
 
 /***/ }),
 
-/***/ 512:
+/***/ 513:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1092,7 +1092,7 @@ function isLowStock(status, quantity, threshold) {
 /* harmony import */ var _woocommerce_data__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(22);
 /* harmony import */ var _woocommerce_data__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_data__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _categories_breadcrumbs__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(531);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(512);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(513);
 /* harmony import */ var _components_report_table__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(506);
 /* harmony import */ var _lib_currency_context__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(498);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(575);

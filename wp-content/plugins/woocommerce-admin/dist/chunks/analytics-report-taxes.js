@@ -45,7 +45,7 @@ var external_this_wp_i18n_ = __webpack_require__(2);
 var external_this_wp_data_ = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./client/analytics/report/taxes/config.js
-var config = __webpack_require__(523);
+var config = __webpack_require__(525);
 
 // EXTERNAL MODULE: ./client/lib/get-selected-chart/index.js
 var get_selected_chart = __webpack_require__(503);
@@ -1453,7 +1453,7 @@ ReportSummary.contextType = _lib_currency_context__WEBPACK_IMPORTED_MODULE_17__[
 
 /***/ }),
 
-/***/ 523:
+/***/ 525:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

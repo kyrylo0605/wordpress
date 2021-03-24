@@ -45,7 +45,7 @@ var external_this_wp_i18n_ = __webpack_require__(2);
 var external_this_wp_data_ = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./client/analytics/report/coupons/config.js
-var config = __webpack_require__(522);
+var config = __webpack_require__(524);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__(9);
@@ -1472,7 +1472,7 @@ ReportSummary.contextType = _lib_currency_context__WEBPACK_IMPORTED_MODULE_17__[
 
 /***/ }),
 
-/***/ 522:
+/***/ 524:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

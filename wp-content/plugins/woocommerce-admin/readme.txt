@@ -4,7 +4,7 @@ Tags: ecommerce, e-commerce, store, sales, reports, analytics, dashboard, activi
 Requires at least: 5.4.0
 Tested up to: 5.6.0
 Requires PHP: 7.0
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv3
 License URI: https://github.com/woocommerce/woocommerce-admin/blob/main/license.txt
 
@@ -72,6 +72,11 @@ Release and roadmap notes are available on the [WooCommerce Developers Blog](htt
 3. Analytics
 
 == Changelog ==
+
+== 2.1.3 3/14/2021  ==
+
+- Feature: Increase target audience for business feature step. #6508
+- Fix: Correct a bug where the JP connection flow would not happen when installing JP in the OBW. #6521
 
 == 2.1.2 3/10/2021  ==
 

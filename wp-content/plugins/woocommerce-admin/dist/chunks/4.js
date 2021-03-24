@@ -6,7 +6,7 @@
 "use strict";
 /* unused harmony export ALLOWED_TAGS */
 /* unused harmony export ALLOWED_ATTR */
-/* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(513);
+/* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(515);
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dompurify__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * External dependencies
@@ -25,7 +25,7 @@ var ALLOWED_ATTR = ['target', 'href', 'rel', 'name', 'download'];
 
 /***/ }),
 
-/***/ 510:
+/***/ 511:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80,7 +80,7 @@ var external_this_wc_components_ = __webpack_require__(47);
 var external_this_wp_components_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./client/header/activity-panel/activity-card/style.scss
-var style = __webpack_require__(539);
+var style = __webpack_require__(540);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(3);
@@ -307,14 +307,14 @@ activity_card_ActivityCard.defaultProps = {
 
 /***/ }),
 
-/***/ 539:
+/***/ 540:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 543:
+/***/ 544:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -361,7 +361,7 @@ var TransitionGroup = __webpack_require__(293);
 var CSSTransition = __webpack_require__(292);
 
 // EXTERNAL MODULE: ./client/header/activity-panel/activity-card/index.js + 1 modules
-var activity_card = __webpack_require__(510);
+var activity_card = __webpack_require__(511);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
 var classCallCheck = __webpack_require__(12);
@@ -661,7 +661,7 @@ action_InboxNoteAction.propTypes = {
 var sanitize_html = __webpack_require__(508);
 
 // EXTERNAL MODULE: ./client/inbox-panel/style.scss
-var style = __webpack_require__(543);
+var style = __webpack_require__(544);
 
 // CONCATENATED MODULE: ./client/utils/index.js
 /**

@@ -18,13 +18,13 @@ if ( ! $product->is_purchasable() ) {
 
 ?>
 
-<?php echo wc_get_stock_html( $product ); ?>
+<?php echo wc_get_stock_html( $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 <?php if ( $product->is_in_stock() ) : ?>
 
 	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
-	<form class="cart" method="post" enctype='multipart/form-data' data-product-id="<?php echo $product->get_id(); ?>">
+	<form class="cart" method="post" enctype='multipart/form-data' data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
 
 		<?php
 		$bundled_items = $product->get_bundled_items();
@@ -51,7 +51,7 @@ if ( ! $product->is_purchasable() ) {
 						<div class="yith-wcpb-product-bundled-item-image"><?php
 							$post_thumbnail_id = $bundled_product->get_image_id();
 							if ( $post_thumbnail_id ) {
-								echo wc_get_gallery_image_html( $post_thumbnail_id, true );
+								echo wc_get_gallery_image_html( $post_thumbnail_id, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							} else {
 								echo '<div class="woocommerce-product-gallery__image--placeholder">';
 								echo sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src() ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
@@ -61,8 +61,8 @@ if ( ! $product->is_purchasable() ) {
 						</div>
 						<div class="yith-wcpb-product-bundled-item-data">
 							<h3 class="yith-wcpb-product-bundled-item-data__title">
-								<a href="<?php echo $bundled_product->get_permalink() ?>">
-									<?php echo $title ?>
+								<a href="<?php echo esc_url( $bundled_product->get_permalink() ); ?>">
+									<?php echo esc_html( $title ); ?>
 								</a>
 							</h3>
 
@@ -75,7 +75,7 @@ if ( ! $product->is_purchasable() ) {
 								if ( $bundled_product->has_enough_stock( $quantity ) && $bundled_product->is_in_stock() ) {
 									echo '<div class="yith-wcpb-product-bundled-item-instock"></div>';
 								} else {
-									echo '<div class="yith-wcpb-product-bundled-item-outofstock">' . __( 'Out of stock', 'woocommerce' ) . '</div>';
+									echo '<div class="yith-wcpb-product-bundled-item-outofstock">' . esc_html__( 'Out of stock', 'woocommerce' ) . '</div>';
 								}
 								?>
 							</div>
@@ -100,7 +100,7 @@ if ( ! $product->is_purchasable() ) {
 
 		<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>"/>
 
-		<button type="submit" class="single_add_to_cart_button button alt"><?php echo $product->single_add_to_cart_text(); ?></button>
+		<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 	</form>

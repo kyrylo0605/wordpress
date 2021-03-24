@@ -623,7 +623,7 @@ exports.default = interpolate;
 
 /***/ }),
 
-/***/ 526:
+/***/ 527:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -803,13 +803,6 @@ var config = Object(external_this_wp_hooks_["applyFilters"])(SETTINGS_FILTER, {
 
 /***/ }),
 
-/***/ 535:
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ 536:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -818,6 +811,13 @@ var config = Object(external_this_wp_hooks_["applyFilters"])(SETTINGS_FILTER, {
 /***/ }),
 
 /***/ 537:
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ 538:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -868,10 +868,10 @@ var external_this_wc_data_ = __webpack_require__(22);
 var external_this_wc_tracks_ = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./client/analytics/settings/index.scss
-var settings = __webpack_require__(535);
+var settings = __webpack_require__(536);
 
 // EXTERNAL MODULE: ./client/analytics/settings/config.js + 1 modules
-var config = __webpack_require__(526);
+var config = __webpack_require__(527);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
 var classCallCheck = __webpack_require__(12);
@@ -905,7 +905,7 @@ var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 var external_lodash_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./client/analytics/settings/setting.scss
-var settings_setting = __webpack_require__(536);
+var settings_setting = __webpack_require__(537);
 
 // CONCATENATED MODULE: ./client/analytics/settings/setting.js
 
@@ -1625,7 +1625,7 @@ function HistoricalDataSkipCheckbox(_ref) {
   };
 })(HistoricalDataSkipCheckbox));
 // EXTERNAL MODULE: ./client/analytics/settings/historical-data/style.scss
-var style = __webpack_require__(537);
+var style = __webpack_require__(538);
 
 // CONCATENATED MODULE: ./client/analytics/settings/historical-data/layout.js
 

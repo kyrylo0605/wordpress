@@ -383,7 +383,7 @@ var external_this_wc_date_ = __webpack_require__(29);
 var external_this_wc_tracks_ = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./client/dashboard/style.scss
-var style = __webpack_require__(511);
+var style = __webpack_require__(512);
 
 // CONCATENATED MODULE: ./client/dashboard/default-sections.js
 
@@ -400,7 +400,7 @@ var style = __webpack_require__(511);
  */
 
 var LazyDashboardCharts = Object(external_this_wp_element_["lazy"])(function () {
-  return Promise.all(/* import() | dashboard-charts */[__webpack_require__.e(5), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, 610));
+  return Promise.all(/* import() | dashboard-charts */[__webpack_require__.e(6), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, 610));
 });
 var LazyLeaderboards = Object(external_this_wp_element_["lazy"])(function () {
   return Promise.all(/* import() | leaderboards */[__webpack_require__.e(1), __webpack_require__.e(34)]).then(__webpack_require__.bind(null, 612));

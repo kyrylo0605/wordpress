@@ -3,19 +3,19 @@
  * Plugin Name: YITH WooCommerce Added to Cart Popup
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup/
  * Description: The <code><strong>YITH WooCommerce Added to Cart Popup</strong></code> plugin allow you to display a popup cart with suggested products and cart actions after an "add to cart" action. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.4.8
+ * Version: 1.5.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-added-to-cart-popup
  * Domain Path: /languages/
  * WC requires at least: 3.7
- * WC tested up to: 4.9
+ * WC tested up to: 5.1
  *
  * @author  YITH
  * @package YITH WooCommerce Added to Cart Popup
- * @version 1.4.8
+ * @version 1.5.0
  */
-/**  Copyright 2015-2020  YITH  (email : plugins@yithemes.com)
+/**  Copyright 2015-2021  YITH  (email : plugins@yithemes.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as
@@ -32,9 +32,7 @@
  */
 
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 if ( ! function_exists( 'is_plugin_active' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -43,7 +41,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 function yith_wacp_free_install_woocommerce_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'YITH WooCommerce Added to Cart Popup is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
+		<p><?php esc_html_e( 'YITH WooCommerce Added to Cart Popup is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
 	</div>
 	<?php
 }
@@ -52,7 +50,7 @@ function yith_wacp_free_install_woocommerce_admin_notice() {
 function yith_wacp_install_free_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Added to Cart Popup while you are using the premium one.', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
+		<p><?php esc_html_e( 'You can\'t activate the free version of YITH WooCommerce Added to Cart Popup while you are using the premium one.', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
 	</div>
 	<?php
 }
@@ -64,7 +62,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WACP_VERSION' ) ) {
-	define( 'YITH_WACP_VERSION', '1.4.8' );
+	define( 'YITH_WACP_VERSION', '1.5.0' );
 }
 
 if ( ! defined( 'YITH_WACP_FREE_INIT' ) ) {
@@ -112,10 +110,8 @@ yit_maybe_plugin_fw_loader( YITH_WACP_DIR );
 function yith_wacp_free_init() {
 
 	load_plugin_textdomain( 'yith-woocommerce-added-to-cart-popup', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
 	// Load required classes and functions.
 	require_once 'includes/class.yith-wacp.php';
-
 	// Let's start the game!
 	YITH_WACP();
 }

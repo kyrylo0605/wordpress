@@ -3,7 +3,7 @@
  * Admin Bundle Options TAB
  *
  * @var WC_Product_YITH_Bundle|false $bundle_product The bundle product or false (if it's not a bundle product)
- * @var WC_Product $product_object The product object
+ * @var WC_Product                   $product_object The product object
  */
 
 // Exit if accessed directly
@@ -29,15 +29,15 @@ foreach ( $bundled_items as $bundled_item ) {
 }
 
 ?>
-<div id="yith_bundle_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper yith-plugin-ui" data-items-with-qty="<?php echo esc_attr( json_encode( $items_with_qty )); ?>">
+<div id="yith_bundle_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper yith-plugin-ui" data-items-with-qty="<?php echo esc_attr( json_encode( $items_with_qty ) ); ?>">
 
 	<div class="yith-wcpb-bundle-options-section">
 
 		<div class="yith-wcpb-bundle-options-section__title">
 			<h3><?php esc_attr_e( 'Bundled items', 'yith-woocommerce-product-bundles' ); ?></h3>
 			<span id="yith-wcpb-bundled-items-expand-collapse" class="yith-wcpb-expand-collapse">
-				<a href="#" class="close_all"><?php esc_attr_e( 'Close all', 'woocommerce' ); ?></a>
-				<a href="#" class="expand_all"><?php esc_attr_e( 'Expand all', 'woocommerce' ); ?></a>
+				<a href="#" class="close_all"><?php esc_attr_e( 'Close all', 'yith-woocommerce-product-bundles' ); ?></a>
+				<a href="#" class="expand_all"><?php esc_attr_e( 'Expand all', 'yith-woocommerce-product-bundles' ); ?></a>
 			</span>
 		</div>
 
@@ -49,17 +49,17 @@ foreach ( $bundled_items as $bundled_item ) {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.5 80.23">
 						<defs>
 							<style>
-								.cls-1, .cls-2 {
-									fill: none;
-									stroke: currentColor;
-									stroke-linecap: round;
-									stroke-linejoin: round;
-									stroke-width: 2.5px;
-								}
+                                .cls-1, .cls-2 {
+                                    fill            : none;
+                                    stroke          : currentColor;
+                                    stroke-linecap  : round;
+                                    stroke-linejoin : round;
+                                    stroke-width    : 2.5px;
+                                }
 
-								.cls-2 {
-									stroke-dasharray: 0.51 6.14;
-								}
+                                .cls-2 {
+                                    stroke-dasharray : 0.51 6.14;
+                                }
 							</style>
 						</defs>
 						<g>
@@ -87,7 +87,7 @@ foreach ( $bundled_items as $bundled_item ) {
 				</div>
 				<div id="yith-wcpb-bundled-items__actions__hero-description" class="yith-wcpb-bundled-items__actions__show-if-hero">
 					<?php esc_html_e( 'You are creating a bundle product!', 'yith-woocommerce-product-bundles' ); ?>
-					<br />
+					<br/>
 					<?php esc_html_e( "Now, the first step is adding some items to this bundle: after that, you should simply set the bundle options below.", 'yith-woocommerce-product-bundles' ); ?>
 				</div>
 				<button type="button" id="yith-wcpb-add-bundled-product" class="button button-primary"><?php esc_html_e( 'Add product to the bundle', 'yith-woocommerce-product-bundles' ); ?></button>
@@ -99,7 +99,7 @@ foreach ( $bundled_items as $bundled_item ) {
 				foreach ( $bundled_items as $bundled_item ) {
 					$open_closed = 'closed';
 					yith_wcpb_get_view( '/admin/bundled-item.php', compact( 'metabox_id', 'bundled_item', 'open_closed' ) );
-					$metabox_id++;
+					$metabox_id ++;
 				}
 				?>
 			</div>
@@ -131,7 +131,7 @@ foreach ( $bundled_items as $bundled_item ) {
 							'name'  => '_regular_price',
 							'id'    => '_yith_wcpb_bundle_regular_price',
 							'class' => 'short wc_input_price yith-wcpb-short-price-field',
-							'value' => $product_object->get_regular_price( 'edit' ),
+							'value' => wc_format_localized_price( $product_object->get_regular_price( 'edit' ) ),
 						),
 						true
 					);
@@ -157,7 +157,7 @@ foreach ( $bundled_items as $bundled_item ) {
 							'name'  => '_sale_price',
 							'id'    => '_yith_wcpb_bundle_sale_price',
 							'class' => 'short wc_input_price yith-wcpb-short-price-field',
-							'value' => $product_object->get_sale_price( 'edit' ),
+							'value' => wc_format_localized_price( $product_object->get_sale_price( 'edit' ) ),
 						),
 						true
 					);

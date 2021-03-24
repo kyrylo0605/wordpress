@@ -1,6 +1,6 @@
 (window["__wcAdmin_webpackJsonp"] = window["__wcAdmin_webpackJsonp"] || []).push([[7],{
 
-/***/ 514:
+/***/ 516:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23,7 +23,7 @@
 /* harmony import */ var _woocommerce_experimental__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(30);
 /* harmony import */ var _woocommerce_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(47);
 /* harmony import */ var _woocommerce_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_components__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(515);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(517);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_10__);
 
 
@@ -111,7 +111,7 @@ ActivityHeader.propTypes = {
 
 /***/ }),
 
-/***/ 515:
+/***/ 517:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -147,9 +147,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(577);
 /* harmony import */ var _woocommerce_tracks__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(27);
 /* harmony import */ var _woocommerce_tracks__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_tracks__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _activity_header__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(514);
+/* harmony import */ var _activity_header__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(516);
 /* harmony import */ var _dashboard_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(95);
-/* harmony import */ var _task_list_tasks_payments_methods__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(525);
+/* harmony import */ var _task_list_tasks_payments_methods__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(533);
 
 
 /**

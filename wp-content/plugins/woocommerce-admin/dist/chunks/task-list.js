@@ -71,7 +71,7 @@ var chevronRight = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["creat
 
 /***/ }),
 
-/***/ 517:
+/***/ 519:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -134,7 +134,7 @@ var setAllPropsToValue = function setAllPropsToValue(obj, value) {
 
 /***/ }),
 
-/***/ 518:
+/***/ 520:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -363,30 +363,6 @@ function StoreAddress(props) {
     autoComplete: "postal-code"
   }, getInputProps('postCode'))));
 }
-
-/***/ }),
-
-/***/ 560:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
-
-
-/**
- * WordPress dependencies
- */
-
-var check = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__[/* SVG */ "b"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__[/* Path */ "a"], {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (check);
-//# sourceMappingURL=check.js.map
 
 /***/ }),
 
@@ -1738,7 +1714,7 @@ connect_Connect.defaultProps = {
   };
 }))(connect_Connect));
 // EXTERNAL MODULE: ./client/dashboard/components/settings/general/store-address.js
-var store_address = __webpack_require__(518);
+var store_address = __webpack_require__(520);
 
 // CONCATENATED MODULE: ./client/task-list/tasks/steps/location.js
 
@@ -3180,8 +3156,8 @@ var tax_Tax = /*#__PURE__*/function (_Component) {
 var classnames = __webpack_require__(6);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
-// EXTERNAL MODULE: ./client/task-list/tasks/payments/methods.js + 17 modules
-var payments_methods = __webpack_require__(525);
+// EXTERNAL MODULE: ./client/task-list/tasks/payments/methods.js + 16 modules
+var payments_methods = __webpack_require__(533);
 
 // CONCATENATED MODULE: ./client/task-list/tasks/payments/index.js
 
@@ -3706,8 +3682,11 @@ var payments_Payments = /*#__PURE__*/function (_Component) {
     methods: methods
   };
 }))(payments_Payments));
+// EXTERNAL MODULE: ./client/task-list/tasks/payments/wcpay/index.js + 3 modules
+var wcpay = __webpack_require__(514);
+
 // EXTERNAL MODULE: ./client/lib/collections/index.js
-var collections = __webpack_require__(517);
+var collections = __webpack_require__(519);
 
 // CONCATENATED MODULE: ./client/task-list/tasks.js
 
@@ -3785,7 +3764,9 @@ function tasks_getAllTasks(_ref) {
       uniqueItemsList = groupedProducts.uniqueItemsList;
   var woocommercePaymentsInstalled = installedPlugins.indexOf('woocommerce-payments') !== -1;
   var profilerCompleted = profileItems.completed,
-      productTypes = profileItems.product_types;
+      productTypes = profileItems.product_types,
+      businessExtensions = profileItems.business_extensions;
+  var woocommercePaymentsSelectedInProfiler = (businessExtensions || []).includes('woocommerce-payments');
 
   var purchaseAndInstallText = Object(external_this_wp_i18n_["__"])('Add paid extensions to your store', 'woocommerce-admin');
 
@@ -3862,7 +3843,7 @@ function tasks_getAllTasks(_ref) {
                   // record it here.
                   recordTaskViewEvent('wcpay', isJetpackConnected, activePlugins, installedPlugins);
                   onTaskSelect('woocommerce-payments');
-                  return Object(payments_methods["b" /* installActivateAndConnectWcpay */])(resolve, reject, createNotice, installAndActivatePlugins);
+                  return Object(wcpay["c" /* installActivateAndConnectWcpay */])(reject, createNotice, installAndActivatePlugins);
                 });
 
               case 4:
@@ -3879,7 +3860,7 @@ function tasks_getAllTasks(_ref) {
 
       return onClick;
     }(),
-    visible: window.wcAdminFeatures.wcpay && woocommercePaymentsInstalled && countryCode === 'US',
+    visible: window.wcAdminFeatures.wcpay && woocommercePaymentsSelectedInProfiler && woocommercePaymentsInstalled && Object(wcpay["d" /* isWCPaySupported */])(countryCode),
     additionalInfo: Object(external_this_wp_i18n_["__"])('By setting up, you are agreeing to the <a href="https://wordpress.com/tos/" target="_blank">Terms of Service</a>', 'woocommerce-admin'),
     time: Object(external_this_wp_i18n_["__"])('2 minutes', 'woocommerce-admin'),
     type: 'setup'
@@ -3894,7 +3875,7 @@ function tasks_getAllTasks(_ref) {
         task: 'payments'
       });
     },
-    visible: !woocommercePaymentsInstalled || countryCode !== 'US',
+    visible: !woocommercePaymentsInstalled || !woocommercePaymentsSelectedInProfiler || !Object(wcpay["d" /* isWCPaySupported */])(countryCode),
     time: Object(external_this_wp_i18n_["__"])('2 minutes', 'woocommerce-admin'),
     type: 'setup'
   }, {
@@ -3946,9 +3927,21 @@ function tasks_getAllTasks(_ref) {
 var toConsumableArray = __webpack_require__(19);
 var toConsumableArray_default = /*#__PURE__*/__webpack_require__.n(toConsumableArray);
 
-// EXTERNAL MODULE: ./node_modules/@wordpress/icons/build-module/library/check.js
-var check = __webpack_require__(560);
+// CONCATENATED MODULE: ./node_modules/@wordpress/icons/build-module/library/check.js
 
+
+/**
+ * WordPress dependencies
+ */
+
+var check = Object(external_this_wp_element_["createElement"])(svg["b" /* SVG */], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(external_this_wp_element_["createElement"])(svg["a" /* Path */], {
+  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+}));
+/* harmony default export */ var library_check = (check);
+//# sourceMappingURL=check.js.map
 // CONCATENATED MODULE: ./client/task-list/list.js
 
 
@@ -4287,7 +4280,7 @@ var list_TaskList = /*#__PURE__*/function (_Component) {
         task.before = Object(external_this_wp_element_["createElement"])("div", {
           className: "woocommerce-task__icon"
         }, task.completed && Object(external_this_wp_element_["createElement"])(icon["a" /* default */], {
-          icon: check["a" /* default */]
+          icon: library_check
         }));
         task.title = Object(external_this_wp_element_["createElement"])(build_module["e" /* Text */], {
           as: "div",

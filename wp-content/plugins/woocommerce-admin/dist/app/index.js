@@ -915,7 +915,7 @@ var VariationsReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["l
   return Promise.all(/* import() | analytics-report-variations */[__webpack_require__.e(0), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, 487));
 });
 var OrdersReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["lazy"])(function () {
-  return Promise.all(/* import() | analytics-report-orders */[__webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 488));
+  return Promise.all(/* import() | analytics-report-orders */[__webpack_require__.e(0), __webpack_require__.e(6), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 488));
 });
 var CategoriesReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["lazy"])(function () {
   return Promise.all(/* import() | analytics-report-categories */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, 484));
@@ -3485,7 +3485,7 @@ var panel_Panel = function Panel(_ref) {
 
 
 var HelpPanel = Object(external_this_wp_element_["lazy"])(function () {
-  return Promise.all(/* import() | activity-panels-help */[__webpack_require__.e(54), __webpack_require__.e(6), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 602));
+  return Promise.all(/* import() | activity-panels-help */[__webpack_require__.e(54), __webpack_require__.e(5), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 602));
 });
 var InboxPanel = Object(external_this_wp_element_["lazy"])(function () {
   return Promise.all(/* import() | activity-panels-inbox */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, 587));
@@ -5299,7 +5299,7 @@ var StoreAlerts = Object(external_this_wp_element_["lazy"])(function () {
   return Promise.all(/* import() | store-alerts */[__webpack_require__.e(1), __webpack_require__.e(47)]).then(__webpack_require__.bind(null, 611));
 });
 var WCPayUsageModal = Object(external_this_wp_element_["lazy"])(function () {
-  return __webpack_require__.e(/* import() | wcpay-usage-modal */ 51).then(__webpack_require__.bind(null, 527));
+  return __webpack_require__.e(/* import() | wcpay-usage-modal */ 51).then(__webpack_require__.bind(null, 509));
 });
 var layout_PrimaryLayout = /*#__PURE__*/function (_Component) {
   inherits_default()(PrimaryLayout, _Component);

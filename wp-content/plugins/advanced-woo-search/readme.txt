@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 5.7
-Stable tag: 2.22
+Stable tag: 2.23
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -165,6 +165,21 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 2.23 ( 2021-03-22 ) =
+* Add - Performance options
+* Add - Support for TI WooCommerce Wishlist plugin
+* Add - Support for Fury theme
+* Add - Support for Salient theme
+* Add - Support for Bazar theme
+* Add - Support for Claue theme
+* Add - Integration for Urna theme
+* Update - BeRocket AJAX filters plugin support. Fix issue when used slugs for terms instead of IDs inside URL
+* Update - BeRocket AJAX filter support. Include parent terms filters
+* Update - Gutenberg block markup
+* Update - Admin page styles
+* Fix - If no search sources is set - do not show the products search results
+* Dev - Add aws_admin_page_options_current filter
 
 = 2.22 ( 2021-02-19 ) =
 * Add - Support for WOOF - WooCommerce Products Filter plugin

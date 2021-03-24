@@ -205,6 +205,7 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'DI\\Annotation\\Inject' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Annotation/Inject.php',
         'DI\\Annotation\\Injectable' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Annotation/Injectable.php',
         'DI\\Cache\\ArrayCache' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Cache/ArrayCache.php',
@@ -474,7 +475,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         'Psr\\Log\\LoggerInterface' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerInterface.php',
         'Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerTrait.php',
         'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/NullLogger.php',
-        'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
         'RebelCode\\Composer\\CleanupPlugin' => __DIR__ . '/..' . '/rebelcode/composer-cleanup-plugin/src/CleanupPlugin.php',
@@ -628,6 +628,7 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         'RebelCode\\Wpra\\Core\\Modules\\WpModule' => __DIR__ . '/../..' . '/src/Modules/WpModule.php',
         'RebelCode\\Wpra\\Core\\Plugin' => __DIR__ . '/../..' . '/src/Plugin.php',
         'RebelCode\\Wpra\\Core\\Query\\AbstractWpQueryIterator' => __DIR__ . '/../..' . '/src/Query/AbstractWpQueryIterator.php',
+        'RebelCode\\Wpra\\Core\\Query\\DbQuery' => __DIR__ . '/../..' . '/src/Query/DbQuery.php',
         'RebelCode\\Wpra\\Core\\Query\\WpQueryIterator' => __DIR__ . '/../..' . '/src/Query/WpQueryIterator.php',
         'RebelCode\\Wpra\\Core\\RestApi\\Auth\\AbstractAuthValidator' => __DIR__ . '/../..' . '/src/RestApi/Auth/AbstractAuthValidator.php',
         'RebelCode\\Wpra\\Core\\RestApi\\Auth\\AuthUserIsAdmin' => __DIR__ . '/../..' . '/src/RestApi/Auth/AuthUserIsAdmin.php',

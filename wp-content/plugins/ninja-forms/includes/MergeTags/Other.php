@@ -56,6 +56,7 @@ final class NF_MergeTags_Other extends NF_Abstracts_MergeTags
             } else {
                 $value = wp_kses_post( $value );
             }
+            $value = esc_attr( $value );
             $this->set_merge_tags( $key, $value );
         }
     }

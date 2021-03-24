@@ -7,9 +7,7 @@
  * @version 1.0.0
  */
 
-if ( ! defined( 'YITH_WACP' ) ) {
-	exit;
-} // Exit if accessed directly
+defined( 'YITH_WACP' ) || exit; // Exit if accessed directly.
 
 if ( ! class_exists( 'YITH_WACP' ) ) {
 	/**
@@ -106,9 +104,9 @@ if ( ! class_exists( 'YITH_WACP' ) ) {
 		 */
 		public function is_admin() {
 			$is_ajax          = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
-			$context_check    = isset( $_REQUEST['context'] ) && 'frontend' === $_REQUEST['context']; // phpcs:ignore
+			$context_check    = isset( $_REQUEST['context'] ) && 'frontend' === sanitize_text_field( wp_unslash( $_REQUEST['context'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$actions_to_check = apply_filters( 'yith_wacp_is_admin_action_check', array( 'ivpa_add_to_cart_callback' ) );
-			$action_check     = isset( $_REQUEST['action'] ) && in_array( $_REQUEST['action'], $actions_to_check );
+			$action_check     = isset( $_REQUEST['action'] ) && in_array( sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ), $actions_to_check, true );  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			return is_admin() && ! ( $is_ajax && ( $context_check || $action_check ) );
 		}

@@ -65,25 +65,9 @@ if ( ! class_exists( 'YITH_WCPB_Frontend' ) ) {
 
 			add_filter( 'woocommerce_add_cart_item_data', array( $this, 'woocommerce_add_cart_item_data' ), 10, 2 );
 			add_action( 'woocommerce_add_to_cart', array( $this, 'woocommerce_add_to_cart' ), 10, 6 );
-			add_filter(
-				'woocommerce_cart_item_remove_link',
-				array(
-					$this,
-					'woocommerce_cart_item_remove_link',
-				),
-				10,
-				2
-			);
+			add_filter( 'woocommerce_cart_item_remove_link', array( $this, 'woocommerce_cart_item_remove_link' ), 10, 2 );
 			add_filter( 'woocommerce_cart_item_quantity', array( $this, 'woocommerce_cart_item_quantity' ), 10, 2 );
-			add_action(
-				'woocommerce_after_cart_item_quantity_update',
-				array(
-					$this,
-					'update_cart_item_quantity',
-				),
-				1,
-				2
-			);
+			add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'update_cart_item_quantity' ), 1, 2 );
 			add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'update_cart_item_quantity' ), 1 );
 
 			add_filter( 'woocommerce_cart_item_price', array( $this, 'woocommerce_cart_item_price' ), 99, 3 );
@@ -107,13 +91,9 @@ if ( ! class_exists( 'YITH_WCPB_Frontend' ) ) {
 
 			add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'woocommerce_order_item_needs_processing' ), 10, 3 );
 
-			/**
-			 * Order Again
-			 *
-			 * @since 1.2.11
-			 */
+			// Handle Order Again.
 			add_filter( 'woocommerce_order_again_cart_item_data', array( $this, 'woocommerce_order_again_cart_item_data' ), 10, 2 );
-			add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'woocommerce_order_again_add_to_cart_validation' ), 10, 6 );
+			add_action( 'woocommerce_ordered_again', array( $this, 'woocommerce_ordered_again' ), 10, 3 );
 
 			// S H I P P I N G
 			add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'woocommerce_cart_shipping_packages' ), 99 );
@@ -151,17 +131,17 @@ if ( ! class_exists( 'YITH_WCPB_Frontend' ) ) {
 		 */
 		public function woocommerce_order_again_cart_item_data( $cart_item_data, $item ) {
 			if ( $item instanceof WC_Order_Item_Product ) {
+
 				$product = $item->get_product();
 				if ( $product && $product->is_type( 'yith_bundle' ) ) {
-					// I'm a bundle
 					$cartstamp = $item->get_meta( '_cartstamp' );
 
 					if ( $cartstamp ) {
-						$cart_item_data['cartstamp']     = $cartstamp;
-						$cart_item_data['bundled_items'] = array();
+						$cart_item_data['cartstamp']             = $cartstamp;
+						$cart_item_data['bundled_items']         = array();
+						$cart_item_data['yith_wcpb_order_again'] = true;
 					}
 				} else {
-					// Maybe bundled items
 					$_bundled_by = $item->get_meta( '_bundled_by' );
 
 					if ( $_bundled_by ) {
@@ -173,21 +153,122 @@ if ( ! class_exists( 'YITH_WCPB_Frontend' ) ) {
 			return $cart_item_data;
 		}
 
+
 		/**
-		 * remove bundled items in cart when 'Order Again' to prevent duplicates
+		 * Get mapping to transform cart-stamp data to item data
 		 *
-		 * @param bool  $validation
-		 * @param int   $product_id
-		 * @param int   $quantity
-		 * @param int   $variation_id
-		 * @param array $variations
-		 * @param array $cart_item_data
-		 *
-		 * @return bool
-		 * @since 1.2.11
+		 * @return array
+		 * @since 1.4.7 Premium
 		 */
-		public function woocommerce_order_again_add_to_cart_validation( $validation, $product_id = '', $quantity = 1, $variation_id = '', $variations = array(), $cart_item_data = array() ) {
-			return empty( $cart_item_data['yith_wcpb_order_again_bundled_item_to_remove'] ) && $validation;
+		protected function get_cart_stamp_to_item_data_mapping() {
+			return array();
+		}
+
+		/**
+		 * Get bundled item data from its cart-stamp.
+		 *
+		 * @param array $item_cart_stamp The bundled item cart-stamp.
+		 * @param array $cart_item_data  The cart item data.
+		 *
+		 * @return array|false
+		 * @since 1.4.7 Premium
+		 */
+		protected function get_bundled_item_data_from_cart_stamp( $item_cart_stamp, $cart_item_data = array() ) {
+			$quantity     = $item_cart_stamp['quantity'];
+			$product_id   = $item_cart_stamp['product_id'];
+			$variation_id = isset( $item_cart_stamp['variation_id'] ) ? $item_cart_stamp['variation_id'] : false;
+			$variation    = ! ! $variation_id ? wc_get_product( $variation_id ) : false;
+
+			foreach ( $this->get_cart_stamp_to_item_data_mapping() as $cart_stamp_key => $cart_data_key ) {
+				if ( isset( $item_cart_stamp[ $cart_stamp_key ] ) ) {
+					$cart_item_data[ $cart_data_key ] = $item_cart_stamp[ $cart_stamp_key ];
+				}
+			}
+
+			$cart_item_data = (array) apply_filters( 'woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id, $quantity );
+			$cart_item_key  = WC()->cart->generate_cart_id( $product_id, $variation_id, $variation, $cart_item_data );
+
+			if ( 'product_variation' === get_post_type( $product_id ) ) {
+				$variation_id = $product_id;
+				$product_id   = wp_get_post_parent_id( $variation_id );
+			}
+
+			$product_data = wc_get_product( $variation_id ? $variation_id : $product_id );
+			$product_data->add_meta_data( 'yith_wcpb_is_bundled', true, true );
+
+			$data = false;
+
+			if ( ! ! $cart_item_key ) {
+				$data = array(
+					'key'  => $cart_item_key,
+					'item' => apply_filters(
+						'woocommerce_add_cart_item',
+						array_merge(
+							$cart_item_data,
+							array(
+								'product_id'   => $product_id,
+								'variation_id' => $variation_id,
+								'variation'    => $variation,
+								'quantity'     => $quantity,
+								'data'         => $product_data,
+							)
+						),
+						$cart_item_key
+					),
+				);
+			}
+
+			return $data;
+		}
+
+		/**
+		 * Handle order again cart.
+		 *
+		 * @param int   $order_id    The order ID.
+		 * @param array $order_items The order items.
+		 * @param array $cart        The cart.
+		 *
+		 * @since 1.4.7 Premium
+		 */
+		public function woocommerce_ordered_again( $order_id, $order_items, &$cart ) {
+			foreach ( $cart as $key => $item ) {
+				if ( isset( $item['yith_wcpb_order_again_bundled_item_to_remove'] ) ) {
+					unset( $cart[ $key ] );
+				}
+			}
+
+			$new_cart = array();
+
+			foreach ( $cart as $key => $item ) {
+				$new_cart[ $key ] = $item;
+
+				if ( isset( $item['cartstamp'] ) ) {
+					$bundled_items = array();
+
+					foreach ( $item['cartstamp'] as $id => $item_cart_stamp ) {
+						$cart_data                    = array( 'bundled_by' => $key );
+						$cart_data['bundled_item_id'] = $id;
+
+						$bundled_item_data = $this->get_bundled_item_data_from_cart_stamp( $item_cart_stamp, $cart_data );
+
+						if ( $bundled_item_data ) {
+							$bundled_item_key  = $bundled_item_data['key'];
+							$bundled_item_cart = $bundled_item_data['item'];
+
+							if ( $bundled_item_key && ! in_array( $bundled_item_key, $bundled_items, true ) ) {
+								$bundled_items[] = $bundled_item_key;
+
+								$new_cart[ $bundled_item_key ] = $bundled_item_cart;
+							}
+						}
+					}
+
+					$new_cart[ $key ]['bundled_items'] = $bundled_items;
+				}
+			}
+
+
+			$cart = $new_cart;
 		}
 
 		/**

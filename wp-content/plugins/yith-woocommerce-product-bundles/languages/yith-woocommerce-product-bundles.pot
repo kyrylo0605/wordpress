@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the YITH WooCommerce Product Bundles package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Product Bundles 1.2.3\n"
+"Project-Id-Version: YITH WooCommerce Product Bundles 1.2.6\n"
 "Report-Msgid-Bugs-To: Your Inspiration Themes <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2021-01-12 08:49:34+00:00\n"
+"POT-Creation-Date: 2021-03-15 10:53:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,7 +72,7 @@ msgid_plural "%s items added"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class.yith-wcpb-frontend.php:568
+#: includes/class.yith-wcpb-frontend.php:649
 msgid ""
 "You cannot add this quantity of items, because there are not enough in "
 "stock."
@@ -350,7 +350,7 @@ msgid "Awaiting product image"
 msgstr ""
 
 #: templates/single-product/add-to-cart/yith-bundle.php:78
-#: views/admin/select-product-box-products.php:62
+#: views/admin/select-product-box-products.php:63
 msgid "Out of stock"
 msgstr ""
 
@@ -426,19 +426,19 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: views/admin/select-product-box-products.php:69
+#: views/admin/select-product-box-products.php:70
 msgid "Add"
 msgstr ""
 
-#: views/admin/select-product-box-products.php:77
+#: views/admin/select-product-box-products.php:78
 msgid "Product added to the bundle"
 msgstr ""
 
-#: views/admin/select-product-box-products.php:94
+#: views/admin/select-product-box-products.php:95
 msgid "prev"
 msgstr ""
 
-#: views/admin/select-product-box-products.php:96
+#: views/admin/select-product-box-products.php:97
 msgid "next"
 msgstr ""
 

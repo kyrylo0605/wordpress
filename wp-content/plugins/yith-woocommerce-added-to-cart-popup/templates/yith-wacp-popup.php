@@ -7,9 +7,8 @@
  * @version 1.0.0
  */
 
-if ( ! defined( 'YITH_WACP' ) ) {
-	exit;
-}
+defined( 'YITH_WACP' ) || exit;
+
 ?>
 
 <div id="yith-wacp-popup">

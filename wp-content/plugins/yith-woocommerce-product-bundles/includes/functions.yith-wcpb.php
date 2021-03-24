@@ -105,7 +105,7 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 
 			$html .= '</select>';
 
-			echo apply_filters( 'yith_wcpb_wc_dropdown_variation_attribute_options_html', $html, $args ); // WPCS: XSS ok.
+			echo apply_filters( 'yith_wcpb_wc_dropdown_variation_attribute_options_html', $html, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }
