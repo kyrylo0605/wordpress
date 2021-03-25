@@ -191,7 +191,7 @@ class AWS_Admin {
 
         if ( $options ) {
 
-            $index_options = AWS_Admin_Options::get_index_options();
+            $index_options = AWS_Helpers::get_index_options();
 
             foreach( $options as $options_key => $options_tab ) {
                 foreach( $options_tab as $key => $option ) {

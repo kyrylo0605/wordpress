@@ -49,10 +49,10 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             $theme = function_exists( 'wp_get_theme' ) ? wp_get_theme() : false;
 
             if ( $theme ) {
-                $this->current_theme = $theme->name;
-                $this->child_theme = $theme->name;
+                $this->current_theme = $theme->get( 'Name' );
+                $this->child_theme = $theme->get( 'Name' );
                 if ( $theme->parent() ) {
-                    $this->current_theme = $theme->parent();
+                    $this->current_theme = $theme->parent()->get( 'Name' );
                 }
             }
 

@@ -336,7 +336,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
              */
             $posts = apply_filters( 'aws_index_product_ids', $posts );
 
-            $options = AWS_Admin_Options::get_index_options();
+            $options = AWS_Helpers::get_index_options();
 
             foreach ( $posts as $post_item ) {
 
