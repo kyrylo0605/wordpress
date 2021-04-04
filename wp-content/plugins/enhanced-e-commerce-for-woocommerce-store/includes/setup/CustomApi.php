@@ -76,10 +76,8 @@ class CustomApi{
                 ),
                 'body' => wp_json_encode($data)
             );
-
             // Send remote request
             $request = wp_remote_post($url, $args);
-
             // Retrieve information
             $response_code = wp_remote_retrieve_response_code($request);
             $response_message = wp_remote_retrieve_response_message($request);
@@ -103,8 +101,6 @@ class CustomApi{
     }
 
     public function getGoogleAnalyticDetail() {
-        $TVC_Admin_Helper = new TVC_Admin_Helper();
-        $TVC_Admin_Helper->add_tvc_log("==> getGoogleAnalyticDetail");
         try {
             $url = $this->apiDomain . '/customer-subscriptions/subscription-detail';
             $ee_options_data = unserialize(get_option('ee_options'));
@@ -113,7 +109,7 @@ class CustomApi{
             } else {
                 $ee_subscription_id = null;
             }
-            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+            $actual_link = get_site_url();
             $data = [
                 'subscription_id' => $ee_subscription_id,
                 'domain' => $actual_link
@@ -125,15 +121,14 @@ class CustomApi{
                 ),
                 'body' => wp_json_encode($data)
             );
-            //echo "<pre>";
-            //print_r($args);
-            // Send remote request
+            
             $request = wp_remote_post($url, $args);
 
             // Retrieve information
             $response_code = wp_remote_retrieve_response_code($request);
             $response_message = wp_remote_retrieve_response_message($request);
             $response_body = json_decode(wp_remote_retrieve_body($request));
+            
             if ((isset($response_body->error) && $response_body->error == '')) {
                 if ($response_body->data) {
                     $store_raw_country = get_option('woocommerce_default_country');
@@ -336,7 +331,6 @@ class CustomApi{
             );
             $curl_url = $this->apiDomain . "/products/list";
             $postData = json_encode($postData);
-           // print_r($postData);
             $ch = curl_init();
             curl_setopt_array($ch, array(
                 CURLOPT_URL => esc_url($curl_url),
@@ -347,8 +341,6 @@ class CustomApi{
             ));
             $response = curl_exec($ch);
             $response = json_decode($response);
-            //print_r($response);
-            //exit;
             $return = new \stdClass();
             if (isset($response->error) && $response->error == '') {
                 $return->status = 200;
@@ -411,7 +403,7 @@ class CustomApi{
             );
             // Send remote request
             $request = wp_remote_post($url, $args);
-            // print_r($request);            
+                        
             // Retrieve information
             $response_code = wp_remote_retrieve_response_code($request);
             $response_message = wp_remote_retrieve_response_message($request);
@@ -448,10 +440,8 @@ class CustomApi{
             );
 
             // Send remote request
-            /* echo "<pre>";
-              print_r($args); */
+            
             $request = wp_remote_post($url, $args);
-            // print_r($request);
             // Retrieve information
             $response_code = wp_remote_retrieve_response_code($request);
             $response_message = wp_remote_retrieve_response_message($request);
@@ -477,7 +467,7 @@ class CustomApi{
     public function getSubscriptionDetail($id) {
         try {
             $url = $this->apiDomain . '/customer-subscriptions/subscription-detail';
-            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+            $actual_link = get_site_url();
             $data = [
                 'subscription_id' => $id,
                 'domain' => $actual_link
@@ -590,11 +580,8 @@ class CustomApi{
             $response = curl_exec($ch);
             
             $response = json_decode($response);
-            //print_r($response);
-            //return $response->access_token;
+            
             if(isset($response->access_token)){
-                //echo $response->access_token; 
-
                 return $response->access_token; 
             }else{
                 return $access_token;
@@ -655,7 +642,8 @@ class CustomApi{
             $data = [
                 'merchant_id' => $postData['merchant_id'],
                 'website' => $postData['website_url'],
-                'account_id' => $postData['account_id']
+                'account_id' => $postData['account_id'],
+                'method' => $postData['method']
             ];
 
             $this->curl_url = $url;
@@ -689,7 +677,8 @@ class CustomApi{
                 'merchant_id' => $postData['merchant_id'],
                 'website' => $postData['website_url'],
                 'subscription_id' => $postData['subscription_id'],
-                'account_id' => $postData['account_id']
+                'account_id' => $postData['account_id'],
+                'method' => $postData['method']
             ];
 
             $this->curl_url = $url;

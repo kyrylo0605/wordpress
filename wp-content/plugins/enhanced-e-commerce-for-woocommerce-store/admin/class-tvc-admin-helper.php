@@ -14,10 +14,12 @@ Class TVC_Admin_Helper{
 	protected $currentCustomerId = "";
 	protected $user_currency_symbol = "";
 	protected $setting_status = "";
-	public function __construct($theURL = '') {
+	protected $ee_additional_data = "";
+	public function __construct() {
     $this->includes();
     $this->customApiObj = new CustomApi();
   }
+  
   public function includes() {
     if (!class_exists('CustomApi.php')) {
       require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/CustomApi.php');
@@ -27,6 +29,22 @@ Class TVC_Admin_Helper{
     }    
   }
 
+  public function is_need_to_update_api_to_db(){
+  	if($this->get_subscriptionId() != ""){
+  		$google_detail = $this->get_ee_options_data();
+  		if(isset($google_detail['sync_time']) && $google_detail['sync_time']){
+  			$current = current_time( 'timestamp' );
+  			//echo date( 'M-d-Y H:i', current_time( 'timestamp' ))."==>".date( 'M-d-Y H:i', $google_detail['sync_time']);
+  			$diffrent_hours = floor(( $current - $google_detail['sync_time'])/(60*60));
+  			if($diffrent_hours > 5){
+  				return true;
+  			}
+  		}else if(empty($google_detail)){
+  			return true;
+  		}
+  	}
+  	return false;
+  }
   public function is_ee_options_data_empty(){
   	if($this->get_subscriptionId() != ""){
   		if(empty($this->get_ee_options_data())){
@@ -78,7 +96,6 @@ Class TVC_Admin_Helper{
 		$syncProductList = [];
 		$campaigns_list = [];
 		if(isset($googleDetail->google_merchant_center_id) || isset($googleDetail->google_ads_id) ){
-
 			$syncProduct_list_res = $this->customApiObj->getSyncProductList(['merchant_id' => $this->get_merchantId()]);			
 			if(isset($syncProduct_list_res->data) && isset($syncProduct_list_res->status) && $syncProduct_list_res->status == 200){
 			  if (isset($syncProduct_list_res->data->statistics)) {
@@ -98,7 +115,7 @@ Class TVC_Admin_Helper{
 			}
 		}
 		$this->set_ee_options_data(array("setting" => $googleDetail, "prod_sync_status" =>$syncProductStat,"prod_sync_list" =>$syncProductList, "campaigns_list"=>$campaigns_list, "sync_time"=>current_time( 'timestamp' )));
-		$tvc_msg ="";
+		/*$tvc_msg ="";
 		if(!empty($googleDetail)){
 			$tvc_msg = "Configuration Setting";
 		}
@@ -107,12 +124,25 @@ Class TVC_Admin_Helper{
 		}
 		if(!empty($campaigns_list)){
 			$tvc_msg = ($tvc_msg != "")?$tvc_msg.", Shopping Campaigns":"Shopping Campaigns";
-		}
-		return "Success to sync up of ".$tvc_msg.".";
+		}*/
+		return "Details updated successfully.";
 	}
 
 	public function set_ee_options_data($ee_options_data){
 		update_option("ee_api_data", serialize($ee_options_data));
+	}
+
+	public function set_ee_additional_data($ee_additional_data){
+		update_option("ee_additional_data", serialize($ee_additional_data));
+	}
+
+	public function get_ee_additional_data(){
+		if(!empty($this->ee_additional_data)){
+			return $this->ee_additional_data;
+		}else{
+			$this->ee_additional_data = unserialize(get_option('ee_additional_data'));
+			return $this->ee_additional_data;
+		}
 	}
 
 	public function get_ee_options_settings(){
@@ -169,8 +199,8 @@ Class TVC_Admin_Helper{
 		}else{
 			$timezone = get_option('timezone_string');
 			if($timezone == ""){
-	          $timezone = "America/New_York"; 
-	        }
+	      $timezone = "America/New_York"; 
+	    }
 			$this->time_zone = $timezone;
 			return $this->time_zone;
 		}
@@ -180,7 +210,7 @@ Class TVC_Admin_Helper{
 		if(!empty($this->connect_actual_link)){
 			return $this->connect_actual_link;
 		}else{
-			$this->connect_actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+			$this->connect_actual_link = get_site_url();
 			return $this->connect_actual_link;
 		}
 	}
@@ -198,9 +228,9 @@ Class TVC_Admin_Helper{
 		if(!empty($this->woo_currency)){
 			return $this->woo_currency;
 		}else{			
-	        $this->woo_currency = get_option('woocommerce_currency');
+	    $this->woo_currency = get_option('woocommerce_currency');
 	        return $this->woo_currency;
-	    }
+	  }
 	}
 
 	public function get_woo_country(){
@@ -209,9 +239,9 @@ Class TVC_Admin_Helper{
 		}else{
 			$store_raw_country = get_option('woocommerce_default_country');
 			$country = explode(":", $store_raw_country);
-	       	$this->woo_country = (isset($country[0]))?$country[0]:"";
-	        return $this->woo_country;
-	    }
+	    $this->woo_country = (isset($country[0]))?$country[0]:"";
+	    return $this->woo_country;
+	  }
 	}
 	//tvc_customer = >google_ads_id
 	public function get_currentCustomerId(){
@@ -227,18 +257,18 @@ Class TVC_Admin_Helper{
 		}
 	}
 	public function get_user_currency_symbol(){
-		if(!empty($this->get_user_currency_symbol)){
-			return $this->get_user_currency_symbol;
+		if(!empty($this->user_currency_symbol)){
+			return $this->user_currency_symbol;
 		}else{
 			$currency_symbol="";
 			$currency_symbol_rs = $this->customApiObj->getCampaignCurrencySymbol(['customer_id' => $this->get_currentCustomerId()]);
-	        if(isset($currency_symbol_rs->data) && isset($currency_symbol_rs->data['status']) && $currency_symbol_rs->data['status'] == 200){	            
-	                $currency_symbol = get_woocommerce_currency_symbol($currency_symbol_rs->data['data']->currency);	            
-	        }else{
-	             $currency_symbol = get_woocommerce_currency_symbol("USD");
-	        }
-			$this->currentCustomerId = $currency_symbol;
-			return $this->currentCustomerId;
+      if(isset($currency_symbol_rs->data) && isset($currency_symbol_rs->data['status']) && $currency_symbol_rs->data['status'] == 200){	         
+      	$currency_symbol = get_woocommerce_currency_symbol($currency_symbol_rs->data['data']->currency);	            
+      }else{
+        $currency_symbol = get_woocommerce_currency_symbol("USD");
+      }
+			$this->user_currency_symbol = $currency_symbol;
+			return $this->user_currency_symbol;
 		}
 	}
 
@@ -279,7 +309,7 @@ Class TVC_Admin_Helper{
   		$countries_list = $this->get_gmc_language_list();
 	  	?>
 	  	<select class="form-control select2 <?php echo $class_id; ?> <?php echo ($require == true)?"field-required":""; ?>" name="<?php echo $name; ?>" id="<?php echo $class_id; ?>" >
-	  		<option value="0"><?php echo $label; ?></option>
+	  		<option value=""><?php echo $label; ?></option>
 	  		<?php foreach ($countries_list as $Key => $val) {?>
 	  			<option value="<?php echo $val["code"];?>" <?php echo($val["code"] == $sel_val)?"selected":""; ?>><?php echo $val["name"]." (".$val["native_name"].")";?></option>
 	  		<?php
@@ -294,7 +324,7 @@ Class TVC_Admin_Helper{
   		$sel_val = $this->get_woo_country();
 	  	?>
 	  	<select class="form-control select2 <?php echo $class_id; ?> <?php echo ($require == true)?"field-required":""; ?>" name="<?php echo $name; ?>" id="<?php echo $class_id; ?>" >
-	  		<option value="0"><?php echo $label; ?></option>
+	  		<option value=""><?php echo $label; ?></option>
 	  		<?php foreach ($countries_list as $Key => $val) {?>
 	  			<option value="<?php echo $val["code"];?>" <?php echo($val["code"] == $sel_val)?"selected":""; ?>><?php echo $val["name"];?></option>
 	  		<?php
@@ -307,7 +337,7 @@ Class TVC_Admin_Helper{
   	if(!empty($option_list) && $name){
 	  	?>
 	  	<select class="form-control select2 <?php echo $class_id; ?> <?php echo ($require == true)?"field-required":""; ?>" name="<?php echo $name; ?>" id="<?php echo $class_id; ?>" >
-	  		<option value="0"><?php echo $label; ?></option>
+	  		<option value=""><?php echo $label; ?></option>
 	  		<?php foreach ($option_list as $Key => $val) {?>
 	  			<option value="<?php echo $val["field"];?>" <?php echo($val["field"] == $sel_val)?"selected":""; ?>><?php echo $val["field"];?></option>
 	  		<?php
@@ -338,10 +368,10 @@ Class TVC_Admin_Helper{
                 $setting_status['google_analytic_msg']= "";
             }else if($googleDetail->property_id == "" ){
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
             }else if($googleDetail->measurement_id == "" ){
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
             }
         }else if(isset($googleDetail->tracking_option) && isset($googleDetail->measurement_id) && $googleDetail->tracking_option == "GA4"){
             if( $googleDetail->measurement_id != ""){
@@ -349,7 +379,7 @@ Class TVC_Admin_Helper{
                 $setting_status['google_analytic_msg']= "";
             }else{
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
             }
         }else if(isset($googleDetail->tracking_option) && isset($googleDetail->property_id) && $googleDetail->tracking_option == "UA" ){
             if($googleDetail->property_id != ""){
@@ -357,13 +387,15 @@ Class TVC_Admin_Helper{
                 $setting_status['google_analytic_msg']= "";
             }else{
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
             }
         }else{
             $setting_status['google_analytic']= false;
             $setting_status['google_analytic_msg']= "";
         }
         // for google shopping
+        //echo "<pre>";
+        //print_r($googleDetail);
         if(property_exists($googleDetail,"google_merchant_center_id") && property_exists($googleDetail,"google_ads_id") ){
           //main tab
           if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){
@@ -371,10 +403,10 @@ Class TVC_Admin_Helper{
               $setting_status['google_shopping_msg']= "";
           }else if($googleDetail->google_merchant_center_id == ""){
               $setting_status['google_shopping']= false;
-              $setting_status['google_shopping_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+              $setting_status['google_shopping_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
           }else if($googleDetail->google_ads_id == ""){
               $setting_status['google_shopping']= false;
-              $setting_status['google_shopping_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+              $setting_status['google_shopping_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
           }
         }else{
             $setting_status['google_shopping']= false;
@@ -388,10 +420,10 @@ Class TVC_Admin_Helper{
             $setting_status['google_ads_msg']= "";
           }else if($googleDetail->google_merchant_center_id == ""){
             $setting_status['google_ads']= false;
-            $setting_status['google_ads_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+            $setting_status['google_ads_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
           }else if($googleDetail->google_ads_id == ""){
             $setting_status['google_ads']= false;
-            $setting_status['google_ads_msg']= "Configure Google Ads account to reach to millions of interested shoppers <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+            $setting_status['google_ads_msg']= "Configure Google Ads account to reach to millions of interested shoppers <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
           }              
         }else{
           $setting_status['google_ads']= false;
@@ -414,7 +446,7 @@ Class TVC_Admin_Helper{
             $setting_status['google_shopping_conf_msg']= "Google Shopping Configuration Success.";
         }else if($googleDetail->google_merchant_center_id == "" || $googleDetail->google_ads_id == "" ){
             $setting_status['google_shopping_conf']= false;
-            $setting_status['google_shopping_conf_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+            $setting_status['google_shopping_conf_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
         }else if($googleDetail->is_site_verified ==0 && $googleDetail->is_domain_claim ==0 ){
             $setting_status['google_shopping_conf']= false;
             $setting_status['google_shopping_conf_msg']= "Site verification and domain claim for your merchant center account failed.";
@@ -453,7 +485,7 @@ Class TVC_Admin_Helper{
         }                
       }else{
           $setting_status['google_shopping_p_sync']= false;
-          $setting_status['google_shopping_p_sync_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+          $setting_status['google_shopping_p_sync_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
       } 
 
       //sub tab product Campaigns
@@ -473,7 +505,7 @@ Class TVC_Admin_Helper{
           }                
       }else{
           $setting_status['google_shopping_p_campaigns']= false;
-          $setting_status['google_shopping_p_campaigns_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
+          $setting_status['google_shopping_p_campaigns_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
       }          
     }                  
     return $setting_status;        
@@ -515,13 +547,95 @@ Class TVC_Admin_Helper{
 		return $tvc_cat_id_list;		
 	}
 
+	public function call_tvc_site_verified_and_domain_claim(){   
+    $google_detail = $this->get_ee_options_data();
+    $class = 'notice notice-error tvc-notice-error';
+    if(!isset($_GET['welcome_msg']) && isset($google_detail['setting']) && $google_detail['setting'] ){    
+      $googleDetail = $google_detail['setting'];
+      if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id){
+	      $message = "";
+	      $call_js_function_args="";
+	      if (isset($googleDetail->is_site_verified) && isset($googleDetail->is_domain_claim) && $googleDetail->is_site_verified == '0' && $googleDetail->is_domain_claim == '0') {
+	        $message = esc_html__('Site verification and domain claim for merchant center account failed. Without a verified and claimed website, your products will get disapproved.');
+	        $call_js_function_args = "both";
+	      }else if(isset($googleDetail->is_site_verified) && $googleDetail->is_site_verified == '0'){
+	        $message = esc_html__('Site verification and domain claim for merchant center account failed. Without a verified and claimed website, your products will get disapproved.');
+	        $call_js_function_args = "site_verified";
+	      }else if(isset($googleDetail->is_domain_claim) && $googleDetail->is_domain_claim == '0'){
+	        $message = esc_html__('Domain claim for merchant center account failed. Without a verified and claimed website, your products will get disapproved.'); 
+	        $call_js_function_args = "domain_claim";       
+	      }
+	      if($message!= ""){
+	      	printf('<div class="%1$s"><p><b>%2$s Click <a href="javascript:void(0)" id="call_both_verification" onclick="call_tvc_site_verified_and_domain_claim(\'%3$s\');">here</a></b> to verify and claim the domain.</p></div>', esc_attr($class), esc_html($message),$call_js_function_args);
+	      	?>
+	      	<script>
+	      		function call_tvc_site_verified_and_domain_claim(call_args){
+	      			var tvs_this = event.target;
+	      			$("#call_both_verification").css("visibility","hidden");
+	      			$(tvs_this).after('<div class="call_both_verification-spinner tvc-nb-spinner" id="both_verification-spinner"></div>');
+	      			if(call_args == "domain_claim"){
+	      				call_domain_claim_both();
+	      			}else{
+		      			jQuery.post(myAjaxNonces.ajaxurl,{
+						      action: "tvc_call_site_verified",
+						      apiDomainClaimNonce: myAjaxNonces.SiteVerifiedNonce
+						    },function( response ){
+						      var rsp = JSON.parse(response);    
+						      if(rsp.status == "success"){ 
+						      	if(call_args == "site_verified"){
+						      		tvc_helper.tvc_alert("success","",rsp.message);
+						        	location.reload();
+						      	}else{
+						      		call_domain_claim_both(rsp.message);
+						      	}				        
+						      }else{
+						        tvc_helper.tvc_alert("error","",rsp.message);
+						        $("#both_verification-spinner").remove();
+						      }
+						    });
+		      		}
+	      		}
+	      		function call_domain_claim_both(first_message=null){
+	      			//console.log("call_domain_claim");				    
+					    jQuery.post(myAjaxNonces.ajaxurl,{
+					      action: "tvc_call_domain_claim",
+					      apiDomainClaimNonce: myAjaxNonces.apiDomainClaimNonce
+					    },function( response ){
+					      var rsp = JSON.parse(response);    
+					      if(rsp.status == "success"){
+					      	if(first_message != "" || first_message == null){
+					      		tvc_helper.tvc_alert("success","",first_message,true,4000);
+						      	setTimeout(function(){
+						        	tvc_helper.tvc_alert("success","",rsp.message,true,4000); 
+						        	location.reload();
+						        }, 4000);
+						      }else{
+						      	tvc_helper.tvc_alert("success","",rsp.message,true,4000);
+						      	setTimeout(function(){						        	 
+						        	location.reload();
+						        }, 4000);
+						      }				        
+					      }else{
+					        tvc_helper.tvc_alert("error","",rsp.message,true)
+					      }
+					      $("#both_verification-spinner").remove();
+					    });
+					  }  
+	      	</script>
+	      	<?php
+	      }
+	    }
+    }
+	}
 	public function call_domain_claim(){
 		$googleDetail = [];
     $google_detail = $this->get_ee_options_data();
     //print_r($google_detail);
     if(isset($google_detail['setting']) && $google_detail['setting']){      
       $googleDetail = $google_detail['setting'];
-      if($googleDetail->is_domain_claim == '0'){
+      if($googleDetail->is_site_verified == '0'){
+      	return array('error'=>true, 'msg'=>"First need to verified your site. Click on site verification refresh icon to verified your site.");
+      }else if(property_exists($googleDetail,"is_domain_claim") && $googleDetail->is_domain_claim == '0'){
         $postData = [
 		      'merchant_id' => $googleDetail->merchant_id,  
 		      'website_url' => $googleDetail->site_url, 
@@ -529,7 +643,6 @@ Class TVC_Admin_Helper{
 		      'account_id' => $googleDetail->google_merchant_center_id
 		    ];		    
 				$claimWebsite = $this->customApiObj->claimWebsite($postData);
-				//print_r($claimWebsite);
 		    if(isset($claimWebsite->error) && !empty($claimWebsite->errors)){ 
 		    	return array('error'=>true, 'msg'=>$claimWebsite->errors[0]);
 		    }else{
@@ -537,9 +650,84 @@ Class TVC_Admin_Helper{
 		      return array('error'=>false, 'msg'=>"Domain claimed successfully.");
 		    }
 		  }else{
-		  	 return array('error'=>true, 'msg'=>"already domain claimed successfully");
+		  	return array('error'=>false, 'msg'=>"Already domain claimed successfully.");
 		  }      
     }		
+	}
+
+	
+	public function call_site_verified(){
+		$googleDetail = [];
+    $google_detail = $this->get_ee_options_data();
+    if(isset($google_detail['setting']) && $google_detail['setting']){      
+      $googleDetail = $google_detail['setting'];
+      if(property_exists($googleDetail,"is_site_verified") && $googleDetail->is_site_verified == '0'){
+        $postData = [
+		      'merchant_id' => $googleDetail->merchant_id,  
+		      'website_url' => $googleDetail->site_url, 
+		      'subscription_id' => $googleDetail->id,
+		      'account_id' => $googleDetail->google_merchant_center_id
+		    ];
+		   	$postData['method']="file"; 
+				$siteVerificationToken = $this->customApiObj->siteVerificationToken($postData);
+
+        if(isset($siteVerificationToken->error) && !empty($siteVerificationToken->errors)){
+        	goto call_method_tag;        	
+        }else{
+          $myFile = ABSPATH.$siteVerificationToken->data->token;
+          if(!file_exists($myFile)){
+            $fh = fopen($myFile, 'w+');
+            chmod($myFile,0777);
+            $stringData = "google-site-verification: ".$siteVerificationToken->data->token;
+            fwrite($fh, $stringData);
+            fclose($fh);
+          }
+          $postData['method']="file";
+          $siteVerification = $this->customApiObj->siteVerification($postData);          
+          if(isset($siteVerification->error) && !empty($siteVerification->errors)){
+          	call_method_tag:
+          	//methd using tag
+          	$postData['method']="meta";
+          	$siteVerificationToken_tag = $this->customApiObj->siteVerificationToken($postData);
+          	if(isset($siteVerificationToken_tag->data->token) && $siteVerificationToken_tag->data->token){
+          		$ee_additional_data = $this->get_ee_additional_data();
+          		$ee_additional_data['add_site_varification_tag']=1;
+          		$ee_additional_data['site_varification_tag_val']=base64_encode($siteVerificationToken_tag->data->token);
+
+          		$this->set_ee_additional_data($ee_additional_data);
+          		sleep(1);
+          		$siteVerification_tag = $this->customApiObj->siteVerification($postData);
+          		if(isset($siteVerification_tag->error) && !empty($siteVerification_tag->errors)){
+          			return array('error'=>true, 'msg'=>$siteVerification_tag->errors[0]);
+          		}else{
+          			$this->set_update_api_to_db();
+          			return array('error'=>false, 'msg'=>"Site verification successfully.");
+          		}
+          	}else{
+          		return array('error'=>true, 'msg'=>$siteVerificationToken_tag->errors[0]);
+          	}       	
+          	// one more try
+          }else{
+            $this->set_update_api_to_db();
+		      	return array('error'=>false, 'msg'=>"Site verification successfully.");
+          }
+        }
+		  }else{
+		  	return array('error'=>false, 'msg'=>"Already site verification successfully.");
+		  }      
+    }		
+	}
+
+	public function get_tvc_popup_message(){
+		return '<div id="tvc_popup_box">
+		<span class="close" id="tvc_close_msg" onclick="tvc_helper.tvc_close_msg()"> × </span>
+			<div id="box">
+				<div class="tvc_msg_icon" id="tvc_msg_icon"></div>
+				<h4 id="tvc_msg_title"></h4>
+				<p id="tvc_msg_content"></p>
+				<div id="tvc_closeModal"></div>
+			</div>
+		</div>';		
 	}
 
 }?>

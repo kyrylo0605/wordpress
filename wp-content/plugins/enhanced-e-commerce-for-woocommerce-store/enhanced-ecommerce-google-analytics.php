@@ -16,7 +16,7 @@
  * Plugin Name:       Enhanced E-commerce for Woocommerce store
  * Plugin URI:        https://www.tatvic.com/tatvic-labs/woocommerce-extension/
  * Description:       Automates eCommerce tracking in Google Analytics, dynamic remarkting in Google Ads, and provides complete Google Shopping features.
- * Version:           3.0.2
+ * Version:           3.0.4
  * Author:            Tatvic
  * Author URI:        www.tatvic.com
  * License:           GPL-2.0+
@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '3.0.2' );
+define( 'PLUGIN_NAME_VERSION', '3.0.4' );
 $fullName = plugin_basename( __FILE__ );
 $dir = str_replace('/enhanced-ecommerce-google-analytics.php','',$fullName);
 if ( ! defined( 'ENHANCAD_PLUGIN_NAME' ) ) {
@@ -102,9 +102,9 @@ if ( ! defined( 'TVC_MIN_REQUIRED_WC_VERSION' ) ) {
     define( 'TVC_MIN_REQUIRED_WC_VERSION', '3.0.0' );
 }
 if ( ! defined( 'TVC_API_CALL_URL' ) ) {
-    define( 'TVC_API_CALL_URL', 'https://connect.tatvic.com/laravelapi/public/api' );
+   define( 'TVC_API_CALL_URL', 'https://connect.tatvic.com/laravelapi/public/api' );   
 }
-if ( ! defined( 'TVC_AUTH_CONNECT_URL' ) ) {
+if ( ! defined( 'TVC_AUTH_CONNECT_URL' ) ) {    
     define( 'TVC_AUTH_CONNECT_URL', 'estorenew.tatvic.com' );
 }
 if(!defined('TVC_Admin_Helper')){

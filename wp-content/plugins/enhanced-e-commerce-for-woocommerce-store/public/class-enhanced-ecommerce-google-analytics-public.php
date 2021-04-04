@@ -149,6 +149,15 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
             });
         }
     }
+    public function add_google_site_verification_tag(){
+        $TVC_Admin_Helper = new TVC_Admin_Helper();
+        $ee_additional_data = $TVC_Admin_Helper->get_ee_additional_data();
+        if(isset($ee_additional_data['add_site_varification_tag']) && isset($ee_additional_data['site_varification_tag_val']) && $ee_additional_data['add_site_varification_tag'] == 1 && $ee_additional_data['site_varification_tag_val'] !="" ){
+            echo base64_decode($ee_additional_data['site_varification_tag_val']);
+        }
+        
+                        
+  }
     public function get_option($key){
         $ee_options = array();
         $my_option = get_option( 'ee_options' );

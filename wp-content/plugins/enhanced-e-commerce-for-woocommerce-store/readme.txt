@@ -8,8 +8,8 @@ Author: Tatvic
 Requires at least: 1.4.1
 Tested up to: 5.7
 Requires PHP: 5.6 or Higher
-Stable tag: 3.0.2
-Version: 3.0.2
+Stable tag: 3.0.4
+Version: 3.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,18 @@ You can resolve the duplication of data by removing the manually implemented GA 
 
 
 == Changelog ==
+
+= 3.0.4 - 31/03/2021 =
+ * UI bug issue solved
+ * Fix to dismiss the admin notices permanentaly 
+ 
+= 3.0.3 - 30/03/2021 =
+ * Added double check for auto site verification for merchant center accounts
+ * Added double check for auto domain claim for merchant center accounts
+ * Bug fix for HTTP_HOST php warning raised by some clients
+ * User friendly feature notifications  
+ * Removal of Brand, GTIN and MPN custom product meta fields addition from the plugin
+
 
 = 3.0.2 - 17/03/2021 =
  * Product sync feature enhancement - Users can now map upto 25 product attributes which will help them opt for enhanced listing in Google search/Shopping

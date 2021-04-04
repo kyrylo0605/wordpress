@@ -1,7 +1,8 @@
 <?php
 class GoogleShoppingFeed {
-  public $site_url="";  
+  protected $site_url="";  
   protected $TVC_Admin_Helper="";
+  protected $subscriptionId = "";
   public function __construct() {
     $this->TVC_Admin_Helper = new TVC_Admin_Helper();
     $this->subscriptionId = $this->TVC_Admin_Helper->get_subscriptionId(); 
@@ -33,15 +34,15 @@ class GoogleShoppingFeed {
       </div>
     </li>';
   }
-  public function configuration_error_list_html($title, $val){
-    if($this->subscriptionId != ""){
+  public function configuration_error_list_html($title, $val, $call_domain_claim, $googleDetail){
+    if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id && $this->subscriptionId != "" ){
       return '<li>
         <div class="row">
           <div class="col-7 col-md-7 col-lg-7 align-self-center pr-0">
               <span class="text">'.$title.'</span>
           </div>
           <div class="col-5 col-md-5 col-lg-5 align-self-center text-right">
-              <div class="list-image"><img id="refresh_domain_claim" onclick="call_domain_claim();" src="'. ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png"><img src="' . ENHANCAD_PLUGIN_URL.'/admin/images/exclaimation.png" alt="no-config-success"/></div>
+              <div class="list-image"><img id="refresh_'.$call_domain_claim.'" onclick="'.$call_domain_claim.'();" src="'. ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png"><img src="' . ENHANCAD_PLUGIN_URL.'/admin/images/exclaimation.png" alt="no-config-success"/></div>
           </div>
         </div>
       </li>';
@@ -59,13 +60,13 @@ class GoogleShoppingFeed {
     }
   }
   public function create_form() {
-    $googleDetail = [];
+    $googleDetail = [];    
     $google_detail = $this->TVC_Admin_Helper->get_ee_options_data();
     if(isset($google_detail['setting'])){
       if ($google_detail['setting']) {
         $googleDetail = $google_detail['setting'];
       }
-    }
+    }      
 
     $syncProductStat = [];        
     $args = array('post_type' => 'product', 'post_status' => 'publish', 'posts_per_page' => -1);
@@ -108,12 +109,15 @@ class GoogleShoppingFeed {
       $campaignConversions = (isset($googleDetail->google_ads_id) && $googleDetail->google_ads_id != "" ? $campaignConversions . "%" : '0');
       $campaignSales = (isset($googleDetail->google_ads_id) && $googleDetail->google_ads_id != "" ? $currency . $campaignSales : '0');
    }
-   $last_api_sync_up = "";
-   if(isset($google_detail['sync_time'])){
-      if ($google_detail['sync_time']) {
-        $last_api_sync_up = date( 'Y-m-d H:i',$google_detail['sync_time']);
-      }
+  $last_api_sync_up = "";
+  if(isset($google_detail['sync_time']) && $google_detail['sync_time']){      
+    $date_formate=get_option('date_format')." ".get_option('time_format');
+    if($date_formate ==""){
+      $date_formate = 'M-d-Y H:i';
     }
+    $last_api_sync_up = date( $date_formate, $google_detail['sync_time']);      
+  }
+  $is_need_to_update = $this->TVC_Admin_Helper->is_need_to_update_api_to_db();
 ?>
 <div class="container-fluid">
 	<div class="row">
@@ -124,13 +128,13 @@ class GoogleShoppingFeed {
 	          <div class="row">
 	            <div class="col-md-6 col-lg-8 border-right">
                 <?php if($this->subscriptionId != ""){?>
-                  <div class="tvc-api-sunc">
+                  <div class="tvc-api-sunc">                    
                     <span>
                     <?php if($last_api_sync_up){
                       echo "Details last synced at ".$last_api_sync_up; 
                     }else{
                       echo "Refresh sync up";
-                    }?></span><img id="refresh_api" onclick="call_tvc_api_sync_up();" src="<?php echo ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png'; ?>">
+                    }?></span><img id="refresh_api" onclick="call_tvc_api_sync_up();" src="<?php echo ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png'; ?>">                    
                   </div>
                 <?php } ?>
                 <div class="configuration-section" id="config-pt1">
@@ -141,14 +145,19 @@ class GoogleShoppingFeed {
                           <h4 class="confg-title">Configuration</h4>
                         </div>
                         <div class="card-body">
-                          <ul class="list-unstyled"><?php 
+                          <ul class="list-unstyled"><?php
                           $is_domain_claim = (isset($googleDetail->is_domain_claim))?$googleDetail->is_domain_claim:"";
+                          $is_site_verified = (isset($googleDetail->is_site_verified))?$googleDetail->is_site_verified:"";
                             echo $this->configuration_list_html("Google merchant center",(isset($googleDetail->google_merchant_center_id))?$googleDetail->google_merchant_center_id:"");
-                            echo $this->configuration_list_html("Site Verified",(isset($googleDetail->is_site_verified))?$googleDetail->is_site_verified:"");
+                            if($is_site_verified ==1){
+                              echo $this->configuration_list_html("Site Verified",$is_site_verified);
+                            }else{
+                              echo $this->configuration_error_list_html("Site Verified",$is_site_verified,"call_site_verified", $googleDetail);
+                            }
                             if($is_domain_claim ==1){
                               echo $this->configuration_list_html("Domain claim",$is_domain_claim);
                             }else{
-                              echo $this->configuration_error_list_html("Domain claim",$is_domain_claim);
+                              echo $this->configuration_error_list_html("Domain claim",$is_domain_claim, 'call_domain_claim', $googleDetail);
                             }
                             echo $this->configuration_list_html("Google Ads linking",((isset($googleDetail->google_ads_id)))?$googleDetail->google_ads_id:"");
                             ?>
@@ -220,28 +229,52 @@ class GoogleShoppingFeed {
 	</div>
 </div>
 <script type="text/javascript">
+  function call_site_verified(){
+    var tvs_this = event.target;
+    $("#refresh_call_site_verified").css("visibility","hidden");
+    $(tvs_this).after('<div class="domain-claim-spinner tvc-nb-spinner" id="site-verified-spinner"></div>');
+    jQuery.post(myAjaxNonces.ajaxurl,{
+      action: "tvc_call_site_verified",
+      apiDomainClaimNonce: myAjaxNonces.SiteVerifiedNonce
+    },function( response ){
+      var rsp = JSON.parse(response);    
+      if(rsp.status == "success"){        
+        tvc_helper.tvc_alert("success","",rsp.message,true);
+        location.reload();
+      }else{
+        tvc_helper.tvc_alert("error","",rsp.message,true);
+      }
+      $("#site-verified-spinner").remove();
+    });
+  }
   function call_domain_claim(){
     var tvs_this = event.target;
-    $("#refresh_domain_claim").css("visibility","hidden");
+    $("#refresh_call_domain_claim").css("visibility","hidden");
     $(tvs_this).after('<div class="domain-claim-spinner tvc-nb-spinner" id="domain-claim-spinner"></div>');
     jQuery.post(myAjaxNonces.ajaxurl,{
       action: "tvc_call_domain_claim",
       apiDomainClaimNonce: myAjaxNonces.apiDomainClaimNonce
     },function( response ){
       var rsp = JSON.parse(response);    
-      if(rsp.status == "success"){        
-        alert(rsp.message);
+      if(rsp.status == "success"){
+        tvc_helper.tvc_alert("success","",rsp.message,true);        
+        //alert(rsp.message);
         location.reload();
-        //$(tvs_this).after('<span id="tvc_msg">'+rsp.message+"</span>");
-        //setTimeout(function(){ $("#tvc_msg").remove(); location.reload();}, 4000);
       }else{
-        alert(rsp.message);
+        tvc_helper.tvc_alert("error","",rsp.message,true)
       }
       $("#domain-claim-spinner").remove();
     });
   }
+  $(document).ready(function() {
+    var is_need_to_update = "<?php echo $is_need_to_update; ?>";
+    if(is_need_to_update == 1 || is_need_to_update == true){
+      tvc_helper.tvc_alert("error","Attention !","Auto-sync up is in the process do not refresh the page.");
+      call_tvc_api_sync_up();
+    }    
+  });
   function call_tvc_api_sync_up(){
-    var tvs_this = event.target;
+    var tvs_this = $("#refresh_api");
     $("#tvc_msg").remove();
     $("#refresh_api").css("visibility","hidden");
     $(tvs_this).after('<div class="tvc-nb-spinner" id="tvc-nb-spinner"></div>');
@@ -252,8 +285,8 @@ class GoogleShoppingFeed {
       var rsp = JSON.parse(response);    
       if(rsp.status == "success"){
         $("#tvc-nb-spinner").remove();
-        $(tvs_this).after('<span id="tvc_msg">'+rsp.message+"</span>");
-        setTimeout(function(){ $("#tvc_msg").remove(); location.reload();}, 4000);
+        tvc_helper.tvc_alert("success","",rsp.message,true);
+        setTimeout(function(){ location.reload();}, 5000);
       }    
     });
   }  

@@ -51,17 +51,61 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
     protected $ga_id;
     protected $ga_LC;
     protected $ga_eeT;
-    protected $setting_status;
     protected $site_url;
     public function __construct($plugin_name, $version) {                       
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        $this->accessToken = isset($_GET['access_token']) ? $_GET['access_token'] : '';
-        $this->refreshToken = isset($_GET['refresh_token']) ? $_GET['refresh_token'] : '';
-        $this->email = isset($_GET['email']) ? $_GET['email'] : '';
         $this->url = $this->get_connect_url();
         $this->site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";
     }
+    public function tvc_admin_notice(){
+        //global $pagenow;
+        $ee_additional_data = $this->get_ee_additional_data();
+        if(isset($ee_additional_data['dismissed_ee_adimin_notic_a']) && $ee_additional_data['dismissed_ee_adimin_notic_a'] == 1){
+        }else{
+            if(!$this->get_subscriptionId()){          
+                echo '<div class="notice notice-info is-dismissible" data-id="ee_adimin_notic_a">
+                      <p>Tatvic EE plugin is now fully compatible with Google Analytics 4. Also, explore the new features of Google Shopping and Dynamic remarketing to reach million of shoppers across Google and scale your eCommerce business faster. <a href="admin.php?page=enhanced-ecommerce-google-analytics-admin-display"><b><u>CONFIGURE NOW</u></b></a></p>
+                     </div>'; 
+            }
+        }
+        if(isset($ee_additional_data['dismissed_ee_adimin_notic_b']) && $ee_additional_data['dismissed_ee_adimin_notic_b'] == 1){
+        }else{
+            $google_detail = $this->get_ee_options_data();
+            if(isset($google_detail['setting']) && $google_detail['setting']){
+                $googleDetail = $google_detail['setting'];
+                if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id =="" && $this->subscriptionId != "" ){
+                    echo '<div class="notice notice-info is-dismissible" data-id="ee_adimin_notic_b">
+                      <p>Leverage the power of Google Shopping to reach out millions of shoppers across Google. Automate entire Google Shopping and get eligible for free listing when user searches on Google for products similar to your eCommerce business. <a href="admin.php?page=enhanced-ecommerce-google-analytics-admin-display"><b><u>Automate now</u></b></a></p>
+                     </div>';
+                     
+                }
+            } 
+        }
+        ?>
+        <script>
+            (function( $ ) {
+                $( function() {
+                    $( '.notice' ).on( 'click', '.notice-dismiss', function( event, el ) {
+                        var ee_notice_dismiss_id = $(this).parent('.is-dismissible').attr("data-id");
+                        jQuery.post(myAjaxNonces.ajaxurl,{
+                            action: "tvc_call_notice_dismiss",
+                            data:{ee_notice_dismiss_id:ee_notice_dismiss_id},
+                            dataType: "json",
+                            apiDomainClaimNonce: myAjaxNonces.apiNoticDismissNonce
+                        },function( response ){
+                            
+                        });
+                    });
+                } );
+            })( jQuery );
+         </script>
+        <?php
+               
+        
+        
+    }
+
     
     /**
      * Register the stylesheets for the admin area.
@@ -113,7 +157,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
             wp_enqueue_script('aga_bootstrap_mod');
             wp_register_script('aga_confirm_js', '//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js');
             wp_enqueue_script('aga_confirm_js');
-           // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/enhanced-ecommerce-google-analytics-admin.js', array('jquery'), $this->version, false);
+            wp_enqueue_script( 'tvc-ee-custom-js', ENHANCAD_PLUGIN_URL . '/admin/js/tvc-ee-custom.js', array( 'jquery' ), $this->version, false );
             if($this->is_current_tab_in(array('sync_product_page','gaa_config_page'))){
                 wp_register_script('plugin-select2',ENHANCAD_PLUGIN_URL . '/includes/setup/plugins/select2/select2.min.js');
                 wp_enqueue_script('plugin-select2');
@@ -166,6 +210,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
         echo '<div class="tvc_plugin_container">';
         require_once( 'partials/enhanced-ecommerce-google-analytics-admin-display.php');
         new TVC_Tabs();
+        echo $this->call_tvc_site_verified_and_domain_claim();
         if (!empty($_GET['tab'])) {
             $get_action = $_GET['tab'];
         } else {
@@ -175,6 +220,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
             $this->$get_action();
         }
         echo '</div>';
+        echo $this->get_tvc_popup_message();
     }
     public function check_nall_and_message($val, $msg, $msg_false){
         if((isset($val) && $val != "" && $val != 0) ){
@@ -183,161 +229,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
              return $msg_false;
         }
     }
-    public function check_setting_status(){        
-       if(!empty($this->setting_status)){
-            return $this->setting_status;
-        }else{
-            $google_detail = $this->get_ee_options_data();
-            $setting_status = array();
-            if(isset($google_detail['setting'])){
-                $googleDetail = $google_detail['setting'];               
-                //for google analytic            
-                if(isset($googleDetail->tracking_option) && isset($googleDetail->measurement_id) && isset($googleDetail->property_id) && $googleDetail->tracking_option == "BOTH" ){
-                    if($googleDetail->property_id != "" && $googleDetail->measurement_id != ""){
-                        $setting_status['google_analytic']= true;
-                        $setting_status['google_analytic_msg']= "";
-                    }else if($googleDetail->property_id == "" ){
-                        $setting_status['google_analytic']= false;
-                        $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }else if($googleDetail->measurement_id == "" ){
-                        $setting_status['google_analytic']= false;
-                        $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }
-                }else if(isset($googleDetail->tracking_option) && isset($googleDetail->measurement_id) && $googleDetail->tracking_option == "GA4"){
-                    if( $googleDetail->measurement_id != ""){
-                        $setting_status['google_analytic']= true;
-                        $setting_status['google_analytic_msg']= "";
-                    }else{
-                        $setting_status['google_analytic']= false;
-                        $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }
-                }else if(isset($googleDetail->tracking_option) && isset($googleDetail->property_id) && $googleDetail->tracking_option == "UA" ){
-                    if($googleDetail->property_id != ""){
-                        $setting_status['google_analytic']= true;
-                        $setting_status['google_analytic_msg']= "";
-                    }else{
-                        $setting_status['google_analytic']= false;
-                        $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }
-                }else{
-                    $setting_status['google_analytic']= false;
-                    $setting_status['google_analytic_msg']= "";
-                }
-                // for google shopping
-                if(property_exists($googleDetail,"google_merchant_center_id") && property_exists($googleDetail,"google_ads_id") ){
-                    //main tab
-                    if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){
-                        $setting_status['google_shopping']= true;
-                        $setting_status['google_shopping_msg']= "";
-                    }else if($googleDetail->google_merchant_center_id == ""){
-                        $setting_status['google_shopping']= false;
-                        $setting_status['google_shopping_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }else if($googleDetail->google_ads_id == ""){
-                        $setting_status['google_shopping']= false;
-                        $setting_status['google_shopping_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }
-                }else{
-                    $setting_status['google_shopping']= false;
-                    $setting_status['google_shopping_msg']= "";
-                }
-                
-                //google_ads_id
-                if(property_exists($googleDetail,"google_ads_id") && property_exists($googleDetail,"google_merchant_center_id") ){
-                    if( $googleDetail->google_ads_id != "" && $googleDetail->google_merchant_center_id != ""){
-                        $setting_status['google_ads']= true;
-                        $setting_status['google_ads_msg']= "";
-                    }else if($googleDetail->google_merchant_center_id == ""){
-                        $setting_status['google_ads']= false;
-                        $setting_status['google_ads_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }else if($googleDetail->google_ads_id == ""){
-                        $setting_status['google_ads']= false;
-                        $setting_status['google_ads_msg']= "Configure Google Ads account to reach to millions of interested shoppers <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                    }              
-                }else{
-                    $setting_status['google_ads']= false;
-                    $setting_status['google_ads_msg']= "";
-                }
-            }
-            $this->setting_status = $setting_status;            
-            return $setting_status;
-        }
-    }
-    public function check_setting_status_sub_tabs(){        
-        $google_detail = $this->get_ee_options_data();
-        $setting_status = array();
-        if(isset($google_detail['setting'])){
-            $googleDetail = $google_detail['setting'];            
-            //sub tab shopping config
-            if(property_exists($googleDetail,"google_merchant_center_id") && property_exists($googleDetail,"is_site_verified") && property_exists($googleDetail,"is_domain_claim") && property_exists($googleDetail,"google_ads_id")){
-                if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != "" && $googleDetail->is_site_verified == 1 && $googleDetail->is_domain_claim == 1 ){
-                    $setting_status['google_shopping_conf']= true;
-                    $setting_status['google_shopping_conf_msg']= "Google Shopping Configuration Success.";
-                }else if($googleDetail->google_merchant_center_id == "" || $googleDetail->google_ads_id == "" ){
-                    $setting_status['google_shopping_conf']= false;
-                    $setting_status['google_shopping_conf_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-                }else if($googleDetail->is_site_verified ==0 && $googleDetail->is_domain_claim ==0 ){
-                    $setting_status['google_shopping_conf']= false;
-                    $setting_status['google_shopping_conf_msg']= "Site verification and domain claim for your merchant center account failed.";
-                }else if($googleDetail->is_site_verified ==0 ){
-                     $setting_status['google_shopping_conf']= false;
-                     $setting_status['google_shopping_conf_msg']= "Site verification and domain claim for your merchant center account failed.";
-                }else if($googleDetail->is_domain_claim ==0 ){
-                    $setting_status['google_shopping_conf']= false;
-                    $setting_status['google_shopping_conf_msg']= "Domain claim is pending. Your store url may be linked to other merchant center account.";
-                }                                      
-            }else{
-                $setting_status['google_shopping_conf']= false;
-                $missing="";
-            }
-            //sub tab product sync
-            $syncProductList = [];
-            $syncProductStat = [];
-            if(property_exists($googleDetail,"google_merchant_center_id") && $googleDetail->google_merchant_center_id != ''){
-                if(isset($google_detail['prod_sync_status']) && $google_detail['prod_sync_status']){                      
-                    $syncProductStat = $google_detail['prod_sync_status'];
-                    $sync_product_total = (!empty($syncProductStat)) ? $syncProductStat->total : "0";
-                    $sync_product_approved = (!empty($syncProductStat)) ? $syncProductStat->approved : "0";
-                    $sync_product_disapproved = (!empty($syncProductStat)) ? $syncProductStat->disapproved : "0";
-                    $sync_product_pending = (!empty($syncProductStat)) ? $syncProductStat->pending : "0";
-
-                    if($sync_product_total > 1 && $sync_product_approved > 1 && $sync_product_disapproved < 1){
-                        $setting_status['google_shopping_p_sync']= true;
-                        $setting_status['google_shopping_p_sync_msg']= "Google Shopping product sync is a success.";
-                    }else if($sync_product_total < 1){
-                        $setting_status['google_shopping_p_sync']= false;
-                        $setting_status['google_shopping_p_sync_msg']= "Sync your product data into Merchant center and get eligible for free listing across Google.";
-                    }else if($sync_product_disapproved > 0){
-                        $setting_status['google_shopping_p_sync']= false;
-                        $setting_status['google_shopping_p_sync_msg']= "There seems to be some problem with your product data. Rectify the issues by selecting right attributes.";
-                    }                  
-                }                
-            }else{
-                $setting_status['google_shopping_p_sync']= false;
-                $setting_status['google_shopping_p_sync_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-            } 
-
-            //sub tab product Campaigns
-            if(property_exists($googleDetail,"google_merchant_center_id") && $googleDetail->google_merchant_center_id != ''){                
-               if(isset($google_detail['campaigns_list']) && $google_detail['campaigns_list']){
-                    $campaigns_list = $google_detail['campaigns_list'];
-                    $totalCampaigns = count($campaigns_list);
-                    if($totalCampaigns < 1){
-                        $setting_status['google_shopping_p_campaigns']= false;
-                        $setting_status['google_shopping_p_campaigns_msg']= "Reach out to customers based on their past site behavior by running start shopping campaign.";
-                    }else{
-                        $setting_status['google_shopping_p_campaigns']= true;
-                    }                    
-                }else{
-                    $setting_status['google_shopping_p_campaigns']= false;
-                    $setting_status['google_shopping_p_campaigns_msg']= "Reach out to customers based on their past site behavior by running start shopping campaign.";
-                }                
-            }else{
-                $setting_status['google_shopping_p_campaigns']= false;
-                $setting_status['google_shopping_p_campaigns_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->url)."'>click here</a>.";
-            }          
-        }                  
-        return $setting_status;        
-    }
+    
     public function general_settings() {       
         require_once( 'partials/general-fields.php');
     }

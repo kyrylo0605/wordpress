@@ -168,7 +168,7 @@ class CampaignsConfiguration
 		}
 
 		$google_detail = $this->customApiObj->getGoogleAnalyticDetail();
-        if ($google_detail->data['status'] == 200) {
+        if (isset($google_detail->data['status']) && $google_detail->data['status'] == 200) {
             if (isset($google_detail->data['data'])) {
                 $googleDetail = $google_detail->data['data'];
             }
@@ -188,7 +188,7 @@ class CampaignsConfiguration
 	                    <div class="row">
 	                        <div class="col-md-6 col-lg-8 border-right">
 	                            <div class="configuration-section" id="config-pt1">
-	                               '.get_google_shopping_tabs_html($this->site_url,$googleDetail->google_merchant_center_id).'
+	                               '.get_google_shopping_tabs_html($this->site_url,(isset($googleDetail->google_merchant_center_id))?$googleDetail->google_merchant_center_id:"").'
 	                            </div>
 	                            <div class="mt-3" id="config-pt2">
                                 	<form method="post" id="date_range_form">

@@ -44,6 +44,22 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
     add_action('wp_ajax_tvcajax-store-time-taken', array($this, 'tvcajax_store_time_taken'));
     add_action('wp_ajax_tvc_call_api_sync', array($this, 'tvc_call_api_sync'));
     add_action('wp_ajax_tvc_call_domain_claim', array($this, 'tvc_call_domain_claim'));
+    add_action('wp_ajax_tvc_call_site_verified', array($this, 'tvc_call_site_verified'));
+    add_action('wp_ajax_tvc_call_notice_dismiss', array($this, 'tvc_call_notice_dismiss'));
+  }
+  public function tvc_call_notice_dismiss(){
+    if($this->safe_ajax_call(filter_input(INPUT_POST, 'apiNoticDismissNonce'), 'tvc_call_notice_dismiss-nonce')){
+      
+      $ee_notice_dismiss_id = $_POST['data']['ee_notice_dismiss_id'];
+      if($ee_notice_dismiss_id != ""){
+        $TVC_Admin_Helper = new TVC_Admin_Helper();
+        $ee_additional_data = $TVC_Admin_Helper->get_ee_additional_data();
+        $ee_additional_data['dismissed_'.$ee_notice_dismiss_id] = 1;
+        $TVC_Admin_Helper->set_ee_additional_data($ee_additional_data);
+        echo json_encode(array('status' => 'success', 'message' => $ee_additional_data));
+      }       
+    }
+    exit;
   }
   public function tvc_call_api_sync(){
     if($this->safe_ajax_call(filter_input(INPUT_POST, 'apiSyncupNonce'), 'tvc_call_api_sync-nonce')){
@@ -54,11 +70,25 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
     }
     exit;
   }
+  public function tvc_call_site_verified(){
+    if($this->safe_ajax_call(filter_input(INPUT_POST, 'SiteVerifiedNonce'), 'tvc_call_site_verified-nonce')){
+      $TVC_Admin_Helper = new TVC_Admin_Helper();
+      $tvc_rs =[];
+      $tvc_rs = $TVC_Admin_Helper->call_site_verified();
+      if(isset($tvc_rs['error']) && $tvc_rs['error'] == 1){
+        echo json_encode(array('status' => 'error', 'message' => $tvc_rs['msg']));
+      }else{
+        echo json_encode(array('status' => 'success', 'message' => $tvc_rs['msg']));
+      }      
+      exit;
+    }
+    exit;
+  }
   public function tvc_call_domain_claim(){
     if($this->safe_ajax_call(filter_input(INPUT_POST, 'apiDomainClaimNonce'), 'tvc_call_domain_claim-nonce')){
       $TVC_Admin_Helper = new TVC_Admin_Helper();
       $tvc_rs = $TVC_Admin_Helper->call_domain_claim();
-      if($tvc_rs['error'] == 1){
+      if(isset($tvc_rs['error']) && $tvc_rs['error'] == 1){
         echo json_encode(array('status' => 'error', 'message' => $tvc_rs['msg']));
       }else{
         echo json_encode(array('status' => 'success', 'message' => $tvc_rs['msg']));
@@ -709,16 +739,16 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
       $fixed_att_select_list = array("gender", "age_group", "shipping", "tax", "content_language", "target_country", "condition");
       foreach ($fixed_att_select_list as $fixed_key) {
         if(isset($formArray[$fixed_key]) && $formArray[$fixed_key] != "" ){
-          if($fixed_key == "shipping" && $formArray[$fixed_key] != 0){
+          if($fixed_key == "shipping" && $formArray[$fixed_key] != ""){
             $temp_product[$fixed_key]['price']['value'] = $formArray[$fixed_key];
             $temp_product[$fixed_key]['price']['currency'] = $tvc_currency;
             $temp_product[$fixed_key]['country'] = $formArray['target_country'];
             //$temp_product[$fixed_key] =$formArray['target_country'].'::'.$formArray[$fixed_key].' '.$tvc_currency;
-          }else if($fixed_key == "tax" && $formArray[$fixed_key] != 0){
+          }else if($fixed_key == "tax" && $formArray[$fixed_key] != ""){
             //$temp_product[$fixed_key] =$formArray['target_country'].'::'.$formArray[$fixed_key];
             $temp_product['taxes']['rate'] = $formArray[$fixed_key];
             $temp_product['taxes']['country'] = $formArray['target_country'];
-          }else if( $formArray[$fixed_key] != 0 || $formArray[$fixed_key] != ""){
+          }else if( $formArray[$fixed_key] != ""){
             $temp_product[$fixed_key] = $formArray[$fixed_key];
           }          
         }

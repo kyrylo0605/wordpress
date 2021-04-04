@@ -44,6 +44,14 @@ class GAAConfiguration {
       $class = 'notice notice-success';
       $message = esc_html__('Get your WooCommerce products in front of the millions of shoppers across Google by setting up your Google Merchant Center account from below.');
       printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+      ?>
+      <script>
+        $(document).ready(function() {
+          var msg="<?php echo $message;?>"
+          tvc_helper.tvc_alert("success","Hey!",msg,true);
+        });
+      </script>
+      <?php
     }
     $category_wrapper_obj = new Tatvic_Category_Wrapper();
     $category_wrapper = $category_wrapper_obj->category_table_content('mapping');
@@ -110,7 +118,7 @@ class GAAConfiguration {
                       <h2 class="ga-title">Sync Products:</h2>
                     </div>
                     <div class="col-6 col-md-6">
-                      <button type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#syncProduct">Sync New Products</button>                        
+                      <button id="tvc_btn_product_sync" type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#syncProduct">Sync New Products</button>                        
                     </div>
 	                </div>
                   <div class="row mb-3">
@@ -205,15 +213,15 @@ class GAAConfiguration {
                       <div class="form-group">';
                         $tvc_select_option = $wooCommerceAttributes;
                         $require = (isset($attribute['required']) && $attribute['required'])?true:false;
-                        $sel_val = (isset($attribute['wAttribute']))?$attribute['wAttribute']:"";
+                        $sel_val_def = (isset($attribute['wAttribute']))?$attribute['wAttribute']:"";
                         if($attribute["field"]=='link'){
                             echo "product link";
                         }else if($attribute["field"]=='shipping'){
-                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:$sel_val_def;
                           //$name, $class_id, string $label=null, $sel_val = null, bool $require = false
                           echo $this->TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add shipping flat rate', $sel_val, $require);
                         }else if($attribute["field"]=='tax'){
-                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:$sel_val_def;
                           //$name, $class_id, string $label=null, $sel_val = null, bool $require = false
                           echo $this->TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add TAX flat (%)', $sel_val, $require);
                         }else if($attribute["field"]=='content_language'){
@@ -227,11 +235,11 @@ class GAAConfiguration {
                             $tvc_select_option=[];
                             foreach( $tvc_select_option_t as $o_val ){
                               $tvc_select_option[]['field'] = $o_val;
-                            } 
+                            }
+                            $sel_val = $sel_val_def; 
                             $this->TVC_Admin_Helper->tvc_select($attribute["field"],'','Please Select Attribute', $sel_val, $require, $tvc_select_option);
-                          }else{                            
-                            //print_r($ee_mapped_attrs);
-                            $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          }else{
+                            $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:$sel_val_def;
                           //$name, $class_id, $label="Please Select", $sel_val, $require, $option_list
                           $this->TVC_Admin_Helper->tvc_select($attribute["field"],'','Please Select Attribute', $sel_val, $require, $tvc_select_option);
                           }
@@ -250,10 +258,27 @@ class GAAConfiguration {
   </div>
 </div>
 <?php echo get_connect_google_popup_html()?>
-<?php $shop_categories_list = $this->TVC_Admin_Helper->get_tvc_product_cat_list(); ?>
+<?php $shop_categories_list = $this->TVC_Admin_Helper->get_tvc_product_cat_list(); 
+$is_need_to_domain_claim = false;
+if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id && $this->subscriptionId != "" && isset($googleDetail->is_domain_claim) && $googleDetail->is_domain_claim == '0'){
+  $is_need_to_domain_claim = true;
+}?>
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".select2").select2();
+
+  $(document).on("click", "#tvc_btn_product_sync", function(event){
+    var is_need_to_domain_claim = "<?php echo $is_need_to_domain_claim; ?>";
+    if(is_need_to_domain_claim == 1 || is_need_to_domain_claim == true){
+      event.preventDefault();
+      jQuery.post(myAjaxNonces.ajaxurl,{
+        action: "tvc_call_domain_claim",
+        apiDomainClaimNonce: myAjaxNonces.apiDomainClaimNonce
+      },function( response ){
+        
+      });
+    }
+  }); 
 });
 $(".tab-wizard").steps({
   headerTag: "h5",
@@ -277,7 +302,7 @@ $(".tab-wizard").steps({
     if(is_tvc_cat_selecte == 1 || is_tvc_cat_selecte == true){
       return true;
     }else{
-      alert("Select at least one Google Merchant Center Category.");
+      tvc_helper.tvc_alert("error","","Select at least one Google Merchant Center Category.",true);
       return false;
     }
   },
@@ -289,10 +314,11 @@ $(".tab-wizard").steps({
     jQuery(".field-required").each(function() {
       if($(this).val()==0 && valid){
         valid=false;
+        $(this).select2('focus');
       }
     });
     if(!valid){
-      alert("Please select all required fields");
+      tvc_helper.tvc_alert("error","","Please select all required fields");
     }else{
       submitProductSyncUp();
     }//check for required fields end        	
@@ -322,20 +348,20 @@ function submitProductSyncUp() {
     },
     function( response ) {
       jQuery("#feed-spinner").css("display", "none");
-      console.log(response);
+      //console.log(response);
       var rsp = JSON.parse(response)
       if (rsp.status == "success") {
         $('#syncProduct').modal('hide');
-        var message = "Your product are now being synced in your merchant center account. It takes up to 30 minutes to reflect the product data in merchant center. As soon as they are updated, they will be shown in the \"Product Sync\" dashboard.";
+        var message = "Your products have been synced in your merchant center account. It takes up to 30 minutes to reflect the product data in merchant center. As soon as they are updated, they will be shown in the \"Product Sync\" dashboard.";
           if (rsp.skipProducts > 0) {
             message = message + "\n Because of pricing issues, " + rsp.skipProducts + " products did not sync.";
           }
-          alert(message);
-          window.location.replace("<?php echo $this->site_url.'sync_product_page'; ?>");
+          tvc_helper.tvc_alert("success","",message);
+          setTimeout(function(){
+            window.location.replace("<?php echo $this->site_url.'sync_product_page'; ?>");
+          }, 7000);
       } else {
-        //var message = "Products sync face some unprocessable entity";
-        var message = rsp.message;
-        alert(message);
+        vc_helper.tvc_alert("error","",rsp.message);
       }
     }
   );

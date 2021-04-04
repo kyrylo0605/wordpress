@@ -21,10 +21,12 @@ if (isset($_GET['connect']) && isset($_GET['subscription_id'])) {
             ];
 
             if ($googleDetail->is_site_verified == '0') {
+                $postData['method']="file";
                 $siteVerificationToken = $customApiObj->siteVerificationToken($postData);
                 if (isset($siteVerificationToken->error) && !empty($siteVerificationToken->errors)) {
+                    goto call_method_tag;
                 } else {
-                    $myFile = ABSPATH.$siteVerificationToken->data->token; // or .php   
+                    $myFile = ABSPATH.$siteVerificationToken->data->token; 
                     if (!file_exists($myFile)) {
                         $fh = fopen($myFile, 'w+');
                         chmod($myFile,0777);
@@ -32,15 +34,27 @@ if (isset($_GET['connect']) && isset($_GET['subscription_id'])) {
                         fwrite($fh, $stringData);
                         fclose($fh);
                     }
-
+                    $postData['method']="file";
                     $siteVerification = $customApiObj->siteVerification($postData);
                     if (isset($siteVerification->error) && !empty($siteVerification->errors)) {
+                        call_method_tag:
+                        //methd using tag
+                        $postData['method']="meta";
+                        $siteVerificationToken_tag = $customApiObj->siteVerificationToken($postData);
+                        if(isset($siteVerificationToken_tag->data->token) && $siteVerificationToken_tag->data->token){
+                            $TVC_Admin_Helper->set_ee_additional_data(array("add_site_varification_tag"=>1,"site_varification_tag_val"=> base64_encode($siteVerificationToken_tag->data->token)));
+                            sleep(1);
+                            $siteVerification_tag = $customApiObj->siteVerification($postData);
+                            if(isset($siteVerification_tag->error) && !empty($siteVerification_tag->errors)){
+                            }else{
+                                $googleDetail->is_site_verified = '1';
+                            }
+                        }
                     } else {
                         $googleDetail->is_site_verified = '1';
                     }
                 }
             }
-
             if ($googleDetail->is_domain_claim == '0') {
                 $claimWebsite = $customApiObj->claimWebsite($postData);
                 if (isset($claimWebsite->error) && !empty($claimWebsite->errors)) {    
@@ -69,10 +83,10 @@ if (isset($_GET['connect']) && isset($_GET['subscription_id'])) {
             update_option('ads_ert', $googleDetail->remarketing_tags);
             update_option('ads_edrt', $googleDetail->dynamic_remarketing_tags);
             Enhanced_Ecommerce_Google_Settings::add_update_settings('ee_options');
-
+            //save data in DB
+            $TVC_Admin_Helper->set_update_api_to_db($googleDetail);
             if(isset($googleDetail->google_merchant_center_id) || isset($googleDetail->google_ads_id) ){
-                if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){
-                    $TVC_Admin_Helper->set_update_api_to_db($googleDetail);
+                if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){                    
                     wp_redirect("admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=sync_product_page&welcome_msg=true");
                     exit;
                 }else{

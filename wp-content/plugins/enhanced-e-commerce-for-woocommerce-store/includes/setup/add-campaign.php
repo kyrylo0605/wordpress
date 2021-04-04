@@ -4,7 +4,7 @@ class AddCampaign {
 
     public $response;
     public $post_data;
-    public $access_token;
+    //public $access_token;
     public $gmail;
     public $merchantId;
     public $new_campaign;
@@ -18,7 +18,7 @@ class AddCampaign {
         $this->customApiObj->getGoogleAnalyticDetail();
 
         $this->post_data = $_POST;
-        $this->access_token = $_SESSION['access_token'];
+        //$this->access_token = $_SESSION['access_token'];
         $this->gmail = isset($_COOKIE['g_mail']) ? $_COOKIE['g_mail'] : '';
 
         $this->merchantId = (isset($GLOBALS['tatvicData']['tvc_merchant'])) ? $GLOBALS['tatvicData']['tvc_merchant'] : "";

@@ -40,15 +40,24 @@ public function wooCommerceAttributes() {
 
 public function create_form(){
   if(isset($_GET['welcome_msg']) && $_GET['welcome_msg'] == true){
+    $this->TVC_Admin_Helper->call_domain_claim();
     $class = 'notice notice-success';
-    $message = esc_html__('Congratulation..! Everthing is now set up. One more step - Sync your WooCommerce products into your Merchant Center and reach out to millions of shopper across Google.');
+    $message = esc_html__('Everthing is now set up. One more step - Sync your WooCommerce products into your Merchant Center and reach out to millions of shopper across Google.');
     printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+    ?>
+    <script>
+      $(document).ready(function() {
+        var msg="<?php echo $message;?>"
+        tvc_helper.tvc_alert("success","Congratulation..!",msg,true);
+      });
+    </script>
+    <?php
   }
 	$category_wrapper_obj = new Tatvic_Category_Wrapper();
 	$category_wrapper = $category_wrapper_obj->category_table_content('mapping');
 	$syncProductStat = [];
 	$syncProductList = [];
-  $last_api_sync_up ="";
+  $last_api_sync_up ="";  
 	$google_detail = $this->TVC_Admin_Helper->get_ee_options_data();
 	if(isset($google_detail['prod_sync_status'])){
     if ($google_detail['prod_sync_status']) {
@@ -65,11 +74,15 @@ public function create_form(){
       $googleDetail = $google_detail['setting'];
     }
   }
-  if(isset($google_detail['sync_time'])){
-    if ($google_detail['sync_time']) {
-      $last_api_sync_up = date( 'Y-m-d H:i',$google_detail['sync_time']);
+  $last_api_sync_up = "";
+  if(isset($google_detail['sync_time']) && $google_detail['sync_time']){      
+    $date_formate=get_option('date_format')." ".get_option('time_format');
+    if($date_formate ==""){
+      $date_formate = 'M-d-Y H:i';
     }
+    $last_api_sync_up = date( $date_formate, $google_detail['sync_time']);      
   }
+  $is_need_to_update = $this->TVC_Admin_Helper->is_need_to_update_api_to_db();
 ?>
 <div class="container-fluid">
 	<div class="row">
@@ -90,7 +103,7 @@ public function create_form(){
                     }?></span><img id="refresh_api" onclick="call_tvc_api_sync_up();" src="<?php echo ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png'; ?>">
                   </div>
                 <?php } ?>
-                <?php echo get_google_shopping_tabs_html($this->site_url,$googleDetail->google_merchant_center_id); ?>                          
+                <?php echo get_google_shopping_tabs_html($this->site_url,(isset($googleDetail->google_merchant_center_id))?$googleDetail->google_merchant_center_id:""); ?>                          
                 </div>
 	              <div class="mt-3" id="config-pt2">
 	                <div class="sync-new-product" id="sync-product">
@@ -98,7 +111,7 @@ public function create_form(){
                       <div class="col-12">
                         <div class="d-flex justify-content-between ">
                           <p class="mb-0 align-self-center">Products in your Merchant Center account</p>
-                          <button class="btn btn-primary btn-success align-self-center" data-toggle="modal" data-target="#syncProduct">Sync New Products</button>
+                          <button id="tvc_btn_product_sync" class="btn btn-primary btn-success align-self-center" data-toggle="modal" data-target="#syncProduct">Sync New Products</button>
                           <a href="admin.php?page=enhanced-ecommerce-google-analytics-admin-display&amp;tab=add_campaign_page" class="btn btn-primary btn-success">Create Smart Shopping Campaign</a>
                         </div>
                       </div>
@@ -247,16 +260,16 @@ public function create_form(){
                       <div class="form-group">';
                         $tvc_select_option = $wooCommerceAttributes;
                         $require = (isset($attribute['required']) && $attribute['required'])?true:false;
-                        $sel_val = (isset($attribute['wAttribute']))?$attribute['wAttribute']:"";
+                        $sel_val_def = (isset($attribute['wAttribute']))?$attribute['wAttribute']:"";
                         if($attribute["field"]=='link'){
                             echo "product link";
                         }else if($attribute["field"]=='shipping'){
                           //$name, $class_id, string $label=null, $sel_val = null, bool $require = false
-                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:$sel_val_def;
                           echo $this->TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add shipping flat rate', $sel_val, $require);
                         }else if($attribute["field"]=='tax'){
                           //$name, $class_id, string $label=null, $sel_val = null, bool $require = false
-                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                          $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:$sel_val_def;
                           echo $this->TVC_Admin_Helper->tvc_text($attribute["field"], 'number', '', 'Add TAX flat (%)', $sel_val, $require);
                         }else if($attribute["field"]=='content_language'){
                           echo $this->TVC_Admin_Helper->tvc_language_select($attribute["field"], '', 'Please Select Attribute', 'en',$require);
@@ -270,11 +283,10 @@ public function create_form(){
                             foreach( $tvc_select_option_t as $o_val ){
                               $tvc_select_option[]['field'] = $o_val;
                             } 
+                            $sel_val = $sel_val_def;
                             $this->TVC_Admin_Helper->tvc_select($attribute["field"],'','Please Select Attribute', $sel_val, $require, $tvc_select_option);
                           }else{
-                            
-                            //print_r($ee_mapped_attrs);
-                            $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:"";
+                            $sel_val = (isset($ee_mapped_attrs[$attribute["field"]]))?$ee_mapped_attrs[$attribute["field"]]:$sel_val_def;
                           //$name, $class_id, $label="Please Select", $sel_val, $require, $option_list
                           $this->TVC_Admin_Helper->tvc_select($attribute["field"],'','Please Select Attribute', $sel_val, $require, $tvc_select_option);
                           }
@@ -293,10 +305,34 @@ public function create_form(){
     </div>
   </div>
 </div>
-<?php $shop_categories_list = $this->TVC_Admin_Helper->get_tvc_product_cat_list(); ?>
+<?php $shop_categories_list = $this->TVC_Admin_Helper->get_tvc_product_cat_list(); 
+$is_need_to_domain_claim = false;
+if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id && $this->subscriptionId != "" && isset($googleDetail->is_domain_claim) && $googleDetail->is_domain_claim == '0'){
+  $is_need_to_domain_claim = true;
+}?>
 <script type="text/javascript">
+$(document).ready(function() {
+  var is_need_to_update = "<?php echo $is_need_to_update; ?>";
+  if(is_need_to_update == 1 || is_need_to_update == true){
+    tvc_helper.tvc_alert("error","Attention !","Auto-sync up is in the process do not refresh the page.");
+    call_tvc_api_sync_up();
+  } 
+
+  $(document).on("click", "#tvc_btn_product_sync", function(event){
+    var is_need_to_domain_claim = "<?php echo $is_need_to_domain_claim; ?>";
+    if(is_need_to_domain_claim == 1 || is_need_to_domain_claim == true){
+      event.preventDefault();
+      jQuery.post(myAjaxNonces.ajaxurl,{
+        action: "tvc_call_domain_claim",
+        apiDomainClaimNonce: myAjaxNonces.apiDomainClaimNonce
+      },function( response ){
+        
+      });
+    }
+  });   
+});
 function call_tvc_api_sync_up(){
-  var tvs_this = event.target;
+  var tvs_this = $("#refresh_api");
   $("#tvc_msg").remove();
   $("#refresh_api").css("visibility","hidden");
   $(tvs_this).after('<div class="tvc-nb-spinner" id="tvc-nb-spinner"></div>');
@@ -307,8 +343,8 @@ function call_tvc_api_sync_up(){
     var rsp = JSON.parse(response);    
     if(rsp.status == "success"){
       $("#tvc-nb-spinner").remove();
-      $(tvs_this).after('<span id="tvc_msg">'+rsp.message+"</span>");
-      setTimeout(function(){ $("#tvc_msg").remove(); location.reload();}, 4000);
+      tvc_helper.tvc_alert("success","",rsp.message,true);
+      setTimeout(function(){ location.reload();}, 5000);
     }    
   });
 }  
@@ -338,7 +374,7 @@ $(".tab-wizard").steps({
     if(is_tvc_cat_selecte == 1 || is_tvc_cat_selecte == true){
       return true;
     }else{
-      alert("Select at least one Google Merchant Center Category.");
+      tvc_helper.tvc_alert("error","","Select at least one Google Merchant Center Category.",true);
       return false;
     }
   },
@@ -350,10 +386,11 @@ $(".tab-wizard").steps({
     jQuery(".field-required").each(function() {
       if($(this).val()==0 && valid){
         valid=false;
+        $(this).select2('focus');
       }
     });
     if(!valid){
-      alert("Please select all required fields");
+      tvc_helper.tvc_alert("error","","Please select all required fields");
     }else{
       submitProductSyncUp();
     }//check for required fields end        	
@@ -387,16 +424,16 @@ function submitProductSyncUp() {
       var rsp = JSON.parse(response);
       if (rsp.status == "success") {
         $('#syncProduct').modal('hide');
-        var message = "Your product are now being synced in your merchant center account. It takes up to 30 minutes to reflect the product data in merchant center. As soon as they are updated, they will be shown in the \"Product Sync\" dashboard.";
+        var message = "Your products have been synced in your merchant center account. It takes up to 30 minutes to reflect the product data in merchant center. As soon as they are updated, they will be shown in the \"Product Sync\" dashboard.";
           if (rsp.skipProducts > 0) {
             message = message + "\n Because of pricing issues, " + rsp.skipProducts + " products did not sync.";
           }
-          alert(message);
-          window.location.replace("<?php echo $this->site_url.'sync_product_page'; ?>");
+          tvc_helper.tvc_alert("success","",message);
+          setTimeout(function(){ 
+            window.location.replace("<?php echo $this->site_url.'sync_product_page'; ?>");
+          }, 7000);
       } else {
-        //var message = "Products sync face some unprocessable entity";
-        var message = rsp.message;
-        alert(message);
+        vc_helper.tvc_alert("error","",rsp.message);
       }
     }
   );

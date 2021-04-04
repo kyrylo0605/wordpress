@@ -30,18 +30,15 @@
     },
     {
         "field": "brand",
-        "desc": "Your product’s brand name",
-        "wAttribute": "tvc_product_brand"
+        "desc": "Your product’s brand name"
     },
     {
         "field": "gtin",
-        "desc": "Your product’s Global Trade Item Number (GTIN). Required for all new products with an assigned GTIN.",
-        "wAttribute": "tvc_product_gtin"
+        "desc": "Your product’s Global Trade Item Number (GTIN). Required for all new products with an assigned GTIN."
     },
     {
         "field": "mpn",
-        "desc": "Your product’s Global Trade Item Number (GTIN). Required for all new products with an assigned GTIN.",
-        "wAttribute": "tvc_product_mpn"
+        "desc": "Your product’s Global Trade Item Number (GTIN). Required for all new products with an assigned GTIN."
     },
     {
         "field": "age_group",

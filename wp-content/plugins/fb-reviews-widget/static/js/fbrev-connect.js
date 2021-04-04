@@ -22,7 +22,7 @@ function fbrev_connect(el, data) {
     fbrev_popup(url, 670, 520, function() {*/
 
     var temp_code = fbrev_randstr(16);
-    fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=manage_pages,pages_show_list&state=' + temp_code, 670, 520, function() {
+    fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=pages_show_list,pages_read_user_content,pages_read_engagement,manage_pages&state=' + temp_code, 670, 520, function() {
         WPacXDM.get('https://embed.widgetpack.com', 'https://app.widgetpack.com/widget/facebook/accesstoken?temp_code=' + temp_code, {}, function(res) {
             WPacFastjs.jsonp('https://graph.facebook.com/me/accounts', {access_token: res.accessToken, limit: 250}, function(res) {
 

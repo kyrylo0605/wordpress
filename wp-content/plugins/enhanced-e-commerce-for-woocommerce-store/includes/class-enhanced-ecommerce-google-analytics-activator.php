@@ -30,7 +30,9 @@ class Enhanced_Ecommerce_Google_Analytics_Activator {
      *
      * @since    1.0.0
      */
-    public static function activate() {
-
+    public static function activate() {    	
+    	if (!is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+           wp_die('Hey, It seems WooCommerce plugin is not active on your wp-admin. Enhanced ecommerce plugin can only be activated if you have active WooCommerce plugin in your wp-admin. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
+        }
     }
 }

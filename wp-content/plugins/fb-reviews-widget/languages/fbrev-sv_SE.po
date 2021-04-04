@@ -21,7 +21,7 @@ msgid "read more"
 msgstr "läsa mer"
 
 msgid "Next Reviews"
-msgstr "Läs alla recensioner"
+msgstr "Fler recensioner"
 
 msgid "powered by %s"
 msgstr "drivs av %s"
