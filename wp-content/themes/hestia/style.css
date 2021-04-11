@@ -6,7 +6,7 @@ Author URI:     https://themeisle.com
 Tested up to:   5.6
 Requires PHP:   5.4.0
 Description:    Hestia is a modern WordPress theme for professionals. It fits creative business, small businesses (restaurants, wedding planners, sport/medical shops), startups, corporate businesses, online agencies and firms, portfolios, ecommerce (WooCommerce), and freelancers. It has a multipurpose one-page design, widgetized footer, blog/news page and a clean look, is compatible with: Flat Parallax Slider, Photo Gallery, Travel Map and Elementor Page Builder . The theme is responsive, WPML, Retina ready, SEO friendly, and uses Material Kit for design.
-Version:        3.0.8
+Version:        3.0.14
 License:        GNU General Public License v2 or later
 License URI:    http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:    hestia
@@ -1208,6 +1208,11 @@ body.menu-open {
 
 input[type="radio"] + label, input[type="checkbox"] + label {
   font-weight: 400;
+}
+
+blockquote.has-text-align-right {
+  border-left: 0;
+  border-right: 5px solid #eee;
 }
 
 blockquote cite {
@@ -2486,7 +2491,7 @@ body.admin-bar .navbar {
   padding: 0 10px;
 }
 
-.navbar .navbar-nav > li.btn a {
+.navbar .navbar-nav > li.btn > a {
   color: #fff;
 }
 
@@ -3732,6 +3737,10 @@ table > tbody > tr:last-child,
 
 .pricing {
   padding: 100px 0 70px;
+}
+
+.hestia-clear-top-padding {
+  margin-top: -65px;
 }
 
 @media (min-width: 992px) {
@@ -6417,6 +6426,11 @@ body:not(.home) .wrapper .content-area {
   .authors-on-blog .card-image img {
     object-fit: cover;
   }
+  .hestia-team .col-xs-6:nth-of-type(2n+1),
+  .team .col-xs-6:nth-of-type(2n+1),
+  .authors-on-blog .col-xs-6:nth-of-type(2n+1) {
+    clear: both;
+  }
   .hestia-team .card .content,
   .team .card .content,
   .authors-on-blog .card .content {
@@ -6458,6 +6472,9 @@ body:not(.home) .wrapper .content-area {
   }
   .contactus .contact_submit_wrap {
     text-align: center;
+  }
+  .hestia-clear-top-padding {
+    margin-top: -30px;
   }
   .single.single-post .section-blog-info .entry-social {
     margin: 15px 0 30px;

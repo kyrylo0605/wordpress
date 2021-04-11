@@ -23,6 +23,21 @@ if (!function_exists('bazaarlite_required_plugins')) {
 		$plugins = array(
 
 			array(
+				'name'      => 'Internal Linking of Related Contents',
+				'slug'      => 'internal-linking-of-related-contents',
+				'required'  => false,
+			),
+			array(
+				'name'      => 'Custom Thank You Page',
+				'slug'      => 'custom-thank-you-page',
+				'required'  => false,
+			),
+			array(
+				'name'      => 'Content Snippet Manager',
+				'slug'      => 'content-snippet-manager',
+				'required'  => false,
+			),
+			array(
 				'name'      => 'WIP WooCarousel Lite',
 				'slug'      => 'wip-woocarousel-lite',
 				'required'  => false,
@@ -35,11 +50,6 @@ if (!function_exists('bazaarlite_required_plugins')) {
 			array(
 				'name'      => 'Chatbox Manager',
 				'slug'      => 'wa-chatbox-manager',
-				'required'  => false,
-			),
-			array(
-				'name'      => 'Regenerate Thumbnails',
-				'slug'      => 'regenerate-thumbnails',
 				'required'  => false,
 			),
 	

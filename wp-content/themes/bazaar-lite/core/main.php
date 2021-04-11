@@ -698,6 +698,7 @@ if (!function_exists('bazaarlite_setup')) {
 		require_once( trailingslashit( get_template_directory() ) . '/core/includes/class-customize.php' );
 		require_once( trailingslashit( get_template_directory() ) . '/core/includes/class-metaboxes.php' );
 		require_once( trailingslashit( get_template_directory() ) . '/core/includes/class-notice.php' );
+		require_once( trailingslashit( get_template_directory() ) . '/core/includes/class-welcome-page.php' );
 		require_once( trailingslashit( get_template_directory() ) . '/core/admin/customize/customize.php' );
 		require_once( trailingslashit( get_template_directory() ) . '/core/templates/after-content.php' );
 		require_once( trailingslashit( get_template_directory() ) . '/core/templates/before-content.php' );

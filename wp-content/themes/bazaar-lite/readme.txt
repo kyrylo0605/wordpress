@@ -2,8 +2,8 @@
 Contributors: alexvtn
 Tags: custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, flexible-header, footer-widgets, post-formats, right-sidebar, sticky-post, theme-options, threaded-comments, translation-ready, one-column, two-columns, three-columns, grid-layout, blog, e-commerce, news
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 1.7.0
+Tested up to: 5.7
+Stable tag: 1.7.3
 Requires PHP: 5.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,10 +15,26 @@ Bazaar Lite is our new creative and minimal ecommerce WordPress theme.
 Bazaar Lite is our new creative and minimal ecommerce WordPress theme. Perfect to manage a shop and blog, it offers a fully responsive layout to be displayed on every kind of device.
 
 Created by ThemeinProgress, http://www.themeinprogress.com
-Bazaar Lite WordPress Theme, Copyright 2020 ThemeinProgress.
+Bazaar Lite WordPress Theme, Copyright 2021 ThemeinProgress.
 Bazaar Lite is distributed under the terms of the GPLv2 or later
 
 == Changelog ==
+
+= 1.7.3 =
+Release date - April, 11 - 2021
+
+* Added - Free vs Pro tab on admin welcome page
+* Added - Dedicated section for the recommended plugins on admin welcome page
+
+= 1.7.2 =
+Release date - March, 24 - 2021
+
+* Added - Welcome page on admin section
+
+= 1.7.1 =
+Release date - March, 11 - 2021
+
+* Tested with WordPress 5.7
 
 = 1.7.0 =
 Release date - December, 09 - 2020
@@ -409,4 +425,5 @@ The following scripts and styles are self created and they are released under MI
 * /bazaar-lite/assets/js/template.js
 * /bazaar-lite/core/admin/assets/css/customize.css
 * /bazaar-lite/core/admin/assets/css/theme.css
+* /bazaar-lite/core/admin/assets/css/welcome-page.css
 * /bazaar-lite/core/admin/assets/js/panel.js
