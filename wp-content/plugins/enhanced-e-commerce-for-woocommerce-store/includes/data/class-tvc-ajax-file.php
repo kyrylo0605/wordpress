@@ -48,8 +48,7 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
     add_action('wp_ajax_tvc_call_notice_dismiss', array($this, 'tvc_call_notice_dismiss'));
   }
   public function tvc_call_notice_dismiss(){
-    if($this->safe_ajax_call(filter_input(INPUT_POST, 'apiNoticDismissNonce'), 'tvc_call_notice_dismiss-nonce')){
-      
+    if($this->safe_ajax_call(filter_input(INPUT_POST, 'apiNoticDismissNonce'), 'tvc_call_notice_dismiss-nonce')){      
       $ee_notice_dismiss_id = $_POST['data']['ee_notice_dismiss_id'];
       if($ee_notice_dismiss_id != ""){
         $TVC_Admin_Helper = new TVC_Admin_Helper();
@@ -672,7 +671,7 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
    */
   public function tvcajax_product_syncup(){
     // make sure this call is legal
-    ini_set('max_execution_time', '0'); 
+    ini_set('max_execution_time', '0');
     ini_set('memory_limit','-1');
     if($this->safe_ajax_call(filter_input(INPUT_POST, 'productSyncupNonce'), 'tvcajax-product-syncup-nonce')){
 
@@ -686,7 +685,7 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
       $customerId = filter_input(INPUT_POST, 'customerId');
       $accountId = filter_input(INPUT_POST, 'accountId');
       $subscriptionId = filter_input(INPUT_POST, 'subscriptionId');
-      $platformCustomerId = filter_input(INPUT_POST, 'platformCustomerId');
+      //$platformCustomerId = filter_input(INPUT_POST, 'platformCustomerId');
       $data = filter_input(INPUT_POST, 'data');          
       parse_str($data, $formArray);      
       $mappedCatsDB = [];
@@ -954,7 +953,6 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
           }
           wp_reset_query();
         }
-        //print_r($entries);
         $data = [
           'merchant_id' => $accountId,
           'account_id' => $merchantId,
@@ -982,6 +980,8 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
         //print_r($response_body);
         //die;
         if((isset($response_body->error) && $response_body->error == '')){
+          $TVC_Admin_Auto_Product_sync_Helper = new TVC_Admin_Auto_Product_sync_Helper();
+          $TVC_Admin_Auto_Product_sync_Helper->update_last_sync_in_db();
           $customObj->setGmcCategoryMapping($catMapRequest);
           $customObj->setGmcAttributeMapping($attrMapRequest);
           echo json_encode(['status' => 'success', 'skipProducts' => count($skipProducts)]);

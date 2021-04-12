@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Added to Cart Popup
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup/
  * Description: The <code><strong>YITH WooCommerce Added to Cart Popup</strong></code> plugin allow you to display a popup cart with suggested products and cart actions after an "add to cart" action. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.5.0
+ * Version: 1.6.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-added-to-cart-popup
  * Domain Path: /languages/
  * WC requires at least: 3.7
- * WC tested up to: 5.1
+ * WC tested up to: 5.2
  *
  * @author  YITH
  * @package YITH WooCommerce Added to Cart Popup
- * @version 1.5.0
+ * @version 1.6.0
  */
 /**  Copyright 2015-2021  YITH  (email : plugins@yithemes.com)
  *
@@ -62,7 +62,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WACP_VERSION' ) ) {
-	define( 'YITH_WACP_VERSION', '1.5.0' );
+	define( 'YITH_WACP_VERSION', '1.6.0' );
 }
 
 if ( ! defined( 'YITH_WACP_FREE_INIT' ) ) {

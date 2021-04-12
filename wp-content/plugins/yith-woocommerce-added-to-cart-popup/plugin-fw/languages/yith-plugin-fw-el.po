@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Framework\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2021-02-23 14:12:38+00:00\n"
+"POT-Creation-Date: 2021-04-08 10:51:43+00:00\n"
 "PO-Revision-Date: 2021-02-11 18:07:46+0000\n"
 "Language: el_GR\n"
 "MIME-Version: 1.0\n"
@@ -133,7 +133,8 @@ msgstr ""
 "για να διατηρήσετε την ενημέρωση και τη βελτίωση του πρόσθετου. Παρακαλώ,"
 
 #: includes/class-yit-plugin-panel.php:1346
-msgid "help us by leaving a five-star rating"
+#, fuzzy
+msgid "help us by leaving a good review"
 msgstr "βοηθήστε μας αφήνοντας μια βαθμολογία πέντε αστέρων"
 
 #: includes/class-yit-plugin-panel.php:1347
@@ -646,6 +647,16 @@ msgstr "Τι μοιραζόμαστε με τους άλλους"
 msgctxt "Privacy Policy Content"
 msgid "Payments"
 msgstr "Πληρωμές"
+
+#: templates/fields/copy-to-clipboard.php:41
+msgctxt "Copy-to-clipboard message"
+msgid "Copied!"
+msgstr ""
+
+#: templates/fields/copy-to-clipboard.php:45
+msgctxt "Copy-to-clipboard button text"
+msgid "Copy"
+msgstr ""
 
 #: templates/fields/dimensions.php:13
 msgctxt "Position in the \"Dimensions\" field"

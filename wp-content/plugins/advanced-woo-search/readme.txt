@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: widget, plugin, woocommerce, search, product search, woocommerce search, ajax search, live search, custom search, ajax, shortcode, better search, relevance search, relevant search, search by sku, search plugin, shop, store, wordpress search, wp ajax search, wp search, wp search plugin, sidebar, ecommerce, merketing, products, category search, instant-search, search highlight, woocommerce advanced search, woocommerce live search, WooCommerce Plugin, woocommerce product search
 Requires at least: 4.0
 Tested up to: 5.7
-Stable tag: 2.24
+Stable tag: 2.25
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,7 @@ Advanced Woo Search - powerful search plugin for WooCommerce. Supports **AJAX** 
 * Seamless integration option for easy replacing your current search form
 * **WPML**, **Polylang**, **WooCommerce Multilingual**, **qTranslate** support
 * **WPML multi-currency** support
+* Page builder plugins support: Gutenberg, Elementor, Beaver Builder, WPBakery, Divi Builder
 * Custom Product Tabs for WooCommerce plugin support
 * Search Exclude plugin support
 
@@ -165,6 +166,13 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 4. Plugin settings page. Search results options
 
 == Changelog ==
+
+= 2.25 ( 2021-04-12 ) =
+* Add - Royal theme integration
+* Update - Aurum theme integration
+* Update - Ultimate Member plugin support
+* Dev - Add deleted_post hook for index table sync
+* Dev - Add aws_js_seamless_searchbox_markup filter
 
 = 2.24 ( 2021-03-25 ) =
 * Fix - Parent theme name detection

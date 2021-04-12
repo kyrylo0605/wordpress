@@ -8,8 +8,8 @@ Author: Tatvic
 Requires at least: 1.4.1
 Tested up to: 5.7
 Requires PHP: 5.6 or Higher
-Stable tag: 3.0.4
-Version: 3.0.4
+Stable tag: 3.0.5
+Version: 3.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,9 @@ You can resolve the duplication of data by removing the manually implemented GA 
 
 
 == Changelog ==
+
+= 3.0.5 - 12/04/2021 =
+ * Add auto product sync feature enhancement - In the background, every month runs a process to sync the product, Run only those products who are completed the manual product sync.
 
 = 3.0.4 - 31/03/2021 =
  * UI bug issue solved

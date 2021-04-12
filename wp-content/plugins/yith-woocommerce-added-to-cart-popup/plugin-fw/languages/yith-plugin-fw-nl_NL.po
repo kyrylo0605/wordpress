@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Framework\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2021-02-23 14:12:38+00:00\n"
-"PO-Revision-Date: 2021-02-05 09:20:16+0000\n"
+"POT-Creation-Date: 2021-04-08 10:51:43+00:00\n"
+"PO-Revision-Date: 2021-04-05 19:01:01+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,7 +130,8 @@ msgid "to keep updating and improving the plugin. Please,"
 msgstr "om de plugin te blijven bijwerken en verbeteren. A.u.b.,"
 
 #: includes/class-yit-plugin-panel.php:1346
-msgid "help us by leaving a five-star rating"
+#, fuzzy
+msgid "help us by leaving a good review"
 msgstr "help ons door een 5-sterren waardering achter te laten"
 
 #: includes/class-yit-plugin-panel.php:1347
@@ -146,6 +147,9 @@ msgid ""
 "From now on, you can find all plugin options in YITH menu. Plugin "
 "customization settings will be available as a new entry in YITH menu."
 msgstr ""
+"Vanaf nu kun je alle plugin opties vinden in het YITH Plugins menu. Plugin "
+"aanpassingen instellingen zullen beschikbaar zijn als nieuwe toegang in het "
+"YITH menu."
 
 #. translators: 1. YITH site link; 2. WordPress site link.
 #: includes/class-yit-pointers.php:84 includes/class-yit-pointers.php:100
@@ -164,6 +168,11 @@ msgid ""
 "WooCommerce Wishlist, YITH WooCommerce Ajax Search, etc.) will be moved from "
 "previous location to YITH menu."
 msgstr ""
+"Vanaf nu kun je het optiepaneel van YITH plugins vinden in het YITH menu. "
+"Elke keer dat een van onze plugins wordt toegevoegd, wordt er een nieuw item "
+"aan dit menu toegevoegd. Bijvoorbeeld na de update worden plugin opties "
+"(zoals voor YITH WooCommerce Wishlist, YITH WooCommerce Ajax Search, enz.) "
+"verplaatst van de vorige locatie naar het YITH menu."
 
 #: includes/class-yith-dashboard.php:35
 msgid "YITH Latest Updates"
@@ -576,7 +585,7 @@ msgstr "YITH"
 #: includes/builders/elementor/class-yith-elementor-widget.php:252
 msgctxt "Elementor Widget - section title"
 msgid "%s - Options"
-msgstr ""
+msgstr "%s - Opties"
 
 #: includes/builders/gutenberg/class-yith-gutenberg.php:147
 msgctxt "[gutenberg]: Category Name"
@@ -639,6 +648,16 @@ msgstr "Wat wij delen met anderen"
 msgctxt "Privacy Policy Content"
 msgid "Payments"
 msgstr "Betalingen"
+
+#: templates/fields/copy-to-clipboard.php:41
+msgctxt "Copy-to-clipboard message"
+msgid "Copied!"
+msgstr "Gekopieerd!"
+
+#: templates/fields/copy-to-clipboard.php:45
+msgctxt "Copy-to-clipboard button text"
+msgid "Copy"
+msgstr "Kopieer"
 
 #: templates/fields/dimensions.php:13
 msgctxt "Position in the \"Dimensions\" field"

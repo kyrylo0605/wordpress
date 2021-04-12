@@ -137,6 +137,31 @@ class GoogleShoppingFeed {
                     }?></span><img id="refresh_api" onclick="call_tvc_api_sync_up();" src="<?php echo ENHANCAD_PLUGIN_URL.'/admin/images/refresh.png'; ?>">                    
                   </div>
                 <?php } ?>
+                <?php
+                  $last_auto_sync = $this->TVC_Admin_Helper->get_last_auto_sync_product_info();
+                  if(!empty($last_auto_sync)){
+                    $status = isset($last_auto_sync['status'])?$last_auto_sync['status']:0;
+                    $status_text = array("0"=>"Failed","1"=>"Completed");
+                    $create_sync = (isset($last_auto_sync['create_sync']))?$last_auto_sync['create_sync']:"";
+                    $create_sync = date($date_formate,strtotime($create_sync));
+                    $next_sync = (isset($last_auto_sync['next_sync']))?$last_auto_sync['next_sync']:"";
+                    $next_sync = date($date_formate,strtotime($next_sync));
+                    ?>
+                    <div class="product-auto-sync-details">
+                      <strong>Last auto product sync details</strong>
+                      <table>
+                        <tr><th>Last sync</th><th width="10">Sync product</th><th width="10px">Status</th><th>Upcoming sync</th></tr>
+                        <tr>
+                          <td><?php echo  $create_sync;?></td>
+                          <td width="10"><?php echo  (isset($last_auto_sync['total_sync_product']))?$last_auto_sync['total_sync_product']:"";?></td>
+                          <td><?php echo $status_text[$status]; ?></td>
+                          <td><?php echo  $next_sync;?></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <?php
+                  }
+                ?>
                 <div class="configuration-section" id="config-pt1">
                   <div class="row confg-card gsf-sec">                    
                     <div class="col-md-12 col-lg-4 mb-3 mb-lg-0">

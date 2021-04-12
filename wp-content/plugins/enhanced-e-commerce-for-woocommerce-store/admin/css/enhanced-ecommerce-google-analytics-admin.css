@@ -302,7 +302,8 @@ img.config-success, .nav-tabs li img.config-success, .nav-tabs li img.config-fai
     cursor: auto;
 }
 .tvc-tooltip .tvc-tooltiptext a{
-	color: #2D73C5;
+	color: #fff;
+  opacity: 0.8;
 }
 .tvc-tooltip-top {
     bottom: 115%;
@@ -642,4 +643,36 @@ button.tvc_animate_btn:hover::after, button.tvc_animate_btn:focus::after {
 .tvc-notice-error{position: relative;}
 .tvc-notice-error .call_both_verification-spinner{
   right: 5px;top: 10px;margin-left: 0;
+}
+.product-auto-sync-details table {    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%; border-color: grey; margin-top: 5px;}
+
+.product-auto-sync-details table tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.product-auto-sync-details table tr th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: center;    
+    font-size: 15px;
+}
+.product-auto-sync-details table tr td {
+    display: table-cell;
+    vertical-align: inherit;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px 3px;
+    text-align: center;    
+    font-size: 15px;
 }

@@ -329,8 +329,7 @@ function submitProductSyncUp() {
 	var merchantId = '<?php echo $this->merchantId; ?>';
   var accountId = '<?php echo $this->accountId; ?>';
   var customerId = '<?php echo $this->currentCustomerId; ?>';
-  var subscriptionId = '<?php echo $this->subscriptionId; ?>';
-  var platformCustomerId = jQuery("#platform_customer_id").val();                
+  var subscriptionId = '<?php echo $this->subscriptionId; ?>';         
 	var formData = jQuery("#productSync").serialize();
 	//console.log(formData);
 	jQuery("#feed-spinner").css("display", "block");                
@@ -342,7 +341,6 @@ function submitProductSyncUp() {
       customerId: customerId,
       accountId: accountId,
       subscriptionId: subscriptionId,
-      platformCustomerId: platformCustomerId,
       data: formData,
       productSyncupNonce: myAjaxNonces.productSyncupNonce
     },

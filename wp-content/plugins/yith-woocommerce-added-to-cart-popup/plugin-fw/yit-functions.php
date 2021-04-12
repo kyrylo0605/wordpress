@@ -1634,3 +1634,28 @@ if ( ! function_exists( 'yith_plugin_fw_register_elementor_widgets' ) ) {
 		}
 	}
 }
+
+if ( ! function_exists( 'yith_plugin_fw_copy_to_clipboard' ) ) {
+	/**
+	 * Print a field with a button to copy its content to clipboard
+	 *
+	 * @param string $value The text to be shown.
+	 * @param array  $field The field attributes.
+	 *
+	 * @since 3.6.2
+	 */
+	function yith_plugin_fw_copy_to_clipboard( $value, $field = array() ) {
+		$defaults      = array(
+			'id'    => '',
+			'value' => $value,
+		);
+		$field         = wp_parse_args( $field, $defaults );
+		$field['type'] = 'copy-to-clipboard';
+
+		// Enqueue style and script if not enqueued.
+		wp_enqueue_style( 'yith-plugin-fw-fields' );
+		wp_enqueue_script( 'yith-plugin-fw-fields' );
+
+		yith_plugin_fw_get_field( $field, true, false );
+	}
+}

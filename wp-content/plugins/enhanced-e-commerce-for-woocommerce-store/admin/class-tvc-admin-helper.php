@@ -15,9 +15,11 @@ Class TVC_Admin_Helper{
 	protected $user_currency_symbol = "";
 	protected $setting_status = "";
 	protected $ee_additional_data = "";
+	protected $TVC_Admin_DB_Helper;
 	public function __construct() {
     $this->includes();
     $this->customApiObj = new CustomApi();
+    $this->TVC_Admin_DB_Helper = new TVC_Admin_DB_Helper();
   }
   
   public function includes() {
@@ -728,6 +730,19 @@ Class TVC_Admin_Helper{
 				<div id="tvc_closeModal"></div>
 			</div>
 		</div>';		
+	}
+
+	public function get_auto_sync_time_space(){
+		$time_space = strtotime("25 days",0);	//day	
+		return $time_space;
+	}
+
+	public function get_auto_sync_batch_size(){
+		return "200";
+	}
+
+	public function get_last_auto_sync_product_info(){
+		return $this->TVC_Admin_DB_Helper->tvc_get_last_row('ee_product_sync_call', array("total_sync_product","create_sync","next_sync","status"));
 	}
 
 }?>

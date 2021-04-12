@@ -55,7 +55,7 @@ if ( ! class_exists( 'YIT_Assets' ) ) {
 		 * Register common scripts
 		 */
 		public function register_common_scripts() {
-			wp_register_style( 'yith-plugin-fw-icon-font', YIT_CORE_PLUGIN_URL . '/assets/css/yith-icon-font.css', array(), $this->version );
+			wp_register_style( 'yith-plugin-fw-icon-font', YIT_CORE_PLUGIN_URL . '/assets/css/yith-icon.css', array(), $this->version );
 			wp_register_style( 'yith-plugin-fw-elementor', YIT_CORE_PLUGIN_URL . '/assets/css/elementor.css', array(), $this->version );
 		}
 

@@ -109,7 +109,8 @@ class Enhanced_Ecommerce_Google_Analytics {
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-enhanced-ecommerce-google-analytics-i18n.php';        
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-enhanced-ecommerce-google-analytics-i18n.php'; 
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-tvc-admin-db-helper.php';       
         // Feed Manager Files
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-queries.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/data/class-tvc-file.php';        
@@ -129,6 +130,9 @@ class Enhanced_Ecommerce_Google_Analytics {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-enhanced-ecommerce-google-analytics-admin.php';
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-enhanced-ecommerce-google-analytics-settings.php';
+
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-tvc-admin-auto-product-sync-helper.php';
+        
 
         /**
          * The class responsible for defining all actions that occur in the public-facing

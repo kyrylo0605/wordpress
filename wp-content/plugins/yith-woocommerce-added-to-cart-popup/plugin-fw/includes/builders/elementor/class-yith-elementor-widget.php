@@ -401,15 +401,31 @@ if ( ! class_exists( 'YITH_Elementor_Widget' ) ) {
 			$option = $this->override_elementor_specific_data( $option );
 			$type   = isset( $option['type'] ) ? $option['type'] : false;
 
-			if ( isset( $option['deps'], $option['deps']['id'], $option['deps']['value'] ) && ! isset( $option['condition'] ) ) {
-
-				$value = $option['deps']['value'];
-				if ( in_array( $type, array( 'toggle', 'onoff', 'checkbox' ), true ) ) {
-					$value = yith_plugin_fw_is_true( $value ) ? 'yes' : 'no';
+			if ( ! empty( $option['deps'] ) && ! isset( $option['condition'] ) ) {
+				if ( isset( $option['deps']['id'], $option['deps']['value'] ) ) {
+					$deps = array(
+						array(
+							'id'    => $option['deps']['id'],
+							'value' => $option['deps']['value'],
+						),
+					);
+				} else {
+					$deps = $option['deps'];
 				}
-				$option['condition'] = array(
-					$option['deps']['id'] => $value,
-				);
+
+				$option['condition'] = array();
+
+				foreach ( $deps as $dep ) {
+					if ( isset( $dep['id'], $dep['value'] ) ) {
+						$dep_value = $dep['value'];
+						$dep_id    = $dep['id'];
+						if ( in_array( $type, array( 'toggle', 'onoff', 'checkbox' ), true ) ) {
+							$dep_value = yith_plugin_fw_is_true( $dep_value ) ? 'yes' : 'no';
+						}
+						$option['condition'][ $dep_id ] = $dep_value;
+					}
+				}
+
 				unset( $option['deps'] );
 			}
 

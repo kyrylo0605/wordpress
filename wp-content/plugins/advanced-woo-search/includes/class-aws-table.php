@@ -31,6 +31,7 @@ if ( ! class_exists( 'AWS_Table' ) ) :
             $this->table_name = $wpdb->prefix . AWS_INDEX_TABLE_NAME;
 
             add_action( 'wp_insert_post', array( $this, 'product_changed' ), 10, 3 );
+            add_action( 'delete_post', array( $this, 'product_deleted' ), 10, 2 );
 
             add_action( 'create_term', array( &$this, 'term_changed' ), 10, 3 );
             add_action( 'delete_term', array( &$this, 'term_changed' ), 10, 3 );
@@ -489,6 +490,28 @@ if ( ! class_exists( 'AWS_Table' ) ) :
 
             if ( wp_is_post_revision( $post_id ) ) {
                 return;
+            }
+
+            $this->update_table( $post_id );
+
+        }
+
+        /*
+         * Product removed hook
+         */
+        public function product_deleted( $post_id, $post = false ) {
+
+            $slug = 'product';
+
+            if ( $post && $slug != $post->post_type ) {
+                return;
+            }
+
+            if ( ! $post ) {
+                $post_type = get_post_type( $post_id );
+                if ( $post_type && $slug != $post_type ) {
+                    return;
+                }
             }
 
             $this->update_table( $post_id );
