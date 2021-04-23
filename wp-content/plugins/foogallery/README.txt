@@ -4,7 +4,7 @@ Donate link: https://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 3.9
 Tested up to: 5.7
-Stable tag: trunk
+Stable tag: 2.0.24
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ FooGallery is a powerful, responsive photo gallery plugin. Stunning gallery layo
 
 Make gallery management in WordPress great again! With FooGallery you can easily add a stunning photo gallery to your website in minutes.
 
-FooGallery is an easy-to-use image gallery plugin, with stunning gallery layouts. It is also responsive, retina-ready and supports lazy loading for lightning fast photo galleries.
+FooGallery is an easy-to-use image gallery plugin, with stunning gallery layouts and a focus on speed. It is also responsive, retina-ready and supports lazy loading for lightning fast photo galleries.
 
 Live previews are available while creating an image gallery, and also within the Gutenberg block editor with our FooGallery Block.
 
@@ -25,6 +25,17 @@ FooGallery was built to be highly configurable and extendable for developers or 
 That is why we think FooGallery is the best gallery plugin. After using it, we hope you will agree.
 
 [Visit the FooGallery Wordpress Gallery Plugin Homepage](https://fooplugins.com/foogallery/)
+
+= Major Updates for Google's Core Web Vitals =
+
+A faster gallery now means a more favourable ranking in Google!
+FooGallery has been specifically optimized to score better for Google's Core Web Vitals update in May 2021.
+We have focused on the speed of our javascript code, and also improved the visual stability of all gallery layouts.
+This has led to dramatically better scores for the 3 key factors including:
+
+*   Largest Contentful Paint - galleries load and appear quicker for your visitors
+*   First Input Delay - you can interact with the gallery sooner
+*   Cumulative Layout Shift - gallery images shift around a lot less than before!
 
 = WordPress Gallery Plugin Features =
 
@@ -93,6 +104,12 @@ The following free features make FooGallery the **best gallery plugin** on the m
 *   More on the way!
 
 [See More Demos](https://fooplugins.com/foogallery/demos/)
+
+**Test Drive**
+
+Take FooGallery for a test drive! Spin up your very own WP instance with FooGallery pre-installed:
+
+[Start FooGallery Test Drive!](https://tastewp.com/new/?pre-installed-plugin-slug=foogallery)
 
 **Documentation**
 
@@ -227,13 +244,49 @@ Please update in order to for FooGallery to work in WP 5.5+!
 
 == Changelog ==
 
+= 2.0.24 =
+* Date Updated : 2021-18-04
+* Update : FooGallery client side 2.0.11
+* Fix : Fixed compatibility with WPRocket and rendering inline script of gallery items json
+
+
+= 2.0.20 =
+* Date Updated : 2021-11-04
+* New : Major performance improvements for all gallery templates (improving scores for Core Web Vitals)
+* New : Added "Mobile Columns" gallery setting for Responsive Galleries
+* New : Added 6 Columns option for Masonry gallery layout
+* New : Added "Horizontal Layout" gallery setting for Masonry galleries, to try maintain left-to-right order of images
+* New : Made all image loaded effects in PRO now available in free!!
+* New : Added first-class support for ShortPixel Adaptive Images as a thumbnail engine. (can be changed from settings)
+* New : Added "Alignment" gallery setting under "Captions" tab for changing horizontal alignment of thumbnail captions
+* New : Added "Image Title Attribute" gallery setting under "Advanced" tab for disabling the title attribute added to thumbnail img tags
+* New : Added gallery settings to change the lightbox captions when FooBox is the selected lightbox
+* New : Added ability to refresh gallery preview when editing by clicking preview button again
+* New : Added lazyload support to stack album, giving a major performance boost to very large albums!
+* New : Overhauled Help page when plugin is activated, including the ability create demo gallery content and view inline demos
+* New : Added ability to override captions for FooBox
+* Update : FooGallery client side 2.0.9
+* Update : Simplified extensions admin page and removed all build-your-own logic
+* Update : Updated the Justified gallery template. Removed "Max Row Height" and "Last Row" settings.
+* Update : Updated the Thumbnail gallery template. Removed "Thumbnail Crop" setting.
+* Fix : Updated styling for FooGallery Block to look correct in latest version of Gutenberg
+* Fix : JSON objects get built using all attributes needed
+* Fix : Could not add images to the gallery for some installs, due to no thumbnail sizes being returned. Made the logic more resilient.
+* Fix : Compatible with WP Rocket Lazy loading
+* Fix : Javascript error with Masonry related to script dependencies when using script minifiers
+
+
+= 1.10.4 =
+* Date Updated : 2021-02-03
+* Fix : fix for fatal error running pre WP5 : Fatal error: Uncaught ArgumentCountError: Too few arguments to function FooGallery_Thumb_Engine_Default::delete_cache_folder_for_attachment()
+
 = 1.10.3 =
 * Date Updated : 2021-20-02
-* Fix : fixed a fatal error on some installs (only update if you have issues with 1.10.1!)
+* Fix : fixed a fatal PHP error on some installs
 
 = 1.10.1 =
 * Date Updated : 2021-18-02
-* Fix : fixed a fatal error with PHP 5.6
+* Fix : fixed a fatal PHP error with PHP 5.6
 
 = 1.10.0 =
 * Date Updated : 2021-18-02

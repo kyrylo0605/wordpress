@@ -1,10 +1,10 @@
 === SiteOrigin Widgets Bundle ===
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 4.2
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.6.20
-Stable tag: 1.17.11
-Build time: 2020-12-09T15:39:14+02:00
+Stable tag: 1.18.1
+Build time: 2021-04-20T20:58:45+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis, alexgso
 Donate link: https://siteorigin.com/downloads/premium/
@@ -66,7 +66,35 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 
 == Changelog ==
 
-== 1.17.11 - 09 December 2020 ==
+= 1.18.1 - 20 April 2021 =
+* Reverted Less `3.1.0` update to restore compatibility for PHP versions below `7.1`.
+
+= 1.18.0 - 20 April 2021 =
+* Updated the Google fonts list.
+* Updated Font Awesome from `5.14.0` to `5.15.1`.
+* Block Editor: Styling fixes including specific fixes for the Twenty Twenty-One theme.
+* Contact Form: Set missing message default value.
+* Contact Form: Nested the required indicator to make styling easier.
+* Editor: Stopped processing the `<!--more-->` quicktag in previews.
+* Features: Ensured the title tag exists before outputting.
+* Image: Added ability to set custom image sizes.
+* Image Grid: Changed to use Flexbox to avoid unintended spacing.
+* Post Carousel: Added an overlay hover opacity setting.
+* Slider: Added a `Height` setting if the `Foreground image` is set.
+* Social Media Buttons: Added Discord.
+* Video: Added a `Loop` setting for self-hosted videos.
+* Video: If `autoplay` is enabled, `playsinline` will be added.
+* Developer: Post Carousel: Added `siteorigin_widgets_post_carousel_post_limit` filter
+* Developer: Google Maps: Corrected marker JavaScript property names.
+* Developer: Block Editor: Store and serve rendered widget.
+* Developer: Image form field: Added an optional parameter `custom_size` to enable custom sizes.
+* Developer: State Emitters: Improved media field external support.
+* Developer: Sanitized italic fonts rather than clearing them.
+* Developer: Replaced older-style PHP type conversion functions with type casts.
+* Developer: Add `units` and `default_unit` parameters for the measurement field.
+* Developer: Changes for PHP 8.
+
+= 1.17.11 - 09 December 2020 =
 * Google Maps: Added Map Style button styling.
 * Accordion: Submitted contact forms added to Accordion will now open the panel on load.
 * Tabs: Prevented the Scroll To setting from affecting the currently selected tab.
@@ -76,10 +104,10 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * Developer: Exposed Google Maps instances. Once set up, maps can be accessed via `sowb.SiteOriginGoogleMapInstances`.
 * Developer: Add a Google Maps `maps_loaded` event that triggers after all of the Google Maps have finished being set up.
 
-== 1.17.10 - 13 November 2020 ==
+= 1.17.10 - 13 November 2020 =
 * TinyMCE: Resolved issue with the Add Media button.
 
-== 1.17.9 - 12 November 2020 ==
+= 1.17.9 - 12 November 2020 =
 * Block Editor: Resolved widget preview issue.
 * Elementor: Minor admin styling improvements.
 * Google Maps: Added a new global consent setting `Require consent before loading Maps API` at `Plugins > SiteOrigin Widgets > Google Maps`.
@@ -92,10 +120,10 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * Updated the widget title field to allow HTML in all SiteOrigin widgets.
 * Changed to `enqueue` Google Fonts rather than `@import`.
 
-== 1.17.8 - 28 September 2020 ==
+= 1.17.8 - 28 September 2020 =
 * Image: Prevent image stretching while using Safari
 
-== 1.17.7 - 10 September 2020 ==
+= 1.17.7 - 10 September 2020 =
 * Hero and Layout Sliders: Disable image preload for images added to frames.
 * Resolved a preview issue with widgets that attempt to render sub widgets but don't output them.
 * Contact Form: Added a field max-width setting.
@@ -109,21 +137,21 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * IE 11: Prevented images from exceeding the widget container.
 * Removed wpColorPickerL10n if WP >= 5.5.
 
-== 1.17.6 - 17 August 2020 ==
+= 1.17.6 - 17 August 2020 =
 * Hero and Layout Sliders: Disabled lazy loading for images added to the slide content area.
 * Slider: Disabled lazy loading in the Block Editor.
 
-== 1.17.5 - 12 August 2020 ==
+= 1.17.5 - 12 August 2020 =
 * Slider: Disable WordPress 5.5 Lazy Loading.
 
-== 1.17.4 - 06 August 2020 ==
+= 1.17.4 - 06 August 2020 =
 * Post Carousel: Improved support for multiple carousel widgets on the same page.
 * Post Carousel: Improved mobile support.
 * Sliders: Added `Autoplay` and `Autoplay Pause on Hover` settings to the Slider, Layout Slider and Hero widgets.
 * Features: Allowed shortcodes to be used in the Text field.
 * Contact Form: Fix to ensure the correct fields are passed to Akismet.
 
-== 1.17.3 - 23 July 2020 ==
+= 1.17.3 - 23 July 2020 =
 * Reverted: Features: Prevented icon overlapping text in edge cases.
 * Social Media Buttons: Added TikTok.
 * Button: Removed `:visited` color targeting.
@@ -133,10 +161,10 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * Carousel: Contextualized variables as needed.
 * Carousel: Find the `ItemWidth` as needed rather than predefining it.
 
-== 1.17.2 - 21 July 2020 ==
+= 1.17.2 - 21 July 2020 =
 * Resolved button Less CSS bug.
 
-== 1.17.1 - 20 July 2020 ==
+= 1.17.1 - 20 July 2020 =
 * Post Carousel: Prevented all posts from outputting. `10` will be output at a time if `Posts per page` isn't set.
 * Post Carousel: Inlined navigation buttons if a title is set.
 * Updated the Google Fonts array.
@@ -162,7 +190,7 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * Mobile: Improved admin form field responsive behavior.
 * Updated Font Awesome from `5.13.0` to `5.14.0`.
 
-== 1.17.0 - 22 May 2020 ==
+= 1.17.0 - 22 May 2020 =
 * Simple Masonry: Added a preloader and related settings.
 * Post Carousel: Migrated to Slick Carousel.
 * Post Carousel: Added RTL support.
@@ -174,7 +202,7 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 * Switched to Wikimedia's fork of less.php.
 * Added error suppression for external Less library.
 
-== 1.16.1 - 20 April 2020 ==
+= 1.16.1 - 20 April 2020 =
 * Accordion: When hiding panels, only search the current accordion and not nested accordions.
 * Slider Widgets: Removed slide navigation numbers from excerpt output.
 * Added support for custom icon styles.
