@@ -4,8 +4,8 @@ Donate link: http://wpml.org/documentation/related-projects/woocommerce-multilin
 Tags: CMS, woocommerce, commerce, ecommerce, e-commerce, products, WPML, multilingual, e-shop, shop
 License: GPLv2
 Requires at least: 4.7
-Tested up to: 5.6.1
-Stable tag: 4.11.3.1
+Tested up to: 5.7.1
+Stable tag: 4.11.5
 Requires PHP: 5.6
 
 Allows running fully multilingual e-commerce sites using WooCommerce and WPML.
@@ -138,10 +138,8 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 
 == Changelog ==
 
-= 4.11.3 =
-* Fixed a regression when a non-logged user switches language and each language has a default currency.
-* Fixed a bug in PHP 8 showing a 404 page for endpoints.
-* Fixed the "new order" email not sent to all the recipients.
+= 4.11.5 =
+* Temporary fix for dashboard widget.
 
 = 4.11.0 =
 * Fixed missing product tabs comming from WooCommerce Tab Manager plugin.
@@ -262,4 +260,4 @@ WooCommerce Multilingual is compatible with all major WooCommerce extensions. We
 * Fixed an issue with the price filter widget not showing results in a secondary language.
 * Fixed an issue where the shipping classes in secondary languages were not calculated during checkout.
 * Display larger images when hovering thumbnails in the WooCommerce Multilingual Products admin page.
-* Added the "wcml_new_order_admin_email_language" filter to allow setting the language of emails sent to admins for new or updated  orders.
+* Added the "wcml_new_order_admin_email_language" filter to allow setting the language of emails sent to admins for new or updated orders.

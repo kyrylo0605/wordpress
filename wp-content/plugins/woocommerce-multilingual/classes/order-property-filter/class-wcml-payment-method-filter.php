@@ -1,14 +1,18 @@
 <?php
 
+use WPML\FP\Fns;
+
 class WCML_Payment_Method_Filter {
 	/** @var array  */
 	private $payment_gateway_cache = [];
 
-	/** @var array  */
-	private $post_type_cache = [];
-
 	public function add_hooks() {
-		add_filter( 'woocommerce_order_get_payment_method_title', [ $this, 'payment_method_string' ], 10, 2 );
+		add_filter(
+			'woocommerce_order_get_payment_method_title',
+			Fns::withoutRecursion( Fns::identity(), [ $this, 'payment_method_string' ] ),
+			10,
+			2
+		);
 	}
 
 	public function payment_method_string( $title, $object ) {

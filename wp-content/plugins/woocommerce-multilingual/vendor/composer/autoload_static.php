@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit793cca277ed682a0e0123624055ae0e3
+class ComposerStaticInite2cbce783747da1e56f5a1ab19fdb881
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -70,15 +70,15 @@ class ComposerStaticInit793cca277ed682a0e0123624055ae0e3
         'WCML\\Rest\\Functions' => __DIR__ . '/../..' . '/classes/Rest/Functions.php',
         'WCML\\Rest\\Generic' => __DIR__ . '/../..' . '/classes/Rest/Generic.php',
         'WCML\\Rest\\Hooks' => __DIR__ . '/../..' . '/classes/Rest/Hooks.php',
+        'WCML\\Rest\\Language\\Set' => __DIR__ . '/../..' . '/classes/Rest/Language/Set.php',
+        'WCML\\Rest\\ProductSaveActions' => __DIR__ . '/../..' . '/classes/Rest/ProductSaveActions.php',
         'WCML\\Rest\\Wrapper\\Composite' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Composite .php',
         'WCML\\Rest\\Wrapper\\Factory' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Factory.php',
         'WCML\\Rest\\Wrapper\\Handler' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Handler.php',
         'WCML\\Rest\\Wrapper\\Orders\\Languages' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Orders/Languages.php',
         'WCML\\Rest\\Wrapper\\Orders\\Prices' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Orders/Prices.php',
         'WCML\\Rest\\Wrapper\\ProductTerms' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/ProductTerms.php',
-        'WCML\\Rest\\Wrapper\\Products\\Images' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Products/Images.php',
-        'WCML\\Rest\\Wrapper\\Products\\Languages' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Products/Languages.php',
-        'WCML\\Rest\\Wrapper\\Products\\Prices' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Products/Prices.php',
+        'WCML\\Rest\\Wrapper\\Products\\Products' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Products/Products.php',
         'WCML\\Rest\\Wrapper\\Reports\\ProductsCount' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Reports/ProductsCount.php',
         'WCML\\Rest\\Wrapper\\Reports\\ProductsSales' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Reports/ProductsSales.php',
         'WCML\\Rest\\Wrapper\\Reports\\TopSeller' => __DIR__ . '/../..' . '/classes/Rest/Wrapper/Reports/TopSeller.php',
@@ -282,9 +282,9 @@ class ComposerStaticInit793cca277ed682a0e0123624055ae0e3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit793cca277ed682a0e0123624055ae0e3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit793cca277ed682a0e0123624055ae0e3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit793cca277ed682a0e0123624055ae0e3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite2cbce783747da1e56f5a1ab19fdb881::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite2cbce783747da1e56f5a1ab19fdb881::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite2cbce783747da1e56f5a1ab19fdb881::$classMap;
 
         }, null, ClassLoader::class);
     }

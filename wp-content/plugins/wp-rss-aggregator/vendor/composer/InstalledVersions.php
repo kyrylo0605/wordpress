@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-develop',
-    'version' => 'dev-develop',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => 'cf31bfba2b2a87f99a1a66c317374f641cbf6e59',
+    'reference' => '150f79caeef94535ccaeed23ed7b0bd5411e7cdb',
     'name' => 'wprss/core',
   ),
   'versions' => 
@@ -400,12 +400,12 @@ private static $installed = array (
     ),
     'wprss/core' => 
     array (
-      'pretty_version' => 'dev-develop',
-      'version' => 'dev-develop',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => 'cf31bfba2b2a87f99a1a66c317374f641cbf6e59',
+      'reference' => '150f79caeef94535ccaeed23ed7b0bd5411e7cdb',
     ),
   ),
 );

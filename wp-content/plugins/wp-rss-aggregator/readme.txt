@@ -5,7 +5,7 @@ Tags: RSS import, RSS aggregator, autoblog, feed to post, news aggregator, rss t
 Requires at least: 4.0 or higher
 Tested up to: 5.6
 Requires PHP: 5.4
-Stable tag: 4.18.1
+Stable tag: 4.18.2
 License: GPLv3
 
 The most powerful and reliable RSS aggregator for WordPress. Build a news aggregator, autoblog and more in minutes with unlimited RSS feeds.
@@ -254,7 +254,17 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 == Changelog ==
 
-= 4.18.11 (2021-03-15) =
+= 4.18.2 (2021-04-26) =
+**Changed**
+- Audio players no longer preload the audio file. Audio is now loaded only the play button is clicked.
+
+**Fixed**
+- Pagination would sometimes cause the page to scroll upwards.
+- Images were wrongly determined to be from Facebook and were being renamed incorrectly.
+- Invalid cron schedules no longer cause a fatal error.
+- The shortcode icon in the classic editor would sometimes not be shown.
+
+= 4.18.1 (2021-03-15) =
 **Added**
 - New filters to change the time limits during image downloads.
 

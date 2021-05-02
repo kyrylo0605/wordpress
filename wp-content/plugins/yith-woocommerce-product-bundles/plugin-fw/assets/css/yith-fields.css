@@ -1471,9 +1471,13 @@ div#ui-datepicker-div.yith-plugin-fw-datepicker-div {
     display : block !important;
 }
 
-.woocommerce .yith-plugin-ui .iris-picker {
-    border     : 0;
-    margin-top : 20px;
+.woocommerce .yith-plugin-ui .wp-picker-container .iris-picker, .yith-plugin-ui .wp-picker-container .iris-picker {
+    z-index       : 100;
+    position      : absolute;
+    margin-top    : 20px;
+    border        : 1px solid #d8d8d8;
+    border-radius : 4px;
+    box-shadow    : 0 1px 3px rgba(0, 0, 0, .2);
 }
 
 .yith-plugin-ui .yith-plugin-fw input[type=text].wp-color-picker {
@@ -2082,8 +2086,8 @@ div#ui-datepicker-div.yith-plugin-fw-datepicker-div {
 .metaboxes-tab .yith-plugin-fw-dimensions__dimension__label,
 .yith-plugin-ui.metaboxes-tab label.yith-plugin-fw-dimensions__dimension__label {
     text-transform : uppercase;
-    letter-spacing : 2px;
-    font-size      : 11px;
+    letter-spacing : 1px;
+    font-size      : 9px;
     margin-bottom  : 5px;
     display        : inline-block;
 }
@@ -2171,10 +2175,13 @@ div#ui-datepicker-div.yith-plugin-fw-datepicker-div {
     border-radius : 2px;
     padding       : 1px;
     user-select   : none;
+    line-height   : 1;
+    transition    : all .2s ease-in-out;
 }
 
 .yith-plugin-fw-copy-to-clipboard__copy:hover {
-    box-shadow : 0 0 0 2px #2470ff;
+    box-shadow       : 0 0 0 4px rgba(15, 67, 60, .12);
+    background-color : rgba(15, 67, 60, .12);
 }
 
 .yith-plugin-fw-copy-to-clipboard__copy__text {
