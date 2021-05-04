@@ -1225,10 +1225,11 @@ span.select2.select2-container.select2-container--default.yith-plugin-fw-select2
 .yith-plugin-ui input[type="checkbox"]:checked:after {
     content     : "\e905";
     font-family : 'yith-icon';
-    font-size   : 15px;
+    font-size   : 10px;
     position    : absolute;
+    font-weight : 600;
     top         : 8px;
-    left        : 1px;
+    left        : 3px;
     color       : #fff;
 }
 
@@ -1471,9 +1472,13 @@ div#ui-datepicker-div.yith-plugin-fw-datepicker-div {
     display : block !important;
 }
 
-.woocommerce .yith-plugin-ui .iris-picker {
-    border     : 0;
-    margin-top : 20px;
+.woocommerce .yith-plugin-ui .wp-picker-container .iris-picker, .yith-plugin-ui .wp-picker-container .iris-picker {
+    z-index       : 100;
+    position      : absolute;
+    margin-top    : 20px;
+    border        : 1px solid #d8d8d8;
+    border-radius : 4px;
+    box-shadow    : 0 1px 3px rgba(0, 0, 0, .2);
 }
 
 .yith-plugin-ui .yith-plugin-fw input[type=text].wp-color-picker {
@@ -1557,10 +1562,11 @@ div#ui-datepicker-div.yith-plugin-fw-datepicker-div {
 }
 
 .yith-plugin-ui .yith-single-colorpicker > label {
-    display     : block;
-    font-size   : 11px;
-    font-weight : 600;
-    margin      : 0 0 10px 0;
+    display        : block;
+    font-size      : 11px;
+    font-weight    : 600;
+    margin         : 0 0 10px 0;
+    text-transform : uppercase;
 }
 
 /* RANGE SLIDER */
@@ -2156,6 +2162,8 @@ div#ui-datepicker-div.yith-plugin-fw-datepicker-div {
     padding       : 0 10px 0 0;
     border        : 0;
     border-radius : 0;
+    box-shadow    : none;
+    outline       : none;
 }
 
 .yith-plugin-fw-copy-to-clipboard.yith-plugin-fw-copy-to-clipboard--readonly input[type=text].yith-plugin-fw-copy-to-clipboard__field,

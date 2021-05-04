@@ -252,7 +252,7 @@ msgstr ""
 msgid "You need to select a widget type before you'll see anything here. :)"
 msgstr ""
 
-#: compat/block-editor/widget-block.php:144
+#: compat/block-editor/widget-block.php:155
 msgid "Invalid widget class %s. Please make sure the widget has been activated in %sSiteOrigin Widgets%s."
 msgstr ""
 
@@ -2416,7 +2416,7 @@ msgstr ""
 msgid "Controls"
 msgstr ""
 
-#: widgets/slider/slider.php:327
+#: widgets/slider/slider.php:330
 msgid "Add a Lightbox to your image slides with %sSiteOrigin Premium%s"
 msgstr ""
 

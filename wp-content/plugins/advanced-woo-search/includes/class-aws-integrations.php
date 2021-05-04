@@ -186,11 +186,6 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             add_action( 'wp_head', array( $this, 'head_js_integration' ) );
 
-            // Wholesale plugin hide certain products
-            if ( class_exists( 'WooCommerceWholeSalePrices' ) ) {
-                add_filter( 'aws_search_results_products', array( $this, 'wholesale_hide_products' ) );
-            }
-
             // Search Exclude plugin
             if ( class_exists( 'SearchExclude' ) ) {
                 add_filter( 'aws_index_product_ids', array( $this, 'search_exclude_filter' ) );
@@ -213,7 +208,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             }
 
             // WP all import finish
-            add_action( 'pmxi_after_xml_import', array( $this, 'pmxi_after_xml_import' ) );
+            //add_action( 'pmxi_after_xml_import', array( $this, 'pmxi_after_xml_import' ) );
 
             // BeRocket WooCommerce AJAX Products Filter
             if ( defined( 'BeRocket_AJAX_filters_version' ) ) {
@@ -309,6 +304,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             // Ultimate Member plugin hide certain products
             if ( class_exists( 'UM_Functions' ) ) {
                 include_once( AWS_DIR . '/includes/modules/class-aws-um.php' );
+            }
+
+            // Wholesale plugin
+            if ( class_exists( 'WooCommerceWholeSalePrices' ) ) {
+                include_once( AWS_DIR . '/includes/modules/class-aws-wholesale.php' );
             }
 
         }
@@ -1546,69 +1546,6 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
         <?php }
 
         /*
-         * Wholesale plugin hide products
-         */
-        public function wholesale_hide_products( $products ) {
-
-            $user_role = 'all';
-            if ( is_user_logged_in() ) {
-                $user = wp_get_current_user();
-                $roles = ( array ) $user->roles;
-                $user_role = $roles[0];
-            }
-
-            $all_registered_wholesale_roles = unserialize( get_option( 'wwp_options_registered_custom_roles' ) );
-            if ( ! is_array( $all_registered_wholesale_roles ) ) {
-                $all_registered_wholesale_roles = array();
-            }
-
-            $product_cat_wholesale_role_filter = get_option( 'wwpp_option_product_cat_wholesale_role_filter' );
-            $categories_exclude_list = array();
-
-            if ( is_array( $product_cat_wholesale_role_filter ) && ! empty( $product_cat_wholesale_role_filter ) && $user_role !== 'administrator' ) {
-                foreach( $product_cat_wholesale_role_filter as $term_id => $term_roles ) {
-                    if ( array_search( $user_role, $term_roles ) === false ) {
-                        $categories_exclude_list[] = $term_id;
-                    }
-                }
-            }
-
-            $new_products_array = array();
-
-            foreach( $products as $product ) {
-
-                $custom_fields = get_post_meta( $product['id'], 'wwpp_product_wholesale_visibility_filter' );
-                $custom_price = get_post_meta( $product['id'], 'wholesale_customer_wholesale_price' );
-
-                if ( $custom_fields && ! empty( $custom_fields ) && $custom_fields[0] !== 'all' && $custom_fields[0] !== $user_role ) {
-                    continue;
-                }
-
-                if ( is_user_logged_in() && !empty( $all_registered_wholesale_roles ) && isset( $all_registered_wholesale_roles[$user_role] )
-                    && get_option( 'wwpp_settings_only_show_wholesale_products_to_wholesale_users', false ) === 'yes' && ! $custom_price ) {
-                    continue;
-                }
-
-                if ( ! empty( $categories_exclude_list ) ) {
-                    $terms = wp_get_object_terms( $product['id'], 'product_cat' );
-                    if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
-                        foreach ( $terms as $term ) {
-                            if ( array_search( $term->term_id, $categories_exclude_list ) !== false ) {
-                                continue 2;
-                            }
-                        }
-                    }
-                }
-
-                $new_products_array[] = $product;
-
-            }
-
-            return $new_products_array;
-
-        }
-
-        /*
          * Remove products that was excluded with Search Exclude plugin ( https://wordpress.org/plugins/search-exclude/ )
          */
         public function search_exclude_filter( $products ) {
@@ -1698,6 +1635,12 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                                 $term = get_term_by('slug', $term_slug, $taxonomy );
                                 if ( $term ) {
                                     $new_terms_arr[] = $term->term_id;
+                                }
+                                if ( ! $term && strpos( $taxonomy, 'pa_' ) !== 0 ) {
+                                    $term = get_term_by('slug', $term_slug, 'pa_' . $taxonomy );
+                                    if ( $term ) {
+                                        $new_terms_arr[] = $term->term_id;
+                                    }
                                 }
                             }
                             if ( $new_terms_arr ) {

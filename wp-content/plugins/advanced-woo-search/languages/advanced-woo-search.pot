@@ -695,6 +695,9 @@ msgstr ""
 msgid "plugin settings page"
 msgstr ""
 
+msgid "Please do not close the page."
+msgstr ""
+
 msgid "Performance"
 msgstr ""
 

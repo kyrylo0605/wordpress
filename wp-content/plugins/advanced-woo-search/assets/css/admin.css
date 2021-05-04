@@ -80,7 +80,8 @@
     margin-top: 4px;
 }
 
-#aws-reindex .reindex-progress {
+#aws-reindex .reindex-progress,
+#aws-reindex .reindex-notice {
     display: none;
     margin-left: 15px;
     position: relative;
@@ -89,8 +90,13 @@
     font-weight: bold;
 }
 
+#aws-reindex .reindex-notice {
+    font-weight: normal;
+}
+
 #aws-reindex.loading .loader,
-#aws-reindex.loading .reindex-progress {
+#aws-reindex.loading .reindex-progress,
+#aws-reindex.loading .reindex-notice {
     display: inline-block;
 }
 

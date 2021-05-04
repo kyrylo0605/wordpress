@@ -24,7 +24,7 @@ msgid "read more"
 msgstr "läs mer"
 
 msgid "Next Reviews"
-msgstr "Nästa recensioner"
+msgstr "Fler recensioner"
 
 msgid "Write a review"
 msgstr "Skriv en recension"
