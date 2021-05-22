@@ -112,6 +112,7 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
                 $query->found_posts = count( $search_res['all'] );
                 $query->max_num_pages = ceil( count( $search_res['all'] ) / $posts_per_page );
+                $query->set( 'posts_per_page', $posts_per_page );
 
                 $new_posts = $this->set_posts_objects( $search_res, $query );
 

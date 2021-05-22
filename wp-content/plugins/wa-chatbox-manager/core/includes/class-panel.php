@@ -73,6 +73,7 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 				$file_dir = plugins_url('/assets/', dirname(__FILE__));
 
 				wp_enqueue_style ( 'chatbox_manager_panel', $file_dir.'css/panel.css' ); 
+				wp_enqueue_style ( 'chatbox_manager_free_pro_table', $file_dir.'css/free_pro_table.css' );
 				wp_enqueue_style ( 'chatbox_manager_panel_on_off', $file_dir.'css/on_off.css' );
 				wp_enqueue_style ( 'chatbox_manager_panel_googlefonts', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i');
 				wp_enqueue_style ( 'chatbox_manager_panel_select2', $file_dir.'css/select2.min.css' );
@@ -422,7 +423,8 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 			$chatboxManagerForm = new chatbox_manager_form();
 			$plugin_slug =  $this->plugin_slug;
 						
-			$currentTab = (!isset($_GET['tab'])) ? 'Chatbox_Generator' : esc_attr($_GET['tab']);
+			if (!isset($_GET['tab'])) 
+				$_GET['tab'] = "Chatbox_Generator"; 
 
 			foreach ( $this->panel_fields as $element) {
 	
@@ -451,7 +453,7 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 
 								$this->save_message();
 
-								echo $chatboxManagerForm->htmlList('ul', FALSE, $plugin_slug . 'navigation', $element['item'], $currentTab );
+								echo $chatboxManagerForm->htmlList('ul', FALSE, $plugin_slug . 'navigation', $element['item'], esc_attr($_GET['tab']));
 							
 						break;
 						
@@ -469,9 +471,9 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 			
 			if (isset($element['tab'])) : 
 			
-				switch ($currentTab) { 
+				switch ( $element['tab'] ) { 
 			
-					case $currentTab:  
+					case esc_attr($_GET['tab']):  
 			
 						foreach ($element as $value) {
 						
@@ -483,7 +485,7 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 									
 									echo $chatboxManagerForm->elementStart('div', str_replace(' ', '', $value['name']), FALSE );
 										
-										echo $chatboxManagerForm->formStart('post', '?page=chatbox_manager_panel&tab=' . $currentTab );
+										echo $chatboxManagerForm->formStart('post', '?page=chatbox_manager_panel&tab=' . esc_attr($_GET['tab']) );
 								
 								break;
 								
@@ -671,6 +673,409 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 								
 								break;
 									
+								case 'free_vs_pro':
+
+								echo $chatboxManagerForm->elementStart('div', FALSE, $plugin_slug . 'box' );
+
+									echo $chatboxManagerForm->tableStart(FALSE, $plugin_slug . ' card table free-pro', 0, 0 );
+
+									echo $chatboxManagerForm->tableElementStart('tbody', FALSE, 'table-body');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'table-head');
+
+											echo $chatboxManagerForm->tableElement('th', FALSE, 'large');
+
+											echo $chatboxManagerForm->tableElementStart('th', FALSE, 'indicator');
+												echo esc_html__('Free', 'chatbox-manager');
+											echo $chatboxManagerForm->tableElementEnd('th');
+
+											echo $chatboxManagerForm->tableElementStart('th', FALSE, 'indicator');
+												echo esc_html__('Premium', 'chatbox-manager');
+											echo $chatboxManagerForm->tableElementEnd('th');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Pre-filled message', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE );
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Chatbox position', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE );
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Add the chatbox on whole website', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE );
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+										
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Add the chatbox on specific content', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE );
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Layouts', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo esc_html__('5', 'chatbox-manager');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo esc_html__('6', 'chatbox-manager');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Unlimited chatboxes', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+													echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-inline-row' );
+
+														echo $chatboxManagerForm->element('span', FALSE, 'info-icon dashicon dashicons dashicons-info', FALSE );
+
+														echo $chatboxManagerForm->elementStart('span', FALSE, 'feature-description' );
+
+															echo esc_html__('You can generate unlimited chatboxes with different numbers.', 'chatbox-manager');
+
+														echo $chatboxManagerForm->elementEnd('span');
+
+													echo $chatboxManagerForm->elementEnd('div');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-no-alt', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Device selection', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+													echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-inline-row' );
+
+														echo $chatboxManagerForm->element('span', FALSE, 'info-icon dashicon dashicons dashicons-info', FALSE );
+
+														echo $chatboxManagerForm->elementStart('span', FALSE, 'feature-description' );
+
+															echo esc_html__('Select the device where you want to display the WhatsApp button.', 'chatbox-manager');
+
+														echo $chatboxManagerForm->elementEnd('span');
+
+													echo $chatboxManagerForm->elementEnd('div');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-no-alt', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Shake animation', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+													echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-inline-row' );
+
+														echo $chatboxManagerForm->element('span', FALSE, 'info-icon dashicon dashicons dashicons-info', FALSE );
+
+														echo $chatboxManagerForm->elementStart('span', FALSE, 'feature-description' );
+
+															echo esc_html__('Capture Users’ Attention thanks to the shake animation.', 'chatbox-manager');
+
+														echo $chatboxManagerForm->elementEnd('span');
+
+													echo $chatboxManagerForm->elementEnd('div');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-no-alt', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Backup section', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+													echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-inline-row' );
+
+														echo $chatboxManagerForm->element('span', FALSE, 'info-icon dashicon dashicons dashicons-info', FALSE );
+
+														echo $chatboxManagerForm->elementStart('span', FALSE, 'feature-description' );
+
+															echo esc_html__('You can create a backup of plugin settings, import an existing backuo or restore the default settings.', 'chatbox-manager');
+
+														echo $chatboxManagerForm->elementEnd('span');
+
+													echo $chatboxManagerForm->elementEnd('div');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-no-alt', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'feature-row');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'large');
+
+												echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-wrap' );
+
+													echo $chatboxManagerForm->elementStart('h4', FALSE, FALSE );
+
+														echo esc_html__('Dynamic values on the pre-filled message', 'chatbox-manager');
+
+													echo $chatboxManagerForm->elementEnd('h4');
+
+													echo $chatboxManagerForm->elementStart('div', FALSE, 'feature-inline-row' );
+
+														echo $chatboxManagerForm->element('span', FALSE, 'info-icon dashicon dashicons dashicons-info', FALSE );
+
+														echo $chatboxManagerForm->elementStart('span', FALSE, 'feature-description' );
+
+															echo esc_html__('Include the dynamic values inside the pre-filled message to add the TITLE and URL of current post/page.', 'chatbox-manager');
+
+														echo $chatboxManagerForm->elementEnd('span');
+
+													echo $chatboxManagerForm->elementEnd('div');
+
+												echo $chatboxManagerForm->elementEnd('div');
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-no-alt', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->element('span', FALSE, 'dashicon dashicons dashicons-yes', FALSE);
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+										echo $chatboxManagerForm->tableElementStart('tr', FALSE, 'upsell-row');
+
+											echo $chatboxManagerForm->tableElement('td', FALSE, FALSE);
+											echo $chatboxManagerForm->tableElement('td', FALSE, FALSE);
+
+											echo $chatboxManagerForm->tableElementStart('td', FALSE, 'indicator');
+
+												echo $chatboxManagerForm->link(esc_url(CM_SALE_PAGE . '/?ref=2&campaign=cm-freepro'), FALSE, 'button button-primary', '_blank', FALSE, esc_html__( 'Upgrade to Premium','chatbox-manager') );
+
+											echo $chatboxManagerForm->tableElementEnd('td');
+
+										echo $chatboxManagerForm->tableElementEnd('tr');
+
+									echo $chatboxManagerForm->tableElementEnd('tbody');
+
+									echo $chatboxManagerForm->tableEnd();
+
+								echo $chatboxManagerForm->elementEnd('div');
+
+								break;
+
 								case 'chatboxGenerator':
 
 									$chatbox_manager_chatboxes = chatbox_manager_setting('chatbox_manager_chatboxes');
@@ -687,7 +1092,7 @@ if( !class_exists( 'chatbox_manager_panel' ) ) {
 
 													echo $chatboxManagerForm->elementStart('div', 'chatbox', $plugin_slug . 'container ' . 'chatbox' );
 										
-													echo $chatboxManagerForm->element('h5', FALSE, 'element linkable-element', '<a href="?page=chatbox_manager_panel&tab=' . $currentTab .'&chatboxID='.str_replace('chatbox','', esc_attr($k)).'">'.esc_html($v['name']).'</a>' );
+													echo $chatboxManagerForm->element('h5', FALSE, 'element linkable-element', '<a href="?page=chatbox_manager_panel&tab=' . esc_attr($_GET['tab']) .'&chatboxID='.str_replace('chatbox','', esc_attr($k)).'">'.esc_html($v['name']).'</a>' );
 
 													echo $chatboxManagerForm->elementEnd('div');
 													

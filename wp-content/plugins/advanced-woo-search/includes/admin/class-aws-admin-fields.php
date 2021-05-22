@@ -336,10 +336,11 @@ if ( ! class_exists( 'AWS_Admin_Fields' ) ) :
 
                         $heading_tag = isset( $value['heading_type'] ) && $value['heading_type'] === 'text' ? 'span' : 'h3';
                         $heading_description = isset( $value['desc'] ) ? $value['desc'] : '';
+                        $id = isset($value['id']) && $value['id'] ? 'id="' . $value['id'] . '"' : '';
                         ?>
 
                         <tr valign="top">
-                            <th scope="row"><<?php echo $heading_tag; ?> class="aws-heading"><?php echo esc_html( $value['name'] ); ?></<?php echo $heading_tag; ?>></th>
+                            <th scope="row"><<?php echo $heading_tag; ?> <?php echo $id; ?> class="aws-heading"><?php echo esc_html( $value['name'] ); ?></<?php echo $heading_tag; ?>></th>
 
                             <?php if ( $heading_description ): ?>
                                 <td>

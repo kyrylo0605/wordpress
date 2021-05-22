@@ -17,6 +17,7 @@ $optpanel = array (
 			"item" => array(
 
 				"Chatbox_Generator"	=> esc_html__( "Chatbox Generator","chatbox-manager"),
+				"free_vs_pro" => esc_html__( "Free vs Pro","chatbox-manager"),
 				CM_SALE_PAGE . "cm-panel"	=> esc_html__( "Upgrade to Premium","chatbox-manager"),
 
 			),
@@ -40,6 +41,24 @@ $optpanel = array (
 						"data" => "array",
 						"type" => "chatboxGenerator",
 						"std" => ""),
+
+			array(	"type" => "end-container"),
+
+		array(	"type" => "end-form"),
+
+	),
+	
+	array(	"tab" => "free_vs_pro",
+			"element" =>
+
+		array(	"type" => "start-form",
+				"name" => "free_vs_pro"),
+
+			array(	"type" => "start-open-container",
+					"name" => esc_html__( "Free vs Pro", "chatbox-manager")),
+
+				array(	"name" => esc_html__( "Free vs Pro", "chatbox-manager"),
+						"type" => "free_vs_pro"),
 
 			array(	"type" => "end-container"),
 

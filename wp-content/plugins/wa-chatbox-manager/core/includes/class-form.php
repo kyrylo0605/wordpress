@@ -348,6 +348,75 @@ if( !class_exists( 'chatbox_manager_form' ) ) {
 
 		}
 
+		/**
+		 * TABLE START
+		 */
+
+		public function tableStart($id, $class, $cellspacing, $cellpadding) {
+
+			$html  = '<table ';
+			$html .= $id !== FALSE ? ' id="' . $id . '"' : '' ;
+			$html .= $class !== FALSE ? ' class="' . $class . '"' : '' ;
+			$html .= $cellspacing !== FALSE ? ' cellspacing="' . $cellspacing . '"' : '' ;
+			$html .= $cellpadding !== FALSE ? ' cellpadding="' . $cellpadding . '"' : '' ;
+			$html .= '>';
+
+			return $html;
+
+		}
+
+		/**
+		 * TABLE END
+		 */
+
+		public function tableEnd() {
+
+			return '</table>';
+
+		}
+
+		/**
+		 * TABLE ELEMENT
+		 */
+
+		public function tableElement($name, $id, $class) {
+
+			$html  = '<'.$name.' ';
+			$html .= $id !== FALSE ? ' id="' . $id . '"' : '' ;
+			$html .= $class !== FALSE ? ' class="' . $class . '"' : '' ;
+			$html .= '>';
+
+			$html .= '</'.$name.'>';
+
+			return $html;
+
+		}
+
+		/**
+		 * TABLE ELEMENT START
+		 */
+
+		public function tableElementStart($name, $id, $class) {
+
+			$html  = '<'.$name.' ';
+			$html .= $id !== FALSE ? ' id="' . $id . '"' : '' ;
+			$html .= $class !== FALSE ? ' class="' . $class . '"' : '' ;
+			$html .= '>';
+
+			return $html;
+
+		}
+
+		/**
+		 * TABLE ELEMENT END
+		 */
+
+		public function tableElementEnd($name) {
+
+			return '</'.$name.'>';
+
+		}
+
 	}
 
 }

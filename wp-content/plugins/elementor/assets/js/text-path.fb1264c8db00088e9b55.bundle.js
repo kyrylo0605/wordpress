@@ -1,4 +1,4 @@
-/*! elementor - v3.2.2 - 26-04-2021 */
+/*! elementor - v3.2.3 - 05-05-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["text-path"],{
 
 /***/ "../assets/dev/js/frontend/utils/utils.js":
@@ -21,7 +21,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.escapeHTML = void 0;
 
-__webpack_require__(/*! core-js/modules/es6.regexp.replace */ "../node_modules/core-js/modules/es6.regexp.replace.js");
+__webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
 
 // Escape HTML special chars to prevent XSS.
 var escapeHTML = function escapeHTML(str) {
@@ -63,11 +63,11 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(/*! core-js/modules/es6.regexp.split */ "../node_modules/core-js/modules/es6.regexp.split.js");
+__webpack_require__(/*! core-js/modules/es6.regexp.split.js */ "../node_modules/core-js/modules/es6.regexp.split.js");
 
-__webpack_require__(/*! core-js/modules/es6.regexp.replace */ "../node_modules/core-js/modules/es6.regexp.replace.js");
+__webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
 
-__webpack_require__(/*! core-js/modules/es6.string.link */ "../node_modules/core-js/modules/es6.string.link.js");
+__webpack_require__(/*! core-js/modules/es6.string.link.js */ "../node_modules/core-js/modules/es6.string.link.js");
 
 var _parseInt2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "../node_modules/@babel/runtime-corejs2/core-js/parse-int.js"));
 
@@ -512,4 +512,4 @@ __webpack_require__(/*! ./_string-html */ "../node_modules/core-js/modules/_stri
 /***/ })
 
 }]);
-//# sourceMappingURL=text-path.9870c437945d934efed3.bundle.js.map
+//# sourceMappingURL=text-path.fb1264c8db00088e9b55.bundle.js.map

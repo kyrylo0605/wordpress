@@ -1,4 +1,4 @@
-/*! elementor - v3.2.2 - 26-04-2021 */
+/*! elementor - v3.2.3 - 05-05-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["progress"],{
 
 /***/ "../assets/dev/js/frontend/handlers/progress.js":
@@ -23,7 +23,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(/*! core-js/modules/es6.array.find */ "../node_modules/core-js/modules/es6.array.find.js");
+__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
@@ -84,4 +84,4 @@ exports.default = Progress;
 /***/ })
 
 }]);
-//# sourceMappingURL=progress.fdb2dcfacfca36a9033a.bundle.js.map
+//# sourceMappingURL=progress.f88c14a27e3da5dcc9d8.bundle.js.map

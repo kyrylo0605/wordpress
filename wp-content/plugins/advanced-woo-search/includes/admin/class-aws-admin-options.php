@@ -328,6 +328,7 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
 
             $options['performance'][] = array(
                 "name"    => __( "Index table options", "advanced-woo-search" ),
+                "id"      => "index_sources",
                 "type"    => "heading"
             );
 

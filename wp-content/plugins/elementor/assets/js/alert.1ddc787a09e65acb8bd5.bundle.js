@@ -1,4 +1,4 @@
-/*! elementor - v3.2.2 - 26-04-2021 */
+/*! elementor - v3.2.3 - 05-05-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["alert"],{
 
 /***/ "../assets/dev/js/frontend/handlers/alert.js":
@@ -23,7 +23,7 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(/*! core-js/modules/es6.array.find */ "../node_modules/core-js/modules/es6.array.find.js");
+__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
@@ -79,4 +79,4 @@ exports.default = Alert;
 /***/ })
 
 }]);
-//# sourceMappingURL=alert.170eb40d830a3ae2d4a2.bundle.js.map
+//# sourceMappingURL=alert.1ddc787a09e65acb8bd5.bundle.js.map

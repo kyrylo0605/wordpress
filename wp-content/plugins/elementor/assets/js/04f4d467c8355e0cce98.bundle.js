@@ -1,4 +1,4 @@
-/*! elementor - v3.2.2 - 26-04-2021 */
+/*! elementor - v3.2.3 - 05-05-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["vendors-node_modules_babel_runtime-corejs2_helpers_asyncToGenerator_js-node_modules_babel_run-fdf909"],{
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/promise.js":
@@ -23,7 +23,7 @@ module.exports = __webpack_require__(/*! core-js/library/fn/promise */ "../node_
 /*! CommonJS bailout: module.exports is used directly at 39:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var _Promise = __webpack_require__(/*! ../core-js/promise */ "../node_modules/@babel/runtime-corejs2/core-js/promise.js");
+var _Promise = __webpack_require__(/*! @babel/runtime-corejs2/core-js/promise */ "../node_modules/@babel/runtime-corejs2/core-js/promise.js");
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -1550,4 +1550,4 @@ try {
 /***/ })
 
 }]);
-//# sourceMappingURL=2a775af436b1a0d06b1d.bundle.js.map
+//# sourceMappingURL=04f4d467c8355e0cce98.bundle.js.map

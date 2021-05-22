@@ -198,7 +198,7 @@ class AWS_Admin {
                     if ( isset( $option['id'] ) && $option['id'] === 'search_in' && isset( $option['choices'] ) ) {
                         foreach( $option['choices'] as $choice_key => $choice_label ) {
                             if ( isset( $index_options['index'][$choice_key] ) && ! $index_options['index'][$choice_key] ) {
-                                $text = '<span style="color:#dc3232;">' . __( '(index disabled)', 'advanced-woo-search' ) . '</span>' . ' <a href="'.esc_url( admin_url('admin.php?page=aws-options&tab=performance') ).'">' . __( '(enable)', 'advanced-woo-search' ) . '</a>';
+                                $text = '<span style="color:#dc3232;">' . __( '(index disabled)', 'advanced-woo-search' ) . '</span>' . ' <a href="'.esc_url( admin_url('admin.php?page=aws-options&tab=performance#index_sources') ).'">' . __( '(enable)', 'advanced-woo-search' ) . '</a>';
                                 $options[$options_key][$key]['choices'][$choice_key] = $choice_label . ' ' . $text;
                             }
                         }
