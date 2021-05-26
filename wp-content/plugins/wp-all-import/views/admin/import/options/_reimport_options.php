@@ -130,6 +130,13 @@
 				<input type="checkbox" id="is_update_post_type" name="is_update_post_type" value="1" <?php echo $post['is_update_post_type'] ? 'checked="checked"': '' ?> />
 				<label for="is_update_post_type"><?php _e('Post type', 'wp_all_import_plugin') ?></label>
 			</div>
+			<?php if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type, 'post-formats' ) ): ?>
+            <div class="input">
+                <input type="hidden" name="is_update_post_format" value="0" />
+                <input type="checkbox" id="is_update_post_format" name="is_update_post_format" value="1" <?php echo $post['is_update_post_format'] ? 'checked="checked"': '' ?> />
+                <label for="is_update_post_format"><?php _e('Post format', 'wp_all_import_plugin') ?></label>
+            </div>
+            <?php endif; ?>
 			<div class="input">
 				<input type="hidden" name="is_update_comment_status" value="0" />
 				<input type="checkbox" id="is_update_comment_status" name="is_update_comment_status" value="1" <?php echo $post['is_update_comment_status'] ? 'checked="checked"': '' ?> />

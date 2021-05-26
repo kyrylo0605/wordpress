@@ -1659,3 +1659,30 @@ if ( ! function_exists( 'yith_plugin_fw_copy_to_clipboard' ) ) {
 		yith_plugin_fw_get_field( $field, true, false );
 	}
 }
+
+if ( ! function_exists( 'yith_plugin_fw_add_utm_data' ) ) {
+	/**
+	 * Add UTM data in backend url
+	 *
+	 * @param string $url      The url that want to track.
+	 * @param string $slug     Plugin slug.
+	 * @param string $campaign Campaign to track. Default: plugin-version-author-uri.
+	 * @param string $source   Where the link came from. Default: wp-dashboard.
+	 *
+	 * @since 3.6.10
+	 */
+	function yith_plugin_fw_add_utm_data( $url, $slug, $campaign = 'plugin-version-author-uri', $source = 'wp-dashboard' ) {
+		$url = trailingslashit( $url );
+		if ( ! empty( $slug ) ) {
+			$utm_track_data = array(
+				'utm_source'   => $source,
+				'utm_medium'   => $slug,
+				'utm_campaign' => $campaign,
+			);
+
+			$url = add_query_arg( $utm_track_data, $url );
+		}
+
+		return $url;
+	}
+}

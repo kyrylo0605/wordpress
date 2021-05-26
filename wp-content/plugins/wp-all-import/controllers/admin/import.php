@@ -64,7 +64,8 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 		}		
 
 		if ( ! PMXI_Plugin::$session->has_session()
-			or ! empty( PMXI_Plugin::$session->update_previous ) and $update_previous->getById(PMXI_Plugin::$session->update_previous)->isEmpty()			
+			or ! empty( PMXI_Plugin::$session->update_previous ) and $update_previous->getById(PMXI_Plugin::$session->update_previous)->isEmpty()
+		    or empty($xml)
 			or ! @$dom->loadXML($xml)// FIX: libxml xpath doesn't handle default namespace properly, so remove it upon XML load			
 		) {					
 			if ( ! PMXI_Plugin::is_ajax() ){
@@ -139,6 +140,8 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			'template' => false	,
             'taxonomy_type' => ''
 		);
+
+		$DefaultOptions = apply_filters('wp_all_import_default_options', $DefaultOptions);
 
 		if ($parent_import and ! $parent_import_record->getById($parent_import)->isEmpty()){
 			$DefaultOptions['custom_type'] = $parent_import_record->options['custom_type'];
@@ -463,7 +466,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 				$node_list = @ $xpath->query($post['xpath']); // make sure only element selection is allowed; prevent parsing warning to be displayed
 			
 				if (FALSE === $node_list) {
-					$this->errors->add('form-validation', __('Your XPath is not valid.<br/><br/>Click "get default XPath" to get the default XPath.', 'wp_all_import_plugin'));				
+					$this->errors->add('form-validation', __('Your XPath is not valid.', 'wp_all_import_plugin'));
 				} else {
 					foreach ($node_list as $el) {
 						if ( ! $el instanceof DOMElement) {
@@ -535,11 +538,10 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 		$post = $this->input->post(array('xpath' => '', 'show_element' => 1, 'root_element' => PMXI_Plugin::$session->source['root_element'], 'delimiter' => '', 'is_csv' => 0));
 		$wp_uploads = wp_upload_dir();
 
-		if ( ! check_ajax_referer( 'wp_all_import_secure', 'security', false )){
+		if ( ! check_ajax_referer( 'wp_all_import_secure', 'security', false )) {
 			$this->errors->add('form-validation', __('Security check', 'wp_all_import_plugin'));
-		}
-		elseif ('' == $post['xpath']) {
-			$this->errors->add('form-validation', __('Your XPath is empty.<br/><br/>Please enter an XPath expression, or click "get default XPath" to get the default XPath.', 'wp_all_import_plugin'));
+		} elseif ('' == $post['xpath']) {
+			$this->errors->add('form-validation', __('Your XPath is empty.<br/><br/>Please enter an XPath expression.', 'wp_all_import_plugin'));
 		} else {					
 
 			$source = PMXI_Plugin::$session->get('source');
@@ -573,7 +575,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 
 			if ($post['show_element'] == 1) {				
 				PMXI_Plugin::$session->set('count', $this->data['node_list_count'] = 0);					 														
-			}else{				
+			} else {
 				$this->data['node_list_count'] = PMXI_Plugin::$session->count;
 			}				
 						
@@ -669,8 +671,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 	/**
 	 * Helper to evaluate xpath and return matching elements as direct paths for javascript side to highlight them
 	 */
-	public function evaluate_variations()
-	{
+	public function evaluate_variations() {
 		if ( ! PMXI_Plugin::getInstance()->getAdminCurrentScreen()->is_ajax) { // call is only valid when send with ajax
 			wp_redirect(add_query_arg('action', 'element', $this->baseUrl)); die();
 		}		
@@ -685,14 +686,14 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 		$this->data['tagno'] = max(intval($this->input->getpost('tagno', 1)), 0);
 
 		if ('' == $post['xpath']) {
-			$this->errors->add('form-validation', __('Your XPath is empty.<br/><br/>Please enter an XPath expression, or click "get default XPath" to get the default XPath.', 'wp_all_import_plugin'));
+			$this->errors->add('form-validation', __('Your XPath is empty.<br/><br/>Please enter an XPath expression.', 'wp_all_import_plugin'));
 		} else {						
 			$post['xpath'] = '/' . ((!empty($this->data['update_previous']->root_element)) ? $this->data['update_previous']->root_element : PMXI_Plugin::$session->source['root_element']) .'/'.  ltrim(trim(str_replace("[*]","",$post['xpath']),'{}'), '/');			
 			// in default mode
 			$this->data['variation_elements'] = $elements = @ $xpath->query($post['xpath']); // prevent parsing warning to be displayed
 			$this->data['variation_list_count'] = $elements->length;			
 			if (FALSE === $elements) {
-				$this->errors->add('form-validation', __('Your XPath is not valid.<br/><br/>Click "get default XPath" to get the default XPath.', 'wp_all_import_plugin'));				
+				$this->errors->add('form-validation', __('Your XPath is not valid.', 'wp_all_import_plugin'));
 			} elseif ( ! $elements->length) {
 				$this->errors->add('form-validation', __('No matching variations found for XPath specified', 'wp_all_import_plugin'));
 			} else {
@@ -823,12 +824,10 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			}
 		}		
 
-		if ( $is_json ){
-
+		if ( $is_json ) {
 			ob_start();
 			$this->render();		
 			exit( json_encode(array('html' => ob_get_clean())) );
-
 		}
 		else $this->render();
 	}
@@ -1489,17 +1488,14 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			if ( ! $this->errors->get_error_codes()) {				
 
 				// Attributes fields logic
-                $post = apply_filters('pmxi_save_options', $post, $this->isWizard);
+				$post = apply_filters('pmxi_save_options', $post);
 				
 				// validate post excerpt
 				if ( ! empty($post['post_excerpt'])) $this->_validate_template($post['post_excerpt'], __('Excerpt', 'wp_all_import_plugin'));
 				// validate images
-				if ( $post['download_images'] == 'yes')
-				{
+				if ( $post['download_images'] == 'yes') {
 					if ( ! empty($post['download_featured_image'])) $this->_validate_template($post['download_featured_image'], __('Images', 'wp_all_import_plugin'));	
-				}
-				else
-				{
+				} else {
 					if ( ! empty($post['featured_image'])) $this->_validate_template($post['featured_image'], __('Images', 'wp_all_import_plugin'));	
 				}
 				// validate images meta data		
@@ -1665,15 +1661,14 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 		$this->render();
 	}
 
-	protected function _validate_template($text, $field_title)
-	{
+	protected function _validate_template($text, $field_title) {
 		try {
-		  if ($text != ''){
-        $scanner = new XmlImportTemplateScanner();
-        $tokens = $scanner->scan(new XmlImportStringReader($text));
-        $parser = new XmlImportTemplateParser($tokens);
-        $tree = $parser->parse();
-      }
+            if ($text != ''){
+                $scanner = new XmlImportTemplateScanner();
+                $tokens = $scanner->scan(new XmlImportStringReader($text));
+                $parser = new XmlImportTemplateParser($tokens);
+                $parser->parse();
+            }
 		} catch (XmlImportException $e) {
 			$this->errors->add('form-validation', sprintf(__('%s template is invalid: %s', 'wp_all_import_plugin'), $field_title, $e->getMessage()));
 		}
@@ -1682,8 +1677,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 	/**
 	 * Step #4: Options
 	 */
-	public function options()
-	{		
+	public function options() {
 
 		$default = PMXI_Plugin::get_default_import_options();
 		
@@ -1882,8 +1876,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 						// loop through the file until all lines are read				    				    			   				    
 					    while ($xml = $file->read()) {
 
-					    	if ( ! empty($xml) )
-					      	{
+					    	if ( ! empty($xml) ) {
 					      		//PMXI_Import_Record::preprocessXml($xml);
 					      		$xml = "<?xml version=\"1.0\" encoding=\"". $this->data['import']['options']['encoding'] ."\"?>" . "\n" . $xml;					      		
 						    		
@@ -1916,12 +1909,9 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 
 								// loop through the file until all lines are read				    				    			   				    
 							    while ($xml = $file->read()) {
-
-							    	if ( ! empty($xml) )
-							      	{
+							    	if ( ! empty($xml) ) {
 							      		//PMXI_Import_Record::preprocessXml($xml);
-							      		$xml = "<?xml version=\"1.0\" encoding=\"". $this->data['import']['options']['encoding'] ."\"?>" . "\n" . $xml;					      		
-								    		
+							      		$xml = "<?xml version=\"1.0\" encoding=\"". $this->data['import']['options']['encoding'] ."\"?>" . "\n" . $xml;
 								      	$dom = new DOMDocument('1.0', $this->data['import']['options']['encoding']);
 										$old = libxml_use_internal_errors(true);
 										$dom->loadXML($xml);
@@ -1929,16 +1919,12 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 										$xpath = new DOMXPath($dom);
 										
 										if (($elements = @$xpath->query($baseXpath)) and $elements->length) $loop += $elements->length;																												
-										unset($dom, $xpath, $elements);												
-
+										unset($dom, $xpath, $elements);
 								    }
 								}
-								unset($file);	
-
+								unset($file);
 								if ($loop) $this->data['import']->set(array('count' => $loop))->save();
-
 							}
-
 						}
 						
 						$upload_result['root_element'] = $root_element;						
@@ -2393,6 +2379,8 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
             $logger = function($m) {echo "<div class='progress-msg'>$m</div>\n"; if ( "" != strip_tags(wp_all_import_strip_tags_content($m))) { PMXI_Plugin::$session->log .= "<p>".strip_tags(wp_all_import_strip_tags_content($m))."</p>"; flush(); }};
 		}
 
+		$logger = apply_filters('wp_all_import_logger', $logger);
+
 		PMXI_Plugin::$session->set('start_time', (empty(PMXI_Plugin::$session->start_time)) ? time() : PMXI_Plugin::$session->start_time);
 
         $is_reset_cache = apply_filters('wp_all_import_reset_cache_before_import', false, $import->id);
@@ -2790,7 +2778,7 @@ COMPLETE;
 				} elseif (PMXI_Plugin::$session->options['custom_type'] == 'shop_customer') {
 					$uniqueKey = PMXI_Plugin::$session->options['pmsci_customer']['login'];
 				} else {
-                $uniqueKey = PMXI_Plugin::$session->options['title'];
+					$uniqueKey = PMXI_Plugin::$session->options['title'];
 				}
 			}
 

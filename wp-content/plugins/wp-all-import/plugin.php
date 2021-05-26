@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: WP All Import
-Plugin URI: http://www.wpallimport.com/upgrade-to-pro/?utm_source=import-plugin-free&utm_medium=wp-plugins-page&utm_campaign=upgrade-to-pro
+Plugin URI: http://www.wpallimport.com/wordpress-xml-csv-import/?utm_source=import-plugin-free&utm_medium=wp-plugins-page&utm_campaign=upgrade-to-pro
 Description: The most powerful solution for importing XML and CSV files to WordPress. Create Posts and Pages with content from any XML or CSV file. A paid upgrade to WP All Import Pro is available for support and additional features.
-Version: 3.5.6
+Version: 3.5.9
 Author: Soflyy
 */
 
@@ -25,7 +25,7 @@ define('WP_ALL_IMPORT_ROOT_URL', rtrim(plugin_dir_url(__FILE__), '/'));
  */
 define('WP_ALL_IMPORT_PREFIX', 'pmxi_');
 
-define('PMXI_VERSION', '3.5.6');
+define('PMXI_VERSION', '3.5.9');
 
 define('PMXI_EDITION', 'free');
 
@@ -586,33 +586,33 @@ final class PMXI_Plugin {
 
 				} else {
 
-					$this->_admin_current_screen = (object)array(
-						'id' => $controllerName,
-						'base' => $controllerName,
-						'action' => $actionName,
-						'is_ajax' => strpos($_SERVER["HTTP_ACCEPT"], 'json') !== false,
-						'is_network' => is_network_admin(),
-						'is_user' => is_user_admin(),
-					);
-					add_filter('current_screen', array($this, 'getAdminCurrentScreen'));
-					add_filter('admin_body_class', array($this, 'getAdminBodyClass'), 10, 1);
+						$this->_admin_current_screen = (object)array(
+							'id' => $controllerName,
+							'base' => $controllerName,
+							'action' => $actionName,
+							'is_ajax' => (isset($_SERVER["HTTP_ACCEPT"]) && strpos($_SERVER["HTTP_ACCEPT"], 'json')) !== false,
+							'is_network' => is_network_admin(),
+							'is_user' => is_user_admin(),
+						);
+						add_filter('current_screen', array($this, 'getAdminCurrentScreen'));
+						add_filter('admin_body_class', array($this, 'getAdminBodyClass'), 10, 1);
 
-					$controller = new $controllerName();
-					if ( ! $controller instanceof PMXI_Controller_Admin) {
-						throw new Exception("Administration page `$page` matches to a wrong controller type.");
-					}
+						$controller = new $controllerName();
+						if ( ! $controller instanceof PMXI_Controller_Admin) {
+							throw new Exception("Administration page `$page` matches to a wrong controller type.");
+						}
 
-					if ($this->_admin_current_screen->is_ajax) { // ajax request
-						$controller->$action();
-						do_action('pmxi_action_after');
-						die(); // stop processing since we want to output only what controller is randered, nothing in addition
-					} elseif ( ! $controller->isInline) {
-						@ob_start();
-						$controller->$action();
-						self::$buffer = @ob_get_clean();
-					} else {
-						self::$buffer_callback = array($controller, $action);
-					}
+						if ($this->_admin_current_screen->is_ajax) { // ajax request
+							$controller->$action();
+							do_action('pmxi_action_after');
+							wp_die(); // stop processing since we want to output only what controller is randered, nothing in addition
+						} elseif ( ! $controller->isInline) {
+							@ob_start();
+							$controller->$action();
+							self::$buffer = @ob_get_clean();
+						} else {
+							self::$buffer_callback = array($controller, $action);
+						}
 
 				}
 
@@ -1275,10 +1275,12 @@ final class PMXI_Plugin {
 			'tax_logic_mapping' => array(),
 			'is_tax_hierarchical_group_delim' => array(),
 			'tax_hierarchical_group_delim' => array(),
+			'tax_hierarchical_group_delim' => array(),
 			'nested_files' => array(),
 			'xml_reader_engine' => 0,
 			'import_img_tags' => 0,
-			'search_existing_images_logic' => 'by_url'
+			'search_existing_images_logic' => 'by_url',
+            'is_update_post_format' => 1
 		);
 	}
 
@@ -1302,6 +1304,20 @@ final class PMXI_Plugin {
 	public static function is_ajax(){
 		return strpos($_SERVER["HTTP_ACCEPT"], 'json') !== false;
 	}
+
+    /**
+     * Returns ID of current import.
+     *
+     * @return int|bool
+     */
+    public static function getCurrentImportId() {
+        $input = new PMXI_Input();
+        $import_id = $input->get('id');
+        if (empty($import_id)) {
+            $import_id = $input->get('import_id');
+        }
+        return $import_id;
+    }
 
 }
 

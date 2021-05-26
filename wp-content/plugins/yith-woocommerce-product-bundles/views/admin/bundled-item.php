@@ -23,7 +23,7 @@ $content_hidden = 'closed' === $open_closed ? 'hidden' : '';
 $title = $product ? $product->get_name() : get_the_title( $product_id );
 
 $edit_link  = get_edit_post_link( $product_id );
-$item_title = sprintf( '%s &ndash; #%s', $title, $product_id );
+$item_title = apply_filters('yith_wcpb_bundle_item_title', sprintf( '%s &ndash; #%s', $title, $product_id ), $title, $product_id );
 
 if ( ! $product ) {
 	$is_purchasable = false;

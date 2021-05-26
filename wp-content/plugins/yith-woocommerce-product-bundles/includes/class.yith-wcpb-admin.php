@@ -106,6 +106,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 			add_filter( 'woocommerce_admin_order_item_class', array( $this, 'woocommerce_admin_html_order_item_class' ), 10, 2 );
 			add_filter( 'woocommerce_admin_order_item_count', array( $this, 'woocommerce_admin_order_item_count' ), 10, 2 );
 			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'woocommerce_hidden_order_itemmeta' ) );
+			add_filter( 'woocommerce_order_item_display_meta_key', array( $this, 'woocommerce_order_item_display_meta_key' ) );
 
 			add_action( 'wp_ajax_woocommerce_add_order_item', array( $this, 'prevent_adding_bundle_products_in_orders' ), 5 );
 
@@ -127,6 +128,22 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		 */
 		public function woocommerce_hidden_order_itemmeta( $hidden ) {
 			return array_merge( $hidden, array( '_bundled_by', '_cartstamp' ) );
+		}
+
+		/**
+		 * Filter display meta key
+		 *
+		 * @param string $display_key The key to be shown.
+		 *
+		 * @return string
+		 * @since  1.4.8
+		 */
+		public function woocommerce_order_item_display_meta_key( $display_key ) {
+			if ( '_yith_wcpb_title' === $display_key ) {
+				$display_key = __( 'Custom name', 'yith-woocommerce-product-bundles' );
+			}
+
+			return $display_key;
 		}
 
 		/**
@@ -292,10 +309,10 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 		public function woocommerce_process_product_meta( $product ) {
 			if ( $product->is_type( 'yith_bundle' ) ) {
 
-				$bundle_data = ! empty( $_POST['_yith_wcpb_bundle_data'] ) && is_array( $_POST['_yith_wcpb_bundle_data'] ) ? wp_unslash( $_POST['_yith_wcpb_bundle_data'] ) : array();
+				$bundle_data         = ! empty( $_POST['_yith_wcpb_bundle_data'] ) && is_array( $_POST['_yith_wcpb_bundle_data'] ) ? wp_unslash( $_POST['_yith_wcpb_bundle_data'] ) : array();
+				$indexed_bundle_data = array();
 				if ( $bundle_data ) {
-					$indexed_bundle_data = array();
-					$loop                = 1;
+					$loop = 1;
 					foreach ( $bundle_data as $single_bundle_data ) {
 						if ( isset( $single_bundle_data['bp_title'] ) ) {
 							$single_bundle_data['bp_title'] = wp_kses_post( $single_bundle_data['bp_title'] );
@@ -310,7 +327,7 @@ if ( ! class_exists( 'YITH_WCPB_Admin' ) ) {
 					}
 				}
 
-				$product->update_meta_data( '_yith_wcpb_bundle_data', $bundle_data );
+				$product->update_meta_data( '_yith_wcpb_bundle_data', $indexed_bundle_data );
 				$product->update_meta_data( '_yith_bundle_product_version', YITH_WCPB()->get_bundle_product_version() );
 			}
 		}

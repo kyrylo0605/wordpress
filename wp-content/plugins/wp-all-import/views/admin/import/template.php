@@ -201,7 +201,7 @@
 					</div>				
 					<?php $templates = new PMXI_Template_List(); ?>
 					<div class="load-template">				
-						<select name="load_template" id="load_template" style="padding:2px; width: auto; height: 40px;">
+						<select name="load_template" id="load_template">
 							<option value=""><?php _e('Load Template...', 'wp_all_import_plugin') ?></option>
 							<?php foreach ($templates->getBy()->convertRecords() as $t): ?>
 								<option value="<?php echo $t->id ?>"><?php echo $t->name ?></option>

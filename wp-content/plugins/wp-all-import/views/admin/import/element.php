@@ -179,7 +179,7 @@
 			</div>
 		</div>	
 		<div id="wpallimport-filters" class="wpallimport-collapsed-content" style="padding:0;">
-			<table style="width: 100%; font-weight: bold; padding: 20px;">
+			<table style="width: 100%; font-weight: bold; padding: 20px 20px 0 20px;">
 				<tr>					
 					<td style="width: 30%; padding-left: 30px;"><?php _e('Element', 'wp_all_import_plugin'); ?></td>
 					<td style="width:20%;"><?php _e('Rule', 'wp_all_import_plugin'); ?></td>

@@ -43,15 +43,13 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 		}
 		
 		$list = new PMXI_Import_List();
-		$post = new PMXI_Post_Record();
 		$by = array('parent_import_id' => 0);
 		if ('' != $s) {
 			$like = '%' . preg_replace('%\s+%', '%', preg_replace('/[%?]/', '\\\\$0', $s)) . '%';
 			$by[] = array(array('name LIKE' => $like, 'type LIKE' => $like, 'path LIKE' => $like, 'friendly_name LIKE' => $like), 'OR');
 		}
 		
-		$this->data['list'] = $list->join($post->getTable(), $list->getTable() . '.id = ' . $post->getTable() . '.import_id', 'LEFT')
-			->setColumns(
+		$this->data['list'] = $list->setColumns(
 				$list->getTable() . '.*'
 			)
 			->getBy($by, "$order_by $order", $pagenum, $perPage, $list->getTable() . '.id');
@@ -453,14 +451,13 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 					!$key and $filePath = $path;					
 				}				
 
-				if (empty($chunks))
-				{
-					if ($item->options['is_delete_missing'])
-					{
+				if (empty($chunks)) {
+					if ($item->options['is_delete_missing']) {
 						$chunks = 1;
-					}
-					else
-					{
+					} else {
+						$item->set(array(
+							'registered_on' => date('Y-m-d H:i:s')
+						))->update();
 						$this->errors->add('root-element-validation', __('No matching elements found for Root element and XPath expression specified', 'wp_all_import_plugin'));						
 					}
 				}													   							

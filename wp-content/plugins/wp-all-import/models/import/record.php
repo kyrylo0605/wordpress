@@ -169,10 +169,17 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                 $taxonomy_slug = array();
                 if ( 'xpath' == $this->options['taxonomy_slug'] && ! empty($this->options['taxonomy_slug_xpath']) && $this->is_parsing_required('is_update_slug')){
                     $taxonomy_slug = XmlImportParser::factory($xml, $cxpath, $this->options['taxonomy_slug_xpath'], $file)->parse($records); $tmp_files[] = $file;
-                }
-                else{
+                } else{
                     count($titles) and $taxonomy_slug = array_fill(0, count($titles), '');
                 }
+				// Composing terms display type
+				$chunk == 1 and $logger and call_user_func($logger, __('Composing terms display type...', 'wp_all_import_plugin'));
+				$taxonomy_display_type = array();
+				if ( 'xpath' == $this->options['taxonomy_display_type'] && ! empty($this->options['taxonomy_display_type_xpath'])) {
+					$taxonomy_display_type = XmlImportParser::factory($xml, $cxpath, $this->options['taxonomy_display_type_xpath'], $file)->parse($records); $tmp_files[] = $file;
+				} else{
+					count($titles) and $taxonomy_display_type = array_fill(0, count($titles), $this->options['taxonomy_display_type']);
+				}
             }
 
             if ( ! in_array($this->options['custom_type'], array('taxonomies')) ){
@@ -235,12 +242,10 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 				$chunk == 1 and $logger and call_user_func($logger, __('Composing duplicate indicators...', 'wp_all_import_plugin'));
 				if (!empty($this->options[$this->options['duplicate_indicator'] . '_xpath'])){
                     $duplicate_indicator_values = XmlImportParser::factory($xml, $cxpath, $this->options[$this->options['duplicate_indicator'] . '_xpath'], $file)->parse($records); $tmp_files[] = $file;
-				}
-				else{
+				} else {
 					count($titles) and $duplicate_indicator_values = array_fill(0, count($titles), '');
 				}
-			}
-			else{
+			} else {
                 count($titles) and $duplicate_indicator_values = array_fill(0, count($titles), '');
             }
 
@@ -412,7 +417,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					$tx_name = $ctx->name;
 					$mapping_rules = ( ! empty($this->options['tax_mapping'][$tx_name])) ? json_decode($this->options['tax_mapping'][$tx_name], true) : false;
 					$taxonomies[$tx_name] = array();
-					if ( ! empty($this->options['tax_logic'][$tx_name]) and ! empty($this->options['tax_assing'][$tx_name]) ){
+					if ( ! empty($this->options['tax_logic'][$tx_name]) ) {
 						switch ($this->options['tax_logic'][$tx_name]){
 							case 'single':
 								if ( isset($this->options['tax_single_xpath'][$tx_name]) && $this->options['tax_single_xpath'][$tx_name] !== "" ){
@@ -421,7 +426,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 										$taxonomies[$tx_name][$i][] = wp_all_import_ctx_mapping(array(
 											'name' => $tx,
 											'parent' => false,
-											'assign' => (isset($this->options['term_assing'][$tx_name])) ? $this->options['term_assing'][$tx_name] : true,
+											'assign' => true,
 											'is_mapping' => (!empty($this->options['tax_enable_mapping'][$tx_name])),
 											'hierarchy_level' => 1,
 											'max_hierarchy_level' => 1
@@ -451,7 +456,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 												$taxonomies[$tx_name][$i][] = wp_all_import_ctx_mapping(array(
 													'name' => $cc,
 													'parent' => false,
-													'assign' => (isset($this->options['multiple_term_assing'][$tx_name])) ? $this->options['multiple_term_assing'][$tx_name] : true,
+													'assign' => true,
 													'is_mapping' => (!empty($this->options['tax_enable_mapping'][$tx_name]) and empty($this->options['tax_logic_mapping'][$tx_name])),
 													'hierarchy_level' => 1,
 													'max_hierarchy_level' => 1
@@ -521,7 +526,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 												$delimeted_taxonomies = array_filter(array_filter(explode( ! empty($this->options['tax_hierarchical_delim'][$tx_name]) ? $this->options['tax_hierarchical_delim'][$tx_name] : ',', $_tx)));
 												if ( ! empty($delimeted_taxonomies) ){															
 													foreach ($delimeted_taxonomies as $j => $cc) {																												
-														$is_assign_term = (isset($this->options['tax_hierarchical_assing'][$tx_name][$k])) ? $this->options['tax_hierarchical_assing'][$tx_name][$k] : true;
+														$is_assign_term = true;
 														if ( ! empty($this->options['tax_hierarchical_last_level_assign'][$tx_name]) ){
 															$is_assign_term = (count($delimeted_taxonomies) == $j + 1) ? 1 : 0;
 														}
@@ -582,7 +587,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 																	$taxonomies[$tx_name][$i][] = wp_all_import_ctx_mapping(array(
 																		'name' => trim($dc),
 																		'parent' => $parent,
-																		'assign' => (isset($taxonomy['assign'])) ? $taxonomy['assign'] : true,
+																		'assign' => true,
 																		'is_mapping' => (!empty($this->options['tax_enable_mapping'][$tx_name]) and empty($this->options['tax_logic_mapping'][$tx_name])),
 																		'hierarchy_level' => 1,
 																		'max_hierarchy_level' => 1
@@ -597,7 +602,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 														$taxonomies[$tx_name][$i][] = wp_all_import_ctx_mapping(array(
 															'name' => trim($dc),
 															'parent' => false,
-															'assign' => (isset($taxonomy['assign'])) ? $taxonomy['assign'] : true,
+															'assign' => true,
 															'is_mapping' => (!empty($this->options['tax_enable_mapping'][$tx_name]) and empty($this->options['tax_logic_mapping'][$tx_name])),
 															'hierarchy_level' => 1,
 															'max_hierarchy_level' => 1
@@ -806,8 +811,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 				if (class_exists($model_class)){						
 					$addons[$class] = new $model_class();
 					$addons_data[$class] = ( method_exists($addons[$class], 'parse') ) ? $addons[$class]->parse($parsingData) : false;				
-				}
-				else {
+				} else {
 					if ( ! empty($parse_functions[$class]) ){
 						if ( is_array($parse_functions[$class]) and is_callable($parse_functions[$class]) or ! is_array($parse_functions[$class]) and function_exists($parse_functions[$class])  ){
 							$addons_data[$class] = call_user_func($parse_functions[$class], $parsingData);					
@@ -883,8 +887,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 				if ( empty($titles[$i]) && !in_array($this->options['custom_type'], array('shop_order', 'import_users', 'shop_customer', 'comments', 'woo_reviews')) ) {
 					if ( ! empty($addons_data['PMWI_Plugin']) and !empty($addons_data['PMWI_Plugin']['single_product_parent_ID'][$i]) ){
 						$titles[$i] = $addons_data['PMWI_Plugin']['single_product_parent_ID'][$i] . ' Product Variation';
-					}					
-					else{
+					} else {
 						$logger and call_user_func($logger, __('<b>WARNING</b>: title is empty.', 'wp_all_import_plugin'));
 						$logger and !$is_cron and PMXI_Plugin::$session->warnings++;
 					}
@@ -1007,11 +1010,9 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 
 				$check_for_duplicates = apply_filters('wp_all_import_is_check_duplicates', true, $this->id);
 
-				if ( $check_for_duplicates )
-				{					
+				if ( $check_for_duplicates ) {
 					// if Auto Matching re-import option selected
-					if ( "manual" != $this->options['duplicate_matching'] ){
-						
+					if ( "manual" != $this->options['duplicate_matching'] ) {
 						// find corresponding article among previously imported				
 						$logger and call_user_func($logger, sprintf(__('Find corresponding article among previously imported for post `%s`...', 'wp_all_import_plugin'), $this->getRecordTitle($articleData)));
                         $postList = new PMXI_Post_List();
@@ -1036,8 +1037,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                             if ($post_to_update){
                                 $logger and call_user_func($logger, sprintf(__('Duplicate post was found for post %s with unique key `%s`...', 'wp_all_import_plugin'), $this->getRecordTitle($articleData), $unique_keys[$i]));
                                 break;
-                            }
-                            else{
+                            } else {
                                 $postRecord->delete();
                             }
                         }
@@ -1052,8 +1052,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 						if ('custom field' == $this->options['duplicate_indicator']) {
 							$custom_duplicate_value = XmlImportParser::factory($xml, $cxpath, $this->options['custom_duplicate_value'], $file)->parse($records); $tmp_files[] = $file;
 							$custom_duplicate_name = XmlImportParser::factory($xml, $cxpath, $this->options['custom_duplicate_name'], $file)->parse($records); $tmp_files[] = $file;
-						}
-						else{
+						} else {
 							count($titles) and $custom_duplicate_name = $custom_duplicate_value = array_fill(0, count($titles), '');
 						}
 						
@@ -1071,13 +1070,13 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                                     $duplicate_id = false;
                                 }
                             }
-						}
 						// handle duplicates according to import settings
-						else
-						{
+						} else {
 							$duplicates = pmxi_findDuplicates($articleData, $custom_duplicate_name[$i], $custom_duplicate_value[$i], $this->options['duplicate_indicator'], $duplicate_indicator_values[$i]);
 							$duplicate_id = ( ! empty($duplicates)) ? array_shift($duplicates) : false;
 						}
+
+						$duplicate_id = apply_filters('wp_all_import_manual_matching', $duplicate_id, $duplicate_indicator_values[$i], $this);
 
 						if ( ! empty($duplicate_id)) {
                             $duplicate_id = apply_filters('wp_all_import_manual_matching_duplicate_id', $duplicate_id, $duplicates, $articleData, $this->id);
@@ -1096,8 +1095,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                                     $post_to_update = get_post($post_to_update_id = $duplicate_id);
                                     break;
                             }
-						}	
-						else{
+						} else {
 							$logger and call_user_func($logger, sprintf(__('Duplicate post wasn\'t found for post `%s`...', 'wp_all_import_plugin'), $this->getRecordTitle($articleData)));
 						}
 					}
@@ -1355,7 +1353,6 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                             default:
                                 break;
 						}
-
 					}
 
                     $is_images_to_delete = apply_filters('pmxi_delete_images', true, $articleData, $current_xml_node);
@@ -1619,9 +1616,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 									break;
 							}
 						}
-
-                         $articleData['post_title'] = $articleData['user_login'];
-
+						$articleData['post_title'] = $articleData['user_login'];
                         break;
                     default:
                         if (empty($articleData['ID'])){
@@ -1682,11 +1677,13 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					}
 
 					// [post format]
-					if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type[$i], 'post-formats' ) ){						
-						set_post_format($pid, ("xpath" == $this->options['post_format']) ? $post_format[$i] : $this->options['post_format'] ); 						
-						$logger and call_user_func($logger, sprintf(__('Associate post `%s` with post format %s ...', 'wp_all_import_plugin'), $this->getRecordTitle($articleData), ("xpath" == $this->options['post_format']) ? $post_format[$i] : $this->options['post_format']));
+					if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type[$i], 'post-formats' ) ) {
+						if (empty($articleData['ID']) || $this->options['update_all_data'] == 'yes' || ($this->options['update_all_data'] == 'no' and $this->options['is_update_post_format'])) {
+							set_post_format($pid, ("xpath" == $this->options['post_format']) ? $post_format[$i] : $this->options['post_format'] );
+							$logger and call_user_func($logger, sprintf(__('Associate post `%s` with post format %s ...', 'wp_all_import_plugin'), $this->getRecordTitle($articleData), ("xpath" == $this->options['post_format']) ? $post_format[$i] : $this->options['post_format']));
+						}
 					}
-					// [/post format]										
+					// [/post format]
 
 					// [addons import]
 
@@ -1710,8 +1707,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					foreach (PMXI_Admin_Addons::get_active_addons() as $class) {
 						if (class_exists($class)) {
 							if ( method_exists($addons[$class], 'import') ) $addons[$class]->import($importData);	
-						}
-						else {
+						} else {
 							if (!empty($import_functions[$class])) {
 								if (is_array($import_functions[$class]) and is_callable($import_functions[$class]) or ! is_array($import_functions[$class]) and function_exists($import_functions[$class]) ) {
 									call_user_func($import_functions[$class], $importData, $addons_data[$class]);			
@@ -1720,7 +1716,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 						}
 					}
 
-					// [/addons import]									
+					// [/addons import]
 
 					// Page Template
                     global $wp_version;
@@ -1812,8 +1808,13 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                                     if ($full_size != $image){
                                         // check if full size image exists
                                         $full_size_headers = get_headers($full_size, true);
-                                        if (!empty($full_size_headers['Content-Type']) && strpos($full_size_headers['Content-Type'], 'image') !== false){
-                                            $image = $full_size;
+                                        if (!empty($full_size_headers['Content-Type'])) {
+	                                        if (is_array($full_size_headers['Content-Type'])) {
+		                                        $full_size_headers['Content-Type'] = end($full_size_headers['Content-Type']);
+	                                        }
+	                                        if (strpos($full_size_headers['Content-Type'], 'image') !== false){
+		                                        $image = $full_size;
+	                                        }
                                         }
                                     }
                                 }
@@ -2654,12 +2655,12 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 								if (!empty($articleData['ID'])){
 									if ($this->options['update_all_data'] == "no" and $this->options['update_categories_logic'] == "all_except" and !empty($this->options['taxonomies_list']) 
 										and is_array($this->options['taxonomies_list']) and in_array($tx_name, $this->options['taxonomies_list'])){ 
-											$logger and call_user_func($logger, sprintf(__('- %s %s `%s` has been skipped attempted to `Leave these taxonomies alone, update all others`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name, $single_tax['name']));
+											$logger and call_user_func($logger, sprintf(__('- %s %s has been skipped attempted to `Leave these taxonomies alone, update all others`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name));
 											continue;
 										}		
 									if ($this->options['update_all_data'] == "no" and $this->options['update_categories_logic'] == "only" and ((!empty($this->options['taxonomies_list']) 
 										and is_array($this->options['taxonomies_list']) and ! in_array($tx_name, $this->options['taxonomies_list'])) or empty($this->options['taxonomies_list']))){ 
-											$logger and call_user_func($logger, sprintf(__('- %s %s `%s` has been skipped attempted to `Update only these taxonomies, leave the rest alone`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name, $single_tax['name']));
+											$logger and call_user_func($logger, sprintf(__('- %s %s has been skipped attempted to `Update only these taxonomies, leave the rest alone`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name));
 											continue;
 										}
 								}								
@@ -2678,7 +2679,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 								if ( ! empty($txes[$i]) ):
 									foreach ($txes[$i] as $key => $single_tax) {
 										$is_created_term = false;
-										if (is_array($single_tax) and isset($single_tax['name'])){
+										if (is_array($single_tax) and isset($single_tax['name']) and $single_tax['name'] != "") {
 											$parent_id = ( ! empty($single_tax['parent'])) ? pmxi_recursion_taxes($single_tax['parent'], $tx_name, $txes[$i], $key) : '';
 											$term = (empty($this->options['tax_is_full_search_' . $this->options['tax_logic'][$tx_name]][$tx_name])) ? is_exists_term($single_tax['name'], $tx_name, (int)$parent_id) : is_exists_term($single_tax['name'], $tx_name);
 											if ( empty($term) and !is_wp_error($term) ){
@@ -2800,13 +2801,9 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					foreach (PMXI_Admin_Addons::get_active_addons() as $class){ 
 						if (class_exists($class)){
 							if ( method_exists($addons[$class], 'saved_post') ) $addons[$class]->saved_post($importData);	
-						}
-						else
-						{							
-							if ( ! empty($saved_functions[$class]) ){ 
-
+						} else {
+							if ( ! empty($saved_functions[$class]) ){
 								if ( is_array($saved_functions[$class]) and is_callable($saved_functions[$class]) or ! is_array($saved_functions[$class]) and function_exists($saved_functions[$class])  ){
-
 									call_user_func($saved_functions[$class], $importData);		
 								}								
 							}														
@@ -2873,9 +2870,10 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 
 							$missingPostRecord = new PMXI_Post_Record();
 							$missingPostRecord->getBy('id', $missingPost['id']);
-							if ( ! $missingPostRecord->isEmpty())
+							if ( ! $missingPostRecord->isEmpty() && empty($this->options['is_delete_missing'])) {
 								$missingPostRecord->set(array('iteration' => $this->iteration))->update();
-							unset($missingPostRecord);								
+							}
+							unset($missingPostRecord);
 						}
 					}
 				}	
@@ -2918,6 +2916,8 @@ class PMXI_Import_Record extends PMXI_Model_Record {
         $downloaded = false;
 
         $file_info = false;
+
+        $url = wp_all_import_sanitize_url($url);
 
         $logger and call_user_func($logger, sprintf(__('- Downloading image from `%s`', 'wp_all_import_plugin'), $url));
 
@@ -3015,8 +3015,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 				if ( ! @unlink($apath)) {
 					$logger and call_user_func($logger, sprintf(__('<b>WARNING</b>: Unable to remove %s', 'wp_all_import_plugin'), $apath));
 				}
-			}
-			else{
+			} else {
 				$file_path_array = PMXI_Helper::safe_glob($this->path, PMXI_Helper::GLOB_NODIR | PMXI_Helper::GLOB_PATH);
 				if (!empty($file_path_array)){
 					foreach ($file_path_array as $path) {

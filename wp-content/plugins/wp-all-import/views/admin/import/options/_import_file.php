@@ -22,7 +22,7 @@
 					<?php 
 					if ( ! empty($upload_validation) ): 										
 						$file_type = strtoupper(pmxi_getExtension($post['file']));
-						printf(__('Please verify that the file you using is a valid %s file.', 'wp_all_import_plugin'), $file_type); 
+						printf(__('This %s file has errors and is not valid.', 'wp_all_import_plugin'), $file_type);
 					endif;
 					?>
 				</h4>

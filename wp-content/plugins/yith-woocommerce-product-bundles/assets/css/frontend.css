@@ -146,6 +146,7 @@ h3.yith-wcpb-product-bundled-item-data__title a,
 
 .yith-wcpb-product-bundled-item-data__quantity input[type='number'].yith-wcpb-bundled-quantity {
     width       : 70px;
+	min-width   : 70px;
     padding     : 13px 5px;
     background  : #fff;
     border      : 1px solid #d1d1d1;
