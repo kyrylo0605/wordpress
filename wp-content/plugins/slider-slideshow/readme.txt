@@ -5,7 +5,7 @@ Tags: slider, wordpress slider, image slider, Photo Slider, slider plugin, respo
 Requires at least: 3.0
 Requires PHP: 5.6
 Tested up to: 5.7
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

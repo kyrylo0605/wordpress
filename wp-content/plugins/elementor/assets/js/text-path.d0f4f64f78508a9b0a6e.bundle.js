@@ -1,4 +1,4 @@
-/*! elementor - v3.2.3 - 05-05-2021 */
+/*! elementor - v3.2.4 - 08-06-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["text-path"],{
 
 /***/ "../assets/dev/js/frontend/utils/utils.js":
@@ -212,9 +212,9 @@ var TextPathHandler = /*#__PURE__*/function (_elementorModules$fro) {
     key: "initTextPath",
     value: function initTextPath() {
       var _this$getElementSetti2 = this.getElementSettings(),
-          startPoint = _this$getElementSetti2.start_point,
-          text = _this$getElementSetti2.text;
+          startPoint = _this$getElementSetti2.start_point;
 
+      var text = this.elements.pathContainer.dataset.text;
       this.attachIdToPath(); // Generate the `textPath` element with its settings.
 
       this.elements.svg.innerHTML += "\n\t\t\t<text>\n\t\t\t\t<textPath id=\"".concat(this.textPathId, "\" href=\"#").concat(this.pathId, "\"></textPath>\n\t\t\t</text>\n\t\t"); // Regenerate the elements object to have access to `this.elements.textPath`.
@@ -512,4 +512,4 @@ __webpack_require__(/*! ./_string-html */ "../node_modules/core-js/modules/_stri
 /***/ })
 
 }]);
-//# sourceMappingURL=text-path.fb1264c8db00088e9b55.bundle.js.map
+//# sourceMappingURL=text-path.d0f4f64f78508a9b0a6e.bundle.js.map

@@ -144,6 +144,15 @@ $document = Plugin::$instance->documents->get( Plugin::$instance->editor->get_po
 			</div>
 		<# } ); #>
 	</div>
+
+	<div class="e-panel-search-area e-panel-controls-search-area">
+		<div class="e-panel-search-wrapper e-panel-controls-search-wrapper">
+			<label for="elementor-panel-controls-search-input" class="screen-reader-text"><?php echo __( 'Search Control:', 'elementor' ); ?></label>
+			<input type="search" id="elementor-panel-controls-search-input" placeholder="<?php esc_attr_e( 'Search Control...', 'elementor' ); ?>" autocomplete="off"/>
+			<i class="eicon-search-bold" aria-hidden="true"></i>
+		</div>
+	</div>
+
 	<# if ( elementData.reload_preview ) { #>
 		<div class="elementor-update-preview">
 			<div class="elementor-update-preview-title"><?php echo __( 'Update changes to page', 'elementor' ); ?></div>
@@ -243,6 +252,11 @@ $document = Plugin::$instance->documents->get( Plugin::$instance->editor->get_po
 <script type="text/template" id="tmpl-elementor-control-dynamic-switcher">
 	<div class="elementor-control-dynamic-switcher elementor-control-unit-1" data-tooltip="<?php echo __( 'Dynamic Tags', 'elementor' ); ?>">
 		<i class="eicon-database"></i>
+	</div>
+</script>
+<script type="text/template" id="tmpl-elementor-control-element-color-picker">
+	<div class="elementor-control-element-color-picker e-control-tool" data-tooltip="<?php echo __( 'Element Color Picker', 'elementor' ); ?>">
+		<i class="eicon-eyedropper"></i>
 	</div>
 </script>
 

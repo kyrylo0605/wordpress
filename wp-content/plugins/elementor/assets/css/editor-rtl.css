@@ -1,4 +1,4 @@
-/*! elementor - v3.2.3 - 05-05-2021 */
+/*! elementor - v3.2.4 - 08-06-2021 */
 @charset "UTF-8";
 .elementor-control-unit-1 {
   width: 27px; }
@@ -580,13 +580,15 @@ select {
     .elementor-editor-preview .elementor-panel > .ui-resizable-e, .elementor-editor-preview .elementor-panel > .ui-resizable-w {
       display: none; }
   .elementor-panel .ps__rail-y {
-    z-index: 2; }
+    z-index: 3; }
   .elementor-panel .elementor-responsive-panel {
     overflow: hidden;
     padding: 5px 10px;
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(Min(135px, calc( 50% - 5px)), 1fr)); }
+    .elementor-panel .elementor-responsive-panel > .e-responsive-panel-stretch {
+      grid-column: 1 / -1; }
   .elementor-panel ::-moz-selection {
     background: #5bc0de;
     color: #ffffff; }
@@ -1180,48 +1182,49 @@ select {
         -ms-flex-pack: center;
             justify-content: center;
     background-color: rgba(255, 255, 255, 0.5);
-    z-index: 1; }
+    z-index: 4; }
   #elementor-panel-state-loading .eicon-loading {
     font-size: 25px;
     color: #71d7f7; }
 
-#elementor-panel-elements-search-area {
+.e-panel-search-area {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   padding: 10px;
   background-color: #e6e9ec;
-  z-index: 1; }
+  z-index: 3; }
+  .e-panel-search-area.e-panel-controls-search-area {
+    margin-bottom: -10px; }
 
-#elementor-panel-elements-search-wrapper {
+.e-panel-search-wrapper {
   position: relative; }
-
-#elementor-panel-elements-search-input {
-  background-color: rgba(255, 255, 255, 0.7);
-  font-size: 11px;
-  padding: 10px 29px 10px 10px;
-  font-style: italic;
-  color: #a4afb7;
-  border: none;
-  -webkit-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-  -webkit-border-radius: 3px;
-          border-radius: 3px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none; }
-  #elementor-panel-elements-search-input + i {
-    position: absolute;
-    right: 10px;
-    top: 50%;
+  .e-panel-search-wrapper input[type="search"] {
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    padding: 10px 29px 10px 10px;
+    font-style: italic;
     color: #a4afb7;
-    -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%); }
-  #elementor-panel-elements-search-input:focus {
-    background-color: white;
-    padding-left: 15px; }
+    border: none;
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    -webkit-border-radius: 3px;
+            border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; }
+    .e-panel-search-wrapper input[type="search"] + i {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      color: #a4afb7;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%); }
+    .e-panel-search-wrapper input[type="search"]:focus {
+      background-color: white;
+      padding-left: 15px; }
 
 .elementor-panel .elementor-element {
   -webkit-border-radius: 3px;
@@ -1349,6 +1352,27 @@ select {
   content: '';
   display: table;
   clear: both; }
+
+.media-modal.wp-core-ui .e-wp-media-elements-removed {
+  /* Hack to change the media button selection text, because for some reason the text gets changed when switching tabs. */ }
+  .media-modal.wp-core-ui .e-wp-media-elements-removed .embed-link-settings,
+  .media-modal.wp-core-ui .e-wp-media-elements-removed .embed-media-settings > :not(.wp-clearfix):not(.alt-text):not(#alt-text-description) {
+    display: none; }
+  .media-modal.wp-core-ui .e-wp-media-elements-removed #embed-url-field {
+    width: 70%; }
+  .media-modal.wp-core-ui .e-wp-media-elements-removed .media-embed .thumbnail {
+    margin-top: 20px; }
+    .media-modal.wp-core-ui .e-wp-media-elements-removed .media-embed .thumbnail,
+    .media-modal.wp-core-ui .e-wp-media-elements-removed .media-embed .thumbnail img {
+      max-height: initial; }
+    .media-modal.wp-core-ui .e-wp-media-elements-removed .media-embed .thumbnail::after {
+      -webkit-box-shadow: none;
+              box-shadow: none; }
+  .media-modal.wp-core-ui .e-wp-media-elements-removed .media-button-select {
+    font-size: 0; }
+    .media-modal.wp-core-ui .e-wp-media-elements-removed .media-button-select::before {
+      content: var(--button-text);
+      font-size: 13px; }
 
 #elementor-panel-get-pro-elements .elementor-nerd-box-message {
   margin-top: 10px; }
@@ -3392,7 +3416,12 @@ a.elementor-responsive-switcher {
           -ms-flex-direction: row-reverse;
               flex-direction: row-reverse; }
   .e-responsive-bar__close-button, .e-responsive-bar__settings-button {
-    padding: 10px 8px; }
+    width: 22px;
+    height: 22px;
+    -webkit-border-radius: 3px;
+            border-radius: 3px;
+    margin: 0 5px;
+    font-size: 16px; }
   .e-responsive-bar__button {
     -webkit-appearance: none;
        -moz-appearance: none;
@@ -3404,7 +3433,8 @@ a.elementor-responsive-switcher {
     .e-responsive-bar__button:focus:not(:focus-visible) {
       outline: none; }
     .e-responsive-bar__button:hover {
-      color: #c2cbd2; }
+      color: #c2cbd2;
+      background-color: rgba(255, 255, 255, 0.1); }
   .e-responsive-bar__close-button + .e-responsive-bar__button {
     position: relative; }
     .e-responsive-bar__close-button + .e-responsive-bar__button::before {
@@ -3414,7 +3444,7 @@ a.elementor-responsive-switcher {
       width: 1px;
       background-color: #6d7882;
       position: absolute;
-      left: 0;
+      left: -5px;
       top: calc(50% - 10px); }
   .e-responsive-bar__size-inputs-wrapper {
     display: -webkit-box;
@@ -3447,11 +3477,11 @@ a.elementor-responsive-switcher {
       text-align: center;
       width: 22px;
       height: 22px;
-      margin: 0 3.5px;
+      margin: 0 4px;
       line-height: 22px;
       -webkit-border-radius: 3px;
               border-radius: 3px;
-      font-size: 17px;
+      font-size: 16px;
       -webkit-transition: background-color .3s ease-out;
       -o-transition: background-color .3s ease-out;
       transition: background-color .3s ease-out; }
@@ -3793,7 +3823,8 @@ body {
           justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center; }
+          align-items: center;
+  position: relative; }
 
 #elementor-preview-responsive-wrapper {
   padding: 20px; }
@@ -3801,7 +3832,8 @@ body {
     min-width: 1025px;
     width: 100%;
     height: 100%;
-    padding: 0; }
+    padding: 0;
+    position: relative; }
   body.e-is-device-mode:not(.elementor-device-desktop) #elementor-preview-responsive-wrapper {
     width: var(--e-editor-preview-width);
     height: var(--e-editor-preview-height);
@@ -5564,17 +5596,26 @@ body:not(.elementor-device-desktop) #elementor-notice-bar {
       color: #6d7882;
       line-height: 27px; }
   .select2-container.select2-container--default .select2-selection--multiple {
-    min-height: 27px; }
+    min-height: 27px;
+    line-height: 0; }
     .select2-container.select2-container--default .select2-selection--multiple .select2-selection__clear {
       display: none; }
     .select2-container.select2-container--default .select2-selection--multiple .select2-selection__choice {
+      background-color: #f1f3f5;
+      color: #6d7882;
       line-height: 1.5;
       font-size: 0.9em;
       border: none;
       -webkit-border-radius: 0;
-              border-radius: 0; }
+              border-radius: 0;
+      padding: 2px 3px; }
       .select2-container.select2-container--default .select2-selection--multiple .select2-selection__choice.select2-selection__e-plus-button {
-        cursor: pointer; }
+        cursor: pointer;
+        font-size: 10px; }
+    .select2-container.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+      padding-bottom: 5px; }
+    .select2-container.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+      color: #a4afb7; }
   .select2-container:not(.select2-container--open):not(.select2-container--focus) .select2-selection--single,
   .select2-container:not(.select2-container--open):not(.select2-container--focus) .select2-selection--multiple {
     border-color: #d5dadf; }

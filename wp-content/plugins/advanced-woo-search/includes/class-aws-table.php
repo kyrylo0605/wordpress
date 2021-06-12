@@ -315,7 +315,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                       lang VARCHAR(20) NOT NULL DEFAULT 0,
                       KEY id (id),
                       {$terms_key}
-                      KEY term_id (term_id)
+                      KEY term_id (term_id),
+                      UNIQUE KEY source_term (id,term,term_source,lang)
                 ) $charset_collate;";
 
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

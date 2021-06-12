@@ -233,7 +233,7 @@ if ( ! class_exists( 'AWS_Order' ) ) :
 
                             foreach( $attr_filter as $attr_filter_name => $attr_filter_object ) {
 
-                                $operator = $attr_filter_object['operator'];
+                                $operator = isset( $attr_filter_object['operator'] ) ? $attr_filter_object['operator'] : 'OR';
                                 $attr_filter_terms = $attr_filter_object['terms'];
 
                                 $skip = AWS_Helpers::page_filter_tax( $product_terms_array, $attr_filter_terms, $operator );

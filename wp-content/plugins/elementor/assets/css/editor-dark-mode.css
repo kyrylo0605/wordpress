@@ -1,4 +1,4 @@
-/*! elementor - v3.2.3 - 05-05-2021 */
+/*! elementor - v3.2.4 - 08-06-2021 */
 body {
   color: #E0E1E3; }
   body .pcr-app {
@@ -137,16 +137,16 @@ select {
       border-bottom-color: #71D7F7; }
     .elementor-panel .elementor-panel-navigation .elementor-panel-navigation-tab a {
       color: #E0E1E3; }
-  .elementor-panel #elementor-panel-elements-search-area {
+  .elementor-panel .e-panel-search-area {
     background-color: #34383C; }
-  .elementor-panel #elementor-panel-elements-search-input {
-    background-color: #4C4F56;
-    color: #E0E1E3; }
-    .elementor-panel #elementor-panel-elements-search-input:focus {
-      background-color: #404349;
+    .elementor-panel .e-panel-search-area input[type="search"] {
+      background-color: #4C4F56;
       color: #E0E1E3; }
-      .elementor-panel #elementor-panel-elements-search-input:focus + i {
+      .elementor-panel .e-panel-search-area input[type="search"]:focus {
+        background-color: #404349;
         color: #E0E1E3; }
+        .elementor-panel .e-panel-search-area input[type="search"]:focus + i {
+          color: #E0E1E3; }
   .elementor-panel .elementor-element {
     background-color: #404349; }
     .elementor-panel .elementor-element .title,

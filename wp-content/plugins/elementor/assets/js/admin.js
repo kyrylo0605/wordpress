@@ -1,4 +1,4 @@
-/*! elementor - v3.2.3 - 05-05-2021 */
+/*! elementor - v3.2.4 - 08-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5954,7 +5954,7 @@ var _environment = _interopRequireDefault(__webpack_require__(/*! ../../../../co
       var self = this,
           $importButton = self.elements.$importButton,
           $importArea = self.elements.$importArea;
-      self.elements.$formAnchor = $('h1');
+      self.elements.$formAnchor = $('.wp-header-end');
       $('#wpbody-content').find('.page-title-action').last().after($importButton);
       self.elements.$formAnchor.after($importArea);
       $importButton.on('click', function () {

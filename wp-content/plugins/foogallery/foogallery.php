@@ -3,7 +3,7 @@
 /*
 Plugin Name: FooGallery
 Description: FooGallery is the most intuitive and extensible gallery management tool ever created for WordPress
-Version:     2.0.30
+Version:     2.0.35
 Author:      FooPlugins
 Plugin URI:  http://fooplugins.com/foogallery/
 Author URI:  http://fooplugins.com
@@ -25,7 +25,7 @@ if ( function_exists( 'foogallery_fs' ) ) {
         define( 'FOOGALLERY_PATH', plugin_dir_path( __FILE__ ) );
         define( 'FOOGALLERY_URL', plugin_dir_url( __FILE__ ) );
         define( 'FOOGALLERY_FILE', __FILE__ );
-        define( 'FOOGALLERY_VERSION', '2.0.30' );
+        define( 'FOOGALLERY_VERSION', '2.0.35' );
         define( 'FOOGALLERY_SETTINGS_VERSION', '2' );
         require_once FOOGALLERY_PATH . 'includes/constants.php';
         // Create a helper function for easy SDK access.
@@ -91,27 +91,26 @@ if ( function_exists( 'foogallery_fs' ) ) {
              */
             private function __construct()
             {
-                //include everything we need!
+                // include everything we need!
                 require_once FOOGALLERY_PATH . 'includes/includes.php';
                 register_activation_hook( __FILE__, array( 'FooGallery_Plugin', 'activate' ) );
-                //init FooPluginBase
+                // init FooPluginBase.
                 $this->init(
                     FOOGALLERY_FILE,
                     FOOGALLERY_SLUG,
                     FOOGALLERY_VERSION,
                     'FooGallery'
                 );
-                //load text domain
+                // load text domain.
                 $this->load_plugin_textdomain();
-                //setup gallery post type
+                // setup gallery post type.
                 new FooGallery_PostTypes();
-                //load any extensions
+                // load any extensions.
                 new FooGallery_Extensions_Loader();
                 
                 if ( is_admin() ) {
                     new FooGallery_Admin();
                     add_action( 'wpmu_new_blog', array( $this, 'set_default_extensions_for_multisite_network_activated' ) );
-                    add_action( 'admin_page_access_denied', array( $this, 'check_for_access_denied' ) );
                     foogallery_fs()->add_filter(
                         'connect_message_on_update',
                         array( $this, 'override_connect_message_on_update' ),
@@ -135,7 +134,7 @@ if ( function_exists( 'foogallery_fs' ) ) {
                     new FooGallery_Public();
                 }
                 
-                //initialize the thumbnail manager
+                // initialize the thumbnail manager.
                 new FooGallery_Thumb_Manager();
                 new FooGallery_Shortcodes();
                 new FooGallery_Thumbnails();
@@ -156,26 +155,26 @@ if ( function_exists( 'foogallery_fs' ) ) {
                 $checker = new FooGallery_Version_Check();
                 $checker->wire_up_checker();
                 new FooGallery_Widget_Init();
-                //include the default templates no matter what!
+                // include the default templates no matter what!
                 new FooGallery_Default_Templates();
-                //init the default media library datasource
+                // init the default media library datasource.
                 new FooGallery_Datasource_MediaLibrary();
                 $pro_code_included = false;
                 
                 if ( !$pro_code_included ) {
                     add_filter( 'foogallery_extensions_for_view', array( $this, 'add_foogallery_pro_extension' ) );
-                    //only include if in admin
+                    // only include if in admin.
                     if ( is_admin() ) {
-                        //include PRO promotion
+                        // include PRO promotion.
                         new FooGallery_Pro_Promotion();
                     }
                 }
                 
-                //init Gutenberg!
+                // init Gutenberg!
                 new FooGallery_Gutenberg();
-                //init advanced settings
+                // init advanced settings.
                 new FooGallery_Advanced_Gallery_Settings();
-                //init localization for FooGallery
+                // init localization for FooGallery.
                 new FooGallery_il8n();
             }
             
@@ -193,26 +192,15 @@ if ( function_exists( 'foogallery_fs' ) ) {
                     'thumbnail'       => 'https://s3.amazonaws.com/foogallery/extensions/foogallerypro.png',
                     'tags'            => array( 'premium' ),
                     'source'          => 'fooplugins',
-                    "download_button" => array(
-                    "text"    => "Start FREE Trial",
-                    "target"  => "_self",
-                    "href"    => foogallery_fs()->checkout_url( WP_FS__PERIOD_ANNUALLY, true ),
-                    "confirm" => false,
+                    'download_button' => array(
+                    'text'    => 'Start FREE Trial',
+                    'target'  => '_self',
+                    'href'    => foogallery_fs()->checkout_url( WP_FS__PERIOD_ANNUALLY, true ),
+                    'confirm' => false,
                 ),
                 );
                 array_unshift( $extensions, $extension );
                 return $extensions;
-            }
-            
-            /**
-             * Checks for the access denied page after we have activated/updated the plugin
-             */
-            function check_for_access_denied()
-            {
-                global  $plugin_page ;
-                if ( FOOGALLERY_ADMIN_MENU_HELP_SLUG === $plugin_page || FOOGALLERY_ADMIN_MENU_SETTINGS_SLUG === $plugin_page || FOOGALLERY_ADMIN_MENU_EXTENSIONS_SLUG === $plugin_page || FOOGALLERY_ADMIN_MENU_SYSTEMINFO_SLUG === $plugin_page ) {
-                    //fs_redirect( 'admin.php?page=' . FOOGALLERY_SLUG );
-                }
             }
             
             /**

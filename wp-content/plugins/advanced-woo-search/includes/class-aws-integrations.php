@@ -159,6 +159,10 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                     add_action( 'wp_head',  array( $this, 'aurum_wp_head' ) );
                 }
 
+                if ( 'Woostify' === $this->current_theme ) {
+                    add_filter( 'aws_searchbox_markup', array( $this, 'woostify_aws_searchbox_markup' ), 1 );
+                }
+
                 if ( 'Fury' === $this->current_theme ) {
                     add_filter( 'aws_searchbox_markup', array( $this, 'fury_searchbox_markup' ) );
                     add_action( 'wp_head',  array( $this, 'fury_wp_head' ) );
@@ -1083,6 +1087,14 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             return $markup;
 
+        }
+
+        /*
+         * Woostify theme markup for seamless integration
+         */
+        public function woostify_aws_searchbox_markup( $markup ) {
+            $markup = str_replace( 'aws-search-field', 'aws-search-field search-field', $markup );
+            return $markup;
         }
 
         /*
