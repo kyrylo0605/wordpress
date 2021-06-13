@@ -14,15 +14,8 @@ function fbrev_popup(url, width, height, cb) {
 
 function fbrev_connect(el, data) {
 
-    /*var url = 'https://www.facebook.com/v3.1/dialog/oauth?' +
-              'client_id=' + data.appId + '&' +
-              'redirect_uri=https://app.widgetpack.com/auth/fbrev/callback&scope=manage_pages,pages_show_list&' +
-              'state=' + data.appId + ':' + data.appSecret;
-
-    fbrev_popup(url, 670, 520, function() {*/
-
     var temp_code = fbrev_randstr(16);
-    fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=pages_show_list,pages_read_user_content,pages_read_engagement,manage_pages&state=' + temp_code, 670, 520, function() {
+    fbrev_popup('https://app.widgetpack.com/auth/fbrev?scope=pages_show_list,pages_read_user_content,pages_read_engagement&state=' + temp_code, 670, 520, function() {
         WPacXDM.get('https://embed.widgetpack.com', 'https://app.widgetpack.com/widget/facebook/accesstoken?temp_code=' + temp_code, {}, function(res) {
             WPacFastjs.jsonp('https://graph.facebook.com/me/accounts', {access_token: res.accessToken, limit: 250}, function(res) {
 

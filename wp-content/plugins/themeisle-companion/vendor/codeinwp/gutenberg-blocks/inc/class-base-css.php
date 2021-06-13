@@ -66,16 +66,18 @@ class Base_CSS {
 	 */
 	public function autoload_block_classes() {
 		self::$blocks_classes = array(
+			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Accordion_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Advanced_Column_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Advanced_Columns_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Advanced_Heading_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Button_Group_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Button_CSS',
+			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Circle_Counter_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Font_Awesome_Icons_CSS',
-			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Progress_Bar_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Icon_List_CSS',
 			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Icon_List_Item_CSS',
-			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Circle_Counter_CSS',
+			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Progress_Bar_CSS',
+			'\ThemeIsle\GutenbergBlocks\CSS\Blocks\Review_CSS',
 		);
 	}
 

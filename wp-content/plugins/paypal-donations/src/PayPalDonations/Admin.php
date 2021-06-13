@@ -427,9 +427,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $paypal_acct = isset ( $options['paypal_account'] ) ? $options['paypal_account'] : '';
         echo "<input class='regular-text' type='text' id='paypal_account' ";
         echo "name='{$optionKey}[paypal_account]'' ";
-        echo "value='{$options['paypal_account']}' />";
+        echo "value='{$paypal_acct}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }
@@ -460,9 +461,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $page_style = isset ( $options['page_style'] ) ? $options['page_style'] : '';
         echo "<input class='regular-text' type='text' id='page_style' ";
         echo "name='{$optionKey}[page_style]'' ";
-        echo "value='{$options['page_style']}' />";
+        echo "value='{$page_style}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }
@@ -471,9 +473,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $return_page = isset ( $options['return_page'] ) ? $options['return_page'] : '';
         echo "<input class='regular-text' type='text' id='return_page' ";
         echo "name='{$optionKey}[return_page]'' ";
-        echo "value='{$options['return_page']}' />";
+        echo "value='{$return_page}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }
@@ -482,9 +485,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $amount = isset ( $options['amount'] ) ? $options['amount'] : 0;
         echo "<input class='regular-text' type='text' id='amount' ";
         echo "name='{$optionKey}[amount]'' ";
-        echo "value='{$options['amount']}' />";
+        echo "value='{$amount}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }
@@ -493,9 +497,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $purpose = isset ( $options['purpose'] ) ? $options['purpose'] : '';
         echo "<input class='regular-text' type='text' id='purpose' ";
         echo "name='{$optionKey}[purpose]'' ";
-        echo "value='{$options['purpose']}' />";
+        echo "value='{$purpose}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }
@@ -504,9 +509,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $reference = isset ( $options['reference'] ) ? $options['reference'] : '';
         echo "<input class='regular-text' type='text' id='reference' ";
         echo "name='{$optionKey}[reference]'' ";
-        echo "value='{$options['reference']}' />";
+        echo "value='{$reference}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }
@@ -546,9 +552,10 @@ class PayPalDonations_Admin
     {
         $optionKey = PayPalDonations::OPTION_DB_KEY;
         $options = get_option($optionKey);
+        $button_url = isset ( $options['button_url'] ) ? $options['button_url'] : '';
         echo "<input class='regular-text' type='text' id='button_url' ";
         echo "name='{$optionKey}[button_url]'' ";
-        echo "value='{$options['button_url']}' />";
+        echo "value='{$button_url}' />";
 
         echo "<p class='description'>{$args['description']}</p>";
     }

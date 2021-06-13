@@ -135,7 +135,22 @@ class Posts_Grid_Block extends Base_Block {
 			$categories = join( ', ', $cats );
 		}
 
-		$recent_posts = wp_get_recent_posts(
+		$get_custom_post_types_posts = function ( $post_type ) use ( $attributes, $categories ) {
+			return wp_get_recent_posts(
+				array(
+					'post_type'        => $post_type,
+					'numberposts'      => $attributes['postsToShow'],
+					'post_status'      => 'publish',
+					'order'            => $attributes['order'],
+					'orderby'          => $attributes['orderBy'],
+					'offset'           => $attributes['offset'],
+					'category'         => $categories,
+					'suppress_filters' => false,
+				)
+			);
+		};
+
+		$recent_posts = isset( $attributes['postTypes'] ) ? array_merge( ...array_map( $get_custom_post_types_posts, $attributes['postTypes'] ) ) : wp_get_recent_posts(
 			array(
 				'numberposts'      => $attributes['postsToShow'],
 				'post_status'      => 'publish',
@@ -275,8 +290,8 @@ class Posts_Grid_Block extends Base_Block {
 	protected function get_excerpt_by_id( $post_id, $excerpt_length = 200 ) {
 		$excerpt = get_the_excerpt( $post_id );
 
-		if ( strlen( $excerpt ) > $excerpt_length ) {
-			$excerpt = substr( $excerpt, 0, $excerpt_length ) . '…';
+		if ( mb_strlen( $excerpt ) > $excerpt_length ) {
+			$excerpt = mb_substr( $excerpt, 0, $excerpt_length ) . '…';
 		}
 
 		return $excerpt;

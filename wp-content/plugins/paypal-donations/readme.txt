@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, artstorm
 Donate link: https://www.tipsandtricks-hq.com/paypal-donations-widgets-plugin
 Tags: paypal, donation, donations, shortcode, widget, donate, button, sidebar, paypal donation, payment
 Requires at least: 3.0
-Tested up to: 5.6
-Stable tag: 1.9.6
+Tested up to: 5.7
+Stable tag: 1.9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,9 @@ for questions, answers, support and feature requests.
 
 
 == Changelog ==
+
+= version 1.9.7 =
+* PHP8 compatibility improvements.
 
 = version 1.9.6 =
 * Updated the PayPal button image URLs to the new URLs to remove the auto-redirect on them.

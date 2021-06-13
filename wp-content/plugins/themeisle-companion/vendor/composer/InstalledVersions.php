@@ -20,17 +20,19 @@ use Composer\Semver\VersionParser;
 
 
 
+
+
 class InstalledVersions
 {
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'v2.10.6',
+    'version' => '2.10.6.0',
     'aliases' => 
     array (
     ),
-    'reference' => '0c06e77d520bebcf2962cb2bb3302530507fac05',
+    'reference' => 'a6d1d749b714d689cc96f65c2e9c2c0f9f1bad72',
     'name' => 'codeinwp/themeisle-companion',
   ),
   'versions' => 
@@ -52,7 +54,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'a76b4de7df500baff306113b415b076f3120e00c',
+      'reference' => '3118143a39b0dcc5b09934508b7e555a44da1fe9',
     ),
     'codeinwp/full-width-page-templates' => 
     array (
@@ -66,12 +68,12 @@ private static $installed = array (
     ),
     'codeinwp/gutenberg-blocks' => 
     array (
-      'pretty_version' => '1.6.1',
-      'version' => '1.6.1.0',
+      'pretty_version' => '1.6.7',
+      'version' => '1.6.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => '86ce7144e5c10d713443d04a35c026104083a5d1',
+      'reference' => '96b8d33c030ed7e907b14a488d107a333872d5ea',
     ),
     'codeinwp/templates-directory' => 
     array (
@@ -85,12 +87,12 @@ private static $installed = array (
     ),
     'codeinwp/themeisle-companion' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'v2.10.6',
+      'version' => '2.10.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0c06e77d520bebcf2962cb2bb3302530507fac05',
+      'reference' => 'a6d1d749b714d689cc96f65c2e9c2c0f9f1bad72',
     ),
     'codeinwp/themeisle-content-forms' => 
     array (
@@ -100,25 +102,25 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '82d5f1d3c8617a5200f0e3f909a112da9dbd9926',
+      'reference' => '87e971faf623591598581dc2ef14ff2c46af5009',
     ),
     'codeinwp/themeisle-sdk' => 
     array (
-      'pretty_version' => '3.2.18',
-      'version' => '3.2.18.0',
+      'pretty_version' => '3.2.20',
+      'version' => '3.2.20.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8ea22767fb6b2c453b678b3626c38db3b7c79fe5',
+      'reference' => 'aeef3f159c1b35451d87672b6984ccde36c0d21d',
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.7.0',
-      'version' => '1.7.0.0',
+      'pretty_version' => '1.8.2',
+      'version' => '1.8.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '53330f47520498c0ae1f61f7e2c90f55690c06a3',
+      'reference' => 'dc960a912984efb74d0a90222870c72c87f10c91',
     ),
     'mailerlite/mailerlite-api-v2-php-sdk' => 
     array (
@@ -264,7 +266,6 @@ $packages = array();
 foreach (self::getInstalled() as $installed) {
 $packages[] = array_keys($installed['versions']);
 }
-
 
 if (1 === \count($packages)) {
 return $packages[0];
@@ -429,9 +430,23 @@ return $installed[0]['root'];
 
 
 
+
 public static function getRawData()
 {
+@trigger_error('getRawData only returns the first dataset loaded, which may not be what you expect. Use getAllRawData() instead which returns all datasets for all autoloaders present in the process.', E_USER_DEPRECATED);
+
 return self::$installed;
+}
+
+
+
+
+
+
+
+public static function getAllRawData()
+{
+return self::getInstalled();
 }
 
 
@@ -457,6 +472,7 @@ public static function reload($data)
 self::$installed = $data;
 self::$installedByVendor = array();
 }
+
 
 
 

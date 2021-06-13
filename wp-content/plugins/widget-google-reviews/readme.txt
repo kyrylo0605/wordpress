@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Google, reviews, widget, testimonials, Google Places reviews
 Requires at least: 2.8
 Tested up to: 5.7
-Stable tag: 1.9.4
+Stable tag: 1.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,13 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 4. Google Reviews sidebar widget
 
 == Changelog ==
+
+= 1.9.6 =
+* Little bugfix
+* Removed external debug information
+
+= 1.9.5 =
+* Remove http in svg type
 
 = 1.9.4 =
 * Update to WordPress 5.7

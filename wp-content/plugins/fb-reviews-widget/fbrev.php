@@ -4,7 +4,7 @@ Plugin Name: Social Reviews & Recommendations
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Allows you to instantly display Facebook reviews and recommendations on your site to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.7.4
+Version: 1.7.5
 Author URI: https://richplugins.com
 */
 
@@ -13,8 +13,8 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('FBREV_VERSION',            '1.7.4');
-define('FBREV_GRAPH_API',          'https://graph.facebook.com/v7.0/');
+define('FBREV_VERSION',            '1.7.5');
+define('FBREV_GRAPH_API',          'https://graph.facebook.com/v10.0/');
 define('FBREV_API_RATINGS_LIMIT',  '500');
 define('FBREV_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
 define('FBREV_AVATAR',             FBREV_PLUGIN_URL . '/static/img/avatar.png');
@@ -299,7 +299,11 @@ function fbrev_api_rating($page_id, $page_access_token, $options, $cache_name, $
         }
 
         //string concatenation instead of 'http_build_query', because 'http_build_query' doesn't always work
-        $api_url = FBREV_GRAPH_API . $page_id . "?access_token=" . $page_access_token . "&fields=ratings.fields(reviewer{id,name,picture.width(120).height(120)},created_time,rating,recommendation_type,review_text,open_graph_story{id}).limit(" . $limit . "),overall_star_rating,rating_count";
+        $api_url = FBREV_GRAPH_API . $page_id . "?access_token=" . $page_access_token . "&fields=ratings.fields(reviewer{id,name,picture.width(120).height(120)},created_time,rating,recommendation_type,review_text,open_graph_story{id}).limit(" . $limit . "),overall_star_rating";
+
+        if (!$options['fb_rating_calc']) {
+            $api_url = $api_url . ",rating_count";
+        }
 
         $api_response = rplg_urlopen($api_url);
 

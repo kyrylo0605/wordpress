@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
 Tested up to: 5.7
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,7 +65,7 @@ Why limit your reviews to just Facebook Reviews? Check out our other free review
 * [Google Reviews Widget](https://wordpress.org/plugins/widget-google-reviews/ "Google Reviews Widget")
 * [Yelp Reviews Widget](https://wordpress.org/plugins/widget-yelp-reviews/ "Yelp Reviews Widget")
 
-Please keep in mind that plugin requests Facebook permission <a href="https://developers.facebook.com/docs/facebook-login/permissions#reference-manage_pages" target="_blank">manage_pages</a> to read your page reviews and show it in the widget.
+Please keep in mind that plugin requests Facebook permission <a href="https://developers.facebook.com/docs/permissions/reference/pages_show_list" target="_blank">pages_show_list</a>, <a href="https://developers.facebook.com/docs/permissions/reference/pages_read_user_content" target="_blank">pages_read_user_content</a> and <a href="https://developers.facebook.com/docs/permissions/reference/pages_read_engagement" target="_blank">pages_read_engagement</a> to read your page reviews and show it in the widget.
 
 == Installation ==
 
@@ -80,6 +80,12 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 4. Facebook Reviews sidebar widget
 
 == Changelog ==
+
+= 1.7.5 =
+* Updated readme
+* Improve: added Estonian language
+* Bugfix: FB API attribute 'rating_count' bug
+* Bugfix: removed deprecated manage_pages FB right
 
 = 1.7.4 =
 * Changed deprecated manage_pages permission of Facebook Graph API to the current ones
