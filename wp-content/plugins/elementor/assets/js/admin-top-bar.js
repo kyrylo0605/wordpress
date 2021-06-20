@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -3266,16 +3266,15 @@ function AdminTopBar(props) {
     var adminTopBarElement = document.querySelector('#e-admin-top-bar-root');
 
     if (!adminTopBarCheckboxElement || adminTopBarCheckboxElement.checked) {
-      adminTopBarElement.classList.add('top-bar-active');
+      adminTopBarElement.classList.add('e-admin-top-bar--active');
+    } else {
+      adminTopBarElement.classList.add('e-admin-top-bar--inactive');
     }
 
     if (adminTopBarCheckboxElement) {
       adminTopBarCheckboxElement.addEventListener('change', function () {
-        if (this.checked) {
-          adminTopBarElement.classList.add('top-bar-active');
-        } else {
-          adminTopBarElement.classList.remove('top-bar-active');
-        }
+        adminTopBarElement.classList.toggle('e-admin-top-bar--active');
+        adminTopBarElement.classList.toggle('e-admin-top-bar--inactive');
       });
     }
   }, []); // Handle the page title visibility in admin top bar.
@@ -3361,7 +3360,8 @@ function BarButton(props) {
     ref: props.buttonRef,
     onClick: props.onClick,
     "data-info": props.dataInfo,
-    href: props.href
+    href: props.href,
+    target: props.target
   }, /*#__PURE__*/_react.default.createElement("i", {
     className: "e-admin-top-bar__bar-button-icon ".concat(props.icon)
   }), /*#__PURE__*/_react.default.createElement("h1", {
@@ -3375,7 +3375,8 @@ BarButton.propTypes = {
   icon: PropTypes.any,
   onClick: PropTypes.func,
   buttonRef: PropTypes.object,
-  href: PropTypes.string
+  href: PropTypes.string,
+  target: PropTypes.string
 };
 
 /***/ }),
@@ -3470,19 +3471,22 @@ function ConnectionButton(props) {
 
   var tooltipText = __('Connect your account to get access to Elementor\'s Template Library & more.', 'elementor'),
       connectUrl = elementorCommonConfig.connect.connect_url,
-      buttonText = __('Connect Account', 'elementor');
+      buttonText = __('Connect Account', 'elementor'),
+      targetUrl = '_self';
 
   if (isUserConnected) {
     tooltipText = '';
     connectUrl = 'https://go.elementor.com/wp-dash-admin-bar-account/';
     buttonText = __('My Elementor', 'elementor');
+    targetUrl = '_blank';
   }
 
   return /*#__PURE__*/_react.default.createElement(_barButton.default, {
     icon: "eicon-user-circle-o",
     buttonRef: buttonRef,
     dataInfo: tooltipText,
-    href: connectUrl
+    href: connectUrl,
+    target: targetUrl
   }, buttonText);
 }
 
@@ -3532,7 +3536,6 @@ var usePageTitle = function usePageTitle(isDashboard) {
       setPageTitle(__('Dashboard', 'elementor'));
     } else {
       setPageTitle(pageTitleElement.innerText);
-      pageTitleElement.remove();
     }
   }, []);
   return pageTitle;
@@ -4779,6 +4782,7 @@ var _adminTopBar = _interopRequireDefault(__webpack_require__(/*! ./admin-top-ba
 
 var AppWrapper = elementorCommon.config.isDebug ? _react.default.StrictMode : _react.default.Fragment;
 document.addEventListener('DOMContentLoaded', function () {
+  var adminTopBarElement = document.getElementById('e-admin-top-bar-root');
   var isTopBarOptionWidgetChecked = !!document.querySelector('#e-dashboard-widget-admin-top-bar-hide');
   var elementorMenuItemIds = ['toplevel_page_elementor', 'menu-posts-elementor_library'];
   var menuItemSelector = elementorMenuItemIds.map(function (itemId) {
@@ -4789,7 +4793,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (isElementorPage || isTopBarOptionWidgetChecked) {
     ReactDOM.render( /*#__PURE__*/_react.default.createElement(AppWrapper, null, /*#__PURE__*/_react.default.createElement(_adminTopBar.default, {
       isDashboard: isTopBarOptionWidgetChecked
-    })), document.getElementById('e-admin-top-bar-root'));
+    })), adminTopBarElement);
+  } else {
+    adminTopBarElement.classList.add('e-admin-top-bar--inactive');
   }
 });
 })();

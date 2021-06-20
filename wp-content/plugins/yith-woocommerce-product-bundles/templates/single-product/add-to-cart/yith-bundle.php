@@ -9,6 +9,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Late style and scripts loading.
+wp_enqueue_style( 'yith_wcpb_bundle_frontend_style' );
+wp_enqueue_script( 'yith_wcpb_bundle_frontend_add_to_cart' );
+
 /** @var WC_Product_Yith_Bundle $product */
 global $product;
 

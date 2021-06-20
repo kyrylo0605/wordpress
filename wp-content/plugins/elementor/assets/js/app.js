@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -9749,8 +9749,8 @@ function ContextProvider(props) {
     overrideConditions: [],
     referrer: null,
     kitInfo: {
-      title: elementorAppConfig['import-export'].kitInfo.title,
-      description: elementorAppConfig['import-export'].kitInfo.description
+      title: null,
+      description: null
     }
   },
       _useReducer = (0, _react.useReducer)(_contextReducer.reducer, initialState),
@@ -10331,8 +10331,7 @@ function KitName() {
   var context = (0, _react.useContext)(_contextProvider.Context);
   return /*#__PURE__*/_react.default.createElement(_textField.default, {
     variant: "outlined",
-    placeholder: __('Kit Name', 'elementor'),
-    value: context.data.kitInfo.title,
+    placeholder: __('Elementor Kit', 'elementor'),
     onChange: function onChange(event) {
       context.dispatch({
         type: 'SET_KIT_TITLE',
@@ -11050,6 +11049,7 @@ function ImportProcess() {
 
     if (fileURL || context.data.fileResponse) {
       if (fileURL) {
+        fileURL[1] = decodeURIComponent(fileURL[1]);
         context.dispatch({
           type: 'SET_FILE',
           payload: fileURL
@@ -17122,7 +17122,7 @@ module.exports = wp.i18n;
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === "vendors-node_modules_babel_runtime-corejs2_core-js_object_values_js-node_modules_babel_runtim-dcce77") return "332fad402f0e9760e45f.bundle.js";
-/******/ 			if (chunkId === "kit-library") return "" + chunkId + ".4a803659d64707e86a7a.bundle.js";
+/******/ 			if (chunkId === "kit-library") return "" + chunkId + ".fca98d0dd59cba5ccbc4.bundle.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

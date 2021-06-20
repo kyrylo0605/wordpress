@@ -260,7 +260,7 @@ abstract class Widget_Base extends Element_Base {
 			$skin_options = [];
 
 			if ( $this->_has_template_content ) {
-				$skin_options[''] = __( 'Default', 'elementor' );
+				$skin_options[''] = esc_html__( 'Default', 'elementor' );
 			}
 
 			foreach ( $skins as $skin_id => $skin ) {
@@ -275,7 +275,7 @@ abstract class Widget_Base extends Element_Base {
 				$this->add_control(
 					'_skin',
 					[
-						'label' => __( 'Skin', 'elementor' ),
+						'label' => esc_html__( 'Skin', 'elementor' ),
 						'type' => Controls_Manager::HIDDEN,
 						'default' => $default_value,
 					]
@@ -284,7 +284,7 @@ abstract class Widget_Base extends Element_Base {
 				$this->add_control(
 					'_skin',
 					[
-						'label' => __( 'Skin', 'elementor' ),
+						'label' => esc_html__( 'Skin', 'elementor' ),
 						'type' => Controls_Manager::SELECT,
 						'default' => $default_value,
 						'options' => $skin_options,
@@ -412,6 +412,20 @@ abstract class Widget_Base extends Element_Base {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Safe print parsed text editor.
+	 *
+	 * @uses static::parse_text_editor.
+	 *
+	 * @access protected
+	 *
+	 * @param string $content Text editor content.
+	 */
+	final protected function print_text_editor( $content ) {
+		// PHPCS - the method `parse_text_editor` is safe.
+		echo static::parse_text_editor( $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -708,6 +722,26 @@ abstract class Widget_Base extends Element_Base {
 	}
 
 	/**
+	 * Print a setting content without escaping.
+	 *
+	 * Script tags are allowed on frontend according to the WP theme securing policy.
+	 *
+	 * @param string $setting
+	 * @param null $repeater_name
+	 * @param null $index
+	 */
+	final protected function print_unescaped_setting( $setting, $repeater_name = null, $index = null ) {
+		if ( $repeater_name ) {
+			$repeater = $this->get_settings_for_display( $repeater_name );
+			$output = $repeater[ $index ][ $setting ];
+		} else {
+			$output = $this->get_settings_for_display( $setting );
+		}
+
+		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
 	 * Get default data.
 	 *
 	 * Retrieve the default widget data. Used to reset the data on initialization.
@@ -928,7 +962,7 @@ abstract class Widget_Base extends Element_Base {
 	protected function deprecated_notice( $plugin_title, $since, $last = '', $replacement = '' ) {
 		$this->start_controls_section( 'Deprecated',
 			[
-				'label' => __( 'Deprecated', 'elementor' ),
+				'label' => esc_html__( 'Deprecated', 'elementor' ),
 			]
 		);
 

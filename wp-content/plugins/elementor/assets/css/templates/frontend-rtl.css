@@ -987,6 +987,9 @@ ul.elementor-icon-list-items.elementor-inline-items {
 .eicon-download-bold:before {
   content: '\e96b'; }
 
+.eicon-caret-down:before {
+  content: '\e92a'; }
+
 .elementor-form-fields-wrapper {
   display: flex;
   flex-wrap: wrap; }
@@ -2354,9 +2357,9 @@ button.swiper-pagination-bullet {
     .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-right .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-center .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-tablet-right .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-tablet-center .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-tablet-justify .elementor-grid-item {
       margin-left: calc(0.5 * var(--grid-column-gap));
       margin-right: calc(0.5 * var(--grid-column-gap)); }
-  .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-tablet-left .elementor-grid {
+  .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons-tablet--align-left .elementor-grid {
     display: inline-block; }
-    .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-left .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-tablet-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-tablet-left .elementor-grid-item {
+    .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-tablet-left .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons-tablet--align-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons-tablet--align-left .elementor-grid-item {
       margin-left: 0;
       margin-right: 0; } }
 
@@ -2377,9 +2380,9 @@ button.swiper-pagination-bullet {
     .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-right .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-center .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-mobile-right .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-mobile-center .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-mobile-justify .elementor-grid-item {
       margin-left: calc(0.5 * var(--grid-column-gap));
       margin-right: calc(0.5 * var(--grid-column-gap)); }
-  .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-mobile-left .elementor-grid {
+  .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons-mobile--align-left .elementor-grid {
     display: inline-block; }
-    .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-left .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-mobile-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons--align-mobile-left .elementor-grid-item {
+    .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-widget-social-icons.e-grid-align-mobile-left .elementor-grid-item, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons-mobile--align-left .elementor-grid, .e--ua-appleWebkit .elementor-grid-0.elementor-share-buttons-mobile--align-left .elementor-grid-item {
       margin-left: 0;
       margin-right: 0; } }
 

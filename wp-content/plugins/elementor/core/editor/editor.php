@@ -202,7 +202,7 @@ class Editor {
 		$document = Plugin::$instance->documents->get( get_the_ID() );
 
 		if ( ! $document ) {
-			wp_die( __( 'Document not found.', 'elementor' ) );
+			wp_die( esc_html__( 'Document not found.', 'elementor' ) );
 		}
 
 		if ( ! $document->is_editable_by_current_user() || ! $document->is_built_with_elementor() ) {
@@ -529,6 +529,7 @@ class Editor {
 			'version' => ELEMENTOR_VERSION,
 			'home_url' => home_url(),
 			'admin_settings_url' => admin_url( 'admin.php?page=' . Settings::PAGE_ID ),
+			'admin_tools_url' => admin_url( 'admin.php?page=' . Tools::PAGE_ID ),
 			'autosave_interval' => AUTOSAVE_INTERVAL,
 			'tabs' => $plugin->controls_manager->get_tabs(),
 			'controls' => $plugin->controls_manager->get_controls_data(),

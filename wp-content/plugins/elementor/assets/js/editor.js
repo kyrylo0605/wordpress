@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -17910,6 +17910,12 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
       if (!previewWindow.elementorFrontend) {
         this.onPreviewLoadingError();
         return;
+      } // Cannot load editor without kit.
+
+
+      if (!elementor.config.kit_id) {
+        this.kitNotExistsError();
+        return;
       }
 
       this.$previewContents = this.$preview.contents();
@@ -17979,6 +17985,22 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
         },
         onConfirm: function onConfirm() {
           return _this7.hide();
+        }
+      });
+    }
+  }, {
+    key: "kitNotExistsError",
+    value: function kitNotExistsError() {
+      this.showFatalErrorDialog({
+        className: 'elementor-preview-loading-error',
+        headerMessage: __('Your site doesn\'t have a default kit', 'elementor'),
+        message: __('Seems like your kit was deleted, please create new one or try restore it from trash.', 'elementor'),
+        strings: {
+          confirm: __('Recreate Kit', 'elementor'),
+          cancel: __('Go Back', 'elementor')
+        },
+        onConfirm: function onConfirm() {
+          return open(elementor.config.admin_tools_url, '_blank');
         }
       });
     }

@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["vendors-node_modules_babel_runtime-corejs2_core-js_object_values_js-node_modules_babel_runtim-dcce77"],{
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/object/values.js":

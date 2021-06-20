@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["frontend-modules"],{
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js":

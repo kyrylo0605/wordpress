@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Added to Cart Popup
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup/
  * Description: The <code><strong>YITH WooCommerce Added to Cart Popup</strong></code> plugin allow you to display a popup cart with suggested products and cart actions after an "add to cart" action. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.6.1
+ * Version: 1.6.2
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-added-to-cart-popup
@@ -13,9 +13,11 @@
  *
  * @author  YITH
  * @package YITH WooCommerce Added to Cart Popup
- * @version 1.6.1
+ * @version 1.6.2
  */
-/**  Copyright 2015-2021  Your Inspiration Solutions (email : plugins@yithemes.com)
+
+/**
+ * Copyright 2015-2021  Your Inspiration Solutions (email : plugins@yithemes.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as
@@ -38,6 +40,13 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
+/**
+ * Add warning message on missing WooCommerce plugin.
+ *
+ * @since 1.0.0
+ * @author Francesco Licandro
+ * @return void
+ */
 function yith_wacp_free_install_woocommerce_admin_notice() {
 	?>
 	<div class="error">
@@ -46,7 +55,13 @@ function yith_wacp_free_install_woocommerce_admin_notice() {
 	<?php
 }
 
-
+/**
+ * Add warning message on premium plugin version installed.
+ *
+ * @since 1.0.0
+ * @author Francesco Licandro
+ * @return void
+ */
 function yith_wacp_install_free_admin_notice() {
 	?>
 	<div class="error">
@@ -62,7 +77,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WACP_VERSION' ) ) {
-	define( 'YITH_WACP_VERSION', '1.6.1' );
+	define( 'YITH_WACP_VERSION', '1.6.2' );
 }
 
 if ( ! defined( 'YITH_WACP_FREE_INIT' ) ) {
@@ -107,6 +122,13 @@ if ( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WACP
 }
 yit_maybe_plugin_fw_loader( YITH_WACP_DIR );
 
+/**
+ * Init.
+ *
+ * @since 1.0.0
+ * @author Francesco Licandro
+ * @return void
+ */
 function yith_wacp_free_init() {
 
 	load_plugin_textdomain( 'yith-woocommerce-added-to-cart-popup', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -118,7 +140,13 @@ function yith_wacp_free_init() {
 
 add_action( 'yith_wacp_free_init', 'yith_wacp_free_init' );
 
-
+/**
+ * Install.
+ *
+ * @since 1.0.0
+ * @author Francesco Licandro
+ * @return void
+ */
 function yith_wacp_free_install() {
 
 	if ( ! function_exists( 'WC' ) ) {

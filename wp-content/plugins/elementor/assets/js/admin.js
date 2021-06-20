@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5791,6 +5791,20 @@ var _environment = _interopRequireDefault(__webpack_require__(/*! ../../../../co
           _nonce: $thisButton.data('nonce')
         }).done(function () {
           $thisButton.removeClass('loading').addClass('success');
+        });
+      });
+      $('#elementor-recreate-kit-button').on('click', function (event) {
+        event.preventDefault();
+        var $thisButton = $(this);
+        $thisButton.removeClass('success error').addClass('loading').next('.e-recreate-kit-error-message').remove();
+        $.post(ajaxurl, {
+          action: 'elementor_recreate_kit',
+          _nonce: $thisButton.data('nonce')
+        }).done(function () {
+          $thisButton.removeClass('loading').addClass('success');
+        }).fail(function (reason) {
+          $thisButton.removeClass('loading').addClass('error');
+          $thisButton.after("<div class=\"e-recreate-kit-error-message\">".concat(reason, "</div>"));
         });
       });
       $('#elementor-replace-url-button').on('click', function (event) {

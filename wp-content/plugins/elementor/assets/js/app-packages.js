@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -10473,8 +10473,8 @@ function ContextProvider(props) {
     overrideConditions: [],
     referrer: null,
     kitInfo: {
-      title: elementorAppConfig['import-export'].kitInfo.title,
-      description: elementorAppConfig['import-export'].kitInfo.description
+      title: null,
+      description: null
     }
   },
       _useReducer = (0, _react.useReducer)(_contextReducer.reducer, initialState),
@@ -11090,8 +11090,7 @@ function KitName() {
   var context = (0, _react.useContext)(_contextProvider.Context);
   return /*#__PURE__*/_react.default.createElement(_textField.default, {
     variant: "outlined",
-    placeholder: __('Kit Name', 'elementor'),
-    value: context.data.kitInfo.title,
+    placeholder: __('Elementor Kit', 'elementor'),
     onChange: function onChange(event) {
       context.dispatch({
         type: 'SET_KIT_TITLE',
@@ -11809,6 +11808,7 @@ function ImportProcess() {
 
     if (fileURL || context.data.fileResponse) {
       if (fileURL) {
+        fileURL[1] = decodeURIComponent(fileURL[1]);
         context.dispatch({
           type: 'SET_FILE',
           payload: fileURL

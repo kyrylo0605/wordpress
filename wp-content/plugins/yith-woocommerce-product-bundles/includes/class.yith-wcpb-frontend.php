@@ -862,8 +862,172 @@ if ( ! class_exists( 'YITH_WCPB_Frontend' ) ) {
 			return $needs_processing;
 		}
 
+		/**
+		 * Return the current page type (product, bundle_product, cart, checkout, ...).
+		 *
+		 * @return array
+		 * @since 1.4.10
+		 */
+		protected function get_current_page_info() {
+			static $info = null;
+			global $post;
+			if ( is_null( $info ) ) {
+				$info = array(
+					'cart'       => is_cart(),
+					'checkout'   => is_checkout(),
+					'product'    => is_product(),
+					'my-account' => is_account_page(),
+					'bundle'     => false,
+					'widget'     => ! ! is_active_widget( false, false, 'yith_wcpb_bundle_widget' ),
+				);
+
+				if ( is_product() ) {
+					$product = wc_get_product();
+					if ( $product && $product->is_type( 'yith_bundle' ) ) {
+						$info['bundle'] = true;
+					}
+				} elseif ( is_singular() && is_a( $post, 'WP_Post' ) ) {
+					$ids  = array();
+					$skus = array();
+
+					if ( has_shortcode( $post->post_content, 'product_page' ) ) {
+						$info['product'] = true;
+
+						if ( preg_match_all( '/' . get_shortcode_regex( array( 'product_page' ) ) . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
+
+							if ( ! empty( $matches[3] ) ) {
+								foreach ( $matches[3] as $shortcode_attrs ) {
+									if ( preg_match( '/id="?(\d+)"?/', $shortcode_attrs, $id ) ) {
+										$ids[] = $id[1];
+									}
+
+									if ( preg_match( '/sku="(\s+)"/', $shortcode_attrs, $sku ) ) {
+										$skus[] = $sku[1];
+									}
+								}
+							}
+						}
+					}
+
+					foreach ( $ids as $id ) {
+						$product = wc_get_product( $id );
+						if ( $product && $product->is_type( 'yith_bundle' ) ) {
+							$info['bundle'] = true;
+							break;
+						}
+					}
+
+					if ( ! $info['bundle'] ) {
+						foreach ( $skus as $sku ) {
+							$id      = wc_get_product_id_by_sku( $sku );
+							$product = wc_get_product( $id );
+							if ( $product && $product->is_type( 'yith_bundle' ) ) {
+								$info['bundle'] = true;
+								break;
+							}
+						}
+					}
+
+					if ( ! $info['bundle'] ) {
+						if ( has_shortcode( $post->post_content, 'bundle_add_to_cart' ) ) {
+							$info['bundle'] = true;
+						}
+					}
+				}
+
+				$info = apply_filters( 'yith_wcpb_get_current_page_info', $info );
+			}
+
+			return $info;
+		}
+
+		/**
+		 * Check if current page is one of the specified ones.
+		 *
+		 * @param string|array $pages The pages.
+		 *
+		 * @return bool
+		 * @since 1.4.10
+		 */
+		protected function current_page_is( $pages = array() ) {
+			$pages         = (array) $pages;
+			$current_pages = array_keys( array_filter( $this->get_current_page_info() ) );
+
+			return ! ! array_intersect( $current_pages, $pages );
+		}
+
+		/**
+		 * Return assets to enqueue
+		 *
+		 * @return array
+		 * @since 1.4.10
+		 */
+		protected function get_assets() {
+			$assets = array(
+				'styles'  => array(
+					'yith_wcpb_bundle_frontend_style' => array(
+						'path'  => YITH_WCPB_ASSETS_URL . '/css/frontend.css',
+						'deps'  => array(),
+						'where' => array( 'bundle', 'cart', 'checkout', 'my-account', 'widget' ),
+					),
+				),
+				'scripts' => array(),
+			);
+
+			return apply_filters( 'yith_wcpb_get_frontend_assets', $assets );
+		}
+
+		/**
+		 * Enqueue scripts.
+		 */
 		public function enqueue_scripts() {
-			wp_enqueue_style( 'yith_wcpb_bundle_frontend_style', YITH_WCPB_ASSETS_URL . '/css/frontend.css', array(), YITH_WCPB_VERSION );
+			$assets  = $this->get_assets();
+			$styles  = isset( $assets['styles'] ) ? $assets['styles'] : array();
+			$scripts = isset( $assets['scripts'] ) ? $assets['scripts'] : array();
+
+			foreach ( $styles as $handle => $style ) {
+				$defaults = array(
+					'version' => YITH_WCPB_VERSION,
+					'deps'    => array(),
+					'path'    => false,
+					'where'   => false,
+				);
+				$style    = wp_parse_args( $style, $defaults );
+
+				if ( $style['path'] ) {
+					wp_register_style( $handle, $style['path'], $style['deps'], $style['version'] );
+
+					if ( false === $style['where'] || $this->current_page_is( $style['where'] ) ) {
+						wp_enqueue_style( $handle );
+					}
+				}
+			}
+
+			foreach ( $scripts as $handle => $script ) {
+				$defaults = array(
+					'version'  => YITH_WCPB_VERSION,
+					'deps'     => array(),
+					'path'     => false,
+					'where'    => false,
+					'footer'   => true,
+					'localize' => false,
+				);
+				$script   = wp_parse_args( $script, $defaults );
+
+				if ( $script['path'] ) {
+					wp_register_script( $handle, $script['path'], $script['deps'], $style['version'], $script['footer'] );
+
+					if ( $script['localize'] ) {
+						foreach ( $script['localize'] as $object_name => $object ) {
+							wp_localize_script( $handle, $object_name, $object );
+						}
+					}
+
+					if ( false === $script['where'] || $this->current_page_is( $script['where'] ) ) {
+						wp_enqueue_script( $handle );
+					}
+				}
+			}
 		}
 
 	}

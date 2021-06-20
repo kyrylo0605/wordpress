@@ -1,4 +1,4 @@
-/*! elementor - v3.2.4 - 08-06-2021 */
+/*! elementor - v3.2.4 - 17-06-2021 */
 @import "//fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap";
 :root {
   --color-box-shadow-color: rgba(0, 0, 0, 0.05); }
@@ -113,9 +113,9 @@ Auto-import is designed for CSS that not dependent on the loading order.
   --button-primary-hover-background-color: #33a242;
   --button-primary-active-background-color: #35a945;
   --button-primary-color: #fff;
-  --button-secondary-background-color: #c2cbd2;
-  --button-secondary-hover-background-color: #b3bec7;
-  --button-secondary-active-background-color: #b9c3cc;
+  --button-secondary-background-color: #a4afb7;
+  --button-secondary-hover-background-color: #96a2ac;
+  --button-secondary-active-background-color: #9ba7b0;
   --button-secondary-color: #fff;
   --button-danger-background-color: #b01b1b;
   --button-danger-hover-background-color: #9a1818;
@@ -2680,6 +2680,18 @@ h6,
   margin-right: 0.625rem;
   margin-left: 0.625rem; }
 
+.e-kit-library__apply-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 0.3125rem; }
+
 .e-kit-library__kit-item-overlay {
   height: 100%; }
   .e-kit-library__kit-item-overlay > *:first-child {
@@ -2814,7 +2826,14 @@ h6,
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  overflow-y: auto; }
+  overflow-y: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
 
 .e-kit-library__index-layout-top-area {
   padding: 2.75rem;
@@ -2834,8 +2853,28 @@ h6,
 
 .e-kit-library__index-layout-main {
   padding-top: 0;
+  padding-bottom: 1.5rem;
   overflow-y: hidden;
-  height: auto; }
+  height: auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+
+.e-kit-library__envato-promotion {
+  width: 100%;
+  text-align: center;
+  margin-top: 1.875rem;
+  color: #6d7882; }
 
 .e-kit-library__item-sidebar {
   padding: 1.5rem 1.875rem; }
@@ -2882,15 +2921,37 @@ h6,
   margin-bottom: 1.5rem;
   color: #6d7882; }
 
-.e-kit-library__preview-library {
+.e-kit-library__preview-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.85rem;
+  color: #a4afb7;
+  z-index: 0; }
+
+.e-kit-library__preview-iframe {
   border: none;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
   -webkit-box-shadow: 0 4px 10px var(--color-box-shadow-color);
           box-shadow: 0 4px 10px var(--color-box-shadow-color); }
-  .e-kit-library__preview-library-container {
-    overflow-y: auto; }
+
+.e-kit-library__preview-iframe-container {
+  overflow-y: auto;
+  position: relative;
+  z-index: 1; }
 
 .e-kit-library__preview-responsive-controls {
   width: auto; }
