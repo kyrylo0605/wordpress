@@ -25,21 +25,20 @@ if ( ! class_exists( 'Tatvic_Category_Selector_Element' ) ) :
 		
 		
 		public static function category_mapping_row( $category, $category_children, $level_indicator, $mode, $ee_prod_mapped_cats) {
-			
 			$category_row_class = 'mapping' === $mode ? 'tvc-category-mapping-selector' : 'tvc-category-selector';
 			$mode_column  = 'mapping' === $mode ? self::category_mapping_selector( 'catmap', $category->term_id, true, $ee_prod_mapped_cats ) : self::category_description_data_item( $category->term_id );
 			return '<div class="row">
-	                <div class="col-6">
-	                    <div class="form-group shop-category">
-	                        <label class="form-label-control">' . $category->name . ' '.$level_indicator .'</label>
-	                    </div>
-	                </div>
-	                <div class="col-6 align-self-center">
-	                    <div class="form-group">
-	                    	<div id="feed-category-' . $category->term_id . '"></div>' .$mode_column . '
-						</div>
-	                </div>
-	            </div>';
+                <div class="col-6">
+                  <div class="form-group shop-category">
+                      <label class="form-label-control">' . $category->name .' <small>('.$category->count. ')</small> '.$level_indicator .'</label>
+                  </div>
+                </div>
+                <div class="col-6 align-self-center">
+                  <div class="form-group">
+                  	<div id="feed-category-' . $category->term_id . '"></div>' .$mode_column . '
+									</div>
+                </div>
+            </div>';
 		}
 
 		/**

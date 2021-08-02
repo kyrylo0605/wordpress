@@ -18,7 +18,7 @@
  *
  * @package    Enhanced_Ecommerce_Google_Analytics
  * @subpackage Enhanced_Ecommerce_Google_Analytics/admin
- * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
+ * @author     Tatvic
  */
 
 class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
@@ -53,12 +53,14 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
     protected $ga_eeT;
     protected $site_url;
     protected $pro_plan_site;
+    protected $google_detail;
     public function __construct($plugin_name, $version) {                       
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         $this->url = $this->get_connect_url();
         $this->site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";
         $this->pro_plan_site = $this->get_pro_plan_site();
+        $this->google_detail = $this->get_ee_options_data();
     }
     public function tvc_admin_notice(){
         // add fixed message notification
@@ -66,11 +68,11 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
         $ee_additional_data = $this->get_ee_additional_data();
         if(isset($ee_additional_data['dismissed_ee_adimin_notic_a']) && $ee_additional_data['dismissed_ee_adimin_notic_a'] == 1){
         }else{
-            if(!$this->get_subscriptionId()){          
-                echo '<div class="notice notice-info is-dismissible" data-id="ee_adimin_notic_a">
-                      <p>Tatvic EE plugin is now fully compatible with Google Analytics 4. Also, explore the new features of Google Shopping and Dynamic remarketing to reach million of shoppers across Google and scale your eCommerce business faster. <a href="admin.php?page=enhanced-ecommerce-google-analytics-admin-display"><b><u>CONFIGURE NOW</u></b></a></p>
-                     </div>'; 
-            }
+          if(!$this->get_subscriptionId()){          
+            echo '<div class="notice notice-info is-dismissible" data-id="ee_adimin_notic_a">
+                  <p>Tatvic EE plugin is now fully compatible with Google Analytics 4. Also, explore the new features of Google Shopping and Dynamic remarketing to reach million of shoppers across Google and scale your eCommerce business faster. <a href="admin.php?page=enhanced-ecommerce-google-analytics-admin-display"><b><u>CONFIGURE NOW</u></b></a></p>
+                 </div>'; 
+          }
         }
         if(isset($ee_additional_data['dismissed_ee_adimin_notic_b']) && $ee_additional_data['dismissed_ee_adimin_notic_b'] == 1){
         }else{
@@ -190,7 +192,15 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
      *
      * @since    1.0.0
      */
-    public function display_admin_page() {      
+    public function display_admin_page() {  
+      $google_detail = $this->google_detail;
+      $plan_id = 1;
+      if(isset($google_detail['setting'])){
+        $googleDetail = $google_detail['setting'];
+        if(isset($googleDetail->plan_id) && !in_array($googleDetail->plan_id, array("1"))){
+          $plan_id = $googleDetail->plan_id;
+        }
+      }    
       add_menu_page(
           'Tatvic EE Plugin', 'Tatvic EE Plugin', 'manage_options', "enhanced-ecommerce-google-analytics-admin-display", array($this, 'showPage'), plugin_dir_url(__FILE__) . 'images/tatvic_logo.png', 26
       );
@@ -211,10 +221,27 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
           'enhanced-ecommerce-google-analytics-admin-display&tab=google_shopping_feed',
           array($this, 'showPage')
       );
+      add_submenu_page(
+        'enhanced-ecommerce-google-analytics-admin-display',
+        esc_html__('Account Summary', 'enhanced-ecommerce-google-analytics-admin-display'),
+        esc_html__('Account Summary', 'enhanced-ecommerce-google-analytics-admin-display'),
+        'manage_options',
+        'enhanced-ecommerce-google-analytics-admin-display&tab=account',
+        array($this, 'showPage')
+      );
+      if($plan_id == 1){
+        add_submenu_page(
+          'enhanced-ecommerce-google-analytics-admin-display',
+          esc_html__('Free Vs Pro', 'enhanced-ecommerce-google-analytics-admin-display'),
+          esc_html__('Free Vs Pro', 'enhanced-ecommerce-google-analytics-admin-display'),
+          'manage_options',
+          'enhanced-ecommerce-google-analytics-admin-display&tab=pricings',
+          array($this, 'showPage')
+        );
+      }
     }
-    protected function create_head(){
-      $google_detail = $this->get_ee_options_data();
-      $googleDetail = "";
+    protected function create_head(){      
+      $google_detail = $this->google_detail;
       if(isset($google_detail['setting'])){
         $googleDetail = $google_detail['setting'];
       }
@@ -243,12 +270,12 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
           <div class="header-section">
             <?php if($plan_id == 1){?>
             <div class="top-section">
-              <p>You are using free plugin. To unlock more features consider <a href="<?php echo $this->pro_plan_site; ?>" target="_blank" class="text-underline">upgrading to pro</a>..!!!</p>
+              <p>You are using free plugin. <a href="<?php echo $this->pro_plan_site.'?utm_source=EE+Plugin+User+Interface&utm_medium=Top+Bar+upgrading+to+pro&utm_campaign=Upsell+at+Conversios'; ?>" target="_blank" class="text-underline">Try premium features at no cost for 1 Month..!!</a>..!!!</p>
             </div>
           <?php } ?>
             <nav class="navbar navbar-section">
               <a class="navbar-brand">
-                <img src="https://d3rv1nmzvje89q.cloudfront.net/optimized_v5/2017/02/logo_optimize-1024x310.png"/>
+                <img src="<?php echo ENHANCAD_PLUGIN_URL.'/admin/images/logo.png'; ?>"/>
               </a>
               <div class="form-inline">
                 <span class="nav-btn">
@@ -270,12 +297,13 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
                         $html.="<li>
                           <section class=\"tvc-msg plain\">
                             <div class=\"tvc-msg_wrapper\">
-                              <div class=\"tvc-msg_content\">".$m_date . $m_title.$m_html."</div>
+                              <div class=\"tvc-msg_content\">".$m_title.$m_html."</div>
                               <div class=\"tvc-msg_actions\">
                                 ".$m_link."
                                 <div class=\"tvc-dropdown\">
                                   <button type=\"button\" data-id=".$key." class=\"tvc-notification-button is-tertiary is-dismissible-notification\">Dismiss</button>
                                 </div>
+                                ".$m_date."
                               </div>
                             </div>
                           </section>
@@ -386,11 +414,15 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
              return $msg_false;
         }
     }
-    /*public function account(){
+    public function pricings(){
+      require_once(ENHANCAD_PLUGIN_DIR . 'admin/partials/pricings.php');
+      new TVC_Pricings();
+    }
+    public function account(){
       require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/help-html.php');
       require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/account.php');
       new TVC_Account();
-    }*/
+    }
     public function general_settings() {
         require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/help-html.php');      
         require_once( 'partials/general-fields.php');

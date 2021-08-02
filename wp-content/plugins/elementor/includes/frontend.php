@@ -267,7 +267,7 @@ class Frontend extends App {
 
 		if ( ! empty( $mobile_theme_color ) ) {
 			?>
-			<meta name="theme-color" content="<?php echo $mobile_theme_color; ?>">
+			<meta name="theme-color" content="<?php echo esc_html( $mobile_theme_color ); ?>">
 			<?php
 		}
 	}
@@ -507,7 +507,7 @@ class Frontend extends App {
 			'elementor-icons',
 			$this->get_css_assets_url( 'elementor-icons', 'assets/lib/eicons/css/' ),
 			[],
-			'5.11.0'
+			'5.12.0'
 		);
 
 		wp_register_style(
@@ -1236,7 +1236,7 @@ class Frontend extends App {
 			'breakpoints' => Responsive::get_breakpoints(),
 			// 'responsive' contains the custom breakpoints config introduced in Elementor v3.2.0
 			'responsive' => [
-				'breakpoints' => $this->get_breakpoints_config(),
+				'breakpoints' => Plugin::$instance->breakpoints->get_breakpoints_config(),
 			],
 			'version' => ELEMENTOR_VERSION,
 			'is_static' => $this->is_static_render_mode(),
@@ -1303,33 +1303,15 @@ class Frontend extends App {
 		return $settings;
 	}
 
-	private function get_breakpoints_config() {
-		$breakpoints = Plugin::$instance->breakpoints->get_breakpoints();
-
-		$config = [];
-
-		foreach ( $breakpoints as $breakpoint_name => $breakpoint ) {
-			$config[ $breakpoint_name ] = [
-				'label' => $breakpoint->get_label(),
-				'value' => $breakpoint->get_value(),
-				'direction' => $breakpoint->get_direction(),
-				'is_enabled' => $breakpoint->is_enabled(),
-				'default_value' => $breakpoint->get_default_value(),
-			];
-		}
-
-		return $config;
-	}
-
 	/**
 	 * Restore content filters.
 	 *
 	 * Restore removed WordPress filters that conflicted with Elementor.
 	 *
 	 * @since 1.5.0
-	 * @access private
+	 * @access public
 	 */
-	private function restore_content_filters() {
+	public function restore_content_filters() {
 		foreach ( $this->content_removed_filters as $filter ) {
 			add_filter( 'the_content', $filter );
 		}

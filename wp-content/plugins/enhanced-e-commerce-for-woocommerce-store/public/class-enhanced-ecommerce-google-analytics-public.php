@@ -18,7 +18,7 @@
  *
  * @package    Enhanced_Ecommerce_Google_Analytics
  * @subpackage Enhanced_Ecommerce_Google_Analytics/public
- * @author     Chetan Rode <chetan@tatvic.com>
+ * @author     Tatvic
  */
 class Enhanced_Ecommerce_Google_Analytics_Public {
     /**
@@ -103,7 +103,9 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     protected $ads_ert;
     protected $ads_edrt;
     protected $ads_tracking_id;
-
+    protected $TVC_Admin_Helper;
+    protected $remarketing_snippet_id;
+    protected $remarketing_snippets;
     /**
      * Enhanced_Ecommerce_Google_Analytics_Public constructor.
      * @param $plugin_name
@@ -111,9 +113,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      */
 
     public function __construct($plugin_name, $version) {
-
+        $this->TVC_Admin_Helper = new TVC_Admin_Helper();
         $this->plugin_name = $plugin_name;
         $this->version  = $version;
+        $this->tvc_call_hooks();
+
         $this->tvc_aga = $this->get_option("tvc_aga");
         $this->ga_id = $this->get_option("ga_id");
         $this->ga_eeT = $this->get_option("ga_eeT");
@@ -139,8 +143,13 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         $this->ads_tracking_id = get_option('ads_tracking_id'); 
         $this->ads_ert = get_option('ads_ert');
         $this->ads_edrt = get_option('ads_edrt');
-        //$this->subscription_id = $this->get_option("subscription_id");        
-        //setcookie('subscription_id', $this->subscription_id);
+
+        $remarketing = unserialize(get_option('ee_remarketing_snippets'));
+        if(!empty($remarketing) && isset($remarketing['snippets']) && $remarketing['snippets']){
+            $this->remarketing_snippets = base64_decode($remarketing['snippets']);
+            $this->remarketing_snippet_id = isset($remarketing['id'])?$remarketing['id']:"";
+        }
+
         if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
             // Put your plugin code here
             add_action('woocommerce_init' , function (){
@@ -149,15 +158,35 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
             });
         }
     }
+    public function tvc_call_hooks(){
+        add_action("wp_head", array($this, "enqueue_scripts"));
+        add_action("wp_head", array($this, "ee_settings"));
+        add_action("wp_head", array($this, "add_google_site_verification_tag"),1);
+
+        add_action("wp_footer", array($this, "t_products_impre_clicks"));
+        add_action("woocommerce_after_shop_loop_item", array($this, "bind_product_metadata"));
+        add_action("woocommerce_thankyou", array($this, "ecommerce_tracking_code"));
+        add_action("woocommerce_after_single_product", array($this, "product_detail_view"));
+        add_action("woocommerce_after_cart",array($this, "remove_cart_tracking"));
+        //check out step 1,2,3
+        add_action("woocommerce_before_checkout_form", array($this, "checkout_step_1_tracking"));
+        add_action("woocommerce_before_checkout_form", array($this, "checkout_step_2_tracking"));
+        add_action("woocommerce_before_checkout_form", array($this, "checkout_step_3_tracking"));
+        add_action("woocommerce_after_add_to_cart_button", array($this, "add_to_cart"));
+        //add version details in footer
+        add_action("wp_footer", array($this, "add_plugin_details"));
+        //Add Dev ID
+        add_action("wp_head", array($this, "add_dev_id"));
+        add_action("wp_footer",array($this, "tvc_store_meta_data"));
+    }
     public function add_google_site_verification_tag(){
         $TVC_Admin_Helper = new TVC_Admin_Helper();
         $ee_additional_data = $TVC_Admin_Helper->get_ee_additional_data();
         if(isset($ee_additional_data['add_site_varification_tag']) && isset($ee_additional_data['site_varification_tag_val']) && $ee_additional_data['add_site_varification_tag'] == 1 && $ee_additional_data['site_varification_tag_val'] !="" ){
             echo base64_decode($ee_additional_data['site_varification_tag_val']);
-        }
-        
+        }        
                         
-  }
+    }
     public function get_option($key){
         $ee_options = array();
         $my_option = get_option( 'ee_options' );
@@ -177,28 +206,27 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     function tvc_store_meta_data() {
         //only on home page
         global $woocommerce;
-        $TVC_Admin_Helper = new TVC_Admin_Helper();
-        $google_detail = $TVC_Admin_Helper->get_ee_options_data();
+        $google_detail = $this->TVC_Admin_Helper->get_ee_options_data();
         $sub_data = array();
         if(isset($google_detail['setting'])){
             $googleDetail = $google_detail['setting'];
-            $sub_data['sub_id'] = $googleDetail->id;
-            $sub_data['cu_id']=$googleDetail->customer_id;
-            $sub_data['pl_id']=$googleDetail->plan_id;
-            $sub_data['ga_tra_option']=$googleDetail->tracking_option;
-            $sub_data['ga_property_id']=$googleDetail->google_ads_id;
-            $sub_data['ga_measurement_id']=$googleDetail->measurement_id;
-            $sub_data['ga_ads_id']=$googleDetail->google_ads_id;
-            $sub_data['ga_gmc_id']=$googleDetail->google_merchant_center_id;
-            $sub_data['op_gtag_js']=$googleDetail->add_gtag_snippet;
-            $sub_data['op_en_e_t']=$googleDetail->enhanced_e_commerce_tracking;
-            $sub_data['op_rm_t_t']=$googleDetail->remarketing_tags;
-            $sub_data['op_dy_rm_t_t']=$googleDetail->dynamic_remarketing_tags;
-            $sub_data['op_li_ga_wi_ads']=$googleDetail->link_google_analytics_with_google_ads;
-            $sub_data['gmc_is_product_sync']=$googleDetail->is_product_sync;
-            $sub_data['gmc_is_site_verified']=$googleDetail->is_site_verified;
-            $sub_data['gmc_is_domain_claim']=$googleDetail->is_domain_claim;
-            $sub_data['gmc_product_count']=$googleDetail->product_count;            
+            $sub_data['sub_id'] = isset($googleDetail->id)?$googleDetail->id:"";
+            $sub_data['cu_id']=isset($googleDetail->customer_id)?$googleDetail->customer_id:"";
+            $sub_data['pl_id']=isset($googleDetail->plan_id)?$googleDetail->plan_id:"";
+            $sub_data['ga_tra_option']=isset($googleDetail->tracking_option)?$googleDetail->tracking_option:"";
+            $sub_data['ga_property_id']=isset($googleDetail->property_id)?$googleDetail->property_id:"";
+            $sub_data['ga_measurement_id']=isset($googleDetail->measurement_id)?$googleDetail->measurement_id:"";
+            $sub_data['ga_ads_id']=isset($googleDetail->google_ads_id)?$googleDetail->google_ads_id:"";
+            $sub_data['ga_gmc_id']=isset($googleDetail->google_merchant_center_id)?$googleDetail->google_merchant_center_id:"";
+            $sub_data['op_gtag_js']=isset($googleDetail->add_gtag_snippet)?$googleDetail->add_gtag_snippet:"";
+            $sub_data['op_en_e_t']=isset($googleDetail->enhanced_e_commerce_tracking)?$googleDetail->enhanced_e_commerce_tracking:"";
+            $sub_data['op_rm_t_t']=isset($googleDetail->remarketing_tags)?$googleDetail->remarketing_tags:"";
+            $sub_data['op_dy_rm_t_t']=isset($googleDetail->dynamic_remarketing_tags)?$googleDetail->dynamic_remarketing_tags:"";
+            $sub_data['op_li_ga_wi_ads']=isset($googleDetail->link_google_analytics_with_google_ads)?$googleDetail->link_google_analytics_with_google_ads:"";
+            $sub_data['gmc_is_product_sync']=isset($googleDetail->is_product_sync)?$googleDetail->is_product_sync:"";
+            $sub_data['gmc_is_site_verified']=isset($googleDetail->is_site_verified)?$googleDetail->is_site_verified:"";
+            $sub_data['gmc_is_domain_claim']=isset($googleDetail->is_domain_claim)?$googleDetail->is_domain_claim:"";
+            $sub_data['gmc_product_count']=isset($googleDetail->product_count)?$googleDetail->product_count:"";            
         }
         $tvc_sMetaData = array(
             'tvc_wcv' => $woocommerce->version,
@@ -217,6 +245,14 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
             'tvc_sub_data'=> $sub_data
         );
         $this->wc_version_compare("tvc_smd=" . json_encode($tvc_sMetaData) . ";");
+    }
+    /**
+     * Register the JavaScript for the public-facing side of the site.
+     *
+     * @since4.0.0
+     */
+    public function enqueue_scripts() {
+      //wp_enqueue_script($this->plugin_name, ENHANCAD_PLUGIN_URL . '/public/js/tvc-ee-google-analytics.js', array('jquery'), $this->version, false);
     }
 
     /**
@@ -307,6 +343,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
             echo 'var adsTringId = '.json_encode($this->ads_tracking_id).';';
             echo 'var ads_ert = '.json_encode($this->ads_ert).';';
             echo 'var ads_edrt = '.json_encode($this->ads_edrt).';';
+            echo 'var remarketing_snippet_id = '.json_encode($this->remarketing_snippet_id).';';
         echo '</script>';
 
         if($this->ga_OPTOUT) {
@@ -338,9 +375,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                   function gtag(){dataLayer.push(arguments);}
                   gtag("js", new Date());
                   gtag("config", "'.esc_js($tracking_id).'",{'.$ga_ip_anonymization.' "cookie_domain":"'.$set_domain_name.'"});
-                  if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
-                     gtag("config", "AW-' . esc_js($this->ads_tracking_id) . '");
-                  }
                 </script>
                 ';
             //echo $code;
@@ -353,9 +387,6 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                   function gtag(){dataLayer.push(arguments);}
                   gtag("js", new Date());
                   gtag("config", "'.esc_js($measurment_id).'",{'.$ga_ip_anonymization.' "cookie_domain":"'.$set_domain_name.'"});
-                  if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
-                     gtag("config", "AW-' . esc_js($this->ads_tracking_id) . '");
-                  }
                 </script>
                 ';
             
@@ -368,11 +399,19 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                   gtag("js", new Date());
                   gtag("config", "'.esc_js($measurment_id).'",{'.$ga_ip_anonymization.' "cookie_domain":"'.$set_domain_name.'"});
                   gtag("config", "'.esc_js($tracking_id).'");
-                  if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
-                     gtag("config", "AW-' . esc_js($this->ads_tracking_id) . '");
-                  }
                 </script>
                 ';
+        }
+        if($this->ads_ert || $this->ads_edrt){
+          if(!empty($this->remarketing_snippets) && $this->remarketing_snippets){
+            echo $this->remarketing_snippets;
+          }else{
+            $google_detail = $this->TVC_Admin_Helper->get_ee_options_data();
+            if(isset($google_detail['setting'])){
+                $googleDetail = $google_detail['setting'];
+                echo  $googleDetail->google_ads_snippets;
+            }
+          }
         }
     }
 
@@ -544,14 +583,15 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                     var ads_items = [];
                     var ads_value=0;
                     for(var t_item in tvc_oc){
-                    ads_value=ads_value + parseFloat(tvc_oc[t_item].tvc_p);
+                        ads_value=ads_value + parseFloat(tvc_oc[t_item].tvc_p);
                         ads_items.push({
-                            item_id: tvc_oc[t_item].tvc_i,
+                            item_id: tvc_oc[t_item].tvc_id,
                             google_business_vertical: "retail"
                         });
                     }
                     gtag("event","purchase", {
-                        "value": ads_value,
+                        "send_to":remarketing_snippet_id,
+                        "value": tvc_td.revenue,
                         "items": ads_items
                       });
                 }
@@ -599,12 +639,13 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                     for(var t_item in tvc_oc){
                     ads_value=ads_value + parseFloat(tvc_oc[t_item].tvc_p);
                         ads_items.push({
-                            item_id: tvc_oc[t_item].tvc_i,
+                            item_id: tvc_oc[t_item].tvc_id,
                             google_business_vertical: "retail"
                         });
                     }
                     gtag("event","purchase", {
-                        "value": ads_value,
+                        "send_to":remarketing_snippet_id,
+                        "value": tvc_td.revenue,
                         "items": ads_items
                       });
                 }
@@ -665,10 +706,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                     //add remarketing and dynamicremarketing tags
                     if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                         gtag("event","add_to_cart", {
+                            "send_to":remarketing_snippet_id,
                             "value": tvc_po.tvc_p,
                             "items": [
                             {
-                              "id": tvc_po.tvc_i, 
+                              "id": tvc_po.tvc_id, 
                               "google_business_vertical": "retail"
                             }
                           ]
@@ -701,10 +743,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                 //add remarketing and dynamicremarketing tags
                 if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                     gtag("event","add_to_cart", {
+                        "send_to":remarketing_snippet_id,
                         "value": tvc_po.tvc_p,
                         "items": [
                         {
-                          "id": tvc_po.tvc_i, 
+                          "id": tvc_po.tvc_id, 
                           "google_business_vertical": "retail"
                         }
                       ]
@@ -784,10 +827,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
             //add remarketing and dynamicremarketing tags
             if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                 gtag("event","view_item", {
+                    "send_to":remarketing_snippet_id,
                     "value": tvc_po.tvc_p,
                     "items": [
                       {
-                        "id": tvc_po.tvc_i, 
+                        "id": tvc_po.tvc_id, 
                         "google_business_vertical": "retail"
                       }
                     ]
@@ -818,10 +862,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                 //add remarketing and dynamicremarketing tags
             if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                 gtag("event","view_item", {
+                    "send_to":remarketing_snippet_id,
                     "value": tvc_po.tvc_p,
                     "items": [
                       {
-                        "id": tvc_po.tvc_i, 
+                        "id": tvc_po.tvc_id, 
                         "google_business_vertical": "retail"
                       }
                     ]
@@ -1087,10 +1132,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                         }
                                         if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                                             gtag("event","view_item_list", {
+                                                "send_to":remarketing_snippet_id,
                                                 "value": t_json_name[t_item].tvc_p,
                                                 "items": [
                                                   {
-                                                    "id": t_json_name[t_item].tvc_i, 
+                                                    "id": t_json_name[t_item].tvc_id, 
                                                     "google_business_vertical": "retail"
                                                   }
                                                ]
@@ -1106,10 +1152,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                         }
                                        if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                                             gtag("event","view_item_list", {
+                                                "send_to":remarketing_snippet_id,
                                                 "value": t_json_name[t_item].tvc_p,
                                                 "items": [
                                                   {
-                                                    "id": t_json_name[t_item].tvc_i, 
+                                                    "id": t_json_name[t_item].tvc_id, 
                                                     "google_business_vertical": "retail"
                                                   }
                                                ]
@@ -1162,10 +1209,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                     });
                                     if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                                         gtag("event","add_to_cart", {
+                                            "send_to":remarketing_snippet_id,
                                             "value": t_prod_data_json[t_prod_url_key].tvc_p,
                                             "items": [
                                               {
-                                                "id": t_prod_data_json[t_prod_url_key].tvc_i, 
+                                                "id": t_prod_data_json[t_prod_url_key].tvc_id, 
                                                 "google_business_vertical": "retail"
                                               }
                                             ]
@@ -1211,10 +1259,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                             }
                         if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                             gtag("event","view_item_list", {
+                                "send_to":remarketing_snippet_id,
                                 "value": t_json_name[t_item].tvc_p,
                                 "items": [
                                   {
-                                    "id": t_json_name[t_item].tvc_i, 
+                                    "id": t_json_name[t_item].tvc_id, 
                                     "google_business_vertical": "retail"
                                   }
                                ]
@@ -1233,10 +1282,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                            }
                            if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                             gtag("event","view_item_list", {
+                                "send_to":remarketing_snippet_id,
                                 "value": t_json_name[t_item].tvc_p,
                                 "items": [
                                   {
-                                    "id": t_json_name[t_item].tvc_i, 
+                                    "id": t_json_name[t_item].tvc_id, 
                                     "google_business_vertical": "retail"
                                   }
                                ]
@@ -1291,10 +1341,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
                                 
                             if(adsTringId != "" && ( ads_ert == 1 || ads_edrt == 1)){
                                 gtag("event","add_to_cart", {
+                                    "send_to":remarketing_snippet_id,
                                     "value": t_prod_data_json[t_prod_url_key].tvc_p,
                                     "items": [
                                       {
-                                        "id": t_prod_data_json[t_prod_url_key].tvc_i, 
+                                        "id": t_prod_data_json[t_prod_url_key].tvc_id, 
                                         "google_business_vertical": "retail"
                                       }
                                    ]

@@ -17,7 +17,7 @@
  *
  * @package    Enhanced_Ecommerce_Google_Analytics
  * @subpackage Enhanced_Ecommerce_Google_Analytics/admin
- * @author     Chiranjiv Pathak <chiranjiv@tatvic.com>
+ * @author     Tatvic
  */
 if ( ! defined( 'ABSPATH' ) ) {
     exit();

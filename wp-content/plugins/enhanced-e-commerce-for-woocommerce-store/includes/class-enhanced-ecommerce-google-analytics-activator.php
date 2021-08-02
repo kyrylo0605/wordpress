@@ -18,7 +18,7 @@
  * @since      1.0.0
  * @package    Enhanced_Ecommerce_Google_Analytics_Activator
  * @subpackage Enhanced_Ecommerce_Google_Analytics_Activator/includes
- * @author     Chiranjiv Pathak <chiranijv@tatvic.com>
+ * @author     Tatvic
  */
 
 class Enhanced_Ecommerce_Google_Analytics_Activator {

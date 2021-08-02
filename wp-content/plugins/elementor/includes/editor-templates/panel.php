@@ -147,7 +147,7 @@ $document = Plugin::$instance->documents->get( Plugin::$instance->editor->get_po
 
 	<div class="e-panel-search-area e-panel-controls-search-area">
 		<div class="e-panel-search-wrapper e-panel-controls-search-wrapper">
-			<label for="elementor-panel-controls-search-input" class="screen-reader-text"><?php echo __( 'Search Control:', 'elementor' ); ?></label>
+			<label for="elementor-panel-controls-search-input" class="screen-reader-text"><?php echo esc_html__( 'Search Control:', 'elementor' ); ?></label>
 			<input type="search" id="elementor-panel-controls-search-input" placeholder="<?php esc_attr_e( 'Search Control...', 'elementor' ); ?>" autocomplete="off"/>
 			<i class="eicon-search-bold" aria-hidden="true"></i>
 		</div>
@@ -174,8 +174,15 @@ $document = Plugin::$instance->documents->get( Plugin::$instance->editor->get_po
 
 <script type="text/template" id="tmpl-elementor-panel-schemes-disabled">
 	<img class="elementor-nerd-box-icon" src="<?php Utils::print_unescaped_internal_string( ELEMENTOR_ASSETS_URL . 'images/information.svg' ); ?>" />
-	<div class="elementor-nerd-box-title">{{{ '<?php echo esc_html__( '%s are disabled', 'elementor' ); ?>'.replace( '%s', disabledTitle ) }}}</div>
-	<div class="elementor-nerd-box-message"><?php printf( esc_html__( 'You can enable it from the <a href="%s" target="_blank">Elementor settings page</a>.', 'elementor' ), esc_url( Settings::get_url() ) ); ?></div>
+	<div class="elementor-nerd-box-title">{{{ '<?php echo esc_html__( '%s are disabled', 'elementor' ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?>'.replace( '%s', disabledTitle ) }}}</div>
+	<div class="elementor-nerd-box-message"><?php
+		printf(
+			/* translators: %1$s Link open tag, %2$s: Link close tag. */
+			esc_html__( 'You can enable it from the %1$sElementor settings page%2$s.', 'elementor' ),
+			'<a href="' . esc_url( Settings::get_url() ) . '" target="_blank">',
+			'</a>'
+		);
+		?></div>
 </script>
 
 <script type="text/template" id="tmpl-elementor-panel-scheme-color-item">
@@ -234,14 +241,25 @@ $document = Plugin::$instance->documents->get( Plugin::$instance->editor->get_po
 	<div class="elementor-control-responsive-switchers">
 		<div class="elementor-control-responsive-switchers__holder">
 		<#
-			var devices = responsive.devices || [ 'desktop', 'tablet', 'mobile' ];
+			const activeBreakpoints = elementor.config.responsive.activeBreakpoints,
+				devicesForDisplay = Object.keys( activeBreakpoints ).reverse();
+
+			// Insert the 'desktop' device in the correct position.
+			if ( -1 !== devicesForDisplay.indexOf( 'widescreen' ) ) {
+				devicesForDisplay.splice( 1, 0, 'desktop' );
+			} else {
+				devicesForDisplay.unshift( 'desktop' );
+			}
+
+			var devices = responsive.devices || devicesForDisplay;
 
 			_.each( devices, function( device ) {
-				var deviceLabel = device.charAt(0).toUpperCase() + device.slice(1),
+				// The 'Desktop' label is made accessible via the global config because it needs to be translated.
+				var deviceLabel = 'desktop' === device ? '<?php esc_html_e( 'Desktop', 'elementor' ); ?>' : activeBreakpoints[ device ].label,
 					tooltipDir = "<?php echo is_rtl() ? 'e' : 'w'; ?>";
 			#>
 				<a class="elementor-responsive-switcher tooltip-target elementor-responsive-switcher-{{ device }}" data-device="{{ device }}" data-tooltip="{{ deviceLabel }}" data-tooltip-pos="{{ tooltipDir }}">
-					<i class="eicon-device-{{ device }}"></i>
+					<i class="{{ elementor.config.responsive.icons_map[ device ] }}"></i>
 				</a>
 			<# } );
 		#>
@@ -255,7 +273,7 @@ $document = Plugin::$instance->documents->get( Plugin::$instance->editor->get_po
 	</div>
 </script>
 <script type="text/template" id="tmpl-elementor-control-element-color-picker">
-	<div class="elementor-control-element-color-picker e-control-tool" data-tooltip="<?php echo esc_html__( 'Element Color Picker', 'elementor' ); ?>">
+	<div class="elementor-control-element-color-picker e-control-tool" data-tooltip="<?php echo esc_attr__( 'Color Sampler', 'elementor' ); ?>">
 		<i class="eicon-eyedropper"></i>
 	</div>
 </script>

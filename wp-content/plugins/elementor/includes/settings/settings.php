@@ -355,16 +355,18 @@ class Settings extends Settings_Page {
 		?>
 		<div class="wrap">
 			<div class="elementor-blank_state">
-				<img src="<?php echo ELEMENTOR_ASSETS_URL . 'images/go-pro-wp-dashboard.svg'; ?>" />
-				<h2><?php echo __( 'Collect Your Form Submissions', 'elementor' ); ?></h2>
+				<img src="<?php Utils::print_unescaped_internal_string( ELEMENTOR_ASSETS_URL ); ?>images/go-pro-wp-dashboard.svg" />
+				<h2><?php echo esc_html__( 'Collect Your Form Submissions', 'elementor' ); ?></h2>
 				<p>
-					<?php echo __( 'Save and manage all of your form submissions in one single place.
+					<?php echo esc_html__( 'Save and manage all of your form submissions in one single place.
 All within a simple, intuitive place.', 'elementor' ); ?>
 					<a href="http://go.elementor.com/wp-dash-submissions" target="_blank" rel="nofollow">
-						<?php echo __( 'Learn More', 'elementor' ); ?>
+						<?php echo esc_html__( 'Learn More', 'elementor' ); ?>
 					</a>
 				</p>
-				<a class="elementor-button elementor-button-default elementor-button-go-pro" target="_blank" href="<?php echo Utils::get_pro_link( 'https://go.elementor.com/go-pro-submissions' ); ?>"><?php echo __( 'Go Pro', 'elementor' ); ?></a>
+				<a class="elementor-button elementor-button-default elementor-button-go-pro" target="_blank" href="<?php
+				Utils::print_unescaped_internal_string( Utils::get_pro_link( 'https://go.elementor.com/go-pro-submissions' ) );
+				?>"><?php echo esc_html__( 'Go Pro', 'elementor' ); ?></a>
 			</div>
 		</div><!-- /.wrap -->
 		<?php
@@ -484,7 +486,15 @@ All within a simple, intuitive place.', 'elementor' ); ?>
 								'label' => esc_html__( 'Looking for the Style settings?', 'elementor' ),
 								'field_args' => [
 									'type' => 'raw_html',
-									'html' => esc_html__( 'The Style settings changed its location and can now be found within Elementor Editor\'s <b>Panel > Hamburger Menu > Site Settings</b>.<br>You can use the Site Settings to make changes and see them live!', 'elementor' ) . sprintf( ' <a target="_blank" href="http://go.elementor.com/panel-layout-settings">%s</a>', esc_html__( 'Learn More', 'elementor' ) ),
+									'html' => sprintf(
+										/* translators: 1: Bold open tag, 2: Bold close tag */
+										esc_html__( 'The Style settings changed its location and can now be found within Elementor Editor\'s %1$sPanel > Hamburger Menu > Site Settings%2$s.', 'elementor' ),
+										'<strong>',
+										'</strong>'
+									) .
+									'<br>' .
+									esc_html__( 'You can use the Site Settings to make changes and see them live!', 'elementor' ) .
+									sprintf( ' <a target="_blank" href="http://go.elementor.com/panel-layout-settings">%s</a>', esc_html__( 'Learn More', 'elementor' ) ),
 								],
 							],
 						],
@@ -492,16 +502,21 @@ All within a simple, intuitive place.', 'elementor' ); ?>
 				],
 			],
 			self::TAB_INTEGRATIONS => [
-				'label' => __( 'Integrations', 'elementor' ),
+				'label' => esc_html__( 'Integrations', 'elementor' ),
 				'sections' => [
 					'google_maps' => [
-						'label' => __( 'Google Maps Embed API', 'elementor' ),
+						'label' => esc_html__( 'Google Maps Embed API', 'elementor' ),
 						'callback' => function() {
-							printf( __( 'Google Maps Embed API is a free service by Google that allows embedding Google Maps in your site. For more details, visit Google Maps\' <a href="%s" target="_blank">Using API Keys</a> page.', 'elementor' ), esc_url( 'https://developers.google.com/maps/documentation/embed/get-api-key' ) );
+							printf(
+								/* translators: 1: Link open tag, 2: Link close tag */
+								esc_html__( 'Google Maps Embed API is a free service by Google that allows embedding Google Maps in your site. For more details, visit Google Maps\' %1$sUsing API Keys%2$s page.', 'elementor' ),
+								'<a target="_blank" href="https://developers.google.com/maps/documentation/embed/get-api-key">',
+								'</a>'
+							);
 						},
 						'fields' => [
 							'google_maps_api_key' => [
-								'label' => __( 'API Key', 'elementor' ),
+								'label' => esc_html__( 'API Key', 'elementor' ),
 								'field_args' => [
 									'class' => 'elementor_google_maps_api_key',
 									'type' => 'text',
@@ -521,6 +536,7 @@ All within a simple, intuitive place.', 'elementor' ); ?>
 								'field_args' => [
 									'class' => 'elementor_css_print_method',
 									'type' => 'select',
+									'std' => 'internal',
 									'options' => [
 										'external' => esc_html__( 'External File', 'elementor' ),
 										'internal' => esc_html__( 'Internal Embedding', 'elementor' ),
@@ -532,9 +548,10 @@ All within a simple, intuitive place.', 'elementor' ); ?>
 								'label' => esc_html__( 'Switch Editor Loader Method', 'elementor' ),
 								'field_args' => [
 									'type' => 'select',
+									'std' => '',
 									'options' => [
 										'' => esc_html__( 'Disable', 'elementor' ),
-										1 => esc_html__( 'Enable', 'elementor' ),
+										'1' => esc_html__( 'Enable', 'elementor' ),
 									],
 									'desc' => esc_html__( 'For troubleshooting server configuration conflicts.', 'elementor' ),
 								],
@@ -546,7 +563,7 @@ All within a simple, intuitive place.', 'elementor' ); ?>
 									'std' => '',
 									'options' => [
 										'' => esc_html__( 'Disable', 'elementor' ),
-										1 => esc_html__( 'Enable', 'elementor' ),
+										'1' => esc_html__( 'Enable', 'elementor' ),
 									],
 									'desc' => esc_html__( 'Please note! Allowing uploads of any files (SVG & JSON included) is a potential security risk.', 'elementor' ) . '<br>' . esc_html__( 'Elementor will try to sanitize the unfiltered files, removing potential malicious code and scripts.', 'elementor' ) . '<br>' . esc_html__( 'We recommend you only enable this feature if you understand the security risks involved.', 'elementor' ),
 								],

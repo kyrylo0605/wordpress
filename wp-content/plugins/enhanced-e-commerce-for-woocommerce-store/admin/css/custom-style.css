@@ -739,7 +739,8 @@ section {
 }
 
 .header-section .navbar-section {
-  padding: 15px 0;
+ /* padding: 15px 0;*/
+  padding: 10px 0 2px 0;
   margin-bottom: 0;
 }
 
@@ -748,8 +749,8 @@ section {
 }
 
 .header-section .navbar-section .navbar-brand img {
-  max-width: 150px;
-  max-height: 30px;
+  width: auto;
+  max-height: 45px;
 }
 
 .header-section .navbar-section .nav-btn {
@@ -1451,20 +1452,21 @@ textarea.form-control, .select2.select2-container--default textarea.select2-sele
 
 .wizard-section.campaign-wizard .wizard-content .wizard .content .card-wrapper .row:first-child {
   background-color: #000338;
-  padding: 15px;
+  padding: 3px;
   margin-bottom: 1rem;
   margin-left: 0;
   margin-right: 0;
   border-radius: calc(15px - 1px) calc(15px - 1px) 0 0;
 }
-
+.wizard-section.campaign-wizard .wizard-content .wizard .content .card-wrapper .row:first-child .col-6:first-child{
+  border-right: 1px solid #FFFFFF;
+}
 .wizard-section.campaign-wizard .wizard-content .wizard .content .card-wrapper .row:first-child .heading-tbl {
   margin-bottom: 0;
   font-size: 15px;
   color: #FFFFFF;
   text-decoration: none;
   font-weight: normal;
-  border-right: 1px solid #FFFFFF;
   text-align: center;
 }
 
@@ -1544,6 +1546,8 @@ textarea.form-control, .select2.select2-container--default textarea.select2-sele
   text-align: center;
   border-radius: 0;
   background-color: transparent;
+  box-shadow: none;
+  margin: 0;
 }
 
 .sync-new-product .product-card .col:after {
@@ -1551,8 +1555,8 @@ textarea.form-control, .select2.select2-container--default textarea.select2-sele
   border-right: 1px solid #A9A9A9;
   display: block;
   position: absolute;
-  top: 25px;
-  bottom: 5px;
+  top: 8px;
+  bottom: 8px;
   right: 0;
 }
 .sync-new-product .product-card .col:last-child:after {
@@ -2657,3 +2661,334 @@ textarea.form-control, .select2.select2-container--default textarea.select2-sele
 .tvc_licence_key_change_wapper.google-account-analytics .acc-num .tvc_licence_key{display: table-cell; letter-spacing: 8px;
     font-size: 15px;   width: calc(100% - 110px);     vertical-align: middle; font-weight: 400;}
 .tvc_licence_key_change_wapper.google-account-analytics .acc-num .tvc_licence_key_title{vertical-align: middle;  display: table-cell;}
+
+/*price Table*/
+.tvc-price-table-features{
+    width: 100%;
+    padding-top: 60px;
+}
+.tvc-price-table-features .container {
+    width: 1300px;
+    min-width: 1000px;
+    margin: 0 auto;
+    padding-left: 20px;
+padding-right: 20px;
+position: relative;
+}
+.tvc-price-table-features .column {
+    float: left;
+    border-right: 1px solid #ebebeb;
+    position: relative;
+    text-align: center;
+}
+.tvc-price-table-features .row-heading .column {
+    border-top: 1px solid #ebebeb;
+}
+.tvc-price-table-features.columns-5 .column {
+  width: 20%;
+}
+.tvc-price-table-features .column:nth-child(2) {
+    border-left: 1px solid #ebebeb;
+}
+
+.tvc-price-table-features .row-heading .column:first-of-type {
+  border-top: none;
+}
+ 
+.tvc-price-table-features .row-heading .column:first-child{
+    border-right: 1px solid transparent;
+}
+.tvc-price-table-features .row-feature .column:first-child, .tvc-price-table-features .row-footer .column:first-child{
+    border-right: 1px solid transparent;
+    text-align: left;
+}
+.tvc-price-table-features .row-heading {
+        display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-align: stretch;
+-ms-flex-align: stretch;
+align-items: stretch;
+  border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #ebebeb;
+  border-bottom: 0;
+}
+
+ .tvc-price-table-features .row-feature .column{
+    padding: 12px 20px 12px 20px;
+
+ }
+ /*.tvc-price-table-features .row.feature .column:first-of-type{
+    text-align: left;
+padding-right: 5px;
+padding-left: 15px;
+ }*/
+  .tvc-price-table-features .row-feature .column:first-child{
+    border-right: 1px solid transparent;.tvc-price-table-features .row-feature .column:first-child, .tvc-price-table-features .row-footer .column:first-child
+  }
+.tvc-price-table-features .row-feature{
+    font-size: 14px;
+    border-width: 1px 0 1px 1px;
+border-style: solid;
+border-color: #ebebeb;
+border-bottom: 0;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-align: stretch;
+-ms-flex-align: stretch;
+align-items: stretch;
+}   
+
+.tvc-price-table-features .column .name-wrap {
+    background: #f9f9f9;
+    padding: 12px;
+    margin: 0 0 16px 0;
+}
+.tvc-price-table-features .column .name {
+    font-size: 23px;
+    font-weight: 600;
+    color: #060221;
+    line-height: 44px;
+    letter-spacing: 0px;
+}
+.tvc-price-table-features .column .price-normal {
+    text-align: center;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1;
+    margin: 0 0 10px 0;
+}
+.tvc-price-table-features .column .price-normal span {
+    position: relative;
+    font-size: 17px;
+}
+.tvc-price-table-features .column .price-normal span:after {
+    content: ' ';
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid red;
+    position: absolute;
+    top: 55%;
+    left: 0;
+}
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: table;
+}
+
+
+.tvc-price-table-features .row-subheading{
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #ebebeb;
+  border-bottom: 0;}
+.tvc-price-table-features .row-subheading {
+  font-weight: 700;
+  font-size: 16px;
+  padding: 10px 15px;
+  background: #ebebeb;
+  text-align: center;
+}
+.tvc-price-table-features .row-footer {
+  display: flex;
+}
+.tvc-price-table-features .row-footer {
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #ebebeb;
+}
+.tvc-price-table-features .row-footer .column {
+  padding: 20px 20px 18px 20px;
+}
+.tvc-guarantee .guarantee {
+  border: 1px solid #ebebeb;
+  background-color: #0137FC;
+    color: #fff;
+    padding: 30px;
+  margin: 40px 0 0 0;
+  
+}
+.tvc-guarantee .guarantee .title{    font-size: 18px;
+    font-weight: 600;}
+.tvc-guarantee .guarantee .title span{font-size: 23px;
+    font-style: italic;
+    margin-right: 20px;
+    font-weight: bold;
+}
+.tvc-price-table-features .tvc-list-price{
+border-bottom: 1px solid #ebebeb; 
+    padding: 0px 0 10px 0;
+}
+
+.tvc-price-table-features .tvc-list-price .price-current{
+font-size: 30px;
+  font-weight: 700;
+  color: #0137FC;
+}
+.tvc-price-table-features .tvc-list-price .price-current .inner span{
+  font-size: 12px;
+  }
+.tvc-btn{background-color: #0137FC !important;
+  border-style: solid;
+  border-radius: 26px 26px 26px 26px !important;
+  color: #fff !important;
+  display: inline-block;
+  line-height: 1;
+  font-size: 15px;
+  padding: 12px 24px;
+  fill: #fff;
+  text-align: center;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+  text-decoration:none;
+  margin: 10px 0;
+} 
+.tvc-blank-col span{position: absolute;
+    bottom: 5px;
+    font-size: 18px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-weight: 600;}
+.tvc-free-plan  span{
+    position: absolute;
+    bottom: 0px;
+    font-size: 18px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-weight: 600;
+} 
+.tvc-free-plan .tvc-list-price .price-current span{
+  position: relative;
+    font-size: 30px;
+    font-weight: 700;
+    color: #0137FC;
+    margin-top: 43px;
+    display: block;
+}
+
+.tvc_popular{background-color: #EE345E;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    position: absolute;
+    right: -41px;
+    top: 2px;
+    transform: rotate( 45deg );
+    width: 138px;
+    letter-spacing: 2px;
+    clip-path: polygon(22% 0, 77% 0, 101% 100%, 0 95%);
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+.tvc-price-table-features .column.popular {
+    background-color: #f1f9ff;
+}
+.tvc-price-table-features .column img{height: 18px;}
+.elementor-column-wrap.active{ background-color: #0137FC;}
+.elementor-column-wrap.active h5.elementor-heading-title{
+  color: #fff !important;
+}
+.selected-plan-info .tvc_price_cancel{margin: 0 8px 10px 0;}
+.paypal_plan_type{float: right;
+    margin-right: 20px;}
+.selected-plan-info .tvc_month_free{
+  display: inline-block;
+  width: 110px;
+  margin-left: 5px;
+}
+a.elementor-button-link{
+  text-decoration: none;
+}
+.tvc-plan-off{
+    display: inline-block;
+    margin-left: 5px;
+    color: #2FBB0E;
+    font-weight: 600;
+}
+.tvc_month_free{
+  text-align: center;
+    background-color: #2FBB0E;
+    color: #fff;
+    width: 119px;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 600;
+    margin: 0 auto;
+}
+.tvc-plan-price span{font-size: 12px;}
+.tvc-price-table-features .tvc_popular{
+  width: 100%;
+  top: -35px;
+  right: 0;
+  left: 0;
+  transform: none;
+  clip-path:none;
+}
+.paypal-message-box ol{padding-left: 25px;}
+.paypal-message-box a {text-decoration: underline;}
+.tvc-list-price-month a, .tvc-list-price-year a {
+  font-weight: bold;
+}
+
+/*End price Table*/
+.tvc-new-freevspro{
+ /* background-color: #EE345E;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    position: absolute;
+    
+    top: -7px;
+    left: -25px;
+    padding-top: 33px;
+    
+    transform: rotate( 314deg );
+    width: 63px;
+    letter-spacing: 2px;
+    /*clip-path: polygon(50% 0%, 53% 0, 109% 109%, -4% 99%);
+    clip-path: polygon(50% 0%, 53% 0, 112% 97%, -11% 99%);
+    padding-top: 19.5px;*/
+    background-color: #EE345E;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    height: 38px;
+    text-align: center;
+    text-transform: uppercase;
+    position: absolute;
+    
+    top: -8px;
+    left: 11px;
+    left: 119px;
+    padding-top: 33px;
+    
+    transform: rotate( 
+43deg
+ );
+    width: 70px;
+    letter-spacing: 2px;
+    clip-path: polygon(50% 0%, 53% 0, 109% 109%, -4% 99%);
+    /* clip-path: polygon(50% 0%, 53% 0, 112% 97%, -11% 99%); */
+    padding-top: 19.5px;
+    
+}
+.tvc_plugin_container .nav-link{position: relative;}
+.tvc-new-freevspro-nav-item{
+  width: 169px;
+}

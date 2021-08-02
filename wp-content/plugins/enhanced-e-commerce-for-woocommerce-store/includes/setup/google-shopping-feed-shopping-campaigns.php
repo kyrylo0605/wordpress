@@ -682,7 +682,7 @@ class CampaignsConfiguration
       	if(rsp.status == "success"){
           var message = campaign_name + " status updated successfully";
           alert(message);
-          window.location.href = "<?php echo $this->site_url.'shopping_campaigns_page'; ?>";
+          //window.location.href = "<?php echo $this->site_url.'shopping_campaigns_page'; ?>";
   		  }else{
           var message = rsp.message;
           alert(message);

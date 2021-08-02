@@ -424,7 +424,8 @@ class Widget_Text_Editor extends Widget_Base {
 		<?php if ( $should_render_inline_editing ) { ?>
 			<div <?php $this->print_render_attribute_string( 'editor' ); ?>>
 		<?php } ?>
-			<?php echo $editor_content; ?>
+		<?php // PHPCS - the main text of a widget should not be escaped.
+				echo $editor_content; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( $should_render_inline_editing ) { ?>
 			</div>
 		<?php } ?>
@@ -441,7 +442,7 @@ class Widget_Text_Editor extends Widget_Base {
 	 */
 	public function render_plain_content() {
 		// In plain mode, render without shortcode
-		echo $this->get_settings( 'editor' );
+		$this->print_unescaped_setting( 'editor' );
 	}
 
 	/**

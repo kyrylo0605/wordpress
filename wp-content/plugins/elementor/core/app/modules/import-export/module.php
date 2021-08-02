@@ -98,8 +98,14 @@ class Module extends BaseModule {
 	}
 
 	private function import_stage_1() {
-		if ( ! empty( $_POST['e_import_file'] ) ) {
-			$remote_zip_request = wp_remote_get( $_POST['e_import_file'] );
+		// PHPCS - Already validated in caller function.
+		if ( ! empty( $_POST['e_import_file'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$file_url = $_POST['e_import_file']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			if ( ! filter_var( $file_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED ) || 0 !== strpos( $file_url, 'http' ) ) {
+				throw new \Error( __( 'Invalid URL', 'elementor' ) );
+			}
+
+			$remote_zip_request = wp_remote_get( $file_url );
 
 			if ( is_wp_error( $remote_zip_request ) ) {
 				throw new \Error( $remote_zip_request->get_error_message() );
@@ -111,18 +117,21 @@ class Module extends BaseModule {
 
 			$file_name = Plugin::$instance->uploads_manager->create_temp_file( $remote_zip_request['body'], 'kit.zip' );
 		} else {
-			$file_name = $_FILES['e_import_file']['tmp_name'];
+			// PHPCS - Already validated in caller function.
+			$file_name = $_FILES['e_import_file']['tmp_name']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		}
 
 		$extraction_result = Plugin::$instance->uploads_manager->extract_and_validate_zip( $file_name, [ 'json', 'xml' ] );
 
-		if ( ! empty( $_POST['e_import_file'] ) ) {
+		if ( ! empty( $file_url ) ) {
 			Plugin::$instance->uploads_manager->remove_file_or_dir( dirname( $file_name ) );
 		}
 
 		$session_dir = $extraction_result['extraction_directory'];
 
 		$manifest_data = json_decode( file_get_contents( $session_dir . 'manifest.json', true ), true );
+
+		$manifest_data = $this->import->adapt_manifest_structure( $manifest_data );
 
 		$result = [
 			'session' => basename( $session_dir ),
@@ -134,16 +143,12 @@ class Module extends BaseModule {
 		return $result;
 	}
 
-	private function import_stage_2( array $import_settings ) {
+	private function import_stage_2( $settings_directory ) {
 		set_time_limit( 0 );
-
-		$import_settings['directory'] = Plugin::$instance->uploads_manager->get_temp_dir() . $import_settings['session'] . '/';
-
-		$this->import = new Import( $import_settings );
 
 		$result = $this->import->run();
 
-		Plugin::$instance->uploads_manager->remove_file_or_dir( $import_settings['directory'] );
+		Plugin::$instance->uploads_manager->remove_file_or_dir( $settings_directory );
 
 		return $result;
 	}
@@ -155,11 +160,15 @@ class Module extends BaseModule {
 
 		$import_settings = json_decode( stripslashes( $_POST['data'] ), true );
 
+		$import_settings['directory'] = Plugin::$instance->uploads_manager->get_temp_dir() . $import_settings['session'] . '/';
+
+		$this->import = new Import( $import_settings );
+
 		try {
 			if ( 1 === $import_settings['stage'] ) {
 				$result = $this->import_stage_1();
 			} elseif ( 2 === $import_settings['stage'] ) {
-				$result = $this->import_stage_2( $import_settings );
+				$result = $this->import_stage_2( $import_settings['directory'] );
 			}
 
 			wp_send_json_success( $result );
@@ -191,7 +200,7 @@ class Module extends BaseModule {
 				'file' => base64_encode( $file ),
 			] );
 		} catch ( \Error $error ) {
-			wp_die( $error->getMessage() );
+			wp_die( esc_html( $error->getMessage() ) );
 		}
 	}
 
@@ -236,24 +245,24 @@ class Module extends BaseModule {
 		?>
 
 		<div class="tab-import-export-kit__content">
-			<p class="tab-import-export-kit__info"><?php echo $intro_text; ?></p>
+			<p class="tab-import-export-kit__info"><?php Utils::print_unescaped_internal_string( $intro_text ); ?></p>
 
 			<div class="tab-import-export-kit__wrapper">
 			<?php foreach ( $content_data as $data ) { ?>
 				<div class="tab-import-export-kit__container">
 					<div class="tab-import-export-kit__box">
-						<h2><?php echo $data['title']; ?></h2>
-						<a href="<?php echo $data['button']['url']; ?>" class="elementor-button elementor-button-success">
-							<?php echo $data['button']['text']; ?>
+						<h2><?php Utils::print_unescaped_internal_string( $data['title'] ); ?></h2>
+						<a href="<?php Utils::print_unescaped_internal_string( $data['button']['url'] ); ?>" class="elementor-button elementor-button-success">
+							<?php Utils::print_unescaped_internal_string( $data['button']['text'] ); ?>
 						</a>
 					</div>
-					<p><?php echo $data['description']; ?></p>
-					<a href="<?php echo $data['link']['url']; ?>" target="_blank"><?php echo $data['link']['text']; ?></a>
+					<p><?php Utils::print_unescaped_internal_string( $data['description'] ); ?></p>
+					<a href="<?php Utils::print_unescaped_internal_string( $data['link']['url'] ); ?>" target="_blank"><?php Utils::print_unescaped_internal_string( $data['link']['text'] ); ?></a>
 				</div>
 			<?php } ?>
 			</div>
 
-			<p class="tab-import-export-kit__info"><?php echo $info_text; ?></p>
+			<p class="tab-import-export-kit__info"><?php Utils::print_unescaped_internal_string( $info_text ); ?></p>
 		</div>
 		<?php
 	}

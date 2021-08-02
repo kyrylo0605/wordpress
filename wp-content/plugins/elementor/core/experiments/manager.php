@@ -238,10 +238,19 @@ class Manager extends Base_Object {
 
 		$this->add_feature( [
 			'name' => 'e_optimized_css_loading',
-			'title' => __( 'Improved CSS Loading', 'elementor' ),
-			'description' => __( 'Please Note! The “Improved CSS Loading” mode reduces the amount of CSS code that is loaded on the page by default. When activated, the CSS code will be loaded, rather inline or in a dedicated file, only when needed. Activating this experiment may cause conflicts with incompatible plugins.', 'elementor' )
-				. ' <a href="https://go.elementor.com/wp-dash-improved-asset-loading/" target="_blank">'
-				. __( 'Learn More', 'elementor' ) . '</a>',
+			'title' => esc_html__( 'Improved CSS Loading', 'elementor' ),
+			'description' => esc_html__( 'Please Note! The “Improved CSS Loading” mode reduces the amount of CSS code that is loaded on the page by default. When activated, the CSS code will be loaded, rather inline or in a dedicated file, only when needed. Activating this experiment may cause conflicts with incompatible plugins.', 'elementor' )
+				. ' <a href="https://go.elementor.com/wp-dash-improved-css-loading/" target="_blank">'
+				. esc_html__( 'Learn More', 'elementor' ) . '</a>',
+			'release_status' => self::RELEASE_STATUS_ALPHA,
+		] );
+
+		$this->add_feature( [
+			'name' => 'e_font_icon_svg',
+			'title' => esc_html__( 'Font-Awesome Inline', 'elementor' ),
+			'description' => esc_html__( 'The "Font-Awesome Inline" will render the Font-Awesome icons as inline SVG without loading the Font-Awesome library and its related CSS files and fonts.', 'elementor' )
+				. ' <a href="https://go.elementor.com/wp-dash-inline-font-awesome/" target="_blank">'
+				. esc_html__( 'Learn More', 'elementor' ) . '</a>',
 			'release_status' => self::RELEASE_STATUS_ALPHA,
 		] );
 
@@ -264,9 +273,21 @@ class Manager extends Base_Object {
 			'title' => esc_html__( 'Import Export Template Kit', 'elementor' ),
 			'description' => esc_html__( 'Design sites faster with a template kit that contains some or all components of a complete site, like templates, content & site settings.', 'elementor' )
 				. '<br>'
-				. __( 'You can import a kit and apply it to your site, or export the elements from this site to be used anywhere else.', 'elementor' ),
+				. esc_html__( 'You can import a kit and apply it to your site, or export the elements from this site to be used anywhere else.', 'elementor' ),
 			'release_status' => self::RELEASE_STATUS_BETA,
 			'default' => self::STATE_ACTIVE,
+		] );
+
+		$this->add_feature( [
+			'name' => 'additional_custom_breakpoints',
+			'title' => esc_html__( 'Additional Custom Breakpoints', 'elementor' ),
+			'description' => esc_html__( 'Add Additional Custom Breakpoints (beyond just \'mobile\' and \'tablet\') Optimize your site\'s performance when using responsive controls.', 'elementor' )
+							. '<br /><strong>' . esc_html__( 'Please note! Conditioning controls on values of responsive controls is not supported when this mode is active.', 'elementor' ) . '</strong>',
+			'release_status' => self::RELEASE_STATUS_DEV,
+			'new_site' => [
+				'default_active' => true,
+				'minimum_installation_version' => '3.4.0-beta',
+			],
 		] );
 	}
 
@@ -384,9 +405,27 @@ class Manager extends Base_Object {
 	private function render_settings_intro() {
 		?>
 		<h2><?php echo esc_html__( 'Experiments', 'elementor' ); ?></h2>
-		<p><?php echo sprintf( esc_html__( 'Access new and experimental features from Elementor before they\'re officially released. As these features are still in development, they are likely to change, evolve or even be removed altogether. <a href="%s" target="_blank">Learn More.</a>', 'elementor' ), 'https://go.elementor.com/wp-dash-experiments/' ); ?></p>
+		<p>
+			<?php
+				printf(
+					/* translators: %1$s Link open tag, %2$s: Link close tag. */
+					esc_html__( 'Access new and experimental features from Elementor before they\'re officially released. As these features are still in development, they are likely to change, evolve or even be removed altogether. %1$sLearn More.%2$s', 'elementor' ),
+					'<a href="https://go.elementor.com/wp-dash-experiments/" target="_blank">',
+					'</a>'
+				);
+			?>
+		</p>
 		<p><?php echo esc_html__( 'To use an experiment on your site, simply click on the dropdown next to it and switch to Active. You can always deactivate them at any time.', 'elementor' ); ?></p>
-		<p><?php echo sprintf( esc_html__( 'Your feedback is important - <a href="%s" target="_blank">help us</a> improve these features by sharing your thoughts and inputs.', 'elementor' ), 'https://go.elementor.com/wp-dash-experiments-report-an-issue/' ); ?></p>
+		<p>
+			<?php
+				printf(
+					/* translators: %1$s Link open tag, %2$s: Link close tag. */
+					esc_html__( 'Your feedback is important - %1$shelp us%2$s improve these features by sharing your thoughts and inputs.', 'elementor' ),
+					'<a href="https://go.elementor.com/wp-dash-experiments-report-an-issue/" target="_blank">',
+					'</a>'
+				);
+			?>
+		</p>
 		<?php
 	}
 

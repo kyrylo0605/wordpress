@@ -67,6 +67,54 @@ class AddCampaign {
       }
     }
 
+    
+    if (isset($_POST['create_campaign'])) {
+      $campaign_name = isset($_POST['campaign_name'])?$_POST['campaign_name']:"";
+      $campaign_budget = isset($_POST['campaign_budget'])?$_POST['campaign_budget']:"";
+      $sales_country = isset($_POST['sales_country'])?$_POST['sales_country']:"";
+      $all_products = isset($_POST['all_products'])?$_POST['all_products']:"";
+      $category_id = isset($_POST['dimension'])?$_POST['dimension']:"";
+      $category_level = isset($_POST['category_level'])?$_POST['category_level']:"";
+
+      $campaign = $api_obj->createCampaign($campaign_name, $campaign_budget, $sales_country, $all_products, $category_id, $category_level);
+      if(isset($campaign->errors) && !empty($campaign->errors)){
+        $class = 'notice notice-error';
+        $message = esc_html__((isset($campaign->errors) && isset($campaign->errors[0])) ? $campaign->errors[0] : 'Error', 'sample-text-domain');
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html('Error : ' . $message));
+      }else{
+        $class = 'notice notice-success';
+        $campaign_neme = isset($campaign->data)?'with Resource name '.$campaign->data:"";
+        $message = esc_html__('Smart Shopping Campaign Created Successfully '.$campaign_neme, 'sample-text-domain');
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));            
+      }
+    }else if (isset($_POST['update_campaign'])) {
+      $campaign_name = isset($_POST['campaign_name'])?$_POST['campaign_name']:"";
+      $campaign_budget = isset($_POST['campaign_budget'])?$_POST['campaign_budget']:"";
+      $campaign_id = isset($_POST['campaign_id'])?$_POST['campaign_id']:"";
+      $budget_id = isset($_POST['budget_id'])?$_POST['budget_id']:"";
+      $sales_country = isset($_POST['sales_country'])?$_POST['sales_country']:"";
+      $all_products = isset($_POST['all_products'])?$_POST['all_products']:"";
+      $ad_group_id = isset($_POST['ad_group_id'])?$_POST['ad_group_id']:"";
+      $ad_group_resource_name = isset($_POST['ad_group_resource_name'])?$_POST['ad_group_resource_name']:"";
+      $category_id = isset($_POST['dimension']) ? $_POST['dimension']:"";
+      $category_level = isset($_POST['category_level'])?$_POST['category_level']:"";
+
+      $campaign = $api_obj->updateCampaign($campaign_name, $campaign_budget, $campaign_id, $budget_id, $sales_country, $all_products, $category_id, $category_level, $ad_group_id, $ad_group_resource_name);
+      if (isset($campaign->errors) && !empty($campaign->errors)) {
+        $class = 'notice notice-error';
+        $message = esc_html__(isset($campaign->errors) ? $campaign->errors[0] : 'Error', 'sample-text-domain');
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html('Error : ' . $message));
+      } else if(isset($campaign->data)){      
+        $campaign_neme = isset($campaign->data)?'with Resource name '.$campaign->data:"";
+        $class = 'notice notice-success';
+        $message = esc_html__('Smart Shopping Campaign Updated Successfully ' . $campaign_neme, 'sample-text-domain');
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+          // $url = admin_url('admin.php?page=tvc-configuration-page');
+          //wp_redirect($url);
+        
+      }
+      echo "<script>jQuery('#feed-spinner').css('display', 'none');</script>";
+    }
     $currency = $this->TVC_Admin_Helper->get_user_currency_symbol();
     if (isset($_GET['edit']) && $_GET['edit'] != '') {
       $campaign_details_res = $api_obj->getCampaignDetails($_GET['edit']);
@@ -90,57 +138,7 @@ class AddCampaign {
       }
     }
 
-    if (isset($_POST['create_campaign'])) {
-      $campaign_name = isset($_POST['campaign_name'])?$_POST['campaign_name']:"";
-      $campaign_budget = isset($_POST['campaign_budget'])?$_POST['campaign_budget']:"";
-      $sales_country = isset($_POST['sales_country'])?$_POST['sales_country']:"";
-      $all_products = isset($_POST['all_products'])?$_POST['all_products']:"";
-      $category_id = isset($_POST['dimension'])?$_POST['dimension']:"";
-      $category_level = isset($_POST['category_level'])?$_POST['category_level']:"";
-
-      $campaign = $api_obj->createCampaign($campaign_name, $campaign_budget, $sales_country, $all_products, $category_id, $category_level);
-      if(isset($campaign->errors) && !empty($campaign->errors)){
-        $class = 'notice notice-error';
-        $message = esc_html__((isset($campaign->errors) && isset($campaign->errors[0])) ? $campaign->errors[0] : 'Error', 'sample-text-domain');
-        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html('Error : ' . $message));
-      }else{
-        $class = 'notice notice-success';
-        $campaign_neme = isset($campaign->data)?'with Resource name '.$campaign->data:"";
-        $message = esc_html__('Smart Shopping Campaign Created Successfully '.$campaign_neme, 'sample-text-domain');
-        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));            
-      }
-    }
-    if (isset($_POST['update_campaign'])) {
-      $campaign_name = isset($_POST['campaign_name'])?$_POST['campaign_name']:"";
-      $campaign_budget = isset($_POST['campaign_budget'])?$_POST['campaign_budget']:"";
-      $campaign_id = isset($_POST['campaign_id'])?$_POST['campaign_id']:"";
-      $budget_id = isset($_POST['budget_id'])?$_POST['budget_id']:"";
-      $sales_country = isset($_POST['sales_country'])?$_POST['sales_country']:"";
-      $all_products = isset($_POST['all_products'])?$_POST['all_products']:"";
-      $ad_group_id = isset($_POST['ad_group_id'])?$_POST['ad_group_id']:"";
-      $ad_group_resource_name = isset($_POST['ad_group_resource_name'])?$_POST['ad_group_resource_name']:"";
-      $category_id = isset($_POST['dimension']) ? $_POST['dimension']:"";
-      $category_level = isset($_POST['category_level'])?$_POST['category_level']:"";
-
-      $campaign = $api_obj->updateCampaign($campaign_name, $campaign_budget, $campaign_id, $budget_id, $sales_country, $all_products, $category_id, $category_level, $ad_group_id, $ad_group_resource_name);
-      
-      if (isset($campaign->errors) && !empty($campaign->errors)) {
-        $class = 'notice notice-error';
-        $message = esc_html__(isset($campaign->errors) ? $campaign->errors[0] : 'Error', 'sample-text-domain');
-        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html('Error : ' . $message));
-      } else if(isset($campaign->data)){
-        $campaign = $campaign->data;
-        if ($campaign['status'] == 200) {
-          $campaign_neme = isset($campaign['data'])?'with Resource name '.$campaign['data']:"";
-          $class = 'notice notice-success';
-          $message = esc_html__('Smart Shopping Campaign Updated Successfully ' . $campaign_neme, 'sample-text-domain');
-          printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
-          // $url = admin_url('admin.php?page=tvc-configuration-page');
-          //wp_redirect($url);
-        }
-      }
-      echo "<script>jQuery('#feed-spinner').css('display', 'none');</script>";
-    } ?>
+     ?>
 
 <div class="tab-content">
   <div class="tab-pane show active" id="googleShoppingFeed">

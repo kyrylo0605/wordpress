@@ -17,10 +17,11 @@ if (!defined('ABSPATH')) {
 class TVC_Tabs {
   protected $TVC_Admin_Helper;
   protected $site_url;
+  protected $google_detail;
   public function __construct() {
       $this->TVC_Admin_Helper = new TVC_Admin_Helper();
       $this->site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";
-      
+      $this->google_detail = $this->TVC_Admin_Helper->get_ee_options_data(); 
       $this->create_tabs();
   }    
   protected function info_htnml($validation){
@@ -40,6 +41,16 @@ class TVC_Tabs {
   
   protected function create_tabs(){
     $setting_status = $this->TVC_Admin_Helper->check_setting_status();
+    $googleDetail = [];
+    $plan_id = 1;
+    if(isset($this->google_detail['setting'])){
+      if ($this->google_detail['setting']) {
+        $googleDetail = $this->google_detail['setting'];
+        if(isset($googleDetail->plan_id) && !in_array($googleDetail->plan_id, array("1"))){
+          $plan_id = $googleDetail->plan_id;
+        }
+      }
+    }
     ?>
       <ul class="nav nav-pills nav-justified">
         <li class="nav-item">       
@@ -85,6 +96,14 @@ class TVC_Tabs {
                 <a href="<?php echo $this->site_url.'google_shopping_feed'; ?>" class="">Google Shopping</a>
             </div>
         </li>
+        <?php if($plan_id ==1){?>
+        <li class="nav-item tvc-new-freevspro-nav-item">
+          <div class="nav-link <?php echo $this->is_active_tabs('pricings'); ?>">
+            <span class="tvc-new-freevspro">New</span>
+            <a href="<?php echo $this->site_url.'pricings'; ?>" class="">Free Vs Pro</a>
+          </div>
+        </li>
+      <?php } ?>
         <li class="tvc-help-need">          
           For any query, reach out to us at <a href="tel:+1 (415) 968-6313">+1 (415) 968-6313</a>
         </li>

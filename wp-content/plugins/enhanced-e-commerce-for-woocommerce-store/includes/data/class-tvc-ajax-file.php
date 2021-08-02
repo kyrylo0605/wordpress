@@ -36,6 +36,191 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
     add_action('wp_ajax_tvc_call_notice_dismiss', array($this, 'tvc_call_notice_dismiss'));
     add_action('wp_ajax_tvc_call_notification_dismiss', array($this, 'tvc_call_notification_dismiss'));
     add_action('wp_ajax_tvc_call_active_licence', array($this, 'tvc_call_active_licence'));
+    add_action('wp_ajax_tvc_call_add_survey', array($this, 'tvc_call_add_survey'));
+
+    add_action('wp_ajax_tvcajax_product_sync_bantch_wise', array($this, 'tvcajax_product_sync_bantch_wise'));
+  }
+
+  public function tvcajax_product_sync_bantch_wise(){
+    global $wpdb;
+    // barch size for inser data in DB
+    $product_db_batch_size = 100;
+    // barch size for inser product in GMC
+    $product_batch_size = 100;
+    if(!class_exists('CustomApi')){
+      include(ENHANCAD_PLUGIN_DIR . 'includes/setup/CustomApi.php');
+    }
+    if(!class_exists('TVCProductSyncHelper')){
+      include(ENHANCAD_PLUGIN_DIR . 'includes/setup/class-tvc-product-sync-helper.php');
+    }
+    $customObj = new CustomApi();
+    $TVC_Admin_DB_Helper = new TVC_Admin_DB_Helper();
+    $TVC_Admin_Helper = new TVC_Admin_Helper();
+    $TVCProductSyncHelper = new TVCProductSyncHelper();
+    //sleep(3);
+    $prouct_pre_sync_table = $wpdb->prefix ."ee_prouct_pre_sync_data";
+    
+    $sync_produt = ""; $sync_produt_p = ""; $is_synced_up = ""; $sync_message = "";
+    $sync_progressive_data = isset($_POST['sync_progressive_data'])?$_POST['sync_progressive_data']:"";
+    $sync_produt = isset($sync_progressive_data['sync_produt'])?$sync_progressive_data['sync_produt']:"";
+    $sync_step = isset($sync_progressive_data['sync_step'])?$sync_progressive_data['sync_step']:"1";
+    $total_product =isset($sync_progressive_data['total_product'])?$sync_progressive_data['total_product']:"0";
+    $last_sync_product_id =isset($sync_progressive_data['last_sync_product_id'])?$sync_progressive_data['last_sync_product_id']:"";
+    $skip_products =isset($sync_progressive_data['skip_products'])?$sync_progressive_data['skip_products']:"0";
+
+    //print_r($_POST);
+    $merchant_id = isset($_POST['tvc_data'])?$_POST['tvc_data']:"";
+    $account_id = isset($_POST['account_id'])?$_POST['account_id']:"";
+    $customer_id = isset($_POST['customer_id'])?$_POST['customer_id']:"";
+    $subscription_id = isset($_POST['subscription_id'])?$_POST['subscription_id']:"";
+    $data = isset($_POST['tvc_data'])?$_POST['tvc_data']:"";    
+   
+
+    if( $sync_progressive_data == "" && $TVC_Admin_DB_Helper->tvc_row_count("ee_prouct_pre_sync_data") > 0 ){
+      $TVC_Admin_DB_Helper->tvc_safe_truncate_table($prouct_pre_sync_table);
+    }
+    /*
+     * step one start
+     */
+    if($total_product <= $sync_produt && $sync_step == 1){
+      $sync_step = 2;
+      $sync_produt = 0;
+    }
+    if($sync_step == 1){
+      parse_str($data, $formArray);      
+      $mappedCatsDB = [];
+      $mappedCats = [];
+      $mappedAttrs = [];
+      $skipProducts = [];
+      foreach($formArray as $key => $value){
+        if(preg_match("/^category-name-/i", $key)){
+          if($value != ''){
+            $keyArray = explode("name-", $key);
+            $mappedCatsDB[$keyArray[1]]['name'] = $value;
+          }
+          unset($formArray[$key]);
+        }else if(preg_match("/^category-/i", $key)){
+          if($value != '' && $value > 0){
+            $keyArray = explode("-", $key);
+            $mappedCats[$keyArray[1]] = $value;
+            $mappedCatsDB[$keyArray[1]]['id'] = $value;
+          }
+          unset($formArray[$key]);
+        }else{
+          if($value){
+              $mappedAttrs[$key] = $value;
+          }
+        }
+      }
+      //add/update data in defoult profile
+      $profile_data = array("profile_title"=>"Default","g_attribute_mapping"=>json_encode($mappedAttrs),"update_date"=>date('Y-m-d'));
+      if($TVC_Admin_DB_Helper->tvc_row_count("ee_product_sync_profile") ==0){
+        $TVC_Admin_DB_Helper->tvc_add_row("ee_product_sync_profile",$profile_data);
+      }else{
+        $TVC_Admin_DB_Helper->tvc_update_row("ee_product_sync_profile",$profile_data,array("id"=>1));
+      }
+      update_option("ee_prod_mapped_cats", serialize($mappedCatsDB));
+      update_option("ee_prod_mapped_attrs", serialize($mappedAttrs)); 
+
+      /*
+       * start product add in DB
+       * start clategory list
+       */
+      if(!empty($mappedCats)){
+        $batch_count =0; 
+        $values = array();
+        $place_holders = array();
+        foreach($mappedCats as $mc_key => $mappedCat){
+          $all_products = get_posts(array(
+            'post_type' => 'product',
+            'numberposts' => -1,
+            'post_status' => 'publish',
+            'tax_query' => array(
+              array(
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $mc_key, /* category name */
+                'operator' => 'IN'
+              )
+            )
+          ));
+          /*
+           * start product list , it's run per category
+           */
+          if(!empty($all_products)){
+            foreach($all_products as $postkey => $postvalue){
+              $batch_count++;
+              $t_data = array(
+                'w_product_id'=>$postvalue->ID,
+                'w_cat_id'=>$mc_key,
+                'g_cat_id'=>$mappedCat,
+                'product_sync_profile_id'=> 1,
+                'update_date'=>date('Y-m-d')
+              );            
+              array_push( $values, $postvalue->ID, $mc_key, $mappedCat, 1, date('Y-m-d') );
+              $place_holders[] = "('%d', '%d', '%d','%d', '%s')";
+              if($batch_count >= $product_db_batch_size){
+                $query = "INSERT INTO $prouct_pre_sync_table (w_product_id, w_cat_id, g_cat_id, product_sync_profile_id, update_date) VALUES ";
+                $query .= implode( ', ', $place_holders );
+                $wpdb->query($wpdb->prepare( "$query", $values ));
+                $batch_count = 0;
+                $values = array();
+                $place_holders = array();
+              }
+            } //end product list loop
+          }// end product loop if
+        }//end clategory loop
+        /*
+         * add last batch data in DB
+         */
+        if($batch_count > 0){
+          $query = "INSERT INTO $prouct_pre_sync_table (w_product_id, w_cat_id, g_cat_id, product_sync_profile_id, update_date) VALUES ";
+          $query .= implode( ', ', $place_holders );
+          $wpdb->query($wpdb->prepare( "$query", $values ));          
+        }
+
+      }//end category if
+      $total_product = $TVC_Admin_DB_Helper->tvc_row_count("ee_prouct_pre_sync_data");
+      $sync_produt = $total_product;
+      $sync_produt_p = ($sync_produt*100)/$total_product; 
+      $is_synced_up = ($total_product <= $sync_produt)?true:false;
+      $sync_message = "Initiated, products are being synced to Merchant Center.Do not refresh..";
+      //step one end
+    }else if($sync_step == 2){      
+      $rs = $TVCProductSyncHelper->call_batch_wise_sync_product($last_sync_product_id, $product_batch_size);
+      if(isset($rs['products_sync'])){
+        $sync_produt = (int)$sync_produt + $rs['products_sync'];
+      }
+      $skip_products=(isset($rs['skip_products']))?$rs['skip_products']:0;
+      $last_sync_product_id = (isset($rs['last_sync_product_id']))?$rs['last_sync_product_id']:0;
+      $sync_produt_p = ($sync_produt*100)/$total_product;
+      $is_synced_up = ($total_product <= $sync_produt)?true:false;
+      $sync_message = "Initiated, products are being synced to Merchant Center.Do not refresh..";
+      if($total_product <= $sync_produt){
+        $customObj->setGmcCategoryMapping($catMapRequest);
+        $customObj->setGmcAttributeMapping($attrMapRequest);
+        $TVC_Admin_Auto_Product_sync_Helper = new TVC_Admin_Auto_Product_sync_Helper();
+        $TVC_Admin_Auto_Product_sync_Helper->update_last_sync_in_db();
+        $sync_message = "Initiated, products are being synced to Merchant Center.Do not refresh..";
+        $TVC_Admin_DB_Helper->tvc_safe_truncate_table($prouct_pre_sync_table);
+      }
+    }
+    $sync_produt_p = round($sync_produt_p,0);
+    $sync_progressive_data = array("sync_step"=>$sync_step, "total_product"=>$total_product, "sync_produt"=>$sync_produt, "sync_produt_p"=>$sync_produt_p, 'skip_products'=>$skip_products, "last_sync_product_id"=>$last_sync_product_id, "is_synced_up"=>$is_synced_up, "sync_message"=>$sync_message);
+    echo json_encode(array('status'=>'success', "sync_progressive_data" => $sync_progressive_data,"api_rs"=>$rs));
+    exit;
+  }
+
+  public function tvc_call_add_survey(){
+    if ( is_admin() ) {
+      if(!class_exists('CustomApi')){
+        include(ENHANCAD_PLUGIN_DIR . 'includes/setup/CustomApi.php');
+      }
+      $customObj = new CustomApi();
+      unset($_POST['action']);    
+      echo json_encode($customObj->add_survey_of_deactivate_plugin($_POST));
+      exit;
+    }
   }
   //active licence key
   public function tvc_call_active_licence(){
@@ -175,13 +360,11 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
           $campaignId = filter_input(INPUT_POST, 'campaignId');
 
           $url = $this->apiDomain.'/campaigns/delete';
-
           $data = [
               'merchant_id' => $merchantId,
               'customer_id' => $customerId,
               'campaign_id' => $campaignId
           ];
-
           $args = array(
               'headers' => array(
                   'Authorization' => "Bearer MTIzNA==",
@@ -190,7 +373,6 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
               'method' => 'DELETE',
               'body' => wp_json_encode($data)
           );
-
           // Send remote request
           $request = wp_remote_request($url, $args);
 
@@ -202,22 +384,12 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
           if((isset($response_body->error) && $response_body->error == '')){
               $message = $response_body->message;
               echo json_encode(['status' => 'success', 'message' => $message]);
-//                    return new WP_REST_Response(
-//                        array(
-//                            'status' => $response_code,
-//                            'message' => $response_message,
-//                            'data' => $response_body->data
-//                        )
-//                    );
           }else{
               $message = is_array($response_body->errors) ? $response_body->errors[0] : "Face some unprocessable entity";
               echo json_encode(['status' => 'error', 'message' => $message]);
               // return new WP_Error($response_code, $response_message, $response_body);
           }
-
-          //   echo json_encode( $categories );
       }
-      // IMPORTANT: don't forget to exit
       exit;
   }
 
@@ -225,75 +397,61 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
    * Update the campaign status pause/active
    */
   public function tvcajax_update_campaign_status(){
-      // make sure this call is legal
-      if($this->safe_ajax_call(filter_input(INPUT_POST, 'campaignStatusNonce'), 'tvcajax-update-campaign-status-nonce')){
+    // make sure this call is legal
+    if($this->safe_ajax_call(filter_input(INPUT_POST, 'campaignStatusNonce'), 'tvcajax-update-campaign-status-nonce')){
+        if(!class_exists('ShoppingApi')){
+          include(ENHANCAD_PLUGIN_DIR . 'includes/setup/ShoppingApi.php');
+        }
 
-          if(!class_exists('ShoppingApi')){
-              //require_once(__DIR__ . '/ShoppingApi.php');
-              include(ENHANCAD_PLUGIN_DIR . 'includes/setup/ShoppingApi.php');
-          }
+        $header = array(
+            "Authorization: Bearer MTIzNA==",
+            "content-type: application/json"
+        );
 
-          $merchantId = filter_input(INPUT_POST, 'merchantId');
-          $customerId = filter_input(INPUT_POST, 'customerId');
-          $campaignId = filter_input(INPUT_POST, 'campaignId');
-          $budgetId = filter_input(INPUT_POST, 'budgetId');
-          $campaignName = filter_input(INPUT_POST, 'campaignName');
-          $budget = filter_input(INPUT_POST, 'budget');
-          $status = filter_input(INPUT_POST, 'status');
-          $url = $this->apiDomain.'/campaigns/update';
-          $shoppingObj = new ShoppingApi();
-          $campaignData = $shoppingObj->getCampaignDetails($campaignId);
+        $merchantId = filter_input(INPUT_POST, 'merchantId');
+        $customerId = filter_input(INPUT_POST, 'customerId');
+        $campaignId = filter_input(INPUT_POST, 'campaignId');
+        $budgetId = filter_input(INPUT_POST, 'budgetId');
+        $campaignName = filter_input(INPUT_POST, 'campaignName');
+        $budget = filter_input(INPUT_POST, 'budget');
+        $status = filter_input(INPUT_POST, 'status');
+        $curl_url = $this->apiDomain.'/campaigns/update';
+        $shoppingObj = new ShoppingApi();
+        $campaignData = $shoppingObj->getCampaignDetails($campaignId);
 
-          $data = [
-              'merchant_id' => $merchantId,
-              'customer_id' => $customerId,
-              'campaign_id' => $campaignId,
-              'account_budget_id' => $budgetId,
-              'campaign_name' => $campaignName,
-              'budget' => $budget,
-              'status' => $status,
-              'target_country' => $campaignData->data['data']->targetCountry,
-              'ad_group_id' => $campaignData->data['data']->adGroupId,
-              'ad_group_resource_name' => $campaignData->data['data']->adGroupResourceName
-          ];
-
-          $args = array(
-              'headers' => array(
-                  'Authorization' => "Bearer MTIzNA==",
-                  'Content-Type' => 'application/json'
-              ),
-              'method' => 'PATCH',
-              'body' => wp_json_encode($data)
-          );
-
-          // Send remote request
-          $request = wp_remote_request($url, $args);
-
-          // Retrieve information
-          $response_code = wp_remote_retrieve_response_code($request);
-          $response_message = wp_remote_retrieve_response_message($request);
-          $response_body = json_decode(wp_remote_retrieve_body($request));
-          if((isset($response_body->error) && $response_body->error == '')){
-              $message = $response_body->message;
-              echo json_encode(['status' => 'success', 'message' => $message]);
-//                    return new WP_REST_Response(
-//                        array(
-//                            'status' => $response_code,
-//                            'message' => $response_message,
-//                            'data' => $response_body->data
-//                        )
-//                    );
-          }else{
-              $message = is_array($response_body->errors) ? $response_body->errors[0] : "Face some unprocessable entity";
-              echo json_encode(['status' => 'error', 'message' => $message]);
-              // return new WP_Error($response_code, $response_message, $response_body);
-          }
-
-          //   echo json_encode( $categories );
-      }
-
-      // IMPORTANT: don't forget to exit
-      exit;
+        $data = [
+            'merchant_id' => $merchantId,
+            'customer_id' => $customerId,
+            'campaign_id' => $campaignId,
+            'account_budget_id' => $budgetId,
+            'campaign_name' => $campaignName,
+            'budget' => $budget,
+            'status' => $status,
+            'target_country' => $campaignData->data['data']->targetCountry,
+            'ad_group_id' => $campaignData->data['data']->adGroupId,
+            'ad_group_resource_name' => $campaignData->data['data']->adGroupResourceName
+        ];
+        $postData = json_encode($data);           
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => esc_url($curl_url),
+            CURLOPT_CUSTOMREQUEST => 'PATCH',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 1000,
+            CURLOPT_HTTPHEADER => $header,
+            CURLOPT_POSTFIELDS => $postData
+        ));
+        $response = curl_exec($ch);
+        $response = json_decode($response);
+        if (isset($response->error) && $response->error == false) {
+          $message = $response->message;
+           echo json_encode(['status' => 'success', 'message' => $message]);
+        }else{
+          $message = is_array($response->errors) ? $response->errors[0] : "Face some unprocessable entity";
+            echo json_encode(['status' => 'error', 'message' => $message]);
+        }
+    }
+    exit;
   }
 
   /**
@@ -704,6 +862,8 @@ class TVC_Ajax_File extends TVC_Ajax_Calls {
           ),
           'body' => wp_json_encode($data)
         );
+
+
         
         $request = wp_remote_post($url, $args); 
          

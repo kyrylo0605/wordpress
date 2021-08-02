@@ -98,7 +98,8 @@ class GoogleShoppingFeed {
             $campaignActive = $campaignActive + $campaign->active;
           }
           $campaignClicks = $campaignClicks + $campaign->clicks;
-          $campaignCost = $campaignCost + $campaign->cost;
+          $row_campaign_cost = ($campaign->cost);
+          $campaignCost = $campaignCost + $row_campaign_cost;
           $campaignConversions = $campaignConversions + $campaign->conversions;
           $campaignSales = $campaignSales + $campaign->sales;
         }

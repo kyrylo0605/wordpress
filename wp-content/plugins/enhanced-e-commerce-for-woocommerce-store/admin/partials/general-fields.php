@@ -100,6 +100,7 @@ if (isset($_GET['connect']) && isset($_GET['subscription_id'])) {
       Enhanced_Ecommerce_Google_Settings::add_update_settings('ee_options');
       //save data in DB
       $TVC_Admin_Helper->set_update_api_to_db($googleDetail, false);
+      $TVC_Admin_Helper->update_remarketing_snippets();
       if(isset($googleDetail->google_merchant_center_id) || isset($googleDetail->google_ads_id) ){
         if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){                    
           wp_redirect("admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=sync_product_page&welcome_msg=true");
@@ -193,8 +194,7 @@ if(isset($google_detail['setting'])){
           <div class="licence tvc-licence" >            
             <div class="tvc_licence_key_wapper <?php if($plan_id != 1){?>tvc-hide<?php }?>">
               <p>You are using our free plugin, no licence needed ! Happy analyzing..!! :)</p>
-              <p class="font-weight-bold">To unlock more features of google products, consider our <a href="<?php echo $TVC_Admin_Helper->get_pro_plan_site(); ?>" target="_blank">pro version.</a></p>
-              <?php /*
+              <p class="font-weight-bold">To unlock more features of google products, consider our <a href="<?php echo $TVC_Admin_Helper->get_pro_plan_site().'?utm_source=EE+Plugin+User+Interface&utm_medium=Google+Analytics+Screen+pro+version&utm_campaign=Upsell+at+Conversios'; ?>" target="_blank">pro version.</a></p>              
               <form method="post" name="google-analytic" id="tvc-licence-active"> 
                 <div class="input-group">
                   <input type="text" id="licence_key" name="licence_key" class="form-control" placeholder="Already purchased? Enter licence key" required="">
@@ -203,7 +203,7 @@ if(isset($google_detail['setting'])){
                   </div>
                 </div>
               </form>
-              */ ?>
+              
             </div>         
           </div>
         <?php }?>

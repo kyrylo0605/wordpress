@@ -139,7 +139,7 @@ if ( ! class_exists( 'TVC_Admin_DB_Helper' ) ) {
 			global $wpdb;
 			$query = $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) );   
       if ( $wpdb->get_var( $query ) === $table ) {
-      	$wpdb->query("TRUNCATE TABLE IF EXISTS ".$table);
+      	$wpdb->query("TRUNCATE TABLE ".$table);
       }
 		}
 	}

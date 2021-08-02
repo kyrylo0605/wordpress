@@ -683,7 +683,7 @@ class Controls_Manager {
 		$control_type_instance = $this->get_control( $control_data['type'] );
 
 		if ( ! $control_type_instance ) {
-			_doing_it_wrong( sprintf( '%1$s::%2$s', __CLASS__, __FUNCTION__ ), sprintf( 'Control type "%s" not found.', $control_data['type'] ), '1.0.0' );
+			_doing_it_wrong( sprintf( '%1$s::%2$s', __CLASS__, __FUNCTION__ ), sprintf( 'Control type "%s" not found.', esc_html( $control_data['type'] ) ), '1.0.0' );
 			return false;
 		}
 
@@ -700,7 +700,7 @@ class Controls_Manager {
 		$stack_id = $element->get_unique_name();
 
 		if ( ! $options['overwrite'] && isset( $this->stacks[ $stack_id ]['controls'][ $control_id ] ) ) {
-			_doing_it_wrong( sprintf( '%1$s::%2$s', __CLASS__, __FUNCTION__ ), sprintf( 'Cannot redeclare control with same name "%s".', $control_id ), '1.0.0' );
+			_doing_it_wrong( sprintf( '%1$s::%2$s', __CLASS__, __FUNCTION__ ), sprintf( 'Cannot redeclare control with same name "%s".', esc_html( $control_id ) ), '1.0.0' );
 
 			return false;
 		}
@@ -915,18 +915,64 @@ class Controls_Manager {
 		$controls_stack->end_controls_section();
 	}
 
+	/**
+	 * Add Page Transitions controls.
+	 *
+	 * This method adds a new control for the "Page Transitions" feature. The Core
+	 * version of elementor uses this method to display an upgrade message to
+	 * Elementor Pro.
+	 *
+	 * @param Controls_Stack $controls_stack .
+	 * @param string $tab
+	 * @param array $additional_messages
+	 *
+	 * @return void
+	 */
+	public function add_page_transitions_controls( Controls_Stack $controls_stack, $tab = self::TAB_ADVANCED, $additional_messages = [] ) {
+		$controls_stack->start_controls_section(
+			'section_page_transitions_teaser',
+			[
+				'label' => __( 'Page Transitions', 'elementor' ),
+				'tab' => $tab,
+			]
+		);
+
+		$messages = [
+			__( 'Page Transitions let you style entrance and exit animations between pages as well as display loader until your page assets load.', 'elementor' ),
+		];
+
+		if ( $additional_messages ) {
+			$messages = array_merge( $messages, $additional_messages );
+		}
+
+		$controls_stack->add_control(
+			'page_transitions_teaser',
+			[
+				'type' => self::RAW_HTML,
+				'raw' => $this->get_teaser_template( [
+					'title' => __( 'Meet Page Transitions', 'elementor' ),
+					'messages' => $messages,
+					'link' => 'https://elementor.com/pro/?utm_source=panel-page-transitions&utm_campaign=gopro&utm_medium=wp-dash',
+				] ),
+			]
+		);
+
+		$controls_stack->end_controls_section();
+	}
+
 	public function get_teaser_template( $texts ) {
 		ob_start();
 		?>
 		<div class="elementor-nerd-box">
-			<img class="elementor-nerd-box-icon" src="<?php echo ELEMENTOR_ASSETS_URL . 'images/go-pro.svg'; ?>" />
-			<div class="elementor-nerd-box-title"><?php echo $texts['title']; ?></div>
+			<img class="elementor-nerd-box-icon" src="<?php echo esc_url( ELEMENTOR_ASSETS_URL . 'images/go-pro.svg' ); ?>" />
+			<div class="elementor-nerd-box-title"><?php Utils::print_unescaped_internal_string( $texts['title'] ); ?></div>
 			<?php foreach ( $texts['messages'] as $message ) { ?>
-				<div class="elementor-nerd-box-message"><?php echo $message; ?></div>
+				<div class="elementor-nerd-box-message"><?php Utils::print_unescaped_internal_string( $message ); ?></div>
 			<?php }
 
-			if ( $texts['link'] ) { ?>
-				<a class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro" href="<?php echo Utils::get_pro_link( $texts['link'] ); ?>" target="_blank">
+			// Show a `Go Pro` button only if the user doesn't have Pro.
+			if ( $texts['link'] && ! Utils::has_pro() ) { ?>
+				<a class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro" href="<?php echo esc_url( Utils::get_pro_link( $texts['link'] ) ); ?>" target="_blank">
 					<?php echo esc_html__( 'Go Pro', 'elementor' ); ?>
 				</a>
 			<?php } ?>
