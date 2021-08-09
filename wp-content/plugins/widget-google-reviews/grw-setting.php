@@ -160,7 +160,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
                 <div class="rplg-flex-row">
                     <div class="rplg-flex-col">
                         <span>Google Reviews plugin is an easy and fast way to integrate Google business reviews right into your WordPress website. This plugin works instantly and keep all Google places and reviews in WordPress database thus it has no depend on external services.</span>
-                        <p><b><u>Please read '<a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=fig'); ?>">Full Installation Guide</a>' to completely understand how it works and set it up</u></b>.</p>
+                        <p style="font-size:20px;text-align:center"><b><u>Please read '<a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=fig'); ?>">Full Installation Guide</a>' to completely understand how it works and set up the plugin</u></b>.</p>
                         <p>Also you can find most common answers and solutions for most common questions and issues in next tabs.</p>
                         <div class="rplg-alert rplg-alert-success">
                             <strong>Try more features in the Business version</strong>: Merge Google, Facebook and Yelp reviews, Beautiful themes (Slider, Grid, Trust Badges), Shortcode support, Rich Snippets, Rating filter, Any sorting, Include/Exclude words filter, Hide/Show any elements, Priority support and many others.
@@ -226,20 +226,10 @@ $grw_google_api_key = get_option('grw_google_api_key');
                     </div>
                     <div class="rplg-field">
                         <div class="rplg-field-label">
-                            <label>Instruction: how to create Google Places API key</label>
+                            <label></label>
                         </div>
                         <div class="wp-review-field-option">
-                            <p>Below are small steps that describe how you can create your Google API key.<br>If you have any troubles with this, please see <a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=fig'); ?>">Full Installation Guide</a> where you can find the most detailed information about it.</p>
-                            <p>1. Go to your <a href="https://console.developers.google.com/apis/dashboard?pli=1" target="_blank">Google Console</a></p>
-                            <p>2. Click '<b>Create Project</b>' or '<b>Select Project</b>' button</p>
-                            <p>3. Create new project or select existing</p>
-                            <p>4. On the project page click '<b>ENABLE APIS AND SERVICES</b>'</p>
-                            <p>5. Type '<b>Places API</b>' in the search area</p>
-                            <p>6. Select the first result '<b>Places API</b>' and click '<b>ENABLE</b>' button</p>
-                            <p>7. On the 'Places API' page select '<b>Credential</b>' tab and '<b>Create credential</b>' / '<b>API key</b>' option</p>
-                            <p>8. Copy created API key, paste to this setting and save</p>
-                            <h3>Video instruction</h3>
-                            <iframe src="//www.youtube.com/embed/Kf_bkg7WeC0?rel=0" allowfullscreen=""></iframe>
+                            <p>If you do not know how to create Google API key, please read: <a href="<?php echo admin_url('options-general.php?page=grw&grw_tab=fig'); ?>">Full Installation Guide</a></p>
                         </div>
                     </div>
                 </form>
@@ -288,7 +278,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
             </div>
 
             <div id="fig" class="tab-content" style="display:<?php echo $tab == 'fig' ? 'block' : 'none'?>;">
-                <h3>Full Installation Guide</h3>
+                <h3>How to connect Google reviews</h3>
                 <?php include_once(dirname(__FILE__) . '/grw-setting-fig.php'); ?>
             </div>
 
@@ -335,7 +325,7 @@ $grw_google_api_key = get_option('grw_google_api_key');
                         </div>
                         <div class="wp-review-field-option">
                             <input type="button" value="Copy Debug Information" name="reset_all" onclick="window.rplg_debug_info.select();document.execCommand('copy');window.rplg_debug_msg.innerHTML='Debug Information copied, please paste it to your email to support';" class="button" />
-                            <textarea id="rplg_debug_info" style="display:block;width:30em;height:100px;margin-top:10px" onclick="window.rplg_debug_info.select();document.execCommand('copy');window.rplg_debug_msg.innerHTML='Debug Information copied, please paste it to your email to support';" readonly><?php rplg_debug(GRW_VERSION, grw_options(), 'widget_grw_widget'); grw_debug(); ?></textarea>
+                            <textarea id="rplg_debug_info" style="display:block;width:30em;height:200px;margin-top:10px" onclick="window.rplg_debug_info.select();document.execCommand('copy');window.rplg_debug_msg.innerHTML='Debug Information copied, please paste it to your email to support';" readonly><?php rplg_debug(GRW_VERSION, grw_options(), 'widget_grw_widget'); grw_debug(); ?></textarea>
                             <p id="rplg_debug_msg"></p>
                         </div>
                     </div>

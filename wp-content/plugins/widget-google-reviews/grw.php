@@ -4,7 +4,7 @@ Plugin Name: Widget for Google Reviews
 Plugin URI: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Description: Instantly Google Places Reviews on your website to increase user confidence and SEO.
 Author: RichPlugins <support@richplugins.com>
-Version: 1.9.6
+Version: 1.9.7
 Author URI: https://richplugins.com
 Text Domain: widget-google-reviews
 Domain Path: /languages
@@ -15,7 +15,7 @@ require(ABSPATH . 'wp-includes/version.php');
 include_once(dirname(__FILE__) . '/api/urlopen.php');
 include_once(dirname(__FILE__) . '/helper/debug.php');
 
-define('GRW_VERSION',            '1.9.6');
+define('GRW_VERSION',            '1.9.7');
 define('GRW_GOOGLE_PLACE_API',   'https://maps.googleapis.com/maps/api/place/');
 define('GRW_GOOGLE_AVATAR',      'https://lh3.googleusercontent.com/-8hepWJzFXpE/AAAAAAAAAAI/AAAAAAAAAAA/I80WzYfIxCQ/s128-c/114307615494839964028.jpg');
 define('GRW_PLUGIN_URL',         plugins_url(basename(plugin_dir_path(__FILE__ )), basename(__FILE__)));
@@ -77,7 +77,7 @@ function grw_plugin_row_meta($input, $file) {
     }
 
     $links = array(
-        '<a href="' . esc_url('https://richplugins.com/documentation') . '" target="_blank">' . grw_i('View Documentation') . '</a>',
+        '<a href="' . admin_url('options-general.php?page=grw&grw_tab=fig') . '" target="_blank">' . grw_i('View Documentation') . '</a>',
         '<a href="' . esc_url('https://richplugins.com/business-reviews-bundle-wordpress-plugin') . '" target="_blank">' . grw_i('Upgrade to Business') . ' &raquo;</a>',
     );
     $input = array_merge($input, $links);
@@ -551,7 +551,7 @@ function grw_admin_notice() {
             $url_later = esc_url(add_query_arg('grw_rev_notice', 'later', $url));
             $url_never = esc_url(add_query_arg('grw_rev_notice', 'never', $url));
 
-            $notice = '<p style="font-weight:normal;color:#156315">Hey, I noticed you have been using my <b>Google Reviews Widget</b> plugin for a while now – that’s awesome!<br>Could you please do me a BIG favor and give it a 5-star rating for our company Trust.Reviews LTD?<br><br>--<br>Thanks!<br>Daniel K.<br></p><ul style="font-weight:bold;"><li><a href="https://search.google.com/local/writereview?placeid=ChIJ_8ji0569cEgRkhHius5kmcs" target="_blank">OK, you deserve it</a></li><li><a href="' . $url_later . '">Not now, maybe later</a></li><li><a href="' . $url_never . '">Do not remind me again</a></li></ul><p>By the way, if you have been thinking about upgrading to the <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">Business</a> version, here is a 25% off onboard coupon ->  <b>business25off</b></p>';
+            $notice = '<p style="font-weight:normal;color:#156315">Hey, I noticed you have been using my <b>Google Reviews Widget</b> plugin for a while now – that’s awesome!<br>Could you please do me a BIG favor and give it a 5-star rating on WordPress?<br><br>--<br>Thanks!<br>Daniel K.<br></p><ul style="font-weight:bold;"><li><a href="https://wordpress.org/support/plugin/widget-google-reviews/reviews/#new-post" target="_blank">OK, you deserve it</a></li><li><a href="' . $url_later . '">Not now, maybe later</a></li><li><a href="' . $url_never . '">Do not remind me again</a></li></ul><p>By the way, if you have been thinking about upgrading to the <a href="https://richplugins.com/business-reviews-bundle-wordpress-plugin" target="_blank">Business</a> version, here is a 25% off onboard coupon ->  <b>business25off</b></p>';
 
             printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $notice);
         } else {

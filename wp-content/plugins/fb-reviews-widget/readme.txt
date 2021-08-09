@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: richplugins
 Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
-Tags: Facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
+Tags: facebook, reviews, recommendations, facebook reviews, facebook recommendations, ratings, testimonials, google, facebook page reviews
 Requires at least: 2.8
-Tested up to: 5.7
-Stable tag: 1.7.5
+Tested up to: 5.8
+Stable tag: 1.7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,7 @@ Why better to use <a href="https://richplugins.com/business-reviews-bundle-wordp
 
 [Upgrade to Business](https://richplugins.com/business-reviews-bundle-wordpress-plugin)
 
+* New awesome flash theme!
 * Merge reviews between each other from different platforms (Google, Facebook, Yelp) and places
 * Display all Google and Facebook reviews
 * Google Rich Snippets (schema.org)
@@ -80,6 +81,9 @@ Please keep in mind that plugin requests Facebook permission <a href="https://de
 4. Facebook Reviews sidebar widget
 
 == Changelog ==
+
+= 1.7.6 =
+* Update to WordPress 5.8
 
 = 1.7.5 =
 * Updated readme

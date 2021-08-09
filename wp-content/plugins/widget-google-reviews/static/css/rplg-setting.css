@@ -109,10 +109,13 @@
         width: 50%;
     }
     .rplg-flex-col3 {
-        width: 33.3%;
+        width: 30%;
     }
     .rplg-flex-col6 {
         width: 66.7%;
+    }
+    .rplg-flex-col7 {
+        width: 70%;
     }
 }
 
@@ -197,19 +200,30 @@
 }
 
 .rplg-setting .wp-review-hide {
-    font-size: 13px;
+    color: #fff;
+    font-size: 12px;
     font-weight: 600;
     line-height: 26px;
     text-decoration: none;
     text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border-color: #0062cc;
+    background-color: #427fbf;
+}
+
+.rplg-setting .wp-review-hide:hover {
+    background-color: #1d62ab;
 }
 
 #support h3 {
     line-height: 24px;
 }
 
-#fig p {
-    font-size: 14px;
+#fig p,
+#fig div {
+    font-size: 15px;
+    line-height: 24px;
 }
 
 #fig hr {
@@ -217,15 +231,49 @@
     border-bottom: 2px solid #eee;
 }
 
-#fig img {
-    display: block;
-    height: auto;
-    max-width: 100%;
-    margin: 10px auto 20px;
+#fig .rplg-flex-row {
+    align-items: center!important;
+    text-align: left;
+    margin-bottom: 40px;
 }
 
-@media (min-width: 700px) {
-    #fig img {
-        max-width: 60%;
-    }
+#fig .rplg-flex-col,
+#fig .rplg-flex-col3 {
+    padding: 0 20px;
+    line-height: 24px;
+}
+
+#fig .rplg-flex-col:first-child,
+#fig .rplg-flex-col3:first-child {
+    padding-right: 10px;
+}
+
+.rplg-support-question {
+    padding-bottom: 10px;
+}
+
+#fig img {
+    width: 100%;
+}
+
+#fig .subheader {
+    color: #4b76b7;
+    margin: 40px 0 20px;
+    text-decoration: underline;
+}
+
+#fig .rplg-flex-col > b:first-child,
+#fig .rplg-flex-col3 > b:first-child {
+    padding: 2px 8px;
+    margin-right: 4px;
+    border-radius: 50%;
+    color: #fff;
+    background: #36ad55;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 26%);
+}
+
+.box-img {
+    padding: 15px;
+    margin: 0 0 10px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }

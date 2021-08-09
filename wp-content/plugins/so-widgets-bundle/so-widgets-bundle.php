@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: SiteOrigin Widgets Bundle
-Description: A collection of all widgets, neatly bundled into a single plugin. It's also a framework to code your own widgets on top of.
-Version: 1.20.0
+Description: A highly customizable collection of widgets, ready to be used anywhere, neatly bundled into a single plugin.
+Version: 1.23.0
 Text Domain: so-widgets-bundle
 Domain Path: /lang
 Author: SiteOrigin
@@ -12,7 +12,7 @@ License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-define('SOW_BUNDLE_VERSION', '1.20.0');
+define('SOW_BUNDLE_VERSION', '1.23.0');
 define('SOW_BUNDLE_BASE_FILE', __FILE__);
 
 // Allow JS suffix to be pre-set
@@ -772,6 +772,9 @@ class SiteOrigin_Widgets_Bundle {
 		}
 		$links['manage'] = '<a href="' . admin_url('plugins.php?page=so-widgets-plugins') . '">'.__('Manage Widgets', 'so-widgets-bundle').'</a>';
 		$links['support'] = '<a href="https://siteorigin.com/thread/" target="_blank" rel="noopener noreferrer">'.__('Support', 'so-widgets-bundle').'</a>';
+		if ( apply_filters( 'siteorigin_premium_upgrade_teaser', true ) && ! defined( 'SITEORIGIN_PREMIUM_VERSION' ) ) {
+			$links['addons'] = '<a href="https://siteorigin.com/downloads/premium/?featured_plugin=so-widgets-bundle" style="color: #3db634" target="_blank" rel="noopener noreferrer">' . __( 'Addons', 'so-widgets-bundle' ) . '</a>';
+		}
 		return $links;
 	}
 
