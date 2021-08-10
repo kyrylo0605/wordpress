@@ -1036,13 +1036,13 @@ ul.elementor-icon-list-items.elementor-inline-items {
     .elementor-grid-mobile-12 .elementor-grid {
       grid-template-columns: repeat(12, 1fr); } }
 
-@media (min-width: ELEMENTOR_SCREEN_WIDESCREEN_MIN) {
-  #elementor-device-mode:after {
-    content: 'widescreen'; } }
-
 @media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
   #elementor-device-mode:after {
     content: 'desktop'; } }
+
+@media (min-width: ELEMENTOR_SCREEN_WIDESCREEN_MIN) {
+  #elementor-device-mode:after {
+    content: 'widescreen'; } }
 
 @media (max-width: ELEMENTOR_SCREEN_LAPTOP_MAX) {
   #elementor-device-mode:after {
@@ -1052,7 +1052,7 @@ ul.elementor-icon-list-items.elementor-inline-items {
   #elementor-device-mode:after {
     content: 'tablet_extra'; } }
 
-@media (min-width: ELEMENTOR_SCREEN_TABLET_MIN) and (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   #elementor-device-mode:after {
     content: 'tablet'; } }
 
@@ -2542,15 +2542,33 @@ button.swiper-pagination-bullet {
       margin-right: 0; } }
 
 @media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
+  .elementor .elementor-hidden-mobile {
+    display: none; }
   .elementor .elementor-hidden-phone {
     display: none; } }
 
-@media (min-width: ELEMENTOR_SCREEN_MOBILE_NEXT) and (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
+@media (min-width: ELEMENTOR_SCREEN_MOBILE_EXTRA_MIN) and (max-width: ELEMENTOR_SCREEN_MOBILE_EXTRA_MAX) {
+  .elementor .elementor-hidden-mobile_extra {
+    display: none; } }
+
+@media (min-width: ELEMENTOR_SCREEN_TABLET_MIN) and (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor .elementor-hidden-tablet {
     display: none; } }
 
-@media (min-width: ELEMENTOR_SCREEN_TABLET_NEXT) {
+@media (min-width: ELEMENTOR_SCREEN_TABLET_EXTRA_MIN) and (max-width: ELEMENTOR_SCREEN_TABLET_EXTRA_MAX) {
+  .elementor .elementor-hidden-tablet_extra {
+    display: none; } }
+
+@media (min-width: ELEMENTOR_SCREEN_LAPTOP_MIN) and (max-width: ELEMENTOR_SCREEN_LAPTOP_MAX) {
+  .elementor .elementor-hidden-laptop {
+    display: none; } }
+
+@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) and (max-width: ELEMENTOR_SCREEN_DESKTOP_MAX) {
   .elementor .elementor-hidden-desktop {
+    display: none; } }
+
+@media (min-width: ELEMENTOR_SCREEN_WIDESCREEN_MIN) {
+  .elementor .elementor-hidden-widescreen {
     display: none; } }
 
 .elementor-widget-text-path {
@@ -2580,4 +2598,6 @@ button.swiper-pagination-bullet {
       direction: var(--direction, ltr);
       transition: var(--transition) stroke, var(--transition) stroke-width, var(--transition) fill; }
       .elementor-widget-text-path svg text:hover {
-        --text-color: var( --text-color-hover ); }
+        --color: var( --text-color-hover, var( --text-color ) );
+        --fill: var( --color );
+        color: var(--color); }

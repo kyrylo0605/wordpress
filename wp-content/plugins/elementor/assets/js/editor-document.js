@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -12400,7 +12400,8 @@ BaseElementView = BaseContainer.extend({
     };
   },
   behaviors: function behaviors() {
-    var groups = elementor.hooks.applyFilters('elements/' + this.options.model.get('elType') + '/contextMenuGroups', this.getContextMenuGroups(), this);
+    var elementType = this.options.model.get('elType');
+    var groups = elementor.hooks.applyFilters("elements/".concat(elementType, "/contextMenuGroups"), this.getContextMenuGroups(), this);
     var behaviors = {
       contextMenu: {
         behaviorClass: __webpack_require__(/*! elementor-behaviors/context-menu */ "../assets/dev/js/editor/elements/views/behaviors/context-menu.js"),
@@ -14217,8 +14218,6 @@ __webpack_require__(/*! core-js/modules/es6.regexp.match.js */ "../node_modules/
 
 __webpack_require__(/*! core-js/modules/es6.regexp.constructor.js */ "../node_modules/core-js/modules/es6.regexp.constructor.js");
 
-__webpack_require__(/*! core-js/modules/es6.array.map.js */ "../node_modules/core-js/modules/es6.array.map.js");
-
 var Stylesheet = __webpack_require__(/*! elementor-editor-utils/stylesheet */ "../assets/dev/js/editor/utils/stylesheet.js"),
     ControlsCSSParser;
 
@@ -14476,11 +14475,8 @@ ControlsCSSParser = elementorModules.ViewModule.extend({
     var value; // it's a global settings with additional controls in group.
 
     if (control.groupType) {
-      // Create a regex expression containing all of the active breakpoints' prefixes ('_mobile', '_tablet' etc.)
-      var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-          responsivePrefixRegex = new RegExp((0, _keys.default)(activeBreakpoints).map(function (device) {
-        return '_' + device;
-      }).join('|') + '$');
+      // A regex containing all of the active breakpoints' prefixes ('_mobile', '_tablet' etc.).
+      var responsivePrefixRegex = elementor.breakpoints.getActiveMatchRegex();
       var propertyName = control.name.replace(control.groupPrefix, '').replace(responsivePrefixRegex, '');
 
       if (!data.value[elementor.config.kit_config.typography_prefix + propertyName]) {
@@ -14605,7 +14601,7 @@ __webpack_require__(/*! core-js/modules/es6.regexp.to-string.js */ "../node_modu
         var queryParts = singleQuery.split(/_(.+)/),
             endPoint = queryParts[0],
             deviceName = queryParts[1];
-        query[endPoint] = 'max' === endPoint ? devices[deviceName] : Stylesheet.getDeviceMinBreakpoint(deviceName);
+        query[endPoint] = 'max' === endPoint ? devices[deviceName] : elementorFrontend.breakpoints.getDeviceMinBreakpoint(deviceName);
       });
       return query;
     };
@@ -14767,55 +14763,6 @@ __webpack_require__(/*! core-js/modules/es6.regexp.to-string.js */ "../node_modu
       }
     });
     return parsedProperties;
-  };
-
-  Stylesheet.getDesktopPreviousDeviceKey = function () {
-    var desktopPreviousDevice = '';
-    var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-        breakpointKeys = (0, _keys.default)(activeBreakpoints),
-        numOfDevices = breakpointKeys.length;
-
-    if ('min' === activeBreakpoints[breakpointKeys[numOfDevices - 1]].direction) {
-      // If the widescreen breakpoint is active, the device that's previous to desktop is the last one before
-      // widescreen.
-      desktopPreviousDevice = breakpointKeys[numOfDevices - 2];
-    } else {
-      // If the widescreen breakpoint isn't active, we just take the last device returned by the config.
-      desktopPreviousDevice = breakpointKeys[numOfDevices - 1];
-    }
-
-    return desktopPreviousDevice;
-  };
-
-  Stylesheet.getDesktopMinPoint = function () {
-    var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-        desktopPreviousDevice = Stylesheet.getDesktopPreviousDeviceKey();
-    return activeBreakpoints[desktopPreviousDevice].value + 1;
-  };
-
-  Stylesheet.getDeviceMinBreakpoint = function (deviceName) {
-    if ('desktop' === deviceName) {
-      return Stylesheet.getDesktopMinPoint();
-    }
-
-    var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-        breakpointNames = (0, _keys.default)(activeBreakpoints);
-    var minBreakpoint;
-
-    if (breakpointNames[0] === deviceName) {
-      // For the lowest breakpoint, the min point is always 320.
-      minBreakpoint = 320;
-    } else if ('min' === activeBreakpoints[deviceName].direction) {
-      // Widescreen only has a minimum point. In this case, the breakpoint
-      // value in the Breakpoints config is itself the device min point.
-      minBreakpoint = activeBreakpoints[deviceName].value;
-    } else {
-      var deviceNameIndex = breakpointNames.indexOf(deviceName),
-          previousIndex = deviceNameIndex - 1;
-      minBreakpoint = activeBreakpoints[breakpointNames[previousIndex]].value + 1;
-    }
-
-    return minBreakpoint;
   };
 
   module.exports = Stylesheet;

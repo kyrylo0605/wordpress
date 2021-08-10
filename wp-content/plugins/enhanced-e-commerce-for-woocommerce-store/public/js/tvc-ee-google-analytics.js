@@ -331,6 +331,15 @@ class TVC_Enhanced {
         "items": ads_items
       });
     }
+
+    if(this.options.google_ads_conversion_tracking == 1 && this.options.conversio_send_to != ""){
+      gtag('event', 'conversion', {
+      'send_to': this.options.conversio_send_to,
+      'value': tvc_td.revenue,
+      'currency': this.options.currency,
+      'transaction_id': tvc_td.id,
+     });
+    }
     var last_purchase_time = this.getCookie("time_to_purchase");
     var time_to_purchase = purchase_time - last_purchase_time;
     this.eraseCookie("time_to_purchase");

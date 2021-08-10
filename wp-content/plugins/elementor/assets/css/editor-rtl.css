@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 @charset "UTF-8";
 .elementor-control-unit-1 {
   width: 27px; }
@@ -587,7 +587,6 @@ select {
   .elementor-panel .ps__rail-y {
     z-index: 3; }
   .elementor-panel .elementor-responsive-panel {
-    overflow: hidden;
     padding: 5px 10px;
     display: grid;
     gap: 10px;
@@ -1501,6 +1500,10 @@ select {
       padding-right: 5px;
       padding-left: 20px;
       cursor: pointer; }
+      .elementor-control.elementor-control-type-select .elementor-control-input-wrapper select.e-select-placeholder {
+        color: #a4afb7; }
+    .elementor-control.elementor-control-type-select .elementor-control-input-wrapper option.e-option-placeholder {
+      display: none; }
     .elementor-control.elementor-control-type-select .elementor-control-input-wrapper:after {
       font-family: eicons;
       content: '\e8ad';
@@ -1594,6 +1597,9 @@ select {
     display: none; }
     .elementor-units-choices input:not(:checked) + label {
       color: #a4afb7; }
+    .elementor-units-choices input.e-units-placeholder + label {
+      color: #c2cbd2;
+      text-decoration: underline; }
     .elementor-units-choices input:checked + label {
       text-decoration: underline; }
   .elementor-units-choices label {
@@ -1811,6 +1817,10 @@ a.elementor-responsive-switcher {
               border-bottom-left-radius: 3px; }
   .elementor-choices input {
     display: none; }
+    .elementor-choices input.e-choose-placeholder + .elementor-choices-label {
+      color: #ffffff;
+      background-color: #c2cbd2;
+      border-color: #c2cbd2; }
     .elementor-choices input:checked + .elementor-choices-label {
       color: #fff;
       background-color: #a4afb7;
@@ -2374,7 +2384,7 @@ a.elementor-responsive-switcher {
   height: 27px;
   width: 65px; }
 
-.elementor-control-media.elementor-media-empty .elementor-control-media-area {
+.elementor-control-media.elementor-media-empty .elementor-control-media-area .elementor-control-media__remove, .elementor-control-media.elementor-media-empty .elementor-control-media-area .elementor-control-media__content__remove {
   display: none; }
 
 .elementor-control-media:not(.elementor-media-empty) .elementor-control-media__content__upload-button {
@@ -2400,7 +2410,8 @@ a.elementor-responsive-switcher {
   height: 100%;
   -webkit-background-size: cover;
           background-size: cover;
-  background-position: center; }
+  background-position: center;
+  background-color: #d5dadf; }
 
 .elementor-control-media-area {
   background-image: -webkit-linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd), -webkit-linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd);
@@ -5700,6 +5711,8 @@ body:not(.elementor-device-desktop) #elementor-notice-bar {
   outline: none;
   z-index: 9999;
   font-size: 12px; }
+  .select2-container .e-select2-placeholder {
+    color: #a4afb7; }
   .select2-container.select2-container--default .select2-selection--single {
     height: 27px; }
     .select2-container.select2-container--default .select2-selection--single .select2-selection__rendered {

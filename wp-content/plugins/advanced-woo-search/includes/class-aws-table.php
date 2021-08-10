@@ -81,6 +81,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
          */
         public function reindex_table( $data = false ) {
 
+            ob_start();
+
             global $wpdb;
 
             $index_meta = $data ? $data : $_POST['data'];
@@ -175,6 +177,8 @@ if ( ! class_exists( 'AWS_Table' ) ) :
                 }
 
             }
+
+            ob_end_clean();
 
             if ( $data ) {
                 return $index_meta;

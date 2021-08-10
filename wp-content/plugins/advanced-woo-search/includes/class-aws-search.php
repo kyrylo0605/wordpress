@@ -71,7 +71,13 @@ if ( ! class_exists( 'AWS_Search' ) ) :
                 header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
             }
 
-            echo json_encode( $this->search() );
+            ob_start();
+
+            $search_results = $this->search();
+
+            ob_end_clean();
+
+            echo json_encode( $search_results );
 
             die;
 

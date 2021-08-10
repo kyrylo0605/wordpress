@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 .dialog-widget-content {
   background-color: #fff;
   position: absolute;
@@ -1184,13 +1184,13 @@ ul.elementor-icon-list-items.elementor-inline-items {
     .elementor-grid-mobile-12 .elementor-grid {
       grid-template-columns: repeat(12, 1fr); } }
 
-@media (min-width: -1px) {
-  #elementor-device-mode:after {
-    content: 'widescreen'; } }
-
 @media (min-width: 1025px) {
   #elementor-device-mode:after {
     content: 'desktop'; } }
+
+@media (min-width: -1px) {
+  #elementor-device-mode:after {
+    content: 'widescreen'; } }
 
 @media (max-width: -1px) {
   #elementor-device-mode:after {
@@ -1200,7 +1200,7 @@ ul.elementor-icon-list-items.elementor-inline-items {
   #elementor-device-mode:after {
     content: 'tablet_extra'; } }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
   #elementor-device-mode:after {
     content: 'tablet'; } }
 
@@ -3009,15 +3009,33 @@ button.swiper-pagination-bullet {
       margin-right: 0; } }
 
 @media (max-width: 767px) {
+  .elementor .elementor-hidden-mobile {
+    display: none; }
   .elementor .elementor-hidden-phone {
+    display: none; } }
+
+@media (min-width: -1px) and (max-width: -1px) {
+  .elementor .elementor-hidden-mobile_extra {
     display: none; } }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .elementor .elementor-hidden-tablet {
     display: none; } }
 
-@media (min-width: 1025px) {
+@media (min-width: -1px) and (max-width: -1px) {
+  .elementor .elementor-hidden-tablet_extra {
+    display: none; } }
+
+@media (min-width: -1px) and (max-width: -1px) {
+  .elementor .elementor-hidden-laptop {
+    display: none; } }
+
+@media (min-width: 1025px) and (max-width: 1439px) {
   .elementor .elementor-hidden-desktop {
+    display: none; } }
+
+@media (min-width: -1px) {
+  .elementor .elementor-hidden-widescreen {
     display: none; } }
 
 .elementor-widget-text-path {
@@ -3053,5 +3071,7 @@ button.swiper-pagination-bullet {
       -o-transition: var(--transition) stroke, var(--transition) stroke-width, var(--transition) fill;
       transition: var(--transition) stroke, var(--transition) stroke-width, var(--transition) fill; }
       .elementor-widget-text-path svg text:hover {
-        --text-color: var( --text-color-hover ); }
+        --color: var( --text-color-hover, var( --text-color ) );
+        --fill: var( --color );
+        color: var(--color); }
 /*# sourceMappingURL=frontend-lite-rtl.css.map */

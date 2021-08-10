@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -6365,6 +6365,9 @@ module.exports = Marionette.ItemView.extend({
     var _this = this;
 
     this.ui.connect.elementorConnect({
+      UTM: function UTM() {
+        return "&utm_source=editor-panel&utm_medium=wp-dash&utm_campaign=insert-".concat(_this.model.get('type'));
+      },
       success: function success() {
         elementor.config.library_connect.is_connected = true; // If is connecting during insert template.
 
@@ -7175,6 +7178,10 @@ exports.default = void 0;
 
 var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
+__webpack_require__(/*! core-js/modules/es6.array.map.js */ "../node_modules/core-js/modules/es6.array.map.js");
+
+__webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
+
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
@@ -7205,13 +7212,34 @@ var BreakpointValidator = /*#__PURE__*/function (_NumberValidator) {
         }
       };
     }
+    /**
+     * Get Panel Active Breakpoints
+     *
+     * Since the active kit used in the Site Settings panel could be a draft, we need to use the panel's active
+     * breakpoints settings and not the elementorFrontend.config values (which come from the DB).
+     *
+     * @returns Object
+     */
+
+  }, {
+    key: "getPanelActiveBreakpoints",
+    value: function getPanelActiveBreakpoints() {
+      var panelBreakpoints = elementor.documents.currentDocument.config.settings.settings.active_breakpoints.map(function (breakpointName) {
+        return breakpointName.replace('viewport_', '');
+      }),
+          panelActiveBreakpoints = {};
+      panelBreakpoints.forEach(function (breakpointName) {
+        panelActiveBreakpoints[breakpointName] = elementorFrontend.config.responsive.breakpoints[breakpointName];
+      });
+      return panelActiveBreakpoints;
+    }
   }, {
     key: "initBreakpointProperties",
     value: function initBreakpointProperties() {
       var _activeBreakpoints$br, _activeBreakpoints$br2;
 
       var validationTerms = this.getSettings('validationTerms'),
-          activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
+          activeBreakpoints = this.getPanelActiveBreakpoints(),
           breakpointKeys = (0, _keys.default)(activeBreakpoints);
       this.breakpointIndex = breakpointKeys.indexOf(validationTerms.breakpointName);
       this.topBreakpoint = (_activeBreakpoints$br = activeBreakpoints[breakpointKeys[this.breakpointIndex + 1]]) === null || _activeBreakpoints$br === void 0 ? void 0 : _activeBreakpoints$br.value;
@@ -7321,6 +7349,10 @@ module.exports = Validator.extend({
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
+var _assign = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/assign */ "../node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+
 var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
 
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
@@ -7328,6 +7360,10 @@ var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runt
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
 
 __webpack_require__(/*! core-js/modules/es6.array.filter.js */ "../node_modules/core-js/modules/es6.array.filter.js");
+
+__webpack_require__(/*! core-js/modules/es6.string.includes.js */ "../node_modules/core-js/modules/es6.string.includes.js");
+
+__webpack_require__(/*! core-js/modules/es7.array.includes.js */ "../node_modules/core-js/modules/es7.array.includes.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.slice.js */ "../node_modules/core-js/modules/es6.array.slice.js");
 
@@ -7400,7 +7436,12 @@ ControlBaseDataView = ControlBaseView.extend({
   },
   initialize: function initialize() {
     ControlBaseView.prototype.initialize.apply(this, arguments);
-    this.registerValidators(); // TODO: this.elementSettingsModel is deprecated since 2.8.0.
+    this.registerValidators();
+
+    if (this.model.get('responsive')) {
+      this.setPlaceholderFromParent();
+    } // TODO: this.elementSettingsModel is deprecated since 2.8.0.
+
 
     var settings = this.container ? this.container.settings : this.elementSettingsModel;
     this.listenTo(settings, 'change:external:' + this.model.get('name'), this.onAfterExternalChange);
@@ -7483,6 +7524,120 @@ ControlBaseDataView = ControlBaseView.extend({
     var settings = this.getOption('elementEditSettings') || this.getOption('container').settings;
     settings.set(settingKey, settingValue);
   },
+
+  /**
+   * Get the placeholder for the current control.
+   * @returns {*}
+   */
+  getControlPlaceholder: function getControlPlaceholder() {
+    return this.container.placeholders[this.model.get('name')];
+  },
+
+  /**
+   * Get the responsive parent view if exists.
+   *
+   * @returns {ControlBaseDataView|null}
+   */
+  getResponsiveParentView: function getResponsiveParentView() {
+    var parent = this.model.get('parent');
+
+    try {
+      return parent && this.container.panel.getControlView(parent);
+    } catch (e) {}
+  },
+
+  /**
+   * Get the responsive child view if exists.
+   *
+   * @returns {ControlBaseDataView|null}
+   */
+  getResponsiveChildView: function getResponsiveChildView() {
+    var child = this.model.get('child');
+
+    try {
+      return child && this.container.panel.getControlView(child);
+    } catch (e) {}
+  },
+
+  /**
+   * Get prepared placeholder from the responsive parent, and put it into current
+   * control model as placeholder.
+   */
+  setPlaceholderFromParent: function setPlaceholderFromParent() {
+    var parent = this.getResponsiveParentView();
+
+    if (parent) {
+      var placeholder = parent.preparePlaceholderForChildren() || this.model.get('placeholder');
+      this.container.placeholders[this.model.get('name')] = placeholder;
+      this.model.set('placeholder', placeholder);
+    }
+  },
+
+  /**
+   * Returns the value of the current control if exists, or the parent value if not,
+   * so responsive children can set it as their placeholder. When there are multiple
+   * inputs, the inputs which are empty on this control will inherit their values
+   * from the responsive parent.
+   * For example, if on desktop the padding of all edges is 10, and on tablet only
+   * padding right and left is set to 15, the mobile control placeholder will
+   * eventually be: { top: 10, right: 15, left: 15, bottom: 10 }, because of the
+   * inheritance of multiple values.
+   *
+   * @returns {*}
+   */
+  preparePlaceholderForChildren: function preparePlaceholderForChildren() {
+    var _this$getResponsivePa;
+
+    var parentValue = (_this$getResponsivePa = this.getResponsiveParentView()) === null || _this$getResponsivePa === void 0 ? void 0 : _this$getResponsivePa.preparePlaceholderForChildren(),
+        cleanValue = this.getCleanControlValue();
+
+    if (cleanValue instanceof Object) {
+      return (0, _keys.default)(cleanValue).length ? (0, _assign.default)({}, parentValue, cleanValue) : parentValue;
+    }
+
+    return this.getControlValue() || parentValue;
+  },
+
+  /**
+   * Start the re-rendering recursive chain from the responsive child of this
+   * control. It's useful when the current control value is changed and we want
+   * to update all responsive children. In this case, the re-rendering is supposed
+   * to be applied only from the responsive child of this control and on.
+   */
+  propagatePlaceholder: function propagatePlaceholder() {
+    var child = this.getResponsiveChildView();
+
+    if (child) {
+      child.renderWithChildren();
+    }
+  },
+
+  /**
+   * Re-render current control and trigger this method on the responsive child.
+   * The purpose of those actions is to recursively re-render all responsive
+   * children.
+   */
+  renderWithChildren: function renderWithChildren() {
+    var child = this.getResponsiveChildView();
+    this.render();
+
+    if (child) {
+      child.renderWithChildren();
+    }
+  },
+
+  /**
+   * This method's primary implementation is written under base-multiple view,
+   * please refer there for explanation.
+   */
+  getCleanControlValue: function getCleanControlValue() {},
+  onAfterChange: function onAfterChange(control) {
+    if ((0, _keys.default)(control.changed).includes(this.model.get('name'))) {
+      this.propagatePlaceholder();
+    }
+
+    ControlBaseView.prototype.onAfterChange.apply(this, arguments);
+  },
   getInputValue: function getInputValue(input) {
     var $input = this.$(input);
 
@@ -7552,6 +7707,9 @@ ControlBaseDataView = ControlBaseView.extend({
         }));
       });
     }
+  },
+  onBeforeRender: function onBeforeRender() {
+    this.setPlaceholderFromParent();
   },
   onRender: function onRender() {
     ControlBaseView.prototype.onRender.apply(this, arguments);
@@ -7675,6 +7833,10 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/help
 
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
 
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
+
+var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
+
 __webpack_require__(/*! core-js/modules/es6.array.filter.js */ "../node_modules/core-js/modules/es6.array.filter.js");
 
 var ControlBaseDataView = __webpack_require__(/*! elementor-controls/base-data */ "../assets/dev/js/editor/controls/base-data.js"),
@@ -7711,6 +7873,29 @@ ControlBaseMultipleItemView = ControlBaseDataView.extend({
     }
 
     return elementorCommon.helpers.cloneObject(values);
+  },
+
+  /**
+   * Get control value without empty properties, and without default values.
+   *
+   * @returns {{}}
+   */
+  getCleanControlValue: function getCleanControlValue(key) {
+    var _this = this;
+
+    var values = Object.fromEntries((0, _entries.default)(this.getControlValue()).filter(function (_ref) {
+      var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
+          k = _ref2[0],
+          v = _ref2[1];
+
+      return v && _this.model.get('default')[k] !== v;
+    }));
+
+    if (key) {
+      return values[key];
+    }
+
+    return values;
   },
   setValue: function setValue(key, value) {
     var values = this.getControlValue();
@@ -7752,10 +7937,43 @@ module.exports = ControlBaseMultipleItemView;
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.filter.js */ "../node_modules/core-js/modules/es6.array.filter.js");
+
+var _assign = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/assign */ "../node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+
 var ControlBaseMultipleItemView = __webpack_require__(/*! elementor-controls/base-multiple */ "../assets/dev/js/editor/controls/base-multiple.js"),
     ControlBaseUnitsItemView;
 
 ControlBaseUnitsItemView = ControlBaseMultipleItemView.extend({
+  ui: function ui() {
+    return (0, _assign.default)(ControlBaseMultipleItemView.prototype.ui.apply(this, arguments), {
+      units: '.elementor-units-choices>input'
+    });
+  },
+  events: function events() {
+    return (0, _assign.default)(ControlBaseMultipleItemView.prototype.events.apply(this, arguments), {
+      'change @ui.units': 'onUnitChange'
+    });
+  },
+  updatePlaceholder: function updatePlaceholder() {
+    var _this$getControlPlace;
+
+    var placeholder = (_this$getControlPlace = this.getControlPlaceholder()) === null || _this$getControlPlace === void 0 ? void 0 : _this$getControlPlace.unit;
+    this.ui.units.removeClass('e-units-placeholder');
+
+    if (placeholder) {
+      this.ui.units.filter("[value=\"".concat(placeholder, "\"]")).addClass('e-units-placeholder');
+    }
+  },
+  onRender: function onRender() {
+    ControlBaseMultipleItemView.prototype.onRender.apply(this, arguments);
+    this.updatePlaceholder();
+  },
+  onUnitChange: function onUnitChange() {
+    this.updatePlaceholder();
+  },
   getCurrentRange: function getCurrentRange() {
     return this.getUnitRange(this.getControlValue('unit'));
   },
@@ -7876,7 +8094,10 @@ ControlBaseView = Marionette.CompositeView.extend({
     this.model.set(controlSettings); // TODO: this.elementSettingsModel is deprecated since 2.8.0.
 
     var settings = this.container ? this.container.settings : this.elementSettingsModel;
-    this.listenTo(settings, 'change', this.toggleControlVisibility);
+    this.listenTo(settings, 'change', this.onAfterChange);
+  },
+  onAfterChange: function onAfterChange() {
+    this.toggleControlVisibility();
   },
   toggleControlVisibility: function toggleControlVisibility() {
     // TODO: this.elementSettingsModel is deprecated since 2.8.0.
@@ -8048,6 +8269,20 @@ ControlChooseItemView = ControlBaseDataView.extend({
       'change @ui.inputs': 'onBaseInputChange'
     });
   },
+  updatePlaceholder: function updatePlaceholder() {
+    var placeholder = this.getControlPlaceholder();
+
+    if (!this.getControlValue() && placeholder) {
+      // Find the input which has value equals to the placeholder (which is the parent's value),
+      // and add it a placeholder class, to indicate which value is selected in the parent.
+      this.ui.inputs.filter("[value=\"".concat(this.getControlPlaceholder(), "\"]")).addClass('e-choose-placeholder');
+    } else {
+      this.ui.inputs.removeClass('e-choose-placeholder');
+    }
+  },
+  onReady: function onReady() {
+    this.updatePlaceholder();
+  },
   applySavedValue: function applySavedValue() {
     var currentValue = this.getControlValue();
 
@@ -8072,6 +8307,10 @@ ControlChooseItemView = ControlBaseDataView.extend({
     if ($selectedInput.data('checked')) {
       $selectedInput.prop('checked', false).trigger('change');
     }
+  },
+  onBaseInputChange: function onBaseInputChange(event) {
+    ControlBaseDataView.prototype.onBaseInputChange.apply(this, arguments);
+    this.updatePlaceholder();
   }
 }, {
   onPasteStyle: function onPasteStyle(control, clipboardValue) {
@@ -9706,11 +9945,18 @@ ControlMediaItemView = ControlMultipleBaseItemView.extend({
     return 'svg' === mediaType ? 'image/svg+xml' : mediaType;
   },
   applySavedValue: function applySavedValue() {
-    var url = this.getControlValue('url'),
+    var _this$getControlPlace;
+
+    var value = this.getControlValue('url'),
+        url = value || ((_this$getControlPlace = this.getControlPlaceholder()) === null || _this$getControlPlace === void 0 ? void 0 : _this$getControlPlace.url),
         mediaType = this.getMediaType();
 
     if (['image', 'svg'].includes(mediaType)) {
       this.ui.mediaImage.css('background-image', url ? 'url(' + url + ')' : '');
+
+      if (!value && url) {
+        this.ui.mediaImage.css('opacity', 0.5);
+      }
     } else if ('video' === mediaType) {
       this.ui.mediaVideo.attr('src', url);
     } else {
@@ -9718,7 +9964,7 @@ ControlMediaItemView = ControlMultipleBaseItemView.extend({
       this.ui.fileName.text(fileName);
     }
 
-    this.ui.controlMedia.toggleClass('elementor-media-empty', !url);
+    this.ui.controlMedia.toggleClass('elementor-media-empty', !value);
   },
   openFrame: function openFrame(e) {
     var _e$target,
@@ -9867,7 +10113,13 @@ ControlMediaItemView = ControlMultipleBaseItemView.extend({
         alt: attachment.alt,
         source: attachment.source
       });
-      this.applySavedValue();
+
+      if (this.model.get('responsive')) {
+        // Render is already calls `applySavedValue`, therefore there's no need for it in this case.
+        this.renderWithChildren();
+      } else {
+        this.applySavedValue();
+      }
     }
 
     this.trigger('after:select');
@@ -10586,10 +10838,41 @@ module.exports = ControlSectionItemView;
 "use strict";
 
 
+__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
+
 var ControlBaseDataView = __webpack_require__(/*! elementor-controls/base-data */ "../assets/dev/js/editor/controls/base-data.js"),
     ControlSelectItemView;
 
-ControlSelectItemView = ControlBaseDataView.extend({}, {
+ControlSelectItemView = ControlBaseDataView.extend({
+  updatePlaceholder: function updatePlaceholder() {
+    var select = this.ui.select;
+    var selected = select.find('option:selected'); // When option with an empty value ('') selected, and it's not the placeholder option,
+    // set the selected option to the placeholder.
+
+    if ('' === selected.val() && !selected.hasClass('e-option-placeholder')) {
+      selected = select.find('.e-option-placeholder');
+      selected.prop('selected', true);
+    }
+
+    if (selected.hasClass('e-option-placeholder')) {
+      select.addClass('e-select-placeholder');
+    } else {
+      select.removeClass('e-select-placeholder');
+    }
+  },
+  onReady: function onReady() {
+    var placeholder = this.getControlPlaceholder();
+
+    if (placeholder) {
+      jQuery('<option>').val('').text(this.model.get('options')[placeholder]).addClass('e-option-placeholder').prependTo(this.ui.select);
+    }
+
+    this.updatePlaceholder();
+  },
+  onInputChange: function onInputChange() {
+    this.updatePlaceholder();
+  }
+}, {
   onPasteStyle: function onPasteStyle(control, clipboardValue) {
     if (control.groups) {
       return control.groups.some(function (group) {
@@ -10615,11 +10898,11 @@ module.exports = ControlSelectItemView;
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
+__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
+
 __webpack_require__(/*! core-js/modules/es6.string.includes.js */ "../node_modules/core-js/modules/es6.string.includes.js");
 
 __webpack_require__(/*! core-js/modules/es7.array.includes.js */ "../node_modules/core-js/modules/es7.array.includes.js");
-
-__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
 var _select = _interopRequireDefault(__webpack_require__(/*! elementor-editor-utils/select2.js */ "../assets/dev/js/editor/utils/select2.js"));
 
@@ -10628,7 +10911,7 @@ var ControlBaseDataView = __webpack_require__(/*! elementor-controls/base-data *
 
 ControlSelect2ItemView = ControlBaseDataView.extend({
   getSelect2Placeholder: function getSelect2Placeholder() {
-    return this.ui.select.children('option:first[value=""]').text();
+    return this.ui.select.find("[value=\"".concat(this.getControlPlaceholder(), "\"]")).text() || this.ui.select.children('option:first[value=""]').text();
   },
   getSelect2DefaultOptions: function getSelect2DefaultOptions() {
     var defaultOptions = {
@@ -10653,6 +10936,11 @@ ControlSelect2ItemView = ControlBaseDataView.extend({
   getSelect2Options: function getSelect2Options() {
     return jQuery.extend(this.getSelect2DefaultOptions(), this.model.get('select2options'));
   },
+  updatePlaceholder: function updatePlaceholder() {
+    if (this.getControlPlaceholder()) {
+      this.select2Instance.elements.$container.find('.select2-selection__placeholder').addClass('e-select2-placeholder');
+    }
+  },
   applySavedValue: function applySavedValue() {
     ControlBaseDataView.prototype.applySavedValue.apply(this, arguments);
     var elementSelect2Data = this.ui.select.data('select2'); // Checking if the element itself was initiated with select2 functionality in case of multiple renders.
@@ -10662,6 +10950,7 @@ ControlSelect2ItemView = ControlBaseDataView.extend({
         $element: this.ui.select,
         options: this.getSelect2Options()
       });
+      this.updatePlaceholder();
       this.handleLockedOptions();
     } else {
       this.ui.select.trigger('change');
@@ -10680,6 +10969,10 @@ ControlSelect2ItemView = ControlBaseDataView.extend({
   },
   onReady: function onReady() {
     elementorCommon.helpers.softDeprecated('onReady', '3.0.0');
+  },
+  onBaseInputChange: function onBaseInputChange() {
+    ControlBaseDataView.prototype.onBaseInputChange.apply(this, arguments);
+    this.updatePlaceholder();
   },
   onBeforeDestroy: function onBeforeDestroy() {
     // We always destroy the select2 instance because there are cases where the DOM element's data cache
@@ -10784,7 +11077,11 @@ ControlSliderItemView = ControlBaseUnitsItemView.extend({
     }
   },
   getSize: function getSize() {
-    return this.getControlValue(this.isMultiple() ? 'sizes' : 'size');
+    var _this$getControlPlace, _this$model$get;
+
+    var property = this.isMultiple() ? 'sizes' : 'size',
+        value = this.getControlValue(property);
+    return value || ((_this$getControlPlace = this.getControlPlaceholder()) === null || _this$getControlPlace === void 0 ? void 0 : _this$getControlPlace[property]) || ((_this$model$get = this.model.get('default')) === null || _this$model$get === void 0 ? void 0 : _this$model$get[property]);
   },
   resetSize: function resetSize() {
     if (this.isMultiple()) {
@@ -11129,7 +11426,8 @@ ControlWPWidgetItemView = ControlBaseDataView.extend({
           }
         }
 
-        elementor.hooks.doAction('panel/widgets/' + self.model.get('widget') + '/controls/wp_widget/loaded', self);
+        var widgetType = self.model.get('widget');
+        elementor.hooks.doAction("panel/widgets/".concat(widgetType, "/controls/wp_widget/loaded"), self);
       }
     });
   }
@@ -11987,19 +12285,19 @@ _Object$defineProperty2(exports, "__esModule", {
 
 exports.default = void 0;
 
+var _isArray = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/array/is-array */ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
+var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
+
 __webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
 
 __webpack_require__(/*! core-js/modules/es6.function.name.js */ "../node_modules/core-js/modules/es6.function.name.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
-
-var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
-
-var _isArray = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/array/is-array */ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
-
-var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
 
@@ -12049,13 +12347,13 @@ var _popoverToggle = _interopRequireDefault(__webpack_require__(/*! elementor-co
 
 var _responsiveBar = _interopRequireDefault(__webpack_require__(/*! ./regions/responsive-bar/responsive-bar */ "../assets/dev/js/editor/regions/responsive-bar/responsive-bar.js"));
 
-var _stylesheet = _interopRequireDefault(__webpack_require__(/*! ./utils/stylesheet */ "../assets/dev/js/editor/utils/stylesheet.js"));
-
 var _devTools = _interopRequireDefault(__webpack_require__(/*! elementor/modules/dev-tools/assets/js/editor/dev-tools */ "../modules/dev-tools/assets/js/editor/dev-tools.js"));
 
 var _module2 = _interopRequireDefault(__webpack_require__(/*! elementor/modules/landing-pages/assets/js/editor/module */ "../modules/landing-pages/assets/js/editor/module.js"));
 
 var _module3 = _interopRequireDefault(__webpack_require__(/*! elementor/modules/elements-color-picker/assets/js/editor/module */ "../modules/elements-color-picker/assets/js/editor/module.js"));
+
+var _breakpoints = _interopRequireDefault(__webpack_require__(/*! elementor-utils/breakpoints */ "../assets/dev/js/utils/breakpoints.js"));
 
 /* global ElementorConfig */
 var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
@@ -12122,7 +12420,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
         }
       },
       promotion: {
-        ignore: '.elementor-panel-category-items',
+        ignore: '.elementor-responsive-panel',
         callback: function callback() {
           var dialog = elementor.promotion.dialog;
 
@@ -12643,10 +12941,8 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
           currentBreakpointData = activeBreakpoints[currentBreakpoint],
           currentBreakpointMaxPoint = 'widescreen' === currentBreakpoint ? 9999 : currentBreakpointData.value;
-
-      var currentBreakpointMinPoint = _stylesheet.default.getDeviceMinBreakpoint(currentBreakpoint); // If the device under the current device mode's breakpoint has a larger max value - use the current device's
+      var currentBreakpointMinPoint = this.breakpoints.getDeviceMinBreakpoint(currentBreakpoint); // If the device under the current device mode's breakpoint has a larger max value - use the current device's
       // value as the min width point.
-
 
       if (currentBreakpointMinPoint > currentBreakpointData.value) {
         currentBreakpointMinPoint = currentBreakpointData.value;
@@ -13058,6 +13354,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
       Backbone.Radio.DEBUG = false;
       Backbone.Radio.tuneIn('ELEMENTOR');
       this.populateActiveBreakpointsConfig();
+      this.breakpoints = new _breakpoints.default(this.config.responsive);
 
       if (elementorCommon.config.experimentalFeatures.additional_custom_breakpoints) {
         // Duplicate responsive controls for section and column default configs.
@@ -13298,15 +13595,17 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
       var _this10 = this;
 
       var activeBreakpoints = this.config.responsive.activeBreakpoints,
-          devices = (0, _keys.default)(activeBreakpoints),
-          widescreenIndex = devices.indexOf('widescreen'),
-          indexToInsertDesktopDevice = -1 === widescreenIndex ? devices.length : devices.length - 1,
-          newControlsStack = {};
-      devices.splice(indexToInsertDesktopDevice, 0, 'desktop'); // Controls should be created from largest to smallest breakpoint. Breakpoints are registered from small to large.
+          devices = this.breakpoints.getActiveBreakpointsList({
+        largeToSmall: true
+      }),
+          newControlsStack = {}; // Set the desktop to be the fist device, so desktop will the the parent of all devices.
 
-      devices.reverse();
+      devices.unshift('desktop');
       jQuery.each(controls, function (controlName, controlConfig) {
-        // Handle repeater controls.
+        var _controlConfig$popove;
+
+        var responsiveControlName; // Handle repeater controls.
+
         if ('object' === (0, _typeof2.default)(controlConfig.fields)) {
           controlConfig.fields = _this10.generateResponsiveControls(controlConfig.fields);
         } // Only handle responsive controls in this loop.
@@ -13317,7 +13616,29 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           return;
         }
 
-        devices.forEach(function (device) {
+        var popoverEndProperty = (_controlConfig$popove = controlConfig.popover) === null || _controlConfig$popove === void 0 ? void 0 : _controlConfig$popove.end; // Since the `popoverEndProperty` variable now holds the value, we want to prevent this property from
+        // being duplicated to all responsive control instances. It should only be applied in the LAST responsive
+        // control.
+
+        if (popoverEndProperty) {
+          var _controlConfig$popove2;
+
+          (_controlConfig$popove2 = controlConfig.popover) === null || _controlConfig$popove2 === void 0 ? true : delete _controlConfig$popove2.end;
+        } // Move the control's default to the desktop control
+
+
+        if (controlConfig.default) {
+          controlConfig.desktop_default = controlConfig.default;
+        }
+
+        var multipleDefaultValue = _this10.config.controls[controlConfig.type].default_value; // For multiple controls that implement get_default_value() in the control class, make sure the duplicated
+        // controls receive that default value.
+
+        if (multipleDefaultValue) {
+          controlConfig.default = multipleDefaultValue;
+        }
+
+        devices.forEach(function (device, index) {
           var controlArgs = elementorCommon.helpers.cloneObject(controlConfig);
 
           if (controlArgs.device_args) {
@@ -13344,8 +13665,10 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
 
           if ('desktop' !== device) {
             direction = activeBreakpoints[device].direction;
-          }
+          } // Set the parent to be the previous device
 
+
+          controlArgs.parent = responsiveControlName;
           controlArgs.responsive[direction] = device;
 
           if (controlArgs.min_affected_device) {
@@ -13362,14 +13685,27 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
             } else {
               controlArgs.default = controlArgs[device + '_default'];
             }
-          } // For each new responsive control, delete
+          } // If the control belongs to a group control with a popover, and this control is the last one, add the
+          // popover.end = true value to it to make sure it closes the popover.
+
+
+          if (index === devices.length - 1 && popoverEndProperty) {
+            controlArgs.popover = {
+              end: true
+            };
+          } // For each new responsive control, delete the responsive defaults
 
 
           devices.forEach(function (breakpoint) {
             delete controlArgs[breakpoint + '_default'];
           });
           delete controlArgs.is_responsive;
-          var responsiveControlName = 'desktop' === device ? controlName : controlName + '_' + device;
+          responsiveControlName = 'desktop' === device ? controlName : controlName + '_' + device;
+
+          if (controlArgs.parent) {
+            newControlsStack[controlArgs.parent].child = responsiveControlName;
+          }
+
           controlArgs.name = responsiveControlName;
           newControlsStack[responsiveControlName] = controlArgs;
         });
@@ -13913,7 +14249,8 @@ BaseElementView = BaseContainer.extend({
     };
   },
   behaviors: function behaviors() {
-    var groups = elementor.hooks.applyFilters('elements/' + this.options.model.get('elType') + '/contextMenuGroups', this.getContextMenuGroups(), this);
+    var elementType = this.options.model.get('elType');
+    var groups = elementor.hooks.applyFilters("elements/".concat(elementType, "/contextMenuGroups"), this.getContextMenuGroups(), this);
     var behaviors = {
       contextMenu: {
         behaviorClass: __webpack_require__(/*! elementor-behaviors/context-menu */ "../assets/dev/js/editor/elements/views/behaviors/context-menu.js"),
@@ -17868,8 +18205,6 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = exports.ChangeDeviceMode = void 0;
 
-var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
-
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
@@ -17894,7 +18229,10 @@ var ChangeDeviceMode = /*#__PURE__*/function (_CommandBase) {
     key: "apply",
     value: function apply() {
       var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var devices = (0, _keys.default)(elementorFrontend.config.responsive.activeBreakpoints).reverse();
+      var devices = elementor.breakpoints.getActiveBreakpointsList({
+        largeToSmall: true,
+        withDesktop: true
+      });
       var device = args.device;
 
       if (!device) {
@@ -18836,7 +19174,7 @@ module.exports = Marionette.ItemView.extend({
 
       elementor.exitDeviceMode();
     } else {
-      var deviceView = 'default' === elementor.getPreferences('default_device_view') ? 'mobile' : elementor.getPreferences('default_device_view');
+      var deviceView = 'default' === elementor.getPreferences('default_device_view') ? 'desktop' : elementor.getPreferences('default_device_view');
       elementor.changeDeviceMode(deviceView);
 
       if ('desktop' === deviceView) {
@@ -19275,14 +19613,15 @@ var Open = /*#__PURE__*/function (_CommandBase) {
         args.model.trigger('request:edit');
       } else {
         $e.route(this.component.getDefaultRoute(), args);
-      } // BC: Run hooks after the route render's the view.
+      } // BC: Run hooks after the route render's the view
 
 
-      var action = 'panel/open_editor/' + args.model.get('elType'); // Example: panel/open_editor/widget
+      var elementType = args.model.get('elType'),
+          widgetType = args.model.get('widgetType'); // Example: panel/open_editor/widget
 
-      elementor.hooks.doAction(action, this.component.manager, args.model, args.view); // Example: panel/open_editor/widget/heading
+      elementor.hooks.doAction("panel/open_editor/".concat(elementType), this.component.manager, args.model, args.view); // Example: panel/open_editor/widget/heading
 
-      elementor.hooks.doAction(action + '/' + args.model.get('widgetType'), this.component.manager, args.model, args.view);
+      elementor.hooks.doAction("panel/open_editor/".concat(elementType, "/").concat(widgetType), this.component.manager, args.model, args.view);
     }
   }]);
   return Open;
@@ -21483,23 +21822,39 @@ Conditions = function Conditions() {
   };
 
   this.check = function (conditions, comparisonObject) {
-    var isOrCondition = 'or' === conditions.relation,
-        conditionSucceed = !isOrCondition;
+    var isOrCondition = 'or' === conditions.relation;
+    var conditionSucceed = !isOrCondition;
     jQuery.each(conditions.terms, function () {
-      var term = this,
-          comparisonResult;
+      var term = this;
+      var comparisonResult;
 
       if (term.terms) {
         comparisonResult = self.check(term, comparisonObject);
       } else {
-        var parsedName = term.name.match(/(\w+)(?:\[(\w+)])?/),
-            value = comparisonObject[parsedName[1]];
+        var _elementor$getCurrent, _elementor$getCurrent2;
 
-        if (parsedName[2]) {
-          value = value[parsedName[2]];
+        // A term consists of a control name to be examined, and a sub key if needed. For example, a term
+        // can look like 'image_overlay[url]' (the 'url' is the sub key). Here we want to isolate the
+        // condition name and the sub key, so later it can be retrieved and examined.
+        var parsedName = term.name.match(/(\w+)(?:\[(\w+)])?/),
+            conditionRealName = parsedName[1],
+            conditionSubKey = parsedName[2],
+            // We use null-safe operator since we're trying to get the current element, which is not always
+        // exists, since it's only created when the specific element appears in the panel.
+        placeholder = (_elementor$getCurrent = elementor.getCurrentElement()) === null || _elementor$getCurrent === void 0 ? void 0 : (_elementor$getCurrent2 = _elementor$getCurrent.container) === null || _elementor$getCurrent2 === void 0 ? void 0 : _elementor$getCurrent2.placeholders[conditionRealName]; // If a placeholder exists for the examined control, we check against it. In any other case, we
+        // use the 'comparisonObject', which includes all values of the selected widget.
+
+        var value = placeholder || comparisonObject[conditionRealName];
+
+        if (comparisonObject.__dynamic__ && comparisonObject.__dynamic__[conditionRealName]) {
+          value = comparisonObject.__dynamic__[conditionRealName];
         }
 
-        comparisonResult = self.compare(value, term.value, term.operator);
+        if (value && conditionSubKey) {
+          value = value[conditionSubKey];
+        }
+
+        comparisonResult = undefined !== value && self.compare(value, term.value, term.operator);
       }
 
       if (isOrCondition) {
@@ -21717,8 +22072,6 @@ __webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_module
 __webpack_require__(/*! core-js/modules/es6.regexp.match.js */ "../node_modules/core-js/modules/es6.regexp.match.js");
 
 __webpack_require__(/*! core-js/modules/es6.regexp.constructor.js */ "../node_modules/core-js/modules/es6.regexp.constructor.js");
-
-__webpack_require__(/*! core-js/modules/es6.array.map.js */ "../node_modules/core-js/modules/es6.array.map.js");
 
 var Stylesheet = __webpack_require__(/*! elementor-editor-utils/stylesheet */ "../assets/dev/js/editor/utils/stylesheet.js"),
     ControlsCSSParser;
@@ -21977,11 +22330,8 @@ ControlsCSSParser = elementorModules.ViewModule.extend({
     var value; // it's a global settings with additional controls in group.
 
     if (control.groupType) {
-      // Create a regex expression containing all of the active breakpoints' prefixes ('_mobile', '_tablet' etc.)
-      var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-          responsivePrefixRegex = new RegExp((0, _keys.default)(activeBreakpoints).map(function (device) {
-        return '_' + device;
-      }).join('|') + '$');
+      // A regex containing all of the active breakpoints' prefixes ('_mobile', '_tablet' etc.).
+      var responsivePrefixRegex = elementor.breakpoints.getActiveMatchRegex();
       var propertyName = control.name.replace(control.groupPrefix, '').replace(responsivePrefixRegex, '');
 
       if (!data.value[elementor.config.kit_config.typography_prefix + propertyName]) {
@@ -22281,9 +22631,13 @@ exports.default = Heartbeat;
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
-var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
 
 var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
+var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
+
+var _isArray = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/array/is-array */ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
@@ -22728,61 +23082,48 @@ module.exports = {
     });
   },
   isActiveControl: function isActiveControl(controlModel, values) {
-    var condition, conditions; // TODO: Better way to get this?
+    var _controlModel$get, _controlModel$get2;
 
-    if (_.isFunction(controlModel.get)) {
-      condition = controlModel.get('condition');
-      conditions = controlModel.get('conditions');
-    } else {
-      condition = controlModel.condition;
-      conditions = controlModel.conditions;
-    } // Multiple conditions with relations.
+    var condition = controlModel.condition || ((_controlModel$get = controlModel.get) === null || _controlModel$get === void 0 ? void 0 : _controlModel$get.call(controlModel, 'condition'));
+    var conditions = controlModel.conditions || ((_controlModel$get2 = controlModel.get) === null || _controlModel$get2 === void 0 ? void 0 : _controlModel$get2.call(controlModel, 'conditions')); // If there is a 'condition' format, convert it to a 'conditions' format.
 
+    if (condition) {
+      var terms = [];
+      (0, _entries.default)(condition).forEach(function (_ref) {
+        var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
+            conditionName = _ref2[0],
+            conditionValue = _ref2[1];
 
-    if (conditions && !elementor.conditions.check(conditions, values)) {
-      return false;
+        // Here we want to convert the 'condition' format to a 'conditions' format. The first step is to
+        // isolate the term from the negative operator if exists. For example, a condition format can look
+        // like 'selected_icon[value]!', so we examine this term with a negative connotation.
+        var conditionNameParts = conditionName.match(/(\w+(?:\[\w+])?)?(!?)$/i),
+            conditionRealName = conditionNameParts[1],
+            isNegativeCondition = !!conditionNameParts[2],
+            controlValue = values[conditionRealName];
+        var operator;
+
+        if ((0, _isArray.default)(conditionValue) && conditionValue.length) {
+          operator = isNegativeCondition ? '!in' : 'in';
+        } else if ((0, _isArray.default)(controlValue) && controlValue.length) {
+          operator = isNegativeCondition ? '!contains' : 'contains';
+        } else if (isNegativeCondition) {
+          operator = '!==';
+        }
+
+        terms.push({
+          name: conditionRealName,
+          operator: operator,
+          value: conditionValue
+        });
+      });
+      conditions = {
+        relation: 'and',
+        terms: conditions ? terms.concat(conditions) : terms
+      };
     }
 
-    if (_.isEmpty(condition)) {
-      return true;
-    }
-
-    var hasFields = _.filter(condition, function (conditionValue, conditionName) {
-      var conditionNameParts = conditionName.match(/([a-z_\-0-9]+)(?:\[([a-z_]+)])?(!?)$/i),
-          conditionRealName = conditionNameParts[1],
-          conditionSubKey = conditionNameParts[2],
-          isNegativeCondition = !!conditionNameParts[3],
-          controlValue = values[conditionRealName];
-
-      if (values.__dynamic__ && values.__dynamic__[conditionRealName]) {
-        controlValue = values.__dynamic__[conditionRealName];
-      }
-
-      if (undefined === controlValue) {
-        return true;
-      }
-
-      if (conditionSubKey && 'object' === (0, _typeof2.default)(controlValue)) {
-        controlValue = controlValue[conditionSubKey];
-      } // If it's a non empty array - check if the conditionValue contains the controlValue,
-      // If the controlValue is a non empty array - check if the controlValue contains the conditionValue
-      // otherwise check if they are equal. ( and give the ability to check if the value is an empty array )
-
-
-      var isContains;
-
-      if (_.isArray(conditionValue) && !_.isEmpty(conditionValue)) {
-        isContains = _.contains(conditionValue, controlValue);
-      } else if (_.isArray(controlValue) && !_.isEmpty(controlValue)) {
-        isContains = _.contains(controlValue, conditionValue);
-      } else {
-        isContains = _.isEqual(conditionValue, controlValue);
-      }
-
-      return isNegativeCondition ? isContains : !isContains;
-    });
-
-    return _.isEmpty(hasFields);
+    return !(conditions && !elementor.conditions.check(conditions, values));
   },
   cloneObject: function cloneObject(object) {
     elementorCommon.helpers.hardDeprecated('elementor.helpers.cloneObject', '2.3.0', 'elementorCommon.helpers.cloneObject');
@@ -24352,7 +24693,7 @@ __webpack_require__(/*! core-js/modules/es6.regexp.to-string.js */ "../node_modu
         var queryParts = singleQuery.split(/_(.+)/),
             endPoint = queryParts[0],
             deviceName = queryParts[1];
-        query[endPoint] = 'max' === endPoint ? devices[deviceName] : Stylesheet.getDeviceMinBreakpoint(deviceName);
+        query[endPoint] = 'max' === endPoint ? devices[deviceName] : elementorFrontend.breakpoints.getDeviceMinBreakpoint(deviceName);
       });
       return query;
     };
@@ -24514,55 +24855,6 @@ __webpack_require__(/*! core-js/modules/es6.regexp.to-string.js */ "../node_modu
       }
     });
     return parsedProperties;
-  };
-
-  Stylesheet.getDesktopPreviousDeviceKey = function () {
-    var desktopPreviousDevice = '';
-    var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-        breakpointKeys = (0, _keys.default)(activeBreakpoints),
-        numOfDevices = breakpointKeys.length;
-
-    if ('min' === activeBreakpoints[breakpointKeys[numOfDevices - 1]].direction) {
-      // If the widescreen breakpoint is active, the device that's previous to desktop is the last one before
-      // widescreen.
-      desktopPreviousDevice = breakpointKeys[numOfDevices - 2];
-    } else {
-      // If the widescreen breakpoint isn't active, we just take the last device returned by the config.
-      desktopPreviousDevice = breakpointKeys[numOfDevices - 1];
-    }
-
-    return desktopPreviousDevice;
-  };
-
-  Stylesheet.getDesktopMinPoint = function () {
-    var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-        desktopPreviousDevice = Stylesheet.getDesktopPreviousDeviceKey();
-    return activeBreakpoints[desktopPreviousDevice].value + 1;
-  };
-
-  Stylesheet.getDeviceMinBreakpoint = function (deviceName) {
-    if ('desktop' === deviceName) {
-      return Stylesheet.getDesktopMinPoint();
-    }
-
-    var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-        breakpointNames = (0, _keys.default)(activeBreakpoints);
-    var minBreakpoint;
-
-    if (breakpointNames[0] === deviceName) {
-      // For the lowest breakpoint, the min point is always 320.
-      minBreakpoint = 320;
-    } else if ('min' === activeBreakpoints[deviceName].direction) {
-      // Widescreen only has a minimum point. In this case, the breakpoint
-      // value in the Breakpoints config is itself the device min point.
-      minBreakpoint = activeBreakpoints[deviceName].value;
-    } else {
-      var deviceNameIndex = breakpointNames.indexOf(deviceName),
-          previousIndex = deviceNameIndex - 1;
-      minBreakpoint = activeBreakpoints[breakpointNames[previousIndex]].value + 1;
-    }
-
-    return minBreakpoint;
   };
 
   module.exports = Stylesheet;
@@ -25955,6 +26247,234 @@ var InstanceType = /*#__PURE__*/function () {
 }();
 
 exports.default = InstanceType;
+
+/***/ }),
+
+/***/ "../assets/dev/js/utils/breakpoints.js":
+/*!*********************************************!*\
+  !*** ../assets/dev/js/utils/breakpoints.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.regexp.constructor.js */ "../node_modules/core-js/modules/es6.regexp.constructor.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.map.js */ "../node_modules/core-js/modules/es6.array.map.js");
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
+var _values = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/values */ "../node_modules/@babel/runtime-corejs2/core-js/object/values.js"));
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/objectSpread2 */ "../node_modules/@babel/runtime-corejs2/helpers/objectSpread2.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+/**
+ * Breakpoints
+ *
+ * This utility class contains helper functions relating to Elementor's breakpoints system.
+ *
+ * @since 3.4.0
+ */
+var Breakpoints = /*#__PURE__*/function (_elementorModules$Mod) {
+  (0, _inherits2.default)(Breakpoints, _elementorModules$Mod);
+
+  var _super = (0, _createSuper2.default)(Breakpoints);
+
+  function Breakpoints(responsiveConfig) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Breakpoints);
+    _this = _super.call(this); // The passed config is either `elementor.config.responsive` or `elementorFrontend.config.responsive`
+
+    _this.responsiveConfig = responsiveConfig;
+    return _this;
+  }
+  /**
+   * Get Active Breakpoints List
+   *
+   * Returns a flat array containing the active breakpoints/devices. By default, it returns the li
+   * the list ordered from smallest to largest breakpoint. If `true` is passed as a parameter, it reverses the order.
+   *
+   * @since 3.4.0
+   *
+   * @param {Object} args
+   */
+
+
+  (0, _createClass2.default)(Breakpoints, [{
+    key: "getActiveBreakpointsList",
+    value: function getActiveBreakpointsList() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var defaultArgs = {
+        largeToSmall: false,
+        withDesktop: false
+      };
+      args = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, defaultArgs), args);
+      var breakpointKeys = (0, _keys.default)(this.responsiveConfig.activeBreakpoints);
+
+      if (args.withDesktop) {
+        // If there is an active 'widescreen' breakpoint, insert the artificial 'desktop' device below it.
+        var widescreenIndex = breakpointKeys.indexOf('widescreen'),
+            indexToInsertDesktopDevice = -1 === widescreenIndex ? breakpointKeys.length : breakpointKeys.length - 1;
+        breakpointKeys.splice(indexToInsertDesktopDevice, 0, 'desktop');
+      }
+
+      if (args.largeToSmall) {
+        breakpointKeys.reverse();
+      }
+
+      return breakpointKeys;
+    }
+    /**
+     * Get Active Breakpoint Values
+     *
+     * Returns a flat array containing the list of active breakpoint values, from smallest to largest.
+     *
+     * @since 3.4.0
+     */
+
+  }, {
+    key: "getBreakpointValues",
+    value: function getBreakpointValues() {
+      var activeBreakpoints = this.responsiveConfig.activeBreakpoints,
+          breakpointValues = [];
+      (0, _values.default)(activeBreakpoints).forEach(function (breakpointConfig) {
+        breakpointValues.push(breakpointConfig.value);
+      });
+      return breakpointValues;
+    }
+    /**
+     * Get Desktop Previous Device Key
+     *
+     * Returns the key of the device directly under desktop (can be 'tablet', 'tablet_extra', 'laptop').
+     *
+     * @since 3.4.0
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "getDesktopPreviousDeviceKey",
+    value: function getDesktopPreviousDeviceKey() {
+      var desktopPreviousDevice = '';
+      var activeBreakpoints = this.responsiveConfig.activeBreakpoints,
+          breakpointKeys = (0, _keys.default)(activeBreakpoints),
+          numOfDevices = breakpointKeys.length;
+
+      if ('min' === activeBreakpoints[breakpointKeys[numOfDevices - 1]].direction) {
+        // If the widescreen breakpoint is active, the device that's previous to desktop is the last one before
+        // widescreen.
+        desktopPreviousDevice = breakpointKeys[numOfDevices - 2];
+      } else {
+        // If the widescreen breakpoint isn't active, we just take the last device returned by the config.
+        desktopPreviousDevice = breakpointKeys[numOfDevices - 1];
+      }
+
+      return desktopPreviousDevice;
+    }
+    /**
+     * Get Device Minimum Breakpoint
+     *
+     * Returns the minimum point in the device's display range. For each device, the minimum point of its display range
+     * is the max point of the device below it + 1px. For example, if the active devices are mobile, tablet,
+     * and desktop, and the mobile breakpoint is 767px, the minimum display point for tablet devices is 768px.
+     *
+     * @since 3.4.0
+     *
+     * @returns {number|*}
+     */
+
+  }, {
+    key: "getDesktopMinPoint",
+    value: function getDesktopMinPoint() {
+      var activeBreakpoints = this.responsiveConfig.activeBreakpoints,
+          desktopPreviousDevice = this.getDesktopPreviousDeviceKey();
+      return activeBreakpoints[desktopPreviousDevice].value + 1;
+    }
+    /**
+     * Get Device Minimum Breakpoint
+     *
+     * Returns the minimum point in the device's display range. For each device, the minimum point of its display range
+     * is the max point of the device below it + 1px. For example, if the active devices are mobile, tablet,
+     * and desktop, and the mobile breakpoint is 767px, the minimum display point for tablet devices is 768px.
+     *
+     * @since 3.4.0
+     *
+     * @param device
+     * @returns {number|*}
+     */
+
+  }, {
+    key: "getDeviceMinBreakpoint",
+    value: function getDeviceMinBreakpoint(device) {
+      if ('desktop' === device) {
+        return this.getDesktopMinPoint();
+      }
+
+      var activeBreakpoints = this.responsiveConfig.activeBreakpoints,
+          breakpointNames = (0, _keys.default)(activeBreakpoints);
+      var minBreakpoint;
+
+      if (breakpointNames[0] === device) {
+        // For the lowest breakpoint, the min point is always 320.
+        minBreakpoint = 320;
+      } else if ('widescreen' === device) {
+        // Widescreen only has a minimum point. In this case, the breakpoint
+        // value in the Breakpoints config is itself the device min point.
+        if (activeBreakpoints[device]) {
+          minBreakpoint = activeBreakpoints[device].value;
+        } else {
+          // If the widescreen breakpoint does not exist in the active breakpoints config (for example, in the
+          // case this method runs as the breakpoint is being added), get the value from the full config.
+          minBreakpoint = this.responsiveConfig.breakpoints.widescreen;
+        }
+      } else {
+        var deviceNameIndex = breakpointNames.indexOf(device),
+            previousIndex = deviceNameIndex - 1;
+        minBreakpoint = activeBreakpoints[breakpointNames[previousIndex]].value + 1;
+      }
+
+      return minBreakpoint;
+    }
+    /**
+     * Get Active Match Regex
+     *
+     * Returns a regular expression containing all active breakpoints prefixed with an underscore.
+     *
+     * @returns {RegExp}
+     */
+
+  }, {
+    key: "getActiveMatchRegex",
+    value: function getActiveMatchRegex() {
+      return new RegExp(this.getActiveBreakpointsList().map(function (device) {
+        return '_' + device;
+      }).join('|') + '$');
+    }
+  }]);
+  return Breakpoints;
+}(elementorModules.Module);
+
+exports.default = Breakpoints;
 
 /***/ }),
 
@@ -29902,7 +30422,21 @@ var KitUpdateBreakpointsPreview = /*#__PURE__*/function (_$e$modules$hookUI$Af) 
   }, {
     key: "apply",
     value: function apply(args) {
-      var settings = args.settings; // If a breakpoint value was updated, update the value in the config.
+      var settings = args.settings;
+
+      if (settings.active_breakpoints) {
+        // Updating the current document config necessary, even if the page has to be reloaded for these settings
+        // to take place, because users can add breakpoints and then immediately choose a value for them, before
+        // saving the site settings. The breakpoint control's validator needs to have the actual active breakpoints
+        // in the panel at that moment breakpoints config in order to validate the user input properly.
+        elementor.documents.currentDocument.config.settings.settings.active_breakpoints = settings.active_breakpoints; // This flag is used to notify users that if they make a change to the active breakpoints list, they need
+        // to reload the editor for the changes to take effect.
+
+        elementor.activeBreakpointsUpdated = true; // If this is the modified setting, no need to do further checks.
+
+        return;
+      } // If a breakpoint value was updated, update the value in the config.
+
 
       (0, _entries.default)(settings).forEach(function (_ref) {
         var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
@@ -32001,7 +32535,10 @@ var End = /*#__PURE__*/function (_CommandBase) {
     function apply() {
       var _this$component$curre;
 
-      // Remove all elements & event listeners.
+      // In-Activate the component since the default behavior will in-activate it only on route change,
+      // but this component doesn't have any routes.
+      this.component.inactivate(); // Remove all elements & event listeners.
+
       elementor.$previewContents[0].querySelector('body').classList.remove('elementor-editor__ui-state__color-picker');
       elementor.$previewContents[0].querySelectorAll('.e-element-color-picker').forEach(function (picker) {
         jQuery(picker).tipsy('hide');
@@ -32761,7 +33298,10 @@ var Start = /*#__PURE__*/function (_CommandBase) {
   (0, _createClass2.default)(Start, [{
     key: "apply",
     value: function apply(args) {
-      // Prevent elements from triggering edit mode on click.
+      // Activate the component since the default behavior will activate it only on route change,
+      // but this component doesn't have any routes.
+      this.component.activate(); // Prevent elements from triggering edit mode on click.
+
       elementor.changeEditMode('picker');
       elementor.$previewContents[0].querySelector('body').classList.add('elementor-editor__ui-state__color-picker', 'elementor-edit-area-active');
       this.component.currentPicker = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, args), {}, {
@@ -32938,7 +33478,7 @@ var Component = /*#__PURE__*/function (_ComponentBase) {
       return {
         end: {
           keys: 'esc',
-          scopes: ['panel', 'preview']
+          scopes: [this.getNamespace()]
         }
       };
     }

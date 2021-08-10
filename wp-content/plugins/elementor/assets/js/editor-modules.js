@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -775,10 +775,6 @@ __webpack_require__(/*! core-js/modules/es6.array.filter.js */ "../node_modules/
 
 __webpack_require__(/*! core-js/modules/es7.array.includes.js */ "../node_modules/core-js/modules/es7.array.includes.js");
 
-__webpack_require__(/*! core-js/modules/es6.regexp.constructor.js */ "../node_modules/core-js/modules/es6.regexp.constructor.js");
-
-__webpack_require__(/*! core-js/modules/es6.array.map.js */ "../node_modules/core-js/modules/es6.array.map.js");
-
 __webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
 
 var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
@@ -911,6 +907,12 @@ var Container = /*#__PURE__*/function (_ArgsObject) {
    */
 
   /**
+   * Controls placeholders.
+   *
+   * @type {{}}
+   */
+
+  /**
    * Function constructor().
    *
    * Create container.
@@ -940,6 +942,7 @@ var Container = /*#__PURE__*/function (_ArgsObject) {
     (0, _defineProperty3.default)((0, _assertThisInitialized2.default)(_this), "repeaters", {});
     (0, _defineProperty3.default)((0, _assertThisInitialized2.default)(_this), "renderer", void 0);
     (0, _defineProperty3.default)((0, _assertThisInitialized2.default)(_this), "panel", void 0);
+    (0, _defineProperty3.default)((0, _assertThisInitialized2.default)(_this), "placeholders", {});
 
     _this.validateArgs(args);
 
@@ -1376,11 +1379,8 @@ var Container = /*#__PURE__*/function (_ArgsObject) {
       var value; // it's a global settings with additional controls in group.
 
       if (control.groupType) {
-        // Create a regex expression containing all of the active breakpoints' prefixes ('_mobile', '_tablet' etc.)
-        var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-            responsivePrefixRegex = new RegExp((0, _keys.default)(activeBreakpoints).map(function (device) {
-          return '_' + device;
-        }).join('|') + '$');
+        // A regex containing all of the active breakpoints' prefixes ('_mobile', '_tablet' etc.).
+        var responsivePrefixRegex = elementor.breakpoints.getActiveMatchRegex();
         var propertyName = control.name.replace(control.groupPrefix, '').replace(responsivePrefixRegex, '');
 
         if (!data.value[elementor.config.kit_config.typography_prefix + propertyName]) {
@@ -5866,25 +5866,6 @@ module.exports = !__webpack_require__(/*! ./_descriptors */ "../node_modules/cor
 
 /***/ }),
 
-/***/ "../node_modules/core-js/modules/_inherit-if-required.js":
-/*!***************************************************************!*\
-  !*** ../node_modules/core-js/modules/_inherit-if-required.js ***!
-  \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var isObject = __webpack_require__(/*! ./_is-object */ "../node_modules/core-js/modules/_is-object.js");
-var setPrototypeOf = __webpack_require__(/*! ./_set-proto */ "../node_modules/core-js/modules/_set-proto.js").set;
-module.exports = function (that, target, C) {
-  var S = target.constructor;
-  var P;
-  if (S !== C && typeof S == 'function' && (P = S.prototype) !== C.prototype && isObject(P) && setPrototypeOf) {
-    setPrototypeOf(that, P);
-  } return that;
-};
-
-
-/***/ }),
-
 /***/ "../node_modules/core-js/modules/_iobject.js":
 /*!***************************************************!*\
   !*** ../node_modules/core-js/modules/_iobject.js ***!
@@ -6186,49 +6167,6 @@ module.exports = __webpack_require__(/*! ./_descriptors */ "../node_modules/core
 
 /***/ }),
 
-/***/ "../node_modules/core-js/modules/_object-gopd.js":
-/*!*******************************************************!*\
-  !*** ../node_modules/core-js/modules/_object-gopd.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-var pIE = __webpack_require__(/*! ./_object-pie */ "../node_modules/core-js/modules/_object-pie.js");
-var createDesc = __webpack_require__(/*! ./_property-desc */ "../node_modules/core-js/modules/_property-desc.js");
-var toIObject = __webpack_require__(/*! ./_to-iobject */ "../node_modules/core-js/modules/_to-iobject.js");
-var toPrimitive = __webpack_require__(/*! ./_to-primitive */ "../node_modules/core-js/modules/_to-primitive.js");
-var has = __webpack_require__(/*! ./_has */ "../node_modules/core-js/modules/_has.js");
-var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ "../node_modules/core-js/modules/_ie8-dom-define.js");
-var gOPD = Object.getOwnPropertyDescriptor;
-
-exports.f = __webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/modules/_descriptors.js") ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
-
-
-/***/ }),
-
-/***/ "../node_modules/core-js/modules/_object-gopn.js":
-/*!*******************************************************!*\
-  !*** ../node_modules/core-js/modules/_object-gopn.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(/*! ./_object-keys-internal */ "../node_modules/core-js/modules/_object-keys-internal.js");
-var hiddenKeys = __webpack_require__(/*! ./_enum-bug-keys */ "../node_modules/core-js/modules/_enum-bug-keys.js").concat('length', 'prototype');
-
-exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-  return $keys(O, hiddenKeys);
-};
-
-
-/***/ }),
-
 /***/ "../node_modules/core-js/modules/_object-gpo.js":
 /*!******************************************************!*\
   !*** ../node_modules/core-js/modules/_object-gpo.js ***!
@@ -6292,17 +6230,6 @@ var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ "../node_modules/c
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
-
-
-/***/ }),
-
-/***/ "../node_modules/core-js/modules/_object-pie.js":
-/*!******************************************************!*\
-  !*** ../node_modules/core-js/modules/_object-pie.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.f = {}.propertyIsEnumerable;
 
 
 /***/ }),
@@ -6463,65 +6390,6 @@ if (PATCH) {
 }
 
 module.exports = patchedExec;
-
-
-/***/ }),
-
-/***/ "../node_modules/core-js/modules/_set-proto.js":
-/*!*****************************************************!*\
-  !*** ../node_modules/core-js/modules/_set-proto.js ***!
-  \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
-var isObject = __webpack_require__(/*! ./_is-object */ "../node_modules/core-js/modules/_is-object.js");
-var anObject = __webpack_require__(/*! ./_an-object */ "../node_modules/core-js/modules/_an-object.js");
-var check = function (O, proto) {
-  anObject(O);
-  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
-};
-module.exports = {
-  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
-    function (test, buggy, set) {
-      try {
-        set = __webpack_require__(/*! ./_ctx */ "../node_modules/core-js/modules/_ctx.js")(Function.call, __webpack_require__(/*! ./_object-gopd */ "../node_modules/core-js/modules/_object-gopd.js").f(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch (e) { buggy = true; }
-      return function setPrototypeOf(O, proto) {
-        check(O, proto);
-        if (buggy) O.__proto__ = proto;
-        else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-  check: check
-};
-
-
-/***/ }),
-
-/***/ "../node_modules/core-js/modules/_set-species.js":
-/*!*******************************************************!*\
-  !*** ../node_modules/core-js/modules/_set-species.js ***!
-  \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var global = __webpack_require__(/*! ./_global */ "../node_modules/core-js/modules/_global.js");
-var dP = __webpack_require__(/*! ./_object-dp */ "../node_modules/core-js/modules/_object-dp.js");
-var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/modules/_descriptors.js");
-var SPECIES = __webpack_require__(/*! ./_wks */ "../node_modules/core-js/modules/_wks.js")('species');
-
-module.exports = function (KEY) {
-  var C = global[KEY];
-  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
-    configurable: true,
-    get: function () { return this; }
-  });
-};
 
 
 /***/ }),
@@ -6938,59 +6806,6 @@ if (test + '' != '[object z]') {
     return '[object ' + classof(this) + ']';
   }, true);
 }
-
-
-/***/ }),
-
-/***/ "../node_modules/core-js/modules/es6.regexp.constructor.js":
-/*!*****************************************************************!*\
-  !*** ../node_modules/core-js/modules/es6.regexp.constructor.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-var global = __webpack_require__(/*! ./_global */ "../node_modules/core-js/modules/_global.js");
-var inheritIfRequired = __webpack_require__(/*! ./_inherit-if-required */ "../node_modules/core-js/modules/_inherit-if-required.js");
-var dP = __webpack_require__(/*! ./_object-dp */ "../node_modules/core-js/modules/_object-dp.js").f;
-var gOPN = __webpack_require__(/*! ./_object-gopn */ "../node_modules/core-js/modules/_object-gopn.js").f;
-var isRegExp = __webpack_require__(/*! ./_is-regexp */ "../node_modules/core-js/modules/_is-regexp.js");
-var $flags = __webpack_require__(/*! ./_flags */ "../node_modules/core-js/modules/_flags.js");
-var $RegExp = global.RegExp;
-var Base = $RegExp;
-var proto = $RegExp.prototype;
-var re1 = /a/g;
-var re2 = /a/g;
-// "new" creates a new object, old webkit buggy here
-var CORRECT_NEW = new $RegExp(re1) !== re1;
-
-if (__webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/modules/_descriptors.js") && (!CORRECT_NEW || __webpack_require__(/*! ./_fails */ "../node_modules/core-js/modules/_fails.js")(function () {
-  re2[__webpack_require__(/*! ./_wks */ "../node_modules/core-js/modules/_wks.js")('match')] = false;
-  // RegExp constructor can alter flags and IsRegExp works correct with @@match
-  return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
-}))) {
-  $RegExp = function RegExp(p, f) {
-    var tiRE = this instanceof $RegExp;
-    var piRE = isRegExp(p);
-    var fiU = f === undefined;
-    return !tiRE && piRE && p.constructor === $RegExp && fiU ? p
-      : inheritIfRequired(CORRECT_NEW
-        ? new Base(piRE && !fiU ? p.source : p, f)
-        : Base((piRE = p instanceof $RegExp) ? p.source : p, piRE && fiU ? $flags.call(p) : f)
-      , tiRE ? this : proto, $RegExp);
-  };
-  var proxy = function (key) {
-    key in $RegExp || dP($RegExp, key, {
-      configurable: true,
-      get: function () { return Base[key]; },
-      set: function (it) { Base[key] = it; }
-    });
-  };
-  for (var keys = gOPN(Base), i = 0; keys.length > i;) proxy(keys[i++]);
-  proto.constructor = $RegExp;
-  $RegExp.prototype = proto;
-  __webpack_require__(/*! ./_redefine */ "../node_modules/core-js/modules/_redefine.js")(global, 'RegExp', $RegExp);
-}
-
-__webpack_require__(/*! ./_set-species */ "../node_modules/core-js/modules/_set-species.js")('RegExp');
 
 
 /***/ }),

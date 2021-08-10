@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["frontend"],{
 
 /***/ "../assets/dev/js/frontend/documents-manager.js":
@@ -229,10 +229,11 @@ module.exports = function ($) {
     }
 
     elementorFrontend.hooks.doAction('frontend/element_ready/global', $scope, $);
-    elementorFrontend.hooks.doAction('frontend/element_ready/' + elementType, $scope, $);
+    elementorFrontend.hooks.doAction(`frontend/element_ready/${elementType}`, $scope, $);
 
     if ('widget' === elementType) {
-      elementorFrontend.hooks.doAction('frontend/element_ready/' + $scope.attr('data-widget_type'), $scope, $);
+      const widgetType = $scope.attr('data-widget_type');
+      elementorFrontend.hooks.doAction(`frontend/element_ready/${widgetType}`, $scope, $);
     }
   };
 
@@ -280,6 +281,8 @@ var _lightboxManager = _interopRequireDefault(__webpack_require__(/*! ./utils/li
 
 var _assetsLoader = _interopRequireDefault(__webpack_require__(/*! ./utils/assets-loader */ "../assets/dev/js/frontend/utils/assets-loader.js"));
 
+var _breakpoints = _interopRequireDefault(__webpack_require__(/*! elementor-utils/breakpoints */ "../assets/dev/js/utils/breakpoints.js"));
+
 var _frontend = _interopRequireDefault(__webpack_require__(/*! elementor/modules/shapes/assets/js/frontend/frontend */ "../modules/shapes/assets/js/frontend/frontend.js"));
 
 /* global elementorFrontendConfig */
@@ -318,9 +321,6 @@ class Frontend extends elementorModules.ViewModule {
       selectors: {
         elementor: '.elementor',
         adminBar: '#wpadminbar'
-      },
-      classes: {
-        ie: 'elementor-msie'
       }
     };
   }
@@ -385,9 +385,10 @@ class Frontend extends elementorModules.ViewModule {
       return this.getWidescreenSetting(settings, settingKey);
     }
 
-    const devices = Object.keys(this.config.responsive.activeBreakpoints).reverse(); // Manually add 'desktop' to the devices array to support the 'desktop' value in the deviceMode parameter.
-
-    devices.unshift('desktop');
+    const devices = elementorFrontend.breakpoints.getActiveBreakpointsList({
+      largeToSmall: true,
+      withDesktop: true
+    });
     let deviceIndex = devices.indexOf(deviceMode);
 
     while (deviceIndex > 0) {
@@ -483,19 +484,6 @@ class Frontend extends elementorModules.ViewModule {
         this.elements.$body.addClass('e--ua-' + key);
       }
     }
-  }
-
-  addIeCompatibility() {
-    const el = document.createElement('div'),
-          supportsGrid = 'string' === typeof el.style.grid;
-
-    if (!_environment.default.ie && supportsGrid) {
-      return;
-    }
-
-    this.elements.$body.addClass(this.getSettings('classes.ie'));
-    const msieCss = '<link rel="stylesheet" id="elementor-frontend-css-msie" href="' + this.config.urls.assets + 'css/frontend-msie.min.css?' + this.config.version + '" type="text/css" />';
-    this.elements.$body.append(msieCss);
   }
 
   setDeviceModeData() {
@@ -608,11 +596,11 @@ class Frontend extends elementorModules.ViewModule {
 
   init() {
     this.hooks = new EventManager();
+    this.breakpoints = new _breakpoints.default(this.config.responsive);
     this.storage = new _storage.default();
     this.elementsHandler = new ElementsHandler(jQuery);
     this.modulesHandlers = {};
     this.addUserAgentClasses();
-    this.addIeCompatibility();
     this.setDeviceModeData();
     this.initDialogsManager();
 
@@ -1834,15 +1822,6 @@ class SwiperBC {
 
     SwiperSource.prototype.adjustConfig = this.adjustConfig;
     return new SwiperSource(container, config);
-  }
-
-  getElementorBreakpointValues() {
-    const elementorBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-          elementorBreakpointValues = [];
-    Object.values(elementorBreakpoints).forEach(breakpointConfig => {
-      elementorBreakpointValues.push(breakpointConfig.value);
-    });
-    return elementorBreakpointValues;
   } // Backwards compatibility for Elementor Pro <2.9.0 (old Swiper version - <5.0.0)
   // In Swiper 5.0.0 and up, breakpoints changed from acting as max-width to acting as min-width
 
@@ -1854,7 +1833,7 @@ class SwiperBC {
     }
 
     const elementorBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-          elementorBreakpointValues = this.getElementorBreakpointValues();
+          elementorBreakpointValues = elementorFrontend.breakpoints.getBreakpointValues();
     Object.keys(config.breakpoints).forEach(configBPKey => {
       const configBPKeyInt = parseInt(configBPKey);
       let breakpointToUpdate; // The `configBPKeyInt + 1` is a BC Fix for Elementor Pro Carousels from 2.8.0-2.8.3 used with Elementor >= 2.9.0
@@ -2165,6 +2144,202 @@ exports.default = YoutubeLoader;
 
 /* eslint-disable camelcase */
 __webpack_require__.p = elementorFrontendConfig.urls.assets + 'js/';
+
+/***/ }),
+
+/***/ "../assets/dev/js/utils/breakpoints.js":
+/*!*********************************************!*\
+  !*** ../assets/dev/js/utils/breakpoints.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+/**
+ * Breakpoints
+ *
+ * This utility class contains helper functions relating to Elementor's breakpoints system.
+ *
+ * @since 3.4.0
+ */
+class Breakpoints extends elementorModules.Module {
+  constructor(responsiveConfig) {
+    super(); // The passed config is either `elementor.config.responsive` or `elementorFrontend.config.responsive`
+
+    this.responsiveConfig = responsiveConfig;
+  }
+  /**
+   * Get Active Breakpoints List
+   *
+   * Returns a flat array containing the active breakpoints/devices. By default, it returns the li
+   * the list ordered from smallest to largest breakpoint. If `true` is passed as a parameter, it reverses the order.
+   *
+   * @since 3.4.0
+   *
+   * @param {Object} args
+   */
+
+
+  getActiveBreakpointsList(args = {}) {
+    const defaultArgs = {
+      largeToSmall: false,
+      withDesktop: false
+    };
+    args = { ...defaultArgs,
+      ...args
+    };
+    const breakpointKeys = Object.keys(this.responsiveConfig.activeBreakpoints);
+
+    if (args.withDesktop) {
+      // If there is an active 'widescreen' breakpoint, insert the artificial 'desktop' device below it.
+      const widescreenIndex = breakpointKeys.indexOf('widescreen'),
+            indexToInsertDesktopDevice = -1 === widescreenIndex ? breakpointKeys.length : breakpointKeys.length - 1;
+      breakpointKeys.splice(indexToInsertDesktopDevice, 0, 'desktop');
+    }
+
+    if (args.largeToSmall) {
+      breakpointKeys.reverse();
+    }
+
+    return breakpointKeys;
+  }
+  /**
+   * Get Active Breakpoint Values
+   *
+   * Returns a flat array containing the list of active breakpoint values, from smallest to largest.
+   *
+   * @since 3.4.0
+   */
+
+
+  getBreakpointValues() {
+    const {
+      activeBreakpoints
+    } = this.responsiveConfig,
+          breakpointValues = [];
+    Object.values(activeBreakpoints).forEach(breakpointConfig => {
+      breakpointValues.push(breakpointConfig.value);
+    });
+    return breakpointValues;
+  }
+  /**
+   * Get Desktop Previous Device Key
+   *
+   * Returns the key of the device directly under desktop (can be 'tablet', 'tablet_extra', 'laptop').
+   *
+   * @since 3.4.0
+   *
+   * @returns {string}
+   */
+
+
+  getDesktopPreviousDeviceKey() {
+    let desktopPreviousDevice = '';
+    const {
+      activeBreakpoints
+    } = this.responsiveConfig,
+          breakpointKeys = Object.keys(activeBreakpoints),
+          numOfDevices = breakpointKeys.length;
+
+    if ('min' === activeBreakpoints[breakpointKeys[numOfDevices - 1]].direction) {
+      // If the widescreen breakpoint is active, the device that's previous to desktop is the last one before
+      // widescreen.
+      desktopPreviousDevice = breakpointKeys[numOfDevices - 2];
+    } else {
+      // If the widescreen breakpoint isn't active, we just take the last device returned by the config.
+      desktopPreviousDevice = breakpointKeys[numOfDevices - 1];
+    }
+
+    return desktopPreviousDevice;
+  }
+  /**
+   * Get Device Minimum Breakpoint
+   *
+   * Returns the minimum point in the device's display range. For each device, the minimum point of its display range
+   * is the max point of the device below it + 1px. For example, if the active devices are mobile, tablet,
+   * and desktop, and the mobile breakpoint is 767px, the minimum display point for tablet devices is 768px.
+   *
+   * @since 3.4.0
+   *
+   * @returns {number|*}
+   */
+
+
+  getDesktopMinPoint() {
+    const {
+      activeBreakpoints
+    } = this.responsiveConfig,
+          desktopPreviousDevice = this.getDesktopPreviousDeviceKey();
+    return activeBreakpoints[desktopPreviousDevice].value + 1;
+  }
+  /**
+   * Get Device Minimum Breakpoint
+   *
+   * Returns the minimum point in the device's display range. For each device, the minimum point of its display range
+   * is the max point of the device below it + 1px. For example, if the active devices are mobile, tablet,
+   * and desktop, and the mobile breakpoint is 767px, the minimum display point for tablet devices is 768px.
+   *
+   * @since 3.4.0
+   *
+   * @param device
+   * @returns {number|*}
+   */
+
+
+  getDeviceMinBreakpoint(device) {
+    if ('desktop' === device) {
+      return this.getDesktopMinPoint();
+    }
+
+    const {
+      activeBreakpoints
+    } = this.responsiveConfig,
+          breakpointNames = Object.keys(activeBreakpoints);
+    let minBreakpoint;
+
+    if (breakpointNames[0] === device) {
+      // For the lowest breakpoint, the min point is always 320.
+      minBreakpoint = 320;
+    } else if ('widescreen' === device) {
+      // Widescreen only has a minimum point. In this case, the breakpoint
+      // value in the Breakpoints config is itself the device min point.
+      if (activeBreakpoints[device]) {
+        minBreakpoint = activeBreakpoints[device].value;
+      } else {
+        // If the widescreen breakpoint does not exist in the active breakpoints config (for example, in the
+        // case this method runs as the breakpoint is being added), get the value from the full config.
+        minBreakpoint = this.responsiveConfig.breakpoints.widescreen;
+      }
+    } else {
+      const deviceNameIndex = breakpointNames.indexOf(device),
+            previousIndex = deviceNameIndex - 1;
+      minBreakpoint = activeBreakpoints[breakpointNames[previousIndex]].value + 1;
+    }
+
+    return minBreakpoint;
+  }
+  /**
+   * Get Active Match Regex
+   *
+   * Returns a regular expression containing all active breakpoints prefixed with an underscore.
+   *
+   * @returns {RegExp}
+   */
+
+
+  getActiveMatchRegex() {
+    return new RegExp(this.getActiveBreakpointsList().map(device => '_' + device).join('|') + '$');
+  }
+
+}
+
+exports.default = Breakpoints;
 
 /***/ }),
 

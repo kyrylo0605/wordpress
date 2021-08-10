@@ -26,7 +26,13 @@ if (isset($_GET['connect']) && isset($_GET['subscription_id'])) {
   
   if(property_exists($google_detail,"error") && $google_detail->error == false && !isset($_POST['ee_submit_plugin'])){
     if(property_exists($google_detail,"data") && $google_detail->data != ""){
+      /*
+       * function call for save conversion send to in WP DB
+       */      
       $googleDetail = $google_detail->data;
+      if($googleDetail->plan_id != 1 && $googleDetail->google_ads_conversion_tracking == 1){
+        $TVC_Admin_Helper->update_conversion_send_to();
+      }
       //'website_url' => $googleDetail->site_url,                    
       $postData = [
           'merchant_id' => $googleDetail->merchant_id,          
@@ -94,15 +100,21 @@ if (isset($_GET['connect']) && isset($_GET['subscription_id'])) {
       $_POST['ga_PrivacyPolicy'] = 'on';
       $_POST['google-analytic'] = '';
       //update option in wordpress local database
+      update_option('google_ads_conversion_tracking',  $googleDetail->google_ads_conversion_tracking);
       update_option('ads_tracking_id',  $googleDetail->google_ads_id);
       update_option('ads_ert', $googleDetail->remarketing_tags);
       update_option('ads_edrt', $googleDetail->dynamic_remarketing_tags);
       Enhanced_Ecommerce_Google_Settings::add_update_settings('ee_options');
-      //save data in DB
+      /*
+       * function call for save API data in WP DB
+       */
       $TVC_Admin_Helper->set_update_api_to_db($googleDetail, false);
+      /*
+       * function call for save remarketing snippets in WP DB
+       */
       $TVC_Admin_Helper->update_remarketing_snippets();
       if(isset($googleDetail->google_merchant_center_id) || isset($googleDetail->google_ads_id) ){
-        if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){                    
+        if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){      
           wp_redirect("admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=sync_product_page&welcome_msg=true");
             exit;
         }else{
@@ -179,8 +191,6 @@ if(isset($google_detail['setting'])){
     $plan_id = $googleDetail->plan_id;
   }
 }
-
-
 ?>
 <div class="tab-content">
   <?php if($message_p){

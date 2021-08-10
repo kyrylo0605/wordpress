@@ -5,12 +5,14 @@ class GoogleAds {
   protected $subscriptionId = "";
   protected $google_detail;
   protected $customApiObj;
+  protected $plan_id;
   public function __construct($theURL = '') {
     $this->TVC_Admin_Helper = new TVC_Admin_Helper();
     $this->customApiObj = new CustomApi();
     $this->url = $this->TVC_Admin_Helper->get_connect_url(); 
     $this->subscriptionId = $this->TVC_Admin_Helper->get_subscriptionId(); 
-    $this->google_detail = $this->TVC_Admin_Helper->get_ee_options_data();      
+    $this->google_detail = $this->TVC_Admin_Helper->get_ee_options_data(); 
+    $this->plan_id = $this->TVC_Admin_Helper->get_plan_id();     
     $this->create_form();
   }
 
@@ -33,6 +35,16 @@ class GoogleAds {
       }else{
         update_option('ads_edrt', 0);
         $googleDetail_setting->dynamic_remarketing_tags = 0;
+      }
+      if($this->plan_id != 1){
+        if(isset($_POST['google_ads_conversion_tracking'])){
+          update_option('google_ads_conversion_tracking', $_POST['google_ads_conversion_tracking']);
+          $googleDetail_setting->google_ads_conversion_tracking = $_POST['google_ads_conversion_tracking'];
+          $this->TVC_Admin_Helper->update_conversion_send_to();
+        }else{
+          update_option('google_ads_conversion_tracking', 0);
+          $googleDetail_setting->google_ads_conversion_tracking = 0;
+        }
       }
       if(isset($_POST['link_google_analytics_with_google_ads'])){
         $googleDetail_setting->link_google_analytics_with_google_ads = $_POST['link_google_analytics_with_google_ads'];
@@ -136,6 +148,16 @@ class GoogleAds {
                     </div>
                   </div>
                 </div>
+                <?php if($this->plan_id != 1){ ?>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="tvc-custom-control tvc-custom-checkbox">
+                      <input type="checkbox" class="tvc-custom-control-input" id="google_ads_conversion_tracking" name="google_ads_conversion_tracking" value="1" <?php echo ($googleDetail->google_ads_conversion_tracking == 1) ? 'checked="checked"' : ''; ?>>
+                      <label class="custom-control-label" for="google_ads_conversion_tracking">Enable Google Ads conversion tracking</label>
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="tvc-custom-control tvc-custom-checkbox">

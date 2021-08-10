@@ -342,6 +342,33 @@ class CustomApi{
             return $e->getMessage();
         }
     }
+    public function get_conversion_list($customer_id, $merchant_id) {
+        try {
+            $header = array(
+                "Authorization: Bearer MTIzNA==",
+                "content-type: application/json"
+            );
+            $curl_url = $this->apiDomain . "/google-ads/conversion-list";
+            $postData = [
+                'merchant_id' => $merchant_id,
+                'customer_id' => $customer_id
+            ];
+            $postData = json_encode($postData);
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => esc_url($curl_url),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 1000,
+                CURLOPT_HTTPHEADER => $header,
+                CURLOPT_POSTFIELDS => $postData
+            ));
+            $response = curl_exec($ch);
+            $response = json_decode($response);
+            return $response;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
     public function verifyLicenceKey($licence_key, $subscription_id) {
         try {
             echo $url = $this->apiDomain . '/licence/verify-key';

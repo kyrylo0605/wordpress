@@ -63,6 +63,8 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
   protected $TVC_Admin_Helper; 
   protected $remarketing_snippet_id;
   protected $remarketing_snippets;
+  protected $conversio_send_to;
+
   /**
    * Enhanced_Ecommerce_Google_Analytics_Public constructor.
    * @param $plugin_name
@@ -98,9 +100,9 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
     $this->ga_IPA = $this->get_option("ga_IPA") == "on" ? true : false; //IP Anony.
     $this->ads_ert = get_option('ads_ert'); //Enable remarketing tags
     $this->ads_edrt = get_option('ads_edrt'); //Enable dynamic remarketing tags
-    $this->ads_tracking_id = get_option('ads_tracking_id'); 
-    $this->ads_ert = get_option('ads_ert');
-    $this->ads_edrt = get_option('ads_edrt');
+    $this->ads_tracking_id = get_option('ads_tracking_id');    
+    $this->google_ads_conversion_tracking = get_option('google_ads_conversion_tracking');
+    $this->conversio_send_to = get_option('ee_conversio_send_to');
 
     $remarketing = unserialize(get_option('ee_remarketing_snippets'));
     if(!empty($remarketing) && isset($remarketing['snippets']) && $remarketing['snippets']){
@@ -144,6 +146,8 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
           "ads_tracking_id"=>$this->ads_tracking_id,
           "remarketing_tags"=>$this->ads_ert,
           "dynamic_remarketing_tags"=>$this->ads_edrt,
+          "google_ads_conversion_tracking"=>$this->google_ads_conversion_tracking,
+          "conversio_send_to"=>$this->conversio_send_to,
           "page_type"=>$this->add_page_type(),
           "user_id"=>$user_id,
           "user_type"=>$user_type,

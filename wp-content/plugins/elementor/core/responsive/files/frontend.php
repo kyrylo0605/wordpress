@@ -46,7 +46,15 @@ class Frontend extends Base {
 			$breakpoint_index = array_search( strtolower( $placeholder_data[1] ), $breakpoints_keys, true );
 
 			if ( 'DESKTOP' === $placeholder_data[1] ) {
-				$value = Plugin::$instance->breakpoints->get_desktop_min_point();
+				if ( 'MIN' === $placeholder_data[2] ) {
+					$value = Plugin::$instance->breakpoints->get_desktop_min_point();
+				} elseif ( isset( $breakpoints['widescreen'] ) ) {
+					// If the 'widescreen' breakpoint is active, the Desktop's max value is the Widescreen breakpoint - 1px.
+					$value = $breakpoints['widescreen']->get_value() - 1;
+				} else {
+					// If the 'widescreen' breakpoint is not active, the Desktop device should not have a max value.
+					$value = 99999;
+				}
 			} elseif ( false === $breakpoint_index ) {
 				// If the breakpoint in the placeholder is not active - use a -1 value for the media query, to make
 				// sure the setting is printed (to avoid a PHP error) but doesn't apply.
@@ -56,22 +64,17 @@ class Frontend extends Base {
 			} else {
 				$breakpoint_index = array_search( strtolower( $placeholder_data[1] ), $breakpoints_keys, true );
 
-				// Handle cases where a placeholder is found for an additional breakpoint that isn't active.
-				if ( false === $breakpoint_index ) {
-					$value = -1;
-				} else {
-					$is_max_point = 'MAX' === $placeholder_data[2];
+				$is_max_point = 'MAX' === $placeholder_data[2];
 
-					// If the placeholder capture is `MOBILE_NEXT` or `TABLET_NEXT`, the original breakpoint value is used.
-					if ( ! $is_max_point && 'NEXT' !== $placeholder_data[2] ) {
-						$breakpoint_index--;
-					}
+				// If the placeholder capture is `MOBILE_NEXT` or `TABLET_NEXT`, the original breakpoint value is used.
+				if ( ! $is_max_point && 'NEXT' !== $placeholder_data[2] ) {
+					$breakpoint_index--;
+				}
 
-					$value = $breakpoints[ $breakpoints_keys[ $breakpoint_index ] ]->get_value();
+				$value = $breakpoints[ $breakpoints_keys[ $breakpoint_index ] ]->get_value();
 
-					if ( ! $is_max_point ) {
-						$value++;
-					}
+				if ( ! $is_max_point ) {
+					$value++;
 				}
 			}
 

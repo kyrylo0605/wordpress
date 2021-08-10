@@ -128,6 +128,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
                 if ( 'Astra' === $this->current_theme ) {
                     add_filter( 'astra_get_search_form', array( $this, 'astra_markup' ), 999999 );
+                    add_filter( 'aws_searchbox_markup', array( $this, 'astra_aws_searchbox_markup' ), 1 );
                     add_action( 'wp_head', array( $this, 'astra_head_action' ) );
                 }
 
@@ -875,6 +876,14 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
 
             }
             return $output;
+        }
+
+        /*
+         * Astra theme form markup
+         */
+        public function astra_aws_searchbox_markup( $markup ) {
+            $markup = str_replace( 'aws-container', 'aws-container search-form', $markup );
+            return $markup;
         }
 
         /*

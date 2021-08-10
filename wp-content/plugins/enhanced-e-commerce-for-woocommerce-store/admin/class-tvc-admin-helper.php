@@ -34,8 +34,8 @@ Class TVC_Admin_Helper{
    * verstion auto updated
    */
   public function need_auto_update_db(){
-  	$old_ee_auto_update_id ="tvc_3.0.4";
-  	$new_ee_auto_update_id ="tvc_4.0.0";
+  	$old_ee_auto_update_id = "tvc_3.0.4";
+  	$new_ee_auto_update_id = "tvc_4.0.0";
   	$ee_auto_update_id = get_option('ee_auto_update_id');
   	if($ee_auto_update_id!=""){
   		if( $ee_auto_update_id != $new_ee_auto_update_id){
@@ -171,6 +171,41 @@ Class TVC_Admin_Helper{
 	      }
 			}
 			update_option("ee_remarketing_snippets", serialize($remarketing_snippets));
+		}
+	}
+	/*
+   * update conversion send_to
+   */
+	public function update_conversion_send_to(){
+		$customer_id = $this->get_currentCustomerId();
+		$merchant_id = $this->get_merchantId();
+		if($customer_id != "" && $merchant_id != ""){
+			$response = $this->customApiObj->get_conversion_list($customer_id, $merchant_id);
+			
+			if(property_exists($response,"error") && $response->error == false){
+		    if(property_exists($response,"data") && $response->data != "" && !empty($response->data)){
+	        foreach ($response->data as $key => $value) {
+            $con_string=strip_tags($value->tagSnippets); //what i want is you
+            $con_string = trim(preg_replace('/\s\s+/', '', $con_string));
+            $con_string = str_replace(" ", "", $con_string);
+            $con_string = str_replace("'", "", $con_string);
+            $con_string = str_replace("return false;", "", $con_string);
+            $con_string = str_replace("event,conversion,{", ",event:conversion,", $con_string);
+            $con_array = explode(",", $con_string);             
+            if(!empty($con_array) && in_array("event:conversion", $con_array)){
+              foreach ($con_array as $key => $con_value) {
+                $con_val_array = explode(":", $con_value);
+                if(in_array("send_to", $con_val_array)){
+                	update_option("ee_conversio_send_to", $con_val_array[1]);
+                  break 2;
+                }
+              }
+            }
+	        }
+		    }
+			}
+
+			
 		}
 	}
 	/*

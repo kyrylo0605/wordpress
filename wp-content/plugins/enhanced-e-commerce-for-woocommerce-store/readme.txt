@@ -6,10 +6,10 @@ Tags: Google Analytics tracking, Dynamic Remarketing,Google Shopping automation,
 Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 1.4.1
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 5.6 or Higher
-Stable tag: 4.0.0
-Version: 4.0.0
+Stable tag: 4.0.1
+Version: 4.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -166,7 +166,7 @@ Enhanced eCommerce Google analytics plugin tracks the entire user journey on you
 * CRO consulatation (Boost your eCommerce conversation with proven hypothesis) (Paid)
 * Customization as per your requirements(Paid)
 
-<strong><a target="_blank" href="https://conversios.io/?#wpforms-form-11056">Reach out to us with your query here for a faster solution.</a></strong>
+<strong><a target="_blank" href="https://conversios.io/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=Reach+out+to+us+with+your+query+Link&utm_campaign=Raise+query+at+Conversios#wpforms-form-11056">Reach out to us with your query here for a faster solution.</a></strong>
 
 
 == Note For Beginners : ==
@@ -219,6 +219,27 @@ Our plugin helps WooCommerce shop owners in automating everything that is requir
 = What is google merchant center? =
 
 Google Merchant Center helps millions of people discover, explore, and buy your products. With its family of features and deep reporting tools, it brings you different ways to get the right products to the right customers. In simpler words, in order to start using Google Shopping benefits you need to create a Google Merchant center account and fill your basic business information before you start uploading your product data for Google Shopping. 
+
+= How can I unclaim the domain in my Google Merchant Center and reclaim it via the plugin? =
+
+Below are the steps to unclaim and reclaim domain(via plugin) in GMC:
+
+<b>Unclaim the domain:</b>
+
+-> Login to the Merchant Center account in which your site domain is claimed.
+-> Go to Settings -> Business Information -> Website.
+-> Enter a new website domain or another domain(ex: https://ytpr12345.io - it can be non-existence) in the website section, and click continue. Here is the <a href="https://prnt.sc/1ibdano">screenshot link</a> for reference.
+
+After following the above steps, you will lose the claim for your previously verified and claimed website domain.
+
+<b>Reclaim the domain via plugin:</b>
+
+-> Login to the WordPress backend.
+-> Go to Tatvic EE Plugin -> Google Shopping.
+-> Click on the domain claim link or refresh button to claim the domain. Here is the <a href="https://prnt.sc/1ibhalt">screenshot link</a> which highlights the link and button.
+
+After following the above steps, the plugin will automatically claim and verify the website domain in your connected Google merchant center account.
+
  
 = What is Google Analytics4? =
 
@@ -248,7 +269,7 @@ Yes, our plugin is under GDPR compliance. For more information, read the <a href
 
 If you are facing this issue, please check if you have configured auto return in PayPal settings.  Configuring auto return will resolve your issue. Here’s a PayPal <a href="https://www.paypal.com/in/cgi-bin/webscr?cmd=p/mer/express_return_summary-outside" target="_blank">documentation</a> & WooCommerce <a href="http://docs.woothemes.com/document/paypal-standard/#section-5" target="_blank">documentation</a> on understanding & setting up Auto Return.
 
-In case you have already configured auto return for your store and facing the issue then you could <a href="https://www.tatvic.com/contact/">reach out to us</a>
+In case you have already configured auto return for your store and facing the issue then you could <a href="https://conversios.io/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=PayPal+transaction+FAQ&utm_campaign=Raise+query+at+Conversios#wpforms-form-11056">reach out to us</a>
 
 = I’ve install the plugin but I do not see any data in my GA =
 
@@ -263,7 +284,7 @@ In case you have already configured auto return for your store and facing the is
 
 Note: If you do not see the above setting, it means that you are still on the waiting list and you may have to wait till Google rolls out this for your web property
 
-(2) If the Enhanced Ecommerce setting is enabled in your GA and you have just installed our plugin, then please wait for at-least 24 hours before you start seeing any data in your GA. If you still face this issue after 24 hours, please <a href="https://www.tatvic.com/contact/">reach out to us</a>."
+(2) If the Enhanced Ecommerce setting is enabled in your GA and you have just installed our plugin, then please wait for at-least 24 hours before you start seeing any data in your GA. If you still face this issue after 24 hours, please <a href="https://conversios.io/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=do+not+see+any+data+in+my+GA+FAQ&utm_campaign=Raise+query+at+Conversios#wpforms-form-11056">reach out to us</a>."
 
 = Does your plugin supports new Global Site Tag (gtag.js)? =
 
@@ -283,19 +304,11 @@ You can find all the Enhanced Ecommerce Reports in your Analytics Account under 
 
 = Products with variant not getting recorded in GA =
 
-Currently our plugin does not support products with variants & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
+Currently our plugin does not support products with variants & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://conversios.io/pricings/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=Products+with+variant+FAQ&utm_campaign=Upsell+at+Conversios" target="_blank">premium version</a> of our plugin.
 
 = Does this plugin provide Google Ads Conversion Tracking? =
 
-The free version of our plugin does not provide Google Ads Conversion Tracking feature. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
-
-= Does this plugin provide Facebook Pixel Tracking? =
-
-The free version of our plugin does not provide Facebook Pixel Tracking feature. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
-
-= Does this plugin provide Google Optimize Snippet Adding Support? =
-
-The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin.
+The free version of our plugin does not provide Google Ads Conversion Tracking feature. This feature is only available with the <a href="https://conversios.io/pricings/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=Google+Ads+Conversion+Tracking+FAQ&utm_campaign=Upsell+at+Conversios" target="_blank">premium version</a> of our plugin.
 
 = Why some transactions are missing in my GA account, compared to my WooCommerce backend (Orders) =
 
@@ -322,21 +335,17 @@ User needs to check if you have auto return configured in your payment gateway s
 
 Configuring goals are out of the scope of our plugin. Our plugin is designed to track checkout funnels only.
 
-= Does your Plugin support Product Refund? =
-
-Our existing plugin does not track product refund data, however you can buy our <a href="https://1.envato.market/Yvn3R" target="_blank">premium plugin</a> to get access to product Refund data 
-
 = Does your plugin support a Multilingual Wordpress site? =
 
-Our plugin does not support a Multilingual Wordpress site.
+Our plugin supports a Multilingual Wordpress site.
 
 = Does your plugin supports Child/Custom Theme? =
 
-The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at analytics2(at)tatvic(dot)com.
+The free version of our plugin is not fully compatible with the child/custom theme. Request you to go through the <a href="https://conversios.io/pricings/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=Child%2FCustom+Theme+FAQ&utm_campaign=Upsell+at+Conversios" target="_blank">premium version</a> of our plugin which is fully compatible with the child/custom theme. We are not providing any kind of support for Child/Custom Theme in the Free version of our plugin. For more information kindly contact us at info(at)conversios(dot)io.
 
 = Does Tatvic provide full support for the free version plugin? =
 
-We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://1.envato.market/Yvn3R" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at analytics2(at)tatvic(dot)com.
+We have a limited support policy for the free version of our plugin. Kindly go through the <a href="https://conversios.io/pricings/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=full+support+for+the+free+version+FAQ&utm_campaign=Upsell+at+Conversios" target="_blank">premium version</a> of our plugin to get full support for the product or you can also contact us at info(at)conversios(dot)io.
 
 = How to verify if I have implemented the plugin well? =
 
@@ -379,6 +388,9 @@ You can resolve the duplication of data by removing the manually implemented GA 
 
 
 == Changelog ==
+
+= 4.0.1 - 06/08/2021 =
+* We have fixed Google Ads Conversion Tracking issue (Pro)
 
 = 4.0.0 - 29/07/2021 =
 

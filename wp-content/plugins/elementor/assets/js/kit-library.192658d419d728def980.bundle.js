@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["kit-library"],{
 
 /***/ "../core/app/modules/kit-library/assets/js/components/badge.scss":
@@ -870,8 +870,20 @@ function ItemHeader(props) {
       var data = _ref2.data;
       return navigate("/import/process?file_url=".concat(encodeURIComponent(data.data.download_link), "&nonce=").concat(data.meta.nonce, "&referrer=kit-library"));
     },
-    onError: function onError() {
-      return setError(__('Something went wrong.', 'elementor'));
+    onError: function onError(errorResponse) {
+      if (401 === errorResponse.code) {
+        updateSettings({
+          is_library_connected: false,
+          access_level: 0
+        });
+        setIsConnectDialogOpen(true);
+        return;
+      }
+
+      setError({
+        code: errorResponse.code,
+        message: __('Something went wrong.', 'elementor')
+      });
     }
   }),
       apply = _useDownloadLinkMutat.mutate,
@@ -888,7 +900,7 @@ function ItemHeader(props) {
     return [applyButton].concat((0, _toConsumableArray2.default)(props.buttons));
   }, [props.buttons, applyButton]);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, error && /*#__PURE__*/_react.default.createElement(_appUi.Dialog, {
-    title: error,
+    title: error.message,
     text: __('Nothing to worry about, just try again. If the problem continues, head over to the Help Center.', 'elementor'),
     approveButtonText: __('Learn More', 'elementor'),
     approveButtonColor: "link",
@@ -921,7 +933,9 @@ function ItemHeader(props) {
       apply();
     },
     onError: function onError(message) {
-      return setError(message);
+      return setError({
+        message: message
+      });
     }
   }), /*#__PURE__*/_react.default.createElement(_header.default, {
     startColumn: /*#__PURE__*/_react.default.createElement(_headerBackButton.default, null),
@@ -1114,7 +1128,7 @@ function HeaderBackButton() {
   }, /*#__PURE__*/_react.default.createElement(_appUi.Button, {
     className: "e-kit-library__header-back",
     icon: "eicon-chevron-left",
-    text: __('Back', 'elementor'),
+    text: __('Back to Library', 'elementor'),
     onClick: function onClick() {
       return navigate(wp.url.addQueryArgs('/kit-library', lastFilter));
     }
@@ -4229,4 +4243,4 @@ Preview.propTypes = {
 /***/ })
 
 }]);
-//# sourceMappingURL=kit-library.d19b77cf4fe9ba4294d5.bundle.js.map
+//# sourceMappingURL=kit-library.192658d419d728def980.bundle.js.map

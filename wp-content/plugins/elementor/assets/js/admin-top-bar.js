@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -338,6 +338,70 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "../core/common/assets/js/utils/environment.js":
+/*!*****************************************************!*\
+  !*** ../core/common/assets/js/utils/environment.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.object.to-string.js */ "../node_modules/core-js/modules/es6.object.to-string.js");
+
+__webpack_require__(/*! core-js/modules/es6.regexp.to-string.js */ "../node_modules/core-js/modules/es6.regexp.to-string.js");
+
+var matchUserAgent = function matchUserAgent(UserAgentStr) {
+  return userAgent.indexOf(UserAgentStr) >= 0;
+},
+    userAgent = navigator.userAgent,
+    // Solution influenced by https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+// Opera 8.0+
+isOpera = !!window.opr && !!opr.addons || !!window.opera || matchUserAgent(' OPR/'),
+    // Firefox 1.0+
+isFirefox = matchUserAgent('Firefox'),
+    // Safari 3.0+ "[object HTMLElementConstructor]"
+isSafari = /^((?!chrome|android).)*safari/i.test(userAgent) || /constructor/i.test(window.HTMLElement) || function (p) {
+  return '[object SafariRemoteNotification]' === p.toString();
+}(!window.safari || typeof safari !== 'undefined' && safari.pushNotification),
+    // Internet Explorer 6-11
+isIE = /Trident|MSIE/.test(userAgent) && (
+/*@cc_on!@*/
+ false || !!document.documentMode),
+    // Edge 20+
+isEdge = !isIE && !!window.StyleMedia || matchUserAgent('Edg'),
+    // Google Chrome (Not accurate)
+isChrome = !!window.chrome && matchUserAgent('Chrome') && !(isEdge || isOpera),
+    // Blink engine
+isBlink = matchUserAgent('Chrome') && !!window.CSS,
+    // Apple Webkit engine
+isAppleWebkit = matchUserAgent('AppleWebKit') && !isBlink,
+    environment = {
+  appleWebkit: isAppleWebkit,
+  blink: isBlink,
+  chrome: isChrome,
+  edge: isEdge,
+  firefox: isFirefox,
+  ie: isIE,
+  mac: matchUserAgent('Macintosh'),
+  opera: isOpera,
+  safari: isSafari,
+  webkit: matchUserAgent('AppleWebKit')
+};
+
+var _default = environment;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "../modules/admin-top-bar/assets/js/admin-top-bar.js":
 /*!***********************************************************!*\
   !*** ../modules/admin-top-bar/assets/js/admin-top-bar.js ***!
@@ -370,6 +434,8 @@ var _barHeading = _interopRequireDefault(__webpack_require__(/*! ./components/ba
 var _connectionButton = _interopRequireDefault(__webpack_require__(/*! ./components/connection-button/connection-button */ "../modules/admin-top-bar/assets/js/components/connection-button/connection-button.js"));
 
 var _usePageTitle = __webpack_require__(/*! ./hooks/use-page-title/use-page-title */ "../modules/admin-top-bar/assets/js/hooks/use-page-title/use-page-title.js");
+
+var _environment = _interopRequireDefault(__webpack_require__(/*! elementor-common/utils/environment */ "../core/common/assets/js/utils/environment.js"));
 
 function AdminTopBar(props) {
   var actionButtonsRef = (0, _react.useRef)(); // Handle Top Bar visibility on initiation and when toggle the admin top bar checkbox in screen options
@@ -405,6 +471,8 @@ function AdminTopBar(props) {
     $e.route('finder');
   };
 
+  var controlSign = _environment.default.mac ? '⌘' : '^';
+  var finderTooltipText = __('Search or do anything in Elementor', 'elementor') + " ".concat(controlSign, "+E");
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "e-admin-top-bar"
   }, /*#__PURE__*/_react.default.createElement("div", {
@@ -418,12 +486,13 @@ function AdminTopBar(props) {
     className: "e-admin-top-bar__secondary-area-buttons"
   }, window.elementorAdminTopBarConfig.is_administrator ? /*#__PURE__*/_react.default.createElement(_barButton.default, {
     onClick: finderAction,
+    dataInfo: finderTooltipText,
     icon: "eicon-search-bold"
   }, __('Finder', 'elementor')) : '', window.elementorCloudAdmin ? window.elementorCloudAdmin() : ''), /*#__PURE__*/_react.default.createElement(_connectionButton.default, null)));
 }
 
 AdminTopBar.propTypes = {
-  isDashboard: PropTypes.boolean
+  isDashboard: PropTypes.bool
 };
 
 /***/ }),
@@ -3229,6 +3298,39 @@ module.exports = function (original, length) {
 
 /***/ }),
 
+/***/ "../node_modules/core-js/modules/_classof.js":
+/*!***************************************************!*\
+  !*** ../node_modules/core-js/modules/_classof.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(/*! ./_cof */ "../node_modules/core-js/modules/_cof.js");
+var TAG = __webpack_require__(/*! ./_wks */ "../node_modules/core-js/modules/_wks.js")('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/core-js/modules/_cof.js":
 /*!***********************************************!*\
   !*** ../node_modules/core-js/modules/_cof.js ***!
@@ -3397,6 +3499,30 @@ module.exports = function (exec) {
   } catch (e) {
     return true;
   }
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/modules/_flags.js":
+/*!*************************************************!*\
+  !*** ../node_modules/core-js/modules/_flags.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+// 21.2.5.3 get RegExp.prototype.flags
+var anObject = __webpack_require__(/*! ./_an-object */ "../node_modules/core-js/modules/_an-object.js");
+module.exports = function () {
+  var that = anObject(this);
+  var result = '';
+  if (that.global) result += 'g';
+  if (that.ignoreCase) result += 'i';
+  if (that.multiline) result += 'm';
+  if (that.unicode) result += 'u';
+  if (that.sticky) result += 'y';
+  return result;
 };
 
 
@@ -3778,6 +3904,78 @@ $export($export.P + $export.F * !__webpack_require__(/*! ./_strict-method */ "..
     return $map(this, callbackfn, arguments[1]);
   }
 });
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/modules/es6.object.to-string.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/core-js/modules/es6.object.to-string.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+// 19.1.3.6 Object.prototype.toString()
+var classof = __webpack_require__(/*! ./_classof */ "../node_modules/core-js/modules/_classof.js");
+var test = {};
+test[__webpack_require__(/*! ./_wks */ "../node_modules/core-js/modules/_wks.js")('toStringTag')] = 'z';
+if (test + '' != '[object z]') {
+  __webpack_require__(/*! ./_redefine */ "../node_modules/core-js/modules/_redefine.js")(Object.prototype, 'toString', function toString() {
+    return '[object ' + classof(this) + ']';
+  }, true);
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/modules/es6.regexp.flags.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/core-js/modules/es6.regexp.flags.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// 21.2.5.3 get RegExp.prototype.flags()
+if (__webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/modules/_descriptors.js") && /./g.flags != 'g') __webpack_require__(/*! ./_object-dp */ "../node_modules/core-js/modules/_object-dp.js").f(RegExp.prototype, 'flags', {
+  configurable: true,
+  get: __webpack_require__(/*! ./_flags */ "../node_modules/core-js/modules/_flags.js")
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/modules/es6.regexp.to-string.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/core-js/modules/es6.regexp.to-string.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+__webpack_require__(/*! ./es6.regexp.flags */ "../node_modules/core-js/modules/es6.regexp.flags.js");
+var anObject = __webpack_require__(/*! ./_an-object */ "../node_modules/core-js/modules/_an-object.js");
+var $flags = __webpack_require__(/*! ./_flags */ "../node_modules/core-js/modules/_flags.js");
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/modules/_descriptors.js");
+var TO_STRING = 'toString';
+var $toString = /./[TO_STRING];
+
+var define = function (fn) {
+  __webpack_require__(/*! ./_redefine */ "../node_modules/core-js/modules/_redefine.js")(RegExp.prototype, TO_STRING, fn, true);
+};
+
+// 21.2.5.14 RegExp.prototype.toString()
+if (__webpack_require__(/*! ./_fails */ "../node_modules/core-js/modules/_fails.js")(function () { return $toString.call({ source: 'a', flags: 'b' }) != '/a/b'; })) {
+  define(function toString() {
+    var R = anObject(this);
+    return '/'.concat(R.source, '/',
+      'flags' in R ? R.flags : !DESCRIPTORS && R instanceof RegExp ? $flags.call(R) : undefined);
+  });
+// FF44- RegExp#toString has a wrong name
+} else if ($toString.name != TO_STRING) {
+  define(function toString() {
+    return $toString.call(this);
+  });
+}
 
 
 /***/ }),

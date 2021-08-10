@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 22-07-2021 */
+/*! elementor - v3.3.1 - 06-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -3498,6 +3498,134 @@ GoProButton.defaultProps = {
 
 /***/ }),
 
+/***/ "../core/app/assets/js/molecules/tooltip.js":
+/*!**************************************************!*\
+  !*** ../core/app/assets/js/molecules/tooltip.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+/* provided dependency */ var PropTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = Tooltip;
+
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
+
+var _utils = __webpack_require__(/*! ../utils/utils */ "../core/app/assets/js/utils/utils.js");
+
+function Tooltip(props) {
+  var baseClassName = 'e-app-tooltip',
+      classes = [baseClassName, props.className],
+      childRef = (0, _react.useRef)(null),
+      isAborted = (0, _react.useRef)(false),
+      isManualControl = props.hasOwnProperty('show'),
+      _useState = (0, _react.useState)(false),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      isLibraryLoaded = _useState2[0],
+      setIsLibraryLoaded = _useState2[1],
+      _useState3 = (0, _react.useState)(false),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      showTooltip = _useState4[0],
+      setShowTooltip = _useState4[1],
+      directionsMap = {
+    top: 's',
+    right: 'w',
+    down: 'n',
+    left: 'e'
+  },
+      tipsyConfig = {
+    trigger: isManualControl ? 'manual' : 'hover',
+    gravity: directionsMap[props.direction],
+    offset: props.offset,
+    title: function title() {
+      return props.title;
+    }
+  },
+      setTipsy = function setTipsy() {
+    var $tooltipContainer = jQuery(childRef.current);
+    $tooltipContainer.tipsy(tipsyConfig);
+
+    if (isManualControl) {
+      var displayMode = showTooltip ? 'show' : 'hide';
+      $tooltipContainer.tipsy(displayMode);
+    }
+  };
+
+  (0, _react.useEffect)(function () {
+    // In case that the component is disabled the tipsy library will not be loaded by default.
+    if (!props.disabled) {
+      isAborted.current = false;
+      import(
+      /* webpackIgnore: true */
+      "".concat(elementorCommon.config.urls.assets, "lib/tipsy/tipsy.min.js?ver=1.0.0")).then(function () {
+        if (!isAborted.current) {
+          if (isLibraryLoaded) {
+            setTipsy();
+          } else {
+            setIsLibraryLoaded(true);
+          }
+        }
+      });
+    }
+
+    return function () {
+      if (!props.disabled) {
+        // Aborting the current dynamic-import state update in case of re-render.
+        isAborted.current = true; // Cleanup of existing tipsy element in case of re-render.
+
+        jQuery('.tipsy:last').remove();
+      }
+    };
+  }, [props.disabled]);
+  (0, _react.useEffect)(function () {
+    if (isLibraryLoaded) {
+      setTipsy();
+    }
+  }, [isLibraryLoaded, showTooltip]);
+  (0, _react.useEffect)(function () {
+    // The "show" state should not be changed while the component is disabled.
+    if (!props.disabled && props.show !== showTooltip) {
+      setShowTooltip(props.show);
+    }
+  }, [props.show]);
+  return /*#__PURE__*/_react.default.createElement(props.tag, {
+    className: (0, _utils.arrayToClassName)(classes),
+    ref: childRef
+  }, props.children);
+}
+
+Tooltip.propTypes = {
+  className: PropTypes.string,
+  offset: PropTypes.number,
+  show: PropTypes.bool,
+  direction: PropTypes.oneOf(['top', 'right', 'left', 'down']),
+  tag: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  children: PropTypes.any
+};
+Tooltip.defaultProps = {
+  className: '',
+  offset: 10,
+  direction: 'top',
+  disabled: false
+};
+
+/***/ }),
+
 /***/ "../core/app/assets/js/molecules/upload-file.js":
 /*!******************************************************!*\
   !*** ../core/app/assets/js/molecules/upload-file.js ***!
@@ -4616,7 +4744,8 @@ function CardImage(props) {
   var image = /*#__PURE__*/_react.default.createElement("img", {
     src: props.src,
     alt: props.alt,
-    className: "eps-card__image"
+    className: "eps-card__image",
+    loading: "lazy"
   });
 
   return /*#__PURE__*/_react.default.createElement("figure", {
@@ -8399,7 +8528,7 @@ KitContentCheckbox.defaultProps = {
 
 var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
 
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
 _Object$defineProperty(exports, "__esModule", {
   value: true
@@ -8407,22 +8536,27 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = TemplatesFeatures;
 
-var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
+
+var _tooltip = _interopRequireDefault(__webpack_require__(/*! elementor-app/molecules/tooltip */ "../core/app/assets/js/molecules/tooltip.js"));
 
 __webpack_require__(/*! ./templates-features.scss */ "../core/app/modules/import-export/assets/js/shared/kit-content/components/templates-features/templates-features.scss");
 
 function TemplatesFeatures(props) {
   var _props$features$locke;
 
-  var featuresContainer = (0, _react.useRef)(null),
-      isLockedFeatures = (_props$features$locke = props.features.locked) === null || _props$features$locke === void 0 ? void 0 : _props$features$locke.length,
+  var isLockedFeatures = (_props$features$locke = props.features.locked) === null || _props$features$locke === void 0 ? void 0 : _props$features$locke.length,
       getLockedFeatures = function getLockedFeatures() {
     if (!isLockedFeatures) {
       return;
     }
 
-    return /*#__PURE__*/_react.default.createElement("span", {
-      ref: featuresContainer,
+    return /*#__PURE__*/_react.default.createElement(_tooltip.default, {
+      tag: "span",
+      offset: 19,
+      show: props.showTooltip,
+      title: props.features.tooltip,
+      disabled: !props.isLocked,
       className: props.isLocked ? 'e-app-export-templates-features__locked' : ''
     }, ', ' + props.features.locked.join(', '));
   },
@@ -8430,46 +8564,15 @@ function TemplatesFeatures(props) {
     var _props$features$open;
 
     return (_props$features$open = props.features.open) === null || _props$features$open === void 0 ? void 0 : _props$features$open.join(', ');
-  },
-      setTipsy = function setTipsy(showTooltip) {
-    var $featuresContainer = jQuery(featuresContainer.current),
-        displayMode = showTooltip ? 'show' : 'hide';
-
-    if ('show' === displayMode) {
-      $featuresContainer.tipsy({
-        trigger: 'manual',
-        gravity: 's',
-        offset: 19,
-        title: function title() {
-          return props.features.tooltip;
-        }
-      });
-    }
-
-    $featuresContainer.tipsy(displayMode);
   };
 
-  (0, _react.useEffect)(function () {
-    var isFeaturesWithTipsy = isLockedFeatures && props.isTipsyLibReady;
-
-    if (isFeaturesWithTipsy) {
-      setTipsy(props.showTooltip);
-    }
-
-    return function () {
-      if (isFeaturesWithTipsy) {
-        setTipsy(false);
-      }
-    };
-  }, [props.showTooltip, props.isTipsyLibReady]);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, getOpenFeatures(), getLockedFeatures());
 }
 
 TemplatesFeatures.propTypes = {
   features: PropTypes.object,
   isLocked: PropTypes.bool,
-  showTooltip: PropTypes.bool,
-  isTipsyLibReady: PropTypes.bool
+  showTooltip: PropTypes.bool
 };
 TemplatesFeatures.defaultProps = {
   showTooltip: false
@@ -8580,14 +8683,10 @@ __webpack_require__(/*! ./kit-content.scss */ "../core/app/modules/import-export
 
 function KitContent(props) {
   var hasPro = elementorAppConfig.hasPro,
-      _useState = (0, _react.useState)(false),
+      _useState = (0, _react.useState)({}),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
-      isTipsyLibReady = _useState2[0],
-      setIsTipsyLibReady = _useState2[1],
-      _useState3 = (0, _react.useState)({}),
-      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
-      containerHover = _useState4[0],
-      setContainerHover = _useState4[1],
+      containerHover = _useState2[0],
+      setContainerHover = _useState2[1],
       getTemplateFeatures = function getTemplateFeatures(features, index) {
     if (!features) {
       return;
@@ -8596,8 +8695,7 @@ function KitContent(props) {
     return /*#__PURE__*/_react.default.createElement(_templatesFeatures.default, {
       features: features,
       isLocked: !hasPro,
-      showTooltip: containerHover[index],
-      isTipsyLibReady: isTipsyLibReady
+      showTooltip: containerHover[index]
     });
   },
       getGoProButton = function getGoProButton() {
@@ -8612,15 +8710,6 @@ function KitContent(props) {
     });
   };
 
-  (0, _react.useEffect)(function () {
-    if (!hasPro) {
-      import(
-      /* webpackIgnore: true */
-      "".concat(elementorCommon.config.urls.assets, "lib/tipsy/tipsy.min.js?ver=1.0.0")).then(function () {
-        return setIsTipsyLibReady(true);
-      });
-    }
-  }, []);
   return /*#__PURE__*/_react.default.createElement(_box.default, null, /*#__PURE__*/_react.default.createElement(_list.default, {
     separated: true,
     className: "e-app-export-kit-content"
@@ -16304,7 +16393,7 @@ module.exports = wp.i18n;
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === "vendors-node_modules_babel_runtime-corejs2_core-js_object_values_js-node_modules_babel_runtim-dcce77") return "e304e36749de7c8a2673.bundle.js";
-/******/ 			if (chunkId === "kit-library") return "" + chunkId + ".d19b77cf4fe9ba4294d5.bundle.js";
+/******/ 			if (chunkId === "kit-library") return "" + chunkId + ".192658d419d728def980.bundle.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
