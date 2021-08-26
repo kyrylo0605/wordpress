@@ -8,12 +8,14 @@ Author: Tatvic
 Requires at least: 1.4.1
 Tested up to: 5.8
 Requires PHP: 5.6 or Higher
-Stable tag: 4.0.1
-Version: 4.0.1
+Stable tag: 4.1.1
+Version: 4.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Automates eCommerce tracking in Google Analytics and the complete Google Shopping solution with dynamic remarketing tags.
+
+https://youtu.be/s-L6VvY0sVw?rel=0
 
 == Product Description ==
 
@@ -54,9 +56,9 @@ Achieve all this by connecting Google Analytics, Google Ads, and Google Merchant
 
 * NO CODING REQUIRED or NO NEED TO HIRE A DEVELOPER for the setup. You can configure the plugin instantly in under 5 minutes and with a few clicks from your WordPress backend.
 
-<a target="_blank" href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf">Here is how you can configure the plugin without any hassle and start scaling your eCommerce business faster.</a>
+<a target="_blank" href="https://conversios.io/help-center/Installation-Manual.pdf">Here is how you can configure the plugin without any hassle and start scaling your eCommerce business faster.</a>
 
-Create a new Google Ads account using the plugin and get a Google ads coupon upto USD 150 (amount differs based on the country you are in) on the spends you make in the first 31 days. <a target="_blank" href ="http://plugins.tatvic.com/help-center/Google-Spend-Match.pdf">See terms and condition.</a>
+Create a new Google Ads account using the plugin and get a Google ads coupon upto USD 150 (amount differs based on the country you are in) on the spends you make in the first 31 days. <a target="_blank" href ="https://conversios.io/help-center/Google-Spend-Match.pdf">See terms and condition.</a>
 
 ###AN INTERESTING AMALGAM OF - GOOGLE ANALYTICS + ENHANCED ECOMMERCE REPORTS - THE BEST YOU CAN GET!
 
@@ -388,6 +390,15 @@ You can resolve the duplication of data by removing the manually implemented GA 
 
 
 == Changelog ==
+
+= 4.1.1 - 24/08/2021 =
+
+* Fixed the issue for fetching Google ads account for some store
+* Fixed WordPress backend stying bug
+
+= 4.1.0 - 24/08/2021 =
+
+* Now, users can configure their Google accounts without leaving the WordPress interface. We have made plugin set up flow as seamless as possible.
 
 = 4.0.1 - 06/08/2021 =
 * We have fixed Google Ads Conversion Tracking issue (Pro)

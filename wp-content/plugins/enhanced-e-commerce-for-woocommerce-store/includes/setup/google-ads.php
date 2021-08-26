@@ -9,7 +9,7 @@ class GoogleAds {
   public function __construct($theURL = '') {
     $this->TVC_Admin_Helper = new TVC_Admin_Helper();
     $this->customApiObj = new CustomApi();
-    $this->url = $this->TVC_Admin_Helper->get_connect_url(); 
+    $this->url = $this->TVC_Admin_Helper->get_onboarding_page_url(); 
     $this->subscriptionId = $this->TVC_Admin_Helper->get_subscriptionId(); 
     $this->google_detail = $this->TVC_Admin_Helper->get_ee_options_data(); 
     $this->plan_id = $this->TVC_Admin_Helper->get_plan_id();     
@@ -86,9 +86,9 @@ class GoogleAds {
                       </p>
                       <?php
                       if (isset($googleDetail->google_ads_id) && $googleDetail->google_ads_id != '') {
-                        echo '<p class="ga-text text-right"><a target="_blank" href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
+                        echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
                       } else { 
-                        echo '<p class="ga-text text-right"><a href="#" class="text-underline" data-toggle="modal" data-target="#tvc_google_connect"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
+                        echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
                       }?>
                     </div>
                   </div>
@@ -105,9 +105,9 @@ class GoogleAds {
                       </p>
                       <?php
                       if(isset($googleDetail->property_id) && $googleDetail->property_id != ''){
-                          echo '<p class="ga-text text-right"><a target="_blank" href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
+                          echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
                       }else{
-                          echo '<p class="ga-text text-right"><a href="#" class="text-underline" data-toggle="modal" data-target="#tvc_google_connect"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
+                          echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
                       } ?>
                     </div>
                   </div>                  

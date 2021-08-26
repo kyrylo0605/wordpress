@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["kit-library"],{
 
 /***/ "../core/app/modules/kit-library/assets/js/components/badge.scss":
@@ -1073,7 +1073,7 @@ var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 function KitList(props) {
   return /*#__PURE__*/_react.default.createElement(_appUi.CssGrid, {
     spacing: 24,
-    colMinWidth: 250
+    colMinWidth: 290
   }, props.data.map(function (model) {
     return /*#__PURE__*/_react.default.createElement(_kitListItem.default, {
       key: model.id,
@@ -1295,27 +1295,47 @@ var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
 _Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
 exports.default = SearchInput;
 
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
+
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
+
+var _useDebouncedCallback = _interopRequireDefault(__webpack_require__(/*! ../hooks/use-debounced-callback */ "../core/app/modules/kit-library/assets/js/hooks/use-debounced-callback.js"));
 
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 
 __webpack_require__(/*! ./search-input.scss */ "../core/app/modules/kit-library/assets/js/components/search-input.scss");
 
 function SearchInput(props) {
+  var _useState = (0, _react.useState)(props.value || ''),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      localValue = _useState2[0],
+      setLocalValue = _useState2[1];
+
+  var debouncedOnChange = (0, _useDebouncedCallback.default)(function (value) {
+    return props.onChange(value);
+  }, props.debounceTimeout);
+  (0, _react.useEffect)(function () {
+    if (props.value !== localValue) {
+      setLocalValue(props.value);
+    }
+  }, [props.value]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "eps-search-input__container ".concat(props.className)
   }, /*#__PURE__*/_react.default.createElement("input", {
     className: "eps-search-input eps-search-input--".concat(props.size),
     placeholder: props.placeholder,
-    value: props.value || '',
+    value: localValue,
     onChange: function onChange(e) {
-      return props.onChange(e.target.value);
+      setLocalValue(e.target.value);
+      debouncedOnChange(e.target.value);
     }
   }), /*#__PURE__*/_react.default.createElement(_appUi.Icon, {
     className: "eicon-search-bold eps-search-input__icon eps-search-input__icon--".concat(props.size)
@@ -1334,11 +1354,13 @@ SearchInput.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
-  size: PropTypes.oneOf(['md', 'sm'])
+  size: PropTypes.oneOf(['md', 'sm']),
+  debounceTimeout: PropTypes.number
 };
 SearchInput.defaultProps = {
   className: '',
-  size: 'md'
+  size: 'md',
+  debounceTimeout: 300
 };
 
 /***/ }),
@@ -1806,7 +1828,9 @@ function fetchContentTypes() {
   }, {
     id: 'site-parts',
     label: __('Site Parts', 'elementor'),
-    doc_types: ['header', 'footer', 'single', 'archive', '404'],
+    doc_types: ['archive', 'error-404', 'footer', 'header', 'search-results', 'single-page', 'single-post', // WooCommerce types
+    'product', 'product-archive', // Legacy Types
+    '404', 'single'],
     order: 1
   }, {
     id: 'popup',
@@ -1818,6 +1842,44 @@ function fetchContentTypes() {
       return _contentType.default.createFromResponse(contentType);
     });
   });
+}
+
+/***/ }),
+
+/***/ "../core/app/modules/kit-library/assets/js/hooks/use-debounced-callback.js":
+/*!*********************************************************************************!*\
+  !*** ../core/app/modules/kit-library/assets/js/hooks/use-debounced-callback.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = useDebouncedCallback;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+function useDebouncedCallback(callback, wait) {
+  var timeout = (0, _react.useRef)();
+  return (0, _react.useCallback)(function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var later = function later() {
+      clearTimeout(timeout.current);
+      callback.apply(void 0, args);
+    };
+
+    clearTimeout(timeout.current);
+    timeout.current = setTimeout(later, wait);
+  }, [callback, wait]);
 }
 
 /***/ }),
@@ -2250,7 +2312,7 @@ var kitsPipeFunctions = {
     }
 
     return data.filter(function (item) {
-      var keywords = [].concat((0, _toConsumableArray2.default)(item.keywords), [item.title]);
+      var keywords = [].concat((0, _toConsumableArray2.default)(item.keywords), (0, _toConsumableArray2.default)(item.taxonomies), [item.title]);
       var searchTerm = queryParams.search.toLowerCase();
       return keywords.some(function (keyword) {
         return keyword.toLowerCase().includes(searchTerm);
@@ -2939,6 +3001,9 @@ var taxonomyType = [{
 }, {
   key: 'features',
   label: __('Features', 'elementor')
+}, {
+  key: 'subscription_plans',
+  label: __('Kits by plan', 'elementor')
 }];
 exports.taxonomyType = taxonomyType;
 
@@ -3279,6 +3344,8 @@ var _taxonomiesFilter = _interopRequireDefault(__webpack_require__(/*! ../../com
 
 var _useKits2 = _interopRequireWildcard(__webpack_require__(/*! ../../hooks/use-kits */ "../core/app/modules/kit-library/assets/js/hooks/use-kits.js"));
 
+var _usePageTitle = _interopRequireDefault(__webpack_require__(/*! elementor-app/hooks/use-page-title */ "../core/app/assets/js/hooks/use-page-title.js"));
+
 var _useTaxonomies2 = _interopRequireDefault(__webpack_require__(/*! ../../hooks/use-taxonomies */ "../core/app/modules/kit-library/assets/js/hooks/use-taxonomies.js"));
 
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
@@ -3395,6 +3462,9 @@ function useRouterQueryParams(queryParams, setQueryParams) {
 }
 
 function Index(props) {
+  (0, _usePageTitle.default)({
+    title: __('Kit Library', 'elementor')
+  });
   var menuItems = useMenuItems(props.path);
 
   var _useKits = (0, _useKits2.default)(props.initialQueryParams),
@@ -3854,6 +3924,8 @@ var _useKit2 = _interopRequireDefault(__webpack_require__(/*! ../../hooks/use-ki
 
 var _useKitDocumentByType2 = _interopRequireDefault(__webpack_require__(/*! ../../hooks/use-kit-document-by-type */ "../core/app/modules/kit-library/assets/js/hooks/use-kit-document-by-type.js"));
 
+var _usePageTitle = _interopRequireDefault(__webpack_require__(/*! elementor-app/hooks/use-page-title */ "../core/app/assets/js/hooks/use-page-title.js"));
+
 var _router = __webpack_require__(/*! @reach/router */ "../node_modules/@reach/router/es/index.js");
 
 __webpack_require__(/*! ./overview.scss */ "../core/app/modules/kit-library/assets/js/pages/overview/overview.scss");
@@ -3886,6 +3958,9 @@ function Overview(props) {
       documentsByType = _useKitDocumentByType.data;
 
   var headerButtons = useHeaderButtons(props.id);
+  (0, _usePageTitle.default)({
+    title: kit ? "".concat(__('Kit Library', 'elementor'), " | ").concat(kit.title) : __('Loading...', 'elementor')
+  });
 
   if (isError) {
     // Will be caught by the App error boundary.
@@ -4101,6 +4176,8 @@ var _previewResponsiveControls = _interopRequireDefault(__webpack_require__(/*! 
 
 var _useKit2 = _interopRequireDefault(__webpack_require__(/*! ../../hooks/use-kit */ "../core/app/modules/kit-library/assets/js/hooks/use-kit.js"));
 
+var _usePageTitle = _interopRequireDefault(__webpack_require__(/*! elementor-app/hooks/use-page-title */ "../core/app/assets/js/hooks/use-page-title.js"));
+
 var _previewIframe = __webpack_require__(/*! ./preview-iframe */ "../core/app/modules/kit-library/assets/js/pages/preview/preview-iframe.js");
 
 var _router = __webpack_require__(/*! @reach/router */ "../node_modules/@reach/router/es/index.js");
@@ -4206,6 +4283,9 @@ function Preview(props) {
       return value === activeDevice;
     }).style;
   }, [activeDevice]);
+  (0, _usePageTitle.default)({
+    title: data ? "".concat(__('Kit Library', 'elementor'), " | ").concat(data.title) : __('Loading...', 'elementor')
+  });
 
   if (isError) {
     // Will be caught by the App error boundary.
@@ -4243,4 +4323,4 @@ Preview.propTypes = {
 /***/ })
 
 }]);
-//# sourceMappingURL=kit-library.192658d419d728def980.bundle.js.map
+//# sourceMappingURL=kit-library.173a40686832d02e9b76.bundle.js.map

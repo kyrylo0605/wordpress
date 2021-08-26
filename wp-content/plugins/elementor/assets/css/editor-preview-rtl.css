@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 @charset "UTF-8";
 .elementor-control-unit-1 {
   width: 27px; }
@@ -1280,8 +1280,7 @@ a.elementor-responsive-switcher {
   height: 100%;
   -webkit-background-size: cover;
           background-size: cover;
-  background-position: center;
-  background-color: #d5dadf; }
+  background-position: center; }
 
 .elementor-control-media-area {
   background-image: -webkit-linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd), -webkit-linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd);

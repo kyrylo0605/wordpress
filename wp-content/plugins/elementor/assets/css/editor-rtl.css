@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 @charset "UTF-8";
 .elementor-control-unit-1 {
   width: 27px; }
@@ -2410,8 +2410,7 @@ a.elementor-responsive-switcher {
   height: 100%;
   -webkit-background-size: cover;
           background-size: cover;
-  background-position: center;
-  background-color: #d5dadf; }
+  background-position: center; }
 
 .elementor-control-media-area {
   background-image: -webkit-linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd), -webkit-linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd);
@@ -3440,7 +3439,7 @@ a.elementor-responsive-switcher {
   -webkit-transition: height .2s ease-in-out, opacity .1s;
   -o-transition: height .2s ease-in-out, opacity .1s;
   transition: height .2s ease-in-out, opacity .1s;
-  right: 0;
+  left: 0;
   top: 0;
   z-index: 100;
   opacity: var(--e-is-device-mode);
@@ -3939,7 +3938,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: relative; }
+  position: relative;
+  direction: ltr; }
+  #elementor-preview > div {
+    direction: rtl; }
 
 #elementor-preview-responsive-wrapper {
   -webkit-transform-origin: top center;

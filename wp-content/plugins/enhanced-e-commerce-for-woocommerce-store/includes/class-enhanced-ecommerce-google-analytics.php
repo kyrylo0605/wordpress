@@ -99,6 +99,8 @@ class Enhanced_Ecommerce_Google_Analytics {
      */
     private function load_dependencies() {
 
+        
+
         /**
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
@@ -123,6 +125,9 @@ class Enhanced_Ecommerce_Google_Analytics {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-enhanced-ecommerce-google-analytics-admin.php';
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-enhanced-ecommerce-google-analytics-settings.php';
+
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-conversios-onboarding.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/helper/class-onboarding-helper.php';
 
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-tvc-admin-auto-product-sync-helper.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-survey.php';
@@ -273,7 +278,7 @@ class Enhanced_Ecommerce_Google_Analytics {
         $links[] = '<a href="' . get_admin_url(null, $setting_url) . '">Settings</a>';
         
         $links[] = '<a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/#faq" target="_blank">FAQ</a>';
-        $links[] = '<a href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf" target="_blank">Documentation</a>';
+        $links[] = '<a href="https://conversios.io/help-center/Installation-Manual.pdf" target="_blank">Documentation</a>';
         $links[] = '<a href="https://conversios.io/pricings/?utm_source=EE+Plugin+User+Interface&utm_medium=Plugins+Listing+Page+Upgrade+to+Premium&utm_campaign=Upsell+at+Conversios" target="_blank"><b>Upgrade to Premium</b></a>';
         $links['deactivate'] = $deactivate_link;
         return $links;

@@ -98,25 +98,25 @@ class Plugin_Card_Block extends Base_Block {
 					<div class="wp-block-themeisle-blocks-plugin-cards-details">
 						<div class="wp-block-themeisle-blocks-plugin-cards-description">' . esc_html( $results->short_description ) . '</div>
 						<div class="wp-block-themeisle-blocks-plugin-cards-stats">
-							<h5>' . __( 'Plugin Stats', 'themeisle-companion' ) . '</h5>
+							<h5>' . __( 'Plugin Stats', 'otter-blocks', 'themeisle-companion' ) . '</h5>
 							<div class="wp-block-themeisle-blocks-plugin-cards-stats-list">
 								<div class="wp-block-themeisle-blocks-plugin-cards-stat">
 									<span class="wp-block-themeisle-blocks-plugin-cards-text-large">' . number_format( $results->active_installs ) . '+</span>
-									' . __( 'active installs', 'themeisle-companion' ) . '
+									' . __( 'active installs', 'otter-blocks', 'themeisle-companion' ) . '
 								</div>
 								<div class="wp-block-themeisle-blocks-plugin-cards-stat">
 									<span class="wp-block-themeisle-blocks-plugin-cards-text-large">' . floatval( $results->version ) . '+</span>
-									' . __( 'version', 'themeisle-companion' ) . '
+									' . __( 'version', 'otter-blocks', 'themeisle-companion' ) . '
 								</div>
 								<div class="wp-block-themeisle-blocks-plugin-cards-stat">
 									<span class="wp-block-themeisle-blocks-plugin-cards-text-large">' . floatval( $results->tested ) . '+</span>
-									' . __( 'tested up to', 'themeisle-companion' ) . '
+									' . __( 'tested up to', 'otter-blocks', 'themeisle-companion' ) . '
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="wp-block-themeisle-blocks-plugin-cards-download">
-						<a href="' . esc_url( $results->download_link ) . '">' . __( 'Download', 'themeisle-companion' ) . '</a>
+						<a href="' . esc_url( $results->download_link ) . '">' . __( 'Download', 'otter-blocks', 'themeisle-companion' ) . '</a>
 					</div>
 				</div>
 			</div>';
@@ -138,7 +138,7 @@ class Plugin_Card_Block extends Base_Block {
 	protected function search( $request ) {
 		$return = array(
 			'success' => false,
-			'data'    => esc_html__( 'Something went wrong', 'themeisle-companion' ),
+			'data'    => esc_html__( 'Something went wrong', 'otter-blocks', 'themeisle-companion' ),
 		);
 
 		$slug = $request;

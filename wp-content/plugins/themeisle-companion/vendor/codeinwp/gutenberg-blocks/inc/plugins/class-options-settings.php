@@ -39,7 +39,7 @@ class Options_Settings {
 			'themeisle_google_map_block_api_key',
 			array(
 				'type'              => 'string',
-				'description'       => __( 'Google Map API key for the Google Maps Gutenberg Block.', 'themeisle-companion' ),
+				'description'       => __( 'Google Map API key for the Google Maps Gutenberg Block.', 'otter-blocks', 'themeisle-companion' ),
 				'sanitize_callback' => 'sanitize_text_field',
 				'show_in_rest'      => true,
 				'default'           => '',
@@ -51,7 +51,7 @@ class Options_Settings {
 			'themeisle_blocks_settings_default_block',
 			array(
 				'type'              => 'boolean',
-				'description'       => __( 'Make Section block your default block for Pages?', 'themeisle-companion' ),
+				'description'       => __( 'Make Section block your default block for Pages?', 'otter-blocks', 'themeisle-companion' ),
 				'sanitize_callback' => 'rest_sanitize_boolean',
 				'show_in_rest'      => true,
 				'default'           => true,
@@ -63,7 +63,7 @@ class Options_Settings {
 			'themeisle_blocks_settings_global_defaults',
 			array(
 				'type'              => 'string',
-				'description'       => __( 'Global defaults for Gutenberg Blocks.', 'themeisle-companion' ),
+				'description'       => __( 'Global defaults for Gutenberg Blocks.', 'otter-blocks', 'themeisle-companion' ),
 				'sanitize_callback' => 'sanitize_text_field',
 				'show_in_rest'      => true,
 				'default'           => '',
@@ -75,7 +75,7 @@ class Options_Settings {
 			'themeisle_allow_json_upload',
 			array(
 				'type'              => 'boolean',
-				'description'       => __( 'Allow JSON Upload to Media Library.', 'themeisle-companion' ),
+				'description'       => __( 'Allow JSON Upload to Media Library.', 'otter-blocks', 'themeisle-companion' ),
 				'sanitize_callback' => 'rest_sanitize_boolean',
 				'show_in_rest'      => true,
 				'default'           => false,
@@ -94,9 +94,20 @@ class Options_Settings {
 			return;
 		}
 
+		$attributes = array();
+
+		$defaults = get_option( 'themeisle_blocks_settings_global_defaults' );
+		if ( ! empty( $defaults ) ) {
+			$defaults = json_decode( $defaults, true );
+
+			if ( isset( $defaults['themeisle-blocks/advanced-columns'] ) ) {
+				$attributes = $defaults['themeisle-blocks/advanced-columns'];
+			}
+		}
+
 		$post_type_object           = get_post_type_object( 'page' );
 		$post_type_object->template = array(
-			array( 'themeisle-blocks/advanced-columns' ),
+			array( 'themeisle-blocks/advanced-columns', $attributes ),
 		);
 	}
 
@@ -130,7 +141,7 @@ class Options_Settings {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'themeisle-companion' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'otter-blocks', 'themeisle-companion' ), '1.0.0' );
 	}
 
 	/**
@@ -142,6 +153,6 @@ class Options_Settings {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'themeisle-companion' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'otter-blocks', 'themeisle-companion' ), '1.0.0' );
 	}
 }

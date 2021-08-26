@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1884,6 +1884,7 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       this.shortcuts = this.defaultShortcuts();
       this.utils = this.defaultUtils();
       this.data = this.defaultData();
+      this.uiStates = this.defaultUiStates();
       this.defaultRoute = '';
       this.currentTab = '';
     }
@@ -1926,6 +1927,9 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
 
         return _this.registerData(command, callback);
       });
+      (0, _values.default)(this.getUiStates()).forEach(function (instance) {
+        return _this.registerUiState(instance);
+      });
     }
     /**
      * @returns {string}
@@ -1967,6 +1971,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     value: function defaultHooks() {
       return {};
     }
+    /**
+     * Get the component's default UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "defaultUiStates",
+    value: function defaultUiStates() {
+      return {};
+    }
   }, {
     key: "defaultShortcuts",
     value: function defaultShortcuts() {
@@ -1996,6 +2011,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "getHooks",
     value: function getHooks() {
       return this.hooks;
+    }
+    /**
+     * Retrieve the component's UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getUiStates",
+    value: function getUiStates() {
+      return this.uiStates;
     }
   }, {
     key: "getRoutes",
@@ -2030,6 +2056,19 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "registerHook",
     value: function registerHook(instance) {
       return instance.register();
+    }
+    /**
+     * Register a UI state.
+     *
+     * @param {UiStateBase} instance - UI state instance.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "registerUiState",
+    value: function registerUiState(instance) {
+      $e.uiStates.register(instance);
     }
   }, {
     key: "registerCommandInternal",
@@ -2238,6 +2277,42 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       }
 
       return hooks;
+    }
+    /**
+     * Import & initialize the component's UI states.
+     * Should be used inside `defaultUiState()`.
+     *
+     * @param {Object} statesFromImport - UI states from import.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "importUiStates",
+    value: function importUiStates(statesFromImport) {
+      var _this6 = this;
+
+      var uiStates = {};
+      (0, _values.default)(statesFromImport).forEach(function (className) {
+        var uiState = new className(_this6);
+        uiStates[uiState.getId()] = uiState;
+      });
+      return uiStates;
+    }
+    /**
+     * Set a UI state value.
+     * TODO: Should we provide such function? Maybe the developer should implicitly pass the full state ID?
+     *
+     * @param state - Non-prefixed state ID.
+     * @param value - New state value.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "setUiState",
+    value: function setUiState(state, value) {
+      $e.uiStates.set("".concat(this.getNamespace(), "/").concat(state), value);
     }
   }, {
     key: "toggleRouteClass",

@@ -14,7 +14,8 @@ final class ACFTC_Core {
 		'message',
 		'accordion',
 		'enhanced_message',
-		'row'
+		'row',
+		'page', // Advanced Forms Pro (used for multi-step forms)
 	);
 
 	// Basic field types supported by TC Free and TC Pro
@@ -42,9 +43,7 @@ final class ACFTC_Core {
 	private static $field_types_basic_pro = array(
 		'extended-color-picker',
 		'star_rating_field',
-		'qtranslate_text',
-		'qtranslate_textarea',
-		'qtranslate_wysiwyg',
+		'acf_cf7',
 	);
 
 	/** 
@@ -64,9 +63,6 @@ final class ACFTC_Core {
 
 		// 3rd party
 		'font-awesome',
-		'google_font_selector',
-		'image_crop',
-		'markdown',
 		'rgba_color',
 		'sidebar_selector',
 		'smart_button',
@@ -76,25 +72,28 @@ final class ACFTC_Core {
 		'number_slider',
 		'posttype_select',
 		'acf_code_field',
-		'link_picker',
 		'youtubepicker',
 		'focal_point',
-		'color_palette', // Color Palette
+		'color_palette', 
 		'forms', // Gravityforms and Ninjaforms
 		'icon-picker', // Icon Selector
 		'svg_icon',
-		'swatch', // Color Palette
+		'swatch',
 		'image_aspect_ratio_crop',
-		'qtranslate_file', // qTranslate
-		'qtranslate_image', // qTranslate
-		'nav_menu',
+		'audio_video_player',
 
 		// TC Pro basic types (see above)
-		'extended-color-picker', // RGBA Color Picker (https://github.com/constlab/acf-rgba-color-field)
-		'star_rating_field', // Star Rating
-		'qtranslate_text',
-		'qtranslate_textarea',
-		'qtranslate_wysiwyg',
+		'extended-color-picker', 
+		// ACF RGBA Color Picker (requires ACF PRO)
+		// https://wordpress.org/plugins/acf-rgba-color-picker/
+		// https://github.com/constlab/acf-rgba-color-field)
+		'star_rating_field',
+		// ACF Star Rating Field
+		// https://github.com/kevinruscoe/acf-star-rating-field
+		'acf_cf7',
+		// ACF Field For Contact Form 7
+		// https://wordpress.org/plugins/acf-field-for-contact-form-7/
+
 	);
 
 	/**
@@ -249,26 +248,29 @@ final class ACFTC_Core {
 
 		$page = $GLOBALS['plugin_page'];
 
-		// if post type is an ACF field group
-		if( 'acf-field-group' == $post_type || 'acf' == $post_type || 'acf-tools' == $page ) {
+		if ( 'acf-field-group' == $post_type || 'acf' == $post_type || 'acf-tools' == $page ) {
 
 			// Plugin styles
-			wp_enqueue_style( 'acftc_css', ACFTC_PLUGIN_DIR_URL . 'assets/acf-theme-code.css', '' , ACFTC_PLUGIN_VERSION);
+			wp_enqueue_style( 'acftc_css', ACFTC_PLUGIN_DIR_URL . 'assets/acf-theme-code.css', array() , ACFTC_PLUGIN_VERSION );
 
 			// Prism (code formatting)
-			wp_enqueue_style( 'acftc_prism_css', ACFTC_PLUGIN_DIR_URL . 'assets/prism.css', '' , ACFTC_PLUGIN_VERSION);
-			wp_enqueue_script( 'acftc_prism_js', ACFTC_PLUGIN_DIR_URL . 'assets/prism.js', '' , ACFTC_PLUGIN_VERSION);
+			wp_enqueue_style( 'acftc_prism_css', ACFTC_PLUGIN_DIR_URL . 'assets/prism.css', array() , ACFTC_PLUGIN_VERSION );
+			wp_enqueue_script( 'acftc_prism_js', ACFTC_PLUGIN_DIR_URL . 'assets/prism.js', array() , ACFTC_PLUGIN_VERSION );
 
 			// Clipboard
-			wp_enqueue_script( 'acftc_clipboard_js', ACFTC_PLUGIN_DIR_URL . 'assets/clipboard.min.js', '' , ACFTC_PLUGIN_VERSION);
+			wp_enqueue_script( 'acftc_clipboard_js', ACFTC_PLUGIN_DIR_URL . 'assets/clipboard.min.js', array() , '1.7.1' );
 
 			// Plugin js
-			wp_enqueue_script( 'acftc_js', ACFTC_PLUGIN_DIR_URL . 'assets/acf-theme-code.js', array( 'acftc_clipboard_js' ), '', ACFTC_PLUGIN_VERSION, true );
+			wp_enqueue_script( 'acftc_js', ACFTC_PLUGIN_DIR_URL . 'assets/acf-theme-code.js', array( 'jquery', 'acftc_clipboard_js' ), ACFTC_PLUGIN_VERSION, true );
 
 			if ( ACFTC_IS_PRO ) {
-				wp_enqueue_script( 'acftc_pro_js', ACFTC_PLUGIN_DIR_URL . 'pro/assets/acf-theme-code-pro.js', array( 'acftc_js' ), '', ACFTC_PLUGIN_VERSION, true );
+				wp_enqueue_script( 'acftc_pro_js', ACFTC_PLUGIN_DIR_URL . 'pro/assets/acf-theme-code-pro.js', array( 'jquery', 'acftc_js' ), ACFTC_PLUGIN_VERSION, true );
 			}
 
+		}
+
+		if ( ACFTC_IS_PRO && 'theme-code-pro-license' == $page ) {
+			wp_enqueue_style( 'acftcp_license_page_css', ACFTC_PLUGIN_DIR_URL . 'pro/assets/acftcp-license-page.css', '' , ACFTC_PLUGIN_VERSION);
 		}
 
 	}

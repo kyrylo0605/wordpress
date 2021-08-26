@@ -1,35 +1,5 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["text-path"],{
-
-/***/ "../assets/dev/js/frontend/utils/utils.js":
-/*!************************************************!*\
-  !*** ../assets/dev/js/frontend/utils/utils.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.escapeHTML = void 0;
-
-// Escape HTML special chars to prevent XSS.
-const escapeHTML = str => {
-  const specialChars = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;'
-  };
-  return str.replace(/[&<>'"]/g, tag => specialChars[tag] || tag);
-};
-
-exports.escapeHTML = escapeHTML;
-
-/***/ }),
 
 /***/ "../modules/shapes/assets/js/frontend/handlers/text-path.js":
 /*!******************************************************************!*\
@@ -280,4 +250,4 @@ exports.default = TextPathHandler;
 /***/ })
 
 }]);
-//# sourceMappingURL=text-path.84b1b2d4067d8b4537c6.bundle.js.map
+//# sourceMappingURL=text-path.9b3ece1b692d34d012b5.bundle.js.map

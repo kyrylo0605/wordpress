@@ -137,8 +137,27 @@ class Posts_Grid_Block extends Base_Block {
 
 		$get_custom_post_types_posts = function ( $post_type ) use ( $attributes, $categories ) {
 			return wp_get_recent_posts(
+				apply_filters(
+					'themeisle_gutenberg_posts_block_query',
+					array(
+						'post_type'        => $post_type,
+						'numberposts'      => $attributes['postsToShow'],
+						'post_status'      => 'publish',
+						'order'            => $attributes['order'],
+						'orderby'          => $attributes['orderBy'],
+						'offset'           => $attributes['offset'],
+						'category'         => $categories,
+						'suppress_filters' => false,
+					),
+					$attributes
+				)
+			);
+		};
+
+		$recent_posts = isset( $attributes['postTypes'] ) ? array_merge( ...array_map( $get_custom_post_types_posts, $attributes['postTypes'] ) ) : wp_get_recent_posts(
+			apply_filters(
+				'themeisle_gutenberg_posts_block_query',
 				array(
-					'post_type'        => $post_type,
 					'numberposts'      => $attributes['postsToShow'],
 					'post_status'      => 'publish',
 					'order'            => $attributes['order'],
@@ -146,19 +165,8 @@ class Posts_Grid_Block extends Base_Block {
 					'offset'           => $attributes['offset'],
 					'category'         => $categories,
 					'suppress_filters' => false,
-				)
-			);
-		};
-
-		$recent_posts = isset( $attributes['postTypes'] ) ? array_merge( ...array_map( $get_custom_post_types_posts, $attributes['postTypes'] ) ) : wp_get_recent_posts(
-			array(
-				'numberposts'      => $attributes['postsToShow'],
-				'post_status'      => 'publish',
-				'order'            => $attributes['order'],
-				'orderby'          => $attributes['orderBy'],
-				'offset'           => $attributes['offset'],
-				'category'         => $categories,
-				'suppress_filters' => false,
+				),
+				$attributes
 			)
 		);
 
@@ -213,7 +221,7 @@ class Posts_Grid_Block extends Base_Block {
 						if ( isset( $attributes['displayDate'] ) && $attributes['displayDate'] ) {
 							$list_items_markup .= sprintf(
 								'%1$s <time datetime="%2$s">%3$s</time> ',
-								__( 'on', 'themeisle-companion' ),
+								__( 'on', 'otter-blocks', 'themeisle-companion' ),
 								esc_attr( get_the_date( 'c', $id ) ),
 								esc_html( get_the_date( 'j F, Y', $id ) )
 							);
@@ -222,7 +230,7 @@ class Posts_Grid_Block extends Base_Block {
 						if ( isset( $attributes['displayAuthor'] ) && $attributes['displayAuthor'] ) {
 							$list_items_markup .= sprintf(
 								'%1$s %2$s',
-								__( 'by', 'themeisle-companion' ),
+								__( 'by', 'otter-blocks', 'themeisle-companion' ),
 								get_the_author_meta( 'display_name', get_post_field( 'post_author', $id ) )
 							);
 						}

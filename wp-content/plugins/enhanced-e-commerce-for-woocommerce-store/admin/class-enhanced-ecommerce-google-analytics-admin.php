@@ -57,7 +57,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
     public function __construct($plugin_name, $version) {                       
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        $this->url = $this->get_connect_url();
+        $this->url = $this->get_onboarding_page_url();
         $this->site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";
         $this->pro_plan_site = $this->get_pro_plan_site();
         $this->google_detail = $this->get_ee_options_data();

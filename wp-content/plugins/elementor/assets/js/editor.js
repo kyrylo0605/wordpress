@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -39,6 +39,16 @@ module.exports = __webpack_require__(/*! core-js/library/fn/is-iterable */ "../n
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__(/*! core-js/library/fn/json/stringify */ "../node_modules/core-js/library/fn/json/stringify.js");
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/core-js/map.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/core-js/map.js ***!
+  \*************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/map */ "../node_modules/core-js/library/fn/map.js");
 
 /***/ }),
 
@@ -380,6 +390,43 @@ function _classCallCheck(instance, Constructor) {
 }
 
 module.exports = _classCallCheck;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/construct.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/construct.js ***!
+  \*******************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Reflect$construct = __webpack_require__(/*! @babel/runtime-corejs2/core-js/reflect/construct */ "../node_modules/@babel/runtime-corejs2/core-js/reflect/construct.js");
+
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ "../node_modules/@babel/runtime-corejs2/helpers/setPrototypeOf.js");
+
+var isNativeReflectConstruct = __webpack_require__(/*! ./isNativeReflectConstruct.js */ "../node_modules/@babel/runtime-corejs2/helpers/isNativeReflectConstruct.js");
+
+function _construct(Parent, args, Class) {
+  if (isNativeReflectConstruct()) {
+    module.exports = _construct = _Reflect$construct;
+    module.exports.default = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) setPrototypeOf(instance, Class.prototype);
+      return instance;
+    };
+
+    module.exports.default = module.exports, module.exports.__esModule = true;
+  }
+
+  return _construct.apply(null, arguments);
+}
+
+module.exports = _construct;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -766,6 +813,21 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/isNativeFunction.js":
+/*!**************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/isNativeFunction.js ***!
+  \**************************************************************************/
+/***/ ((module) => {
+
+function _isNativeFunction(fn) {
+  return Function.toString.call(fn).indexOf("[native code]") !== -1;
+}
+
+module.exports = _isNativeFunction;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime-corejs2/helpers/isNativeReflectConstruct.js":
 /*!**********************************************************************************!*\
   !*** ../node_modules/@babel/runtime-corejs2/helpers/isNativeReflectConstruct.js ***!
@@ -1120,6 +1182,64 @@ function _unsupportedIterableToArray(o, minLen) {
 }
 
 module.exports = _unsupportedIterableToArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/wrapNativeSuper.js":
+/*!*************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/wrapNativeSuper.js ***!
+  \*************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Map = __webpack_require__(/*! @babel/runtime-corejs2/core-js/map */ "../node_modules/@babel/runtime-corejs2/core-js/map.js");
+
+var _Object$create = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/create */ "../node_modules/@babel/runtime-corejs2/core-js/object/create.js");
+
+var getPrototypeOf = __webpack_require__(/*! ./getPrototypeOf.js */ "../node_modules/@babel/runtime-corejs2/helpers/getPrototypeOf.js");
+
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ "../node_modules/@babel/runtime-corejs2/helpers/setPrototypeOf.js");
+
+var isNativeFunction = __webpack_require__(/*! ./isNativeFunction.js */ "../node_modules/@babel/runtime-corejs2/helpers/isNativeFunction.js");
+
+var construct = __webpack_require__(/*! ./construct.js */ "../node_modules/@babel/runtime-corejs2/helpers/construct.js");
+
+function _wrapNativeSuper(Class) {
+  var _cache = typeof _Map === "function" ? new _Map() : undefined;
+
+  module.exports = _wrapNativeSuper = function _wrapNativeSuper(Class) {
+    if (Class === null || !isNativeFunction(Class)) return Class;
+
+    if (typeof Class !== "function") {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    if (typeof _cache !== "undefined") {
+      if (_cache.has(Class)) return _cache.get(Class);
+
+      _cache.set(Class, Wrapper);
+    }
+
+    function Wrapper() {
+      return construct(Class, arguments, getPrototypeOf(this).constructor);
+    }
+
+    Wrapper.prototype = _Object$create(Class.prototype, {
+      constructor: {
+        value: Wrapper,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    return setPrototypeOf(Wrapper, Class);
+  };
+
+  module.exports.default = module.exports, module.exports.__esModule = true;
+  return _wrapNativeSuper(Class);
+}
+
+module.exports = _wrapNativeSuper;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -5388,6 +5508,86 @@ module.exports = TemplateLibraryCollection;
 
 /***/ }),
 
+/***/ "../assets/dev/js/editor/components/template-library/commands-data/index.js":
+/*!**********************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/template-library/commands-data/index.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+_Object$defineProperty(exports, "Templates", {
+  enumerable: true,
+  get: function get() {
+    return _templates.Templates;
+  }
+});
+
+var _templates = __webpack_require__(/*! ./templates */ "../assets/dev/js/editor/components/template-library/commands-data/templates.js");
+
+/***/ }),
+
+/***/ "../assets/dev/js/editor/components/template-library/commands-data/templates.js":
+/*!**************************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/template-library/commands-data/templates.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = exports.Templates = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _commandData = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/command-data */ "../core/common/assets/js/api/modules/command-data.js"));
+
+var Templates = /*#__PURE__*/function (_CommandData) {
+  (0, _inherits2.default)(Templates, _CommandData);
+
+  var _super = (0, _createSuper2.default)(Templates);
+
+  function Templates() {
+    (0, _classCallCheck2.default)(this, Templates);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(Templates, null, [{
+    key: "getEndpointFormat",
+    value: function getEndpointFormat() {
+      return 'template-library/templates';
+    }
+  }]);
+  return Templates;
+}(_commandData.default);
+
+exports.Templates = Templates;
+var _default = Templates;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "../assets/dev/js/editor/components/template-library/commands/index.js":
 /*!*****************************************************************************!*\
   !*** ../assets/dev/js/editor/components/template-library/commands/index.js ***!
@@ -5573,6 +5773,8 @@ var _componentModalBase = _interopRequireDefault(__webpack_require__(/*! element
 
 var commands = _interopRequireWildcard(__webpack_require__(/*! ./commands/ */ "../assets/dev/js/editor/components/template-library/commands/index.js"));
 
+var commandsData = _interopRequireWildcard(__webpack_require__(/*! ./commands-data/ */ "../assets/dev/js/editor/components/template-library/commands-data/index.js"));
+
 var TemplateLibraryLayoutView = __webpack_require__(/*! elementor-templates/views/library-layout */ "../assets/dev/js/editor/components/template-library/views/library-layout.js");
 
 var Component = /*#__PURE__*/function (_ComponentModalBase) {
@@ -5590,7 +5792,9 @@ var Component = /*#__PURE__*/function (_ComponentModalBase) {
     value: function __construct(args) {
       (0, _get2.default)((0, _getPrototypeOf2.default)(Component.prototype), "__construct", this).call(this, args); // When switching documents update defaultTabs.
 
-      elementor.on('document:loaded', this.onDocumentLoaded.bind(this));
+      elementor.on('document:loaded', this.onDocumentLoaded.bind(this)); // Remove whole component cache data.
+
+      $e.data.deleteCache(this, 'library');
     }
   }, {
     key: "getNamespace",
@@ -5657,6 +5861,11 @@ var Component = /*#__PURE__*/function (_ComponentModalBase) {
     value: function defaultCommands() {
       var modalCommands = (0, _get2.default)((0, _getPrototypeOf2.default)(Component.prototype), "defaultCommands", this).call(this);
       return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, modalCommands), this.importCommands(commands));
+    }
+  }, {
+    key: "defaultData",
+    value: function defaultData() {
+      return this.importCommands(commandsData);
     }
   }, {
     key: "defaultShortcuts",
@@ -6148,15 +6357,28 @@ TemplateLibraryManager = function TemplateLibraryManager() {
     self.showTemplates();
   };
 
-  this.loadTemplates = function (_onUpdate) {
-    self.requestLibraryData({
-      onBeforeUpdate: self.layout.showLoadingView.bind(self.layout),
-      onUpdate: function onUpdate() {
-        self.layout.hideLoadingView();
+  this.loadTemplates = function (onUpdate) {
+    self.layout.showLoadingView();
+    var query = {
+      source: this.getFilter('source')
+    },
+        options = {}; // TODO: Remove - it when all the data commands is ready, manage the cache!.
 
-        if (_onUpdate) {
-          _onUpdate();
-        }
+    if ('local' === query.source) {
+      options.refresh = true;
+    }
+
+    $e.data.get('library/templates', query, options).then(function (result) {
+      templatesCollection = new TemplateLibraryCollection(result.data.templates);
+
+      if (result.data.config) {
+        config = result.data.config;
+      }
+
+      self.layout.hideLoadingView();
+
+      if (onUpdate) {
+        onUpdate();
       }
     });
   };
@@ -7349,13 +7571,15 @@ module.exports = Validator.extend({
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
-var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
-
 var _assign = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/assign */ "../node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
 
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
+
+var _createForOfIteratorHelper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createForOfIteratorHelper */ "../node_modules/@babel/runtime-corejs2/helpers/createForOfIteratorHelper.js"));
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
 
@@ -7530,7 +7754,13 @@ ControlBaseDataView = ControlBaseView.extend({
    * @returns {*}
    */
   getControlPlaceholder: function getControlPlaceholder() {
-    return this.container.placeholders[this.model.get('name')];
+    var placeholder = this.model.get('placeholder');
+
+    if (this.model.get('responsive')) {
+      placeholder = placeholder || this.container.placeholders[this.model.get('name')];
+    }
+
+    return placeholder;
   },
 
   /**
@@ -7547,16 +7777,31 @@ ControlBaseDataView = ControlBaseView.extend({
   },
 
   /**
-   * Get the responsive child view if exists.
+   * Get the responsive children views if exists.
    *
    * @returns {ControlBaseDataView|null}
    */
-  getResponsiveChildView: function getResponsiveChildView() {
-    var child = this.model.get('child');
+  getResponsiveChildrenViews: function getResponsiveChildrenViews() {
+    var children = this.model.get('inheritors'),
+        views = [];
 
     try {
-      return child && this.container.panel.getControlView(child);
+      var _iterator = (0, _createForOfIteratorHelper2.default)(children),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var child = _step.value;
+          views.push(this.container.panel.getControlView(child));
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
     } catch (e) {}
+
+    return views;
   },
 
   /**
@@ -7567,9 +7812,7 @@ ControlBaseDataView = ControlBaseView.extend({
     var parent = this.getResponsiveParentView();
 
     if (parent) {
-      var placeholder = parent.preparePlaceholderForChildren() || this.model.get('placeholder');
-      this.container.placeholders[this.model.get('name')] = placeholder;
-      this.model.set('placeholder', placeholder);
+      this.container.placeholders[this.model.get('name')] = parent.preparePlaceholderForChildren();
     }
   },
 
@@ -7588,14 +7831,14 @@ ControlBaseDataView = ControlBaseView.extend({
   preparePlaceholderForChildren: function preparePlaceholderForChildren() {
     var _this$getResponsivePa;
 
-    var parentValue = (_this$getResponsivePa = this.getResponsiveParentView()) === null || _this$getResponsivePa === void 0 ? void 0 : _this$getResponsivePa.preparePlaceholderForChildren(),
-        cleanValue = this.getCleanControlValue();
+    var cleanValue = this.getCleanControlValue(),
+        parentValue = (_this$getResponsivePa = this.getResponsiveParentView()) === null || _this$getResponsivePa === void 0 ? void 0 : _this$getResponsivePa.preparePlaceholderForChildren();
 
     if (cleanValue instanceof Object) {
-      return (0, _keys.default)(cleanValue).length ? (0, _assign.default)({}, parentValue, cleanValue) : parentValue;
+      return (0, _assign.default)({}, parentValue, cleanValue);
     }
 
-    return this.getControlValue() || parentValue;
+    return cleanValue || parentValue;
   },
 
   /**
@@ -7605,10 +7848,20 @@ ControlBaseDataView = ControlBaseView.extend({
    * to be applied only from the responsive child of this control and on.
    */
   propagatePlaceholder: function propagatePlaceholder() {
-    var child = this.getResponsiveChildView();
+    var children = this.getResponsiveChildrenViews();
 
-    if (child) {
-      child.renderWithChildren();
+    var _iterator2 = (0, _createForOfIteratorHelper2.default)(children),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var child = _step2.value;
+        child.renderWithChildren();
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
     }
   },
 
@@ -7618,19 +7871,19 @@ ControlBaseDataView = ControlBaseView.extend({
    * children.
    */
   renderWithChildren: function renderWithChildren() {
-    var child = this.getResponsiveChildView();
     this.render();
-
-    if (child) {
-      child.renderWithChildren();
-    }
+    this.propagatePlaceholder();
   },
 
   /**
-   * This method's primary implementation is written under base-multiple view,
-   * please refer there for explanation.
+   * Get control value without empty properties, and without default values.
+   *
+   * @returns {{}}
    */
-  getCleanControlValue: function getCleanControlValue() {},
+  getCleanControlValue: function getCleanControlValue() {
+    var value = this.getControlValue();
+    return value && value !== this.model.get('default') ? value : undefined;
+  },
   onAfterChange: function onAfterChange(control) {
     if ((0, _keys.default)(control.changed).includes(this.model.get('name'))) {
       this.propagatePlaceholder();
@@ -7837,6 +8090,8 @@ var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runt
 
 var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 __webpack_require__(/*! core-js/modules/es6.array.filter.js */ "../node_modules/core-js/modules/es6.array.filter.js");
 
 var ControlBaseDataView = __webpack_require__(/*! elementor-controls/base-data */ "../assets/dev/js/editor/controls/base-data.js"),
@@ -7876,9 +8131,7 @@ ControlBaseMultipleItemView = ControlBaseDataView.extend({
   },
 
   /**
-   * Get control value without empty properties, and without default values.
-   *
-   * @returns {{}}
+   * @inheritDoc
    */
   getCleanControlValue: function getCleanControlValue(key) {
     var _this = this;
@@ -7892,10 +8145,10 @@ ControlBaseMultipleItemView = ControlBaseDataView.extend({
     }));
 
     if (key) {
-      return values[key];
+      return values === null || values === void 0 ? void 0 : values[key];
     }
 
-    return values;
+    return (0, _keys.default)(values).length ? values : undefined;
   },
   setValue: function setValue(key, value) {
     var values = this.getControlValue();
@@ -9172,6 +9425,10 @@ module.exports = ControlSelect2View.extend({
 /* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+var _filesUploadHandler = _interopRequireDefault(__webpack_require__(/*! ../utils/files-upload-handler */ "../assets/dev/js/editor/utils/files-upload-handler.js"));
+
 var ControlBaseDataView = __webpack_require__(/*! elementor-controls/base-data */ "../assets/dev/js/editor/controls/base-data.js"),
     ControlMediaItemView;
 
@@ -9220,7 +9477,11 @@ ControlMediaItemView = ControlBaseDataView.extend({
   },
   openFrame: function openFrame(action) {
     this.initFrame(action);
-    this.frame.open();
+    this.frame.open(); // Set params to trigger sanitizer
+
+    if (_filesUploadHandler.default.isUploadEnabled('svg')) {
+      _filesUploadHandler.default.setUploadTypeCaller(this.frame);
+    }
   },
   initFrame: function initFrame(action) {
     var frameStates = {
@@ -9241,13 +9502,29 @@ ControlMediaItemView = ControlBaseDataView.extend({
       options.selection = this.fetchSelection();
     }
 
-    this.frame = wp.media(options); // When a file is selected, run a callback.
+    this.frame = wp.media(options);
+    this.addSvgMimeType(); // When a file is selected, run a callback.
 
     this.frame.on({
       update: this.select,
       'menu:render:default': this.menuRender,
       'content:render:browse': this.gallerySettings
     }, this);
+  },
+  addSvgMimeType: function addSvgMimeType() {
+    if (!_filesUploadHandler.default.isUploadEnabled('svg')) {
+      return;
+    } // Add the SVG to the currently allowed extensions
+
+
+    var oldExtensions = _wpPluploadSettings.defaults.filters.mime_types[0].extensions;
+    this.frame.on('ready', function () {
+      _wpPluploadSettings.defaults.filters.mime_types[0].extensions = oldExtensions + ',svg';
+    }); // restore allowed upload extensions
+
+    this.frame.on('close', function () {
+      _wpPluploadSettings.defaults.filters.mime_types[0].extensions = oldExtensions;
+    });
   },
   menuRender: function menuRender(view) {
     view.unset('insert');
@@ -12285,13 +12562,19 @@ _Object$defineProperty2(exports, "__esModule", {
 
 exports.default = void 0;
 
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js"));
+
+var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
+
 var _isArray = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/array/is-array */ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
 var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
-var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
-
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
+
+__webpack_require__(/*! core-js/modules/es6.array.map.js */ "../node_modules/core-js/modules/es6.array.map.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.filter.js */ "../node_modules/core-js/modules/es6.array.filter.js");
 
 __webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
 
@@ -12299,9 +12582,11 @@ __webpack_require__(/*! core-js/modules/es6.function.name.js */ "../node_modules
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
+
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
 
-var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/asyncToGenerator */ "../node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js"));
 
 var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/objectSpread2 */ "../node_modules/@babel/runtime-corejs2/helpers/objectSpread2.js"));
 
@@ -13301,34 +13586,62 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
     }
   }, {
     key: "requestWidgetsConfig",
-    value: function requestWidgetsConfig() {
-      var _this5 = this;
+    value: function () {
+      var _requestWidgetsConfig = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var exclude, _yield$$e$data$get, data;
 
-      var excludeWidgets = {};
-      jQuery.each(this.widgetsCache, function (widgetName, widgetConfig) {
-        if (widgetConfig.controls) {
-          excludeWidgets[widgetName] = true;
-        }
-      });
-      elementorCommon.ajax.addRequest('get_widgets_config', {
-        data: {
-          exclude: excludeWidgets
-        },
-        success: function success(data) {
-          _this5.addWidgetsCache(data);
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                exclude = (0, _entries.default)(this.widgetsCache).filter(function (_ref) {
+                  var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
+                      widgetConfig = _ref2[1];
 
-          if (_this5.loaded) {
-            _this5.kitManager.renderGlobalsDefaultCSS();
+                  return widgetConfig.controls;
+                }).map(function (_ref3) {
+                  var _ref4 = (0, _slicedToArray2.default)(_ref3, 1),
+                      widgetKey = _ref4[0];
 
-            $e.internal('panel/state-ready');
-          } else {
-            _this5.once('panel:init', function () {
-              $e.internal('panel/state-ready');
-            });
+                  return widgetKey;
+                });
+                _context.next = 3;
+                return $e.data.get('widgets-config/index', {
+                  exclude: exclude
+                }, {
+                  refresh: true
+                });
+
+              case 3:
+                _yield$$e$data$get = _context.sent;
+                data = _yield$$e$data$get.data;
+                this.addWidgetsCache(data);
+
+                if (this.loaded) {
+                  this.kitManager.renderGlobalsDefaultCSS();
+                  $e.internal('panel/state-ready');
+                } else {
+                  this.once('panel:init', function () {
+                    $e.internal('panel/state-ready');
+                  });
+                }
+
+                return _context.abrupt("return", data);
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
           }
-        }
-      });
-    }
+        }, _callee, this);
+      }));
+
+      function requestWidgetsConfig() {
+        return _requestWidgetsConfig.apply(this, arguments);
+      }
+
+      return requestWidgetsConfig;
+    }()
   }, {
     key: "getPreferences",
     value: function getPreferences(key) {
@@ -13348,7 +13661,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
   }, {
     key: "onStart",
     value: function onStart() {
-      var _this6 = this;
+      var _this5 = this;
 
       this.config = this.getConfig();
       Backbone.Radio.DEBUG = false;
@@ -13381,7 +13694,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
       }).then(function () {
         elementorCommon.elements.$window.trigger('elementor:init');
 
-        _this6.initNavigator();
+        _this5.initNavigator();
       });
       this.logSite();
     }
@@ -13455,7 +13768,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
   }, {
     key: "onEnvNotCompatible",
     value: function onEnvNotCompatible() {
-      var _this7 = this;
+      var _this6 = this;
 
       this.showFatalErrorDialog({
         headerMessage: __('Your browser isn\'t compatible', 'elementor'),
@@ -13467,7 +13780,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           onButtonClick: true
         },
         onConfirm: function onConfirm() {
-          return _this7.hide();
+          return _this6.hide();
         }
       });
     }
@@ -13490,7 +13803,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
   }, {
     key: "onPreviewLoadingError",
     value: function onPreviewLoadingError() {
-      var _this8 = this;
+      var _this7 = this;
 
       var debugUrl = this.config.document.urls.preview + '&preview-debug',
           previewDebugLinkText = __('Click here for preview debug', 'elementor'),
@@ -13511,10 +13824,10 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
       }
 
       jQuery.get(debugUrl, function () {
-        _this8.showFatalErrorDialog(dialogOptions);
+        _this7.showFatalErrorDialog(dialogOptions);
       }).fail(function (response) {
         //Iframe can't be loaded
-        _this8.showFatalErrorDialog({
+        _this7.showFatalErrorDialog({
           className: 'elementor-preview-loading-error',
           headerMessage: debugData.header,
           message: response.statusText + ' ' + response.status + ' ' + previewDebugLink,
@@ -13577,37 +13890,39 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
   }, {
     key: "addWidgetsCache",
     value: function addWidgetsCache(widgets) {
-      var _this9 = this;
+      var _this8 = this;
 
       jQuery.each(widgets, function (widgetName, widgetConfig) {
         if (elementorCommon.config.experimentalFeatures.additional_custom_breakpoints) {
           // When the Responsive Optimization experiment is active, the responsive controls are generated on the
           // JS side instead of the PHP.
-          widgetConfig.controls = _this9.generateResponsiveControls(widgetConfig.controls);
+          widgetConfig.controls = _this8.generateResponsiveControls(widgetConfig.controls);
         }
 
-        _this9.widgetsCache[widgetName] = jQuery.extend(true, {}, _this9.widgetsCache[widgetName], widgetConfig);
+        _this8.widgetsCache[widgetName] = jQuery.extend(true, {}, _this8.widgetsCache[widgetName], widgetConfig);
       });
     }
   }, {
     key: "generateResponsiveControls",
     value: function generateResponsiveControls(controls) {
-      var _this10 = this;
+      var _this9 = this;
 
       var activeBreakpoints = this.config.responsive.activeBreakpoints,
           devices = this.breakpoints.getActiveBreakpointsList({
-        largeToSmall: true
+        largeToSmall: true,
+        withDesktop: true
       }),
-          newControlsStack = {}; // Set the desktop to be the fist device, so desktop will the the parent of all devices.
+          newControlsStack = {},
+          secondDesktopChild = devices[devices.indexOf('desktop') + 1]; // Set the desktop to be the fist device, so desktop will the the parent of all devices.
 
-      devices.unshift('desktop');
+      devices.unshift(devices.splice(devices.indexOf('desktop'), 1)[0]);
       jQuery.each(controls, function (controlName, controlConfig) {
         var _controlConfig$popove;
 
         var responsiveControlName; // Handle repeater controls.
 
         if ('object' === (0, _typeof2.default)(controlConfig.fields)) {
-          controlConfig.fields = _this10.generateResponsiveControls(controlConfig.fields);
+          controlConfig.fields = _this9.generateResponsiveControls(controlConfig.fields);
         } // Only handle responsive controls in this loop.
 
 
@@ -13631,11 +13946,13 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           controlConfig.desktop_default = controlConfig.default;
         }
 
-        var multipleDefaultValue = _this10.config.controls[controlConfig.type].default_value; // For multiple controls that implement get_default_value() in the control class, make sure the duplicated
+        var multipleDefaultValue = _this9.config.controls[controlConfig.type].default_value;
+        var deleteControlDefault = true; // For multiple controls that implement get_default_value() in the control class, make sure the duplicated
         // controls receive that default value.
 
         if (multipleDefaultValue) {
           controlConfig.default = multipleDefaultValue;
+          deleteControlDefault = false;
         }
 
         devices.forEach(function (device, index) {
@@ -13662,13 +13979,14 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           }
 
           var direction = 'max';
+          controlArgs.parent = null;
 
           if ('desktop' !== device) {
-            direction = activeBreakpoints[device].direction;
-          } // Set the parent to be the previous device
+            direction = activeBreakpoints[device].direction; // Set the parent to be the previous device
 
+            controlArgs.parent = device === secondDesktopChild ? controlName : responsiveControlName;
+          }
 
-          controlArgs.parent = responsiveControlName;
           controlArgs.responsive[direction] = device;
 
           if (controlArgs.min_affected_device) {
@@ -13685,6 +14003,9 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
             } else {
               controlArgs.default = controlArgs[device + '_default'];
             }
+          } else if (deleteControlDefault) {
+            // In the Editor, controls without default values should have an empty string as the default value.
+            controlArgs.default = '';
           } // If the control belongs to a group control with a popover, and this control is the last one, add the
           // popover.end = true value to it to make sure it closes the popover.
 
@@ -13703,7 +14024,13 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           responsiveControlName = 'desktop' === device ? controlName : controlName + '_' + device;
 
           if (controlArgs.parent) {
-            newControlsStack[controlArgs.parent].child = responsiveControlName;
+            var parentControlArgs = newControlsStack[controlArgs.parent];
+
+            if (!parentControlArgs.inheritors) {
+              parentControlArgs.inheritors = [];
+            }
+
+            parentControlArgs.inheritors.push(responsiveControlName);
           }
 
           controlArgs.name = responsiveControlName;
@@ -13715,34 +14042,34 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
   }, {
     key: "generateResponsiveControlsForElements",
     value: function generateResponsiveControlsForElements() {
-      var _this11 = this;
+      var _this10 = this;
 
       // Handle the default config for section and column.
       var elementNames = (0, _keys.default)(this.config.elements);
       elementNames.forEach(function (elementName) {
-        _this11.config.elements[elementName].controls = _this11.generateResponsiveControls(_this11.config.elements[elementName].controls);
+        _this10.config.elements[elementName].controls = _this10.generateResponsiveControls(_this10.config.elements[elementName].controls);
       });
     }
   }, {
     key: "populateActiveBreakpointsConfig",
     value: function populateActiveBreakpointsConfig() {
-      var _this12 = this;
+      var _this11 = this;
 
       this.config.responsive.activeBreakpoints = {};
-      (0, _entries.default)(this.config.responsive.breakpoints).forEach(function (_ref) {
-        var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
-            breakpointKey = _ref2[0],
-            breakpointData = _ref2[1];
+      (0, _entries.default)(this.config.responsive.breakpoints).forEach(function (_ref5) {
+        var _ref6 = (0, _slicedToArray2.default)(_ref5, 2),
+            breakpointKey = _ref6[0],
+            breakpointData = _ref6[1];
 
         if (breakpointData.is_enabled) {
-          _this12.config.responsive.activeBreakpoints[breakpointKey] = breakpointData;
+          _this11.config.responsive.activeBreakpoints[breakpointKey] = breakpointData;
         }
       });
     }
   }, {
     key: "addDeprecatedConfigProperties",
     value: function addDeprecatedConfigProperties() {
-      var _this13 = this;
+      var _this12 = this;
 
       var map = {
         data: {
@@ -13778,7 +14105,7 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
       };
       jQuery.each(map, function (key, data) {
         // Use `defineProperty` because `get property()` fails during the `Marionette...extend`.
-        (0, _defineProperty2.default)(_this13.config, key, {
+        (0, _defineProperty2.default)(_this12.config, key, {
           get: function get() {
             var replacement = data.replacement ? 'elementor.config.document.' + data.replacement : '';
             elementorCommon.helpers.softDeprecated('elementor.config.' + key, '2.9.0', replacement); // return from current document.
@@ -14310,7 +14637,6 @@ BaseElementView = BaseContainer.extend({
         settings: settingsModel,
         view: this,
         parent: this._parent ? this._parent.getContainer() : {},
-        children: [],
         label: elementor.helpers.getModelLabel(this.model),
         controls: settingsModel.options.controls
       });
@@ -21319,11 +21645,14 @@ var View = /*#__PURE__*/function (_Marionette$ItemView) {
     value: function autoScale() {
       var handlesWidth = 40 * this.scalePercentage / 100,
           previewWidth = elementor.$previewWrapper.width() - handlesWidth,
-          iframeScaleWidth = this.ui.sizeInputWidth.val() * this.scalePercentage / 100;
+          iframeWidth = (0, _parseInt2.default)(elementor.$preview.css('--e-editor-preview-width')),
+          iframeScaleWidth = iframeWidth * this.scalePercentage / 100;
 
       if (iframeScaleWidth > previewWidth) {
-        var scalePercentage = previewWidth / this.ui.sizeInputWidth.val() * 100;
+        var scalePercentage = previewWidth / iframeWidth * 100;
         this.setScalePercentage(scalePercentage);
+      } else {
+        this.setScalePercentage();
       }
 
       this.scalePreview();
@@ -21368,12 +21697,9 @@ var View = /*#__PURE__*/function (_Marionette$ItemView) {
   }, {
     key: "onBreakpointSelected",
     value: function onBreakpointSelected(e) {
-      var currentDeviceMode = elementor.channels.deviceMode.request('currentMode'),
-          selectedDeviceMode = e.target.value;
-
-      if (currentDeviceMode !== selectedDeviceMode) {
-        elementor.changeDeviceMode(selectedDeviceMode, false);
-      }
+      var selectedDeviceMode = e.target.value;
+      elementor.changeDeviceMode(selectedDeviceMode, false);
+      this.autoScale();
     }
   }, {
     key: "onBreakpointSettingsOpen",
@@ -21769,6 +22095,10 @@ exports.default = ColorPicker;
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
+
 __webpack_require__(/*! core-js/modules/es6.regexp.match.js */ "../node_modules/core-js/modules/es6.regexp.match.js");
 
 __webpack_require__(/*! core-js/modules/es6.function.name.js */ "../node_modules/core-js/modules/es6.function.name.js");
@@ -21836,7 +22166,7 @@ Conditions = function Conditions() {
         // A term consists of a control name to be examined, and a sub key if needed. For example, a term
         // can look like 'image_overlay[url]' (the 'url' is the sub key). Here we want to isolate the
         // condition name and the sub key, so later it can be retrieved and examined.
-        var parsedName = term.name.match(/(\w+)(?:\[(\w+)])?/),
+        var parsedName = term.name.match(/([\w-]+)(?:\[([\w-]+)])?/),
             conditionRealName = parsedName[1],
             conditionSubKey = parsedName[2],
             // We use null-safe operator since we're trying to get the current element, which is not always
@@ -21850,7 +22180,7 @@ Conditions = function Conditions() {
           value = comparisonObject.__dynamic__[conditionRealName];
         }
 
-        if (value && conditionSubKey) {
+        if ('object' === (0, _typeof2.default)(value) && conditionSubKey) {
           value = value[conditionSubKey];
         }
 
@@ -23097,7 +23427,7 @@ module.exports = {
         // Here we want to convert the 'condition' format to a 'conditions' format. The first step is to
         // isolate the term from the negative operator if exists. For example, a condition format can look
         // like 'selected_icon[value]!', so we examine this term with a negative connotation.
-        var conditionNameParts = conditionName.match(/(\w+(?:\[\w+])?)?(!?)$/i),
+        var conditionNameParts = conditionName.match(/([\w-]+(?:\[[\w-]+])?)?(!?)$/i),
             conditionRealName = conditionNameParts[1],
             isNegativeCondition = !!conditionNameParts[2],
             controlValue = values[conditionRealName];
@@ -27285,6 +27615,341 @@ exports.default = CommandBase;
 
 /***/ }),
 
+/***/ "../core/common/assets/js/api/modules/command-data.js":
+/*!************************************************************!*\
+  !*** ../core/common/assets/js/api/modules/command-data.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
+
+var _assign = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/assign */ "../node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+
+var _values = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/values */ "../node_modules/@babel/runtime-corejs2/core-js/object/values.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/assertThisInitialized */ "../node_modules/@babel/runtime-corejs2/helpers/assertThisInitialized.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
+
+var _commandBase = _interopRequireDefault(__webpack_require__(/*! ./command-base */ "../core/common/assets/js/api/modules/command-base.js"));
+
+var errors = _interopRequireWildcard(__webpack_require__(/*! ./errors */ "../core/common/assets/js/api/modules/errors/index.js"));
+
+var CommandData = /*#__PURE__*/function (_CommandBase) {
+  (0, _inherits2.default)(CommandData, _CommandBase);
+
+  var _super = (0, _createSuper2.default)(CommandData);
+
+  function CommandData(args) {
+    var _this$args$options;
+
+    var _this;
+
+    var commandsAPI = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : $e.data;
+    (0, _classCallCheck2.default)(this, CommandData);
+    _this = _super.call(this, args, commandsAPI);
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "data", void 0);
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "type", void 0);
+
+    if ((_this$args$options = _this.args.options) !== null && _this$args$options !== void 0 && _this$args$options.type) {
+      _this.type = _this.args.options.type;
+    }
+
+    return _this;
+  }
+  /**
+   * Function getEndpointFormat().
+   *
+   * @returns {(null|string)}
+   */
+
+
+  (0, _createClass2.default)(CommandData, [{
+    key: "getApplyMethods",
+    value:
+    /**
+     * @param {DataTypes} type
+     *
+     * @returns {boolean|{before: (function(*=): {}), after: (function({}, *=): {})}}
+     */
+    function getApplyMethods() {
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.type;
+      var before, after;
+
+      switch (type) {
+        case 'create':
+          before = this.applyBeforeCreate;
+          after = this.applyAfterCreate;
+          break;
+
+        case 'delete':
+          before = this.applyBeforeDelete;
+          after = this.applyAfterDelete;
+          break;
+
+        case 'get':
+          before = this.applyBeforeGet;
+          after = this.applyAfterGet;
+          break;
+
+        case 'update':
+          before = this.applyBeforeUpdate;
+          after = this.applyAfterUpdate;
+          break;
+
+        case 'options':
+          before = this.applyBeforeOptions;
+          after = this.applyAfterOptions;
+          break;
+
+        default:
+          return false;
+      }
+
+      return {
+        before: before,
+        after: after
+      };
+    }
+    /**
+     * Function getRequestData().
+     *
+     * @returns {RequestData}
+     */
+
+  }, {
+    key: "getRequestData",
+    value: function getRequestData() {
+      return {
+        type: this.type,
+        args: this.args,
+        timestamp: new Date().getTime(),
+        component: this.component,
+        command: this.currentCommand,
+        endpoint: $e.data.commandToEndpoint(this.currentCommand, elementorCommon.helpers.cloneObject(this.args), this.constructor.getEndpointFormat())
+      };
+    }
+  }, {
+    key: "apply",
+    value: function apply() {
+      var _this2 = this;
+
+      var applyMethods = this.getApplyMethods(); // Run 'before' method.
+
+      this.args = applyMethods.before(this.args);
+      var requestData = this.getRequestData();
+      return $e.data.fetch(requestData).then(function (data) {
+        _this2.data = data; // Run 'after' method.
+
+        _this2.data = applyMethods.after(data, _this2.args);
+        _this2.data = {
+          data: _this2.data
+        }; // Append requestData.
+
+        _this2.data = (0, _assign.default)({
+          __requestData__: requestData
+        }, _this2.data);
+        return _this2.data;
+      });
+    }
+    /**
+     * @param [args={}]
+     * @returns {{}} filtered args
+     */
+
+  }, {
+    key: "applyBeforeCreate",
+    value: function applyBeforeCreate() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return args;
+    }
+    /**
+     * @param {{}} data
+     * @param [args={}]
+     * @returns {{}} filtered result
+     */
+
+  }, {
+    key: "applyAfterCreate",
+    value: function applyAfterCreate(data) {
+      var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // eslint-disable-line no-unused-vars
+      return data;
+    }
+    /**
+     * @param [args={}]
+     * @returns {{}} filtered args
+     */
+
+  }, {
+    key: "applyBeforeDelete",
+    value: function applyBeforeDelete() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return args;
+    }
+    /**
+     * @param {{}} data
+     * @param [args={}]
+     * @returns {{}} filtered result
+     */
+
+  }, {
+    key: "applyAfterDelete",
+    value: function applyAfterDelete(data) {
+      var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // eslint-disable-line no-unused-vars
+      return data;
+    }
+    /**
+     * @param [args={}]
+     * @returns {{}} filtered args
+     */
+
+  }, {
+    key: "applyBeforeGet",
+    value: function applyBeforeGet() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return args;
+    }
+    /**
+     * @param {{}} data
+     * @param [args={}]
+     * @returns {{}} filtered result
+     */
+
+  }, {
+    key: "applyAfterGet",
+    value: function applyAfterGet(data) {
+      var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // eslint-disable-line no-unused-vars
+      return data;
+    }
+    /**
+     * @param [args={}]
+     * @returns {{}} filtered args
+     */
+
+  }, {
+    key: "applyBeforeUpdate",
+    value: function applyBeforeUpdate() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return args;
+    }
+    /**
+     * @param {{}} data
+     * @param [args={}]
+     * @returns {{}} filtered result
+     */
+
+  }, {
+    key: "applyAfterUpdate",
+    value: function applyAfterUpdate(data) {
+      var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // eslint-disable-line no-unused-vars
+      return data;
+    }
+    /**
+     * @param [args={}]
+     * @returns {{}} filtered args
+     */
+
+  }, {
+    key: "applyBeforeOptions",
+    value: function applyBeforeOptions() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return args;
+    }
+    /**
+     * @param {{}} data
+     * @param [args={}]
+     * @returns {{}} filtered result
+     */
+
+  }, {
+    key: "applyAfterOptions",
+    value: function applyAfterOptions(data) {
+      var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // eslint-disable-line no-unused-vars
+      return data;
+    }
+    /**
+     * Called after apply() failed.
+     *
+     * @param e
+     */
+
+  }, {
+    key: "onCatchApply",
+    value: function onCatchApply(e) {
+      var _e, _e$data;
+
+      // TODO: If the errors that returns from the server is consistent remove the '?' from 'e'
+      var status = ((_e = e) === null || _e === void 0 ? void 0 : (_e$data = _e.data) === null || _e$data === void 0 ? void 0 : _e$data.status) || 0;
+      var dataError = (0, _values.default)(errors).find(function (error) {
+        return error.getStatus() === status;
+      });
+
+      if (!dataError) {
+        dataError = errors.DefaultError;
+      }
+
+      e = dataError.create(e.message, e.code, e.data || []);
+      this.runCatchHooks(e);
+      e.notify();
+    }
+  }], [{
+    key: "getInstanceType",
+    value:
+    /**
+     * Data returned from remote.
+     *
+     * @type {*}
+     */
+
+    /**
+     * Fetch type.
+     *
+     * @type {DataTypes}
+     */
+    function getInstanceType() {
+      return 'CommandData';
+    }
+  }, {
+    key: "getEndpointFormat",
+    value: function getEndpointFormat() {
+      return null;
+    }
+  }]);
+  return CommandData;
+}(_commandBase.default);
+
+exports.default = CommandData;
+
+/***/ }),
+
 /***/ "../core/common/assets/js/api/modules/command-internal-base.js":
 /*!*********************************************************************!*\
   !*** ../core/common/assets/js/api/modules/command-internal-base.js ***!
@@ -27616,6 +28281,7 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       this.shortcuts = this.defaultShortcuts();
       this.utils = this.defaultUtils();
       this.data = this.defaultData();
+      this.uiStates = this.defaultUiStates();
       this.defaultRoute = '';
       this.currentTab = '';
     }
@@ -27658,6 +28324,9 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
 
         return _this.registerData(command, callback);
       });
+      (0, _values.default)(this.getUiStates()).forEach(function (instance) {
+        return _this.registerUiState(instance);
+      });
     }
     /**
      * @returns {string}
@@ -27699,6 +28368,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     value: function defaultHooks() {
       return {};
     }
+    /**
+     * Get the component's default UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "defaultUiStates",
+    value: function defaultUiStates() {
+      return {};
+    }
   }, {
     key: "defaultShortcuts",
     value: function defaultShortcuts() {
@@ -27728,6 +28408,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "getHooks",
     value: function getHooks() {
       return this.hooks;
+    }
+    /**
+     * Retrieve the component's UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getUiStates",
+    value: function getUiStates() {
+      return this.uiStates;
     }
   }, {
     key: "getRoutes",
@@ -27762,6 +28453,19 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "registerHook",
     value: function registerHook(instance) {
       return instance.register();
+    }
+    /**
+     * Register a UI state.
+     *
+     * @param {UiStateBase} instance - UI state instance.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "registerUiState",
+    value: function registerUiState(instance) {
+      $e.uiStates.register(instance);
     }
   }, {
     key: "registerCommandInternal",
@@ -27971,6 +28675,42 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
 
       return hooks;
     }
+    /**
+     * Import & initialize the component's UI states.
+     * Should be used inside `defaultUiState()`.
+     *
+     * @param {Object} statesFromImport - UI states from import.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "importUiStates",
+    value: function importUiStates(statesFromImport) {
+      var _this6 = this;
+
+      var uiStates = {};
+      (0, _values.default)(statesFromImport).forEach(function (className) {
+        var uiState = new className(_this6);
+        uiStates[uiState.getId()] = uiState;
+      });
+      return uiStates;
+    }
+    /**
+     * Set a UI state value.
+     * TODO: Should we provide such function? Maybe the developer should implicitly pass the full state ID?
+     *
+     * @param state - Non-prefixed state ID.
+     * @param value - New state value.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "setUiState",
+    value: function setUiState(state, value) {
+      $e.uiStates.set("".concat(this.getNamespace(), "/").concat(state), value);
+    }
   }, {
     key: "toggleRouteClass",
     value: function toggleRouteClass(route, state) {
@@ -28101,6 +28841,272 @@ var ComponentModalBase = /*#__PURE__*/function (_ComponentBase) {
 }(_componentBase.default);
 
 exports.default = ComponentModalBase;
+
+/***/ }),
+
+/***/ "../core/common/assets/js/api/modules/errors/base-error.js":
+/*!*****************************************************************!*\
+  !*** ../core/common/assets/js/api/modules/errors/base-error.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/objectSpread2 */ "../node_modules/@babel/runtime-corejs2/helpers/objectSpread2.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/assertThisInitialized */ "../node_modules/@babel/runtime-corejs2/helpers/assertThisInitialized.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _wrapNativeSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/wrapNativeSuper */ "../node_modules/@babel/runtime-corejs2/helpers/wrapNativeSuper.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
+
+var BaseError = /*#__PURE__*/function (_Error) {
+  (0, _inherits2.default)(BaseError, _Error);
+
+  var _super = (0, _createSuper2.default)(BaseError);
+
+  /**
+   * Error constructor.
+   *
+   * @param code
+   * @param message
+   * @param data
+   */
+  function BaseError() {
+    var _this;
+
+    var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var code = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+    (0, _classCallCheck2.default)(this, BaseError);
+    _this = _super.call(this, message);
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "code", '');
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "data", []);
+    _this.code = code;
+    _this.data = data;
+    return _this;
+  }
+  /**
+   * Notify a message when the error occurs.
+   */
+
+
+  (0, _createClass2.default)(BaseError, [{
+    key: "notify",
+    value: function notify() {
+      elementorCommon.helpers.consoleError((0, _objectSpread2.default)({
+        message: this.message
+      }, this));
+    }
+  }], [{
+    key: "create",
+    value:
+    /**
+     * The server error code.
+     *
+     * @type {string}
+     */
+
+    /**
+     * Additional data about the current error.
+     *
+     * @type {*[]}
+     */
+
+    /**
+     * Static helper function to create the error.
+     *
+     * @param message
+     * @param code
+     * @param data
+     * @returns {BaseError}
+     */
+    function create(message) {
+      var code = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      return new this(message, code, data);
+    }
+    /**
+     * Returns the status code of the error.
+     */
+
+  }, {
+    key: "getStatus",
+    value: function getStatus() {
+      elementorModules.ForceMethodImplementation();
+    }
+  }]);
+  return BaseError;
+}( /*#__PURE__*/(0, _wrapNativeSuper2.default)(Error));
+
+exports.default = BaseError;
+
+/***/ }),
+
+/***/ "../core/common/assets/js/api/modules/errors/default-error.js":
+/*!********************************************************************!*\
+  !*** ../core/common/assets/js/api/modules/errors/default-error.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = exports.DefaultError = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _baseError = _interopRequireDefault(__webpack_require__(/*! ./base-error */ "../core/common/assets/js/api/modules/errors/base-error.js"));
+
+var DefaultError = /*#__PURE__*/function (_BaseError) {
+  (0, _inherits2.default)(DefaultError, _BaseError);
+
+  var _super = (0, _createSuper2.default)(DefaultError);
+
+  function DefaultError() {
+    (0, _classCallCheck2.default)(this, DefaultError);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(DefaultError, null, [{
+    key: "getStatus",
+    value: function getStatus() {
+      return 0;
+    }
+  }]);
+  return DefaultError;
+}(_baseError.default);
+
+exports.DefaultError = DefaultError;
+var _default = DefaultError;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../core/common/assets/js/api/modules/errors/index.js":
+/*!************************************************************!*\
+  !*** ../core/common/assets/js/api/modules/errors/index.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+_Object$defineProperty(exports, "NotFoundError", {
+  enumerable: true,
+  get: function get() {
+    return _notFoundError.NotFoundError;
+  }
+});
+
+_Object$defineProperty(exports, "DefaultError", {
+  enumerable: true,
+  get: function get() {
+    return _defaultError.DefaultError;
+  }
+});
+
+var _notFoundError = __webpack_require__(/*! ./not-found-error */ "../core/common/assets/js/api/modules/errors/not-found-error.js");
+
+var _defaultError = __webpack_require__(/*! ./default-error */ "../core/common/assets/js/api/modules/errors/default-error.js");
+
+/***/ }),
+
+/***/ "../core/common/assets/js/api/modules/errors/not-found-error.js":
+/*!**********************************************************************!*\
+  !*** ../core/common/assets/js/api/modules/errors/not-found-error.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = exports.NotFoundError = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _baseError = _interopRequireDefault(__webpack_require__(/*! ./base-error */ "../core/common/assets/js/api/modules/errors/base-error.js"));
+
+var NotFoundError = /*#__PURE__*/function (_BaseError) {
+  (0, _inherits2.default)(NotFoundError, _BaseError);
+
+  var _super = (0, _createSuper2.default)(NotFoundError);
+
+  function NotFoundError() {
+    (0, _classCallCheck2.default)(this, NotFoundError);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(NotFoundError, [{
+    key: "notify",
+    value: function notify() {
+      elementorCommon.helpers.consoleWarn(this.message);
+    }
+  }], [{
+    key: "getStatus",
+    value: function getStatus() {
+      return 404;
+    }
+  }]);
+  return NotFoundError;
+}(_baseError.default);
+
+exports.NotFoundError = NotFoundError;
+var _default = NotFoundError;
+exports.default = _default;
 
 /***/ }),
 
@@ -35662,6 +36668,24 @@ module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
 
 /***/ }),
 
+/***/ "../node_modules/core-js/library/fn/map.js":
+/*!*************************************************!*\
+  !*** ../node_modules/core-js/library/fn/map.js ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(/*! ../modules/es6.object.to-string */ "../node_modules/core-js/library/modules/es6.object.to-string.js");
+__webpack_require__(/*! ../modules/es6.string.iterator */ "../node_modules/core-js/library/modules/es6.string.iterator.js");
+__webpack_require__(/*! ../modules/web.dom.iterable */ "../node_modules/core-js/library/modules/web.dom.iterable.js");
+__webpack_require__(/*! ../modules/es6.map */ "../node_modules/core-js/library/modules/es6.map.js");
+__webpack_require__(/*! ../modules/es7.map.to-json */ "../node_modules/core-js/library/modules/es7.map.to-json.js");
+__webpack_require__(/*! ../modules/es7.map.of */ "../node_modules/core-js/library/modules/es7.map.of.js");
+__webpack_require__(/*! ../modules/es7.map.from */ "../node_modules/core-js/library/modules/es7.map.from.js");
+module.exports = __webpack_require__(/*! ../modules/_core */ "../node_modules/core-js/library/modules/_core.js").Map;
+
+
+/***/ }),
+
 /***/ "../node_modules/core-js/library/fn/object/assign.js":
 /*!***********************************************************!*\
   !*** ../node_modules/core-js/library/fn/object/assign.js ***!
@@ -35982,6 +37006,23 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "../node_modules/core-js/library/modules/_array-from-iterable.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/_array-from-iterable.js ***!
+  \***********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var forOf = __webpack_require__(/*! ./_for-of */ "../node_modules/core-js/library/modules/_for-of.js");
+
+module.exports = function (iter, ITERATOR) {
+  var result = [];
+  forOf(iter, false, result.push, result, ITERATOR);
+  return result;
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/core-js/library/modules/_array-includes.js":
 /*!******************************************************************!*\
   !*** ../node_modules/core-js/library/modules/_array-includes.js ***!
@@ -36190,6 +37231,180 @@ var toString = {}.toString;
 
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/_collection-strong.js":
+/*!*********************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/_collection-strong.js ***!
+  \*********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var dP = __webpack_require__(/*! ./_object-dp */ "../node_modules/core-js/library/modules/_object-dp.js").f;
+var create = __webpack_require__(/*! ./_object-create */ "../node_modules/core-js/library/modules/_object-create.js");
+var redefineAll = __webpack_require__(/*! ./_redefine-all */ "../node_modules/core-js/library/modules/_redefine-all.js");
+var ctx = __webpack_require__(/*! ./_ctx */ "../node_modules/core-js/library/modules/_ctx.js");
+var anInstance = __webpack_require__(/*! ./_an-instance */ "../node_modules/core-js/library/modules/_an-instance.js");
+var forOf = __webpack_require__(/*! ./_for-of */ "../node_modules/core-js/library/modules/_for-of.js");
+var $iterDefine = __webpack_require__(/*! ./_iter-define */ "../node_modules/core-js/library/modules/_iter-define.js");
+var step = __webpack_require__(/*! ./_iter-step */ "../node_modules/core-js/library/modules/_iter-step.js");
+var setSpecies = __webpack_require__(/*! ./_set-species */ "../node_modules/core-js/library/modules/_set-species.js");
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/library/modules/_descriptors.js");
+var fastKey = __webpack_require__(/*! ./_meta */ "../node_modules/core-js/library/modules/_meta.js").fastKey;
+var validate = __webpack_require__(/*! ./_validate-collection */ "../node_modules/core-js/library/modules/_validate-collection.js");
+var SIZE = DESCRIPTORS ? '_s' : 'size';
+
+var getEntry = function (that, key) {
+  // fast case
+  var index = fastKey(key);
+  var entry;
+  if (index !== 'F') return that._i[index];
+  // frozen object case
+  for (entry = that._f; entry; entry = entry.n) {
+    if (entry.k == key) return entry;
+  }
+};
+
+module.exports = {
+  getConstructor: function (wrapper, NAME, IS_MAP, ADDER) {
+    var C = wrapper(function (that, iterable) {
+      anInstance(that, C, NAME, '_i');
+      that._t = NAME;         // collection type
+      that._i = create(null); // index
+      that._f = undefined;    // first entry
+      that._l = undefined;    // last entry
+      that[SIZE] = 0;         // size
+      if (iterable != undefined) forOf(iterable, IS_MAP, that[ADDER], that);
+    });
+    redefineAll(C.prototype, {
+      // 23.1.3.1 Map.prototype.clear()
+      // 23.2.3.2 Set.prototype.clear()
+      clear: function clear() {
+        for (var that = validate(this, NAME), data = that._i, entry = that._f; entry; entry = entry.n) {
+          entry.r = true;
+          if (entry.p) entry.p = entry.p.n = undefined;
+          delete data[entry.i];
+        }
+        that._f = that._l = undefined;
+        that[SIZE] = 0;
+      },
+      // 23.1.3.3 Map.prototype.delete(key)
+      // 23.2.3.4 Set.prototype.delete(value)
+      'delete': function (key) {
+        var that = validate(this, NAME);
+        var entry = getEntry(that, key);
+        if (entry) {
+          var next = entry.n;
+          var prev = entry.p;
+          delete that._i[entry.i];
+          entry.r = true;
+          if (prev) prev.n = next;
+          if (next) next.p = prev;
+          if (that._f == entry) that._f = next;
+          if (that._l == entry) that._l = prev;
+          that[SIZE]--;
+        } return !!entry;
+      },
+      // 23.2.3.6 Set.prototype.forEach(callbackfn, thisArg = undefined)
+      // 23.1.3.5 Map.prototype.forEach(callbackfn, thisArg = undefined)
+      forEach: function forEach(callbackfn /* , that = undefined */) {
+        validate(this, NAME);
+        var f = ctx(callbackfn, arguments.length > 1 ? arguments[1] : undefined, 3);
+        var entry;
+        while (entry = entry ? entry.n : this._f) {
+          f(entry.v, entry.k, this);
+          // revert to the last existing entry
+          while (entry && entry.r) entry = entry.p;
+        }
+      },
+      // 23.1.3.7 Map.prototype.has(key)
+      // 23.2.3.7 Set.prototype.has(value)
+      has: function has(key) {
+        return !!getEntry(validate(this, NAME), key);
+      }
+    });
+    if (DESCRIPTORS) dP(C.prototype, 'size', {
+      get: function () {
+        return validate(this, NAME)[SIZE];
+      }
+    });
+    return C;
+  },
+  def: function (that, key, value) {
+    var entry = getEntry(that, key);
+    var prev, index;
+    // change existing entry
+    if (entry) {
+      entry.v = value;
+    // create new entry
+    } else {
+      that._l = entry = {
+        i: index = fastKey(key, true), // <- index
+        k: key,                        // <- key
+        v: value,                      // <- value
+        p: prev = that._l,             // <- previous entry
+        n: undefined,                  // <- next entry
+        r: false                       // <- removed
+      };
+      if (!that._f) that._f = entry;
+      if (prev) prev.n = entry;
+      that[SIZE]++;
+      // add to index
+      if (index !== 'F') that._i[index] = entry;
+    } return that;
+  },
+  getEntry: getEntry,
+  setStrong: function (C, NAME, IS_MAP) {
+    // add .keys, .values, .entries, [@@iterator]
+    // 23.1.3.4, 23.1.3.8, 23.1.3.11, 23.1.3.12, 23.2.3.5, 23.2.3.8, 23.2.3.10, 23.2.3.11
+    $iterDefine(C, NAME, function (iterated, kind) {
+      this._t = validate(iterated, NAME); // target
+      this._k = kind;                     // kind
+      this._l = undefined;                // previous
+    }, function () {
+      var that = this;
+      var kind = that._k;
+      var entry = that._l;
+      // revert to the last existing entry
+      while (entry && entry.r) entry = entry.p;
+      // get next entry
+      if (!that._t || !(that._l = entry = entry ? entry.n : that._t._f)) {
+        // or finish the iteration
+        that._t = undefined;
+        return step(1);
+      }
+      // return step by kind
+      if (kind == 'keys') return step(0, entry.k);
+      if (kind == 'values') return step(0, entry.v);
+      return step(0, [entry.k, entry.v]);
+    }, IS_MAP ? 'entries' : 'values', !IS_MAP, true);
+
+    // add [@@species], 23.1.2.2, 23.2.2.2
+    setSpecies(NAME);
+  }
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/_collection-to-json.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/_collection-to-json.js ***!
+  \**********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var classof = __webpack_require__(/*! ./_classof */ "../node_modules/core-js/library/modules/_classof.js");
+var from = __webpack_require__(/*! ./_array-from-iterable */ "../node_modules/core-js/library/modules/_array-from-iterable.js");
+module.exports = function (NAME) {
+  return function toJSON() {
+    if (classof(this) != NAME) throw TypeError(NAME + "#toJSON isn't generic");
+    return from(this);
+  };
 };
 
 
@@ -38375,6 +39590,36 @@ if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(/*! ./_object-dp */ ".
 
 /***/ }),
 
+/***/ "../node_modules/core-js/library/modules/es6.map.js":
+/*!**********************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es6.map.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var strong = __webpack_require__(/*! ./_collection-strong */ "../node_modules/core-js/library/modules/_collection-strong.js");
+var validate = __webpack_require__(/*! ./_validate-collection */ "../node_modules/core-js/library/modules/_validate-collection.js");
+var MAP = 'Map';
+
+// 23.1 Map Objects
+module.exports = __webpack_require__(/*! ./_collection */ "../node_modules/core-js/library/modules/_collection.js")(MAP, function (get) {
+  return function Map() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
+}, {
+  // 23.1.3.6 Map.prototype.get(key)
+  get: function get(key) {
+    var entry = strong.getEntry(validate(this, MAP), key);
+    return entry && entry.v;
+  },
+  // 23.1.3.9 Map.prototype.set(key, value)
+  set: function set(key, value) {
+    return strong.def(validate(this, MAP), key === 0 ? 0 : key, value);
+  }
+}, strong, true);
+
+
+/***/ }),
+
 /***/ "../node_modules/core-js/library/modules/es6.object.assign.js":
 /*!********************************************************************!*\
   !*** ../node_modules/core-js/library/modules/es6.object.assign.js ***!
@@ -39259,6 +40504,44 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
     });
   });
 }
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/es7.map.from.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es7.map.from.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-map.from
+__webpack_require__(/*! ./_set-collection-from */ "../node_modules/core-js/library/modules/_set-collection-from.js")('Map');
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/es7.map.of.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es7.map.of.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-map.of
+__webpack_require__(/*! ./_set-collection-of */ "../node_modules/core-js/library/modules/_set-collection-of.js")('Map');
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/es7.map.to-json.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es7.map.to-json.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var $export = __webpack_require__(/*! ./_export */ "../node_modules/core-js/library/modules/_export.js");
+
+$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(/*! ./_collection-to-json */ "../node_modules/core-js/library/modules/_collection-to-json.js")('Map') });
 
 
 /***/ }),

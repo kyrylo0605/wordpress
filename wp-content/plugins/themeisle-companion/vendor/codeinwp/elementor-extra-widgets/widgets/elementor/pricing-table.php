@@ -17,6 +17,7 @@ use Elementor\Plugin;
 use Elementor\Core\Schemes\Color;
 use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
+use Elementor\Repeater;
 
 /**
  * Class Pricing_Table
@@ -75,7 +76,7 @@ class Pricing_Table extends Widget_Base {
 	/**
 	 * Register Elementor Controls
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->plan_title_section();
 
 		$this->plan_price_tag_section();
@@ -231,6 +232,42 @@ class Pricing_Table extends Widget_Base {
 			]
 		);
 
+		$repeater = new Repeater();
+		$repeater->add_control(
+			'accent',
+			[
+				'label'       => __( 'Accented Text', 'themeisle-companion' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'description' => __( 'Appears before feature text', 'themeisle-companion' ),
+				'default'     => __( 'Accent', 'themeisle-companion' ),
+			]
+		);
+
+		$repeater->add_control(
+			'text',
+			[
+				'label'       => __( 'Text', 'themeisle-companion' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'placeholder' => __( 'Plan Features', 'themeisle-companion' ),
+				'default'     => __( 'Feature', 'themeisle-companion' ),
+			]
+		);
+
+		$repeater->add_control(
+			'feature_icon_new',
+			[
+				'label'       => __( 'Icon', 'themeisle-companion' ),
+				'type' => Controls_Manager::ICONS,
+				'default' => [
+					'value' => 'fas fa-star',
+					'library' => 'solid',
+				],
+				'fa4compatibility' => 'feature_icon',
+			]
+		);
+
 		$this->add_control(
 			'feature_list',
 			[
@@ -250,34 +287,7 @@ class Pricing_Table extends Widget_Base {
 						'text'   => __( 'Feature', 'themeisle-companion' ),
 					],
 				],
-				'fields'      => [
-					[
-						'type'        => Controls_Manager::TEXT,
-						'name'        => 'accent',
-						'label'       => __( 'Accented Text', 'themeisle-companion' ),
-						'description' => __( 'Appears before feature text', 'themeisle-companion' ),
-						'label_block' => true,
-						'default'     => __( 'Accent', 'themeisle-companion' ),
-					],
-					[
-						'type'        => Controls_Manager::TEXT,
-						'name'        => 'text',
-						'label'       => __( 'Text', 'themeisle-companion' ),
-						'label_block' => true,
-						'placeholder' => __( 'Plan Features', 'themeisle-companion' ),
-						'default'     => __( 'Feature', 'themeisle-companion' ),
-					],
-                    [
-                        'type' => Controls_Manager::ICONS,
-                        'name'        => 'feature_icon_new',
-                        'label'       => __( 'Icon', 'themeisle-companion' ),
-                        'default' => [
-	                        'value' => 'fas fa-star',
-	                        'library' => 'solid',
-                        ],
-                        'fa4compatibility' => 'feature_icon',
-                    ],
-				],
+				'fields'      => $repeater->get_controls(),
 				'title_field' => '{{ accent + " " + text }}',
 			]
 		);

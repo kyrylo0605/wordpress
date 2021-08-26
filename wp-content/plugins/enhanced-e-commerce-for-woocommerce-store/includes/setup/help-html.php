@@ -15,7 +15,7 @@ function get_connect_google_popup_html(){
           <p>Make sure you sign in with the google account that has all privileges to access google analytics, google ads and google merchant center account.</p>
         </div>
         <div class="modal-footer">
-          <a target="_blank" class="ee-oauth-container btn darken-4 white black-text" href="'. $TVC_Admin_Helper->get_connect_url().'" style="text-transform:none; margin: 0 auto;">
+          <a class="ee-oauth-container btn darken-4 white black-text" href="'. $TVC_Admin_Helper->get_onboarding_page_url().'" style="text-transform:none; margin: 0 auto;">
             <p style="font-size: inherit; margin-top:5px;"><img width="20px" style="margin-right:8px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Sign In With Google</p>
           </a>
         </div>
@@ -38,7 +38,7 @@ function get_connect_google_popup_html_to_active_licence(){
           <p>Make sure you sign in with the google account that has all privileges to access google analytics, google ads and google merchant center account.</p>
         </div>
         <div class="modal-footer">
-          <a target="_blank" class="ee-oauth-container btn darken-4 white black-text" href="'. $TVC_Admin_Helper->get_connect_url().'" style="text-transform:none; margin: 0 auto;">
+          <a class="ee-oauth-container btn darken-4 white black-text" href="'. $TVC_Admin_Helper->get_onboarding_page_url().'" style="text-transform:none; margin: 0 auto;">
             <p style="font-size: inherit; margin-top:5px;"><img width="20px" style="margin-right:8px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Sign In With Google</p>
           </a>
         </div>
@@ -178,7 +178,7 @@ function get_tvc_google_ads_help_html(){
       </nav> 
   </div>
   <div class="tvc-footer-links">
-    <a target="_blank" href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf" tabindex="0">Installation manual</a> | <a target="_blank" href="http://plugins.tatvic.com/help-center/Google-shopping-Guide.pdf" tabindex="0">Google shopping guide</a> | <a target="_blank" href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" tabindex="0">FAQ</a>
+    <a target="_blank" href="https://conversios.io/help-center/Installation-Manual.pdf" tabindex="0">Installation manual</a> | <a target="_blank" href="https://conversios.io/help-center/Google-shopping-Guide.pdf" tabindex="0">Google shopping guide</a> | <a target="_blank" href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" tabindex="0">FAQ</a>
   </div>
   <script>
     //let rtl= "<?php echo (is_rtl())?"true":"false"; ?>"; 
@@ -261,7 +261,7 @@ function get_tvc_help_html(){
       </nav> 
   </div>
   <div class="tvc-footer-links">
-    <a target="_blank" href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf" tabindex="0">Installation manual</a> | <a target="_blank" href="http://plugins.tatvic.com/help-center/Google-shopping-Guide.pdf" tabindex="0">Google shopping guide</a> | <a target="_blank" href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" tabindex="0">FAQ</a>
+    <a target="_blank" href="https://conversios.io/help-center/Installation-Manual.pdf" tabindex="0">Installation manual</a> | <a target="_blank" href="https://conversios.io/help-center/Google-shopping-Guide.pdf" tabindex="0">Google shopping guide</a> | <a target="_blank" href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" tabindex="0">FAQ</a>
   </div>
   <script>
     //let rtl= "<?php echo (is_rtl())?"true":"false"; ?>"; 
@@ -362,7 +362,7 @@ function get_tvc_google_ga_sidebar(){
       </nav> 
   </div>
   <div class="tvc-footer-links">
-    <a target="_blank" href="http://plugins.tatvic.com/help-center/Installation-Manual.pdf" tabindex="0">Installation manual</a> | <a target="_blank" href="http://plugins.tatvic.com/help-center/Google-shopping-Guide.pdf" tabindex="0">Google shopping guide</a> | <a target="_blank" href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" tabindex="0">FAQ</a>
+    <a target="_blank" href="https://conversios.io/help-center/Installation-Manual.pdf" tabindex="0">Installation manual</a> | <a target="_blank" href="https://conversios.io/help-center/Google-shopping-Guide.pdf" tabindex="0">Google shopping guide</a> | <a target="_blank" href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/faq/" tabindex="0">FAQ</a>
   </div>
   <script>
     $(".tvc-b-value-slider").slick({

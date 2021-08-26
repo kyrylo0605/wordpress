@@ -98,7 +98,7 @@ class CustomApi{
         }
     }
 
-    public function getGoogleAnalyticDetail() {
+    public function getGoogleAnalyticDetail($subscription_id = null) {
         try {
             $url = $this->apiDomain . '/customer-subscriptions/subscription-detail';
             $header = array(
@@ -106,14 +106,12 @@ class CustomApi{
                 "content-type: application/json"
             );
             $ee_options_data = unserialize(get_option('ee_options'));
-            if(isset($ee_options_data['subscription_id'])) {
-                $ee_subscription_id = $ee_options_data['subscription_id'];
-            } else {
-                $ee_subscription_id = null;
+            if($subscription_id == null && isset($ee_options_data['subscription_id'])) {
+                $subscription_id = $ee_options_data['subscription_id'];
             }
             $actual_link = get_site_url();
             $data = [
-                'subscription_id' => $ee_subscription_id,
+                'subscription_id' => $subscription_id,
                 'domain' => $actual_link
             ];
             $postData = json_encode($data);
@@ -483,7 +481,7 @@ class CustomApi{
                 "AccessToken:".$this->generateAccessToken($this->get_tvc_access_token(), $this->get_tvc_refresh_token())
             );
             $curl_url = $this->apiDomain . "/products/batch";            
-            $postData = json_encode($data);           
+            $postData = json_encode($data);          
             $ch = curl_init();
             curl_setopt_array($ch, array(
                 CURLOPT_URL => esc_url($curl_url),

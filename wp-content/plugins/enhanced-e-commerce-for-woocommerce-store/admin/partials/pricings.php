@@ -10,7 +10,6 @@ class TVC_Pricings {
   public function __construct() {
     $this->TVC_Admin_Helper = new TVC_Admin_Helper();
     $this->customApiObj = new CustomApi();
-    $this->url = $this->TVC_Admin_Helper->get_connect_url(); 
     $this->subscriptionId = $this->TVC_Admin_Helper->get_subscriptionId(); 
     $this->google_detail = $this->TVC_Admin_Helper->get_ee_options_data(); 
     $this->TVC_Admin_Helper->add_spinner_html();

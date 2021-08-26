@@ -229,6 +229,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 add_filter( 'aws_posts_per_page', array( $this, 'avada_posts_per_page' ), 1 );
                 add_filter( 'aws_products_order_by', array( $this, 'avada_aws_products_order_by' ), 1 );
                 add_filter( 'post_class', array( $this, 'avada_post_class' ) );
+                add_filter( 'aws_search_page_custom_data', array( $this, 'avada_modify_s_page_query' ) );
             }
 
             if ( 'Electro' === $this->current_theme ) {
@@ -334,6 +335,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             // WPBakery plugin
             if ( defined( 'WPB_VC_VERSION' ) ) {
                 include_once( AWS_DIR . '/includes/modules/class-aws-wpbakery.php' );
+            }
+
+            // WPML plugin
+            if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+                include_once( AWS_DIR . '/includes/modules/class-aws-wpml.php' );
             }
 
         }
@@ -1777,6 +1783,14 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 }
             }
             return $classes;
+        }
+
+        /*
+         * Avada theme fix search page query
+         */
+        public function avada_modify_s_page_query( $data ) {
+            $data['force_ids'] = true;
+            return $data;
         }
 
         /*

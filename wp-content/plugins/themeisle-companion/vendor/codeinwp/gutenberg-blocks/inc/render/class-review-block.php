@@ -59,19 +59,19 @@ class Review_Block extends Base_Block {
 				'type'    => 'array',
 				'default' => array(
 					array(
-						'title'  => __( 'Stability', 'themeisle-companion' ),
+						'title'  => __( 'Stability', 'otter-blocks', 'themeisle-companion' ),
 						'rating' => 9,
 					),
 					array(
-						'title'  => __( 'Ease of Use', 'themeisle-companion' ),
+						'title'  => __( 'Ease of Use', 'otter-blocks', 'themeisle-companion' ),
 						'rating' => 4,
 					),
 					array(
-						'title'  => __( 'Look & Feel', 'themeisle-companion' ),
+						'title'  => __( 'Look & Feel', 'otter-blocks', 'themeisle-companion' ),
 						'rating' => 9,
 					),
 					array(
-						'title'  => __( 'Price', 'themeisle-companion' ),
+						'title'  => __( 'Price', 'otter-blocks', 'themeisle-companion' ),
 						'rating' => 7,
 					),
 				),
@@ -79,29 +79,31 @@ class Review_Block extends Base_Block {
 			'pros'        => array(
 				'type'    => 'array',
 				'default' => array(
-					__( 'Easy to use', 'themeisle-companion' ),
-					__( 'Good price', 'themeisle-companion' ),
-					__( 'Sturdy build and ergonomics', 'themeisle-companion' ),
+					__( 'Easy to use', 'otter-blocks', 'themeisle-companion' ),
+					__( 'Good price', 'otter-blocks', 'themeisle-companion' ),
+					__( 'Sturdy build and ergonomics', 'otter-blocks', 'themeisle-companion' ),
 				),
 			),
 			'cons'        => array(
 				'type'    => 'array',
 				'default' => array(
-					__( 'Incompatible with old versions', 'themeisle-companion' ),
-					__( 'Hard to assemble', 'themeisle-companion' ),
-					__( 'Bad color combination', 'themeisle-companion' ),
+					__( 'Incompatible with old versions', 'otter-blocks', 'themeisle-companion' ),
+					__( 'Hard to assemble', 'otter-blocks', 'themeisle-companion' ),
+					__( 'Bad color combination', 'otter-blocks', 'themeisle-companion' ),
 				),
 			),
 			'links'       => array(
 				'type'    => 'array',
 				'default' => array(
 					array(
-						'label' => __( 'Buy on Amazon', 'themeisle-companion' ),
-						'href'  => '',
+						'label'       => __( 'Buy on Amazon', 'otter-blocks', 'themeisle-companion' ),
+						'href'        => '',
+						'isSponsored' => false,
 					),
 					array(
-						'label' => __( 'Buy on eBay', 'themeisle-companion' ),
-						'href'  => '',
+						'label'       => __( 'Buy on eBay', 'otter-blocks', 'themeisle-companion' ),
+						'href'        => '',
+						'isSponsored' => false,
 					),
 				),
 			),
@@ -125,7 +127,7 @@ class Review_Block extends Base_Block {
 				'wp_footer',
 				function() use ( $attributes ) {
 					echo '<script type="application/ld+json">' . wp_json_encode( $this->get_json_ld( $attributes ) ) . '</script>';
-				} 
+				}
 			);
 		}
 
@@ -145,7 +147,7 @@ class Review_Block extends Base_Block {
 		$html .= '			<div class="wp-block-themeisle-blocks-review__header_ratings">';
 		$html .= $this->get_overall_stars( $this->get_overall_ratings( $attributes['features'] ) );
 		// translators: Overall rating from 0 to 10.
-		$html .= '				<span>' . sprintf( __( '%s out of 10', 'themeisle-companion' ), $this->get_overall_ratings( $attributes['features'] ) ) . '</span>';
+		$html .= '				<span>' . sprintf( __( '%s out of 10', 'otter-blocks', 'themeisle-companion' ), $this->get_overall_ratings( $attributes['features'] ) ) . '</span>';
 		$html .= '			</div>';
 
 		if ( isset( $attributes['price'] ) || isset( $attributes['discounted'] ) ) {
@@ -171,7 +173,7 @@ class Review_Block extends Base_Block {
 
 			if ( isset( $attributes['description'] ) && ! empty( $attributes['description'] ) ) {
 				$html .= '	<p>' . $attributes['description'] . '</p>';
-			}   
+			}
 			$html .= '	</div>';
 		}
 
@@ -196,7 +198,7 @@ class Review_Block extends Base_Block {
 		$html .= '	<div class="wp-block-themeisle-blocks-review__right">';
 		if ( isset( $attributes['pros'] ) && count( $attributes['pros'] ) > 0 ) {
 			$html .= '	<div class="wp-block-themeisle-blocks-review__right_pros">';
-			$html .= '		<h4>' . __( 'Pros', 'themeisle-companion' ) . '</h4>';
+			$html .= '		<h4>' . __( 'Pros', 'otter-blocks', 'themeisle-companion' ) . '</h4>';
 
 			foreach ( $attributes['pros'] as $pro ) {
 				$html .= '	<div class="wp-block-themeisle-blocks-review__right_pros_item">';
@@ -209,7 +211,7 @@ class Review_Block extends Base_Block {
 
 		if ( isset( $attributes['cons'] ) && count( $attributes['cons'] ) > 0 ) {
 			$html .= '	<div class="wp-block-themeisle-blocks-review__right_cons">';
-			$html .= '		<h4>' . __( 'Cons', 'themeisle-companion' ) . '</h4>';
+			$html .= '		<h4>' . __( 'Cons', 'otter-blocks', 'themeisle-companion' ) . '</h4>';
 
 			foreach ( $attributes['cons'] as $con ) {
 				$html .= '	<div class="wp-block-themeisle-blocks-review__right_cons_item">';
@@ -223,12 +225,13 @@ class Review_Block extends Base_Block {
 
 		if ( isset( $attributes['links'] ) && count( $attributes['links'] ) > 0 ) {
 			$html .= '	<div class="wp-block-themeisle-blocks-review__footer">';
-			$html .= '		<span class="wp-block-themeisle-blocks-review__footer_label">' . __( 'Buy this product', 'themeisle-companion' ) . '</span>';
+			$html .= '		<span class="wp-block-themeisle-blocks-review__footer_label">' . __( 'Buy this product', 'otter-blocks', 'themeisle-companion' ) . '</span>';
 
 			$html .= '		<div class="wp-block-themeisle-blocks-review__footer_buttons">';
 
 			foreach ( $attributes['links'] as $link ) {
-				$html .= '	<a href="' . $link['href'] . '" target="_blank">' . $link['label'] . '</a>';
+				$rel   = ( isset( $link['isSponsored'] ) && true === $link['isSponsored'] ) ? 'sponsored' : 'nofollow';
+				$html .= '	<a href="' . esc_url( $link['href'] ) . '" rel="' . $rel . '" target="_blank">' . esc_html( $link['label'] ) . '</a>';
 			}
 			$html .= '		</div>';
 			$html .= '	</div>';
@@ -256,7 +259,7 @@ class Review_Block extends Base_Block {
 				$carry += $feature['rating'];
 				return $carry;
 			},
-			0 
+			0
 		);
 
 		$rating = round( $rating / count( $features ) );
@@ -516,14 +519,14 @@ class Review_Block extends Base_Block {
 				if ( ! isset( $link['href'] ) || empty( $link['href'] ) ) {
 					continue;
 				}
-				
+
 				if ( ! isset( $attributes['price'] ) && ! isset( $attributes['discounted'] ) ) {
 					continue;
 				}
-				
+
 				$offer = array(
 					'@type'         => 'Offer',
-					'url'           => $link['href'],
+					'url'           => esc_url( $link['href'] ),
 					'priceCurrency' => isset( $attributes['currency'] ) ? $attributes['currency'] : 'USD',
 					'price'         => isset( $attributes['discounted'] ) ? $attributes['discounted'] : $attributes['price'],
 				);
@@ -538,6 +541,6 @@ class Review_Block extends Base_Block {
 			}
 		}
 
-		return $json;
+		return apply_filters( 'themeisle_gutenberg_review_block_schema', $json, $attributes );
 	}
 }

@@ -11,7 +11,7 @@ class GAAConfiguration {
     $this->TVCProductSyncHelper = new TVCProductSyncHelper();
     $this->subscriptionId = $this->TVC_Admin_Helper->get_subscriptionId(); 
     $this->site_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=";     
-    $this->url = $this->TVC_Admin_Helper->get_connect_url();     
+    $this->url = $this->TVC_Admin_Helper->get_onboarding_page_url();     
     $this->html_run();
   }
   public function includes() {
@@ -73,9 +73,9 @@ class GAAConfiguration {
                   <p class="ga-text"><?php echo ((isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id != '') ? $googleDetail->google_merchant_center_id : '<span>Get started</span>'); ?></p>
                   <?php
                     if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id != ''){
-                      echo '<p class="ga-text text-right"><a target="_blank" href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
+                      echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
                     }else{
-                      echo '<p class="ga-text text-right"><a href="#" class="text-underline" data-toggle="modal" data-target="#tvc_google_connect"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
+                      echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
                     }?>
                 </div>
               </div>              
@@ -89,9 +89,9 @@ class GAAConfiguration {
                   <p class="ga-text"><?php echo (isset($googleDetail->google_ads_id) && $googleDetail->google_ads_id != '' ? $googleDetail->google_ads_id : '<span>Get started</span>');?></p>
                   <?php
                   if (isset($googleDetail->google_ads_id) && $googleDetail->google_ads_id != '') {
-                    echo '<p class="ga-text text-right"><a target="_blank" href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
+                    echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/refresh.svg" alt="refresh"/></a></p>';
                   } else {
-                    echo '<p class="ga-text text-right"><a href="#"  data-toggle="modal" data-target="#tvc_google_connect" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
+                    echo '<p class="ga-text text-right"><a href="' . $this->url . '" class="text-underline"><img src="'. ENHANCAD_PLUGIN_URL.'/admin/images/icon/add.svg" alt="connect account"/></a></p>';
                   } ?>
                 </div>
               </div>

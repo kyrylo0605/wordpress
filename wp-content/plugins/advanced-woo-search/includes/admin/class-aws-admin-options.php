@@ -301,6 +301,51 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 )
             );
 
+            $options['general'][] = array(
+                "name"    => __( "Search results page", "advanced-woo-search" ),
+                "type"    => "heading"
+            );
+
+            $options['general'][] = array(
+                "name"  => __( "Enable results page", "advanced-woo-search" ),
+                "desc"  => __( "Show plugin search results on a separated search results page. Will use your current theme products search results page template.", "advanced-woo-search" ),
+                "id"    => "search_page",
+                "value" => 'true',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false'  => __( 'Off', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['general'][] = array(
+                "name"  => __( "Max number of results", "advanced-woo-search" ),
+                "desc"  => __( "Maximal total number of search results. Larger values can lead to slower search speed.", "advanced-woo-search" ),
+                "id"    => "search_page_res_num",
+                "value" => 100,
+                "type"  => "number"
+            );
+
+            $options['general'][] = array(
+                "name"  => __( "Results per page", "advanced-woo-search" ),
+                "desc"  => __( "Number of search results per page. Empty or 0 - use theme default value.", "advanced-woo-search" ),
+                "id"    => "search_page_res_per_page",
+                "value" => '',
+                "type"  => "number"
+            );
+
+            $options['general'][] = array(
+                "name"  => __( "Change query hook", "advanced-woo-search" ),
+                "desc"  => __( "If you have any problems with correct products results on the search results page - try to change this option.", "advanced-woo-search" ),
+                "id"    => "search_page_query",
+                "value" => 'default',
+                "type"  => "radio",
+                'choices' => array(
+                    'default' => __( 'Default', 'advanced-woo-search' ),
+                    'posts_pre_query' => __( 'posts_pre_query', 'advanced-woo-search' ),
+                )
+            );
+
             $options['performance'][] = array(
                 "name"    => __( "Search options", "advanced-woo-search" ),
                 "type"    => "heading"
@@ -416,6 +461,18 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
             );
 
             $options['form'][] = array(
+                "name"  => __( "AJAX search", "advanced-woo-search" ),
+                "desc"  => __( "Use or not live search feature.", "advanced-woo-search" ),
+                "id"    => "enable_ajax",
+                "value" => 'true',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false' => __( 'Off', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['form'][] = array(
                 "name"  => __( "Show loader", "advanced-woo-search" ),
                 "desc"  => __( "Show loader animation while searching.", "advanced-woo-search" ),
                 "id"    => "show_loader",
@@ -460,19 +517,6 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 'choices' => array(
                     'true'  => __( 'On', 'advanced-woo-search' ),
                     'false' => __( 'Off', 'advanced-woo-search' )
-                )
-            );
-
-            $options['form'][] = array(
-                "name"  => __( "Search Results", "advanced-woo-search" ),
-                "desc"  => __( "Choose how to view search results.", "advanced-woo-search" ),
-                "id"    => "show_page",
-                "value" => 'true',
-                "type"  => "radio",
-                'choices' => array(
-                    'true'     => __( 'Both ajax search results and search results page', 'advanced-woo-search' ),
-                    'false'    => __( 'Only ajax search results ( no search results page )', 'advanced-woo-search' ),
-                    'ajax_off' => __( 'Only search results page ( no ajax search results )', 'advanced-woo-search' )
                 )
             );
 

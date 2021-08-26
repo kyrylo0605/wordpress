@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5025,6 +5025,190 @@ exports.default = Shortcuts;
 
 /***/ }),
 
+/***/ "../core/common/assets/js/api/core/ui-states.js":
+/*!******************************************************!*\
+  !*** ../core/common/assets/js/api/core/ui-states.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var UiStates = /*#__PURE__*/function () {
+  /**
+   * Initialize the State Manager.
+   *
+   * @return {void}
+   */
+  function UiStates() {
+    (0, _classCallCheck2.default)(this, UiStates);
+    this.states = {};
+  }
+  /**
+   * Register a new state.
+   *
+   * @param {UiStateBase} instance - State instance.
+   *
+   * @return {void}
+   */
+
+
+  (0, _createClass2.default)(UiStates, [{
+    key: "register",
+    value: function register(instance) {
+      var stateId = instance.getPrefixedId();
+
+      if (this.states[stateId]) {
+        throw "State '".concat(stateId, "' already exists.");
+      }
+
+      this.states[stateId] = instance;
+    }
+    /**
+     * Get all existing states with their options:
+     *
+     * {
+     *     'state-id': [
+     *         'option-1',
+     *         'option-2',
+     *         'option-3',
+     *     ],
+     * }
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getAll",
+    value: function getAll() {
+      var states = {};
+      (0, _entries.default)(this.states).forEach(function (_ref) {
+        var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
+            id = _ref2[0],
+            instance = _ref2[1];
+
+        var options = instance.getOptions();
+        states[id] = (0, _keys.default)(options);
+      });
+      return states;
+    }
+    /**
+     * Get the state value, or return all of them if no `state` is set.
+     *
+     * @param {string} state - State ID.
+     *
+     * @return {UiStateBase}
+     */
+
+  }, {
+    key: "get",
+    value: function get(state) {
+      if (state) {
+        return this.states[state];
+      }
+
+      return this.states;
+    }
+    /**
+     * Set the current state value and trigger its callbacks & events.
+     * This function triggers a `e-ui-state:${ stateID }` event to the scope, with `oldValue` & `newValue`
+     * under `e.detail`.
+     * Additionally, it adds a `e-ui-state--${ stateID }__${ value }` class to the scope element.
+     *
+     * @param {string} state - State ID.
+     * @param {string} value - New state value.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "set",
+    value: function set(state, value) {
+      // Invalid state or option.
+      if (!this.get(state)) {
+        throw "State '".concat(state, "' doesn't exist.");
+      }
+
+      var oldValue = this.getCurrent(state),
+          classPrefix = "e-ui-state--".concat(state.replaceAll('/', '-')),
+          oldStateClass = "".concat(classPrefix, "__").concat(oldValue),
+          newStateClass = "".concat(classPrefix, "__").concat(value),
+          scopes = this.get(state).getScopes(); // Set the current state to the new value.
+
+      this.get(state).set(value);
+      scopes.forEach(function (scope) {
+        scope.classList.remove(oldStateClass); // Set the new class only if there is a value (i.e. it's not a state removal action).
+
+        if (value) {
+          scope.classList.add(newStateClass);
+        } // Dispatch a custom state-change event to the scope.
+
+
+        var event = new CustomEvent("e-ui-state:".concat(state), {
+          detail: {
+            oldValue: oldValue,
+            newValue: value
+          }
+        });
+        scope.dispatchEvent(event);
+      });
+    }
+    /**
+     * Remove a state.
+     *
+     * @param {string} state - State ID.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "remove",
+    value: function remove(state) {
+      this.set(state, '');
+    }
+    /**
+     * Get the current state value.
+     *
+     * @param {string} state - State ID.
+     *
+     * @return {string}
+     */
+
+  }, {
+    key: "getCurrent",
+    value: function getCurrent(state) {
+      var _this$get;
+
+      return (_this$get = this.get(state)) === null || _this$get === void 0 ? void 0 : _this$get.getCurrent();
+    }
+  }]);
+  return UiStates;
+}();
+
+exports.default = UiStates;
+
+/***/ }),
+
 /***/ "../core/common/assets/js/api/extras/hash-commands.js":
 /*!************************************************************!*\
   !*** ../core/common/assets/js/api/extras/hash-commands.js ***!
@@ -5348,6 +5532,8 @@ var _routes = _interopRequireDefault(__webpack_require__(/*! ./core/routes */ ".
 
 var _shortcuts = _interopRequireDefault(__webpack_require__(/*! ./core/shortcuts */ "../core/common/assets/js/api/core/shortcuts.js"));
 
+var _uiStates = _interopRequireDefault(__webpack_require__(/*! ./core/ui-states */ "../core/common/assets/js/api/core/ui-states.js"));
+
 var hookData = _interopRequireWildcard(__webpack_require__(/*! ./modules/hooks/data/ */ "../core/common/assets/js/api/modules/hooks/data/index.js"));
 
 var hookUI = _interopRequireWildcard(__webpack_require__(/*! ./modules/hooks/ui */ "../core/common/assets/js/api/modules/hooks/ui/index.js"));
@@ -5369,6 +5555,7 @@ var API = /*#__PURE__*/function () {
     this.routes = new _routes.default();
     this.shortcuts = new _shortcuts.default(jQuery(window));
     this.data = new _data.default();
+    this.uiStates = new _uiStates.default();
     this.modules = {
       CommandBase: _commandBase.default,
       CommandInternalBase: _commandInternalBase.default,
@@ -6535,6 +6722,7 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       this.shortcuts = this.defaultShortcuts();
       this.utils = this.defaultUtils();
       this.data = this.defaultData();
+      this.uiStates = this.defaultUiStates();
       this.defaultRoute = '';
       this.currentTab = '';
     }
@@ -6577,6 +6765,9 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
 
         return _this.registerData(command, callback);
       });
+      (0, _values.default)(this.getUiStates()).forEach(function (instance) {
+        return _this.registerUiState(instance);
+      });
     }
     /**
      * @returns {string}
@@ -6618,6 +6809,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     value: function defaultHooks() {
       return {};
     }
+    /**
+     * Get the component's default UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "defaultUiStates",
+    value: function defaultUiStates() {
+      return {};
+    }
   }, {
     key: "defaultShortcuts",
     value: function defaultShortcuts() {
@@ -6647,6 +6849,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "getHooks",
     value: function getHooks() {
       return this.hooks;
+    }
+    /**
+     * Retrieve the component's UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getUiStates",
+    value: function getUiStates() {
+      return this.uiStates;
     }
   }, {
     key: "getRoutes",
@@ -6681,6 +6894,19 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "registerHook",
     value: function registerHook(instance) {
       return instance.register();
+    }
+    /**
+     * Register a UI state.
+     *
+     * @param {UiStateBase} instance - UI state instance.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "registerUiState",
+    value: function registerUiState(instance) {
+      $e.uiStates.register(instance);
     }
   }, {
     key: "registerCommandInternal",
@@ -6889,6 +7115,42 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       }
 
       return hooks;
+    }
+    /**
+     * Import & initialize the component's UI states.
+     * Should be used inside `defaultUiState()`.
+     *
+     * @param {Object} statesFromImport - UI states from import.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "importUiStates",
+    value: function importUiStates(statesFromImport) {
+      var _this6 = this;
+
+      var uiStates = {};
+      (0, _values.default)(statesFromImport).forEach(function (className) {
+        var uiState = new className(_this6);
+        uiStates[uiState.getId()] = uiState;
+      });
+      return uiStates;
+    }
+    /**
+     * Set a UI state value.
+     * TODO: Should we provide such function? Maybe the developer should implicitly pass the full state ID?
+     *
+     * @param state - Non-prefixed state ID.
+     * @param value - New state value.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "setUiState",
+    value: function setUiState(state, value) {
+      $e.uiStates.set("".concat(this.getNamespace(), "/").concat(state), value);
     }
   }, {
     key: "toggleRouteClass",

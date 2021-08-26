@@ -16,7 +16,7 @@
  * Plugin Name:       Enhanced E-commerce for Woocommerce store
  * Plugin URI:        https://www.tatvic.com/tatvic-labs/woocommerce-extension/
  * Description:       Automates eCommerce tracking in Google Analytics, dynamic remarkting in Google Ads, and provides complete Google Shopping features.
- * Version:           4.0.1
+ * Version:           4.1.1
  * Author:            Tatvic
  * Author URI:        www.tatvic.com
  * License:           GPL-2.0+
@@ -24,7 +24,7 @@
  * Text Domain:       www.tatvic.com
  * Domain Path:       /languages
  * WC requires at least: 1.4.1
- * WC tested up to: 5.0.0
+ * WC tested up to: 5.6.0
  */
 
 /**
@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_TVC_VERSION', '4.0.1' );
+define( 'PLUGIN_TVC_VERSION', '4.1.1' );
 $fullName = plugin_basename( __FILE__ );
 $dir = str_replace('/enhanced-ecommerce-google-analytics.php','',$fullName);
 if ( ! defined( 'ENHANCAD_PLUGIN_NAME' ) ) {
@@ -57,7 +57,7 @@ if ( ! defined( 'TVC_API_CALL_URL' ) ) {
    define( 'TVC_API_CALL_URL', 'https://connect.tatvic.com/laravelapi/public/api' );
 }
 if ( ! defined( 'TVC_AUTH_CONNECT_URL' ) ) {    
-    define( 'TVC_AUTH_CONNECT_URL', 'estorenew.tatvic.com' );
+    define( 'TVC_AUTH_CONNECT_URL', 'conversios.io' );
 }
 
 if(!defined('TVC_Admin_Helper')){
@@ -71,6 +71,7 @@ if(!defined('TVC_Admin_Helper')){
 function activate_enhanced_ecommerce_google_analytics() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/class-enhanced-ecommerce-google-analytics-activator.php';
     Enhanced_Ecommerce_Google_Analytics_Activator::activate();
+    set_transient( '_conversios_activation_redirect', 1, 30 );
 }
 
 /**

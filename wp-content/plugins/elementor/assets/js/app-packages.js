@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -2816,6 +2816,40 @@ function useAjax() {
 
 /***/ }),
 
+/***/ "../core/app/assets/js/hooks/use-page-title.js":
+/*!*****************************************************!*\
+  !*** ../core/app/assets/js/hooks/use-page-title.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+/* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = usePageTitle;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+function usePageTitle(_ref) {
+  var title = _ref.title,
+      prefix = _ref.prefix;
+  (0, _react.useEffect)(function () {
+    if (!prefix) {
+      prefix = __('Elementor', 'elementor');
+    }
+
+    document.title = "".concat(prefix, " | ").concat(title);
+  }, [title, prefix]);
+}
+
+/***/ }),
+
 /***/ "../core/app/assets/js/layout/content.js":
 /*!***********************************************!*\
   !*** ../core/app/assets/js/layout/content.js ***!
@@ -3039,7 +3073,6 @@ HeaderButtons.defaultProps = {
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
 /* provided dependency */ var PropTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
 
 
@@ -3057,11 +3090,16 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 
 var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/extends */ "../node_modules/@babel/runtime-corejs2/helpers/extends.js"));
 
-var _headerButtons = _interopRequireDefault(__webpack_require__(/*! ./header-buttons */ "../core/app/assets/js/layout/header-buttons.js"));
-
 var _grid = _interopRequireDefault(__webpack_require__(/*! ../ui/grid/grid */ "../core/app/assets/js/ui/grid/grid.js"));
 
+var _headerButtons = _interopRequireDefault(__webpack_require__(/*! ./header-buttons */ "../core/app/assets/js/layout/header-buttons.js"));
+
+var _usePageTitle = _interopRequireDefault(__webpack_require__(/*! elementor-app/hooks/use-page-title */ "../core/app/assets/js/hooks/use-page-title.js"));
+
 function Header(props) {
+  (0, _usePageTitle.default)({
+    title: props.title
+  });
   var TitleTag = 'span',
       titleAttrs = {};
 
@@ -3072,10 +3110,6 @@ function Header(props) {
       target: '_self'
     };
   }
-
-  _react.default.useEffect(function () {
-    document.title = __('Elementor', 'elementor') + ' | ' + props.title;
-  });
 
   return /*#__PURE__*/_react.default.createElement(_grid.default, {
     container: true,

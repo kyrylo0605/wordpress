@@ -253,21 +253,6 @@ msgstr ""
 msgid "Full screen search on focus. Will not work if the search form is inside the block with position: fixed."
 msgstr ""
 
-msgid "Search Results"
-msgstr ""
-
-msgid "Choose how to view search results."
-msgstr ""
-
-msgid "Both ajax search results and search results page"
-msgstr ""
-
-msgid "Only ajax search results ( no search results page )"
-msgstr ""
-
-msgid "Only search results page ( no ajax search results )"
-msgstr ""
-
 msgid "Form Styling"
 msgstr ""
 
@@ -771,4 +756,37 @@ msgid "Index variations"
 msgstr ""
 
 msgid "Index or not content of product variations."
+msgstr ""
+
+msgid "Search results page"
+msgstr ""
+
+msgid "Enable results page"
+msgstr ""
+
+msgid "Show plugin search results on a separated search results page. Will use your current theme products search results page template."
+msgstr ""
+
+msgid "Maximal total number of search results. Larger values can lead to slower search speed."
+msgstr ""
+
+msgid "Results per page"
+msgstr ""
+
+msgid "Number of search results per page. Empty or 0 - use theme default value."
+msgstr ""
+
+msgid "Change query hook"
+msgstr ""
+
+msgid "If you have any problems with correct products results on the search results page - try to change this option."
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "AJAX search"
+msgstr ""
+
+msgid "Use or not live search feature."
 msgstr ""

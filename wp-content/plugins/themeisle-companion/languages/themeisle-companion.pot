@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Orbit Fox Companion 2.10.6\n"
+"Project-Id-Version: Orbit Fox Companion 2.10.7\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/Codeinwp/themeisle-companion/issues\n"
-"POT-Creation-Date: 2021-05-31 15:18:07+00:00\n"
+"POT-Creation-Date: 2021-08-02 13:00:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "5"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:182
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:183
 msgid "50"
 msgstr ""
 
@@ -76,74 +76,88 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:171
+#: core/app/class-orbit-fox-admin.php:178
+msgid "opens in a new tab"
+msgstr ""
+
+#: core/app/class-orbit-fox-admin.php:188
+#. translators: %1$s first alternative url, %2$s second alternative url, %3$s
+#. third alternative url.
+msgid ""
+"We have retired the free uptime monitoring module in OrbitFox since we "
+"haven't been able to dedicate more time to its development and direction. "
+"Instead, we recommend using services like %1$s, %2$s, or %3$s, which "
+"provide more options/integrations and faster checks."
+msgstr ""
+
+#: core/app/class-orbit-fox-admin.php:219
 #. translators: Go to url.
 msgid ""
 "You have activated Orbit Fox plugin! Go to the %s to get started with the "
 "extra features."
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:171
+#: core/app/class-orbit-fox-admin.php:219
 msgid "Dashboard Page"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:223
-#: core/app/class-orbit-fox-admin.php:329
+#: core/app/class-orbit-fox-admin.php:271
+#: core/app/class-orbit-fox-admin.php:379
 msgid "Could not process the request!"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:248
+#: core/app/class-orbit-fox-admin.php:296
 msgid "No module found! No data was updated."
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:254
+#: core/app/class-orbit-fox-admin.php:302
 msgid "Something went wrong, data might not be saved!"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:258
+#: core/app/class-orbit-fox-admin.php:306
 msgid "Options updated, successfully!"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:354
+#: core/app/class-orbit-fox-admin.php:404
 msgid "No module found!"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:358
+#: core/app/class-orbit-fox-admin.php:408
 msgid "Something went wrong, can not change module status!"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:363
+#: core/app/class-orbit-fox-admin.php:413
 msgid "Module status changed!"
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:481
+#: core/app/class-orbit-fox-admin.php:531
 msgid "No modules found."
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:482
+#: core/app/class-orbit-fox-admin.php:532
 msgid "Please contact support for more help."
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:489
+#: core/app/class-orbit-fox-admin.php:539
 msgid "No active modules."
 msgstr ""
 
-#: core/app/class-orbit-fox-admin.php:490
+#: core/app/class-orbit-fox-admin.php:540
 msgid "Activate a module using the toggles above."
 msgstr ""
 
-#: core/app/class-orbit-fox-plugin-install.php:161
+#: core/app/class-orbit-fox-plugin-install.php:160
 #: vendor/codeinwp/templates-directory/class-page-templates-directory.php:457
 msgid "Install and activate"
 msgstr ""
 
-#: core/app/class-orbit-fox-plugin-install.php:165
+#: core/app/class-orbit-fox-plugin-install.php:164
 #: core/app/views/partials/module-tile-tpl.php:67
 #: vendor/codeinwp/templates-directory/class-page-templates-directory.php:468
 msgid "Activate"
 msgstr ""
 
-#: core/app/class-orbit-fox-plugin-install.php:180
+#: core/app/class-orbit-fox-plugin-install.php:179
 msgid "Deactivate"
 msgstr ""
 
@@ -213,8 +227,8 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/inc/common-functions.php:26
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:836
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:834
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:505
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:844
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:527
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:361
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:779
 msgid "Padding"
@@ -223,7 +237,7 @@ msgstr ""
 #: obfx_modules/beaver-widgets/inc/common-functions.php:30
 #: obfx_modules/beaver-widgets/modules/post-grid/includes/loop-settings.php:218
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:384
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:217
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:239
 msgid "Top"
 msgstr ""
 
@@ -265,9 +279,9 @@ msgstr ""
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:650
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:686
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:732
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:292
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:213
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:323
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:302
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:235
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:345
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/contact_admin.php:147
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:361
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:836
@@ -296,9 +310,9 @@ msgstr ""
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:658
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:694
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:740
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:300
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:221
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:331
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:310
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:243
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:353
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/contact_admin.php:155
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:369
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:844
@@ -308,7 +322,7 @@ msgid "Right"
 msgstr ""
 
 #: obfx_modules/beaver-widgets/inc/common-functions.php:64
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:813
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:823
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:288
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:333
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:375
@@ -351,8 +365,8 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/inc/common-functions.php:100
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1251
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:878
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:540
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:888
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:562
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:400
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:630
 msgid "Normal"
@@ -476,9 +490,9 @@ msgstr ""
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:278
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:415
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:953
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:111
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:112
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:345
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:113
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:367
 msgid "Title"
 msgstr ""
 
@@ -544,7 +558,7 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/post-grid/includes/loop-settings.php:234
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:233
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:433
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:455
 msgid "Grid"
 msgstr ""
 
@@ -665,8 +679,8 @@ msgstr ""
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:654
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:690
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:736
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:296
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:327
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:306
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:349
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/contact_admin.php:151
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:365
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:840
@@ -743,8 +757,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:103
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:75
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:98
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:130
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:158
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:131
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:159
 msgid "p"
 msgstr ""
 
@@ -876,7 +890,7 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/services/services.php:48
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:550
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1089
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:309
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:331
 msgid "Content"
 msgstr ""
 
@@ -894,8 +908,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:97
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:69
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:92
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:124
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:152
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:125
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:153
 msgid "h1"
 msgstr ""
 
@@ -903,8 +917,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:98
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:70
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:93
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:125
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:153
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:126
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:154
 msgid "h2"
 msgstr ""
 
@@ -912,8 +926,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:99
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:71
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:94
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:126
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:154
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:127
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:155
 msgid "h3"
 msgstr ""
 
@@ -921,8 +935,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:100
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:72
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:95
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:127
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:155
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:128
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:156
 msgid "h4"
 msgstr ""
 
@@ -930,8 +944,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:101
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:73
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:96
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:128
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:156
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:129
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:157
 msgid "h5"
 msgstr ""
 
@@ -939,8 +953,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:102
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:74
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:97
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:129
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:157
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:130
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:158
 msgid "h6"
 msgstr ""
 
@@ -948,8 +962,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:80
 #: obfx_modules/companion-legacy/inc/shop-isle/customizer.php:179
 #: obfx_modules/companion-legacy/inc/shop-isle/customizer.php:315
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:139
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:140
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:141
 msgid "Subtitle"
 msgstr ""
 
@@ -965,8 +979,8 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:109
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:104
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:172
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:488
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:173
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:498
 msgid "Price Tag"
 msgstr ""
 
@@ -974,18 +988,18 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:108
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:592
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1146
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:180
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:181
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:552
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:182
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:562
 #: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:74
 msgid "Price"
 msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:122
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:117
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:191
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:192
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:518
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:193
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:528
 msgid "Currency"
 msgstr ""
 
@@ -996,29 +1010,29 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:134
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:129
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:204
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:364
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:205
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:374
 msgid "Before"
 msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:135
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:130
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:205
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:365
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:206
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:375
 msgid "After"
 msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:140
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:135
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:214
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:586
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:215
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:596
 msgid "Period"
 msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:141
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:136
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:215
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:216
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:217
 msgid "/month"
 msgstr ""
 
@@ -1032,11 +1046,11 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:150
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:562
 #: obfx_modules/companion-legacy/inc/hestia/inc/features/feature-features-section.php:115
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:242
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:246
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:250
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:268
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:161
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:254
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:279
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:283
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:287
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:132
 msgid "Feature"
 msgstr ""
 
@@ -1047,8 +1061,8 @@ msgstr ""
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:605
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:633
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1221
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:325
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:795
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:335
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:805
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:620
 msgid "Button"
 msgstr ""
@@ -1117,7 +1131,7 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/pricing-table/obfx-pricing-table.php:266
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:261
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:137
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:100
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:516
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:103
 msgid "Type"
@@ -1133,8 +1147,8 @@ msgstr ""
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1035
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1112
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1175
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:371
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:401
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:393
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:423
 msgid "Color"
 msgstr ""
 
@@ -1239,8 +1253,8 @@ msgstr ""
 #: obfx_modules/companion-legacy/inc/hestia/inc/features/feature-ribbon-section.php:102
 #: obfx_modules/companion-legacy/inc/zerif-lite/widgets/widget-focus.php:195
 #: obfx_modules/companion-legacy/inc/zerif-lite/widgets/widget-testimonial.php:220
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:265
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:333
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:250
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:343
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:51
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:415
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:450
@@ -1285,19 +1299,19 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/pricing-table/pricing-table.php:580
 #: obfx_modules/beaver-widgets/modules/services/obfx-services.php:244
 #: obfx_modules/beaver-widgets/modules/services/services.php:239
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:273
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:352
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:141
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:166
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:261
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:362
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:106
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:139
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/newsletter_admin.php:130
 msgid "Icon"
 msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/services/obfx-services.php:36
 #: obfx_modules/beaver-widgets/modules/services/services.php:31
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:42
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:91
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:98
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:43
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:92
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:189
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-template-library-server.php:171
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-template-library-server.php:180
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-template-library-server.php:189
@@ -1337,7 +1351,7 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/services/obfx-services.php:119
 #: obfx_modules/beaver-widgets/modules/services/services.php:114
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:287
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:309
 msgid "Size"
 msgstr ""
 
@@ -1355,8 +1369,8 @@ msgstr ""
 #: obfx_modules/beaver-widgets/modules/services/services.php:183
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:682
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:728
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:288
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:317
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:298
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:339
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:617
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/contact_admin.php:141
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:830
@@ -1367,7 +1381,7 @@ msgstr ""
 
 #: obfx_modules/beaver-widgets/modules/services/obfx-services.php:254
 #: obfx_modules/beaver-widgets/modules/services/services.php:249
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:197
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:179
 msgid "Link to"
 msgstr ""
 
@@ -1437,9 +1451,9 @@ msgstr ""
 
 #: obfx_modules/companion-legacy/inc/hestia/inc/features/feature-features-section.php:26
 #: obfx_modules/companion-legacy/inc/hestia/inc/features/feature-features-section.php:37
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:230
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:626
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:690
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:231
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:636
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:700
 msgid "Features"
 msgstr ""
 
@@ -1491,7 +1505,7 @@ msgstr ""
 #: obfx_modules/companion-legacy/inc/zerif-lite/widgets/widget-focus.php:207
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:399
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:454
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:343
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:353
 msgid "Link"
 msgstr ""
 
@@ -1835,8 +1849,8 @@ msgstr ""
 #: obfx_modules/companion-legacy/inc/zerif-lite/widgets/widget-testimonial.php:232
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:320
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:889
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:145
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:189
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:110
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:168
 msgid "Image"
 msgstr ""
 
@@ -1895,8 +1909,8 @@ msgid "Name"
 msgstr ""
 
 #: obfx_modules/companion-legacy/inc/zerif-lite/widgets/widget-team.php:311
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:141
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:392
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:142
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:414
 msgid "Description"
 msgstr ""
 
@@ -2073,18 +2087,11 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: obfx_modules/custom-fonts/init.php:32
-#. translators: %s is New tag
-msgid "Custom fonts %s"
+#: obfx_modules/custom-fonts/init.php:30
+msgid "Custom fonts"
 msgstr ""
 
-#: obfx_modules/custom-fonts/init.php:36
-#: obfx_modules/header-footer-scripts/init.php:36
-#. translators: %s is New tag text
-msgid "NEW"
-msgstr ""
-
-#: obfx_modules/custom-fonts/init.php:39
+#: obfx_modules/custom-fonts/init.php:31
 msgid "Upload custom fonts and use them anywhere on your site."
 msgstr ""
 
@@ -2096,81 +2103,98 @@ msgstr ""
 msgid "A module to integrate Google Analytics into your site easily."
 msgstr ""
 
-#: obfx_modules/google-analytics/init.php:246
+#: obfx_modules/google-analytics/init.php:259
 msgid "Authenticate with Google"
 msgstr ""
 
-#: obfx_modules/google-analytics/init.php:251
+#: obfx_modules/google-analytics/init.php:264
 msgid "Select a tracking code"
 msgstr ""
 
-#: obfx_modules/google-analytics/init.php:272
-msgid "Refresh Accounts"
-msgstr ""
-
-#: obfx_modules/google-analytics/init.php:288
+#: obfx_modules/google-analytics/init.php:291
 msgid "Unregister Site"
 msgstr ""
 
-#: obfx_modules/gutenberg-blocks/init.php:24
-msgid "Gutenberg Blocks <sup class=\"obfx-title-new\">NEW</sup>"
+#: obfx_modules/gutenberg-blocks/init.php:25
+msgid "Gutenberg Blocks"
 msgstr ""
 
-#: obfx_modules/gutenberg-blocks/init.php:28
+#: obfx_modules/gutenberg-blocks/init.php:30
 #. translators: %1$s Start anchor tag, %2$s End anchor tag
 msgid "A set of awesome Gutenberg Blocks provided by %1$sOtter's%2$s plugin!"
 msgstr ""
 
-#: obfx_modules/gutenberg-blocks/init.php:128
+#: obfx_modules/gutenberg-blocks/init.php:35
+#. translators: %s Otter plugin link
+msgid ""
+"This module will soon be removed form Orbit Fox. To keep the content you "
+"created with this module, please install %s"
+msgstr ""
+
+#: obfx_modules/gutenberg-blocks/init.php:145
 msgid "Blocks by OrbitFox and Otter"
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:32
-#. translators: %s is New tag
-msgid "Header Footer Scripts %s"
+#: obfx_modules/gutenberg-blocks/init.php:176
+msgid "It seems you are using the Gutenberg Blocks module from Orbit Fox."
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:40
+#: obfx_modules/gutenberg-blocks/init.php:181
+#. translators: %s Otter plugin link
+msgid ""
+"This module will soon be removed. In order to keep the content you created "
+"with this module, please install %s"
+msgstr ""
+
+#: obfx_modules/gutenberg-blocks/init.php:184
+msgid "Dismiss this notice."
+msgstr ""
+
+#: obfx_modules/header-footer-scripts/init.php:30
+msgid "Header Footer Scripts"
+msgstr ""
+
+#: obfx_modules/header-footer-scripts/init.php:32
 msgid ""
 "An easy way to add scripts, such as tracking and analytics scripts, to the "
 "header and footer of your website, as well as in the body of your posts and "
 "pages."
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:45
-#: obfx_modules/header-footer-scripts/init.php:139
+#: obfx_modules/header-footer-scripts/init.php:37
+#: obfx_modules/header-footer-scripts/init.php:131
 msgid "Header scripts"
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:48
+#: obfx_modules/header-footer-scripts/init.php:40
 #. translators: %s is head tag
 msgid "Output before the closing %s tag, after sitewide header scripts."
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:54
-#: obfx_modules/header-footer-scripts/init.php:169
+#: obfx_modules/header-footer-scripts/init.php:46
+#: obfx_modules/header-footer-scripts/init.php:161
 msgid "Footer scripts"
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:57
+#: obfx_modules/header-footer-scripts/init.php:49
 #. translators: %s is body tag
 msgid "Output before the closing %s tag, after sitewide footer scripts."
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:112
+#: obfx_modules/header-footer-scripts/init.php:104
 msgid "Header/Footer scripts"
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:124
-#: obfx_modules/header-footer-scripts/init.php:154
-#: obfx_modules/header-footer-scripts/init.php:310
-#: obfx_modules/header-footer-scripts/init.php:343
+#: obfx_modules/header-footer-scripts/init.php:116
+#: obfx_modules/header-footer-scripts/init.php:146
+#: obfx_modules/header-footer-scripts/init.php:302
+#: obfx_modules/header-footer-scripts/init.php:335
 #. translators: %s is placeholder value
 msgid "Enter your scripts here"
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:142
-#: obfx_modules/header-footer-scripts/init.php:172
+#: obfx_modules/header-footer-scripts/init.php:134
+#: obfx_modules/header-footer-scripts/init.php:164
 #. translators: %s is head tag
 #. translators: %s is body tag
 msgid ""
@@ -2178,7 +2202,7 @@ msgid ""
 "source."
 msgstr ""
 
-#: obfx_modules/header-footer-scripts/init.php:189
+#: obfx_modules/header-footer-scripts/init.php:181
 msgid "Scripts"
 msgstr ""
 
@@ -2366,24 +2390,6 @@ msgstr ""
 msgid "Orbit Fox Template Directory"
 msgstr ""
 
-#: obfx_modules/uptime-monitor/init.php:31
-msgid "Uptime Monitor"
-msgstr ""
-
-#: obfx_modules/uptime-monitor/init.php:32
-msgid "A module to notify when you website goes down."
-msgstr ""
-
-#: obfx_modules/uptime-monitor/init.php:33
-msgid "One more step..."
-msgstr ""
-
-#: obfx_modules/uptime-monitor/init.php:33
-msgid ""
-"In order to use the uptime service, we will need your e-mail address, where "
-"we will send downtime alerts."
-msgstr ""
-
 #: vendor/codeinwp/elementor-extra-widgets/class-elementor-extra-widgets.php:57
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_manager.php:45
 msgid "Orbit Fox Addons"
@@ -2397,16 +2403,12 @@ msgstr ""
 #: vendor/codeinwp/full-width-page-templates/builders/class-none-full-width-templates.php:91
 #: vendor/codeinwp/full-width-page-templates/class-full-width-templates.php:197
 #: vendor/codeinwp/full-width-page-templates/class-full-width-templates.php:209
-#: vendor/codeinwp/gutenberg-blocks/inc/class-base-css.php:355
-#: vendor/codeinwp/gutenberg-blocks/inc/class-base-css.php:367
-#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:835
-#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:847
 #: vendor/codeinwp/gutenberg-blocks/inc/css/class-block-frontend.php:472
 #: vendor/codeinwp/gutenberg-blocks/inc/css/class-block-frontend.php:484
 #: vendor/codeinwp/gutenberg-blocks/inc/css/class-css-handler.php:346
 #: vendor/codeinwp/gutenberg-blocks/inc/css/class-css-handler.php:358
-#: vendor/codeinwp/gutenberg-blocks/inc/plugins/class-options-settings.php:133
-#: vendor/codeinwp/gutenberg-blocks/inc/plugins/class-options-settings.php:145
+#: vendor/codeinwp/gutenberg-blocks/inc/plugins/class-options-settings.php:144
+#: vendor/codeinwp/gutenberg-blocks/inc/plugins/class-options-settings.php:156
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-plugin-card-server.php:243
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-plugin-card-server.php:255
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-template-library-server.php:735
@@ -2438,7 +2440,7 @@ msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:244
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:826
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:495
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:517
 msgid "Items"
 msgstr ""
 
@@ -2447,7 +2449,7 @@ msgid "How many items?"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:255
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:236
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:258
 msgid "Columns"
 msgstr ""
 
@@ -2531,24 +2533,24 @@ msgid "Button alignment"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:662
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:304
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:314
 msgid "Justified"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:773
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:442
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:464
 msgid "Columns margin"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:795
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:464
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:486
 msgid "Rows margin"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:849
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:901
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:822
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:518
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:832
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:540
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:492
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:600
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:684
@@ -2572,8 +2574,8 @@ msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1264
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1331
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:886
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:935
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:896
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:945
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:160
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:197
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:301
@@ -2588,8 +2590,8 @@ msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1282
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1352
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:901
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:950
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:911
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:960
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:208
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:427
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:535
@@ -2601,8 +2603,8 @@ msgid "Background Color"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/posts-grid.php:1318
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:927
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:566
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:937
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:588
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:710
 msgid "Hover"
 msgstr ""
@@ -2657,193 +2659,193 @@ msgstr ""
 msgid "Upgrade Here!"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:34
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:35
 msgid "Pricing Table"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:103
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:104
 msgid "Plan Title"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:113
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:114
 msgid "Pricing Plan"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:121
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:122
 msgid "Title HTML tag"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:149
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:150
 msgid "Subtitle HTML Tag"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:193
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:194
 msgid "$"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:201
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:202
 msgid "Currency Position"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:237
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:267
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:160
-msgid "Plan Features"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:241
-msgid "First"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:245
-msgid "Second"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:249
-msgid "Third"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:257
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:239
 msgid "Accented Text"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:258
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:242
 msgid "Appears before feature text"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:260
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:243
 msgid "Accent"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:334
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:335
-msgid "Buy Now"
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:253
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:274
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:131
+msgid "Plan Features"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:278
+msgid "First"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:282
+msgid "Second"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:286
+msgid "Third"
 msgstr ""
 
 #: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:344
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:199
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:345
+msgid "Buy Now"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:354
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:182
 msgid "https://example.com"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:361
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:209
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:371
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:231
 msgid "Icon Position"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:377
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:770
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:387
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:780
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/newsletter_admin.php:159
 msgid "Icon Spacing"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:402
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:412
 #: vendor/codeinwp/gutenberg-blocks/inc/server/class-template-library-server.php:153
 msgid "Header"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:410
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:420
 msgid "Header Padding"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:423
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:433
 msgid "Title Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:448
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:458
 msgid "Subtitle Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:473
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:509
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:635
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:803
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:483
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:519
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:645
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:813
 msgid "Section Background"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:497
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:507
 msgid "Price Box Padding"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:527
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:537
 msgid "Currency Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:561
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:571
 msgid "Price Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:595
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:605
 msgid "Period Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:645
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:655
 msgid "Features List Padding"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:656
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:666
 msgid "Accented"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:666
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:676
 msgid "Accented Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:699
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:709
 msgid "Features Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:724
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:734
 msgid "Icons"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:733
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:180
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:743
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:155
 msgid "Icon Color"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:750
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:847
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:760
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:857
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/newsletter_admin.php:139
 msgid "Icon Size"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:974
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:590
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/pricing-table.php:984
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:612
 msgid "Transition Duration"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:102
-msgid "Award-Winning​"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:103
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:113
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:123
-msgid "Add some text here to describe your services to the page visitors.​"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:112
-msgid "Professional​"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:122
-msgid "Consulting​"
-msgstr ""
-
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:154
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:120
 msgid "Title & Description"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:155
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:123
 msgid "Service Title"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:259
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:193
+msgid "Award-Winning​"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:194
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:204
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:214
+msgid "Add some text here to describe your services to the page visitors.​"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:203
+msgid "Professional​"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:213
+msgid "Consulting​"
+msgstr ""
+
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:281
 msgid "Icon / Image"
 msgstr ""
 
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:266
-#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:354
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:288
+#: vendor/codeinwp/elementor-extra-widgets/widgets/elementor/services.php:376
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/beaver/beaver_widget_base.php:111
 #: vendor/codeinwp/themeisle-content-forms/includes/widgets-admin/elementor/elementor_widget_base.php:276
 msgid "Spacing"
@@ -3003,12 +3005,12 @@ msgstr ""
 msgid "Page Builder - Full Width"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:93
+#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:100
 msgid "A set of awesome Gutenberg Blocks!"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:706
-#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:723
+#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:732
+#: vendor/codeinwp/gutenberg-blocks/inc/class-main.php:749
 msgid "Skill"
 msgstr ""
 
@@ -3068,11 +3070,11 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-posts-grid-block.php:216
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-posts-grid-block.php:224
 msgid "on"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-posts-grid-block.php:225
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-posts-grid-block.php:233
 msgid "by"
 msgstr ""
 
@@ -3112,24 +3114,24 @@ msgstr ""
 msgid "Buy on Amazon"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:103
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:104
 msgid "Buy on eBay"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:148
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:150
 #. translators: Overall rating from 0 to 10.
 msgid "%s out of 10"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:199
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:201
 msgid "Pros"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:212
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:214
 msgid "Cons"
 msgstr ""
 
-#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:226
+#: vendor/codeinwp/gutenberg-blocks/inc/render/class-review-block.php:228
 msgid "Buy this product"
 msgstr ""
 

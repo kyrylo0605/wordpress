@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1787,6 +1787,119 @@ exports.default = Component;
 
 /***/ }),
 
+/***/ "../assets/dev/js/editor/data/widgets-config/commands/data/index.js":
+/*!**************************************************************************!*\
+  !*** ../assets/dev/js/editor/data/widgets-config/commands/data/index.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.Index = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _commandData = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/command-data */ "../core/common/assets/js/api/modules/command-data.js"));
+
+var Index = /*#__PURE__*/function (_CommandData) {
+  (0, _inherits2.default)(Index, _CommandData);
+
+  var _super = (0, _createSuper2.default)(Index);
+
+  function Index() {
+    (0, _classCallCheck2.default)(this, Index);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(Index, null, [{
+    key: "getEndpointFormat",
+    value: function getEndpointFormat() {
+      return 'widgets-config/{id}';
+    }
+  }]);
+  return Index;
+}(_commandData.default);
+
+exports.Index = Index;
+
+/***/ }),
+
+/***/ "../assets/dev/js/editor/data/widgets-config/component.js":
+/*!****************************************************************!*\
+  !*** ../assets/dev/js/editor/data/widgets-config/component.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _componentBase = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/component-base */ "../core/common/assets/js/api/modules/component-base.js"));
+
+var commandsData = _interopRequireWildcard(__webpack_require__(/*! ./commands/data/ */ "../assets/dev/js/editor/data/widgets-config/commands/data/index.js"));
+
+var Component = /*#__PURE__*/function (_ComponentBase) {
+  (0, _inherits2.default)(Component, _ComponentBase);
+
+  var _super = (0, _createSuper2.default)(Component);
+
+  function Component() {
+    (0, _classCallCheck2.default)(this, Component);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(Component, [{
+    key: "getNamespace",
+    value: function getNamespace() {
+      return 'widgets-config';
+    }
+  }, {
+    key: "defaultData",
+    value: function defaultData() {
+      return this.importCommands(commandsData);
+    }
+  }]);
+  return Component;
+}(_componentBase.default);
+
+exports.default = Component;
+
+/***/ }),
+
 /***/ "../assets/dev/js/editor/document/backwards-compatibility.js":
 /*!*******************************************************************!*\
   !*** ../assets/dev/js/editor/document/backwards-compatibility.js ***!
@@ -2197,18 +2310,23 @@ var CommandHistory = /*#__PURE__*/function (_CommandBase) {
 
     (0, _classCallCheck2.default)(this, CommandHistory);
     _this = _super.call(this, args);
-    /**
-     * Get History from child command.
-     *
-     * @type {{}|boolean}
-     */
+    var _args$useHistory = args.useHistory,
+        useHistory = _args$useHistory === void 0 ? true : _args$useHistory;
 
-    _this.history = _this.getHistory(args);
-    /**
-     * @type {number|boolean}
-     */
+    if (useHistory) {
+      /**
+       * Get History from child command.
+       *
+       * @type {{}|boolean}
+       */
+      _this.history = _this.getHistory(args);
+      /**
+       * @type {number|boolean}
+       */
 
-    _this.historyId = false;
+      _this.historyId = false;
+    }
+
     return _this;
   }
   /**
@@ -2240,14 +2358,14 @@ var CommandHistory = /*#__PURE__*/function (_CommandBase) {
   }, {
     key: "isHistoryActive",
     value: function isHistoryActive() {
-      return elementor.documents.getCurrent().history.getActive();
+      return this.history && elementor.documents.getCurrent().history.getActive();
     }
   }, {
     key: "onBeforeRun",
     value: function onBeforeRun(args) {
       (0, _get2.default)((0, _getPrototypeOf2.default)(CommandHistory.prototype), "onBeforeRun", this).call(this, args);
 
-      if (this.history && this.isHistoryActive()) {
+      if (this.isHistoryActive()) {
         this.historyId = $e.internal('document/history/start-log', this.history);
       }
     }
@@ -2256,7 +2374,7 @@ var CommandHistory = /*#__PURE__*/function (_CommandBase) {
     value: function onAfterRun(args, result) {
       (0, _get2.default)((0, _getPrototypeOf2.default)(CommandHistory.prototype), "onAfterRun", this).call(this, args, result);
 
-      if (this.history && this.isHistoryActive()) {
+      if (this.isHistoryActive()) {
         $e.internal('document/history/end-log', {
           id: this.historyId
         });
@@ -2905,7 +3023,102 @@ _Object$defineProperty(exports, "SetSettings", {
   }
 });
 
+_Object$defineProperty(exports, "Recreate", {
+  enumerable: true,
+  get: function get() {
+    return _recreate.Recreate;
+  }
+});
+
 var _setSettings = __webpack_require__(/*! ./set-settings */ "../assets/dev/js/editor/document/elements/commands-internal/set-settings.js");
+
+var _recreate = __webpack_require__(/*! ./recreate */ "../assets/dev/js/editor/document/elements/commands-internal/recreate.js");
+
+/***/ }),
+
+/***/ "../assets/dev/js/editor/document/elements/commands-internal/recreate.js":
+/*!*******************************************************************************!*\
+  !*** ../assets/dev/js/editor/document/elements/commands-internal/recreate.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = exports.Recreate = void 0;
+
+var _entries = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/entries */ "../node_modules/@babel/runtime-corejs2/core-js/object/entries.js"));
+
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _commandInternalBase = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/command-internal-base */ "../core/common/assets/js/api/modules/command-internal-base.js"));
+
+var Recreate = /*#__PURE__*/function (_CommandInternal) {
+  (0, _inherits2.default)(Recreate, _CommandInternal);
+
+  var _super = (0, _createSuper2.default)(Recreate);
+
+  function Recreate() {
+    (0, _classCallCheck2.default)(this, Recreate);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(Recreate, [{
+    key: "validateArgs",
+    value: function validateArgs() {
+      var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.requireArgumentType('models', 'object', args);
+    }
+  }, {
+    key: "apply",
+    value: function apply(_ref) {
+      var models = _ref.models;
+      (0, _entries.default)(models).forEach(function (_ref2) {
+        var _ref3 = (0, _slicedToArray2.default)(_ref2, 2),
+            id = _ref3[0],
+            model = _ref3[1];
+
+        var container = elementor.getContainer(id),
+            parent = container.parent,
+            location = parent.children.indexOf(container);
+        $e.run('document/elements/delete', {
+          useHistory: false,
+          container: container
+        });
+        $e.run('document/elements/create', {
+          useHistory: false,
+          container: parent,
+          model: model,
+          options: {
+            at: location,
+            edit: false
+          }
+        });
+      });
+    }
+  }]);
+  return Recreate;
+}(_commandInternalBase.default);
+
+exports.Recreate = Recreate;
+var _default = Recreate;
+exports.default = _default;
 
 /***/ }),
 
@@ -4011,13 +4224,18 @@ var PasteStyle = /*#__PURE__*/function (_CommandHistory) {
   }, {
     key: "apply",
     value: function apply(args) {
-      var _this = this;
-
       var _args$containers2 = args.containers,
           containers = _args$containers2 === void 0 ? [args.container] : _args$containers2,
           _args$storageKey2 = args.storageKey,
           storageKey = _args$storageKey2 === void 0 ? 'clipboard' : _args$storageKey2,
           storageData = elementorCommon.storage.get(storageKey);
+      this.applyPasteStyleData(containers, storageData);
+    }
+  }, {
+    key: "applyPasteStyleData",
+    value: function applyPasteStyleData(containers, data) {
+      var _this = this;
+
       containers.forEach(function (targetContainer) {
         var targetSettings = targetContainer.settings,
             targetSettingsAttributes = targetSettings.attributes,
@@ -4040,7 +4258,7 @@ var PasteStyle = /*#__PURE__*/function (_CommandHistory) {
           }
         };
 
-        storageData.forEach(function (sourceModel) {
+        data.forEach(function (sourceModel) {
           var sourceSettings = sourceModel.settings;
           addExtraControls(sourceSettings, '__globals__');
           addExtraControls(sourceSettings, '__dynamic__');
@@ -4199,8 +4417,6 @@ var Paste = /*#__PURE__*/function (_CommandHistory) {
   }, {
     key: "apply",
     value: function apply(args) {
-      var _this = this;
-
       var at = args.at,
           _args$rebuild = args.rebuild,
           rebuild = _args$rebuild === void 0 ? false : _args$rebuild,
@@ -4210,90 +4426,11 @@ var Paste = /*#__PURE__*/function (_CommandHistory) {
           containers = _args$containers === void 0 ? [args.container] : _args$containers,
           _args$options = args.options,
           options = _args$options === void 0 ? {} : _args$options,
-          storageData = elementorCommon.storage.get(storageKey),
-          result = []; // Paste on "Add Section" area.
+          storageData = elementorCommon.storage.get(storageKey);
+      var result = []; // Paste on "Add Section" area.
 
       if (rebuild) {
-        // Paste at each target.
-        containers.forEach(function (targetContainer) {
-          var index = 'undefined' === typeof at ? targetContainer.view.collection.length : at;
-          storageData.forEach(function (model) {
-            switch (model.elType) {
-              case 'section':
-                {
-                  // If is inner create section for `inner-section`.
-                  if (model.isInner) {
-                    var section = $e.run('document/elements/create', {
-                      container: targetContainer,
-                      model: {
-                        elType: 'section'
-                      },
-                      columns: 1,
-                      options: {
-                        at: index,
-                        edit: false
-                      }
-                    }); // `targetContainer` = first column at `section`.
-
-                    targetContainer = section.view.children.findByIndex(0).getContainer();
-                  } // Will be not affected by hook since it always have `model.elements`.
-
-
-                  result.push(_this.pasteTo([targetContainer], [model], {
-                    at: index,
-                    edit: false
-                  }));
-                  index++;
-                }
-                break;
-
-              case 'column':
-                {
-                  // Next code changed from original since `_checkIsEmpty()` was removed.
-                  var _section = $e.run('document/elements/create', {
-                    container: targetContainer,
-                    model: {
-                      elType: 'section'
-                    },
-                    columns: 0,
-                    // section with no columns.
-                    options: {
-                      at: index,
-                      edit: false
-                    }
-                  });
-
-                  result.push(_this.pasteTo([_section], [model]));
-                }
-                break;
-
-              default:
-                // In case it widget:
-                var target; // If you trying to paste widget on section, then paste should be at the first column.
-
-                if ('section' === targetContainer.model.get('elType')) {
-                  target = [targetContainer.view.children.findByIndex(0).getContainer()];
-                } else {
-                  // Else, create section with one column for element.
-                  var _section2 = $e.run('document/elements/create', {
-                    container: targetContainer,
-                    model: {
-                      elType: 'section'
-                    },
-                    columns: 1,
-                    options: {
-                      at: index
-                    }
-                  }); // Create the element in the column that just was created.
-
-
-                  target = [_section2.view.children.first().getContainer()];
-                }
-
-                result.push(_this.pasteTo(target, [model]));
-            }
-          });
-        });
+        result = this.rebuild(containers, storageData, at);
       } else {
         if (undefined !== at) {
           options.at = at;
@@ -4306,6 +4443,94 @@ var Paste = /*#__PURE__*/function (_CommandHistory) {
         return result[0];
       }
 
+      return result;
+    }
+  }, {
+    key: "rebuild",
+    value: function rebuild(containers, data, at) {
+      var _this = this;
+
+      // Paste at each target.
+      var result = [];
+      containers.forEach(function (targetContainer) {
+        var index = 'undefined' === typeof at ? targetContainer.view.collection.length : at;
+        data.forEach(function (model) {
+          switch (model.elType) {
+            case 'section':
+              {
+                // If is inner create section for `inner-section`.
+                if (model.isInner) {
+                  var section = $e.run('document/elements/create', {
+                    container: targetContainer,
+                    model: {
+                      elType: 'section'
+                    },
+                    columns: 1,
+                    options: {
+                      at: index,
+                      edit: false
+                    }
+                  }); // `targetContainer` = first column at `section`.
+
+                  targetContainer = section.view.children.findByIndex(0).getContainer();
+                } // Will be not affected by hook since it always have `model.elements`.
+
+
+                result.push(_this.pasteTo([targetContainer], [model], {
+                  at: index,
+                  edit: false
+                }));
+                index++;
+              }
+              break;
+
+            case 'column':
+              {
+                // Next code changed from original since `_checkIsEmpty()` was removed.
+                var _section = $e.run('document/elements/create', {
+                  container: targetContainer,
+                  model: {
+                    elType: 'section'
+                  },
+                  columns: 0,
+                  // section with no columns.
+                  options: {
+                    at: index,
+                    edit: false
+                  }
+                });
+
+                result.push(_this.pasteTo([_section], [model]));
+              }
+              break;
+
+            default:
+              // In case it widget:
+              var target; // If you trying to paste widget on section, then paste should be at the first column.
+
+              if ('section' === targetContainer.model.get('elType')) {
+                target = [targetContainer.view.children.findByIndex(0).getContainer()];
+              } else {
+                // Else, create section with one column for element.
+                var _section2 = $e.run('document/elements/create', {
+                  container: targetContainer,
+                  model: {
+                    elType: 'section'
+                  },
+                  columns: 1,
+                  options: {
+                    at: index
+                  }
+                }); // Create the element in the column that just was created.
+
+
+                target = [_section2.view.children.first().getContainer()];
+              }
+
+              result.push(_this.pasteTo(target, [model]));
+          }
+        });
+      });
       return result;
     }
   }, {
@@ -12461,7 +12686,6 @@ BaseElementView = BaseContainer.extend({
         settings: settingsModel,
         view: this,
         parent: this._parent ? this._parent.getContainer() : {},
-        children: [],
         label: elementor.helpers.getModelLabel(this.model),
         controls: settingsModel.options.controls
       });
@@ -16394,6 +16618,7 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       this.shortcuts = this.defaultShortcuts();
       this.utils = this.defaultUtils();
       this.data = this.defaultData();
+      this.uiStates = this.defaultUiStates();
       this.defaultRoute = '';
       this.currentTab = '';
     }
@@ -16436,6 +16661,9 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
 
         return _this.registerData(command, callback);
       });
+      (0, _values.default)(this.getUiStates()).forEach(function (instance) {
+        return _this.registerUiState(instance);
+      });
     }
     /**
      * @returns {string}
@@ -16477,6 +16705,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     value: function defaultHooks() {
       return {};
     }
+    /**
+     * Get the component's default UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "defaultUiStates",
+    value: function defaultUiStates() {
+      return {};
+    }
   }, {
     key: "defaultShortcuts",
     value: function defaultShortcuts() {
@@ -16506,6 +16745,17 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "getHooks",
     value: function getHooks() {
       return this.hooks;
+    }
+    /**
+     * Retrieve the component's UI states.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getUiStates",
+    value: function getUiStates() {
+      return this.uiStates;
     }
   }, {
     key: "getRoutes",
@@ -16540,6 +16790,19 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
     key: "registerHook",
     value: function registerHook(instance) {
       return instance.register();
+    }
+    /**
+     * Register a UI state.
+     *
+     * @param {UiStateBase} instance - UI state instance.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "registerUiState",
+    value: function registerUiState(instance) {
+      $e.uiStates.register(instance);
     }
   }, {
     key: "registerCommandInternal",
@@ -16748,6 +17011,42 @@ var ComponentBase = /*#__PURE__*/function (_elementorModules$Mod) {
       }
 
       return hooks;
+    }
+    /**
+     * Import & initialize the component's UI states.
+     * Should be used inside `defaultUiState()`.
+     *
+     * @param {Object} statesFromImport - UI states from import.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "importUiStates",
+    value: function importUiStates(statesFromImport) {
+      var _this6 = this;
+
+      var uiStates = {};
+      (0, _values.default)(statesFromImport).forEach(function (className) {
+        var uiState = new className(_this6);
+        uiStates[uiState.getId()] = uiState;
+      });
+      return uiStates;
+    }
+    /**
+     * Set a UI state value.
+     * TODO: Should we provide such function? Maybe the developer should implicitly pass the full state ID?
+     *
+     * @param state - Non-prefixed state ID.
+     * @param value - New state value.
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: "setUiState",
+    value: function setUiState(state, value) {
+      $e.uiStates.set("".concat(this.getNamespace(), "/").concat(state), value);
     }
   }, {
     key: "toggleRouteClass",
@@ -24948,9 +25247,12 @@ var _component = _interopRequireDefault(__webpack_require__(/*! ./document/compo
 
 var _component2 = _interopRequireDefault(__webpack_require__(/*! ./data/globals/component */ "../assets/dev/js/editor/data/globals/component.js"));
 
+var _component3 = _interopRequireDefault(__webpack_require__(/*! ./data/widgets-config/component */ "../assets/dev/js/editor/data/widgets-config/component.js"));
+
 elementorCommon.elements.$window.on('elementor:init-components', function () {
   // TODO: Move to elementor:init-data-components
   $e.components.register(new _component2.default());
+  $e.components.register(new _component3.default());
   $e.components.register(new _component.default()); // TODO: Remove, BC Since 2.9.0.
 
   elementor.saver = $e.components.get('document/save');

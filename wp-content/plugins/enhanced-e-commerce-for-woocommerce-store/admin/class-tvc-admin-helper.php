@@ -16,6 +16,9 @@ Class TVC_Admin_Helper{
 	protected $setting_status = "";
 	protected $ee_additional_data = "";
 	protected $TVC_Admin_DB_Helper;
+	protected $store_data;
+	protected $api_subscription_data;
+	protected $onboarding_page_url;
 	public function __construct() {
     $this->includes();
     $this->customApiObj = new CustomApi();
@@ -378,13 +381,40 @@ Class TVC_Admin_Helper{
 			return $this->connect_actual_link;
 		}
 	}
-
+	
+  /**
+   * Wordpress store information
+   */
+	public function get_store_data(){
+		if(!empty($this->store_data)){
+			return $this->store_data;
+		}else{
+			return $this->store_data = array(
+				"subscription_id"=>$this->get_subscriptionId(),
+				"user_domain" => $this->get_connect_actual_link(),
+				"currency_code" => $this->get_woo_currency(),
+				"timezone_string" => $this->get_time_zone(),
+				"user_country" => $this->get_woo_country(),
+				"app_id" => 1,
+				"time"=> date("d-M-Y h:i:s A")
+			);
+		}
+	}
 	public function get_connect_url(){
 		if(!empty($this->connect_url)){
 			return $this->connect_url;
 		}else{
 			$this->connect_url = "https://".TVC_AUTH_CONNECT_URL."/config/ga_rdr_gmc.php?return_url=".TVC_AUTH_CONNECT_URL."/config/ads-analytics-form.php?domain=" . $this->get_connect_actual_link() . "&amp;country=" . $this->get_woo_country(). "&amp;user_currency=".$this->get_woo_currency()."&amp;subscription_id=" . $this->get_subscriptionId() . "&amp;confirm_url=" . admin_url() . "&amp;timezone=".$this->get_time_zone();
 			return $this->connect_url;
+		}
+	}
+
+	public function get_onboarding_page_url(){
+		if(!empty($this->onboarding_page_url)){
+			return $this->onboarding_page_url;
+		}else{
+			$this->onboarding_page_url = admin_url()."?page=conversios_onboarding";
+			return $this->onboarding_page_url;
 		}
 	}
 
@@ -534,10 +564,10 @@ Class TVC_Admin_Helper{
                 $setting_status['google_analytic_msg']= "";
             }else if($googleDetail->property_id == "" ){
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
             }else if($googleDetail->measurement_id == "" ){
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
             }
         }else if(isset($googleDetail->tracking_option) && isset($googleDetail->measurement_id) && $googleDetail->tracking_option == "GA4"){
             if( $googleDetail->measurement_id != ""){
@@ -545,7 +575,7 @@ Class TVC_Admin_Helper{
                 $setting_status['google_analytic_msg']= "";
             }else{
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
             }
         }else if(isset($googleDetail->tracking_option) && isset($googleDetail->property_id) && $googleDetail->tracking_option == "UA" ){
             if($googleDetail->property_id != ""){
@@ -553,7 +583,7 @@ Class TVC_Admin_Helper{
                 $setting_status['google_analytic_msg']= "";
             }else{
                 $setting_status['google_analytic']= false;
-                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+                $setting_status['google_analytic_msg']= "There is a configuration issue in your Google Analytics account set up <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
             }
         }else{
             $setting_status['google_analytic']= false;
@@ -567,10 +597,10 @@ Class TVC_Admin_Helper{
               $setting_status['google_shopping_msg']= "";
           }else if($googleDetail->google_merchant_center_id == ""){
               $setting_status['google_shopping']= false;
-              $setting_status['google_shopping_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+              $setting_status['google_shopping_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
           }else if($googleDetail->google_ads_id == ""){
               $setting_status['google_shopping']= false;
-              $setting_status['google_shopping_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+              $setting_status['google_shopping_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
           }
         }else{
             $setting_status['google_shopping']= false;
@@ -584,10 +614,10 @@ Class TVC_Admin_Helper{
             $setting_status['google_ads_msg']= "";
           }else if($googleDetail->google_merchant_center_id == ""){
             $setting_status['google_ads']= false;
-            $setting_status['google_ads_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+            $setting_status['google_ads_msg']= "Link your Google Ads with Merchant center to start running shopping campaigns <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
           }else if($googleDetail->google_ads_id == ""){
             $setting_status['google_ads']= false;
-            $setting_status['google_ads_msg']= "Configure Google Ads account to reach to millions of interested shoppers <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+            $setting_status['google_ads_msg']= "Configure Google Ads account to reach to millions of interested shoppers <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
           }              
         }else{
           $setting_status['google_ads']= false;
@@ -610,7 +640,7 @@ Class TVC_Admin_Helper{
             $setting_status['google_shopping_conf_msg']= "Google Shopping Configuration Success.";
         }else if($googleDetail->google_merchant_center_id == "" || $googleDetail->google_ads_id == "" ){
             $setting_status['google_shopping_conf']= false;
-            $setting_status['google_shopping_conf_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+            $setting_status['google_shopping_conf_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
         }else if($googleDetail->is_site_verified ==0 && $googleDetail->is_domain_claim ==0 ){
             $setting_status['google_shopping_conf']= false;
             $setting_status['google_shopping_conf_msg']= "Site verification and domain claim for your merchant center account failed.";
@@ -649,7 +679,7 @@ Class TVC_Admin_Helper{
         }                
       }else{
           $setting_status['google_shopping_p_sync']= false;
-          $setting_status['google_shopping_p_sync_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+          $setting_status['google_shopping_p_sync_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
       } 
 
       //sub tab product Campaigns
@@ -669,7 +699,7 @@ Class TVC_Admin_Helper{
           }                
       }else{
           $setting_status['google_shopping_p_campaigns']= false;
-          $setting_status['google_shopping_p_campaigns_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a target='_blank' href='".esc_url($this->get_connect_url())."'>click here</a>.";
+          $setting_status['google_shopping_p_campaigns_msg']= "Connect your merchant center account and make your products available to shoppers across Google <a href='".esc_url($this->get_onboarding_page_url())."'>click here</a>.";
       }          
     }                  
     return $setting_status;        

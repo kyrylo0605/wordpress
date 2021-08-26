@@ -16,6 +16,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Core\Schemes\Color;
 use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
+use Elementor\Repeater;
 
 /**
  * Class Services
@@ -75,7 +76,7 @@ class Services extends Widget_Base {
 	/**
 	 * Register Elementor Controls
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->services_content();
 		$this->style_icon();
 		$this->style_grid_options();
@@ -91,6 +92,96 @@ class Services extends Widget_Base {
 				'label' => __( 'Services', 'themeisle-companion' ),
 			]
 		);
+
+		$repeater = new Repeater();
+		$repeater->add_control(
+            'type',
+            [
+                'label'   => __( 'Type', 'themeisle-companion' ),
+                'type'    => Controls_Manager::CHOOSE,
+                'label_block' => true,
+                'default' => 'icon',
+                'options'   => [
+                    'icon'   => [
+                        'title' => __( 'Icon', 'themeisle-companion' ),
+                        'icon'  => 'fa fa-diamond',
+                    ],
+                    'image' => [
+                        'title' => __( 'Image', 'themeisle-companion' ),
+                        'icon'  => 'fa fa-photo',
+                    ],
+                ],
+            ]
+        );
+
+		$repeater->add_control(
+            'title',
+            [
+                'label'   => __( 'Title & Description', 'themeisle-companion' ),
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( 'Service Title', 'themeisle-companion' ),
+            ]
+        );
+
+		$repeater->add_control(
+            'text',
+            [
+	            'type'        => Controls_Manager::TEXTAREA,
+	            'placeholder' => __( 'Plan Features', 'themeisle-companion' ),
+	            'default'     => __( 'Feature', 'themeisle-companion' ),
+            ]
+        );
+
+		$repeater->add_control(
+            'icon_new',
+            [
+	            'label'       => __( 'Icon', 'themeisle-companion' ),
+	            'type' => Controls_Manager::ICONS,
+                'default' => [
+	                'value' => 'fas fa-gem',
+	                'library' => 'solid',
+                ],
+	            'fa4compatibility' => 'icon',
+	            'condition' => [
+		            'type' => 'icon',
+	            ],
+            ]
+        );
+
+		$repeater->add_control(
+            'color',
+            [
+	            'label'       => __( 'Icon Color', 'themeisle-companion' ),
+	            'type'        => Controls_Manager::COLOR,
+	            'label_block' => false,
+	            'default'     => '#333333',
+	            'condition' => [
+		            'type' => 'icon',
+	            ],
+            ]
+        );
+
+		$repeater->add_control(
+            'image',
+            [
+	            'label'   => __( 'Image', 'themeisle-companion' ),
+	            'type'    => Controls_Manager::MEDIA,
+	            'condition' => [
+		            'type' => 'image',
+	            ],
+            ]
+        );
+
+		$repeater->add_control(
+            'link',
+            [
+	            'label'       => __( 'Link to', 'themeisle-companion' ),
+	            'type'        => Controls_Manager::URL,
+	            'separator' => 'before',
+	            'placeholder' => __( 'https://example.com', 'themeisle-companion' ),
+            ]
+        );
 
 		$this->add_control(
 			'services_list',
@@ -129,76 +220,7 @@ class Services extends Widget_Base {
 						'type' => 'icon',
 					],
 				],
-				'fields'      => [
-					[
-						'type'    => Controls_Manager::CHOOSE,
-						'name'    => 'type',
-						'label_block' => true,
-						'label'   => __( 'Type', 'themeisle-companion' ),
-						'default' => 'icon',
-						'options'   => [
-							'icon'   => [
-								'title' => __( 'Icon', 'themeisle-companion' ),
-								'icon'  => 'fa fa-diamond',
-							],
-							'image' => [
-								'title' => __( 'Image', 'themeisle-companion' ),
-								'icon'  => 'fa fa-photo',
-							],
-						],
-					],
-					[
-						'type'    => Controls_Manager::TEXT,
-						'name'    => 'title',
-						'label_block' => true,
-						'label'   => __( 'Title & Description', 'themeisle-companion' ),
-						'default' => __( 'Service Title', 'themeisle-companion' ),
-					],
-					[
-						'type'        => Controls_Manager::TEXTAREA,
-						'name'        => 'text',
-						'placeholder' => __( 'Plan Features', 'themeisle-companion' ),
-						'default'     => __( 'Feature', 'themeisle-companion' ),
-					],
-					[
-						'type' => Controls_Manager::ICONS,
-						'name'        => 'icon_new',
-						'label'       => __( 'Icon', 'themeisle-companion' ),
-						'default' => [
-							'value' => 'fas fa-gem',
-							'library' => 'solid',
-						],
-						'fa4compatibility' => 'icon',
-						'condition' => [
-							'type' => 'icon',
-						],
-					],
-					[
-						'type'        => Controls_Manager::COLOR,
-						'name'        => 'color',
-						'label_block' => false,
-						'label'       => __( 'Icon Color', 'themeisle-companion' ),
-						'default'     => '#333333',
-						'condition' => [
-							'type' => 'icon',
-						],
-					],
-					[
-						'type'    => Controls_Manager::MEDIA,
-						'name'    => 'image',
-						'label'   => __( 'Image', 'themeisle-companion' ),
-						'condition' => [
-							'type' => 'image',
-						],
-					],
-					[
-						'type'        => Controls_Manager::URL,
-						'name'        => 'link',
-						'label'       => __( 'Link to', 'themeisle-companion' ),
-						'separator' => 'before',
-						'placeholder' => __( 'https://example.com', 'themeisle-companion' ),
-					],
-				],
+				'fields'      => $repeater->get_controls(),
 				'title_field' => '{{title}}',
 			]
 		);

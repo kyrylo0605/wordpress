@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["frontend"],{
 
 /***/ "../assets/dev/js/frontend/documents-manager.js":
@@ -273,6 +273,8 @@ var _youtubeLoader = _interopRequireDefault(__webpack_require__(/*! ./utils/vide
 
 var _vimeoLoader = _interopRequireDefault(__webpack_require__(/*! ./utils/video-api/vimeo-loader */ "../assets/dev/js/frontend/utils/video-api/vimeo-loader.js"));
 
+var _baseLoader = _interopRequireDefault(__webpack_require__(/*! ./utils/video-api/base-loader */ "../assets/dev/js/frontend/utils/video-api/base-loader.js"));
+
 var _urlActions = _interopRequireDefault(__webpack_require__(/*! ./utils/url-actions */ "../assets/dev/js/frontend/utils/url-actions.js"));
 
 var _swiperBc = _interopRequireDefault(__webpack_require__(/*! ./utils/swiper-bc */ "../assets/dev/js/frontend/utils/swiper-bc.js"));
@@ -284,6 +286,8 @@ var _assetsLoader = _interopRequireDefault(__webpack_require__(/*! ./utils/asset
 var _breakpoints = _interopRequireDefault(__webpack_require__(/*! elementor-utils/breakpoints */ "../assets/dev/js/utils/breakpoints.js"));
 
 var _frontend = _interopRequireDefault(__webpack_require__(/*! elementor/modules/shapes/assets/js/frontend/frontend */ "../modules/shapes/assets/js/frontend/frontend.js"));
+
+var _utils = __webpack_require__(/*! elementor-frontend/utils/utils */ "../assets/dev/js/frontend/utils/utils.js");
 
 /* global elementorFrontendConfig */
 const EventManager = __webpack_require__(/*! elementor-utils/hooks */ "../assets/dev/js/utils/hooks.js"),
@@ -449,6 +453,7 @@ class Frontend extends elementorModules.ViewModule {
     this.utils = {
       youtube: new _youtubeLoader.default(),
       vimeo: new _vimeoLoader.default(),
+      baseVideoLoader: new _baseLoader.default(),
       anchors: new AnchorsModule(),
 
       get lightbox() {
@@ -458,7 +463,8 @@ class Frontend extends elementorModules.ViewModule {
       urlActions: new _urlActions.default(),
       swiper: _swiperBc.default,
       environment: _environment.default,
-      assetsLoader: new _assetsLoader.default()
+      assetsLoader: new _assetsLoader.default(),
+      escapeHTML: _utils.escapeHTML
     }; // TODO: BC since 2.4.0
 
     this.modules = {
@@ -576,7 +582,7 @@ class Frontend extends elementorModules.ViewModule {
 
 
   initModules() {
-    let handlers = {
+    const handlers = {
       shapes: _frontend.default
     };
     elementorFrontend.trigger('elementor/modules/init:before');
@@ -879,7 +885,15 @@ class GlobalHandler extends elementorModules.frontend.handlers.Base {
     super.onInit(...args);
 
     if (this.getAnimation()) {
-      elementorFrontend.waypoint(this.$element, () => this.animate());
+      const observer = elementorModules.utils.Scroll.scrollObserver({
+        callback: event => {
+          if (event.isInViewport) {
+            this.animate();
+            observer.unobserve(this.$element[0]);
+          }
+        }
+      });
+      observer.observe(this.$element[0]);
     }
   }
 
@@ -1988,6 +2002,36 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "../assets/dev/js/frontend/utils/utils.js":
+/*!************************************************!*\
+  !*** ../assets/dev/js/frontend/utils/utils.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.escapeHTML = void 0;
+
+// Escape HTML special chars to prevent XSS.
+const escapeHTML = str => {
+  const specialChars = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  };
+  return str.replace(/[&<>'"]/g, tag => specialChars[tag] || tag);
+};
+
+exports.escapeHTML = escapeHTML;
+
+/***/ }),
+
 /***/ "../assets/dev/js/frontend/utils/video-api/base-loader.js":
 /*!****************************************************************!*\
   !*** ../assets/dev/js/frontend/utils/video-api/base-loader.js ***!
@@ -2045,6 +2089,10 @@ class BaseLoader extends elementorModules.ViewModule {
     }
   }
 
+  getAutoplayURL(videoURL) {
+    return videoURL.replace('&autoplay=0', '') + '&autoplay=1';
+  }
+
 }
 
 exports.default = BaseLoader;
@@ -2084,6 +2132,13 @@ class VimeoLoader extends _baseLoader.default {
 
   getApiObject() {
     return Vimeo;
+  }
+
+  getAutoplayURL(videoURL) {
+    videoURL = super.getAutoplayURL(videoURL); // Vimeo requires the '#t=' param to be last in the URL.
+
+    const timeMatch = videoURL.match(/#t=[^&]*/);
+    return videoURL.replace(timeMatch[0], '') + timeMatch;
   }
 
 }

@@ -1,4 +1,4 @@
-/*! elementor - v3.3.1 - 06-08-2021 */
+/*! elementor - v3.4.2 - 26-08-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -637,7 +637,7 @@ function ConnectionButton(props) {
 
     jQuery(buttonRef.current).elementorConnect({
       UTM: function UTM() {
-        return '&utm_source=admin-top-bar&utm_medium=wp-dash&utm_campaign=admin-top-bar';
+        return '&utm_source=admin-top-bar&utm_medium=wp-dash&utm_campaign=admin-top-bar&source=generic';
       }
     });
   }, []);
@@ -5132,7 +5132,12 @@ var _adminTopBar = _interopRequireDefault(__webpack_require__(/*! ./admin-top-ba
 
 var AppWrapper = elementorCommon.config.isDebug ? _react.default.StrictMode : _react.default.Fragment;
 document.addEventListener('DOMContentLoaded', function () {
-  var adminTopBarElement = document.getElementById('e-admin-top-bar-root');
+  var adminTopBarElement = document.getElementById('e-admin-top-bar-root'); // When root element is not exists, the admin top bar should not be rendered.
+
+  if (!adminTopBarElement) {
+    return;
+  }
+
   var isTopBarOptionWidgetChecked = !!document.querySelector('#e-dashboard-widget-admin-top-bar-hide');
   var elementorMenuItemIds = ['toplevel_page_elementor', 'menu-posts-elementor_library'];
   var menuItemSelector = elementorMenuItemIds.map(function (itemId) {

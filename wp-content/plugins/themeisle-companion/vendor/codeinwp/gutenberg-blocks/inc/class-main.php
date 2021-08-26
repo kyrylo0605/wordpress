@@ -59,6 +59,13 @@ class Main {
 	public static $is_leaflet_loaded = false;
 
 	/**
+	 * Flag to mark that Tabs script has been loaded.
+	 *
+	 * @var bool $is_tabs_loaded Is Tabs loaded?
+	 */
+	public static $is_tabs_loaded = false;
+
+	/**
 	 * Define assets version.
 	 *
 	 * @var string $assets_version Holds assets version.
@@ -90,7 +97,7 @@ class Main {
 	 */
 	public function __construct( $name ) {
 		$this->name        = $name;
-		$this->description = __( 'A set of awesome Gutenberg Blocks!', 'themeisle-companion' );
+		$this->description = __( 'A set of awesome Gutenberg Blocks!', 'otter-blocks', 'themeisle-companion' );
 	}
 
 	/**
@@ -101,7 +108,7 @@ class Main {
 	 */
 	public function init() {
 		if ( ! defined( 'THEMEISLE_BLOCKS_VERSION' ) ) {
-			define( 'THEMEISLE_BLOCKS_VERSION', '1.6.7' );
+			define( 'THEMEISLE_BLOCKS_VERSION', '1.6.9' );
 			define( 'THEMEISLE_BLOCKS_DEV', false );
 		}
 
@@ -117,7 +124,13 @@ class Main {
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_frontend_assets' ) );
 		add_action( 'init', array( $this, 'autoload_classes' ), 11 );
 		add_action( 'init', array( $this, 'load_server_side_blocks' ), 11 );
-		add_action( 'block_categories', array( $this, 'block_categories' ) );
+
+		if ( version_compare( floatval( get_bloginfo( 'version' ) ), '5.8', '>=' ) ) {
+			add_filter( 'block_categories_all', array( $this, 'block_categories' ) );
+		} else {
+			add_filter( 'block_categories', array( $this, 'block_categories' ) );
+		}
+
 		add_filter( 'render_block', array( $this, 'render_amp' ), 10, 3 );
 
 		if ( isset( $allow_json ) && true === (bool) $allow_json && ! function_exists( 'is_wpcom_vip' ) ) {
@@ -150,7 +163,7 @@ class Main {
 		wp_enqueue_script(
 			'themeisle-gutenberg-blocks',
 			plugin_dir_url( $this->get_dir() ) . 'build/blocks.js',
-			array( 'lodash', 'wp-api', 'wp-i18n', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-editor', 'wp-edit-post', 'wp-element', 'wp-keycodes', 'wp-plugins', 'wp-primitives', 'wp-rich-text', 'wp-server-side-render', 'wp-url', 'wp-viewport', 'themeisle-gutenberg-blocks-vendor', 'glidejs', 'lottie-player' ),
+			array( 'lodash', 'wp-api', 'wp-i18n', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-editor', 'wp-edit-post', 'wp-element', 'wp-keycodes', 'wp-plugins', 'wp-primitives', 'wp-rich-text', 'wp-server-side-render', 'wp-url', 'wp-viewport', 'wp-polyfill', 'themeisle-gutenberg-blocks-vendor', 'glidejs', 'lottie-player' ),
 			self::$assets_version,
 			true
 		);
@@ -171,7 +184,7 @@ class Main {
 			true
 		);
 
-		wp_set_script_translations( 'themeisle-gutenberg-blocks', 'textdomain' );
+		wp_set_script_translations( 'themeisle-gutenberg-blocks', 'otter-blocks' );
 
 		wp_localize_script(
 			'themeisle-gutenberg-blocks',
@@ -184,6 +197,7 @@ class Main {
 				'optionsPath'   => admin_url( 'options-general.php?page=otter' ),
 				'mapsAPI'       => $api,
 				'themeDefaults' => $this->get_global_defaults(),
+				'imageSizes'    => function_exists( 'is_wpcom_vip' ) ? array( 'thumbnail', 'medium', 'medium_large', 'large' ) : get_intermediate_image_sizes(), //phpcs:ignore WordPressVIPMinimum.VIP.RestrictedFunctions.get_intermediate_image_sizes_get_intermediate_image_sizes
 				'isWPVIP'       => function_exists( 'is_wpcom_vip' ),
 				'canTrack'      => 'yes' === get_option( 'otter_blocks_logger_flag', false ) ? true : false,
 			)
@@ -491,6 +505,18 @@ class Main {
 
 			self::$is_leaflet_loaded = true;
 		}
+
+		if ( ! self::$is_tabs_loaded && has_block( 'themeisle-blocks/tabs', $post ) ) {
+			wp_enqueue_script(
+				'themeisle-gutenberg-tabs',
+				plugin_dir_url( $this->get_dir() ) . 'build/tabs.js',
+				array( 'wp-i18n', 'wp-dom-ready' ),
+				self::$assets_version,
+				true
+			);
+
+			self::$is_circle_counter_loaded = true;
+		}
 	}
 
 	/**
@@ -703,7 +729,7 @@ class Main {
 			if ( 'default' === ( isset( $block['attrs']['titleStyle'] ) ? $block['attrs']['titleStyle'] : 'default' ) ) {
 				$output .= '<div class="wp-block-themeisle-blocks-circle-counter-title__area">';
 				$output .= '<span class="wp-block-themeisle-blocks-circle-counter-title__value">';
-				$output .= esc_html( isset( $block['attrs']['title'] ) ? $block['attrs']['title'] : __( 'Skill', 'themeisle-companion' ) );
+				$output .= esc_html( isset( $block['attrs']['title'] ) ? $block['attrs']['title'] : __( 'Skill', 'otter-blocks', 'themeisle-companion' ) );
 				$output .= '</span>';
 				$output .= '</div>';
 			}
@@ -720,7 +746,7 @@ class Main {
 			if ( 'bottom' === ( isset( $block['attrs']['titleStyle'] ) ? $block['attrs']['titleStyle'] : 'default' ) ) {
 				$output .= '<div class="wp-block-themeisle-blocks-circle-counter-title__area">';
 				$output .= '<span class="wp-block-themeisle-blocks-circle-counter-title__value">';
-				$output .= esc_html( isset( $block['attrs']['title'] ) ? $block['attrs']['title'] : __( 'Skill', 'themeisle-companion' ) );
+				$output .= esc_html( isset( $block['attrs']['title'] ) ? $block['attrs']['title'] : __( 'Skill', 'otter-blocks', 'themeisle-companion' ) );
 				$output .= '</span>';
 				$output .= '</div>';
 			}
@@ -832,7 +858,7 @@ class Main {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'themeisle-companion' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, 'Cheatin&#8217; huh?', '1.0.0' );
 	}
 
 	/**
@@ -844,6 +870,6 @@ class Main {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'themeisle-companion' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, 'Cheatin&#8217; huh?', '1.0.0' );
 	}
 }
