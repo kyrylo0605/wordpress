@@ -3,8 +3,8 @@ Tags: widget, button, slider, hero, google maps, image, carousel, features, icon
 Requires at least: 4.2
 Tested up to: 5.8
 Requires PHP: 5.6.20
-Stable tag: 1.23.0
-Build time: 2021-07-20T18:54:52+02:00
+Stable tag: 1.23.1
+Build time: 2021-08-16T10:53:01+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis, alexgso
 Donate link: https://siteorigin.com/downloads/premium/
@@ -99,6 +99,16 @@ SiteOrigin Premium includes access to our professional email support service, pe
 The Widgets Bundle global interface is available at Plugins > SiteOrigin Widgets. Widgets can be enabled or disabled as needed. If a widget offers global settings, you can access those via the Settings button next to each applicable widget.
 
 == Changelog ==
+
+= 1.23.1 - 16 August 2021 =
+* Anything Carousel: Set wrapper to full-width to avoid potential sizing issue.
+* Anything Carousel: Prevented Page Builder widget Links Color setting from overriding navigation arrow color.
+* Anything Carousel: Ensured navigation dot cursor is correct on hover.
+* Testimonials: Collapse to column for mobile.
+* Beaver Builder: Improved color picker styling.
+* SiteOrigin Widget Block: Resolved new widget area notice.
+* Updated Google Fonts list.
+* Minor admin area form styling improvements.
 
 = 1.23.0 - 20 July 2021 =
 * Compatibility enhancements for WordPress 5.8.

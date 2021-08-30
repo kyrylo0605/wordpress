@@ -244,19 +244,19 @@ msgstr ""
 msgid "Current Color"
 msgstr ""
 
-#: compat/block-editor/widget-block.php:82
+#: compat/block-editor/widget-block.php:91
 msgid "%s by %s"
 msgstr ""
 
-#: compat/block-editor/widget-block.php:102, compat/visual-composer/visual-composer.php:77
+#: compat/block-editor/widget-block.php:111, compat/visual-composer/visual-composer.php:77
 msgid "Selecting a different widget will revert any changes. Continue?"
 msgstr ""
 
-#: compat/block-editor/widget-block.php:118
+#: compat/block-editor/widget-block.php:127
 msgid "You need to select a widget type before you'll see anything here. :)"
 msgstr ""
 
-#: compat/block-editor/widget-block.php:182
+#: compat/block-editor/widget-block.php:191
 msgid "Invalid widget class %s. Please make sure the widget has been activated in %sSiteOrigin Widgets%s."
 msgstr ""
 
