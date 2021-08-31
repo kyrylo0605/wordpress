@@ -662,6 +662,7 @@ body.minimal-layout .col-md-8.right-sidebar {
 	bottom:15px;
 	right:15px;
 	display:none;
+	z-index:100000;
 }
 
 #back-to-top i{
@@ -690,12 +691,12 @@ body.minimal-layout .col-md-8.right-sidebar {
 	top: 15px;
 	position: absolute;
 	right: 15px;
-	z-index:100000;
 }
 
 .navigation {
 	top: 35px;
 	right: 35px;
+	z-index:999;
 }
 
 .navigation i ,

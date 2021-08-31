@@ -10,6 +10,8 @@
 
 namespace Neve\Views\Partials;
 
+use Neve\Core\Settings\Config;
+use Neve\Core\Settings\Mods;
 use Neve\Views\Base_View;
 
 /**
@@ -24,10 +26,12 @@ class Post_Meta extends Base_View {
 	 * @return void
 	 */
 	public function init() {
-		add_filter( 'neve_display_author_avatar', array( $this, 'should_display_author_avatar' ) );
+		add_filter( 'neve_display_author_avatar', array( $this, 'should_display_author_avatar' ), 15 );
 		add_action( 'neve_post_meta_archive', array( $this, 'render_meta_list' ) );
 		add_action( 'neve_post_meta_single', array( $this, 'render_meta_list' ), 10, 2 );
 		add_action( 'neve_do_tags', array( $this, 'render_tags_list' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'meta_custom_separator' ) );
+		add_filter( 'neve_gravatar_args', [ $this, 'add_dynamic_gravatar' ] );
 	}
 
 	/**
@@ -40,12 +44,41 @@ class Post_Meta extends Base_View {
 	public function should_display_author_avatar( $value ) {
 
 		$show_avatar = get_theme_mod( 'neve_author_avatar', false );
-
-		if ( $show_avatar === true ) {
-			return true;
+		if ( is_singular( 'post' ) ) {
+			$show_avatar = get_theme_mod( 'neve_single_post_author_avatar', $show_avatar );
 		}
 
-		return false;
+		return $show_avatar;
+	}
+
+	/**
+	 * Add dynamic gravatar values.
+	 *
+	 * @param array $args_array Avatar args.
+	 *
+	 * @return mixed
+	 */
+	public function add_dynamic_gravatar( $args_array ) {
+
+		$meta_key    = Config::MODS_ARCHIVE_POST_META_AUTHOR_AVATAR_SIZE;
+		$default     = '{ "mobile": 20, "tablet": 20, "desktop": 20 }';
+		$avatar_size = Mods::to_json( $meta_key, $default );
+		if ( is_singular( 'post' ) ) {
+			$single_avatar_size = Mods::to_json( Config::MODS_SINGLE_POST_META_AUTHOR_AVATAR_SIZE );
+			$avatar_size        = ! empty( $single_avatar_size ) ? $single_avatar_size : $avatar_size;
+		}
+
+		if ( ! isset( $args_array['size'] ) ) {
+			return $args_array;
+		}
+
+		if ( ! is_array( $avatar_size ) ) {
+			return $args_array;
+		}
+
+		$args_array['size'] = max( $avatar_size );
+
+		return $args_array;
 	}
 
 	/**
@@ -72,7 +105,24 @@ class Post_Meta extends Base_View {
 					$markup .= '</' . $tag . '>';
 					break;
 				case 'date':
-					$markup .= '<' . $tag . ' class="meta date posted-on">';
+					$date_meta_classes = array(
+						'meta',
+						'date',
+						'posted-on',
+					);
+
+					$created           = get_the_time( 'U' );
+					$modified          = get_the_modified_time( 'U' );
+					$has_updated_time  = $created !== $modified;
+					$show_updated_time = get_theme_mod( 'neve_show_last_updated_date', false );
+					if ( is_singular( 'post' ) ) {
+						$show_updated_time = get_theme_mod( 'neve_single_post_show_last_updated_date', $show_updated_time );
+					}
+					if ( $show_updated_time && $has_updated_time ) {
+						$date_meta_classes[] = 'nv-show-updated';
+					}
+
+					$markup .= '<' . $tag . ' class="' . esc_attr( implode( ' ', $date_meta_classes ) ) . '">';
 					$markup .= self::get_time_tags();
 					$markup .= '</' . $tag . '>';
 					break;
@@ -81,7 +131,7 @@ class Post_Meta extends Base_View {
 						break;
 					}
 					$markup .= '<' . $tag . ' class="meta category">';
-					$markup .= get_the_category_list( ', ', get_the_ID() );
+					$markup .= get_the_category_list( ', ', '', get_the_ID() );
 					$markup .= '</' . $tag . '>';
 					break;
 				case 'comments':
@@ -195,21 +245,62 @@ class Post_Meta extends Base_View {
 	 * @return string
 	 */
 	public static function get_time_tags() {
-		$created  = get_the_time( 'U' );
-		$format   = get_option( 'date_format' );
-		$modified = get_the_modified_time( 'U' );
-		$time     = '<time class="entry-date published" datetime="' . esc_attr( date_i18n( 'c', $created ) ) . '" content="' . esc_attr( date_i18n( 'Y-m-d', $created ) ) . '">' . esc_html( date_i18n( $format, $created ) ) . '</time>';
-		if ( $created === $modified ) {
+		$created           = get_the_time( 'U' );
+		$modified          = get_the_modified_time( 'U' );
+		$has_updated_time  = $created !== $modified;
+		$show_updated_time = get_theme_mod( 'neve_show_last_updated_date', false );
+		if ( is_singular( 'post' ) ) {
+			$show_updated_time = get_theme_mod( 'neve_single_post_show_last_updated_date', $show_updated_time );
+		}
+		$format = get_option( 'date_format' );
+
+		$prefixes = array(
+			'published' => '',
+			'updated'   => '',
+		);
+
+		/**
+		 * Filters the prefix of the published date and the updated date of a post.
+		 *
+		 * @param array $prefixes {
+		 *     Prefix location and value.
+		 *
+		 *     @type string $published The prefix for the published date.
+		 *     @type string $updated The prefix for the updated date.
+		 * }
+		 *
+		 * @since 2.11
+		 */
+		$prefixes = apply_filters( 'neve_meta_date_prefix', $prefixes );
+
+		$updated_time_markup = '<time class="updated" datetime="' . esc_attr( date_i18n( 'c', $modified ) ) . '">';
+		if ( array_key_exists( 'updated', $prefixes ) && ! empty( $prefixes['updated'] ) ) {
+			$updated_time_markup .= wp_kses_post( $prefixes['updated'] );
+		}
+		$updated_time_markup .= esc_html( date_i18n( $format, $modified ) ) . '</time>';
+
+		if ( $show_updated_time && $has_updated_time ) {
+			return $updated_time_markup;
+		}
+
+		$time = '<time class="entry-date published" datetime="' . esc_attr( date_i18n( 'c', $created ) ) . '" content="' . esc_attr( date_i18n( 'Y-m-d', $created ) ) . '">';
+		if ( array_key_exists( 'published', $prefixes ) && ! empty( $prefixes['published'] ) ) {
+			$time .= wp_kses_post( $prefixes['published'] );
+		}
+		$time .= esc_html( date_i18n( $format, $created ) ) . '</time>';
+
+		if ( ! $has_updated_time ) {
 			return $time;
 		}
-		$time .= '<time class="updated" datetime="' . esc_attr( date_i18n( 'c', $modified ) ) . '">' . esc_html( date_i18n( $format, $modified ) ) . '</time>';
+		$time .= $updated_time_markup;
 
 		return $time;
 	}
+
 	/**
 	 * Get the comments with a link.
 	 *
-	 * @return string
+	 * @return string|false
 	 */
 	public static function get_comments() {
 		if ( ! get_post() ) {
@@ -249,4 +340,21 @@ class Post_Meta extends Base_View {
 		$html .= ' </div> ';
 		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
+
+	/**
+	 * Change metadata separator according to the customizer setting
+	 */
+	public function meta_custom_separator() {
+
+		$separator = get_theme_mod( 'neve_metadata_separator', esc_html( '/' ) );
+		if ( is_singular( 'post' ) ) {
+			$separator = get_theme_mod( 'neve_single_post_metadata_separator', $separator );
+		}
+
+		$custom_css  = '';
+		$custom_css .= '.nv-meta-list li.meta:not(:last-child):after { content:"' . esc_html( $separator ) . '" }';
+
+		wp_add_inline_style( 'neve-style', $custom_css );
+	}
+
 }

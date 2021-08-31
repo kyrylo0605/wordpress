@@ -4,12 +4,16 @@
  *
  * @package neve
  */
-
 if ( post_password_required() ) {
 	return;
 }
+
+if ( ! comments_open() ) {
+	return;
+}
+
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="<?php echo esc_attr( apply_filters( 'neve_comments_area_class', 'comments-area' ) ); ?>">
 	<?php do_action( 'neve_do_comment_area' ); ?>
 </div>

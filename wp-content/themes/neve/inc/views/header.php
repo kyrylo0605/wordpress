@@ -34,7 +34,16 @@ class Header extends Base_View {
 	 * Hide last menu item search in mobile sidebar.
 	 */
 	public function hide_last_menu_item_search_in_sidebar() {
-		wp_add_inline_style( 'neve-style', '.header-menu-sidebar-inner li.menu-item-nav-search { display: none; }' );
+		if ( neve_is_new_builder() ) {
+			return;
+		}
+
+		wp_add_inline_style(
+			'neve-style',
+			'.header-menu-sidebar-inner li.menu-item-nav-search { display: none; }
+		[data-row-id] .row { display: flex !important; align-items: center; flex-wrap: unset;}
+		@media (max-width: 960px) { .footer--row .row { flex-direction: column; } }'
+		);
 	}
 
 	/**
@@ -130,7 +139,11 @@ class Header extends Base_View {
 			$search .= '<a class="button button-secondary close-responsive-search">' . __( 'Close', 'neve' ) . '</a>';
 			$search .= '</div>';
 		}
-		$search .= get_search_form( false );
+		if ( version_compare( get_bloginfo( 'version' ), '5.2.0', '>=' ) ) {
+			$search .= get_search_form( array( 'echo' => false ) );
+		} else {
+			$search .= get_search_form( false ); // @phpstan-ignore-line
+		}
 		$search .= '</div>';
 		$search .= '</' . esc_attr( $tag ) . '>';
 

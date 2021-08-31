@@ -16,41 +16,68 @@ use Neve\Views\Base_View;
  * @package Neve\Views\Partials
  */
 class Comments extends Base_View {
+
+	/**
+	 * Holds if an open children tag is opened for replies.
+	 *
+	 * @var bool
+	 */
+	private $is_tag_open = false;
+
 	/**
 	 * Add in functionality.
 	 */
 	public function init() {
 		add_action( 'neve_do_comment_area', array( $this, 'render_comment_form' ) );
 		add_filter( 'comment_form_defaults', array( $this, 'leave_reply_title_tag' ) );
+		if ( neve_is_new_skin() ) {
+			add_filter( 'comment_form_fields', array( $this, 'move_textarea' ) );
+		}
 	}
 
 	/**
 	 * Render the comments form.
 	 */
 	public function render_comment_form() {
-		$display_form_first = apply_filters( 'neve_show_comment_form_first', false );
+		$display_form_first    = apply_filters( 'neve_show_comment_form_first', false );
+		$comment_form_settings = neve_is_new_skin() ? $this->get_sumbit_form_settings() : array();
 
 		if ( $display_form_first ) {
-			comment_form();
+			comment_form( $comment_form_settings );
 		}
 
-		if ( have_comments() ) { ?>
-			<div class="nv-comments-title-wrap">
-				<h2 class="comments-title">
-					<?php echo wp_kses_post( $this->get_comments_title() ); ?>
-				</h2>
-			</div>
+		if ( have_comments() ) {
+			$comment_title_tag     = neve_is_new_skin() ? 'h4' : 'h2';
+			$comments_wrap_classes = [ 'nv-comments-wrap' ];
+			$is_boxed              = get_theme_mod( 'neve_comments_boxed_layout', false );
+			if ( $is_boxed ) {
+				$comments_wrap_classes[] = 'nv-is-boxed';
+			}
 
-			<ol class="nv-comments-list">
-				<?php
-				wp_list_comments(
-					array(
-						'callback' => array( $this, 'comment_list_callback' ),
-						'style'    => 'ol',
-					)
-				);
-				?>
-			</ol>
+			?>
+			<div class="<?php echo esc_attr( implode( ' ', $comments_wrap_classes ) ); ?>">
+
+				<div class="nv-comments-title-wrap">
+					<?php
+					echo '<' . esc_html( $comment_title_tag ) . ' class="comments-title">';
+					echo wp_kses_post( $this->get_comments_title() );
+					echo '</' . esc_html( $comment_title_tag ) . '>'
+					?>
+				</div>
+
+				<ol class="nv-comments-list">
+					<?php
+					wp_list_comments(
+						array(
+							'callback'     => array( $this, 'comment_list_callback' ),
+							'end-callback' => array( $this, 'end_comment_list_callback' ),
+							'style'        => 'div',
+						)
+					);
+					?>
+				</ol>
+
+			</div>
 
 			<?php
 			$this->maybe_render_comments_navigation();
@@ -64,8 +91,37 @@ class Comments extends Base_View {
 			<?php
 		}
 		if ( ! $display_form_first ) {
-			comment_form();
+			comment_form( $comment_form_settings );
 		}
+	}
+
+	/**
+	 * Get forms settings.
+	 *
+	 * @return array
+	 */
+	private function get_sumbit_form_settings() {
+		$form_settings = [];
+
+		$form_title = get_theme_mod( 'neve_post_comment_form_title' );
+		if ( ! empty( $form_title ) ) {
+			$form_settings['title_reply'] = $form_title;
+		}
+
+		$submit_button_style           = get_theme_mod( 'neve_post_comment_form_button_style', 'primary' );
+		$form_settings['class_submit'] = 'button button-' . esc_attr( $submit_button_style );
+
+		$button_text = get_theme_mod( 'neve_post_comment_form_button_text' );
+		if ( ! empty( $button_text ) ) {
+			$form_settings['label_submit'] = $button_text;
+		}
+
+		$boxed_layout = get_theme_mod( 'neve_comments_form_boxed_layout', true );
+		if ( $boxed_layout && neve_is_new_skin() ) {
+			$form_settings['class_container'] = 'comment-respond nv-is-boxed';
+		}
+
+		return $form_settings;
 	}
 
 	/**
@@ -94,11 +150,25 @@ class Comments extends Base_View {
 	}
 
 	/**
+	 * Comment list end callback.
+	 *
+	 * @param \WP_Comment $comment comment.
+	 * @param array       $args    arguments.
+	 * @param int         $depth   the comments depth.
+	 */
+	public function end_comment_list_callback( $comment, $args, $depth ) {
+		if ( $this->is_tag_open && $comment->comment_parent == 0 ) {
+			$this->is_tag_open = false;
+			echo '</ol></li><!-- close children li -->';
+		}
+	}
+
+	/**
 	 * Comment list callback.
 	 *
-	 * @param string $comment comment.
-	 * @param array  $args    arguments.
-	 * @param int    $depth   the comments depth.
+	 * @param \WP_Comment $comment comment.
+	 * @param array       $args    arguments.
+	 * @param int         $depth   the comments depth.
 	 */
 	public function comment_list_callback( $comment, $args, $depth ) {
 		switch ( $comment->comment_type ) {
@@ -120,14 +190,26 @@ class Comments extends Base_View {
 			default:
 				?>
 				<li <?php comment_class(); ?> id="comment-item-<?php comment_ID(); ?>">
-				<article id="comment-<?php comment_ID(); ?>" class="nv-comment-article">
+					<article id="comment-<?php comment_ID(); ?>" class="nv-comment-article">
+						<?php
+						if ( neve_is_new_skin() ) {
+							echo '<div class="nv-comment-avatar">';
+							echo get_avatar( $comment, 50 );
+							echo '</div>';
+							echo '<div class="comment-content">';
+						}
+						?>
 						<div class="nv-comment-header">
-							<div class='nv-comment-avatar'>
-								<?php echo get_avatar( $comment, 50 ); ?>
-							</div>
+							<?php
+							if ( ! neve_is_new_skin() ) {
+								echo '<div class="nv-comment-avatar">';
+								echo get_avatar( $comment, 50 );
+								echo '</div>';
+							}
+							?>
 							<div class="comment-author vcard">
 								<span class="fn author"><?php echo get_comment_author_link(); ?></span>
-								<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
+								<a href="<?php echo esc_url( get_comment_link() ); ?>">
 									<time class="entry-date published"
 											datetime="<?php echo esc_attr( get_comment_time( 'c' ) ); ?>"
 											content="<?php echo esc_attr( get_comment_time( 'Y-m-d' ) ); ?>">
@@ -138,38 +220,68 @@ class Comments extends Base_View {
 									</time>
 								</a>
 							</div>
+							<?php
+							if ( neve_is_new_skin() ) {
+									$this->render_edit_reply_link( $args, $depth );
+							}
+							?>
 						</div>
 						<div class="nv-comment-content comment nv-content-wrap">
 							<?php comment_text(); ?>
-							<div class="edit-reply">
-								<?php edit_comment_link( '(' . esc_html__( 'Edit', 'neve' ) . ')' ); ?>
-								<?php
-								comment_reply_link(
-									array_merge(
-										$args,
-										array(
-											'reply_text' => esc_html__( 'Reply', 'neve' ),
-											'add_below'  => 'comment',
-											'depth'      => $depth,
-											'max_depth'  => $args['max_depth'],
-											'before'     => '<span class="nv-reply-link">',
-											'after'      => '</span>',
-										)
-									)
-								);
-								?>
-							</div>
+							<?php
+							if ( ! neve_is_new_skin() ) {
+								$this->render_edit_reply_link( $args, $depth );
+							}
+							?>
 							<?php if ( '0' === $comment->comment_approved ) { ?>
 								<p class="comment-awaiting-moderation">
 									<?php echo esc_html__( 'Comment awaiting moderation.', 'neve' ); ?>
 								</p>
 							<?php } ?>
 						</div>
+						<?php
+						if ( neve_is_new_skin() ) {
+							echo '</div>';
+						}
+						?>
 					</article>
 				</li>
 				<?php
 				break;
 		}
+		if ( $args['has_children'] === true ) {
+			$this->is_tag_open = true;
+			echo '<li class="children" role="listitem"><ol>';
+		}
+	}
+
+	/**
+	 *  Render edit/reply link.
+	 *
+	 * @param array $args comment args.
+	 * @param int   $depth the depth of comment.
+	 */
+	private function render_edit_reply_link( $args, $depth ) {
+		?>
+		<div class="edit-reply">
+			<?php edit_comment_link( '(' . esc_html__( 'Edit', 'neve' ) . ')' ); ?>
+			<?php
+			comment_reply_link(
+				array_merge(
+					$args,
+					array(
+						'reply_text' => esc_html__( 'Reply', 'neve' ),
+						'add_below'  => 'comment',
+						'depth'      => $depth,
+						'max_depth'  => $args['max_depth'],
+						'before'     => '<span class="nv-reply-link">',
+						'after'      => '</span>',
+					)
+				)
+			);
+			?>
+		</div>
+		<?php
 	}
 
 	/**
@@ -178,7 +290,11 @@ class Comments extends Base_View {
 	 * @return string
 	 */
 	private function get_comments_title() {
-		$comments_title =
+
+		$comments_number = number_format_i18n( get_comments_number() );
+		$title           = get_the_title();
+
+		$empty_comments_title =
 			sprintf(
 				esc_html(
 					/* translators: number of comments */
@@ -190,9 +306,17 @@ class Comments extends Base_View {
 						'neve'
 					)
 				),
-				number_format_i18n( get_comments_number() ),
-				get_the_title()
+				$comments_number,
+				$title
 			);
+
+		$comments_title = get_theme_mod( 'neve_post_comment_section_title' );
+		if ( empty( $comments_title ) ) {
+			return apply_filters( 'neve_filter_comments_title', $empty_comments_title );
+		}
+
+		$comments_title = str_replace( '{comments_number}', $comments_number, $comments_title );
+		$comments_title = str_replace( '{title}', $title, $comments_title );
 
 		return apply_filters( 'neve_filter_comments_title', $comments_title );
 	}
@@ -205,9 +329,44 @@ class Comments extends Base_View {
 	 * @return array
 	 */
 	public function leave_reply_title_tag( $args ) {
-		$args['title_reply_before'] = '<h3 id="reply-title" class="comment-reply-title">';
-		$args['title_reply_after']  = '</h3>';
+		$tag = neve_is_new_skin() ? 'h4' : 'h3';
+
+		$args['title_reply_before'] = '<' . $tag . ' id="reply-title" class="comment-reply-title">';
+		$args['title_reply_after']  = '</' . $tag . '>';
 
 		return $args;
+	}
+
+
+	/**
+	 * Move textarea field in comment form after the website field.
+	 *
+	 * @param array $fields array of fields.
+	 *
+	 * @return array
+	 */
+	public function move_textarea( $fields ) {
+		if ( ! isset( $fields['url'] ) ) {
+			return $fields;
+		}
+		$keys = array_keys( $fields );
+
+		$textarea_index = array_search( 'comment', $keys );
+		// Remove textarea
+		unset( $keys[ $textarea_index ] );
+		// Reset indexes.
+		$keys = array_values( $keys );
+
+		// Get website url field index.
+		$index = array_search( 'url', $keys );
+		// Insert textarea after url field.
+		array_splice( $keys, $index + 1, 0, 'comment' );
+
+		$new_fields = [];
+		foreach ( $keys as $key ) {
+			$new_fields[ $key ] = $fields[ $key ];
+		}
+
+		return $new_fields;
 	}
 }

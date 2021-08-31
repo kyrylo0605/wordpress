@@ -83,7 +83,7 @@ class Magic_Tags {
 	 *
 	 * @param string $input the input.
 	 *
-	 * @return string|
+	 * @return string
 	 */
 	public function do_magic_tags( $input ) {
 		if ( empty( self::$magic_tag_regex ) ) {
@@ -112,14 +112,12 @@ class Magic_Tags {
 	/**
 	 * Do single magic tag.
 	 *
-	 * @param string $tag the magic tag.
+	 * @param array $matches matches array of regular expression.
 	 *
 	 * @return string
 	 */
-	private function do_magic_tag( $tag ) {
-		if ( is_array( $tag ) ) {
-			$tag = reset( $tag );
-		}
+	private function do_magic_tag( $matches ) {
+		$tag = $matches[0];
 
 		$tag = trim( $tag, '{} ' );
 
@@ -136,6 +134,18 @@ class Magic_Tags {
 				'class'    => [],
 				'datetime' => [],
 				'content'  => [],
+			];
+		}
+
+		if ( $tag === 'meta_author' ) {
+			$allowed_tags['span'] = [
+				'class' => [],
+			];
+
+			$allowed_tags['img'] = [
+				'class' => [],
+				'alt'   => [],
+				'src'   => [],
 			];
 		}
 
@@ -203,7 +213,7 @@ class Magic_Tags {
 	 * @return string.
 	 */
 	public function meta_category() {
-		return get_the_category_list( ', ', get_the_ID() );
+		return get_the_category_list( ', ', '', get_the_ID() );
 	}
 
 	/**
@@ -271,7 +281,7 @@ class Magic_Tags {
 	 * @return string
 	 */
 	public function author_bio() {
-		return get_the_author_meta( 'description', get_post_field( 'post_author', get_the_ID() ) );
+		return get_the_author_meta( 'description', ( (int) get_post_field( 'post_author', get_the_ID() ) ) );
 	}
 
 	/**
@@ -280,7 +290,7 @@ class Magic_Tags {
 	 * @return string
 	 */
 	public function author_name() {
-		return get_the_author_meta( 'display_name', get_post_field( 'post_author', get_the_ID() ) );
+		return get_the_author_meta( 'display_name', ( (int) get_post_field( 'post_author', get_the_ID() ) ) );
 	}
 
 	/**
@@ -316,7 +326,7 @@ class Magic_Tags {
 	 * @return string
 	 */
 	public function author_url() {
-		return get_author_posts_url( get_post_field( 'post_author', get_the_ID() ) );
+		return get_author_posts_url( ( (int) get_post_field( 'post_author', get_the_ID() ) ) );
 	}
 
 	/**
@@ -438,7 +448,7 @@ class Magic_Tags {
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return '';
 		}
-		return '<span class="nv-cart-icon-total-plain">' . WC()->cart->cart_contents_total . '</span>';
+		return '<span class="nv-cart-icon-total-plain">' . WC()->cart->get_cart_contents_total() . '</span>';
 	}
 
 	/**

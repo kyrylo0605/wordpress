@@ -83,7 +83,7 @@ class Main {
 	 * Main Instance
 	 * Ensures only one instance of class is loaded or can be loaded.
 	 *
-	 * @return \HFG\Main Instance.
+	 * @return \HFG\Main|null Instance.
 	 * @since   1.0.0
 	 * @access  public
 	 */
@@ -120,7 +120,9 @@ class Main {
 	 */
 	public function init() {
 		add_filter( 'neve_style_subscribers', array( $this, 'inline_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_utils_scripts' ) );
+		if ( ! neve_is_new_builder() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_utils_scripts' ) );
+		}
 	}
 
 	/**

@@ -794,6 +794,22 @@ if (!function_exists('bazaarlite_customize_panel_function')) {
 			
 			),
 
+			array(
+				
+				'label' => esc_html__( 'Back to top button','bazaar-lite'),
+				'description' => esc_html__( 'Do you want to show the back to top button?','bazaar-lite'),
+				'id' => 'wip_enable_backtotop_button',
+				'type' => 'select',
+				'section' => 'settings_section',
+				'options' => array (
+				   'off' => esc_html__( 'No','bazaar-lite'),
+				   'on' => esc_html__( 'Yes','bazaar-lite'),
+				),
+				
+				'std' => 'on',
+			
+			),
+
 			array( 
 
 				'title' => esc_html__( 'Styles','bazaar-lite'),

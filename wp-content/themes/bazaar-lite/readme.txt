@@ -3,7 +3,7 @@ Contributors: alexvtn
 Tags: custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, flexible-header, footer-widgets, post-formats, right-sidebar, sticky-post, theme-options, threaded-comments, translation-ready, one-column, two-columns, three-columns, grid-layout, blog, e-commerce, news
 Requires at least: 4.0
 Tested up to: 5.7
-Stable tag: 1.7.3
+Stable tag: 1.7.8
 Requires PHP: 5.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,6 +19,33 @@ Bazaar Lite WordPress Theme, Copyright 2021 ThemeinProgress.
 Bazaar Lite is distributed under the terms of the GPLv2 or later
 
 == Changelog ==
+
+= 1.7.8 =
+Release date - July, 02 - 2021
+
+* Added - Changelog tab on welcome page 
+
+= 1.7.7 =
+Release date - May, 21 - 2021
+
+* Added - Premium feature lists on customizer section 
+* Added - Demo link on customizer section 
+
+= 1.7.6 =
+Release date - May, 10 - 2021
+
+* Fixed - Pagination overlapping
+* Added - Option to disable the back to top button
+
+= 1.7.5 =
+Release date - May, 07 - 2021
+
+* Added - Customizer quick links on welcome page
+
+= 1.7.4 =
+Release date - April, 23 - 2021
+
+* Improved - Theme details on welcome page
 
 = 1.7.3 =
 Release date - April, 11 - 2021
@@ -348,7 +375,7 @@ Google Web Fonts (Montserrat, Yesteryear) By Google - http://google.com
 Bootstrap By Twitter, Inc - http://getbootstrap.com
 * bootstrap.css v3.3.7 - Licensed under MIT license ( Applies to bootstrap.css file in /bazaar-lite/assets/css/ )
 
-prettyPhoto By Stephane Caron - http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ 
+prettyPhoto By Stephane Caron - http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/
 * prettyPhoto.css v3.1.6 - Licensed under GPLv2 or Creative Commons 2.5 license ( Applies to prettyPhoto.css file in /bazaar-lite/assets/css/ )
 
 Slick Slider By Ken Wheeler - https://github.com/kenwheeler/slick/

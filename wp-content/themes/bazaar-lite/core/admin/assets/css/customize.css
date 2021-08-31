@@ -1,11 +1,21 @@
+/*
+ * Bazaar Lite customize css file
+ * https://www.themeinprogress.com
+ *
+ * Copyright 2021, ThemeinProgress
+ * Licensed under MIT license
+ * https://opensource.org/licenses/mit-license.php
+ */
+
 #customize-controls #accordion-section-bazaar-lite-customize-info.control-section .accordion-section-title, 
 #customize-controls #accordion-section-bazaar-lite-customize-info.control-section .accordion-section-title:focus, 
 #customize-controls #accordion-section-bazaar-lite-customize-info.control-section .accordion-section-title:hover, 
 #customize-controls #accordion-section-bazaar-lite-customize-info.control-section.open .accordion-section-title, 
 #customize-controls #accordion-section-bazaar-lite-customize-info.control-section:hover>.accordion-section-title { 
 	background-color: #ec7063 !important;
-    border-left-color: #d54e21;
+    border-left-color: #ec7063;
 	color: #fff !important;
+	font-weight:600;
 }
 
 li#accordion-section-bazaar-lite-customize-info h3.accordion-section-title:after { 
@@ -22,15 +32,16 @@ li#accordion-section-bazaar-lite-customize-info h3.accordion-section-title:after
     padding-bottom: 0;
 }
 
+li#customize-control-bazaar-lite-customize-info .demo-button, 
 li#customize-control-bazaar-lite-customize-info .purchase-button { 
 	position: relative;
 	top: -1px;
 	margin: 0;
-	padding: 6px 15px !important;
-	font-size: 12px !important;
-	color: #ffffff !important;
+	padding: 0 15px !important;
+	font-size: 13px !important;
+	font-weight:600;
+	color: #fff !important;
 	background-color: #ec7063 !important;
-	letter-spacing: 1px;
 	text-transform: uppercase;
 	-webkit-font-smoothing: subpixel-antialiased !important;
 	-webkit-transition:all .3s ease;
@@ -41,30 +52,28 @@ li#customize-control-bazaar-lite-customize-info .purchase-button {
 	border: none !important;
 	outline: none !important;
 	width:100%;
-	line-height: 30px;
+	line-height: 40px;
     height: 40px;
-	-webkit-border-radius: 0px;
-    border-radius: 0px;
+	-webkit-border-radius: 0;
+    border-radius: 0;
 }
 
-li#customize-control-bazaar-lite-customize-info .purchase-button:after {
-    content: "\f345";
-    color: #fff;
-	font: 400 20px/1 dashicons;
-	line-height: 30px;
-    height: 40px;
-	float: right;
+li#customize-control-bazaar-lite-customize-info .demo-button { 
+	margin: 15px 0 0 0;
+	background-color: #ddd !important;
+	color: #000 !important;
 }
+
+li#customize-control-bazaar-lite-customize-info .demo-button:hover {
+	color: #fff !important;
+	background-color: #757575 !important;
+}
+
 li#customize-control-bazaar-lite-customize-info .purchase-button:hover {
 	color: #fff !important;
-	background-color: #333 !important;
+	background-color: #e74c3c !important;
 }
 
-li#customize-control-bazaar-lite-customize-info .purchase-button:hover ,
-li#customize-control-bazaar-lite-customize-info .purchase-button:focus ,
-li#customize-control-bazaar-lite-customize-info .purchase-button:active {
-	border: none !important;
-	outline: none !important;
-	-webkit-box-shadow: none;
-    box-shadow: none;
+li#customize-control-bazaar-lite-customize-info .features-list .dashicons-yes {
+    color: green;
 }

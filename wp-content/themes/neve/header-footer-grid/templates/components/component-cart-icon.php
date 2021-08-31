@@ -20,10 +20,10 @@ $allowed_post_tags = wp_kses_allowed_html( 'header_footer_grid' );
 $cart_is_empty     = WC()->cart->get_cart_contents_count() === 0;
 
 $off_canvas_closing_button = '';
-$mini_cart_classes         = array( 'nv-nav-cart', 'widget' );
+$mini_cart_classes         = [ 'nv-nav-cart', 'widget' ];
 if ( $cart_style === 'off-canvas' ) {
-	$mini_cart_classes         = array( 'cart-off-canvas', 'col-sm-12', 'col-sm-12' );
-	$off_canvas_closing_button = '<div class="cart-off-canvas-button-wrapper"><span class="nv-close-cart-sidebar button button-secondary secondary-default">' . __( 'Close', 'neve' ) . '</span></div>';
+	$mini_cart_classes         = neve_is_new_skin() ? [ 'nv-nav-cart', 'cart-off-canvas', 'widget' ] : [ 'cart-off-canvas', 'col-sm-12' ];
+	$off_canvas_closing_button = '<div class="cart-off-canvas-button-wrapper"><a href="#" class="nv-close-cart-sidebar button button-secondary secondary-default">' . __( 'Close', 'neve' ) . '</a></div>';
 }
 if ( (bool) $expand_enabled === false ) {
 	$mini_cart_classes[] = 'expand-disable';
@@ -56,9 +56,17 @@ if ( (bool) $expand_enabled === false ) {
 		</a>
 		<?php if ( $cart_style !== 'link' && ! is_cart() && ! is_checkout() ) { ?>
 		<div class="<?php echo esc_attr( implode( ' ', $mini_cart_classes ) ); ?>">
+
 			<?php
+			/**
+			 * Executes actions before the cart popup content.
+			 *
+			 * @since 2.9.3
+			 */
 			do_action( 'neve_before_cart_popup' );
+
 			echo wp_kses_post( $off_canvas_closing_button );
+
 			the_widget(
 				'WC_Widget_Cart',
 				array(
@@ -70,11 +78,18 @@ if ( (bool) $expand_enabled === false ) {
 					'after_title'  => '',
 				)
 			);
+
 			if ( ! empty( $custom_html ) ) {
 				echo '<div class="after-cart-html">';
 				echo wp_kses( balanceTags( apply_filters( 'neve_post_content', $custom_html ), true ), $allowed_post_tags );
 				echo '</div>';
 			}
+
+			/**
+			 * Executes actions after the cart popup content.
+			 *
+			 * @since 2.9.3
+			 */
 			do_action( 'neve_after_cart_popup' );
 			?>
 		</div>

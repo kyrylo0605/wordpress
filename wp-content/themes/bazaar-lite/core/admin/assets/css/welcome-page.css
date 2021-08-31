@@ -44,6 +44,11 @@
     background-color: #333 !important;
 }
 
+ul.quick-links li {
+	display:inline-block;
+	width:49%;
+}
+
 /* ===============================================
    Recommended plugins
    =============================================== */
@@ -239,4 +244,51 @@ table.table.free-pro .upsell-row a {
 		margin-right: 0;
 	}
 	
+}
+
+/* ===============================================
+   Changelog
+   =============================================== */
+   
+.changelog_container span.theme_version {
+	display:block;
+    cursor: pointer;
+    background: none;
+    padding: 15px 30px 15px 15px;
+    font-size: 17px;
+    line-height: 1.4em;
+    margin:25px 0 0 0;
+    color: #333;
+    position: relative;
+    font-weight: 400;
+    border: solid 1px #ddd !important;
+}
+
+.changelog_container span.theme_version strong {
+	margin-right:5px
+}
+
+.changelog_container span.theme_version .dashicons {
+    font-size: 17px;
+    -webkit-transition: -webkit-transform .3s ease;
+    -moz-transition: -moz-transform .3s ease;
+    -o-transition: -o-transform .3s ease;
+    transition: transform .3s ease;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -10px;
+}
+
+.changelog_details {
+    display: none;
+    font-size: 17px;
+    line-height: 1.4em;
+    padding: 25px;
+    border: solid 1px #ddd;
+	border-top:none !important;
+}
+
+.changelog_details ul {
+	margin:0;
 }

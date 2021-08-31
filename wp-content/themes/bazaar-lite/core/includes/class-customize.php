@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Contains methods for customizing the theme customization screen.
+ * @link http://codex.wordpress.org/Theme_Customization_API
+ * 
+ * This source file is subject to the GNU GENERAL PUBLIC LICENSE (GPL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+} // Exit if accessed directly
+
 class bazaarlite_customize {
 
 	public $theme_fields;
@@ -333,12 +347,31 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
             <div class="inside">
 
-				<h2><?php esc_html_e('Bazaar premium version','bazaar-lite');?></h2> 
+                <h2><?php esc_html_e('Premium features','bazaar-lite');?></h2>
+                <p><?php esc_html_e('Upgrade to the premium version of Bazaar, to enable all features.','bazaar-lite');?></p>
 
-                <p><?php esc_html_e("Upgrade to the premium version of Bazaar, to enable 600+ Google Fonts, unlimited sidebars, portfolio section and much more.","bazaar-lite");?></p>
+                <ul class="features-list">
+
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('14 blog layouts','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Remove the copyright text from the footer','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Choose custom colors','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Portfolio section','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Display a slideshow for gallery posts','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Testimonials section','bazaar-lite');?></li>
+                    <li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Unlimited sidebars','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Custom shortcodes','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Shortcodes generator','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Backup section','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Sample data','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('Unlimited website usage','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('60% discount on subscription renewal','bazaar-lite');?></li>
+                	<li><span class="dashicon dashicons dashicons-yes"></span><?php esc_html_e('7 days money back guarantee','bazaar-lite');?></li>
+
+                </ul>
 
                 <ul>
                 
+                    <li><a class="button demo-button" href="<?php echo esc_url( 'https://demo.themeinprogress.com/?theme=Bazaar' ); ?>" title="<?php esc_attr_e('View live demo','bazaar-lite');?>" target="_blank"><?php esc_html_e('View live demo','bazaar-lite');?></a></li>
                     <li><a class="button purchase-button" href="<?php echo esc_url( 'https://www.themeinprogress.com/bazaar-free-ecommerce-wordpress-theme/?ref=2&campaign=bazaar-panel' ); ?>" title="<?php esc_attr_e('Upgrade to Bazaar premium','bazaar-lite');?>" target="_blank"><?php esc_html_e('Upgrade to Bazaar premium','bazaar-lite');?></a></li>
                 
                 </ul>

@@ -37,9 +37,9 @@ class Manager {
 	 *
 	 * @since   1.0.0
 	 * @access  private
-	 * @var Defaults $_defaults
+	 * @var Defaults $_defaults (Defaults class implements to \ArrayAccess, it can be used an array)
 	 */
-	private static $_defaults = [];
+	private static $_defaults;
 	/**
 	 * Used to save the register settings ids and their defaults.
 	 *
@@ -104,7 +104,7 @@ class Manager {
 	/**
 	 * Load settings/control group in customizer.
 	 *
-	 * @param null                       $group Group to load.
+	 * @param string|null                $group Group to load.
 	 * @param \WP_Customize_Manager|null $customize_manager Manager object.
 	 *
 	 * @return \WP_Customize_Manager Customizer object.
@@ -121,7 +121,12 @@ class Manager {
 				continue;
 			}
 			$arguments = self::$settings[ $id ];
-			$transport = isset( $core_transports[ $arguments['transport'] ] ) ? $arguments['transport'] : $this->handle_transport( $arguments['transport'], $id );
+
+			if ( isset( $arguments['live_refresh_css_prop'] ) && isset( $arguments['live_refresh_css_prop']['cssVar'] ) && neve_is_new_skin() ) {
+				$transport = 'postMessage';
+			} else {
+				$transport = isset( $core_transports[ $arguments['transport'] ] ) ? $arguments['transport'] : $this->handle_transport( $arguments['transport'], $id );
+			}
 
 			$customize_manager->add_setting(
 				$id,
@@ -188,6 +193,18 @@ class Manager {
 			),
 			'controls' => $this->get_tabs_group( $group ),
 		);
+
+		if ( in_array(
+			$section,
+			[
+				'hfg_header_layout_section',
+				'hfg_footer_layout_section',
+				'hfg_page_header_layout_section',
+			],
+			true
+		) ) {
+			return $customize_manager;
+		}
 
 		foreach ( $args['tabs'] as $tab => $values ) {
 			$tabs = $this->get_tabs_group( $group );
@@ -346,19 +363,24 @@ class Manager {
 				}
 			);
 		}
-		if ( isset( $arguments['live_refresh_selector'] ) ) {
+		if ( isset( $arguments['live_refresh_selector'] ) && $arguments['live_refresh_selector'] !== false ) {
 			add_filter(
 				'neve_customize_preview_localization',
 				function ( $array ) use ( $arguments ) {
+					$args = [];
+
 					if ( ! isset( $array[ $arguments['type'] ] ) ) {
 						$array[ $arguments['type'] ] = [];
 					}
-					$args = [
-						'selector' => $arguments['live_refresh_selector'],
-					];
+
+					if ( isset( $arguments['live_refresh_selector'] ) ) {
+						$args['selector'] = $arguments['live_refresh_selector'];
+					}
+
 					if ( isset( $arguments['live_refresh_css_prop'] ) ) {
 						$args['additional'] = $arguments['live_refresh_css_prop'];
 					}
+
 					$array[ $arguments['type'] ][ $arguments['group'] . '_' . $arguments['id'] ] = $args;
 
 					return $array;
@@ -369,8 +391,8 @@ class Manager {
 		if ( isset( $arguments['conditional_header'] ) && $arguments['conditional_header'] === true ) {
 			add_filter(
 				'neve_react_controls_localization',
-				function ( $array ) use ( $id ) {
-					$array['headerControls'][] = $id;
+				function ( $array ) use ( $id, $default ) {
+					$array['headerControls'][ $id ] = $default;
 
 					return $array;
 				}
@@ -413,20 +435,20 @@ class Manager {
 	/**
 	 * Return registered default.
 	 *
-	 * @param string $id Setting id.
-	 * @param null   $subkey Subkey, if any.
+	 * @param string      $id Setting id.
+	 * @param null|string $subkey Subkey, if any.
 	 *
 	 * @return mixed|null
 	 */
 	public function get_default( $id, $subkey = null ) {
 		return isset( self::$settings[ $id ]['default'] )
-				? ( $subkey === null
+			? ( $subkey === null
 				? self::$settings[ $id ]['default']
 				: ( isset( self::$settings[ $id ]['default'][ $subkey ] )
 					? self::$settings[ $id ]['default'][ $subkey ]
 					: null
 				) )
-				: null;
+			: null;
 	}
 
 	/**

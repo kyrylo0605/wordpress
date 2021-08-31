@@ -1,33 +1,41 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'v2.10.4',
-    'version' => '2.10.4.0',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'v3.0.2',
+        'version' => '3.0.2.0',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'c7f967cc9df7063088132bb22b1c6cff3a60003f',
+        'name' => 'codeinwp/neve',
+        'dev' => false,
     ),
-    'reference' => '5743cb610f59a7ef98ca2b5d03739becda8719a0',
-    'name' => 'codeinwp/neve',
-  ),
-  'versions' => 
-  array (
-    'codeinwp/neve' => 
-    array (
-      'pretty_version' => 'v2.10.4',
-      'version' => '2.10.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '5743cb610f59a7ef98ca2b5d03739becda8719a0',
+    'versions' => array(
+        'codeinwp/neve' => array(
+            'pretty_version' => 'v3.0.2',
+            'version' => '3.0.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'c7f967cc9df7063088132bb22b1c6cff3a60003f',
+            'dev_requirement' => false,
+        ),
+        'codeinwp/themeisle-sdk' => array(
+            'pretty_version' => '3.2.21',
+            'version' => '3.2.21.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
+            'aliases' => array(),
+            'reference' => 'cafd016b61ec0928c0234e312046782a77c14318',
+            'dev_requirement' => false,
+        ),
+        'wptt/webfont-loader' => array(
+            'pretty_version' => 'v1.1.1',
+            'version' => '1.1.1.0',
+            'type' => 'package',
+            'install_path' => __DIR__ . '/../wptt/webfont-loader',
+            'aliases' => array(),
+            'reference' => '7243420fec7f202a9355485b8533bd99a7654941',
+            'dev_requirement' => false,
+        ),
     ),
-    'codeinwp/themeisle-sdk' => 
-    array (
-      'pretty_version' => '3.2.19',
-      'version' => '3.2.19.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'abb31e2382fd8c40bcc18d7c9f3501d14bf48e87',
-    ),
-  ),
 );

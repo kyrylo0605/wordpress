@@ -46,6 +46,12 @@ class Amp {
 		add_filter( 'neve_search_menu_item_filter', array( $this, 'add_search_menu_item_attrs' ), 10, 2 );
 		add_action( 'neve_after_header_hook', array( $this, 'render_amp_states' ) );
 		add_filter( 'neve_nav_toggle_data_attrs', array( $this, 'add_nav_toggle_attrs' ) );
+
+
+		/**
+		 * Add infinite scroll for amp.
+		 */
+		$this->maybe_add_amp_infinite_scroll();
 	}
 
 	/**
@@ -85,7 +91,7 @@ class Amp {
 		$caret .= '<span class="caret"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg></span>';
 		$caret .= '</div>';
 
-		$item_output = '<div class="has-caret">' . $item_output . $caret . '</div>';
+		$item_output = '<div class="has-caret amp">' . $item_output . $caret . '</div>';
 		// Filter that is used for AMP proper event integration.
 		$item_output = apply_filters( 'neve_caret_wrap_filter', $item_output, $item->menu_order );
 
@@ -202,7 +208,7 @@ class Amp {
 		$amp_caret = '';
 		$caret     = '<span class="caret"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg></span>';
 
-		$attrs .= '<div class="has-caret" [class]="\'has-caret\' + ( ' . $state . ' ? \' dropdown-open\' : \'\')">';
+		$attrs .= '<div class="has-caret amp" [class]="\'has-caret amp\' + ( ' . $state . ' ? \' dropdown-open\' : \'\')">';
 		$attrs .= '<amp-state id="' . $state . '"><script type="application/json">false</script></amp-state>';
 
 		$amp_caret .= '<div class="caret-wrap amp-desktop-caret-wrap">' . $caret . '</div>';
@@ -213,9 +219,165 @@ class Amp {
 		$amp_caret .= ' aria-expanded="false" ';
 		$amp_caret .= ' [aria-expanded]="' . $state . ' ? \'true\' : \'false\'">' . $caret . '</div>';
 
-		$output = str_replace( '<div class="has-caret">', $attrs, $output );
+		$output = str_replace( '<div class="has-caret amp">', $attrs, $output );
 		$output = str_replace( $caret, $amp_caret, $output );
 
 		return $output;
+	}
+
+	/**
+	 * Try to add amp infinite scroll.
+	 *
+	 * @return bool
+	 */
+	private function maybe_add_amp_infinite_scroll() {
+
+		if ( ! $this->should_display_infinite_scroll() ) {
+			return false;
+		}
+
+		add_action( 'wp_head', [ $this, 'add_amp_experiments' ], 1 );
+
+		remove_all_actions( 'neve_do_pagination' );
+		add_action( 'neve_before_footer_hook', [ $this, 'wrap_footer_before' ] );
+		add_action( 'neve_after_footer_hook', [ $this, 'wrap_footer_after' ] );
+
+		return true;
+	}
+
+	/**
+	 * Check if it's blog post index.
+	 *
+	 * @return bool
+	 */
+	private function is_blog_page() {
+		global $post;
+
+		$post_type = get_post_type( $post );
+		return ( $post_type === 'post' ) && ( is_home() || is_archive() );
+	}
+
+	/**
+	 * Decide if amp infinite scroll should work.
+	 *
+	 * @return bool
+	 */
+	public function should_display_infinite_scroll() {
+
+		if ( ! $this->is_blog_page() ) {
+			return false;
+		}
+		if ( $this->blog_has_sidebar() ) {
+			return false;
+		}
+
+		$pagination_type = get_theme_mod( 'neve_pagination_type', 'number' );
+		if ( $pagination_type !== 'infinite' ) {
+			return false;
+		}
+
+		$has_pagination = ! empty( get_the_posts_pagination() );
+		if ( ! $has_pagination ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Amp experiments for infinite scroll feature.
+	 */
+	public function add_amp_experiments() {
+		echo '<meta name="amp-experiments-opt-in" content="amp-next-page">';
+	}
+
+	/**
+	 * Check if blog has sidebar.
+	 *
+	 * @return bool
+	 */
+	public function blog_has_sidebar() {
+		$option           = 'neve_default_sidebar_layout';
+		$advanced_options = get_theme_mod( 'neve_advanced_layout_options', false );
+		if ( $advanced_options !== false ) {
+			$option = 'neve_blog_archive_sidebar_layout';
+		}
+		return apply_filters( 'neve_sidebar_position', get_theme_mod( $option, 'right' ) ) !== 'full-width';
+	}
+
+	/**
+	 * Before footer pagination tags.
+	 */
+	public function wrap_footer_before() {
+		$amp_pagination_data = $this->get_amp_pagination_data();
+
+		if ( ! is_paged() ) {
+			echo '<amp-next-page>';
+			echo '<script type="application/json">';
+			echo wp_json_encode( $amp_pagination_data );
+			echo '</script>';
+			echo '<div footer>';
+		} else {
+			$links = paginate_links( array( 'type' => 'list' ) );
+			$links = str_replace(
+				array( '<a class="prev', '<a class="next' ),
+				array(
+					'<a rel="prev" class="prev',
+					'<a rel="next" class="next',
+				),
+				$links
+			);
+			echo '<div class="nv-index-posts" next-page-hide>';
+			echo wp_kses_post( $links );
+			echo '</div>';
+		}
+	}
+
+	/**
+	 * After footer pagination tags.
+	 */
+	public function wrap_footer_after() {
+		if ( ! is_paged() ) {
+			echo '</div>';
+			echo '</amp-next-page>';
+		}
+	}
+
+	/**
+	 * Get pagination data for amp-next-page
+	 *
+	 * @return array
+	 */
+	private function get_amp_pagination_data() {
+		$amp_pagination = [];
+		$pagination     = paginate_links(
+			[
+				'show_all'  => true,
+				'prev_next' => false,
+				'type'      => 'array',
+			]
+		);
+
+		foreach ( $pagination as $page ) {
+
+			preg_match( '#<a.+?href="(.+?)">(.+?)</a>#s', $page, $matches );
+
+			if ( empty( $matches ) ) {
+				continue;
+			}
+
+			$url   = html_entity_decode( $matches[1] );
+			$page  = html_entity_decode( $matches[2] );
+			$image = get_site_icon_url();
+
+			$amp_pagination[] = [
+				'url'   => $url,
+				'title' => get_bloginfo( 'name' ) . ' - ' . __( 'Page', 'neve' ) . ' ' . $page . ' - ' . get_bloginfo( 'description' ),
+				'image' => $image,
+			];
+
+		}
+
+		return $amp_pagination;
 	}
 }

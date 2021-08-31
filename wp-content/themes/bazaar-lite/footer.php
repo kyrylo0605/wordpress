@@ -56,9 +56,15 @@
         </section>
 
     </footer>
-
-	<div id="back-to-top"> <i class="fa fa-chevron-up"></i> </div>
-
+    
+	<?php
+	
+		if ( bazaarlite_setting('wip_enable_backtotop_button', 'on') == 'on' ) :
+			echo '<div id="back-to-top"> <i class="fa fa-chevron-up"></i> </div>';
+		endif;
+	
+	?>
+	
 </div>
 
 <?php wp_footer() ?>  
