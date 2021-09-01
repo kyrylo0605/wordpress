@@ -1,1 +1,689 @@
-window.wp=window.wp||{},window.wp.keyboardShortcuts=function(t){var e={};function n(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(r,o,function(e){return t[e]}.bind(null,o));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=562)}({10:function(t,e,n){"use strict";n.d(e,"a",(function(){return i}));var r=n(40),o=n(31),u=n(41);function i(t,e){return Object(r.a)(t)||function(t,e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t)){var n=[],_n=!0,r=!1,o=void 0;try{for(var u,i=t[Symbol.iterator]();!(_n=(u=i.next()).done)&&(n.push(u.value),!e||n.length!==e);_n=!0);}catch(t){r=!0,o=t}finally{try{_n||null==i.return||i.return()}finally{if(r)throw o}}return n}}(t,e)||Object(o.a)(t,e)||Object(u.a)()}},14:function(t,e){t.exports=window.wp.compose},15:function(t,e,n){"use strict";n.d(e,"a",(function(){return i}));var r=n(24),o=n(44),u=n(31);function i(t){return function(t){if(Array.isArray(t))return Object(r.a)(t)}(t)||Object(o.a)(t)||Object(u.a)(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}},17:function(t,e){t.exports=window.wp.keycodes},2:function(t,e){t.exports=window.lodash},24:function(t,e,n){"use strict";function r(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,r=new Array(e);n<e;n++)r[n]=t[n];return r}n.d(e,"a",(function(){return r}))},31:function(t,e,n){"use strict";n.d(e,"a",(function(){return o}));var r=n(24);function o(t,e){if(t){if("string"==typeof t)return Object(r.a)(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?Object(r.a)(t,e):void 0}}},4:function(t,e){t.exports=window.wp.data},40:function(t,e,n){"use strict";function r(t){if(Array.isArray(t))return t}n.d(e,"a",(function(){return r}))},41:function(t,e,n){"use strict";function r(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}n.d(e,"a",(function(){return r}))},44:function(t,e,n){"use strict";function r(t){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t))return Array.from(t)}n.d(e,"a",(function(){return r}))},49:function(t,e,n){"use strict";var r,o;function u(t){return[t]}function i(){var t={clear:function(){t.head=null}};return t}function a(t,e,n){var r;if(t.length!==e.length)return!1;for(r=n;r<t.length;r++)if(t[r]!==e[r])return!1;return!0}r={},o="undefined"!=typeof WeakMap,e.a=function(t,e){var n,c;function f(){n=o?new WeakMap:i()}function s(){var n,r,o,u,i,f=arguments.length;for(u=new Array(f),o=0;o<f;o++)u[o]=arguments[o];for(i=e.apply(null,u),(n=c(i)).isUniqueByDependants||(n.lastDependants&&!a(i,n.lastDependants,0)&&n.clear(),n.lastDependants=i),r=n.head;r;){if(a(r.args,u,1))return r!==n.head&&(r.prev.next=r.next,r.next&&(r.next.prev=r.prev),r.next=n.head,r.prev=null,n.head.prev=r,n.head=r),r.val;r=r.next}return r={val:t.apply(null,u)},u[0]=null,r.args=u,n.head&&(n.head.prev=r,r.next=n.head),n.head=r,r.val}return e||(e=u),c=o?function(t){var e,o,u,a,c,f=n,s=!0;for(e=0;e<t.length;e++){if(!(c=o=t[e])||"object"!=typeof c){s=!1;break}f.has(o)?f=f.get(o):(u=new WeakMap,f.set(o,u),f=u)}return f.has(r)||((a=i()).isUniqueByDependants=s,f.set(r,a)),f.get(r)}:function(){return n},s.getDependants=e,s.clear=f,f(),s}},5:function(t,e,n){"use strict";function r(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}n.d(e,"a",(function(){return r}))},562:function(t,e,n){"use strict";n.r(e),n.d(e,"store",(function(){return R})),n.d(e,"useShortcut",(function(){return A}));var r={};n.r(r),n.d(r,"registerShortcut",(function(){return s})),n.d(r,"unregisterShortcut",(function(){return l}));var o={};n.r(o),n.d(o,"getShortcutKeyCombination",(function(){return g})),n.d(o,"getShortcutRepresentation",(function(){return j})),n.d(o,"getShortcutDescription",(function(){return m})),n.d(o,"getShortcutAliases",(function(){return w})),n.d(o,"getAllShortcutRawKeyCombinations",(function(){return S})),n.d(o,"getCategoryShortcuts",(function(){return x}));var u=n(4),i=n(5),a=n(2);function c(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(t);e&&(r=r.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),n.push.apply(n,r)}return n}function f(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?c(Object(n),!0).forEach((function(e){Object(i.a)(t,e,n[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):c(Object(n)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))}))}return t}function s(t){var e=t.name,n=t.category,r=t.description;return{type:"REGISTER_SHORTCUT",name:e,category:n,keyCombination:t.keyCombination,aliases:t.aliases,description:r}}function l(t){return{type:"UNREGISTER_SHORTCUT",name:t}}var d=n(10),p=n(15),b=n(49),y=n(17),h=[],v={display:y.displayShortcut,raw:y.rawShortcut,ariaLabel:y.shortcutAriaLabel};function O(t,e){return t?t.modifier?v[e][t.modifier](t.character):t.character:null}function g(t,e){return t[e]?t[e].keyCombination:null}function j(t,e){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:"display",r=g(t,e);return O(r,n)}function m(t,e){return t[e]?t[e].description:null}function w(t,e){return t[e]&&t[e].aliases?t[e].aliases:h}var S=Object(b.a)((function(t,e){return Object(a.compact)([O(g(t,e),"raw")].concat(Object(p.a)(w(t,e).map((function(t){return O(t,"raw")})))))}),(function(t,e){return[t[e]]})),x=Object(b.a)((function(t,e){return Object.entries(t).filter((function(t){return Object(d.a)(t,2)[1].category===e})).map((function(t){return Object(d.a)(t,1)[0]}))}),(function(t){return[t]})),R=Object(u.createReduxStore)("core/keyboard-shortcuts",{reducer:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=arguments.length>1?arguments[1]:void 0;switch(e.type){case"REGISTER_SHORTCUT":return f(f({},t),{},Object(i.a)({},e.name,{category:e.category,keyCombination:e.keyCombination,aliases:e.aliases,description:e.description}));case"UNREGISTER_SHORTCUT":return Object(a.omit)(t,e.name)}return t},actions:r,selectors:o});Object(u.register)(R);var T=n(14),A=function(t,e,n){var r=Object(u.useSelect)((function(e){return e(R).getAllShortcutRawKeyCombinations(t)}),[t]);Object(T.useKeyboardShortcut)(r,e,n)}}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "__unstableUseShortcutEventMatch": function() { return /* reexport */ useShortcutEventMatch; },
+  "store": function() { return /* reexport */ store; },
+  "useShortcut": function() { return /* reexport */ use_shortcut; }
+});
+
+// NAMESPACE OBJECT: ./packages/keyboard-shortcuts/build-module/store/actions.js
+var actions_namespaceObject = {};
+__webpack_require__.r(actions_namespaceObject);
+__webpack_require__.d(actions_namespaceObject, {
+  "registerShortcut": function() { return registerShortcut; },
+  "unregisterShortcut": function() { return unregisterShortcut; }
+});
+
+// NAMESPACE OBJECT: ./packages/keyboard-shortcuts/build-module/store/selectors.js
+var selectors_namespaceObject = {};
+__webpack_require__.r(selectors_namespaceObject);
+__webpack_require__.d(selectors_namespaceObject, {
+  "getAllShortcutKeyCombinations": function() { return getAllShortcutKeyCombinations; },
+  "getAllShortcutRawKeyCombinations": function() { return getAllShortcutRawKeyCombinations; },
+  "getCategoryShortcuts": function() { return getCategoryShortcuts; },
+  "getShortcutAliases": function() { return getShortcutAliases; },
+  "getShortcutDescription": function() { return getShortcutDescription; },
+  "getShortcutKeyCombination": function() { return getShortcutKeyCombination; },
+  "getShortcutRepresentation": function() { return getShortcutRepresentation; }
+});
+
+;// CONCATENATED MODULE: external ["wp","data"]
+var external_wp_data_namespaceObject = window["wp"]["data"];
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/reducer.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Reducer returning the registered shortcuts
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+
+function reducer(state = {}, action) {
+  switch (action.type) {
+    case 'REGISTER_SHORTCUT':
+      return { ...state,
+        [action.name]: {
+          category: action.category,
+          keyCombination: action.keyCombination,
+          aliases: action.aliases,
+          description: action.description
+        }
+      };
+
+    case 'UNREGISTER_SHORTCUT':
+      return (0,external_lodash_namespaceObject.omit)(state, action.name);
+  }
+
+  return state;
+}
+
+/* harmony default export */ var store_reducer = (reducer);
+//# sourceMappingURL=reducer.js.map
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/actions.js
+/** @typedef {import('@wordpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
+
+/**
+ * Keyboard key combination.
+ *
+ * @typedef {Object} WPShortcutKeyCombination
+ *
+ * @property {string}                      character Character.
+ * @property {WPKeycodeModifier|undefined} modifier  Modifier.
+ */
+
+/**
+ * Configuration of a registered keyboard shortcut.
+ *
+ * @typedef {Object} WPShortcutConfig
+ *
+ * @property {string}                     name           Shortcut name.
+ * @property {string}                     category       Shortcut category.
+ * @property {string}                     description    Shortcut description.
+ * @property {WPShortcutKeyCombination}   keyCombination Shortcut key combination.
+ * @property {WPShortcutKeyCombination[]} [aliases]      Shortcut aliases.
+ */
+
+/**
+ * Returns an action object used to register a new keyboard shortcut.
+ *
+ * @param {WPShortcutConfig} config Shortcut config.
+ *
+ * @return {Object} action.
+ */
+function registerShortcut({
+  name,
+  category,
+  description,
+  keyCombination,
+  aliases
+}) {
+  return {
+    type: 'REGISTER_SHORTCUT',
+    name,
+    category,
+    keyCombination,
+    aliases,
+    description
+  };
+}
+/**
+ * Returns an action object used to unregister a keyboard shortcut.
+ *
+ * @param {string} name Shortcut name.
+ *
+ * @return {Object} action.
+ */
+
+function unregisterShortcut(name) {
+  return {
+    type: 'UNREGISTER_SHORTCUT',
+    name
+  };
+}
+//# sourceMappingURL=actions.js.map
+;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
+
+
+var LEAF_KEY, hasWeakMap;
+
+/**
+ * Arbitrary value used as key for referencing cache object in WeakMap tree.
+ *
+ * @type {Object}
+ */
+LEAF_KEY = {};
+
+/**
+ * Whether environment supports WeakMap.
+ *
+ * @type {boolean}
+ */
+hasWeakMap = typeof WeakMap !== 'undefined';
+
+/**
+ * Returns the first argument as the sole entry in an array.
+ *
+ * @param {*} value Value to return.
+ *
+ * @return {Array} Value returned as entry in array.
+ */
+function arrayOf( value ) {
+	return [ value ];
+}
+
+/**
+ * Returns true if the value passed is object-like, or false otherwise. A value
+ * is object-like if it can support property assignment, e.g. object or array.
+ *
+ * @param {*} value Value to test.
+ *
+ * @return {boolean} Whether value is object-like.
+ */
+function isObjectLike( value ) {
+	return !! value && 'object' === typeof value;
+}
+
+/**
+ * Creates and returns a new cache object.
+ *
+ * @return {Object} Cache object.
+ */
+function createCache() {
+	var cache = {
+		clear: function() {
+			cache.head = null;
+		},
+	};
+
+	return cache;
+}
+
+/**
+ * Returns true if entries within the two arrays are strictly equal by
+ * reference from a starting index.
+ *
+ * @param {Array}  a         First array.
+ * @param {Array}  b         Second array.
+ * @param {number} fromIndex Index from which to start comparison.
+ *
+ * @return {boolean} Whether arrays are shallowly equal.
+ */
+function isShallowEqual( a, b, fromIndex ) {
+	var i;
+
+	if ( a.length !== b.length ) {
+		return false;
+	}
+
+	for ( i = fromIndex; i < a.length; i++ ) {
+		if ( a[ i ] !== b[ i ] ) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Returns a memoized selector function. The getDependants function argument is
+ * called before the memoized selector and is expected to return an immutable
+ * reference or array of references on which the selector depends for computing
+ * its own return value. The memoize cache is preserved only as long as those
+ * dependant references remain the same. If getDependants returns a different
+ * reference(s), the cache is cleared and the selector value regenerated.
+ *
+ * @param {Function} selector      Selector function.
+ * @param {Function} getDependants Dependant getter returning an immutable
+ *                                 reference or array of reference used in
+ *                                 cache bust consideration.
+ *
+ * @return {Function} Memoized selector.
+ */
+/* harmony default export */ function rememo(selector, getDependants ) {
+	var rootCache, getCache;
+
+	// Use object source as dependant if getter not provided
+	if ( ! getDependants ) {
+		getDependants = arrayOf;
+	}
+
+	/**
+	 * Returns the root cache. If WeakMap is supported, this is assigned to the
+	 * root WeakMap cache set, otherwise it is a shared instance of the default
+	 * cache object.
+	 *
+	 * @return {(WeakMap|Object)} Root cache object.
+	 */
+	function getRootCache() {
+		return rootCache;
+	}
+
+	/**
+	 * Returns the cache for a given dependants array. When possible, a WeakMap
+	 * will be used to create a unique cache for each set of dependants. This
+	 * is feasible due to the nature of WeakMap in allowing garbage collection
+	 * to occur on entries where the key object is no longer referenced. Since
+	 * WeakMap requires the key to be an object, this is only possible when the
+	 * dependant is object-like. The root cache is created as a hierarchy where
+	 * each top-level key is the first entry in a dependants set, the value a
+	 * WeakMap where each key is the next dependant, and so on. This continues
+	 * so long as the dependants are object-like. If no dependants are object-
+	 * like, then the cache is shared across all invocations.
+	 *
+	 * @see isObjectLike
+	 *
+	 * @param {Array} dependants Selector dependants.
+	 *
+	 * @return {Object} Cache object.
+	 */
+	function getWeakMapCache( dependants ) {
+		var caches = rootCache,
+			isUniqueByDependants = true,
+			i, dependant, map, cache;
+
+		for ( i = 0; i < dependants.length; i++ ) {
+			dependant = dependants[ i ];
+
+			// Can only compose WeakMap from object-like key.
+			if ( ! isObjectLike( dependant ) ) {
+				isUniqueByDependants = false;
+				break;
+			}
+
+			// Does current segment of cache already have a WeakMap?
+			if ( caches.has( dependant ) ) {
+				// Traverse into nested WeakMap.
+				caches = caches.get( dependant );
+			} else {
+				// Create, set, and traverse into a new one.
+				map = new WeakMap();
+				caches.set( dependant, map );
+				caches = map;
+			}
+		}
+
+		// We use an arbitrary (but consistent) object as key for the last item
+		// in the WeakMap to serve as our running cache.
+		if ( ! caches.has( LEAF_KEY ) ) {
+			cache = createCache();
+			cache.isUniqueByDependants = isUniqueByDependants;
+			caches.set( LEAF_KEY, cache );
+		}
+
+		return caches.get( LEAF_KEY );
+	}
+
+	// Assign cache handler by availability of WeakMap
+	getCache = hasWeakMap ? getWeakMapCache : getRootCache;
+
+	/**
+	 * Resets root memoization cache.
+	 */
+	function clear() {
+		rootCache = hasWeakMap ? new WeakMap() : createCache();
+	}
+
+	// eslint-disable-next-line jsdoc/check-param-names
+	/**
+	 * The augmented selector call, considering first whether dependants have
+	 * changed before passing it to underlying memoize function.
+	 *
+	 * @param {Object} source    Source object for derivation.
+	 * @param {...*}   extraArgs Additional arguments to pass to selector.
+	 *
+	 * @return {*} Selector result.
+	 */
+	function callSelector( /* source, ...extraArgs */ ) {
+		var len = arguments.length,
+			cache, node, i, args, dependants;
+
+		// Create copy of arguments (avoid leaking deoptimization).
+		args = new Array( len );
+		for ( i = 0; i < len; i++ ) {
+			args[ i ] = arguments[ i ];
+		}
+
+		dependants = getDependants.apply( null, args );
+		cache = getCache( dependants );
+
+		// If not guaranteed uniqueness by dependants (primitive type or lack
+		// of WeakMap support), shallow compare against last dependants and, if
+		// references have changed, destroy cache to recalculate result.
+		if ( ! cache.isUniqueByDependants ) {
+			if ( cache.lastDependants && ! isShallowEqual( dependants, cache.lastDependants, 0 ) ) {
+				cache.clear();
+			}
+
+			cache.lastDependants = dependants;
+		}
+
+		node = cache.head;
+		while ( node ) {
+			// Check whether node arguments match arguments
+			if ( ! isShallowEqual( node.args, args, 1 ) ) {
+				node = node.next;
+				continue;
+			}
+
+			// At this point we can assume we've found a match
+
+			// Surface matched node to head if not already
+			if ( node !== cache.head ) {
+				// Adjust siblings to point to each other.
+				node.prev.next = node.next;
+				if ( node.next ) {
+					node.next.prev = node.prev;
+				}
+
+				node.next = cache.head;
+				node.prev = null;
+				cache.head.prev = node;
+				cache.head = node;
+			}
+
+			// Return immediately
+			return node.val;
+		}
+
+		// No cached value found. Continue to insertion phase:
+
+		node = {
+			// Generate the result from original function
+			val: selector.apply( null, args ),
+		};
+
+		// Avoid including the source object in the cache.
+		args[ 0 ] = null;
+		node.args = args;
+
+		// Don't need to check whether node is already head, since it would
+		// have been returned above already if it was
+
+		// Shift existing head down list
+		if ( cache.head ) {
+			cache.head.prev = node;
+			node.next = cache.head;
+		}
+
+		cache.head = node;
+
+		return node.val;
+	}
+
+	callSelector.getDependants = getDependants;
+	callSelector.clear = clear;
+	clear();
+
+	return callSelector;
+}
+
+;// CONCATENATED MODULE: external ["wp","keycodes"]
+var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/selectors.js
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/** @typedef {import('./actions').WPShortcutKeyCombination} WPShortcutKeyCombination */
+
+/** @typedef {import('@wordpress/keycodes').WPKeycodeHandlerByModifier} WPKeycodeHandlerByModifier */
+
+/**
+ * Shared reference to an empty array for cases where it is important to avoid
+ * returning a new array reference on every invocation.
+ *
+ * @type {Array<any>}
+ */
+
+const EMPTY_ARRAY = [];
+/**
+ * Shortcut formatting methods.
+ *
+ * @property {WPKeycodeHandlerByModifier} display     Display formatting.
+ * @property {WPKeycodeHandlerByModifier} rawShortcut Raw shortcut formatting.
+ * @property {WPKeycodeHandlerByModifier} ariaLabel   ARIA label formatting.
+ */
+
+const FORMATTING_METHODS = {
+  display: external_wp_keycodes_namespaceObject.displayShortcut,
+  raw: external_wp_keycodes_namespaceObject.rawShortcut,
+  ariaLabel: external_wp_keycodes_namespaceObject.shortcutAriaLabel
+};
+/**
+ * Returns a string representing the key combination.
+ *
+ * @param {?WPShortcutKeyCombination} shortcut       Key combination.
+ * @param {keyof FORMATTING_METHODS}  representation Type of representation
+ *                                                   (display, raw, ariaLabel).
+ *
+ * @return {string?} Shortcut representation.
+ */
+
+function getKeyCombinationRepresentation(shortcut, representation) {
+  if (!shortcut) {
+    return null;
+  }
+
+  return shortcut.modifier ? FORMATTING_METHODS[representation][shortcut.modifier](shortcut.character) : shortcut.character;
+}
+/**
+ * Returns the main key combination for a given shortcut name.
+ *
+ * @param {Object} state Global state.
+ * @param {string} name  Shortcut name.
+ *
+ * @return {WPShortcutKeyCombination?} Key combination.
+ */
+
+
+function getShortcutKeyCombination(state, name) {
+  return state[name] ? state[name].keyCombination : null;
+}
+/**
+ * Returns a string representing the main key combination for a given shortcut name.
+ *
+ * @param {Object}                   state          Global state.
+ * @param {string}                   name           Shortcut name.
+ * @param {keyof FORMATTING_METHODS} representation Type of representation
+ *                                                  (display, raw, ariaLabel).
+ *
+ * @return {string?} Shortcut representation.
+ */
+
+function getShortcutRepresentation(state, name, representation = 'display') {
+  const shortcut = getShortcutKeyCombination(state, name);
+  return getKeyCombinationRepresentation(shortcut, representation);
+}
+/**
+ * Returns the shortcut description given its name.
+ *
+ * @param {Object} state Global state.
+ * @param {string} name  Shortcut name.
+ *
+ * @return {string?} Shortcut description.
+ */
+
+function getShortcutDescription(state, name) {
+  return state[name] ? state[name].description : null;
+}
+/**
+ * Returns the aliases for a given shortcut name.
+ *
+ * @param {Object} state Global state.
+ * @param {string} name  Shortcut name.
+ *
+ * @return {WPShortcutKeyCombination[]} Key combinations.
+ */
+
+function getShortcutAliases(state, name) {
+  return state[name] && state[name].aliases ? state[name].aliases : EMPTY_ARRAY;
+}
+const getAllShortcutKeyCombinations = rememo((state, name) => {
+  return (0,external_lodash_namespaceObject.compact)([getShortcutKeyCombination(state, name), ...getShortcutAliases(state, name)]);
+}, (state, name) => [state[name]]);
+/**
+ * Returns the raw representation of all the keyboard combinations of a given shortcut name.
+ *
+ * @param {Object} state Global state.
+ * @param {string} name  Shortcut name.
+ *
+ * @return {string[]} Shortcuts.
+ */
+
+const getAllShortcutRawKeyCombinations = rememo((state, name) => {
+  return getAllShortcutKeyCombinations(state, name).map(combination => getKeyCombinationRepresentation(combination, 'raw'));
+}, (state, name) => [state[name]]);
+/**
+ * Returns the shortcut names list for a given category name.
+ *
+ * @param {Object} state Global state.
+ * @param {string} name  Category name.
+ *
+ * @return {string[]} Shortcut names.
+ */
+
+const getCategoryShortcuts = rememo((state, categoryName) => {
+  return Object.entries(state).filter(([, shortcut]) => shortcut.category === categoryName).map(([name]) => name);
+}, state => [state]);
+//# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/index.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+const STORE_NAME = 'core/keyboard-shortcuts';
+/**
+ * Store definition for the keyboard shortcuts namespace.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ *
+ * @type {Object}
+ */
+
+const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
+  reducer: store_reducer,
+  actions: actions_namespaceObject,
+  selectors: selectors_namespaceObject
+});
+(0,external_wp_data_namespaceObject.register)(store);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: external ["wp","compose"]
+var external_wp_compose_namespaceObject = window["wp"]["compose"];
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/hooks/use-shortcut.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Attach a keyboard shortcut handler.
+ *
+ * @param {string}   name     Shortcut name.
+ * @param {Function} callback Shortcut callback.
+ * @param {Object}   options  Shortcut options.
+ */
+
+function useShortcut(name, callback, options) {
+  const shortcuts = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(store).getAllShortcutRawKeyCombinations(name);
+  }, [name]);
+  (0,external_wp_compose_namespaceObject.useKeyboardShortcut)(shortcuts, callback, options);
+}
+
+/* harmony default export */ var use_shortcut = (useShortcut);
+//# sourceMappingURL=use-shortcut.js.map
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/hooks/use-shortcut-event-match.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Returns a function to check if a keyboard event matches a shortcut name.
+ *
+ * @return {Function} A function to to check if a keyboard event matches a
+ *                    predefined shortcut combination.
+ */
+
+function useShortcutEventMatch() {
+  const {
+    getAllShortcutKeyCombinations
+  } = (0,external_wp_data_namespaceObject.useSelect)(store);
+  /**
+   * A function to check if a keyboard event matches a predefined shortcut
+   * combination.
+   *
+   * @param {string}        name  Shortcut name.
+   * @param {KeyboardEvent} event Event to check.
+   *
+   * @return {boolean} True if the event matches any shortcuts, false if not.
+   */
+
+  function isMatch(name, event) {
+    return getAllShortcutKeyCombinations(name).some(({
+      modifier,
+      character
+    }) => {
+      return external_wp_keycodes_namespaceObject.isKeyboardEvent[modifier](event, character);
+    });
+  }
+
+  return isMatch;
+}
+//# sourceMappingURL=use-shortcut-event-match.js.map
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/index.js
+
+
+
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).keyboardShortcuts = __webpack_exports__;
+/******/ })()
+;

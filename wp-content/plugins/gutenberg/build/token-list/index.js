@@ -1,1 +1,281 @@
-window.wp=window.wp||{},window.wp.tokenList=function(e){var t={};function r(n){if(t[n])return t[n].exports;var u=t[n]={i:n,l:!1,exports:{}};return e[n].call(u.exports,u,u.exports,r),u.l=!0,u.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var u in e)r.d(n,u,function(t){return e[t]}.bind(null,u));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=535)}({16:function(e,t){e.exports=window.regeneratorRuntime},2:function(e,t){e.exports=window.lodash},28:function(e,t,r){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}r.d(t,"a",(function(){return n}))},29:function(e,t,r){"use strict";function n(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function u(e,t,r){return t&&n(e.prototype,t),r&&n(e,r),e}r.d(t,"a",(function(){return u}))},535:function(e,t,r){"use strict";r.r(t),r.d(t,"default",(function(){return l}));var n=r(16),u=r.n(n),a=r(28),i=r(29),o=r(2),l=function(){function e(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"";Object(a.a)(this,e),this.value=t,this._currentValue,this._valueAsArray}return Object(i.a)(e,[{key:"entries",value:function(){var e;return(e=this._valueAsArray).entries.apply(e,arguments)}},{key:"forEach",value:function(){var e;return(e=this._valueAsArray).forEach.apply(e,arguments)}},{key:"keys",value:function(){var e;return(e=this._valueAsArray).keys.apply(e,arguments)}},{key:"values",value:function(){var e;return(e=this._valueAsArray).values.apply(e,arguments)}},{key:"toString",value:function(){return this.value}},{key:Symbol.iterator,value:u.a.mark((function e(){return u.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.delegateYield(this._valueAsArray,"t0",1);case 1:return e.abrupt("return",e.t0);case 2:case"end":return e.stop()}}),e,this)}))},{key:"item",value:function(e){return this._valueAsArray[e]}},{key:"contains",value:function(e){return-1!==this._valueAsArray.indexOf(e)}},{key:"add",value:function(){for(var e=arguments.length,t=new Array(e),r=0;r<e;r++)t[r]=arguments[r];this.value+=" "+t.join(" ")}},{key:"remove",value:function(){for(var e=arguments.length,t=new Array(e),r=0;r<e;r++)t[r]=arguments[r];this.value=o.without.apply(void 0,[this._valueAsArray].concat(t)).join(" ")}},{key:"toggle",value:function(e,t){return void 0===t&&(t=!this.contains(e)),t?this.add(e):this.remove(e),t}},{key:"replace",value:function(e,t){return!!this.contains(e)&&(this.remove(e),this.add(t),!0)}},{key:"supports",value:function(){return!0}},{key:"value",get:function(){return this._currentValue},set:function(e){e=String(e),this._valueAsArray=Object(o.uniq)(Object(o.compact)(e.split(/\s+/g))),this._currentValue=this._valueAsArray.join(" ")}},{key:"length",get:function(){return this._valueAsArray.length}}]),e}()}}).default;
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ TokenList; }
+});
+
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/token-list/build-module/index.js
+/**
+ * External dependencies
+ */
+
+/**
+ * A set of tokens.
+ *
+ * @see https://dom.spec.whatwg.org/#domtokenlist
+ */
+
+class TokenList {
+  /**
+   * Constructs a new instance of TokenList.
+   *
+   * @param {string} initialValue Initial value to assign.
+   */
+  constructor(initialValue = '') {
+    this.value = initialValue; // Disable reason: These are type hints on the class.
+
+    /* eslint-disable no-unused-expressions */
+
+    /** @type {string} */
+
+    this._currentValue;
+    /** @type {string[]} */
+
+    this._valueAsArray;
+    /* eslint-enable no-unused-expressions */
+  }
+  /**
+   * @param {Parameters<Array<string>['entries']>} args
+   */
+
+
+  entries(...args) {
+    return this._valueAsArray.entries(...args);
+  }
+  /**
+   * @param {Parameters<Array<string>['forEach']>} args
+   */
+
+
+  forEach(...args) {
+    return this._valueAsArray.forEach(...args);
+  }
+  /**
+   * @param {Parameters<Array<string>['keys']>} args
+   */
+
+
+  keys(...args) {
+    return this._valueAsArray.keys(...args);
+  }
+  /**
+   * @param {Parameters<Array<string>['values']>} args
+   */
+
+
+  values(...args) {
+    return this._valueAsArray.values(...args);
+  }
+  /**
+   * Returns the associated set as string.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-value
+   *
+   * @return {string} Token set as string.
+   */
+
+
+  get value() {
+    return this._currentValue;
+  }
+  /**
+   * Replaces the associated set with a new string value.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-value
+   *
+   * @param {string} value New token set as string.
+   */
+
+
+  set value(value) {
+    value = String(value);
+    this._valueAsArray = (0,external_lodash_namespaceObject.uniq)((0,external_lodash_namespaceObject.compact)(value.split(/\s+/g)));
+    this._currentValue = this._valueAsArray.join(' ');
+  }
+  /**
+   * Returns the number of tokens.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-length
+   *
+   * @return {number} Number of tokens.
+   */
+
+
+  get length() {
+    return this._valueAsArray.length;
+  }
+  /**
+   * Returns the stringified form of the TokenList.
+   *
+   * @see https://dom.spec.whatwg.org/#DOMTokenList-stringification-behavior
+   * @see https://www.ecma-international.org/ecma-262/9.0/index.html#sec-tostring
+   *
+   * @return {string} Token set as string.
+   */
+
+
+  toString() {
+    return this.value;
+  }
+  /**
+   * Returns an iterator for the TokenList, iterating items of the set.
+   *
+   * @see https://dom.spec.whatwg.org/#domtokenlist
+   *
+   * @return {IterableIterator<string>} TokenList iterator.
+   */
+
+
+  *[Symbol.iterator]() {
+    return yield* this._valueAsArray;
+  }
+  /**
+   * Returns the token with index `index`.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-item
+   *
+   * @param {number} index Index at which to return token.
+   *
+   * @return {string|undefined} Token at index.
+   */
+
+
+  item(index) {
+    return this._valueAsArray[index];
+  }
+  /**
+   * Returns true if `token` is present, and false otherwise.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-contains
+   *
+   * @param {string} item Token to test.
+   *
+   * @return {boolean} Whether token is present.
+   */
+
+
+  contains(item) {
+    return this._valueAsArray.indexOf(item) !== -1;
+  }
+  /**
+   * Adds all arguments passed, except those already present.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-add
+   *
+   * @param {...string} items Items to add.
+   */
+
+
+  add(...items) {
+    this.value += ' ' + items.join(' ');
+  }
+  /**
+   * Removes arguments passed, if they are present.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-remove
+   *
+   * @param {...string} items Items to remove.
+   */
+
+
+  remove(...items) {
+    this.value = (0,external_lodash_namespaceObject.without)(this._valueAsArray, ...items).join(' ');
+  }
+  /**
+   * If `force` is not given, "toggles" `token`, removing it if it’s present
+   * and adding it if it’s not present. If `force` is true, adds token (same
+   * as add()). If force is false, removes token (same as remove()). Returns
+   * true if `token` is now present, and false otherwise.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-toggle
+   *
+   * @param {string}  token   Token to toggle.
+   * @param {boolean} [force] Presence to force.
+   *
+   * @return {boolean} Whether token is present after toggle.
+   */
+
+
+  toggle(token, force) {
+    if (undefined === force) {
+      force = !this.contains(token);
+    }
+
+    if (force) {
+      this.add(token);
+    } else {
+      this.remove(token);
+    }
+
+    return force;
+  }
+  /**
+   * Replaces `token` with `newToken`. Returns true if `token` was replaced
+   * with `newToken`, and false otherwise.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-replace
+   *
+   * @param {string} token    Token to replace with `newToken`.
+   * @param {string} newToken Token to use in place of `token`.
+   *
+   * @return {boolean} Whether replacement occurred.
+   */
+
+
+  replace(token, newToken) {
+    if (!this.contains(token)) {
+      return false;
+    }
+
+    this.remove(token);
+    this.add(newToken);
+    return true;
+  }
+  /**
+   * Returns true if `token` is in the associated attribute’s supported
+   * tokens. Returns false otherwise.
+   *
+   * Always returns `true` in this implementation.
+   *
+   * @see https://dom.spec.whatwg.org/#dom-domtokenlist-supports
+   *
+   * @return {boolean} Whether token is supported.
+   */
+
+
+  supports() {
+    return true;
+  }
+
+}
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).tokenList = __webpack_exports__.default;
+/******/ })()
+;

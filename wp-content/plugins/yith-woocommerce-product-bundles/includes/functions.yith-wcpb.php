@@ -1,10 +1,27 @@
 <?php
+/**
+ * Functions
+ *
+ * @author  YITH
+ * @package YITH\ProductBundles
+ */
+
+defined( 'YITH_WCPB' ) || exit;
 
 if ( file_exists( 'functions.yith-wcpb-premium.php' ) ) {
 	require_once 'functions.yith-wcpb-premium.php';
 }
 
 if ( ! function_exists( 'yith_wcpb_help_tip' ) ) {
+	/**
+	 * Return an help-tip
+	 *
+	 * @param string $tip        The message.
+	 * @param false  $allow_html Set true to allow HTML.
+	 *
+	 * @return string
+	 * @deprecated 1.4.12
+	 */
 	function yith_wcpb_help_tip( $tip, $allow_html = false ) {
 		if ( function_exists( 'wc_help_tip' ) ) {
 			return wc_help_tip( $tip, $allow_html );
@@ -22,6 +39,11 @@ if ( ! function_exists( 'yith_wcpb_help_tip' ) ) {
 }
 
 if ( ! function_exists( 'yith_wcpb_get_allowed_product_types' ) ) {
+	/**
+	 * Return product types allowed as bundled items.
+	 *
+	 * @return array
+	 */
 	function yith_wcpb_get_allowed_product_types() {
 		$types = array(
 			'simple'   => __( 'Simple', 'yith-woocommerce-product-bundles' ),
@@ -32,11 +54,16 @@ if ( ! function_exists( 'yith_wcpb_get_allowed_product_types' ) ) {
 			unset( $types['variable'] );
 		}
 
-		return apply_filters( 'yith_wcpb_allowed_product_types', $types );
+		return (array) apply_filters( 'yith_wcpb_allowed_product_types', $types );
 	}
 }
 
 if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) {
+	/**
+	 * Dropdown variation attribute.
+	 *
+	 * @param array $args Arguments.
+	 */
 	function yith_wcpb_wc_dropdown_variation_attribute_options( $args = array() ) {
 		if ( apply_filters( 'yith_wcpb_use_wc_dropdown_variation_attribute_options', true ) ) {
 			wc_dropdown_variation_attribute_options( $args );
@@ -58,17 +85,17 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 			// Get selected value.
 			if ( false === $args['selected'] && $args['attribute'] && $args['product'] instanceof WC_Product ) {
 				$selected_key     = 'attribute_' . sanitize_title( $args['attribute'] );
-				$args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				$args['selected'] = isset( $_REQUEST[ $selected_key ] ) ? wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ) : $args['product']->get_variation_default_attribute( $args['attribute'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			}
 
 			$options               = $args['options'];
 			$product               = $args['product'];
 			$attribute             = $args['attribute'];
-			$name                  = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
-			$id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
+			$name                  = ! ! $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
+			$id                    = ! ! $args['id'] ? $args['id'] : sanitize_title( $attribute );
 			$class                 = $args['class'];
 			$show_option_none      = (bool) $args['show_option_none'];
-			$show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'woocommerce' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
+			$show_option_none_text = ! ! $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'woocommerce' );
 
 			if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
 				$attributes = $product->get_variation_attributes();
@@ -76,6 +103,7 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 			}
 
 			$html = '<select id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
+
 			$html .= '<option value="">' . esc_html( $show_option_none_text ) . '</option>';
 
 			if ( ! empty( $options ) ) {
@@ -98,7 +126,8 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 					foreach ( $options as $option ) {
 						// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
 						$selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
-						$html     .= '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
+
+						$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
 					}
 				}
 			}
@@ -111,6 +140,13 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 }
 
 if ( ! function_exists( 'yith_wcpb_get_bundle_products_by_item' ) ) {
+	/**
+	 * Get bundle products by bundled item product.
+	 *
+	 * @param int|WC_Product $product The bundled item product.
+	 *
+	 * @return array
+	 */
 	function yith_wcpb_get_bundle_products_by_item( $product ) {
 		$product = wc_get_product( $product );
 		if ( ! $product ) {
@@ -121,6 +157,7 @@ if ( ! function_exists( 'yith_wcpb_get_bundle_products_by_item' ) ) {
 		$product_id_strlen = strlen( (string) $product_id );
 		$to_search         = '"product_id";s:' . $product_id_strlen . ':"' . $product_id . '"';
 
+		// phpcs:disable WordPress.DB.SlowDBQuery
 		$args = array(
 			'posts_per_page' => - 1,
 			'post_status'    => 'publish',
@@ -142,15 +179,19 @@ if ( ! function_exists( 'yith_wcpb_get_bundle_products_by_item' ) ) {
 			'fields'         => 'ids',
 		);
 
+		// phpcs:enable
+
 		return get_posts( $args );
 	}
 }
 
 if ( ! function_exists( 'yith_wcpb_get_price_to_display' ) ) {
 	/**
-	 * @param WC_Product   $product
-	 * @param string|float $price
-	 * @param int          $qty
+	 * Get the price to be displayed.
+	 *
+	 * @param WC_Product   $product The product.
+	 * @param string|float $price   The price.
+	 * @param int          $qty     The quantity.
 	 *
 	 * @return float
 	 * @since 1.3.2
@@ -167,7 +208,13 @@ if ( ! function_exists( 'yith_wcpb_get_price_to_display' ) ) {
 }
 
 if ( ! function_exists( 'yith_wcpb_round_bundled_item_price' ) ) {
-
+	/**
+	 * Round bundled item price.
+	 *
+	 * @param string|float $bundled_item_price The bundled item price.
+	 *
+	 * @return mixed|void
+	 */
 	function yith_wcpb_round_bundled_item_price( $bundled_item_price ) {
 		$rounded = $bundled_item_price;
 		if ( apply_filters( 'yith_wcpb_round_bundled_item_price', true ) ) {
@@ -182,7 +229,7 @@ if ( ! function_exists( 'yith_wcpb_round_bundled_item_price' ) ) {
 
 if ( ! function_exists( 'yith_wcpb_get_view' ) ) {
 	/**
-	 * print a view
+	 * Print a view.
 	 *
 	 * @param string $view The view.
 	 * @param array  $args The arguments.
@@ -197,7 +244,7 @@ if ( ! function_exists( 'yith_wcpb_get_view' ) ) {
 			$view_path = $premium_path;
 		}
 
-		extract( $args );
+		extract( $args ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		if ( file_exists( $view_path ) ) {
 			include $view_path;
 		}
@@ -210,7 +257,7 @@ if ( ! function_exists( 'yith_wcpb_bundle_data_field_name' ) ) {
 	 *
 	 * @param string $index    The index.
 	 * @param string $option   The option name.
-	 * @param bool   $is_array Is this an array?
+	 * @param bool   $is_array Set true if it's an array.
 	 *
 	 * @return string
 	 * @since 1.4.0

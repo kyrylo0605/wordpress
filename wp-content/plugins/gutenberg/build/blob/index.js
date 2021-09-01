@@ -1,1 +1,129 @@
-window.wp=window.wp||{},window.wp.blob=function(e){var n={};function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:r})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(t.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var o in e)t.d(r,o,function(n){return e[n]}.bind(null,o));return r},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=400)}({400:function(e,n,t){"use strict";t.r(n),t.d(n,"createBlobURL",(function(){return f})),t.d(n,"getBlobByURL",(function(){return c})),t.d(n,"getBlobTypeByURL",(function(){return l})),t.d(n,"revokeBlobURL",(function(){return d})),t.d(n,"isBlobURL",(function(){return a}));var r=window.URL,o=r.createObjectURL,u=r.revokeObjectURL,i={};function f(e){var n=o(e);return i[n]=e,n}function c(e){return i[e]}function l(e){var n;return null===(n=c(e))||void 0===n?void 0:n.type.split("/")[0]}function d(e){i[e]&&u(e),delete i[e]}function a(e){return!(!e||!e.indexOf)&&0===e.indexOf("blob:")}}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createBlobURL": function() { return /* binding */ createBlobURL; },
+/* harmony export */   "getBlobByURL": function() { return /* binding */ getBlobByURL; },
+/* harmony export */   "getBlobTypeByURL": function() { return /* binding */ getBlobTypeByURL; },
+/* harmony export */   "revokeBlobURL": function() { return /* binding */ revokeBlobURL; },
+/* harmony export */   "isBlobURL": function() { return /* binding */ isBlobURL; }
+/* harmony export */ });
+/**
+ * Browser dependencies
+ */
+const {
+  createObjectURL,
+  revokeObjectURL
+} = window.URL;
+/**
+ * @type {Record<string, File|undefined>}
+ */
+
+const cache = {};
+/**
+ * Create a blob URL from a file.
+ *
+ * @param {File} file The file to create a blob URL for.
+ *
+ * @return {string} The blob URL.
+ */
+
+function createBlobURL(file) {
+  const url = createObjectURL(file);
+  cache[url] = file;
+  return url;
+}
+/**
+ * Retrieve a file based on a blob URL. The file must have been created by
+ * `createBlobURL` and not removed by `revokeBlobURL`, otherwise it will return
+ * `undefined`.
+ *
+ * @param {string} url The blob URL.
+ *
+ * @return {File|undefined} The file for the blob URL.
+ */
+
+function getBlobByURL(url) {
+  return cache[url];
+}
+/**
+ * Retrieve a blob type based on URL. The file must have been created by
+ * `createBlobURL` and not removed by `revokeBlobURL`, otherwise it will return
+ * `undefined`.
+ *
+ * @param {string} url The blob URL.
+ *
+ * @return {string|undefined} The blob type.
+ */
+
+function getBlobTypeByURL(url) {
+  var _getBlobByURL;
+
+  return (_getBlobByURL = getBlobByURL(url)) === null || _getBlobByURL === void 0 ? void 0 : _getBlobByURL.type.split('/')[0]; // 0: media type , 1: file extension eg ( type: 'image/jpeg' ).
+}
+/**
+ * Remove the resource and file cache from memory.
+ *
+ * @param {string} url The blob URL.
+ */
+
+function revokeBlobURL(url) {
+  if (cache[url]) {
+    revokeObjectURL(url);
+  }
+
+  delete cache[url];
+}
+/**
+ * Check whether a url is a blob url.
+ *
+ * @param {string} url The URL.
+ *
+ * @return {boolean} Is the url a blob url?
+ */
+
+function isBlobURL(url) {
+  if (!url || !url.indexOf) {
+    return false;
+  }
+
+  return url.indexOf('blob:') === 0;
+}
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).blob = __webpack_exports__;
+/******/ })()
+;

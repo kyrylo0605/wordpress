@@ -3,42 +3,43 @@
  * Plugin Name: YITH WooCommerce Product Bundles
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-product-bundles
  * Description: <code><strong>YITH WooCommerce Product Bundles</strong></code> allows you to bundle WooCommerce products and sell them at a unique price. You can also set the quantity for each bundled item! <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.2.9
+ * Version: 1.2.11
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-product-bundles
  * Domain Path: /languages/
- * WC requires at least: 4.5.0
- * WC tested up to: 5.4.x
+ * WC requires at least: 5.3
+ * WC tested up to: 5.6.x
  *
  * @author  YITH
  * @package YITH WooCommerce Product Bundles
- * @version 1.2.9
+ * @version 1.2.11
  */
 
-/* == COMMENT == */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'is_plugin_active' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
+/**
+ * WooCommerce admin notice.
+ */
 function yith_wcpb_install_woocommerce_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'YITH WooCommerce Product Bundles is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-product-bundles' ); ?></p>
+		<p><?php esc_html_e( 'YITH WooCommerce Product Bundles is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-product-bundles' ); ?></p>
 	</div>
 	<?php
 }
 
-
+/**
+ * Premium admin notice.
+ */
 function yith_wcpb_install_free_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Product Bundles while you are using the premium one.', 'yith-woocommerce-product-bundles' ); ?></p>
+		<p><?php esc_html_e( 'You can\'t activate the free version of YITH WooCommerce Product Bundles while you are using the premium one.', 'yith-woocommerce-product-bundles' ); ?></p>
 	</div>
 	<?php
 }
@@ -50,7 +51,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WCPB_VERSION' ) ) {
-	define( 'YITH_WCPB_VERSION', '1.2.9' );
+	define( 'YITH_WCPB_VERSION', '1.2.11' );
 }
 
 if ( ! defined( 'YITH_WCPB_FREE_INIT' ) ) {
@@ -97,19 +98,20 @@ if ( ! defined( 'YITH_WCPB_SLUG' ) ) {
 	define( 'YITH_WCPB_SLUG', 'yith-woocommerce-product-bundles' );
 }
 
-
+/**
+ * Init.
+ */
 function yith_wcpb_init() {
 
 	load_plugin_textdomain( 'yith-woocommerce-product-bundles', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-	// Load required classes and functions
-	require_once( 'includes/objects/class.yith-wc-product-bundle.php' );
-	require_once( 'includes/objects/class.yith-wc-bundled-item.php' );
-	require_once( 'includes/compatibility/class.yith-wcpb-compatibility.php' );
-	require_once( 'includes/class.yith-wcpb-admin.php' );
-	require_once( 'includes/class.yith-wcpb-frontend.php' );
-	require_once( 'includes/class.yith-wcpb.php' );
-	require_once( 'includes/functions.yith-wcpb.php' );
+	require_once 'includes/objects/class.yith-wc-product-bundle.php';
+	require_once 'includes/objects/class.yith-wc-bundled-item.php';
+	require_once 'includes/compatibility/class.yith-wcpb-compatibility.php';
+	require_once 'includes/class.yith-wcpb-admin.php';
+	require_once 'includes/class.yith-wcpb-frontend.php';
+	require_once 'includes/class.yith-wcpb.php';
+	require_once 'includes/functions.yith-wcpb.php';
 
 	// Let's start the game!
 	YITH_WCPB();
@@ -117,7 +119,9 @@ function yith_wcpb_init() {
 
 add_action( 'yith_wcpb_init', 'yith_wcpb_init' );
 
-
+/**
+ * Install
+ */
 function yith_wcpb_install() {
 
 	if ( ! function_exists( 'WC' ) ) {
@@ -134,6 +138,6 @@ add_action( 'plugins_loaded', 'yith_wcpb_install', 11 );
 
 /* Plugin Framework Version Check */
 if ( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( plugin_dir_path( __FILE__ ) . 'plugin-fw/init.php' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'plugin-fw/init.php' );
+	require_once plugin_dir_path( __FILE__ ) . 'plugin-fw/init.php';
 }
 yit_maybe_plugin_fw_loader( plugin_dir_path( __FILE__ ) );

@@ -1,1 +1,240 @@
-window.wp=window.wp||{},window.wp.priorityQueue=function(e){var n={};function t(r){if(n[r])return n[r].exports;var u=n[r]={i:r,l:!1,exports:{}};return e[r].call(u.exports,u,u.exports,t),u.l=!0,u.exports}return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:r})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(t.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var u in e)t.d(r,u,function(n){return e[n]}.bind(null,u));return r},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=574)}({574:function(e,n,t){"use strict";t.r(n),t.d(n,"createQueue",(function(){return u}));var r="undefined"==typeof window?function(e){setTimeout((function(){return e(Date.now())}),0)}:window.requestIdleCallback||window.requestAnimationFrame,u=function(){var e=[],n=new WeakMap,t=!1,u=function u(o){var i="number"==typeof o?function(){return!1}:function(){return o.timeRemaining()>0};do{if(0===e.length)return void(t=!1);var f=e.shift();n.get(f)(),n.delete(f)}while(i());r(u)};return{add:function(o,i){n.has(o)||e.push(o),n.set(o,i),t||(t=!0,r(u))},flush:function(t){if(!n.has(t))return!1;var r=e.indexOf(t);e.splice(r,1);var u=n.get(t);return n.delete(t),u(),!0},reset:function(){e=[],n=new WeakMap,t=!1}}}}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "createQueue": function() { return /* binding */ createQueue; }
+});
+
+;// CONCATENATED MODULE: ./packages/priority-queue/build-module/request-idle-callback.js
+/**
+ * @typedef {( timeOrDeadline: IdleDeadline | number ) => void} Callback
+ */
+
+/**
+ * @return {(callback: Callback) => void} RequestIdleCallback
+ */
+function createRequestIdleCallback() {
+  if (typeof window === 'undefined') {
+    return callback => {
+      setTimeout(() => callback(Date.now()), 0);
+    };
+  }
+
+  return window.requestIdleCallback || window.requestAnimationFrame;
+}
+/* harmony default export */ var request_idle_callback = (createRequestIdleCallback());
+//# sourceMappingURL=request-idle-callback.js.map
+;// CONCATENATED MODULE: ./packages/priority-queue/build-module/index.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Enqueued callback to invoke once idle time permits.
+ *
+ * @typedef {()=>void} WPPriorityQueueCallback
+ */
+
+/**
+ * An object used to associate callbacks in a particular context grouping.
+ *
+ * @typedef {{}} WPPriorityQueueContext
+ */
+
+/**
+ * Function to add callback to priority queue.
+ *
+ * @typedef {(element:WPPriorityQueueContext,item:WPPriorityQueueCallback)=>void} WPPriorityQueueAdd
+ */
+
+/**
+ * Function to flush callbacks from priority queue.
+ *
+ * @typedef {(element:WPPriorityQueueContext)=>boolean} WPPriorityQueueFlush
+ */
+
+/**
+ * Reset the queue.
+ *
+ * @typedef {()=>void} WPPriorityQueueReset
+ */
+
+/**
+ * Priority queue instance.
+ *
+ * @typedef {Object} WPPriorityQueue
+ *
+ * @property {WPPriorityQueueAdd}   add   Add callback to queue for context.
+ * @property {WPPriorityQueueFlush} flush Flush queue for context.
+ * @property {WPPriorityQueueReset} reset Reset queue.
+ */
+
+/**
+ * Creates a context-aware queue that only executes
+ * the last task of a given context.
+ *
+ * @example
+ *```js
+ * import { createQueue } from '@wordpress/priority-queue';
+ *
+ * const queue = createQueue();
+ *
+ * // Context objects.
+ * const ctx1 = {};
+ * const ctx2 = {};
+ *
+ * // For a given context in the queue, only the last callback is executed.
+ * queue.add( ctx1, () => console.log( 'This will be printed first' ) );
+ * queue.add( ctx2, () => console.log( 'This won\'t be printed' ) );
+ * queue.add( ctx2, () => console.log( 'This will be printed second' ) );
+ *```
+ *
+ * @return {WPPriorityQueue} Queue object with `add`, `flush` and `reset` methods.
+ */
+
+const createQueue = () => {
+  /** @type {WPPriorityQueueContext[]} */
+  let waitingList = [];
+  /** @type {WeakMap<WPPriorityQueueContext,WPPriorityQueueCallback>} */
+
+  let elementsMap = new WeakMap();
+  let isRunning = false;
+  /**
+   * Callback to process as much queue as time permits.
+   *
+   * @param {IdleDeadline|number} deadline Idle callback deadline object, or
+   *                                       animation frame timestamp.
+   */
+
+  const runWaitingList = deadline => {
+    const hasTimeRemaining = typeof deadline === 'number' ? () => false : () => deadline.timeRemaining() > 0;
+
+    do {
+      if (waitingList.length === 0) {
+        isRunning = false;
+        return;
+      }
+
+      const nextElement =
+      /** @type {WPPriorityQueueContext} */
+      waitingList.shift();
+      const callback =
+      /** @type {WPPriorityQueueCallback} */
+      elementsMap.get(nextElement); // If errors with undefined callbacks are encountered double check that all of your useSelect calls
+      // have all dependecies set correctly in second parameter. Missing dependencies can cause unexpected
+      // loops and race conditions in the queue.
+
+      callback();
+      elementsMap.delete(nextElement);
+    } while (hasTimeRemaining());
+
+    request_idle_callback(runWaitingList);
+  };
+  /**
+   * Add a callback to the queue for a given context.
+   *
+   * @type {WPPriorityQueueAdd}
+   *
+   * @param {WPPriorityQueueContext}  element Context object.
+   * @param {WPPriorityQueueCallback} item    Callback function.
+   */
+
+
+  const add = (element, item) => {
+    if (!elementsMap.has(element)) {
+      waitingList.push(element);
+    }
+
+    elementsMap.set(element, item);
+
+    if (!isRunning) {
+      isRunning = true;
+      request_idle_callback(runWaitingList);
+    }
+  };
+  /**
+   * Flushes queue for a given context, returning true if the flush was
+   * performed, or false if there is no queue for the given context.
+   *
+   * @type {WPPriorityQueueFlush}
+   *
+   * @param {WPPriorityQueueContext} element Context object.
+   *
+   * @return {boolean} Whether flush was performed.
+   */
+
+
+  const flush = element => {
+    if (!elementsMap.has(element)) {
+      return false;
+    }
+
+    const index = waitingList.indexOf(element);
+    waitingList.splice(index, 1);
+    const callback =
+    /** @type {WPPriorityQueueCallback} */
+    elementsMap.get(element);
+    elementsMap.delete(element);
+    callback();
+    return true;
+  };
+  /**
+   * Reset the queue without running the pending callbacks.
+   *
+   * @type {WPPriorityQueueReset}
+   */
+
+
+  const reset = () => {
+    waitingList = [];
+    elementsMap = new WeakMap();
+    isRunning = false;
+  };
+
+  return {
+    add,
+    flush,
+    reset
+  };
+};
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).priorityQueue = __webpack_exports__;
+/******/ })()
+;

@@ -1,1 +1,403 @@
-window.wp=window.wp||{},window.wp.wordcount=function(e){var n={};function r(t){if(n[t])return n[t].exports;var u=n[t]={i:t,l:!1,exports:{}};return e[t].call(u.exports,u,u.exports,r),u.l=!0,u.exports}return r.m=e,r.c=n,r.d=function(e,n,t){r.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:t})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,n){if(1&n&&(e=r(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(r.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var u in e)r.d(t,u,function(n){return e[n]}.bind(null,u));return t},r.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(n,"a",n),n},r.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},r.p="",r(r.s=554)}({2:function(e,n){e.exports=window.lodash},554:function(e,n,r){"use strict";r.r(n),r.d(n,"count",(function(){return x}));var t=r(2),u={HTMLRegExp:/<\/?[a-z][^>]*?>/gi,HTMLcommentRegExp:/<!--[\s\S]*?-->/g,spaceRegExp:/&nbsp;|&#160;/gi,HTMLEntityRegExp:/&\S+?;/g,connectorRegExp:/--|\u2014/g,removeRegExp:new RegExp(["[","!-@[-`{-~","-¿×÷"," -⯿","⸀-⹿","]"].join(""),"g"),astralRegExp:/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,wordsRegExp:/\S\s+/g,characters_excluding_spacesRegExp:/\S/g,characters_including_spacesRegExp:/[^\f\n\r\t\v\u00AD\u2028\u2029]/g,l10n:{type:"words"}};function c(e,n){return n.replace(e.HTMLRegExp,"\n")}function o(e,n){return n.replace(e.astralRegExp,"a")}function l(e,n){return n.replace(e.HTMLEntityRegExp,"")}function i(e,n){return n.replace(e.connectorRegExp," ")}function a(e,n){return n.replace(e.removeRegExp,"")}function p(e,n){return n.replace(e.HTMLcommentRegExp,"")}function s(e,n){return e.shortcodesRegExp?n.replace(e.shortcodesRegExp,"\n"):n}function d(e,n){return n.replace(e.spaceRegExp," ")}function g(e,n){return n.replace(e.HTMLEntityRegExp,"a")}function f(e,n,r){var u,l;return e=Object(t.flow)(c.bind(null,r),p.bind(null,r),s.bind(null,r),o.bind(null,r),d.bind(null,r),g.bind(null,r))(e),null!==(u=null===(l=(e+="\n").match(n))||void 0===l?void 0:l.length)&&void 0!==u?u:0}function x(e,n,r){var o=function(e,n){var r,c,o=Object(t.extend)({},u,n);return o.shortcodes=null!==(r=null===(c=o.l10n)||void 0===c?void 0:c.shortcodes)&&void 0!==r?r:[],o.shortcodes&&o.shortcodes.length&&(o.shortcodesRegExp=new RegExp("\\[\\/?(?:"+o.shortcodes.join("|")+")[^\\]]*?\\]","g")),o.type=e,"characters_excluding_spaces"!==o.type&&"characters_including_spaces"!==o.type&&(o.type="words"),o}(n,r);switch(o.type){case"words":return function(e,n,r){var u,o;return e=Object(t.flow)(c.bind(null,r),p.bind(null,r),s.bind(null,r),d.bind(null,r),l.bind(null,r),i.bind(null,r),a.bind(null,r))(e),null!==(u=null===(o=(e+="\n").match(n))||void 0===o?void 0:o.length)&&void 0!==u?u:0}(e,o.wordsRegExp,o);case"characters_including_spaces":return f(e,o.characters_including_spacesRegExp,o);case"characters_excluding_spaces":return f(e,o.characters_excluding_spacesRegExp,o);default:return 0}}}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "count": function() { return /* binding */ count; }
+});
+
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/defaultSettings.js
+/** @typedef {import('./index').WPWordCountStrategy} WPWordCountStrategy */
+
+/** @typedef {Partial<{type: WPWordCountStrategy, shortcodes: string[]}>} WPWordCountL10n */
+
+/**
+ * @typedef WPWordCountSettingsFields
+ * @property {RegExp}              HTMLRegExp                        Regular expression that matches HTML tags
+ * @property {RegExp}              HTMLcommentRegExp                 Regular expression that matches HTML comments
+ * @property {RegExp}              spaceRegExp                       Regular expression that matches spaces in HTML
+ * @property {RegExp}              HTMLEntityRegExp                  Regular expression that matches HTML entities
+ * @property {RegExp}              connectorRegExp                   Regular expression that matches word connectors, like em-dash
+ * @property {RegExp}              removeRegExp                      Regular expression that matches various characters to be removed when counting
+ * @property {RegExp}              astralRegExp                      Regular expression that matches astral UTF-16 code points
+ * @property {RegExp}              wordsRegExp                       Regular expression that matches words
+ * @property {RegExp}              characters_excluding_spacesRegExp Regular expression that matches characters excluding spaces
+ * @property {RegExp}              characters_including_spacesRegExp Regular expression that matches characters including spaces
+ * @property {RegExp}              shortcodesRegExp                  Regular expression that matches WordPress shortcodes
+ * @property {string[]}            shortcodes                        List of all shortcodes
+ * @property {WPWordCountStrategy} type                              Describes what and how are we counting
+ * @property {WPWordCountL10n}     l10n                              Object with human translations
+ */
+
+/**
+ * Lower-level settings for word counting that can be overridden.
+ *
+ * @typedef {Partial<WPWordCountSettingsFields>} WPWordCountUserSettings
+ */
+// Disable reason: JSDoc linter doesn't seem to parse the union (`&`) correctly: https://github.com/jsdoc/jsdoc/issues/1285
+
+/* eslint-disable jsdoc/valid-types */
+
+/**
+ * Word counting settings that include non-optional values we set if missing
+ *
+ * @typedef {WPWordCountUserSettings & typeof defaultSettings} WPWordCountDefaultSettings
+ */
+
+/* eslint-enable jsdoc/valid-types */
+const defaultSettings = {
+  HTMLRegExp: /<\/?[a-z][^>]*?>/gi,
+  HTMLcommentRegExp: /<!--[\s\S]*?-->/g,
+  spaceRegExp: /&nbsp;|&#160;/gi,
+  HTMLEntityRegExp: /&\S+?;/g,
+  // \u2014 = em-dash
+  connectorRegExp: /--|\u2014/g,
+  // Characters to be removed from input text.
+  removeRegExp: new RegExp(['[', // Basic Latin (extract)
+  '\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E', // Latin-1 Supplement (extract)
+  '\u0080-\u00BF\u00D7\u00F7',
+  /*
+   * The following range consists of:
+   * General Punctuation
+   * Superscripts and Subscripts
+   * Currency Symbols
+   * Combining Diacritical Marks for Symbols
+   * Letterlike Symbols
+   * Number Forms
+   * Arrows
+   * Mathematical Operators
+   * Miscellaneous Technical
+   * Control Pictures
+   * Optical Character Recognition
+   * Enclosed Alphanumerics
+   * Box Drawing
+   * Block Elements
+   * Geometric Shapes
+   * Miscellaneous Symbols
+   * Dingbats
+   * Miscellaneous Mathematical Symbols-A
+   * Supplemental Arrows-A
+   * Braille Patterns
+   * Supplemental Arrows-B
+   * Miscellaneous Mathematical Symbols-B
+   * Supplemental Mathematical Operators
+   * Miscellaneous Symbols and Arrows
+   */
+  '\u2000-\u2BFF', // Supplemental Punctuation
+  '\u2E00-\u2E7F', ']'].join(''), 'g'),
+  // Remove UTF-16 surrogate points, see https://en.wikipedia.org/wiki/UTF-16#U.2BD800_to_U.2BDFFF
+  astralRegExp: /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
+  wordsRegExp: /\S\s+/g,
+  characters_excluding_spacesRegExp: /\S/g,
+
+  /*
+   * Match anything that is not a formatting character, excluding:
+   * \f = form feed
+   * \n = new line
+   * \r = carriage return
+   * \t = tab
+   * \v = vertical tab
+   * \u00AD = soft hyphen
+   * \u2028 = line separator
+   * \u2029 = paragraph separator
+   */
+  characters_including_spacesRegExp: /[^\f\n\r\t\v\u00AD\u2028\u2029]/g,
+  l10n: {
+    type: 'words'
+  }
+};
+//# sourceMappingURL=defaultSettings.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripTags.js
+/**
+ * Replaces items matched in the regex with new line
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripTags(settings, text) {
+  return text.replace(settings.HTMLRegExp, '\n');
+}
+//# sourceMappingURL=stripTags.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/transposeAstralsToCountableChar.js
+/**
+ * Replaces items matched in the regex with character.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function transposeAstralsToCountableChar(settings, text) {
+  return text.replace(settings.astralRegExp, 'a');
+}
+//# sourceMappingURL=transposeAstralsToCountableChar.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripHTMLEntities.js
+/**
+ * Removes items matched in the regex.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripHTMLEntities(settings, text) {
+  return text.replace(settings.HTMLEntityRegExp, '');
+}
+//# sourceMappingURL=stripHTMLEntities.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripConnectors.js
+/**
+ * Replaces items matched in the regex with spaces.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripConnectors(settings, text) {
+  return text.replace(settings.connectorRegExp, ' ');
+}
+//# sourceMappingURL=stripConnectors.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripRemovables.js
+/**
+ * Removes items matched in the regex.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripRemovables(settings, text) {
+  return text.replace(settings.removeRegExp, '');
+}
+//# sourceMappingURL=stripRemovables.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripHTMLComments.js
+/**
+ * Removes items matched in the regex.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripHTMLComments(settings, text) {
+  return text.replace(settings.HTMLcommentRegExp, '');
+}
+//# sourceMappingURL=stripHTMLComments.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripShortcodes.js
+/**
+ * Replaces items matched in the regex with a new line.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripShortcodes(settings, text) {
+  if (settings.shortcodesRegExp) {
+    return text.replace(settings.shortcodesRegExp, '\n');
+  }
+
+  return text;
+}
+//# sourceMappingURL=stripShortcodes.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripSpaces.js
+/**
+ * Replaces items matched in the regex with spaces.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function stripSpaces(settings, text) {
+  return text.replace(settings.spaceRegExp, ' ');
+}
+//# sourceMappingURL=stripSpaces.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/transposeHTMLEntitiesToCountableChars.js
+/**
+ * Replaces items matched in the regex with a single character.
+ *
+ * @param {import('./index').WPWordCountSettings} settings The main settings object containing regular expressions
+ * @param {string}                                text     The string being counted.
+ *
+ * @return {string} The manipulated text.
+ */
+function transposeHTMLEntitiesToCountableChars(settings, text) {
+  return text.replace(settings.HTMLEntityRegExp, 'a');
+}
+//# sourceMappingURL=transposeHTMLEntitiesToCountableChars.js.map
+;// CONCATENATED MODULE: ./packages/wordcount/build-module/index.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @typedef {import('./defaultSettings').WPWordCountDefaultSettings}  WPWordCountSettings
+ * @typedef {import('./defaultSettings').WPWordCountUserSettings}     WPWordCountUserSettings
+ */
+
+/**
+ * Possible ways of counting.
+ *
+ * @typedef {'words'|'characters_excluding_spaces'|'characters_including_spaces'} WPWordCountStrategy
+ */
+
+/**
+ * Private function to manage the settings.
+ *
+ * @param {WPWordCountStrategy}     type         The type of count to be done.
+ * @param {WPWordCountUserSettings} userSettings Custom settings for the count.
+ *
+ * @return {WPWordCountSettings} The combined settings object to be used.
+ */
+
+function loadSettings(type, userSettings) {
+  var _settings$l10n$shortc, _settings$l10n;
+
+  const settings = (0,external_lodash_namespaceObject.extend)({}, defaultSettings, userSettings);
+  settings.shortcodes = (_settings$l10n$shortc = (_settings$l10n = settings.l10n) === null || _settings$l10n === void 0 ? void 0 : _settings$l10n.shortcodes) !== null && _settings$l10n$shortc !== void 0 ? _settings$l10n$shortc : [];
+
+  if (settings.shortcodes && settings.shortcodes.length) {
+    settings.shortcodesRegExp = new RegExp('\\[\\/?(?:' + settings.shortcodes.join('|') + ')[^\\]]*?\\]', 'g');
+  }
+
+  settings.type = type;
+
+  if (settings.type !== 'characters_excluding_spaces' && settings.type !== 'characters_including_spaces') {
+    settings.type = 'words';
+  }
+
+  return settings;
+}
+/**
+ * Count the words in text
+ *
+ * @param {string}              text     The text being processed
+ * @param {RegExp}              regex    The regular expression pattern being matched
+ * @param {WPWordCountSettings} settings Settings object containing regular expressions for each strip function
+ *
+ * @return {number} Count of words.
+ */
+
+
+function countWords(text, regex, settings) {
+  var _text$match$length, _text$match;
+
+  text = (0,external_lodash_namespaceObject.flow)(stripTags.bind(null, settings), stripHTMLComments.bind(null, settings), stripShortcodes.bind(null, settings), stripSpaces.bind(null, settings), stripHTMLEntities.bind(null, settings), stripConnectors.bind(null, settings), stripRemovables.bind(null, settings))(text);
+  text = text + '\n';
+  return (_text$match$length = (_text$match = text.match(regex)) === null || _text$match === void 0 ? void 0 : _text$match.length) !== null && _text$match$length !== void 0 ? _text$match$length : 0;
+}
+/**
+ * Count the characters in text
+ *
+ * @param {string}              text     The text being processed
+ * @param {RegExp}              regex    The regular expression pattern being matched
+ * @param {WPWordCountSettings} settings Settings object containing regular expressions for each strip function
+ *
+ * @return {number} Count of characters.
+ */
+
+
+function countCharacters(text, regex, settings) {
+  var _text$match$length2, _text$match2;
+
+  text = (0,external_lodash_namespaceObject.flow)(stripTags.bind(null, settings), stripHTMLComments.bind(null, settings), stripShortcodes.bind(null, settings), transposeAstralsToCountableChar.bind(null, settings), stripSpaces.bind(null, settings), transposeHTMLEntitiesToCountableChars.bind(null, settings))(text);
+  text = text + '\n';
+  return (_text$match$length2 = (_text$match2 = text.match(regex)) === null || _text$match2 === void 0 ? void 0 : _text$match2.length) !== null && _text$match$length2 !== void 0 ? _text$match$length2 : 0;
+}
+/**
+ * Count some words.
+ *
+ * @param {string}                  text         The text being processed
+ * @param {WPWordCountStrategy}     type         The type of count. Accepts 'words', 'characters_excluding_spaces', or 'characters_including_spaces'.
+ * @param {WPWordCountUserSettings} userSettings Custom settings object.
+ *
+ * @example
+ * ```js
+ * import { count } from '@wordpress/wordcount';
+ * const numberOfWords = count( 'Words to count', 'words', {} )
+ * ```
+ *
+ * @return {number} The word or character count.
+ */
+
+
+function count(text, type, userSettings) {
+  const settings = loadSettings(type, userSettings);
+  let matchRegExp;
+
+  switch (settings.type) {
+    case 'words':
+      matchRegExp = settings.wordsRegExp;
+      return countWords(text, matchRegExp, settings);
+
+    case 'characters_including_spaces':
+      matchRegExp = settings.characters_including_spacesRegExp;
+      return countCharacters(text, matchRegExp, settings);
+
+    case 'characters_excluding_spaces':
+      matchRegExp = settings.characters_excluding_spacesRegExp;
+      return countCharacters(text, matchRegExp, settings);
+
+    default:
+      return 0;
+  }
+}
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).wordcount = __webpack_exports__;
+/******/ })()
+;

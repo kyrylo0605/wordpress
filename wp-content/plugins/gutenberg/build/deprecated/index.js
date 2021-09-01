@@ -1,1 +1,121 @@
-window.wp=window.wp||{},window.wp.deprecated=function(e){var n={};function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}return t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:o})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(t.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var r in e)t.d(o,r,function(n){return e[n]}.bind(null,r));return o},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=524)}({35:function(e,n){e.exports=window.wp.hooks},524:function(e,n,t){"use strict";t.r(n),t.d(n,"logged",(function(){return r})),t.d(n,"default",(function(){return c}));var o=t(35),r=Object.create(null);function c(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},t=n.version,c=n.alternative,i=n.plugin,u=n.link,a=n.hint,l=i?" from ".concat(i):"",d=t?" and will be removed".concat(l," in version ").concat(t):"",f=c?" Please use ".concat(c," instead."):"",p=u?" See: ".concat(u):"",s=a?" Note: ".concat(a):"",b="".concat(e," is deprecated").concat(d,".").concat(f).concat(p).concat(s);b in r||(Object(o.doAction)("deprecated",e,n,b),console.warn(b),r[b]=!0)}}}).default;
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ deprecated; }
+});
+
+// UNUSED EXPORTS: logged
+
+;// CONCATENATED MODULE: external ["wp","hooks"]
+var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
+;// CONCATENATED MODULE: ./packages/deprecated/build-module/index.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Object map tracking messages which have been logged, for use in ensuring a
+ * message is only logged once.
+ *
+ * @type {Record<string, true | undefined>}
+ */
+
+const logged = Object.create(null);
+/**
+ * Logs a message to notify developers about a deprecated feature.
+ *
+ * @param {string} feature               Name of the deprecated feature.
+ * @param {Object} [options]             Personalisation options
+ * @param {string} [options.since]       Version in which the feature was deprecated.
+ * @param {string} [options.version]     Version in which the feature will be removed.
+ * @param {string} [options.alternative] Feature to use instead
+ * @param {string} [options.plugin]      Plugin name if it's a plugin feature
+ * @param {string} [options.link]        Link to documentation
+ * @param {string} [options.hint]        Additional message to help transition away from the deprecated feature.
+ *
+ * @example
+ * ```js
+ * import deprecated from '@wordpress/deprecated';
+ *
+ * deprecated( 'Eating meat', {
+ * 	since: '2019.01.01'
+ * 	version: '2020.01.01',
+ * 	alternative: 'vegetables',
+ * 	plugin: 'the earth',
+ * 	hint: 'You may find it beneficial to transition gradually.',
+ * } );
+ *
+ * // Logs: 'Eating meat is deprecated since version 2019.01.01 and will be removed from the earth in version 2020.01.01. Please use vegetables instead. Note: You may find it beneficial to transition gradually.'
+ * ```
+ */
+
+function deprecated(feature, options = {}) {
+  const {
+    since,
+    version,
+    alternative,
+    plugin,
+    link,
+    hint
+  } = options;
+  const pluginMessage = plugin ? ` from ${plugin}` : '';
+  const sinceMessage = since ? ` since version ${since}` : '';
+  const versionMessage = version ? ` and will be removed${pluginMessage} in version ${version}` : '';
+  const useInsteadMessage = alternative ? ` Please use ${alternative} instead.` : '';
+  const linkMessage = link ? ` See: ${link}` : '';
+  const hintMessage = hint ? ` Note: ${hint}` : '';
+  const message = `${feature} is deprecated${sinceMessage}${versionMessage}.${useInsteadMessage}${linkMessage}${hintMessage}`; // Skip if already logged.
+
+  if (message in logged) {
+    return;
+  }
+  /**
+   * Fires whenever a deprecated feature is encountered
+   *
+   * @param {string}  feature             Name of the deprecated feature.
+   * @param {?Object} options             Personalisation options
+   * @param {string}  options.since       Version in which the feature was deprecated.
+   * @param {?string} options.version     Version in which the feature will be removed.
+   * @param {?string} options.alternative Feature to use instead
+   * @param {?string} options.plugin      Plugin name if it's a plugin feature
+   * @param {?string} options.link        Link to documentation
+   * @param {?string} options.hint        Additional message to help transition away from the deprecated feature.
+   * @param {?string} message             Message sent to console.warn
+   */
+
+
+  (0,external_wp_hooks_namespaceObject.doAction)('deprecated', feature, options, message); // eslint-disable-next-line no-console
+
+  console.warn(message);
+  logged[message] = true;
+}
+/** @typedef {import('utility-types').NonUndefined<Parameters<typeof deprecated>[1]>} DeprecatedOptions */
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).deprecated = __webpack_exports__.default;
+/******/ })()
+;

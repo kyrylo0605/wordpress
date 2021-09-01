@@ -1,12 +1,15 @@
 <?php
 /**
- * Admin Bundle Item Options
+ * Bundled item options.
  *
  * @var YITH_WC_Bundled_item $bundled_item The bundled product.
  * @var int                  $metabox_id   The metabox ID.
+ *
+ * @author  YITH
+ * @package YITH\ProductBundles\Views
  */
 
-defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+defined( 'YITH_WCPB' ) || exit;
 
 $bp_quantity = $bundled_item->get_quantity();
 ?>

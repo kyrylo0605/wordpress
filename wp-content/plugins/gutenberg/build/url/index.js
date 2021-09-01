@@ -1,1 +1,820 @@
-window.wp=window.wp||{},window.wp.url=function(t){var r={};function n(e){if(r[e])return r[e].exports;var o=r[e]={i:e,l:!1,exports:{}};return t[e].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=t,n.c=r,n.d=function(t,r,e){n.o(t,r)||Object.defineProperty(t,r,{enumerable:!0,get:e})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,r){if(1&r&&(t=n(t)),8&r)return t;if(4&r&&"object"==typeof t&&t&&t.__esModule)return t;var e=Object.create(null);if(n.r(e),Object.defineProperty(e,"default",{enumerable:!0,value:t}),2&r&&"string"!=typeof t)for(var o in t)n.d(e,o,function(r){return t[r]}.bind(null,o));return e},n.n=function(t){var r=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(r,"a",r),r},n.o=function(t,r){return Object.prototype.hasOwnProperty.call(t,r)},n.p="",n(n.s=550)}({10:function(t,r,n){"use strict";n.d(r,"a",(function(){return i}));var e=n(40),o=n(31),u=n(41);function i(t,r){return Object(e.a)(t)||function(t,r){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t)){var n=[],_n=!0,e=!1,o=void 0;try{for(var u,i=t[Symbol.iterator]();!(_n=(u=i.next()).done)&&(n.push(u.value),!r||n.length!==r);_n=!0);}catch(t){e=!0,o=t}finally{try{_n||null==i.return||i.return()}finally{if(e)throw o}}return n}}(t,r)||Object(o.a)(t,r)||Object(u.a)()}},2:function(t,r){t.exports=window.lodash},24:function(t,r,n){"use strict";function e(t,r){(null==r||r>t.length)&&(r=t.length);for(var n=0,e=new Array(r);n<r;n++)e[n]=t[n];return e}n.d(r,"a",(function(){return e}))},31:function(t,r,n){"use strict";n.d(r,"a",(function(){return o}));var e=n(24);function o(t,r){if(t){if("string"==typeof t)return Object(e.a)(t,r);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?Object(e.a)(t,r):void 0}}},40:function(t,r,n){"use strict";function e(t){if(Array.isArray(t))return t}n.d(r,"a",(function(){return e}))},41:function(t,r,n){"use strict";function e(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}n.d(r,"a",(function(){return e}))},5:function(t,r,n){"use strict";function e(t,r,n){return r in t?Object.defineProperty(t,r,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[r]=n,t}n.d(r,"a",(function(){return e}))},550:function(t,r,n){"use strict";function e(t){try{return new URL(t),!0}catch(t){return!1}}n.r(r),n.d(r,"isURL",(function(){return e})),n.d(r,"isEmail",(function(){return u})),n.d(r,"getProtocol",(function(){return i})),n.d(r,"isValidProtocol",(function(){return c})),n.d(r,"getAuthority",(function(){return a})),n.d(r,"isValidAuthority",(function(){return f})),n.d(r,"getPath",(function(){return l})),n.d(r,"isValidPath",(function(){return s})),n.d(r,"getQueryString",(function(){return d})),n.d(r,"buildQueryString",(function(){return v})),n.d(r,"isValidQueryString",(function(){return g})),n.d(r,"getPathAndQueryString",(function(){return h})),n.d(r,"getFragment",(function(){return m})),n.d(r,"isValidFragment",(function(){return O})),n.d(r,"addQueryArgs",(function(){return P})),n.d(r,"getQueryArg",(function(){return x})),n.d(r,"getQueryArgs",(function(){return A})),n.d(r,"hasQueryArg",(function(){return I})),n.d(r,"removeQueryArgs",(function(){return U})),n.d(r,"prependHTTP",(function(){return R})),n.d(r,"safeDecodeURI",(function(){return Q})),n.d(r,"safeDecodeURIComponent",(function(){return C})),n.d(r,"filterURLForDisplay",(function(){return D})),n.d(r,"cleanForSlug",(function(){return z}));var o=/^(mailto:)?[a-z0-9._%+-]+@[a-z0-9][a-z0-9.-]*\.[a-z]{2,63}$/i;function u(t){return o.test(t)}function i(t){var r=/^([^\s:]+:)/.exec(t);if(r)return r[1]}function c(t){return!!t&&/^[a-z\-.\+]+[0-9]*:$/i.test(t)}function a(t){var r=/^[^\/\s:]+:(?:\/\/)?\/?([^\/\s#?]+)[\/#?]{0,1}\S*$/.exec(t);if(r)return r[1]}function f(t){return!!t&&/^[^\s#?]+$/.test(t)}function l(t){var r=/^[^\/\s:]+:(?:\/\/)?[^\/\s#?]+[\/]([^\s#?]+)[#?]{0,1}\S*$/.exec(t);if(r)return r[1]}function s(t){return!!t&&/^[^\s#?]+$/.test(t)}function d(t){var r;try{r=new URL(t,"http://example.com").search.substring(1)}catch(t){}if(r)return r}var y=n(10);function p(t,r){var n;if("undefined"==typeof Symbol||null==t[Symbol.iterator]){if(Array.isArray(t)||(n=function(t,r){if(t){if("string"==typeof t)return b(t,void 0);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?b(t,void 0):void 0}}(t))||r&&t&&"number"==typeof t.length){n&&(t=n);var e=0,o=function(){};return{s:o,n:function(){return e>=t.length?{done:!0}:{done:!1,value:t[e++]}},e:function(t){throw t},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var u,i=!0,c=!1;return{s:function(){n=t[Symbol.iterator]()},n:function(){var t=n.next();return i=t.done,t},e:function(t){c=!0,u=t},f:function(){try{i||null==n.return||n.return()}finally{if(c)throw u}}}}function b(t,r){(null==r||r>t.length)&&(r=t.length);for(var n=0,e=new Array(r);n<r;n++)e[n]=t[n];return e}function v(t){for(var r,n="",e=Object.entries(t);r=e.shift();){var o=r,u=Object(y.a)(o,2),i=u[0],c=u[1];if(Array.isArray(c)||c&&c.constructor===Object){var a,f=p(Object.entries(c).reverse());try{for(f.s();!(a=f.n()).done;){var l=Object(y.a)(a.value,2),s=l[0],d=l[1];e.unshift(["".concat(i,"[").concat(s,"]"),d])}}catch(t){f.e(t)}finally{f.f()}}else void 0!==c&&(null===c&&(c=""),n+="&"+[i,c].map(encodeURIComponent).join("="))}return n.substr(1)}function g(t){return!!t&&/^[^\s#?\/]+$/.test(t)}function h(t){var r=l(t),n=d(t),e="/";return r&&(e+=r),n&&(e+="?".concat(n)),e}function m(t){var r=/^\S+?(#[^\s\?]*)/.exec(t);if(r)return r[1]}function O(t){return!!t&&/^#[^\s#?\/]*$/.test(t)}var j=n(5);function w(t,r){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var e=Object.getOwnPropertySymbols(t);r&&(e=e.filter((function(r){return Object.getOwnPropertyDescriptor(t,r).enumerable}))),n.push.apply(n,e)}return n}function S(t){for(var r=1;r<arguments.length;r++){var n=null!=arguments[r]?arguments[r]:{};r%2?w(Object(n),!0).forEach((function(r){Object(j.a)(t,r,n[r])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):w(Object(n)).forEach((function(r){Object.defineProperty(t,r,Object.getOwnPropertyDescriptor(n,r))}))}return t}function A(t){return(d(t)||"").replace(/\+/g,"%20").split("&").reduce((function(t,r){var n=r.split("=").filter(Boolean).map(decodeURIComponent),e=Object(y.a)(n,2),o=e[0],u=e[1],i=void 0===u?"":u;return o&&function(t,r,n){for(var e=r.length,o=e-1,u=0;u<e;u++){var i=r[u];!i&&Array.isArray(t)&&(i=t.length.toString());var c=!isNaN(Number(r[u+1]));t[i]=u===o?n:t[i]||(c?[]:{}),Array.isArray(t[i])&&!c&&(t[i]=S({},t[i])),t=t[i]}}(t,o.replace(/\]/g,"").split("["),i),t}),{})}function P(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",r=arguments.length>1?arguments[1]:void 0;if(!r||!Object.keys(r).length)return t;var n=t,e=t.indexOf("?");return-1!==e&&(r=Object.assign(A(t),r),n=n.substr(0,e)),n+"?"+v(r)}function x(t,r){return A(t)[r]}function I(t,r){return void 0!==x(t,r)}function U(t){var r=t.indexOf("?");if(-1===r)return t;for(var n=A(t),e=t.substr(0,r),o=arguments.length,u=new Array(o>1?o-1:0),i=1;i<o;i++)u[i-1]=arguments[i];u.forEach((function(t){return delete n[t]}));var c=v(n);return c?e+"?"+c:e}var $=/^(?:[a-z]+:|#|\?|\.|\/)/i;function R(t){return t?(t=t.trim(),$.test(t)||u(t)?t:"http://"+t):t}function Q(t){try{return decodeURI(t)}catch(r){return t}}function C(t){try{return decodeURIComponent(t)}catch(r){return t}}function D(t){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=t.replace(/^(?:https?:)\/\/(?:www\.)?/,"");n.match(/^[^\/]+\/$/)&&(n=n.replace("/",""));var e=/([\w|:])*\.(?:jpg|jpeg|gif|png|svg)/;if(!r||n.length<=r||!n.match(e))return n;var o=(n=n.split("?")[0]).split("/"),u=o[o.length-1];if(u.length<=r)return"…"+n.slice(-r);var i=u.lastIndexOf("."),c=[u.slice(0,i),u.slice(i+1)],a=c[0],f=c[1],l=a.slice(-3)+"."+f;return u.slice(0,r-l.length-1)+"…"+l}var _=n(2);function z(t){return t?Object(_.trim)(Object(_.deburr)(t).replace(/[\s\./]+/g,"-").replace(/[^\w-]+/g,"").toLowerCase(),"-"):""}}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "addQueryArgs": function() { return /* reexport */ addQueryArgs; },
+  "buildQueryString": function() { return /* reexport */ buildQueryString; },
+  "cleanForSlug": function() { return /* reexport */ cleanForSlug; },
+  "filterURLForDisplay": function() { return /* reexport */ filterURLForDisplay; },
+  "getAuthority": function() { return /* reexport */ getAuthority; },
+  "getFragment": function() { return /* reexport */ getFragment; },
+  "getPath": function() { return /* reexport */ getPath; },
+  "getPathAndQueryString": function() { return /* reexport */ getPathAndQueryString; },
+  "getProtocol": function() { return /* reexport */ getProtocol; },
+  "getQueryArg": function() { return /* reexport */ getQueryArg; },
+  "getQueryArgs": function() { return /* reexport */ getQueryArgs; },
+  "getQueryString": function() { return /* reexport */ getQueryString; },
+  "hasQueryArg": function() { return /* reexport */ hasQueryArg; },
+  "isEmail": function() { return /* reexport */ isEmail; },
+  "isURL": function() { return /* reexport */ isURL; },
+  "isValidAuthority": function() { return /* reexport */ isValidAuthority; },
+  "isValidFragment": function() { return /* reexport */ isValidFragment; },
+  "isValidPath": function() { return /* reexport */ isValidPath; },
+  "isValidProtocol": function() { return /* reexport */ isValidProtocol; },
+  "isValidQueryString": function() { return /* reexport */ isValidQueryString; },
+  "prependHTTP": function() { return /* reexport */ prependHTTP; },
+  "removeQueryArgs": function() { return /* reexport */ removeQueryArgs; },
+  "safeDecodeURI": function() { return /* reexport */ safeDecodeURI; },
+  "safeDecodeURIComponent": function() { return /* reexport */ safeDecodeURIComponent; }
+});
+
+;// CONCATENATED MODULE: ./packages/url/build-module/is-url.js
+/**
+ * Determines whether the given string looks like a URL.
+ *
+ * @param {string} url The string to scrutinise.
+ *
+ * @example
+ * ```js
+ * const isURL = isURL( 'https://wordpress.org' ); // true
+ * ```
+ *
+ * @see https://url.spec.whatwg.org/
+ * @see https://url.spec.whatwg.org/#valid-url-string
+ *
+ * @return {boolean} Whether or not it looks like a URL.
+ */
+function isURL(url) {
+  // A URL can be considered value if the `URL` constructor is able to parse
+  // it. The constructor throws an error for an invalid URL.
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+//# sourceMappingURL=is-url.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/is-email.js
+const EMAIL_REGEXP = /^(mailto:)?[a-z0-9._%+-]+@[a-z0-9][a-z0-9.-]*\.[a-z]{2,63}$/i;
+/**
+ * Determines whether the given string looks like an email.
+ *
+ * @param {string} email The string to scrutinise.
+ *
+ * @example
+ * ```js
+ * const isEmail = isEmail( 'hello@wordpress.org' ); // true
+ * ```
+ *
+ * @return {boolean} Whether or not it looks like an email.
+ */
+
+function isEmail(email) {
+  return EMAIL_REGEXP.test(email);
+}
+//# sourceMappingURL=is-email.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-protocol.js
+/**
+ * Returns the protocol part of the URL.
+ *
+ * @param {string} url The full URL.
+ *
+ * @example
+ * ```js
+ * const protocol1 = getProtocol( 'tel:012345678' ); // 'tel:'
+ * const protocol2 = getProtocol( 'https://wordpress.org' ); // 'https:'
+ * ```
+ *
+ * @return {string|void} The protocol part of the URL.
+ */
+function getProtocol(url) {
+  const matches = /^([^\s:]+:)/.exec(url);
+
+  if (matches) {
+    return matches[1];
+  }
+}
+//# sourceMappingURL=get-protocol.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-protocol.js
+/**
+ * Tests if a url protocol is valid.
+ *
+ * @param {string} protocol The url protocol.
+ *
+ * @example
+ * ```js
+ * const isValid = isValidProtocol( 'https:' ); // true
+ * const isNotValid = isValidProtocol( 'https :' ); // false
+ * ```
+ *
+ * @return {boolean} True if the argument is a valid protocol (e.g. http:, tel:).
+ */
+function isValidProtocol(protocol) {
+  if (!protocol) {
+    return false;
+  }
+
+  return /^[a-z\-.\+]+[0-9]*:$/i.test(protocol);
+}
+//# sourceMappingURL=is-valid-protocol.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-authority.js
+/**
+ * Returns the authority part of the URL.
+ *
+ * @param {string} url The full URL.
+ *
+ * @example
+ * ```js
+ * const authority1 = getAuthority( 'https://wordpress.org/help/' ); // 'wordpress.org'
+ * const authority2 = getAuthority( 'https://localhost:8080/test/' ); // 'localhost:8080'
+ * ```
+ *
+ * @return {string|void} The authority part of the URL.
+ */
+function getAuthority(url) {
+  const matches = /^[^\/\s:]+:(?:\/\/)?\/?([^\/\s#?]+)[\/#?]{0,1}\S*$/.exec(url);
+
+  if (matches) {
+    return matches[1];
+  }
+}
+//# sourceMappingURL=get-authority.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-authority.js
+/**
+ * Checks for invalid characters within the provided authority.
+ *
+ * @param {string} authority A string containing the URL authority.
+ *
+ * @example
+ * ```js
+ * const isValid = isValidAuthority( 'wordpress.org' ); // true
+ * const isNotValid = isValidAuthority( 'wordpress#org' ); // false
+ * ```
+ *
+ * @return {boolean} True if the argument contains a valid authority.
+ */
+function isValidAuthority(authority) {
+  if (!authority) {
+    return false;
+  }
+
+  return /^[^\s#?]+$/.test(authority);
+}
+//# sourceMappingURL=is-valid-authority.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-path.js
+/**
+ * Returns the path part of the URL.
+ *
+ * @param {string} url The full URL.
+ *
+ * @example
+ * ```js
+ * const path1 = getPath( 'http://localhost:8080/this/is/a/test?query=true' ); // 'this/is/a/test'
+ * const path2 = getPath( 'https://wordpress.org/help/faq/' ); // 'help/faq'
+ * ```
+ *
+ * @return {string|void} The path part of the URL.
+ */
+function getPath(url) {
+  const matches = /^[^\/\s:]+:(?:\/\/)?[^\/\s#?]+[\/]([^\s#?]+)[#?]{0,1}\S*$/.exec(url);
+
+  if (matches) {
+    return matches[1];
+  }
+}
+//# sourceMappingURL=get-path.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-path.js
+/**
+ * Checks for invalid characters within the provided path.
+ *
+ * @param {string} path The URL path.
+ *
+ * @example
+ * ```js
+ * const isValid = isValidPath( 'test/path/' ); // true
+ * const isNotValid = isValidPath( '/invalid?test/path/' ); // false
+ * ```
+ *
+ * @return {boolean} True if the argument contains a valid path
+ */
+function isValidPath(path) {
+  if (!path) {
+    return false;
+  }
+
+  return /^[^\s#?]+$/.test(path);
+}
+//# sourceMappingURL=is-valid-path.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-query-string.js
+/**
+ * Returns the query string part of the URL.
+ *
+ * @param {string} url The full URL.
+ *
+ * @example
+ * ```js
+ * const queryString = getQueryString( 'http://localhost:8080/this/is/a/test?query=true#fragment' ); // 'query=true'
+ * ```
+ *
+ * @return {string|void} The query string part of the URL.
+ */
+function getQueryString(url) {
+  let query;
+
+  try {
+    query = new URL(url, 'http://example.com').search.substring(1);
+  } catch (error) {}
+
+  if (query) {
+    return query;
+  }
+}
+//# sourceMappingURL=get-query-string.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/build-query-string.js
+/**
+ * Generates URL-encoded query string using input query data.
+ *
+ * It is intended to behave equivalent as PHP's `http_build_query`, configured
+ * with encoding type PHP_QUERY_RFC3986 (spaces as `%20`).
+ *
+ * @example
+ * ```js
+ * const queryString = buildQueryString( {
+ *    simple: 'is ok',
+ *    arrays: [ 'are', 'fine', 'too' ],
+ *    objects: {
+ *       evenNested: {
+ *          ok: 'yes',
+ *       },
+ *    },
+ * } );
+ * // "simple=is%20ok&arrays%5B0%5D=are&arrays%5B1%5D=fine&arrays%5B2%5D=too&objects%5BevenNested%5D%5Bok%5D=yes"
+ * ```
+ *
+ * @param {Record<string,*>} data Data to encode.
+ *
+ * @return {string} Query string.
+ */
+function buildQueryString(data) {
+  let string = '';
+  const stack = Object.entries(data);
+  let pair;
+
+  while (pair = stack.shift()) {
+    let [key, value] = pair; // Support building deeply nested data, from array or object values.
+
+    const hasNestedData = Array.isArray(value) || value && value.constructor === Object;
+
+    if (hasNestedData) {
+      // Push array or object values onto the stack as composed of their
+      // original key and nested index or key, retaining order by a
+      // combination of Array#reverse and Array#unshift onto the stack.
+      const valuePairs = Object.entries(value).reverse();
+
+      for (const [member, memberValue] of valuePairs) {
+        stack.unshift([`${key}[${member}]`, memberValue]);
+      }
+    } else if (value !== undefined) {
+      // Null is treated as special case, equivalent to empty string.
+      if (value === null) {
+        value = '';
+      }
+
+      string += '&' + [key, value].map(encodeURIComponent).join('=');
+    }
+  } // Loop will concatenate with leading `&`, but it's only expected for all
+  // but the first query parameter. This strips the leading `&`, while still
+  // accounting for the case that the string may in-fact be empty.
+
+
+  return string.substr(1);
+}
+//# sourceMappingURL=build-query-string.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-query-string.js
+/**
+ * Checks for invalid characters within the provided query string.
+ *
+ * @param {string} queryString The query string.
+ *
+ * @example
+ * ```js
+ * const isValid = isValidQueryString( 'query=true&another=false' ); // true
+ * const isNotValid = isValidQueryString( 'query=true?another=false' ); // false
+ * ```
+ *
+ * @return {boolean} True if the argument contains a valid query string.
+ */
+function isValidQueryString(queryString) {
+  if (!queryString) {
+    return false;
+  }
+
+  return /^[^\s#?\/]+$/.test(queryString);
+}
+//# sourceMappingURL=is-valid-query-string.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-path-and-query-string.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Returns the path part and query string part of the URL.
+ *
+ * @param {string} url The full URL.
+ *
+ * @example
+ * ```js
+ * const pathAndQueryString1 = getPathAndQueryString( 'http://localhost:8080/this/is/a/test?query=true' ); // '/this/is/a/test?query=true'
+ * const pathAndQueryString2 = getPathAndQueryString( 'https://wordpress.org/help/faq/' ); // '/help/faq'
+ * ```
+ *
+ * @return {string} The path part and query string part of the URL.
+ */
+
+function getPathAndQueryString(url) {
+  const path = getPath(url);
+  const queryString = getQueryString(url);
+  let value = '/';
+  if (path) value += path;
+  if (queryString) value += `?${queryString}`;
+  return value;
+}
+//# sourceMappingURL=get-path-and-query-string.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-fragment.js
+/**
+ * Returns the fragment part of the URL.
+ *
+ * @param {string} url The full URL
+ *
+ * @example
+ * ```js
+ * const fragment1 = getFragment( 'http://localhost:8080/this/is/a/test?query=true#fragment' ); // '#fragment'
+ * const fragment2 = getFragment( 'https://wordpress.org#another-fragment?query=true' ); // '#another-fragment'
+ * ```
+ *
+ * @return {string|void} The fragment part of the URL.
+ */
+function getFragment(url) {
+  const matches = /^\S+?(#[^\s\?]*)/.exec(url);
+
+  if (matches) {
+    return matches[1];
+  }
+}
+//# sourceMappingURL=get-fragment.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-fragment.js
+/**
+ * Checks for invalid characters within the provided fragment.
+ *
+ * @param {string} fragment The url fragment.
+ *
+ * @example
+ * ```js
+ * const isValid = isValidFragment( '#valid-fragment' ); // true
+ * const isNotValid = isValidFragment( '#invalid-#fragment' ); // false
+ * ```
+ *
+ * @return {boolean} True if the argument contains a valid fragment.
+ */
+function isValidFragment(fragment) {
+  if (!fragment) {
+    return false;
+  }
+
+  return /^#[^\s#?\/]*$/.test(fragment);
+}
+//# sourceMappingURL=is-valid-fragment.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-query-args.js
+/**
+ * Internal dependencies
+ */
+
+/** @typedef {import('./get-query-arg').QueryArgParsed} QueryArgParsed */
+
+/**
+ * @typedef {Record<string,QueryArgParsed>} QueryArgs
+ */
+
+/**
+ * Sets a value in object deeply by a given array of path segments. Mutates the
+ * object reference.
+ *
+ * @param {Record<string,*>} object Object in which to assign.
+ * @param {string[]}         path   Path segment at which to set value.
+ * @param {*}                value  Value to set.
+ */
+
+function setPath(object, path, value) {
+  const length = path.length;
+  const lastIndex = length - 1;
+
+  for (let i = 0; i < length; i++) {
+    let key = path[i];
+
+    if (!key && Array.isArray(object)) {
+      // If key is empty string and next value is array, derive key from
+      // the current length of the array.
+      key = object.length.toString();
+    } // If the next key in the path is numeric (or empty string), it will be
+    // created as an array. Otherwise, it will be created as an object.
+
+
+    const isNextKeyArrayIndex = !isNaN(Number(path[i + 1]));
+    object[key] = i === lastIndex ? // If at end of path, assign the intended value.
+    value : // Otherwise, advance to the next object in the path, creating
+    // it if it does not yet exist.
+    object[key] || (isNextKeyArrayIndex ? [] : {});
+
+    if (Array.isArray(object[key]) && !isNextKeyArrayIndex) {
+      // If we current key is non-numeric, but the next value is an
+      // array, coerce the value to an object.
+      object[key] = { ...object[key]
+      };
+    } // Update working reference object to the next in the path.
+
+
+    object = object[key];
+  }
+}
+/**
+ * Returns an object of query arguments of the given URL. If the given URL is
+ * invalid or has no querystring, an empty object is returned.
+ *
+ * @param {string} url URL.
+ *
+ * @example
+ * ```js
+ * const foo = getQueryArgs( 'https://wordpress.org?foo=bar&bar=baz' );
+ * // { "foo": "bar", "bar": "baz" }
+ * ```
+ *
+ * @return {QueryArgs} Query args object.
+ */
+
+
+function getQueryArgs(url) {
+  return (getQueryString(url) || ''). // Normalize space encoding, accounting for PHP URL encoding
+  // corresponding to `application/x-www-form-urlencoded`.
+  //
+  // See: https://tools.ietf.org/html/rfc1866#section-8.2.1
+  replace(/\+/g, '%20').split('&').reduce((accumulator, keyValue) => {
+    const [key, value = ''] = keyValue.split('=') // Filtering avoids decoding as `undefined` for value, where
+    // default is restored in destructuring assignment.
+    .filter(Boolean).map(decodeURIComponent);
+
+    if (key) {
+      const segments = key.replace(/\]/g, '').split('[');
+      setPath(accumulator, segments, value);
+    }
+
+    return accumulator;
+  }, {});
+}
+//# sourceMappingURL=get-query-args.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/add-query-args.js
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Appends arguments as querystring to the provided URL. If the URL already
+ * includes query arguments, the arguments are merged with (and take precedent
+ * over) the existing set.
+ *
+ * @param {string} [url=''] URL to which arguments should be appended. If omitted,
+ *                          only the resulting querystring is returned.
+ * @param {Object} [args]   Query arguments to apply to URL.
+ *
+ * @example
+ * ```js
+ * const newURL = addQueryArgs( 'https://google.com', { q: 'test' } ); // https://google.com/?q=test
+ * ```
+ *
+ * @return {string} URL with arguments applied.
+ */
+
+function addQueryArgs(url = '', args) {
+  // If no arguments are to be appended, return original URL.
+  if (!args || !Object.keys(args).length) {
+    return url;
+  }
+
+  let baseUrl = url; // Determine whether URL already had query arguments.
+
+  const queryStringIndex = url.indexOf('?');
+
+  if (queryStringIndex !== -1) {
+    // Merge into existing query arguments.
+    args = Object.assign(getQueryArgs(url), args); // Change working base URL to omit previous query arguments.
+
+    baseUrl = baseUrl.substr(0, queryStringIndex);
+  }
+
+  return baseUrl + '?' + buildQueryString(args);
+}
+//# sourceMappingURL=add-query-args.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-query-arg.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * @typedef {{[key: string]: QueryArgParsed}} QueryArgObject
+ */
+
+/**
+ * @typedef {string|string[]|QueryArgObject} QueryArgParsed
+ */
+
+/**
+ * Returns a single query argument of the url
+ *
+ * @param {string} url URL.
+ * @param {string} arg Query arg name.
+ *
+ * @example
+ * ```js
+ * const foo = getQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'foo' ); // bar
+ * ```
+ *
+ * @return {QueryArgParsed|void} Query arg value.
+ */
+
+function getQueryArg(url, arg) {
+  return getQueryArgs(url)[arg];
+}
+//# sourceMappingURL=get-query-arg.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/has-query-arg.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Determines whether the URL contains a given query arg.
+ *
+ * @param {string} url URL.
+ * @param {string} arg Query arg name.
+ *
+ * @example
+ * ```js
+ * const hasBar = hasQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'bar' ); // true
+ * ```
+ *
+ * @return {boolean} Whether or not the URL contains the query arg.
+ */
+
+function hasQueryArg(url, arg) {
+  return getQueryArg(url, arg) !== undefined;
+}
+//# sourceMappingURL=has-query-arg.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/remove-query-args.js
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Removes arguments from the query string of the url
+ *
+ * @param {string}    url  URL.
+ * @param {...string} args Query Args.
+ *
+ * @example
+ * ```js
+ * const newUrl = removeQueryArgs( 'https://wordpress.org?foo=bar&bar=baz&baz=foobar', 'foo', 'bar' ); // https://wordpress.org?baz=foobar
+ * ```
+ *
+ * @return {string} Updated URL.
+ */
+
+function removeQueryArgs(url, ...args) {
+  const queryStringIndex = url.indexOf('?');
+
+  if (queryStringIndex === -1) {
+    return url;
+  }
+
+  const query = getQueryArgs(url);
+  const baseURL = url.substr(0, queryStringIndex);
+  args.forEach(arg => delete query[arg]);
+  const queryString = buildQueryString(query);
+  return queryString ? baseURL + '?' + queryString : baseURL;
+}
+//# sourceMappingURL=remove-query-args.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/prepend-http.js
+/**
+ * Internal dependencies
+ */
+
+const USABLE_HREF_REGEXP = /^(?:[a-z]+:|#|\?|\.|\/)/i;
+/**
+ * Prepends "http://" to a url, if it looks like something that is meant to be a TLD.
+ *
+ * @param {string} url The URL to test.
+ *
+ * @example
+ * ```js
+ * const actualURL = prependHTTP( 'wordpress.org' ); // http://wordpress.org
+ * ```
+ *
+ * @return {string} The updated URL.
+ */
+
+function prependHTTP(url) {
+  if (!url) {
+    return url;
+  }
+
+  url = url.trim();
+
+  if (!USABLE_HREF_REGEXP.test(url) && !isEmail(url)) {
+    return 'http://' + url;
+  }
+
+  return url;
+}
+//# sourceMappingURL=prepend-http.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/safe-decode-uri.js
+/**
+ * Safely decodes a URI with `decodeURI`. Returns the URI unmodified if
+ * `decodeURI` throws an error.
+ *
+ * @param {string} uri URI to decode.
+ *
+ * @example
+ * ```js
+ * const badUri = safeDecodeURI( '%z' ); // does not throw an Error, simply returns '%z'
+ * ```
+ *
+ * @return {string} Decoded URI if possible.
+ */
+function safeDecodeURI(uri) {
+  try {
+    return decodeURI(uri);
+  } catch (uriError) {
+    return uri;
+  }
+}
+//# sourceMappingURL=safe-decode-uri.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/safe-decode-uri-component.js
+/**
+ * Safely decodes a URI component with `decodeURIComponent`. Returns the URI component unmodified if
+ * `decodeURIComponent` throws an error.
+ *
+ * @param {string} uriComponent URI component to decode.
+ *
+ * @return {string} Decoded URI component if possible.
+ */
+function safeDecodeURIComponent(uriComponent) {
+  try {
+    return decodeURIComponent(uriComponent);
+  } catch (uriComponentError) {
+    return uriComponent;
+  }
+}
+//# sourceMappingURL=safe-decode-uri-component.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/filter-url-for-display.js
+/**
+ * Returns a URL for display.
+ *
+ * @param {string}      url       Original URL.
+ * @param {number|null} maxLength URL length.
+ *
+ * @example
+ * ```js
+ * const displayUrl = filterURLForDisplay( 'https://www.wordpress.org/gutenberg/' ); // wordpress.org/gutenberg
+ * const imageUrl = filterURLForDisplay( 'https://www.wordpress.org/wp-content/uploads/img.png', 20 ); // …ent/uploads/img.png
+ * ```
+ *
+ * @return {string} Displayed URL.
+ */
+function filterURLForDisplay(url, maxLength = null) {
+  // Remove protocol and www prefixes.
+  let filteredURL = url.replace(/^(?:https?:)\/\/(?:www\.)?/, ''); // Ends with / and only has that single slash, strip it.
+
+  if (filteredURL.match(/^[^\/]+\/$/)) {
+    filteredURL = filteredURL.replace('/', '');
+  }
+
+  const mediaRegexp = /([\w|:])*\.(?:jpg|jpeg|gif|png|svg)/;
+
+  if (!maxLength || filteredURL.length <= maxLength || !filteredURL.match(mediaRegexp)) {
+    return filteredURL;
+  } // If the file is not greater than max length, return last portion of URL.
+
+
+  filteredURL = filteredURL.split('?')[0];
+  const urlPieces = filteredURL.split('/');
+  const file = urlPieces[urlPieces.length - 1];
+
+  if (file.length <= maxLength) {
+    return '…' + filteredURL.slice(-maxLength);
+  } // If the file is greater than max length, truncate the file.
+
+
+  const index = file.lastIndexOf('.');
+  const [fileName, extension] = [file.slice(0, index), file.slice(index + 1)];
+  const truncatedFile = fileName.slice(-3) + '.' + extension;
+  return file.slice(0, maxLength - truncatedFile.length - 1) + '…' + truncatedFile;
+}
+//# sourceMappingURL=filter-url-for-display.js.map
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/url/build-module/clean-for-slug.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Performs some basic cleanup of a string for use as a post slug.
+ *
+ * This replicates some of what `sanitize_title()` does in WordPress core, but
+ * is only designed to approximate what the slug will be.
+ *
+ * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin
+ * letters. Removes combining diacritical marks. Converts whitespace, periods,
+ * and forward slashes to hyphens. Removes any remaining non-word characters
+ * except hyphens. Converts remaining string to lowercase. It does not account
+ * for octets, HTML entities, or other encoded characters.
+ *
+ * @param {string} string Title or slug to be processed.
+ *
+ * @return {string} Processed string.
+ */
+
+function cleanForSlug(string) {
+  if (!string) {
+    return '';
+  }
+
+  return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(string).replace(/[\s\./]+/g, '-').replace(/[^\w-]+/g, '').toLowerCase(), '-');
+}
+//# sourceMappingURL=clean-for-slug.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).url = __webpack_exports__;
+/******/ })()
+;

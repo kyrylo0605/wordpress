@@ -1,89 +1,105 @@
 <?php
 /**
- * Product Bundle Class
+ * Bundled Item class
  *
- * @author Yithemes
- * @package YITH WooCommerce Product Bundles
- * @version 1.0.0
+ * @author  YITH
+ * @package YITH\ProductBundles
  */
 
+defined( 'YITH_WCPB' ) || exit;
 
-if ( ! defined( 'YITH_WCPB' ) ) {
-	exit;
-} // Exit if accessed directly
+// phpcs:disable Generic.Classes.DuplicateClassName.Found
 
 if ( ! class_exists( 'YITH_WC_Bundled_Item' ) ) {
 	/**
-	 * Product Bundle Item Object
+	 * Class YITH_WC_Bundled_Item
 	 *
-	 * @since 1.0.0
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 	 */
 	class YITH_WC_Bundled_Item {
 
+		/**
+		 * Item ID.
+		 *
+		 * @var int
+		 */
 		public $item_id;
 
+		/**
+		 * Product ID.
+		 *
+		 * @var int
+		 */
 		public $product_id;
-		public $product;
 
+		/**
+		 * The product.
+		 *
+		 * @var WC_Product|false
+		 */
+		public $product = false;
+
+		/**
+		 * Quantity.
+		 *
+		 * @var int|mixed
+		 */
 		private $quantity;
 
 		/**
+		 * The parent bundle product.
+		 *
 		 * @var WC_Product_Yith_Bundle
 		 */
 		public $parent;
 
 		/**
-		 * __construct
+		 * YITH_WC_Bundled_Item constructor.
 		 *
-		 * @access public
-		 *
-		 * @param WC_Product_Yith_Bundle $parent
-		 * @param int                    $item_id
-		 * @param array|bool             $item_data
+		 * @param WC_Product_Yith_Bundle $parent    The parent bundle product.
+		 * @param int                    $item_id   Item ID.
+		 * @param array|false            $item_data Item data.
 		 */
 		public function __construct( $parent, $item_id, $item_data = false ) {
 			$this->parent = $parent;
 
 			if ( false === $item_data ) {
 				$item_data = $parent->bundle_data[ $item_id ];
-            }
-            
+			}
+
 			$this->item_id    = $item_id;
 			$this->product_id = $item_data['product_id'];
-			$this->product_id = YITH_WCPB()->compatibility->wpml->wpml_object_id( $this->product_id, 'product', true );
+			$this->product_id = yith_wcpb()->compatibility->wpml->wpml_object_id( $this->product_id, 'product', true );
 
-			$this->quantity = isset( $item_data['bp_quantity'] ) ? $item_data['bp_quantity'] : 1;
+			$this->quantity = $item_data['bp_quantity'] ?? 1;
 
 			$bundled_product = wc_get_product( $this->product_id );
 
-			// if exist the product with $this->product_id
 			if ( $bundled_product ) {
 				$this->product = $bundled_product;
 			}
 		}
 
 		/**
-		 * Return true if this->product is setted
+		 * Return true if the related product exists.
 		 *
-		 * @return  boolean
+		 * @return  bool
 		 */
 		public function exists() {
-
 			return ! empty( $this->product );
 		}
 
 		/**
-		 * Return this->product [or false if it not exist]
+		 * Return the related product, or false if the product doesn't exist.
 		 *
-		 * @return  WC_Product
+		 * @return WC_Product|false
 		 */
 		public function get_product() {
 			return ! empty( $this->product ) ? $this->product : false;
 		}
 
 		/**
-		 * return the product id
+		 * Return the product id
 		 *
 		 * @return int
 		 */
@@ -92,7 +108,7 @@ if ( ! class_exists( 'YITH_WC_Bundled_Item' ) ) {
 		}
 
 		/**
-		 * Return this->quantity [or 0 if it's not setted]
+		 * Return the quantity.
 		 *
 		 * @return  int
 		 */

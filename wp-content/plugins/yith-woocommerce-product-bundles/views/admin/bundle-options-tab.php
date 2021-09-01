@@ -1,15 +1,15 @@
 <?php
 /**
- * Admin Bundle Options TAB
+ * Admin bundle options tab
  *
  * @var WC_Product_YITH_Bundle|false $bundle_product The bundle product or false (if it's not a bundle product)
  * @var WC_Product                   $product_object The product object
+ *
+ * @author  YITH
+ * @package YITH\ProductBundles\Views
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'YITH_WCPB' ) || exit;
 
 $bundle_id = $product_object->get_id();
 
@@ -29,7 +29,7 @@ foreach ( $bundled_items as $bundled_item ) {
 }
 
 ?>
-<div id="yith_bundle_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper yith-plugin-ui" data-items-with-qty="<?php echo esc_attr( json_encode( $items_with_qty ) ); ?>">
+<div id="yith_bundle_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper yith-plugin-ui" data-items-with-qty="<?php echo esc_attr( wp_json_encode( $items_with_qty ) ); ?>">
 
 	<div class="yith-wcpb-bundle-options-section">
 
@@ -49,17 +49,17 @@ foreach ( $bundled_items as $bundled_item ) {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.5 80.23">
 						<defs>
 							<style>
-                                .cls-1, .cls-2 {
-                                    fill            : none;
-                                    stroke          : currentColor;
-                                    stroke-linecap  : round;
-                                    stroke-linejoin : round;
-                                    stroke-width    : 2.5px;
-                                }
+								.cls-1, .cls-2 {
+									fill            : none;
+									stroke          : currentColor;
+									stroke-linecap  : round;
+									stroke-linejoin : round;
+									stroke-width    : 2.5px;
+								}
 
-                                .cls-2 {
-                                    stroke-dasharray : 0.51 6.14;
-                                }
+								.cls-2 {
+									stroke-dasharray : 0.51 6.14;
+								}
 							</style>
 						</defs>
 						<g>
@@ -88,7 +88,7 @@ foreach ( $bundled_items as $bundled_item ) {
 				<div id="yith-wcpb-bundled-items__actions__hero-description" class="yith-wcpb-bundled-items__actions__show-if-hero">
 					<?php esc_html_e( 'You are creating a bundle product!', 'yith-woocommerce-product-bundles' ); ?>
 					<br/>
-					<?php esc_html_e( "Now, the first step is adding some items to this bundle: after that, you should simply set the bundle options below.", 'yith-woocommerce-product-bundles' ); ?>
+					<?php esc_html_e( 'Now, the first step is adding some items to this bundle: after that, you should simply set the bundle options below.', 'yith-woocommerce-product-bundles' ); ?>
 				</div>
 				<button type="button" id="yith-wcpb-add-bundled-product" class="button button-primary"><?php esc_html_e( 'Add product to the bundle', 'yith-woocommerce-product-bundles' ); ?></button>
 			</div>
@@ -119,7 +119,7 @@ foreach ( $bundled_items as $bundled_item ) {
 			<div class="yith-wcpb-form-field">
 				<label class="yith-wcpb-form-field__label">
 					<?php
-					// translators: %s is the currency symbol
+					// translators: %s is the currency symbol.
 					echo esc_html( sprintf( __( 'Bundle Regular Price (%s)', 'yith-woocommerce-product-bundles' ), get_woocommerce_currency_symbol() ) );
 					?>
 				</label>
@@ -145,7 +145,7 @@ foreach ( $bundled_items as $bundled_item ) {
 			<div class="yith-wcpb-form-field">
 				<label class="yith-wcpb-form-field__label">
 					<?php
-					// translators: %s is the currency symbol
+					// translators: %s is the currency symbol.
 					echo esc_html( sprintf( __( 'Bundle Sale Price (%s)', 'yith-woocommerce-product-bundles' ), get_woocommerce_currency_symbol() ) );
 					?>
 				</label>

@@ -1,1 +1,102 @@
-window.wp=window.wp||{},window.wp.htmlEntities=function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=527)}({527:function(e,t,n){"use strict";var r;function o(e){if("string"!=typeof e||-1===e.indexOf("&"))return e;void 0===r&&(r=document.implementation&&document.implementation.createHTMLDocument?document.implementation.createHTMLDocument("").createElement("textarea"):document.createElement("textarea")),r.innerHTML=e;var t=r.textContent;return r.innerHTML="",t}n.r(t),n.d(t,"decodeEntities",(function(){return o}))}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "decodeEntities": function() { return /* binding */ decodeEntities; }
+/* harmony export */ });
+/** @type {HTMLTextAreaElement} */
+let _decodeTextArea;
+/**
+ * Decodes the HTML entities from a given string.
+ *
+ * @param {string} html String that contain HTML entities.
+ *
+ * @example
+ * ```js
+ * const result = decodeEntities( '&aacute;' );
+ * console.log( result ); // result will be "á"
+ * ```
+ *
+ * @return {string} The decoded string.
+ */
+
+
+function decodeEntities(html) {
+  // not a string, or no entities to decode
+  if ('string' !== typeof html || -1 === html.indexOf('&')) {
+    return html;
+  } // create a textarea for decoding entities, that we can reuse
+
+
+  if (undefined === _decodeTextArea) {
+    if (document.implementation && document.implementation.createHTMLDocument) {
+      _decodeTextArea = document.implementation.createHTMLDocument('').createElement('textarea');
+    } else {
+      _decodeTextArea = document.createElement('textarea');
+    }
+  }
+
+  _decodeTextArea.innerHTML = html;
+  const decoded = _decodeTextArea.textContent;
+  _decodeTextArea.innerHTML = '';
+  /**
+   * Cast to string, HTMLTextAreaElement should always have `string` textContent.
+   *
+   * > The `textContent` property of the `Node` interface represents the text content of the
+   * > node and its descendants.
+   * >
+   * > Value: A string or `null`
+   * >
+   * > * If the node is a `document` or a Doctype, `textContent` returns `null`.
+   * > * If the node is a CDATA section, comment, processing instruction, or text node,
+   * >   textContent returns the text inside the node, i.e., the `Node.nodeValue`.
+   * > * For other node types, `textContent returns the concatenation of the textContent of
+   * >   every child node, excluding comments and processing instructions. (This is an empty
+   * >   string if the node has no children.)
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+   */
+
+  return (
+    /** @type {string} */
+    decoded
+  );
+}
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).htmlEntities = __webpack_exports__;
+/******/ })()
+;

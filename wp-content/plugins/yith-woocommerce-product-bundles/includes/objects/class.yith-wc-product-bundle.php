@@ -1,41 +1,43 @@
 <?php
 /**
- * Product Bundle Class
+ * Bundle Product class
  *
- * @author  Yithemes
- * @package YITH WooCommerce Product Bundles
- * @version 1.0.0
+ * @author  YITH
+ * @package YITH\ProductBundles
  */
 
+defined( 'YITH_WCPB' ) || exit;
 
-if ( ! defined( 'YITH_WCPB' ) ) {
-	exit;
-} // Exit if accessed directly
+// phpcs:disable Generic.Classes.DuplicateClassName.Found
 
 if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 	/**
-	 * Product Bundle Object
+	 * Class WC_Product_Yith_Bundle
 	 *
-	 * @since  1.0.0
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 	 */
 	class WC_Product_Yith_Bundle extends WC_Product {
 
-		public $bundle_data;
+		/**
+		 * Bundle data.
+		 *
+		 * @var array
+		 */
+		public $bundle_data = array();
+
+		/**
+		 * Bundled items.
+		 *
+		 * @var YITH_WC_Bundled_Item[]
+		 */
 		private $bundled_items;
 
 		/**
-		 * __construct
+		 * WC_Product_Yith_Bundle constructor.
 		 *
-		 * @access public
-		 *
-		 * @param mixed $product
+		 * @param int|WC_Product|object $product Product to init.
 		 */
 		public function __construct( $product ) {
-			if ( ! $this instanceof WC_Data ) {
-				$this->product_type = 'yith_bundle';
-			}
-
 			parent::__construct( $product );
 
 			$this->bundle_data = get_post_meta( $this->get_id(), '_yith_wcpb_bundle_data', true );
@@ -46,6 +48,11 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 
 		}
 
+		/**
+		 * Get product type.
+		 *
+		 * @return string
+		 */
 		public function get_type() {
 			return 'yith_bundle';
 		}
@@ -67,15 +74,13 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 					}
 				}
 			}
-			yit_set_prop( $this, 'virtual', $virtual );
+			$this->set_virtual( $virtual );
 		}
 
 		/**
-		 * return bundled items array [or false if it's empty]
+		 * Return bundled items array
 		 *
 		 * @return YITH_WC_Bundled_Item[]
-		 * @since  1.0.0
-		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public function get_bundled_items() {
 			return ! empty( $this->bundled_items ) ? $this->bundled_items : array();
@@ -88,24 +93,18 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public function is_purchasable() {
-
 			$purchasable = true;
 
-			// Products must exist of course
 			if ( ! $this->exists() ) {
 				$purchasable = false;
-
-				// Other products types need a price to be set
 			} elseif ( $this->get_price() === '' ) {
 				$purchasable = false;
 
-				// Check the product is published
-			} elseif ( ( $this instanceof WC_Data ? $this->get_status() : $this->post->post_status ) !== 'publish' && ! current_user_can( 'edit_post', $this->get_id() ) ) {
+			} elseif ( $this->get_status() !== 'publish' && ! current_user_can( 'edit_post', $this->get_id() ) ) {
 				$purchasable = false;
 			}
 
-			// Check the bundle items are purchasable
-
+			// Check bundle items are purchasable.
 			$bundled_items = $this->get_bundled_items();
 			foreach ( $bundled_items as $bundled_item ) {
 				if ( ! $bundled_item->get_product()->is_purchasable() ) {
@@ -120,7 +119,6 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 		 * Returns true if all items is in stock
 		 *
 		 * @return bool
-		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public function all_items_in_stock() {
 			$response = true;
@@ -139,7 +137,6 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 		 * Returns true if one item at least is variable product.
 		 *
 		 * @return bool
-		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public function has_variables() {
 			return false;
@@ -148,7 +145,6 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 		/**
 		 * Get the add to cart url used in loops.
 		 *
-		 * @access public
 		 * @return string
 		 */
 		public function add_to_cart_url() {
@@ -160,7 +156,6 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 		/**
 		 * Get the add to cart button text
 		 *
-		 * @access public
 		 * @return string
 		 */
 		public function add_to_cart_text() {
@@ -171,26 +166,12 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 
 
 		/**
-		 * get the ID of the parent post
-		 * added for support to wc 2.7 and wc 2.6
-		 *
-		 * @param string $context
-		 *
-		 * @return int
-		 */
-		public function get_parent_id( $context = 'view' ) {
-			return $this instanceof WC_Data ? parent::get_parent_id( $context ) : $this->get_parent();
-		}
-
-
-		/**
 		 * Get the title of the post.
 		 *
 		 * @access public
 		 * @return string
 		 */
 		public function get_title() {
-
 			$title = get_the_title( $this->get_id() );
 
 			if ( $this->get_parent_id() > 0 ) {
@@ -216,7 +197,7 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 					'post_parent'    => $this->get_parent_id(),
 					'orderby'        => 'meta_value_num',
 					'order'          => 'asc',
-					'meta_key'       => '_price',
+					'meta_key'       => '_price', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 					'posts_per_page' => 1,
 					'post_type'      => 'product',
 					'fields'         => 'ids',
@@ -233,9 +214,7 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 			delete_transient( 'wc_products_onsale' );
 
 			do_action( 'woocommerce_grouped_product_sync', $this->get_id(), $children_by_price );
-
 		}
-
 
 		/**
 		 * Retrieve the bundle product version
@@ -251,9 +230,9 @@ if ( ! class_exists( 'WC_Product_Yith_Bundle' ) ) {
 					$version = '1.0.0';
 				}
 			}
+
 			return $version;
 		}
-
 
 	}
 }

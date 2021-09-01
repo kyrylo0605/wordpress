@@ -1,1 +1,188 @@
-window.wp=window.wp||{},window.wp.reactI18n=function(t){var n={};function e(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,e),o.l=!0,o.exports}return e.m=t,e.c=n,e.d=function(t,n,r){e.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:r})},e.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},e.t=function(t,n){if(1&n&&(t=e(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(e.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var o in t)e.d(r,o,function(n){return t[n]}.bind(null,o));return r},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},e.p="",e(e.s=528)}({0:function(t,n){t.exports=window.wp.element},1:function(t,n){t.exports=window.wp.i18n},10:function(t,n,e){"use strict";e.d(n,"a",(function(){return i}));var r=e(40),o=e(31),u=e(41);function i(t,n){return Object(r.a)(t)||function(t,n){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t)){var e=[],_n=!0,r=!1,o=void 0;try{for(var u,i=t[Symbol.iterator]();!(_n=(u=i.next()).done)&&(e.push(u.value),!n||e.length!==n);_n=!0);}catch(t){r=!0,o=t}finally{try{_n||null==i.return||i.return()}finally{if(r)throw o}}return e}}(t,n)||Object(o.a)(t,n)||Object(u.a)()}},24:function(t,n,e){"use strict";function r(t,n){(null==n||n>t.length)&&(n=t.length);for(var e=0,r=new Array(n);e<n;e++)r[e]=t[e];return r}e.d(n,"a",(function(){return r}))},31:function(t,n,e){"use strict";e.d(n,"a",(function(){return o}));var r=e(24);function o(t,n){if(t){if("string"==typeof t)return Object(r.a)(t,n);var e=Object.prototype.toString.call(t).slice(8,-1);return"Object"===e&&t.constructor&&(e=t.constructor.name),"Map"===e||"Set"===e?Array.from(t):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?Object(r.a)(t,n):void 0}}},40:function(t,n,e){"use strict";function r(t){if(Array.isArray(t))return t}e.d(n,"a",(function(){return r}))},41:function(t,n,e){"use strict";function r(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}e.d(n,"a",(function(){return r}))},528:function(t,n,e){"use strict";e.r(n),e.d(n,"I18nProvider",(function(){return f})),e.d(n,"useI18n",(function(){return l})),e.d(n,"withI18n",(function(){return s}));var r=e(9),o=e(10),u=e(0),i=e(1);function c(t){return{__:t.__.bind(t),_x:t._x.bind(t),_n:t._n.bind(t),_nx:t._nx.bind(t),isRTL:t.isRTL.bind(t),hasTranslation:t.hasTranslation.bind(t)}}var a=Object(u.createContext)(c(i.defaultI18n));function f(t){var n=t.children,e=t.i18n,r=void 0===e?i.defaultI18n:e,f=Object(u.useReducer)((function(){return[]}),[]),l=Object(o.a)(f,2),s=l[0],d=l[1];Object(u.useEffect)((function(){return r.subscribe(d)}),[r]);var b=Object(u.useMemo)((function(){return c(r)}),[r,s]);return Object(u.createElement)(a.Provider,{value:b},n)}var l=function(){return Object(u.useContext)(a)};function s(t){var n=function(n){var e=l();return Object(u.createElement)(t,Object(r.a)({},n,e))},e=t.displayName||t.name||"Component";return n.displayName="WithI18n(".concat(e,")"),n}},9:function(t,n,e){"use strict";function r(){return(r=Object.assign||function(t){for(var n=1;n<arguments.length;n++){var e=arguments[n];for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r])}return t}).apply(this,arguments)}e.d(n,"a",(function(){return r}))}});
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "I18nProvider": function() { return /* binding */ I18nProvider; },
+  "useI18n": function() { return /* binding */ useI18n; },
+  "withI18n": function() { return /* binding */ withI18n; }
+});
+
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+;// CONCATENATED MODULE: external ["wp","element"]
+var external_wp_element_namespaceObject = window["wp"]["element"];
+;// CONCATENATED MODULE: external ["wp","i18n"]
+var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
+;// CONCATENATED MODULE: ./packages/react-i18n/build-module/index.js
+
+
+
+/**
+ * External dependencies
+ */
+// Disable reason: Type-only import, this is fine. See https://github.com/typescript-eslint/typescript-eslint/issues/2661
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Utility to make a new context value
+ *
+ * @param  i18n
+ */
+function makeContextValue(i18n) {
+  return {
+    __: i18n.__.bind(i18n),
+    _x: i18n._x.bind(i18n),
+    _n: i18n._n.bind(i18n),
+    _nx: i18n._nx.bind(i18n),
+    isRTL: i18n.isRTL.bind(i18n),
+    hasTranslation: i18n.hasTranslation.bind(i18n)
+  };
+}
+
+const I18nContext = (0,external_wp_element_namespaceObject.createContext)(makeContextValue(external_wp_i18n_namespaceObject.defaultI18n));
+
+/**
+ * The `I18nProvider` should be mounted above any localized components:
+ *
+ * @example
+ * ```js
+ * import { createI18n } from '@wordpress/react-i18n';
+ * import { I18nProvider } from '@wordpress/react-i18n';
+ * const i18n = createI18n();
+ *
+ * ReactDom.render(
+ * 	<I18nProvider i18n={ i18n }>
+ * 		<App />
+ * 	</I18nProvider>,
+ * 	el
+ * );
+ * ```
+ *
+ * You can also instantiate the provider without the `i18n` prop. In that case it will use the
+ * default `I18n` instance exported from `@wordpress/i18n`.
+ *
+ * @param  props i18n provider props.
+ * @return Children wrapped in the I18nProvider.
+ */
+function I18nProvider(props) {
+  const {
+    children,
+    i18n = external_wp_i18n_namespaceObject.defaultI18n
+  } = props;
+  const [update, forceUpdate] = (0,external_wp_element_namespaceObject.useReducer)(() => [], []); // rerender translations whenever the i18n instance fires a change event
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => i18n.subscribe(forceUpdate), [i18n]);
+  const value = (0,external_wp_element_namespaceObject.useMemo)(() => makeContextValue(i18n), [i18n, update]);
+  return (0,external_wp_element_namespaceObject.createElement)(I18nContext.Provider, {
+    value: value
+  }, children);
+}
+/**
+ * React hook providing access to i18n functions. It exposes the `__`, `_x`, `_n`, `_nx`,
+ * `isRTL` and `hasTranslation` functions from [`@wordpress/i18n`](../i18n).
+ * Refer to their documentation there.
+ *
+ * @example
+ * ```js
+ * import { useI18n } from '@wordpress/react-i18n';
+ *
+ * function MyComponent() {
+ * 	const { __ } = useI18n();
+ * 	return __( 'Hello, world!' );
+ * }
+ * ```
+ */
+
+const useI18n = () => (0,external_wp_element_namespaceObject.useContext)(I18nContext);
+
+/**
+ * React higher-order component that passes the i18n translate functions (the same set
+ * as exposed by the `useI18n` hook) to the wrapped component as props.
+ *
+ * @example
+ * ```js
+ * import { withI18n } from '@wordpress/react-i18n';
+ *
+ * function MyComponent( { __ } ) {
+ * 	return __( 'Hello, world!' );
+ * }
+ *
+ * export default withI18n( MyComponent );
+ * ```
+ *
+ * @param  InnerComponent React component to be wrapped and receive the i18n functions like `__`
+ * @return The wrapped component
+ */
+function withI18n(InnerComponent) {
+  const EnhancedComponent = props => {
+    const i18nProps = useI18n();
+    return (0,external_wp_element_namespaceObject.createElement)(InnerComponent, _extends({}, props, i18nProps));
+  };
+
+  const innerComponentName = InnerComponent.displayName || InnerComponent.name || 'Component';
+  EnhancedComponent.displayName = `WithI18n(${innerComponentName})`;
+  return EnhancedComponent;
+}
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).reactI18n = __webpack_exports__;
+/******/ })()
+;

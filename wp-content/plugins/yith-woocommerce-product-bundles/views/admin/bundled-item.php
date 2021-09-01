@@ -1,29 +1,30 @@
 <?php
 /**
- * Admin Add Bundled Product markup.
+ * Bundled item.
  *
- * @var int                  $metabox_id   The metabox ID.
+ * @var int                  $metabox_id   The meta-box ID.
  * @var YITH_WC_Bundled_Item $bundled_item The bundled item.
+ *
+ * @author  YITH
+ * @package YITH\ProductBundles\Views
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'YITH_WCPB' ) || exit;
 
 $product_id     = $bundled_item->get_product_id();
 $product        = $bundled_item->get_product();
 $bundle_product = $bundled_item->get_bundle();
 $bundle_id      = $bundle_product->get_id();
 
+// phpcs:disable WordPress.Security.NonceVerification
 
-$open_closed    = ! empty( $_POST['open_closed'] ) ? $_POST['open_closed'] : 'closed';
+$open_closed    = ! empty( $_POST['open_closed'] ) ? wc_clean( wp_unslash( $_POST['open_closed'] ) ) : 'closed';
 $content_hidden = 'closed' === $open_closed ? 'hidden' : '';
 
-$title = $product ? $product->get_name() : get_the_title( $product_id );
+$the_title = $product ? $product->get_name() : get_the_title( $product_id );
 
 $edit_link  = get_edit_post_link( $product_id );
-$item_title = apply_filters('yith_wcpb_bundle_item_title', sprintf( '%s &ndash; #%s', $title, $product_id ), $title, $product_id );
+$item_title = apply_filters( 'yith_wcpb_bundle_item_title', sprintf( '%s &ndash; #%s', $the_title, $product_id ), $the_title, $product_id );
 
 if ( ! $product ) {
 	$is_purchasable = false;

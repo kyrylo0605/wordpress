@@ -1,3 +1,4 @@
+/* global jQuery, ajaxurl, woocommerce_admin_meta_boxes, yith_bundle_opts */
 jQuery( function ( $ ) {
     "use strict";
 
@@ -62,7 +63,8 @@ jQuery( function ( $ ) {
                     open_closed: 'open',
                     bundle_id  : post_id,
                     id         : yith_wcbp_metabox.el.items_count,
-                    product_id : product_id
+                    product_id : product_id,
+                    security: yith_bundle_opts.nonces.addProductToBundle
                 };
 
                 $.ajax( {

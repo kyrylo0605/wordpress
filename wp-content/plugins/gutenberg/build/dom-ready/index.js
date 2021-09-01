@@ -1,1 +1,76 @@
-window.wp=window.wp||{},window.wp.domReady=function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=525)}({525:function(e,t,n){"use strict";function r(e){"undefined"!=typeof document&&("complete"!==document.readyState&&"interactive"!==document.readyState?document.addEventListener("DOMContentLoaded",e):e())}n.r(t),n.d(t,"default",(function(){return r}))}}).default;
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ domReady; }
+/* harmony export */ });
+/**
+ * @typedef {() => void} Callback
+ *
+ * TODO: Remove this typedef and inline `() => void` type.
+ *
+ * This typedef is used so that a descriptive type is provided in our
+ * automatically generated documentation.
+ *
+ * An in-line type `() => void` would be preferable, but the generated
+ * documentation is `null` in that case.
+ *
+ * @see https://github.com/WordPress/gutenberg/issues/18045
+ */
+
+/**
+ * Specify a function to execute when the DOM is fully loaded.
+ *
+ * @param {Callback} callback A function to execute after the DOM is ready.
+ *
+ * @example
+ * ```js
+ * import domReady from '@wordpress/dom-ready';
+ *
+ * domReady( function() {
+ * 	//do something after DOM loads.
+ * } );
+ * ```
+ *
+ * @return {void}
+ */
+function domReady(callback) {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  if (document.readyState === 'complete' || // DOMContentLoaded + Images/Styles/etc loaded, so we call directly.
+  document.readyState === 'interactive' // DOMContentLoaded fires at this point, so we call directly.
+  ) {
+      return void callback();
+    } // DOMContentLoaded has not fired yet, delay callback until then.
+
+
+  document.addEventListener('DOMContentLoaded', callback);
+}
+//# sourceMappingURL=index.js.map
+(window.wp = window.wp || {}).domReady = __webpack_exports__.default;
+/******/ })()
+;

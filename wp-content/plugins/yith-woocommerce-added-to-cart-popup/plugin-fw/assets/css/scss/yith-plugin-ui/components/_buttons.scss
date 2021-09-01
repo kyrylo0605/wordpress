@@ -17,6 +17,7 @@
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
+    white-space: nowrap;
 
     &:focus {
       outline: none;

@@ -25,6 +25,7 @@ require_once 'includes/class-yit-plugin-common.php';
 require_once 'includes/class-yit-gradients.php';
 require_once 'includes/class-yit-plugin-licence.php';
 require_once 'includes/class-yit-theme-licence.php';
+require_once 'includes/class-yit-help-desk.php';
 require_once 'includes/class-yit-video.php';
 require_once 'includes/class-yit-upgrade.php';
 require_once 'includes/class-yit-pointers.php';
@@ -46,9 +47,9 @@ if ( class_exists( 'WP_Block_Type_Registry' ) ) {
 require_once 'includes/builders/elementor/class-yith-elementor.php';
 
 // load from theme folder...
-load_textdomain( 'yith-plugin-fw', get_template_directory() . '/core/plugin-fw/yith-plugin-fw-' . apply_filters( 'plugin_locale', get_locale(), 'yith-plugin-fw' ) . '.mo' ) ||
+load_textdomain( 'yith-plugin-fw', get_template_directory() . '/core/plugin-fw/yith-plugin-fw-' . apply_filters( 'plugin_locale', determine_locale(), 'yith-plugin-fw' ) . '.mo' ) ||
 // ...or from plugin folder.
-load_textdomain( 'yith-plugin-fw', dirname( __FILE__ ) . '/languages/yith-plugin-fw-' . apply_filters( 'plugin_locale', get_locale(), 'yith-plugin-fw' ) . '.mo' );
+load_textdomain( 'yith-plugin-fw', dirname( __FILE__ ) . '/languages/yith-plugin-fw-' . apply_filters( 'plugin_locale', determine_locale(), 'yith-plugin-fw' ) . '.mo' );
 
 add_filter( 'plugin_row_meta', 'yit_plugin_fw_row_meta', 20, 4 );
 

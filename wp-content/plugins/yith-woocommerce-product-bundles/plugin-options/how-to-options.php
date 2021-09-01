@@ -1,12 +1,18 @@
 <?php
-// Exit if accessed directly
-! defined( 'YITH_WCPB' )  && exit();
+/**
+ * How-to tab options.
+ *
+ * @author  YITH
+ * @package YITH\ProductBundles\Options
+ */
+
+defined( 'YITH_WCPB' ) || exit;
 
 return array(
 	'how-to' => array(
 		'how-to' => array(
-			'type' => 'custom_tab',
-			'action' => 'yith_wcpb_how_to_tab'
-		)
-	)
+			'type'   => 'custom_tab',
+			'action' => 'yith_wcpb_how_to_tab',
+		),
+	),
 );

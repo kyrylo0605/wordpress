@@ -18,7 +18,7 @@ $delete_focus: #f0d2cd; // Text on delete buttons
 // Outline is used to stylize Secondary buttons.
 $outline_text: #0087b3; // outline button - text color
 $outline_border: #0094c4; // outline button - border color
-$outline_bg: #ffffff; // outline button - background color
+$outline_bg: rgba(255, 255, 255, 0); // outline button - background color
 $outline_bg_hover: rgba(157, 198, 205, .2); // outline button - background color on hover
 $outline_border_hover: #007ba3; // outline button - border color on hover
 $outline_focus: #dfeef2; // Outline focus color, for buttons
