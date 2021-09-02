@@ -217,15 +217,23 @@ Class TVC_Admin_Helper{
 	public function import_gmc_products_sync_in_db($next_page_token = null){
     $merchant_id = $this->get_merchantId();
     $last_row = $this->TVC_Admin_DB_Helper->tvc_get_last_row('ee_products_sync_list',array("gmc_id"));
+    /**
+     * truncate table before import the GMC products
+     */
     if(!empty($last_row) && isset($last_row['gmc_id']) && $last_row['gmc_id'] != $merchant_id){
     	global $wpdb;
   		$tablename = $wpdb->prefix ."ee_products_sync_list";
-  		$wpdb->query("DROP TABLE IF EXISTS ".$tablename);
+  		//$wpdb->query("DROP TABLE IF EXISTS ".$tablename);
+  		$this->TVC_Admin_DB_Helper->tvc_safe_truncate_table($tablename);
   		$tablename = $wpdb->prefix ."ee_product_sync_data";
   		$this->TVC_Admin_DB_Helper->tvc_safe_truncate_table($tablename);
   		$tablename = $wpdb->prefix ."ee_product_sync_call";
   		$this->TVC_Admin_DB_Helper->tvc_safe_truncate_table($tablename);
-  		new TVC_Admin_Auto_Product_sync_Helper();
+  		//new TVC_Admin_Auto_Product_sync_Helper();
+    }else if( $next_page_token =="" ){
+    	global $wpdb;
+  		$tablename = $wpdb->prefix ."ee_products_sync_list";
+  		$this->TVC_Admin_DB_Helper->tvc_safe_truncate_table($tablename);
     }
     if( $merchant_id != "" ){
     	$args = array( 'merchant_id' => $merchant_id );

@@ -16,7 +16,7 @@
  * Plugin Name:       Enhanced E-commerce for Woocommerce store
  * Plugin URI:        https://www.tatvic.com/tatvic-labs/woocommerce-extension/
  * Description:       Automates eCommerce tracking in Google Analytics, dynamic remarkting in Google Ads, and provides complete Google Shopping features.
- * Version:           4.1.1
+ * Version:           4.1.2
  * Author:            Tatvic
  * Author URI:        www.tatvic.com
  * License:           GPL-2.0+
@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_TVC_VERSION', '4.1.1' );
+define( 'PLUGIN_TVC_VERSION', '4.1.2' );
 $fullName = plugin_basename( __FILE__ );
 $dir = str_replace('/enhanced-ecommerce-google-analytics.php','',$fullName);
 if ( ! defined( 'ENHANCAD_PLUGIN_NAME' ) ) {

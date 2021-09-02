@@ -89,21 +89,20 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
         }
         ?>
         <script>
-            (function( $ ) {
-                $( function() {
-                    $( '.notice' ).on( 'click', '.notice-dismiss', function( event, el ) {
-                        var ee_notice_dismiss_id = $(this).parent('.is-dismissible').attr("data-id");
-                        jQuery.post(myAjaxNonces.ajaxurl,{
-                            action: "tvc_call_notice_dismiss",
-                            data:{ee_notice_dismiss_id:ee_notice_dismiss_id},
-                            dataType: "json",
-                            apiDomainClaimNonce: myAjaxNonces.apiNoticDismissNonce
-                        },function( response ){
-                            
-                        });
-                    });
-                } );
-            })( jQuery );
+          var tvc_ajax_url = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
+          (function( $ ) {
+            $( function() {
+              $( '.notice' ).on( 'click', '.notice-dismiss', function( event, el ) {
+                var ee_notice_dismiss_id = $(this).parent('.is-dismissible').attr("data-id");
+                jQuery.post(tvc_ajax_url,{
+                    action: "tvc_call_notice_dismiss",
+                    data:{ee_notice_dismiss_id:ee_notice_dismiss_id},
+                    dataType: "json"
+                },function( response ){                            
+                });
+              });
+            });
+          })( jQuery );
          </script>
         <?php       
     }
@@ -270,7 +269,7 @@ class Enhanced_Ecommerce_Google_Analytics_Admin extends TVC_Admin_Helper {
           <div class="header-section">
             <?php if($plan_id == 1){?>
             <div class="top-section">
-              <p>You are using free plugin. <a href="<?php echo $this->pro_plan_site.'?utm_source=EE+Plugin+User+Interface&utm_medium=Top+Bar+upgrading+to+pro&utm_campaign=Upsell+at+Conversios'; ?>" target="_blank" class="text-underline">Try premium features at no cost for 1 Month..!!</a>..!!!</p>
+              <p>You are using free plugin. <a href="<?php echo $this->pro_plan_site.'?utm_source=EE+Plugin+User+Interface&utm_medium=Top+Bar+upgrading+to+pro&utm_campaign=Upsell+at+Conversios'; ?>" target="_blank" class="text-underline">Try premium features at no cost for 1 Month..!!</a></p>
             </div>
           <?php } ?>
             <nav class="navbar navbar-section">

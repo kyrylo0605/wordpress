@@ -26,13 +26,13 @@ if ( ! class_exists( 'Conversios_Onboarding' ) ) {
 			$this->customApiObj = new CustomApi();
 			$this->TVC_Admin_Helper = new TVC_Admin_Helper();
 			$ee_additional_data = $this->TVC_Admin_Helper->get_ee_additional_data();
-			
 
-			$this->connect_url = $this->TVC_Admin_Helper->get_connect_url();
+			$this->connect_url =  $this->TVC_Admin_Helper->get_connect_url();
 			$this->tvc_data = $this->TVC_Admin_Helper->get_store_data();
 			/**
 				* check last login for check RefreshToken
 				*/
+			//print_r($ee_additional_data); exit;
 			if(isset($ee_additional_data['ee_last_login']) && $ee_additional_data['ee_last_login'] != ""){
 				$this->last_login = $ee_additional_data['ee_last_login'];
 				$current = current_time( 'timestamp' );
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Conversios_Onboarding' ) ) {
 					$complete_step["step-0"] = 1;
 
 					$ee_additional_data = $this->TVC_Admin_Helper->get_ee_additional_data();
-					$ee_additional_data['ee_last_login']=current_time( 'timestamp' );
+					$ee_additional_data['ee_last_login'] = current_time( 'timestamp' );
 					$this->TVC_Admin_Helper->set_ee_additional_data($ee_additional_data);
 				}			
 	  		//$this->tvc_data = json_encode($this->tvc_data);
@@ -476,7 +476,7 @@ if ( ! class_exists( 'Conversios_Onboarding' ) ) {
 	                      <small>Redeem upto</small>
 	                      <?php echo $off_credit_amt; ?>
 	                    </div>
-	                    <p>Create your first Google Ads account with us and redeem upto £120.00 on the spend you make in the next 31 days.</p>
+	                    <p>Create your first Google Ads account with us and redeem upto <?php echo $off_credit_amt; ?> on the spend you make in the next 31 days.</p>
 	                    <a target="_blank" href="https://conversios.io/help-center/Google-Spend-Match.pdf" class="lrnmorbtn">Learn more <img src="<?php echo ENHANCAD_PLUGIN_URL.'/admin/images/arrow_right.png'; ?>" alt="" /></a>
 	                  </div>
 	                  <div class="onbrdrgt-nav">
@@ -955,13 +955,23 @@ if ( ! class_exists( 'Conversios_Onboarding' ) ) {
 		 */
 		public function register() {
 			// Getting started - shows after installation.
-			add_dashboard_page(
-				esc_html__( 'Welcome to Conversios Onboarding', 'conversios' ),
-				esc_html__( 'Welcome to Conversios Onboarding', 'google-analytics-for-wordpress' ),
-				apply_filters( 'conversios_welcome', 'manage_options' ),
-				'conversios_onboarding',
-				array( $this, 'welcome_screen' )
-			);
+			if(isset($_GET['page']) && $_GET['page'] == "conversios_onboarding"){
+				add_dashboard_page(
+					esc_html__( 'Welcome to Conversios Onboarding', 'conversios' ),
+					esc_html__( 'Welcome to Conversios Onboarding', 'google-analytics-for-wordpress' ),
+					apply_filters( 'conversios_welcome', 'manage_options' ),
+					'conversios_onboarding',
+					array( $this, 'welcome_screen' )
+				);
+				/*add_submenu_page(
+	          '__FILE__',
+	          esc_html__('Welcome to Conversios Onboarding', 'enhanced-ecommerce-google-analytics-admin-display'),
+	          esc_html__('Welcome to Conversios Onboarding', 'enhanced-ecommerce-google-analytics-admin-display'),
+	          'administrator',
+	          'conversios_onboarding',
+	          array($this, 'welcome_screen'),10
+      	);*/
+			}
 		}
 		/**
 		 * Check if we should do any redirect.
@@ -980,8 +990,8 @@ if ( ! class_exists( 'Conversios_Onboarding' ) ) {
 				return;
 			}			
 			
-			$path = 'index.php?page=conversios_onboarding&conversios-redirect=1';
-			$redirect = is_network_admin() ? network_admin_url( $path ) : admin_url( $path );
+			$path = '?page=conversios_onboarding';
+			$redirect = admin_url( $path );
 			wp_safe_redirect( $redirect );
 			exit;
 			

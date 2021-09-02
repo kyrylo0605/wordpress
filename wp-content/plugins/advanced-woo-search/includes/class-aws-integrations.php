@@ -240,6 +240,7 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
             if ( class_exists( 'FacetWP' ) ) {
                 add_filter( 'facetwp_filtered_post_ids', array( $this, 'facetwp_filtered_post_ids' ), 1 );
                 add_filter( 'aws_searchpage_enabled', array( $this, 'facetwp_aws_searchpage_enabled' ), 1 );
+                add_filter( 'aws_search_page_custom_data', array( $this, 'facetwp_aws_search_page_custom_data' ), 1 );
             }
 
             // Product Visibility by User Role for WooCommerce plugin
@@ -1526,6 +1527,10 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $selectors[] = '#searchModal form';
             }
 
+            if ( 'Modern Store' === $this->current_theme ) {
+                $selectors[] = '#search-form-container form';
+            }
+
             // WCFM - WooCommerce Multivendor Marketplace
             if ( class_exists( 'WCFMmp' ) ) {
                 $selectors[] = '#wcfmmp-store .woocommerce-product-search';
@@ -1820,6 +1825,16 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 $enabled = false;
             }
             return $enabled;
+        }
+
+        /*
+         * FacetWP - Update search page query
+         */
+        public function facetwp_aws_search_page_custom_data( $data ) {
+            if ( isset( $this->data['facetwp'] ) && $this->data['facetwp'] ) {
+                $data['force_ids'] = true;
+            }
+            return $data;
         }
 
         /*

@@ -321,7 +321,9 @@ if(!class_exists('Conversios_Onboarding_Helper')):
         /**
          * for site verifecation
          */
-        $this->site_verification_and_domain_claim($googleDetail);
+        if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id){
+          $this->site_verification_and_domain_claim($googleDetail);
+        }
 
         $_POST['subscription_id'] = $googleDetail->id;
         $_POST['ga_eeT'] = (isset($googleDetail->enhanced_e_commerce_tracking) && $googleDetail->enhanced_e_commerce_tracking == "1") ? "on" : "";
@@ -344,18 +346,25 @@ if(!class_exists('Conversios_Onboarding_Helper')):
         update_option('ads_tracking_id',  $googleDetail->google_ads_id);
         update_option('ads_ert', $googleDetail->remarketing_tags);
         update_option('ads_edrt', $googleDetail->dynamic_remarketing_tags);
-        Enhanced_Ecommerce_Google_Settings::add_update_settings('ee_options');  
+        Enhanced_Ecommerce_Google_Settings::add_update_settings('ee_options');
+        /*
+         * function call for save API data in WP DB
+         */
+        $TVC_Admin_Helper->set_update_api_to_db($googleDetail, false);  
+               
+        /**
+         * function call for save remarketing snippets in WP DB
+         */
+        $TVC_Admin_Helper->update_remarketing_snippets();
+        /**
+         * save gmail and view ID in WP DB
+         */
         if(property_exists($tvc_data,"g_mail") && $tvc_data->g_mail){
           update_option('ee_customer_gmail', $tvc_data->g_mail);     
         }
         if(isset($_POST['ga_view_id']) && $_POST['ga_view_id']){
           update_option('ee_ga_view_id', $_POST['ga_view_id']);
         }
-         
-        /**
-         * function call for save remarketing snippets in WP DB
-         */
-        $TVC_Admin_Helper->update_remarketing_snippets();
         $return_url = "admin.php?page=enhanced-ecommerce-google-analytics-admin-display&tab=gaa_config_page";
         if(isset($googleDetail->google_merchant_center_id) || isset($googleDetail->google_ads_id) ){
           if( $googleDetail->google_merchant_center_id != "" && $googleDetail->google_ads_id != ""){      
@@ -373,6 +382,7 @@ if(!class_exists('Conversios_Onboarding_Helper')):
      */
     public function site_verification_and_domain_claim($googleDetail){
       $TVC_Admin_Helper = new TVC_Admin_Helper();
+      $ee_additional_data = $TVC_Admin_Helper->get_ee_additional_data();
       $customApiObj = new CustomApi();
       $postData = [
           'merchant_id' => $googleDetail->merchant_id,          
@@ -403,7 +413,9 @@ if(!class_exists('Conversios_Onboarding_Helper')):
             $postData['method']="meta";
             $siteVerificationToken_tag = $customApiObj->siteVerificationToken($postData);
             if(isset($siteVerificationToken_tag->data->token) && $siteVerificationToken_tag->data->token){
-              $TVC_Admin_Helper->set_ee_additional_data(array("add_site_varification_tag"=>1,"site_varification_tag_val"=> base64_encode($siteVerificationToken_tag->data->token)));
+              $ee_additional_data["add_site_varification_tag"]=1;
+              $ee_additional_data["site_varification_tag_val"]=base64_encode($siteVerificationToken_tag->data->token);
+              $TVC_Admin_Helper->set_ee_additional_data($ee_additional_data);
               sleep(1);
               $siteVerification_tag = $customApiObj->siteVerification($postData);
               if(isset($siteVerification_tag->error) && !empty($siteVerification_tag->errors)){

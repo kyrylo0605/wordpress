@@ -201,31 +201,6 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
             );
 
             $options['general'][] = array(
-                "name"  => __( "Cache results", "advanced-woo-search" ),
-                "desc"  => __( "Turn off if you have old data in the search results after content of products was changed.<br><strong>CAUTION:</strong> can dramatically increase search speed", "advanced-woo-search" ),
-                "id"    => "cache",
-                "value" => 'true',
-                "type"  => "radio",
-                'choices' => array(
-                    'true'  => __( 'On', 'advanced-woo-search' ),
-                    'false'  => __( 'Off', 'advanced-woo-search' ),
-                )
-            );
-
-            $options['general'][] = array(
-                "name"  => __( "Sync index table", "advanced-woo-search" ),
-                "desc"  => __( "Automatically update plugin index table when product content was changed. This means that in search there will be always latest product data.", "advanced-woo-search" ) . '<br>' .
-                    __( "Turn this off if you have any problems with performance.", "advanced-woo-search" ),
-                "id"    => "autoupdates",
-                "value" => 'true',
-                "type"  => "radio",
-                'choices' => array(
-                    'true'  => __( 'On', 'advanced-woo-search' ),
-                    'false'  => __( 'Off', 'advanced-woo-search' ),
-                )
-            );
-
-            $options['general'][] = array(
                 "name"       => __( "Search in", "advanced-woo-search" ),
                 "desc"       => __( "Click on status icon to enable or disable search source.", "advanced-woo-search" ),
                 "table_head" => __( 'Search Source', 'advanced-woo-search' ),
@@ -373,6 +348,31 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
             );
 
             $options['performance'][] = array(
+                "name"    => __( "Cache options", "advanced-woo-search" ),
+                "type"    => "heading"
+            );
+
+            $options['performance'][] = array(
+                "name"  => __( "Cache results", "advanced-woo-search" ),
+                "desc"  => __( "Cache search results to increase search speed.", "advanced-woo-search" ) . '<br>' .
+                           __( "Turn off if you have old data in the search results after the content of products was changed.", "advanced-woo-search" ),
+                "id"    => "cache",
+                "value" => 'true',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false'  => __( 'Off', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['performance'][] = array(
+                "name"    => __( "Clear cache", "advanced-woo-search" ),
+                "type"    => "html",
+                "desc"    =>__( "Clear cache for all search results.", "advanced-woo-search" ),
+                "html"    => '<div id="aws-clear-cache"><input class="button" type="button" value="' . esc_attr__( 'Clear cache', 'advanced-woo-search' ) . '"><span class="loader"></span></div><br>',
+            );
+
+            $options['performance'][] = array(
                 "name"    => __( "Index table options", "advanced-woo-search" ),
                 "id"      => "index_sources",
                 "type"    => "heading"
@@ -418,6 +418,19 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 "name"  => __( "Index variations", "advanced-woo-search" ),
                 "desc"  => __( "Index or not content of product variations.", "advanced-woo-search" ),
                 "id"    => "index_variations",
+                "value" => 'true',
+                "type"  => "radio",
+                'choices' => array(
+                    'true'  => __( 'On', 'advanced-woo-search' ),
+                    'false'  => __( 'Off', 'advanced-woo-search' ),
+                )
+            );
+
+            $options['performance'][] = array(
+                "name"  => __( "Sync index table", "advanced-woo-search" ),
+                "desc"  => __( "Automatically update plugin index table when product content was changed. This means that in search there will be always latest product data.", "advanced-woo-search" ) . '<br>' .
+                    __( "Turn this off if you have any problems with performance.", "advanced-woo-search" ),
+                "id"    => "autoupdates",
                 "value" => 'true',
                 "type"  => "radio",
                 'choices' => array(
@@ -553,7 +566,7 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
                 "value" => 'true',
                 "type"  => "radio",
                 'choices' => array(
-                    'true'  => __( "Smart scrapping sentences with searching terms from product description.", "advanced-woo-search" ),
+                    'true'  => __( "Smart scraping sentences with searching terms from product description.", "advanced-woo-search" ),
                     'false' => __( "First N words of product description ( number of words that you choose below. )", "advanced-woo-search" ),
                 )
             );

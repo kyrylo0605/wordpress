@@ -23,7 +23,7 @@ if ( ! class_exists( 'TVC_Admin_Auto_Product_sync_Helper' ) ) {
       add_action('admin_init',array($this,'add_schedule_event'));
       add_action( 'ee_auto_product_sync_check', array($this, 'call_auto_sync_product' ), 10, 1 );
 
-      //add_action('admin_init',array($this,'call_auto_sync_product_tttt'));
+      //add_action('admin_init',array($this,'call_auto_sync_product_ttt'));
     }
 
     public function includes() {
@@ -212,8 +212,7 @@ if ( ! class_exists( 'TVC_Admin_Auto_Product_sync_Helper' ) ) {
           }
 
           $product = array_merge($temp_product,$product);
-
-          if($prd->get_type() == "variable"){             
+          if( !empty($prd) && $prd->get_type() == "variable" ){             
             $variation_attributes = $prd->get_variation_attributes();
             $can_add_item_group_id = false;
             $is_color_size = false;
@@ -314,7 +313,7 @@ if ( ! class_exists( 'TVC_Admin_Auto_Product_sync_Helper' ) ) {
             }else{
               goto simpleproduct;
             }
-          }else{
+          }else if( !empty($prd) ){
             simpleproduct: 
             $image_id = $prd->get_image_id();
             $product['image_link'] = wp_get_attachment_image_url($image_id, 'full');     

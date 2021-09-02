@@ -54,7 +54,7 @@ msgstr ""
 
 #: includes/options.php:111
 msgid ""
-"Smart scrapping sentences with searching terms from product description."
+"Smart scraping sentences with searching terms from product description."
 msgstr ""
 
 #: includes/options.php:112
@@ -127,7 +127,9 @@ msgstr ""
 msgid "Excluded from search results"
 msgstr ""
 
-#: includes/options.php:9
+msgid "Cache options"
+msgstr ""
+
 msgid "Cache results"
 msgstr ""
 
@@ -170,11 +172,10 @@ msgstr ""
 msgid "Add PHP code to the necessary files of your theme: %s"
 msgstr ""
 
-#: includes/options.php:10
-msgid ""
-"Turn off if you have old data in the search results after content of "
-"products was changed.<br><strong>CAUTION:</strong> can dramatically increase "
-"search speed"
+msgid "Cache search results to increase search speed."
+msgstr ""
+
+msgid "Turn off if you have old data in the search results after the content of products was changed."
 msgstr ""
 
 #: includes/options.php:15 includes/options.php:43 includes/options.php:55
