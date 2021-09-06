@@ -655,10 +655,10 @@ Class TVC_Admin_Helper{
         }else if($googleDetail->is_site_verified ==0 ){
              $setting_status['google_shopping_conf']= false;
              $setting_status['google_shopping_conf_msg']= "Site verification and domain claim for your merchant center account failed.";
-        }else if($googleDetail->is_domain_claim ==0 ){
+        }/*else if($googleDetail->is_domain_claim ==0 ){
             $setting_status['google_shopping_conf']= false;
             $setting_status['google_shopping_conf_msg']= "Domain claim is pending. Your store url may be linked to other merchant center account.";
-        }                                      
+        } */                                     
       }else{
           $setting_status['google_shopping_conf']= false;
           $missing="";
@@ -754,6 +754,7 @@ Class TVC_Admin_Helper{
     $class = 'notice notice-error tvc-notice-error';
     if(!isset($_GET['welcome_msg']) && isset($google_detail['setting']) && $google_detail['setting'] ){    
       $googleDetail = $google_detail['setting'];
+
       if(isset($googleDetail->google_merchant_center_id) && $googleDetail->google_merchant_center_id){
 	      $message = "";
 	      $call_js_function_args="";
@@ -763,10 +764,10 @@ Class TVC_Admin_Helper{
 	      }else if(isset($googleDetail->is_site_verified) && $googleDetail->is_site_verified == '0'){
 	        $message = esc_html__('Site verification and domain claim for merchant center account failed. Without a verified and claimed website, your products will get disapproved.');
 	        $call_js_function_args = "site_verified";
-	      }else if(isset($googleDetail->is_domain_claim) && $googleDetail->is_domain_claim == '0'){
+	      }/*else if(isset($googleDetail->is_domain_claim) && $googleDetail->is_domain_claim == '0'){
 	        $message = esc_html__('Domain claim for merchant center account failed. Without a verified and claimed website, your products will get disapproved.'); 
 	        $call_js_function_args = "domain_claim";       
-	      }
+	      }*/
 	      if($message!= ""){
 	      	printf('<div class="%1$s"><p><b>%2$s Click <a href="javascript:void(0)" id="call_both_verification" onclick="call_tvc_site_verified_and_domain_claim(\'%3$s\');">here</a></b> to verify and claim the domain.</p></div>', esc_attr($class), esc_html($message),$call_js_function_args);
 	      	?>

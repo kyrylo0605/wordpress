@@ -1,4 +1,4 @@
-/*! elementor - v3.4.2 - 26-08-2021 */
+/*! elementor - v3.4.3 - 06-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -266,6 +266,25 @@ function _arrayWithHoles(arr) {
 }
 
 module.exports = _arrayWithHoles;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/arrayWithoutHoles.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/arrayWithoutHoles.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Array$isArray = __webpack_require__(/*! @babel/runtime-corejs2/core-js/array/is-array */ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js");
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (_Array$isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -707,6 +726,27 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/iterableToArray.js":
+/*!*************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/iterableToArray.js ***!
+  \*************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Symbol = __webpack_require__(/*! @babel/runtime-corejs2/core-js/symbol */ "../node_modules/@babel/runtime-corejs2/core-js/symbol.js");
+
+var _Symbol$iterator = __webpack_require__(/*! @babel/runtime-corejs2/core-js/symbol/iterator */ "../node_modules/@babel/runtime-corejs2/core-js/symbol/iterator.js");
+
+var _Array$from = __webpack_require__(/*! @babel/runtime-corejs2/core-js/array/from */ "../node_modules/@babel/runtime-corejs2/core-js/array/from.js");
+
+function _iterableToArray(iter) {
+  if (typeof _Symbol !== "undefined" && iter[_Symbol$iterator] != null || iter["@@iterator"] != null) return _Array$from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime-corejs2/helpers/iterableToArrayLimit.js":
 /*!******************************************************************************!*\
   !*** ../node_modules/@babel/runtime-corejs2/helpers/iterableToArrayLimit.js ***!
@@ -763,6 +803,21 @@ function _nonIterableRest() {
 }
 
 module.exports = _nonIterableRest;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -917,6 +972,29 @@ function _superPropBase(object, property) {
 }
 
 module.exports = _superPropBase;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../node_modules/@babel/runtime-corejs2/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "../node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -12581,6 +12659,8 @@ __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/co
 
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
 
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/toConsumableArray */ "../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js"));
+
 var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 var _parseInt2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "../node_modules/@babel/runtime-corejs2/core-js/parse-int.js"));
@@ -12697,7 +12777,7 @@ BaseElementView = BaseContainer.extend({
     var _this = this;
 
     var controlSign = _environment.default.mac ? '⌘' : '^';
-    return [{
+    var groups = [{
       name: 'general',
       actions: [{
         name: 'edit',
@@ -12769,7 +12849,24 @@ BaseElementView = BaseContainer.extend({
           });
         }
       }]
-    }, {
+    }];
+    var customGroups = [];
+    /**
+     * Filter Additional Context Menu Groups.
+     *
+     * This filter allows adding new context menu groups to elements.
+     *
+     * @param array customGroups - An array of group objects.
+     * @param string elementType - The current element type.
+     */
+
+    customGroups = elementor.hooks.applyFilters('elements/context-menu/groups', customGroups, this.options.model.get('elType'));
+
+    if (customGroups.length) {
+      groups = [].concat((0, _toConsumableArray2.default)(groups), (0, _toConsumableArray2.default)(customGroups));
+    }
+
+    groups.push({
       name: 'delete',
       actions: [{
         name: 'delete',
@@ -12782,7 +12879,8 @@ BaseElementView = BaseContainer.extend({
           });
         }
       }]
-    }];
+    });
+    return groups;
   },
   getEditButtons: function getEditButtons() {
     return {};

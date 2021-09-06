@@ -31,7 +31,12 @@ if( !class_exists( 'wip_custom_login_admin_notice' ) ) {
 		
 			if ( isset( $_GET['wip_customlogin-dismiss'] ) ) {
 		
-				update_user_meta( get_current_user_id(), 'wip_customlogin_notice_userid_' . get_current_user_id() , $_GET['wip_customlogin-dismiss'] );
+				update_user_meta(
+					get_current_user_id(),
+					sanitize_text_field('wip_customlogin_notice_userid_' . get_current_user_id()),
+					absint($_GET['wip_customlogin-dismiss']) 
+				);
+				
 				remove_action( 'admin_notices', array(&$this, 'admin_notice') );
 				
 			} 

@@ -3,13 +3,13 @@ Contributors: Tatvic, Conversios
 Plugin Name: Enhanced Ecommerce for WooCommerce Store
 Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
 Tags: Google Analytics tracking, Dynamic Remarketing, Google Shopping automation,Google Shopping, Universal Analytics tracking,Google Analytics integration,Google Analytics integration for WooCommerce,Ecommerce tracking, google analytics 4 tracking, google shopping feed, Web Analytics, Web Analytics For WooCommerce, WooCommerce Enhanced Ecommerce, WooCommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
-Author URI: https://www.tatvic.com/
+Author URI: https://conversios.io/
 Author: Tatvic
 Requires at least: 1.4.1
 Tested up to: 5.8
 Requires PHP: 5.6 or Higher
-Stable tag: 4.1.2
-Version: 4.1.2
+Stable tag: 4.1.3
+Version: 4.1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -379,6 +379,10 @@ You can resolve the duplication of data by removing the manually implemented GA 
 
 
 == Changelog ==
+
+= 4.1.3 - 06/09/2021 =
+
+* Domain claim notice issue is resolved
 
 = 4.1.2 - 02/09/2021 =
 

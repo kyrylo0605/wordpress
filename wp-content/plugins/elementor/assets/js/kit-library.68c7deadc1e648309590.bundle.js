@@ -1,4 +1,4 @@
-/*! elementor - v3.4.2 - 26-08-2021 */
+/*! elementor - v3.4.3 - 06-09-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["kit-library"],{
 
 /***/ "../core/app/modules/kit-library/assets/js/components/badge.scss":
@@ -973,7 +973,7 @@ _Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = KitListItem;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 
@@ -991,7 +991,7 @@ var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 
 __webpack_require__(/*! ./kit-list-item.scss */ "../core/app/modules/kit-library/assets/js/components/kit-list-item.scss");
 
-function KitListItem(props) {
+var KitListItem = function KitListItem(props) {
   var _useKitCallToAction = (0, _useKitCallToAction3.default)(props.model.accessLevel),
       _useKitCallToAction2 = (0, _slicedToArray2.default)(_useKitCallToAction, 2),
       type = _useKitCallToAction2[0],
@@ -1032,11 +1032,15 @@ function KitListItem(props) {
     url: subscriptionPlan.promotion_url,
     target: "_blank"
   }))))));
-}
+};
 
 KitListItem.propTypes = {
   model: PropTypes.instanceOf(_kit.default).isRequired
 };
+
+var _default = _react.default.memo(KitListItem);
+
+exports.default = _default;
 
 /***/ }),
 
@@ -1457,7 +1461,7 @@ _Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = TaxonomiesFilterList;
+exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
 
@@ -1485,7 +1489,7 @@ var _i18n = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 
 var MIN_TAGS_LENGTH_FOR_SEARCH_INPUT = 15;
 
-function TaxonomiesFilterList(props) {
+var TaxonomiesFilterList = function TaxonomiesFilterList(props) {
   var _useState = (0, _react.useState)(props.taxonomiesByType.isOpenByDefault),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
       isOpen = _useState2[0],
@@ -1537,7 +1541,7 @@ function TaxonomiesFilterList(props) {
       }
     }), taxonomy.text);
   })));
-}
+};
 
 TaxonomiesFilterList.propTypes = {
   taxonomiesByType: PropTypes.shape({
@@ -1549,6 +1553,10 @@ TaxonomiesFilterList.propTypes = {
   selected: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   onSelect: PropTypes.func
 };
+
+var _default = _react.default.memo(TaxonomiesFilterList);
+
+exports.default = _default;
 
 /***/ }),
 
@@ -4323,4 +4331,4 @@ Preview.propTypes = {
 /***/ })
 
 }]);
-//# sourceMappingURL=kit-library.173a40686832d02e9b76.bundle.js.map
+//# sourceMappingURL=kit-library.68c7deadc1e648309590.bundle.js.map

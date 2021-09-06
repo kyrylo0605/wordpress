@@ -46,26 +46,9 @@ if (!function_exists('wip_custom_login_jsonfile')) {
 
 		if ( $pagenow == 'admin.php' ) {
 
-			if( function_exists('curl_init') ) { 
-				
-				$ch = curl_init();
-				
-				curl_setopt ($ch, CURLOPT_URL, plugins_url('/core/admin/json/', dirname(__FILE__))  . $name );
-				curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, false);  
-				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 10);
-				curl_setopt ($ch, CURLOPT_USERAGENT, 'WIP CUSTOM LOGIN JSONFILE');
-				$file_contents = curl_exec($ch);
-				curl_close($ch);
-				
-				$jsonfile = json_decode( $file_contents, true );
-			
-			} else {
-				
-				$file_contents = file_get_contents( plugins_url('/core/admin/json/', dirname(__FILE__))  . $name );
-				$jsonfile = json_decode( $file_contents, true );
-			
-			}
+			$request = wp_remote_get( plugins_url('/core/admin/json/', dirname(__FILE__)) . 'googlefonts.json' );
+			$response = wp_remote_retrieve_body( $request );
+			$jsonfile = json_decode( $response, true );
 
 			return $jsonfile;
 		

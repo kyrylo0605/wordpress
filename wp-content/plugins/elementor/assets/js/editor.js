@@ -1,4 +1,4 @@
-/*! elementor - v3.4.2 - 26-08-2021 */
+/*! elementor - v3.4.3 - 06-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1255,10 +1255,10 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "../node_modules
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/close.js":
-/*!*************************************************!*\
-  !*** ../assets/dev/js/editor/commands/close.js ***!
-  \*************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/close.js":
+/*!**********************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/close.js ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1446,10 +1446,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/index.js":
-/*!*************************************************!*\
-  !*** ../assets/dev/js/editor/commands/index.js ***!
-  \*************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/index.js":
+/*!**********************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/index.js ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1489,20 +1489,20 @@ _Object$defineProperty(exports, "Switch", {
   }
 });
 
-var _close = __webpack_require__(/*! ./close */ "../assets/dev/js/editor/commands/close.js");
+var _close = __webpack_require__(/*! ./close */ "../assets/dev/js/editor/components/documents/commands/close.js");
 
-var _open = __webpack_require__(/*! ./open */ "../assets/dev/js/editor/commands/open.js");
+var _open = __webpack_require__(/*! ./open */ "../assets/dev/js/editor/components/documents/commands/open.js");
 
-var _preview = __webpack_require__(/*! ./preview */ "../assets/dev/js/editor/commands/preview.js");
+var _preview = __webpack_require__(/*! ./preview */ "../assets/dev/js/editor/components/documents/commands/preview.js");
 
-var _switch = __webpack_require__(/*! ./switch */ "../assets/dev/js/editor/commands/switch.js");
+var _switch = __webpack_require__(/*! ./switch */ "../assets/dev/js/editor/components/documents/commands/switch.js");
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/internal/attach-preview.js":
-/*!*******************************************************************!*\
-  !*** ../assets/dev/js/editor/commands/internal/attach-preview.js ***!
-  \*******************************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/internal/attach-preview.js":
+/*!****************************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/internal/attach-preview.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1606,10 +1606,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/internal/index.js":
-/*!**********************************************************!*\
-  !*** ../assets/dev/js/editor/commands/internal/index.js ***!
-  \**********************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/internal/index.js":
+/*!*******************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/internal/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1642,18 +1642,18 @@ _Object$defineProperty(exports, "Unload", {
   }
 });
 
-var _attachPreview = __webpack_require__(/*! ./attach-preview */ "../assets/dev/js/editor/commands/internal/attach-preview.js");
+var _attachPreview = __webpack_require__(/*! ./attach-preview */ "../assets/dev/js/editor/components/documents/commands/internal/attach-preview.js");
 
-var _load = __webpack_require__(/*! ./load */ "../assets/dev/js/editor/commands/internal/load.js");
+var _load = __webpack_require__(/*! ./load */ "../assets/dev/js/editor/components/documents/commands/internal/load.js");
 
-var _unload = __webpack_require__(/*! ./unload */ "../assets/dev/js/editor/commands/internal/unload.js");
+var _unload = __webpack_require__(/*! ./unload */ "../assets/dev/js/editor/components/documents/commands/internal/unload.js");
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/internal/load.js":
-/*!*********************************************************!*\
-  !*** ../assets/dev/js/editor/commands/internal/load.js ***!
-  \*********************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/internal/load.js":
+/*!******************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/internal/load.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1681,7 +1681,7 @@ var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtim
 
 var _commandInternalBase = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/command-internal-base */ "../core/common/assets/js/api/modules/command-internal-base.js"));
 
-var _document = _interopRequireDefault(__webpack_require__(/*! elementor-editor/document */ "../assets/dev/js/editor/document.js"));
+var _document = _interopRequireDefault(__webpack_require__(/*! ../../document */ "../assets/dev/js/editor/components/documents/document.js"));
 
 var _heartbeat = _interopRequireDefault(__webpack_require__(/*! elementor-editor-utils/heartbeat */ "../assets/dev/js/editor/utils/heartbeat.js"));
 
@@ -1751,10 +1751,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/internal/unload.js":
-/*!***********************************************************!*\
-  !*** ../assets/dev/js/editor/commands/internal/unload.js ***!
-  \***********************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/internal/unload.js":
+/*!********************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/internal/unload.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1780,7 +1780,7 @@ var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtim
 
 var _commandInternalBase = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/command-internal-base */ "../core/common/assets/js/api/modules/command-internal-base.js"));
 
-var _document = _interopRequireDefault(__webpack_require__(/*! elementor-editor/document */ "../assets/dev/js/editor/document.js"));
+var _document = _interopRequireDefault(__webpack_require__(/*! ../../document */ "../assets/dev/js/editor/components/documents/document.js"));
 
 var Unload = /*#__PURE__*/function (_CommandInternalBase) {
   (0, _inherits2.default)(Unload, _CommandInternalBase);
@@ -1833,10 +1833,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/open.js":
-/*!************************************************!*\
-  !*** ../assets/dev/js/editor/commands/open.js ***!
-  \************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/open.js":
+/*!*********************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/open.js ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -1917,10 +1917,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/preview.js":
-/*!***************************************************!*\
-  !*** ../assets/dev/js/editor/commands/preview.js ***!
-  \***************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/preview.js":
+/*!************************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/preview.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -2016,10 +2016,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/commands/switch.js":
-/*!**************************************************!*\
-  !*** ../assets/dev/js/editor/commands/switch.js ***!
-  \**************************************************/
+/***/ "../assets/dev/js/editor/components/documents/commands/switch.js":
+/*!***********************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/commands/switch.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -2086,10 +2086,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/component.js":
-/*!********************************************!*\
-  !*** ../assets/dev/js/editor/component.js ***!
-  \********************************************/
+/***/ "../assets/dev/js/editor/components/documents/component.js":
+/*!*****************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/component.js ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -2124,11 +2124,11 @@ var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtim
 
 var _componentBase = _interopRequireDefault(__webpack_require__(/*! elementor-api/modules/component-base */ "../core/common/assets/js/api/modules/component-base.js"));
 
-var _document = _interopRequireDefault(__webpack_require__(/*! ./document */ "../assets/dev/js/editor/document.js"));
+var _document = _interopRequireDefault(__webpack_require__(/*! ./document */ "../assets/dev/js/editor/components/documents/document.js"));
 
-var commands = _interopRequireWildcard(__webpack_require__(/*! ./commands/ */ "../assets/dev/js/editor/commands/index.js"));
+var commands = _interopRequireWildcard(__webpack_require__(/*! ./commands/ */ "../assets/dev/js/editor/components/documents/commands/index.js"));
 
-var internalCommands = _interopRequireWildcard(__webpack_require__(/*! ./commands/internal/ */ "../assets/dev/js/editor/commands/internal/index.js"));
+var internalCommands = _interopRequireWildcard(__webpack_require__(/*! ./commands/internal/ */ "../assets/dev/js/editor/components/documents/commands/internal/index.js"));
 
 var Component = /*#__PURE__*/function (_ComponentBase) {
   (0, _inherits2.default)(Component, _ComponentBase);
@@ -2346,6 +2346,138 @@ var Component = /*#__PURE__*/function (_ComponentBase) {
 }(_componentBase.default);
 
 exports.default = Component;
+
+/***/ }),
+
+/***/ "../assets/dev/js/editor/components/documents/document.js":
+/*!****************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/document.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
+
+var _manager = _interopRequireDefault(__webpack_require__(/*! elementor/modules/history/assets/js/history/manager */ "../modules/history/assets/js/history/manager.js"));
+
+var _manager2 = _interopRequireDefault(__webpack_require__(/*! elementor/modules/history/assets/js/revisions/manager */ "../modules/history/assets/js/revisions/manager.js"));
+
+var _editor = _interopRequireDefault(__webpack_require__(/*! ./models/editor */ "../assets/dev/js/editor/components/documents/models/editor.js"));
+
+var Document = /*#__PURE__*/function () {
+  /**
+   * Document id.
+   *
+   * @type {number|null}
+   */
+
+  /**
+   * History of the document.
+   *
+   * @type {HistoryManager}
+   */
+
+  /**
+   * Revisions of the document.
+   *
+   * @type {RevisionsManager}
+   */
+
+  /**
+   * Current container.
+   *
+   * @type {Container}
+   */
+
+  /**
+   * Editor Settings.
+   *
+   * @type {Editor}
+   */
+
+  /**
+   * Function constructor().
+   *
+   * Create document.
+   *
+   * @param {{}} config
+   */
+  function Document(config) {
+    (0, _classCallCheck2.default)(this, Document);
+    (0, _defineProperty2.default)(this, "id", null);
+    (0, _defineProperty2.default)(this, "history", null);
+    (0, _defineProperty2.default)(this, "revisions", null);
+    (0, _defineProperty2.default)(this, "container", null);
+    (0, _defineProperty2.default)(this, "editor", new _editor.default());
+    this.config = config;
+    this.id = config.id;
+    this.history = new _manager.default(this);
+    this.revisions = new _manager2.default(this);
+  }
+
+  (0, _createClass2.default)(Document, [{
+    key: "isDraft",
+    value: function isDraft() {
+      return this.config.revisions.current_id !== this.config.id;
+    }
+  }]);
+  return Document;
+}();
+
+exports.default = Document;
+
+/***/ }),
+
+/***/ "../assets/dev/js/editor/components/documents/models/editor.js":
+/*!*********************************************************************!*\
+  !*** ../assets/dev/js/editor/components/documents/models/editor.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
+
+var Editor = function Editor() {
+  (0, _classCallCheck2.default)(this, Editor);
+  (0, _defineProperty2.default)(this, "status", 'closed');
+  (0, _defineProperty2.default)(this, "isSaving", false);
+  (0, _defineProperty2.default)(this, "isChanged", false);
+  (0, _defineProperty2.default)(this, "isChangedDuringSave", false);
+  (0, _defineProperty2.default)(this, "isSaved", true);
+  (0, _defineProperty2.default)(this, "lastSaveHistoryId", 0);
+};
+
+exports.default = Editor;
 
 /***/ }),
 
@@ -11884,112 +12016,6 @@ module.exports = ControlWysiwygItemView;
 
 /***/ }),
 
-/***/ "../assets/dev/js/editor/document.js":
-/*!*******************************************!*\
-  !*** ../assets/dev/js/editor/document.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
-
-_Object$defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = void 0;
-
-var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
-
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
-
-var _manager = _interopRequireDefault(__webpack_require__(/*! elementor/modules/history/assets/js/history/manager */ "../modules/history/assets/js/history/manager.js"));
-
-var _manager2 = _interopRequireDefault(__webpack_require__(/*! elementor/modules/history/assets/js/revisions/manager */ "../modules/history/assets/js/revisions/manager.js"));
-
-/**
- * TODO: Wrong class name + location, conflict with 'editor.js'.
- */
-var Editor = function Editor() {
-  (0, _classCallCheck2.default)(this, Editor);
-  (0, _defineProperty2.default)(this, "status", 'closed');
-  (0, _defineProperty2.default)(this, "isSaving", false);
-  (0, _defineProperty2.default)(this, "isChanged", false);
-  (0, _defineProperty2.default)(this, "isChangedDuringSave", false);
-  (0, _defineProperty2.default)(this, "isSaved", true);
-  (0, _defineProperty2.default)(this, "lastSaveHistoryId", 0);
-};
-
-var Document = /*#__PURE__*/function () {
-  /**
-   * Document id.
-   *
-   * @type {number|null}
-   */
-
-  /**
-   * History of the document.
-   *
-   * @type {HistoryManager}
-   */
-
-  /**
-   * Revisions of the document.
-   *
-   * @type {RevisionsManager}
-   */
-
-  /**
-   * Current container.
-   *
-   * @type {Container}
-   */
-
-  /**
-   * Editor Settings.
-   *
-   * @type {Editor}
-   */
-
-  /**
-   * Function constructor().
-   *
-   * Create document.
-   *
-   * @param {{}} config
-   */
-  function Document(config) {
-    (0, _classCallCheck2.default)(this, Document);
-    (0, _defineProperty2.default)(this, "id", null);
-    (0, _defineProperty2.default)(this, "history", null);
-    (0, _defineProperty2.default)(this, "revisions", null);
-    (0, _defineProperty2.default)(this, "container", null);
-    (0, _defineProperty2.default)(this, "editor", new Editor());
-    this.config = config;
-    this.id = config.id;
-    this.history = new _manager.default(this);
-    this.revisions = new _manager2.default(this);
-  }
-
-  (0, _createClass2.default)(Document, [{
-    key: "isDraft",
-    value: function isDraft() {
-      return this.config.revisions.current_id !== this.config.id;
-    }
-  }]);
-  return Document;
-}();
-
-exports.default = Document;
-
-/***/ }),
-
 /***/ "../assets/dev/js/editor/document/helper-bc.js":
 /*!*****************************************************!*\
   !*** ../assets/dev/js/editor/document/helper-bc.js ***!
@@ -12606,7 +12632,7 @@ var _color = _interopRequireDefault(__webpack_require__(/*! ./controls/color */ 
 
 var _dateTime = _interopRequireDefault(__webpack_require__(/*! elementor-controls/date-time */ "../assets/dev/js/editor/controls/date-time.js"));
 
-var _component = _interopRequireDefault(__webpack_require__(/*! elementor-editor/component */ "../assets/dev/js/editor/component.js"));
+var _component = _interopRequireDefault(__webpack_require__(/*! ./components/documents/component */ "../assets/dev/js/editor/components/documents/component.js"));
 
 var _environment = _interopRequireDefault(__webpack_require__(/*! elementor-common/utils/environment */ "../core/common/assets/js/utils/environment.js"));
 
@@ -13251,27 +13277,27 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           maxHeight: 896
         },
         mobile_extra: {
-          minHeight: 320,
+          minHeight: 480,
           height: 736,
           maxHeight: 896
         },
         tablet: {
-          minHeight: 768,
+          minHeight: 320,
           height: previewHeight,
           maxHeight: 1024
         },
         tablet_extra: {
-          minHeight: 768,
+          minHeight: 320,
           height: previewHeight,
           maxHeight: 1024
         },
         laptop: {
-          minHeight: 768,
+          minHeight: 320,
           height: previewHeight,
           maxHeight: 1024
         },
         widescreen: {
-          minHeight: 768,
+          minHeight: 320,
           height: previewHeight,
           maxHeight: 1200
         }
@@ -14532,6 +14558,8 @@ __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/co
 
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/typeof */ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js"));
 
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/toConsumableArray */ "../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js"));
+
 var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 var _parseInt2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "../node_modules/@babel/runtime-corejs2/core-js/parse-int.js"));
@@ -14648,7 +14676,7 @@ BaseElementView = BaseContainer.extend({
     var _this = this;
 
     var controlSign = _environment.default.mac ? '⌘' : '^';
-    return [{
+    var groups = [{
       name: 'general',
       actions: [{
         name: 'edit',
@@ -14720,7 +14748,24 @@ BaseElementView = BaseContainer.extend({
           });
         }
       }]
-    }, {
+    }];
+    var customGroups = [];
+    /**
+     * Filter Additional Context Menu Groups.
+     *
+     * This filter allows adding new context menu groups to elements.
+     *
+     * @param array customGroups - An array of group objects.
+     * @param string elementType - The current element type.
+     */
+
+    customGroups = elementor.hooks.applyFilters('elements/context-menu/groups', customGroups, this.options.model.get('elType'));
+
+    if (customGroups.length) {
+      groups = [].concat((0, _toConsumableArray2.default)(groups), (0, _toConsumableArray2.default)(customGroups));
+    }
+
+    groups.push({
       name: 'delete',
       actions: [{
         name: 'delete',
@@ -14733,7 +14778,8 @@ BaseElementView = BaseContainer.extend({
           });
         }
       }]
-    }];
+    });
+    return groups;
   },
   getEditButtons: function getEditButtons() {
     return {};

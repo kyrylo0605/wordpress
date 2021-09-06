@@ -516,6 +516,10 @@ WIP_custom_login_header h2.features {
     margin:5px 0 5px 20%;
 }
 
+.WIP_custom_login_container .wp-color-result {
+    margin-left:0 !important;
+}
+
 .WIP_custom_login_container .WIP_custom_login_box .iphone-check input[type="checkbox"]  {
     width:280px;
 }

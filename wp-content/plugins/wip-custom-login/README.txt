@@ -4,8 +4,8 @@ Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
 Tags: custom login, wordpress login, customization, themes, plugins, wp-login, login, login logo, custom login page, login page style
 Requires at least: 3.5.0
-Tested up to: 5.7
-Stable tag: 1.2.4
+Tested up to: 5.8
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,15 @@ WIP Custom Login will add a new admin page, where you can customize the login pa
 3. Option panel
 
 == Changelog ==
+
+= 1.2.6 =
+
+* Fixed : Vulnerability issues
+* Edit  : Code optimized.
+
+= 1.2.5 =
+
+* Tested with WordPress 5.8
 
 = 1.2.4 =
 

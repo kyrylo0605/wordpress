@@ -1,4 +1,4 @@
-/*! elementor - v3.4.2 - 26-08-2021 */
+/*! elementor - v3.4.3 - 06-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1175,7 +1175,7 @@ var Base = /*#__PURE__*/function (_$e$modules$CommandBa) {
 
 
         var pipeFunc = _pipe.default.apply(void 0, (0, _toConsumableArray2.default)(_this.component.handlers.map(function (handler) {
-          return handler.appendSettingsForRecreate;
+          return handler.appendSettingsForRecreate.bind(handler);
         })));
 
         elements[element.id] = pipeFunc(element.model.toJSON({
@@ -1355,7 +1355,7 @@ var Create = /*#__PURE__*/function (_Base) {
     key: "getSettingsForSave",
     value: function getSettingsForSave(container) {
       var pipeFunc = _pipe.default.apply(void 0, (0, _toConsumableArray2.default)(this.component.handlers.map(function (handler) {
-        return handler.appendSettingsForSave;
+        return handler.appendSettingsForSave.bind(handler);
       })));
 
       return pipeFunc({}, container);
@@ -1578,7 +1578,7 @@ var Component = /*#__PURE__*/function (_$e$modules$Component) {
        * @type {BaseHandler[]} BaseHandler path: './handlers/base-handler'
        */
       this.handlers = [new _localValues.default(), // Must be first to allow the globals change the settings data.
-      new _globalValues.default()];
+      new _globalValues.default(elementor.widgetsCache)];
       elementor.hooks.addFilter('elements/widget/contextMenuGroups', this.addContextMenuItem);
       (0, _get2.default)((0, _getPrototypeOf2.default)(Component.prototype), "registerAPI", this).call(this);
     }
@@ -1698,9 +1698,13 @@ var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/run
 
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
 
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/assertThisInitialized */ "../node_modules/@babel/runtime-corejs2/helpers/assertThisInitialized.js"));
+
 var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
 
 var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
 
 var _baseHandler = _interopRequireDefault(__webpack_require__(/*! ./base-handler */ "../modules/default-values/assets/js/editor/handlers/base-handler.js"));
 
@@ -1709,9 +1713,14 @@ var GlobalValues = /*#__PURE__*/function (_BaseHandler) {
 
   var _super = (0, _createSuper2.default)(GlobalValues);
 
-  function GlobalValues() {
+  function GlobalValues(widgetConfig) {
+    var _this;
+
     (0, _classCallCheck2.default)(this, GlobalValues);
-    return _super.apply(this, arguments);
+    _this = _super.call(this);
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "widgetConfig", []);
+    _this.widgetConfig = widgetConfig;
+    return _this;
   }
 
   (0, _createClass2.default)(GlobalValues, [{
@@ -1720,7 +1729,7 @@ var GlobalValues = /*#__PURE__*/function (_BaseHandler) {
       var _container$settings$a;
 
       var type = container.model.attributes.widgetType;
-      var widgetControls = elementor.widgetsCache[type].controls;
+      var widgetControls = this.widgetConfig[type].controls;
       var globalSettings = Object.fromEntries((0, _entries.default)(((_container$settings$a = container.settings.attributes) === null || _container$settings$a === void 0 ? void 0 : _container$settings$a.__globals__) || {}).filter(function (_ref) {
         var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
             value = _ref2[1];
@@ -1772,16 +1781,21 @@ var GlobalValues = /*#__PURE__*/function (_BaseHandler) {
     value: function appendSettingsForRecreate(element, newDefaultSettings) {
       if (!newDefaultSettings.__globals__ || !element.settings.__globals__) {
         return element;
-      }
-
-      var newDefaultSettingsKeys = (0, _keys.default)(newDefaultSettings.__globals__); // Remove all the global default values from the settings.
+      } // Remove all the global default values from the settings.
       // (default globals should be empty and not directly assign to the control setting)
 
-      element.settings.__globals__ = Object.fromEntries((0, _entries.default)(element.settings.__globals__).filter(function (_ref9) {
-        var _ref10 = (0, _slicedToArray2.default)(_ref9, 1),
-            key = _ref10[0];
 
-        return !newDefaultSettingsKeys.includes(key);
+      element.settings.__globals__ = Object.fromEntries((0, _entries.default)(element.settings.__globals__).filter(function (_ref9) {
+        var _newDefaultSettings$_;
+
+        var _ref10 = (0, _slicedToArray2.default)(_ref9, 2),
+            key = _ref10[0],
+            value = _ref10[1];
+
+        var defaultSettingValue = (_newDefaultSettings$_ = newDefaultSettings.__globals__) === null || _newDefaultSettings$_ === void 0 ? void 0 : _newDefaultSettings$_[key]; // All elements global values that not exists in the new default settings should remains
+        // or the elements global values that has different value from the new default settings.
+
+        return !defaultSettingValue || defaultSettingValue !== value;
       }));
       return element;
     }
@@ -1846,7 +1860,8 @@ var LocalValues = /*#__PURE__*/function (_BaseHandler) {
       var controls = container.settings.controls;
       var settingsWithoutHardcodedDefaults = container.settings.toJSON({
         remove: ['hardcoded-default']
-      });
+      }); // Filter all the non styled controls.
+
       var localSettings = (0, _entries.default)(settingsWithoutHardcodedDefaults).filter(function (_ref) {
         var _ref2 = (0, _slicedToArray2.default)(_ref, 1),
             controlName = _ref2[0];

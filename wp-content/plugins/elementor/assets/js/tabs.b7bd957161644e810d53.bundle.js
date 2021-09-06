@@ -1,4 +1,4 @@
-/*! elementor - v3.4.2 - 26-08-2021 */
+/*! elementor - v3.4.3 - 06-09-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["tabs"],{
 
 /***/ "../assets/dev/js/frontend/handlers/base-tabs.js":
