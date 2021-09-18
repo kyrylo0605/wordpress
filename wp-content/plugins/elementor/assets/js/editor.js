@@ -1,4 +1,4 @@
-/*! elementor - v3.4.3 - 06-09-2021 */
+/*! elementor - v3.4.4 - 16-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -13982,6 +13982,8 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
         }
 
         devices.forEach(function (device, index) {
+          var _controlArgs$popover;
+
           var controlArgs = elementorCommon.helpers.cloneObject(controlConfig);
 
           if (controlArgs.device_args) {
@@ -14032,8 +14034,15 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
           } else if (deleteControlDefault) {
             // In the Editor, controls without default values should have an empty string as the default value.
             controlArgs.default = '';
-          } // If the control belongs to a group control with a popover, and this control is the last one, add the
-          // popover.end = true value to it to make sure it closes the popover.
+          } // If the control is the first inside a popover, only the first device starts the popover,
+          // so the 'start' property has to be deleted from all other devices.
+
+
+          if (0 !== index && (_controlArgs$popover = controlArgs.popover) !== null && _controlArgs$popover !== void 0 && _controlArgs$popover.start) {
+            delete controlArgs.popover.start;
+          } // If the control is inside a popover, AND this control is the last one in the popover, AND this is the
+          // last device in the devices array - add the 'popover.end = true' value to it to make sure it closes
+          // the popover.
 
 
           if (index === devices.length - 1 && popoverEndProperty) {
@@ -15404,7 +15413,9 @@ module.exports = Marionette.Behavior.extend({
     this.contextMenu = new ContextMenu({
       groups: contextMenuGroups
     });
-    this.contextMenu.getModal().on('hide', this.onContextMenuHide);
+    this.contextMenu.getModal().on('hide', function () {
+      return _this.onContextMenuHide();
+    });
   },
   getContextMenu: function getContextMenu() {
     if (!this.contextMenu) {
@@ -15425,7 +15436,11 @@ module.exports = Marionette.Behavior.extend({
     }
 
     event.preventDefault();
-    event.stopPropagation();
+    event.stopPropagation(); // Disable sortable when context menu opened
+    // TODO: Should be in UI hook when the context menu will move to command
+
+    this.view._parent.triggerMethod('toggleSortMode', false);
+
     this.getContextMenu().show(event);
     elementor.channels.editor.reply('contextMenu:targetView', this.view);
   },
@@ -15443,6 +15458,10 @@ module.exports = Marionette.Behavior.extend({
     modal.setSettings('iframe', iframe);
   },
   onContextMenuHide: function onContextMenuHide() {
+    // enable sortable when context menu closed
+    // TODO: Should be in UI hook when the context menu will move to command
+    this.view._parent.triggerMethod('toggleSortMode', true);
+
     elementor.channels.editor.reply('contextMenu:targetView', null);
   },
   onDestroy: function onDestroy() {
@@ -15771,11 +15790,7 @@ SortableBehavior = Marionette.Behavior.extend({
     this.listenTo(elementor.channels.dataEditMode, 'switch', this.onEditModeSwitched).listenTo(this.view.options.model, 'request:sort:start', this.startSort).listenTo(this.view.options.model, 'request:sort:update', this.updateSort).listenTo(this.view.options.model, 'request:sort:receive', this.receiveSort);
   },
   onEditModeSwitched: function onEditModeSwitched(activeMode) {
-    if ('edit' === activeMode) {
-      this.activate();
-    } else {
-      this.deactivate();
-    }
+    this.onToggleSortMode('edit' === activeMode);
   },
   onRender: function onRender() {
     var self = this;
@@ -15786,6 +15801,13 @@ SortableBehavior = Marionette.Behavior.extend({
   },
   onDestroy: function onDestroy() {
     this.deactivate();
+  },
+  onToggleSortMode: function onToggleSortMode(isActive) {
+    if (isActive) {
+      this.activate();
+    } else {
+      this.deactivate();
+    }
   },
   activate: function activate() {
     if (!elementor.userCan('design')) {

@@ -1,5 +1,26 @@
 # Elementor Developer Edition - by Elementor.com
 
+#### 3.5.0-dev26 - 2021-09-15
+* Tweak: Updated featured video in readme.txt (#16332)
+
+#### 3.5.0-dev25 - 2021-09-14
+* Fix: Elements panel UI glitch [ED-4959] (#16282)
+* Fix: Offsets not working properly with an absolutely positioned widget and Improved DOM experiment [ED-4945] (#16253)
+
+#### 3.5.0-dev24 - 2021-09-13
+* Fix: If a responsive control is the first control in a popover, it breaks the popover for non-desktop devices   [ED-4979] (#16318)
+* Fix: Large images are fully displayed before the swiper is initialized. (#16317)
+* Tweak: Updated changelog for v3.4.4 (#16326)
+
+#### 3.5.0-dev23 - 2021-09-13
+* Fix: Element dragging after ctrl + click on Mac [ED-1827] (#15980)
+
+#### 3.5.0-dev21 - 2021-09-10
+* Tweak: CSS Transform - Change flip icon [ED-4462] (#16284)
+
+#### 3.5.0-dev19 - 2021-09-06
+* Fix: Editor doesn't load on v3.5.0 if `ELEMENTOR_DEBUG` is enabled [ED-4937] (#16256)
+
 #### 3.5.0-dev18 - 2021-09-05
 * Fix: Default global values override local global values [ED-4917] (#16206)
 

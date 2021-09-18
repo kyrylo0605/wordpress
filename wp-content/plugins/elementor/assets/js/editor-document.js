@@ -1,4 +1,4 @@
-/*! elementor - v3.4.3 - 06-09-2021 */
+/*! elementor - v3.4.4 - 16-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -13505,7 +13505,9 @@ module.exports = Marionette.Behavior.extend({
     this.contextMenu = new ContextMenu({
       groups: contextMenuGroups
     });
-    this.contextMenu.getModal().on('hide', this.onContextMenuHide);
+    this.contextMenu.getModal().on('hide', function () {
+      return _this.onContextMenuHide();
+    });
   },
   getContextMenu: function getContextMenu() {
     if (!this.contextMenu) {
@@ -13526,7 +13528,11 @@ module.exports = Marionette.Behavior.extend({
     }
 
     event.preventDefault();
-    event.stopPropagation();
+    event.stopPropagation(); // Disable sortable when context menu opened
+    // TODO: Should be in UI hook when the context menu will move to command
+
+    this.view._parent.triggerMethod('toggleSortMode', false);
+
     this.getContextMenu().show(event);
     elementor.channels.editor.reply('contextMenu:targetView', this.view);
   },
@@ -13544,6 +13550,10 @@ module.exports = Marionette.Behavior.extend({
     modal.setSettings('iframe', iframe);
   },
   onContextMenuHide: function onContextMenuHide() {
+    // enable sortable when context menu closed
+    // TODO: Should be in UI hook when the context menu will move to command
+    this.view._parent.triggerMethod('toggleSortMode', true);
+
     elementor.channels.editor.reply('contextMenu:targetView', null);
   },
   onDestroy: function onDestroy() {
@@ -13580,11 +13590,7 @@ SortableBehavior = Marionette.Behavior.extend({
     this.listenTo(elementor.channels.dataEditMode, 'switch', this.onEditModeSwitched).listenTo(this.view.options.model, 'request:sort:start', this.startSort).listenTo(this.view.options.model, 'request:sort:update', this.updateSort).listenTo(this.view.options.model, 'request:sort:receive', this.receiveSort);
   },
   onEditModeSwitched: function onEditModeSwitched(activeMode) {
-    if ('edit' === activeMode) {
-      this.activate();
-    } else {
-      this.deactivate();
-    }
+    this.onToggleSortMode('edit' === activeMode);
   },
   onRender: function onRender() {
     var self = this;
@@ -13595,6 +13601,13 @@ SortableBehavior = Marionette.Behavior.extend({
   },
   onDestroy: function onDestroy() {
     this.deactivate();
+  },
+  onToggleSortMode: function onToggleSortMode(isActive) {
+    if (isActive) {
+      this.activate();
+    } else {
+      this.deactivate();
+    }
   },
   activate: function activate() {
     if (!elementor.userCan('design')) {

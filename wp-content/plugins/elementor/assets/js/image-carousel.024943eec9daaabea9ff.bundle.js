@@ -1,4 +1,4 @@
-/*! elementor - v3.4.3 - 06-09-2021 */
+/*! elementor - v3.4.4 - 16-09-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["image-carousel"],{
 
 /***/ "../assets/dev/js/frontend/handlers/image-carousel.js":

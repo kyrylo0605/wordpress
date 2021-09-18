@@ -4,8 +4,8 @@ Contributors: alexvtn
 Donate link: https://www.themeinprogress.com
 Tags: whatsapp, whatsapp button, whatsapp help, whatsapp icon, whatsapp support, whatsapp chat, chat, contact, contact button, chatbox, help desk
 Requires at least: 4.5.0
-Tested up to: 5.7
-Stable tag: 1.0.9
+Tested up to: 5.8
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,11 @@ Chatbox Manager will add a new admin page, where you can manage all chatboxes.
 4. Popup chatbox (Premium)
 
 == Changelog ==
+
+= 1.1.0 =
+Release date - September, 13 - 2021
+
+* Tested with WordPress 5.8
 
 = 1.0.9 =
 Release date - May, 19 - 2021

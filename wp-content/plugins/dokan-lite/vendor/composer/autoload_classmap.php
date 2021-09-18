@@ -127,6 +127,7 @@ return array(
     'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_0_4' => $baseDir . '/includes/Upgrade/Upgrades/V_3_0_4.php',
     'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_1_0' => $baseDir . '/includes/Upgrade/Upgrades/V_3_1_0.php',
     'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_1_1' => $baseDir . '/includes/Upgrade/Upgrades/V_3_1_1.php',
+    'WeDevs\\Dokan\\Upgrade\\Upgrades\\V_3_2_12' => $baseDir . '/includes/Upgrade/Upgrades/V_3_2_12.php',
     'WeDevs\\Dokan\\Vendor\\Manager' => $baseDir . '/includes/Vendor/Manager.php',
     'WeDevs\\Dokan\\Vendor\\SetupWizard' => $baseDir . '/includes/Vendor/SetupWizard.php',
     'WeDevs\\Dokan\\Vendor\\StoreListsFilter' => $baseDir . '/includes/Vendor/StoreListsFilter.php',
