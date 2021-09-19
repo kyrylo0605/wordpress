@@ -76,11 +76,15 @@ class Hestia_Customizer_Main extends Hestia_Register_Customizer_Controls {
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
-					'priority'     => 25,
-					'section'      => 'background_image',
-					'button_text'  => esc_html__( 'Header Background', 'hestia' ),
-					'button_class' => 'focus-customizer-header-image',
-					'icon_class'   => 'fa-image',
+					'priority'        => 25,
+					'container_class' => 'quick-links',
+					'button_text'     => __( 'Header Background', 'neve', 'hestia' ),
+					'is_button'       => false,
+					'focus_type'      => 'section',
+					'focus'           => 'header_image',
+					'shortcut'        => true,
+					'section'         => 'background_image',
+					'button_class'    => 'button',
 				),
 				'Hestia_Button'
 			)

@@ -19,7 +19,7 @@ var hestia_customizer_section_scroll = function ( $ ) {
 					'clicked-customizer-section', function( data ) {
 						var sectionId = '';
 						switch (data) {
-							case 'sub-accordion-section-sidebar-widgets-sidebar-big-title':
+							case 'title':
 								sectionId = '#carousel-hestia-generic';
 								break;
 							case 'shop':
@@ -28,7 +28,7 @@ var hestia_customizer_section_scroll = function ( $ ) {
 							case 'ribbon':
 								sectionId = 'section.hestia-ribbon';
 							break;
-							case 'sub-accordion-section-sidebar-widgets-subscribe-widgets':
+							case 'subscribe':
 								sectionId = 'section#subscribe';
 							break;
 							case 'bar':

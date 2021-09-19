@@ -3,11 +3,11 @@ Contributors: yithemes
 Tags: added to cart, add to cart popup, cart, shop, shopping cart
 Requires at least: 5.6
 Tested up to: 5.8
-Stable tag: 1.6.4
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-YITH WooCommerce Added to Cart Popup plugin allow to displays popup cart for add to cart action
+YITH WooCommerce Added to Cart Popup plugin allow display popup cart for add to cart action
 
 == Description ==
 YITH WooCommerce Added to Cart Popup gives you the freedom to continue browsing the shop or going directly to the cart.
@@ -34,6 +34,11 @@ A simple plugin that offers an extremely useful option: with YITH WooCommerce Ad
 2. The plugin popup
 
 == Changelog ==
+
+= 1.7.0 = Released on 10 Sep, 2021
+
+* New: support for WooCommerce 5.7
+* Update: YITH plugin framework
 
 = 1.6.4 = Released on 10 Aug, 2021
 
@@ -284,7 +289,7 @@ Or, if you have created your own language pack, or have an update for an existin
 
 == Upgrade notice ==
 
-= 1.6.4 = Released on 10 Aug, 2021
+= 1.7.0 = Released on 10 Sep, 2021
 
-* New: support for WooCommerce 5.6
+* New: support for WooCommerce 5.7
 * Update: YITH plugin framework

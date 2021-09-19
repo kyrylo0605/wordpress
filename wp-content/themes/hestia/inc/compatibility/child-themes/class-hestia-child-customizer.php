@@ -34,9 +34,9 @@ class Hestia_Child_Customizer extends Hestia_Register_Customizer_Controls {
 	 * Change controls from child-theme.
 	 */
 	public function change_controls() {
-		$this->change_customizer_object( 'control', 'orfeo_big_title_second_button_text', 'section', 'sidebar-widgets-sidebar-big-title' );
+		$this->change_customizer_object( 'control', 'orfeo_big_title_second_button_text', 'section', 'hestia_big_title' );
 		$this->change_customizer_object( 'control', 'orfeo_big_title_second_button_text', 'priority', 40 );
-		$this->change_customizer_object( 'control', 'orfeo_big_title_second_button_link', 'section', 'sidebar-widgets-sidebar-big-title' );
+		$this->change_customizer_object( 'control', 'orfeo_big_title_second_button_link', 'section', 'hestia_big_title' );
 		$this->change_customizer_object( 'control', 'orfeo_big_title_second_button_link', 'priority', 45 );
 		$this->change_customizer_object(
 			'control',
@@ -72,12 +72,12 @@ class Hestia_Child_Customizer extends Hestia_Register_Customizer_Controls {
 				'extra'  => array(
 					'hestia_slider_alignment' => array(
 						'left'   => array(
-							'hestia_big_title_widgets_title',
+							'hestia_link_to_big_title_widgets',
 							'widgets',
 						),
 						'center' => array(),
 						'right'  => array(
-							'hestia_big_title_widgets_title',
+							'hestia_link_to_big_title_widgets',
 							'widgets',
 						),
 					),

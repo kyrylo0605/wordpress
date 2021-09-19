@@ -16,8 +16,6 @@ return array(
     'RebelCode\\Composer\\' => array($vendorDir . '/rebelcode/composer-cleanup-plugin/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'PhpDocReader\\' => array($vendorDir . '/php-di/phpdoc-reader/src/PhpDocReader'),
-    'Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container', $vendorDir . '/container-interop/service-provider/src'),
     'Dhii\\Validation\\' => array($vendorDir . '/dhii/validation-abstract/src', $vendorDir . '/dhii/validation-base/src', $vendorDir . '/dhii/validation-interface/src'),
     'Dhii\\Util\\String\\' => array($vendorDir . '/dhii/stringable-interface/src'),
@@ -32,5 +30,4 @@ return array(
     'Dhii\\Di\\' => array($vendorDir . '/dhii/di/src', $vendorDir . '/dhii/di-abstract/src', $vendorDir . '/dhii/di-interface/src'),
     'Dhii\\Data\\Container\\' => array($vendorDir . '/dhii/container-helper-base/src'),
     'Dhii\\Collection\\' => array($vendorDir . '/dhii/collections-abstract/src', $vendorDir . '/dhii/collections-abstract-base/src', $vendorDir . '/dhii/collections-interface/src'),
-    'DI\\' => array($vendorDir . '/php-di/php-di/src/DI'),
 );

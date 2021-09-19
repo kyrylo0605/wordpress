@@ -80,7 +80,7 @@ wp.customize.controlConstructor['interface-tabs'] = wp.customize.Control.extend(
          * This timeout is required because widget controls are rendered async and need some time.
          */
         setTimeout( function() {
-            jQuery('li[id^="customize-control-sidebars_widgets"]').each(function () {
+            jQuery('li[id^="customize-control-hestia_"]').each(function () {
                 jQuery(this).on(
                     'DOMNodeInserted', function () {
                         jQuery('.hestia-customizer-tab.active > label').trigger('click');

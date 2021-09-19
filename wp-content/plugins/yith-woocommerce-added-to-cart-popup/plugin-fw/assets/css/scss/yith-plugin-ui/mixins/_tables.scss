@@ -157,37 +157,3 @@
     background: var(--yith-table-row-highlight);
   }
 }
-
-@mixin wp-list-buttons {
-  .button.action,
-  #doaction,
-  #doaction2,
-  #post-query-submit,
-  #search-submit,
-  .button.filter-button {
-    height: auto;
-    line-height: 33px;
-    background: var(--yith-outline-bg);
-    border: 1px solid var(--yith-outline-border);
-    color: var(--yith-outline-text);
-    border-radius: 8px;
-    padding: 0 15px;
-    font-weight: 600;
-  }
-
-  .tablenav .tablenav-pages .button,
-  .tablenav .tablenav-pages .tablenav-pages-navspan {
-    background: var(--yith-outline-bg);
-    border: 1px solid var(--yith-outline-border);
-    color: var(--yith-outline-text);
-  }
-
-  @media screen and (max-width: 782px) {
-    .tablenav .tablenav-pages .button, .tablenav .tablenav-pages .tablenav-pages-navspan {
-      min-width: 44px;
-      padding: 12px 8px;
-      font-size: 18px;
-      line-height: 1;
-    }
-  }
-}

@@ -73,6 +73,7 @@ abstract class Hestia_Register_Customizer_Controls extends Hestia_Abstract_Main 
 	public function register_controls_callback( $wp_customize ) {
 		$this->wpc = $wp_customize;
 		$this->set_selective_refresh();
+		$this->before_add_controls();
 		$this->add_controls();
 		$this->after_add_controls();
 		$this->register_controls();
@@ -89,6 +90,14 @@ abstract class Hestia_Register_Customizer_Controls extends Hestia_Abstract_Main 
 	 * @return void
 	 */
 	abstract public function add_controls();
+
+	/**
+	 * Hook before controls are defined.
+	 *
+	 * @return void
+	 */
+	public function before_add_controls() {
+	}
 
 	/**
 	 * Hook after controls are defined.

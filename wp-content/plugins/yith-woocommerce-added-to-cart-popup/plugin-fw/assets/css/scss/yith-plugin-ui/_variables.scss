@@ -13,7 +13,7 @@ $primary_text: #ffffff; // Text on primary color bg
 $delete: #c41d04; // color for delete buttons
 $delete_hover: lighten($delete, 5%); // color for delete buttons - hover
 $delete_text: #ffffff; // Text on delete buttons
-$delete_focus: #f0d2cd; // Text on delete buttons
+$delete_focus: #f0d2cd; // Delete focus color, for buttons
 
 // Outline is used to stylize Secondary buttons.
 $outline_text: #0087b3; // outline button - text color
@@ -22,6 +22,13 @@ $outline_bg: rgba(255, 255, 255, 0); // outline button - background color
 $outline_bg_hover: rgba(157, 198, 205, .2); // outline button - background color on hover
 $outline_border_hover: #007ba3; // outline button - border color on hover
 $outline_focus: #dfeef2; // Outline focus color, for buttons
+
+$delete_outline_text: $delete; // Delete-outline button - text color
+$delete_outline_border: $delete; // Delete-outline button - border color
+$delete_outline_bg: rgba(205, 157, 157, 0); // Delete-outline button - background color
+$delete_outline_bg_hover: rgba(232, 184, 184, 0.15); // Delete-outline button - background color on hover
+$delete_outline_border_hover: #db2b11; // Delete-outline button - border color on hover
+$delete_outline_focus: #ffe9e7; // Delete-outline focus color, for buttons
 
 $update: #94aa09; // Update button - background
 $update_hover: darken($update, 5%); // Update button - hover
@@ -83,6 +90,13 @@ $wp_top_bar_mobile_size: 46px;
   --yith-outline-bg-hover: #{$outline_bg_hover};
   --yith-outline-border-hover: #{$outline_border_hover};
   --yith-outline-focus: #{$outline_focus};
+
+  --yith-delete-outline-text: #{$delete_outline_text};
+  --yith-delete-outline-border: #{$delete_outline_border};
+  --yith-delete-outline-bg: #{$delete_outline_bg};
+  --yith-delete-outline-bg-hover: #{$delete_outline_bg_hover};
+  --yith-delete-outline-border-hover: #{$delete_outline_border_hover};
+  --yith-delete-outline-focus: #{$delete_outline_focus};
 
   --yith-accent: #{$accent};
 

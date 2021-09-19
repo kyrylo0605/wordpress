@@ -9,7 +9,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'bbf73f3db644d3dced353b837903e74c' => __DIR__ . '/..' . '/php-di/php-di/src/DI/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -34,11 +33,9 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
-            'PhpDocReader\\' => 13,
         ),
         'I' => 
         array (
-            'Invoker\\' => 8,
             'Interop\\Container\\' => 18,
         ),
         'D' => 
@@ -56,7 +53,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
             'Dhii\\Di\\' => 8,
             'Dhii\\Data\\Container\\' => 20,
             'Dhii\\Collection\\' => 16,
-            'DI\\' => 3,
         ),
     );
 
@@ -100,14 +96,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'PhpDocReader\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
-        ),
-        'Invoker\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
         'Interop\\Container\\' => 
         array (
@@ -177,10 +165,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
             1 => __DIR__ . '/..' . '/dhii/collections-abstract-base/src',
             2 => __DIR__ . '/..' . '/dhii/collections-interface/src',
         ),
-        'DI\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-di/php-di/src/DI',
-        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -206,76 +190,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'DI\\Annotation\\Inject' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Annotation/Inject.php',
-        'DI\\Annotation\\Injectable' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Annotation/Injectable.php',
-        'DI\\Cache\\ArrayCache' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Cache/ArrayCache.php',
-        'DI\\Container' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Container.php',
-        'DI\\ContainerBuilder' => __DIR__ . '/..' . '/php-di/php-di/src/DI/ContainerBuilder.php',
-        'DI\\Debug' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Debug.php',
-        'DI\\Definition\\AliasDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/AliasDefinition.php',
-        'DI\\Definition\\ArrayDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/ArrayDefinition.php',
-        'DI\\Definition\\ArrayDefinitionExtension' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/ArrayDefinitionExtension.php',
-        'DI\\Definition\\CacheableDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/CacheableDefinition.php',
-        'DI\\Definition\\DecoratorDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/DecoratorDefinition.php',
-        'DI\\Definition\\Definition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Definition.php',
-        'DI\\Definition\\Dumper\\AliasDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/AliasDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\ArrayDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/ArrayDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\DecoratorDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/DecoratorDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\DefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/DefinitionDumper.php',
-        'DI\\Definition\\Dumper\\DefinitionDumperDispatcher' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/DefinitionDumperDispatcher.php',
-        'DI\\Definition\\Dumper\\EnvironmentVariableDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/EnvironmentVariableDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\FactoryDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/FactoryDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\ObjectDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/ObjectDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\StringDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/StringDefinitionDumper.php',
-        'DI\\Definition\\Dumper\\ValueDefinitionDumper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Dumper/ValueDefinitionDumper.php',
-        'DI\\Definition\\EntryReference' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/EntryReference.php',
-        'DI\\Definition\\EnvironmentVariableDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/EnvironmentVariableDefinition.php',
-        'DI\\Definition\\Exception\\AnnotationException' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Exception/AnnotationException.php',
-        'DI\\Definition\\Exception\\DefinitionException' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Exception/DefinitionException.php',
-        'DI\\Definition\\FactoryDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/FactoryDefinition.php',
-        'DI\\Definition\\HasSubDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/HasSubDefinition.php',
-        'DI\\Definition\\Helper\\ArrayDefinitionExtensionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/ArrayDefinitionExtensionHelper.php',
-        'DI\\Definition\\Helper\\DefinitionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/DefinitionHelper.php',
-        'DI\\Definition\\Helper\\EnvironmentVariableDefinitionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/EnvironmentVariableDefinitionHelper.php',
-        'DI\\Definition\\Helper\\FactoryDefinitionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/FactoryDefinitionHelper.php',
-        'DI\\Definition\\Helper\\ObjectDefinitionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/ObjectDefinitionHelper.php',
-        'DI\\Definition\\Helper\\StringDefinitionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/StringDefinitionHelper.php',
-        'DI\\Definition\\Helper\\ValueDefinitionHelper' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Helper/ValueDefinitionHelper.php',
-        'DI\\Definition\\InstanceDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/InstanceDefinition.php',
-        'DI\\Definition\\ObjectDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/ObjectDefinition.php',
-        'DI\\Definition\\ObjectDefinition\\MethodInjection' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/ObjectDefinition/MethodInjection.php',
-        'DI\\Definition\\ObjectDefinition\\PropertyInjection' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/ObjectDefinition/PropertyInjection.php',
-        'DI\\Definition\\Resolver\\AliasResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/AliasResolver.php',
-        'DI\\Definition\\Resolver\\ArrayResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/ArrayResolver.php',
-        'DI\\Definition\\Resolver\\DecoratorResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/DecoratorResolver.php',
-        'DI\\Definition\\Resolver\\DefinitionResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/DefinitionResolver.php',
-        'DI\\Definition\\Resolver\\EnvironmentVariableResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/EnvironmentVariableResolver.php',
-        'DI\\Definition\\Resolver\\FactoryResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/FactoryResolver.php',
-        'DI\\Definition\\Resolver\\InstanceInjector' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/InstanceInjector.php',
-        'DI\\Definition\\Resolver\\ObjectCreator' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/ObjectCreator.php',
-        'DI\\Definition\\Resolver\\ParameterResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/ParameterResolver.php',
-        'DI\\Definition\\Resolver\\ResolverDispatcher' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/ResolverDispatcher.php',
-        'DI\\Definition\\Resolver\\StringResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/StringResolver.php',
-        'DI\\Definition\\Resolver\\ValueResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Resolver/ValueResolver.php',
-        'DI\\Definition\\Source\\AnnotationReader' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/AnnotationReader.php',
-        'DI\\Definition\\Source\\Autowiring' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/Autowiring.php',
-        'DI\\Definition\\Source\\CachedDefinitionSource' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/CachedDefinitionSource.php',
-        'DI\\Definition\\Source\\DefinitionArray' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/DefinitionArray.php',
-        'DI\\Definition\\Source\\DefinitionFile' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/DefinitionFile.php',
-        'DI\\Definition\\Source\\DefinitionSource' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/DefinitionSource.php',
-        'DI\\Definition\\Source\\MutableDefinitionSource' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/MutableDefinitionSource.php',
-        'DI\\Definition\\Source\\SourceChain' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/Source/SourceChain.php',
-        'DI\\Definition\\StringDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/StringDefinition.php',
-        'DI\\Definition\\ValueDefinition' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Definition/ValueDefinition.php',
-        'DI\\DependencyException' => __DIR__ . '/..' . '/php-di/php-di/src/DI/DependencyException.php',
-        'DI\\FactoryInterface' => __DIR__ . '/..' . '/php-di/php-di/src/DI/FactoryInterface.php',
-        'DI\\Factory\\RequestedEntry' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Factory/RequestedEntry.php',
-        'DI\\InvokerInterface' => __DIR__ . '/..' . '/php-di/php-di/src/DI/InvokerInterface.php',
-        'DI\\Invoker\\DefinitionParameterResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Invoker/DefinitionParameterResolver.php',
-        'DI\\Invoker\\FactoryParameterResolver' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Invoker/FactoryParameterResolver.php',
-        'DI\\NotFoundException' => __DIR__ . '/..' . '/php-di/php-di/src/DI/NotFoundException.php',
-        'DI\\Proxy\\ProxyFactory' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Proxy/ProxyFactory.php',
-        'DI\\Scope' => __DIR__ . '/..' . '/php-di/php-di/src/DI/Scope.php',
         'Dhii\\Collection\\AbstractCallbackCollection' => __DIR__ . '/..' . '/dhii/collections-abstract/src/AbstractCallbackCollection.php',
         'Dhii\\Collection\\AbstractCallbackCollectionBase' => __DIR__ . '/..' . '/dhii/collections-abstract/src/AbstractCallbackCollectionBase.php',
         'Dhii\\Collection\\AbstractCallbackIterator' => __DIR__ . '/..' . '/dhii/collections-abstract/src/AbstractCallbackIterator.php',
@@ -444,26 +358,7 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         'Interop\\Container\\Exception\\ContainerException' => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container/Exception/ContainerException.php',
         'Interop\\Container\\Exception\\NotFoundException' => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container/Exception/NotFoundException.php',
         'Interop\\Container\\ServiceProvider' => __DIR__ . '/..' . '/container-interop/service-provider/src/ServiceProvider.php',
-        'Invoker\\CallableResolver' => __DIR__ . '/..' . '/php-di/invoker/src/CallableResolver.php',
-        'Invoker\\Exception\\InvocationException' => __DIR__ . '/..' . '/php-di/invoker/src/Exception/InvocationException.php',
-        'Invoker\\Exception\\NotCallableException' => __DIR__ . '/..' . '/php-di/invoker/src/Exception/NotCallableException.php',
-        'Invoker\\Exception\\NotEnoughParametersException' => __DIR__ . '/..' . '/php-di/invoker/src/Exception/NotEnoughParametersException.php',
-        'Invoker\\Invoker' => __DIR__ . '/..' . '/php-di/invoker/src/Invoker.php',
-        'Invoker\\InvokerInterface' => __DIR__ . '/..' . '/php-di/invoker/src/InvokerInterface.php',
-        'Invoker\\ParameterResolver\\AssociativeArrayResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/AssociativeArrayResolver.php',
-        'Invoker\\ParameterResolver\\Container\\ParameterNameContainerResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/Container/ParameterNameContainerResolver.php',
-        'Invoker\\ParameterResolver\\Container\\TypeHintContainerResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/Container/TypeHintContainerResolver.php',
-        'Invoker\\ParameterResolver\\DefaultValueResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/DefaultValueResolver.php',
-        'Invoker\\ParameterResolver\\NumericArrayResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/NumericArrayResolver.php',
-        'Invoker\\ParameterResolver\\ParameterResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/ParameterResolver.php',
-        'Invoker\\ParameterResolver\\ResolverChain' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/ResolverChain.php',
-        'Invoker\\ParameterResolver\\TypeHintResolver' => __DIR__ . '/..' . '/php-di/invoker/src/ParameterResolver/TypeHintResolver.php',
-        'Invoker\\Reflection\\CallableReflection' => __DIR__ . '/..' . '/php-di/invoker/src/Reflection/CallableReflection.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
-        'PhpDocReader\\AnnotationException' => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader/AnnotationException.php',
-        'PhpDocReader\\PhpDocReader' => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader/PhpDocReader.php',
-        'PhpDocReader\\PhpParser\\TokenParser' => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader/PhpParser/TokenParser.php',
-        'PhpDocReader\\PhpParser\\UseStatementParser' => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader/PhpParser/UseStatementParser.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -475,6 +370,7 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         'Psr\\Log\\LoggerInterface' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerInterface.php',
         'Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerTrait.php',
         'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/NullLogger.php',
+        'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/DummyTest.php',
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
         'RebelCode\\Composer\\CleanupPlugin' => __DIR__ . '/..' . '/rebelcode/composer-cleanup-plugin/src/CleanupPlugin.php',
@@ -628,7 +524,6 @@ class ComposerStaticInit46c8b76c439f86ad826af1a4d36b4e60
         'RebelCode\\Wpra\\Core\\Modules\\WpModule' => __DIR__ . '/../..' . '/src/Modules/WpModule.php',
         'RebelCode\\Wpra\\Core\\Plugin' => __DIR__ . '/../..' . '/src/Plugin.php',
         'RebelCode\\Wpra\\Core\\Query\\AbstractWpQueryIterator' => __DIR__ . '/../..' . '/src/Query/AbstractWpQueryIterator.php',
-        'RebelCode\\Wpra\\Core\\Query\\DbQuery' => __DIR__ . '/../..' . '/src/Query/DbQuery.php',
         'RebelCode\\Wpra\\Core\\Query\\WpQueryIterator' => __DIR__ . '/../..' . '/src/Query/WpQueryIterator.php',
         'RebelCode\\Wpra\\Core\\RestApi\\Auth\\AbstractAuthValidator' => __DIR__ . '/../..' . '/src/RestApi/Auth/AbstractAuthValidator.php',
         'RebelCode\\Wpra\\Core\\RestApi\\Auth\\AuthUserIsAdmin' => __DIR__ . '/../..' . '/src/RestApi/Auth/AuthUserIsAdmin.php',

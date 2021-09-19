@@ -73,7 +73,6 @@
   }
 }
 
-
 @mixin button-delete {
   background: var(--yith-delete);
   color: var(--yith-delete-text);
@@ -90,6 +89,25 @@
     background: var(--yith-delete-hover);
     color: var(--yith-delete-text);
     border: 1px solid var(--yith-delete-hover);
+  }
+}
+
+@mixin button-delete-outline {
+  background: var(--yith-delete-outline-bg);
+  border: 1px solid var(--yith-delete-outline-border);
+  color: var(--yith-delete-outline-text);
+
+  &:focus {
+    background: var(--yith-delete-outline-bg);
+    border: 1px solid var(--yith-delete-outline-border);
+    color: var(--yith-delete-outline-text);
+    box-shadow: 0 0 0 3px var(--yith-delete-outline-focus);
+  }
+
+  &:hover, &:active {
+    background: var(--yith-delete-outline-bg-hover);
+    border-color: var(--yith-delete-outline-border-hover);
+    color: var(--yith-delete-outline-text);
   }
 }
 

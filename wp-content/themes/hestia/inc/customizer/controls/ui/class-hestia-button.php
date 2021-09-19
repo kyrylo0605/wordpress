@@ -3,16 +3,15 @@
  * Customizer functionality for the Blog settings panel.
  *
  * @package Hestia
- * @since Hestia 1.1.10
+ * @since   1.0.0
  */
 
 /**
  * A customizer control to display text in customizer.
  *
- * @since Hestia 1.1.42
+ * @since 1.0.0
  */
 class Hestia_Button extends WP_Customize_Control {
-
 
 	/**
 	 * Control id
@@ -20,6 +19,20 @@ class Hestia_Button extends WP_Customize_Control {
 	 * @var string $id Control id.
 	 */
 	public $id = '';
+
+	/**
+	 * Control label
+	 *
+	 * @var string $id Control id.
+	 */
+	public $label;
+
+	/**
+	 * Control description
+	 *
+	 * @var string $id Control id.
+	 */
+	public $description;
 
 	/**
 	 * Button class.
@@ -43,21 +56,70 @@ class Hestia_Button extends WP_Customize_Control {
 	public $button_text = '';
 
 	/**
-	 * Button link.
+	 * Text before.
 	 *
 	 * @var mixed|string
 	 */
-	public $link = '';
+	public $text_before = '';
 
 	/**
-	 * Control description.
+	 * Text after.
+	 *
+	 * @var mixed|string
+	 */
+	public $text_after = '';
+
+	/**
+	 * Is Button.
+	 *
+	 * @var bool
+	 */
+	public $is_button = true;
+
+	/**
+	 * Control to focus.
 	 *
 	 * @var string
 	 */
-	public $description = '';
+	public $focus = '';
 
 	/**
-	 * Hestia_Button constructor.
+	 * Focus type.
+	 *
+	 * @var string
+	 */
+	public $focus_type = 'control';
+
+	/**
+	 * Focus type.
+	 *
+	 * @var string
+	 */
+	public $new_tab = false;
+
+	/**
+	 * Link.
+	 *
+	 * @var string
+	 */
+	public $link;
+
+	/**
+	 * Shortcut.
+	 *
+	 * @var bool
+	 */
+	public $shortcut = false;
+
+	/**
+	 * Class for the container of button.
+	 *
+	 * @var string
+	 */
+	public $container_class = false;
+
+	/**
+	 * Constructor.
 	 *
 	 * @param WP_Customize_Manager $manager Customizer manager.
 	 * @param string               $id Control id.
@@ -71,27 +133,92 @@ class Hestia_Button extends WP_Customize_Control {
 	/**
 	 * Render content for the control.
 	 *
-	 * @since Hestia 1.1.42
+	 * @since 1.0.0
 	 */
 	public function render_content() {
-		if ( ! empty( $this->label ) ) {
-			echo '<span class="customize-control-title">' . esc_html( $this->label ) . '</span>';
+		if ( empty( $this->button_text ) ) {
+			return;
 		}
-		if ( ! empty( $this->description ) ) {
-			echo '<span class="customize-control-description">' . esc_html( $this->description ) . '</span>';
-		}
-		if ( ! empty( $this->button_text ) ) {
 
-			$params = ' href="#" ';
-			if ( ! empty( $this->link ) ) {
-				$params = ' href="' . esc_url( $this->link ) . '" target="_blank" ';
-			}
-			echo '<a ' . $params . ' type="button" class="button menu-shortcut ' . esc_attr( $this->button_class ) . '" tabindex="0">';
-			if ( ! empty( $this->button_class ) ) {
-				echo '<i class="fas ' . esc_attr( $this->icon_class ) . '" style="margin-right: 10px"></i>';
-			}
-				echo esc_html( $this->button_text );
-			echo '</a>';
+		if ( $this->label ) {
+			echo '<span class="customize-control-title">';
+			echo wp_kses_post( $this->label );
+			echo '</span>';
 		}
+
+		if ( $this->description ) {
+			echo '<p class="customize-control-description">';
+			echo wp_kses_post( $this->description );
+			echo '</span>';
+		}
+
+		$control = $this->is_button ? '<p' : '<span';
+		if ( $this->container_class ) {
+			$control .= ' class="' . esc_attr( $this->container_class ) . '"';
+		}
+		$control .= '>';
+
+		if ( ! empty( $this->text_before ) ) {
+			$control .= wp_kses_post( $this->text_before ) . ' ';
+		}
+		$control .= $this->is_button ? '<button ' : '<a style="cursor: pointer;" ';
+		if ( $this->link ) {
+			$control .= $this->is_button ? '' : 'href="' . esc_url( $this->link ) . '" ';
+			$control .= $this->new_tab ? 'target="_blank" ' : '';
+		}
+		if ( $this->focus ) {
+			$control .= 'data-' . $this->focus_type . '-focus="' . esc_attr( $this->focus ) . '"';
+		}
+		$control .= ' class="' . esc_attr( $this->get_button_classes() ) . '"';
+		$control .= $this->is_button ? ' style="display: flex; align-items: center;"' : '';
+		$control .= '>';
+		$control .= $this->get_icon();
+		$control .= esc_html( $this->button_text );
+		$control .= $this->is_button ? '</button>' : '</a>';
+		if ( ! empty( $this->text_after ) ) {
+			$control .= wp_kses_post( $this->text_after );
+		}
+
+		$control .= $this->is_button ? '</p>' : '</span>';
+
+		echo $control;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Get the icon.
+	 *
+	 * @return string
+	 */
+	private function get_icon() {
+		if ( empty( $this->icon_class ) ) {
+			return '';
+		}
+
+		return '<i class="dashicons dashicons-' . esc_attr( $this->icon_class ) . '" style="margin-right: 10px"></i>';
+	}
+
+	/**
+	 * Get the button classes.
+	 *
+	 * @return string
+	 */
+	private function get_button_classes() {
+		$classes = '';
+
+		if ( $this->is_button ) {
+			$classes .= 'button button-secondary';
+		}
+		if ( $this->shortcut ) {
+			$classes .= ' menu-shortcut ';
+		}
+		if ( $this->button_class ) {
+			$classes .= $this->button_class;
+		}
+		if ( $this->control_to_focus ) {
+			$classes .= ' quick-links';
+		}
+
+		return $classes;
 	}
 }
+

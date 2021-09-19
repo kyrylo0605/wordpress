@@ -200,6 +200,10 @@ final class NF_Database_FieldsController
         foreach( $this->fields_data as $field_data ){
             $field_id = $field_data[ 'id' ];
             foreach( $field_data[ 'settings' ] as $key => $value ){
+                //HOT Fix for https://github.com/Saturday-Drive/ninja-forms/issues/5934
+                if( in_array( $key, ["element_class", "container_class"] ) ) {
+                    $value = sanitize_html_class($value);
+                }
                 // we don't need object type or domain stored in the db
                 if( ! in_array( $key, array( 'objectType', 'objectDomain' ) ) ) {
                     if( isset( $existing_meta[ $field_id ][ $key ] ) ){

@@ -9,12 +9,19 @@
  * Class Hestia_Upsell_Manager
  */
 class Hestia_Upsell_Manager extends Hestia_Register_Customizer_Controls {
+
+	/**
+	 * Register control type before the controls are added.
+	 */
+	public function before_add_controls() {
+		$this->register_type( 'Hestia_Section_Upsell', 'section' );
+		$this->register_type( 'Hestia_Control_Upsell', 'control' );
+	}
+
 	/**
 	 * Add the controls.
 	 */
 	public function add_controls() {
-		$this->register_type( 'Hestia_Section_Upsell', 'section' );
-		$this->register_type( 'Hestia_Control_Upsell', 'control' );
 		$this->add_main_upsell();
 
 		if ( function_exists( 'hestia_check_passed_time' ) && hestia_check_passed_time( '21600' ) ) {
@@ -23,7 +30,6 @@ class Hestia_Upsell_Manager extends Hestia_Register_Customizer_Controls {
 			$this->add_big_title_upsells();
 			$this->add_small_pro_notices();
 		}
-
 	}
 
 	/**
@@ -186,8 +192,8 @@ class Hestia_Upsell_Manager extends Hestia_Register_Customizer_Controls {
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
-					'section'        => 'sidebar-widgets-sidebar-big-title',
-					'priority'       => -3,
+					'section'        => 'hestia_big_title',
+					'priority'       => 100,
 					'options'        => array(
 						sprintf(
 							/* translators: %s Feature name*/

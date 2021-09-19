@@ -325,16 +325,19 @@ class Hestia_Blog_Post_Layout {
 	 * @return string
 	 */
 	private function get_time_tags() {
-		$time = '';
+		$created   = get_the_time( 'U' );
+		$format    = get_option( 'date_format' );
+		$array     = current_datetime();
+		$localtime = $array->getTimestamp() + $array->getOffset();
 
-		$time .= '<time class="entry-date published" datetime="' . esc_attr( get_the_date( 'c' ) ) . '" content="' . esc_attr( get_the_date( 'Y-m-d' ) ) . '">';
-		$time .= esc_html( human_time_diff( get_the_time( 'U' ), time() ) );
+		$time  = '<time class="entry-date published" datetime="' . esc_attr( date_i18n( 'c', $created ) ) . '" content="' . esc_attr( date_i18n( 'Y-m-d', $created ) ) . '">';
+		$time .= esc_html( human_time_diff( get_the_time( 'U' ), $localtime ) );
 		$time .= '</time>';
 		if ( get_the_time( 'U' ) === get_the_modified_time( 'U' ) ) {
 			return $time;
 		}
 		$time .= '<time class="updated hestia-hidden" datetime="' . esc_attr( get_the_modified_date( 'c' ) ) . '">';
-		$time .= esc_html( human_time_diff( get_the_modified_date( 'U' ), time() ) );
+		$time .= esc_html( date_i18n( $format, $created ) );
 		$time .= '</time>';
 
 		return $time;

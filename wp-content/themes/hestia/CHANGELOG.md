@@ -1,3 +1,10 @@
+##### [Version 3.0.18](https://github.com/Codeinwp/hestia-pro/compare/v3.0.17...v3.0.18) (2021-09-07)
+
+- [Fix] The "Show hooks" button is available for users that are not administrators.
+- [Fix] The new widget editor is not working for Hestia.
+- [Fix] "Time ago" post meta is not taking into consideration the timezone.
+- [Fix] Error in Dokan dashboard when trying to change a product image
+
 ##### [Version 3.0.17](https://github.com/Codeinwp/hestia-pro/compare/v3.0.16...v3.0.17) (2021-07-21)
 
 - Check if is a fresh site for transparent header

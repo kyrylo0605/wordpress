@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'v3.0.17',
-        'version' => '3.0.17.0',
+        'pretty_version' => 'v3.0.18',
+        'version' => '3.0.18.0',
         'type' => 'wordpress-theme',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '54fb9e2db25006fab4d94632c26fd99172c13b27',
+        'reference' => '699eff920011a01805eb32c02a45092d3b8b06cc',
         'name' => 'codeinwp/hestia-pro',
         'dev' => false,
     ),
     'versions' => array(
         'codeinwp/hestia-pro' => array(
-            'pretty_version' => 'v3.0.17',
-            'version' => '3.0.17.0',
+            'pretty_version' => 'v3.0.18',
+            'version' => '3.0.18.0',
             'type' => 'wordpress-theme',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '54fb9e2db25006fab4d94632c26fd99172c13b27',
+            'reference' => '699eff920011a01805eb32c02a45092d3b8b06cc',
             'dev_requirement' => false,
         ),
         'codeinwp/themeisle-sdk' => array(

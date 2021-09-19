@@ -11,12 +11,26 @@
 class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 
 	/**
+	 * Actions needed to run before the controls are added.
+	 */
+	public function before_add_controls() {
+		$this->register_type( 'Hestia_Customize_Control_Radio_Image', 'control' );
+	}
+
+	/**
 	 * Add the customizer controls.
 	 */
 	public function add_controls() {
-		$this->register_type( 'Hestia_Customize_Control_Radio_Image', 'control' );
-		$this->add_sections();
+		$this->add_main_panel();
+		$this->add_top_bar_options();
+		$this->add_navigation_options();
+		$this->add_header_options();
+	}
 
+	/**
+	 * Add main panel for Header controls.
+	 */
+	private function add_main_panel() {
 		$this->add_panel(
 			new Hestia_Customizer_Panel(
 				'hestia_header_options',
@@ -26,19 +40,19 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 				)
 			)
 		);
+	}
 
-		$this->add_control(
-			new Hestia_Customizer_Control(
-				'hestia_header_image_sitewide',
+	/**
+	 * Add customizer controls for the top bar area.
+	 */
+	private function add_top_bar_options() {
+		$this->add_section(
+			new Hestia_Customizer_Section(
+				'hestia_top_bar',
 				array(
-					'sanitize_callback' => 'hestia_sanitize_checkbox',
-					'default'           => false,
-				),
-				array(
-					'type'     => 'checkbox',
-					'label'    => esc_html__( 'Enable Header Image Sitewide', 'hestia' ),
-					'section'  => 'header_image',
-					'priority' => 25,
+					'title'    => esc_html__( 'Very Top Bar', 'hestia' ),
+					'panel'    => 'hestia_header_options',
+					'priority' => 10,
 				)
 			)
 		);
@@ -54,7 +68,7 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 					'type'     => 'checkbox',
 					'label'    => esc_html__( 'Disable section', 'hestia' ),
 					'section'  => 'hestia_top_bar',
-					'priority' => 1,
+					'priority' => 5,
 				)
 			)
 		);
@@ -66,31 +80,55 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
-					'priority'    => 25,
-					'section'     => 'hestia_top_bar',
-					'type'        => 'hidden',
-					'description' => '<span class="quick-links"><a class= "button" href="#" data-section-focus="menu_locations" style="text-decoration: none"><span style="vertical-align: middle" class="dashicons dashicons-menu"></span>' . esc_html__( 'Very Top Bar', 'hestia' ) . ' ' . esc_html__( 'Menu', 'hestia' ) . '</a>',
-				)
+					'container_class' => 'quick-links',
+					'text_before'     => '<span class="dashicons dashicons-info" style="margin-right: 3px"></span>' . __( 'Customize the Very Top Bar Menu', 'hestia' ),
+					'text_after'      => '.',
+					'button_text'     => __( 'here', 'neve', 'hestia' ),
+					'is_button'       => false,
+					'focus_type'      => 'section',
+					'focus'           => 'menu_locations',
+					'shortcut'        => true,
+					'section'         => 'hestia_top_bar',
+					'priority'        => 1000,
+				),
+				'Hestia_Button'
 			)
 		);
 
 		$this->add_control(
 			new Hestia_Customizer_Control(
-				'hestia_top_menu_hidden',
+				'hestia_link_to_top_widgets',
 				array(
 					'sanitize_callback' => 'sanitize_text_field',
-					'transport'         => $this->selective_refresh,
 				),
 				array(
-					'priority' => 25,
-					'type'     => 'hidden',
-					'section'  => 'menu_locations',
+					'container_class' => 'quick-links',
+					'text_before'     => '<span class="dashicons dashicons-info" style="margin-right: 3px"></span>' . __( 'Edit the Very Top Bar Widgets', 'hestia' ),
+					'text_after'      => '.',
+					'button_text'     => __( 'here', 'neve', 'hestia' ),
+					'is_button'       => false,
+					'focus_type'      => 'section',
+					'focus'           => 'sidebar-widgets-sidebar-top-bar',
+					'shortcut'        => true,
+					'section'         => 'hestia_top_bar',
+					'priority'        => 1000,
 				),
-				null,
+				'Hestia_Button'
+			)
+		);
+	}
+
+	/**
+	 * Add customizer controls for the navigation.
+	 */
+	private function add_navigation_options() {
+		$this->add_section(
+			new Hestia_Customizer_Section(
+				'hestia_navigation',
 				array(
-					'selector'        => '.top-bar-nav',
-					'settings'        => 'hestia_top_menu_hidden',
-					'render_callback' => array( $this, 'top_bar_callback' ),
+					'title'    => esc_html__( 'Navigation', 'hestia' ),
+					'panel'    => 'hestia_header_options',
+					'priority' => 15,
 				)
 			)
 		);
@@ -106,7 +144,7 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 					'type'     => 'checkbox',
 					'label'    => esc_html__( 'Transparent Navbar', 'hestia' ),
 					'section'  => 'hestia_navigation',
-					'priority' => 1,
+					'priority' => 15,
 				)
 			)
 		);
@@ -157,9 +195,49 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 			)
 		);
 
-		/**
-		 * Customize control for header layout.
-		 */
+		$this->add_control(
+			new Hestia_Customizer_Control(
+				'hestia_link_to_nav_widgets',
+				array(
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'container_class' => 'quick-links',
+					'text_before'     => '<span class="dashicons dashicons-info" style="margin-right: 3px"></span>' . __( 'Edit the Navigation Widgets', 'hestia' ),
+					'text_after'      => '.',
+					'button_text'     => __( 'here', 'neve', 'hestia' ),
+					'is_button'       => false,
+					'focus_type'      => 'section',
+					'focus'           => 'sidebar-widgets-header-sidebar',
+					'shortcut'        => true,
+					'section'         => 'hestia_navigation',
+					'priority'        => 1000,
+				),
+				'Hestia_Button'
+			)
+		);
+	}
+
+	/**
+	 *  Add customizer controls for the header area.
+	 */
+	private function add_header_options() {
+		$this->add_control(
+			new Hestia_Customizer_Control(
+				'hestia_header_image_sitewide',
+				array(
+					'sanitize_callback' => 'hestia_sanitize_checkbox',
+					'default'           => false,
+				),
+				array(
+					'type'     => 'checkbox',
+					'label'    => esc_html__( 'Enable Header Image Sitewide', 'hestia' ),
+					'section'  => 'header_image',
+					'priority' => 25,
+				)
+			)
+		);
+
 		$sidebar_choices = apply_filters(
 			'hestia_header_layout_choices',
 			array(
@@ -243,33 +321,6 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 	}
 
 	/**
-	 * Add sections.
-	 */
-	private function add_sections() {
-		$this->add_section(
-			new Hestia_Customizer_Section(
-				'hestia_navigation',
-				array(
-					'title'    => esc_html__( 'Navigation', 'hestia' ),
-					'panel'    => 'hestia_header_options',
-					'priority' => 15,
-				)
-			)
-		);
-
-		$this->add_section(
-			new Hestia_Customizer_Section(
-				'hestia_top_bar',
-				array(
-					'title'    => esc_html__( 'Very Top Bar', 'hestia' ),
-					'panel'    => 'hestia_header_options',
-					'priority' => 10,
-				)
-			)
-		);
-	}
-
-	/**
 	 * Add selective refresh to header logo and site name.
 	 */
 	private function add_selective_refresh_to_header_items() {
@@ -313,25 +364,15 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 	 * Change customizer controls.
 	 */
 	public function change_controls() {
-		$this->move_header_image_section();
-		$this->move_top_bar_controls();
-		$this->move_controls_to_navigation_sidebar();
-	}
-
-	/**
-	 * Move header image controls.
-	 */
-	private function move_header_image_section() {
-
-		$this->get_customizer_object( 'setting', 'custom_logo' )->transport = 'postMessage';
 
 		$header_image_section = $this->get_customizer_object( 'section', 'header_image' );
-
 		if ( ! empty( $header_image_section ) ) {
 			$header_image_section->title    = esc_html__( 'Header Settings', 'hestia' );
 			$header_image_section->panel    = 'hestia_header_options';
 			$header_image_section->priority = 20;
 		}
+
+		$this->get_customizer_object( 'setting', 'custom_logo' )->transport = 'postMessage';
 
 		$header_image_control = $this->get_customizer_object( 'control', 'header_image' );
 		if ( ! empty( $header_image_control ) ) {
@@ -341,54 +382,6 @@ class Hestia_Header_Controls extends Hestia_Register_Customizer_Controls {
 		$header_image_data_control = $this->get_customizer_object( 'control', 'header_image_data' );
 		if ( ! empty( $header_image_data_control ) ) {
 			$header_image_data_control->priority = 20;
-		}
-	}
-
-	/**
-	 * Move top bar controls.
-	 */
-	private function move_top_bar_controls() {
-		$top_bar_sidebar = $this->get_customizer_object( 'section', 'sidebar-widgets-sidebar-top-bar' );
-		if ( ! empty( $top_bar_sidebar ) ) {
-			$top_bar_sidebar->panel = 'hestia_header_options';
-			$controls_to_move       = array(
-				'hestia_top_bar_hide',
-				'hestia_link_to_top_menu',
-			);
-			foreach ( $controls_to_move as $control ) {
-				$hestia_control = $this->get_customizer_object( 'control', $control );
-				if ( ! empty( $hestia_control ) ) {
-					$hestia_control->section  = 'sidebar-widgets-sidebar-top-bar';
-					$hestia_control->priority = - 2;
-				}
-			}
-		}
-	}
-
-	/**
-	 * Move controls to nav sidebar.
-	 */
-	private function move_controls_to_navigation_sidebar() {
-		$navigation_sidebar = $this->get_customizer_object( 'section', 'sidebar-widgets-header-sidebar' );
-		if ( empty( $navigation_sidebar ) ) {
-			return;
-		}
-		$navigation_sidebar->panel = 'hestia_header_options';
-		$hestia_header_alignment   = $this->get_customizer_object( 'control', 'hestia_header_alignment' );
-		if ( ! empty( $hestia_header_alignment ) ) {
-
-			$hestia_header_alignment->section  = 'sidebar-widgets-header-sidebar';
-			$hestia_header_alignment->priority = - 1;
-		}
-		$hestia_search_in_menu = $this->get_customizer_object( 'control', 'hestia_search_in_menu' );
-		if ( ! empty( $hestia_search_in_menu ) ) {
-			$hestia_search_in_menu->section  = 'sidebar-widgets-header-sidebar';
-			$hestia_search_in_menu->priority = - 1;
-		}
-		$hestia_navbar_transparent = $this->get_customizer_object( 'control', 'hestia_navbar_transparent' );
-		if ( ! empty( $hestia_navbar_transparent ) ) {
-			$hestia_navbar_transparent->section  = 'sidebar-widgets-header-sidebar';
-			$hestia_navbar_transparent->priority = - 2;
 		}
 	}
 

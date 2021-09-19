@@ -21,7 +21,6 @@ class Hestia_Subscribe_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 			'title'            => esc_html__( 'Subscribe', 'hestia' ),
 			'priority'         => 55,
 			'initially_hidden' => true,
-			'section'          => 'sidebar-widgets-subscribe-widgets',
 		);
 
 	}
@@ -46,7 +45,7 @@ class Hestia_Subscribe_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 					'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
-					'section'  => 'sidebar-widgets-subscribe-widgets',
+					'section'  => 'hestia_subscribe',
 					'tabs'     => array(
 						'general'    => array(
 							'label' => esc_html__( 'General Settings', 'hestia' ),
@@ -64,10 +63,10 @@ class Hestia_Subscribe_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 						),
 						'sendinblue' => array(
 							'hestia_subscribe_info' => array(),
-							'widgets'               => array(),
+							'hestia_link_to_subscribe_widgets' => array(),
 						),
-
 					),
+					'priority' => 0,
 				),
 				'Hestia_Customize_Control_Tabs'
 			)
@@ -89,8 +88,8 @@ class Hestia_Subscribe_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 				),
 				array(
 					'label'    => esc_html__( 'Background Image', 'hestia' ),
-					'section'  => 'sidebar-widgets-subscribe-widgets',
-					'priority' => 10,
+					'section'  => 'hestia_subscribe',
+					'priority' => 3,
 				),
 				'WP_Customize_Image_Control'
 			)
@@ -109,11 +108,33 @@ class Hestia_Subscribe_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 				),
 				array(
 					'label'      => esc_html__( 'Instructions', 'hestia' ),
-					'section'    => 'sidebar-widgets-subscribe-widgets',
+					'section'    => 'hestia_subscribe',
 					'capability' => 'install_plugins',
 					'priority'   => 25,
 				),
 				'Hestia_Subscribe_Info'
+			)
+		);
+
+		$this->add_control(
+			new Hestia_Customizer_Control(
+				'hestia_link_to_subscribe_widgets',
+				array(
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'container_class' => 'quick-links',
+					'text_before'     => '<span class="dashicons dashicons-info" style="margin-right: 3px"></span>' . __( 'Edit the Subscribe Widgets', 'hestia' ),
+					'text_after'      => '.',
+					'button_text'     => __( 'here', 'neve', 'hestia' ),
+					'is_button'       => false,
+					'focus_type'      => 'section',
+					'focus'           => 'sidebar-widgets-subscribe-widgets',
+					'shortcut'        => true,
+					'section'         => 'hestia_subscribe',
+					'priority'        => 1000,
+				),
+				'Hestia_Button'
 			)
 		);
 	}
@@ -124,21 +145,7 @@ class Hestia_Subscribe_Controls extends Hestia_Front_Page_Section_Controls_Abstr
 	 * @return void
 	 */
 	public function change_controls() {
-		$this->change_customizer_object( 'section', 'sidebar-widgets-subscribe-widgets', 'panel', 'hestia_frontpage_sections' );
-		$this->change_customizer_object( 'section', 'sidebar-widgets-subscribe-widgets', 'priority', apply_filters( 'hestia_section_priority', 55, 'sidebar-widgets-subscribe-widgets' ) );
 		$this->change_customizer_object( 'setting', 'hestia_subscribe_title', 'default', esc_html__( 'Subscribe to our Newsletter', 'hestia' ) );
 		$this->change_customizer_object( 'setting', 'hestia_subscribe_subtitle', 'default', esc_html__( 'Change this subtitle in the Customizer', 'hestia' ) );
-		$controls_to_move = array(
-			'hestia_subscribe_subtitle',
-			'hestia_subscribe_title',
-			'hestia_subscribe_background',
-			'hestia_subscribe_hide',
-			'hestia_subscribe_info',
-			'hestia_subscribe_tabs',
-		);
-
-		foreach ( $controls_to_move as $index => $control_id ) {
-			$this->change_customizer_object( 'control', $control_id, 'priority', -$index );
-		}
 	}
 }

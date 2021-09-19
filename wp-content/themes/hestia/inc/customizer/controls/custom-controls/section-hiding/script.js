@@ -11,34 +11,6 @@ jQuery(window).on('load',
   function () {
     'use strict';
 
-    var controlValue;
-
-    var add_customizer_shortcut = {
-      'subscribe': '#accordion-section-sidebar-widgets-subscribe-widgets',
-      'big_title': '#accordion-section-sidebar-widgets-sidebar-big-title'
-    };
-
-    Object.keys(add_customizer_shortcut).forEach(function (key) {
-      var value = add_customizer_shortcut[key];
-
-      var section = jQuery(value);
-      var sectionHide = wp.customize.control('hestia_' + key + '_hide');
-
-      if (typeof sectionHide !== 'undefined') {
-        controlValue = sectionHide.setting.get();
-      }
-      var iconClass = 'dashicons-visibility';
-
-      if (controlValue === true) {
-        iconClass = 'dashicons-hidden';
-        section.find('.accordion-section-title').addClass('hestia-section-hidden').removeClass('hestia-section-visible');
-      } else {
-        section.find('.accordion-section-title').addClass('hestia-section-visible').removeClass('hestia-section-hidden');
-      }
-
-      section.find('.screen-reader-text').after('<a data-control="hestia_' + key + '_hide" class="alignright hestia-toggle-section" href="#"><span class="dashicons' + iconClass + '"></span></a>');
-    });
-
     var toggleSection = jQuery('.hestia-toggle-section');
     /**
      * Fix for icons when they are in changeset is active
