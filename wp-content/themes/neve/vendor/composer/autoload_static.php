@@ -4,17 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite245a27f987d763db0a91703d4bb8181
+class ComposerStaticInit4cc4ff79a11c6c4f9726807c720781ef
 {
     public static $files = array (
         'c730ac5ba4946398dd12db7e8d42d1c8' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'N' => 
-        array (
-            'Neve_Dash\\' => 10,
-        ),
         'H' => 
         array (
             'HFG\\' => 4,
@@ -22,10 +18,6 @@ class ComposerStaticInite245a27f987d763db0a91703d4bb8181
     );
 
     public static $prefixDirsPsr4 = array (
-        'Neve_Dash\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/dashboard/inc',
-        ),
         'HFG\\' => 
         array (
             0 => __DIR__ . '/../..' . '/header-footer-grid',
@@ -65,17 +57,14 @@ class ComposerStaticInite245a27f987d763db0a91703d4bb8181
         'HFG\\Core\\Settings\\Manager' => __DIR__ . '/../..' . '/header-footer-grid/Core/Settings/Manager.php',
         'HFG\\Main' => __DIR__ . '/../..' . '/header-footer-grid/Main.php',
         'HFG\\Traits\\Core' => __DIR__ . '/../..' . '/header-footer-grid/Traits/Core.php',
-        'Neve_Dash\\Changelog_Handler' => __DIR__ . '/../..' . '/dashboard/inc/Changelog_Handler.php',
-        'Neve_Dash\\Main' => __DIR__ . '/../..' . '/dashboard/inc/Main.php',
-        'Neve_Dash\\Plugin_Helper' => __DIR__ . '/../..' . '/dashboard/inc/Plugin_Helper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite245a27f987d763db0a91703d4bb8181::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite245a27f987d763db0a91703d4bb8181::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite245a27f987d763db0a91703d4bb8181::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4cc4ff79a11c6c4f9726807c720781ef::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4cc4ff79a11c6c4f9726807c720781ef::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4cc4ff79a11c6c4f9726807c720781ef::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -38,7 +38,4 @@ return array(
     'HFG\\Core\\Settings\\Manager' => $baseDir . '/header-footer-grid/Core/Settings/Manager.php',
     'HFG\\Main' => $baseDir . '/header-footer-grid/Main.php',
     'HFG\\Traits\\Core' => $baseDir . '/header-footer-grid/Traits/Core.php',
-    'Neve_Dash\\Changelog_Handler' => $baseDir . '/dashboard/inc/Changelog_Handler.php',
-    'Neve_Dash\\Main' => $baseDir . '/dashboard/inc/Main.php',
-    'Neve_Dash\\Plugin_Helper' => $baseDir . '/dashboard/inc/Plugin_Helper.php',
 );

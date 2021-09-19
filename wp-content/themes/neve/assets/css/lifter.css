@@ -47,7 +47,6 @@
 }
 
 .single-course .review_box input:read-write, .single-course .review_box textarea {
-  margin-bottom: var(--formFieldSpacing);
   border-style: solid;
   border-color: var(--formFieldBorderColor);
   border-width: var(--formFieldBorderWidth);

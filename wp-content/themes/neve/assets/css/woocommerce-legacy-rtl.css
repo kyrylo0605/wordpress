@@ -308,6 +308,10 @@
   margin: 0;
 }
 
+.woocommerce form .form-row {
+  margin-bottom: 20px;
+}
+
 .nv-content-wrap ul.wc-block-grid__products {
   list-style-type: none;
   padding-right: 0;
@@ -757,10 +761,6 @@ section.exclusive .tns-visually-hidden {
   align-items: center;
 }
 
-.woocommerce-checkout #neve-checkout-coupon .woocommerce-form-login .form-row, .woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .form-row {
-  padding: 0;
-}
-
 .woocommerce-checkout #neve-checkout-coupon .woocommerce-form-login .lost_password, .woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .lost_password {
   float: left;
 }
@@ -820,14 +820,6 @@ section.exclusive .tns-visually-hidden {
 .woocommerce-checkout .woocommerce-additional-fields label,
 .woocommerce-checkout .woocommerce-account-fields label {
   font-size: .85em;
-}
-
-.woocommerce-checkout .woocommerce-billing-fields__field-wrapper .form-row,
-.woocommerce-checkout .woocommerce-shipping-fields__field-wrapper .form-row,
-.woocommerce-checkout .woocommerce-additional-fields .form-row,
-.woocommerce-checkout .woocommerce-account-fields .form-row {
-  padding: 0;
-  margin-bottom: 0;
 }
 
 .woocommerce-checkout .woocommerce-billing-fields__field-wrapper textarea,
@@ -1416,10 +1408,6 @@ section.exclusive .tns-visually-hidden {
   border-top: 1px solid var(--nv-light-bg);
 }
 
-.woocommerce .cart_totals .form-row {
-  padding: 5px 0;
-}
-
 .woocommerce .cart_totals ul#shipping_method {
   text-align: right;
 }
@@ -1765,7 +1753,6 @@ body.woocommerce-account .woocommerce-form-login .form-row:not(.woocommerce-form
     flex-direction: row;
   }
   .woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon p.form-row {
-    margin-bottom: 0;
     width: auto;
   }
   .woocommerce-checkout #neve-checkout-coupon .woocommerce-form-coupon .form-row-first {
